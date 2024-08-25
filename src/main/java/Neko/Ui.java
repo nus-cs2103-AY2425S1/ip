@@ -1,7 +1,7 @@
+package Neko;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
