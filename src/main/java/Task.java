@@ -1,7 +1,9 @@
+import java.util.List;
+
 /**
  * Class encapsulating a Task.
  */
-public class Task {
+public abstract class Task {
     /** String description of the task */
     private String description;
     /** Marks whether the task is done */
@@ -10,6 +12,15 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Returns the description of this task.
+     *
+     * @return String description.
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -39,4 +50,11 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    /**
+     * Returns a list containing all the details of this task as strings.
+     *
+     * @return List of strings.
+     */
+    public abstract List<String> getAllDetails();
 }

@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class encapsulates an Event type task.
  * An Event starts at a specific time and ends at a specific time.
@@ -17,5 +20,16 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public List<String> getAllDetails() {
+        return Arrays.asList(
+                "E",
+                getStatusIcon(),
+                getDescription(),
+                from,
+                to
+        );
     }
 }

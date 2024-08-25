@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class encapsulates a Deadline type task.
  * A Deadline needs to be done before a specific time.
@@ -14,5 +17,15 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public List<String> getAllDetails() {
+        return Arrays.asList(
+                "D",
+                getStatusIcon(),
+                getDescription(),
+                by
+        );
     }
 }
