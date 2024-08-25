@@ -69,7 +69,6 @@ public class Main {
         }
         scanner.close(); 
         
-        
     }
 
     private static void checkForEmpty(String userInput) throws EmptyTaskException {
