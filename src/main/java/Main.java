@@ -309,7 +309,13 @@ public class Main {
                     case EVENT -> {
                         // get the details of the event task and create a new Event object
                         String[] eventDetails = findEventDetails(commandDetails);
-                        Task event = new Event(eventDetails[0], "E", eventDetails[1], eventDetails[2]);
+                        String startDateAndTimeString = eventDetails[1];
+                        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+                        LocalDateTime startDateAndTime = LocalDateTime.parse(startDateAndTimeString, stringToDateTime);
+
+                        String endDateAndTimeString = eventDetails[2];
+                        LocalDateTime endDateAndTime = LocalDateTime.parse(endDateAndTimeString, stringToDateTime);
+                        Task event = new Event(eventDetails[0], "E", startDateAndTime, endDateAndTime);
                         String addTaskSuccess = janet.addTaskToList(event);
                         System.out.println(addTaskSuccess);
                     }
