@@ -1,6 +1,7 @@
 Hello! I'm Peter!
 What can I do for you?
 
+File has been generated.
 I've added: borrow book
 Now you have 1 in the list!
 I've added: return book
