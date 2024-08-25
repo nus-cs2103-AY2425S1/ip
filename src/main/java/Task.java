@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 public abstract class Task implements Serializable {
     protected String task;
@@ -39,6 +40,14 @@ public abstract class Task implements Serializable {
             // Check whether user inputs a valid end time of a deadline task
             if (taskInfoArray[1].split("/by ").length <= 1) {
                 String msg = "Oops! The end time of a deadline cannot be empty.";
+                throw new DukeException(msg);
+            }
+
+            String deadline = taskInfoArray[1].split(" /by ")[1];
+            String DATE_TIME_PATTERN = "^\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}$";
+            // Check whether user input a valid end time format
+            if (!Pattern.matches(DATE_TIME_PATTERN, deadline)) {
+                String msg = "Please input a valid deadline format i.e. \"yyyy/MM/dd HH:mm\".";
                 throw new DukeException(msg);
             }
         }

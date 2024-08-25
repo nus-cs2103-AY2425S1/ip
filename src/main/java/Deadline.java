@@ -1,7 +1,12 @@
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 public class Deadline extends Task implements Serializable {
-    private String deadline;
+    private LocalDateTime deadline;
 
     /**
      * Creates task that need to be done before a specific date/time.
@@ -9,9 +14,10 @@ public class Deadline extends Task implements Serializable {
      * @param task task information of the deadline task.
      * @param deadline time when task need to be done.
      */
-    public Deadline(String task, String deadline) {
+    public Deadline(String task, String deadline) throws DateTimeParseException {
         this.task = task;
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.from(LocalDateTime.parse(deadline,
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.US)));
     }
 
     /**
@@ -21,7 +27,9 @@ public class Deadline extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.US);
+        return "[D]" + super.toString() +  " (by: " +
+                this.deadline.format(outputFormat) + ")";
     }
 
 }
