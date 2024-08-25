@@ -52,9 +52,18 @@ public class Nerf {
 
     private static void loadTask(){
         List<String> fileData = readFile();
-        for (String line: fileData){
-            String[] task = line.split("\\|");
-            
+        for (String taskLine: fileData){
+            String[] task = taskLine.split("\\|");
+            System.out.println(task[0]);
+            switch (task[0].trim()) {
+            case "T" -> listings.add(new ToDos(task[2].trim(),task[1].trim().equals("1")));
+            case "D" -> listings.add(new Deadlines(task[2].trim(),task[1].trim().equals("1"),task[3].trim()));
+            case "E" -> {
+                String[] timeFrame = task[3].trim().split("-");
+                listings.add(new Events(task[2].trim(),task[1].trim().equals("1"),timeFrame[0],timeFrame[1]));
+            }
+            default -> System.out.println("Save file seems to be corrupted.");
+            }
         }
     }
 
@@ -78,31 +87,31 @@ public class Nerf {
         do {
             input = userInput();
             switch(input){
-                case "bye" -> exit();
-                case "list" -> printList();
-                default -> {
-                    try {
-                        if (input.startsWith("mark")) {
-                            markTask(input);
-                        } else if (input.startsWith("unmark")) {
-                            unmarkTask(input);
-                        } else if (input.startsWith("todo")){
-                            addTodo(input);
-                        } else if (input.startsWith("deadline")){
-                            addDeadline(input);
-                        } else if (input.startsWith("event")){
-                            addEvent(input);
-                        } else if (input.startsWith("delete")){
-                            deleteTask(input);
-                        } else {
-                            System.out.println("""
-                                            Sorry, I dont understand what u are asking of me.
-                                            You may use list/bye or mark/unmark/todo/deadline/event/delete + required syntax
-                                            """);
-                        }
-                    } catch (InvalidDataException e) {
-                        System.out.println("Sorry, your input is seems to be missing some data.");
+            case "bye" -> exit();
+            case "list" -> printList();
+            default -> {
+                try {
+                    if (input.startsWith("mark")) {
+                        markTask(input);
+                    } else if (input.startsWith("unmark")) {
+                        unmarkTask(input);
+                    } else if (input.startsWith("todo")){
+                        addTodo(input);
+                    } else if (input.startsWith("deadline")){
+                        addDeadline(input);
+                    } else if (input.startsWith("event")){
+                        addEvent(input);
+                    } else if (input.startsWith("delete")){
+                        deleteTask(input);
+                    } else {
+                        System.out.println("""
+                                                                   Sorry, I dont understand what u are asking of me.
+                                                                   You may use list/bye or mark/unmark/todo/deadline/event/delete + required syntax
+                                                                   """);
                     }
+                } catch (InvalidDataException e) {
+                    System.out.println("Sorry, your input is seems to be missing some data.");
+                }
                 }
             }
         } while (!input.equals("bye"));
