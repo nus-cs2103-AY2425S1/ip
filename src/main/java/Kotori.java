@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -57,6 +59,13 @@ public class Kotori {
                     updateFile(file, list);
                 }
 
+            } else if (input.startsWith("find ")) {
+                try {
+                    printTaskWithDate(input.substring(5),list);
+                } catch (DateTimeParseException e) {
+                    printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
+                            "YYYY-MM-DD format");
+                }
             } else {
                 try {
                     Task task = Task.of(input);
@@ -68,6 +77,9 @@ public class Kotori {
                     printMessage(e.getMessage());
                 } catch (InvalidInputException e) {
                     printMessage(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
+                            "YYYY-MM-DD format");
                 }
             }
         }
@@ -113,18 +125,22 @@ public class Kotori {
 
     private static ArrayList<Task> readFile(File file) {
         try {
-            ArrayList<Task> result = new ArrayList<>();
-            Scanner s = new Scanner(file);
-            while (s.hasNextLine()) {
-                String input = s.nextLine();
-                String[] elements = input.split(" \\| ");
-                if (elements.length < 1) {
-                    throw new CorruptedFileException("");
-                } else {
-                    result.add(Task.read(elements));
+            try {
+                ArrayList<Task> result = new ArrayList<>();
+                Scanner s = new Scanner(file);
+                while (s.hasNextLine()) {
+                    String input = s.nextLine();
+                    String[] elements = input.split(" \\| ");
+                    if (elements.length < 1) {
+                        throw new CorruptedFileException("");
+                    } else {
+                        result.add(Task.read(elements));
+                    }
                 }
+                return result;
+            } catch (DateTimeParseException e) {
+                throw new CorruptedFileException("");
             }
-            return result;
         } catch (FileNotFoundException e) {
             printMessage("There is no existing memory so I create a new one~ ^_^");
             return new ArrayList<>();
@@ -153,6 +169,25 @@ public class Kotori {
         printLine();
     }
 
+    public static void printTaskWithDate(String command, List<Task> tasks) {
+        LocalDate date = LocalDate.parse(command);
+        ArrayList<Task> output = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.isRelatedToDate(date)) {
+                output.add(t);
+            }
+        }
+        if (output.isEmpty()) {
+            printMessage(String.format("Great! You have no task related to this date %s", date));
+        } else {
+            printLine();
+            System.out.println(String.format("    These are the tasks related to this date %s", date));
+            for (Task t : output) {
+                System.out.println("    " + t.toString());
+            }
+            printLine();
+        }
+    }
 
 
     private static void printList(List<? extends Object> list) {

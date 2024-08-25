@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public abstract class Task {
     protected String description;
@@ -95,6 +97,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract boolean isRelatedToDate(LocalDate date);
+
     private static class ToDo extends Task {
 
         public ToDo(boolean isDone, String description) {
@@ -110,14 +114,19 @@ public abstract class Task {
         public String getStorageMessage() {
             return String.format("T | %s | %s", getStatusIcon(), description);
         }
+
+        @Override
+        public boolean isRelatedToDate(LocalDate date) {
+            return false;
+        }
     }
 
     private static class DeadLine extends Task {
-        private String deadLine;
+        private LocalDate deadLine;
 
-        public DeadLine(boolean isDone, String description, String deadLine) {
+        public DeadLine(boolean isDone,String description, String deadLine) {
             super(isDone, description);
-            this.deadLine = deadLine;
+            this.deadLine = LocalDate.parse(deadLine);
         }
 
         @Override
@@ -129,16 +138,23 @@ public abstract class Task {
         public String getStorageMessage() {
             return String.format("D | %s | %s | %s", getStatusIcon(), description, deadLine);
         }
+
+        @Override
+        public boolean isRelatedToDate(LocalDate date) {
+            return date.isBefore(deadLine);
+        }
     }
 
     private static class Event extends Task {
-        private String from;
-        private String to;
+        private LocalDate from;
+        private LocalDate to;
+
 
         private Event(boolean isDone, String description, String from, String to) {
             super(isDone, description);
-            this.from = from;
-            this.to = to;
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+
         }
 
         @Override
@@ -149,6 +165,11 @@ public abstract class Task {
         @Override
         public String getStorageMessage() {
             return String.format("E | %s | %s | %s | %s", getStatusIcon(), description, from, to);
+        }
+
+        public boolean isRelatedToDate(LocalDate date) {
+            return date.isAfter(from) && date.isBefore(to);
+
         }
     }
 
