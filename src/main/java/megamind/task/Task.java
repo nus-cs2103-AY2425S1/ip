@@ -30,7 +30,7 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[" + (isDone ? "✔️" : "❌") + "] " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 
     /**
