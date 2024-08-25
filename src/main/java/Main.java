@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Main {
 
     /**
+     * input date and time format must be "yyyy-mm-dd HH:MM"
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @return a String[], where first elem = Deadline.description, second elem = Deadline.dueDate.
      */
