@@ -1,10 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.lang.IndexOutOfBoundsException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.NoSuchElementException;
 
 public class Mahesh {
 
@@ -28,7 +28,7 @@ public class Mahesh {
     /**
      * Error message for incomplete or incorrect commands.
      */
-    private static String INCOMPLETE_COMMAND_ERR = "The command is incomplete/incorrect. Please refer to the below usage for this command.";
+    private static String INCOMPLETE_COMMAND_ERR = "The command is incomplete/incorrect.";
 
     /**
      * List to store tasks.
@@ -97,25 +97,25 @@ public class Mahesh {
                 case TODO:
                     try {
                         Mahesh.addToList(Todo.parseTodo(tokenizedInput));
-                    } catch (NoSuchElementException err) {
+                    } catch (MaheshException err) {
                         System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println("todo task_description");
+                        System.out.println(err.getMessage());
                     }
                     break;
                 case DEADLINE:
                     try { 
                         Mahesh.addToList(Deadline.parseDeadline(tokenizedInput));
-                    } catch (NoSuchElementException err) {
+                    } catch (MaheshException err) {
                         System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println("deadline task_description /by task_deadline");
+                        System.out.println(err.getMessage());
                     }
                     break;
                 case EVENT: 
                     try {
                         Mahesh.addToList((Event.parseEvent(tokenizedInput)));
-                    } catch (NoSuchElementException err) {
+                    } catch (MaheshException err) {
                         System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println("event task_description /from event_start /to event_end");
+                        System.out.println(err.getMessage());
                     }
                     break;
                 case DELETE:
@@ -210,11 +210,11 @@ public class Mahesh {
                         Mahesh.taskCount++;
                         break;
                     case "D":
-                        Mahesh.list.add(new Deadline(dataItem[2], dataItem[3], isDone));
+                        Mahesh.list.add(new Deadline(dataItem[2], LocalDateTime.parse(dataItem[3]), isDone));
                         Mahesh.taskCount++;
                         break;
                     case "E":
-                        Mahesh.list.add(new Event(dataItem[2], dataItem[3], dataItem[4], isDone));
+                        Mahesh.list.add(new Event(dataItem[2], LocalDateTime.parse(dataItem[3]), LocalDateTime.parse(dataItem[4]), isDone));
                         Mahesh.taskCount++;
                         break;
                     default:

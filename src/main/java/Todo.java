@@ -51,14 +51,18 @@ public class Todo extends Task {
      * @param tokenizedInput The StringTokenizer containing the description of the Todo task.
      * @return A new Todo task with the parsed description.
      */
-    public static Todo parseTodo(StringTokenizer tokenizedInput) {
-        StringBuilder description = new StringBuilder();
-        String token = tokenizedInput.nextToken();
-        description.append(token).append(" ");
-        while (tokenizedInput.hasMoreTokens()) {
-            token = tokenizedInput.nextToken();
+    public static Todo parseTodo(StringTokenizer tokenizedInput) throws MaheshException {
+        try {
+            StringBuilder description = new StringBuilder();
+            String token = tokenizedInput.nextToken();
             description.append(token).append(" ");
+            while (tokenizedInput.hasMoreTokens()) {
+                token = tokenizedInput.nextToken();
+                description.append(token).append(" ");
+            }
+            return new Todo(description.toString().trim());
+        } catch (Exception err) {
+            throw new MaheshException("Please follow the given format: todo <todo_desc>");
         }
-        return new Todo(description.toString().trim());
     }
 }
