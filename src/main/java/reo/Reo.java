@@ -6,15 +6,17 @@ import java.util.ArrayList;
 public class Reo {
     private TaskList tasklist;
     private Ui ui;
+    private Storage storage;
 
     public Reo() {
         TaskList taskList;
         try {
-            tasklist = new TaskList(FileOperations.readFile());
+            tasklist = new TaskList(storage.readFile());
         } catch (Exception e) {
             tasklist = new TaskList(new ArrayList<Task>());
         }
-         ui = new Ui(tasklist);
+        ui = new Ui(tasklist);
+        storage = new Storage("./data/reo.txt");
     }
     public static void main(String[] args) {
         new Reo().run();
@@ -27,7 +29,7 @@ public class Reo {
         ui.welcome();
         while (!currInput.toLowerCase().equals("bye")) {
             currInput = scanner.nextLine().trim();
-            Parser p = new Parser(currInput, tasklist, ui);
+            Parser p = new Parser(currInput, tasklist, ui, storage);
             p.parse();
         }
         scanner.close();

@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /** Supports the required file operations for reo.Reo. */
-public class FileOperations {
+public class Storage {
+    String filePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
     /**
      * Returns true if the parameter is 1, and false otherwise.
      *
@@ -27,7 +31,7 @@ public class FileOperations {
      *
      * @return An ArrayList of Tasks interpreted from the file.
      */
-    public static ArrayList<Task> readFile() {
+    public ArrayList<Task> readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File dir = new File("./data");
@@ -35,7 +39,7 @@ public class FileOperations {
                 dir.mkdir();
                 System.out.println("Created new directory to store data.");
             }
-            File f = new File("./data/reo.txt");
+            File f = new File(filePath);
             if (f.createNewFile()) {
                 System.out.println("Created new file to store list.");
                 return tasks;
@@ -67,9 +71,9 @@ public class FileOperations {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            System.out.println("File not found! Ensure the file path starts with ./data");
         } catch (IOException e) {
-            System.out.println("IO Error!");
+            System.out.println("IO Error! Ensure the file path starts with ./data");
         }
 
         return tasks;
@@ -81,14 +85,19 @@ public class FileOperations {
      *
      * @param t The task to be converted to file representation and appended.
      */
-    public static void writeFile(Task t) {
+    public void writeFile(Task t) {
+        if (t == null) {
+            throw new NullPointerException();
+        }
         try {
-            FileWriter fw = new FileWriter("./data/reo.txt", true);
+            FileWriter fw = new FileWriter(filePath, true);
             String text = t.toFileString() + System.lineSeparator();
             fw.write(text);
             fw.close();
         } catch (IOException e) {
             System.out.println("Error writing to file!");
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -97,9 +106,9 @@ public class FileOperations {
      *
      * @param lineNumber The line number (1-indexed) to be removed.
      */
-    public static void removeLine(int lineNumber) {
+    public void removeLine(int lineNumber) {
         try {
-            File f = new File("./data/reo.txt");
+            File f = new File(filePath);
             File temp = new File("./data/temp.txt");
             FileWriter tw = new FileWriter(temp, false);
             Scanner s = new Scanner(f);
@@ -111,7 +120,6 @@ public class FileOperations {
                     tw.write(line + System.lineSeparator());
                 }
                 lineCount ++;
-                // System.out.println(lineCount);
             }
             tw.close();
             s.close();
@@ -130,9 +138,9 @@ public class FileOperations {
      * @param lineNumber The line number (1-indexed) to be edited.
      * @param cmd The action to be performed on the completion status.
      */
-    public static void editLine(int lineNumber, String cmd) {
+    public void editLine(int lineNumber, String cmd) {
         try {
-            File f = new File("./data/reo.txt");
+            File f = new File(filePath);
             File temp = new File("./data/temp.txt");
             FileWriter tw = new FileWriter(temp, false);
             Scanner s = new Scanner(f);

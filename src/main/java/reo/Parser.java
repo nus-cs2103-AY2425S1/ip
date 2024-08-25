@@ -1,9 +1,5 @@
 package reo;
 
-import reo.Deadline;
-import reo.Event;
-import reo.FileOperations;
-
 public class Parser {
     enum Command {
         BYE,
@@ -21,11 +17,13 @@ public class Parser {
     Command command;
     TaskList tasks;
     Ui ui;
-    public Parser(String input, TaskList tasks, Ui ui) {
+    Storage storage;
+    public Parser(String input, TaskList tasks, Ui ui, Storage storage) {
         this.input = input;
         this.tasks = tasks;
         this.words = input.split("\\s+");
         this.ui = ui;
+        this.storage = storage;
 
         try {
             this.command = Command.valueOf(words[0].toUpperCase());
@@ -50,7 +48,7 @@ public class Parser {
                 String[] parts1 = input.split(" ", 2);
                 Todo toPush = new Todo(parts1[1], false);
                 tasks.addTodo(toPush);
-                FileOperations.writeFile(toPush);
+                storage.writeFile(toPush);
                 ui.addTodo(toPush);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.addTodoError();
@@ -59,7 +57,7 @@ public class Parser {
         case MARK:
             try {
                 tasks.markTask(Integer.valueOf(words[1]) - 1);
-                FileOperations.editLine(Integer.valueOf(words[1]), "mark");
+                storage.editLine(Integer.valueOf(words[1]), "mark");
                 ui.mark(tasks.get(Integer.valueOf(words[1]) - 1));
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.markError();
@@ -68,7 +66,7 @@ public class Parser {
         case UNMARK:
             try {
                 tasks.unmarkTask(Integer.valueOf(words[1]) - 1);
-                FileOperations.editLine(Integer.valueOf(words[1]), "unmark");
+                storage.editLine(Integer.valueOf(words[1]), "unmark");
                 ui.unmark(tasks.get(Integer.valueOf(words[1]) - 1));
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.unmarkError();
@@ -84,7 +82,7 @@ public class Parser {
 
                 Deadline toPush1 = new Deadline(name, false, deadline);
                 tasks.addDeadline(toPush1);
-                FileOperations.writeFile(toPush1);
+                storage.writeFile(toPush1);
                 ui.addDeadline(toPush1);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.addDeadlineError();
@@ -102,7 +100,7 @@ public class Parser {
 
                 Event toPush2 = new Event(name, false, to, from);
                 tasks.addEvent(toPush2);
-                FileOperations.writeFile(toPush2);
+                storage.writeFile(toPush2);
                 ui.addEvent(toPush2);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.addEventError();
@@ -113,7 +111,7 @@ public class Parser {
                 int index = Integer.valueOf(words[1]) - 1;
                 // reo.Task toRemove = tasks.get(index);
                 tasks.deleteTask(index);
-                FileOperations.removeLine(index + 1);
+                storage.removeLine(index + 1);
                 ui.delete(tasks.get(index));
             } catch (IndexOutOfBoundsException e) {
                 ui.deleteError();
