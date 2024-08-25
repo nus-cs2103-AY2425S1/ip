@@ -4,6 +4,10 @@ import java.util.ArrayList;
 public class TaskList implements Serializable {
     private ArrayList<Task> allTasks = new ArrayList<>();
 
+    /**
+     * Returns all tasks in the task list of EchoBot.
+     *
+     */
     public void listAllTask() {
         String tasks = "";
         // Get task from task list
