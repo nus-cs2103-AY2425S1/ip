@@ -7,6 +7,7 @@ import calebyyy.commands.ListCommand;
 import calebyyy.commands.MarkCommand;
 import calebyyy.commands.UnmarkCommand;
 import calebyyy.commands.DeleteCommand;
+import calebyyy.commands.FindCommand;
 import calebyyy.exceptions.InvalidCommandException;
 import calebyyy.exceptions.CalebyyyException;
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class Parser {
     private Command unmarkCommand;
     private Command byeCommand;
     private Command deleteCommand;
+    private Command findCommand;
     private Scanner scanner;
     private TaskList taskList;
     private Storage storage;
@@ -32,6 +34,7 @@ public class Parser {
         unmarkCommand = new UnmarkCommand(calebyyy, ui, taskList);
         byeCommand = new ByeCommand(calebyyy, ui, taskList);
         deleteCommand = new DeleteCommand(calebyyy, ui, taskList);
+        findCommand = new FindCommand(calebyyy, ui, taskList);
         scanner = new Scanner(System.in);
     }
 
@@ -41,7 +44,8 @@ public class Parser {
         MARK,
         UNMARK,
         BYE,
-        DELETE
+        DELETE,
+        FIND
     }
 
     public Command getCommand(CommandType commandType) {
@@ -58,6 +62,8 @@ public class Parser {
                 return byeCommand;
             case DELETE:
                 return deleteCommand;
+            case FIND:
+                return findCommand;
             default:
                 throw new IllegalArgumentException("Invalid command type");
         }
@@ -103,6 +109,9 @@ public class Parser {
                 break;
             case "bye":
                 commandType = CommandType.BYE;
+                break;
+            case "find":
+                commandType = CommandType.FIND;
                 break;
             default:
                 throw new InvalidCommandException();
