@@ -47,8 +47,8 @@ public class YappingBot {
             return;
         }
 
-
         StringBuilder sb = new StringBuilder();
+        quoteSinglelineText(LIST_TEXT, sb);
         for (int i = 0; i < userList.size(); i++) {
             quoteSinglelineText(
                     new String[]{
