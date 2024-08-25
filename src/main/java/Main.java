@@ -171,12 +171,13 @@ public class Main {
                     }
                     case 'D' -> {
                         // deadline object
-                        String deadlineDescription = line.substring(8, line.indexOf("|", 8) - 1);
-                        String dueDateAndTime = line.substring(line.indexOf("|", 8) + 2);
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
-                        LocalDateTime dueDate = LocalDateTime.parse(dueDateAndTime, formatter);
-                        task = new Deadline(deadlineDescription, "D", dueDate);
-                        task.setDone(isDone);
+//                        String deadlineDescription = line.substring(8, line.indexOf("|", 8) - 1);
+//                        String dueDateAndTime = line.substring(line.indexOf("|", 8) + 2);
+//                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy-HH:mm a");
+//                        LocalDateTime dueDate = LocalDateTime.parse(dueDateAndTime, formatter);
+//                        task = new Deadline(deadlineDescription, "D", dueDate);
+//                        task.setDone(isDone);
+                        task = createDeadlineFromJanetTextFile(line, isDone);
                     }
                     case 'E' -> {
                         // event object
@@ -195,6 +196,20 @@ public class Main {
             throw new RuntimeException(e);
         }
         return listOfTasks;
+    }
+
+    public static Deadline createDeadlineFromJanetTextFile(String line, boolean isDone) {
+        // get description from text file
+        String deadlineDescription = line.substring(8, line.indexOf("|", 8) - 1);
+
+        // get the due date and convert into LocalDateTime
+        String dueDateAndTime = line.substring(line.indexOf("|", 8) + 2);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
+        LocalDateTime dueDate = LocalDateTime.parse(dueDateAndTime, formatter);
+
+        Deadline deadline = new Deadline(deadlineDescription, "D", dueDate);
+        deadline.setDone(isDone);
+        return deadline;
     }
 
     public static void main(String[] args) throws IOException {
