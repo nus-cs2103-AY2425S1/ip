@@ -1,21 +1,17 @@
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class Soju {
-    private static final List<Task> tasks = new ArrayList<>();
-    private static FileLogic fileLogic;
+    private static List<Task> tasks = new ArrayList<>();
+    private static FileHandler fileHandler;
 
     public Soju() {
-        fileLogic = new FileLogic("./data/soju.txt");
+        fileHandler = new FileHandler("./data/soju.txt");
     }
     public static void main(String[] args) {
         Soju soju = new Soju();
         runWithHorizontalLine(Soju::greet);
+        tasks = fileHandler.getTasksFromFile();
         soju.echo();
     }
 
@@ -151,7 +147,9 @@ public class Soju {
             } catch (SojuException sojuException) {
                 runWithHorizontalLine(sojuException.getMessage());
             }
+            fileHandler.saveToFile(tasks);
         }
+
         scanner.close();
     }
 }
