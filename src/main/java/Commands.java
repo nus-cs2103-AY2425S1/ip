@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Interface for Sentinel's commands. The classes contain the
  * bulk of the code that parses input and handles commands.
@@ -93,7 +97,20 @@ class addEvent implements Commands {
             throw new SentinelException("You did not put in a timeframe!");
         }
 
-        sentinel.addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        String[] startDateAndTime = parts[1].trim().split("\\s+", 2);
+        String[] endDateAndTime = parts[2].trim().split("\\s+", 2);
+
+        LocalDate startDate;
+        LocalDate endDate;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
+            startDate = LocalDate.parse(startDateAndTime[0].trim(), formatter);
+            endDate = LocalDate.parse(endDateAndTime[0].trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new SentinelException("Invalid date time format, I can only read formats in dd/M/yyyy pattern!");
+        }
+
+        sentinel.addEvent(parts[0].trim(), startDate, endDate);
     }
 }
 
@@ -115,7 +132,17 @@ class addDeadline implements Commands {
             throw new SentinelException("You did not put in a date!");
         }
 
-        sentinel.addDeadline(parts[0].trim(), parts[1].trim());
+        String[] dateAndTime = parts[1].trim().split("\\s+", 2);
+
+        LocalDate date;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
+            date = LocalDate.parse(dateAndTime[0].trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new SentinelException("Invalid date time format, I can only read formats in dd/M/yyyy pattern!");
+        }
+
+        sentinel.addDeadline(parts[0].trim(), date);
     }
 }
 

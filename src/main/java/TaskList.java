@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +41,7 @@ public class TaskList {
      * @param endTime Ending time for the event timeframe.
      * @return Event that was added.
      */
-    public Task addEvent(String description, String startTime, String endTime) {
+    public Task addEvent(String description, LocalDate startTime, LocalDate endTime) {
         Task newEvent = new Event(description, startTime, endTime);
 
         this.tasks.add(newEvent);
@@ -54,7 +55,7 @@ public class TaskList {
      * @param endTime Time to do the deadline by.
      * @return Deadline that was added.
      */
-    public Task addDeadline(String description, String endTime) {
+    public Task addDeadline(String description, LocalDate endTime) {
         Task newDeadline = new Deadline(description, endTime);
 
         this.tasks.add(newDeadline);

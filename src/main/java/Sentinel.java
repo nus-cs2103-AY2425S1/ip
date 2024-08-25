@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -83,7 +84,7 @@ public class Sentinel {
      *
      * @param description Description of the event to be added.
      */
-    public void addEvent(String description, String startTime, String endTime) {
+    public void addEvent(String description, LocalDate startTime, LocalDate endTime) {
         say("Added the following event: \n" + taskList.addEvent(description, startTime, endTime));
     }
 
@@ -92,7 +93,7 @@ public class Sentinel {
      *
      * @param description Description of the deadline to be added.
      */
-    public void addDeadline(String description, String endTime) {
+    public void addDeadline(String description, LocalDate endTime) {
         say("Added the following deadline: \n" + taskList.addDeadline(description, endTime));
     }
 
