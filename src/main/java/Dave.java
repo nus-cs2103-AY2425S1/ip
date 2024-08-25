@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Dave {
 
     public static void main(String[] args) {
@@ -12,8 +14,22 @@ public class Dave {
         System.out.println("Hello! I'm Dave.");
         System.out.println("What can I do for you?");
         System.out.println(horizontal);
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+        while (true)
+        {
+            userInput = scanner.nextLine();
+            System.out.println(horizontal);
+            System.out.println(userInput);
+            System.out.println(horizontal);
+            if (userInput.equals("bye"))
+            {
+                break;
+            }
+        }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(horizontal);
+        scanner.close();
 
     }
 }
