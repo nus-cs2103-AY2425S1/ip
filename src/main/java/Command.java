@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 public abstract class Command {
     public abstract void run(TaskList taskList, Storage storage, Ui ui) throws LamaException;
 

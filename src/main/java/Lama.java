@@ -8,7 +8,7 @@ public class Lama {
         this.ui = new Ui();
         storage = new Storage(filePath);
         try {
-           taskList = new TaskList(storage.loadTask());
+            taskList = new TaskList(storage.loadTask());
         } catch (LamaException e) {
             ui.showLoadingError();
             taskList = new TaskList();
@@ -29,6 +29,7 @@ public class Lama {
             }
         }
     }
+
     public static void main(String[] args) {
         new Lama("./data/lama.txt").run();
     }

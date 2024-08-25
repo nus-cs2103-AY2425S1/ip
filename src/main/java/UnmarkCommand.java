@@ -5,6 +5,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int indexOfUnmark) {
         this.indexOfUnmark = indexOfUnmark;
     }
+
     @Override
     public void run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
         try {

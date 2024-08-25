@@ -5,6 +5,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int indexOfDeleteCommand) {
         this.indexOfDeleteCommand = indexOfDeleteCommand;
     }
+
     @Override
     public void run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
         try {

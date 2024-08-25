@@ -5,6 +5,7 @@ public class Ui {
     private static final String BAR = "____________________________________________________________";
 
     private Scanner scanner;
+
     public Ui() {
         this.scanner = new Scanner(System.in);
     }

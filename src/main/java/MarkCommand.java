@@ -5,6 +5,7 @@ public class MarkCommand extends Command {
     public MarkCommand(int indexOfMark) {
         this.indexOfMark = indexOfMark;
     }
+
     @Override
     public void run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
         try {
