@@ -11,6 +11,15 @@ public class TaskList {
     }
 
     /**
+     * Adds a task to the list.
+     *
+     * @param task Description of the task.
+     */
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
+    /**
      * Adds a todo to the list.
      *
      * @param description Description of the todo.

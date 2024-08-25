@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,7 +10,7 @@ import java.util.Scanner;
  * @author isaactodo (Isaac Lim Tzee Zac)
  */
 public class Sentinel {
-    private final TaskList taskList;
+    private TaskList taskList;
     private final Map<String, Commands> commands;
 
     /**
@@ -17,8 +19,16 @@ public class Sentinel {
      * The task list is initially empty.
      */
     public Sentinel() {
-        this.taskList = new TaskList();
         this.commands = new HashMap<>();
+
+        // Load save file
+        try {
+            this.taskList = FileManager.loadFileContents();
+        } catch(IOException e) {
+            say("OOPS NO FILE???");
+            this.taskList = new TaskList();
+        }
+
 
         // Initialize Commands
         commands.put("list", new ListTasks());
@@ -112,6 +122,11 @@ public class Sentinel {
     public void goodbye() {
         String goodbyeMessage = "It was a pleasure conversing with you. Goodbye!";
         say(goodbyeMessage);
+        try {
+            FileManager.writeToFile(this.taskList.toString());
+        } catch (IOException e) {
+            say("Oops I had trouble saving your tasks...");
+        }
     }
 
     /**
