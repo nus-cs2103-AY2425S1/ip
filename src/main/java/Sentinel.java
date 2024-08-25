@@ -24,7 +24,7 @@ public class Sentinel {
 
         // Load save file
         try {
-            this.taskList = FileManager.loadFileContents();
+            this.taskList = Storage.load();
         } catch(IOException e) {
             say("OOPS NO FILE???");
             this.taskList = new TaskList();
@@ -124,7 +124,7 @@ public class Sentinel {
         String goodbyeMessage = "It was a pleasure conversing with you. Goodbye!";
         say(goodbyeMessage);
         try {
-            FileManager.writeToFile(this.taskList.toString());
+            Storage.save(this.taskList.toString());
         } catch (IOException e) {
             say("Oops I had trouble saving your tasks...");
         }

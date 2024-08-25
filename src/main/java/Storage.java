@@ -1,13 +1,14 @@
 import java.io.File;
 import java.nio.file.Files;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Path;
+
 import java.util.Scanner;
 
-public class FileManager {
+import java.io.IOException;
 
-        public static TaskList loadFileContents() throws IOException {
+public class Storage {
+        public static TaskList load() throws IOException {
             File f = null;
 
             // Check if directory exists
@@ -41,11 +42,9 @@ public class FileManager {
             return listOfTasks;
         }
 
-        public static void writeToFile(String content) throws IOException {
+        public static void save(String content) throws IOException {
             FileWriter fw = new FileWriter("src/main/data/data.txt");
             fw.write(content);
             fw.close();
         }
-
-
 }
