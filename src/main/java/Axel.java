@@ -1,8 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 public class Axel {
-    private static final int MAX_TASKS = 100;
-    private static Task[] taskList = new Task[MAX_TASKS];
-    private static int taskListCount = 0;
+    private static List<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -16,7 +16,7 @@ public class Axel {
             //Reads user's input
             userInput = scanner.nextLine();
             try {
-                //Display tasks
+                    //Display tasks
                 if (userInput.equalsIgnoreCase("list")) {
                     System.out.println("____________________________________________________________");
                     displayTasks();
@@ -36,6 +36,9 @@ public class Axel {
                     //Add event task
                 } else if (userInput.startsWith("event")) {
                     event(userInput);
+                    //Delete task
+                } else if (userInput.startsWith("delete")) {
+                    deleteTask(userInput);
                     //Exit message
                 } else if (userInput.equalsIgnoreCase("bye")) {
                     System.out.println("____________________________________________________________");
@@ -89,57 +92,64 @@ public class Axel {
         addTask(new EventTask(taskName, from, to));
     }
     private static void addTask(Task task) {
-        if (taskListCount < MAX_TASKS) {
-            taskList[taskListCount] = task;
-            taskListCount++;
-            System.out.println("____________________________________________________________");
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + task);
-            System.out.println("Now you have " + taskListCount + " tasks in the list.");
-            System.out.println("____________________________________________________________");
-        } else {
-            System.out.println("Task list is full!");
-        }
+        taskList.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
     private static void displayTasks() {
-        if (taskListCount == 0) {
+        if (taskList.isEmpty()) {
             System.out.println("No tasks in the list!");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskListCount; i++) {
-                System.out.println((i + 1) + ". " + taskList[i]);
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i));
             }
         }
     }
-    //Mark as done
-    private static void markTaskAsDone(String userInput) throws MarkException {
-        int taskIndex = parseTaskIndex(userInput, "mark");
-        if (taskIndex < 0 || taskIndex >= taskListCount) {
-            throw new MarkException("Invalid task number. The number is between 1 and " + taskListCount + "!");
+    private static void deleteTask(String userInput) throws InvalidTaskNumberException {
+        int taskIndex = parseTaskIndex(userInput, "delete");
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new InvalidTaskNumberException("Invalid task number. The number must be between 1 and " + taskList.size() + "!");
         }
-        taskList[taskIndex].markAsDone();
+        Task removedTask = taskList.remove(taskIndex);
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+    //Mark as done
+    private static void markTaskAsDone(String userInput) throws InvalidTaskNumberException {
+        int taskIndex = parseTaskIndex(userInput, "mark");
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new InvalidTaskNumberException("Invalid task number. The number is between 1 and " + taskList.size()+ "!");
+        }
+        taskList.get(taskIndex).markAsDone();
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + taskList[taskIndex]);
+        System.out.println("  " + taskList.get(taskIndex));
         System.out.println("____________________________________________________________");
     }
     //Mark as not done
-    private static void markTaskAsNotDone(String userInput) throws MarkException {
+    private static void markTaskAsNotDone(String userInput) throws InvalidTaskNumberException {
         int taskIndex = parseTaskIndex(userInput, "unmark");
-        if (taskIndex < 0 || taskIndex >= taskListCount) {
-            throw new MarkException("Invalid task number. The number is between 1 and " + taskListCount + "!");
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new InvalidTaskNumberException("Invalid task number. The number is between 1 and " + taskList.size() + "!");
         }
-        taskList[taskIndex].markAsNotDone();
+        taskList.get(taskIndex).markAsNotDone();
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + taskList[taskIndex]);
+        System.out.println("  " + taskList.get(taskIndex));
         System.out.println("____________________________________________________________");
     }
-    private static int parseTaskIndex(String userInput, String command) throws MarkException {
+    private static int parseTaskIndex(String userInput, String command) throws InvalidTaskNumberException {
         try {
             return Integer.parseInt(userInput.substring(command.length()).trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new MarkException("I need a valid task number...");
+            throw new InvalidTaskNumberException("I need a valid task number...");
         }
     }
 }
