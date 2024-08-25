@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class EventBuilder extends TaskBuilder {
 
     @Override
@@ -19,8 +22,13 @@ public class EventBuilder extends TaskBuilder {
             }
         }
         String description = input.substring(0, firstSlashIndex).trim();
-        String from = input.substring(firstSlashIndex + 6, secondSlashIndex).trim();
-        String to = input.substring(secondSlashIndex + 4).trim();
+        String from, to;
+        try {
+            from = DateTime.parseDate(input.substring(firstSlashIndex + 6, secondSlashIndex).trim()).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            to = DateTime.parseDate(input.substring(secondSlashIndex + 4).trim()).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new LukeException("Invalid Date format");
+        }
         return new Event(description, from, to);
     }
 }

@@ -11,10 +11,10 @@ Got it. I've added this task:
 [T][ ] read book
 Now you have 1 tasks in the list.
 Got it. I've added this task:
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: Jun 06 2024)
 Now you have 2 tasks in the list.
 Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+[E][ ] project meeting (from: Jun 06 2024 to: Jun 07 2024)
 Now you have 3 tasks in the list.
 Got it. I've added this task:
 [T][ ] join sports club
@@ -29,10 +29,10 @@ Nice! I've marked this task as done:
 OK, I've marked this task as not done yet:
 [T][ ] join sports club
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Jun 06 2024)
 Now you have 6 tasks in the list.
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: Jun 06 2024 to: Jun 07 2024)
 Now you have 7 tasks in the list.
 Yo! This command "some" doesn't exist.
 Yo! This command "someunknowncommand" doesn't exist.
@@ -42,27 +42,27 @@ Missing /to to indicate the end time of the event.
 There needs to be spacing between /from and other words.
 There needs to be spacing between /to and other words.
 Got it. I've added this task:
-[E][ ] something (from: 2pm to: 5pm)
+[E][ ] something (from: Jun 06 2024 to: Jun 07 2024)
 Now you have 8 tasks in the list.
 Missing /by to indicate when the deadline of the task.
 There needs to be spacing between /by and other words.
 Got it. I've added this task:
-[D][ ] something else (by: 5pm)
+[D][ ] something else (by: Jun 06 2024)
 Now you have 9 tasks in the list.
 Noted. I've removed this task:
-[D][ ] something else (by: 5pm)
+[D][ ] something else (by: Jun 06 2024)
 Now you have 8 tasks in the list.
 Noted. I've removed this task:
-[E][ ] something (from: 2pm to: 5pm)
+[E][ ] something (from: Jun 06 2024 to: Jun 07 2024)
 Now you have 7 tasks in the list.
 Noted. I've removed this task:
 [T][X] read book
 Now you have 6 tasks in the list.
 Here are the tasks in your list:
-1. [D][ ] return book (by: June 6th)
-2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+1. [D][ ] return book (by: Jun 06 2024)
+2. [E][ ] project meeting (from: Jun 06 2024 to: Jun 07 2024)
 3. [T][ ] join sports club
 4. [T][ ] borrow book
-5. [D][ ] return book (by: Sunday)
-6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+5. [D][ ] return book (by: Jun 06 2024)
+6. [E][ ] project meeting (from: Jun 06 2024 to: Jun 07 2024)
 Aight, Cya later.
