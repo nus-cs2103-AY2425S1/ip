@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DateParser {
-    public static boolean isValidDate(String date) {
+    public static boolean checkValidDate(String date) {
         try {
             LocalDate.parse(date);
             return true;
@@ -15,7 +15,7 @@ public class DateParser {
     }
 
     public static LocalDate convertStringToDate(String date) {
-        if (DateParser.isValidDate(date)) {
+        if (DateParser.checkValidDate(date)) {
             return LocalDate.parse(date);
         }
         return null;
