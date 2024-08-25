@@ -1,6 +1,7 @@
 package seanbot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import seanbot.Tasks.Task;
 
@@ -34,5 +35,21 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+/**
+     * Finds and returns a list of tasks that match the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that match the keyword.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> found = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                found.add(task);
+            }
+        }
+        return found;
     }
 }

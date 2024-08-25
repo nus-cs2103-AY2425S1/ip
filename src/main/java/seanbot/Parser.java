@@ -1,6 +1,7 @@
 package seanbot;
 
 import java.io.IOException;
+import java.util.List;
 
 import seanbot.Tasks.Deadline;
 import seanbot.Tasks.Event;
@@ -96,6 +97,10 @@ public class Parser {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println("  " + removedTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                break;
+            case "find":
+                List<Task> foundTasks = tasks.findTasks(part[1]);
+                ui.showFoundTasks(foundTasks);
                 break;
             default:
                 throw new SeanBotException("I'm sorry, but I don't know what that means :-(");
