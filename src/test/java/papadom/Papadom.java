@@ -56,7 +56,7 @@ public class Papadom {
                         command = new AddTodoCommand(text);
                         break;
                     case DEADLINE:
-                        command = new AddDeadlineCommand(text);
+                        command = new AddDeadlineCommandTest(text);
                         break;
                     case EVENT:
                         command = new AddEventCommand(text);
