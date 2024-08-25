@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,7 +9,8 @@ public class Bobby {
     private final Scanner input;
     private ArrayList<Task> tasks;
     private boolean isRunning;
-    private static final String FILE_PATH = "tasks.txt";
+    private static final String DIR_PATH = "./data/";
+    private static final String FILE_NAME = "tasks.txt";
 
     public Bobby() {
         this.input = new Scanner(System.in);
@@ -26,29 +28,30 @@ public class Bobby {
                     System.out.println("File format corrupted");
                 }
             }
+            fileScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
         }
     }
 
 
-    public String getInput() {
+    private String getInput() {
         return this.input.nextLine();
     }
 
-    public void printAddSuccess(Task newTask) {
+    private void printAddSuccess(Task newTask) {
         System.out.println("Got it. I've added this task: ");
         System.out.println(newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
-    public void printDeleteSuccess(Task task) {
+    private void printDeleteSuccess(Task task) {
         System.out.println("Got it. I've removed this task: ");
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
-    public void processInput(String s) throws InputException {
+    private void processInput(String s) throws InputException {
         String[] inputArr = s.split(" ", 2);
         String command = inputArr[0];
         switch (command) {
@@ -71,6 +74,7 @@ public class Bobby {
                 throw new InvalidIndexException();
             }
             this.tasks.get(idx).setIsDone(true);
+            this.writeToFile();
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println(this.tasks.get(idx));
         }
@@ -83,6 +87,7 @@ public class Bobby {
                 throw new InvalidIndexException();
             }
             this.tasks.get(idx).setIsDone(false);
+            this.writeToFile();
             System.out.println("Ok, I've marked this task as not done yet: ");
             System.out.println(this.tasks.get(idx));
         }
@@ -95,6 +100,7 @@ public class Bobby {
                 throw new InvalidIndexException();
             }
             Task removedTask = this.tasks.remove(idx);
+            this.writeToFile();
             this.printDeleteSuccess(removedTask);
         }
         case "todo" -> {
@@ -103,6 +109,7 @@ public class Bobby {
             }
             Task newTask = new Todo(inputArr[1]);
             this.tasks.add(newTask);
+            this.writeToFile();
             this.printAddSuccess(newTask);
         }
         case "deadline" -> {
@@ -123,6 +130,7 @@ public class Bobby {
             }
             Task newTask = new Deadline(name, deadline);
             this.tasks.add(newTask);
+            this.writeToFile();
             this.printAddSuccess(newTask);
         }
         case "event" -> {
@@ -151,19 +159,36 @@ public class Bobby {
             }
             Task newTask = new Event(name, from, to);
             this.tasks.add(newTask);
+            this.writeToFile();
             this.printAddSuccess(newTask);
         }
         default -> throw new InvalidCommandException();
         }
     }
 
-    public void sayHi() {
+    private void writeToFile() {
+        try {
+            FileWriter fw = new FileWriter(DIR_PATH + FILE_NAME);
+            for (Task task : this.tasks) {
+                fw.write(task.encode() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file!");
+        }
+    }
+
+    private void sayHi() {
         System.out.println("Hello, I'm Bobby");
         System.out.println("What can I do for you?");
     }
 
     private static Scanner getFile() throws FileNotFoundException {
-        File taskListFile = new File(FILE_PATH);
+        File directory = new File(DIR_PATH);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File taskListFile = new File(DIR_PATH + FILE_NAME);
         try {
             taskListFile.createNewFile();
         } catch (IOException e) {

@@ -14,4 +14,9 @@ public class Deadline extends Task {
         String str = String.format("[D]%s (by: %s)", super.toString(), this.deadline);
         return str;
     }
+
+    @Override
+    public String encode() {
+        return "D|" + super.encode() + "|" + this.deadline;
+    }
 }

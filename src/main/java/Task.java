@@ -17,4 +17,8 @@ public abstract class Task {
         String str = String.format("[%c] %s", status, this.name);
         return str;
     }
+
+    public String encode() {
+        return (this.isDone ? "1" : "0") + "|" + this.name;
+    }
 }
