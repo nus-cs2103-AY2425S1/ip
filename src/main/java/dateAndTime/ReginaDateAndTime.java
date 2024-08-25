@@ -125,6 +125,6 @@ public class ReginaDateAndTime {
      */
     @Override
     public String toString() {
-        return formattedDate() + ", " +  (this.time != null ? " " + formattedTime() : ""); // Combine formatted date and time
+        return formattedDate() + "," +  (this.time != null ? " " + formattedTime() : ""); // Combine formatted date and time
     }
 }

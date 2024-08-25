@@ -5,6 +5,7 @@ import dateAndTime.ReginaDateAndTime;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Ref;
 import java.util.Scanner;
 
 /**
@@ -78,8 +79,9 @@ public class Regina {
                 + INDENT + "3. Delete a task: delete <task_number>\n"
                 + INDENT + "   Example: delete 1\n"
                 + INDENT + "4. List tasks: type 'list' to see all your tasks\n"
-                + INDENT + "6. For current date and time: type 'now'\n"
-                + INDENT + "6. For help: type 'help'\n"
+                + INDENT + "5. Delete all current tasks: type 'clear'\n"
+                + INDENT + "6. Find out current date and time: type 'now'\n"
+                + INDENT + "7. For help: type 'help'\n"
                 + INDENT + "What can I do for you?\n" + LINE
                 + "\n", NAME, TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
@@ -102,7 +104,7 @@ public class Regina {
                 + INDENT + "6. To delete a task: delete <task_number>\n"
                 + INDENT + "   Example: delete 1\n"
                 + INDENT + "7. To view your tasks: list\n"
-                + INDENT + "8. For help: help\n"
+                + INDENT + "8. To delete all current tasks: clear\n"
                 + INDENT + "9. For current date and time: now\n"
                 + LINE + "\n", TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
@@ -124,6 +126,19 @@ public class Regina {
      */
     private boolean isValidTaskType(String type) {
         return type.equals(TODO_TYPE) || type.equals(DEADLINE_TYPE) || type.equals(EVENT_TYPE);
+    }
+
+    /**
+     * Deletes all the tasks in the list
+     */
+    public void clearTaskList() {
+        if (this.listOfTasks.isEmpty()) {
+            System.out.println(LINE + "\n" + INDENT + "Nothing left to clear lah!\n" + LINE);
+        } else {
+            this.listOfTasks.clear();
+            saveFile();
+            System.out.println(LINE + "\n" + INDENT + "Cleared all tasks!\n" + LINE);
+        }
     }
 
     /**
@@ -276,7 +291,7 @@ public class Regina {
         this.MARKER.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
-        System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s\n%s\n",
+        System.out.printf("%s\n%sYAY! This task finish liao!\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
 
@@ -331,6 +346,8 @@ public class Regina {
                     REGINA.help();
                 } else if (userInput.equals("now")) {
                     System.out.println(LINE + "\n" + INDENT + ReginaDateAndTime.now() + "\n" + LINE);
+                } else if (userInput.equals("clear")) {
+                    REGINA.clearTaskList();
                 } else if (userInput.equals("list")) {
                     REGINA.list(); // Print out the list
                 } else if (userInput.startsWith("mark")) {
