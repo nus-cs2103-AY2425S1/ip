@@ -1,0 +1,9 @@
+Elon
+todo cook pasta
+deadline complete homework /by Sunday 2359
+event project meeting /from tuesday 2pm /to 4pm
+list
+mark 3
+mark 2
+unmark 2
+mark 1

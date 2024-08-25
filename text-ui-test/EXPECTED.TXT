@@ -1,7 +1,25 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+What is your name?
+Hey Elon! I'm Carly 👩🏼‍💼️.
+What can I do for you?
+Got it. I've added this task:
+     [T][ ] cook
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+     [D][ ] complete homework (by: Sunday 2359)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+     [E][ ] project meeting (from: tuesday 2pm to: 4pm)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] cook
+2.[D][ ] complete homework (by: Sunday 2359)
+3.[E][ ] project meeting (from: tuesday 2pm to: 4pm)
+Okiee! I've marked this task as done:
+    [E][X] project meeting (from: tuesday 2pm to: 4pm)
+Okiee! I've marked this task as done:
+    [D][X] complete homework (by: Sunday 2359)
+Okiee! I've marked this task as not done yet:
+    [D][ ] complete homework (by: Sunday 2359)
+Okiee! I've marked this task as done:
+    [T][X] cook
+No input detected. Exiting...
