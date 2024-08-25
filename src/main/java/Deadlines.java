@@ -4,6 +4,10 @@ public class Deadlines extends Task{
         super(description);
         this.dueDate = dueDate;
     }
+    public Deadlines(String description,boolean status,String dueDate){
+        super(description,status);
+        this.dueDate = dueDate;
+    }
 
     @Override
     public String toString(){

@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,13 +17,45 @@ public class Nerf {
                                        ##  ##   ##       ## ##    ##    
                                        ##  ##   ######   ##  ##   ##    
                                        """;
-
+    private static final String SAVEDIRECTORY = "./data";
+    private static final String FILEPATH = SAVEDIRECTORY + "/taskStorage.txt";
     private static final List<Task> listings = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        loadTask();
         greetings();
         echo();
+    }
+    private static List<String> readFile(){
+        File directory = new File(SAVEDIRECTORY);
+        File saveFile = new File(FILEPATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        if (!saveFile.exists()) {
+            try {
+                saveFile.createNewFile();
+            } catch (IOException  e) {
+                System.out.println("Unable to create save file :(");
+                return new ArrayList<>();
+            }
+        }
+        try {
+            List<String> fileContent = Files.readAllLines(Paths.get(FILEPATH));
+            return fileContent;
+        } catch (IOException e) {
+            System.out.println("Unable to read save file :(");
+        }
+        return new ArrayList<>();
+    }
+
+    private static void loadTask(){
+        List<String> fileData = readFile();
+        for (String line: fileData){
+            String[] task = line.split("\\|");
+            
+        }
     }
 
     private static void addToList(Task input){

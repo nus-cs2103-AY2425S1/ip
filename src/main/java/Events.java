@@ -7,6 +7,12 @@ public class Events extends Task{
         this.toDate = toDate;
     }
 
+    public Events(String description,boolean status,String fromDate, String toDate){
+        super(description,status);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+
     @Override
     public String toString(){
         return String.format("[E]%s (from: %s to: %s)",super.toString(),fromDate,toDate);

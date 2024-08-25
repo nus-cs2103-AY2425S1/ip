@@ -5,6 +5,11 @@ public abstract class Task{
     public Task(String description){
         this.description = description;
     }
+    public Task(String description,boolean status){
+        this.description = description;
+        this.isDone = status;
+    }
+
     public void setDone(){
         this.isDone = true;
     }
