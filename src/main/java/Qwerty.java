@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -182,6 +183,11 @@ public class Qwerty {
         }
     }
 
+    /**
+     * Returns a string generated from the tasks currently in the task list.
+     *
+     * @return String containing task details.
+     */
     public String generateSaveString() {
         return tasks.stream()
                 .map(Task::getAllDetails)
@@ -189,6 +195,9 @@ public class Qwerty {
                 .reduce("", (s1, s2) -> s1 + s2);
     }
 
+    /**
+     * Saves the current list of tasks to the hard disk.
+     */
     public void saveTasks() {
         File file = new File(savePath);
         if (file.exists()) {
@@ -209,8 +218,66 @@ public class Qwerty {
         }
     }
 
+    /**
+     * Loads the task list from the file located at the specified savepath in
+     * the hard disk.
+     */
     public void loadTasks() {
-        return; // TODO
+        File file = new File(savePath);
+        if (file.exists()) {
+            try {
+                Scanner scanner = new Scanner(file);
+                int lineNumber = 0;
+                while (scanner.hasNextLine()) {
+                    lineNumber++;
+                    try {
+                        String[] args = scanner.nextLine().split("\\|");
+                        switch (args[0]) {
+                        case "":
+                            break; // skip empty lines
+                        case "T":
+                            if (args.length < 3) {
+                                throw new QwertyException("Missing arguments for Todo task");
+                            }
+                            Task todo = new Todo(args[2]);
+                            if (args[1].equals("X")) {
+                                todo.markAsDone();
+                            }
+                            tasks.add(todo);
+                            break;
+                        case "D":
+                            if (args.length < 3) {
+                                throw new QwertyException("Missing arguments for Deadline task");
+                            }
+                            Task deadline = new Deadline(args[2], args[3]);
+                            if (args[1].equals("X")) {
+                                deadline.markAsDone();
+                            }
+                            tasks.add(deadline);
+                            break;
+                        case "E":
+                            if (args.length < 3) {
+                                throw new QwertyException("Missing arguments for Event task");
+                            }
+                            Task event = new Event(args[2], args[3], args[4]);
+                            if (args[1].equals("X")) {
+                                event.markAsDone();
+                            }
+                            tasks.add(event);
+                            break;
+                        default:
+                            System.out.println("Unrecognised task identifier: " + args[0]);
+                            break;
+                        }
+                    } catch (QwertyException e) {
+                        System.out.println("Error while reading from line "
+                                + lineNumber + ": " + e.getMessage());
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                // this should not happen, already checked if file exists
+            }
+        }
     }
 
     /**
