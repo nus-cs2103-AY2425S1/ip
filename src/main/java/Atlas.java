@@ -8,7 +8,7 @@ public class Atlas {
     private static final String EXIT = "bye";
     private static final Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
-    private static final ArrayList<String> list = new ArrayList<>(); 
+    private static final ArrayList<Task> tasks = new ArrayList<>(); 
 
     public static void main(String[] args) {
         introduction();
@@ -21,51 +21,75 @@ public class Atlas {
         scanner.close();
     }
 
-    private static void separate() {
-        System.out.println(SEP);
-    }
-
     private static void parse(String input) {
         if (input == null) {
             return;
         }
-        switch (input) {
+        String[] text = input.split(" ");
+        if (text.length == 0) {
+            return;
+        }
+        String command = text[0];
+
+        boolean status = false;
+        switch (command) {
             case "bye": // do nothing: handled in main loop
                 break;
             case "list":
                 listShow();
                 break;
+            case "mark":
+                status = true;
+            case "unmark":
+                int index = Integer.parseInt(text[1]) - 1;
+                taskMark(index, status);
+                taskMarkLog(index, status);
+                break;
             default:  // add the item
-                listAdd(input);
-                listAddLog(input);
+                addTask(input);
+                addTaskLog(input);
         }
     }
 
-    private static void listAdd(String item) {
-        list.add(item);
+    private static void addTask(String item) {
+        tasks.add(new Task(item));
     }
 
-    private static void listAddLog(String item) {
-        System.out.println(BOT_INDENT + "added: " + item);
+    private static void addTaskLog(String item) {
+        botMessage("added: " + item);
+        separate();
+    }
+
+    private static void taskMark(int index, boolean status) {
+        tasks.get(index).setDone(status);
+    }
+
+    private static void taskMarkLog(int index, boolean status) {
+        String message = status ? "Nice! I've marked this task as done:"
+            : "OK! I've marked this task as not done yet:";
+
+        botMessage(message);
+        botMessage("  " + tasks.get(index));
         separate();
     }
 
     private static void listShow() {
-        System.out.println(BOT_INDENT + "Here are the items in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(BOT_INDENT + (i + 1) + ". " + list.get(i));
+        botMessage("Here are the items in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            botMessage((i + 1) + "." + tasks.get(i));
         }
         separate();
     }
 
     private static void introduction() {
-        System.out.println(BOT_INDENT + "Hello! I'm Atlas.");
-        System.out.println(BOT_INDENT + "How can I help you today?");
+        botMessage("Hello! I'm Atlas.");
+        botMessage("How can I help you today?");
         separate();
     }
 
     private static void exit() {
-        System.out.println(BOT_INDENT + "Goodbye! Have a great day ahead!");
+
+        botMessage("Goodbye! Have a great day ahead!");
         separate();
     }
 
@@ -80,7 +104,17 @@ public class Atlas {
         if (input == null) {
             return;
         }
-        System.out.println(BOT_INDENT + input);
+        botMessage(input);
         separate();
+    }
+
+    /* --------- HELPER FUNCTIONS --------- */
+
+    private static void separate() {
+        System.out.println(SEP);
+    }
+
+    private static void botMessage(String message) {
+        System.out.println(BOT_INDENT + message);
     }
 }
