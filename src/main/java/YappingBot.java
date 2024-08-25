@@ -130,6 +130,7 @@ public class YappingBot {
                        command = s;
                     } else {
                         sb.append(s);
+                        sb.append(" ");
                     }
                 }
                 taskName = sb.toString();
@@ -148,6 +149,7 @@ public class YappingBot {
                         continue;
                     }
                     sb.append(s);
+                    sb.append(" ");
                 }
                 deadline = sb.toString();
                 if (deadline == null || taskName == null) {
@@ -180,6 +182,7 @@ public class YappingBot {
                         }
                     }
                     sb.append(s);
+                    sb.append(" ");
                 }
                 if (toTime == null) {
                     toTime = sb.toString();
@@ -219,7 +222,7 @@ public class YappingBot {
         System.out.println(quoteMultilineText(GREETING_TEXT));
 
         programmeLoop: // to break out of loop
-        while (true) {
+        while (userInputScanner.hasNextLine()) {
            String userInput = userInputScanner.nextLine();
            String[] userInputSlices = userInput.split(" ");
             int taskListIndexPtr = -1; // task list pointer
