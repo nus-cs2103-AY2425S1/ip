@@ -5,26 +5,20 @@
 
 
     ---------------------------------------------------------
-    Here's some commands to help you out :)
-
-    todo - to create a task
-    deadline - to create a task with a deadline
-    event - to create a task with a start date and end date
-    list - to show all tasks currently
-    bye - to exit
+    OOPS!!! I'm sorry, but I don't know what that means :-(
 
     ---------------------------------------------------------
 
 
     ---------------------------------------------------------
-    When do ya need to get it done by?
+    OOPS!!! When do ya need to get it done by?
     (include '/by' followed by the deadline)
 
     ---------------------------------------------------------
 
 
     ---------------------------------------------------------
-    Gotcha! I've added this task:
+    Gotcha! I've added this task: 
          [D][ ] work (by: Sunday)
     Now, you have 1 tasks in the list!
     ---------------------------------------------------------
@@ -45,31 +39,31 @@
 
 
     ---------------------------------------------------------
-    Gotcha! I've added this task:
+    Gotcha! I've added this task: 
          [T][ ] read book
     Now, you have 2 tasks in the list!
     ---------------------------------------------------------
 
 
     ---------------------------------------------------------
-    There's no end date?
+    OOPS!!! There's no end date?
     (include '/to' after start date)
 
     ---------------------------------------------------------
 
 
     ---------------------------------------------------------
-    Gotcha! I've added this task:
-     [E][ ] event project meeting ( from: Mon 2pm, to: Mon 4pm)
+    Gotcha! I've added this task: 
+     [E][ ] project meeting ( from: Mon 2pm, to: Mon 4pm)
     Now, you have 3 tasks in the list!
     ---------------------------------------------------------
 
 
     ---------------------------------------------------------
-    Here are the tasks in your list:
+    Here are the tasks in your list: 
     1. [D][ ] work (by: Sunday)
     2. [T][ ] read book
-    3. [E][ ] event project meeting ( from: Mon 2pm, to: Mon 4pm)
+    3. [E][ ] project meeting ( from: Mon 2pm, to: Mon 4pm)
 
     ---------------------------------------------------------
 
@@ -77,5 +71,3 @@
     ---------------------------------------------------------
     Bye! See ya soon!
     ---------------------------------------------------------
-
-
