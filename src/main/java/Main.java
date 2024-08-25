@@ -208,6 +208,11 @@ public class Main {
     }
 
 
+    /**
+     * @param line a line of text from the janet.txt file
+     * @param isDone isDone = true if task has been marked else false.
+     * @return a new Event object created using the parameters.
+     */
     public static Event createEventFromJanetTextFile(String line, boolean isDone) {
         // get description from text file
         String eventDescription = line.substring(8, line.indexOf("|", 8) - 1);
