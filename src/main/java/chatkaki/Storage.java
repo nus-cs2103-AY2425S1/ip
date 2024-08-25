@@ -8,8 +8,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of the task list.
+ */
 public class Storage {
 
+    /**
+     * Saves the tasks to the file.
+     */
     public static void saveTasksToFile() {
         try {
             File file = new File("data/tasks.txt");
@@ -27,6 +33,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file.
+     */
     public static void loadTasksFromFile() {
         try {
             File file = new File("data/tasks.txt");
