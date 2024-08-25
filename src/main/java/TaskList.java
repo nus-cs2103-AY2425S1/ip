@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
 * This class provides functionality to keep track of tasks.
@@ -55,7 +55,7 @@ public class TaskList {
      * @param startDate The start date of the task.
      * @param endDate The end date of the task.
      */
-    public void addTask(String taskName, String taskType, LocalDate startDate, LocalDate endDate) {
+    public void addTask(String taskName, String taskType, LocalDateTime startDate, LocalDateTime endDate) {
 
         // Create a new task object based on he task type
         Task newTask;
@@ -85,7 +85,7 @@ public class TaskList {
      * @param startDate The start date of the task.
      * @param endDate The end date of the task.
      */
-    public void addTask(String taskName, String taskType, LocalDate startDate, LocalDate endDate, boolean isMarked) {
+    public void addTask(String taskName, String taskType, LocalDateTime startDate, LocalDateTime endDate, boolean isMarked) {
 
         // Create a new task object based on he task type
         Task newTask;

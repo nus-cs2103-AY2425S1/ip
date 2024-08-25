@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 /**
  * This is an abstract class to define a task object.
  */
@@ -7,6 +9,8 @@ public abstract class Task {
     protected String description;
     /** Determine if the task is marked or not */
     protected boolean isChecked;
+    /** Date time format for printing LocalDateTime objects */
+    public DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
      * Creates a Task object with the given description.
