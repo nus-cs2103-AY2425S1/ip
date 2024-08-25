@@ -1,5 +1,9 @@
 package seanbot;
 
+import java.util.List;
+
+import seanbot.Tasks.Task;
+
 public class Ui {
 
     public void showWelcomeMessage() {
@@ -18,6 +22,13 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.getTask(i));
+        }
+    }
+    
+    public void showFoundTasks(List<Task> foundTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + foundTasks.get(i));
         }
     }
 }
