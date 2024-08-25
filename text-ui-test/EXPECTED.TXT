@@ -7,12 +7,12 @@
 	Here are the list of commands that I support
 	help - List of commands supported by me, Friday.
 	list - View all entries to the current list of things you have asked me to take note of.
-	mark <index> - Mark an entry in the list as a completed task.
-	unmark <index> - Unmark an entry in the list as a completed task.
-	todo <description> - Remember a TODO Task for you to revisit again.
-	deadline <description> /by <when> - Remember a Deadline Task for you to complete by the deadline.
-	event <description> /from <when> /to <when> - Remember an Event Task from when it begins to when it ends.
-	delete <index> - Delete an entry from your current list.
+	mark <integer> - Mark an entry in the list as a completed task.
+	unmark <integer> - Unmark an entry in the list as a completed task.
+	todo <string> - Remember a TODO Task for you to revisit again.
+	deadline <string> /by <when> - Remember a Deadline Task for you to complete by the deadline.
+	event <string> /from <string> /to <string> - Remember an Event Task from when it begins to when it ends.
+	delete <integer> - Delete an entry from your current list.
 	bye - Exits this app and says Good Bye to Friday :)
 	____________________________________________________________
 	____________________________________________________________
@@ -73,42 +73,41 @@
 	4.[T][ ] borrow book
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
-	Check 'help' for more information.
+	Invalid input. 'delete' command requires exactly one argument.
+	usage: delete <integer>
 	____________________________________________________________
 	____________________________________________________________
 	Invalid input. usage: delete <index>
 	What would you like to delete?
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
-	Check 'help' for more information.
+	Invalid input. 'mark' and 'unmark' commands require exactly one argument.
+	usage: mark <integer> || unmark <integer>
 	____________________________________________________________
 	____________________________________________________________
 	Invalid input. Where would you like to mark?
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
-	Check 'help' for more information.
+	Invalid input. 'mark' and 'unmark' commands require exactly one argument.
+	usage: mark <integer> || unmark <integer>
 	____________________________________________________________
 	____________________________________________________________
 	Invalid input. Where would you like to unmark?
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
-	Check 'help' for more information.
+	Invalid input. 'todo' command requires a description.
+	usage: todo <string>
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
-	Check 'help' for more information.
+	Invalid input. 'deadline' command requires a description and a deadline.
+	usage: deadline <string> /by <string>
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
-	Check 'help' for more information.
+	Invalid input. 'event' command requires a description, start, and end time.
+	usage: event <string> /from <string> /to <string>
 	____________________________________________________________
 	____________________________________________________________
-	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
-	Check 'help' for more information.
+	Invalid input. 'list' command does not take any arguments.
 	____________________________________________________________
 	____________________________________________________________
 	Good Bye. Hope to see you again soon!
