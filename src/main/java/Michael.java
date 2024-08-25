@@ -15,7 +15,7 @@ public class Michael {
         Scanner user = new Scanner(System.in); // scanner for user input
 
         // Greet user first
-        printer("Hello! I'm Michael. \n" + "What can I do for you?");
+        printer("Hello! I'm Michael.\n" + "What can I do for you?");
 
         // Read user's input
         while (true) {

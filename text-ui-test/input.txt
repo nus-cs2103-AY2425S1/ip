@@ -1,0 +1,5 @@
+todo borrow book
+deadline return book /by Sunday
+event group meeting /from Tues 4pm /to 6pm
+list
+bye
