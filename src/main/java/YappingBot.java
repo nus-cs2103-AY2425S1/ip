@@ -1,5 +1,7 @@
+import java.io.StringBufferInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class YappingBot {
     // Text strings
@@ -8,10 +10,16 @@ public class YappingBot {
             "Hello! I'm %s\nWhat can I do for you?",
             BOT_NAME
     );
+    // TODO: turn error messages into exceptions
     private static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, deadline.";
     private static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n" + HELP_TEXT;
     private static final String LIST_TEXT = "Here are the tasks in your list:";
     private static final String ADDED_TEXT = "Got it. I've added this task:";
+    private static final String DELETED_TEXT = "Noted. I've deleted this task:";
+    private static final String DELETE_USAGE =
+            "Here is the usage for the instruction 'delete':\n" +
+                    "\n    delete TASK_NUMBER\n\n" +
+                    "where TASK_NUMBER is the task number in the task list to delete";
     private static final String TODO_USAGE =
             "Here is the usage for the instruction 'todo':\n" +
             "\n    todo TASK_NAME\n\n" +
@@ -137,6 +145,21 @@ public class YappingBot {
                 sb
         );
         sb.append("\n");
+        System.out.println(sb);
+    }
+    private static void deleteTask(int i) {
+        Task t = userList.get(i);
+        userList.remove(i);
+        StringBuilder sb = new StringBuilder();
+        quoteSinglelineText(DELETED_TEXT, sb);
+        quoteSinglelineText(
+                String.format(TASK_PRINT_TEXT_3s,
+                        t.getTaskTypeSymbol(),
+                        t.getTaskDoneCheckmark(),
+                        t),
+                sb
+        );
+        quoteSinglelineText(String.format(LIST_SUMMARY_TEXT_1d, userList.size()), sb);
         System.out.println(sb);
     }
 
@@ -276,6 +299,14 @@ public class YappingBot {
                        changeTaskListStatus(taskListIndexPtr, false);
                    }
                    break;
+                case "delete":
+                    taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
+                    if (taskListIndexPtr < 0) {
+                        System.out.println(quoteMultilineText(DELETE_USAGE));
+                    } else {
+                        deleteTask(taskListIndexPtr);
+                    }
+                    break;
                 case "todo":
                     if (!addTaskToList(userInputSlices, TaskTypes.TODO)) {
                         System.out.println(quoteMultilineText(TODO_USAGE));
