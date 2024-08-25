@@ -15,16 +15,33 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Manages the loading and saving of tasks from/to a file.
+ */
 public class Storage {
     private final String filePath;
     private final File file;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     * If the file or its directory does not exist, they will be created.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     * @throws DuckException If there is an error creating the file or directory.
+     */
     public Storage(String filePath) throws DuckException {
         this.filePath = filePath;
         file = createFileIfDoesNotExist(filePath);
-
     }
 
-    public File createFileIfDoesNotExist(String filePath) throws DuckException{
+    /**
+     * Creates the file and its directory if they do not exist.
+     *
+     * @param filePath The path to the file to be created.
+     * @return The created file.
+     * @throws DuckException If there is an error creating the file or directory.
+     */
+    public File createFileIfDoesNotExist(String filePath) throws DuckException {
         try {
             File directory = getFileDirectory(filePath);
             if (!directory.isDirectory()) {
@@ -42,7 +59,6 @@ public class Storage {
         } catch (SecurityException e) {
             System.out.println("Error creating directory due to security Exception:\n"
                     + e.getMessage());
-
         } catch (IOException e) {
             throw new DuckException("Error creating file:\n"
                     + e.getMessage());
@@ -50,7 +66,12 @@ public class Storage {
         return null;
     }
 
-
+    /**
+     * Loads tasks from the file and adds them to the given TaskList.
+     *
+     * @param tasks The TaskList to which the tasks will be added.
+     * @throws DuckException If there is an error reading the file or if the file format is incorrect.
+     */
     public void loadTasks(TaskList tasks) throws DuckException {
         try {
             Scanner sc = new Scanner(file);
@@ -99,6 +120,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes all tasks from the given TaskList to the file, overwriting the existing contents.
+     *
+     * @param tasks The TaskList containing tasks to be written to the file.
+     * @throws DuckException If there is an error writing to the file.
+     */
     public void writeTasks(TaskList tasks) throws DuckException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
@@ -109,6 +136,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a task to the file.
+     *
+     * @param task The task to be appended.
+     * @throws DuckException If there is an error writing to the file.
+     */
     public void appendTask(Task task) throws DuckException {
         try (FileWriter fw = new FileWriter(filePath, true)) {
             fw.write(task.toFileFormat() + System.lineSeparator());
@@ -133,10 +166,8 @@ public class Storage {
                     Utils.convertToDateTime(words[3]);
                     return hasCorrectDoneFormat(words[1]) && !words[2].isEmpty();
                 }
-
             case EVENT:
                 if (words.length == 5) {
-                    ;
                     return hasCorrectDoneFormat(words[1])
                             && !words[2].isEmpty()
                             && Utils.convertToDateTime(words[3])

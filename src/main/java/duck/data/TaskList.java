@@ -4,16 +4,22 @@ import duck.data.exception.DuckException;
 import duck.data.task.Task;
 import duck.storage.Storage;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the Duck application.
+ * This class extends {@link ArrayList} and provides methods for adding and deleting tasks,
+ * as well as interacting with the storage system to persist changes.
+ */
 public class TaskList extends ArrayList<Task> {
-    private static final String FILE_PATH = "data/duck.txt";
 
-
-
-
+    /**
+     * Adds a task to the task list and updates the storage system.
+     *
+     * @param task The task to be added to the list.
+     * @param storage The storage system used to save the task.
+     * @throws DuckException If an error occurs while interacting with the storage system.
+     */
     public void addTask(Task task, Storage storage) throws DuckException {
         this.add(task);
         storage.appendTask(task);
@@ -21,12 +27,17 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("Now you have " + this.size() + " tasks in the list.\n");
     }
 
+    /**
+     * Deletes a task from the task list by its index and updates the storage system.
+     *
+     * @param index The index of the task to be deleted.
+     * @param storage The storage system used to update the task list.
+     * @throws DuckException If an error occurs while interacting with the storage system.
+     */
     public void deleteTask(int index, Storage storage) throws DuckException {
-        System.out.println("Noted. I've removed this task:\n"
-                + this.get(index));
+        System.out.println("Noted. I've removed this task:\n" + this.get(index));
         this.remove(index);
         storage.writeTasks(this);
         System.out.println("Now you have " + this.size() + " tasks in the list.\n");
     }
-
 }

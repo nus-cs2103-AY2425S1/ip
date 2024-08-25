@@ -25,14 +25,31 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+/**
+ * The Duck class serves as the main entry point for the Duck application.
+ * It handles the initialization of the application, manages the task list,
+ * and processes user commands.
+ */
 public class Duck {
+    /** Manages the list of tasks. */
     private final TaskList tasks;
+
+    /** Handles the loading and saving of tasks to a file. */
     private Storage storage;
+
+    /** Handles the user interface operations such as displaying messages. */
     private final Ui ui;
+
+    /** The default file path where the task list is stored. */
     private static final String FILE_PATH = "data/duck.txt";
 
 
-
+    /**
+     * Initializes the Duck application by setting up the user interface,
+     * loading tasks from the storage, and displaying startup messages.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Duck(String filePath) {
         this.ui = new Ui();
         tasks = new TaskList();
@@ -46,6 +63,10 @@ public class Duck {
         }
     }
 
+    /**
+     * Runs the Duck application, which continuously reads and processes user commands
+     * until the exit command is given.
+     */
     public void run() {
         ui.sayHi();
         boolean isExit = false;
@@ -60,6 +81,13 @@ public class Duck {
             }
         }
     }
+
+    /**
+     * The main method serves as the entry point of the Duck application.
+     * It creates a new Duck instance and starts the application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
 
         new Duck(FILE_PATH).run();
