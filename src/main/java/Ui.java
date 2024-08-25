@@ -53,7 +53,7 @@ public class Ui {
         System.out.println(message);
     }
 
-    public void displayByte() {
+    public void displayBye() {
         System.out.println("""
                     Bye. Hope to see you again soon!\s
                     ____________________________________________________________
