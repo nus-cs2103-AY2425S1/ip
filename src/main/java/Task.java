@@ -23,6 +23,9 @@ public class Task {
     public void markAsNotDone() {
         this.completed = false;
     }
+    public String toSaveFormat() {
+        return "T | " + (completed ? 1 : 0) + " | " + name;
+    }
     public String toString() {
         if (this.completed) {
             return "[X] " + this.name;

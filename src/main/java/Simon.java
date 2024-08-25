@@ -1,17 +1,82 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.*;
+import java.util.NoSuchElementException;
+
+
 public class Simon {
     final String HOR_LINE = "\t____________________________________________________________\n";
     final String WLC_MSG = " Hello! I'm Simon \n" +
             " What can I do for you?\n";
     final String EXT_MSG = " Bye. Hope to see you again soon!";
     ArrayList<Task> taskList = new ArrayList<Task>(); // Create an ArrayList object
-
+    String inputFile = "store.txt";
     int taskCount = 0;
+    public void saveToFile() {
+        try (FileWriter writer = new FileWriter(inputFile)) {
+            for (Task task : taskList) {
+                writer.write(task.toSaveFormat() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the file: " + e.getMessage());
+        }
+    }
+    public void loadFile() {
+        File file = new File(inputFile);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                System.out.println(inputFile + " Created");
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
+        } else {
+            try (Scanner sc = new Scanner(file)) {
+                taskList.clear(); // Ensure the list is empty before loading
+                taskCount = 0; // Reset task count
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    Task task = null;
+
+                    switch (parts[0]) {
+                    case "T":
+                        task = new ToDo(parts[2], taskCount);
+                        break;
+                    case "D":
+                        task = new Deadline(parts[2], taskCount, parts[3]);
+                        break;
+                    case "E":
+                        task = new Events(parts[2], taskCount, parts[3], parts[4]);
+                        break;
+                    }
+
+                    if (task != null) {
+                        if (parts[1].equals("1")) task.markAsDone();
+                        taskList.add(task);
+                        taskCount++;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("An error occurred while loading the file: " + e.getMessage());
+            } catch (NoSuchElementException | ArrayIndexOutOfBoundsException e) {
+                System.out.println("An error occurred while parsing the file: " + e.getMessage());
+            }
+        }
+    }
+
+
     public void run() {
+
         System.out.print(WLC_MSG);
         Scanner sc = new Scanner(System.in);
         String input;
+        loadFile();
         while (!(input = sc.nextLine().trim()).equals("bye")) {
             try {
                 if (input.isEmpty()) {
@@ -27,6 +92,7 @@ public class Simon {
                     taskList.get(index).markAsDone();
                     String prMsg = printMessage("\tNice! I've marked this task as done:\n" + "\t" + taskList.get(index).toString());
                     System.out.print(prMsg);
+                    saveToFile();
                     continue;
                 } else if (input.startsWith("unmark")) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -36,6 +102,7 @@ public class Simon {
                     taskList.get(index).markAsNotDone();
                     String prMsg = printMessage("\tOK, I've marked this task as not done yet:\n" + "\t" + taskList.get(index).toString());
                     System.out.print(prMsg);
+                    saveToFile();
                     continue;
                 } else if (input.startsWith("deadline")) {
                     String[] info = input.substring(9).split("/by");
@@ -47,6 +114,7 @@ public class Simon {
                     taskCount++;
                     String prMsg = printMessage("Got it. I've added this task:\n" + "\t" + deadline.toString()) + "\tNow you have " + taskCount + " tasks in the list.";
                     System.out.println(prMsg);
+                    saveToFile();
                     continue;
                 } else if (input.startsWith("event")) {
                     String[] info = input.substring(5).split("/from");
@@ -65,6 +133,7 @@ public class Simon {
                     taskCount++;
                     String prMsg = printMessage("Got it. I've added this task:\n" + "\t" + event.toString()) + "\tNow you have " + taskCount + " tasks in the list.";
                     System.out.println(prMsg);
+                    saveToFile();
                     continue;
                 } else if (input.startsWith("todo")) {
                     String info = input.substring(4).trim();
@@ -76,6 +145,7 @@ public class Simon {
                     taskCount++;
                     String prMsg = printMessage("Got it. I've added this task:\n" + "\t" + todo.toString()) + "\tNow you have " + taskCount + " tasks in the list.";
                     System.out.println(prMsg);
+                    saveToFile();
                     continue;
                 }
                 else if (input.startsWith("delete")) {
@@ -84,6 +154,7 @@ public class Simon {
                     taskCount--;
                     String prMsg = printMessage("Noted. I've removed this task:\n" + "\t" + deleted.toString()) + "\tNow you have " + taskCount + " tasks in the list.";
                     System.out.println(prMsg);
+                    saveToFile();
 
                 }
 

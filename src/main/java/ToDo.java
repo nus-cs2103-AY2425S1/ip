@@ -7,4 +7,9 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toSaveFormat() {
+        return "T | " + (completed ? 1 : 0) + " | " + name;
+    }
 }

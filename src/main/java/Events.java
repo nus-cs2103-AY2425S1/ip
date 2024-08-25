@@ -12,4 +12,9 @@ public class Events extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String toSaveFormat() {
+        return "E | " + (completed ? 1 : 0) + " | " + name + " | " + from + " | " + to;
+    }
 }
