@@ -56,8 +56,6 @@ public class Nerf {
             for (Task i:listings){
                 fileWriter.write(i.getSaveFormat()+"\n");
             }
-            
-            System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file. Please restart the application");
         }
@@ -105,15 +103,15 @@ public class Nerf {
                 try {
                     if (input.startsWith("mark")) {
                         markTask(input);
-                    } else if (input.startsWith("unmark")) {
+                    } else if (input.startsWith("unmark ")) {
                         unmarkTask(input);
-                    } else if (input.startsWith("todo")){
+                    } else if (input.startsWith("todo ")){
                         addTodo(input);
-                    } else if (input.startsWith("deadline")){
+                    } else if (input.startsWith("deadline ")){
                         addDeadline(input);
-                    } else if (input.startsWith("event")){
+                    } else if (input.startsWith("event ")){
                         addEvent(input);
-                    } else if (input.startsWith("delete")){
+                    } else if (input.startsWith("delete ")){
                         deleteTask(input);
                     } else {
                         System.out.println("""
