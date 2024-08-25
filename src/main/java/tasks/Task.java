@@ -23,12 +23,12 @@ public abstract class Task {
         return this.isDone;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     @Override
     public String toString() {
         return ('[' + getStatus() + ']' + ' ' + name);
+    }
+
+    public String saveFormat() {
+        return (" | " + (this.isDone ? 1 : 0) + " | " + this.name);
     }
 }

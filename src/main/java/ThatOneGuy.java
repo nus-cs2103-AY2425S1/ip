@@ -1,5 +1,6 @@
 import java.util.*;
 import tasks.*;
+import java.io.*;
 
 public class ThatOneGuy {
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -10,6 +11,7 @@ public class ThatOneGuy {
         System.out.println("Make it quick, I don't have much time.");
 
         ThatOneGuy guy = new ThatOneGuy();
+        guy.readData();
         guy.cmd();
     }
 
@@ -47,6 +49,7 @@ public class ThatOneGuy {
                     default:
                         throw new GuyException("Maybe put in an actual command next time, shitass.");
                 }
+                writeData();
             } catch (GuyException e) {
                 System.out.println(e.getMessage());
             }
@@ -187,6 +190,56 @@ public class ThatOneGuy {
             }
         } catch (GuyException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void readData() {
+        try {
+            File dir = new File("data/");
+            if (!dir.exists()) {
+                boolean created = dir.mkdir();
+            }
+
+            File f = new File("data/guy.txt");
+            if (!f.exists()) {
+                boolean created = f.createNewFile();
+            }
+
+            Scanner read = new Scanner(f);
+            while (read.hasNext()) {
+                String[] line = read.nextLine().split("\\s*\\|\\s*");
+                String type = line[0];
+
+                Task task = switch (type) {
+                    case "T" -> new ToDo(line[2]);
+                    case "D" -> new Deadline(line[2], line[3]);
+                    case "E" -> new Event(line[2], line[3], line[4]);
+                    default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
+                };
+
+                if (line[1].equals("1")) {
+                    task.mark();
+                }
+                tasks.add(task);
+            }
+
+            read.close();
+        } catch (GuyException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("I got a problem, and it sure as f*** ain't my fault! It says: \n" + e.getMessage());
+        }
+    }
+
+    private void writeData() {
+        try {
+            FileWriter writer = new FileWriter("data/guy.txt");
+            for (Task task : tasks) {
+                writer.write(task.saveFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("I got a problem, and it sure as f*** ain't my fault! It says: \n" + e.getMessage());
         }
     }
 
