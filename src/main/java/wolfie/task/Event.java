@@ -3,10 +3,21 @@ package wolfie.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Constructor for Event class.
+     *
+     * @param description Description of the event.
+     * @param from Start time of the event.
+     * @param to End time of the event.
+     * @param isDone Whether the event is done.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, TaskType.EVENT, isDone);
         // store the start time

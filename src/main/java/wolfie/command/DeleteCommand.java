@@ -1,13 +1,16 @@
 package wolfie.command;
 
+import java.io.IOException;
+
 import wolfie.exception.WolfieException;
 import wolfie.task.Task;
 import wolfie.task.TaskList;
 import wolfie.util.Storage;
 import wolfie.util.Ui;
 
-import java.io.IOException;
-
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 

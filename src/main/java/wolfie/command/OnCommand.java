@@ -1,14 +1,17 @@
 package wolfie.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import wolfie.task.Task;
 import wolfie.task.TaskList;
 import wolfie.util.Storage;
 import wolfie.util.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
+/**
+ * Represents a command to list all tasks on a specific date.
+ */
 public class OnCommand extends Command {
     private final LocalDate date;
 

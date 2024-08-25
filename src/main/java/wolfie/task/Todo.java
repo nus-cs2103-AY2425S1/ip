@@ -1,5 +1,8 @@
 package wolfie.task;
 
+/**
+ * Represents a todos task.
+ */
 public class Todo extends Task {
     public Todo(String description, boolean isDone) {
         super(description, TaskType.TODO, isDone); // call the constructor of the parent class simple task

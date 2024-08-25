@@ -1,5 +1,7 @@
 package wolfie.command;
 
+import java.io.IOException;
+
 import wolfie.exception.WolfieException;
 import wolfie.task.Task;
 import wolfie.task.TaskList;
@@ -7,8 +9,9 @@ import wolfie.task.Todo;
 import wolfie.util.Storage;
 import wolfie.util.Ui;
 
-import java.io.IOException;
-
+/**
+ * Represents a command to add a todos task to the task list.
+ */
 public class AddTodoCommand extends Command {
     private final String description;
 

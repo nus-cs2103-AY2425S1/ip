@@ -1,13 +1,16 @@
 package wolfie.command;
 
+import java.io.IOException;
+
 import wolfie.exception.WolfieException;
 import wolfie.task.Task;
 import wolfie.task.TaskList;
 import wolfie.util.Storage;
 import wolfie.util.Ui;
 
-import java.io.IOException;
-
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final int index;
 

@@ -1,10 +1,20 @@
 package wolfie.task;
 
+/**
+ * Represents a task in the task list.
+ */
 public abstract class Task {
     private final String description;
     private boolean isDone;
     private final TaskType taskType; // wolfie.task.TaskType enum
 
+    /**
+     * Constructor for a task.
+     *
+     * @param description Description of the task.
+     * @param taskType Type of the task.
+     * @param isDone Whether the task is done.
+     */
     public Task(String description, TaskType taskType, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

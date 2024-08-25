@@ -3,9 +3,18 @@ package wolfie.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     private final LocalDateTime by;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description Description of the deadline task.
+     * @param by Deadline of the task.
+     */
     public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, TaskType.DEADLINE, isDone);
         this.by = by; // store the deadline

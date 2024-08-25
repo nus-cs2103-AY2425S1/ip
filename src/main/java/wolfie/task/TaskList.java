@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks using ArrayList.
+ */
 public class TaskList {
     private List<Task> tasks;
 
