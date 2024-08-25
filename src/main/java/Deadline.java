@@ -1,8 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Deadline task with a description and a due date.
  */
 public class Deadline extends Task {
-    private String deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructs a Deadline task with the specified description and due date.
@@ -10,7 +13,7 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param deadline The due date of the Deadline task.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description, TaskType.DEADLINE);
         this.deadline = deadline;
     }
@@ -32,18 +35,27 @@ public class Deadline extends Task {
     public static Deadline createTask(String command) throws OllieException {
         String[] parts = command.substring(8).split(" /by:");
         if (parts.length != 2) {
-            throw new OllieException("Please enter in the format:\n" + "deadline task_name /by: due_date");
+            throw new OllieException("Please enter in the format:\n" +
+                    "deadline task_name /by: due_date" +
+                    "\nExample: deadline assignment /by: 2021-09-30 23:59");
         }
-        return new Deadline(parts[0].trim(), parts[1].trim());
+        DateTimeFormatter inputDate = getInputDate();
+        try {
+            return new Deadline(parts[0].trim(), LocalDateTime.parse(parts[1].trim(), inputDate));
+        } catch (Exception e) {
+            throw new OllieException("Please enter the date in the format: yyyy-MM-dd HH:mm");
+        }
     }
 
     @Override
     public String saveAsString() {
-        return String.format("%s | %s", super.saveAsString(), deadline);
+        DateTimeFormatter formatDate = getFormatDate();
+        return String.format("%s | %s", super.saveAsString(), deadline.format(formatDate));
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + deadline + ")";
+        DateTimeFormatter formatDate = getFormatDate();
+        return super.toString() + " (by: " + deadline.format(formatDate) + ")";
     }
 }

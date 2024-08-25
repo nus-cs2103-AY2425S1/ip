@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task with a description, start time, and end time.
  */
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -12,7 +15,7 @@ public class Event extends Task {
      * @param start The start time of the Event.
      * @param end The end time of the Event.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description, TaskType.EVENT);
         this.start = start;
         this.end = end;
@@ -38,18 +41,28 @@ public class Event extends Task {
     public static Event createTask(String command) throws OllieException {
         String[] parts = command.substring(5).split(" /from:| /to:");
         if (parts.length != 3) {
-            throw new OllieException("Please enter in the format:\n" + "event event_name /from: start_time /to: end_time");
+            throw new OllieException("Please enter in the format:\n" +
+                    "event event_name /from: start_time /to: end_time" +
+                    "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00");
         }
-        return new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        DateTimeFormatter inputDate = getInputDate();
+        try {
+            return new Event(parts[0].trim(), LocalDateTime.parse(parts[1].trim(), inputDate),
+                    LocalDateTime.parse(parts[2].trim(), inputDate));
+        } catch (Exception e) {
+            throw new OllieException("Please enter the date in the format: yyyy-MM-dd HH:mm");
+        }
     }
 
     @Override
     public String saveAsString() {
-        return String.format("%s | %s | %s", super.saveAsString(), start, end);
+        DateTimeFormatter formatDate = getFormatDate();
+        return String.format("%s | %s | %s", super.saveAsString(), start.format(formatDate), end.format(formatDate));
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + start + " to: " + end + ")";
+        DateTimeFormatter formatDate = getFormatDate();
+        return super.toString() + " (from: " + start.format(formatDate) + " to: " + end.format(formatDate) + ")";
     }
 }
