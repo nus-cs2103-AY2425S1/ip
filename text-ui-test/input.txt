@@ -1,6 +1,6 @@
 todo read book
-event attend meeting /from 4pm /to 8pm
-deadline cs2103T ip /by 20 Aug 2024
+event attend meeting /from 2024-12-12 1600 /to 2024-12-12 2000
+deadline cs2103T ip /by 2024-08-20 1300
 list
 mark 1
 list

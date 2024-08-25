@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +19,14 @@ TaskType | completed | eventName | (optional) by/from | (optional) to
    0          1           2               3                 4
  */
 
-
-
-
-public class Cache {
+public class Storage {
     private String path;
 
     /**
-     * Constructor to instantiate a new Cache object
+     * Constructor to instantiate a new Storage object
      * @param path pathname of the cache file
      */
-    public Cache(String path) {
+    public Storage(String path) {
         this.path = path;
     }
 
@@ -39,7 +35,7 @@ public class Cache {
      * If it does not exist, a new cache will be created
      * @return an arraylist of tasks
      */
-    public List<Task> loadTasks() {
+    public TaskList loadTasks() {
         List<Task> tasks = new ArrayList<>();
         try {
         File f = new File(this.path);
@@ -52,8 +48,8 @@ public class Cache {
             //file does not exist
             this.createNewCache();
         }
-
-        return tasks;
+        TaskList taskList = new TaskList(tasks);
+        return taskList;
     }
 
     /**
@@ -107,12 +103,12 @@ public class Cache {
      * @throws DavidCacheException if the named file exists but is a directory rather than a regular file,
      * does not exist but cannot be created, or cannot be opened for any other reason
      */
-    public void saveTask(List<Task> tasks) throws DavidCacheException{
+    public void saveTask(TaskList tasks) throws DavidCacheException{
         try {
             FileWriter writer = new FileWriter(this.path, false);
             String text = "";
-            for (int i = 0; i < tasks.size(); i++) {
-                Task t = tasks.get(i);
+            for (int i = 0; i < tasks.getSize(); i++) {
+                Task t = tasks.getTask(i);
                 text += t.toCacheString() + "\n";
             }
             writer.write(text);

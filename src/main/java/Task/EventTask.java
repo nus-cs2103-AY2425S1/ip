@@ -2,10 +2,9 @@ package Task;
 
 import Parser.DateParser;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class EventTask extends Task{
+public class EventTask extends Task {
     private String event;
     private LocalDateTime from;
     private LocalDateTime to;
