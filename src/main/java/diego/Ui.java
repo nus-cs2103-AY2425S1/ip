@@ -109,4 +109,18 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("Something went wrong while loading tasks.");
     }
+
+    /**
+     * Displays the list of tasks that match the search keyword.
+     *
+     * @param tasks The task list containing the matching tasks.
+     */
+    public void showFoundTasks(TaskList tasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + 1 + ". " + tasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
+    }
 }

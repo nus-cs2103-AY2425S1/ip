@@ -25,6 +25,7 @@ public abstract class Task {
     }
 
     /**
+<<<<<<< HEAD
      * Unmarks the task as not done.
      */
     public void unMark() {
@@ -47,5 +48,15 @@ public abstract class Task {
      *
      * @return A string suitable for storing in a file.
      */
+=======
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+>>>>>>> origin/branch-Level-9
     public abstract String toFileFormat();
 }
