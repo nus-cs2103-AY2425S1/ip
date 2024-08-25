@@ -13,5 +13,5 @@ public abstract class Command {
 
     public abstract boolean isExitCommand();
 
-    public abstract void execute(TaskList tasks, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws QwertyException;
 }

@@ -12,8 +12,9 @@ public class EmptyCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        System.out.println("you forgot to input");
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showMessage("""
+                That's a blank. I can't help you if you don't say anything.""");
     }
 
 }

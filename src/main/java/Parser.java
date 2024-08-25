@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,7 +14,16 @@ public class Parser {
      */
     private static HashMap<String, String> parseArgs(String additionalArgs) {
         HashMap<String, String> map = new HashMap<>();
-        Scanner scanner = new Scanner(additionalArgs).useDelimiter(" /");
+
+        //extract first argument separately because it has no identifier
+        String[] argSplit = additionalArgs.split(" /", 2);
+        map.put("main", argSplit[0].isEmpty() ? null : argSplit[0]);
+
+        if (argSplit.length < 2) {
+            return map; // no additional parameters to parse
+        }
+
+        Scanner scanner = new Scanner(argSplit[1]).useDelimiter(" /");
 
         // extract additional parameters and their arguments
         while (scanner.hasNext()) {
@@ -24,7 +34,6 @@ public class Parser {
                 map.put(params[0], params[1]);
             }
         }
-
         return map;
     }
 
@@ -34,7 +43,7 @@ public class Parser {
         String[] firstSplit = rawInput.split(" ", 2);
         String commandWord = firstSplit[0];
         String argumentString = firstSplit.length > 1 ? firstSplit[1] : ""; // empty string for no args
-        HashMap<String, String> args = Parser.parseArgs("main " + argumentString);
+        HashMap<String, String> args = Parser.parseArgs(argumentString);
 
         return switch (commandWord) {
             case "" -> new EmptyCommand(args);

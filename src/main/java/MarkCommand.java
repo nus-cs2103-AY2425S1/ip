@@ -12,7 +12,17 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        tasks.markTaskAsDone(getArgs().get("main"));
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        try {
+            int index = Integer.parseInt(getArgs().get("main"));
+            Task task = tasks.getTask(index);
+            tasks.markTaskAsDone(index);
+            ui.showMessage("\nMarked task as done:\n" + task
+                    + "\nYou actually did it, right?");
+        } catch (NumberFormatException e) {
+            ui.showError("You did not give a number as the index.");
+        } catch (IndexOutOfBoundsException e) {
+            ui.showError("That index is out of bounds.");
+        }
     }
 }

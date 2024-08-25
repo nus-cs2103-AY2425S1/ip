@@ -16,6 +16,7 @@ public class Qwerty {
 
     /** True if the bot is currently chatting and accepting input */
     private boolean isChatting;
+    private Ui ui;
     /** List of tasks entered by the user */
     private TaskList tasks;
     /** TODO doc this */
@@ -23,27 +24,9 @@ public class Qwerty {
 
     public Qwerty() {
         this.isChatting = true;
+        this.ui = new Ui();
         this.tasks = new TaskList();
         this.storage = new Storage("savefile.txt");
-    }
-
-    /**
-     * Prints a greeting message.
-     */
-    public void greet() {
-        System.out.println("""
-
-                Hello! I'm Qwerty.
-                What can I do for you?""");
-    }
-
-    /**
-     * Prints a goodbye message.
-     */
-    public void sayGoodbye() {
-        System.out.println("""
-                
-                Bye. Hope to see you again soon!""");
     }
 
     /**
@@ -53,18 +36,18 @@ public class Qwerty {
         Scanner scanner = new Scanner(System.in);
         isChatting = true;
         storage.loadTasks(tasks);
-        greet();
+        ui.showGreeting();
 
         while (isChatting) {
             System.out.println(); // blank line before user input
             String rawInput = scanner.nextLine();
             try {
                 Command command = Parser.parse(rawInput);
-                command.execute(tasks, storage);
+                command.execute(tasks, ui, storage);
                 storage.saveTasks(tasks);
                 isChatting = !command.isExitCommand();
             } catch (QwertyException e) {
-                System.out.println(e.getMessage()); //TODO TEMP
+                ui.showError(e.getMessage());
             }
         }
     }

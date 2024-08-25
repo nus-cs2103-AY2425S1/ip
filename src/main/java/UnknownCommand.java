@@ -12,7 +12,7 @@ public class UnknownCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        System.out.println("UNKNOWN command");
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showMessage("\nNo idea what that means. Try again.");
     }
 }
