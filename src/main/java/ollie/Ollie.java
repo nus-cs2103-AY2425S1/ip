@@ -1,10 +1,14 @@
+package ollie;
+
+import ollie.exception.OllieException;
+
 public class Ollie {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
 
     /**
-     * Constructs an Ollie instance with a new TaskList.
+     * Constructs an ollie.Ollie instance with a new ollie.TaskList.
      */
     public Ollie() {
         ui = new Ui();
@@ -18,9 +22,9 @@ public class Ollie {
     }
 
     /**
-     * The main method that runs the Ollie task manager.
+     * The main method that runs the ollie.Ollie task manager.
      *
-     * @param args Command-line arguments (not used).
+     * @param args ollie.Command-line arguments (not used).
      */
     public static void main(String[] args) throws OllieException {
         Ollie ollie = new Ollie();

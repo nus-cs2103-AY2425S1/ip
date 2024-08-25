@@ -1,3 +1,11 @@
+package ollie;
+
+import ollie.exception.OllieException;
+import ollie.exception.UnknownTaskTypeException;
+import ollie.task.Deadline;
+import ollie.task.Event;
+import ollie.task.Todo;
+
 import java.util.Scanner;
 
 /**
@@ -8,7 +16,7 @@ public class Ui {
     private TaskList taskList;
 
     /**
-     * Constructs a Ui instance with a new Scanner.
+     * Constructs a ollie.Ui instance with a new Scanner.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -114,9 +122,9 @@ public class Ui {
     }
 
     /**
-     * Sets the TaskList for this UI instance.
+     * Sets the ollie.TaskList for this UI instance.
      *
-     * @param taskList The TaskList to set.
+     * @param taskList The ollie.TaskList to set.
      */
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;

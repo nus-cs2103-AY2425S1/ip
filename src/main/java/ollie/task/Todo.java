@@ -1,12 +1,17 @@
+package ollie.task;
+
+import ollie.exception.EmptyDescriptionException;
+import ollie.TaskType;
+
 /**
- * Represents a Todo task with only a description.
+ * Represents a ollie.task.Todo task with only a description.
  */
 public class Todo extends Task {
 
     /**
-     * Constructs a Todo task with the specified description.
+     * Constructs a ollie.task.Todo task with the specified description.
      *
-     * @param description The description of the Todo task.
+     * @param description The description of the ollie.task.Todo task.
      */
     public Todo(String description) {
         super(description, TaskType.TODO);

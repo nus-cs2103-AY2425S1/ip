@@ -1,3 +1,8 @@
+package ollie;
+
+import ollie.exception.OllieException;
+import ollie.exception.UnknownTaskTypeException;
+
 /**
  * Deals with making sense of the user command.
  */

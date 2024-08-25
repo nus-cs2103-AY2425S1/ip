@@ -1,9 +1,11 @@
+package ollie.exception;
+
 /**
- * Represents a general exception in the Ollie chatbot.
+ * Represents a general exception in the ollie.Ollie chatbot.
  */
 public class OllieException extends Exception {
     /**
-     * Constructs an OllieException with the specified detail message.
+     * Constructs an ollie.exception.OllieException with the specified detail message.
      *
      * @param message the detail message
      */
