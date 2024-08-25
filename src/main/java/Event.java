@@ -22,4 +22,9 @@ public class Event extends Task {
     public String getDescription() {
         return this.description + " (from: " + this.startDate + " to: " + this.endDate + ")";
     }
+
+    @Override
+    public String getSaveFormat() {
+        return this.description + " | " + this.startDate + " | " + this.endDate; 
+    }
 }

@@ -14,6 +14,7 @@ public abstract class Task {
     public abstract String getTaskTypeIcon();
     public abstract TaskType getTaskType();
     public abstract String getDescription();
+    public abstract String getSaveFormat();
 
     public void mark() {
         this.isDone = true;

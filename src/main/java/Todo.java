@@ -17,4 +17,9 @@ public class Todo extends Task{
     public String getDescription() {
         return this.description;
     }
+
+    @Override
+    public String getSaveFormat() {
+        return this.description;
+    }
 }
