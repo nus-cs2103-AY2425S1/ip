@@ -4,9 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Db {
+public class Storage {
     private File file;
-    public Db(String filePath) {
+    public Storage(String filePath) {
         try {
             file = new File(filePath);
             if (!file.isFile()) {
