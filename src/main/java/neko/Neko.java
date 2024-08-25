@@ -1,6 +1,6 @@
-package Neko;
-import Neko.Task.Task;
-import Neko.Task.TaskList;
+package neko;
+import neko.task.Task;
+import neko.task.TaskList;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.IOException;

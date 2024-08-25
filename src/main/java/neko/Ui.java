@@ -1,4 +1,4 @@
-package Neko;
+package neko;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;

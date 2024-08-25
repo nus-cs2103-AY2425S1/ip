@@ -1,4 +1,4 @@
-package Neko;
+package neko;
 public class NekoException extends Exception {
 
     public NekoException(String msg) {

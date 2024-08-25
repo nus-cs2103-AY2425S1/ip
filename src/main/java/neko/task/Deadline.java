@@ -1,5 +1,4 @@
-package Neko.Task;
-
+package neko.task;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {

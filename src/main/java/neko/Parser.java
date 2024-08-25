@@ -1,5 +1,5 @@
-package Neko;
-import Neko.Task.*;
+package neko;
+import neko.task.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

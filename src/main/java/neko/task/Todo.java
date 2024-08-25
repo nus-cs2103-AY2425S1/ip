@@ -1,4 +1,4 @@
-package Neko.Task;
+package neko.task;
 
 public class Todo extends Task {
 
