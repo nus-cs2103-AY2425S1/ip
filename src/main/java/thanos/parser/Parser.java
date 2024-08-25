@@ -1,17 +1,17 @@
-package parser;
+package thanos.parser;
 
-import commands.ByeCommand;
-import commands.Command;
-import commands.CommandType;
-import commands.DateCommand;
-import commands.DeadlineCommand;
-import commands.DeleteCommand;
-import commands.EventCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.TodoCommand;
-import commands.UnmarkCommand;
-import exceptions.InvalidCommandException;
+import thanos.commands.ByeCommand;
+import thanos.commands.Command;
+import thanos.commands.CommandType;
+import thanos.commands.DateCommand;
+import thanos.commands.DeadlineCommand;
+import thanos.commands.DeleteCommand;
+import thanos.commands.EventCommand;
+import thanos.commands.ListCommand;
+import thanos.commands.MarkCommand;
+import thanos.commands.TodoCommand;
+import thanos.commands.UnmarkCommand;
+import thanos.exceptions.InvalidCommandException;
 
 public class Parser {
     public static Command parse(String input) throws InvalidCommandException {

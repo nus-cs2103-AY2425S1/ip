@@ -1,6 +1,6 @@
-package tasks;
+package thanos.tasks;
 
-import static utility.DateTimeUtility.format;
+import static thanos.utility.DateTimeUtility.format;
 
 import java.time.LocalDateTime;
 

@@ -1,15 +1,15 @@
-package commands;
+package thanos.commands;
 
-import static utility.DateTimeUtility.format;
+import static thanos.utility.DateTimeUtility.format;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import exceptions.InvalidCommandException;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
-import utility.DateTimeUtility;
+import thanos.exceptions.InvalidCommandException;
+import thanos.tasks.Task;
+import thanos.tasks.TaskList;
+import thanos.ui.Ui;
+import thanos.utility.DateTimeUtility;
 
 public class DateCommand extends Command {
     private final String input;

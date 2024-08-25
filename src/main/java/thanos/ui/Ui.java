@@ -1,8 +1,8 @@
-package ui;
+package thanos.ui;
 
 import java.util.ArrayList;
 
-import tasks.Task;
+import thanos.tasks.Task;
 
 public class Ui {
     public void display(String s) {

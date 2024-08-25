@@ -1,4 +1,4 @@
-package storage;
+package thanos.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import exceptions.InvalidTaskException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
-import utility.DateTimeUtility;
+import thanos.exceptions.InvalidTaskException;
+import thanos.tasks.Deadline;
+import thanos.tasks.Event;
+import thanos.tasks.Task;
+import thanos.tasks.Todo;
+import thanos.utility.DateTimeUtility;
 
 public class Storage {
     private static final String directoryPath = "./data";

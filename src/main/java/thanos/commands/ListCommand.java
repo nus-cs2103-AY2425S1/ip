@@ -1,11 +1,11 @@
-package commands;
+package thanos.commands;
 
 import java.util.ArrayList;
 
-import exceptions.InvalidCommandException;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import thanos.exceptions.InvalidCommandException;
+import thanos.tasks.Task;
+import thanos.tasks.TaskList;
+import thanos.ui.Ui;
 
 public class ListCommand extends Command {
     @Override

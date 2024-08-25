@@ -1,9 +1,9 @@
-package tasks;
+package thanos.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import storage.Storage;
+import thanos.storage.Storage;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
