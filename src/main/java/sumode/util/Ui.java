@@ -104,8 +104,12 @@ public class Ui {
      * Prints all the tasks given in the task list.
      * @param tasks list of task to be printed.
      */
-    public void printTask(List<Task> tasks) {
-        System.out.println("Below is the list of tasks:");
+    public void printTask(List<Task> tasks, boolean isItFiltered) {
+        if (isItFiltered) {
+            System.out.println("Below is the list of MATCHING tasks based on your request:");
+        } else {
+            System.out.println("Below is the list of tasks:");
+        }
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task == null) {
