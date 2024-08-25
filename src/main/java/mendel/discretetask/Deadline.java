@@ -1,5 +1,6 @@
 package mendel.discretetask;
 
+import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Deadline extends Task {
@@ -28,25 +29,24 @@ public class Deadline extends Task {
         super.editMessage(reformattedMsg);
     }
 
-    private void handleError() {
+    private void handleError() throws MendelException {
         String[] slashSegments = rawDescription.split(" /by ");
         String[] misplacedSegments = rawDescription.split("/by");
         String[] mainMessage = slashSegments[0].split(" ");
-        if (mainMessage.length == 1 && slashSegments.length < 2) {
-            throw new MendelException("OOPS! deadline needs more details.\nAdd description.");
-        } else if (misplacedSegments.length != slashSegments.length) {
-            throw new MendelException("OOPS! deadline due wrongly formatted\nPlease add spaces around /by");
-        } else if (mainMessage.length == 1) {
-            throw new MendelException("OOPS! deadline description cannot be empty.\nAdd description.");
-        } else if (slashSegments.length < 2) {
-            throw new MendelException("OOPS! deadline due cannot be empty.\nPlease indicate a due.");
-        } else if (slashSegments.length > 2) {
-            throw new MendelException("OOPS! I am unsure of due.\nPlease specify only one due.");
-        }
+        ConditionalExceptionHandler.of()
+                .conditionTriggerException(mainMessage.length == 1 && slashSegments.length < 2,
+                        "OOPS! deadline needs more details.\nAdd description.")
+                .conditionTriggerException(misplacedSegments.length != slashSegments.length,
+                        "OOPS! deadline due wrongly formatted\nPlease add spaces around /by")
+                .conditionTriggerException(mainMessage.length == 1,
+                        "OOPS! deadline description cannot be empty.\nAdd description.")
+                .conditionTriggerException(slashSegments.length < 2,
+                        "OOPS! deadline due cannot be empty.\nPlease indicate a due.")
+                .conditionTriggerException(slashSegments.length > 2,
+                        "OOPS! I am unsure of due.\nPlease specify only one due.");
         String endMsg = slashSegments[1];
-        if (endMsg.isEmpty()) {
-            throw new MendelException("OOPS! I am unsure of due.\nPlease specify a due.");
-        }
+        ConditionalExceptionHandler.of()
+                .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
     }
 
     @Override

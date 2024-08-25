@@ -1,5 +1,6 @@
 package mendel.discretetask;
 
+import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Event extends Task {
@@ -29,37 +30,35 @@ public class Event extends Task {
         super.editMessage(reformattedMsg);
     }
 
-    private void handleError() {
+    private void handleError() throws MendelException {
         String[] slashSegments = this.rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
-        if (slashSegments.length < 2 && slashSegments[0].equals("event")) {
-            throw new MendelException("OOPS! event needs more details.\nAdd description.");
-        } else if (slashSegments.length < 2) {
-            if (this.rawDescription.split("/from").length != slashSegments.length) {
-                throw new MendelException("OOPS! deadline from wrongly formatted.\nPlease add spaces around /from.");
-            } else {
-                throw new MendelException("OOPS! event start cannot be empty.\nPlease indicate a start.");
-            }
-        } else if (slashSegments.length > 2) {
-            throw new MendelException("OOPS! I am unsure of start.\nPlease specify only one start.");
-        } else if (mainMessage.length == 1) {
-            throw new MendelException("OOPS! event description cannot be empty.\nAdd description.");
-        } else if (slashSegments[1].split(" /to ").length != slashSegments[1].split("/to").length) {
-            throw new MendelException("OOPS! deadline to wrongly formatted.\nPlease add spaces around /to.");
-        }  else if (slashSegments[1].split(" /to ").length < 2) {
-            throw new MendelException("OOPS! I am unsure of end.\nPlease specify an end.");
-        } else if (slashSegments[1].split(" /to ").length > 2) {
-            throw new MendelException("OOPS! I am unsure of end.\nPlease specify only one end.");
-        }
+        ConditionalExceptionHandler.of()
+                .orConditionTriggerException(slashSegments.length < 2)
+                .andConditionTriggerException(slashSegments[0].equals("event"),
+                        "OOPS! event needs more details.\nAdd description.")
+                .andConditionTriggerException(this.rawDescription.split("/from").length != slashSegments.length,
+                        "OOPS! deadline from wrongly formatted.\nPlease add spaces around /from.")
+                .conditionTriggerException(slashSegments.length < 2,
+                        "OOPS! I am unsure of start.\nPlease specify only one start.")
+                .conditionTriggerException(slashSegments.length > 2,
+                        "OOPS! event start cannot be empty.\nPlease indicate a start.")
+                .conditionTriggerException(mainMessage.length == 1,
+                        "OOPS! event description cannot be empty.\nAdd description.")
+                .conditionTriggerException(slashSegments[1].split(" /to ").length != slashSegments[1].split("/to").length,
+                        "OOPS! deadline to wrongly formatted.\nPlease add spaces around /to.")
+                .conditionTriggerException(slashSegments[1].split(" /to ").length < 2,
+                        "OOPS! I am unsure of end.\nPlease specify an end.")
+                .conditionTriggerException(slashSegments[1].split(" /to ").length > 2,
+                        "OOPS! I am unsure of end.\nPlease specify only one end.");
         String startMsg = slashSegments[1].split(" /to ")[0];
         String endMsg = slashSegments[1].split(" /to ")[1];
-        if (startMsg.isEmpty() && endMsg.isEmpty()) {
-            throw new MendelException("OOPS! I am unsure of start and due.\nPlease specify a start and due.");
-        } else if (startMsg.isEmpty()) {
-            throw new MendelException("OOPS! I am unsure of due.\nPlease specify a due.");
-        } else if (endMsg.isEmpty()) {
-            throw new MendelException("OOPS! I am unsure of due.\nPlease specify a due.");
-        }
+        ConditionalExceptionHandler.of()
+                .conditionTriggerException(startMsg.isEmpty() && endMsg.isEmpty(),
+                        "OOPS! I am unsure of start and due.\nPlease specify a start and due.")
+                .conditionTriggerException(startMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
+                .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
+
     }
 
     @Override

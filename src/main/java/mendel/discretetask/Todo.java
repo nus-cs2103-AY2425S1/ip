@@ -1,5 +1,6 @@
 package mendel.discretetask;
 
+import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Todo extends Task {
@@ -25,11 +26,11 @@ public class Todo extends Task {
         super.editMessage(reformattedMsg);
     }
 
-    private void handleError() {
+    private void handleError() throws MendelException {
         String[] segments = this.rawDescription.split(" ");
-        if (segments.length == 1) {
-            throw new MendelException("OOPS! todo description cannot be empty.\nAdd description.");
-        }
+        ConditionalExceptionHandler.of()
+                .conditionTriggerException(segments.length == 1,
+                        "OOPS! todo description cannot be empty.\nAdd description.");
     }
 
     @Override
