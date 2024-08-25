@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class MissingEventFromException {
+public class MissingEventFromException extends InputException {
+    public MissingEventFromException() {
+        super("The Event needs a /from argument!");
+    }
 }

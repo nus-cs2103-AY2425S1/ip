@@ -2,9 +2,9 @@ public abstract class Task {
     private String name;
     private boolean isDone;
 
-    public Task(String name) {
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void setIsDone(boolean isDone) {
@@ -16,5 +16,9 @@ public abstract class Task {
         char status = this.isDone ? 'X' : ' ';
         String str = String.format("[%c] %s", status, this.name);
         return str;
+    }
+
+    public String encode() {
+        return (this.isDone ? "1" : "0") + "|" + this.name;
     }
 }
