@@ -17,6 +17,9 @@ public class YappingBot {
     // end of class properties
 
     // class methods
+    private static String quoteSinglelineText(String line) {
+       return String.format("\n |  %s", line);
+    }
     private static void quoteSinglelineText(String line, StringBuilder sb) {
         sb.append("\n |  ");
         sb.append(line);
@@ -38,6 +41,10 @@ public class YappingBot {
         return sb.toString();
     }
     private static void printUserList() {
+        if (userList.isEmpty()) {
+            System.out.println(quoteSinglelineText("List is empty!"));
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < userList.size(); i++) {
             quoteSinglelineText(
@@ -48,8 +55,8 @@ public class YappingBot {
                     sb
             );
         }
-        sb.append("\n\n");
-        System.out.print(sb.toString());
+        sb.append("\n");
+        System.out.println(sb.toString());
     }
     // end of class methods
 
@@ -67,6 +74,8 @@ public class YappingBot {
            switch (userInput.toLowerCase()) {
                case "bye":
                    break programmeLoop;
+               case "":
+                   break; // ignore multiple enters
                case "list":
                    printUserList();
                    break;
