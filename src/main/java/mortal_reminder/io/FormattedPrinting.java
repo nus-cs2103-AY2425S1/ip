@@ -7,6 +7,9 @@ import mortal_reminder.tasks.Task;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * This class is just a printer to format and ensure consistency of all output messages.
+ */
 public class FormattedPrinting {
 
     public static void formatPrint(String message) {
@@ -21,7 +24,7 @@ public class FormattedPrinting {
         }
         outputMessage.append("\n")
                 .append(separatorLine);
-        System.out.println(outputMessage.toString());
+        System.out.println(outputMessage);
     }
 
     public static void welcome() {
