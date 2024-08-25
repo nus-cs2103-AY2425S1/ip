@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -164,10 +165,14 @@ public class Bobby {
             if (name.trim().isEmpty() || from.trim().isEmpty() || to.trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
-            Task newTask = new Event(name, from, to);
-            this.tasks.add(newTask);
-            this.writeToFile();
-            this.printAddSuccess(newTask);
+            try {
+                Task newTask = new Event(name, LocalDate.parse(from), LocalDate.parse(to));
+                this.tasks.add(newTask);
+                this.writeToFile();
+                this.printAddSuccess(newTask);
+            } catch (DateTimeParseException e) {
+                System.out.println("Error: Unable to parse date");
+            }
         }
         default -> throw new InvalidCommandException();
         }
@@ -212,7 +217,7 @@ public class Bobby {
         return switch (tokens[0]) {
             case "T" -> new Todo(title, isDone);
             case "D" -> new Deadline(title, LocalDate.parse(tokens[3]), isDone);
-            case "E" -> new Event(title, tokens[3], tokens[4], isDone);
+            case "E" -> new Event(title, LocalDate.parse(tokens[3]), LocalDate.parse(tokens[4]), isDone);
             default -> throw new IOException();
         };
     }
