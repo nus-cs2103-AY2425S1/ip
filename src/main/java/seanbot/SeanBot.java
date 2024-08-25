@@ -3,6 +3,10 @@ package seanbot;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+
+/**
+ * The main class for the SeanBot application.
+ */
 public class SeanBot {
 
     private Storage storage;
@@ -10,6 +14,12 @@ public class SeanBot {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs a SeanBot instance.
+     * Initializes the UI, storage, parser, and task list components.
+     *
+     * @param filePath The file path where the task list is stored.
+     */
     public SeanBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +32,10 @@ public class SeanBot {
         }
     }
 
+    /**
+     * Runs the SeanBot application.
+     * Continuously reads user input, processes commands, and displays the results until the user exits the application.
+     */
     public void run() {
         ui.showWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
@@ -41,8 +55,10 @@ public class SeanBot {
     
         scanner.close();
     }
-    
 
+    /**
+     * The main method of the SeanBot application.
+     */
     public static void main(String[] args) {
         new SeanBot("data/seanbot.txt").run();
     }
