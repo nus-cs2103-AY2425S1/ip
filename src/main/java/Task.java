@@ -7,11 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
     }
 
-    public void markAsNotDone(){
+    public void markAsNotDone() {
         this.isDone = false;
     }
 
@@ -20,7 +20,7 @@ public class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 }

@@ -1,5 +1,5 @@
-public class DudeNullCommandException extends DudeException{
-    public DudeNullCommandException(){
+public class DudeNullCommandException extends DudeException {
+    public DudeNullCommandException() {
         super("You did not enter anything.");
     }
 }
