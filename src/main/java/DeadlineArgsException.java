@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class DeadlineArgsException {
+public class DeadlineArgsException extends InputException {
+    public DeadlineArgsException() {
+        super("There are an incorrect number of deadline arguments!");
+    }
 }

@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class MissingDeadlineToException {
+public class MissingEventToException extends InputException {
+    public MissingEventToException() {
+        super("The Event needs a /to argument!");
+    }
 }

@@ -1,5 +1,5 @@
-public class EmptyTodoArgException extends InputException {
-    public EmptyTodoArgException() {
-        super("The todo description cannot be empty!");
+public class EmptyArgsException extends InputException {
+    public EmptyArgsException() {
+        super("The arguments cannot be empty!");
     }
 }

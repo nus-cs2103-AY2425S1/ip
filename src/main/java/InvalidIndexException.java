@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class InvalidIndexException {
+public class InvalidIndexException extends InputException {
+    public InvalidIndexException() {
+        super("The index entered is invalid!");
+    }
 }
