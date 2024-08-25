@@ -1,7 +1,47 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello from 
 
+     .-') _             _   .-')    .-. .-')                  .-')    
+    ( OO ) )           ( '.( OO )_  \  ( OO )                ( OO ).  
+,--./ ,--,'    ,-.-')   ,--.   ,--.) ;-----.\   ,--. ,--.   (_)---\_) 
+|   \ |  |\    |  |OO)  |   `.'   |  | .-.  |   |  | |  |   /    _ |  
+|    \|  | )   |  |  \  |         |  | '-' /_)  |  | | .-') \  :` `.  
+|  .     |/    |  |(_/  |  |'.'|  |  | .-. `.   |  |_|( OO ) '..`''.) 
+|  |\    |    ,|  |_.'  |  |   |  |  | |  \  |  |  | | `-' /.-._)   \ 
+|  | \   |   (_|  |     |  |   |  |  | '--'  / ('  '-'(_.-' \       / 
+`--'  `--'     `--'     `--'   `--'  `------'    `-----'     `-----'  
+
+------------------------------------------------- 
+How can I help you today~ UwU
+-------------------------------------------------
+Nimbus added this: 
+[T][ ] Tutorial
+-------------------------------------------------
+Nimbus added this: 
+[D][ ] quiz  (by: 2pm)
+-------------------------------------------------
+Nimbus added this: 
+[E][ ] signature event  from: Monday 7pm  to: 8pm
+-------------------------------------------------
+Nimbus says this is your list: 
+1. [T][ ] Tutorial
+2. [D][ ] quiz  (by: 2pm)
+3. [E][ ] signature event  from: Monday 7pm  to: 8pm
+-------------------------------------------------
+Nimbus shall mark this as done:
+    [T][X] Tutorial
+-------------------------------------------------
+Nimbus shall mark this as done:
+    [D][X] quiz  (by: 2pm)
+-------------------------------------------------
+Nimbus shall mark this as not done:
+    [T][ ] Tutorial
+-------------------------------------------------
+Nimbus says this is your list: 
+1. [T][ ] Tutorial
+2. [D][X] quiz  (by: 2pm)
+3. [E][ ] signature event  from: Monday 7pm  to: 8pm
+-------------------------------------------------
+Please use keywords: todo, deadline or event
+There is no task 10
+Nimbus: BAIBAI! NIMBUS WEEEEEEEEE
+-------------------------------------------------

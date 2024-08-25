@@ -16,14 +16,14 @@ public class TaskList {
         } else if (taskDescription.startsWith("deadline ")) {
             int byIndex = taskDescription.indexOf("/by");
             String taskName = taskDescription.substring(9, byIndex);
-            String deadline = taskDescription.substring(byIndex + 3);
+            String deadline = taskDescription.substring(byIndex + 4);
             taskList[taskNum] = new DeadlineTask(taskName, deadline);
         } else if (taskDescription.startsWith("event ")) {
             int fromIndex = taskDescription.indexOf("/from");
             int toIndex = taskDescription.indexOf("/to");
             String taskName = taskDescription.substring(6, fromIndex);
-            String startTime = taskDescription.substring(fromIndex + 5, toIndex);
-            String endTime = taskDescription.substring(toIndex + 3);
+            String startTime = taskDescription.substring(fromIndex + 6, toIndex);
+            String endTime = taskDescription.substring(toIndex + 4);
             taskList[taskNum] = new EventTask(taskName, startTime, endTime);
         } else {
             System.out.println("Please use keywords: todo, deadline or event");

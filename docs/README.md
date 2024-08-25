@@ -42,3 +42,7 @@ Nimbus can show you your list
 Nimbus can mark tasks as completed or incomplete
 
 Nimbus will tell you if the task exist if it is out of range
+
+## Level 4
+
+Nimbus now knows how to handle todo, deadline and event task types

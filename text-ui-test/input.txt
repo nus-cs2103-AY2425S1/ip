@@ -1,0 +1,11 @@
+todo Tutorial
+deadline quiz /by 2pm
+event signature event /from Monday 7pm /to 8pm
+list
+mark 1
+mark 2
+unmark 1
+list
+invalid input
+mark 10
+bye
