@@ -6,6 +6,7 @@ import moimoi.command.CommandEnum;
 import moimoi.command.DeleteCommand;
 import moimoi.command.ExitCommand;
 import moimoi.command.FilterCommand;
+import moimoi.command.FindCommand;
 import moimoi.command.ListCommand;
 import moimoi.command.MarkCommand;
 import moimoi.command.UnmarkCommand;
@@ -43,6 +44,8 @@ public class Parser {
             case FILTER:
                 command = new FilterCommand(Parser.extractArgs(commandArgs));
                 break;
+            case FIND:
+                return new FindCommand(Parser.extractArgs(commandArgs));
             case BYE:
                 command = new ExitCommand();
                 break;
