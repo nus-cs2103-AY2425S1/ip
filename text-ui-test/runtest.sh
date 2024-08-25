@@ -5,7 +5,7 @@ if [ ! -d "../bin" ]
 then
     mkdir ../bin
 fi
-
+rm -r ../bin/*
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then
@@ -34,4 +34,8 @@ do
         echo "Test Case $testNo: FAILED"
     fi
     rm ACTUAL.txt
+    if [ -d "./data" ]
+    then
+        rm -r ./data
+    fi
 done
