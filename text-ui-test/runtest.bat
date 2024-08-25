@@ -19,3 +19,12 @@ java -classpath ..\bin Nah < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+FC ACTUAL.TXT EXPECTED.TXT > nul
+
+IF %ERRORLEVEL% EQU 0 (
+    echo PASS
+) ELSE (
+    echo FAIL
+)
+
