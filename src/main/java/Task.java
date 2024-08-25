@@ -4,8 +4,9 @@ public class Task {
 
     /**
      * Constructor for Task.
-     * @param description
-     * @throws IllegalArgumentException
+     * @param description a String describing the Task
+     * @throws IllegalArgumentException a Throwable thrown to indicate an illegal or inappropriate argument has been passed
+     *
      */
     public Task(String description) throws IllegalArgumentException {
         if (description.isEmpty()) {
@@ -18,7 +19,7 @@ public class Task {
 
     /**
      * Returns the description of the task.
-     * @return description
+     * @return a String describing the Task
      */
     public String getDescription() {
         return description;
@@ -26,6 +27,7 @@ public class Task {
 
     /**
      * Sets the status of the task.
+     * @param done a boolean that determines whether a task is done
      */
     public void setDone(boolean done) {
         this.done = done;
@@ -33,12 +35,16 @@ public class Task {
 
     /**
      * Returns the status of the task.
-     * @return done
+     * @return a boolean that states whether a task is done
      */
     public boolean isDone() {
         return done;
     }
 
+    /**
+     * Returns a formatted String that represents the done and description fields of the Task
+     * @return a String representation of the Task object
+     */
     @Override
     public String toString() {
         char mark = done ? 'X' : ' ';

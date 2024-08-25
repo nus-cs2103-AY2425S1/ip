@@ -4,9 +4,9 @@ public class Event extends Task {
 
     /**
      * Constructor for Event class.
-     * @param description
-     * @param start
-     * @param end
+     * @param description a String describing the Event
+     * @param start a String describing the start date/time
+     * @param end a String describing the end date/time
      */
     public Event(String description, String start, String end) {
         super(description.strip());
@@ -18,6 +18,10 @@ public class Event extends Task {
         this.end = str.toString();
     }
 
+    /**
+     * Returns a formatted String that represents the Event object and its fields
+     * @return a String representation of the Event object
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (%s %s)",

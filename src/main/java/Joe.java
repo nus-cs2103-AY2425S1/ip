@@ -59,8 +59,8 @@ public class Joe {
 
     /**
      * Adds a task to the user's list of tasks.
-     * @param s
-     * @throws InvalidCommandException
+     * @param s a String representation of the user input
+     * @throws InvalidCommandException a Throwable that raises an exception when an invalid command was provided
      */
     public static void add(String s) throws InvalidCommandException {
         System.out.println(line);
@@ -117,7 +117,7 @@ public class Joe {
 
     /**
      * Marks a task as done.
-     * @param idx
+     * @param idx the index of the Task the user wants to mark
      */
     public static void mark(int idx) {
         System.out.println(line);
@@ -138,7 +138,7 @@ public class Joe {
 
     /**
      * Unmarks a task.
-     * @param idx
+     * @param idx the index of the Task the user wants to unmark
      */
     public static void unmark(int idx) {
         System.out.println(line);
@@ -175,7 +175,7 @@ public class Joe {
 
     /**
      * Deletes a task at a specific index.
-     * @param idx
+     * @param idx the index of the Task the user wants to delete
      */
     public static void delete(int idx) {
         System.out.println(line);
@@ -224,7 +224,7 @@ public class Joe {
 
     /**
      * Extracts the first contiguous numerical substring from a string.
-     * @param userIn
+     * @param userIn the String representation of the user input
      * @return the numerical substring as an integer
      */
     private static int getDigits(String userIn) {
