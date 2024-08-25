@@ -9,9 +9,28 @@ public class TaskList {
     }
 
     public void addTask(String taskDescription) {
-        taskList[taskNum] = new Task(taskDescription);
+        // here handle the different task types
+        if (taskDescription.startsWith("todo ")) {
+            String taskName = taskDescription.substring(5);
+            taskList[taskNum] = new TodoTask(taskName);
+        } else if (taskDescription.startsWith("deadline ")) {
+            int byIndex = taskDescription.indexOf("/by");
+            String taskName = taskDescription.substring(9, byIndex);
+            String deadline = taskDescription.substring(byIndex + 3);
+            taskList[taskNum] = new DeadlineTask(taskName, deadline);
+        } else if (taskDescription.startsWith("event ")) {
+            int fromIndex = taskDescription.indexOf("/from");
+            int toIndex = taskDescription.indexOf("/to");
+            String taskName = taskDescription.substring(6, fromIndex);
+            String startTime = taskDescription.substring(fromIndex + 5, toIndex);
+            String endTime = taskDescription.substring(toIndex + 3);
+            taskList[taskNum] = new EventTask(taskName, startTime, endTime);
+        } else {
+            System.out.println("Please use keywords: todo, deadline or event");
+            return;
+        }
+        System.out.println("Nimbus added this: \n" + taskList[taskNum].toString() + horizontalLine);
         taskNum += 1;
-        System.out.println("Added: " + taskDescription + horizontalLine);
     }
 
     public int getTaskNum() {
@@ -46,7 +65,7 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String output = "";
+        String output = "Nimbus says this is your list: \n";
         for (int i = 0; i < taskNum; i++) {
             if (i == taskNum - 1) {
                 output += (String.valueOf(i + 1) + ". " + taskList[i]);
