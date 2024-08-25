@@ -43,10 +43,10 @@ public class MarkTaskCommand extends Command {
             Task task = taskList.getTask(this.taskIndex);
             if (this.markAsDone) {
                 task.setDone();
-                System.out.println(Ui.formatMarkTask(task));
+                ui.showMessage(ui.formatMarkTask(task));
             } else {
                 task.setNotDone();
-                System.out.println(Ui.formatUnmarkTask(task));
+                ui.showMessage(ui.formatUnmarkTask(task));
             }
         }
     }

@@ -60,6 +60,10 @@ public class Ui {
         System.out.println(Ui.formatOutputMessage(GOODBYE));
     }
 
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
     /**
      * Formats a list of tasks for display.
      *
@@ -67,7 +71,7 @@ public class Ui {
      * @param filtered Whether the task list is filtered.
      * @return The formatted task list as a string.
      */
-    public static String formatTaskListings(List<Task> tasks, boolean filtered) {
+    public String formatTaskListings(List<Task> tasks, boolean filtered) {
         StringBuilder str = new StringBuilder();
 
         str.append(Ui.formattedBorder()).append("\n");
@@ -119,7 +123,7 @@ public class Ui {
      * @param task The task that was marked as done.
      * @return The formatted message as a string.
      */
-    public static String formatMarkTask(Task task) {
+    public String formatMarkTask(Task task) {
         return (
                 Ui.formattedBorder() + "\n"
                         + Ui.SPACING + " " + "Nice! I've marked this task as done:" + "\n"
@@ -134,7 +138,7 @@ public class Ui {
      * @param task The task that was unmarked.
      * @return The formatted message as a string.
      */
-    public static String formatUnmarkTask(Task task) {
+    public String formatUnmarkTask(Task task) {
         return (
                 Ui.formattedBorder() + "\n"
                         + Ui.SPACING + " " + "OK, I've marked this task as not done yet:" + "\n"
@@ -150,7 +154,7 @@ public class Ui {
      * @param size The remaining number of tasks in the list.
      * @return The formatted message as a string.
      */
-    public static String formatDeleteTask(Task task, int size) {
+    public String formatDeleteTask(Task task, int size) {
         return (
                 Ui.formattedBorder() + "\n"
                         + Ui.SPACING + " " + "Noted. I've removed this task:" + "\n"

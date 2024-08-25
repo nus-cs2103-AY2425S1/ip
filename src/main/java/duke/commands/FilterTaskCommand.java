@@ -38,6 +38,6 @@ public class FilterTaskCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> tasks = taskList.getTasksOccurring(dateTime);
-        System.out.println(Ui.formatTaskListings(tasks, true));
+        ui.showMessage(ui.formatTaskListings(tasks, true));
     }
 }
