@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class YappingBot {
@@ -10,10 +11,21 @@ public class YappingBot {
     private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
     // End of text strings
 
+    // class properties
+    private static ArrayList<String> userList;
+    private static Scanner userInputScanner;
+    // end of class properties
 
-    private static void quoteSinglelineText(String l, StringBuilder sb) {
+    // class methods
+    private static void quoteSinglelineText(String line, StringBuilder sb) {
         sb.append("\n |  ");
-        sb.append(l);
+        sb.append(line);
+    }
+    private static void quoteSinglelineText(String[] line, StringBuilder sb) {
+        sb.append("\n |  ");
+        for (String l : line) {
+            sb.append(l);
+        }
     }
     private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
@@ -25,11 +37,20 @@ public class YappingBot {
         sb.append("\n"); // pad the end with another newline
         return sb.toString();
     }
-
+    private static void printUserList() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < userList.size(); i++) {
+            // quoteSinglelineText(["1", "2"], sb);
+        }
+    }
+    // end of class methods
 
     public static void main(String[] args) {
-        // scanner for user input
-        Scanner userInputScanner = new Scanner(System.in);
+        // initialization
+        userInputScanner = new Scanner(System.in);
+        userList = new ArrayList<>();
+
+
         // start
         System.out.println(quoteMultilineText(GREETING_TEXT));
 
@@ -39,7 +60,10 @@ public class YappingBot {
            switch (userInput.toLowerCase()) {
                case "bye":
                    break programmeLoop;
+               case "list":
+                   printUserList();
                default:
+                   userList.add(userInput);
                    System.out.println(quoteMultilineText(String.format("added: %s", userInput)));
                    break; // sanity break
            }
