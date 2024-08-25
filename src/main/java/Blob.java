@@ -1,11 +1,36 @@
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
+
+import java.io.FileWriter;
 
 public class Blob {
     private static boolean active = true;
-    private static ArrayList<Task> db = new ArrayList<>();
+    private static ArrayList<Task> db;
+
+    static {
+        // to handle issues related to finding 'database.csv'!
+        try {
+            String filePath = "./src/main/java/database.csv";
+            File f = new File(filePath);
+            if (f.createNewFile()) {
+                FileWriter fw = new FileWriter(f);
+                fw.write("type,is_checked,task_name,time1,time2\n");
+                fw.close();
+            }
+
+            db = getFileContents("./src/main/java/database.csv");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("No 'database.csv' file found in 'src' > 'main' > 'java' folder!");
+        } catch (IOException e) {
+            throw new RuntimeException("Database file was unable to be generated!");
+        }
+    }
 
     //TASK CLASS
     public static class Task {
+        protected String type;
         protected String name;
         protected boolean isDone;
 
@@ -36,6 +61,7 @@ public class Blob {
     public static class Todo extends Task {
         public Todo(String name, boolean isDone) {
             super(name,isDone);
+            super.type = "T";
         }
 
         @Override
@@ -50,6 +76,7 @@ public class Blob {
         public Deadline(String name, boolean isDone, String deadline) {
             super(name,isDone);
             this.deadline = deadline;
+            super.type = "D";
         }
 
         @Override
@@ -68,6 +95,7 @@ public class Blob {
             super(name,isDone);
             this.start = start;
             this.end = end;
+            super.type = "E";
         }
 
         @Override
@@ -76,7 +104,7 @@ public class Blob {
         }
     }
 
-    public static void evaluateAction(String action) {
+    public static void evaluateAction(String action) throws IOException {
         String[] arr = action.split(" ");
 
         for (int i = 0; i < arr.length; i++) {
@@ -102,6 +130,7 @@ public class Blob {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(t);
                     System.out.println("______________________________________________");
+                    updateFileContents("./src/main/java/database.csv", db);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Command!");
                 }
@@ -115,6 +144,7 @@ public class Blob {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(t);
                     System.out.println("______________________________________________");
+                    updateFileContents("./src/main/java/database.csv", db);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Command!");
                 }
@@ -129,6 +159,7 @@ public class Blob {
                     System.out.println(t);
                     System.out.println("Now you have " + db.size() + " tasks in the list.");
                     System.out.println("______________________________________________");
+                    updateFileContents("./src/main/java/database.csv", db);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Command!");
                 }
@@ -153,6 +184,7 @@ public class Blob {
                 System.out.println(t);
                 System.out.println("Now you have " + db.size() + " tasks in the list.");
                 System.out.println("______________________________________________");
+                updateFileContents("./src/main/java/database.csv", db);
                 break;
 
             } else if (Objects.equals(act, "deadline")) {
@@ -193,6 +225,7 @@ public class Blob {
                 System.out.println(d);
                 System.out.println("Now you have " + db.size() + " tasks in the list.");
                 System.out.println("______________________________________________");
+                updateFileContents("./src/main/java/database.csv", db);
                 break;
 
             } else if (Objects.equals(act, "event")) {
@@ -248,6 +281,7 @@ public class Blob {
                 System.out.println(e);
                 System.out.println("Now you have " + db.size() + " tasks in the list.");
                 System.out.println("______________________________________________");
+                updateFileContents("./src/main/java/database.csv", db);
                 break;
 
             } else {
@@ -258,7 +292,56 @@ public class Blob {
         }
     }
 
-    public static void main(String[] args) {
+    private static ArrayList<Task> getFileContents(String filePath) throws FileNotFoundException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        s.nextLine(); //skips headers
+
+        while (s.hasNext()) {
+            String[] array = s.nextLine().split(",");
+            String taskType = array[0];
+            int isChecked = Integer.parseInt(array[1]);
+            String taskName = array[2];
+
+            if (taskType.equals("T")) {
+                Todo t = new Todo(taskName, isChecked == 1);
+                tasks.add(t);
+            } else if (taskType.equals("D")) {
+                Deadline d = new Deadline(taskName, isChecked == 1, array[3]);
+                tasks.add(d);
+            } else if (taskType.equals("E")) {
+                Event e = new Event(taskName, isChecked == 1, array[3], array[4]);
+                tasks.add(e);
+            }
+        }
+        return tasks;
+    }
+
+    private static void updateFileContents(String filePath, ArrayList<Task> database) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        StringBuilder allData = new StringBuilder("type,is_checked,task_name,time1,time2\n");
+        for (int i = 0; i < database.size(); i++) {
+            Task t = database.get(i);
+            String isChecked = String.valueOf(t.isDone ? 1 : 0);
+            if (t.type.equals("T")) {
+                StringBuilder data = new StringBuilder(String.format("%s,%s,%s\n", t.type, isChecked, t.name));
+                allData.append(data);
+            } else if (t.type.equals("D")) {
+                Deadline d = (Deadline) t;
+                StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s\n", t.type, isChecked, t.name, d.deadline));
+                allData.append(data);
+            } else if (t.type.equals("E")) {
+                Event e = (Event) t;
+                StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s\n", t.type, isChecked, t.name, e.start, e.end));
+                allData.append(data);
+            }
+        }
+        fw.write(allData.toString());
+        fw.close();
+    }
+
+    public static void main(String[] args) throws IOException {
         Scanner human = new Scanner(System.in);
         System.out.println("______________________________________________");
         System.out.println("Hello! I'm Blob");
