@@ -1,0 +1,4 @@
+E | 0 | meeting | 5pm | 6pm
+D | 0 | ca1 | tomorrow
+T | 0 | play ball
+D | 0 | homework | tomorrow

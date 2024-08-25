@@ -1,9 +1,11 @@
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 
 public class BeeBoo {
@@ -14,6 +16,7 @@ public class BeeBoo {
     //Initialise tasklist when beeboo is created
     public BeeBoo() {
         list = new ArrayList<>();
+        loadFile();
     }
 
     //Adding to the tasklist
@@ -41,6 +44,7 @@ public class BeeBoo {
         Tasks item = list.get(index - 1);
         list.remove(index - 1);
         chatBox("Ok i have removed the following item\n" + item + "\n" + "You have " + list.size() + " tasks left");
+        saveItem();
     }
 
     //Returns list when prompted
@@ -68,17 +72,23 @@ public class BeeBoo {
 
     //To create ToDos
     private void createToDo(String text) throws NoDescriptionException {
-        chatBox(addList(ToDos.createToDo(text)));
+        ToDos todo = ToDos.createToDo(text);
+        chatBox(addList(todo));
+        saveItem();
     }
 
     //To create Deadlines
     private void createDeadlines(String text) throws NoDescriptionException, InvalidDateException {
-        chatBox(addList(Deadlines.createDeadline(text)));
+        Deadlines deadline = Deadlines.createDeadline(text);
+        chatBox(addList(deadline));
+        saveItem();
     }
 
     //Creates events
     private void createEvent(String text) throws NoDescriptionException, InvalidDateException {
-        chatBox(addList(Events.CreateEvent(text)));
+        Events event = Events.CreateEvent(text);
+        chatBox(addList(event));
+        saveItem();
     }
 
     //Checks the command the user uses and returns a number for chatbot to check against
@@ -106,6 +116,69 @@ public class BeeBoo {
             createEvent(text);
         } else {
             createToDo(text);
+        }
+    }
+
+    private void saveItem() {
+        Path path = Paths.get("./data");
+        if(Files.notExists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                System.out.println("Unable to create directory");
+            }
+        }
+        try (FileWriter writer = new FileWriter("./data/beeboo.txt")){
+            for (Tasks task: list) {
+                writer.write(task.saveFormat() + System.lineSeparator());
+           }
+        } catch(IOException e) {
+            System.out.println("Unable to create file");
+        }
+    }
+
+    private void loadFile() {
+        File file = new File("./data/beeboo.txt");
+        if (!file.exists()) {
+            return;
+        } else {
+            try {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String task = scanner.nextLine();
+                    String[] splitted = task.split("\\|");
+                    if(splitted.length < 3 || splitted.length > 6) {
+                        continue;
+                    }
+                    boolean isDone = splitted[1].trim().equals("1");
+                    Tasks newTask = null;
+                    switch (splitted[0].trim()) {
+                        case "T":
+                            newTask = new ToDos(splitted[2].trim());
+                            if(isDone) {
+                                newTask.markDone();
+                            }
+                            break;
+                        case "D":
+                            newTask = new Deadlines(splitted[2].trim(), splitted[3].trim());
+                            if(isDone) {
+                                newTask.markDone();
+                            }
+                            break;
+                        case "E":
+                            newTask = new Events(splitted[2].trim(), splitted[3].trim(), splitted[4].trim());
+                            if(isDone) {
+                                newTask.markDone();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    list.add(newTask);
+                }
+            } catch (IOException e) {
+                System.out.println("Error has occurred while reading the file");
+            }
         }
     }
 

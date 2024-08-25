@@ -33,4 +33,8 @@ public class Deadlines extends Tasks {
         return typeIcon() + super.toString() + "(by:" + date + ")";
     }
 
+    @Override
+    protected String saveFormat() {
+       return "D | " + (super.isDone ? "1 | " : "0 | ") + description + " | "  + date;
+    }
 }

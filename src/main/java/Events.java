@@ -41,6 +41,11 @@ public class Events extends Tasks {
         String endDate = endDateCommand.substring(2).trim();
         return new Events(description, startDate, endDate);
     }
+
+    @Override
+    protected String saveFormat() {
+        return "E | " + (super.isDone ? "1 | " : "0 | ") + description + " | " + startDate + " | " + endDate;
+    }
 }
 
 

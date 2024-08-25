@@ -21,4 +21,9 @@ public class ToDos extends Tasks {
         }
         return new ToDos(description);
     }
+
+    @Override
+    protected String saveFormat() {
+        return "T | " + (super.isDone ? "1 | " : "0 | ") +  description;
+    }
 }

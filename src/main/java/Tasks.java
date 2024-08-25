@@ -34,4 +34,6 @@ public abstract class Tasks {
     //Type icon for tasks implemented by the different type of tasks
     protected abstract String typeIcon();
 
+    protected abstract String saveFormat();
+
 }
