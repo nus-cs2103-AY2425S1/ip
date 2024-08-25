@@ -20,6 +20,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " " + String.format("(by: %s)", this.dueDate);
+        return super.toString() + " " + String.format("(by: %s)", this.getDueDate());
     }
 }
