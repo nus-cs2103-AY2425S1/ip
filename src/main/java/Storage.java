@@ -54,7 +54,6 @@ public class Storage {
         if (TASK_FILE.isFile()) {
             try (FileWriter writer = new FileWriter(TASK_FILE_DIRECTORY)) {
                 writer.write(formattedTasks);
-                System.out.println("Successfully written to task file.");
             } catch (IOException e) {
                 System.out.println("An error occured while writing to the task file.");
             }
