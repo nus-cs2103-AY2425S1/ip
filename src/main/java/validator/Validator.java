@@ -39,7 +39,7 @@ public class Validator {
         }
         int index = Integer.parseInt(split_parts[0]);
 
-        if (! manager.isvalidIndex(index)) {
+        if (! manager.isValidIndex(index)) {
             throw new InvalidIndexException(index, manager.getSize());
         }
 
@@ -110,7 +110,7 @@ public class Validator {
         }
         int index = Integer.parseInt(split_parts[0]);
 
-        if (!manager.isvalidIndex(index)) {
+        if (!manager.isValidIndex(index)) {
             throw new InvalidIndexException(index, manager.getSize());
         }
 

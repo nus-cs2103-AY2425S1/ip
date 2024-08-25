@@ -42,6 +42,15 @@ public class TaskManager {
                 .orElse(0) + 1;
     }
 
+    public boolean isValidIndex(int listPosition) {
+        List<Task> tasks = loadTasksFromFile();
+        if (tasks.isEmpty()) {
+            return false;
+        }
+        return listPosition > 0 && listPosition <= tasks.size();
+    }
+
+
 
     public List<Task> loadTasksFromFile() {
         // I took AI help for this function as I didn't know Java file reading syntax
