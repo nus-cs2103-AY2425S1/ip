@@ -1,11 +1,11 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * The Duke class is the main class of the Duke application.

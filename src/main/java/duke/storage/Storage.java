@@ -1,14 +1,14 @@
 package duke.storage;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 /**
  * The Storage class handles reading from and writing to the file system.
