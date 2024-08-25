@@ -9,8 +9,15 @@ public class EventTask extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public EventTask(String eventName, LocalDateTime from, LocalDateTime to, boolean completed) {
-        super(eventName, completed);
+    /**
+     * Constructor for event task
+     * @param eventName String event name
+     * @param from LocalDateTime date
+     * @param to LocalDateTime date
+     * @param isCompleted
+     */
+    public EventTask(String eventName, LocalDateTime from, LocalDateTime to, boolean isCompleted) {
+        super(eventName, isCompleted);
         this.from = from;
         this.to = to;
     }

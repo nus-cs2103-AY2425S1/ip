@@ -7,8 +7,14 @@ import java.time.LocalDateTime;
 public class DeadlineTask extends Task {
     private LocalDateTime by;
 
-    public DeadlineTask(String eventName, LocalDateTime by, boolean completed) {
-        super(eventName, completed);
+    /**
+     * Contructor for Deadline task
+     * @param eventName String event name
+     * @param by LocalDateTime date
+     * @param isCompleted
+     */
+    public DeadlineTask(String eventName, LocalDateTime by, boolean isCompleted) {
+        super(eventName, isCompleted);
         this.by = by;
     }
     @Override

@@ -4,19 +4,21 @@ import David.Exceptions.DavidInvalidArgumentsException;
 
 public class StringParser extends Parser{
 
-    /*
-    @param String s - takes in the full input string
-    @return first word of the input string,split at every whitespace and converted to uppercase.
+    /**
+     * Takes an input string and returns the action to perform
+     * @param s takes in the full input string
+     * @return String denoting the action
      */
     public static String parseStringToCommand(String s) {
         String command = s.split("\s", 2)[0];
         return command.toUpperCase();
     }
 
-    /*
-    @param String s - takes in the full input string
-    @return the rest of the input string excluding the first command word
-    @throws DavidUnknownActionException
+    /**
+     * Returns event details excluding event type
+     * @param s takes in the full input string
+     * @return rest of the input string excluding the first command word
+     * @throws DavidInvalidArgumentsException
      */
     public static String parseStringToArguments(String s) throws DavidInvalidArgumentsException {
         String[] input = s.split("\s", 2);

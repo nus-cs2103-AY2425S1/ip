@@ -23,7 +23,9 @@ public class David {
         this.tasks = c.loadTasks();
     };
 
-    //run the chatbot
+    /**
+     * Start the chatbot
+     */
     public void activateChatBot() {
         ui.start();
         while(true) {
@@ -72,7 +74,9 @@ public class David {
     }
 
     /**
-    Adds todo task to array list of tasks
+     * Adds a todo task to the arraylist
+     * @param s String event
+     * @throws DavidInvalidArgumentsException
      */
     public void addTodoTask(String s) throws DavidInvalidArgumentsException{
         String event = StringParser.parseStringToArguments(s);
@@ -82,7 +86,11 @@ public class David {
     }
 
     /**
-    Adds event task to array list of tasks
+     * Adds an event task to the arraylist
+     * @param s String event
+     * @throws DavidInvalidArgumentsException
+     * @throws DavidInvalidRangeException
+     * @throws DavidInvalidDateTimeException
      */
     public void addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException,
             DavidInvalidDateTimeException {
@@ -109,7 +117,11 @@ public class David {
     }
 
     /**
-    Adds deadline task to array list of tasks
+     * Adds a deadline task to the arraylist
+     * @param s String event
+     * @throws DavidInvalidArgumentsException
+     * @throws DavidInvalidDeadlineException
+     * @throws DavidInvalidDateTimeException
      */
     public void addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException,
             DavidInvalidDateTimeException {
@@ -127,7 +139,10 @@ public class David {
     }
 
     /**
-    Deletes a task from the array list of tasks
+     * Deletes a task from the arraylist
+     * @param s String index to delete
+     * @throws DavidInvalidArgumentsException
+     * @throws DavidInvalidTaskException
      */
     public void deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException{
         try {
@@ -145,7 +160,11 @@ public class David {
 
     }
 
-
+    /**
+     * Marks a task from the arraylist as done
+     * @param s String index to mark
+     * @throws DavidInvalidArgumentsException
+     */
     public void markTaskAsDone(String s) throws DavidInvalidArgumentsException{
         try {
             String index = StringParser.parseStringToArguments(s);
@@ -159,6 +178,11 @@ public class David {
         }
     }
 
+    /**
+     * Marks a task from the arraylist as done
+     * @param s String index to mark
+     * @throws DavidInvalidArgumentsException
+     */
     public void markTaskAsUnDone(String s) throws DavidInvalidArgumentsException {
         try {
             String index = StringParser.parseStringToArguments(s);
@@ -172,10 +196,16 @@ public class David {
         }
     }
 
+    /**
+     * Lists all tasks added
+     */
     public void listTasks() {
         ui.listTasks(this.tasks);
     }
 
+    /**
+     * End chatbot
+     */
     public void endChatBot() {
         try {
             c.saveTask(tasks);
@@ -186,6 +216,10 @@ public class David {
 
     }
 
+    /**
+     * Main method called at the start of the program
+     * @param args
+     */
     public static void main(String[] args) {
         new David("./src/main/java/David/Data/database.txt").activateChatBot();
     }

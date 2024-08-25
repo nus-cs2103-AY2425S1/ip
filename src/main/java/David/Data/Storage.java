@@ -34,7 +34,7 @@ public class Storage {
     /**
      * Loads the cached list of tasks if exist.
      * If it does not exist, a new cache will be created
-     * @return an arraylist of tasks
+     * @return arraylist of tasks
      */
     public TaskList loadTasks() {
         List<Task> tasks = new ArrayList<>();
@@ -55,7 +55,8 @@ public class Storage {
 
     /**
      * Parses the input line and returns the task represented by the current line
-     * @return
+     * @param s event name and details of the string input
+     * @return Task corresponding to the input string
      */
     private Task parseTask(String s) {
         String[] info = s.split("\\|");
