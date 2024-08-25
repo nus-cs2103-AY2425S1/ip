@@ -60,6 +60,24 @@ public class ReginaDateAndTime {
     }
 
     /**
+     * Returns the stored date.
+     *
+     * @return The date as a LocalDate instance.
+     */
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    /**
+     * Returns the stored time.
+     *
+     * @return The time as a LocalTime instance.
+     */
+    public LocalTime getTime() {
+        return this.time;
+    }
+
+    /**
      * Returns the day of the week for the stored date.
      *
      * @return The day of the week as a string.
@@ -94,6 +112,30 @@ public class ReginaDateAndTime {
      */
     public int getDayOfMonth() {
         return date.getDayOfMonth(); // Returns day of the month as an integer (1-31)
+    }
+
+    public boolean isBefore(ReginaDateAndTime dateAndTime) {
+        if (this.date.isAfter(dateAndTime.getDate())) {
+            return false;
+        }
+        if (this.date.isEqual(dateAndTime.getDate()) && this.time.isAfter(dateAndTime.getTime())) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isEqual(ReginaDateAndTime dateAndTime) {
+        return this.date.isEqual(dateAndTime.getDate()) && this.time.equals(dateAndTime.getTime());
+    }
+
+    public boolean isAfter(ReginaDateAndTime dateAndTime) {
+        if (this.date.isBefore(dateAndTime.getDate())) {
+            return false;
+        }
+        if (this.date.isEqual(dateAndTime.getDate()) && this.time.isBefore(dateAndTime.getTime())) {
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -1,5 +1,7 @@
 package tasks;
 
+import dateAndTime.ReginaDateAndTime;
+
 /**
  * Represents a task with a description and status (done or not done).
  * This is an abstract class to be extended by specific task types
@@ -16,6 +18,8 @@ public abstract class Task {
      * @return A string representing the task in the saved format.
      */
     abstract public String toSavedFormatting();
+
+    abstract public boolean isOccurringOn(ReginaDateAndTime dateAndTime);
 
     /**
      * Constructs a Task.Task with the specified description.

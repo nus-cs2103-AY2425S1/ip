@@ -1,5 +1,7 @@
 package tasks;
 
+import dateAndTime.ReginaDateAndTime;
+
 import java.util.ArrayList;
 
 /**
@@ -12,6 +14,17 @@ public class TaskList extends ArrayList<Task> {
 
     public TaskList() {
         super();
+    }
+
+    public TaskList tasksOccurringOn(ReginaDateAndTime dateAndTime) {
+        TaskList list = new TaskList();
+        for (int i = 0; i < this.toArray().length; i++) {
+            Task currTask = (Task)this.toArray()[i];
+            if (currTask.isOccurringOn(dateAndTime)) {
+                list.add(currTask);
+            }
+        }
+        return list;
     }
 
     @Override

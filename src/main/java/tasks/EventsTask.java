@@ -25,6 +25,25 @@ public class EventsTask extends Task {
     }
 
     /**
+     * Checks if the event is occurring at the specified date and time.
+     *
+     * This method determines if the provided date and time falls within the
+     * event's start and end time. The event is considered to be occurring
+     * if the specified date and time is at or after the start time and
+     * at or before the end time.
+     *
+     * @param dateAndTime The date and time to check against the event's start and end times.
+     * @return true if the event is occurring at the specified date and time,
+     *         false otherwise.
+     */
+    @Override
+    public boolean isOccurringOn(ReginaDateAndTime dateAndTime) {
+        return (this.startTime.isBefore(dateAndTime) || this.startTime.isEqual(dateAndTime))
+                && (this.endTime.isAfter(dateAndTime) || this.endTime.isEqual(dateAndTime));
+    }
+
+
+    /**
      * Returns a string representation of the event task in a format suitable for saving.
      * The format includes the task type, completion status, description, start time, and end time.
      *

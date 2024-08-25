@@ -22,6 +22,22 @@ public class DeadlinesTask extends Task {
     }
 
     /**
+     * Checks if the deadline for this task is occurring at the specified date and time.
+     *
+     * This method determines if the provided date and time is equal to or before
+     * the deadline of the task. It considers the deadline to be occurring if
+     * the specified date and time is at or before the deadline.
+     *
+     * @param dateAndTime The date and time to check against the task's deadline.
+     * @return true if the specified date and time is on or before the deadline,
+     *         false otherwise.
+     */
+    @Override
+    public boolean isOccurringOn(ReginaDateAndTime dateAndTime) {
+        return this.deadline.isAfter(dateAndTime) || this.deadline.isEqual(dateAndTime);
+    }
+
+    /**
      * Returns a string representation of the event task in a format suitable for saving.
      * The format includes the task type, completion status, description and deadline.
      *
