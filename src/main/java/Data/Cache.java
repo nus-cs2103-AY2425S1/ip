@@ -2,11 +2,14 @@ package Data;
 
 import Exceptions.DavidCacheException;
 import Task.*;
+import Parser.DateParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -72,11 +75,14 @@ public class Cache {
                 break;
             case "D":
                 //"Deadline task"
-                t = new DeadlineTask(info[2], info[3], completed);
+                LocalDateTime byDate = DateParser.getDate(info[3]);
+                t = new DeadlineTask(info[2], byDate, completed);
                 break;
             case "E":
                 //"Event" task
-                t = new EventTask(info[2], info[3], info[4], completed);
+                LocalDateTime fromDate = DateParser.getDate(info[3]);
+                LocalDateTime toDate = DateParser.getDate(info[4]);
+                t = new EventTask(info[2], fromDate, toDate, completed);
                 break;
         }
 
