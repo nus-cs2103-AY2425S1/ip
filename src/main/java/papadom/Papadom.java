@@ -53,7 +53,7 @@ public class Papadom {
                     ui.output(taskList.unmarkTask(text));
                     break;
                 case TODO:
-                    AddTodoCommand addTodoCommand = new AddTodoCommand(text.substring(5));
+                    AddTodoCommand addTodoCommand = new AddTodoCommand(text);
                     addTodoCommand.execute(taskList, ui, storage);
                     break;
                 case DEADLINE:
