@@ -184,6 +184,12 @@ public class Mahesh {
         }
     }
 
+    /**
+     * Initializes the task list by reading from a data file.
+     * If the file or its directories do not exist, they are created.
+     * The method reads each line from the file, parses it, and adds the corresponding task to the list.
+     * If the file contains corrupted data, a message is printed to the console.
+     */
     private static void initializeList() {
         try {
             File dataFile = new File("../../../data/mahesh.txt");
@@ -222,11 +228,16 @@ public class Mahesh {
                 System.out.println("Some tasks may not have loaded correctly due to corrupted data file.");
             }
             fileScanner.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
         }
     }
-
+    
+    /**
+     * Saves the current task list to a data file.
+     * If the file or its directories do not exist, they are created.
+     * Each task is written to the file in a specific format.
+     */
     private static void saveListToFile() {
         try {
             File dataFile = new File("../../../data/mahesh.txt");
@@ -239,8 +250,8 @@ public class Mahesh {
                 fileWriter.write(task.toFileEntry() + System.lineSeparator());
             }
             fileWriter.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
         }
     }
 

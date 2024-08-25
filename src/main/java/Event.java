@@ -29,6 +29,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructs a new Event task with the specified description, start time, end time, and completion status.
+     *
+     * @param description The description of the Event task.
+     * @param from The start time of the Event task.
+     * @param to The end time of the Event task.
+     * @param isDone The completion status of the Event task.
+     */
     public Event(String description, String from, String to, boolean isDone) {
         this(description, from, to);
         this.isDone = isDone;
@@ -45,6 +53,13 @@ public class Event extends Task {
         return "[E]" + super.toString() + "(from: " + from + " to: " + to + ")";
     }
 
+    /**
+     * Converts the Event task to a string format suitable for saving to a file.
+     * The format includes the type indicator "E", the completion status, the description of the task,
+     * the start time, and the end time.
+     *
+     * @return A string representation of the Event task for file storage.
+     */
     @Override
     public String toFileEntry() {
         return "E/" + super.toFileEntry() + "/" + from + "/" + to;

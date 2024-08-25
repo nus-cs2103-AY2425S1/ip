@@ -22,6 +22,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Constructs a new Deadline task with the specified description, due date/time, and completion status.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The due date/time of the Deadline task.
+     * @param isDone The completion status of the Deadline task.
+     */
     public Deadline(String description, String by, boolean isDone) {
         this(description, by);
         this.isDone = isDone;
@@ -38,6 +45,13 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * Converts the Deadline task to a string format suitable for saving to a file.
+     * The format includes the type indicator "D", the completion status, the description of the task,
+     * and the due date/time.
+     *
+     * @return A string representation of the Deadline task for file storage.
+     */
     @Override
     public String toFileEntry() {
         return "D/" + super.toFileEntry() + "/" + by;
