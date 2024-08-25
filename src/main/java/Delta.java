@@ -1,8 +1,13 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -171,6 +176,20 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    public static LocalDateTime formatDateTime(String input) throws DeltaException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(input, formatter);
+        }
+        catch (DateTimeParseException e) {
+            throw new DeltaException("""
+                    OOPS!!! The format used for date/time is wrong!
+                    \t Please follow the proper format:
+                    \t yyyy-MM-dd HHmm
+                    \t eg. 2024-08-25 1800""");
+        }
+    }
+
     /**
      * Saves tasks in list to SAVE_FILE_PATH location.
      *
@@ -332,7 +351,7 @@ public class Delta {
                         String[] details = description[1].strip().split(" /by ");
                         if (details.length == 2) {
                             String taskName = details[0].strip();
-                            String by = details[1].strip();
+                            LocalDateTime by = formatDateTime(details[1].strip());
                             output = addTask(new Deadline(taskName, by));
                         } else {
                             throw new DeltaException("""
