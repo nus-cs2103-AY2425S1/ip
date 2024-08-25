@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import static utility.Printer.printWithDivider;
 
 import commands.CommandType;
-import commands.InvalidCommandException;
+import utility.DateTimeUtility;
+import exceptions.InvalidCommandException;
 import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
@@ -96,8 +98,11 @@ public class Thanos {
                     "Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'"
             );
         }
-        Deadline deadline = new Deadline(detailsArr[0], detailsArr[1]);
-        tasks.add(deadline);
+        LocalDateTime date = DateTimeUtility.parse(detailsArr[1]);
+        if (date != null) {
+            Deadline deadline = new Deadline(detailsArr[0], date);
+            tasks.add(deadline);
+        }
     }
 
     private static void addEvent(String argument) throws InvalidCommandException {
@@ -115,8 +120,12 @@ public class Thanos {
             );
         }
 
-        Event event = new Event(description, fromToArr[0], fromToArr[1]);
-        tasks.add(event);
+        LocalDateTime startDate = DateTimeUtility.parse(fromToArr[0]);
+        LocalDateTime endDate = DateTimeUtility.parse(fromToArr[1]);
+        if (startDate != null && endDate != null) {
+            Event event = new Event(description, startDate, endDate);
+            tasks.add(event);
+        }
     }
 
     private static void deleteTask(String argument) throws InvalidCommandException {
@@ -139,6 +148,19 @@ public class Thanos {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
+        }
+    }
+
+    public static void findTaskByDate(String argument) throws InvalidCommandException {
+        if (argument.isEmpty()) {
+            throw new InvalidCommandException(
+                    "No date provided. Please use the correct format: 'date [date_to_search]'"
+            );
+        }
+
+        LocalDateTime date = DateTimeUtility.parse(argument);
+        if (date != null) {
+            tasks.findByDate(date);
         }
     }
 
@@ -176,6 +198,9 @@ public class Thanos {
                     break;
                 case DELETE:
                     deleteTask(argument);
+                    break;
+                case DATE:
+                    findTaskByDate(argument);
                     break;
                 default:
                     throw new InvalidCommandException(
