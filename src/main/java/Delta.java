@@ -233,7 +233,7 @@ public class Delta {
     public static String loadTasks() throws DeltaException {
         String output = """
                 \t____________________________________________________________
-                \t Loading the list of tasks from your previous session.
+                \t Loading the list of tasks from your previous session...
                 \t____________________________________________________________
                 """;
         File loadFile = new File(SAVE_FILE_PATH);
@@ -284,7 +284,11 @@ public class Delta {
             System.out.println(loadTasks());
         }
         catch (DeltaException e) {
-            System.out.println(e.getMessage());
+            System.out.println("""
+                    \t____________________________________________________________
+                    \t Loading the list of tasks from your previous session...
+                    \t____________________________________________________________
+                    """ + printError(e.getMessage()));
         }
 
         // Hello
