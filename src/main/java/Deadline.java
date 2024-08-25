@@ -28,7 +28,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s, Deadline: %s", super.toString(), this.deadline);
+        return String.format("%s (by: %s)", super.getTaskName(), this.deadline);
     }
 }
 
