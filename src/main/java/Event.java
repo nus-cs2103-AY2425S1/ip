@@ -19,4 +19,12 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + to + ")";
     }
+
+    @Override
+    public String toSimplifiedString() {
+        String formattedString = String.format("E | %d | %s | %s | %s\n", super.getIsDone() ? 1 : 0,
+                super.getDescription(), this.from, this.to);
+        return formattedString;
+    }
 }
+

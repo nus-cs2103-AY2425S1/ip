@@ -16,4 +16,11 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toSimplifiedString() {
+        String formattedString = String.format("D | %d | %s | %s\n", super.getIsDone() ? 1 : 0,
+                super.getDescription(), this.by);
+        return formattedString;
+    }
 }
