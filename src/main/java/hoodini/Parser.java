@@ -1,6 +1,6 @@
 package hoodini;
 import java.io.IOException;
-import java.util.Scanner;
+
 
 /**
  * Handles the user inputs and file inputs.
@@ -120,8 +120,8 @@ public class Parser {
                 }
             }
         } catch (java.io.FileNotFoundException e) {
-            ui.noFileFound();
-            handleInput();
+            System.out.println("Whoopsie! File not found");
+
         }
     }
 
@@ -129,14 +129,15 @@ public class Parser {
     /**
      * Method to end the chatbot
      */
-    private void end() {
+    private String end() {
         try {
-            ui.showGoodbye();
+
             String home = System.getProperty("user.home");
             String filePath = home + "/Desktop/hoodini.txt";
             store.writeToFile(filePath);
+            return ui.showGoodbye();
         } catch (IOException e) {
-            System.out.println("Whoopsie! There was an error writing to the file");
+            return "Whoopsie! There was an error writing to the file";
         }
     }
 
@@ -144,59 +145,39 @@ public class Parser {
      * Handles the user inputs and identifies tasks to store
      * into the task list
      */
-    public void handleInput() {
-        Scanner sc = new Scanner(System.in);
-
+    public String handleInput(String input) {
         try {
-            while (true) {
-                String str = sc.nextLine();
-                String command = str.split(" ")[0];
-                Case cases = Case.getCase(command);
-
-                switch(cases) {
-                case BYE:
-                    end();
-                    return;
-                case LIST:
-                    store.output();
-                    break;
-                case TODO:
-                    handleToDo(str);
-                    break;
-                case DEADLINE:
-                    handleDeadline(str);
-                    break;
-                case EVENT:
-                    handleEvent(str);
-                    break;
-                case MARK:
-                    store.mark(str);
-                    break;
-                case UNMARK:
-                    store.unmark(str);
-                    break;
-                case DELETE:
-                    store.delete(str);
-                    break;
-                case FIND:
-                    store.find(str);
-                    break;
-                case ERROR:
-                default:
-                    throw new InvalidInputException("Whoopsie! "
-                            + "I am unable to understand your request!");
-                }
-
+            String command = input.split(" ")[0];
+            Case cases = Case.getCase(command);
+            switch (cases) {
+            case BYE:
+                return end();
+            case LIST:
+                return store.output();
+            case TODO:
+                return handleToDo(input);
+            case DEADLINE:
+                return handleDeadline(input);
+            case EVENT:
+                return handleEvent(input);
+            case MARK:
+                return store.mark(input);
+            case UNMARK:
+                return store.unmark(input);
+            case DELETE:
+                return store.delete(input);
+            case FIND:
+                return store.find(input);
+            case ERROR:
+            default:
+                throw new InvalidInputException("Whoopsie! "
+                        + "I am unable to understand your request!");
             }
-        } catch (InvalidTaskException | InvalidInputException e) {
-            System.out.println(e.getMessage());
-
+        } catch (InvalidTaskException e) {
+            return e.getMessage();
+        } catch (InvalidInputException e) {
+            return e.getMessage();
         }
-        sc.close();
-
-
-
-
     }
 
     /**
@@ -204,12 +185,12 @@ public class Parser {
      * @param str Input string from user
      * @throws InvalidTaskException Handles invalid tasks
      */
-    private void handleToDo(String str) throws InvalidTaskException {
+    private String handleToDo(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("todo")) {
             throw new InvalidTaskException("Whoopsie! Please enter a task");
         } else {
             ToDo toDo = new ToDo(str);
-            store.store(toDo);
+            return store.store(toDo);
         }
     }
 
@@ -218,12 +199,21 @@ public class Parser {
      * @param str Input string from user
      * @throws InvalidTaskException Handles invalid tasks
      */
-    private void handleDeadline(String str) throws InvalidTaskException {
+    private String handleDeadline(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("deadline")) {
             throw new InvalidTaskException("Whoopsie! Please enter a task");
         } else {
-            Deadline deadline = new Deadline(str);
-            store.store(deadline);
+            try {
+                Deadline deadline = new Deadline(str);
+                return store.store(deadline);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return "Please enter deadline in the format "
+                        + "deadline <task> /by <date>";
+            }
+            catch (java.time.format.DateTimeParseException e) {
+                return "Please enter the date "
+                        + "in the format yyyy-mm-dd";
+            }
         }
     }
 
@@ -232,12 +222,12 @@ public class Parser {
      * @param str Input string from user
      * @throws InvalidTaskException Handles invalid tasks
      */
-    private void handleEvent(String str) throws InvalidTaskException {
+    private String handleEvent(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("event")) {
             throw new InvalidTaskException("Whoopsie! Please enter a task");
         } else {
             Event event = new Event(str);
-            store.store(event);
+            return store.store(event);
         }
     }
 }

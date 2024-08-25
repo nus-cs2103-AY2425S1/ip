@@ -18,15 +18,9 @@ public class Deadline extends Input {
     public Deadline(String input) throws DateTimeParseException {
         super(input.split(" ", 2)[1]
                 .split("/", 2)[0]);
-        try {
-            this.deadline = LocalDate.parse(
-                    input.split("/by")[1]
-                            .trim());
-        } catch (DateTimeParseException e) {
-            System.out.println("Please enter the date "
-                    + "in the format yyyy-mm-dd");
-        }
-
+        this.deadline = LocalDate.parse(input
+                .split("/by")[1]
+                .trim());
 
     }
 

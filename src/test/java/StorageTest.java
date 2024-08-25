@@ -26,9 +26,8 @@ public class StorageTest {
         Storage storage = new Storage(new UiStub());
         storage.add(new InputStub("[T] [ ] read book"));
         storage.add(new InputStub("[D] [ ] return book (by: Dec 12 2020)"));
-        storage.output();
         assertEquals("Here are the list of tasks that needs to be completed: \n"
-                + "1. [T] [ ] read book\n2. [D] [ ] return book (by: Dec 12 2020)\n", outputStreamCaptor.toString());
+                + "1. [T] [ ] read book\n2. [D] [ ] return book (by: Dec 12 2020)\n", storage.output());
     }
 
 }

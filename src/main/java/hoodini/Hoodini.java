@@ -17,8 +17,9 @@ public class Hoodini {
     public Hoodini() {
         this.ui = new Ui();
         this.store = new Storage(ui);
-
         start();
+
+
 
 
     }
@@ -27,13 +28,19 @@ public class Hoodini {
      * Method to start chatbot
      */
 
-    private void start() {
-        ui.showWelcome();
+    public void start() {
+
         this.parser = new Parser(store, ui);
         parser.load();
-        parser.handleInput();
+
 
     }
+
+    public String handleInput(String input) {
+        return parser.handleInput(input);
+    }
+
+
 
 
 

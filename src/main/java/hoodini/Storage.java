@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * Class which stores the tasklist and methods
  * to handle tasks.
@@ -31,13 +32,13 @@ public class Storage {
      * Takes in the input object to be stored
      * @param input Object to be stored in the task list
      */
-    public void store(Input input) {
+    public String store(Input input) {
         if (input.empty()) {
-            ui.invalidTask();
+            return ui.invalidTask();
         } else {
             this.input.add(input);
             counter++;
-            ui.store(input, counter);
+            return ui.store(input, counter);
         }
 
 
@@ -73,25 +74,34 @@ public class Storage {
      * Method to list out tasks to the user.
      * No params required.
      */
-    public void output() {
-        System.out.println("Here are the list of tasks "
-                + "that needs to be completed: ");
+    public String output() {
+        StringBuilder sb = new StringBuilder("Here are the list of tasks "
+                + "that needs to be completed: \n");
+        ArrayList<Input> unique = new ArrayList<>();
+
         for (int i = 0; i < counter; i++) {
-            System.out.println((i + 1) + ". " + input.get(i));
+            if (unique.contains(this.input.get(i))) {
+                continue;
+            } else {
+                unique.add(input.get(i));
+                sb.append(i + 1).append(". ").append(input.get(i)).append("\n");
+            }
         }
+        return sb.toString();
+
     }
 
     /**
      * Method to mark the task as done
      * @param str String from user on which task to mark
      */
-    public void mark(String str) {
+    public String mark(String str) {
         int i = Integer.parseInt(
                 str.substring(5));
         if (i > counter) {
-            ui.invalidInput();
+            return ui.invalidInput();
         } else {
-            input.get(i - 1).done();
+            return input.get(i - 1).done();
 
         }
 
@@ -102,15 +112,15 @@ public class Storage {
      * Method to delete the task
      * @param str String from user on which task to delete
      */
-    public void delete(String str) {
+    public String delete(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {
-            ui.invalidInput();
+            return ui.invalidInput();
         } else {
             Input input1 = input.get(i - 1);
             input.remove(i - 1);
             counter--;
-            ui.delete(input1, counter);
+            return ui.delete(input1, counter);
 
         }
     }
@@ -121,12 +131,12 @@ public class Storage {
      * Method to unmark the task
      * @param str String from user on which task to unmark
      */
-    public void unmark(String str) {
+    public String unmark(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {
-            ui.invalidInput();
+            return ui.invalidInput();
         } else {
-            input.get(i - 1).unDone();
+            return input.get(i - 1).unDone();
 
         }
 
@@ -137,7 +147,7 @@ public class Storage {
      * in order to find matching tasks in task list
      * @param str string which user wants to find
      */
-    public void find(String str) {
+    public String find(String str) {
         String regex = str.substring(5);
         Pattern pattern = Pattern.compile(regex);
         ArrayList<Input> arr = new ArrayList<>();
@@ -149,12 +159,13 @@ public class Storage {
             }
 
         }
-        System.out.println("Here are the list "
-                + "of tasks found: ");
+        String out = "Here are the list "
+                + "of tasks found: \n";
         for (int i = 0; i < arr.size(); i++) {
-            System.out.println((i + 1) + ". "
-                    + arr.get(i).toString());
+            out = out + (i + 1) + ". "
+                    + arr.get(i).toString() + "\n";
         }
+        return out;
     }
 
 

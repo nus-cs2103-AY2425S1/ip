@@ -41,13 +41,13 @@ public abstract class Input {
      * Used to handle input from user
      */
 
-    public void done() {
+    public String done() {
         if (this.done) {
-            System.out.println("This has already been marked");
+            return "This has already been marked";
         } else {
             this.done = true;
-            System.out.print("I have marked the task "
-                    + "as done:\n" + this + "\n");
+            return "I have marked the task "
+                    + "as done:\n" + this + "\n";
         }
     }
 
@@ -56,13 +56,13 @@ public abstract class Input {
      * Used to handle inputs from user.
      */
 
-    public void unDone() {
+    public String unDone() {
         if (!this.done) {
-            System.out.println("This has already been unmarked");
+            return "This has already been unmarked";
         } else {
             this.done = false;
-            System.out.print("I have marked the task "
-                    + "as undone: \n" + this + "\n");
+            return "I have marked the task "
+                    + "as undone: \n" + this + "\n";
 
         }
     }
