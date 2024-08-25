@@ -1,8 +1,14 @@
 package David.Task;
 
 public class TodoTask extends Task {
-    public TodoTask(String eventName, boolean completed) {
-        super(eventName, completed);
+
+    /**
+     * Contructor for todo task
+     * @param eventName String event name
+     * @param isCompleted
+     */
+    public TodoTask(String eventName, boolean isCompleted) {
+        super(eventName, isCompleted);
     }
 
     @Override
