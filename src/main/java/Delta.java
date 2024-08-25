@@ -176,6 +176,13 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    /**
+     * Checks if date/time input by user is the correct format to be stored as a LocalDateTime object.
+     *
+     * @param input Date/time input by user.
+     * @return LocalDateTime object Object that contains the date/time according to the user input.
+     * @throws DeltaException If format of user input is wrong.
+     */
     public static LocalDateTime formatDateTime(String input) throws DeltaException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
