@@ -1,5 +1,5 @@
+package IpMan;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class IpMan {
@@ -8,6 +8,12 @@ public class IpMan {
     public Ui ui;
     public Parser parser;
 
+    public IpMan() {
+        list = new ArrayList<>();
+        db = new Storage();
+        ui = new Ui();
+        parser = new Parser(list, db, ui);
+    }
     public IpMan(String filePath) {
         list = new ArrayList<>();
         db = new Storage(filePath);
@@ -15,7 +21,12 @@ public class IpMan {
         parser = new Parser(list, db, ui);
     }
     public static void main(String[] args) {
-        new IpMan("data/saved.txt").run();
+        boolean isTest = args.length > 0 && args[0] != null && Boolean.parseBoolean(args[0]);
+        if (!isTest) {
+            new IpMan("data/saved.txt").run();
+        } else {
+            new IpMan().run();
+        }
     }
 
     public void run() {

@@ -1,4 +1,4 @@
-import java.lang.invoke.SwitchPoint;
+package IpMan;
 
 public class Ui {
     public static final String SEPARATOR = "____________________________________________________________";

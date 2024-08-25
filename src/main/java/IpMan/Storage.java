@@ -1,3 +1,5 @@
+package IpMan;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,6 +8,15 @@ import java.util.Scanner;
 
 public class Storage {
     private File file;
+    public Storage() {
+        file = new File(String.valueOf("tmp_" + System.currentTimeMillis() + ".txt"));
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            //do nothing
+        }
+    }
+
     public Storage(String filePath) {
         try {
             file = new File(filePath);
