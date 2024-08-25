@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -19,8 +23,11 @@ public class Killua {
         System.out.println("  unmark <task number> - Mark a task as not done yet");
         System.out.println("  delete <task number> - Delete a task");
         System.out.println("  todo <description> - Add a new todo task");
-        System.out.println("  deadline <description> /by <date> - Add a new deadline task");
-        System.out.println("  event <description> /from <start time> /to <end time> - Add a new event task");
+        System.out.println("  deadline <description> /by <yyyy-mm-dd> OR ");
+        System.out.println("        deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task");
+        System.out.println("  event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR ");
+        System.out.println("        event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task");
+        System.out.println("  on <yyyy-mm-dd> - Show tasks occurring on a specific date");
         printLine();
     }
 
@@ -126,10 +133,10 @@ public class Killua {
             task = new Todo(argument);
         } else if (taskType == 'D') {
             String[] strs = argument.split("\\|", 2);
-            task = new Deadline(strs[0].strip(), strs[1].strip());
+            task = getDeadline2(strs[0].strip(), strs[1].strip());
         } else if (taskType == 'E') {
             String[] strs = argument.split("\\|", 3);
-            task = new Event(strs[0].strip(), strs[1].strip(), strs[2].strip());
+            task = getEvent2(strs[0].strip(), strs[1].strip(), strs[2].strip());
         } else {
             throw new IllegalArgumentException("Unknown task type: " + taskType);
         }
@@ -139,6 +146,112 @@ public class Killua {
         }
 
         return task;
+    }
+
+    private static Task getDeadline(String argument) {
+        Task deadline;
+        String[] strs = argument.split("/", 2);
+        String by = strs[1].substring(3).strip();
+        String[] dateAndTime = by.split(" ", 2);
+        if (dateAndTime.length == 2) {
+            LocalDateTime dataTime = LocalDateTime.parse(dateAndTime[0] + "T" + dateAndTime[1]);
+            deadline = new Deadline(strs[0].strip(), dataTime);
+        } else {
+            deadline = new Deadline(strs[0].strip(), LocalDate.parse(dateAndTime[0]));
+        }
+        return deadline;
+    }
+
+    private static Task getEvent(String argument) {
+        Task event;
+        String[] strs = argument.split("/", 3);
+        String from = strs[1].substring(5).strip();
+        String to = strs[2].substring(3).strip();
+        String[] dateAndTimeFrom = from.split(" ", 2);
+        String[] dateAndTimeTo = to.split(" ", 2);
+        if (dateAndTimeFrom.length == 2) {
+            LocalDateTime dataTimeFrom = LocalDateTime.parse(dateAndTimeFrom[0] + "T" + dateAndTimeFrom[1]);
+            LocalDateTime dataTimeTo = LocalDateTime.parse(dateAndTimeTo[0] + "T" + dateAndTimeTo[1]);
+            event = new Event(strs[0].strip(), dataTimeFrom, dataTimeTo);
+        } else {
+            LocalDate dateFrom = LocalDate.parse(dateAndTimeFrom[0]);
+            LocalDate dateTo = LocalDate.parse(dateAndTimeTo[0]);
+            event = new Event(strs[0].strip(), dateFrom, dateTo);
+        }
+        return event;
+    }
+
+    private static Task getDeadline2(String description, String dateTimeString) {
+        Task deadline;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, dateTimeFormatter);
+            deadline = new Deadline(description, dateTime);
+        } catch (DateTimeParseException e1) {
+            try {
+                LocalDate date = LocalDate.parse(dateTimeString, dateFormatter);
+                deadline = new Deadline(description, date);
+            } catch (DateTimeParseException e2) {
+                throw new IllegalArgumentException("Invalid date format: " + dateTimeString);
+            }
+        }
+
+        return deadline;
+    }
+
+    private static Task getEvent2(String description, String dateTimeStringFrom, String dateTimeStringTo) {
+        Task event;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+        try {
+            LocalDateTime fromDateTime;
+            LocalDateTime toDateTime;
+
+            try {
+                fromDateTime = LocalDateTime.parse(dateTimeStringFrom, dateTimeFormatter);
+                toDateTime = LocalDateTime.parse(dateTimeStringTo, dateTimeFormatter);
+                event = new Event(description, fromDateTime, toDateTime);
+            } catch (DateTimeParseException e1) {
+                LocalDate fromDate = LocalDate.parse(dateTimeStringFrom, dateFormatter);
+                LocalDate toDate = LocalDate.parse(dateTimeStringTo, dateFormatter);
+                event = new Event(description, fromDate, toDate);
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format in event: from '" + dateTimeStringFrom + "' to '" + dateTimeStringTo + "'", e);
+        }
+
+        return event;
+    }
+
+    private static void showTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
+        printLine();
+        boolean hasTasks = false;
+        System.out.println("Tasks on " + date + ":");
+
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getDate().equals(date)) {
+                    System.out.println("  " + task);
+                    hasTasks = true;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (!event.getStartDate().isAfter(date) && !event.getEndDate().isBefore(date)) {
+                    System.out.println("  " + task);
+                    hasTasks = true;
+                }
+            }
+        }
+
+        if (!hasTasks) {
+            System.out.println("No tasks found for this date.");
+        }
+
+        printLine();
     }
 
     public static void main(String[] args) {
@@ -206,14 +319,13 @@ public class Killua {
                         throw new KilluaException("Deadline description cannot be empty!");
                     }
                     try {
-                        String[] strs = argument.split("/", 2);
-                        String by = strs[1].substring(3).strip();
-                        Task deadline = new Deadline(strs[0].strip(), by);
-
+                        Task deadline = getDeadline(argument);
                         tasks.add(deadline);
                         add(tasks, deadline);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new KilluaException("Please use the correct format for deadlines: deadline <description> /by <date>");
+                        throw new KilluaException("Please use the correct format for deadlines!");
+                    } catch (DateTimeParseException e1) {
+                        throw new KilluaException("Please use the correct format for dates: yyyy-mm-dd");
                     }
                     saveList(tasks);
                     break;
@@ -222,17 +334,23 @@ public class Killua {
                         throw new KilluaException("Event description cannot be empty!");
                     }
                     try {
-                        String[] strs = argument.split("/", 3);
-                        String from = strs[1].substring(5).strip();
-                        String to = strs[2].substring(3).strip();
-                        Task event = new Event(strs[0].strip(), from, to);
-
+                        Task event = getEvent(argument);
                         tasks.add(event);
                         add(tasks, event);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new KilluaException("Please use the correct format for events: event <description> /from <start time> /to <end time>");
+                        throw new KilluaException("Please use the correct format for events!");
+                    } catch (DateTimeParseException e1) {
+                        throw new KilluaException("Please use the correct format for dates: yyyy-mm-dd");
                     }
                     saveList(tasks);
+                    break;
+                case ON:
+                    try {
+                        LocalDate date = LocalDate.parse(argument);
+                        showTasksOnDate(tasks, date);
+                    } catch (DateTimeParseException e) {
+                        throw new KilluaException("Please use the correct format for dates: yyyy-mm-dd");
+                    }
                     break;
                 }
             } catch (KilluaException | IOException e) {
@@ -244,4 +362,5 @@ public class Killua {
 
         scanner.close();
     }
+
 }
