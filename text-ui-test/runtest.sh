@@ -5,7 +5,7 @@ if [ ! -d "../bin" ]
 then
     mkdir ../bin
 fi
-
+rm -r ../bin/*
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then

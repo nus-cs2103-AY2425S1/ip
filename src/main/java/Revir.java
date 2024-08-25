@@ -1,11 +1,13 @@
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Exceptions.*;
 
 public class Revir {
-    static ArrayList<Task> userInputList = new ArrayList<Task>();
+    static TaskList taskList;
 
     public static void main(String[] args) {
+        taskList = new TaskList(Path.of("data", "tasks.txt"));
         String name = "Revir";
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
@@ -35,42 +37,27 @@ public class Revir {
         } else if (command.equals("list")) {
             // Print the user input list
             System.out.println("List:");
-            for (Task userInput : userInputList) {
-                System.out.println(userInput.toString());
+            String list = taskList.list();
+            if (!list.isEmpty()) {
+                System.out.println(list);
             }
         } else if (command.startsWith("mark ")) {
             // Mark a task as completed
             String taskIndexStr = command.substring(5);
-
             int taskIndex = Integer.parseInt(taskIndexStr);
-            if (taskIndex >= 1 && taskIndex <= userInputList.size()) {
-                Task task = userInputList.get(taskIndex - 1);
-                task.setCompleted(true);
-                System.out.println("Task marked as completed: " + task.toString());
-            } else {
-                throw new IndexOutOfBoundsException(
-                        "Invalid task index. Expected index between 1 and " + userInputList.size());
-            }
+            System.out.println(taskList.setCompleted(taskIndex, true));
         } else if (command.startsWith("unmark ")) {
             // Unmark a completed task
             String taskIndexStr = command.substring(7);
-
             int taskIndex = Integer.parseInt(taskIndexStr);
-            if (taskIndex >= 1 && taskIndex <= userInputList.size()) {
-                Task task = userInputList.get(taskIndex - 1);
-                task.setCompleted(false);
-                System.out.println("Task unmarked as completed: \n" + task.toString());
-            } else {
-                throw new IndexOutOfBoundsException(
-                        "Invalid task index. Expected index between 1 and " + userInputList.size());
-            }
+            System.out.println(taskList.setCompleted(taskIndex, false));
         } else if (command.startsWith("todo ")) {
             // Add a todo task
             String taskDescription = command.substring(5);
             if (taskDescription.isEmpty()) {
                 throw new InvalidFormatException(Todo.format);
             }
-            userInputList.add(new Todo(taskDescription));
+            taskList.add(new Todo(taskDescription));
             System.out.println("Todo task added: " + taskDescription);
         } else if (command.startsWith("deadline ")) {
             // Add a deadline task
@@ -79,7 +66,7 @@ public class Revir {
             if (taskInfo.length == 2) {
                 String taskDescription = taskInfo[0];
                 String deadline = taskInfo[1];
-                userInputList.add(new Deadline(taskDescription, deadline));
+                taskList.add(new Deadline(taskDescription, deadline));
                 System.out.println("Deadline task added: " + taskDescription + " (by: " + deadline + ")");
             } else {
                 throw new InvalidFormatException(Deadline.format);
@@ -92,7 +79,7 @@ public class Revir {
                 String taskDescription = taskInfo[0];
                 String startDate = taskInfo[1].split(" /to ")[0];
                 String endDate = taskInfo[1].split(" /to ")[1];
-                userInputList.add(new Event(taskDescription, startDate, endDate));
+                taskList.add(new Event(taskDescription, startDate, endDate));
                 System.out.println(
                         "Event task added: " + taskDescription + " (from: " + startDate + " to: " + endDate + ")");
             } else {
@@ -103,13 +90,7 @@ public class Revir {
             String taskIndexStr = command.substring(7);
 
             int taskIndex = Integer.parseInt(taskIndexStr);
-            if (taskIndex >= 1 && taskIndex <= userInputList.size()) {
-                Task task = userInputList.remove(taskIndex - 1);
-                System.out.println("Task deleted: " + task.toString());
-            } else {
-                throw new IndexOutOfBoundsException(
-                        "Invalid task index. Expected index between 1 and " + userInputList.size());
-            }
+            System.out.println(taskList.remove(taskIndex));
         } else {
             throw new IllegalCommandException(command);
         }
