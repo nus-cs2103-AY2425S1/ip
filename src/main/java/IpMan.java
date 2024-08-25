@@ -4,13 +4,20 @@ import java.util.Scanner;
 
 public class IpMan {
     public static final String SEPARATOR = "____________________________________________________________";
+    public static ArrayList<Task> list = new ArrayList<>();
+    public static Db db = new Db("./data/saved.txt");
     public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
         System.out.println(SEPARATOR);
         System.out.println("Hello from Ip Man!\nWhat can I do for you?");
         System.out.println(SEPARATOR);
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner saved = db.getFileScanner();
+        parseInput(saved, true);
+        saved.close();
+        parseInput(new Scanner(System.in), false);
+    }
+
+    public static void parseInput(Scanner scanner, boolean isSaved) {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             System.out.println(SEPARATOR);
@@ -19,8 +26,9 @@ public class IpMan {
                 System.out.println(SEPARATOR);
                 break;
             }
+            String command = line.split(" ")[0];
             try {
-                switch (line.split(" ")[0]) {
+                switch (command) {
                     case "list": {
                         System.out.println("Here are the tasks in your list:");
                         for (int i = 0; i < list.size(); i++) {
@@ -91,6 +99,9 @@ public class IpMan {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(list.get(list.size() - 1));
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
+                }
+                if (!isSaved && !command.equals("list")) {
+                    db.addEntry(line);
                 }
             } catch (CommandException ce) {
                 System.out.println(ce.getMessage());
