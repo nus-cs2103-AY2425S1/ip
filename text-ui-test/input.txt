@@ -1,6 +1,12 @@
 todo Tutorial
+todo
 deadline quiz /by 2pm
+deadline
+deadline quiz
 event signature event /from Monday 7pm /to 8pm
+event
+event signature event
+event signature event /from Monday 7pm
 list
 mark 1
 mark 2

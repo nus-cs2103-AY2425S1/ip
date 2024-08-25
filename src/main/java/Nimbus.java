@@ -3,7 +3,8 @@ public class Nimbus {
     private static String welcomeMessage = "";
     private static String horizontalLine = "\n-------------------------------------------------";
     private static String endingMessage = "BAIBAI! NIMBUS WEEEEEEEEE" + horizontalLine;
-    public static void main(String[] args) {
+    public static void main(String[] args)
+            throws WrongInputException, MissingDescriptionException, MissingDeadlineException, MissingStartEndTimeException {
 
         // Came up with the name and used an online ASCII art generator
         // Generator: https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Ghost&t=nimbus
