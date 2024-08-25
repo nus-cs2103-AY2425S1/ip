@@ -26,11 +26,7 @@ public class Main {
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
         // get due date
-//        String[] dueDateArray = Arrays.copyOfRange(commandDetails, indexOfBy + 1, commandDetails.length);
-//        String dueDate = String.join(" ", dueDateArray);
-
-        // yyyy-mm-dd
-        String dueDate  = commandDetails[commandDetails.length - 1];
+        String dueDate  = commandDetails[commandDetails.length - 1];    // yyyy-mm-dd
         LocalDate date = LocalDate.parse(dueDate);
         String dateInCorrectFormat = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return new String[]{description, dateInCorrectFormat};
