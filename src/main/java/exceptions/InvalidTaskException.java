@@ -1,4 +1,6 @@
-public class InvalidTaskException extends AliceException{
+package exceptions;
+
+public class InvalidTaskException extends AliceException {
     protected int taskNumber;
     public InvalidTaskException(String message, int taskNumber) {
         super(message);
@@ -7,6 +9,6 @@ public class InvalidTaskException extends AliceException{
 
     @Override
     public String toString() {
-        return String.format("Task %d does not exist!", this.taskNumber);
+        return String.format("tasks.Task %d does not exist!", this.taskNumber);
     }
 }

@@ -1,4 +1,6 @@
-public class MissingArgumentException extends AliceException{
+package exceptions;
+
+public class MissingArgumentException extends AliceException {
     protected String taskType;
     protected String[] items;
     public MissingArgumentException(String taskType, String[] items) {

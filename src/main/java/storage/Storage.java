@@ -1,3 +1,7 @@
+package storage;
+
+import tasks.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -73,20 +77,11 @@ public class Storage {
     private String writeTask(Task t) {
         StringBuilder s = new StringBuilder();
         if (t instanceof Todo) {
-            s.append("todo").append(",")
-                    .append((t.isDone ? 1 : 0)).append(",")
-                    .append(t.description);
+            s.append("todo").append(",").append(t.writeTask());
         } else if (t instanceof Deadline) {
-            s.append("deadline").append(",")
-                    .append((t.isDone ? 1 : 0)).append(",")
-                    .append(t.description).append(",")
-                    .append(((Deadline) t).deadline);
+            s.append("deadline").append(",").append(t.writeTask());
         } else if (t instanceof Event) {
-            s.append("event").append(",")
-                    .append((t.isDone ? 1 : 0)).append(",")
-                    .append(t.description).append(",")
-                    .append(((Event) t).from).append(",")
-                    .append(((Event) t).to);
+            s.append("event").append(",").append(t.writeTask());
         } else {
             s.append("task");
         }

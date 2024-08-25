@@ -1,3 +1,5 @@
+package commands;
+
 public enum Command {
     MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, INVALID, LIST, BYE;
 
