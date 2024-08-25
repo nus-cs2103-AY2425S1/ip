@@ -3,7 +3,7 @@ package Parser;
 import Exceptions.DavidInvalidArgumentsException;
 import Exceptions.DavidUnknownActionException;
 
-public class StringParser {
+public class StringParser extends Parser{
 
     /*
     @param String s - takes in the full input string
@@ -11,8 +11,7 @@ public class StringParser {
      */
     public static String parseStringToCommand(String s) {
         String command = s.split("\s", 2)[0];
-        String commmandToUpperCase = command.toUpperCase();
-        return commmandToUpperCase;
+        return command.toUpperCase();
     }
 
     /*

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DateParser {
+public class DateParser extends Parser{
 
     public static LocalDateTime getDate(String date) {
         //format string to remove whitespaces first

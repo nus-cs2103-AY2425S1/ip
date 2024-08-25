@@ -2,10 +2,9 @@ package Task;
 
 import Parser.DateParser;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     private LocalDateTime by;
 
     public DeadlineTask(String eventName, LocalDateTime by, boolean completed) {

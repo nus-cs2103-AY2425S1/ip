@@ -1,45 +1,36 @@
+File cannot be created
 ____________________________________________________________
  Hello! I'm David
  What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[T][ ] read book
+[T][ ] todo read book
      You now have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] attend meeting (from: 4pm to: 8pm)
+[E][ ] attend meeting (from: 1600 12 Dec 2024 to: 2000 12 Dec 2024)
      You now have 2 tasks in the list.
 ____________________________________________________________
 
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] cs2103T ip(by: 20 Aug 2024)
-     You now have 3 tasks in the list.
-____________________________________________________________
-
-1: [T][ ] read book
-2: [E][ ] attend meeting (from: 4pm to: 8pm)
-3: [D][ ] cs2103T ip(by: 20 Aug 2024)
+The inputted date time format is wrong. Please ensure that it is in the format of"YYYY-MM-DD HHHH"where Y is the year, M is the month, D is the date and His the 24 hour time.
+1: [T][ ] todo read book
+2: [E][ ] attend meeting (from: 1600 12 Dec 2024 to: 2000 12 Dec 2024)
 ____________________________________________________________
 Nice! I've marked this task as done:
-[T][X] read book
+[T][X] todo read book
 ____________________________________________________________
 
-1: [T][X] read book
-2: [E][ ] attend meeting (from: 4pm to: 8pm)
-3: [D][ ] cs2103T ip(by: 20 Aug 2024)
+1: [T][X] todo read book
+2: [E][ ] attend meeting (from: 1600 12 Dec 2024 to: 2000 12 Dec 2024)
 ____________________________________________________________
 Okay, I've marked this task as not done yet:
-[T][ ] read book
+[T][ ] todo read book
 ____________________________________________________________
 
-1: [T][ ] read book
-2: [E][ ] attend meeting (from: 4pm to: 8pm)
-3: [D][ ] cs2103T ip(by: 20 Aug 2024)
-____________________________________________________________
-Bye. Hope to see you again soon!
-____________________________________________________________
+1: [T][ ] todo read book
+2: [E][ ] attend meeting (from: 1600 12 Dec 2024 to: 2000 12 Dec 2024)
+A cache failure occured. Please report this bug and try again later.
 

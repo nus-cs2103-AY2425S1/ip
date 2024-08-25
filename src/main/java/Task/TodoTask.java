@@ -1,6 +1,6 @@
 package Task;
 
-public class TodoTask extends Task{
+public class TodoTask extends Task {
     public TodoTask(String eventName, boolean completed) {
         super(eventName, completed);
     }

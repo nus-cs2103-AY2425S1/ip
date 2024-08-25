@@ -1,44 +1,32 @@
-import Data.Cache;
+import Data.Storage;
 import Exceptions.*;
 import Parser.DateParser;
 import Parser.StringParser;
-import Task.Task;
-import Task.TodoTask;
-import Task.DeadlineTask;
-import Task.EventTask;
+import Task.*;
+import UI.Ui;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Scanner;
+
 public class David {
-    private Scanner sc;
+    TaskList tasks;
+    private Ui ui;
     private String inputString = "";
-    private Cache c;
-    private String intro =
-            "____________________________________________________________\n" +
-            " Hello! I'm David\n" +
-            " What can I do for you?\n" +
-            "____________________________________________________________";
-    private String outro =
-            "____________________________________________________________\n" +
-            "Bye. Hope to see you again soon!\n" +
-            "____________________________________________________________\n";
-    public List<Task> tasks;
+    private Storage c;
 
     //constructor for David
-    public David() {
-        this.sc = new Scanner(System.in);
-        c = new Cache("./src/main/java/Data/database.txt");
+    public David(String path) {
+        this.ui = new Ui();
+        this.c = new Storage(path);
         this.tasks = c.loadTasks();
     };
 
     //run the chatbot
     public void activateChatBot() {
-        System.out.println(this.intro);
+        ui.start();
         while(true) {
-            inputString = sc.nextLine(); //get next input
+            inputString = ui.getInput(); //get next input
 
             if (inputString.equals("bye")) {
                 endChatBot();  //end chatbot
@@ -76,7 +64,7 @@ public class David {
                 The actual error message thrown/shown depends on the runtime type of
                 the exception thrown. (Polymorphism)
                  */
-                System.out.println(e.showErrorMessage());
+                ui.displayErrorMessage(e);
             }
 
         }
@@ -88,13 +76,8 @@ public class David {
     public void addTodoTask(String s) throws DavidInvalidArgumentsException{
         String event = StringParser.parseStringToArguments(s);
         Task t = new TodoTask(s, false);
-        this.tasks.add(t);
-        System.out.println(
-                "____________________________________________________________\n" +
-                        "Got it. I've added this task:\n" +
-                        t + "\n" +
-                        "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
-                        "____________________________________________________________\n");
+        this.tasks.addTask(t);
+        ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
     /**
@@ -121,13 +104,8 @@ public class David {
             LocalDateTime toDate = DateParser.getDate(eventDetails[1]);
 
             Task t = new EventTask(eventName, fromDate, toDate, false);
-            this.tasks.add(t);
-            System.out.println(
-                    "____________________________________________________________\n" +
-                            "Got it. I've added this task:\n" +
-                            t + "\n" +
-                            "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
-                            "____________________________________________________________\n");
+            this.tasks.addTask(t);
+            ui.displayTaskDetails(t, this.tasks.getSize());
         }  catch (DateTimeParseException e) {
             throw new DavidInvalidDateTimeException();
         }
@@ -149,13 +127,8 @@ public class David {
         try {
             LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
             Task t = new DeadlineTask(eventSplit[0], byDate, false);
-            this.tasks.add(t);
-            System.out.println(
-                    "____________________________________________________________\n" +
-                            "Got it. I've added this task:\n" +
-                            t + "\n" +
-                            "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
-                            "____________________________________________________________\n");
+            this.tasks.addTask(t);
+            ui.displayTaskDetails(t, this.tasks.getSize());
         } catch (DateTimeParseException e) {
             throw new DavidInvalidDateTimeException();
         }
@@ -170,19 +143,14 @@ public class David {
         try {
             String index = StringParser.parseStringToArguments(s);
             int i = Integer.parseInt(index) -1;
-            if(i >= tasks.size()){
+            if(i >= tasks.getSize()){
                 throw new DavidInvalidTaskException();
             };
-            Task t = tasks.get(i);
-            tasks.remove(i);
-            System.out.println(
-                    "____________________________________________________________\n" +
-                            "Alright, I've removed this task from the list:\n" +
-                            t + "\n" +
-                            "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
-                            "____________________________________________________________\n");
+            Task t = tasks.getTask(i);
+            tasks.deleteTask(i);
+            ui.displaySuccessfulDeleteMessage(t, this.tasks.getSize());
         } catch (NumberFormatException e) {
-            System.out.println("The number you entered is not a valid number. Please enter a valid number");
+            ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
         }
 
     }
@@ -191,55 +159,44 @@ public class David {
     public void markTaskAsDone(String s) throws DavidInvalidArgumentsException{
         try {
             String index = StringParser.parseStringToArguments(s);
-            Task t = tasks.get(Integer.parseInt(index) -1);
+            Task t = tasks.getTask(Integer.parseInt(index) -1);
             t.markAsDone();
-            System.out.println(
-                    "____________________________________________________________\n" +
-                            "Nice! I've marked this task as done:\n" +
-                            t + "\n" +
-                            "____________________________________________________________\n");
+            ui.displayMarkAsDoneMessage(t);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No such task! Please enter a valid task.");
+            ui.displayErrorMessage("No such task! Please enter a valid task.");
         } catch (NumberFormatException e) {
-            System.out.println("The number you entered is not a valid number. Please enter a valid number");
+            ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
         }
     }
 
     public void markTaskAsUnDone(String s) throws DavidInvalidArgumentsException {
         try {
             String index = StringParser.parseStringToArguments(s);
-            Task t = tasks.get(Integer.parseInt(index) - 1);
+            Task t = tasks.getTask(Integer.parseInt(index) - 1);
             t.markAsUnDone();
-            System.out.println(
-                    "____________________________________________________________\n" +
-                            "Okay, I've marked this task as not done yet:\n" +
-                            t + "\n" +
-                            "____________________________________________________________\n");
+            ui.displayMarkAsUnDoneMessage(t);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No such task! Please enter a valid task.");
+            ui.displayErrorMessage("No such task! Please enter a valid task.");
         } catch (NumberFormatException e) {
-            System.out.println("The number you entered is not a valid number. Please enter a valid number");
+            ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
         }
     }
 
     public void listTasks() {
-        for (int i = 0; i<tasks.size(); i++) {
-            System.out.println(i+1 + ": " + tasks.get(i));
-        }
+        ui.listTasks(this.tasks);
     }
 
     public void endChatBot() {
         try {
             c.saveTask(tasks);
-            System.out.println(outro);
+            ui.end();
         } catch (DavidCacheException e) {
-            System.out.println(e.toString());
+            ui.displayErrorMessage(e);
         }
 
     }
 
     public static void main(String[] args) {
-        David chat = new David();
-        chat.activateChatBot();
+        new David("./src/main/java/Data/database.txt").activateChatBot();
     }
 }
