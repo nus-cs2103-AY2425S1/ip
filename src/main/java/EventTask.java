@@ -1,7 +1,7 @@
 public class EventTask extends Task {
 
-    private String start;
-    private String end;
+    private final String start;
+    private final String end;
     public EventTask(String description, String start, String end) throws IllegalInputPotongException {
         super(description);
         if (start.isEmpty() || end.isEmpty()) {

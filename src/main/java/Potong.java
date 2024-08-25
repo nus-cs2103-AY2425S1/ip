@@ -19,17 +19,14 @@ public class Potong {
             } else if (userInput.equals("list")) {
                 System.out.println(data.toString());
                 System.out.println(Potong.LINE);
-                continue;
             } else if (userInput.startsWith("mark")) {
                 int index = Integer.valueOf(userInput.substring(5));
                 System.out.println(data.mark(index));
                 System.out.println(Potong.LINE);
-                continue;
             } else if (userInput.startsWith("unmark")) {
                 int index = Integer.valueOf(userInput.substring(7));
                 System.out.println(data.unmark(index));
                 System.out.println(Potong.LINE);
-                continue;
             } else if (userInput.startsWith("delete")) {
                 int index = Integer.valueOf(userInput.substring(7));
                 System.out.println(data.delete(index));
@@ -38,14 +35,12 @@ public class Potong {
                 String todo = userInput.substring(5).trim();
                 System.out.println(data.add(new ToDoTask(todo)));
                 System.out.println(Potong.LINE);
-                continue;
             } else if (userInput.startsWith("deadline")) {
                 String desc = userInput.substring(9).trim();
                 String task = desc.split("/", 2)[0].trim();
                 String deadline = desc.split("/", 2)[1].trim().substring(3);
                 System.out.println(data.add(new DeadlineTask(task, deadline)));
                 System.out.println(Potong.LINE);
-                continue;
             } else if (userInput.startsWith("event")) {
                 String desc = userInput.substring(6).trim();
                 String task = desc.split("/", 3)[0].trim();
@@ -53,9 +48,6 @@ public class Potong {
                 String end = desc.split("/", 3)[2].trim().substring(3);
                 System.out.println(data.add(new EventTask(task, start, end)));
                 System.out.println(Potong.LINE);
-                continue;
-
-
             } else {
                 throw new PotongException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

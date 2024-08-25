@@ -16,12 +16,12 @@ public class Task {
 
     public String mark() {
         this.isDone = true;
-        return String.format("Nice! I've marked this task as done:\n %s", this.toString());
+        return String.format("Nice! I've marked this task as done:\n %s", this);
     }
 
     public String unmark() {
         this.isDone = false;
-        return String.format("OK, I've marked this task as not done yet:\n %s", this.toString());
+        return String.format("OK, I've marked this task as not done yet:\n %s", this);
     }
     @Override
     public String toString() {

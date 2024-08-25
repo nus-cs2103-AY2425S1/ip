@@ -1,6 +1,6 @@
 public class DeadlineTask extends Task {
 
-    private String deadline;
+    private final String deadline;
 
     public DeadlineTask(String description, String deadline) throws IllegalInputPotongException {
         super(description);

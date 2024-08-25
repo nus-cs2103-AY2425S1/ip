@@ -6,7 +6,7 @@ public class InputData {
 
 
     public InputData() {
-        this.arr = new ArrayList<Task>(100);
+        this.arr = new ArrayList<>(100);
     }
 
     public String add(Task input) {
