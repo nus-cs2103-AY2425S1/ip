@@ -8,7 +8,7 @@ public class EchoBot {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    private static ArrayList<Task> allTasks = new ArrayList<>();
+    private static ArrayList<Task> allTasks = Data.getData();
 
     public static void dashline() {
         System.out.println("____________________________________________________________");
@@ -78,6 +78,9 @@ public class EchoBot {
         // Create a scanner to get user input
         Scanner scanner = new Scanner(System.in);
 
+        // Initialize data.txt
+        Data.init();
+
         // Send greet message to user
         EchoBot.greet();
 
@@ -122,6 +125,7 @@ public class EchoBot {
                     System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
                     dashline();
                 }
+                Data.setData(allTasks);
             } catch (IndexOutOfBoundsException e) {
                 String msg = "Input Error: " + e.getMessage();
                 System.out.println(msg);
