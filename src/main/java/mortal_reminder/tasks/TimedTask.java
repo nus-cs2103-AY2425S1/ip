@@ -37,7 +37,7 @@ public interface TimedTask {
     default LocalDateTime getTime(String descriptionString) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         return LocalDateTime.parse(descriptionString, inputFormatter);
-    };
+    }
 
     /**
      * Converts a {@link LocalDateTime} object to a formatted string.
@@ -56,6 +56,6 @@ public interface TimedTask {
     default String convertTimeToString(LocalDateTime time) {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
         return time.format(outputFormatter);
-    };
+    }
 
 }

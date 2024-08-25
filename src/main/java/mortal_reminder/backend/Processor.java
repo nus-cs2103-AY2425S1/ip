@@ -10,9 +10,9 @@ import mortal_reminder.tasks.TimedTask;
 import mortal_reminder.tasks.ToDo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 // javadocs was generated using ChatGPT with minor edits.
