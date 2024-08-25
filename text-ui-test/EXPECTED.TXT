@@ -71,19 +71,19 @@
 
 	____________________________________________________________
 	 Noted. I've removed this task:
-	  [E][ ] project meeting (from: 26 Aug 2024 to: 27 Aug 2024)
+	   [E][ ] project meeting (from: 26 Aug 2024 to: 27 Aug 2024)
 	 Now you have 2 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	 Noted. I've removed this task:
-	  [D][ ] return book (by: 25 Aug 2024)
+	   [D][ ] return book (by: 25 Aug 2024)
 	 Now you have 1 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	 Noted. I've removed this task:
-	  [T][ ] borrow book
+	   [T][ ] borrow book
 	 Now you have 0 tasks in the list.
 	____________________________________________________________
 
