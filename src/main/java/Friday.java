@@ -1,9 +1,64 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Friday {
-
     private final ArrayList<Task> items = new ArrayList<>();
+    private static final String FILE_PATH = "./data/friday.txt";
+
+    private void loadTasks() {
+        File file = new File(FILE_PATH);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } else {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine()) {
+                    String[] taskData = sc.nextLine().split(" \\| ");
+                    if ((taskData.length < 3) || !taskData[1].chars().allMatch(Character::isDigit)) continue;
+                    Task task;
+                    switch (taskData[0]) {
+                        case "T":
+                            task = new Todo(taskData[2]);
+                            break;
+                        case "D":
+                            task = new Deadline(taskData[2], taskData[3]);
+                            break;
+                        case "E":
+                            task = new Event(taskData[2], taskData[3], taskData[4]);
+                            break;
+                        default:
+                            System.out.println("\tCorrupted data found: "
+                                    + String.join(" | ", taskData));
+                            continue; // Skip corrupted data
+                    }
+                    if (taskData[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                    items.add(task);
+                }
+                sc.close();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        }
+    }
+
+    private void saveTasks() {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : items) {
+                String taskData = task.toFileFormat();
+                writer.write(taskData + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+        }
+    }
 
     private void horizontalLine() {
         System.out.println("\t____________________________________________________________");
@@ -49,14 +104,13 @@ public class Friday {
         while (true) {
             input = sc.nextLine();
             horizontalLine();
-
             String[] inputs = input.split(" ");
             Command command = parseCommand(input);
 
             try {
                 switch (command) {
                     case BYE:
-                        System.out.println("\tGood Bye. Hope to see you again soon!"); // Level 1
+                        System.out.println("\tGood Bye. Hope to see you again soon!");
                         return;
                     case HELP:
                         if (inputs.length > 1) {
@@ -129,6 +183,7 @@ public class Friday {
             } catch (FridayException e) {
                 System.out.println("\t" + e.getMessage());
             } finally {
+                saveTasks();
                 horizontalLine();
             }
         }
@@ -162,14 +217,18 @@ public class Friday {
         if (target > items.size() || target <= 0)
             throw new FridayException("Invalid input. It appears you are attempting to" +
                     " access something that does not exist yet.");
+        Task task = items.get(target - 1);
         if (inputs[0].equals("mark")) {
-            items.get(target - 1).markAsDone();
+            task.markAsDone();
+            System.out.println("\tNice! I've marked this task as done:\n\t  " + task);
         } else {
-            items.get(target - 1).unmarkAsDone();
+            task.unmarkAsDone();
+            System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + task);
         }
     }
 
     private void initialize() {
+        loadTasks();
         welcomeMessage();
         readInput();
     }
