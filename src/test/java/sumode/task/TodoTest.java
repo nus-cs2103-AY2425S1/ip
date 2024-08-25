@@ -1,21 +1,24 @@
 package sumode.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
 import sumode.util.Command;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TodoTest {
 
     @Test
     public void todoTest() {
         try {
-            Task test = Task.of(Command.TODO,"parktour with my hand");
+            Task test = Task.of(Command.TODO, "parktour with my hand");
             test.mark();
             assertEquals("T | 1 | parktour with my hand", test.savedString());
-            assertEquals("[T][X]parktour with my hand",test.toString());
+            assertEquals("[T][X]parktour with my hand", test.toString());
         } catch (Exception e) {
             fail("Exception is thrown when is it not supposed to be. Exception message below\n"
                     + e.getMessage());
@@ -27,7 +30,7 @@ public class TodoTest {
         try {
             Task test = Task.createFromData("T | 0 | parktour with my hand 2024-08-06");
             assertEquals("T | 0 | parktour with my hand 2024-08-06", test.savedString());
-            assertEquals("[T][ ]parktour with my hand 2024-08-06",test.toString());
+            assertEquals("[T][ ]parktour with my hand 2024-08-06", test.toString());
         } catch (Exception e) {
             fail("Exception is thrown when is it not supposed to be. Exception message below\n"
                     + e.getMessage());
@@ -60,8 +63,8 @@ public class TodoTest {
         assertEquals("""
                         Sumo confused. This task is not completed in the first place!
                         But SUMO will mark it as NOT done again!
-                        [T][ ]parktour with my hand 2024-08-06"""
-                        ,exception.getMessage());
+                        [T][ ]parktour with my hand 2024-08-06""",
+                        exception.getMessage());
     }
 
     private void testUnmarkErrorHelper() throws AlreadyUnmarkedException {
@@ -75,8 +78,8 @@ public class TodoTest {
         assertEquals("""
                         Sumo confused. This task is marked as done in the first place!
                         But SUMO will mark it as done again!
-                        [T][X]parktour with my hand 2024-08-06"""
-                ,exception.getMessage());
+                        [T][X]parktour with my hand 2024-08-06""",
+                exception.getMessage());
     }
 
     private void testMarkErrorHelper() throws AlreadyMarkedException {

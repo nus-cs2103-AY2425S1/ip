@@ -1,6 +1,5 @@
 package sumode.util;
 
-import sumode.task.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,11 +7,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import sumode.task.Task;
 
 /**
  * In charge of saving/loading to the file path.
  */
-public class Storage{
+public class Storage {
 
     private final String filePath;
     private final File f;
@@ -24,7 +24,7 @@ public class Storage{
      * @param filePath File path to save data for tasks in lists.
      * @param ui UI for all outputs.
      */
-    public Storage (String filePath, Ui ui) throws IOException {
+    public Storage(String filePath, Ui ui) throws IOException {
         this.filePath = filePath;
         this.ui = ui;
         this.f = new File(filePath);
@@ -33,14 +33,14 @@ public class Storage{
         File parentDir = f.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             if (!parentDir.mkdirs()) {
-                System.out.println("ZZZ");// Attempt to create the directory
+                System.out.println("ZZZ"); // Attempt to create the directory
                 throw new IOException("Failed to create required directories for path: " + filePath);
             }
         }
 
         // Ensure the file itself exists
         if (!f.exists()) {
-            if(!f.createNewFile()) {
+            if (!f.createNewFile()) {
                 throw new IOException();
             }
         }
@@ -72,10 +72,10 @@ public class Storage{
      * @return a String array of what each line is in the file.
      */
     public String[] load() throws FileNotFoundException {
-            Scanner s = new Scanner(f);
-            s.useDelimiter("\\A");
-            return s.hasNext()
-                    ? s.next().split("\n")
-                    : new String[0];
+        Scanner s = new Scanner(f);
+        s.useDelimiter("\\A");
+        return s.hasNext()
+                ? s.next().split("\n")
+                : new String[0];
     }
 }

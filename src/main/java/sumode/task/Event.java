@@ -21,7 +21,8 @@ public class Event extends Task {
      * @param start Starting date of task.
      * @param end Ending date of task
      */
-    public Event (String name, String start, String end) {
+    public Event(String name, String start, String end) {
+
         super(name);
         this.start = start;
         this.end = end;
@@ -44,9 +45,9 @@ public class Event extends Task {
         return "[E]"
                 + super.toString()
                 + " (from: "
-                + (startDate == null ? this.start :this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + (startDate == null ? this.start : this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
                 + " to: "
-                + (endDate == null ? this.end :this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + (endDate == null ? this.end : this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
                 + ")";
     }
 

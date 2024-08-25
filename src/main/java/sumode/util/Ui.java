@@ -1,7 +1,8 @@
 package sumode.util;
-import sumode.task.*;
 
 import java.util.List;
+
+import sumode.task.Task;
 
 /**
  * Handles all statements to be printed in SumoDE.
@@ -47,14 +48,14 @@ public class Ui {
     /**
      * Prints a notice that command is wrong.
      */
-    public void unknownCommand (String commandString) {
-        System.out.println("Sumo dunno your command \"" + commandString +"\" ! Check spelling of your first word.");
+    public void unknownCommand(String commandString) {
+        System.out.println("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
     }
 
     /**
      * Prints error message.
      */
-    public void handleError (Exception e) {
+    public void handleError(Exception e) {
         System.out.println(e.getMessage());
     }
 
@@ -110,7 +111,7 @@ public class Ui {
             if (task == null) {
                 break;
             }
-            System.out.println((i+1) + ". "+ task);
+            System.out.println((i + 1) + ". " + task);
         }
     }
 
