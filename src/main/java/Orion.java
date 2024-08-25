@@ -1,27 +1,30 @@
 import java.util.Scanner;
 
+import storage.Storage;
 import task.DeadlineDetails;
 import task.EventDetails;
 import task.Task;
-import taskManager.TaskManager;
-import validator.Validator;
+import taskList.TaskList;
+import parser.Parser;
 import orionExceptions.*;
 import commands.Command;
 
 public class Orion {
     public static Scanner scanner = new Scanner(System.in);
-    public static TaskManager manager;
+    public static TaskList manager;
+    public static Storage storage;
 
     static {
         try {
-            manager = new TaskManager();
+            storage = new Storage();
+            manager = new TaskList(storage);
         } catch (FileInitializationException e) {
-            System.err.println("Failed to initialize TaskManager: " + e.getMessage());
-            System.exit(1);  // Exiting the application since TaskManager is essential
+            System.err.println("Failed to initialize TaskList: " + e.getMessage());
+            System.exit(1);  // Exiting the application since TaskList is essential
         }
     }
 
-    public static Validator validator = new Validator();
+    public static Parser parser = new Parser();
     private static final String HORIZONTAL_LINE = "────────────────────────────────────────";
 
     public static void main(String[] args) {
@@ -73,7 +76,7 @@ public class Orion {
     private static void handleList(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                validator.validateListCommand(parts);
+                parser.validateListCommand(parts);
                 manager.printTasks();
             } catch (OrionException e) {
                 System.out.println(e.getMessage());
@@ -84,7 +87,7 @@ public class Orion {
     private static void handleEvent(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                EventDetails details = validator.validateEventCommand(parts);
+                EventDetails details = parser.validateEventCommand(parts);
                 Task temp = manager.addEvent(details);
                 int taskLen = manager.getSize();
                 System.out.println("     Got it. I've added this task:\n" + temp + "\n" + "Now you have " + taskLen + " tasks in the list");
@@ -98,7 +101,7 @@ public class Orion {
     private static void handleDeadline(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                DeadlineDetails deadlineDetails = validator.validateDeadlineCommand(parts);
+                DeadlineDetails deadlineDetails = parser.validateDeadlineCommand(parts);
                 Task newDeadline = manager.addDeadline(deadlineDetails);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + newDeadline);
@@ -111,7 +114,7 @@ public class Orion {
     private static void handleTodo(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                String description = validator.validateTodoCommand(parts);
+                String description = parser.validateTodoCommand(parts);
 
                 Task temp = manager.addTodo(description);
                 int taskLen = manager.getSize();
@@ -126,7 +129,7 @@ public class Orion {
     private static void handleMark(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                int index = validator.validateMarkAndUnMarkCommand(parts, manager);
+                int index = parser.validateMarkAndUnMarkCommand(parts, manager);
                 Task temp = manager.markAsDone(index);
                 System.out.println("Marked task as done: " + temp);
             } catch (OrionException e) {
@@ -138,7 +141,7 @@ public class Orion {
     private static void handleUnmark(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                int index = validator.validateMarkAndUnMarkCommand(parts, manager);
+                int index = parser.validateMarkAndUnMarkCommand(parts, manager);
                 Task temp = manager.unmarkAsDone(index);
                 System.out.println("Unmarked task: " + temp);
             } catch (OrionException e) {
@@ -150,7 +153,7 @@ public class Orion {
     private static void handleDelete(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                int index = validator.validateDeleteCommand(parts, manager);
+                int index = parser.validateDeleteCommand(parts, manager);
                 Task deletedTask = manager.deleteTask(index);
                 System.out.println("Noted. I've removed this task:");
                 System.out.println("  " + deletedTask);
