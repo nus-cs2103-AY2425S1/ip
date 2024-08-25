@@ -6,6 +6,7 @@ import duke.commands.AddTaskCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
 import duke.commands.FilterTaskCommand;
+import duke.commands.FindTaskCommand;
 import duke.commands.ListTaskCommand;
 import duke.commands.MarkTaskCommand;
 import duke.exceptions.InvalidInputException;
@@ -42,10 +43,13 @@ public class InputParser {
         } else if (userInput.startsWith("delete")) {
             return new DeleteTaskCommand(InputParser.parseTaskIndex(userInput));
         } else if (userInput.startsWith("filter")) {
-            String dateString = InputParser.parseDateString(userInput);
+            String dateString = InputParser.parseCommandArgument(userInput, "Invalid date format.");
             LocalDateTime dateTime = DateTimeFormatEnum.parse(dateString)
                     .orElseThrow(() -> new InvalidInputException("Invalid date format."));
             return new FilterTaskCommand(dateTime);
+        } else if (userInput.startsWith("find")) {
+            String keyword = InputParser.parseCommandArgument(userInput, "Invalid find command format.");
+            return new FindTaskCommand(keyword);
         } else { // we try to add a task (todos/deadline/event)
             return new AddTaskCommand(userInput);
         }
@@ -72,22 +76,22 @@ public class InputParser {
     }
 
     /**
-     * Extracts the date string from the user's input string.
+     * Extracts the argument from the user's input string.
      * <p>
-     * This method assumes that the user input contains a valid command followed by
-     * a date string (e.g., "filter 2/12/2019 1800").
-     * The date string is extracted and returned for further parsing by other methods.
+     * This method is used to extract arguments from commands such as "filter" or "find".
+     * It returns the part of the string following the command keyword.
      * </p>
      *
-     * @param userInput The raw input string from the user, typically containing the command and a date string.
-     * @return The extracted date string.
-     * @throws InvalidInputException if the input does not contain a valid date string or is improperly formatted.
+     * @param userInput The raw input string from the user.
+     * @param errorMessage The error message to display if the argument cannot be extracted.
+     * @return The extracted argument as a string.
+     * @throws InvalidInputException if the input does not contain a valid argument or is improperly formatted.
      */
-    public static String parseDateString(String userInput) throws InvalidInputException {
+    private static String parseCommandArgument(String userInput, String errorMessage) throws InvalidInputException {
         try {
             return userInput.split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidInputException("Invalid date format.\n" + e.getMessage());
+            throw new InvalidInputException(errorMessage + "\n" + e.getMessage());
         }
     }
 }
