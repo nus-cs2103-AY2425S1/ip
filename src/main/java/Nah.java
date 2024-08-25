@@ -4,8 +4,8 @@ import static java.lang.Integer.parseInt;
 
 public class Nah {
     private static String greetLine = "____________________________________________________________\n"
-            + " Hello! I'm NAH \n"
-            + " What can I do for you? \n"
+            + " Hello! I'm NAH\n"
+            + " What can I do for you?\n"
             + "____________________________________________________________\n";
     private static String byeLine = " Bye. Hope to see you again soon!\n";
 
@@ -17,13 +17,13 @@ public class Nah {
 
     private void exit() {
         System.out.println(byeLine);
-        System.out.println("____________________________________________________________ \n");
+        System.out.println("____________________________________________________________\n");
     }
 
     private void add(Task newTask) {
         task[taskCount] = newTask;
         taskCount ++;
-        System.out.println(" Got it. I've added this task: \n"
+        System.out.println(" Got it. I've added this task:\n"
                         + "   " + newTask.toString() + "\n"
                         + " Now you have " + taskCount + " tasks in the list.");
     }
@@ -48,10 +48,10 @@ public class Nah {
     }
 
     public static void main(String[] args) {
-        String logo = "| \\   | |      /\\      | |  | | \n"
-                + "| |\\  | |     / /\\     | |==| | \n"
-                + "| | \\ | |    / /__\\    | |  | | \n"
-                + "| |  \\  |   / /    \\   | |  | | \n";
+        String logo = "| \\   | |      /\\      | |  | |\n"
+                + "| |\\  | |     / /\\     | |==| |\n"
+                + "| | \\ | |    / /__\\    | |  | |\n"
+                + "| |  \\  |   / /    \\   | |  | |\n";
 
 
         System.out.println("Hello from\n" + logo);
@@ -65,7 +65,7 @@ public class Nah {
 
         while (true) {
             input = scanner.nextLine();
-            System.out.println("____________________________________________________________ \n");
+            System.out.println("____________________________________________________________\n");
 
             String[] command = input.split(" ", 2);
             switch (command[0]) {
@@ -107,7 +107,7 @@ public class Nah {
                     break;
 
             }
-            System.out.println("____________________________________________________________ \n");
+            System.out.println("____________________________________________________________\n");
         }
 
     }
