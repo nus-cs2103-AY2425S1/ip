@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.function.Supplier;
 
 import task.Task;
 import taskManager.TaskManager;
@@ -9,7 +8,17 @@ import commands.Command;
 
 public class Orion {
     public static Scanner scanner = new Scanner(System.in);
-    public static TaskManager manager = new TaskManager();
+    public static TaskManager manager;
+
+    static {
+        try {
+            manager = new TaskManager();
+        } catch (FileInitializationException e) {
+            System.err.println("Failed to initialize TaskManager: " + e.getMessage());
+            System.exit(1);  // Exiting the application since TaskManager is essential
+        }
+    }
+
     public static Validator validator = new Validator();
     private static final String HORIZONTAL_LINE = "────────────────────────────────────────";
 
