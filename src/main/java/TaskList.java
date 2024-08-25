@@ -75,6 +75,36 @@ public class TaskList {
     }
 
     /**
+     * Creates a task object and adds it into the list.
+     * <p>
+     * Based on the task type, it will create the corrosponding task object.
+     * 
+     * @param taskName Description of the task.
+     * @param taskType The type of the task.
+     * @param startDate The start date of the task.
+     * @param endDate The end date of the task.
+     */
+    public void addTask(String taskName, String taskType, String startDate, String endDate, boolean isMarked) {
+
+        // Create a new task object based on he task type
+        Task newTask;
+        if (taskType.equals("TODO")) {
+            newTask = new ToDoTask(taskName);
+        } else if (taskType.equals("DEADLINE")) {
+            newTask = new DeadlineTask(taskName, endDate);
+        } else {
+            newTask = new EventTask(taskName, startDate, endDate);
+        }
+
+        if (isMarked) {
+            newTask.mark();
+        }
+
+        // Add the new task into the list
+        this.toDo.add(newTask);
+    }
+
+    /**
      * Deletes the task from the list.
      * <p>
      * If the index input is out of bounds it will throw a invalid index exception.

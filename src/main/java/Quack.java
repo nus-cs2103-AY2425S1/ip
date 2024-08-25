@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.io.BufferedReader;  
 import java.io.File;
+import java.io.FileReader;  
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -200,6 +202,45 @@ public class Quack {
         System.out.println(spacer);
     }
 
+    private void loadData() {
+
+        // Load the datafile
+        File dataFile = new File("data/savedData.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(dataFile));
+
+            String line = br.readLine();
+
+            while (line != null) {
+                String[] data = line.split(",");
+
+                switch (data[0]) {
+                case "TODO":
+                    this.toDoList.addTask(data[1], data[0], null, null, Boolean.parseBoolean(data[2]));
+                    break;
+                
+                case "DEADLINE":
+                    this.toDoList.addTask(data[1], data[0], null, data[3], Boolean.parseBoolean(data[2]));
+                    break;
+                
+                case "EVENT":
+                    this.toDoList.addTask(data[1], data[0], data[3], data[4], Boolean.parseBoolean(data[2]));
+                    break;
+
+                default:
+                    break;
+                }
+
+                line = br.readLine();
+            }
+
+            br.close();
+
+        } catch (Exception err) {
+            // There is no data file to read from, then continue as per normal.   
+        }
+    }
+
     /**
      * Saves the task list into a .csv folder.
      * <p>
@@ -230,7 +271,7 @@ public class Quack {
     private void run() {
 
         // Retrieved save data from a text file if it exists
-
+        this.loadData();
 
         // Chatbot is running for the first time, display the logo and greet the user
         this.printLogo();
