@@ -1,3 +1,12 @@
+package gravitas.storage;
+
+import gravitas.exception.DukeException;
+import gravitas.task.Deadline;
+import gravitas.task.Event;
+import gravitas.task.Task;
+import gravitas.task.Todo;
+import gravitas.tasklist.TaskList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,24 +19,11 @@ import java.util.List;
 
 public class Storage {
 
-    public Path dirPath;
     public Path filePath;
 
-    public Storage() {
+    public Storage(String filePath) {
         String home = System.getProperty("user.home");
-        Path dirPath = Paths.get(home, "Documents", "Github", "IP", "data");
-        boolean directoryExists = Files.exists(dirPath);
-        this.dirPath = dirPath;
-        this.filePath = Paths.get(home, "Documents", "Github", "IP", "data", "tasks.txt");
-
-        //Create directory if needed
-        if (!directoryExists) {
-            try {
-                Files.createDirectory(this.dirPath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        this.filePath = Paths.get(home, filePath);
 
         File f = new File(this.filePath.toString());
         //Create file if needed
@@ -42,7 +38,7 @@ public class Storage {
 
     public ArrayList<Task> loadTasks() throws DukeException {
 
-        if (Files.exists(this.dirPath) && new File(this.filePath.toString()).isFile()) {
+        if (new File(this.filePath.toString()).isFile()) {
             try {
                 List<String> lines = Files.readAllLines(this.filePath);
                 ArrayList<Task> t = new ArrayList<>();
@@ -88,17 +84,7 @@ public class Storage {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             for (int i = 0; i < tasklist.size(); i++) {
                 Task task = tasklist.getTask(i);
-                char eventType = task.eventType;
-                char isDone = task.isDone ? '1' : '0';
-                String desc = task.description;
-                String startDate = task.startDate.format(dateFormatter);
-                String startTime = task.startTime;
-                String endDate = task.endDate.format(dateFormatter);
-                String endTime = task.endTime;
-                String formattedMsg = eventType + " | " + isDone + " | " + desc +
-                        " | " + startDate + " | " + startTime +
-                        " | " + endDate + " | " + endTime + "\n";
-                fw.write(formattedMsg);
+                fw.write(task.formatData());
             }
             fw.close();
         } catch (IOException e) {
