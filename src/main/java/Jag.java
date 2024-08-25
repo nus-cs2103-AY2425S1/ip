@@ -1,10 +1,13 @@
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Jag {
     static String dashed = "----------";
@@ -42,8 +45,9 @@ public class Jag {
                     startIndex = item.indexOf(":") + 1;
                     endIndex = item.indexOf(')');
                     by = item.substring(startIndex, endIndex).trim();
-
-                    Deadline deadline = new Deadline(description, by);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH mm ss");
+                    LocalDateTime d1 = LocalDateTime.parse(by, formatter);
+                    Deadline deadline = new Deadline(description, d1);
                     deadline.setStatus(isDone);
                     tasks.add(deadline);
                 } else {
@@ -52,13 +56,16 @@ public class Jag {
                     int endIndex = item.indexOf('(');
                     description = item.substring(startIndex, endIndex).trim();
                     startIndex = item.indexOf(":") + 1;
-                    endIndex = item.indexOf("to:");
+                    endIndex = item.indexOf(", to:");
                     from = item.substring(startIndex, endIndex).trim();
                     startIndex = item.indexOf("to: ") + 4;
                     endIndex = item.indexOf(')');
                     to = item.substring(startIndex, endIndex).trim();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH mm ss");
+                    LocalDateTime d1 = LocalDateTime.parse(from, formatter);
+                    LocalDateTime d2 = LocalDateTime.parse(to, formatter);
 
-                    Event event = new Event(description, from, to);
+                    Event event = new Event(description, d1, d2);
                     event.setStatus(isDone);
                     tasks.add(event);
                 }
@@ -167,7 +174,9 @@ public class Jag {
         String[] split = answer.split("/by");
         String description = split[0].replaceFirst("deadline", "").trim();
         String by = split[1].trim();
-        Deadline newDeadline = new Deadline(description, by);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime d1 = LocalDateTime.parse(by, formatter);
+        Deadline newDeadline = new Deadline(description, d1);
         tasks.add(newDeadline);
 
         try {
@@ -190,7 +199,10 @@ public class Jag {
         String description = split[0].replaceFirst("event", "").trim();
         String from = split[1].trim();
         String to = split[2].trim();
-        Event newEvent = new Event(description, from, to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime d1 = LocalDateTime.parse(from, formatter);
+        LocalDateTime d2 = LocalDateTime.parse(to, formatter);
+        Event newEvent = new Event(description, d1, d2);
         tasks.add(newEvent);
 
         try {
