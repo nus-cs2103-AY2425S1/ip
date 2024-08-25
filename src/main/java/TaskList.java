@@ -32,7 +32,7 @@ public class TaskList {
         String temp = "";
         for (int i = 0; i < tasks.size(); i++){
             Task t = tasks.get(i);
-            temp = temp.concat(String.format("%d-> [%s] %s\n", i + 1, t.getStatusIcon(), t));
+            temp = temp.concat(String.format("%d-> [%s][%s] %s\n", i + 1, t.getTypeIcon(), t.getStatusIcon(), t));
         }
         return temp;
     }
