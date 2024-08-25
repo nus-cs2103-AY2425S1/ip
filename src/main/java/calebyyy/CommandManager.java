@@ -19,8 +19,10 @@ public class CommandManager {
     private Command byeCommand;
     private Command deleteCommand;
     private Scanner scanner;
+    private Calebyyy calebyyy;
 
     public CommandManager(Calebyyy calebyyy) {
+        this.calebyyy = calebyyy;
         addCommand = new AddCommand(calebyyy);
         listCommand = new ListCommand(calebyyy);
         markCommand = new MarkCommand(calebyyy);
@@ -105,5 +107,6 @@ public class CommandManager {
 
         Command command = getCommand(commandType);
         command.execute(input);
+        calebyyy.saveTasks();
     }
 }

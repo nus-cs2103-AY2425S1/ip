@@ -12,6 +12,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String toSaveFormat() {
+        return " | " + (isDone ? 1 : 0) + " | " + description;
+    }
+
     public void markAsDone() {
         isDone = true;
         System.out.println("____________________________________________________________");
