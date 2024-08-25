@@ -1,15 +1,23 @@
 package Components;
+import java.util.InputMismatchException;
 
 public class Deadline extends Task {
     
     private String deadline;
 
-    public Deadline(String textString) {
-        super(textString.replaceAll(" /.*", "")); /* isolates the task description */
+    private Deadline(String description, String deadline) {
+        super(description); 
+        this.deadline = deadline; 
+    }
 
-        //TODO: add exception check to make sure that /by is present
-        
-        this.deadline = textString.replaceAll(".*/by ", ""); /* isolates the task deadline */
+    public static Deadline createNewDeadline(String textString) throws InputMismatchException {
+        if (!textString.matches("^\\s+\\S.*\\s*/by\\s*\\S.*")) {
+            throw new InputMismatchException("Ensure that input contains description and end date");
+        }
+
+        String description = textString.replaceAll("/by.*", "").trim();
+        String deadline = textString.replaceAll(".*/by", "").trim();
+        return new Deadline(description, deadline);
     }
 
     @Override

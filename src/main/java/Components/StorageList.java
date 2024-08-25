@@ -1,4 +1,5 @@
 package Components;
+import java.util.InputMismatchException;
 
 public class StorageList {
     private Task[] storageList;
@@ -10,21 +11,38 @@ public class StorageList {
     }
 
     public void addTask(String str) {
-        if (str.startsWith("todo ")) {
-            String textString = str.substring(5);
-            Todo newToDo = new Todo(textString);
-            this.addToList(newToDo);
-            System.out.println("Task added:\n  " + newToDo + "\nNow you have " + len + " tasks in the list. HAVE FUN ^o^");
+        if (str.startsWith("todo")) {
+            String textString = str.substring(4);
+
+            try {
+                Todo newToDo = Todo.createNewTodo(textString);
+                this.addToList(newToDo);
+                System.out.println("Task added:\n  " + newToDo + "\nNow you have " + len + " tasks in the list. HAVE FUN ^o^");
+            } catch(InputMismatchException e) {
+                System.out.println("Please ensure your todo has a description TT");
+            }
+
         } else if (str.startsWith("event")) {
-            String textString = str.substring(6);
-            Event newEvent = new Event(textString);
-            this.addToList(newEvent);
-            System.out.println("Task added:\n  " + newEvent + "\nNow you have " + len + " tasks in the list. HAVE FUN ^o^");
+            String textString = str.substring(5);
+
+            try {
+                Event newEvent = Event.createNewEvent(textString);
+                this.addToList(newEvent);
+                System.out.println("Task added:\n  " + newEvent + "\nNow you have " + len + " tasks in the list. HAVE FUN ^o^");
+            } catch(InputMismatchException e) {
+                System.out.println("Please ensure your event has a description, a start and end time TT");
+            }
+            
         } else {    /* remaining case is deadline task cases */
-            String textString = str.substring(9);
-            Deadline newDeadline = new Deadline(textString);
-            this.addToList(newDeadline);
-            System.out.println("Task added:\n  " + newDeadline + "\nNow you have " + len + " tasks in the list. HAVE FUN ^o^");
+            String textString = str.substring(8);
+
+            try {
+                Deadline newDeadline = Deadline.createNewDeadline(textString);
+                this.addToList(newDeadline);
+                System.out.println("Task added:\n  " + newDeadline + "\nNow you have " + len + " tasks in the list. HAVE FUN ^o^");
+            } catch(InputMismatchException e) {
+                System.out.println("Please ensure your deadline has a description and a end date TT");
+            }
         }
     }
 

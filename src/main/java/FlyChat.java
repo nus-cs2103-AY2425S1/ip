@@ -1,12 +1,26 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 import Components.StorageList;
 
 public class FlyChat {
     private static final String lineBreak = "\n--------------------\n";
     private static StorageList storageList = new StorageList();
+
+    /*  Scanner declared here as any instance of closing a Scanner(System.in) instance also closes
+        System.in, so we should only declare 1 scanner instance in main */
+    private static Scanner userInput = new Scanner(System.in);
+    private static boolean operatingStatus = true;
     public static void main(String[] args) {
         start();
-        listManipulation();
+        while(operatingStatus) {
+            try {
+                listManipulation();
+            } catch(InputMismatchException e) {
+                System.out.println(lineBreak);
+                System.out.println("I'm not sure what task you want me to do :((");
+                System.out.println(lineBreak);
+            }
+        }
         end();
     }
 
@@ -22,8 +36,7 @@ public class FlyChat {
         System.out.println(lineBreak);
     }
 
-    private static void listManipulation() {
-        Scanner userInput = new Scanner(System.in);
+    private static void listManipulation() throws InputMismatchException {
         String inputString = userInput.nextLine();
 
         //while loop continues scanning until "bye" is typed by user
@@ -44,17 +57,17 @@ public class FlyChat {
                 storageList.unmark(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
                 System.out.println(lineBreak);
             //when user types todo/deadline/event at the start, a new corresponding task is created
-            } else if (inputString.startsWith("todo ") || inputString.startsWith("deadline ") || 
-                        inputString.startsWith("event ")) {
+            } else if (inputString.startsWith("todo") || inputString.startsWith("deadline") || 
+                        inputString.startsWith("event")) {
                 System.out.println(lineBreak);
                 storageList.addTask(inputString);
                 System.out.println(lineBreak);
             } else {
-                //TODO: throw new InvalidCommandException
+                throw new InputMismatchException("Invalid input command");
             }
             inputString = userInput.nextLine();
         }
-        userInput.close();
+        operatingStatus = false;
     }
 
 }
