@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class IOHandler {
 
@@ -27,9 +28,12 @@ public class IOHandler {
         if (type.equals("todo")) {
             task = new ToDo(info.get(2));
         } else if (type.equals("deadline")) {
-            task = new Deadline(info.get(2), info.get(3));
+            LocalDate date = DateTimeHandler.isValidLocalDate(info.get(3));
+            task = new Deadline(info.get(2), date);
         } else {
-            task = new Event(info.get(2), info.get(3), info.get(4));
+            LocalDate startDate = DateTimeHandler.isValidLocalDate(info.get(3));
+            LocalDate endDate = DateTimeHandler.isValidLocalDate(info.get(4));
+            task = new Event(info.get(2), startDate, endDate);
         }
         if (isComplete) {
             task.complete();

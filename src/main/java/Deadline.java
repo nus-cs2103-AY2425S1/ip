@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class implements a Deadline task.
@@ -8,9 +9,9 @@ import java.util.ArrayList;
  */
 public class Deadline extends Task {
 
-    private String deadline;
+    private LocalDate deadline;
 
-    public Deadline(String task, String deadline) {
+    public Deadline(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
     }
@@ -25,7 +26,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String str = "[D]" + super.toString() + String.format("( by: %s)", this.deadline);
+        String str = "[D]" + super.toString() + String.format("( by: %s )", this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         return str;
     }
 }

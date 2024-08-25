@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class implements a Event task.
@@ -7,10 +8,10 @@ import java.util.ArrayList;
  * @version CS2103T AY24/25 Semester 1
  */
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
-    public Event(String task, String start, String end) {
+    public Event(String task, LocalDate start, LocalDate end) {
         super(task);
         this.start = start;
         this.end = end;
@@ -26,7 +27,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String str = "[E]" + super.toString() + String.format("( from: %sto: %s)", this.start, this.end);
+        String str = "[E]" + super.toString() + String.format("( from: %s to: %s )",
+                this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         return str;
     }
 }

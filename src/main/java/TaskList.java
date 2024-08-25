@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 /**
  * This class implements a task list.
@@ -72,21 +73,26 @@ public class TaskList {
             UI.response("Failed. Add /by [DATE] to specify when to complete your task by!!! ;=;");
         } else {
             String taskDescription = "";
-            String deadline = "";
+            LocalDate deadline = null;
             int len = tokens.size();
+            Boolean failed = false;
             for (int i = 1; i < len; i++) {
                 if (tokens.get(i).equals("/by")) {
                     i += 1;
-                    while (i < len) {
-                        deadline += tokens.get(i) + " ";
-                        i += 1;
+                    deadline = DateTimeHandler.isValidLocalDate(tokens.get(i));
+                    if (deadline == null || tokens.size() > i + 1) {
+                        failed = true;
                     }
                 } else {
                     taskDescription += tokens.get(i) + " ";
                 }
             }
-            Deadline deadlineTask = new Deadline(taskDescription, deadline);
-            this.addTask(deadlineTask);
+            if (!failed) {
+                Deadline deadlineTask = new Deadline(taskDescription, deadline);
+                this.addTask(deadlineTask);
+            } else {
+                UI.response("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
+            }
         }
     }
 
@@ -105,26 +111,35 @@ public class TaskList {
             UI.response("Failed. Add /from [DATE] /to [DATE] to specify the duration of your event!!! ;=;");
         } else {
             String taskDescription = "";
-            String start = "";
-            String end = "";
+            LocalDate start = null;
+            LocalDate end = null;
             int len = tokens.size();
             int i = 1;
+            Boolean failed = false;
             while (i < len && !(tokens.get(i).equals("/from"))) {
                 taskDescription += tokens.get(i) + " ";
                 i += 1;
             }
             i += 1;
-            while (i < len && !(tokens.get(i).equals("/to"))) {
-                start += tokens.get(i) + " ";
-                i += 1;
+            start = DateTimeHandler.isValidLocalDate(tokens.get(i));
+            if (start == null || !tokens.get(i + 1).equals("/to")) {
+                System.out.println("Failed start");
+                failed = true;
+            } else {
+                i += 2;
+                end = DateTimeHandler.isValidLocalDate(tokens.get(i));
+                if (end == null || tokens.size() > i + 1) {
+                    System.out.println("Failed end");
+                    failed = true;
+                }
             }
-            i += 1;
-            while (i < len) {
-                end += tokens.get(i) + " ";
-                i += 1;
+
+            if (!failed) {
+                Event event = new Event(taskDescription, start, end);
+                this.addTask(event);
+            } else {
+                UI.response("Failed. Specify your dates in yyyy-MM-dd format!! ;^;");
             }
-            Event event = new Event(taskDescription, start, end);
-            this.addTask(event);
         }
     }
 
