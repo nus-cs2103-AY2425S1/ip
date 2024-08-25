@@ -2,6 +2,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -176,7 +179,12 @@ public class Rex {
                 newTask = createEvent(argument);
             }
         } catch (InvalidInputException e) {
+            System.out.println(separation);
             System.out.println(e.getMessage());
+            throw new InvalidTaskException();
+        } catch (DateTimeParseException e) {
+            System.out.println(separation);
+            System.out.println(errorPrefix + " Wrong date/time format!");
             throw new InvalidTaskException();
         }
 
@@ -187,31 +195,39 @@ public class Rex {
     }
 
     private static Deadline createDeadline(String argument) throws InvalidInputException {
-        String[] descriptionBy = argument.split("/by", 2);
+        String[] descriptionBy = argument.split("/by ", 2);
         if (descriptionBy.length < 2) {
-            System.out.println(separation);
             throw new InvalidInputException(errorPrefix + " /by not found in input!");
         }
 
-        return new Deadline(descriptionBy[0], descriptionBy[1]);
+        // Parse String to LocalDateTime
+        LocalDateTime by = LocalDateTime.from(LocalDateTime.parse(descriptionBy[1],
+                DateTimeFormatter.ofPattern("dd-MM-yy HHmm")));
+
+        return new Deadline(descriptionBy[0], by);
     }
 
     private static Event createEvent(String argument) throws InvalidInputException {
-        String[] tokens = argument.split("/from", 2);
+        String[] tokens = argument.split("/from ", 2);
         if (tokens.length < 2) {
-            System.out.println(separation);
             throw new InvalidInputException(errorPrefix + " /from not found in input!");
         }
 
         String description = tokens[0];
-        String[] fromTo = tokens[1].split("/to", 2);
+        String[] fromTo = tokens[1].split(" /to ", 2);
 
         if (fromTo.length < 2) {
-            System.out.println(separation);
             throw new InvalidInputException(errorPrefix + " /to not found in input!");
         }
 
-        return new Event(description, fromTo[0], fromTo[1]);
+        // Parse String to LocalDateTime
+        LocalDateTime from = LocalDateTime.from(LocalDateTime.parse(fromTo[0],
+                DateTimeFormatter.ofPattern("dd-MM-yy HHmm")));
+
+        LocalDateTime to = LocalDateTime.from(LocalDateTime.parse(fromTo[1],
+                DateTimeFormatter.ofPattern("dd-MM-yy HHmm")));
+
+        return new Event(description, from, to);
     }
 
     private static void displayList(List<Task> list) {
