@@ -105,8 +105,10 @@ public class Processor {
             if (newTask != null) {
                 if (commandType == CommandTypes.MARK) {
                     newTask.markDone();
+                    Storage.refreshStorageFile(taskList);
                 } else if (commandType == CommandTypes.UNMARK) {
                     newTask.markUndone();
+                    Storage.refreshStorageFile(taskList);
                 } else {
                     taskList.deleteTask(newTask);
                 }

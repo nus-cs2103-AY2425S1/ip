@@ -84,7 +84,7 @@ public class TaskList {
     public void deleteTask(Task task) {
         if (!Objects.equals(task.getDescription().trim(), "")) {
             this.taskList.remove(task);
-            Storage.deleteTaskFromFile(this);
+            Storage.refreshStorageFile(this);
             FormattedPrinting.deleteTask(task, this);
         } else {
             FormattedPrinting.descriptionEmptyError();
