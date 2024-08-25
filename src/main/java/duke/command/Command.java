@@ -9,7 +9,7 @@ import duke.Ui;
  * Represents a command from the user.
  */
 public abstract class Command {
-    public static final Command noop = new NoopCommand();
+    public static final Command NOOP = new NoopCommand();
 
     /**
      * Executes the command.

@@ -95,15 +95,34 @@ public class Ui {
 
     /**
      * Writes response message for a list command.
+     *
+     * @param tasks The tasks to display.
      */
     public void list(ArrayList<Task> tasks) {
         StringBuilder listMsg = new StringBuilder(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             listMsg
-                    .append("\n ")
-                    .append(i + 1)
-                    .append(". ")
-                    .append(tasks.get(i));
+                .append("\n ")
+                .append(i + 1)
+                .append(". ")
+                .append(tasks.get(i));
+        }
+        this.write(listMsg.toString());
+    }
+
+    /**
+     * Writes response message for a find command.
+     *
+     * @param tasks The tasks to display.
+     */
+    public void find(ArrayList<Task> tasks) {
+        StringBuilder listMsg = new StringBuilder(" Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            listMsg
+                .append("\n ")
+                .append(i + 1)
+                .append(". ")
+                .append(tasks.get(i));
         }
         this.write(listMsg.toString());
     }
