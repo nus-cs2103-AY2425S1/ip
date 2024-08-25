@@ -56,4 +56,21 @@ public class Ui {
         System.out.println(unmark);
     }
 
+    public void printBeforeListResult() {
+        System.out.println("Here are all tasks in your list!");
+    }
+
+    public void printBeforeFindResult() {
+        System.out.println("Here are matching tasks in your list!");
+    }
+
+    public void printTasks(ArrayList<Task> taskArrayList) {
+        int count = 1;
+        StringBuilder list = new StringBuilder();
+        for (Task task: taskArrayList) {
+            list.append(count++).append(": ").append(task.toString()).append("\n");
+        }
+        System.out.println(list.toString());
+    }
+
 }

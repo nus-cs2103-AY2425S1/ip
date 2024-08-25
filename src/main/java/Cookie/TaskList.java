@@ -21,12 +21,13 @@ public class TaskList {
         taskArrayList.get(index - 1).unmarkDone();
     }
     public String printTasks() {
+        String string = "Here are the tasks in your list:\n";
         int count = 1;
         StringBuilder list = new StringBuilder();
-        for(Task task: this.taskArrayList) {
+        for (Task task: this.taskArrayList) {
             list.append(count++).append(": ").append(task.toString()).append("\n");
         }
-        return list.toString();
+        return string + list.toString();
     }
     public ArrayList<Task> getTaskArrayList() {
         return this.taskArrayList;
@@ -38,5 +39,16 @@ public class TaskList {
 
     public Task getTask(int index) {
         return this.taskArrayList.get(index - 1);
+    }
+
+    public ArrayList<Task> findByKeyword(String string) {
+        ArrayList<Task> arrayMatchKeyword = new ArrayList<>();
+
+        for (Task task: this.taskArrayList) {
+            if (task.getDescription().contains(string)) {
+                arrayMatchKeyword.add(task);
+            }
+        }
+        return arrayMatchKeyword;
     }
 }
