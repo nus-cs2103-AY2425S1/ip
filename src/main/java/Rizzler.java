@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Rizzler {
@@ -13,8 +14,10 @@ public class Rizzler {
         boolean userIsDone = false;
         while (!userIsDone) {
             try {
-                String[] userInput = scanner.nextLine().split(" ");
-                switch (userInput[0]) {
+                String userInput = scanner.nextLine();
+                String[] userInputArr = userInput.split(" ");
+                int userInputLen = userInputArr.length;
+                switch (userInputArr[0]) {
                     case "bye":
                         userIsDone = true;
                         continue;
@@ -22,7 +25,7 @@ public class Rizzler {
                         rizzlerSpeech.list(taskLog.getLog());
                         continue;
                     case "mark":
-                        int taskToMark = Integer.parseInt(userInput[1]);
+                        int taskToMark = Integer.parseInt(userInputArr[1]);
                         Task doneTask = taskLog.doTask(taskToMark);
                         rizzlerSpeech.lineBreak();
                         rizzlerSpeech.say("aight, i'll note that you've completed this.");
@@ -30,16 +33,25 @@ public class Rizzler {
                         rizzlerSpeech.lineBreak();
                         continue;
                     case "unmark":
-                        int taskToUnMark = Integer.parseInt(userInput[1]);
+                        int taskToUnMark = Integer.parseInt(userInputArr[1]);
                         Task undoneTask = taskLog.undoTask(taskToUnMark);
                         rizzlerSpeech.lineBreak();
                         rizzlerSpeech.say("no worries, we'll circle back around to this.");
                         rizzlerSpeech.say(undoneTask.toString());
                         rizzlerSpeech.lineBreak();
                         continue;
+                    case "todo":
+                        String[] todoDescArr = Arrays.copyOfRange(userInputArr, 1, userInputLen);
+                        String todoDesc = String.join(" ", todoDescArr);
+                        ToDo newTodo = new ToDo(todoDesc);
+                        taskLog.addTask(newTodo);
+                        rizzlerSpeech.lineBreak();
+                        rizzlerSpeech.say("added: " + newTodo);
+                        rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
+                        rizzlerSpeech.lineBreak();
+                        continue;
                     default:
-                        String userCommand = String.join(" ", userInput);
-                        Task newTask = new Task(userCommand);
+                        Task newTask = new Task(userInput);
                         rizzlerSpeech.lineBreak();
                         rizzlerSpeech.say("added: " + newTask);
                         rizzlerSpeech.lineBreak();

@@ -60,4 +60,8 @@ public class TaskLog {
         undoneTask.undone();
         return undoneTask;
     }
+
+    public int getNumTasks() {
+        return this.numTasks;
+    }
 }
