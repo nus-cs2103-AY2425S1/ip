@@ -3,6 +3,7 @@ package papadom;
 import papadom.Exceptions.*;
 import papadom.Storage.Storage;
 import papadom.Storage.TaskList;
+import papadom.commands.*;
 
 import java.util.Scanner;
 
@@ -52,8 +53,8 @@ public class Papadom {
                     ui.output(taskList.unmarkTask(text));
                     break;
                 case TODO:
-                    Todo todoTask = new Todo(text.substring(5));
-                    ui.output(taskList.addToList(todoTask));
+                    AddTodoCommand addTodoCommand = new AddTodoCommand(text.substring(5));
+                    addTodoCommand.execute(taskList, ui, storage);
                     break;
                 case DEADLINE:
                     Deadline newDeadlineTask = parser.deadlineTaskCreator(text.substring(9));
