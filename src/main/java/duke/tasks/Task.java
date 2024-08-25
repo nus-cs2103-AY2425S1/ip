@@ -38,8 +38,9 @@ public class Task {
      * Marks the task as done and prints a message.
      */
     public void markAsDone() {
-        if (this.isDone) System.out.println("Task already marked as done:\n" + this);
-        else {
+        if (this.isDone) {
+            System.out.println("Task already marked as done:\n" + this);
+        } else {
             this.isDone = true;
             System.out.println("Nice! I've marked this task as done:\n" + this);
         }
@@ -49,15 +50,18 @@ public class Task {
      * Marks the task as done without printing a message.
      */
     public void markAsDoneNonVerbose() {
-        if (!this.isDone) this.isDone = true;
+        if (!this.isDone) {
+            this.isDone = true;
+        }
     }
 
     /**
      * Marks the task as not done and prints a message.
      */
     public void markAsNotDone() {
-        if (!this.isDone) System.out.println("Task already marked as not done:\n" + this);
-        else {
+        if (!this.isDone) {
+            System.out.println("Task already marked as not done:\n" + this);
+        } else {
             this.isDone = false;
             System.out.println("Ok, I've marked this task as not done yet:\n" + this);
         }

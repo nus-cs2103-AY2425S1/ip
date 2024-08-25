@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import duke.tasks.TaskList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -49,24 +48,24 @@ class TaskListTest {
     void testAddTask() throws DukeException {
         TaskList taskList = TaskList.getInstance();
         String[] input = {"todo", "read book"};
-        String expected = "Got it. I've added this task:\n" +
-                "[T][ ] read book\n" +
-                "Now you have 1 tasks in the list.\n";
+        String expected = "Got it. I've added this task:\n"
+                + "[T][ ] read book\n"
+                + "Now you have 1 tasks in the list.\n";
         taskList.createTask(input[0], input[1]);
         assertEquals(expected, newOut.toString());
         newOut.reset();
         input = new String[]{"deadline", "return book /by 2024-08-23 1200"};
-        expected = "Got it. I've added this task:\n" +
-                "[D][ ] return book (by: Aug 23 2024 12:00)\n" +
-                "Now you have 2 tasks in the list.\n";
+        expected = "Got it. I've added this task:\n"
+                + "[D][ ] return book (by: Aug 23 2024 12:00)\n"
+                + "Now you have 2 tasks in the list.\n";
         taskList.createTask(input[0], input[1]);
         assertEquals(expected, newOut.toString());
         newOut.reset();
 
         input = new String[]{"event", "project meeting /from 2024-08-23 1400 /to 2024-08-23 1600"};
-        expected = "Got it. I've added this task:\n" +
-                "[E][ ] project meeting (from: Aug 23 2024 14:00 to: Aug 23 2024 16:00)\n" +
-                "Now you have 3 tasks in the list.\n";
+        expected = "Got it. I've added this task:\n"
+                + "[E][ ] project meeting (from: Aug 23 2024 14:00 to: Aug 23 2024 16:00)\n"
+                + "Now you have 3 tasks in the list.\n";
         taskList.createTask(input[0], input[1]);
         assertEquals(expected, newOut.toString());
         newOut.reset();
@@ -78,9 +77,9 @@ class TaskListTest {
     @Test
     void testDeleteTask() throws DukeException {
         TaskList taskList = TaskList.getInstance();
-        String expected = "Noted. I've removed this task:\n" +
-                "[E][ ] project meeting (from: Aug 23 2024 14:00 to: Aug 23 2024 16:00)\n" +
-                "Now you have 2 tasks in the list.";
+        String expected = "Noted. I've removed this task:\n"
+                + "[E][ ] project meeting (from: Aug 23 2024 14:00 to: Aug 23 2024 16:00)\n"
+                + "Now you have 2 tasks in the list.";
         taskList.deleteTask("3");
         assertEquals(expected, newOut.toString().trim());
         newOut.reset();

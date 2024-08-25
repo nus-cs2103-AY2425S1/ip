@@ -1,27 +1,22 @@
 package duke.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+//import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import duke.parser.Parser;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/parser/ParserTest.java
-import exceptions.DukeException;
+//import exceptions.DukeException;
 
 /**
  * Test class for the Parser class.
  */
-=======
-
->>>>>>> branch-A-CodingStandard:src/test/java/duke/parser/ParserTest.java
 class ParserTest {
 
     private static final PrintStream sysOut = System.out;
@@ -67,7 +62,7 @@ class ParserTest {
         Parser parser = new Parser(new Scanner(new ByteArrayInputStream("bye".getBytes())));
         newOut.reset();
         parser.handleUserInput();
-//        assertEquals("Bye! Hope to see you again soon!", outContent.toString().trim());
+        // assertEquals("Bye! Hope to see you again soon!", outContent.toString().trim());
         assertEquals("", newOut.toString().trim());
     }
 }

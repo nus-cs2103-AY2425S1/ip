@@ -1,7 +1,8 @@
 package duke.parser;
 
-import duke.exceptions.DukeException;
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 
 /**
@@ -27,38 +28,40 @@ public class Parser {
      *
      * @return false if the user wants to exit, true otherwise
      */
+    @SuppressWarnings("checkstyle:Indentation")
     public boolean handleUserInput() {
         TaskList taskList = TaskList.getInstance();
         while (scan.hasNext()) {
             String[] input = preprocess(scan.nextLine());
-            String cmd = input[0], args = input[1];
+            String cmd = input[0];
+            String args = input[1];
             try {
                 switch (cmd) {
-                    case "bye":
-                        scan.close();
-                        return false;
-                    case "list":
-                        taskList.printTaskList();
-                        break;
-                    case "mark":
-                        taskList.mark(args);
-                        break;
-                    case "unmark":
-                        taskList.unmark(args);
-                        break;
-                    case "find":
-                        taskList.filter(args);
-                        break;
-                    case "delete":
-                        taskList.deleteTask(args);
-                        break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        taskList.createTask(cmd, args);
-                        break;
-                    default:
-                        throw new DukeException("Invalid command provided.");
+                case "bye":
+                    scan.close();
+                    return false;
+                case "list":
+                    taskList.printTaskList();
+                    break;
+                case "mark":
+                    taskList.mark(args);
+                    break;
+                case "unmark":
+                    taskList.unmark(args);
+                    break;
+                case "find":
+                    taskList.filter(args);
+                    break;
+                case "delete":
+                    taskList.deleteTask(args);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    taskList.createTask(cmd, args);
+                    break;
+                default:
+                    throw new DukeException("Invalid command provided.");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
@@ -72,7 +75,7 @@ public class Parser {
      * This method also trims whitespace and converts the command to lowercase.
      *
      * @param input the raw input string from the user
-     * @return an array of two strings, where the first element is the command (lowercase) and the second is the arguments
+     * @return an array of two strings, where the first is the command (lowercase) and the second is the arguments
      */
     private String[] preprocess(String input) {
         String[] raw = input.split(" ", 2);
