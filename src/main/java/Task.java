@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String desc;
     protected boolean isDone;
 
@@ -16,6 +16,10 @@ public class Task {
         return this.desc;
     }
 
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
@@ -27,4 +31,6 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public abstract String stringifyTask();
 }
