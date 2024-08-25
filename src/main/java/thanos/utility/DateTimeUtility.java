@@ -1,6 +1,6 @@
-package utility;
+package thanos.utility;
 
-import static ui.Ui.printDivider;
+import static thanos.ui.Ui.printDivider;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

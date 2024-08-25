@@ -1,12 +1,12 @@
-package commands;
+package thanos.commands;
 
 import java.time.LocalDateTime;
 
-import exceptions.InvalidCommandException;
-import tasks.Event;
-import tasks.TaskList;
-import ui.Ui;
-import utility.DateTimeUtility;
+import thanos.exceptions.InvalidCommandException;
+import thanos.tasks.Event;
+import thanos.tasks.TaskList;
+import thanos.ui.Ui;
+import thanos.utility.DateTimeUtility;
 
 public class EventCommand extends Command {
     private final String input;

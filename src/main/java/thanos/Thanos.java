@@ -1,12 +1,13 @@
+package thanos;
+
 import java.util.Scanner;
 
-import commands.ByeCommand;
-import commands.Command;
-import ui.Ui;
-import exceptions.InvalidCommandException;
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
+import thanos.commands.Command;
+import thanos.ui.Ui;
+import thanos.exceptions.InvalidCommandException;
+import thanos.parser.Parser;
+import thanos.storage.Storage;
+import thanos.tasks.TaskList;
 
 public class Thanos {
     private final Storage storage;

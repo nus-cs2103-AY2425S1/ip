@@ -1,4 +1,4 @@
-package tasks;
+package thanos.tasks;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package exceptions;
+package thanos.exceptions;
 
 public class InvalidCommandException extends Exception {
     public InvalidCommandException(String message) {

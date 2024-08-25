@@ -1,14 +1,14 @@
-package commands;
+package thanos.commands;
 
-import exceptions.InvalidCommandException;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import thanos.exceptions.InvalidCommandException;
+import thanos.tasks.Task;
+import thanos.tasks.TaskList;
+import thanos.ui.Ui;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private final String input;
 
-    public UnmarkCommand(String input) {
+    public MarkCommand(String input) {
         this.input = input;
     }
 
@@ -16,20 +16,20 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
         if (this.input.isEmpty()) {
             throw new InvalidCommandException(
-                    "No task index provided. Please use the correct format: 'unmark [task index]'"
+                    "No task index provided. Please use the correct format: 'mark [task index]'"
             );
         }
 
         if (this.input.split(" ").length != 1) {
             throw new InvalidCommandException(
-                    "Invalid input format. Please use the correct format: 'unmark [task index]'"
+                    "Invalid input format. Please use the correct format: 'mark [task index]'"
             );
         }
 
         try {
             int index = Integer.parseInt(this.input) - 1;
-            Task task = taskList.unmark(index);
-            ui.displayTaskUnmarked(task);
+            Task task = taskList.mark(index);
+            ui.displayTaskMarked(task);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {

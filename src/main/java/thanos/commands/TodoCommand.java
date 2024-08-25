@@ -1,9 +1,9 @@
-package commands;
+package thanos.commands;
 
-import exceptions.InvalidCommandException;
-import tasks.TaskList;
-import tasks.Todo;
-import ui.Ui;
+import thanos.exceptions.InvalidCommandException;
+import thanos.tasks.TaskList;
+import thanos.tasks.Todo;
+import thanos.ui.Ui;
 
 public class TodoCommand extends Command {
     private final String input;

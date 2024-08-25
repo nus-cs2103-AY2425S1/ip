@@ -1,4 +1,4 @@
-package exceptions;
+package thanos.exceptions;
 
 public class InvalidTaskException extends Exception {
     public InvalidTaskException(String message) {

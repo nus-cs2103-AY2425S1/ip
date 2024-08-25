@@ -1,4 +1,4 @@
-package commands;
+package thanos.commands;
 
 public enum CommandType {
     BYE,
