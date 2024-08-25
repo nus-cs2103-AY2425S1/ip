@@ -40,3 +40,5 @@ mark -1
 unmark -1
 mark 1.23
 unmark 1.23
+
+bye

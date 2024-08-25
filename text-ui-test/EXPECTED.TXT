@@ -48,7 +48,7 @@
 
 
  |  Got it. I've added this task:
- |  [E][ ] many trailing spaces in previous task (from: yesterday to: never)
+ |  [E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
  |  Now you have 4 tasks in the list.
 
  |  Here are the tasks in your list:
@@ -80,4 +80,7 @@
 
 
  |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  Bye. Hope to see you again soon!
 
