@@ -1,3 +1,12 @@
+package wiggly.commands;
+
+import wiggly.exception.WigglyException;
+
+import wiggly.task.TaskList;
+
+import wiggly.util.Storage;
+import wiggly.util.Ui;
+
 public class DeleteCommand extends Command {
 
 	private final int taskNumber;
