@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -93,12 +94,61 @@ public class Killua {
         fw.close();
     }
 
+    private static ArrayList<Task> loadTasks() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File("./data/tasklist.txt");
+
+        if (file.exists()) {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = parseTask(line);
+                tasks.add(task);
+            }
+            scanner.close();
+        }
+
+        return tasks;
+    }
+
+    private static Task parseTask(String line) {
+        char taskType = line.charAt(0);
+        boolean isDone = line.charAt(4) == 1;
+        String argument = line.substring(8);
+
+        Task task;
+
+        if (taskType == 'T') {
+            task = new Todo(argument);
+        } else if (taskType == 'D') {
+            String[] strs = argument.split("\\|", 2);
+            task = new Deadline(strs[0].strip(), strs[1].strip());
+        } else if (taskType == 'E') {
+            String[] strs = argument.split("\\|", 3);
+            task = new Event(strs[0].strip(), strs[1].strip(), strs[2].strip());
+        } else {
+            throw new IllegalArgumentException("Unknown task type: " + taskType);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
     public static void main(String[] args) {
         showUserPage();
 
         boolean isRunning = true;
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            tasks = loadTasks();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
 
         while (isRunning) {
             String input = scanner.nextLine().trim();
