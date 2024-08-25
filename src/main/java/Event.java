@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,19 +9,38 @@ import java.util.List;
  */
 public class Event extends Task {
     /** The time at which the event starts */
-    private String from;
+    private LocalDateTime from;
     /** The time at which the event ends */
-    private String to;
+    private LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns the event start time as a formatted string.
+     *
+     * @return Formatted string representing the event start time.
+     */
+    public String getEventStartTime() {
+        return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    }
+
+    /**
+     * Returns the event end time as a formatted string.
+     *
+     * @return Formatted string representing the event end time.
+     */
+    public String getEventEndTime() {
+        return to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: "
+                + getEventStartTime() + " to: " + getEventEndTime() + ")";
     }
 
     @Override
@@ -28,8 +49,8 @@ public class Event extends Task {
                 "E",
                 getStatusIcon(),
                 getDescription(),
-                from,
-                to
+                from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+                to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
         );
     }
 }

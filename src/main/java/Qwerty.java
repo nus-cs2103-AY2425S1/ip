@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -249,7 +252,10 @@ public class Qwerty {
                             if (args.length < 3) {
                                 throw new QwertyException("Missing arguments for Deadline task");
                             }
-                            Task deadline = new Deadline(args[2], args[3]);
+                            Task deadline = new Deadline(
+                                    args[2],
+                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                            );
                             if (args[1].equals("X")) {
                                 deadline.markAsDone();
                             }
@@ -259,7 +265,10 @@ public class Qwerty {
                             if (args.length < 3) {
                                 throw new QwertyException("Missing arguments for Event task");
                             }
-                            Task event = new Event(args[2], args[3], args[4]);
+                            Task event = new Event(args[2],
+                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+                                    LocalDateTime.parse(args[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                            );
                             if (args[1].equals("X")) {
                                 event.markAsDone();
                             }
@@ -357,8 +366,18 @@ public class Qwerty {
                         throw new QwertyException("""
                                 When is your deadline? You didn't say.""");
                     }
-                    Task deadlineTask = new Deadline(args, by);
-                    addTask(deadlineTask);
+                    try {
+                        Task deadlineTask = new Deadline(
+                                args,
+                                LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                        );
+                        addTask(deadlineTask);
+                    } catch (DateTimeParseException e) {
+                        throw new QwertyException("""
+                                Is that a proper date and time?
+                                Please enter in the format dd/MM/yyyy HHmm.
+                                For example, August 25th 2024 4pm should be '25/08/2024 1600'.""");
+                    }
                     break;
 
                 case "event":
@@ -376,8 +395,19 @@ public class Qwerty {
                         throw new QwertyException("""
                                 Your event ends at...? You didn't say.""");
                     }
-                    Task eventTask = new Event(args, from, to);
-                    addTask(eventTask);
+                    try {
+                        Task eventTask = new Event(
+                                args,
+                                LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+                                LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+                        );
+                        addTask(eventTask);
+                    } catch (DateTimeParseException e) {
+                        throw new QwertyException("""
+                                Is that a proper date and time?
+                                Please enter in the format dd/MM/yyyy HHmm.
+                                For example, August 25th 2024 4pm should be '25/08/2024 1600'.""");
+                    }
                     break;
 
                 case "delete":

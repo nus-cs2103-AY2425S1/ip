@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,16 +9,25 @@ import java.util.List;
  */
 public class Deadline extends Task {
     /** The deadline of the task */
-    private String by;
+    private LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Returns the deadline as a formatted string.
+     *
+     * @return Formatted string representing the deadline.
+     */
+    public String getDeadline() {
+        return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + getDeadline() + ")";
     }
 
     @Override
@@ -25,7 +36,7 @@ public class Deadline extends Task {
                 "D",
                 getStatusIcon(),
                 getDescription(),
-                by
+                by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
         );
     }
 }
