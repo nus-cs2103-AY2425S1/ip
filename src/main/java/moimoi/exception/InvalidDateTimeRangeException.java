@@ -1,7 +1,15 @@
 package moimoi.exception;
 
+/**
+ * Represents an exception related to invalid date-time range.
+ */
 public class InvalidDateTimeRangeException extends MoiMoiException {
 
+    /**
+     * Returns corresponding error message.
+     *
+     * @return Error message.
+     */
     @Override
     public String getMessage() {
         return super.getMessage() + "Need some fixing on the date range here!\n"

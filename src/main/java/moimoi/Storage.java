@@ -18,14 +18,28 @@ import moimoi.task.Task;
 import moimoi.task.TaskEnum;
 import moimoi.task.Todo;
 
+/**
+ * Represents the data file for program storage.
+ */
 public class Storage {
 
     private String path;
 
+    /**
+     * Constructs an encapsulation of a storage data file, with the specified path.
+     *
+     * @param path Path of the storage data file.
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Loads tasks from storage and returns them as a list.
+     *
+     * @return List of tasks from storage.
+     * @throws MoiMoiException If storage is corrupted, or an I/O error occurs.
+     */
     public ArrayList<Task> load() throws MoiMoiException {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
@@ -40,6 +54,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the specified list of tasks into the storage data file.
+     *
+     * @param tasks List of tasks to be saved.
+     * @throws StorageIOException If an I/O error occurs.
+     */
     public void save(TaskList tasks) throws StorageIOException {
         try {
             FileWriter fileWriter = new FileWriter(this.path);
@@ -53,6 +73,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a task corresponding to the specified information.
+     *
+     * @param taskInfo Task information.
+     * @return Task corresponding to the specified information.
+     */
     private Task createTask(String[] taskInfo) throws MoiMoiException {
         try {
             Task task;
@@ -88,6 +114,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a data file for storage.
+     *
+     * @throws StorageIOException If an I/O error occurs.
+     */
     private void createFile() throws StorageIOException {
         try {
             File file = new File(this.path);

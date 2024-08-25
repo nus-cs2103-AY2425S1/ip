@@ -13,8 +13,18 @@ import moimoi.exception.InvalidCommandException;
 import moimoi.exception.MissingArgumentException;
 import moimoi.exception.MoiMoiException;
 
+/**
+ * The <code>Parser</code> class is responsible for interpreting and processing user input.
+ */
 public class Parser {
 
+    /**
+     * Returns a command corresponding to the specified user input.
+     *
+     * @param input User input.
+     * @return Command corresponding to the specified user input.
+     * @throws MoiMoiException If user input corresponds to an invalid command, or a missing argument.
+     */
     public static Command parse(String input) throws MoiMoiException {
 
         try {
@@ -59,6 +69,12 @@ public class Parser {
 
     }
 
+    /**
+     * Extracts and returns the argument portion of the input.
+     *
+     * @param commandArgs Input consisting of a command, and an argument portion.
+     * @return Argument portion of the input.
+     */
     private static String extractArgs(String[] commandArgs) {
         return commandArgs[1];
     }
