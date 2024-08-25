@@ -1,2 +1,5 @@
 T | 1 | read book
 T | 0 | watch show
+T | 0 | test 1
+D | 0 | return book | 2019-10-15 1800
+E | 0 | aaaa | 2019-10-15 1800 | 2019-10-15 1900
