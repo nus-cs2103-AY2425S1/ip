@@ -1,0 +1,6 @@
+T | 0 | Walk the dog
+T | 1 | Read a book
+T | 0 | Walk the dog
+T | 1 | Read a book
+T | 0 | Walk the dog
+T | 1 | Read a book
