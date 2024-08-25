@@ -2,29 +2,39 @@ import java.util.Scanner;
 
 public class Rizzler {
     public static void main(String[] args) {
+        RizzlerSpeech rizzlerSpeech = new RizzlerSpeech();
+        InputLog inputLog = new InputLog();
         Scanner scanner = new Scanner(System.in);
-        String LINE_BREAK = "\t#############################";
 
         // greet user
-        System.out.println(LINE_BREAK);
-        System.out.println("\they. i'm the rizzler.");
-        System.out.println("\twhat do you want");
-        System.out.println(LINE_BREAK);
+        rizzlerSpeech.greet();
 
-        String userInput = scanner.nextLine();
-        while (!userInput.equals("bye")) {
-            System.out.println(LINE_BREAK);
-            System.out.println("\t" + userInput);
-            System.out.println(LINE_BREAK);
-            userInput = scanner.nextLine();
+        // interact with user
+        boolean userIsDone = false;
+        while (!userIsDone) {
+            try {
+                String userInput = scanner.nextLine();
+                switch (userInput) {
+                    case "bye":
+                        userIsDone = true;
+                        break;
+                    case "list":
+                        rizzlerSpeech.list(inputLog.getLog());
+                        continue;
+                    default:
+                        rizzlerSpeech.lineBreak();
+                        rizzlerSpeech.say("added: " + userInput);
+                        rizzlerSpeech.lineBreak();
+                        inputLog.addInput(userInput);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                break;
+            }
         }
         scanner.close();
 
         // bid farewell to user
-        System.out.println(LINE_BREAK);
-        System.out.println("\tsure, cya.");
-        System.out.println(LINE_BREAK);
-
-
+        rizzlerSpeech.bidFarewell();
     }
 }
