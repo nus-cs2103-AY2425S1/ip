@@ -2,8 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Infinity <T extends Task> {
+    
+    enum KnownCommands {
+        BYE, LIST, MARK, TODO, DEADLINE, EVENT, DELETE
+    }
+
     private static final String BOTNAME = "Infinity";
-    private static final String BREAKLINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    private static final String BREAKLINE = 
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     private static final int MAXSIZE = 100;
 
     private ArrayList<Task> tasks = new ArrayList<>(MAXSIZE);
@@ -15,7 +21,8 @@ public class Infinity <T extends Task> {
 
     private <T extends Task> void addTask(T task) throws InfinityException {
         if (nextTaskIndex >= MAXSIZE) {
-            throw new InfinityException(botReply("I'm sorry, but I can't remember more tasks."));
+            throw new InfinityException(botReply(
+                    "I'm sorry, but I can't remember more tasks."));
         }
         tasks.add(task);
         nextTaskIndex++;
@@ -32,14 +39,17 @@ public class Infinity <T extends Task> {
         }
         taskIndex--;
         if (taskIndex >= nextTaskIndex || taskIndex < 0) {
-            throw new InfinityException(botReply("Hmmm, you seem to have chose a task that doesn't exist. Nice try :)"));
+            throw new InfinityException(botReply(
+                    "Hmmm, you seem to have chose a task that doesn't exist. Nice try :)"));
         } else {
             try {
                 Task removedTask = tasks.remove(taskIndex);
-                System.out.println(botReply(String.format("I've removed task %d:", taskIndex + 1)));
+                System.out.println(botReply(String.format(
+                        "I've removed task %d:", taskIndex + 1)));
                 System.out.println(removedTask.toString());
             } catch (IndexOutOfBoundsException e) {
-                throw new InfinityException(botReply("Hmmm, you seem to have chose a task that doesn't exist. Nice try :)"));
+                throw new InfinityException(botReply(
+                        "Hmmm, you seem to have chose a task that doesn't exist. Nice try :)"));
             }
         }
     }
@@ -48,10 +58,12 @@ public class Infinity <T extends Task> {
         String[] words = currentInput.split(" ");
         int taskIndex = Integer.parseInt(words[1]) - 1;
         if (taskIndex >= nextTaskIndex || taskIndex < 0) {
-            throw new InfinityException(botReply("Hmmm, I can't find that task. Please try again."));
+            throw new InfinityException(botReply(
+                    "Hmmm, I can't find that task. Please try again."));
         }
         tasks.get(taskIndex).markAsDone();
-        System.out.println(botReply(String.format("I've marked task %d as done:", taskIndex + 1)));
+        System.out.println(botReply(String.format(
+                "I've marked task %d as done:", taskIndex + 1)));
         System.out.println(tasks.get(taskIndex).toString());
         System.out.println(BREAKLINE);
     }
@@ -77,7 +89,8 @@ public class Infinity <T extends Task> {
         Scanner userInputs = new Scanner(System.in);
 
         System.out.println(BREAKLINE);
-        System.out.println(botReply(String.format("Hello, I'm a dummy bot called %s", BOTNAME)));
+        System.out.println(botReply(String.format(
+                "Hello, I'm a dummy bot called %s", BOTNAME)));
         System.out.println(botReply("What can I not do for you?"));
         System.out.println(BREAKLINE);
 
@@ -86,35 +99,41 @@ public class Infinity <T extends Task> {
             System.out.println(BREAKLINE);
             try {
 
-                if (currentInput.equals("bye")) {
+                if (currentInput.equals(KnownCommands.BYE.toString().toLowerCase())) {
 
-                    System.out.println(botReply("Well, if you are leaving, then I must be infinitely too dumb :("));
+                    System.out.println(botReply(
+                            "Well, if you are leaving, then I must be infinitely too dumb :("));
                     System.out.println(BREAKLINE);
                     userInputs.close();
                     System.exit(0);
 
-                } else if (currentInput.equals("list")) {
+                } else if (currentInput.equals(KnownCommands.LIST.toString().toLowerCase())) {
 
                     this.listTasks();
                     System.out.println(BREAKLINE);
 
-                } else if (currentInput.startsWith("mark") && currentInput.length() > 5) {
+                } else if (currentInput.startsWith(KnownCommands.MARK.toString().toLowerCase()) 
+                        && currentInput.length() > 5) {
 
                     this.markTask(currentInput);
 
-                } else if (currentInput.startsWith("todo") && currentInput.length() > 5) {
+                } else if (currentInput.startsWith(KnownCommands.TODO.toString().toLowerCase()) 
+                        && currentInput.length() > 5) {
 
                     this.addTask(new ToDos(currentInput.substring(5)));
 
-                } else if (currentInput.startsWith("deadline") && currentInput.length() > 9) {
+                } else if (currentInput.startsWith(KnownCommands.DEADLINE.toString().toLowerCase()) 
+                        && currentInput.length() > 9) {
 
                     this.addTask(new Deadline(currentInput.substring(9)));
 
-                } else if (currentInput.startsWith("event") && currentInput.length() > 6) {
+                } else if (currentInput.startsWith(KnownCommands.EVENT.toString().toLowerCase()) 
+                        && currentInput.length() > 6) {
 
                     this.addTask(new Event(currentInput.substring(6)));
 
-                } else if (currentInput.startsWith("delete") && currentInput.length() > 7) {
+                } else if (currentInput.startsWith(KnownCommands.DELETE.toString().toLowerCase()) 
+                        && currentInput.length() > 7) {
 
                     this.deleteTask(currentInput.substring(7));
 
