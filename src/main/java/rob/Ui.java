@@ -1,3 +1,5 @@
+package rob;
+
 public class Ui {
     private static final String GREET = "Hello! I'm Rob\n"
             + "What can I do for you?\n";
