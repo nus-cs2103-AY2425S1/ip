@@ -45,18 +45,51 @@ public class Atlas {
                 taskMark(index, status);
                 taskMarkLog(index, status);
                 break;
-            default:  // add the item
-                addTask(input);
-                addTaskLog(input);
+            case "todo":
+            case "deadline":
+            case "event":
+                switch (command) {
+                    case "todo":
+                        addToDo(input);
+                        break;
+                    case "deadline":
+                        addDeadline(input);
+                        break;
+                    case "event":
+                        addEvent(input);
+                        break;
+                    default:
+                }
+                addTaskLog();
+            default:
         }
     }
 
-    private static void addTask(String item) {
-        tasks.add(new Task(item));
+    private static void addToDo(String input) {
+        String description = input.substring(5);
+        tasks.add(new ToDo(description));
     }
 
-    private static void addTaskLog(String item) {
-        botMessage("added: " + item);
+    private static void addDeadline(String input) {
+        int idx = input.indexOf("/by");
+        String description = input.substring(9, idx - 1);
+        String by = input.substring(idx + 4);
+        tasks.add(new Deadline(description, by));
+    }
+
+    private static void addEvent(String input) {
+        int idx = input.indexOf("/from");
+        int idx2 = input.indexOf("/to");
+        String description = input.substring(6, idx - 1);
+        String from = input.substring(idx + 6, idx2 - 1);
+        String to = input.substring(idx2 + 4);
+        tasks.add(new Event(description, from, to));
+    }
+
+    private static void addTaskLog() {
+        botMessage("Got it. I've added this task:");
+        botMessage("  " + tasks.get(tasks.size() - 1));
+        botMessage("Now you have " + tasks.size() + " task(s) in the list.");
         separate();
     }
 
