@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class ZBot {
     private static final String SAVE_PATH = "../../../data/tasks.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
-    private static Storage storage = new Storage(SAVE_PATH);
 
     public static void main(String[] args) {
+        Storage storage = new Storage(SAVE_PATH);
         storage.createFileIfNotExists();
         tasks = storage.loadTasks();
         greet();
