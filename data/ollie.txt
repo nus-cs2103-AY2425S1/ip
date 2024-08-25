@@ -1,3 +1,4 @@
-EVENT |   | meeting | Aug 25 2024 09:30 | Aug 25 2024 11:00
-DEADLINE |   | assignment | Aug 25 2024 14:00
+EVENT | X | meeting | Aug 25 2024 09:30 | Aug 25 2024 11:00
 DEADLINE |   | work | Aug 27 2024 08:00
+TODO |   | study
+EVENT |   | meeting | Sep 01 2024 09:00 | Sep 02 2024 10:00
