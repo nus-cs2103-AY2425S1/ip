@@ -18,12 +18,15 @@ public class Qwerty {
     private boolean isChatting;
     /** List of tasks entered by the user */
     private TaskList tasks;
+    /** TODO doc this */
+    private Storage storage;
     /** Filepath of the save file containing the list of tasks */
     private String savePath = "savefile.txt";
 
     public Qwerty() {
         this.isChatting = true;
         this.tasks = new TaskList();
+        this.storage = new Storage("savefile.txt");
     }
 
     /**
@@ -197,28 +200,28 @@ public class Qwerty {
 //                .reduce("", (s1, s2) -> s1 + s2);
 //    }
 
-    /**
-     * Saves the current list of tasks to the hard disk.
-     */
-    public void saveTasks() {
-        File file = new File(savePath);
-        if (file.exists()) {
-            try {
-                FileWriter writer = new FileWriter(savePath);
-                writer.write(tasks.generateSaveString());
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("Could not write to save file: " + e.getMessage());
-            }
-        } else {
-            try {
-                file.createNewFile();
-                saveTasks();
-            } catch (IOException e) {
-                System.out.println("Could not create save file: " + e.getMessage());
-            }
-        }
-    }
+//    /**
+//     * Saves the current list of tasks to the hard disk.
+//     */
+//    public void saveTasks() {
+//        File file = new File(savePath);
+//        if (file.exists()) {
+//            try {
+//                FileWriter writer = new FileWriter(savePath);
+//                writer.write(tasks.generateSaveString());
+//                writer.close();
+//            } catch (IOException e) {
+//                System.out.println("Could not write to save file: " + e.getMessage());
+//            }
+//        } else {
+//            try {
+//                file.createNewFile();
+//                saveTasks();
+//            } catch (IOException e) {
+//                System.out.println("Could not create save file: " + e.getMessage());
+//            }
+//        }
+//    }
 
 //    /**
 //     * Loads the task list from the file located at the specified savepath in
@@ -294,7 +297,7 @@ public class Qwerty {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         isChatting = true;
-        //TODO loadTasks();
+        storage.loadTasks(tasks);
         greet();
 
         while (isChatting) {
@@ -424,6 +427,8 @@ public class Qwerty {
                 }
             } catch (QwertyException e) {
                 System.out.println("\n" + e.getMessage());
+            } finally {
+                storage.saveTasks(tasks);
             }
         }
     }
