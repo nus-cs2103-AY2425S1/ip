@@ -1,4 +1,4 @@
-package Exceptions;
+package papadom.Exceptions;
 
 public class NoDateException extends Exception {
     public NoDateException() {

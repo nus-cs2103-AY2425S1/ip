@@ -1,4 +1,4 @@
-package Exceptions;
+package papadom.Exceptions;
 
 public class WrongTaskNumberException extends Exception {
     public WrongTaskNumberException() {

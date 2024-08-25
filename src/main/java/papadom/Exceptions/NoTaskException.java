@@ -1,4 +1,4 @@
-package Exceptions;
+package papadom.Exceptions;
 
 public class NoTaskException extends Exception {
     public NoTaskException() {
