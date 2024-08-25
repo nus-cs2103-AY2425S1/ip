@@ -30,7 +30,16 @@ public class TodoItem {
      *
      * @return a string representation of the entry
      */
-    public String toString(){
+    public String toString() {
         return String.format("[T] [%s] %s", this.completed ? "X" : " ", content);
+    }
+
+    /**
+     * String representation of the entry in save format
+     *
+     * @return a save string representation of the entry
+     */
+    public String getSaveString() {
+        return String.format("T | %s | %s", this.completed ? "true" : "false", content);
     }
 }

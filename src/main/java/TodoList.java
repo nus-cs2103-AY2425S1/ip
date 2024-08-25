@@ -6,7 +6,17 @@ import java.util.ArrayList;
 public class TodoList {
 
     /** Array to hold the to-do items **/
-    private final ArrayList<TodoItem> todoList = new ArrayList<TodoItem>();
+    private final ArrayList<TodoItem> todoList;
+    /** FileStore to represent local storage **/
+    private final FileStore fileStore;
+
+    /**
+     * Constructor method that initialise the FileStore and attempt to load to-do from local storage
+     */
+    public TodoList() {
+        fileStore = new FileStore("./data/todosData.txt");
+        todoList = fileStore.retrieveTodoList();
+    }
 
     /**
      * Add an entry to the to-do list with provided to-do item
@@ -15,6 +25,7 @@ public class TodoList {
      */
     public boolean addItem(TodoItem item) {
         todoList.add(item);
+        saveToStorage();
         return true;
     }
 
@@ -50,6 +61,7 @@ public class TodoList {
             return false;
         }
         this.todoList.get(index).setCompleted(true);
+        saveToStorage();
         return true;
     }
 
@@ -63,6 +75,7 @@ public class TodoList {
             return false;
         }
         this.todoList.get(index).setCompleted(false);
+        saveToStorage();
         return true;
     }
 
@@ -77,6 +90,7 @@ public class TodoList {
             return false;
         }
         this.todoList.remove(index);
+        saveToStorage();
         return true;
     }
 
@@ -92,5 +106,15 @@ public class TodoList {
         return this.todoList.get(index).toString();
     }
 
+    /**
+     * Save the current entries in the to-do list to local storage
+     */
+    private void saveToStorage() {
+        String[] items = new String[todoList.size()];
+        for (int i = 0; i < todoList.size(); i++) {
+            items[i] = todoList.get(i).getSaveString();
+        }
+        fileStore.saveTodoList(items);
+    }
 
 }
