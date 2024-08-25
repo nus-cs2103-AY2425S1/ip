@@ -2,6 +2,9 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    Task() {
+        this("null task");
+    }
     Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -29,6 +32,10 @@ public class Task {
         } else {
             return "[ ]";
         }
+    }
+
+    public String toString() {
+        return this.getStatus() + " " + this.getDesc();
     }
 
 }

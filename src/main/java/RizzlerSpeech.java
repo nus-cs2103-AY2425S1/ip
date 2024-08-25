@@ -25,14 +25,21 @@ public class RizzlerSpeech extends Speech {
         super.say(this.prefix + text);
     }
 
+    public void say(String[] textArr) {
+        for (String text : textArr) {
+            this.say(text);
+        }
+    }
+
     @Override
     public void lineBreak() {
         super.lineBreak(this.prefix, "");
 
     }
 
-    public void list(String[] log) {
+    public void list(Task[] log) {
         this.lineBreak();
+        this.say("these are the things we've gotta do.");
         for (int i = 0; i < log.length; i++) {
             this.say((i + 1) + ". " + log[i]);
         }

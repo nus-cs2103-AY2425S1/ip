@@ -19,6 +19,10 @@ public class TaskLog {
         }
     }
 
+    public void addTask(String taskDesc) {
+        this.addTask(new Task(taskDesc));
+    }
+
     private void doubleLogSize() {
         int newLogSize = 2 * this.log.length;
         Task[] newLog = new Task[newLogSize];
@@ -26,7 +30,7 @@ public class TaskLog {
         this.log = newLog;
     }
 
-    private Task getTask(int pos) {
+    protected Task getTask(int pos) {
         if (pos < 0 || pos > (this.numTasks - 1)) {
             return new Task();
         }
@@ -43,5 +47,17 @@ public class TaskLog {
             truncLog[i] = this.getTask(i);
         }
         return truncLog;
+    }
+
+    protected Task doTask(int task_num) {
+        Task doneTask = this.getTask(task_num - 1);
+        doneTask.done();
+        return doneTask;
+    }
+
+    protected Task undoTask(int task_num) {
+        Task undoneTask = this.getTask(task_num - 1);
+        undoneTask.undone();
+        return undoneTask;
     }
 }
