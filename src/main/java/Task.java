@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,6 +66,8 @@ public class Task {
             String toTime = m.group("to");        // To timeframe (if present)
             String byTime = m.group("by");        // By timeframe (if present)
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+
             switch (taskType) {
             case "T":
                 Todo newTodo = new Todo(taskName);
@@ -72,13 +76,18 @@ public class Task {
                 }
                 return newTodo;
             case "D":
-                Deadline newDeadline = new Deadline(taskName, byTime);
+                LocalDate formattedTime = LocalDate.parse(byTime, formatter);
+
+                Deadline newDeadline = new Deadline(taskName, formattedTime);
                 if (isDone) {
                     newDeadline.markAsDone();
                 }
                 return newDeadline;
             case "E":
-                Event newEvent = new Event(taskName, fromTime, toTime);
+                LocalDate formattedStartTime = LocalDate.parse(fromTime, formatter);
+                LocalDate formattedEndTime = LocalDate.parse(toTime, formatter);
+
+                Event newEvent = new Event(taskName, formattedStartTime, formattedEndTime);
                 if (isDone) {
                     newEvent.markAsDone();
                 }
