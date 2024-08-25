@@ -8,6 +8,7 @@ public class YappingBot {
             "Hello! I'm %s\nWhat can I do for you?",
             BOT_NAME
     );
+    private static final String LIST_TEXT = "Here are the tasks in your list:";
     private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
     // End of text strings
 
@@ -43,7 +44,9 @@ public class YappingBot {
     private static void printUserList() {
         if (userList.isEmpty()) {
             System.out.println(quoteSinglelineText("List is empty!"));
+            return;
         }
+
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < userList.size(); i++) {
