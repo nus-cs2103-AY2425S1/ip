@@ -42,6 +42,15 @@ public class Ui {
 
     }
 
+    public void displayPrompt() {
+        System.out.println("- Add ToDo/Deadline/Event \n" +
+                            "- List \n" +
+                            "- Mark/Unmark \n" +
+                            "- Delete \n" +
+                            "- Bye \n " +
+                "____________________________________________________________");
+    }
+
     public void displayTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done: \n");
         System.out.println(task.toString() + "\n");
@@ -93,6 +102,14 @@ public class Ui {
 
     public void displayError(String message) {
         System.out.println(message);
+    }
+
+    public void displayLoadingError(String message) {
+        System.out.println("Hoshi can't load data! " + message);
+    }
+
+    public void displaySavingError(String message) {
+        System.out.println("Hoshi can't save data! " + message);
     }
 
     public void displayBye() {

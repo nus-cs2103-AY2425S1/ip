@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class represents a Deadline with a description, completion status and end time.
@@ -52,7 +53,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime.toString() + ")";
+        return "[D]" + super.toString() + " (by: " + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
 }

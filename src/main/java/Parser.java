@@ -8,6 +8,16 @@ import java.util.Scanner;
 public class Parser {
 
 
+    /**
+     * Parses all user commands into their respective methods as well as display the bye message once
+     * program terminates
+     *
+     * @param input the input that the user entered which is used to check which command to execute
+     * @param scanner scanner object that scans user input
+     * @param taskList the TaskList that stores 3 types of tasks
+     * @param ui Ui that handles all user interaction
+     * @param storage Storage that handles all I/O operations
+     */
     public void parseCommand(String input, Scanner scanner, TaskList taskList, Ui ui, Storage storage) {
 
         if (input.equalsIgnoreCase("bye")) {

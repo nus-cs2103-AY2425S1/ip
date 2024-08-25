@@ -11,172 +11,51 @@ import java.util.Scanner;
 
 public class Hoshi {
 
-    public static void main(String[] args) throws IOException {
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
+    private Parser parser;
 
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
+    public Hoshi(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
+        parser= new Parser();
 
-        String logo = """
+        try {
+            Storage.load(filePath, taskList);
+        } catch (FileNotFoundException e) {
+            ui.displayLoadingError(e.getMessage());
+        }
+    }
 
-                 __    __    ______        _______. __    __   __ \s
-                |  |  |  |  /  __  \\      /       ||  |  |  | |  |\s
-                |  |__|  | |  |  |  |    |   (----`|  |__|  | |  |\s
-                |   __   | |  |  |  |     \\   \\    |   __   | |  |\s
-                |  |  |  | |  `--'  | .----)   |   |  |  |  | |  |\s
-                |__|  |__|  \\______/  |_______/    |__|  |__| |__|\s
-                                                                  \s
-                """;
+    public void run() {
 
-        System.out.println(logo);
+        ui.displayWelcome();
 
-        ArrayList<Task> arrayList = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        String input;
 
-        getFileContents("./data/hoshi.txt", arrayList);
+        do {
 
-        System.out.println("""
-                ____________________________________________________________
-                Hello! Im Hoshi!
-                What can I do for you?
-                ____________________________________________________________
-                """);
+            ui.displayPrompt();
+            input = scanner.nextLine();
+            parser.parseCommand(input, scanner, taskList, ui, storage);
 
-
-        while (true) {
-
-
-            System.out.println("Add ToDo/Deadline/Event OR List(Lowercase): ");
-
-            // take in input
-            String input = scanner.nextLine();
-
-            // bye
-            if (input.equalsIgnoreCase("bye")) {
-                break;
-
-                // list
-            } else if (input.equalsIgnoreCase("list")) {
-
-                if (!arrayList.isEmpty()) {
-
-                    // for loop for listing
-                    for (int i = 0; i < arrayList.size(); i++) {
-
-                        System.out.println(i + 1 + ". " + arrayList.get(i).toString() + "\n");
-                    }
-                } else {
-                    System.out.println("Hoshi doesn't have anything stored! Please add a task first");
-                }
+        } while (!input.equalsIgnoreCase("bye"));
 
 
-                // mark
-            } else if (input.toLowerCase().startsWith("mark")) {
-
-                if (input.trim().length() < 5) {
-                    System.out.println("Please specify the task number to mark!");
-
-                } else {
-
-                    String trimmedInput = input.trim();
-
-                    char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
-
-                    // get only the number from the 2nd half of the splitInput
-                    int markIndex = Character.getNumericValue(taskNo) - 1;
-
-                    try {
-
-                        // if specified index is not out of bounds
-                        if (markIndex <= arrayList.size() - 1) {
-
-                            arrayList.get(markIndex).setIsDone(true);
-
-                            System.out.println("Nice! I've marked this task as done: \n");
-                            System.out.println(arrayList.get(markIndex).toString() + "\n");
-                        } else {
-                            throw new HoshiException("Hoshi doesn't have such a task!");
-                        }
-
-
-                    } catch (HoshiException e) {
-                        System.out.println(e.getMessage());
-                    }
-
-                }
-
-
-                // unmark
-            } else if (input.toLowerCase().startsWith("unmark")) {
-
-                if (input.trim().length() < 7) {
-                    System.out.println("Please specify the task number to unmark! \n");
-
-                } else {
-
-                    String trimmedInput = input.trim();
-
-                    char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
-
-                    // get only the number from the 2nd half of the splitInput
-                    int markIndex = Character.getNumericValue(taskNo) - 1;
-
-                    try {
-
-                        // if specified index is not out of bounds
-                        if (markIndex <= arrayList.size() - 1) {
-
-                            // set isDone to false
-                            arrayList.get(markIndex).setIsDone(false);
-
-                            System.out.println("OK, I've marked this task as not done yet: \n");
-                            System.out.println(arrayList.get(markIndex).toString() + "\n");
-
-                        } else {
-                            throw new HoshiException("Hoshi doesn't have such a task! \n");
-                        }
-
-                    } catch (HoshiException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-
-
-                // delete a task
-            } else if (input.toLowerCase().startsWith("delete")) {
-
-                if (input.length() < 7) {
-                    System.out.println("Please specify the task number to delete! \n");
-
-                } else {
-
-                    String trimmedInput = input.trim();
-
-                    char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
-
-                    // get only the number from the 2nd half of the splitInput
-                    int markIndex = Character.getNumericValue(taskNo) - 1;
-
-                    System.out.println("OK, Hoshi has removed ( " + arrayList.get(markIndex).getDesc() + " )! \n");
-
-                    arrayList.remove(markIndex);
-                }
-
-                // add a Task
-            } else if (input.toLowerCase().startsWith("add")) {
-
-                addTask(input, scanner, arrayList);
-
-            } else {
-
-                System.out.println("Hoshi doesn't understand, try a different input? ");
-                System.out.println("____________________________________________________________");
-
-            }
-
-
+        try {
+            Storage.save("./data/hoshi.txt", taskList);
+        } catch (IOException e) {
+            ui.displaySavingError(e.getMessage());
         }
 
-        writeToFile("./data/Hoshi.txt", arrayList);
-        bye();
+    }
 
+    public static void main(String[] args) {
+
+        new Hoshi("data/Hoshi.txt").run();
 
     }
 

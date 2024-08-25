@@ -31,7 +31,7 @@ public class Storage {
      * @param filePath  String filepath that contains the path of the hoshi txt file.
      * @param taskList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
      */
-    private static void Load(String filePath, TaskList taskList) throws FileNotFoundException {
+    public static void load(String filePath, TaskList taskList) throws FileNotFoundException {
 
         File file = new File(filePath);
 
@@ -102,7 +102,7 @@ public class Storage {
      * @param filePath  String filepath that contains the path of the hoshi txt file.
      * @param taskList TaskList of 3 types of tasks to be written to hoshi txt file.
      */
-    private static void Save(String filePath, TaskList taskList) throws IOException {
+    public static void save(String filePath, TaskList taskList) throws IOException {
 
         try {
             FileWriter fileWriter = new FileWriter(filePath);

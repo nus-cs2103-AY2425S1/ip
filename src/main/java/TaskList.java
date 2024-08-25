@@ -13,6 +13,10 @@ public class TaskList {
         this.taskList = tasks;
     }
 
+    public TaskList() {
+        taskList = new ArrayList<Task>();
+    }
+
     public void add(Task task) {
         taskList.add(task);
     }

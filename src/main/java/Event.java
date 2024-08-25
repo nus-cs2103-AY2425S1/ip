@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class represents an Event with a description, completion status, start time and end time.
@@ -66,6 +67,6 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime.toString() + " to: " + endTime.toString() + " )";
+        return "[E]" + super.toString() + " (from: " + startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " )";
     }
 }
