@@ -12,6 +12,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Returns Symbolic Representation of whether the Task is done or not.
      *
@@ -28,7 +33,7 @@ public class Task {
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
-
+    
     @Override
     public String toString() {
         String taskMessage = String.format("[%s] %s", getStatusIcon(), getDescription());
