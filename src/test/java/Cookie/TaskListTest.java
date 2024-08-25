@@ -13,12 +13,10 @@ public class TaskListTest {
 
     @BeforeEach
     void setUp() {
-        // Create sample tasks for testing
         todoTask = new ToDo("Finish homework");
         eventTask = new Event("Team meeting", "2024-08-25", "2024-08-26");
         deadlineTask = new Deadline("Submit report", "2024-09-01");
 
-        // Initialize TaskList with these tasks
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(todoTask);
         tasks.add(eventTask);

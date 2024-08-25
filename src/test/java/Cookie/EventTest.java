@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EventTest {
     @Test
     void testConstructor() {
-        // Mocking DateParser behavior
         String description = "Meeting";
         String from = "2024-08-25";
         String to = "2024-08-26";
