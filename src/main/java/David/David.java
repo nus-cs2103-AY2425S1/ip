@@ -100,17 +100,12 @@ public class David {
             throw new DavidInvalidRangeException();
         }
 
-        try {
-            LocalDateTime fromDate = DateParser.getDate(eventDetails[0]);
-            LocalDateTime toDate = DateParser.getDate(eventDetails[1]);
+        LocalDateTime fromDate = DateParser.getDate(eventDetails[0]);
+        LocalDateTime toDate = DateParser.getDate(eventDetails[1]);
 
-            Task t = new EventTask(eventName, fromDate, toDate, false);
-            this.tasks.addTask(t);
-            ui.displayTaskDetails(t, this.tasks.getSize());
-        }  catch (DateTimeParseException e) {
-            throw new DavidInvalidDateTimeException();
-        }
-
+        Task t = new EventTask(eventName, fromDate, toDate, false);
+        this.tasks.addTask(t);
+        ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
     /**
@@ -125,16 +120,10 @@ public class David {
             throw new DavidInvalidDeadlineException();
         }
 
-        try {
-            LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
-            Task t = new DeadlineTask(eventSplit[0], byDate, false);
-            this.tasks.addTask(t);
-            ui.displayTaskDetails(t, this.tasks.getSize());
-        } catch (DateTimeParseException e) {
-            throw new DavidInvalidDateTimeException();
-        }
-
-
+        LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
+        Task t = new DeadlineTask(eventSplit[0], byDate, false);
+        this.tasks.addTask(t);
+        ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
     /**

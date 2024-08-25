@@ -1,6 +1,7 @@
 package David.Data;
 
 import David.Exceptions.DavidCacheException;
+import David.Exceptions.DavidInvalidDateTimeException;
 import David.Task.*;
 import David.Parser.DateParser;
 
@@ -71,15 +72,20 @@ public class Storage {
                 break;
             case "D":
                 //"Deadline task"
-                LocalDateTime byDate = DateParser.getDate(info[3]);
-                t = new DeadlineTask(info[2], byDate, completed);
-                break;
+                try {
+                    LocalDateTime byDate = DateParser.getDate(info[3]);
+                    t = new DeadlineTask(info[2], byDate, completed);
+                    break;
+                } catch (DavidInvalidDateTimeException e){}
             case "E":
                 //"Event" task
-                LocalDateTime fromDate = DateParser.getDate(info[3]);
-                LocalDateTime toDate = DateParser.getDate(info[4]);
-                t = new EventTask(info[2], fromDate, toDate, completed);
-                break;
+                try {
+                    LocalDateTime fromDate = DateParser.getDate(info[3]);
+                    LocalDateTime toDate = DateParser.getDate(info[4]);
+                    t = new EventTask(info[2], fromDate, toDate, completed);
+                    break;
+                } catch (DavidInvalidDateTimeException e) {}
+
         }
 
         return t;
