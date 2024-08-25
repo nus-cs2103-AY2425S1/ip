@@ -7,13 +7,21 @@ public abstract class Task {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
+    public String getStatus() {
+        return isDone ? "X" : " ";
     }
 
-    public void setDone(boolean status) {
-        this.isDone = status;
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatus() + "] " + description;
     }
 
 }
