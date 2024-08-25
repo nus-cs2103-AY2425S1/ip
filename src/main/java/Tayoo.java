@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tayoo {
-    private static ArrayList<Task> tasklist = new ArrayList<Task>(100);
+    private static final ArrayList<Task> tasklist = new ArrayList<Task>(100);
     private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE"};
     public static void main(String[] args) {
         String name = "Tayoo";
@@ -21,17 +21,6 @@ public class Tayoo {
         scanner.close();
         System.exit(0);
     }
-
-    private static void printHoriLine(int length) {
-        StringBuilder line = new StringBuilder("\t");
-
-        for (int i = 0; i<length;i++) {
-            line.append("_");
-        }
-
-        System.out.println(line);
-    }
-
     private static void printHoriLine() {
         System.out.println("\t_______________________________________");
     }
@@ -69,17 +58,17 @@ public class Tayoo {
                         }
                     } catch (IndexOutOfBoundsException e) {
                         if (taskNumber < 0) {
-                            System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
+                            System.out.println("Dude, your task list starts from 1! Input a number that's above 0!");
                         } else if (taskNumber > 100) {
                             System.out.println("My task list can't go that high! Try a smaller number");
                         } else {
                             System.out.println("Hmm... my task list doesn't contain that number... try again");
                         }
                     } catch (NumberFormatException e) {
-                        printText("Hey, thats not a task number! Give me a number please!");
+                        printText("Hey, that's not a task number! Give me a number please!");
                     }
                 } catch (NumberFormatException e) {
-                    printText("Hey, thats not a task number! Give me a number please!");
+                    printText("Hey, that's not a task number! Give me a number please!");
                 }
             } else if (input.startsWith("UNMARK ")) {
                 try {
@@ -88,21 +77,21 @@ public class Tayoo {
                         if (tasklist.get(taskNumber).unmark()) {
                             printText("OK, I've marked this task as not done yet:\n" + tasklist.get(taskNumber));
                         } else {
-                            printText("Hey! You haven't even done that one yetq!\n" + tasklist.get(taskNumber));
+                            printText("Hey! You haven't even done that one yet!\n" + tasklist.get(taskNumber));
                         }
                     } catch (IndexOutOfBoundsException e) {
                         if (taskNumber <= 0) {
-                            System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
+                            System.out.println("Dude, your task list starts from 1! Input a number that's above 0!");
                         } else if (taskNumber > 100) {
                             System.out.println("My task list can't go that high! Try a smaller number");
                         } else {
                             System.out.println("Hmm... my task list doesn't contain that number... try again");
                         }
                     } catch (NumberFormatException e) {
-                        printText("Hey, thats not a task number! Give me a number please!");
+                        printText("Hey, that's not a task number! Give me a number please!");
                     }
                 } catch (NumberFormatException e) {
-                    printText("Hey, thats not a task number! Give me a number please!");
+                    printText("Hey, that's not a task number! Give me a number please!");
                 }
             } else if (input.startsWith("TODO")){
                 try {
@@ -115,7 +104,7 @@ public class Tayoo {
                     int deadlineIndex = input.indexOf("/BY ");
 
                     if (deadlineIndex < 9) {
-                        printText("Deadline format incorrect. Format: \"deadline [taskname] /by [deadline]\"." +
+                        printText("Deadline format incorrect. Format: \"deadline [taskName] /by [deadline]\"." +
                                 " Try again please");
                         continue;
                     }
@@ -137,7 +126,7 @@ public class Tayoo {
                     String parsedEnd = command.substring(endIndex + 4).trim();
                     addTask(new Event(command.substring(6, startIndex - 1), parsedStart, parsedEnd));
                 } catch (IndexOutOfBoundsException e) {
-                    printText("Event format incorrect. Format: \"Event [taskname] /from [start] /to [end]\". " +
+                    printText("Event format incorrect. Format: \"Event [taskName] /from [start] /to [end]\". " +
                             "Try again please");
                 }
             } else if (input.startsWith("DELETE") || input.startsWith("REMOVE")) {
@@ -152,7 +141,7 @@ public class Tayoo {
                 } catch (IndexOutOfBoundsException e) {
                     printText("Hey, that task doesn't exist for me to delete!");
                 } catch (NumberFormatException e) {
-                    printText("Hey, thats not a task number! Give me a number please!");
+                    printText("Hey, that's not a task number! Give me a number please!");
                 }
             } else {
                 printText("I'm not sure what that means :(");

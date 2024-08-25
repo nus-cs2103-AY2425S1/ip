@@ -2,6 +2,11 @@ public class Task {
     private boolean completed;
     private String title;
 
+    /**
+     * Constructs a new 'Task' object which specifies a task that can be added to Tayoo's list
+     *
+     * @param title the title of the task
+     */
     public Task(String title) {
         this.title = title;
         this.completed = false;
