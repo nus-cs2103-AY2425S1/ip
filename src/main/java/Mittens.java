@@ -76,6 +76,14 @@ public class Mittens {
         task.markAsNotDone();
         System.out.printf("\nMeow, I unscratched the check box for you:\n%s\n\n", task.toString());
     }
+    
+    public static void deleteTask(int index) throws BadInputException {
+        if (index > tasks.size()) {
+            throw new BadInputException("Task index is out of range");
+        }
+        Task task = tasks.remove(index - 1);
+        System.out.printf("\nMeow, I deleted the task '%s' for you :3\n\n", task.getDescription());
+    }
 
     public static void exit() {
         System.out.println(EXIT_MESSAGE);
@@ -108,6 +116,13 @@ public class Mittens {
                         markTaskAsNotDone(index);
                     } catch (NumberFormatException e) {
                         throw new BadInputException("Argument for command 'mark' must be a number");
+                    }
+                } else if (input.startsWith("delete")) {
+                    try {
+                        int index = Integer.parseInt(input.split(" ")[1]);
+                        deleteTask(index);
+                    } catch (NumberFormatException e) {
+                        throw new BadInputException("Argument for command 'delete' must be a number");
                     }
                 } else if (input.startsWith("todo")) {
                     String description = input.substring(5);
