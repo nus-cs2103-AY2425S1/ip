@@ -1,17 +1,19 @@
+package jag;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        // Task
+        // jag.Task
         int index = ui.getDeleteIndex();
 
-        // Ui response + deletion
+        // jag.Ui response + deletion
         Task task = tasks.getTask(index - 1);
         ui.deleteResponse(task, tasks, tasks.size());
         tasks.deleteTask(index - 1);
 
-        // Storage
+        // jag.Storage
         try {
             storage.write(tasks);
         } catch (IOException io) {

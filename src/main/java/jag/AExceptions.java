@@ -1,3 +1,5 @@
+package jag;
+
 public class AExceptions extends Exception {
     protected String errorMessage;
 
