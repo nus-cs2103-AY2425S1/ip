@@ -27,7 +27,7 @@ public class Alisa {
                     String[] inputArray = input.split(" ");
                     if (inputArray.length < 2) {
                         throw new AlisaException("You didn't tell me which task to mark as done!");
-                    } else if (Integer.parseInt(inputArray[1]) > taskList.size()) {
+                    } else if (Integer.parseInt(inputArray[1]) > taskList.size() || Integer.parseInt(inputArray[1]) < 1) {
                         throw new AlisaException("Task #" + inputArray[1] + " doesn't exist. Give me a task that does exist to mark as done.");
                     } else {
                         int index = Integer.parseInt(inputArray[1]) - 1;
@@ -40,7 +40,7 @@ public class Alisa {
                     String[] inputArray = input.split(" ");
                     if (inputArray.length < 2) {
                         throw new AlisaException("You didn't tell me which task to mark as not done!");
-                    } else if (Integer.parseInt(inputArray[1]) > taskList.size()) {
+                    } else if (Integer.parseInt(inputArray[1]) > taskList.size() || Integer.parseInt(inputArray[1]) < 1) {
                         throw new AlisaException("Task #" + inputArray[1] + " doesn't exist. Give me a task that does exist to mark as not done.");
                     } else {
                         int index = Integer.parseInt(inputArray[1]) - 1;
@@ -50,8 +50,8 @@ public class Alisa {
                         System.out.println(divider);
                     }
                 } else if (input.startsWith("todo")) {
-                    if (input.substring(5).length() == 0) {
-                        throw new AlisaException("Give me a description for your task!");
+                    if (input.length() < 5) {
+                        throw new AlisaException("Give me a description for your todo task!");
                     }
                     Todo newTodo = new Todo(input.substring(5));
                     taskList.add(newTodo);
@@ -61,8 +61,8 @@ public class Alisa {
                     System.out.println(divider);
                 }
                 else if (input.startsWith("deadline")) {
-                    if (input.substring(9).length() == 0) {
-                        throw new AlisaException("Give me a description for your task!");
+                    if (input.length() < 9) {
+                        throw new AlisaException("Give me a description for your deadline task!");
                     }
                     String[] inputArray = input.substring(9).split(" /by ");
                     if (inputArray.length < 2) {
@@ -75,8 +75,8 @@ public class Alisa {
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                     System.out.println(divider);
                 } else if (input.startsWith("event")) {
-                    if (input.substring(6).length() == 0) {
-                        throw new AlisaException("Give me a description for your task!");
+                    if (input.length() < 6) {
+                        throw new AlisaException("Give me a description for your event!");
                     }
                     String[] inputArray = input.substring(6).split(" /from ");
                     String[] fromToArray = inputArray[1].split(" /to ");
@@ -98,6 +98,20 @@ public class Alisa {
                         for (int i = 1; i <= taskList.size(); i++) {
                             System.out.println(i + "." + taskList.get(i-1));
                         }
+                        System.out.println(divider);
+                    }
+                } else if (input.startsWith("delete")) {
+                    String[] inputArray = input.split(" ");
+                    if (inputArray.length < 2) {
+                        throw new AlisaException("You didn't tell me which task to delete!");
+                    } else if (Integer.parseInt(inputArray[1]) > taskList.size() || Integer.parseInt(inputArray[1]) < 1) {
+                        throw new AlisaException("Task #" + inputArray[1] + " doesn't exist. Give me a task that does exist to mark as done.");
+                    } else {
+                        int index = Integer.parseInt(inputArray[1]) - 1;
+                        Task removedTask = taskList.remove(index);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(removedTask);
+                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                         System.out.println(divider);
                     }
                 }
