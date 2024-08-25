@@ -93,7 +93,7 @@ public abstract class Task implements Serializable {
      *                 important time information of the task.
      * @return task created according to the task information user entered.
      */
-    public static Task creatTask(String taskInfo) throws DukeException {
+    public static Task createTask(String taskInfo) throws DukeException {
         // Split the user input and get the task type
         String[] taskInfoArray = taskInfo.split(" ", 2);
         String type = taskInfoArray[0].toUpperCase();
