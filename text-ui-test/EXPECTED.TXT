@@ -59,8 +59,9 @@ ____________________________________________________________
 
 ____________________________________________________________
 
- NAH!!! I'm sorry, but I don't know what that means.
- Please give me valid command. eg: mark, unmark, list, ...
+ Noted. I've removed this task:
+   [D][ ] submit assignment  (by:  Aug 31st 11:59pm)
+ Now you have 2 tasks in the list.
 
 ____________________________________________________________
 
@@ -68,7 +69,7 @@ ____________________________________________________________
 
  Got it. I've added this task:
    [E][ ] dinner with friends  (from:  Sep 15th 7pm  to:  Sep 15th 9pm)
- Now you have 4 tasks in the list.
+ Now you have 3 tasks in the list.
 
 ____________________________________________________________
 
@@ -88,21 +89,21 @@ ____________________________________________________________
 
  Got it. I've added this task:
    [T][ ] start reading new book
- Now you have 5 tasks in the list.
+ Now you have 4 tasks in the list.
 
 ____________________________________________________________
 
 ____________________________________________________________
 
  OK, I've marked this task as not done yet:
-   [E][ ] team building retreat  (from:  Sep 10th 9am  to:  Sep 12th 5pm)
+   [E][ ] dinner with friends  (from:  Sep 15th 7pm  to:  Sep 15th 9pm)
 ____________________________________________________________
 
 ____________________________________________________________
 
  Got it. I've added this task:
    [D][ ] renew library books  (by:  Sep 18th)
- Now you have 6 tasks in the list.
+ Now you have 5 tasks in the list.
 
 ____________________________________________________________
 
@@ -118,15 +119,19 @@ ____________________________________________________________
 
  1. [T][X] finish homework
 
- 2. [D][ ] submit assignment  (by:  Aug 31st 11:59pm)
+ 2. [E][ ] team building retreat  (from:  Sep 10th 9am  to:  Sep 12th 5pm)
 
- 3. [E][ ] team building retreat  (from:  Sep 10th 9am  to:  Sep 12th 5pm)
+ 3. [E][ ] dinner with friends  (from:  Sep 15th 7pm  to:  Sep 15th 9pm)
 
- 4. [E][ ] dinner with friends  (from:  Sep 15th 7pm  to:  Sep 15th 9pm)
+ 4. [T][ ] start reading new book
 
- 5. [T][ ] start reading new book
+ 5. [D][ ] renew library books  (by:  Sep 18th)
 
- 6. [D][ ] renew library books  (by:  Sep 18th)
+____________________________________________________________
+
+____________________________________________________________
+
+NAH!!! Task 10 doesn't exist. Please give an number between 1 and 5
 
 ____________________________________________________________
 
