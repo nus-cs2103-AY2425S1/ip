@@ -1,19 +1,25 @@
+package ollie.task;
+
+import ollie.exception.EmptyDescriptionException;
+import ollie.exception.OllieException;
+import ollie.TaskType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an Event task with a description, start time, and end time.
+ * Represents an ollie.task.Event task with a description, start time, and end time.
  */
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
     /**
-     * Constructs an Event task with the specified description, start time, and end time.
+     * Constructs an ollie.task.Event task with the specified description, start time, and end time.
      *
-     * @param description The description of the Event task.
-     * @param start The start time of the Event.
-     * @param end The end time of the Event.
+     * @param description The description of the ollie.task.Event task.
+     * @param start The start time of the ollie.task.Event.
+     * @param end The end time of the ollie.task.Event.
      */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description, TaskType.EVENT);
@@ -45,7 +51,7 @@ public class Event extends Task {
                     "event event_name /from: start_time /to: end_time" +
                     "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00");
         }
-        DateTimeFormatter inputDate = getInputDate();
+        DateTimeFormatter inputDate = Task.getInputDate();
         try {
             return new Event(parts[0].trim(), LocalDateTime.parse(parts[1].trim(), inputDate),
                     LocalDateTime.parse(parts[2].trim(), inputDate));
@@ -56,13 +62,13 @@ public class Event extends Task {
 
     @Override
     public String saveAsString() {
-        DateTimeFormatter formatDate = getFormatDate();
+        DateTimeFormatter formatDate = Task.getFormatDate();
         return String.format("%s | %s | %s", super.saveAsString(), start.format(formatDate), end.format(formatDate));
     }
 
     @Override
     public String toString() {
-        DateTimeFormatter formatDate = getFormatDate();
+        DateTimeFormatter formatDate = Task.getFormatDate();
         return super.toString() + " (from: " + start.format(formatDate) + " to: " + end.format(formatDate) + ")";
     }
 }

@@ -1,3 +1,5 @@
+package ollie;
+
 /**
  * Enum to represent the type of task.
  */

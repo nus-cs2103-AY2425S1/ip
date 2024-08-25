@@ -1,17 +1,23 @@
+package ollie.task;
+
+import ollie.exception.EmptyDescriptionException;
+import ollie.exception.OllieException;
+import ollie.TaskType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Deadline task with a description and a due date.
+ * Represents a ollie.task.Deadline task with a description and a due date.
  */
 public class Deadline extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Constructs a Deadline task with the specified description and due date.
+     * Constructs a ollie.task.Deadline task with the specified description and due date.
      *
-     * @param description The description of the Deadline task.
-     * @param deadline The due date of the Deadline task.
+     * @param description The description of the ollie.task.Deadline task.
+     * @param deadline The due date of the ollie.task.Deadline task.
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description, TaskType.DEADLINE);
@@ -39,7 +45,7 @@ public class Deadline extends Task {
                     "deadline task_name /by: due_date" +
                     "\nExample: deadline assignment /by: 2021-09-30 23:59");
         }
-        DateTimeFormatter inputDate = getInputDate();
+        DateTimeFormatter inputDate = Task.getInputDate();
         try {
             return new Deadline(parts[0].trim(), LocalDateTime.parse(parts[1].trim(), inputDate));
         } catch (Exception e) {
@@ -49,13 +55,13 @@ public class Deadline extends Task {
 
     @Override
     public String saveAsString() {
-        DateTimeFormatter formatDate = getFormatDate();
+        DateTimeFormatter formatDate = Task.getFormatDate();
         return String.format("%s | %s", super.saveAsString(), deadline.format(formatDate));
     }
 
     @Override
     public String toString() {
-        DateTimeFormatter formatDate = getFormatDate();
+        DateTimeFormatter formatDate = Task.getFormatDate();
         return super.toString() + " (by: " + deadline.format(formatDate) + ")";
     }
 }

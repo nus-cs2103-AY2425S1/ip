@@ -17,7 +17,7 @@ REM no error here, errorlevel == 0
 rm ../data/ollie.txt
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Ollie < input.txt > ACTUAL.TXT
+java -classpath ..\bin ollie.Ollie < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

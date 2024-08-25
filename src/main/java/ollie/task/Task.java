@@ -1,3 +1,8 @@
+package ollie.task;
+
+import ollie.exception.OllieException;
+import ollie.TaskType;
+
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -11,7 +16,7 @@ public abstract class Task {
     private static final DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
-     * Constructs a Task with the specified description and type.
+     * Constructs a ollie.task.Task with the specified description and type.
      *
      * @param description The description of the task.
      * @param taskType The type of the task.

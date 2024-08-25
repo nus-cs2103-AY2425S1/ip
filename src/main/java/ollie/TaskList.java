@@ -1,3 +1,8 @@
+package ollie;
+
+import ollie.exception.OllieException;
+import ollie.task.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -9,7 +14,7 @@ public class TaskList {
     private Storage storage;
 
     /**
-     * Constructs a TaskList instance.
+     * Constructs a ollie.TaskList instance.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -17,7 +22,7 @@ public class TaskList {
     }
 
     /**
-     * Constructs a TaskList and loads tasks from storage.
+     * Constructs a ollie.TaskList and loads tasks from storage.
      * If the storage file does not exist, an empty list is created.
      * @param tasks The list of tasks.
      * @param storage The storage object for saving and loading tasks.
@@ -29,7 +34,7 @@ public class TaskList {
     }
 
     /**
-     * Sets the storage object for this TaskList.
+     * Sets the storage object for this ollie.TaskList.
      *
      * @param storage The storage object.
      */

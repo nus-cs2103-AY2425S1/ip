@@ -1,3 +1,5 @@
+package ollie;
+
 /**
  * Represents the type of command parsed from the user's input.
  */
