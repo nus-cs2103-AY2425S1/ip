@@ -12,6 +12,10 @@ public class Events extends Task{
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
+    @Override
+    public String getSaveFormat(){
+        return String.format("E | %s | %s-%s", super.getSaveFormat(),this.fromDate,this.toDate);
+    }
 
     @Override
     public String toString(){

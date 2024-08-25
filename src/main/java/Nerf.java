@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,7 +19,7 @@ public class Nerf {
                                        ##  ##   ######   ##  ##   ##    
                                        """;
     private static final String SAVEDIRECTORY = "./data";
-    private static final String FILEPATH = SAVEDIRECTORY + "/taskStorage.txt";
+    private static final String SAVEFILEPATH = SAVEDIRECTORY + "/taskStorage.txt";
     private static final List<Task> listings = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -29,7 +30,7 @@ public class Nerf {
     }
     private static List<String> readFile(){
         File directory = new File(SAVEDIRECTORY);
-        File saveFile = new File(FILEPATH);
+        File saveFile = new File(SAVEFILEPATH);
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -42,12 +43,24 @@ public class Nerf {
             }
         }
         try {
-            List<String> fileContent = Files.readAllLines(Paths.get(FILEPATH));
+            List<String> fileContent = Files.readAllLines(Paths.get(SAVEFILEPATH));
             return fileContent;
         } catch (IOException e) {
             System.out.println("Unable to read save file :(");
         }
         return new ArrayList<>();
+    }
+
+    private static void saveAllTask(){
+        try (FileWriter fileWriter = new FileWriter(SAVEFILEPATH)) {
+            for (Task i:listings){
+                fileWriter.write(i.getSaveFormat()+"\n");
+            }
+            
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file. Please restart the application");
+        }
     }
 
     private static void loadTask(){
@@ -109,6 +122,7 @@ public class Nerf {
                                                                    You may use list/bye or mark/unmark/todo/deadline/event/delete + required syntax
                                                                    """);
                     }
+                    saveAllTask();
                 } catch (InvalidDataException e) {
                     System.out.println("Sorry, your input is seems to be missing some data.");
                 }

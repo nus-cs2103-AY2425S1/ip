@@ -21,9 +21,13 @@ public abstract class Task{
         return (this.isDone ? "X" : " ");
     }
 
+    public String getSaveFormat(){
+        return String.format("%d | %s", this.isDone?1:0, this.description);
+    }
+
     @Override
     public String toString(){
-        return String.format("[%s] %s", getStatusIcon(),this.description);
+        return String.format("[%s] %s", getStatusIcon(), this.description);
     }
 
 }

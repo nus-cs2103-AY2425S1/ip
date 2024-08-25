@@ -8,6 +8,10 @@ public class Deadlines extends Task{
         super(description,status);
         this.dueDate = dueDate;
     }
+    @Override
+    public String getSaveFormat(){
+        return String.format("D | %s | %s", super.getSaveFormat(),this.dueDate);
+    }
 
     @Override
     public String toString(){
