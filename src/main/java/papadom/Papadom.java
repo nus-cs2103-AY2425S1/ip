@@ -57,8 +57,8 @@ public class Papadom {
                     addTodoCommand.execute(taskList, ui, storage);
                     break;
                 case DEADLINE:
-                    Deadline newDeadlineTask = parser.deadlineTaskCreator(text.substring(9));
-                    ui.output(taskList.addToList(newDeadlineTask));
+                    AddDeadlineCommand addDeadlineCommand = new AddDeadlineCommand(text);
+                    addDeadlineCommand.execute(taskList, ui, storage);
                     break;
                 case EVENT:
                     AddEventCommand addEventCommand = new AddEventCommand(text);
