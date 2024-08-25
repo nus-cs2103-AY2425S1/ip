@@ -1,3 +1,8 @@
+import exceptions.AliceException;
+import storage.Storage;
+import storage.TaskList;
+import ui.Ui;
+
 public class Alice {
     private final TaskList tasks;
     private final Storage storage;
@@ -21,13 +26,7 @@ public class Alice {
     // starts the program
     public void run() {
         ui.showWelcome();
-        try {
-            ui.getInput();
-        } catch (AliceException e) {
-            System.out.println(e);
-            ui.showDivider();
-        }
-
+        ui.getInput();
         ui.exitMessage();
         storage.saveTasks(tasks);
     }

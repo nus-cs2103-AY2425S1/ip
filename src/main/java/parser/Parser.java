@@ -1,7 +1,16 @@
+package parser;
+
+import commands.Command;
+import exceptions.AliceException;
+import exceptions.MissingArgumentException;
+import storage.TaskList;
+import tasks.Task;
+import ui.Ui;
+
 public class Parser {
     private boolean isBye;
-    private TaskList list;
-    private Ui ui;
+    private final TaskList list;
+    private final Ui ui;
 
     public Parser(TaskList list, Ui ui) {
         isBye = false;
@@ -9,7 +18,7 @@ public class Parser {
         this.ui = ui;
     }
 
-    public void parse(String input) throws AliceException{
+    public void parse(String input) throws AliceException {
         String[] result = input.split(" ", 2);
         Command command = Command.stringToCommand(result[0]);
         Task addedTask = new Task("");

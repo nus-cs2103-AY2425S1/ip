@@ -1,3 +1,10 @@
+package ui;
+
+import exceptions.AliceException;
+import parser.Parser;
+import storage.TaskList;
+import tasks.Task;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -22,12 +29,17 @@ public class Ui {
         scanner.close();
     }
 
-    public void getInput() throws AliceException{
+    public void getInput() {
         while (!parser.isBye()) {
             if (!scanner.hasNext()) {
-                return;
+                continue;
             }
-            parser.parse(scanner.nextLine());
+            try {
+                parser.parse(scanner.nextLine());
+            } catch (AliceException e) {
+                System.out.println(e);
+                showDivider();
+            }
         }
     }
 

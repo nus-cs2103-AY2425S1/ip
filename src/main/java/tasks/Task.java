@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -17,6 +19,12 @@ public class Task {
 
     public String getStatusIcon() {
         return isDone ? "X" : " ";
+    }
+
+    public String writeTask() {
+        StringBuilder s = new StringBuilder();
+        s.append(this.isDone ? 1 : 0).append(",").append(this.description);
+        return s.toString();
     }
 
     @Override

@@ -1,3 +1,5 @@
+package exceptions;
+
 public class AliceException extends Exception{
     protected String message;
     public AliceException(String message) {

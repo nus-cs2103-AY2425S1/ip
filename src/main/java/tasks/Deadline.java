@@ -1,12 +1,19 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDate deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = LocalDate.parse(deadline);
+    }
+
+    @Override
+    public String writeTask() {
+        return super.writeTask() + "," + this.deadline;
     }
 
     @Override
