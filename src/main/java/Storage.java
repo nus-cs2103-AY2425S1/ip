@@ -30,7 +30,7 @@ public class Storage {
             TaskList listOfTasks = new TaskList();
 
             while (s.hasNextLine()) {
-                Task newTask = Task.parseStringToTask(s.nextLine());
+                Task newTask = Parser.parseStringToTask(s.nextLine());
 
                 if (newTask == null) {
                     continue;

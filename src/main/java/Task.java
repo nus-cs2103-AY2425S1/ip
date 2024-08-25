@@ -1,8 +1,3 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Represents a task with a description and a status indicating whether it is done.
  */
@@ -50,53 +45,6 @@ public class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
-    }
-
-    public static Task parseStringToTask(String string) {
-        String regex = "\\d+\\. \\[(?<taskType>[A-Z])\\]\\[(?<status>[ X])\\] (?<name>[^\\(]+)(?:\\(by: (?<by>[^\\)]+)\\))?(?:\\(from: (?<from>[^\\)]+) to: (?<to>[^\\)]+)\\))?";
-
-        Pattern r = Pattern.compile(regex);
-        Matcher m = r.matcher(string);
-
-        if (m.find()) {
-            String taskType = m.group("taskType");      // Task type (e.g., "T")
-            boolean isDone = m.group("status").trim().equals("X"); // Task completion status (e.g., "X" or " ")
-            String taskName = m.group("name").trim(); // Task name
-            String fromTime = m.group("from");      // From timeframe (if present)
-            String toTime = m.group("to");        // To timeframe (if present)
-            String byTime = m.group("by");        // By timeframe (if present)
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-
-            switch (taskType) {
-            case "T":
-                Todo newTodo = new Todo(taskName);
-                if (isDone) {
-                    newTodo.markAsDone();
-                }
-                return newTodo;
-            case "D":
-                LocalDate formattedTime = LocalDate.parse(byTime, formatter);
-
-                Deadline newDeadline = new Deadline(taskName, formattedTime);
-                if (isDone) {
-                    newDeadline.markAsDone();
-                }
-                return newDeadline;
-            case "E":
-                LocalDate formattedStartTime = LocalDate.parse(fromTime, formatter);
-                LocalDate formattedEndTime = LocalDate.parse(toTime, formatter);
-
-                Event newEvent = new Event(taskName, formattedStartTime, formattedEndTime);
-                if (isDone) {
-                    newEvent.markAsDone();
-                }
-                return newEvent;
-            }
-
-        }
-
-        return null;
     }
 
     /**

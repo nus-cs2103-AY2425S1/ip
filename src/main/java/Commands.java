@@ -100,17 +100,8 @@ class addEvent implements Commands {
         String[] startDateAndTime = parts[1].trim().split("\\s+", 2);
         String[] endDateAndTime = parts[2].trim().split("\\s+", 2);
 
-        LocalDate startDate;
-        LocalDate endDate;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
-            startDate = LocalDate.parse(startDateAndTime[0].trim(), formatter);
-            endDate = LocalDate.parse(endDateAndTime[0].trim(), formatter);
-        } catch (DateTimeParseException e) {
-            throw new SentinelException("Invalid date time format, I can only read formats in dd/M/yyyy pattern!");
-        }
-
-        sentinel.addEvent(parts[0].trim(), startDate, endDate);
+        sentinel.addEvent(parts[0].trim(), Parser.parseStringToDate(startDateAndTime[0]),
+                                            Parser.parseStringToDate(endDateAndTime[0]));
     }
 }
 
@@ -134,14 +125,7 @@ class addDeadline implements Commands {
 
         String[] dateAndTime = parts[1].trim().split("\\s+", 2);
 
-        LocalDate date;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
-            date = LocalDate.parse(dateAndTime[0].trim(), formatter);
-        } catch (DateTimeParseException e) {
-            throw new SentinelException("Invalid date time format, I can only read formats in dd/M/yyyy pattern!");
-        }
-
+        LocalDate date = Parser.parseStringToDate(dateAndTime[0]);
         sentinel.addDeadline(parts[0].trim(), date);
     }
 }
