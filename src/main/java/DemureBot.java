@@ -5,6 +5,13 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class DemureBot {
+    /**
+     * Checks if user command is valid and executes the command.
+     *
+     * @param command User command.
+     * @param list List of tasks the user has.
+     * @throws DemureBotException If the user command is invalid.
+     */
     private static void check(String command, ArrayList<Task> list) throws DemureBotException {
         if (command.startsWith("mark")) {
             String remainder = command.substring(4).trim();
@@ -141,6 +148,11 @@ public class DemureBot {
         }
     }
 
+    /**
+     * Checks if the folder exists.
+     *
+     * @param folderPath Path of folder containing the file with the saved data
+     */
     private static void checkFolder(String folderPath) {
         File folder = new File(folderPath);
         if (!folder.exists()) {
@@ -151,6 +163,12 @@ public class DemureBot {
         }
     }
 
+    /**
+     * Returns a Boolean indicating if the file exists.
+     *
+     * @param filePath Path of file containing saved data
+     * @return Boolean indicating if the file exists
+     */
     private static boolean checkFile(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -167,6 +185,12 @@ public class DemureBot {
         return true;
     }
 
+    /**
+     * Returns a formatted string of the task to be saved.
+     *
+     * @param task Task to be saved.
+     * @return Formatted string of the task to be saved
+     */
     private static String formatTask(Task task) {
         String[] parts = task.toString().split("]", 3);
         String type = parts[0].substring(1, 2);
@@ -190,6 +214,13 @@ public class DemureBot {
         }
     }
 
+    /**
+     * Returns a Task created from saved data.
+     *
+     * @param line Line of text read from saved data.
+     * @return Task created from saved data.
+     * @throws DemureBotException If the saved task has invalid format.
+     */
     private static Task getTask(String line) throws DemureBotException {
         String[] split = line.split(" \\| ");
         validateTaskFormat(split, 3);
@@ -219,6 +250,13 @@ public class DemureBot {
         return task;
     }
 
+    /**
+     * Throws an exception if the array length is less than the expected length.
+     *
+     * @param split Array of strings.
+     * @param expectedLength Expected length of array.
+     * @throws DemureBotException If the array length is less than the expected length.
+     */
     private static void validateTaskFormat(String[] split, int expectedLength) throws DemureBotException {
         if (split.length < expectedLength) {
             throw new DemureBotException("Saved task has invalid format");
