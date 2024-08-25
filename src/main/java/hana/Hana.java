@@ -1,12 +1,12 @@
 package hana;
 
+import java.util.ArrayList;
+
 import hana.command.Command;
 import hana.parser.Parser;
 import hana.storage.Storage;
 import hana.tasklist.TaskList;
 import hana.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * The main class for the Hana chatbot.

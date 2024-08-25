@@ -3,7 +3,7 @@ package hana;
 /**
  * Represents exception with a message.
  */
-public class HanaException extends Exception{
+public class HanaException extends Exception {
 
     /**
      * Constructs a new HanaException with a message.

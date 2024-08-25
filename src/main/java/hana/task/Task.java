@@ -32,7 +32,7 @@ public abstract class Task {
      *
      * @return The completion status of the task.
      */
-    public boolean getIsDone () {
+    public boolean getIsDone() {
         return isDone;
     }
 
