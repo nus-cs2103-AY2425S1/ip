@@ -5,9 +5,17 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<TaskModel> list = new ArrayList<>();
 
-    public void addTask(TaskModel task) {
-        list.add(task);
-        System.out.println("added: " + task.toString());
+    public void addTask(String title) {
+        list.add(new TaskModel(title));
+        System.out.println("added: " + title);
+    }
+
+    public void markTaskAsDone(int index) {
+        list.get(index - 1).markAsDone();
+    }
+
+    public void markTaskAsUndone(int index) {
+        list.get(index - 1).markAsUndone();
     }
 
     @Override

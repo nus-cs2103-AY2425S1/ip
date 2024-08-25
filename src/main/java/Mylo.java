@@ -22,10 +22,21 @@ public class Mylo {
         String input = scanner.nextLine();
 
         while(!input.equals("bye")) {
-            switch(input) {
+            String[] keys = input.split(" ");
+            switch(keys[0]) {
                 case "list":
                     separator();
                     System.out.println(list);
+                    separator();
+                    break;
+                case "mark":
+                    separator();
+                    list.markTaskAsDone(Integer.parseInt(keys[1]));
+                    separator();
+                    break;
+                case "unmark":
+                    separator();
+                    list.markTaskAsUndone(Integer.parseInt(keys[1]));
                     separator();
                     break;
                 case "who are you":
@@ -35,7 +46,7 @@ public class Mylo {
                     break;
                 default:
                     separator();
-                    list.addTask(new TaskModel(input));
+                    list.addTask(input);
                     separator();
             }
             input = scanner.nextLine();
