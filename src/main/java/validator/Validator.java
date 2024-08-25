@@ -2,7 +2,12 @@ package validator;
 import orionExceptions.*;
 import taskManager.TaskManager;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Validator {
 
@@ -55,7 +60,7 @@ public class Validator {
         return parts[1];
     }
 
-    public String[] validateEventCommand(String[] parts) throws InvalidEventException {
+    public String[] validateEventCommand(String[] parts) throws InvalidEventException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("event")) {
             throw new InvalidEventException(parts == null ? "null" : String.join(" ", parts));
         }
@@ -66,14 +71,17 @@ public class Validator {
         }
 
         String description = eventDetails[0].trim();
-        String from = eventDetails[1].trim();
-        String to = eventDetails[2].trim();
+        String fromStr = eventDetails[1].trim();
+        String toStr = eventDetails[2].trim();
 
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+        if (description.isEmpty() || fromStr.isEmpty() || toStr.isEmpty()) {
             throw new InvalidEventException(String.join(" ", parts));
         }
 
-        return new String[]{description, from, to};
+        LocalDateTime from = parseDateTime(fromStr);
+        LocalDateTime to = parseDateTime(toStr);
+
+        return new String[]{description, from.toString(), to.toString()};
     }
 
     public String[] validateDeadlineCommand(String[] parts) throws InvalidDeadlineException {
