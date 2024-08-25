@@ -1,12 +1,16 @@
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+
 public class Evelyn {
     private static String chatbotName = "Evelyn";
     private static String horizontalLine = "-----------------------------------------";
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList lst = new ArrayList(100);
     private static boolean cont = true;
+    private static String dataFilePath = "src/main/data/evelyn.txt";
 
     private static void decipher(String text) throws NoInputException {
 
@@ -93,12 +97,23 @@ public class Evelyn {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String text = null;
         System.out.println(horizontalLine);
         System.out.println("Hi! I am Evelyn");
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
+
+        File file = new File(dataFilePath);
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating file: " + e.getMessage());
+        }
 
         while (cont) {
             text = scanner.nextLine();

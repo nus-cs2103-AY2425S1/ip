@@ -1,12 +1,24 @@
 public class Deadline extends Task{
-    protected String deadline;
+    private String description;
+    private String deadline;
+    private boolean isMarked;
     public Deadline(String desccription, String deadline) {
-        super(desccription);
+        this.description = desccription;
         this.deadline = deadline;
+        this.isMarked = false;
     }
 
     @Override
+    public void mark() {
+        this.isMarked = true;
+    }
+
+    @Override
+    public void unmark() {
+        this.isMarked = false;
+    }
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D] " + this.description + " (by: " + this.deadline + ")";
     }
 }
