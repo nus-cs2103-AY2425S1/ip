@@ -28,6 +28,23 @@ public class Axel {
             } else if (userInput.startsWith("unmark ")) {
                 int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
                 markTaskAsNotDone(taskIndex);
+            //Add to do task
+            } else if (userInput.startsWith("todo ")) {
+                String taskName = userInput.substring(5);
+                addTask(new ToDoTask(taskName));
+            //Add deadline task
+            } else if (userInput.startsWith("deadline ")) {
+                String[] splittedString = userInput.split(" /by ");
+                String taskName = splittedString[0].substring(9);
+                String by = splittedString[1];
+                addTask(new DeadlineTask(taskName, by));
+            //Add event task
+            } else if (userInput.startsWith("event ")) {
+                    String[] splittedString = userInput.split(" /from | /to ");
+                    String taskName = splittedString[0].substring(6);
+                    String from = splittedString[1];
+                    String to = splittedString[2];
+                    addTask(new EventTask(taskName, from, to));
             //Exit message
             } else if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println("____________________________________________________________");
@@ -35,20 +52,23 @@ public class Axel {
                 System.out.println("____________________________________________________________");
                 break;
             } else {
-                //Adds tasks
-                addTask(userInput);
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + userInput);
+                System.out.println("Sorry, I am not yet equipped to handle such commands yet.");
                 System.out.println("____________________________________________________________");
             }
         }
         scanner.close();
     }
 
-    private static void addTask(String taskName) {
+    private static void addTask(Task task) {
         if (taskListCount < MAX_TASKS) {
-            taskList[taskListCount] = new Task(taskName);
+            taskList[taskListCount] = task;
             taskListCount++;
+            System.out.println("____________________________________________________________");
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + taskListCount + " tasks in the list.");
+            System.out.println("____________________________________________________________");
         } else {
             System.out.println("Task list is full!");
         }
@@ -57,6 +77,7 @@ public class Axel {
         if (taskListCount == 0) {
             System.out.println("No tasks in the list!");
         } else {
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskListCount; i++) {
                 System.out.println((i + 1) + ". " + taskList[i]);
             }
