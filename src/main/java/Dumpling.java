@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import java.io.File;
@@ -80,7 +81,8 @@ public class Dumpling {
     }
 
     private boolean commandRouter(String userInput) throws InvalidCommandException,
-            EmptyDescriptionException, NumberFormatException, IndexOutOfBoundsException, IOException {
+            EmptyDescriptionException, NumberFormatException, IndexOutOfBoundsException, IOException,
+            DateTimeParseException {
         String operationMessage = "";
         Command command = Command.getCommand(userInput.split(" ")[0]);
         switch (command) {
@@ -169,6 +171,8 @@ public class Dumpling {
                 }
             } catch (IOException e) {
                 System.out.println("     There was an issue saving the data!");
+            } catch (DateTimeParseException e) {
+                System.out.println("     Please enter the date in the correct format of YYYY-MM-DD.");
             } finally {
                 if (toContinue) {
                     System.out.println(DIVIDER);
