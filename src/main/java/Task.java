@@ -19,4 +19,16 @@ public class Task {
     public String toString() {
         return this.getStatusIcon() + this.description;
     }
+
+    public static String taskCount() {
+        return Task.count == 1
+                ? "task"
+                : "tasks";
+    }
+
+    public static String taskCountDelete() {
+        return Task.count == 2
+                ? "task"
+                : "tasks";
+    }
 }

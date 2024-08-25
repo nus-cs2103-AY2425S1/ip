@@ -50,7 +50,9 @@ public class Gallium {
                     Todo todo = new Todo(Message);
                     System.out.println("    " + lines + "\n    " + "Got it. I've added this task: \n" + "    "
                             + todo.toString()
-                            + "\n    Now you have " + Task.count + " tasks in the list.\n" + "    " + lines + "\n");
+                            + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n" + "    "
+                            + lines
+                            + "\n");
                     taskList.add(todo);
                     Task.count++;
                 } else if (Message.startsWith("deadline ")) {
@@ -58,7 +60,9 @@ public class Gallium {
                     System.out
                             .println("    " + lines + "\n    " + "Got it. I've added this task: \n"
                                     + "    " + deadline.toString()
-                                    + "\n    Now you have " + Task.count + " tasks in the list.\n" + "    " + lines
+                                    + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n"
+                                    + "    "
+                                    + lines
                                     + "\n");
                     taskList.add(deadline);
                     Task.count++;
@@ -66,7 +70,9 @@ public class Gallium {
                     Event event = new Event(Message);
                     System.out.println("    " + lines + "\n    " + "Got it. I've added this task: \n" + "    "
                             + event.toString()
-                            + "\n    Now you have " + Task.count + " tasks in the list.\n" + "    " + lines + "\n");
+                            + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n" + "    "
+                            + lines
+                            + "\n");
                     taskList.add(event);
                     Task.count++;
                 } else if (Message.startsWith("delete ")) {
@@ -79,7 +85,9 @@ public class Gallium {
                         System.out.println("    " + lines);
                         System.out.println("    " + "Noted. I've removed this task:" + "\n" + "    "
                                 + task.toString());
-                        System.out.println("\n    Now you have " + (Task.count - 1) + " tasks in the list.\n");
+                        System.out.println(
+                                "\n    Now you have " + (Task.count - 1) + " " + Task.taskCountDelete()
+                                        + " in the list.\n");
                         System.out.println("    " + lines + "\n    ");
                         taskList.remove(index - 1);
                         // Message = userInput.nextLine();
@@ -105,7 +113,8 @@ public class Gallium {
                 if (Message.startsWith(mark) || Message.startsWith(unmark) || Message.startsWith("delete")) {
                     System.out
                             .println("    " + lines + "\n    " + "Please put a number between 1 and " + (Task.count - 1)
-                                    + "!" + "\n    Now you have " + (Task.count - 1) + " tasks in the list.\n" + "    "
+                                    + "!" + "\n    Now you have " + (Task.count - 1) + " " + Task.taskCountDelete()
+                                    + " in the list.\n" + "    "
                                     + lines + "\n");
                 }
             }
