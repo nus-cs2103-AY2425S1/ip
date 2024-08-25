@@ -13,6 +13,37 @@ public class TaskList {
         taskNum += 1;
         System.out.println("Added: " + taskDescription + horizontalLine);
     }
+
+    public int getTaskNum() {
+        return this.taskNum;
+    }
+
+    public void completeTask(int index) {
+        // check if task is already completed
+        if (index >= taskNum) {
+            System.out.println("There is no task " + (index + 1));
+        } else if (taskList[index].isCompleted()) {
+            System.out.println("Already Marked");
+        } else if (index < taskNum) {
+            taskList[index].complete();
+            System.out.println("Nimbus shall mark this as done:\n" +
+                    "    " + taskList[index].toString() + horizontalLine);
+        }
+    }
+
+    public void incompleteTask(int index) {
+        // check if task is already incomplete
+        if (index >= taskNum) {
+            System.out.println("There is no task " + (index + 1));
+        } else if (!taskList[index].isCompleted()) {
+            System.out.println("Already Unmarked");
+        } else if (index < taskNum) {
+            taskList[index].incomplete();
+            System.out.println("Nimbus shall mark this as not done:\n" +
+                    "    " + taskList[index].toString() + horizontalLine);
+        }
+    }
+
     @Override
     public String toString() {
         String output = "";

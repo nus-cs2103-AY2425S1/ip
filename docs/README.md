@@ -36,3 +36,9 @@ Nimbus is mimicking you.
 Nimbus can now add tasks into a list
 
 Nimbus can show you your list
+
+## Level 3
+
+Nimbus can mark tasks as completed or incomplete
+
+Nimbus will tell you if the task exist if it is out of range
