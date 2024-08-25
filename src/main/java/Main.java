@@ -66,7 +66,15 @@ public class Main {
         String endDate = commandDetails[indexOfTo + 1];
         LocalDate endDateIncorrectFormat = LocalDate.parse(endDate);
         String endDateCorrectFormat = endDateIncorrectFormat.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return new String[]{description, startDateCorrectFormat, endDateCorrectFormat};
+        // get the start time
+        LocalTime inputStartTime = LocalTime.parse(commandDetails[indexOfFrom + 2]);
+        String startTime = inputStartTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        // get the end time
+        LocalTime inputEndTime = LocalTime.parse(commandDetails[indexOfTo + 2]);
+        String endTime = inputEndTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        String startDateAndTime = startDate + " " + startTime;
+        String endDateAndTime = endDate + " " + endTime;
+        return new String[]{description, startDateAndTime, endDateAndTime};
     }
 
 
