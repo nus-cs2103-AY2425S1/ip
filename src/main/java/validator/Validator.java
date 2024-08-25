@@ -35,13 +35,14 @@ public class Validator {
 
 
     public int validateMarkAndUnMarkCommand(String[] parts, TaskManager manager) throws InvalidMarkException, InvalidIndexException {
-        if (parts == null || parts.length < 2 || !parts[0].equals("mark")) {
+        if (parts == null || parts.length < 2 || !(parts[0].equals("mark") || parts[0].equals("unmark"))) {
             throw new InvalidMarkException(parts == null ? "null" : String.join(" ", parts));
         }
         String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
         String[] split_parts = joinedString.split(" ");
         if (split_parts.length != 1 || ! isInteger(split_parts[0])) {
+            System.out.println(Arrays.toString(split_parts));
             throw new InvalidMarkException(joinedString);
         }
         int index = Integer.parseInt(split_parts[0]);

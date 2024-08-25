@@ -1,18 +1,16 @@
 package taskManager;
+
 import task.*;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import orionExceptions.FileInitializationException;
 
-
 public class TaskManager {
     private static final String DATA_FILE_PATH = "./data/tasks.csv";
-
 
     public TaskManager() throws FileInitializationException {
         File dataFile = new File(DATA_FILE_PATH);
@@ -55,11 +53,8 @@ public class TaskManager {
         return listPosition > 0 && listPosition <= tasks.size();
     }
 
-
-
     public List<Task> loadTasksFromFile() {
         List<Task> loadedTasks = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         try (BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
             String line;
@@ -76,7 +71,7 @@ public class TaskManager {
                         task = new Todo(taskId, description);
                         break;
                     case "DEADLINE":
-                        LocalDateTime by = LocalDateTime.parse(parts[4], formatter);
+                        LocalDateTime by = LocalDateTime.parse(parts[4]); // Default ISO-8601 format
                         task = new Deadline(taskId, description, by);
                         break;
                     case "EVENT":
@@ -123,9 +118,10 @@ public class TaskManager {
                 taskLine.append(task.isCompleted());
 
                 if (task instanceof Deadline) {
-                    taskLine.append(",").append(((Deadline) task).getBy());
+                    taskLine.append(",").append(((Deadline) task).getBy()); // ISO-8601 format
                 } else if (task instanceof Event) {
-                    taskLine.append(",").append(((Event) task).getFrom()).append("|").append(((Event) task).getTo());
+                    taskLine.append(",").append(((Event) task).getFrom())
+                            .append("|").append(((Event) task).getTo()); // ISO-8601 format
                 }
 
                 bw.write(taskLine.toString());
@@ -147,8 +143,6 @@ public class TaskManager {
             throw new IllegalArgumentException("Unknown task type: " + task.getClass().getName());
         }
     }
-
-
 
     public Task addTodo(String description) {
         List<Task> tasks = loadTasksFromFile();
@@ -216,13 +210,4 @@ public class TaskManager {
         }
         return null;
     }
-
-
-
-
-
-
-
-
-
 }
