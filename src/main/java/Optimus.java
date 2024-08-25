@@ -8,7 +8,7 @@ public class Optimus {
         System.out.println("Hello! I'm Optimus");
         System.out.println("What can I do for you?");
         Scanner stringScanner = new Scanner(System.in);
-        Task[] record = new Task[100];
+        List<Task> record = new ArrayList<>();
         int count = 0;
 
         while (true) {
@@ -20,7 +20,7 @@ public class Optimus {
             if (text.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int j = 0; j < count; j++) {
-                    System.out.println((j + 1) + ". " + record[j].toString());
+                    System.out.println((j + 1) + ". " + record.get(j).toString());
                 }
             } else if (text.startsWith("mark ") || text.startsWith("unmark ")) {
                 try {
@@ -29,13 +29,13 @@ public class Optimus {
                         throw new OptimusException("Invalid task number. Please enter a number between 1 and " + count + ".");
                     }
                     if (text.startsWith("mark ")) {
-                        record[taskNumber].setDone();
+                        record.get(taskNumber).setDone();
                         System.out.println("Nice! I've marked this task as done:");
                     } else if (text.startsWith("unmark ")) {
-                        record[taskNumber].setNotDone();
+                        record.get(taskNumber).setNotDone();
                         System.out.println("OK, I've marked this task as not done yet:");
                     }
-                    System.out.println("  " + record[taskNumber].toString());
+                    System.out.println("  " + record.get(taskNumber).toString());
                 } catch (OptimusException e) {
                     System.out.println(e.getMessage());
                 }
@@ -46,9 +46,9 @@ public class Optimus {
                         throw new OptimusException("Oops! The description of a todo cannot be empty. Please provide a task description.");
                     }
                     if (count < 100) {
-                        record[count] = new ToDos(description);
+                        record.set(count, new ToDos(description));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + record[count].toString());
+                        System.out.println("  " + record.get(count).toString());
                         count++;
                         System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
                     }
@@ -64,9 +64,9 @@ public class Optimus {
                     }
                     if (count < 100) {
                         String by = parts.length > 1 ? parts[1] : "";
-                        record[count] = new Deadlines(description, by);
+                        record.set(count, new Deadlines(description, by));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + record[count].toString());
+                        System.out.println("  " + record.get(count).toString());
                         count++;
                         System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
                     }
@@ -83,9 +83,9 @@ public class Optimus {
                     if (count < 100) {
                         String from = parts.length > 1 ? parts[1] : "";
                         String to = parts.length > 2 ? parts[2] : "";
-                        record[count] = new Events(description, from, to);
+                        record.set(count, new Events(description, from, to));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + record[count].toString());
+                        System.out.println("  " + record.get(count).toString());
                         count++;
                         System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
                     }
@@ -93,7 +93,7 @@ public class Optimus {
                     System.out.println(e.getMessage());
                 }
             } else if (text.startsWith("delete ")) {
-
+                    
 
             } else {
                 try {
