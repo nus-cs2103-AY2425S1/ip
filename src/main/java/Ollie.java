@@ -1,38 +1,19 @@
-import java.util.Scanner;
-
-/**
- * Represents the Ollie task manager that interacts with the user.
- */
 public class Ollie {
     private TaskList taskList;
     private Storage storage;
+    private Ui ui;
 
     /**
      * Constructs an Ollie instance with a new TaskList.
      */
     public Ollie() {
+        ui = new Ui();
         try {
             this.storage = new Storage("./data/ollie.txt");
             this.taskList = new TaskList(storage.loadTasks(), storage);
         } catch (OllieException e) {
-            System.out.println(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
-    }
-
-    /**
-     * Greets the user with a welcome message.
-     */
-    public void greeting() {
-        System.out.println("Hello there! ☺ I'm OLLIE ☺");
-        System.out.println("What can I do for you today? ☺");
-    }
-
-    /**
-     * Bids farewell to the user with a goodbye message.
-     */
-    public void exit() {
-        System.out.println("Bye. Have a great day. ☺");
-        System.out.println("Hope to see you again soon! ☺");
     }
 
     /**
@@ -59,11 +40,11 @@ public class Ollie {
     public void respond(String userCommand) {
         try {
             if (userCommand.equals("hello") || userCommand.equals("hi")) {
-                greeting();
+                ui.greeting();
                 return;
             }
             if (userCommand.equals("bye")) {
-                exit();
+                ui.exit();
             } else if (userCommand.equals("list")) {
                 taskList.listTasks();
             } else if (userCommand.startsWith("mark ")) {
@@ -93,7 +74,7 @@ public class Ollie {
                 }
             }
         } catch (OllieException e) {
-            System.out.println(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 
@@ -104,17 +85,16 @@ public class Ollie {
      */
     public static void main(String[] args) throws OllieException {
         Ollie ollie = new Ollie();
-        ollie.greeting();
+        ollie.ui.greeting();
         System.out.println();
 
         String command;
-        Scanner input = new Scanner(System.in);
-        
+
         do {
-            command = input.nextLine();
+            command = ollie.ui.readCommand();
             ollie.respond(command);
         } while (!command.equals("bye"));
 
-        input.close();
+        ollie.ui.close();
     }
 }
