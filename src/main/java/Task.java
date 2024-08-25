@@ -23,6 +23,10 @@ public abstract class Task {
         return description;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
     /**
      * Returns an icon marking the task's completion status.
      *
