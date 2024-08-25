@@ -11,6 +11,8 @@ public class YappingBot {
     private static final String LIST_TEXT = "Here are the tasks in your list:";
     private static final String SELECT_TASK_NOT_INT_TEXT = "I'm sorry, I do not understand which item '%s' refers to!";
     private static final String SELECT_TASK_MISSING_TEXT = "I'm sorry, but task number %d does not exist!";
+    private static final String MARKED_TASK_AS_DONE_TEXT = "Nice! I've marked this task as done:";
+    private static final String UNMARKED_TASK_AS_DONE_TEXT = "OK, I've marked this task as not done:";
     private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
     // End of text strings
 
@@ -79,7 +81,17 @@ public class YappingBot {
         return i;
     }
     private static void changeTaskListStatus(int i, boolean isTaskDone) {
-        userList.get(i).setTaskDone(isTaskDone);
+        Task t = userList.get(i);
+        t.setTaskDone(isTaskDone);
+        StringBuilder sb = new StringBuilder();
+        if (isTaskDone) {
+            quoteSinglelineText(MARKED_TASK_AS_DONE_TEXT, sb);
+        } else {
+            quoteSinglelineText(UNMARKED_TASK_AS_DONE_TEXT, sb);
+        }
+        quoteSinglelineText(String.format("[%s] %s", t.getTaskDoneCheckmark(), t.getTaskName()), sb);
+        sb.append("\n");
+        System.out.println(sb.toString());
     }
     // end of class methods
 
