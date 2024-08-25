@@ -17,16 +17,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles reading and writing of task to a file.
+ */
 public class Storage {
 	private static final String FILE_PATH = "./data/hana.txt";
 	private static final Path FILE = Paths.get(FILE_PATH);
 	private static final Path DIR = Paths.get("./data");
 	private static ArrayList<Task> tasks;
 
+	/**
+	 * Constructs a new Storage with tasks.
+	 *
+	 * @param tasks The list of tasks.
+	 */
 	public Storage(ArrayList<Task> tasks) {
 		Storage.tasks = tasks;
 	}
 
+	/**
+	 * Loads all task in file to tasks.
+	 *
+	 * @throws HanaException If error occurs when loading.
+	 */
 	public void load() throws HanaException {
 		if(!Files.exists(DIR)) {
 			try {
@@ -74,6 +87,11 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Saves all task in file to tasks.
+	 *
+	 * @throws HanaException If error occurs when saving.
+	 */
 	public void save() throws HanaException {
 		try (BufferedWriter bw = Files.newBufferedWriter(FILE)) {
 			for (Task task : tasks) {

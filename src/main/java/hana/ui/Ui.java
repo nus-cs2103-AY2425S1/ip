@@ -5,23 +5,41 @@ import hana.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles interactions with the user.
+ */
 public class Ui {
 	private static final String LINE = "___________________________________________";
 	private static final String NAME = "Hana";
 	private Scanner scanner;
 
+	/**
+	 * Constructs a new Ui.
+	 * Initializes the scanner.
+	 */
 	public Ui() {
 		scanner = new Scanner(System.in);
 	}
 
+	/**
+	 * Return user input.
+	 *
+	 * @return User input
+	 */
 	public String readCommand() {
 		return scanner.nextLine();
 	}
 
+	/**
+	 * Print line.
+	 */
 	public void printLine() {
 		System.out.println(LINE);
 	}
 
+	/**
+	 * Print greetings.
+	 */
 	public void printGreetings() {
 		printLine();
 		System.out.println(" Hello! I'm " + NAME);
@@ -29,18 +47,28 @@ public class Ui {
 		printLine();
 	}
 
+	/**
+	 * Print bye.
+	 */
 	public void printBye() {
 		printLine();
 		System.out.println(" Bye. Hope to see you again soon!");
 		printLine();
 	}
 
+
+	/**
+	 * Print error.
+	 */
 	public void printError(String message) {
 		printLine();
 		System.out.println(message);
 		printLine();
 	}
 
+	/**
+	 * Print after task successfully added.
+	 */
 	public void printAdd(Task task, int taskCount) {
 		printLine();
 		System.out.println("Got it. I've added this task:");
@@ -49,6 +77,9 @@ public class Ui {
 		printLine();
 	}
 
+	/**
+	 * Print after task successfully marked.
+	 */
 	public void printMarked(Task task, boolean isDone) {
 		printLine();
 		if (isDone) {
@@ -60,6 +91,9 @@ public class Ui {
 		printLine();
 	}
 
+	/**
+	 * Print after task successfully deleted.
+	 */
 	public void printDeleted(Task task, int taskCount) {
 		printLine();
 		System.out.println("Noted. I've removed this task:");
@@ -68,6 +102,9 @@ public class Ui {
 		printLine();
 	}
 
+	/**
+	 * Print all tasks.
+	 */
 	public void printTasks(ArrayList<Task> tasks) {
 		printLine();
 		for (int i = 0; i < tasks.size(); i++) {
@@ -76,6 +113,9 @@ public class Ui {
 		printLine();
 	}
 
+	/**
+	 * Print all commands.
+	 */
 	public void printCommands() {
 		printLine();
 		System.out.println("""
@@ -91,6 +131,11 @@ public class Ui {
 		printLine();
 	}
 
+	/**
+	 * Print any message.
+	 *
+	 * @param message Message to print.
+	 */
 	public void printMessage(String message) {
 		System.out.println(message);
 	}
