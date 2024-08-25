@@ -1,6 +1,4 @@
-T | 1 | read book
-D | 0 | return book | June 6th
-T | 1 | join sports club
-T | 0 | borrow book
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2pm | 4pm
+E | 1 | alex birthday | 2024-08-27 | 2024-08-27
+T | 1 | do homework
+D | 0 | do 2103 ip | 2024-08-25
+E | 0 | finish ip | 2024-08-25 | 2024-08-30
