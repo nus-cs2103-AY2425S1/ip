@@ -1,3 +1,5 @@
+package mendel.preetyprint;
+
 public class FormatText {
     private final String message;
     public FormatText (String message) {

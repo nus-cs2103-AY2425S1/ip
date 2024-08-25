@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import mendel.preetyprint.FormatText;
 
 public class Mendel {
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+import mendel.preetyprint.FormatText;
+
 public class Leave {
     public void speak() {
         System.out.println(new FormatText(this.toString()).wrapLines());

@@ -1,3 +1,5 @@
+import mendel.preetyprint.FormatText;
+
 public class Welcome extends MendelAction{
     public void speak() {
         System.out.println(new FormatText(this.toString()).wrapLines());
