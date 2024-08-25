@@ -171,18 +171,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Janet janet;
+        // janet.txt should be checked and loaded at the start of the program
         if (Files.exists(Paths.get("./janet.txt"))) {
             // current directory already has a janet.txt file, load this into the arraylist listOfTasks
             janet = new Janet(textFileToArrayList("./janet.txt"));
         } else {
             janet = new Janet();
         }
-
-        // janet.txt should be checked and loaded at the start of the program
-
-        // check directory that java is currently looking at
-//        File currentDirectory = new File("./");
-//        System.out.println("current directory: " + currentDirectory.getAbsolutePath());
 
         System.out.println(janet.greet());
 
