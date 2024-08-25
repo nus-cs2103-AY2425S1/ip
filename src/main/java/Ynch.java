@@ -30,6 +30,14 @@ class Ynch {
             "\n Now you have " + this.todoList.size() + " tasks in the list."; 
     }
 
+    String delete(int i) {
+        int index = i - 1;
+        Task removedTask = this.todoList.get(index);
+        this.todoList.remove(index);
+        return "Meow! I've removed this task: \n" + removedTask + 
+            "\n Now you have " + this.todoList.size() + " tasks in the list.";
+    }
+
     String mark(int i) {
         int index = i - 1;
         Task taskToMark = this.todoList.get(index);

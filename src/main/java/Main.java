@@ -48,6 +48,9 @@ public class Main {
                 String from = fromAndTo.split("/to")[0];
                 String to = fromAndTo.split("/to")[1];
                 System.out.println(chatbot.addEvent(task, from, to));
+            } else if (userInput.startsWith("delete")) {
+                int i = Integer.valueOf(userInput.split(" ")[1]);
+                System.out.println(chatbot.delete(i));
             }
             
             
@@ -69,7 +72,7 @@ public class Main {
 
     private static boolean isValidInput(String userInput) { 
         try {
-            validCommand.valueOf(userInput); 
+            ValidCommand.valueOf(userInput.split(" ")[0]); 
             return true; // valid enum
         } catch (IllegalArgumentException e) {
             return false; // invalid enum
