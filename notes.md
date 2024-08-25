@@ -12,7 +12,7 @@ event team meeting /from 2pm /to 4pm
 ## error handling
 todo -> OOPS!!! I'm sorry, but I don't know what that means :-(
 deadline submit report -> OOPS!!! The description of a deadline cannot be empty.
-event team meeting /from 2pm /to 4pm -> OOPS!!! The description of a event cannot be empty.
+event /from 2pm /to 4pm -> OOPS!!! The description of a event cannot be empty.
 
 ## testing misc. stuff
 list -> lists out all tasks
