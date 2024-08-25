@@ -50,6 +50,12 @@ public class SumoTaskList {
             case LIST:
                 this.ui.printTask(this.tasks);
                 break;
+            case FIND:
+                List<Task> filtered = this.tasks.stream()
+                        .filter(task -> task.toString().contains(item))
+                        .toList();
+                this.ui.printTask(filtered);
+                break;
             case MARK:
             {
                 int index;

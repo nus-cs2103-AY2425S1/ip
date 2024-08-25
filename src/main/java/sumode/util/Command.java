@@ -4,6 +4,7 @@ public enum Command {
     BYE,
     EXIT,
     LIST,
+    FIND,
     MARK,
     UNMARK,
     DELETE,
