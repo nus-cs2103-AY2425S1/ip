@@ -62,7 +62,7 @@ public class Parser {
                 Task task = Task.creatTask(userInput);
                 allTasks.add(task);
             }
-            Data.setData(allTasks);
+            Storage.setData(allTasks);
         } catch (ClassCastException e) {
                 String msg = "Input Error: " + e.getMessage();
                 System.out.println(msg);

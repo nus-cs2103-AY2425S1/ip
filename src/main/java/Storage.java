@@ -2,13 +2,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 
-public class Data {
+public class Storage {
     private static final String DATA_PATH = "data/data.txt";
     public static void init() {
-        Path filePath = Paths.get(Data.DATA_PATH);
+        Path filePath = Paths.get(Storage.DATA_PATH);
 
         // If there is already a data.txt file, simply exit
         if (Files.exists(filePath)) {
@@ -24,7 +23,7 @@ public class Data {
             f.createNewFile();
             // Put a empty task list in the file created
             TaskList allTasks = new TaskList();
-            Data.setData(allTasks);
+            Storage.setData(allTasks);
 
         } catch (IOException e) {
             System.out.println("Init Error: " + e.getMessage());
@@ -32,16 +31,16 @@ public class Data {
     }
 
     public static void setEmptyFile() {
-        File f = new File(Data.DATA_PATH);
+        File f = new File(Storage.DATA_PATH);
         if (f.length() == 0) {
             TaskList allTasks = new TaskList();
-            Data.setData(allTasks);
+            Storage.setData(allTasks);
         }
     }
 
     public static void setData(TaskList taskList) {
         try {
-            FileOutputStream fileStream = new FileOutputStream(Data.DATA_PATH);
+            FileOutputStream fileStream = new FileOutputStream(Storage.DATA_PATH);
             ObjectOutputStream os = new ObjectOutputStream(fileStream);
             os.writeObject(taskList);
             os.close();
@@ -53,7 +52,7 @@ public class Data {
     public static TaskList getData() {
         TaskList allTasks = null;
         try {
-            FileInputStream fileStream =new FileInputStream(Data.DATA_PATH);
+            FileInputStream fileStream =new FileInputStream(Storage.DATA_PATH);
             ObjectInputStream outputStream = new ObjectInputStream(fileStream);
             allTasks = (TaskList) outputStream.readObject();
             outputStream.close();

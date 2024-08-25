@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EchoBot {
@@ -7,8 +6,8 @@ public class EchoBot {
     private TaskList allTasks;
 
     public EchoBot() {
-        Data.init();
-        this.allTasks = Data.getData();
+        Storage.init();
+        this.allTasks = Storage.getData();
         this.ui.greet();
     }
 
