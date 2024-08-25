@@ -59,13 +59,19 @@ public class Mittens {
         System.out.print("\n");
     }
 
-    public static void markTaskAsDone(int index) {
+    public static void markTaskAsDone(int index) throws BadInputException {
+        if (index > tasks.size()) {
+            throw new BadInputException("Task index is out of range");
+        }
         Task task = tasks.get(index - 1);
         task.markAsDone();
         System.out.printf("\nMeow, I scratched the check box for you:\n%s\n\n", task.toString());
     }
 
-    public static void markTaskAsNotDone(int index) {
+    public static void markTaskAsNotDone(int index) throws BadInputException {
+        if (index > tasks.size()) {
+            throw new BadInputException("Task index is out of range");
+        }
         Task task = tasks.get(index - 1);
         task.markAsNotDone();
         System.out.printf("\nMeow, I unscratched the check box for you:\n%s\n\n", task.toString());
@@ -84,42 +90,101 @@ public class Mittens {
             System.out.print("> ");
             String input = scanner.nextLine();
 
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                listTasks();
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]);
-                markTaskAsDone(index);
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]);
-                markTaskAsNotDone(index);
-            } else if (input.startsWith("todo")) {
-                String description = input.substring(5);
+            try {
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    listTasks();
+                } else if (input.startsWith("mark")) {
+                    try {
+                        int index = Integer.parseInt(input.split(" ")[1]);
+                        markTaskAsDone(index);
+                    } catch (NumberFormatException e) {
+                        throw new BadInputException("Argument for command 'mark' must be a number");
+                    }
+                } else if (input.startsWith("unmark")) {
+                    try {
+                        int index = Integer.parseInt(input.split(" ")[1]);
+                        markTaskAsNotDone(index);
+                    } catch (NumberFormatException e) {
+                        throw new BadInputException("Argument for command 'mark' must be a number");
+                    }
+                } else if (input.startsWith("todo")) {
+                    String description = input.substring(5);
 
-                Todo newTodo = new Todo(description);
-                addTask(newTodo);
-            } else if (input.startsWith("deadline")) {
-                // Separate the inputs so that the first element contains the description while
-                // the rest contains flags.
-                String[] inputs = input.split(" /");
-                String description = inputs[0].substring(9);
-                // Assuming order of flags are: by
-                String by = inputs[1].substring(3);
+                    Todo newTodo = new Todo(description);
+                    addTask(newTodo);
+                } else if (input.startsWith("deadline")) {
+                    // Separate the inputs so that the first element contains the description while
+                    // the rest contains flags.
+                    String[] inputs = input.split(" /");
+                    String description = inputs[0].substring(9);
+                    
+                    String by = null;
+                    for (int i = 1; i < inputs.length; i++) {
+                        String[] flagWords = inputs[i].split(" ");
+                        if (flagWords[0].equals("by")) {
+                            if (by == null) {
+                                by = inputs[i].substring(3);
+                            } else {
+                                throw new BadInputException("Found duplicate of 'by' flag");
+                            }
+                        } else {
+                            throw new BadInputException("'%s' is not a known flag".formatted(flagWords[0]));
+                        }
+                    }
+                    
+                    if (by == null) {
+                        throw new BadInputException("Command 'deadline' must have a 'by' flag");
+                    }
 
-                Deadline newDeadline = new Deadline(description, by);
-                addTask(newDeadline);
-            } else if (input.startsWith("event")) {
-                // Separate the inputs so that the first element contains the description while
-                // the rest contains flags.
-                String[] inputs = input.split(" /");
-                String description = inputs[0].substring(6);
-                // Assuming order of flags are: from, to
-                String from = inputs[1].substring(5);
-                String to = inputs[2].substring(3);
+                    Deadline newDeadline = new Deadline(description, by);
+                    addTask(newDeadline);
+                } else if (input.startsWith("event")) {
+                    // Separate the inputs so that the first element contains the description while
+                    // the rest contains flags.
+                    String[] inputs = input.split(" /");
+                    String description = inputs[0].substring(6);
 
-                Event newEvent = new Event(description, from, to);
-                addTask(newEvent);
+                    String from = null;
+                    String to = null;
+                    for (int i = 1; i < inputs.length; i++) {
+                        String[] flagWords = inputs[i].split(" ");
+                        if (flagWords[0].equals("from")) {
+                            if (from == null) {
+                                from = inputs[i].substring(5);
+                            } else {
+                                throw new BadInputException("Found duplicate of 'from' flag");
+                            }
+                        } else if (flagWords[0].equals("to")) {
+                            if (to == null) {
+                                to = inputs[i].substring(3);
+                            } else {
+                                throw new BadInputException("Found duplicate of 'to' flag");
+                            }
+                        } else {
+                            throw new BadInputException("'%s' is not a known flag".formatted(flagWords[0]));
+                        }
+                    }
+
+                    if (from == null) {
+                        throw new BadInputException("Command 'event' must have a 'from' flag");
+                    }
+
+                    if (to == null) {
+                        throw new BadInputException("Command 'event' must have a 'to' flag");
+                    }
+
+                    Event newEvent = new Event(description, from, to);
+                    addTask(newEvent);
+                } else {
+                    throw new BadInputException("'%s' is not a known command".formatted(input));
+                }
+            } catch (MittensException e) {
+                e.echo();
+            } catch (Exception e) {
+                UnknownException newException = new UnknownException(e.getMessage());
+                newException.echo();
             }
         }
 
