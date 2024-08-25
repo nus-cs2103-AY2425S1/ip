@@ -61,8 +61,8 @@ public class Papadom {
                     ui.output(taskList.addToList(newDeadlineTask));
                     break;
                 case EVENT:
-                    Event newEventTask = parser.eventTaskCreator(text.substring(6));
-                    ui.output(taskList.addToList(newEventTask));
+                    AddEventCommand addEventCommand = new AddEventCommand(text);
+                    addEventCommand.execute(taskList, ui, storage);
                     break;
                 case DELETE:
                     ui.output(taskList.deleteEvent(text));
