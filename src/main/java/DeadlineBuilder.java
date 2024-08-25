@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class DeadlineBuilder extends TaskBuilder {
 
     @Override
@@ -11,7 +14,11 @@ public class DeadlineBuilder extends TaskBuilder {
             }
         }
         String description = input.substring(0, slashIndex).trim();
-        String time = input.substring(slashIndex + 4).trim();
-        return new DeadLine(description, time);
+        String dateString = input.substring(slashIndex + 4).trim();
+        try {
+            return new DeadLine(description, DateTime.parseDate(dateString).format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+        } catch (DateTimeParseException e) {
+            throw new LukeException("Invalid Date format");
+        }
     }
 }
