@@ -1,22 +1,27 @@
-package yihuibot;
+package yihuibot.storage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import yihuibot.exception.taskformat.IncorrectTaskFormatException;
+import yihuibot.task.TaskList;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Unit Test for YihuiBot.java
+ * Unit Test for Storage.java
  * 
  * @author Toh Yi Hui A0259080A
  */
-public class YihuiBotTest {
-    private YihuiBot yihuiBot;
+public class StorageTest {
+    private Storage storage;
     private static File file;
 
     /**
@@ -43,11 +48,24 @@ public class YihuiBotTest {
     }
 
     /**
-     * Ensures that the bot is not null.
+     * Ensures that the Storage is not null.
      */
     @Test
     public void constructor_notNull() {
-        yihuiBot = new YihuiBot("task.txt");
-        assertNotNull(yihuiBot);
+        storage = new Storage("task.txt", "yyyy-MM-dd HH:mm");
+        assertNotNull(storage);
+    }
+
+    /**
+     * Ensures that load returns a TaskList.
+     */
+    @Test
+    public void load_returnsTaskList() {
+        storage = new Storage("task.txt", "yyyy-MM-dd HH:mm");
+        try {
+            assertInstanceOf(TaskList.class, storage.load());
+        } catch (FileNotFoundException | IncorrectTaskFormatException e) {
+            fail();
+        }
     }
 }
