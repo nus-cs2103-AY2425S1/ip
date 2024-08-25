@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a generic task with a description and completion status.
  */
@@ -5,6 +7,8 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType taskType;
+    private static final DateTimeFormatter inputDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Constructs a Task with the specified description and type.
@@ -25,6 +29,24 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the DateTimeFormatter instance for the date input by the user
+     *
+     * @return inputDate the DateTimeFormatter instance with the pattern "yyyy-MM-dd HH:mm".
+     */
+    public static DateTimeFormatter getInputDate() {
+        return inputDate;
+    }
+
+    /**
+     * Returns the DateTimeFormatter instance for the date output by the program
+     *
+     * @return formatDate the DateTimeFormatter instance with the pattern "MMM dd yyyy HH:mm".
+     */
+    public static DateTimeFormatter getFormatDate() {
+        return formatDate;
     }
 
     /**

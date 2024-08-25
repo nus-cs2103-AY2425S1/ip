@@ -1,9 +1,9 @@
 todo
 todo study
 event
-event meeting /from: Thursday 5pm /to: 6pm
+event meeting /from: 2024-08-25 09:30 /to: 2024-08-25 11:00
 deadline
-deadline assignment /by: Friday
+deadline assignment /by: 2024-08-25 14:00
 list
 mark 1
 list

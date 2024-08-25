@@ -109,7 +109,7 @@ public class Ollie {
 
         String command;
         Scanner input = new Scanner(System.in);
-
+        
         do {
             command = input.nextLine();
             ollie.respond(command);

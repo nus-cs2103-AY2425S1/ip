@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 /**
  * Represents a storage which stores all the tasks.
@@ -68,10 +69,11 @@ public class Storage {
                     task = new Todo(description);
                     break;
                 case "DEADLINE":
-                    task = new Deadline(description, date);
+                    task = new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
                     break;
                 case "EVENT":
-                    task = new Event(description, date, end);
+                    task = new Event(description, LocalDateTime.parse(date, Task.getFormatDate()),
+                            LocalDateTime.parse(end, Task.getFormatDate()));
                     break;
                 default:
                     throw new OllieException("Oops! Invalid task type detected: " + taskType);

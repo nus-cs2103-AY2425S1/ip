@@ -11,21 +11,21 @@ Please enter in the format:
 event event_name /from: start_time /to: end_time
 ____________________________________________________________
 Got it. I've added this task ☺:
-  [ ] [EVENT] meeting (from: Thursday 5pm to: 6pm)
+  [ ] [EVENT] meeting (from: Aug 25 2024 09:30 to: Aug 25 2024 11:00)
 Now you have 2 tasks in the list. ☺
 ____________________________________________________________
 Please enter in the format:
 deadline task_name /by: due_date
 ____________________________________________________________
 Got it. I've added this task ☺:
-  [ ] [DEADLINE] assignment (by: Friday)
+  [ ] [DEADLINE] assignment (by: Aug 25 2024 14:00)
 Now you have 3 tasks in the list. ☺
 ____________________________________________________________
 ------------------------------------------------------------
 Here are the tasks in your list ☺ :
 1. [ ] [TODO] study
-2. [ ] [EVENT] meeting (from: Thursday 5pm to: 6pm)
-3. [ ] [DEADLINE] assignment (by: Friday)
+2. [ ] [EVENT] meeting (from: Aug 25 2024 09:30 to: Aug 25 2024 11:00)
+3. [ ] [DEADLINE] assignment (by: Aug 25 2024 14:00)
 ------------------------------------------------------------
 ____________________________________________________________
 Nice! ☺ I've marked this task as done ☺ :
@@ -34,8 +34,8 @@ ____________________________________________________________
 ------------------------------------------------------------
 Here are the tasks in your list ☺ :
 1. [X] [TODO] study
-2. [ ] [EVENT] meeting (from: Thursday 5pm to: 6pm)
-3. [ ] [DEADLINE] assignment (by: Friday)
+2. [ ] [EVENT] meeting (from: Aug 25 2024 09:30 to: Aug 25 2024 11:00)
+3. [ ] [DEADLINE] (by: Aug 25 2024 14:00)
 ------------------------------------------------------------
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -43,13 +43,13 @@ OK, I've marked this task as not done yet:
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-  [ ] [EVENT] meeting (from: Thursday 5pm to: 6pm)
+  [ ] [EVENT] meeting (from: Aug 25 2024 09:30 to: Aug 25 2024 11:00)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ------------------------------------------------------------
 Here are the tasks in your list ☺ :
 1. [ ] [TODO] study
-2. [ ] [DEADLINE] assignment (by: Friday)
+2. [ ] [DEADLINE] (by: Aug 25 2024 14:00)
 ------------------------------------------------------------
 Bye. Have a great day. ☺
 Hope to see you again soon! ☺
