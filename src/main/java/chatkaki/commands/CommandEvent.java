@@ -7,13 +7,25 @@ import chatkaki.DateTimeHelper;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class CommandEvent extends Command {
     private String[] inputs;
 
+
+    /**
+     * Constructs a CommandEvent object with the specified inputs.
+     *
+     * @param inputs The inputs for the command.
+     */
     public CommandEvent(String[] inputs) {
         this.inputs = inputs;
     }
 
+    /**
+     * Executes the command to add an event task.
+     */
     @Override
     public void execute() {
         String[] parts = inputs[1].split(" /from | /to ");

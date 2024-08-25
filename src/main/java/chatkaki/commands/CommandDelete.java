@@ -4,14 +4,25 @@ import chatkaki.Ui;
 import chatkaki.tasks.TaskList;
 import chatkaki.tasks.Task;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class CommandDelete extends Command {
 
     private String[] inputs;
 
+    /**
+     * Constructs a CommandDelete object with the specified inputs.
+     *
+     * @param inputs The inputs for the command.
+     */
     public CommandDelete(String[] inputs) {
         this.inputs = inputs;
     }
 
+    /**
+     * Executes the command to delete a task.
+     */
     @Override
     public void execute() {
         if (inputs.length <= 1) {
