@@ -39,6 +39,9 @@ public class Nimbus {
             } else if (userInput.startsWith("unmark ")) {
                 int x = Integer.parseInt(userInput.substring(7).trim());
                 taskList.incompleteTask(x - 1);
+            } else if (userInput.startsWith("delete ")) {
+                int x = Integer.parseInt(userInput.substring(7).trim());
+                taskList.deleteTask(x - 1);
             } else {
                 taskList.addTask(userInput);
             }
