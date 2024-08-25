@@ -23,6 +23,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Returns a string representation of the task, including its completion status.
      *
@@ -32,6 +37,10 @@ public abstract class Task {
     public String toString() {
         String indicator = this.isDone ? "[X]" : "[ ]";
         return indicator + " " + this.description;
+    }
+
+    public String toFileEntry() {
+        return isDone + "/" + description;
     }
 
     /**

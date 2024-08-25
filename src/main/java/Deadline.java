@@ -22,6 +22,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, String by, boolean isDone) {
+        this(description, by);
+        this.isDone = isDone;
+    }
+
     /**
      * Returns a string representation of the Deadline task, including its type indicator
      * and due date/time.
@@ -31,6 +36,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toFileEntry() {
+        return "D/" + super.toFileEntry() + "/" + by;
     }
 
     /**
