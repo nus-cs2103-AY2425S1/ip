@@ -1,3 +1,4 @@
+File created: ./tasks.txt
 --------------------------------------------------
 Hello! I'm Darwin
 What can I do for you?
@@ -22,7 +23,6 @@ Here are the tasks in your list:
 1.[T][ ] task 1
 2.[D][ ] task 2 (by: monday)
 3.[E][ ] task 3 (from: tuesday to: friday)
-
 --------------------------------------------------
 --------------------------------------------------
 Nice! I've marked this task as done:
@@ -41,7 +41,6 @@ Here are the tasks in your list:
 1.[T][ ] task 1
 2.[D][ ] task 2 (by: monday)
 3.[E][ ] task 3 (from: tuesday to: friday)
-
 --------------------------------------------------
 --------------------------------------------------
 Invalid task number
@@ -58,7 +57,6 @@ Now you have 2 tasks in the list.
 Here are the tasks in your list:
 1.[T][ ] task 1
 2.[D][ ] task 2 (by: monday)
-
 --------------------------------------------------
 --------------------------------------------------
 Wrong command, valid commands are todo, deadline, event
