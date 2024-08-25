@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 
 
@@ -12,28 +11,33 @@ public class Xizi {
     private static final String FILE_PATH = "./data/xizi.txt";
     private static final String DIVIDER = "____________________________________________________________";
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private Storage storage;
+    private TaskList actions;
+    private Ui ui;
 
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskList actions;
-        Storage storage = new Storage(FILE_PATH);
+    public Xizi(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        actions = new TaskList();
 
         try {
             List<Task> loadedTasks = storage.load();
             actions = new TaskList(loadedTasks);
         } catch (IOException | XiziException e) {
-            printErrorMessage(e.getMessage());
-            actions = new TaskList();
+            ui.printErrorMessage(e.getMessage());
         }
 
-        System.out.println(DIVIDER);
-        System.out.println(" Hello! I'm Xizi.");
-        System.out.println(" What can I do for you?");
-        System.out.println(DIVIDER);
+    }
+
+    public static void main(String[] args) {
+        new Xizi(FILE_PATH).run();
+    }
+
+    public void run() {
+        ui.showWelcomeMessage();
 
         while (true) {
-            String userInput = scanner.nextLine().trim();
+            String userInput = ui.readUserInput();
             CommandType commandType = CommandType.fromInput(userInput);
 
             try {
@@ -60,19 +64,19 @@ public class Xizi {
                     handleList(actions);
                     break;
                 case BYE:
-                    handleBye(scanner);
+                    ui.showGoodbyeMessage();
                     return;
                 case LIST_ON:
                     handleListOn(actions, userInput);
                     break;
                 case HELP:
-                    printHelp();
+                    ui.printHelp();
                     break;
                 default:
                     throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
                 }
             } catch (IOException | XiziException e) {
-                printErrorMessage(e.getMessage());
+                ui.printErrorMessage(e.getMessage());
             }
         }
     }
@@ -155,7 +159,7 @@ public class Xizi {
         }
     }
 
-    private static void handleEvent(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
+    private void handleEvent(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
         Matcher matcher = CommandType.EVENT.matcher(userInput);
         if (matcher.matches()) {
             String taskDescription = matcher.group(1).trim();
@@ -174,7 +178,7 @@ public class Xizi {
                 System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
                 System.out.println(DIVIDER);
             } catch (DateTimeParseException e){
-                printErrorMessage("The format of the time keyed in should be of the form 'd/M/yyyy HHmm'.");
+                this.ui.printErrorMessage("The format of the time keyed in should be of the form 'd/M/yyyy HHmm'.");
             }
         }
     }
@@ -222,95 +226,14 @@ public class Xizi {
         System.out.println(DIVIDER);
     }
 
-    private static void handleBye(Scanner scanner) {
-        System.out.println(DIVIDER);
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(DIVIDER);
-        scanner.close();
-    }
-
     private static void validateTaskNumber(int taskNumber, TaskList actions) throws XiziException {
         if (taskNumber < 0 || taskNumber >= actions.getSize()) {
             throw new XiziException("The task number does not exist. You have " + actions.getSize() + " tasks in total.");
         }
     }
 
-    private static void printErrorMessage(String message) {
-        System.out.println(DIVIDER);
-        System.out.println(" OOPS!!! " + message);
-        System.out.println(DIVIDER);
-    }
 
-    private static void printHelp() {
-        System.out.println(DIVIDER);
-        System.out.println("Here are the available commands and their formats:");
-        System.out.println();
 
-        // Display command formats and examples
-        printCommand("1. list",
-                "- Displays all tasks in your list.");
 
-        printCommand("2. todo <task_description>",
-                "- Adds a new 'todo' task.",
-                "  Example: todo read a book");
-
-        printCommand("3. deadline <task_description> /by <deadline>",
-                "- Adds a new 'deadline' task.",
-                "  Example: deadline submit report /by 20/08/2024 1800");
-
-        printCommand("4. event <task_description> /from <start_time> /to <end_time>",
-                "- Adds a new 'event' task.",
-                "  Example: event project meeting /from 15/08/2024 1400 /to 15/08/2024 1600");
-
-        printCommand("5. mark <task_number>",
-                "- Marks the specified task as completed.",
-                "  Example: mark 3");
-
-        printCommand("6. unmark <task_number>",
-                "- Unmarks the specified task as not completed.",
-                "  Example: unmark 3");
-
-        printCommand("7. delete <task_number>",
-                "- Deletes the specified task.",
-                "  Example: delete 3");
-
-        printCommand("8. bye",
-                "- Exits the program.");
-
-        printCommand("9. help",
-                "- Displays this help message.");
-
-        printCommand("10. list on <date> <time>",
-                "- Displays all tasks scheduled for a specific date and time.",
-                "  Example: list on 15/08/2024 1400");
-
-        System.out.println(DIVIDER);
-    }
-
-    /**
-     * Helper method to print a command description.
-     *
-     * @param command Command name and format
-     * @param description Description of the command
-     */
-    private static void printCommand(String command, String description) {
-        System.out.println(command);
-        System.out.println("  " + description);
-        System.out.println();
-    }
-
-    /**
-     * Overloaded helper method to print a command description with an example.
-     *
-     * @param command Command name and format
-     * @param description Description of the command
-     * @param example Example usage of the command
-     */
-    private static void printCommand(String command, String description, String example) {
-        System.out.println(command);
-        System.out.println("  " + description);
-        System.out.println(example);
-        System.out.println();
-    }
 
 }
