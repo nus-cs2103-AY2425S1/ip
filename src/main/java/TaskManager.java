@@ -51,7 +51,7 @@ public class TaskManager {
                                     TaskManagerException.ErrorType.DUPLICATE_TASK);
                         }
                     }
-                    t = new Deadline(taskDescription, taskInfoArray[1]);
+                    t = new Deadline(taskDescription, taskInfoArray[1], taskType);
                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                     throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
@@ -71,7 +71,7 @@ public class TaskManager {
                                     TaskManagerException.ErrorType.DUPLICATE_TASK);
                         }
                     }
-                    t = new Event(taskInfoArray[0], taskInfoArray[1], taskInfoArray[2]);
+                    t = new Event(taskInfoArray[0], taskInfoArray[1], taskInfoArray[2], taskType);
                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                     throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
@@ -89,7 +89,7 @@ public class TaskManager {
                                 TaskManagerException.ErrorType.DUPLICATE_TASK);
                     }
                 }
-                t = new Todo(taskInfo);
+                t = new Todo(taskInfo, taskType);
                 break;
         }
         this.tasks.add(t);
