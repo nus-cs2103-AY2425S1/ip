@@ -87,6 +87,10 @@ public class Killua {
     }
 
     private static void saveList(ArrayList<Task> tasks) throws IOException {
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
         FileWriter fw = new FileWriter("./data/tasklist.txt");
         for (Task task : tasks) {
             fw.write(task.toSave() + System.lineSeparator());
@@ -147,7 +151,9 @@ public class Killua {
         try {
             tasks = loadTasks();
         } catch (IOException e) {
+            printLine();
             System.out.println("Error loading tasks: " + e.getMessage());
+            printLine();
         }
 
         while (isRunning) {
