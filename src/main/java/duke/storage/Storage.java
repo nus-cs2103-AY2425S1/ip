@@ -35,10 +35,6 @@ public class Storage {
      * @return The corresponding Task object, or null if there is an error converting the task.
      */
     private static Task convertStateToTask(String state) {
-        // Format of state file:
-        // T | 1 | read book
-        // D | 0 | return book | June 6th
-        // E | 0 | project meeting | Aug 6th 2-4pm
         String[] taskInformation = state.split(" \\| ");
         String description = taskInformation[2];
         Task task;
@@ -140,11 +136,11 @@ public class Storage {
         Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
         Path filePath = dirPath.resolve(Storage.STATE_FILE);
 
-        if (Files.notExists(dirPath)) { // Create the directory if it doesn't exist
+        if (Files.notExists(dirPath)) {
             Files.createDirectories(dirPath);
         }
 
-        if (Files.notExists(filePath)) { // Create an empty file initially if it doesn't exist
+        if (Files.notExists(filePath)) {
             Files.createFile(filePath);
         }
 

@@ -19,7 +19,5 @@ public abstract class Command {
      * @param ui The user interface to interact with the user.
      * @param storage The storage object to read from or write to the file system.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        // Abstract method intended to be overridden by subclasses
-    }
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
 }
