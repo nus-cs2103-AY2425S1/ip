@@ -80,6 +80,7 @@ public class Quack {
      * Retrieves the task details from input.
      * <p>
      * After retrieveing the task details, create a object and add it into the task list.
+     * <p>
      * If the input is invalid an exception will be thrown
      * 
      * @param inputArr Processed input commands by the user.
@@ -222,7 +223,12 @@ public class Quack {
 
         System.out.println(spacer);
     }
-
+    
+    /**
+     * Reads task data from the csv save file and add it into the task list.
+     * <p>
+     * All tasks that were saved will be readded into the task list upon running the chatbot.
+     */
     private void loadData() {
 
         // Load the datafile
