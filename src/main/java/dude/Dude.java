@@ -1,3 +1,7 @@
+package dude;
+
+import dude.exception.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
