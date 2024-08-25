@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 /**
-* The Quack chatbot program implements the functionality needed
-* to help users keep track of tasks for them.
-*/
+ * The Quack chatbot program implements the functionality needed
+ * to help users keep track of tasks for them.
+ */
 public class Quack {
 
     /** String to print out the spacers between each command */
@@ -32,7 +32,7 @@ public class Quack {
     }
     
     /**
-     * Constructor to create a Quack chatbot object.
+     * Creates a Quack chatbot object.
      */
     Quack() {
 
@@ -66,8 +66,10 @@ public class Quack {
     }
 
     /**
-     * Get task details from input.
-     * Create a task object and add it into the task list.
+     * Retrieves the task details from input.
+     * <p>
+     * After retrieveing the task details, create a object and add it into the task list.
+     * If the input is invalid an exception will be thrown
      * 
      * @param inputArr Processed input commands by the user.
      * @throws InvalidInputException If there is something wrong with the input provided by the user.
@@ -127,8 +129,10 @@ public class Quack {
     }
 
     /**
-     * Depending on the input given by the user, Quack will execute the command,
-     * given that the Quack supports the command
+     * Executes the command input by the user.
+     * Depending on the input given by the user, Quack will execute the command.
+     * <p>
+     * If the command is not supported by Quack an invalid input exception will be thrown.
      * 
      * @param input The raw input from the user.
      * @throws InvalidInputException If there is something wrong with the input provided by the user.
@@ -192,7 +196,7 @@ public class Quack {
     }
 
     /**
-     * Function to run the chatbot and start taking inputs from the user.
+     * Runs the chatbot and start taking inputs from the user.
      */
     private void run() {
 

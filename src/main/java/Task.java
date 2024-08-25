@@ -1,24 +1,26 @@
 /**
-* This is an abstract class to define a task object.
-*/
+ * This is an abstract class to define a task object.
+ */
 public abstract class Task {
     
     /** Description of the task */
-    protected String taskName;
+    protected String description;
     /** Determine if the task is marked or not */
     protected boolean isChecked;
 
     /**
-     * Constructor to create a Task object.
+     * Creates a Task object with the given description.
      */
-    Task(String taskName) {
-        this.taskName = taskName;
+    Task(String description) {
+        this.description = description;
         isChecked = false;
     }
 
     /**
-     * This function updates the task to be marked.
-     * It checks if the task has been marked already.
+     * Updates the task status to be marked.
+     * <p>
+     * The function checks if the task is already marked. If it is, 
+     * it will print a message notifying the user that the task has already marked.
      */
     public void mark() {
 
@@ -36,8 +38,9 @@ public abstract class Task {
     }
 
     /**
-     * This function updates the task to be unmarked.
-     * It checks if the task has been unmarked already.
+     * Updates the task to be unmarked.
+     * The function checks if the task is already unmarked. If it is, 
+     * it will print a message notifying the user that the task has already unmarked.
      */
     public void unmark() {
 
@@ -57,9 +60,9 @@ public abstract class Task {
     @Override
     public String toString() {
         if (isChecked) {
-            return "[X] " + this.taskName;
+            return "[X] " + this.description;
         } else {
-            return "[ ] " + this.taskName;
+            return "[ ] " + this.description;
         }
     }
 }

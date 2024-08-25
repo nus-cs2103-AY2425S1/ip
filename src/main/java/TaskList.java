@@ -18,6 +18,12 @@ public class TaskList {
 
     /**
      * Updates the task staus by marking or unmarking tasks.
+     * <p>
+     * If the user inputs mark, then it will mark the task.
+     * <p>
+     * If the user inputs unmark, then it will unmark the task.
+     * <p>
+     * If the index input is out of bounds it will throw a invalid index exception.
      * 
      * @param idx Index of the task inside the task list.
      * @param command To state weather to mark or unmark the task.
@@ -40,6 +46,8 @@ public class TaskList {
     
     /**
      * Creates a task object and adds it into the list.
+     * <p>
+     * Based on the task type, it will create the corrosponding task object.
      * 
      * @param taskName Description of the task.
      * @param taskType The type of the task.
@@ -68,6 +76,8 @@ public class TaskList {
 
     /**
      * Deletes the task from the list.
+     * <p>
+     * If the index input is out of bounds it will throw a invalid index exception.
      * 
      * @param idx Index of the task inside the task list.
      * @throws InvalidIndexException If the index is < 0 or if it is >= the size of the task list.

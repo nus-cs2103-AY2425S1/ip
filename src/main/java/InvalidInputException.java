@@ -1,10 +1,10 @@
 /**
-* This exception class indicates that the input keyed in by the user is incorrect.
-*/
+ * This exception class indicates that the input keyed in by the user is incorrect.
+ */
 public class InvalidInputException extends Exception{
     
     /**
-     * Constructor to create the InvalidInputException exception.
+     * Creates the InvalidInputException exception object.
      * @param message The error message to be displayed to the user
      */
     InvalidInputException (String message) {
