@@ -23,6 +23,13 @@ public class TaskList {
         return tasks.get(index).uncompleteTask();
     }
 
+    public void deleteTask(int index) {
+        tasks.remove(index);
+    }
+
+    public int taskCount() {
+        return tasks.size();
+    }
     @Override
     public String toString() {
         String res = "";

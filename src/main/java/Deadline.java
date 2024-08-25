@@ -1,12 +1,10 @@
-public class Deadline extends Task{
-    private String deadline;
+public class Deadline extends DatedTask{
     public Deadline(String task, String deadline) {
-        super(task);
-        this.deadline = deadline;
+        super(task, deadline);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + deadline + ")";
+        return "[D]" + super.toString() + "(by: " + getDate() + ")";
     }
 }

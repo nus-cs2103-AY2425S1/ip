@@ -29,6 +29,10 @@ public class Task {
         return isDone;
     }
 
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
     @Override
     public String toString() {
         String res;

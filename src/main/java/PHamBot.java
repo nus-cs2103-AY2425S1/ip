@@ -10,7 +10,8 @@ public class PHamBot {
         MissingTask,
         MissingDivider,
         MissingDate,
-        UnknownCommand
+        UnknownCommand,
+        MissingIndex
     }
 
     public static void main(String[] args) {
@@ -26,6 +27,12 @@ public class PHamBot {
             }
             if (input.equals("list")) {
                 ListTasks();
+            }
+            if (input.contains("delete")) {
+                if (input.length() < 7) {
+                    handleErrors(Errors.MissingIndex);
+                }
+                removeTask(Integer.parseInt(input.substring(7)));
             }
             if (input.contains("todo")) {
                 if (input.length() < 6) {
@@ -118,6 +125,10 @@ public class PHamBot {
     }
 
     public static void ListTasks() {
+        if (tasks.taskCount() == 0) {
+            OutlineMessage("You're free! There aren't any tasks currently.");
+            return;
+        }
         OutlineMessage(tasks.toString());
     }
 
@@ -151,8 +162,42 @@ public class PHamBot {
                 OutlineMessage("...\n" +
                         "Huh?");
                 break;
+            case MissingIndex:
+                OutlineMessage("Which task do you want me to delete?");
         }
     }
 
+    public static void removeTask(int index) {
+        tasks.deleteTask(index - 1);
+    }
+
+    public static ToDo checkInput(String input, ToDo toDo) throws MissingTaskException {
+        String[] temp = input.split(" ", 2);
+        if (temp.length < 2) {
+            throw new MissingTaskException("Missing a task to add!");
+        }
+        else {
+            toDo.setTaskName(temp[1]);
+            return toDo;
+        }
+    }
+
+    public static DatedTask checkInput(String input, DatedTask task) throws
+            MissingTaskException, MissingDateException, MissingDividerException{
+        String[] temp = input.split("/", 2);
+        if (temp.length < 2) {
+            throw new MissingDividerException("Missing a slash in your message!");
+        }
+        if (temp[1].isEmpty()) {
+            throw new MissingDateException("Missing a date for your task!");
+        }
+        String[] temp2 = temp[0].split(" ", 2);
+        if (temp2.length < 2) {
+            throw new MissingTaskException("Missing a task to add!");
+        }
+        task.setTaskName(temp2[1]);
+        task.setDate(temp[1]);
+        return task;
+    }
 
 }
