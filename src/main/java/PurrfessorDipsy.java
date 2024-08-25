@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,6 +10,7 @@ import Task.Event;
 import Task.Task;
 import Task.ToDo;
 import Exception.PurrfessorDipsyException;
+import Utilities.DateTimeParser;
 
 public class PurrfessorDipsy {
     private static ArrayList<Task> taskTable = new ArrayList<>();
@@ -140,7 +143,13 @@ public class PurrfessorDipsy {
                 if (matcher.matches()) {
                     description = matcher.group(1);
                     by = matcher.group(2);
-                    saveToMemory(new Deadline(description, by));
+                    LocalDate parsedBy;
+                    try {
+                        parsedBy = DateTimeParser.parseDate(by);
+                        saveToMemory(new Deadline(description, parsedBy));
+                    } catch (DateTimeParseException e) {
+                        printDateParseErrorMessage();
+                    }
                 } else {
                     throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DEADLINE);
                 }
@@ -152,7 +161,14 @@ public class PurrfessorDipsy {
                     description = matcher.group(1);
                     start = matcher.group(2);
                     end = matcher.group(3);
-                    saveToMemory(new Event(description, start, end));
+                    LocalDate parsedStart, parsedEnd;
+                    try {
+                        parsedStart = DateTimeParser.parseDate(start);
+                        parsedEnd = DateTimeParser.parseDate(end);
+                        saveToMemory(new Event(description, parsedStart, parsedEnd));
+                    } catch (DateTimeParseException e) {
+                        printDateParseErrorMessage();
+                    }
                 } else {
                     throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_EVENT);
                 }
@@ -224,4 +240,8 @@ public class PurrfessorDipsy {
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
     }
 
+    private static void printDateParseErrorMessage() {
+        System.out.println("Incorrect date formatting! " +
+                           "Please enter the date in the format yyyy-MM-dd (e.g., 2024-08-25).");
+    }
 }
