@@ -28,4 +28,8 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public String toFileFormat() {
+        return String.format("X | %d | %s", isDone ? 1 : 0, description);
+    }
+
 }
