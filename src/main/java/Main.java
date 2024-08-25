@@ -58,22 +58,24 @@ public class Main {
         // get the description
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfFrom);
         String description = String.join(" ", descriptionArray);
+
         // get the start date (yyyy-mm-dd)
-        String startDate = commandDetails[indexOfFrom + 1];
-        LocalDate startDateIncorrectFormat = LocalDate.parse(startDate);
-        String startDateCorrectFormat = startDateIncorrectFormat.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        // get the end date (yyyy-mm-dd)
-        String endDate = commandDetails[indexOfTo + 1];
-        LocalDate endDateIncorrectFormat = LocalDate.parse(endDate);
-        String endDateCorrectFormat = endDateIncorrectFormat.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        // get the start time
+        LocalDate startDate = LocalDate.parse(commandDetails[indexOfFrom + 1]);
+        String outputStartDate = startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
+        // get the start time (hh:mm, 24hr format)
         LocalTime inputStartTime = LocalTime.parse(commandDetails[indexOfFrom + 2]);
-        String startTime = inputStartTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        String outputStartTime = inputStartTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        String startDateAndTime = outputStartDate + " " + outputStartTime;
+
+        // get the end date (yyyy-mm-dd)
+        LocalDate endDate = LocalDate.parse(commandDetails[indexOfTo + 1]);
+        String outputEndDate = endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
         // get the end time
         LocalTime inputEndTime = LocalTime.parse(commandDetails[indexOfTo + 2]);
-        String endTime = inputEndTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        String startDateAndTime = startDate + " " + startTime;
-        String endDateAndTime = endDate + " " + endTime;
+        String outputEndTime = inputEndTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        String endDateAndTime = outputEndTime + " " + outputEndTime;
         return new String[]{description, startDateAndTime, endDateAndTime};
     }
 
