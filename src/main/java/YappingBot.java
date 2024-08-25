@@ -72,7 +72,8 @@ public class YappingBot {
         programmeLoop: // to break out of loop
         while (true) {
            String userInput = userInputScanner.nextLine();
-           switch (userInput.toLowerCase()) {
+           String[] userInputSlices = userInput.split(" ");
+           switch (userInputSlices[0].toLowerCase()) {
                case "bye":
                    break programmeLoop;
                case "":
@@ -81,7 +82,9 @@ public class YappingBot {
                    printUserList();
                    break;
                case "mark":
-
+                   break;
+               case "unmark":
+                   break;
                default:
                    userList.add(new Task(userInput, false));
                    System.out.println(quoteMultilineText(String.format("added: %s", userInput)));
