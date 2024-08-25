@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,14 +44,14 @@ class FileStorage {
                         break;
                     case "D":
                         Deadline deadline = new Deadline(parsedInput[2],
-                                parsedInput[3],
+                                LocalDate.parse(parsedInput[3]),
                                 parsedInput[1].equals("1"));
                         taskList.add(deadline);
                         break;
                     case "E":
                         Event event = new Event(parsedInput[2],
-                                parsedInput[3],
-                                parsedInput[4],
+                                LocalDate.parse(parsedInput[3]),
+                                LocalDate.parse(parsedInput[4]),
                                 parsedInput[1].equals("1"));
                         taskList.add(event);
                         break;
