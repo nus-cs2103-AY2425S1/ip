@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 
 public class ZBot {
     private static final String SAVE_PATH = "../../../data/tasks.txt";
@@ -57,11 +58,13 @@ public class ZBot {
         try {
             if (inputParts[0].equals("deadline")) {
                 String[] deadlineParts = inputParts[1].split(" /by ", 2);
-                task = new Deadline(deadlineParts[0], deadlineParts[1]);
+                task = new Deadline(deadlineParts[0], Parser.parseDateTime(deadlineParts[1]));
             } else if (inputParts[0].equals("event")) {
                 String[] eventParts = inputParts[1].split(" /from ", 2);
                 String[] period = eventParts[1].split(" /to ", 2);
-                task = new Event(eventParts[0], period[0], period[1]);
+                task = new Event(eventParts[0],
+                        Parser.parseDateTime(period[0]),
+                        Parser.parseDateTime(period[1]));
             } else {
                 task = new ToDo(inputParts[1]);
             }
@@ -70,9 +73,13 @@ public class ZBot {
 
             System.out.println("Got it. I've added this task:");
             System.out.println(task);
-            System.out.println(String.format("Now you have %d tasks in the list.\n", tasks.size()));
+            System.out.println(String.format("Now you have %d tasks in the list.\n",
+                    tasks.size()));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task format!\n");
+        } catch (DateTimeParseException e) {
+            System.out.println(
+                    "Please enter a valid date and time format (dd/MM/yyyy HHmm, dd/MM/yyyy)!\n");
         }
     }
 
@@ -114,7 +121,8 @@ public class ZBot {
             System.out.println("Noted. I've removed this task:");
             System.out.println(tasks.get(taskNumber - 1));
             tasks.remove(taskNumber - 1);
-            System.out.println(String.format("Now you have %d tasks in the list.\n", tasks.size()));
+            System.out.println(String.format("Now you have %d tasks in the list.\n",
+                    tasks.size()));
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task number!\n");
         }

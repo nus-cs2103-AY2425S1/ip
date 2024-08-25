@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -46,13 +47,15 @@ public class Storage {
             // Append task type, status, and description, separated by ","
             char taskType = task instanceof ToDo ? 'T' : task instanceof Deadline ? 'D' : 'E';
             int taskStatus = task.getStatus() ? 1 : 0;
-            sb.append(taskType).append(",").append(taskStatus).append(",").append(task.description);
+            sb.append(taskType).append(",").append(taskStatus)
+                    .append(",").append(task.description);
 
             // Append task-specific details
             if (taskType == 'D') {
-                sb.append(",").append(((Deadline) task).by);
+                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).by));
             } else if (taskType == 'E') {
-                sb.append(",").append(((Event) task).from).append(",").append(((Event) task).to);
+                sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).from))
+                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).to));
             }
             sb.append("\n");
         }
@@ -71,9 +74,11 @@ public class Storage {
                 if (taskParts[0].equals("T")) {
                     task = new ToDo(taskParts[2]);
                 } else if (taskParts[0].equals("D")) {
-                    task = new Deadline(taskParts[2], taskParts[3]);
+                    task = new Deadline(taskParts[2], Parser.parseDateTime(taskParts[3]));
                 } else {
-                    task = new Event(taskParts[2], taskParts[3], taskParts[4]);
+                    task = new Event(taskParts[2],
+                            Parser.parseDateTime(taskParts[3]),
+                            Parser.parseDateTime(taskParts[4]));
                 }
                 if (taskParts[1].equals("1")) {
                     task.markAsDone();
@@ -83,6 +88,9 @@ public class Storage {
             sc.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
+        } catch (DateTimeParseException e) {
+            System.out.println(
+                    "Please enter a valid date and time format (dd/MM/yyyy HHmm, dd/MM/yyyy)!\n");
         }
         return tasks;
     }
