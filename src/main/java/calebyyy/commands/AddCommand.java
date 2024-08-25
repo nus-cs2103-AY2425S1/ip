@@ -1,19 +1,36 @@
 package calebyyy.commands;
 
 import calebyyy.Calebyyy;
+import calebyyy.TaskList;
+import calebyyy.Ui;
 import calebyyy.Tasks.Deadline;
 import calebyyy.Tasks.Event;
 import calebyyy.Tasks.Task;
 import calebyyy.Tasks.Todo;
 import calebyyy.exceptions.InvalidArgumentException;
-import calebyyy.TaskList;
-import calebyyy.Ui;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddCommand extends Command {
+
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param calebyyy The main Calebyyy object.
+     * @param ui The Ui object responsible for user interaction.
+     * @param taskList The TaskList object that stores the task list.
+     */
     public AddCommand(Calebyyy calebyyy, Ui ui, TaskList taskList) {
         super(calebyyy, ui, taskList);
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param input The user input.
+     * @throws InvalidArgumentException If the user input is invalid.
+     */
     @Override
     public void execute(String input) throws InvalidArgumentException {
         String[] parts = input.split(" ", 2);
