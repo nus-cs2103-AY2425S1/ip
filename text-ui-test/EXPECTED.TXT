@@ -11,31 +11,31 @@ Now you have 1 task in the list.
 
 -------------------------------------------------------------------
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Aug 02 2024 18:00)
 Now you have 2 tasks in the list.
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Aug 03 2024 13:00 to: Aug 03 2024 16:00)
 Now you have 3 tasks in the list.
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] sunday
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: Aug 02 2024 18:00)
+3. [E][ ] project meeting (from: Aug 03 2024 13:00 to: Aug 03 2024 16:00)
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
 Nice! I've marked this task as done:
- [D][X] return book (by: Sunday)
+ [D][X] return book (by: Aug 02 2024 18:00)
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
 OK, I've marked this task as not done yet:
- [D][ ] return book (by: Sunday)
+ [D][ ] return book (by: Aug 02 2024 18:00)
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
@@ -81,13 +81,6 @@ Please try again! :D
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
-Here are the tasks in your list:
-1. [T][ ] sunday
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
--------------------------------------------------------------------
-
--------------------------------------------------------------------
 OOPS! I cannot find this task in my system!
 Hint: Use the command 'list' to check the list of tasks.
 Please try again! :D
@@ -95,7 +88,7 @@ Please try again! :D
 
 -------------------------------------------------------------------
 Noted! I've removed this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Aug 03 2024 13:00 to: Aug 03 2024 16:00)
 Now you have 2 tasks in the list.
 -------------------------------------------------------------------
 
@@ -109,6 +102,10 @@ Please try again! :D
 OOPS! Your delete has missing arguments!
 Hint: The 'delete' command requires an integer as argument
 Please try again! :D
+-------------------------------------------------------------------
+
+-------------------------------------------------------------------
+Please enter the time in the format of <yyyy-MM-dd HHmm>!
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
