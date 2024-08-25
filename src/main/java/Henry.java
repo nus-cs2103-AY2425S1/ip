@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * a Personal Assistant Chatbot that helps a person
+ * to keep track of various things.
+ */
 public class Henry {
 
     /**

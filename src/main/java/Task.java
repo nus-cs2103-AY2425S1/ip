@@ -1,3 +1,8 @@
+/**
+ * Represents a task to be recorded. A <code>Task</code> object
+ * is represented by one String
+ * e.g., <code>return book</code>
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
