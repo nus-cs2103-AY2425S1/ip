@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * a Personal Assistant Chatbot that helps a person
@@ -190,13 +193,57 @@ public class Henry {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * Writes text into file
+     *
+     * @param filePath path of the file where it is saved
+     * @param textToAdd text to be added in the file
+     * @param index number of tasks recorded
+     */
+    private static void writeToFile(String filePath, String textToAdd, int index)
+            throws IOException {
+        FileWriter fw = new FileWriter(filePath, index != 0);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void main(String[] args) throws IOException {
         greetings();
+
+        int index = 0;
 
         ArrayList<Task> tasks = new ArrayList<Task>();
 
+        String pathName = "./data/Henry.txt";
+        File file = new File(pathName);
+        //if file does not exist, create new file and directory
+        if (!file.exists()) {
+            file.createNewFile();
+            file.mkdirs();
+        } else {
+            // create a Scanner using the File as the source
+            Scanner scanner1 = new Scanner(file);
+            while (scanner1.hasNext()) {
+                String input = scanner1.nextLine();
+                String[] words = input.split(" \\| ");
+                if(words[0].equals("T")) {
+                    tasks.add(new Todo(words[2],
+                            (Integer.parseInt(words[1]) != 0)));
+                } else if (words[0].equals("D")) {
+                    tasks.add(new Deadline(words[2], words[3],
+                            (Integer.parseInt(words[1]) != 0)));
+                } else if (words[0].equals("E")) {
+                    String[] duration = words[3].split("-");
+                    String startTime = duration[0];
+                    String endTime = duration[1];
+                    tasks.add(new Event(words[2], startTime,
+                            endTime, (Integer.parseInt(words[1]) != 0)));
+                }
+                index++;
+            }
+        }
+
         Scanner scanner = new Scanner(System.in);
-        int index = 0;
         do {
             try {
                 String input = scanner.nextLine();
@@ -205,19 +252,28 @@ public class Henry {
                     bye();
                     break;
                 } else if (input.equals("list")) {
-                        printList(tasks, index);
+                    printList(tasks, index);
                 } else {
                     String[] words = input.split(" ");
                     String command = words[0].toLowerCase();
                     if (command.equals("mark") || command.equals("unmark")) {
-                            changeTaskStatus(tasks, words, index);
+                        changeTaskStatus(tasks, words, index);
                     } else if (command.equals("delete")) {
-                            deleteTask(tasks, words[1], index);
-                            index--;
+                        deleteTask(tasks, words[1], index);
+                        index--;
                     } else {
-                            addTask(tasks, index, input);
-                            index++;
+                        addTask(tasks, index, input);
+                        index++;
                     }
+                }
+                //update the file
+                try {
+                    for (int i = 0; i < index; i++){
+                        writeToFile(pathName, tasks.get(i).summary()
+                                + System.lineSeparator(), i);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
             } catch (HenryException e) {
                 System.out.println("\nSorry! " + e.getMessage() + "\n");

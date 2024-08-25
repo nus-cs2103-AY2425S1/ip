@@ -15,6 +15,23 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public Event(String description, String startTime, String endTime,
+                 boolean isDone) {
+        super(description, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
+     * Returns summary of task
+     *
+     * @return task summary
+     */
+    public String summary() {
+        return "E " + super.summary() + " | " + this.startTime
+                + "-" + this.endTime;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startTime

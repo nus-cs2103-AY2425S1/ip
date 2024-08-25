@@ -12,6 +12,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Returns whether the task is done or not
      *
@@ -51,6 +56,16 @@ public class Task {
      */
     public boolean isDone() {
         return this.isDone;
+    }
+
+    /**
+     * Returns summary of task
+     *
+     * @return task summary
+     */
+    public String summary() {
+        return  "| " + (this.isDone() ? "1" : "0") + " | "
+                + this.getDescription();
     }
 
     public String toString() {

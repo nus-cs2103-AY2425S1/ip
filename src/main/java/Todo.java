@@ -9,6 +9,19 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
+    /**
+     * Returns summary of task
+     *
+     * @return task summary
+     */
+    public String summary() {
+        return "T " + super.summary();
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
