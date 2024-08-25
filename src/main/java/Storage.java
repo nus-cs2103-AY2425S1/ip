@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -28,12 +27,11 @@ public class Storage {
     /**
      * Loads tasks from hoshi txt file if user is not new else greets the user.
      *
-     * @param filePath  String filepath that contains the path of the hoshi txt file.
      * @param taskList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
      */
-    public static void load(String filePath, TaskList taskList) throws FileNotFoundException {
+    public void load(TaskList taskList) throws FileNotFoundException {
 
-        File file = new File(filePath);
+        File file = new File(this.filePath);
 
         try {
             Scanner scanner = new Scanner(file);
@@ -99,13 +97,12 @@ public class Storage {
     /**
      * Saves tasks added and retrieved during the program to hoshi txt file.
      *
-     * @param filePath  String filepath that contains the path of the hoshi txt file.
      * @param taskList TaskList of 3 types of tasks to be written to hoshi txt file.
      */
-    public static void save(String filePath, TaskList taskList) throws IOException {
+    public void save(TaskList taskList) throws IOException {
 
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
+            FileWriter fileWriter = new FileWriter(this.filePath);
 
             for (int i = 0; i< taskList.size(); i++) {
 

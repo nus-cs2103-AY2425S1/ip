@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Ui class that handles User Interactions for HoSHI
  */
@@ -42,6 +40,9 @@ public class Ui {
 
     }
 
+    /**
+     * Displays default prompt with options for user to select from
+     */
     public void displayPrompt() {
         System.out.println("- Add ToDo/Deadline/Event \n" +
                             "- List \n" +
@@ -51,67 +52,115 @@ public class Ui {
                 "____________________________________________________________");
     }
 
+    /**
+     * Displays text requesting user to specify which task to mark
+     */
+    public void displayTaskToMark() {
+        System.out.println("Please specify the task number to mark! \n");
+    }
+
+    /**
+     * Displays text indicating text has been marked as done
+     */
     public void displayTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done: \n");
         System.out.println(task.toString() + "\n");
     }
 
-    public void displayTaskToMark() {
-        System.out.println("Please specify the task number to mark! \n");
-    }
-
+    /**
+     * Displays text requesting user to specify which task to delete
+     */
     public void displayTaskToDelete() {
         System.out.println("Please specify the task number to delete! \n");
     }
 
+    /**
+     * Displays text indicating which task was deleted
+     */
     public void displayTaskDeleted(Task task) {
         System.out.println("OK, Hoshi has removed ( " + task.getDesc() + " )! \n");
     }
 
+    /**
+     * Displays text requesting user to specify which task to add
+     */
     public void displayTaskAdd() {
         System.out.println("Please specify the task to add! E.g. Add {task to be added} \n");
     }
 
+    /**
+     * Displays text requesting user to specify to do to add
+     */
     public void displayTodoTask() {
         System.out.println("Understood! What is your ToDo? ");
     }
 
+    /**
+     * Displays text requesting user to specify deadline to add
+     */
     public void displayDeadlineTask() {
         System.out.println("Understood! What is your Deadline? ");
     }
 
+    /**
+     * Displays text requesting user to specify when deadline is due
+     */
     public void displayDeadlineDue() {
         System.out.println("When would you like your Deadline to be due by? ");
     }
 
+    /**
+     * Displays text requesting user to specify event to add
+     */
     public void displayEventTask() {
         System.out.println("Understood! What is your Event? ");
     }
 
+    /**
+     * Displays text requesting user to specify when event starts
+     */
     public void displayEventStart() {
         System.out.println("When would you like your Event to start? ");
     }
 
+    /**
+     * Displays text requesting user to specify when event ends
+     */
     public void displayEventEnd() {
         System.out.println("When would you like your Event to end? ");
     }
 
+    /**
+     * Displays text indicating task has been added
+     */
     public void displayTaskAdded(String input) {
         System.out.println("added: " + input);
     }
 
+    /**
+     * Displays text indicating an error has occurred
+     */
     public void displayError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays text indicating a loading error has occurred
+     */
     public void displayLoadingError(String message) {
         System.out.println("Hoshi can't load data! " + message);
     }
 
+    /**
+     * Displays text indicating a saving error has occurred
+     */
     public void displaySavingError(String message) {
         System.out.println("Hoshi can't save data! " + message);
     }
 
+    /**
+     * Displays text indicating the program has terminated
+     */
     public void displayBye() {
         System.out.println("""
                     Bye. Hope to see you again soon!\s

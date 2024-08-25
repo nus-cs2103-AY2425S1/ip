@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class Hoshi {
         parser= new Parser();
 
         try {
-            Storage.load(filePath, taskList);
+            storage.load(taskList);
         } catch (FileNotFoundException e) {
             ui.displayLoadingError(e.getMessage());
         }
@@ -32,29 +31,23 @@ public class Hoshi {
     public void run() {
 
         ui.displayWelcome();
-
         Scanner scanner = new Scanner(System.in);
         String input;
 
         do {
-
             ui.displayPrompt();
             input = scanner.nextLine();
             parser.parseCommand(input, scanner, taskList, ui, storage);
-
         } while (!input.equalsIgnoreCase("bye"));
 
-
         try {
-            Storage.save("./data/hoshi.txt", taskList);
+            storage.save(taskList);
         } catch (IOException e) {
             ui.displaySavingError(e.getMessage());
         }
-
     }
 
     public static void main(String[] args) {
-
         new Hoshi("data/Hoshi.txt").run();
 
     }

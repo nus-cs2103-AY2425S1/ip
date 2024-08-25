@@ -20,23 +20,44 @@ public class Parser {
      */
     public void parseCommand(String input, Scanner scanner, TaskList taskList, Ui ui, Storage storage) {
 
-        if (input.equalsIgnoreCase("bye")) {
+        switch (input.split(" ")[0].toLowerCase()) {
+        case "bye":
             ui.displayBye();
-        } else if (input.equalsIgnoreCase("list")) {
+            break;
+
+        case "list":
             ui.displayTasks(taskList);
-        } else if (input.toLowerCase().startsWith("mark")) {
+            break;
+
+        case "mark":
             handleMark(input, taskList, ui);
-        } else if (input.toLowerCase().startsWith("unmark")) {
+            break;
+
+        case "unmark":
             handleUnmark(input, taskList, ui);
-        } else if (input.toLowerCase().startsWith("delete")) {
+            break;
+
+        case "delete":
             handleDelete(input, taskList, ui);
-        } else if (input.toLowerCase().startsWith("add")) {
+            break;
+
+        case "add":
             handleAdd(input, scanner, taskList, ui);
-        } else {
+            break;
+
+        default:
             ui.displayError("Hoshi doesn't understand, try a different input?");
+            break;
         }
     }
 
+    /**
+     * Handles the mark command when input by user.
+     *
+     * @param input the input that the user entered which is used to check which command to execute
+     * @param taskList the TaskList that stores 3 types of tasks
+     * @param ui Ui that handles all user interaction
+     */
     private void handleMark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 5) {
@@ -72,7 +93,13 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Handles the unmark command when input by user.
+     *
+     * @param input the input that the user entered which is used to check which command to execute
+     * @param taskList the TaskList that stores 3 types of tasks
+     * @param ui Ui that handles all user interaction
+     */
     private void handleUnmark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 7) {
@@ -107,6 +134,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the delete command when input by user.
+     *
+     * @param input the input that the user entered which is used to check which command to execute
+     * @param taskList the TaskList that stores 3 types of tasks
+     * @param ui Ui that handles all user interaction
+     */
     private void handleDelete(String input, TaskList taskList, Ui ui) {
 
         if (input.length() < 7) {
