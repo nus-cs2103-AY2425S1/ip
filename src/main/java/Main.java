@@ -171,12 +171,6 @@ public class Main {
                     }
                     case 'D' -> {
                         // deadline object
-//                        String deadlineDescription = line.substring(8, line.indexOf("|", 8) - 1);
-//                        String dueDateAndTime = line.substring(line.indexOf("|", 8) + 2);
-//                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy-HH:mm a");
-//                        LocalDateTime dueDate = LocalDateTime.parse(dueDateAndTime, formatter);
-//                        task = new Deadline(deadlineDescription, "D", dueDate);
-//                        task.setDone(isDone);
                         task = createDeadlineFromJanetTextFile(line, isDone);
                     }
                     case 'E' -> {
