@@ -1,6 +1,6 @@
-package David.Parser;
+package david.Parser;
 
-import David.Exceptions.DavidInvalidArgumentsException;
+import david.Exceptions.DavidInvalidArgumentsException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

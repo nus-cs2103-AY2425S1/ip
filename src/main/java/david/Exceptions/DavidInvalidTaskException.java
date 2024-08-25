@@ -1,4 +1,4 @@
-package David.Exceptions;
+package david.Exceptions;
 
 public class DavidInvalidTaskException extends DavidException{
 

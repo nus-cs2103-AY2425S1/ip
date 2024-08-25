@@ -1,26 +1,25 @@
-package David;
+package david;
 
-import David.Data.Storage;
-import David.Exceptions.*;
-import David.Parser.DateParser;
-import David.Parser.StringParser;
-import David.Task.*;
-import David.UI.Ui;
+import david.Data.Storage;
+import david.Exceptions.*;
+import david.Parser.DateParser;
+import david.Parser.StringParser;
+import david.Task.*;
+import david.UI.Ui;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 public class David {
     TaskList tasks;
     private Ui ui;
     private String inputString = "";
-    private Storage c;
+    private Storage cache;
 
     //constructor for David.David
     public David(String path) {
         this.ui = new Ui();
-        this.c = new Storage(path);
-        this.tasks = c.loadTasks();
+        this.cache = new Storage(path);
+        this.tasks = cache.loadTasks();
     };
 
     //run the chatbot
@@ -33,31 +32,32 @@ public class David {
                 endChatBot();  //end chatbot
                 break;
             }
+
             try {
                 switch (StringParser.parseStringToCommand(inputString)) {
-                    case "LIST":
-                        listTasks();
-                        break;
-                    case "MARK":
-                        markTaskAsDone(inputString);
-                        break;
-                    case "UNMARK":
-                        markTaskAsUnDone(inputString);
-                        break;
-                    case "TODO":
-                        addTodoTask(inputString);
-                        break;
-                    case "EVENT":
-                        addEventTask(inputString);
-                        break;
-                    case "DEADLINE":
-                        addDeadlineTask(inputString);
-                        break;
-                    case "DELETE":
-                        deleteTask(inputString);
-                        break;
-                    default:
-                        throw new DavidUnknownActionException();
+                case "LIST":
+                    listTasks();
+                    break;
+                case "MARK":
+                    markTaskAsDone(inputString);
+                    break;
+                case "UNMARK":
+                    markTaskAsUnDone(inputString);
+                    break;
+                case "TODO":
+                    addTodoTask(inputString);
+                    break;
+                case "EVENT":
+                    addEventTask(inputString);
+                    break;
+                case "DEADLINE":
+                    addDeadlineTask(inputString);
+                    break;
+                case "DELETE":
+                    deleteTask(inputString);
+                    break;
+                default:
+                    throw new DavidUnknownActionException();
                 }
             } catch (DavidException e) {
                 /*
@@ -74,7 +74,7 @@ public class David {
     /**
     Adds todo task to array list of tasks
      */
-    public void addTodoTask(String s) throws DavidInvalidArgumentsException{
+    public void addTodoTask(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
         Task t = new TodoTask(s, false);
         this.tasks.addTask(t);
@@ -115,6 +115,7 @@ public class David {
             DavidInvalidDateTimeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /by", 2);
+
         if(eventSplit.length <= 1 || eventSplit[1].trim().equals("")) {
             //deadline is not added to the input string
             throw new DavidInvalidDeadlineException();
@@ -178,7 +179,7 @@ public class David {
 
     public void endChatBot() {
         try {
-            c.saveTask(tasks);
+            cache.saveTask(tasks);
             ui.end();
         } catch (DavidCacheException e) {
             ui.displayErrorMessage(e);

@@ -1,6 +1,6 @@
-package David.Parser;
+package david.Parser;
 
-import David.Exceptions.DavidInvalidArgumentsException;
+import david.Exceptions.DavidInvalidArgumentsException;
 
 public class StringParser extends Parser{
 

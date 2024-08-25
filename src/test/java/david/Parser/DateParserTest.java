@@ -1,7 +1,6 @@
-package David.Parser;
+package david.Parser;
 
-import David.Exceptions.DavidInvalidArgumentsException;
-import David.Exceptions.DavidInvalidDateTimeException;
+import david.Exceptions.DavidInvalidDateTimeException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -23,7 +22,8 @@ public class DateParserTest {
         DavidInvalidDateTimeException exception =
                 assertThrows(DavidInvalidDateTimeException.class
                         ,() -> DateParser.getDate(" 2024-14-12 1300"));
-        String expectedErrorMessage = "The inputted date time format is wrong. Please ensure that it is in the format of" +
+        String expectedErrorMessage = "The inputted date time format is wrong. " +
+                "Please ensure that it is in the format of" +
                 "\"YYYY-MM-DD HHHH\"" + "where Y is the year, M is the month, D is the date and H" +
                 "is the 24 hour time.";
         assertEquals(expectedErrorMessage, exception.showErrorMessage(),
@@ -35,7 +35,8 @@ public class DateParserTest {
         DavidInvalidDateTimeException exception =
                 assertThrows(DavidInvalidDateTimeException.class
                         ,() -> DateParser.getDate(" 2024-11-12 2500"));
-        String expectedErrorMessage = "The inputted date time format is wrong. Please ensure that it is in the format of" +
+        String expectedErrorMessage = "The inputted date time format is wrong. " +
+                "Please ensure that it is in the format of" +
                 "\"YYYY-MM-DD HHHH\"" + "where Y is the year, M is the month, D is the date and H" +
                 "is the 24 hour time.";
         assertEquals(expectedErrorMessage, exception.showErrorMessage(),

@@ -1,11 +1,11 @@
-package David.Task;
+package david.Task;
 
 public abstract class Task {
     private String taskName;
-    private boolean completed;
+    private boolean isCompleted;
 
-    public Task(String s, boolean completed) {
-        this.completed = completed;
+    public Task(String s, boolean isCompleted) {
+        this.isCompleted = isCompleted;
         this.taskName = s;
     }
 
@@ -22,21 +22,21 @@ public abstract class Task {
      * @return true if task is completed else false
      */
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
 
     /**
      * Marks tasks as done
      */
     public void markAsDone() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks task as undone
      */
     public void markAsUnDone() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -48,7 +48,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String isCompleted = this.completed ? "X" : " ";
+        String isCompleted = this.isCompleted ? "X" : " ";
         return "[" + isCompleted + "] " + this.taskName;
     }
 

@@ -1,9 +1,9 @@
-package David.Data;
+package david.Data;
 
-import David.Exceptions.DavidCacheException;
-import David.Exceptions.DavidInvalidDateTimeException;
-import David.Task.*;
-import David.Parser.DateParser;
+import david.Exceptions.DavidCacheException;
+import david.Exceptions.DavidInvalidDateTimeException;
+import david.Parser.DateParser;
+import david.Task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,32 +60,31 @@ public class Storage {
     private Task parseTask(String s) {
         String[] info = s.split("\\|");
         Task t = null;
-        boolean completed = false;
+        boolean isCompleted = false;
         if (info[1].equals("1")) {
-            completed = true;
+            isCompleted = true;
         }
 
         switch (info[0]) {
-            case "T":
-                //"TODO" task
-                t = new TodoTask(info[2], completed);
+        case "T":
+            //"TODO" task
+            t = new TodoTask(info[2], isCompleted);
+            break;
+        case "D":
+            //"Deadline task"
+            try {
+                LocalDateTime byDate = DateParser.getDate(info[3]);
+                t = new DeadlineTask(info[2], byDate, isCompleted);
                 break;
-            case "D":
-                //"Deadline task"
-                try {
-                    LocalDateTime byDate = DateParser.getDate(info[3]);
-                    t = new DeadlineTask(info[2], byDate, completed);
-                    break;
-                } catch (DavidInvalidDateTimeException e){}
-            case "E":
-                //"Event" task
-                try {
-                    LocalDateTime fromDate = DateParser.getDate(info[3]);
-                    LocalDateTime toDate = DateParser.getDate(info[4]);
-                    t = new EventTask(info[2], fromDate, toDate, completed);
-                    break;
-                } catch (DavidInvalidDateTimeException e) {}
-
+            } catch (DavidInvalidDateTimeException e){}
+        case "E":
+            //"Event" task
+            try {
+                LocalDateTime fromDate = DateParser.getDate(info[3]);
+                LocalDateTime toDate = DateParser.getDate(info[4]);
+                t = new EventTask(info[2], fromDate, toDate, isCompleted);
+                break;
+            } catch (DavidInvalidDateTimeException e) {}
         }
 
         return t;

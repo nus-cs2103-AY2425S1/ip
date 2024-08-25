@@ -1,6 +1,6 @@
-package David.Task;
+package david.Task;
 
-import David.Parser.DateParser;
+import david.Parser.DateParser;
 
 import java.time.LocalDateTime;
 
@@ -9,8 +9,8 @@ public class EventTask extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public EventTask(String eventName, LocalDateTime from, LocalDateTime to, boolean completed) {
-        super(eventName, completed);
+    public EventTask(String eventName, LocalDateTime from, LocalDateTime to, boolean isCompleted) {
+        super(eventName, isCompleted);
         this.from = from;
         this.to = to;
     }
