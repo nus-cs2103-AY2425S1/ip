@@ -43,10 +43,10 @@ public class Cook {
                 try {
                     int taskIndex = Integer.parseInt(commands[1]) - 1;
                     Task taskToMark = taskList.get(taskIndex);
-                    boolean toMark = commands[0].equalsIgnoreCase("mark");
-                    boolean success = taskToMark.mark(toMark);
-                    String done = toMark ? "done" : "not done";
-                    if (success) {
+                    boolean isMarking = commands[0].equalsIgnoreCase("mark");
+                    boolean isSuccessful = taskToMark.mark(isMarking);
+                    String done = isMarking ? "done" : "not done";
+                    if (isSuccessful) {
                         formatting("Alright, I've marked this task as " + done + ":\n   " + taskToMark.toString());
                     } else {
                         formatting("Oh no! The task is already marked as " + done + ":\nDid you intend to do something else?");
