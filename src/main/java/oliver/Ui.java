@@ -7,11 +7,18 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner sc = new Scanner(System.in);
+
+    /**
+     * Shows the welcome message to the user.
+     */
     public void showWelcome() {
         System.out.println("Hello! I'm Oliver.");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Shows the farewell message to the user.
+     */
     public void showBye() {
         System.out.println("\tBye. Hope to see you again soon!");
     }
@@ -25,6 +32,9 @@ public class Ui {
         return this.sc.nextLine();
     }
 
+    /**
+     * Closes the scanner.
+     */
     public void close() {
         this.sc.close();
     }
@@ -91,6 +101,28 @@ public class Ui {
         list.get(index).markAsUndone();
         System.out.println("\tOk, I've marked this task as not done yet:");
         System.out.println("\t" + list.get(index));
+    }
+
+    /**
+     * Shows the matching results of user's search.
+     *
+     * @param list the list of tasks
+     * @param keyword the word to be searched for in the list of tasks
+     */
+    public void showSearch(TaskList list, String keyword) {
+        if (list.isEmpty()) {
+            System.out.println("\tThere are no tasks in your list.");
+        } else {
+            TaskList filteredList = list.filter(keyword);
+            if (filteredList.isEmpty()) {
+                System.out.println("\tThere are no matching tasks in your list.");
+            } else {
+                System.out.println("\tHere are the matching tasks in your list:");
+                for (int i = 0; i < filteredList.getSize(); i++) {
+                    System.out.println("\t" + (i+1) + "." + filteredList.get(i));
+                }
+            }
+        }
     }
 
     /**

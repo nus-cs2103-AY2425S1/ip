@@ -49,6 +49,8 @@ public class Oliver {
                 handleEvent(input);
             } else if (command.equalsIgnoreCase("delete")) {
                 handleDelete(input);
+            } else if (command.equalsIgnoreCase("find")) {
+                ui.showSearch(this.tasks, Parser.parseArgs(input));
             } else {
                 System.out.println("\tInvalid command. Command was not recognised.");
             }
@@ -59,6 +61,11 @@ public class Oliver {
         new Oliver("./data/oliver.txt").run();
     }
 
+    /**
+     * Marks a task in the list as done.
+     *
+     * @param input the user input provided
+     */
     private void handleMark(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
@@ -74,6 +81,11 @@ public class Oliver {
         }
     }
 
+    /**
+     * Marks a task in the list as not done.
+     *
+     * @param input the user input provided
+     */
     private void handleUnmark(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
@@ -89,6 +101,11 @@ public class Oliver {
         }
     }
 
+    /**
+     * Adds a todo task to the list.
+     *
+     * @param input the user input provided
+     */
     private void handleTodo(String input) {
         try {
             ToDo t = new ToDo(Parser.parseArgs(input));
@@ -99,6 +116,11 @@ public class Oliver {
         }
     }
 
+    /**
+     * Adds a deadline task to the list.
+     *
+     * @param input the user input provided
+     */
     private void handleDeadline(String input) { // Date is required, time is optional
         try {
             String[] parts = input.split("/by ");
@@ -123,6 +145,11 @@ public class Oliver {
         }
     }
 
+    /**
+     * Adds an event task to the list.
+     *
+     * @param input the user input provided
+     */
     private void handleEvent(String input) { // Both date and time are required
         try {
             String[] parts = input.split("/from |/to ");
@@ -144,6 +171,11 @@ public class Oliver {
         }
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param input the user input provided
+     */
     private void handleDelete(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
