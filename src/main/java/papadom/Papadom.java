@@ -29,8 +29,7 @@ public class Papadom {
     private static final Parser parser = new Parser();
     private static final TaskList taskList = new TaskList(storage);
     private static final Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
+    private static void run() {
         ui.welcomeMessage();
         storage.createFileIfNotPresent();
 
@@ -41,32 +40,32 @@ public class Papadom {
                 String commandText = text.split(" ")[0];
                 CommandType commandType = CommandType.fromString(commandText);
                 switch (commandType) {
-                case LIST:
-                    command = new ListCommand();
-                    break;
-                case BYE:
-                    command = new ExitCommand();
-                    break;
-                case MARK:
-                    command = new MarkCommand(text);
-                    break;
-                case UNMARK:
-                    command = new UnmarkCommand(text);
-                    break;
-                case TODO:
-                    command = new AddTodoCommand(text);
-                    break;
-                case DEADLINE:
-                    command = new AddDeadlineCommand(text);
-                    break;
-                case EVENT:
-                    command = new AddEventCommand(text);
-                    break;
-                case DELETE:
-                    command = new DeleteEventCommand(text);
-                    break;
-                default:
-                    throw new UnknownCommandException();
+                    case LIST:
+                        command = new ListCommand();
+                        break;
+                    case BYE:
+                        command = new ExitCommand();
+                        break;
+                    case MARK:
+                        command = new MarkCommand(text);
+                        break;
+                    case UNMARK:
+                        command = new UnmarkCommand(text);
+                        break;
+                    case TODO:
+                        command = new AddTodoCommand(text);
+                        break;
+                    case DEADLINE:
+                        command = new AddDeadlineCommand(text);
+                        break;
+                    case EVENT:
+                        command = new AddEventCommand(text);
+                        break;
+                    case DELETE:
+                        command = new DeleteEventCommand(text);
+                        break;
+                    default:
+                        throw new UnknownCommandException();
                 }
                 command.execute(taskList, ui, storage);
                 if (command instanceof ExitCommand) {
@@ -76,5 +75,9 @@ public class Papadom {
                 ui.output(e.getMessage());
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Papadom.run();
     }
 }
