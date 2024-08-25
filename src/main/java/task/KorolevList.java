@@ -118,12 +118,10 @@ public class KorolevList {
         for (KorolevTask event : this.events) {
             msg.append(event).append("\n");
         }
-
         return msg.toString();
     }
 
     public void saveEvent() {
-        //Write to the file
         String msg = this.createSaveInfo();
         storage.writeToFile(msg);
     }
