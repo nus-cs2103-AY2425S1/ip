@@ -61,7 +61,7 @@ public class Parser {
                 deleteTask(cmdParts, allTasks);
                 break;
             default:
-                Task task = Task.creatTask(userInput);
+                Task task = Task.createTask(userInput);
                 allTasks.add(task);
             }
             Storage.setData(allTasks);
