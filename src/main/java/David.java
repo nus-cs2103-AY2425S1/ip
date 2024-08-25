@@ -1,3 +1,4 @@
+import Data.Cache;
 import Exceptions.*;
 import Task.Task;
 import Task.TodoTask;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class David {
     private Scanner sc;
-    private String inputString;
+    private String inputString = "";
+    private Cache c;
     private String intro =
             "____________________________________________________________\n" +
             " Hello! I'm David\n" +
@@ -24,8 +26,8 @@ public class David {
     //constructor for David
     public David() {
         this.sc = new Scanner(System.in);
-        this.inputString = "";
-        this.tasks = new ArrayList<Task>();
+        c = new Cache("./src/main/java/Data/database.txt");
+        this.tasks = c.loadTasks();
     };
 
     //run the chatbot
@@ -81,7 +83,7 @@ public class David {
      */
     public void addTodoTask(String s) throws DavidInvalidArgumentsException{
         String event = StringParser.parseStringToArguments(s);
-        Task t = new TodoTask(event);
+        Task t = new TodoTask(event, false);
         this.tasks.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -107,7 +109,7 @@ public class David {
             //only the "from" field exist
             throw new DavidInvalidRangeException();
         }
-        Task t = new EventTask(eventName, eventDetails[0], eventDetails[1]);
+        Task t = new EventTask(eventName, eventDetails[0], eventDetails[1], false);
         this.tasks.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -127,7 +129,7 @@ public class David {
             //deadline is not added to the input string
             throw new DavidInvalidDeadlineException();
         }
-        Task t = new DeadlineTask(eventSplit[0], eventSplit[1]);
+        Task t = new DeadlineTask(eventSplit[0], eventSplit[1], false);
         this.tasks.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -203,7 +205,13 @@ public class David {
     }
 
     public void endChatBot() {
-        System.out.println(outro);
+        try {
+            c.saveTask(tasks);
+            System.out.println(outro);
+        } catch (DavidCacheException e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     public static void main(String[] args) {
