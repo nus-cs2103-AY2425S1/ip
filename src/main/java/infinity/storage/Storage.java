@@ -1,3 +1,12 @@
+package infinity.storage;
+
+import infinity.infinityexception.InfinityException;
+import infinity.task.Deadline;
+import infinity.task.Event;
+import infinity.task.Task;
+import infinity.task.ToDos;
+import infinity.tasklist.TaskList;
+import infinity.ui.Ui;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +18,7 @@ import java.util.Scanner;
 
 public class Storage {
     
-    public static final String FILEDIRPATH = "../../../data";
+    public static final String FILEDIRPATH = "../../../../data";
     public static final String FILENAME = "save-file.txt";
     public static final String FILEPATH = FILEDIRPATH + "/" + FILENAME;
     public static final String DELIMITER = "\0";

@@ -1,3 +1,13 @@
+package infinity;
+
+import infinity.infinityexception.InfinityException;
+import infinity.storage.Storage;
+import infinity.task.Deadline;
+import infinity.task.Event;
+import infinity.task.Task;
+import infinity.task.ToDos;
+import infinity.tasklist.TaskList;
+import infinity.ui.Ui;
 import java.io.IOException;
 
 public class Infinity <T extends Task> {

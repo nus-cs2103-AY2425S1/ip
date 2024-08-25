@@ -1,3 +1,8 @@
+package infinity.ui;
+
+import infinity.infinityexception.InfinityException;
+import infinity.task.Task;
+import infinity.tasklist.TaskList;
 import java.util.Scanner;
 
 public class Ui {

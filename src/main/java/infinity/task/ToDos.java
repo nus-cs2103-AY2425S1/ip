@@ -1,3 +1,7 @@
+package infinity.task;
+
+import infinity.infinityexception.InfinityException;
+
 public class ToDos extends Task {
     public ToDos(String description) {
         this.setDescription(description);

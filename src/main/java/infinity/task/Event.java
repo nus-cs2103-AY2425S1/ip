@@ -1,3 +1,7 @@
+package infinity.task;
+
+import infinity.infinityexception.InfinityException;
+
 public class Event extends Task {
     private String from;
     private String to;
