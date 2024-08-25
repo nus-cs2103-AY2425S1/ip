@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -22,6 +22,15 @@ public class Task {
 
     public void unmark() {
         isDone = false; // unmark task done
+    }
+
+    /**
+     * Returns a formatted string representation
+     *
+     * @return data format
+     */
+    public String toDataFormat() {
+        return (isDone ? "1" : "0") + " | " +  description;
     }
 
     /**

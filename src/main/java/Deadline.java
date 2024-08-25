@@ -8,6 +8,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns a formatted string representation
+     *
+     * @return data format
+     */
+    @Override
+    public String toDataFormat() {
+        return "deadline | " + super.toDataFormat() + " | " + by;
+    }
+
+    /**
      * Returns a formatted message with status icon
      * and description
      *

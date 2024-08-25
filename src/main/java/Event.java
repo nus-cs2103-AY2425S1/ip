@@ -10,6 +10,17 @@ public class Event extends Task {
     }
 
     /**
+     * Returns a formatted string representation
+     *
+     * @return data format
+     */
+    @Override
+    public String toDataFormat() {
+        return "event | " + super.toDataFormat() + " | "
+                + start + " | " + end;
+    }
+
+    /**
      * Returns a formatted message with status icon
      * and description
      *

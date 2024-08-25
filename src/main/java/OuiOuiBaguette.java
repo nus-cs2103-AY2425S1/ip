@@ -1,6 +1,14 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class OuiOuiBaguette {
     public static void main(String[] args) {
 
@@ -17,7 +25,8 @@ public class OuiOuiBaguette {
         Scanner sc = new Scanner(System.in); 
 
         // Initialize ArrayList of tasks
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        // ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = readSavedTasks();
 
         // Main event loop
         while (true) {
@@ -50,6 +59,9 @@ public class OuiOuiBaguette {
 
                     taskMarked.mark();
 
+                    // Update tasks on disk
+                    saveTasks(tasks);
+
                     System.out.println(formatBotSpeech(new String[]{
                             "Nice! I've marked this task as done: ",
                             "  " + taskMarked}));
@@ -61,6 +73,9 @@ public class OuiOuiBaguette {
                     Task taskUnmarked = tasks.get(taskIndex);
 
                     taskUnmarked.unmark();
+
+                    // Update tasks on disk
+                    saveTasks(tasks);
 
                     System.out.println(formatBotSpeech(new String[]{
                             "OK, I've marked this task as not done yet: ",
@@ -77,6 +92,9 @@ public class OuiOuiBaguette {
                     ToDo todo = new ToDo(desc);
 
                     tasks.add(todo);
+
+                    // Save task to disk
+                    saveTask(todo);
 
                     System.out.println(formatBotSpeech(new String[]{
                         "Got it. I've added this task:",
@@ -114,6 +132,9 @@ public class OuiOuiBaguette {
                     Deadline deadline = new Deadline(desc, date);
 
                     tasks.add(deadline);
+
+                    // Save task to disk
+                    saveTask(deadline);
 
                     System.out.println(formatBotSpeech(new String[]{
                         "Got it. I've added this task:",
@@ -161,6 +182,9 @@ public class OuiOuiBaguette {
 
                     tasks.add(event);
 
+                    // Save task to disk
+                    saveTask(event);
+
                     System.out.println(formatBotSpeech(new String[]{
                         "Got it. I've added this task:",
                         "  " + event,
@@ -172,6 +196,9 @@ public class OuiOuiBaguette {
                     int taskIndex = Integer.parseInt(cmd.split(" ")[1]) - 1;
 
                     Task taskDeleted = tasks.remove(taskIndex);
+
+                    // Update tasks on disk
+                    saveTasks(tasks);
 
                     System.out.println(formatBotSpeech(new String[] {
                             "Noted. I've removed this task:",
@@ -222,5 +249,184 @@ public class OuiOuiBaguette {
 
         res.append("\n\t____________________________________________________________\n");
         return res.toString();
+    }
+
+
+    public static ArrayList<Task> readSavedTasks() {
+        // Check if data folder exists
+        if (Files.notExists(Paths.get("data"))) {
+            try {
+                Files.createDirectory(Paths.get("data"));
+
+            } catch (IOException ioException) {
+                System.out.println("Could not create data folder at path " + "data" 
+                        + "\n" + ioException.getMessage());
+                
+                return new ArrayList<Task>();
+            }
+        }
+
+        // Initialize file
+        File f = new File("data/tasks.txt");
+
+        if (!f.exists()) {
+            // File not found
+            // Create file
+            try {
+                f.createNewFile();
+
+            } catch (IOException ioException) {
+                System.out.println("Could not create task save file at path " + f.getAbsolutePath() 
+                        + "\n" + ioException.getMessage());
+
+            }
+        }
+
+        // Read file
+        try {
+            ArrayList<Task> tasks = new ArrayList<Task>();
+            Scanner fs = new Scanner(f);
+
+            while (fs.hasNextLine()) {
+                String line = fs.nextLine();
+
+                // Escape |
+                String[] taskParts = line.split(" \\| ");
+
+                Task task = null;
+
+                if (taskParts[0].equals("todo")) {
+                    task = new ToDo(taskParts[2]);
+
+                    if (Integer.parseInt(taskParts[1]) == 1) {
+                        task.mark();
+                    }
+
+                } else if (taskParts[0].equals("deadline")) {
+                    task = new Deadline(taskParts[2], taskParts[3]);
+
+                    if (Integer.parseInt(taskParts[1]) == 1) {
+                        task.mark();
+                    }
+
+                } else if (taskParts[0].equals("event")) {
+                    task = new Event(taskParts[2], taskParts[3], taskParts[4]);
+
+                    if (Integer.parseInt(taskParts[1]) == 1) {
+                        task.mark();
+                    }
+
+                } else {
+                    // Do nth
+                }
+
+                // Add task to return result
+                if (task != null) {
+                    tasks.add(task);
+                }
+
+            }
+
+            fs.close();
+
+            return tasks;
+
+        } catch (FileNotFoundException fileNotFoundException) {
+            // Do nth
+        }
+
+        return new ArrayList<Task>();
+    }
+
+    public static void saveTasks(ArrayList<Task> tasks) {
+        // Check if data folder exists
+        if (Files.notExists(Paths.get("data"))) {
+            try {
+                Files.createDirectory(Paths.get("data"));
+
+            } catch (IOException ioException) {
+                System.out.println("Could not create data folder at path " + "data" 
+                        + "\n" + ioException.getMessage());
+                
+            }
+        }
+
+        // Initialize file
+        File f = new File("data/tasks.txt");
+
+        if (!f.exists()) {
+            // File not found
+            // Create file
+            try {
+                f.createNewFile();
+
+            } catch (IOException ioException) {
+                System.out.println("Could not create task save file at path " + f.getAbsolutePath() 
+                        + "\n" + ioException.getMessage());
+
+            }
+        }
+
+        // Write to file
+        try {
+            // Overwrite previous save
+            FileWriter fw = new FileWriter("data/tasks.txt");
+
+            for (Task t : tasks) {
+                fw.write(t.toDataFormat() + "\n");
+            }
+            fw.close();
+
+        } catch (IOException ioException) {
+            System.out.println("Could not save task at path " + f.getAbsolutePath() 
+                    + "\n" + ioException.getMessage());
+
+        }
+
+
+    }
+
+
+    public static void saveTask(Task t) {
+        // Check if data folder exists
+        if (Files.notExists(Paths.get("data"))) {
+            try {
+                Files.createDirectory(Paths.get("data"));
+
+            } catch (IOException ioException) {
+                System.out.println("Could not create data folder at path " + "data" 
+                        + "\n" + ioException.getMessage());
+                
+            }
+        }
+
+        // Initialize file
+        File f = new File("data/tasks.txt");
+
+        if (!f.exists()) {
+            // File not found
+            // Create file
+            try {
+                f.createNewFile();
+
+            } catch (IOException ioException) {
+                System.out.println("Could not create task save file at path " + f.getAbsolutePath() 
+                        + "\n" + ioException.getMessage());
+
+            }
+        }
+
+        // Write to file
+        try {
+            // Append to previous save
+            FileWriter fw = new FileWriter("data/tasks.txt", true);
+            fw.write(t.toDataFormat() + "\n");
+            fw.close();
+
+        } catch (IOException ioException) {
+            System.out.println("Could not save task at path " + f.getAbsolutePath() 
+                    + "\n" + ioException.getMessage());
+
+        }
     }
 }
