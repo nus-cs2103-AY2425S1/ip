@@ -1,18 +1,14 @@
-package duke;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.exceptions.EmptyTodoDescriptionException;
+import duke.exceptions.InvalidTodoDescriptionException;
 import duke.exceptions.InvalidDeadlineException;
 import duke.exceptions.InvalidEventException;
 import duke.exceptions.UnknownMessageException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.TaskEnum;
-import duke.tasks.ToDos;
+import duke.ui.Ui;
 
 /**
  * The {@code TaskManager} class is responsible for managing a collection of tasks.
@@ -110,9 +106,9 @@ public class TaskList {
      *
      * @param userInput the raw input string from the user.
      * @throws UnknownMessageException if the task type is unknown or unrecognized.
-     * @throws EmptyTodoDescriptionException if the task is a ToDo but lacks a description.
+     * @throws InvalidTodoDescriptionException if the task is a ToDo but lacks a description.
      */
-    public void addTask(String userInput) throws UnknownMessageException, EmptyTodoDescriptionException {
+    public void addTask(String userInput) throws UnknownMessageException, InvalidTodoDescriptionException {
         TaskEnum taskType = determineTaskType(userInput);
 
         switch (taskType) {
@@ -122,7 +118,7 @@ public class TaskList {
                 tasks.add(new ToDos(todoDescription));
                 break;
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new EmptyTodoDescriptionException("Please include a description of your todo task!");
+                throw new InvalidTodoDescriptionException("Please include a description of your todo task!");
             }
         case DEADLINE:
             String[] deadlineInfo = userInput.split("/by");
