@@ -25,6 +25,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * Formats Deadline for saving.
+     *
+     * @return String Formatted details of Deadline.
+     */
     @Override
     public String saveDetails() {
         return "D | " + super.saveDetails() + " | " + by;

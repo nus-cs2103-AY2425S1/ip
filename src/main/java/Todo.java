@@ -17,6 +17,11 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Formats Todo for saving.
+     *
+     * @return String Formatted details of Todo.
+     */
     @Override
     public String saveDetails() {
         return "T | " + super.saveDetails();

@@ -170,6 +170,11 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    /**
+     * Saves tasks in list to SAVE_FILE_PATH location.
+     *
+     * @throws DeltaException If directory or file unable to be created.
+     */
     public static void saveTasks() throws DeltaException {
         File saveDirectory = new File(SAVE_DIR_PATH);
         if (!saveDirectory.exists()) {

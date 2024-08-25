@@ -32,6 +32,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
+    /**
+     * Formats Event for saving.
+     *
+     * @return String Formatted details of Event.
+     */
     @Override
     public String saveDetails() {
         return "E | " + super.saveDetails() + " | " + start + " | " + end;

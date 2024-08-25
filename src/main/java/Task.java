@@ -49,6 +49,11 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Formats Task for saving.
+     *
+     * @return String Formatted details of Task.
+     */
     public String saveDetails() {
         return (isDone ? "1" : "0") + " | " + getDescription();
     }
