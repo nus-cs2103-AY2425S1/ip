@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.File;
@@ -223,6 +224,41 @@ public class Delta {
         }
     }
 
+    public static String loadTasks() throws DeltaException {
+        String output = """
+                \t____________________________________________________________
+                \t Loading the list of tasks from your previous session.
+                \t____________________________________________________________
+                """;
+        File loadFile = new File(SAVE_FILE_PATH);
+        if (loadFile.exists()) {
+            try {
+                Scanner sc = new Scanner(loadFile);
+                while (sc.hasNextLine()) {
+                    String[] details = sc.nextLine().replace("\n", "").split(" \\| ");
+                    if (details[0].equals("T")) {
+                        addTask(new Todo(details[2]));
+                    } else if (details[0].equals("D")) {
+                        addTask(new Deadline(details[2], details[3]));
+                    } else {
+                        addTask(new Event(details[2], details[3], details[4]));
+                    }
+                    if (details[1].equals("1")) {
+                        markTask(list.size());
+                    }
+                }
+            }
+            catch (FileNotFoundException e) {
+                throw new DeltaException("""
+                        OOPS!!! Save File not found!
+                        \t Please check Save File path:
+                        \t """ + loadFile.getAbsolutePath());
+            }
+        }
+        output += printTasks();
+        return output;
+    }
+
     /**
      * Runs Delta Chatbot.
      *
@@ -236,6 +272,13 @@ public class Delta {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.println(loadTasks());
+        }
+        catch (DeltaException e) {
+            System.out.println(e.getMessage());
+        }
 
         // Hello
         System.out.println(sayHello());
