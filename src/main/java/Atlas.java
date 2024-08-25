@@ -1,5 +1,9 @@
 import java.util.Scanner;  // Import the Scanner class
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
+import java.util.Arrays;
 
 
 public class Atlas {
@@ -25,64 +29,108 @@ public class Atlas {
         if (input == null) {
             return;
         }
-        String[] text = input.split(" ");
-        if (text.length == 0) {
-            return;
-        }
-        String command = text[0];
-
-        boolean status = false;
-        switch (command) {
-            case "bye": // do nothing: handled in main loop
-                break;
-            case "list":
-                listShow();
-                break;
-            case "mark":
-                status = true;
-            case "unmark":
-                int index = Integer.parseInt(text[1]) - 1;
-                taskMark(index, status);
-                taskMarkLog(index, status);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                switch (command) {
-                    case "todo":
-                        addToDo(input);
-                        break;
-                    case "deadline":
-                        addDeadline(input);
-                        break;
-                    case "event":
-                        addEvent(input);
-                        break;
-                    default:
-                }
-                addTaskLog();
-            default:
+        try {
+            String[] text = input.split(" ");
+            if (text.length == 0) {
+                return;
+            }
+            String command = text[0];
+            boolean status = false;
+            switch (command) {
+                case "bye": // do nothing: handled in main loop
+                    break;
+                case "list":
+                    listShow();
+                    break;
+                case "mark":
+                    status = true;
+                case "unmark":
+                    if (text.length < 2) {
+                        throwMissingTask();
+                    }
+                    int index = Integer.parseInt(text[1]) - 1;
+                    taskMark(index, status);
+                    taskMarkLog(index, status);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    if (text.length < 2) {
+                        throwMissingDescription();
+                    }
+                    switch (command) {
+                        case "todo":
+                            addToDo(text);
+                            break;
+                        case "deadline":
+                            addDeadline(text);
+                            break;
+                        case "event":
+                            addEvent(text);
+                            break;
+                        default:
+                    }
+                    addTaskLog();
+                    break;
+                default:
+                    throwUnknownCommand();
+            }
+        } catch(IllegalArgumentException e) {
+            botMessage(e.getMessage());
+            separate();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            botMessage(e.getMessage());
+            separate();
         }
     }
 
-    private static void addToDo(String input) {
-        String description = input.substring(5);
+    private static void addToDo(String[] text) throws IllegalArgumentException {
+        String description = arrayJoin(text, 1, text.length);
+        if (description.isBlank()) {
+            throwMissingDescription();
+        }
         tasks.add(new ToDo(description));
     }
 
-    private static void addDeadline(String input) {
-        int idx = input.indexOf("/by");
-        String description = input.substring(9, idx - 1);
-        String by = input.substring(idx + 4);
+    private static void addDeadline(String[] text) throws IllegalArgumentException {
+        int idx = Arrays.asList(text).indexOf("/by");
+        if (idx == -1) {
+            throwMissingDeadline();
+        }
+        String description = arrayJoin(text, 1, idx);
+        if (description.isBlank()) {
+            throwMissingDescription();
+        }
+        String by = arrayJoin(text, idx + 1, text.length);
+        if (by.isBlank()) {
+            throwMissingDeadline();
+        }
         tasks.add(new Deadline(description, by));
     }
 
-    private static void addEvent(String input) {
-        int idx = input.indexOf("/from");
-        int idx2 = input.indexOf("/to");
-        String description = input.substring(6, idx - 1);
-        String from = input.substring(idx + 6, idx2 - 1);
-        String to = input.substring(idx2 + 4);
+    private static void addEvent(String[] text) throws IllegalArgumentException{
+        int idx = Arrays.asList(text).indexOf("/from");
+        if (idx == -1) {
+            throwMissingFrom();
+        }
+        int idx2 = Arrays.asList(text).indexOf("/to");
+        if (idx2 == -1) {
+            throwMissingTo();
+        }
+        String description = arrayJoin(text, 1, Math.min(idx, idx2));
+        if (description.isBlank()) {
+            throwMissingDescription();
+        }
+        String from = arrayJoin(text, idx + 1, idx2 > idx ? idx2 : text.length);
+        if (from.isBlank()) {
+            throwMissingFrom();
+        }
+        botMessage("from: " + from);
+        String to = arrayJoin(text, idx2 + 1, idx2 > idx ? text.length : idx);
+        if (to.isBlank()) {
+            throwMissingTo();
+        }
+        botMessage("to: " + to);
         tasks.add(new Event(description, from, to));
     }
 
@@ -93,7 +141,10 @@ public class Atlas {
         separate();
     }
 
-    private static void taskMark(int index, boolean status) {
+    private static void taskMark(int index, boolean status) throws ArrayIndexOutOfBoundsException {
+        if (index < 0 || index >= tasks.size()) {
+            throwIllegalIndex(index);
+        }
         tasks.get(index).setDone(status);
     }
 
@@ -107,16 +158,81 @@ public class Atlas {
     }
 
     private static void listShow() {
+        
         botMessage("Here are the items in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             botMessage((i + 1) + "." + tasks.get(i));
+        }
+        if (tasks.size() == 0) {
+            botMessage("<EMPTY>");
+            botMessage("\nThere is nothing for you to do! Yay!");
         }
         separate();
     }
 
     private static void introduction() {
+        botMessage("""
+            ....   .                              ....        .                        ....            .     
+            ....        .   ......         .     ....             .....                ....            ......
+          ...               ......           . ....              .......            .... .             ......
+         ...   .    .        ....             ...                 .....        .   ....        .    .   .... 
+         ..                   .              ...                          .       ...                        
+                       . .                                             .        .         . .                
+                                                                                                             
+                           .                      ..:-=+++++++==-:...          .                             
+          .                           .      ..-=#@@@@%%@@@#%%%%@@@@#=-..                                    
+                  ..   .        .         .:=@@@@#+: .. =@@.   ...#@@@@@%=:. .                  .            
+            .                    ...    .=@@@#:@@-      #@*.-%%@@@@%. .:#@@@=.       .                      .
+          .....                ....   .#@@#:.. %%#*%@#..+@@@@%*++=-..... .:#@@#.     .....                ...
+         ......              ....   .*@@+:     :=+*=#@%. .==:.     ..:****#*-+@@*.  ......              .... 
+          .....   .        ....   .=@@*:       ......@@-  .     .....%@%#**%@@%@@@=. .....   .        ....   
+                          ...    .*@%-       ..     =@%.        ....#@#.    .=**=%@*.       .        ...     
+              .             .   .#@#..    .  -@%*++*@@=         . :*@%.   . .    .%@#.             .     .   
+               .           .   .#@%.. ......:#@%#%%#+.        ....@@#.            .%@#.    .                 
+                 .             *@@=   =@@@@@@@#.            .=%@@@@%               .%@*  .               .   
+                              -@@@@. +@@=--::..   .    .    .%@*::..         .      :@@-                     
+                             .%@#@@.-@@:    .               .*@@##%%##*.            .+@%.                    
+         .    ...            -@@:@@::@@:            ..       :=+*+==+#@%..    .      .@@-..              .   
+            ....            .+%*.+@@=@@-         .....     .....::---.#@#             #@+..        .   ..... 
+          ....              .*#=..-@@@%..       ....      .#@@@@@@###%%@+       .:--..+@#             .......
+         ...              ...*@=.  :@@@@@#-.......       .%@#.  . ...-#@: .    .#@@@@++@%.             ..... 
+         .      .   .        #@+    *@#:+@@@@%=:         +@%   .           ....:@@:.@@@@#                    
+                .            *@#   -@@%  ..:=%@*         %@=    .         =@@@@%#@@:.#@@*         .          
+          .    .  .         .-@@.:%@@-.      +@#        -@@@@%#=.         *@@=-#@%-. .@@-    .               
+                             .%@+ *@%..      +@@@%*  .   ..:==#@@*.       .=%@%+.    +@%.                    
+                   .          =@@..#@#.       .:=@@.    .:==:. :*@%:        .-#@*  ..@@=           .         
+               . .          :-+@@#..#@@=.      :=@@- .-#@@@@@@#-...        .-*@@=  .#@@+-:                   
+               .          .*@@%*%@*..:@@+    .*@@#:..%@%=.  .=%@%.   .....+@@%+.. .*@%*%@@*.   .          ...
+         ......           =@@. ..%@#. =@@. .:@@#....%@*.      .*@%. .....#@#..   .#@@....@@=      ..  .   ...
+         ......          .@@=.-%@@@@@..%@+ =@@-....=@%.        .%@+.... :@@:    .@@@@%#..=@@.      .     ....
+         ......          =@@..=@%::=@@*@@- #@*.....*@*          *@*... +%@%.. .+@@=.:##-..@@=          ....  
+                    .    %@=..=@@   :#@@@.:@@:   .*@@@=.    .  +%@@*. .=#-. .+@@#:.  @@=  +@%.       ....    
+                      . -@@.  -@@.   .-#@@*@@.  .+@%-%@+.    .*@%-%@+.  . :+@@#-.   .@@-  .@@-               
+                        #@*   -@@.      :*@@@=-. +@@-:%@@@@@@@@%:.@@+ .-=%@%*:.     .@@-   *@#.      .       
+                       :@@:   :@@::--:::-%@@@@@@%#@%. .-=:::-+-.  #@##@@@@@@%-:::--::@@:   :@@:              
+                      .+@%.   :@@@@@@@@@@%-...:#%@@#.           .:@@@%#-...-%@@@@@@@@@@:  . %@+              
+                       %@+    #@#......:...  .  ..#@@           =@@=....    ..:......#@#    +@%   .      .   
+         .     . .     @@-    ...                 .@@%##=    *##%@#                  ...  . -@@              
+           .....       @@*-. ....    .            ..=+*%@#**#@@**=....                 ....-*@@         .... 
+           ....        **%@@*=:...              .....  .=****=.  .......     .        .:=*@@%**        ......
+         ....    . .     ..+*##%##+======+*+. -#+:..  .  .::.    ....+#- .*++======+#%@@%#+..          ......
+         ..  .           .   ..:=*#%%%%%%#%@#..*@@%+=====+@@+=====+#@@#..*@%#%%%%%%#*=:..  .             .   
+                                          .@@=  .-#@@@@@@@@@@@@@@@@#-.  =@@.        .                        
+                       .                   :-.    ........::........    .-:                              .   
+                             .                           .                             .       . .           
+                       .              ...           . .  .                            .                      
+                                                                                          .                 .
+                                 ..                     .              .                    .     .        ..
+          ....      . .        ....           . ....          .     .....   .        ....                 ...
+         ......              ....              .....               ....             ......              .... 
+         ...... .           .....              .....      .      .....       .      ......             ......
+         ****************************************************************************************************
+         *++++++*+++++*++=+*********************************************************=+++++++++**+++++++++++**
+         ****************************************************************************************************
+                """);
         botMessage("Hello! I'm Atlas.");
-        botMessage("How can I help you today?");
+        botMessage("I am here to share your burdens of remembering tasks");
+        botMessage("What can I do for you today?");
         separate();
     }
 
@@ -148,6 +264,46 @@ public class Atlas {
     }
 
     private static void botMessage(String message) {
-        System.out.println(BOT_INDENT + message);
+        String[] lines = message.split("\n");
+        for (String line : lines) {
+            System.out.println(BOT_INDENT + line);
+        }
+    }
+
+    private static String arrayJoin(String[] arr, int start, int end) {
+        if (start >= end) {
+            return "";
+        }
+        return String.join(" ", Arrays.copyOfRange(arr, start, end));
+    }
+
+    /* --------- EXCEPTIONS --------- */
+
+    private static void throwMissingDescription() throws IllegalArgumentException{
+        throw new IllegalArgumentException("Oopsie! The description of a task cannot be empty.");
+    }
+
+    private static void throwMissingDeadline() throws IllegalArgumentException{
+        throw new IllegalArgumentException("Oh no!! The deadline of a task cannot be empty.\nIndicate the deadline by using \"/by <deadline>\"");
+    }
+
+    private static void throwMissingFrom() throws IllegalArgumentException{
+        throw new IllegalArgumentException("Uh oh!! The event details cannot be empty.\nIndicate when the event starts by using \"/from <start>\"");
+    }
+
+    private static void throwMissingTo() throws IllegalArgumentException{
+        throw new IllegalArgumentException("Oh no!! The event details cannot be empty.\nIndicate when the event starts by using \"/to <end>\"");
+    }
+
+    private static void throwMissingTask() throws IllegalArgumentException{
+        throw new IllegalArgumentException("Golly!! The task number is missing.\nIndicate the task number to (un)mark by using \"(un)mark <task number>\"");
+    }
+
+    private static void throwIllegalIndex(int index) throws ArrayIndexOutOfBoundsException{
+        throw new ArrayIndexOutOfBoundsException("Oopsie! The task number " + (index + 1) + " does not exist");
+    }
+
+    private static void throwUnknownCommand() throws IllegalArgumentException{
+        throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
     }
 }
