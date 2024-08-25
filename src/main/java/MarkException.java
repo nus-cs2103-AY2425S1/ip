@@ -1,4 +1,4 @@
-public class MarkException extends Exception{
+public class MarkException extends AxelException{
     public MarkException(String message) {
         super(message);
     }

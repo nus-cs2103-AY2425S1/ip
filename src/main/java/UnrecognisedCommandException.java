@@ -1,5 +1,5 @@
-public class UnrecognisedCommandException extends Exception {
-    public UnrecognisedCommandException(String message) {
-        super(message);
+public class UnrecognisedCommandException extends AxelException {
+    public UnrecognisedCommandException() {
+        super("I can't seem to recognise that command...");
     }
 }
