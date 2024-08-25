@@ -17,7 +17,8 @@ public class CommandEvent extends Command {
     @Override
     public void execute() {
         String[] parts = inputs[1].split(" /from | /to ");
-        if (parts.length != 3 || !DateTimeHelper.isValidDateFormat(parts[1]) || !DateTimeHelper.isValidDateFormat(parts[2])) {
+        if (parts.length != 3 ||
+                !DateTimeHelper.isValidDateFormat(parts[1]) || !DateTimeHelper.isValidDateFormat(parts[2])) {
             Ui.printMessage("Invalid Event format, it should contain /from and /to with valid dates.");
             return;
         }

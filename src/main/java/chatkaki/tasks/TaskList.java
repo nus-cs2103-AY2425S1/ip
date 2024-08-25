@@ -11,7 +11,8 @@ public class TaskList {
     public static void addTask(Task task, boolean fromStorage) {
         tasks.add(task);
         if (!fromStorage) {
-            Ui.printMessage("Got it. I've added this task:\n " + task + "\n Now you have " + TaskList.getSize() + " task" + (TaskList.getSize() == 1 ? "" : "s") + " in the list.");
+            Ui.printMessage("Got it. I've added this task:\n " + task + "\n Now you have " + TaskList.getSize() +
+                    " task" + (TaskList.getSize() == 1 ? "" : "s") + " in the list.");
         }
     }
 

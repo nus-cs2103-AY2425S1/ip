@@ -46,12 +46,14 @@ public class Storage {
                         break;
                     case DEADLINE:
                         LocalDateTime dateTime = DateTimeHelper.parseDate(taskParts[3]);
-                        TaskList.addTask(new Deadline(Boolean.parseBoolean(taskParts[1]), taskParts[2], dateTime), true);
+                        TaskList.addTask(new Deadline(Boolean.parseBoolean(taskParts[1]), taskParts[2], dateTime),
+                                true);
                         break;
                     case EVENT:
                         LocalDateTime start = DateTimeHelper.parseDate(taskParts[3]);
                         LocalDateTime end = DateTimeHelper.parseDate(taskParts[4]);
-                        TaskList.addTask(new Event(Boolean.parseBoolean(taskParts[1]), taskParts[2], start, end), true);
+                        TaskList.addTask(new Event(Boolean.parseBoolean(taskParts[1]), taskParts[2], start, end),
+                                true);
                         break;
                 }
             }

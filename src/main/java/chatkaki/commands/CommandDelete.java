@@ -26,7 +26,8 @@ public class CommandDelete extends Command {
         }
 
         Task task = TaskList.deleteTask(index);
-        Ui.printMessage("Noted. I've removed this task:\n   " + task + "\nNow you have " + TaskList.getSize() + " task" + (TaskList.getSize() == 1 ? "" : "s") + " in the list.");
+        Ui.printMessage("Noted. I've removed this task:\n   " + task + "\nNow you have " + TaskList.getSize()
+                + " task" + (TaskList.getSize() == 1 ? "" : "s") + " in the list.");
     }
 
 }
