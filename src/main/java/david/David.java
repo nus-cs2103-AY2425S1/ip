@@ -58,6 +58,9 @@ public class David {
                 case "DELETE":
                     deleteTask(inputString);
                     break;
+                case "FIND":
+                    findEvent(inputString);
+                    break;
                 default:
                     throw new DavidUnknownActionException();
                 }
@@ -74,9 +77,24 @@ public class David {
     }
 
     /**
+<<<<<<< HEAD
      * Adds a todo task to the arraylist
      * @param s String event
      * @throws DavidInvalidArgumentsException
+=======
+     * Lists all events corresponding to the specified event
+     * @param s input string
+     * @throws DavidInvalidArgumentsException
+     */
+    public void findEvent(String s) throws DavidInvalidArgumentsException{
+        String event = StringParser.parseStringToArguments(s);
+        ui.findEvent(event, tasks);
+    }
+
+
+    /**
+    Adds todo task to array list of tasks
+>>>>>>> branch-Level-9
      */
     public void addTodoTask(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
