@@ -25,11 +25,8 @@ public class Hoshi {
 
         ArrayList<Task> arrayList = new ArrayList<Task>();
 
-        //Task[] array = new Task[100];
-        //int indexCounter = -1;
 
         while (true) {
-
 
             System.out.println("Add ToDo/Deadline/Event OR List(Lowercase): ");
 
