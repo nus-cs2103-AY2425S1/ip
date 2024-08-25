@@ -1,7 +1,9 @@
 package tasks;
 
+import static utility.DateTimeUtility.format;
 import static utility.Printer.printWithDivider;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import storage.Storage;
@@ -57,5 +59,27 @@ public class TaskList {
         printWithDivider(String.format(
                 "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n", task, this.size())
         );
+    }
+
+    public void findByDate(LocalDateTime date) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task: this.tasks) {
+            if (task.checkDate(date)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            printWithDivider(String.format("No tasks found for: %s\n", format(date)));
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Here are the tasks on %s:\n", format(date)));
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            Task task = matchingTasks.get(i);
+            sb.append(String.format("%d.%s\n", i + 1, task));
+        }
+        printWithDivider(sb.toString());
     }
 }

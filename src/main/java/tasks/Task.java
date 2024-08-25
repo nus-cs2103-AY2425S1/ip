@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private final String description;
     private boolean isDone = false;
@@ -10,6 +12,10 @@ public class Task {
 
     public void setDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public boolean checkDate(LocalDateTime date) {
+        return false;
     }
 
     @Override

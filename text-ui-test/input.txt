@@ -1,6 +1,6 @@
 todo buy groceries
-deadline submit report /by Friday
-event dentist appointment /from Tuesday 3pm /to 4pm
+deadline submit report /by 25/08/2024
+event dentist appointment /from 2024-10-15 14:00 /to 2024-10-15 16:00
 list
 mark 1
 unmark 1

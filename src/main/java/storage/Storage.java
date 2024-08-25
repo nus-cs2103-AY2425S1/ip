@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import exceptions.InvalidTaskException;
@@ -14,6 +16,7 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import utility.DateTimeUtility;
 
 public class Storage {
     private static final String directoryPath = "./data";
@@ -79,7 +82,7 @@ public class Storage {
             String taskType = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            Task task;
+            Task task = null;
 
             switch (taskType) {
             case "T":
@@ -89,8 +92,10 @@ public class Storage {
                 if (parts.length < 4) {
                     throw new InvalidTaskException("Deadline missing for: " + line);
                 }
-                String deadline = parts[3];
-                task = new Deadline(description, deadline);
+                LocalDateTime deadline = DateTimeUtility.parse(parts[3]);
+                if (deadline != null) {
+                    task = new Deadline(description, deadline);
+                }
                 break;
             case "E":
                 if (parts.length < 4) {
@@ -102,14 +107,21 @@ public class Storage {
                 if (dateParts.length != 2) {
                     throw new InvalidTaskException("Invalid date format for: " + line);
                 }
-                task = new Event(description, dateParts[0], dateParts[1]);
+
+                LocalDateTime startDate = DateTimeUtility.parse(dateParts[0]);
+                LocalDateTime endDate = DateTimeUtility.parse(dateParts[1]);
+                if (startDate != null && endDate != null) {
+                    task = new Event(description, startDate, endDate);
+                }
                 break;
             default:
                 throw new InvalidTaskException("Invalid task type for: " + line);
             }
-            task.setDone(isDone);
+            if (task != null) {
+                task.setDone(isDone);
+            }
             return task;
-        } catch (InvalidTaskException e) {
+        } catch (InvalidTaskException | DateTimeParseException e) {
             System.out.println(e.getMessage());
             return null;
         }

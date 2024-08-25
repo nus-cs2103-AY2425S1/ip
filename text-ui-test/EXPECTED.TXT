@@ -6,17 +6,17 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 --------------------------------------------------
 Got it. I've added this task:
-  [D][ ] submit report (by: Friday)
+  [D][ ] submit report (by: Aug 25 2024 00:00)
 Now you have 2 tasks in the list.
 --------------------------------------------------
 Got it. I've added this task:
-  [E][ ] dentist appointment (from: Tuesday 3pm to: 4pm)
+  [E][ ] dentist appointment (from: Oct 15 2024 14:00 to: Oct 15 2024 16:00)
 Now you have 3 tasks in the list.
 --------------------------------------------------
 Here are the tasks in your list:
 1.[T][ ] buy groceries
-2.[D][ ] submit report (by: Friday)
-3.[E][ ] dentist appointment (from: Tuesday 3pm to: 4pm)
+2.[D][ ] submit report (by: Aug 25 2024 00:00)
+3.[E][ ] dentist appointment (from: Oct 15 2024 14:00 to: Oct 15 2024 16:00)
 --------------------------------------------------
 Nice! I've marked this task as done:
   [T][X] buy groceries

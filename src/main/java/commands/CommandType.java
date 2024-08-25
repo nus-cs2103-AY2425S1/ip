@@ -2,6 +2,7 @@ package commands;
 
 public enum CommandType {
     BYE,
+    DATE,
     DEADLINE,
     DELETE,
     EVENT,
@@ -29,6 +30,8 @@ public enum CommandType {
             return EVENT;
         case "delete":
             return DELETE;
+        case "date":
+            return DATE;
         default:
             return INVALID;
         }
