@@ -12,6 +12,15 @@ public class Task {
         task_list.add(this);
     }
 
+    public void addTaskWithMessage() {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(String.format(
+                "  %s", this));
+        System.out.println(String.format(
+                "Now you have %d tasks in the list.",
+                task_list.size()));
+    }
+
     public static void mark_task(String input)
             throws BoombotrozException {
 
@@ -97,6 +106,15 @@ public class Task {
                     "%d.%s", i + 1, task_list.get(i)));
         }
     }
+
+    public static String getAll() {
+        String s = "";
+        for (int i = 0; i < task_list.size(); i++) {
+            s = s.concat(task_list.get(i) + "\n");
+        }
+        return s;
+    }
+
 
     @Override
     public String toString() {
