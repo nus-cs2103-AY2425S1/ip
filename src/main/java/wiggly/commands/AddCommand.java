@@ -9,7 +9,6 @@ import wiggly.task.Task;
 import wiggly.task.ToDo;
 import wiggly.task.Deadline;
 import wiggly.task.Event;
-import wiggly.task.TaskType;
 
 import wiggly.util.Storage;
 import wiggly.util.Ui;
