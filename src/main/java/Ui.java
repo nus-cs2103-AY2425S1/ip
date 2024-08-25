@@ -44,6 +44,14 @@ public class Ui {
         }
     }
 
+    public void showLine() {
+        out.println(DIVIDER);
+    }
+
+    public void printMessage(String message) {
+        out.println(message);
+    }
+
     public void printHelp() {
         out.println(DIVIDER);
         out.println("Here are the available commands and their formats:");
@@ -101,5 +109,12 @@ public class Ui {
         out.println("  " + description);
         out.println(example);
         out.println();
+    }
+
+    public void handleList(TaskList actions) {
+        this.showLine();
+        out.println("Here are the tasks in your list:");
+        actions.printActions();
+        this.showLine();
     }
 }
