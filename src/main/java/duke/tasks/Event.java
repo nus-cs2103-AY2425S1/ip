@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.InvalidEventException;
-import duke.parser.Parser;
+import duke.parser.DateTimeFormatEnum;
 
 /**
  * Represents an event task in the DailyTasks application.
@@ -34,13 +34,15 @@ public class Event extends Task {
         parsedToDateTime = null;
 
         // Parse the 'from' field
-        parsedFromDateTime = Parser.parseDateTime(from);
+        parsedFromDateTime = DateTimeFormatEnum.parse(from)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid date format."));
         if (parsedFromDateTime == null) {
             throw new InvalidEventException("Invalid 'from' date and time format.");
         }
 
         // Parse the 'to' field
-        parsedToDateTime = Parser.parseDateTime(to);
+        parsedToDateTime = DateTimeFormatEnum.parse(to)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid date format."));
         if (parsedToDateTime == null) {
             throw new InvalidEventException("Invalid 'to' date and time format.");
         }

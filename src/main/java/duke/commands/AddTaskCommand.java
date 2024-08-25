@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.exceptions.EmptyTodoDescriptionException;
+import duke.exceptions.InvalidTodoDescriptionException;
 import duke.exceptions.UnknownMessageException;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
@@ -37,7 +37,7 @@ public class AddTaskCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.addTask(this.userInput);
-        } catch (UnknownMessageException | EmptyTodoDescriptionException e) {
+        } catch (UnknownMessageException | InvalidTodoDescriptionException e) {
             System.out.println(Ui.formatOutputMessage("Please enter a valid task!"));
         }
     }

@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import duke.commands.Command;
-import duke.parser.Parser;
+import duke.exceptions.InvalidInputException;
+import duke.parser.InputParser;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -75,8 +76,13 @@ public class DailyTasks {
                 break;
             }
 
-            Command command = Parser.parseUserInput(userInput);
-            command.execute(this.taskList, this.ui, this.storage);
+            try {
+                Command command = InputParser.parseUserInput(userInput);
+                command.execute(this.taskList, this.ui, this.storage);
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Please try entering your message again!");
+            }
         }
     }
 

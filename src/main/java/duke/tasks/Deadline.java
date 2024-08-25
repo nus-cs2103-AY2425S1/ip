@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.InvalidDeadlineException;
-import duke.parser.Parser;
+import duke.parser.DateTimeFormatEnum;
 
 /**
  * Represents a deadline task in the DailyTasks application.
@@ -26,7 +26,8 @@ public class Deadline extends Task {
     public Deadline(String description, String by) throws InvalidDeadlineException {
         super(description);
 
-        parsedDateTime = Parser.parseDateTime(by);
+        parsedDateTime = DateTimeFormatEnum.parse(by)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid date format."));;
 
         if (parsedDateTime == null) {
             throw new InvalidDeadlineException("Your deadline is invalid.");
