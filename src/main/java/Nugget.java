@@ -97,8 +97,11 @@ public class Nugget {
             String[] taskParts = splitText[0].split(" ", 2);
             if (taskParts.length < 2) throw new EmptyDescriptionException();
             String taskType = taskParts[0];
+            if (!taskType.equals("deadline")) {
+                throw new UnknownCommandException();
+            }
             String taskDescription = taskParts[1];
-            String date = splitText[1].replaceFirst("^by\\s+", "");
+            String date = splitText[1].replaceFirst("^by\\s+", "").trim();
             Task deadline = new Deadline(taskDescription, date);
             tasks.add(deadline);
             updateTaskFile(tasks);
@@ -109,6 +112,10 @@ public class Nugget {
             System.out.println("Now you have " + numOfTasks + " tasks in the list.");
             System.out.println("________________________________________");
         } else if (splitText.length == 3) {
+            String taskType = splitText[0].trim();
+            if (!taskType.startsWith("event")) {
+                throw new UnknownCommandException();
+            }
             String description = splitText[0].replaceFirst("event ", "").trim();
             String start = splitText[1].replaceFirst("from ", "").trim();
             String end = splitText[2].replaceFirst("to ", "").trim();

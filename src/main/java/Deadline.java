@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
-    private String date;
-
-    public Deadline(String description, String date) {
+    private LocalDateTime dateTime;
+    public Deadline(String description, String date) throws DateTimeParseException{
         super(description);
-        this.date = date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.dateTime = LocalDateTime.parse(date, formatter);
     }
 
     public String getTaskType() {
@@ -12,6 +15,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return this.getTaskType() + super.toString() + "(by: " + this.date + ")";
-    }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+        return this.getTaskType() + super.toString() + "(by: " + this.dateTime.format(formatter) + ")";    }
 }
