@@ -12,27 +12,11 @@ public class Task {
     }
 
     public void markAsDone() {
-        if (isDone) {
-            System.out.println("Already done!");
-        } else {
-            isDone = true;
-            String marked = "____________________________________________________________\n" +
-                    "Nice! I've marked this task as done:\n" + this + "\n" +
-                    "____________________________________________________________\n";
-            System.out.println(marked);
-        }
+        isDone = true;
     }
 
     public void unmark() {
-        if (!isDone) {
-            System.out.println("Already unmarked!");
-        } else {
-            isDone = false;
-            String unmarked = "____________________________________________________________\n" +
-                    "OK, I've marked this task as not done yet:\n" + this + "\n" +
-                    "____________________________________________________________\n";
-            System.out.println(unmarked);
-        }
+         isDone = false;
     }
 
     @Override
