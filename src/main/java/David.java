@@ -28,9 +28,9 @@ public class David {
     public List<Task> tasks;
 
     //constructor for David
-    public David() {
+    public David(String path) {
         this.sc = new Scanner(System.in);
-        c = new Cache("./src/main/java/Data/database.txt");
+        c = new Cache(path);
         this.tasks = c.loadTasks();
     };
 
@@ -239,7 +239,6 @@ public class David {
     }
 
     public static void main(String[] args) {
-        David chat = new David();
-        chat.activateChatBot();
+        new David("./src/main/java/Data/database.txt").activateChatBot();
     }
 }
