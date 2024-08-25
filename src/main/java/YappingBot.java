@@ -21,7 +21,6 @@ public class YappingBot {
 
     // class properties
     private static ArrayList<Task> userList;
-    private static Scanner userInputScanner;
     // end of class properties
 
     // class methods
@@ -31,12 +30,6 @@ public class YappingBot {
     private static void quoteSinglelineText(String line, StringBuilder sb) {
         sb.append("\n |  ");
         sb.append(line);
-    }
-    private static void quoteSinglelineText(String[] line, StringBuilder sb) {
-        sb.append("\n |  ");
-        for (String l : line) {
-            sb.append(l);
-        }
     }
     private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
@@ -66,14 +59,14 @@ public class YappingBot {
                                     TASK_PRINT_TEXT_3s,
                                     t.getTaskTypeSymbol(),
                                     t.getTaskDoneCheckmark(),
-                                    t.toString()
+                                    t
                             )
                     ),
                     sb
             );
         }
         sb.append("\n");
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
     private static int parseTaskNumberSelected(String userInputSlice) {
         int i = -1;
@@ -106,15 +99,17 @@ public class YappingBot {
                         TASK_PRINT_TEXT_3s,
                         t.getTaskTypeSymbol(),
                         t.getTaskDoneCheckmark(),
-                        t.toString()
+                        t
                 ),
                 sb
         );
         sb.append("\n");
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
+
+    // returns true on success, false on failure
+    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "ConstantValue"}) //inversion -> confusion
     private static boolean addTaskToList(String[] userInputSpliced, TaskTypes taskTypes) {
-        // returns true on success, false on failure
         if (userInputSpliced.length <= 1) {
             return false;
         }
@@ -127,18 +122,18 @@ public class YappingBot {
                 // pattern: ^[COMMAND] ( titles )$
                 for (String s : userInputSpliced) {
                     if (command == null) {
-                       command = s;
+                        command = s;
                     } else {
                         sb.append(s);
                         sb.append(" ");
                     }
                 }
                 taskName = sb.toString();
-                newTask = new Todo(taskName, false);
+                newTask = new Todo(taskName.trim(), false);
                 break;
             case DEADLINE:
                 // pattern: ^[COMMAND] (titles) /by (date)$
-                String deadline = null;
+                String deadline;
                 for (String s : userInputSpliced) {
                     if (command == null) {
                         command = s;
@@ -152,10 +147,10 @@ public class YappingBot {
                     sb.append(" ");
                 }
                 deadline = sb.toString();
-                if (deadline == null || taskName == null) {
+                if (deadline.isEmpty() || taskName == null) {
                     return false;
                 }
-                newTask = new Deadline(taskName, false, deadline);
+                newTask = new Deadline(taskName.trim(), false, deadline.trim());
                 break;
             case EVENT:
                 // pattern: ^[COMMAND] (titles) /from (date) /to ([date])$
@@ -192,7 +187,7 @@ public class YappingBot {
                 if (fromTime == null || toTime == null || taskName == null) {
                     return false;
                 }
-                newTask = new Event(taskName, false, fromTime, toTime);
+                newTask = new Event(taskName.trim(), false, fromTime.trim(), toTime.trim());
                 break;
             default:
                 return false;
@@ -203,19 +198,19 @@ public class YappingBot {
         quoteSinglelineText(
                 String.format(TASK_PRINT_TEXT_3s, 
                         newTask.getTaskTypeSymbol(),
-                        newTask.getTaskDoneCheckmark(), 
-                        newTask.toString()),
+                        newTask.getTaskDoneCheckmark(),
+                        newTask),
                 sb
         );
         quoteSinglelineText(String.format(LIST_SUMMARY_TEXT_1d, userList.size()), sb);
-        System.out.println(sb.toString());
+        System.out.println(sb);
         return true;
     }
     // end of class methods
 
     public static void main(String[] args) {
         // initialization
-        userInputScanner = new Scanner(System.in);
+        Scanner userInputScanner = new Scanner(System.in);
         userList = new ArrayList<>();
 
         // start
@@ -225,7 +220,7 @@ public class YappingBot {
         while (userInputScanner.hasNextLine()) {
            String userInput = userInputScanner.nextLine();
            String[] userInputSlices = userInput.split(" ");
-            int taskListIndexPtr = -1; // task list pointer
+            int taskListIndexPtr; // task list pointer
             switch (userInputSlices[0].toLowerCase()) {
                case "bye":
                    break programmeLoop;
