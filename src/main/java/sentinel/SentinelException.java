@@ -1,3 +1,5 @@
+package sentinel;
+
 /**
  * Represents an exception for Sentinel to handle errors.
  */

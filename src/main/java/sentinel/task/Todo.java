@@ -1,3 +1,5 @@
+package sentinel.task;
+
 /**
  * Represents a todo task.
  */

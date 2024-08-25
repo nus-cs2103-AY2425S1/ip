@@ -1,6 +1,15 @@
+package sentinel.parser;
+
+import sentinel.SentinelException;
+import sentinel.task.Deadline;
+import sentinel.task.Event;
+import sentinel.task.Task;
+import sentinel.task.Todo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,15 +18,16 @@ public class Parser {
     public static String DATE_INPUT_PATTERN = "dd/M/yyy";
 
     public static Task parseStringToTask(String string) {
-        String regex = "\\d+\\. \\[(?<taskType>[A-Z])\\]\\[(?<status>[ X])\\] (?<name>[^\\(]+)(?:\\(by: (?<by>[^\\)]+)\\))?(?:\\(from: (?<from>[^\\)]+) to: (?<to>[^\\)]+)\\))?";
+        String regex = "\\d+\\. \\[(?<taskType>[A-Z])\\]\\[(?<status>[ X])\\]" +
+                " (?<name>[^\\(]+)(?:\\(by: (?<by>[^\\)]+)\\))?(?:\\(from: (?<from>[^\\)]+) to: (?<to>[^\\)]+)\\))?";
 
         Pattern r = Pattern.compile(regex);
         Matcher m = r.matcher(string);
 
         if (m.find()) {
-            String taskType = m.group("taskType");      // Task type (e.g., "T")
-            boolean isDone = m.group("status").trim().equals("X"); // Task completion status (e.g., "X" or " ")
-            String taskName = m.group("name").trim(); // Task name
+            String taskType = m.group("taskType");      // sentinel.task.Task type (e.g., "T")
+            boolean isDone = m.group("status").trim().equals("X"); // sentinel.task.Task completion status (e.g., "X" or " ")
+            String taskName = m.group("name").trim(); // sentinel.task.Task name
             String fromTime = m.group("from");      // From timeframe (if present)
             String toTime = m.group("to");        // To timeframe (if present)
             String byTime = m.group("by");        // By timeframe (if present)
@@ -57,7 +67,7 @@ public class Parser {
 
     public static LocalDate parseStringToDate(String stringDate) throws SentinelException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_INPUT_PATTERN);
             return LocalDate.parse(stringDate.trim(), formatter);
         } catch (DateTimeParseException e) {
             throw new SentinelException("Invalid date time format, I can only read formats in dd/M/yyyy pattern!");

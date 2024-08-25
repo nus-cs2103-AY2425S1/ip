@@ -1,11 +1,15 @@
+package sentinel;
+
+import sentinel.command.Commands;
+import sentinel.storage.Storage;
+import sentinel.task.TaskList;
+import sentinel.ui.Ui;
+
 import java.io.IOException;
 
 import java.util.Scanner;
 
 import java.time.LocalDate;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Sentinel chatbot system.
@@ -14,7 +18,6 @@ import java.util.Map;
  */
 public class Sentinel {
     private TaskList taskList;
-    private final Map<String, Commands> commands;
     private final Ui ui;
 
     /**
@@ -23,7 +26,6 @@ public class Sentinel {
      * The task list is initially empty.
      */
     public Sentinel() {
-        this.commands = new HashMap<>();
         this.ui = new Ui();
 
         // Load save file
@@ -34,17 +36,8 @@ public class Sentinel {
             this.taskList = new TaskList();
         }
 
-        // Initialize Commands
-        commands.put("list", new ListTasks());
+        // Initialize sentinel.commands.Commands
 
-        commands.put("mark", new markDone());
-        commands.put("unmark", new markUndone());
-
-        commands.put("todo", new addTodo());
-        commands.put("deadline", new addDeadline());
-        commands.put("event", new addEvent());
-
-        commands.put("delete", new deleteTask());
     }
 
     ////////////// COMMANDS FOR SENTINEL START //////////////
@@ -59,7 +52,7 @@ public class Sentinel {
     /**
      * Makes Sentinel mark the given task number as done.
      *
-     * @param taskNumber Task number to be marked.
+     * @param taskNumber sentinel.task.Task number to be marked.
      */
     public void markDone(int taskNumber) throws SentinelException {
         say("Marked the following task as done: \n " + taskList.markAsDone(taskNumber));
@@ -68,7 +61,7 @@ public class Sentinel {
     /**
      * Makes Sentinel mark the given task number as undone.
      *
-     * @param taskNumber Task number to be unmarked.
+     * @param taskNumber sentinel.task.Task number to be unmarked.
      */
     public void markUndone(int taskNumber) throws SentinelException {
         say("Unmarked the following task: \n " + taskList.markAsUndone(taskNumber));
@@ -104,7 +97,7 @@ public class Sentinel {
     /**
      * Makes Sentinel delete the given task.
      *
-     * @param taskNumber Task to be deleted.
+     * @param taskNumber sentinel.task.Task to be deleted.
      * @throws SentinelException if task does not exist.
      */
     public void deleteTask(int taskNumber) throws SentinelException {
@@ -137,7 +130,7 @@ public class Sentinel {
     /**
      * Makes Sentinel say a message.
      *
-     * @param message Message for Sentinel to say.
+     * @param message Message for sentinel.Sentinel to say.
      */
     public void say(String message) {
         ui.output(message);
@@ -173,11 +166,11 @@ public class Sentinel {
             }
 
             // Check if command exists, if so, run the command
-            if (this.commands.get(parsedCommands[0]) == null) {
+            if (Commands.getCommand(parsedCommands[0]) == null) {
                 ui.showError("Invalid command broski");
             } else {
                 try {
-                    this.commands.get(parsedCommands[0]).run(this, userInput);
+                    Commands.getCommand(parsedCommands[0]).run(this, userInput);
                 } catch (SentinelException exception) {
                     ui.showError(exception.getMessage());
                 }

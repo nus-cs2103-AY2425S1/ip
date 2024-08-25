@@ -1,3 +1,5 @@
+package sentinel.task;
+
 /**
  * Represents a task with a description and a status indicating whether it is done.
  */
@@ -13,7 +15,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the specified description.
+     * Constructs a new sentinel.task.Task with the specified description.
      * The task is initially marked as not done.
      *
      * @param description The description of the task.

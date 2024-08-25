@@ -1,3 +1,7 @@
+package sentinel.task;
+
+import sentinel.parser.Parser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

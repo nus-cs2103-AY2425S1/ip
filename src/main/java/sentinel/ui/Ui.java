@@ -1,3 +1,5 @@
+package sentinel.ui;
+
 public class Ui {
     public static String MESSAGE_LINE = "---------------------------------------";
 
