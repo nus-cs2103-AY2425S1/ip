@@ -9,6 +9,6 @@ public class InvalidTaskException extends AliceException {
 
     @Override
     public String toString() {
-        return String.format("tasks.Task %d does not exist!", this.taskNumber);
+        return String.format("Task %d does not exist!", this.taskNumber);
     }
 }

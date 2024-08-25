@@ -29,14 +29,16 @@ public class Ui {
         scanner.close();
     }
 
-    public void getInput() throws AliceException {
-        while (true) {
+    public void getInput() {
+        while (!parser.isBye()) {
             if (!scanner.hasNext()) {
-                return;
+                continue;
             }
-            parser.parse(scanner.nextLine());
-            if (parser.isBye()) {
-                break;
+            try {
+                parser.parse(scanner.nextLine());
+            } catch (AliceException e) {
+                System.out.println(e);
+                showDivider();
             }
         }
     }
