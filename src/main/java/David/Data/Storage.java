@@ -95,10 +95,11 @@ public class Storage {
      * Creates a new cache inside Data folder if it does not exist
      */
     private void createNewCache() {
+        File newFile = new File(this.path);
+        File parentPath = newFile.getParentFile();  //gets parent path
+        parentPath.mkdirs();
         try {
-        File newFile = new File("./src/main/java/David/Data/database.txt");
-        newFile.createNewFile();
-
+            newFile.createNewFile();
         } catch (IOException e) {
             System.out.println("File cannot be created");
         }
