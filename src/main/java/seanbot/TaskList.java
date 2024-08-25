@@ -1,4 +1,8 @@
+package seanbot;
+
 import java.util.ArrayList;
+
+import seanbot.Tasks.Task;
 
 public class TaskList {
 

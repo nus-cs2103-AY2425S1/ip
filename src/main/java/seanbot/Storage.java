@@ -1,6 +1,13 @@
+package seanbot;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import seanbot.Tasks.Deadline;
+import seanbot.Tasks.Event;
+import seanbot.Tasks.Task;
+import seanbot.Tasks.Todo;
 
 public class Storage {
 

@@ -1,4 +1,11 @@
+package seanbot;
+
 import java.io.IOException;
+
+import seanbot.Tasks.Deadline;
+import seanbot.Tasks.Event;
+import seanbot.Tasks.Task;
+import seanbot.Tasks.Todo;
 
 public class Parser {
 

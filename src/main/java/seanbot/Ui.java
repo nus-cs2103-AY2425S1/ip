@@ -1,3 +1,5 @@
+package seanbot;
+
 public class Ui {
 
     public void showWelcomeMessage() {
