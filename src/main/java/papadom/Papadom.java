@@ -69,7 +69,8 @@ public class Papadom {
                     addEventCommand.execute(taskList, ui, storage);
                     break;
                 case DELETE:
-                    ui.output(taskList.deleteEvent(text));
+                    DeleteEventCommand deleteEventCommand = new DeleteEventCommand(text);
+                    deleteEventCommand.execute(taskList, ui, storage);
                     break;
                 default:
                     throw new UnknownCommandException();
