@@ -125,6 +125,11 @@ public class Main {
     }
 
 
+    /**
+     * reads the content in janet.txt and loads them into an ArrayList<Task>, returns this ArrayList<Task>
+     * @param path a String which represents the relative path to janet.txt in the directory.
+     * @return an ArrayList<Task> listOfTasks, that contains Task objects
+     */
     public static ArrayList<Task> textFileToArrayList(String path) {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         try {
