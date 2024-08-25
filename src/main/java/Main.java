@@ -52,12 +52,18 @@ public class Main {
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfFrom);
         String description = String.join(" ", descriptionArray);
         // get the start date
-        String[] startDateArray = Arrays.copyOfRange(commandDetails, indexOfFrom + 1, indexOfTo);
-        String startDate = String.join(" ", startDateArray);
+//        String[] startDateArray = Arrays.copyOfRange(commandDetails, indexOfFrom + 1, indexOfTo);
+//        String startDate = String.join(" ", startDateArray);
+        String startDate = commandDetails[indexOfFrom + 1];
+        LocalDate startDateIncorrectFormat = LocalDate.parse(startDate);
+        String startDateCorrectFormat = startDateIncorrectFormat.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         // get the end date
-        String[] endDateArray = Arrays.copyOfRange(commandDetails, indexOfTo + 1, commandDetails.length);
-        String endDate = String.join(" ", endDateArray);
-        return new String[]{description, startDate, endDate};
+//        String[] endDateArray = Arrays.copyOfRange(commandDetails, indexOfTo + 1, commandDetails.length);
+//        String endDate = String.join(" ", endDateArray);
+        String endDate = commandDetails[indexOfTo + 1];
+        LocalDate endDateIncorrectFormat = LocalDate.parse(endDate);
+        String endDateCorrectFormat = endDateIncorrectFormat.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return new String[]{description, startDateCorrectFormat, endDateCorrectFormat};
     }
 
 
