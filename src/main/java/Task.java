@@ -41,4 +41,8 @@ public class Task {
         output += description;
         return output;
     }
+
+    public String formatted() {
+        return ((isDone) ? "1" : "0") + " | " + description;
+    }
 }
