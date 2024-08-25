@@ -1,13 +1,24 @@
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.NumberFormatException;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
  * FriendlyBot is a simple task management bot that can list, mark, and unmark tasks.
  */
 public class FriendlyBot {
-    private static ArrayList<Task> tasks;
-    private static int numTasks;
+    private ArrayList<Task> tasks;
+    private int numTasks;
+    private static final String taskListFilePath = "./data/task_list.txt";
+//    private static final String taskListFilePath = "../../../../data/task_list.txt";
+
+    public FriendlyBot() {
+        this.tasks = new ArrayList<>();
+        this.numTasks = 0;
+    }
 
     /**
      * Prints a horizontal bar for visual separation in the console output.
@@ -19,14 +30,15 @@ public class FriendlyBot {
     /**
      * Prints a farewell message to the console.
      */
-    private static void exit() {
+    private void exit() {
+        writeToFile();
         System.out.println("    Bye. Hope to see you again soon!");
     }
 
     /**
      * Lists all the tasks currently in the task list.
      */
-    private static void list() {
+    private void list() {
         System.out.println("    Here are the tasks in your list:");
         for (int i = 1; i <= numTasks; i++) {
             Task task = tasks.get(i - 1);
@@ -39,7 +51,7 @@ public class FriendlyBot {
      *
      * @param input The input string containing the command and the task index.
      */
-    private static void mark(String input) {
+    private void mark(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
             if (index > numTasks) {
@@ -60,7 +72,7 @@ public class FriendlyBot {
      *
      * @param input The input string containing the command and the task index.
      */
-    private static void unmark(String input) {
+    private void unmark(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
             if (index > numTasks) {
@@ -81,7 +93,7 @@ public class FriendlyBot {
      *
      * @param input The input string containing the task index.
      */
-    private static void delete(String input) {
+    private void delete(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
             if (index > numTasks) {
@@ -109,7 +121,7 @@ public class FriendlyBot {
      *
      * @param response The input string containing the task description.
      */
-    private static void createTodo(String response) {
+    private void createTodo(String response) {
         try {
             String input = response.split("todo ", 2)[1];
             Task newTask = new ToDo(input);
@@ -132,7 +144,7 @@ public class FriendlyBot {
      *
      * @param response The input string containing the task description and deadline.
      */
-    private static void createDeadline(String response) {
+    private void createDeadline(String response) {
         try {
             String input = response.split("deadline ", 2)[1];
             String[] descriptions = input.split(" /by ");
@@ -156,7 +168,7 @@ public class FriendlyBot {
      *
      * @param response The input string containing the task description, start date, and end date.
      */
-    private static void createEvent(String response) {
+    private void createEvent(String response) {
         try {
             String input = response.split("event ", 2)[1];
             String[] descriptions = input.split(" /from | /to ");
@@ -175,16 +187,116 @@ public class FriendlyBot {
         }
     }
 
+    private void handleCommand(String command) {
+        if (command.equals("bye")) {
+            this.exit();
+        } else if (command.equals("list")) {
+            this.list();
+        } else if (command.startsWith("mark")) {
+            this.mark(command);
+        } else if (command.startsWith("unmark")) {
+            this.unmark(command);
+        } else if (command.startsWith("delete")) {
+            this.delete(command);
+        } else if (command.startsWith("todo")) {
+            this.createTodo(command);
+        } else if (command.startsWith("deadline")) {
+            this.createDeadline(command);
+        } else if (command.startsWith("event")) {
+            this.createEvent(command);
+        } else {
+            System.out.println("    OOPS!! I'm sorry, that's not a command :-(");
+        }
+    }
+
+    private void writeToFile() {
+        try {
+            FileWriter fw = new FileWriter(taskListFilePath);
+            StringBuilder sb = new StringBuilder();
+            for (Task task : this.tasks) {
+                if (task instanceof ToDo) {
+                    sb.append("T | ");
+                } else if (task instanceof Deadline) {
+                    sb.append("D | ");
+                } else {
+                    sb.append("E | ");
+                }
+                if (task.isDone) {
+                    sb.append("1 | ");
+                } else {
+                    sb.append("0 | ");
+                }
+                sb.append(task.description);
+                if (task instanceof Deadline) {
+                    sb.append(" | ").append(((Deadline) task).by);
+                } else if (task instanceof Event) {
+                    Event e = (Event) task;
+                    sb.append(" | ").append(e.from).append(" | ").append(e.to);
+                }
+                sb.append("\n");
+            }
+            fw.write(sb.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("    Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private void readFromFile() {
+        try {
+            File f = new File(taskListFilePath);
+            if (!f.createNewFile()) {
+                Scanner fileReader = new Scanner(f);
+                while (fileReader.hasNext()) {
+                    // task is in format {type of task} | {0 if not completed, else 1} | {name of task}
+                    // | {other task attributes}
+                    String task = fileReader.nextLine();
+                    try {
+                        Task newTask = getTask(task);
+                        this.tasks.add(newTask);
+                        this.numTasks++;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("    Task is not in the expected format: " + task);
+                        System.out.println("    Removed from task list!");
+                    }
+                }
+                fileReader.close();
+            }
+        } catch (IOException e) {
+            System.out.println("    An error occurred: " + e.getMessage());
+        }
+    }
+
+    private static Task getTask(String task) {
+        String[] taskItems = task.split(" \\| ");
+        String taskType = taskItems[0];
+        String completed = taskItems[1];
+        String taskDescription = taskItems[2];
+        Task newTask;
+        if (taskType.equals("T")) {
+            newTask = new ToDo(taskDescription);
+        } else if (taskType.equals("D")) {
+            newTask = new Deadline(taskDescription, taskItems[3]);
+        } else {
+            newTask = new Event(taskDescription, taskItems[3], taskItems[4]);
+        }
+        if (completed.equals("1")) {
+            newTask.markAsDone();
+        }
+        return newTask;
+    }
+
     /**
      * The main method to run FriendlyBot.
      *
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
+        FriendlyBot friendlyBot = new FriendlyBot();
+        // Read file
+        friendlyBot.readFromFile();
         // Initialise variables
         Scanner reader = new Scanner(System.in);
-        tasks = new ArrayList<>();
-        numTasks = 0;
         // Start of Chat Bot
         FriendlyBot.printHorizontalBar();
         System.out.println("    Hello! I'm Friendly Bot");
@@ -195,26 +307,9 @@ public class FriendlyBot {
         while (!response.equals("bye")) {
             response = reader.nextLine();
             FriendlyBot.printHorizontalBar();
-            if (response.equals("bye")) {
-                FriendlyBot.exit();
-            } else if (response.equals("list")) {
-                FriendlyBot.list();
-            } else if (response.startsWith("mark")) {
-                FriendlyBot.mark(response);
-            } else if (response.startsWith("unmark")) {
-                FriendlyBot.unmark(response);
-            } else if (response.startsWith("delete")) {
-                FriendlyBot.delete(response);
-            } else if (response.startsWith("todo")) {
-                FriendlyBot.createTodo(response);
-            } else if (response.startsWith("deadline")) {
-                FriendlyBot.createDeadline(response);
-            } else if (response.startsWith("event")) {
-                FriendlyBot.createEvent(response);
-            } else {
-                System.out.println("    OOPS!! I'm sorry, that's not a command :-(");
-            }
+            friendlyBot.handleCommand(response);
             FriendlyBot.printHorizontalBar();
         }
+        reader.close();
     }
 }
