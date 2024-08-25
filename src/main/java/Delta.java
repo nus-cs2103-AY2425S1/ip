@@ -381,8 +381,8 @@ public class Delta {
                             String taskName = details[0].strip();
                             String[] timings = details[1].strip().split(" /to ");
                             if (timings.length == 2) {
-                                String start = timings[0].strip();
-                                String end = timings[1].strip();
+                                LocalDateTime start = formatDateTime(timings[0].strip());
+                                LocalDateTime end = formatDateTime(timings[1].strip());
                                 output = addTask(new Event(taskName, start, end));
                             } else {
                                 throw new DeltaException("""
