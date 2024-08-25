@@ -37,7 +37,7 @@ public class MarkCommandTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "2", "3", "4", "5"})
-    public void execute_validMarkIndices_success(String index) throws DukeException {
+    public void execute_validMarkIndices_success(String index) throws TerminatorException {
         MarkCommand mc = new MarkCommand(index);
         Task[] tasks = new Task[] {
                 new TodoTask("task 1"),

@@ -36,7 +36,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_validListPattern_success() throws DukeException {
+    public void execute_validListPattern_success() throws TerminatorException {
         ListCommand lc = new ListCommand(null);
         lc.execute(new ArrayList<Task>());
         assertEquals("Listing current mission objectives:\n\n", outputStreamCaptor.toString());
@@ -46,7 +46,7 @@ public class ListCommandTest {
     @ValueSource(strings = {"list 12345", "list ", "list    ", "list abcde"})
     public void execute_invalidListPatterns_exceptionThrown(String input) {
         ListCommand lc = new ListCommand(input);
-        DukeException de = assertThrows(DukeException.class, () -> lc.execute(new ArrayList<>()));
+        TerminatorException de = assertThrows(TerminatorException.class, () -> lc.execute(new ArrayList<>()));
         assertEquals(ERR_MSG, de.getMessage());
     }
 }

@@ -4,7 +4,7 @@ import terminator.command.CommandParser;
 import terminator.command.Command;
 import terminator.command.DeadlineCommand;
 import terminator.command.DeleteCommand;
-import terminator.command.DukeException;
+import terminator.command.TerminatorException;
 import terminator.command.EventCommand;
 import terminator.command.TodoCommand;
 import terminator.task.Storage;
@@ -12,6 +12,9 @@ import terminator.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Main class for the chatbot application.
+ */
 public class Terminator {
 
     private final TaskList taskList;
@@ -29,11 +32,20 @@ public class Terminator {
         this.storage = new Storage();
     }
 
+    /**
+     * Runs the chatbot application, which first attempts to read data from the local disk to populate
+     * the task list. <br/><br/>
+     *
+     * If the data was read successfully, initiate the main event loop, which can
+     * handle commands from the user through the command line. <br/><br/>
+     *
+     * The application exits when the user enters {@code bye} into the command line.
+     */
     private void run() {
         // Load data from storage
         try {
             this.storage.loadDataFromFile(this.taskList);
-        } catch (DukeException e) {
+        } catch (TerminatorException e) {
             System.out.println("Invalid data format.");
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
@@ -56,7 +68,7 @@ public class Terminator {
                     || command instanceof DeleteCommand) {
                     taskList.printTasksRemaining();
                 }
-            } catch (DukeException de) {
+            } catch (TerminatorException de) {
                 System.out.println("Error detected: " + de.getMessage());
             }
             this.ui.printHorizontalLine();
@@ -67,7 +79,7 @@ public class Terminator {
         // Save data before exit
         try {
             taskList.writeToDisk(this.storage);
-        } catch (DukeException de) {
+        } catch (TerminatorException de) {
             System.out.println(de.getMessage());
         }
 

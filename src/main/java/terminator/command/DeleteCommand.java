@@ -4,6 +4,9 @@ import terminator.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Concrete class representing a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
 
     private final String input;
@@ -16,10 +19,17 @@ public class DeleteCommand extends Command {
             Index to delete cannot be empty.
             
             Usage: delete <index>""";
+
+    /**
+     * Deletes a task from the given task list using the index specified by the user.
+     *
+     * @param todoList The task list.
+     * @throws TerminatorException if the index is out of bounds.
+     */
     @Override
-    public void execute(ArrayList<Task> todoList) throws DukeException {
+    public void execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
-            throw new DukeException(ERR_MSG);
+            throw new TerminatorException(ERR_MSG);
         }
         try {
             int idx = Integer.parseInt(input.trim()) - 1;
@@ -29,7 +39,7 @@ public class DeleteCommand extends Command {
                 Task currentTask = todoList.remove(idx);
                 System.out.println(currentTask);
             } else {
-                throw new DukeException("Index out of bounds.");
+                throw new TerminatorException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
             System.out.println("Error: index is not a valid integer.");

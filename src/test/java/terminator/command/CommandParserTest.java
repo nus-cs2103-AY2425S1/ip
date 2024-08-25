@@ -22,7 +22,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parse_validListPattern_success() throws DukeException {
+    public void parse_validListPattern_success() throws TerminatorException {
         Command c = new CommandParser().parse("list");
         c.execute(new ArrayList<>());
         assertEquals("Listing current mission objectives:\n\n", outputStreamCaptor.toString());

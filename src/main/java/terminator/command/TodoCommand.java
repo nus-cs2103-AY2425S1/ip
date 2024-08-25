@@ -5,6 +5,9 @@ import terminator.task.TodoTask;
 
 import java.util.ArrayList;
 
+/**
+ * Concrete class representing a command to create a TodoTask.
+ */
 public class TodoCommand extends Command {
 
     private final String input;
@@ -18,14 +21,20 @@ public class TodoCommand extends Command {
             
             Usage: todo <description>""";
 
+    /**
+     * Creates a new TodoTask with the given input and adds it to the task list.
+     *
+     * @param todoList The task list.
+     * @throws TerminatorException if the description of the TodoTask is empty.
+     */
     @Override
-    public void execute(ArrayList<Task> todoList) throws DukeException {
+    public void execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
-            throw new DukeException(ERR_MSG);
+            throw new TerminatorException(ERR_MSG);
         }
         String description = input.trim();
         if (description.isEmpty()) {
-            throw new DukeException(ERR_MSG);
+            throw new TerminatorException(ERR_MSG);
         }
         Task t = new TodoTask(description);
         todoList.add(t);

@@ -4,6 +4,9 @@ import terminator.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Concrete class representing a command to unmark an item in the task list.
+ */
 public class UnmarkCommand extends Command {
 
     private final String input;
@@ -17,9 +20,15 @@ public class UnmarkCommand extends Command {
             
             Usage: unmark <index>""";
 
+    /**
+     * Marks a task in the given task list as incomplete.
+     *
+     * @param todoList The task list.
+     * @throws TerminatorException if the user specifies an index out of bounds.
+     */
     @Override
-    public void execute(ArrayList<Task> todoList) throws DukeException {
-        if (input == null) throw new DukeException(ERR_MSG);
+    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+        if (input == null) throw new TerminatorException(ERR_MSG);
         String trimmedInput = input.trim();
         try {
             int idx = Integer.parseInt(trimmedInput) - 1;
@@ -30,7 +39,7 @@ public class UnmarkCommand extends Command {
                 currentTask.markAsIncomplete();
                 System.out.println(currentTask);
             } else {
-                throw new DukeException("Index out of bounds.");
+                throw new TerminatorException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
             System.out.println("Error: index is not a valid integer.");

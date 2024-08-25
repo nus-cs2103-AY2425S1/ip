@@ -4,6 +4,9 @@ import terminator.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Concrete class representing a command to list all tasks in the task list.
+ */
 public class ListCommand extends Command {
 
     private final String input;
@@ -18,10 +21,16 @@ public class ListCommand extends Command {
             
             Usage: list""";
 
+    /**
+     * Lists all the tasks in the task list.
+     *
+     * @param todoList The task list.
+     * @throws TerminatorException if the user supplies extra parameters with the {@code list} command.
+     */
     @Override
-    public void execute(ArrayList<Task> todoList) throws DukeException {
+    public void execute(ArrayList<Task> todoList) throws TerminatorException {
         if (!(input == null)) {
-            throw new DukeException(ERR_MSG);
+            throw new TerminatorException(ERR_MSG);
         }
         System.out.println("Listing current mission objectives:\n");
         for (int i = 0; i < todoList.size(); i++) {

@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Concrete class representing a command to create a EventTask.
+ */
 public class EventCommand extends Command {
 
     private final String input;
@@ -20,17 +23,23 @@ public class EventCommand extends Command {
         this.input = input;
     }
 
+    /**
+     * Creates a new EventTask with the given input and adds it to the task list.
+     *
+     * @param todoList The task list.
+     * @throws TerminatorException if the description of the Event task is empty.
+     */
     @Override
-    public void execute(ArrayList<Task> todoList) throws DukeException {
+    public void execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
-            throw new DukeException(ERR_MSG);
+            throw new TerminatorException(ERR_MSG);
         }
 
         // Extract description string and indices of '/from' and '/to'
         int fromDateIdx = input.indexOf("/from");
         String description = input.substring(0, fromDateIdx).trim();
         if (description.isEmpty()) {
-            throw new DukeException(ERR_MSG);
+            throw new TerminatorException(ERR_MSG);
         }
         int toDateIdx = input.indexOf("/to");
 

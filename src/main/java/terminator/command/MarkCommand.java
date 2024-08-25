@@ -4,8 +4,13 @@ import terminator.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Concrete class representing a command to mark a task in the task list.
+ */
 public class MarkCommand extends Command {
+
     private final String input;
+
     public MarkCommand(String input) {
         super();
         this.input = input;
@@ -16,10 +21,16 @@ public class MarkCommand extends Command {
             
             Usage: mark <index>""";
 
+    /**
+     * Marks a task in the given task list as complete.
+     *
+     * @param todoList The task list.
+     * @throws TerminatorException if the user specifies an index out of bounds.
+     */
     @Override
-    public void execute(ArrayList<Task> todoList) throws DukeException {
+    public void execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
-            throw new DukeException(ERR_MSG);
+            throw new TerminatorException(ERR_MSG);
         }
         String trimmedInput = input.trim();
         try {
@@ -31,7 +42,7 @@ public class MarkCommand extends Command {
                 currentTask.markAsDone();
                 System.out.println(currentTask);
             } else {
-                throw new DukeException("Index out of bounds.");
+                throw new TerminatorException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
             System.out.println("Error: index is not a valid integer.");

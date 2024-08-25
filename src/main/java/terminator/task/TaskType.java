@@ -1,5 +1,12 @@
 package terminator.task;
 
+/**
+ * Enum to represent the possible types of tasks.
+ * @see #TODO
+ * @see #EVENT
+ * @see #DEADLINE
+ * @see #UNKNOWN
+ */
 public enum TaskType {
     TODO {
         @Override
@@ -26,5 +33,9 @@ public enum TaskType {
         }
     };
 
+    /**
+     * Returns a string representation of the task type as a single character.
+     * @return
+     */
     public abstract String toString();
 }

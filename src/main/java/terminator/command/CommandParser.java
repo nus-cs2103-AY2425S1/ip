@@ -3,6 +3,9 @@ package terminator.command;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class to handle and parse user input from standard input.
+ */
 public class CommandParser {
     private final Pattern listPattern;
     private final Pattern markPattern;
@@ -36,6 +39,14 @@ public class CommandParser {
                 + "\\s*$)?");
         this.deletePattern = Pattern.compile("^delete(\\s+\\d+\\s*$)?");
     }
+
+    /**
+     * Parses the user input and returns an instance of a concrete implementation of the Command class,
+     * which can be executed to perform the desired operation.
+     *
+     * @param input The user input to parse
+     * @return An instance of the Command class.
+     */
     public Command parse(String input) {
         Matcher matcher;
         if (input.isEmpty()) {

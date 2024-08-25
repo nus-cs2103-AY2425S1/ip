@@ -1,6 +1,6 @@
 package terminator.task;
 
-import terminator.command.DukeException;
+import terminator.command.TerminatorException;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Class to parse task data from a file. <br/>
+ * Class to handle read/write operations to the local disk. <br/>
  *
- * Example of data:
+ * Example of data that can be read/written:
  * <pre>
  * T 1 attend mission brief
  * D 0 2024-08-24+23:59 save the world
@@ -26,10 +26,15 @@ public final class Storage {
     private static final String DATA_FILE_PATH = "terminator.txt";
 
     public Storage() {
-
     }
 
-    public void loadDataFromFile(TaskList taskList) throws DukeException {
+    /**
+     * Loads data from a file into a TaskList object.
+     *
+     * @param taskList The task list to read data into.
+     * @throws TerminatorException if the file to be read/written from cannot be created.
+     */
+    public void loadDataFromFile(TaskList taskList) throws TerminatorException {
         // Create directory if it does not exist
         System.out.println("Checking if directory exists...");
         File baseDir = new File(DATA_FILE_DIR);
@@ -47,7 +52,7 @@ public final class Storage {
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
-                throw new DukeException("[Fatal] Failed to create data file");
+                throw new TerminatorException("[Fatal] Failed to create data file");
             }
         } else {
             System.out.println("File already exists");
@@ -57,6 +62,12 @@ public final class Storage {
         parseFileData(dataFile, taskList);
     }
 
+    /**
+     * Parses and reads the file data into a task list.
+     *
+     * @param f The file to parse from.
+     * @param taskList The task list to read data into.
+     */
     private void parseFileData(File f, TaskList taskList) {
         System.out.println("Parsing file data...");
 
@@ -189,7 +200,13 @@ public final class Storage {
         return new DeadlineTask(deadlineDesc, byDate);
     }
 
-    public void writeToDisk(ArrayList<Task> taskList) throws DukeException {
+    /**
+     * Writes the task list data to disk.
+     *
+     * @param taskList The task list to write.
+     * @throws TerminatorException if an error occurred while writing to the disk.
+     */
+    public void writeToDisk(ArrayList<Task> taskList) throws TerminatorException {
         // Overwrite previous file if it exists
         try (BufferedWriter outputStream = new BufferedWriter(
                 new FileWriter(DATA_FILE_DIR + "/" + DATA_FILE_PATH, false))) {
@@ -205,7 +222,7 @@ public final class Storage {
             // Flush the output stream
             outputStream.flush();
         } catch (IOException e) {
-            throw new DukeException("Failed to write to disk.");
+            throw new TerminatorException("Failed to write to disk.");
         }
     }
 }
