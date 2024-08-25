@@ -1,5 +1,5 @@
 public class Deadlines extends Task{
-    String time;
+    private String time;
     Deadlines(String content, String time) {
         super(content);
         this.time = time;

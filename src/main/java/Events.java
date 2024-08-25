@@ -1,5 +1,5 @@
 public class Events extends Task{
-    String start, end;
+    private String start, end;
     Events(String content, String start, String end) {
         super(content);
         this.start = start;
