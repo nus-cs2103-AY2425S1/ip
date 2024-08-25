@@ -1,12 +1,10 @@
 package duck.commands;
 
 import duck.data.TaskList;
-import duck.data.exception.DuckException;
 import duck.storage.Storage;
 import duck.ui.Ui;
 
 public class InvalidCommand extends Command {
-
     public InvalidCommand(String message) {
         super(message);
     }

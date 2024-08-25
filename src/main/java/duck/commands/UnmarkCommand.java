@@ -6,7 +6,6 @@ import duck.storage.Storage;
 import duck.ui.Ui;
 import duck.util.Utils;
 public class UnmarkCommand extends Command {
-
     public UnmarkCommand(String message) {
         super(message);
     }
@@ -18,6 +17,7 @@ public class UnmarkCommand extends Command {
         }
 
         String[] words = message.split(" ");
+
         try {
             tasks.get(Integer.parseInt(words[1]) - 1).markAsIncomplete();
             storage.writeTasks(tasks);

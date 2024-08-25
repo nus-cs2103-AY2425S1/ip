@@ -7,7 +7,6 @@ import duck.storage.Storage;
 import duck.ui.Ui;
 
 public class ListCommand extends Command {
-
     public ListCommand(String message) {
         super(message);
     }
@@ -26,6 +25,4 @@ public class ListCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
-
 }

@@ -7,7 +7,6 @@ import duck.ui.Ui;
 import duck.util.Utils;
 
 public class DeleteCommand extends Command {
-
     public DeleteCommand(String message) {
         super(message);
     }

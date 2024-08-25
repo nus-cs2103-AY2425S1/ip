@@ -28,6 +28,7 @@ public class Event extends Task implements Datable {
                 + " | " + getFileDateString(from)
                 + " | " + getFileDateString(to);
     }
+
     @Override
     public String toString() {
         return "[E]" + super.toString()

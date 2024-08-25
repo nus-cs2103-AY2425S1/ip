@@ -8,6 +8,7 @@ public class ToDo extends Task {
     public ToDo(boolean isDone, String description) {
         super(isDone, description);
     }
+
     @Override
     public String toFileFormat() {
         return "T | " + super.toFileFormat();

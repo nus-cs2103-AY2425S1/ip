@@ -1,10 +1,8 @@
 package duck.ui;
 
-import duck.commands.CommandWord;
 import duck.data.exception.DuckException;
 
 import java.util.Scanner;
-
 
 public class Ui {
     Scanner in;
@@ -13,7 +11,6 @@ public class Ui {
         this.in = new Scanner(System.in);
     }
 
-
     public void showStartUpMessage() {
         System.out.println("Initializing Duck...");
     }
@@ -21,6 +18,7 @@ public class Ui {
     public void showStartUpCompleteMessage() {
         System.out.println("Quack. Duck is up!");
     }
+
     public void sayHi() {
         String logo = """
                         ,---,                                  ,-.
@@ -40,13 +38,11 @@ public class Ui {
 
 
         System.out.println("Hello from\n" + logo);
-
         System.out.println("Hello! I'm Duck.");
         System.out.println("What can I do for you, QUACK?\n");
     }
 
     public String readCommand() {
-
         if (in.hasNextLine()) {
             return(in.nextLine().trim());
         }
@@ -65,8 +61,4 @@ public class Ui {
     public void displayIllegalArgumentMessage(IllegalArgumentException iae) {
         System.out.println("Quack, that's not a valid instruction! I don't know how to respond to that.");
     }
-
-
-
-
 }

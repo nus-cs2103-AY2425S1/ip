@@ -23,6 +23,7 @@ public class Deadline extends Task implements Datable {
     public String toFileFormat() {
         return "D | " + super.toFileFormat() + " | " + getFileDateString(by);
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString()

@@ -12,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EventCommand extends Command {
-
     public EventCommand(String message) {
         super(message);
     }

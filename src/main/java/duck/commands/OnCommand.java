@@ -13,7 +13,6 @@ import duck.ui.Ui;
 import java.util.stream.Stream;
 
 public class OnCommand extends Command {
-
     public OnCommand(String message) {
         super(message);
     }
@@ -25,6 +24,7 @@ public class OnCommand extends Command {
             throw new DuckException("The format for 'On' instruction is:\n"
                     + "on {yyyy-MM-dd}");
         }
+
         LocalDate date = LocalDate.parse(words[1]);
         AtomicInteger idx = new AtomicInteger(1);
 

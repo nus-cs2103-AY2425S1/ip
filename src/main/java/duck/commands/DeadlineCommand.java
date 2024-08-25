@@ -12,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DeadlineCommand extends Command {
-
     public DeadlineCommand(String message) {
         super(message);
     }

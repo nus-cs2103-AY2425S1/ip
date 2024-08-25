@@ -7,7 +7,6 @@ import duck.storage.Storage;
 import duck.ui.Ui;
 
 public class ToDoCommand extends Command {
-
     public ToDoCommand(String message) {
         super(message);
     }
@@ -32,6 +31,4 @@ public class ToDoCommand extends Command {
         }
         return new ToDo(description);
     }
-
-
 }

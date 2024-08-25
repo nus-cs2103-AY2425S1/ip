@@ -5,7 +5,6 @@ import duck.storage.Storage;
 import duck.ui.Ui;
 
 public class ByeCommand extends Command {
-
     public ByeCommand(String message) {
         super(message);
     }

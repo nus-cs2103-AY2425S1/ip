@@ -60,6 +60,7 @@ public class Storage {
                 String line = sc.nextLine();
                 String[] words = line.split(" \\| ");
                 Task task = null;
+
                 switch (words[0]) {
                 case "T":
                     if (hasCorrectFileFormat(words, TaskType.TODO)) {
@@ -88,6 +89,7 @@ public class Storage {
                 default:
                     continue;
                 }
+
                 if (task != null) {
                     tasks.add(task);
                 } else {

@@ -35,6 +35,7 @@ public abstract class Task {
     public String toFileFormat() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
