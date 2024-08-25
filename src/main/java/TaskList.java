@@ -10,12 +10,21 @@ public class TaskList {
     private ArrayList<Task> taskList;
     private int numOfTasks;
 
+
     /**
      * Constructor for a TaskList. Initializes number of tasks to 0.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
-        this.numOfTasks = 0;
+        this.taskList = IOHandler.toArrayList();
+        this.numOfTasks = this.taskList.size();
+    }
+
+    public int getNumOfTasks() {
+        return this.numOfTasks;
+    }
+
+    public Task getTaskByIndex(int i) {
+        return this.taskList.get(i);
     }
 
     /**

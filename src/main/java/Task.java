@@ -4,7 +4,7 @@
  * @author Eda Yeo
  * @version CS2103T AY24/25 Semester 1
  */
-public class Task {
+abstract public class Task {
     private String task;
     private boolean complete;
 
@@ -23,6 +23,13 @@ public class Task {
      */
     public void complete() {
         this.complete = true;
+    }
+
+    /**
+     * Returns task description.
+     */
+    public String getTask() {
+        return this.task;
     }
 
     /**
@@ -47,4 +54,6 @@ public class Task {
     public Boolean isComplete() {
         return this.complete;
     }
+
+    abstract public String genFileString();
 }

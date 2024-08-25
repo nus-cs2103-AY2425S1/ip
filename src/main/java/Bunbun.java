@@ -9,11 +9,13 @@ import java.util.ArrayList;
 public class Bunbun {
     public static void main(String[] args) {
         UI.startScreen();
+        IOHandler.initializeTaskFile();
         TaskList list = new TaskList();
 
         while (true) {
             String msg = Parser.getMessage();
             if (msg.equals("bye")) {
+                IOHandler.writeAllFromList(list);
                 UI.endScreen();
                 break;
             } else {

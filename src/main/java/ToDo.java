@@ -12,6 +12,13 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String genFileString() {
+        String isComplete = (this.isComplete()) ? "true" : "false";
+        String taskDescription = String.format("%s;%s;%s\n", "todo", isComplete, this.getTask());
+        return taskDescription;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

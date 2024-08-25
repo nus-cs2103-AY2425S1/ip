@@ -15,6 +15,15 @@ public class Event extends Task {
         this.start = start;
         this.end = end;
     }
+
+    @Override
+    public String genFileString() {
+        String isComplete = (this.isComplete()) ? "true" : "false";
+        String taskDescription = String.format("%s;%s;%s;%s;%s\n", "event", isComplete, this.getTask(),
+                this.start, this.end);
+        return taskDescription;
+    }
+
     @Override
     public String toString() {
         String str = "[E]" + super.toString() + String.format("( from: %sto: %s)", this.start, this.end);
