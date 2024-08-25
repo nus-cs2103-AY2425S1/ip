@@ -11,6 +11,22 @@ public class Deadline extends Task {
         }
     }
 
+    public Deadline(boolean isDone, String description, String by) throws InfinityException {
+        this.isDone = isDone;
+        this.setDescription(description);
+        this.by = by;
+        this.setTypeOfTask("D");
+    }
+
+    @Override
+    public String saveFileFormat(String delimiter) {
+        return String.format("%s%s%s%s%s%s%s", 
+                this.typeOfTask, delimiter, 
+                this.isDone ? "1" : "0", delimiter, 
+                this.by, delimiter, 
+                this.description);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s][%s] %s (by: %s)", this.typeOfTask, this.isDone ? "X" : " ", this.description, this.by);

@@ -13,8 +13,27 @@ public class Event extends Task {
         }
     }
 
+    public Event(boolean isDone, String description, String from, String to) throws InfinityException {
+        this.isDone = isDone;
+        this.setDescription(description);
+        this.from = from;
+        this.to = to;
+        this.setTypeOfTask("E");
+    }
+
+    @Override
+    public String saveFileFormat(String delimiter) {
+        return String.format("%s%s%s%s%s%s%s%s%s", 
+                this.typeOfTask, delimiter, 
+                this.isDone ? "1" : "0", delimiter, 
+                this.from, delimiter, 
+                this.to, delimiter, 
+                this.description);
+    }
+
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s (from: %s, to: %s)", this.typeOfTask, this.isDone ? "X" : " ", this.description, this.from, this.to);
+        return String.format("[%s][%s] %s (from: %s, to: %s)", 
+                this.typeOfTask, this.isDone ? "X" : " ", this.description, this.from, this.to);
     }
 }

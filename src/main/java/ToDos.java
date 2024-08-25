@@ -3,4 +3,10 @@ public class ToDos extends Task {
         this.setDescription(description);
         this.setTypeOfTask("T");
     }
+
+    public ToDos(boolean isDone, String description) throws InfinityException {
+        this.isDone = isDone;
+        this.setDescription(description);
+        this.setTypeOfTask("T");
+    }
 }

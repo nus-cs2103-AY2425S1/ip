@@ -13,9 +13,15 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Test Files
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
+# Save Files
+data/
+
+# Java Files
 *.class
 
+# Git Files
 .gitignore
