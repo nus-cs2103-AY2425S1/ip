@@ -8,14 +8,39 @@ public class YappingBot {
             "Hello! I'm %s\nWhat can I do for you?",
             BOT_NAME
     );
+    private static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, deadline.";
+    private static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n" + HELP_TEXT;
     private static final String LIST_TEXT = "Here are the tasks in your list:";
     private static final String ADDED_TEXT = "Got it. I've added this task:";
+    private static final String TODO_USAGE =
+            "Here is the usage for the instruction 'todo':\n" +
+            "\n    todo TASK_NAME\n\n" +
+            "where TASK_NAME is the name of this todo task to add";
+    private static final String DEADLINE_USAGE =
+            "Here is the usage for the instruction 'deadline':\n" +
+            "\n    deadline TASK_NAME /by DEADLINE\n\n" +
+            "where TASK_NAME is the name of this deadline task to add\n" +
+            "      DEADLINE  is the deadline for this task";
+    private static final String EVENT_USAGE =
+            "Here is the usage for the instruction 'event':\n" +
+            "\n    event TASK_NAME /from START_DATE /to END_DATE\n\n" +
+            "where TASK_NAME  is the name of this event task to add\n" +
+            "      START_DATE is the start time/date for this event\n" +
+            "      END_DATE   is the end time/date for this event";
     private static final String TASK_PRINT_TEXT_3s = "[%s][%s] %s";
     private static final String LIST_SUMMARY_TEXT_1d = "Now you have %d tasks in the list.";
     private static final String SELECT_TASK_NOT_INT_TEXT_1s = "I'm sorry, I do not understand which item '%s' refers to!";
     private static final String SELECT_TASK_MISSING_TEXT_1d = "I'm sorry, but task number %d does not exist!";
     private static final String MARKED_TASK_AS_DONE_TEXT = "Nice! I've marked this task as done:";
+    private static final String MARK_INSTRUCTION_USAGE =
+            "Here is the usage for the instruction 'unmark':\n" +
+            "\n    mark TASK_NUMBER\n\n" +
+            "where TASK_NUMBER is the task number in the task list";
     private static final String UNMARKED_TASK_AS_DONE_TEXT = "OK, I've marked this task as not done:";
+    private static final String UNMARK_INSTRUCTION_USAGE =
+            "Here is the usage for the instruction 'unmark':\n" +
+            "\n    unmark TASK_NUMBER\n\n" +
+            "where TASK_NUMBER is the task number in the task list";
     private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
     // End of text strings
 
@@ -25,11 +50,19 @@ public class YappingBot {
 
     // class methods
     private static String quoteSinglelineText(String line) {
-       return String.format("\n |  %s\n", line);
+        if (line.trim().isEmpty()) {
+            return "\n |";
+        } else {
+            return String.format("\n |  %s\n", line);
+        }
     }
     private static void quoteSinglelineText(String line, StringBuilder sb) {
-        sb.append("\n |  ");
-        sb.append(line);
+        if (line.trim().isEmpty()) {
+            sb.append("\n |");
+        } else {
+            sb.append("\n |  ");
+            sb.append(line);
+        }
     }
     private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
@@ -221,7 +254,7 @@ public class YappingBot {
            String userInput = userInputScanner.nextLine();
            String[] userInputSlices = userInput.split(" ");
             int taskListIndexPtr; // task list pointer
-            switch (userInputSlices[0].toLowerCase()) {
+            switch (userInputSlices[0].toLowerCase().trim()) {
                case "bye":
                    break programmeLoop;
                case "list":
@@ -230,7 +263,7 @@ public class YappingBot {
                case "mark":
                    taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
                    if (taskListIndexPtr < 0) {
-                       // System.out.println(quoteSinglelineText(MARK_INSTRUCTION_USAGE));
+                       System.out.println(quoteMultilineText(MARK_INSTRUCTION_USAGE));
                    } else {
                        changeTaskListStatus(taskListIndexPtr, true);
                    }
@@ -238,27 +271,33 @@ public class YappingBot {
                case "unmark":
                    taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
                    if (taskListIndexPtr < 0) {
-                       // System.out.println(quoteSinglelineText(UNMARK_INSTRUCTION_USAGE));
+                       System.out.println(quoteMultilineText(UNMARK_INSTRUCTION_USAGE));
                    } else {
                        changeTaskListStatus(taskListIndexPtr, false);
                    }
                    break;
                 case "todo":
                     if (!addTaskToList(userInputSlices, TaskTypes.TODO)) {
-                        // todo: usage
+                        System.out.println(quoteMultilineText(TODO_USAGE));
                     }
                     break;
                 case "event":
                     if(!addTaskToList(userInputSlices, TaskTypes.EVENT)) {
-                        // todo: usage
+                        System.out.println(quoteMultilineText(EVENT_USAGE));
                     }
                     break;
                 case "deadline":
                     if(!addTaskToList(userInputSlices, TaskTypes.DEADLINE)) {
-                        // todo: usage
+                        System.out.println(quoteMultilineText(DEADLINE_USAGE));
                     }
                     break;
+                case "":
+                    System.out.println(quoteSinglelineText(HELP_TEXT));
+                    break; // sanity break
                 default:
+                    System.out.println(quoteMultilineText(
+                            String.format(UNKNOWN_COMMAND_TEXT_1s, userInput)
+                    ));
                     break; // sanity break
            }
         }

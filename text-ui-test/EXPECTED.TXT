@@ -3,25 +3,91 @@
  |  What can I do for you?
 
 
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
+ |  I'm sorry, I do not understand what 'asdasd' is!
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
  |  List is empty!
 
 
  |  I'm sorry, but task number 1 does not exist!
 
 
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      mark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
+
+
  |  I'm sorry, but task number 2 does not exist!
 
 
- |  I'm sorry, but task number -1 does not exist!
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      unmark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
 
 
  |  I'm sorry, but task number -1 does not exist!
 
 
- |  I'm sorry, I do not understand which item '1.23' refers to!
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      mark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
+
+
+ |  I'm sorry, but task number -1 does not exist!
+
+
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      unmark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
 
 
  |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      mark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
+
+
+ |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      unmark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
+
+
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
+ |  Here is the usage for the instruction 'todo':
+ |
+ |      todo TASK_NAME
+ |
+ |  where TASK_NAME is the name of this todo task to add
+
+
+ |  Here is the usage for the instruction 'todo':
+ |
+ |      todo TASK_NAME
+ |
+ |  where TASK_NAME is the name of this todo task to add
 
 
  |  Got it. I've added this task:
@@ -32,30 +98,134 @@
  |  [T][ ] trailing spaces
  |  Now you have 2 tasks in the list.
 
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
  |  Here are the tasks in your list:
  |   1.[T][ ] This is a to-do
  |   2.[T][ ] trailing spaces
+
+
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
+ |  Here is the usage for the instruction 'deadline':
+ |
+ |      deadline TASK_NAME /by DEADLINE
+ |
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
+
+
+ |  Here is the usage for the instruction 'deadline':
+ |
+ |      deadline TASK_NAME /by DEADLINE
+ |
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
 
 
  |  Got it. I've added this task:
  |  [D][ ] many trailing spaces in previous task (by: today)
  |  Now you have 3 tasks in the list.
 
+ |  Here is the usage for the instruction 'deadline':
+ |
+ |      deadline TASK_NAME /by DEADLINE
+ |
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
+
+
+ |  Here is the usage for the instruction 'deadline':
+ |
+ |      deadline TASK_NAME /by DEADLINE
+ |
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
+
+
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
  |  Here are the tasks in your list:
  |   1.[T][ ] This is a to-do
  |   2.[T][ ] trailing spaces
  |   3.[D][ ] many trailing spaces in previous task (by: today)
+
+
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
+ |  Here is the usage for the instruction 'event':
+ |
+ |      event TASK_NAME /from START_DATE /to END_DATE
+ |
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
+
+
+ |  Here is the usage for the instruction 'event':
+ |
+ |      event TASK_NAME /from START_DATE /to END_DATE
+ |
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
 
 
  |  Got it. I've added this task:
  |  [E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
  |  Now you have 4 tasks in the list.
 
+ |  Here is the usage for the instruction 'event':
+ |
+ |      event TASK_NAME /from START_DATE /to END_DATE
+ |
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
+
+
+ |  Here is the usage for the instruction 'event':
+ |
+ |      event TASK_NAME /from START_DATE /to END_DATE
+ |
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
+
+
+ |  Here is the usage for the instruction 'event':
+ |
+ |      event TASK_NAME /from START_DATE /to END_DATE
+ |
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
+
+
+ |  Here is the usage for the instruction 'event':
+ |
+ |      event TASK_NAME /from START_DATE /to END_DATE
+ |
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
+
+
+ |  Available commands: list, mark, unmark, todo, event, deadline.
+
+
  |  Here are the tasks in your list:
  |   1.[T][ ] This is a to-do
  |   2.[T][ ] trailing spaces
  |   3.[D][ ] many trailing spaces in previous task (by: today)
  |   4.[E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
+
+
+ |  Available commands: list, mark, unmark, todo, event, deadline.
 
 
  |  Nice! I've marked this task as done:
@@ -73,13 +243,44 @@
  |  I'm sorry, but task number -1 does not exist!
 
 
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      mark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
+
+
  |  I'm sorry, but task number -1 does not exist!
 
 
- |  I'm sorry, I do not understand which item '1.23' refers to!
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      unmark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
 
 
  |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      mark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
+
+
+ |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  Here is the usage for the instruction 'unmark':
+ |
+ |      unmark TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list
+
+
+ |  Available commands: list, mark, unmark, todo, event, deadline.
 
 
  |  Bye. Hope to see you again soon!
