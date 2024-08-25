@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -171,7 +172,9 @@ public class Main {
                     case 'D' -> {
                         // deadline object
                         String deadlineDescription = line.substring(8, line.indexOf("|", 8) - 1);
-                        String dueDate = line.substring(line.indexOf("|", 8) + 2);
+                        String dueDateAndTime = line.substring(line.indexOf("|", 8) + 2);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
+                        LocalDateTime dueDate = LocalDateTime.parse(dueDateAndTime, formatter);
                         task = new Deadline(deadlineDescription, "D", dueDate);
                         task.setDone(isDone);
                     }
