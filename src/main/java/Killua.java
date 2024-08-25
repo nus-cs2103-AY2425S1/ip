@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -83,12 +86,69 @@ public class Killua {
         printLine();
     }
 
+    private static void saveList(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("./data/tasklist.txt");
+        for (Task task : tasks) {
+            fw.write(task.toSave() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static ArrayList<Task> loadTasks() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File("./data/tasklist.txt");
+
+        if (file.exists()) {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = parseTask(line);
+                tasks.add(task);
+            }
+            scanner.close();
+        }
+
+        return tasks;
+    }
+
+    private static Task parseTask(String line) {
+        char taskType = line.charAt(0);
+        boolean isDone = line.charAt(4) == 1;
+        String argument = line.substring(8);
+
+        Task task;
+
+        if (taskType == 'T') {
+            task = new Todo(argument);
+        } else if (taskType == 'D') {
+            String[] strs = argument.split("\\|", 2);
+            task = new Deadline(strs[0].strip(), strs[1].strip());
+        } else if (taskType == 'E') {
+            String[] strs = argument.split("\\|", 3);
+            task = new Event(strs[0].strip(), strs[1].strip(), strs[2].strip());
+        } else {
+            throw new IllegalArgumentException("Unknown task type: " + taskType);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
     public static void main(String[] args) {
         showUserPage();
 
         boolean isRunning = true;
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            tasks = loadTasks();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
 
         while (isRunning) {
             String input = scanner.nextLine().trim();
@@ -123,6 +183,7 @@ public class Killua {
                     } catch (IndexOutOfBoundsException e) {
                         throw new KilluaException("Task not found: Task " + argument);
                     }
+                    saveList(tasks);
                     break;
                 case TODO:
                     if (Objects.equals(argument, "")) {
@@ -132,6 +193,7 @@ public class Killua {
                     Task todo = new Todo(argument);
                     tasks.add(todo);
                     add(tasks, todo);
+                    saveList(tasks);
                     break;
                 case DEADLINE:
                     if (Objects.equals(argument, "")) {
@@ -147,6 +209,7 @@ public class Killua {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new KilluaException("Please use the correct format for deadlines: deadline <description> /by <date>");
                     }
+                    saveList(tasks);
                     break;
                 case EVENT:
                     if (Objects.equals(argument, "")) {
@@ -163,9 +226,10 @@ public class Killua {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new KilluaException("Please use the correct format for events: event <description> /from <start time> /to <end time>");
                     }
+                    saveList(tasks);
                     break;
                 }
-            } catch (KilluaException e) {
+            } catch (KilluaException | IOException e) {
                 printLine();
                 System.out.println(e.getMessage());
                 printLine();
