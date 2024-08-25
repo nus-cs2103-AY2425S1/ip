@@ -167,6 +167,29 @@ public class DemureBot {
         return true;
     }
 
+    public static String formatTask(Task task) {
+        String[] parts = task.toString().split("]", 3);
+        String type = parts[0].substring(1, 2);
+        String status = parts[1].charAt(1) == 'X' ? "1" : "0";
+        String description = parts[2].trim();
+
+        if (type.equals("D")) {
+            int byIndex = description.indexOf("(by: ");
+            String by = description.substring(byIndex + 5, description.length() - 1);
+            description = description.substring(0, byIndex - 1);
+            return type + " | " + status + " | " + description + " | " + by;
+        } else if (type.equals("E")) {
+            int fromIndex = description.indexOf("(from: ");
+            int toIndex = description.indexOf(" to: ");
+            String from = description.substring(fromIndex + 7, toIndex);
+            String to = description.substring(toIndex + 5, description.length() - 1);
+            description = description.substring(0, fromIndex - 1);
+            return type + " | " + status + " | " + description + " | " + from + " | " + to;
+        } else {
+            return type + " | " + status + " | " + description;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -230,8 +253,8 @@ public class DemureBot {
         try {
             writer = new FileWriter(filePath);
             for (Task task : list) {
-
-                writer.write(task.toString() + "\n");
+                String formattedTask = formatTask(task);
+                writer.write(formattedTask + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
