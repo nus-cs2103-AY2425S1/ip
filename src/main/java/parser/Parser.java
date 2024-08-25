@@ -1,4 +1,4 @@
-package validator;
+package parser;
 import orionExceptions.*;
 import task.DeadlineDetails;
 import task.EventDetails;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Validator {
+public class Parser {
 
     public boolean validateListCommand(String[] parts) throws InvalidListException{
         if (parts == null || parts.length > 1 || !parts[0].equals("list")) {
