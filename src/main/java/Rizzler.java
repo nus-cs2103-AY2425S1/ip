@@ -12,7 +12,8 @@ public class Rizzler {
                 + "Bye! Rizz you later!\n"
                 + separator;
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
+        FileStorage fileStorage = new FileStorage("data/saveData.txt");
+        ArrayList<Task> taskList = fileStorage.load();
 
         System.out.println(greeting);
         while(true) {
@@ -51,6 +52,7 @@ public class Rizzler {
                                 + "Hell yeah! You finished your task:\n"
                                 + taskList.get(index) + "\n"
                                 + separator);
+                        fileStorage.save(taskList);
                         break;
                     } catch (NumberFormatException e) {
                         System.out.println(separator
@@ -77,6 +79,7 @@ public class Rizzler {
                                 + "Womp womp. Better do it later:\n"
                                 + taskList.get(index2) + "\n"
                                 + separator);
+                        fileStorage.save(taskList);
                         break;
                     } catch (NumberFormatException e) {
                         System.out.println(separator
@@ -107,6 +110,7 @@ public class Rizzler {
                             + newTask + "\n"
                             + "Now you have " + taskList.size() + " tasks in the list.\n"
                             + separator);
+                    fileStorage.save(taskList);
                     break;
                 case "deadline":
                     int indexOfBy = 0;
@@ -144,6 +148,7 @@ public class Rizzler {
                             + newDeadline + "\n"
                             + "Now you have " + taskList.size() + " tasks in the list.\n"
                             + separator);
+                    fileStorage.save(taskList);
                     break;
                 case "event":
                     int indexOfFrom = 0;
@@ -195,6 +200,7 @@ public class Rizzler {
                             + newEvent + "\n"
                             + "Now you have " + taskList.size() + " tasks in the list.\n"
                             + separator);
+                    fileStorage.save(taskList);
                     break;
                 case "delete":
                     if (taskList.isEmpty()) {
@@ -210,6 +216,7 @@ public class Rizzler {
                                 + taskList.remove(deleteIndex) + "\n"
                                 + "Now you have " + taskList.size() + " tasks in the list.\n"
                                 + separator);
+                        fileStorage.save(taskList);
                         break;
                     } catch (NumberFormatException e) {
                         System.out.println(separator
