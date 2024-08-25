@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents errors from the Bob application.
+ */
 public class BobException extends Exception {
     private String error;
 

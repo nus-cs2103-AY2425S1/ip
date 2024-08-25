@@ -1,10 +1,15 @@
 package duke;
 
-import duke.tasks.Task;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.tasks.Task;
 
 /**
  * Represents the persistent storage for tasks.
@@ -53,7 +58,7 @@ public class Storage {
         int lineNum = 1;
         String line;
 
-        while((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             if (lineNum == itemNum) {
                 Task task = Parser.parseStorage(line);
                 task.mark(isCompleted);
@@ -84,7 +89,7 @@ public class Storage {
         int lineNum = 1;
         String currentLine;
 
-        while((currentLine = reader.readLine()) != null) {
+        while ((currentLine = reader.readLine()) != null) {
             if (lineNum != itemNum) {
                 writer.write(currentLine + System.getProperty("line.separator"));
             }

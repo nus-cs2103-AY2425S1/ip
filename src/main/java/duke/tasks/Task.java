@@ -1,6 +1,9 @@
 package duke.tasks;
 
-public class Task {
+/**
+ * Represents a task.
+ */
+public abstract class Task {
     /**
      * Whether the task is completed.
      */
