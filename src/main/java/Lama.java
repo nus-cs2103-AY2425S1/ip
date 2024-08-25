@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.zip.DataFormatException;
+
 
 public class Lama {
 
@@ -16,8 +16,8 @@ public class Lama {
 
         String bar = "____________________________________________________________";
         ArrayList<Task> list = new ArrayList<>();
-
         try {
+//            TaskList list = new TaskList(storage.loadTask());
             list = storage.loadTask();
         } catch (IOException | LamaException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
