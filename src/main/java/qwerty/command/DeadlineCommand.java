@@ -1,7 +1,15 @@
+package qwerty.command;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import qwerty.QwertyException;
+import qwerty.Storage;
+import qwerty.TaskList;
+import qwerty.Ui;
+import qwerty.task.Task;
+import qwerty.task.Deadline;
 
 public class DeadlineCommand extends Command {
 

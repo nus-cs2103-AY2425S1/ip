@@ -1,3 +1,5 @@
+package qwerty.task;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -8,8 +10,9 @@ import java.util.List;
  * A Deadline needs to be done before a specific time.
  */
 public class Deadline extends Task {
+
     /** The deadline of the task */
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
         super(description);

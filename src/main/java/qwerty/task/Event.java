@@ -1,17 +1,20 @@
+package qwerty.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class encapsulates an Event type task.
+ * This class encapsulates an Event type qwerty.task.
  * An Event starts at a specific time and ends at a specific time.
  */
 public class Event extends Task {
+
     /** The time at which the event starts */
-    private LocalDateTime from;
+    private final LocalDateTime from;
     /** The time at which the event ends */
-    private LocalDateTime to;
+    private final LocalDateTime to;
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

@@ -1,3 +1,5 @@
+package qwerty;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,6 +7,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import qwerty.task.Deadline;
+import qwerty.task.Event;
+import qwerty.task.Task;
+import qwerty.task.Todo;
 
 public class Storage {
     /** The file path of the save file */
@@ -56,7 +62,7 @@ public class Storage {
                             break; // skip empty lines
                         case "T":
                             if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Todo task");
+                                throw new QwertyException("Missing arguments for qwerty.task.Todo qwerty.task");
                             }
                             Task todo = new Todo(args[2]);
                             if (args[1].equals("X")) {
@@ -66,7 +72,7 @@ public class Storage {
                             break;
                         case "D":
                             if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Deadline task");
+                                throw new QwertyException("Missing arguments for qwerty.task.Deadline qwerty.task");
                             }
                             Task deadline = new Deadline(
                                     args[2],
@@ -79,7 +85,7 @@ public class Storage {
                             break;
                         case "E":
                             if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Event task");
+                                throw new QwertyException("Missing arguments for qwerty.task.Event qwerty.task");
                             }
                             Task event = new Event(args[2],
                                     LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
@@ -91,7 +97,7 @@ public class Storage {
                             taskList.addTask(event);
                             break;
                         default:
-                            System.out.println("Unrecognised task identifier: " + args[0]);
+                            System.out.println("Unrecognised qwerty.task identifier: " + args[0]);
                             break;
                         }
                     } catch (QwertyException e) {

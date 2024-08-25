@@ -1,6 +1,18 @@
-import java.util.Arrays;
+package qwerty;
+
 import java.util.HashMap;
 import java.util.Scanner;
+import qwerty.command.ByeCommand;
+import qwerty.command.Command;
+import qwerty.command.DeadlineCommand;
+import qwerty.command.DeleteCommand;
+import qwerty.command.EmptyCommand;
+import qwerty.command.EventCommand;
+import qwerty.command.ListCommand;
+import qwerty.command.MarkCommand;
+import qwerty.command.TodoCommand;
+import qwerty.command.UnknownCommand;
+import qwerty.command.UnmarkCommand;
 
 public class Parser {
     /**

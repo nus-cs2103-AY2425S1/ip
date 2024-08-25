@@ -1,4 +1,10 @@
+package qwerty.command;
+
 import java.util.HashMap;
+import qwerty.QwertyException;
+import qwerty.Storage;
+import qwerty.TaskList;
+import qwerty.Ui;
 
 public abstract class Command {
     private HashMap<String, String> args;

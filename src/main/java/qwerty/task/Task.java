@@ -1,3 +1,5 @@
+package qwerty.task;
+
 import java.util.List;
 
 /**
@@ -5,7 +7,7 @@ import java.util.List;
  */
 public abstract class Task {
     /** String description of the task */
-    private String description;
+    private final String description;
     /** Marks whether the task is done */
     private boolean isDone;
 
@@ -33,7 +35,7 @@ public abstract class Task {
      * @return Status icon.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark task done with X
+        return (isDone ? "X" : " "); // mark qwerty.task done with X
     }
 
     /**
