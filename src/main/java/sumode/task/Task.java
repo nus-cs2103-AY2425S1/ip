@@ -62,7 +62,10 @@ public class Task {
             UnknownCommandException {
         switch(command) {
         case TODO:
-            return new Todo(item);
+            if (item.trim().isEmpty()) {
+                throw new WrongSyntaxForCommandException(Command.TODO);
+            }
+            return new Todo(item.trim());
         case DEADLINE: {
             String[] parsed = Parser.parseDeadline(item);
             return new Deadline(parsed[0], parsed[1]);
