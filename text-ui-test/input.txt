@@ -25,7 +25,7 @@ list
 
 event
 event
-event many trailing spaces in previous task /from yesterday /to never
+event many trailing spaces in previous task /from yesterday love was such an easy game to play /to never
 event this has no tags
 event wrong tag /by asldkjdska
 event no from tag /to today

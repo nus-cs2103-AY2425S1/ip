@@ -1,0 +1,83 @@
+
+ |  Hello! I'm YappingBot
+ |  What can I do for you?
+
+
+ |  List is empty!
+
+
+ |  I'm sorry, but task number 1 does not exist!
+
+
+ |  I'm sorry, but task number 2 does not exist!
+
+
+ |  I'm sorry, but task number -1 does not exist!
+
+
+ |  I'm sorry, but task number -1 does not exist!
+
+
+ |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  Got it. I've added this task:
+ |  [T][ ] This is a to-do
+ |  Now you have 1 tasks in the list.
+
+ |  Got it. I've added this task:
+ |  [T][ ] trailing spaces
+ |  Now you have 2 tasks in the list.
+
+ |  Here are the tasks in your list:
+ |   1.[T][ ] This is a to-do
+ |   2.[T][ ] trailing spaces
+
+
+ |  Got it. I've added this task:
+ |  [D][ ] many trailing spaces in previous task (by: today)
+ |  Now you have 3 tasks in the list.
+
+ |  Here are the tasks in your list:
+ |   1.[T][ ] This is a to-do
+ |   2.[T][ ] trailing spaces
+ |   3.[D][ ] many trailing spaces in previous task (by: today)
+
+
+ |  Got it. I've added this task:
+ |  [E][ ] many trailing spaces in previous task (from: yesterday to: never)
+ |  Now you have 4 tasks in the list.
+
+ |  Here are the tasks in your list:
+ |   1.[T][ ] This is a to-do
+ |   2.[T][ ] trailing spaces
+ |   3.[D][ ] many trailing spaces in previous task (by: today)
+ |   4.[E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
+
+
+ |  Nice! I've marked this task as done:
+ |  [T][X] This is a to-do
+
+
+ |  OK, I've marked this task as not done:
+ |  [T][ ] trailing spaces
+
+
+ |  OK, I've marked this task as not done:
+ |  [T][ ] This is a to-do
+
+
+ |  I'm sorry, but task number -1 does not exist!
+
+
+ |  I'm sorry, but task number -1 does not exist!
+
+
+ |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  I'm sorry, I do not understand which item '1.23' refers to!
+
