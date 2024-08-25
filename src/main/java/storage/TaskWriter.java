@@ -1,19 +1,20 @@
-import java.util.ArrayList;
+package storage;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import task.Deadline;
 import task.Event;
 import task.Task;
+import task.TaskList;
 import task.Todo;
 
 /**
- * Store the given tasks in the given file path. Output of this file must be
+ * Store the given tasks into file. Output of this file must be
  * readable by TaskReader.
  *
  * @author Toh Yi Hui A0259080A
@@ -21,27 +22,34 @@ import task.Todo;
 public class TaskWriter {
     private FileWriter fileWriter;
     private DateTimeFormatter formatter;
-    private ArrayList<Task> tasks;
+    private TaskList tasks;
 
     /**
-     * Constructor for a new TaskWriter. It takes a file path and an
-     * ArrayList of tasks as parameter, and write it to file using given
-     * date time format.
+     * Constructor for a new TaskWriter. It takes a File, a DateTimeFormatter
+     * and an ArrayList of tasks as parameter, and write it to file using given
+     * DateTimeFormatter when write() is called.
      *
-     * @param path the file path to write to.
-     * @param dateTimeFormat the format for converting date time to string.
-     * @param tasks the ArrayList of tasks to be copied.
+     * @param file the File to write to.
+     * @param formatter the formatter for converting LocalDateTime to String.
+     * @param tasks the TaskList to be copied.
      * @throws IOException if the named file exists but is a directory rather
      *                     than a regular file, does not exist but cannot be
      *                     created, or cannot be opened for any other reason.
      *                     (Paragraph taken from FileWriter java docs Oracle)
-     * @throws IllegalArgumentException if the given date time format is not a
-     *                                  valid pattern.
+     * @throws NullPointerException when formatter or tasks is null.
      */
-    public TaskWriter(String path, String dateTimeFormat, ArrayList<Task> tasks)
-            throws IOException, IllegalArgumentException {
-        fileWriter = new FileWriter(path);
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public TaskWriter(File file, DateTimeFormatter formatter, TaskList tasks)
+            throws IOException, NullPointerException {
+        if (formatter == null) {
+            throw new NullPointerException("Formatter cannot be null.");
+        }
+
+        if (tasks == null) {
+            throw new NullPointerException("Tasks cannot be null.");
+        }
+
+        fileWriter = new FileWriter(file);
+        this.formatter = formatter;
         this.tasks = tasks;
     }
 
@@ -49,14 +57,8 @@ public class TaskWriter {
      * Write the tasks to file.
      *
      * @throws IOException if an I/O error occurs.
-     * @throws NullPointerException when fileWriter, formatter, or tasks is null.
-     * @throws DateTimeException if the value given to any date time fields is out of range.
      */
-    public void write() throws IOException, NullPointerException, DateTimeException {
-        if (fileWriter == null || tasks == null) {
-            throw new NullPointerException("fileWriter and tasks cannot be null.");
-        }
-
+    public void write() throws IOException {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             String isComplete = task.isComplete() ? "1" : "0";
@@ -89,19 +91,15 @@ public class TaskWriter {
      *
      * @param dateTime the LocalDateTime to convert.
      * @return the String representation of the LocalDateTime.
-     * @throws NullPointerException if the formatter is null.
-     * @throws DateTimeException if the value given to any date time fields is out of range.
      */
-    private String parseDateTime(LocalDateTime dateTime) throws NullPointerException, DateTimeException {
-        if (formatter == null) {
-            throw new NullPointerException("Formatter cannot be null.");
-        }
-
+    private String parseDateTime(LocalDateTime dateTime) {
         return dateTime.format(formatter);
     }
 
     /**
      * Closes the file.
+     *
+     * @throws IOException if a I/O error occurs.
      */
     public void close() throws IOException {
         fileWriter.close();

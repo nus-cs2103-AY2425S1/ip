@@ -1,10 +1,9 @@
 package executable;
 
-import java.util.ArrayList;
-
 import task.Task;
+import task.TaskList;
 
-import exception.InvalidArgumentException;
+import exception.executable.ExecutableException;
 
 /**
  * An executable for deleting tasks.
@@ -28,10 +27,10 @@ public class DeleteTask extends TaskModifier {
     /**
      * Constructor for a new DeleteTask executable.
      *
-     * @param tasks the tasks to modify.
+     * @param tasks the TaskList to modify.
      * @param idx the 1-index of the tasks to delete.
      */
-    public DeleteTask(ArrayList<Task> tasks, int idx) {
+    public DeleteTask(TaskList tasks, int idx) {
         super(tasks);
         this.idx = idx;
     }
@@ -39,26 +38,26 @@ public class DeleteTask extends TaskModifier {
     /**
      * Delete the task from list.
      *
-     * @return NORMAL normally, ERROR if tasks == null.
-     * @throws InvalidArgumentException when given index is out of bounds of ArrayList.
+     * @return false.
+     * @throws NullPointerException when TaskList is null.
+     * @throws ExecutableException when given index is out of bounds of ArrayList.
      */
     @Override
-    public exitCode execute() throws InvalidArgumentException {
+    public boolean execute() throws NullPointerException, ExecutableException {
         if (super.tasks == null) {
             output = "Task list cannot be null.";
-            return Executable.exitCode.ERROR;
+            throw new NullPointerException("TaskList cannot be null.");
         }
 
         try {
-            ArrayList<Task> tasks = super.tasks;
-            Task task = tasks.remove(idx - 1);
+            Task task = super.tasks.remove(idx - 1);
             output = "Noted. I've removed this task:\n" + task.toString()
                     + "\nNow you have " + tasks.size() + " task(s) in your list.";
         } catch (IndexOutOfBoundsException e) {
             String message = idx + " index out bounds of task list of size " + super.tasks.size() + ".";
-            throw new InvalidArgumentException(message);
+            throw new ExecutableException(message);
         }
-        return exitCode.NORMAL;
+        return false;
     }
 
     /**

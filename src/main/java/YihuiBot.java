@@ -1,22 +1,21 @@
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import executable.Executable;
-import executable.Greet;
-import executable.Executable;
-import executable.Executable.exitCode;
 import executable.TaskModifier;
 
-import task.Task;
+import exception.executable.ExecutableException;
+import exception.parse.ParseException;
+import exception.taskformat.IncorrectTaskFormatException;
 
-import exception.BotException;
-import exception.IncorrectTaskFormatException;
+import storage.Storage;
+
+import task.TaskList;
+
+import ui.Ui;
 
 /**
  * Your friendly todolist bot.
@@ -27,33 +26,51 @@ public class YihuiBot {
     // The name of this bot
     private static final String NAME = "YihuiBot";
 
-    // The file path to read tasks data from
-    private static final String FILEPATH = "data/task.txt";
-
     // Format for date time of task
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
 
-    // List of tasks
-    private static ArrayList<Task> tasks;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String[] args) {
+    /**
+     * Construct a new instance of YihuiBot.
+     *
+     * @param filePath the path to read task data from.
+     */
+    public YihuiBot(String filePath) {
+        ui = new Ui(DATE_TIME_FORMAT);
+        storage = new Storage(filePath, DATE_TIME_FORMAT);
         try {
-            initializeTasks();
+            tasks = storage.load();
+        } catch (FileNotFoundException e) {
+            String s = "No file with path " + filePath + "found.";
+            String t = "If this file exists, make sure to run the program where";
+            String u = filePath + " is accessible.";
+            String v = "Initializing TaskList as an empty array of tasks.";
+            ui.warningPrint(e.getMessage(), s, t, u, v);
+            tasks = new TaskList();
         } catch (IncorrectTaskFormatException e) {
-            normalPrint("An error occured. " + e.getMessage());
-            return;
+            String message = "Initializing TaskList as an empty array of tasks.";
+            ui.warningPrint(e.getMessage(), message);
+            tasks = new TaskList();
         }
-        greetings();
+    }
+
+    /**
+     * Runs the program.
+     */
+    public void run() {
+        ui.greet(NAME);
 
         Scanner userInput = new Scanner(System.in);
-        Parser parser = new Parser(DATE_TIME_FORMAT);
         boolean isExit = false;
         while (!isExit) {
             try {
                 String input = userInput.nextLine();
 
-                // Returns an Executable based on what was parsed into the parser.
-                Executable exec = parser.parse(input);
+                // Returns an Executable based on what was parsed into the ui.
+                Executable exec = ui.parse(input);
 
                 if (exec instanceof TaskModifier) {
                     TaskModifier taskModifier = (TaskModifier) exec;
@@ -61,70 +78,26 @@ public class YihuiBot {
                     exec = taskModifier;
                 }
 
-                exitCode code = exec.execute();
+                isExit = exec.execute();
 
-                prettyPrint(exec.getOutput());
-
-                if (code != exitCode.NORMAL){
-                    isExit = true;
-                }
-            } catch (IllegalStateException | NoSuchElementException | NullPointerException e) {
-                normalPrint("An error occured. " + e.getMessage());
+                ui.prettyPrint(exec.getOutput());
+            } catch (IllegalStateException | NoSuchElementException e) {
+                ui.errorPrint("An error occurred!", e.getMessage());
                 isExit = true;
-            } catch (BotException e) {
-                prettyPrint(e.getMessage());
+            } catch (ParseException | ExecutableException e) {
+                ui.prettyPrint(e.getMessage());
             }
         }
+
         userInput.close();
         try {
-            writeTasksToFile();
+            storage.save(tasks);
         } catch (IOException e) {
-            normalPrint("An error occured while writing to file.\n" + e.getMessage());
+            ui.errorPrint("An error occured while writing to file.", e.getMessage());
         }
     }
 
-    private static void initializeTasks() throws IncorrectTaskFormatException {
-        normalPrint("Initializing tasks...");
-        File data = new File(FILEPATH);
-        try {
-            TaskReader taskReader = new TaskReader(data, DATE_TIME_FORMAT);
-            tasks = taskReader.read();
-        } catch (FileNotFoundException e) {
-            normalPrint("No file with path " + FILEPATH + " found.\n"
-                    + "If this file exists, make sure to run the program where "
-                    + FILEPATH + " is accessible.\n"
-                    + "Initializing an empty array of tasks...");
-            tasks = new ArrayList<>();
-        }
-        normalPrint("Tasks initialized");
-    }
-
-    private static void writeTasksToFile() throws IOException {
-        normalPrint("Writing tasks to " + FILEPATH + "...");
-        TaskWriter taskWriter = new TaskWriter(FILEPATH, DATE_TIME_FORMAT, tasks);
-        taskWriter.write();
-        taskWriter.close();
-        normalPrint("File written succesfully.");
-    }
-
-    private static void greetings() {
-        Greet greet = new Greet(NAME);
-        greet.execute();
-        prettyPrint(greet.getOutput());
-    }
-
-    private static void prettyPrint(String s) {
-        String wrapped = wrapStringWithHorizontalLines(s);
-        System.out.println(wrapped);
-    }
-
-    private static void normalPrint(String s) {
-        System.out.println(s);
-    }
-
-    private static String wrapStringWithHorizontalLines(String s) {
-        String horizontalLine = "-----------------------------------------------------------------";
-        return horizontalLine + "\n" + s + "\n" + horizontalLine;
+    public static void main(String[] args) {
+        new YihuiBot("data/task.txt").run(); 
     }
 }
-

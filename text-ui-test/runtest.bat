@@ -13,7 +13,7 @@ REM delete data from previous run
 if exist .\data\task.txt del .\data\task.txt
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\task\*.java ..\src\main\java\exception\*.java  ..\src\main\java\executable\*.java ..\src\main\java\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\**\*.java ..\src\main\java\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

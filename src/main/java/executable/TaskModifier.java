@@ -1,8 +1,6 @@
 package executable;
 
-import java.util.ArrayList;
-
-import task.Task;
+import task.TaskList;
 
 /**
  * An abstract class for all executables that can modify tasks.
@@ -10,7 +8,7 @@ import task.Task;
  * @author Toh Yi Hui A0259080A
  */
 public abstract class TaskModifier implements Executable {
-    protected ArrayList<Task> tasks;
+    protected TaskList tasks;
 
     /**
      * Constructor for a new TaskModifier.
@@ -22,9 +20,9 @@ public abstract class TaskModifier implements Executable {
     /**
      * Constructor for a new TaskModifier.
      *
-     * @param tasks the tasks to modify.
+     * @param tasks the TaskList to modify.
      */
-    public TaskModifier(ArrayList<Task> tasks) {
+    public TaskModifier(TaskList tasks) {
         this.tasks = tasks;
     }
 
@@ -33,7 +31,7 @@ public abstract class TaskModifier implements Executable {
      *
      * @param tasks the new task list.
      */
-    public void setTasks(ArrayList<Task> tasks) {
+    public void setTasks(TaskList tasks) {
         this.tasks = tasks;
     }
 }

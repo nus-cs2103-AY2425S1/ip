@@ -1,8 +1,6 @@
 package executable;
 
-import java.util.ArrayList;
-
-import task.Task;
+import task.TaskList;
 
 /**
  * An executable for listing out tasks.
@@ -22,30 +20,30 @@ public class ListTask extends TaskModifier {
     /**
      * Constructor for a new ListTask executable.
      *
-     * @param tasks the tasks to modify.
+     * @param tasks the TaskList to read from.
      */
-    public ListTask(ArrayList<Task> tasks) {
+    public ListTask(TaskList tasks) {
         super(tasks);
     }
 
     /**
      * Output the list of tasks in a nice format.
      *
-     * @return NORMAL normally, ERROR if tasks == null.
+     * @return false.
+     * @throws NullPointerException when TaskList is null.
      */
     @Override
-    public exitCode execute() {
-        if (tasks == null) {
-            output = "Task list cannot be null.";
-            return exitCode.ERROR;
+    public boolean execute() throws NullPointerException {
+        if (super.tasks == null) {
+            throw new NullPointerException("TaskList cannot be null.");
         }
-        
-        output = "Here are the tasks in your list:";
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            output += "\n" + (i + 1) + ". " + task.toString();
+
+        if (super.tasks.size() == 0) {
+            output = "You have no tasks in your list.";
+        } else {
+            output = "Here are the tasks in your list:\n" + super.tasks.toString();
         }
-        return exitCode.NORMAL;
+        return false;
     }
 
     /**
