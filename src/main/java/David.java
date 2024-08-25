@@ -1,12 +1,16 @@
 import Data.Cache;
 import Exceptions.*;
+import Parser.DateParser;
+import Parser.StringParser;
 import Task.Task;
 import Task.TodoTask;
 import Task.DeadlineTask;
 import Task.EventTask;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 public class David {
     private Scanner sc;
@@ -83,7 +87,7 @@ public class David {
      */
     public void addTodoTask(String s) throws DavidInvalidArgumentsException{
         String event = StringParser.parseStringToArguments(s);
-        Task t = new TodoTask(event, false);
+        Task t = new TodoTask(s, false);
         this.tasks.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -96,7 +100,8 @@ public class David {
     /**
     Adds event task to array list of tasks
      */
-    public void addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException {
+    public void addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException,
+            DavidInvalidDateTimeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /from", 2);
         String eventName = eventSplit[0];
@@ -104,39 +109,58 @@ public class David {
             //"from" field does not exist
             throw new DavidInvalidRangeException();
         }
+
         String[] eventDetails = eventSplit[1].split(" /to", 2);
         if (eventDetails.length <= 1 || eventDetails[0].trim().equals("") || eventDetails[1].trim().equals("")) {
             //only the "from" field exist
             throw new DavidInvalidRangeException();
         }
-        Task t = new EventTask(eventName, eventDetails[0], eventDetails[1], false);
-        this.tasks.add(t);
-        System.out.println(
-                "____________________________________________________________\n" +
-                        "Got it. I've added this task:\n" +
-                        t + "\n" +
-                        "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
-                        "____________________________________________________________\n");
+
+        try {
+            LocalDateTime fromDate = DateParser.getDate(eventDetails[0]);
+            LocalDateTime toDate = DateParser.getDate(eventDetails[1]);
+
+            Task t = new EventTask(eventName, fromDate, toDate, false);
+            this.tasks.add(t);
+            System.out.println(
+                    "____________________________________________________________\n" +
+                            "Got it. I've added this task:\n" +
+                            t + "\n" +
+                            "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
+                            "____________________________________________________________\n");
+        }  catch (DateTimeParseException e) {
+            throw new DavidInvalidDateTimeException();
+        }
+
     }
 
     /**
     Adds deadline task to array list of tasks
      */
-    public void addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException {
+    public void addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException,
+            DavidInvalidDateTimeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /by", 2);
         if(eventSplit.length <= 1 || eventSplit[1].trim().equals("")) {
             //deadline is not added to the input string
             throw new DavidInvalidDeadlineException();
         }
-        Task t = new DeadlineTask(eventSplit[0], eventSplit[1], false);
-        this.tasks.add(t);
-        System.out.println(
-                "____________________________________________________________\n" +
-                        "Got it. I've added this task:\n" +
-                        t + "\n" +
-                        "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
-                        "____________________________________________________________\n");
+
+        try {
+            LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
+            Task t = new DeadlineTask(eventSplit[0], byDate, false);
+            this.tasks.add(t);
+            System.out.println(
+                    "____________________________________________________________\n" +
+                            "Got it. I've added this task:\n" +
+                            t + "\n" +
+                            "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
+                            "____________________________________________________________\n");
+        } catch (DateTimeParseException e) {
+            throw new DavidInvalidDateTimeException();
+        }
+
+
     }
 
     /**
