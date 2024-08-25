@@ -36,4 +36,8 @@ unmark -12394
 mark 4
 unmark 1239
 list
+delete 2
+list
+delete 10
+list
 bye

@@ -280,5 +280,33 @@
 	___________________________________________
 
 	___________________________________________
+	Noted. I've removed this task:
+	  [T][X] buy groceries
+	Now you have 5 task(s) in the list.
+	___________________________________________
+
+	___________________________________________
+	Here are the items in your list:
+	1.[T][ ] return books
+	2.[D][X] complete 2103T IP (by: today 10pm)
+	3.[E][X] family dinner (from: 6pm to: 7pm)
+	4.[E][ ] movies (from: 7pm to: 8pm)
+	5.[E][ ] lesson (from: Monday 10am to: Monday 12pm)
+	___________________________________________
+
+	___________________________________________
+	Oopsie! The task number 10 does not exist
+	___________________________________________
+
+	___________________________________________
+	Here are the items in your list:
+	1.[T][ ] return books
+	2.[D][X] complete 2103T IP (by: today 10pm)
+	3.[E][X] family dinner (from: 6pm to: 7pm)
+	4.[E][ ] movies (from: 7pm to: 8pm)
+	5.[E][ ] lesson (from: Monday 10am to: Monday 12pm)
+	___________________________________________
+
+	___________________________________________
 	Goodbye! Have a great day ahead!
 	___________________________________________
