@@ -43,11 +43,13 @@ public class OnCommand extends Command {
             throw new DuckException("The format for 'On' instruction is:\n"
                     + "on {yyyy-MM-dd}");
         }
+
         LocalDate date = LocalDate.parse(words[1]);
         AtomicInteger idx = new AtomicInteger(1);
 
         // Filter and display deadlines and events that are due or occur on the specified date
-        System.out.println("Here are the tasks due by " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        System.out.println("Here are the tasks due by "
+                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
         Stream<Deadline> deadlineStream = tasks.stream()
                 .filter(task -> task instanceof Deadline)
                 .map(task -> (Deadline) task)
@@ -59,7 +61,8 @@ public class OnCommand extends Command {
 
 
         // Filter and display events that are still happening on the specified date
-        System.out.println("Here are the events still happening on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        System.out.println("Here are the events still happening on "
+                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
         Stream<Event> eventStream = tasks.stream()
                 .filter(task -> task instanceof Event)
                 .map(task -> (Event) task)

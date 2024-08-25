@@ -15,6 +15,7 @@ public class ByeCommand extends Command {
      *
      * @param message The message associated with the command. Typically used for logging or debugging.
      */
+
     public ByeCommand(String message) {
         super(message);
     }

@@ -39,6 +39,7 @@ public class UnmarkCommand extends Command {
         }
 
         String[] words = message.split(" ");
+
         try {
             tasks.get(Integer.parseInt(words[1]) - 1).markAsIncomplete();
             storage.writeTasks(tasks);

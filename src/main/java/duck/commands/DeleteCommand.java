@@ -40,6 +40,7 @@ public class DeleteCommand extends Command {
         }
 
         String[] words = message.split(" ");
+
         try {
             tasks.deleteTask(Integer.parseInt(words[1]) - 1, storage);
         } catch (NumberFormatException e) {
@@ -48,7 +49,6 @@ public class DeleteCommand extends Command {
             throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
         }
     }
-
 
     /**
      * Determines whether the command signifies an exit operation.

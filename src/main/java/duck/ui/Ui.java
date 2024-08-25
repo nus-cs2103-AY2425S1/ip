@@ -53,7 +53,6 @@ public class Ui {
                 """;
 
         System.out.println("Hello from\n" + logo);
-
         System.out.println("Hello! I'm Duck.");
         System.out.println("What can I do for you, QUACK?\n");
     }
