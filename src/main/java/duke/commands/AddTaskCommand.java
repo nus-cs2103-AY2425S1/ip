@@ -38,7 +38,7 @@ public class AddTaskCommand extends Command {
         try {
             taskList.addTask(this.userInput);
         } catch (UnknownMessageException | InvalidTodoDescriptionException e) {
-            System.out.println(Ui.formatOutputMessage("Please enter a valid task!"));
+            ui.showMessage(ui.formatOutputMessage("Please enter a valid task!"));
         }
     }
 }
