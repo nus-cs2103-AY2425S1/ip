@@ -12,6 +12,12 @@ public class Bob {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        try {
+            Bob.readFromFile();
+        } catch (ChatBotException e) {
+            System.out.println(" Error: " + e.getMessage());
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println(Bob.LINE);
         System.out.printf("Hello! I'm %s!\n", Bob.NAME);
@@ -63,7 +69,26 @@ public class Bob {
             Bob.deleteTask(tmp);
             break;
         default:
-            throw new ChatBotException("I'm sorry, but I don't know what that means :-(");
+            throw new ChatBotException("I'm sorry, but I don't know what that means.");
+        }
+    }
+
+    private static void readFromFile() throws ChatBotException {
+        try {
+            String directoryPath = "./data";
+            String filePath = "./data/bob.txt";
+            if (Files.exists(Paths.get(directoryPath)) &&
+                    Files.isDirectory(Paths.get(directoryPath)) &&
+                    Files.exists(Paths.get(filePath)) &&
+                    Files.isRegularFile(Paths.get(filePath))) {
+                Scanner s = new Scanner(Paths.get(filePath));
+                while (s.hasNext()) {
+                    String taskString = s.nextLine();
+                    Bob.addTaskFromFile(taskString);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Read failed. Something went wrong: " + e.getMessage());
         }
     }
 
@@ -84,14 +109,43 @@ public class Bob {
             FileWriter fw = new FileWriter(filePath);
             String[] tasksToSave = Bob.getTasksToSave();
             for (int i = 0; i < tasksToSave.length; i++) {
-                fw.write(tasksToSave[i]);
-                if (i != tasksToSave.length - 1) {
-                    fw.write(System.lineSeparator());
-                }
+                fw.write(tasksToSave[i] + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {
             System.out.println("Save failed. Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void addTaskFromFile(String taskString) throws ChatBotException {
+        String[] tmp = taskString.split(" \\| ");
+        boolean isDone = !tmp[1].equals("0");
+
+        if (!tmp[1].equals("0") && !tmp[1].equals("1")) {
+            throw new ChatBotException("Corrupted task marking entry.");
+        }
+
+        switch (tmp[0]) {
+        case "T":
+            if (tmp.length != 3) {
+                throw new ChatBotException("Corrupted todo task entry.");
+            }
+            Bob.tasks.add(new ToDo(tmp[2], isDone, TaskType.TODO));
+            break;
+        case "D":
+            if (tmp.length != 4) {
+                throw new ChatBotException("Corrupted deadline task entry.");
+            }
+            Bob.tasks.add(new Deadline(tmp[2], isDone, tmp[3], TaskType.DEADLINE));
+            break;
+        case "E":
+            if (tmp.length != 5) {
+                throw new ChatBotException("Corrupted event task entry.");
+            }
+            Bob.tasks.add(new Event(tmp[2], isDone, tmp[3], tmp[4], TaskType.EVENT));
+            break;
+        default:
+            throw new ChatBotException("I'm sorry, there was an error reading the file. Invalid task Type.");
         }
     }
 
