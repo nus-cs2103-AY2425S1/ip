@@ -9,14 +9,16 @@ import java.time.LocalDate;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
+    private UI ui;
     private int numOfTasks;
 
 
     /**
      * Constructor for a TaskList. Initializes number of tasks to 0.
      */
-    public TaskList() {
-        this.taskList = IOHandler.toArrayList();
+    public TaskList(Storage s, UI ui) {
+        this.taskList = s.toArrayList();
+        this.ui = ui;
         this.numOfTasks = this.taskList.size();
     }
 
@@ -36,9 +38,9 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
         this.numOfTasks += 1;
-        UI.response("Added \'" + task + "\' task!");
+        this.ui.response("Added \'" + task + "\' task!");
         String msg = String.format("By the way, you have %d tasks now!", this.numOfTasks);
-        UI.response(msg);
+        this.ui.response(msg);
     }
 
     /**
@@ -48,7 +50,7 @@ public class TaskList {
      */
     public void addToDo(ArrayList<String> tokens) {
         if (tokens.size() == 1) {
-            UI.response("Failed. Specify a task for your todo!!!! D:");
+            this.ui.response("Failed. Specify a task for your todo!!!! D:");
         } else {
             String taskDescription = "";
             int len = tokens.size();
@@ -68,9 +70,9 @@ public class TaskList {
     public void addDeadline(ArrayList<String> tokens) {
         if (tokens.size() == 1 || tokens.get(1).equals("/by")) {
 
-            UI.response("Failed. Specify a task for your deadline task!!! D:");
+            this.ui.response("Failed. Specify a task for your deadline task!!! D:");
         } else if (!(tokens.contains("/by")) || tokens.indexOf("/by") == tokens.size() - 1) {
-            UI.response("Failed. Add /by [DATE] to specify when to complete your task by!!! ;=;");
+            this.ui.response("Failed. Add /by [DATE] to specify when to complete your task by!!! ;=;");
         } else {
             String taskDescription = "";
             LocalDate deadline = null;
@@ -91,7 +93,7 @@ public class TaskList {
                 Deadline deadlineTask = new Deadline(taskDescription, deadline);
                 this.addTask(deadlineTask);
             } else {
-                UI.response("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
+                this.ui.response("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
             }
         }
     }
@@ -103,12 +105,12 @@ public class TaskList {
      */
     public void addEvent(ArrayList<String> tokens) {
         if (tokens.size() == 1 || tokens.get(1).equals("/from") || tokens.get(1).equals("/to")) {
-            UI.response("Failed. Specify a task for your event task!!! D:");
+            this.ui.response("Failed. Specify a task for your event task!!! D:");
         } else if (!(tokens.contains("/from")) || !(tokens.contains("/to")) ||
                 (tokens.indexOf("/from") > tokens.indexOf("/to")) ||
                 (tokens.indexOf("/from") + 1 == tokens.indexOf("/to")) ||
                 tokens.indexOf("/to") == tokens.size() - 1) {
-            UI.response("Failed. Add /from [DATE] /to [DATE] to specify the duration of your event!!! ;=;");
+            this.ui.response("Failed. Add /from [DATE] /to [DATE] to specify the duration of your event!!! ;=;");
         } else {
             String taskDescription = "";
             LocalDate start = null;
@@ -138,7 +140,7 @@ public class TaskList {
                 Event event = new Event(taskDescription, start, end);
                 this.addTask(event);
             } else {
-                UI.response("Failed. Specify your dates in yyyy-MM-dd format!! ;^;");
+                this.ui.response("Failed. Specify your dates in yyyy-MM-dd format!! ;^;");
             }
         }
     }
@@ -148,7 +150,7 @@ public class TaskList {
      * Method to display task list for user.
      */
     public void displayList() {
-        UI.response("These are your tasks!");
+        this.ui.response("These are your tasks!");
         for (int i = 0; i < this.numOfTasks; i++) {
             Task currTask = this.taskList.get(i);
             String res;
@@ -157,9 +159,9 @@ public class TaskList {
             } else {
                 res = String.format("%d.%s", i + 1, currTask);
             }
-            UI.response(res);
+            this.ui.response(res);
         }
-        UI.response("That's all your tasks for now :>>>");
+        this.ui.response("That's all your tasks for now :>>>");
     }
 
     /**
@@ -169,13 +171,13 @@ public class TaskList {
      */
     public void markDoneTask(int taskNum) {
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
-            UI.response(String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
+            this.ui.response(String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
         } else {
             Task reqTask = this.taskList.get(taskNum - 1);
             reqTask.complete();
-            UI.response("Oki, I'll mark the task as done *w*! Good job finishing the task!!");
+            this.ui.response("Oki, I'll mark the task as done *w*! Good job finishing the task!!");
             String res = String.format("%s", reqTask);
-            UI.response(res);
+            this.ui.response(res);
         }
     }
 
@@ -186,12 +188,12 @@ public class TaskList {
      */
     public void deleteTask(int taskNum) {
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
-            UI.response(String.format("I can't delete task %d cause it doesn't exist!!! ;-;", taskNum));
+            this.ui.response(String.format("I can't delete task %d cause it doesn't exist!!! ;-;", taskNum));
         } else {
-            UI.response(String.format("Oki, I've deleted %s task!", this.taskList.get(taskNum - 1)));
+            this.ui.response(String.format("Oki, I've deleted %s task!", this.taskList.get(taskNum - 1)));
             this.taskList.remove(taskNum - 1);
             this.numOfTasks -= 1;
-            UI.response(String.format("You have %d tasks left!!", this.numOfTasks));
+            this.ui.response(String.format("You have %d tasks left!!", this.numOfTasks));
         }
     }
 

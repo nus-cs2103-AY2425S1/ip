@@ -7,20 +7,28 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;
 
-public class IOHandler {
+public class Storage {
 
-    public static void initializeTaskFile() {
-        File newDir = new File("src/main/data");
+    private String filePathParent;
+    private String filePath;
+
+    public Storage(String filePathParent) {
+        this.filePathParent = filePathParent;
+        this.filePath = filePathParent + "/Bunbun.txt";
+    }
+
+    public void initializeTaskFile() {
+        File newDir = new File(this.filePathParent);
         newDir.mkdir();
         try {
-            File taskFile = new File("src/main/data/Bunbun.txt");
+            File taskFile = new File(this.filePath);
             taskFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static Task parseTask(String taskDescription) {
+    public Task parseTask(String taskDescription) {
         ArrayList<String> info = new ArrayList<>(Arrays.asList(taskDescription.split(";")));
         String type = info.get(0);
         Boolean isComplete = (info.get(1).equals("true")) ? true : false;
@@ -41,8 +49,8 @@ public class IOHandler {
         return task;
     }
 
-    public static ArrayList<Task> toArrayList() {
-        File taskFile = new File("src/main/data/Bunbun.txt");
+    public ArrayList<Task> toArrayList() {
+        File taskFile = new File(this.filePath);
         ArrayList<Task> taskList = new ArrayList<>();
         try {
             Scanner s = new Scanner(taskFile);
@@ -56,9 +64,9 @@ public class IOHandler {
         return taskList;
     }
 
-    public static void writeTask(Task task) {
+    public void writeTask(Task task) {
         try {
-            FileWriter fw = new FileWriter("src/main/data/Bunbun.txt", true);
+            FileWriter fw = new FileWriter(this.filePath, true);
             String taskDescription = task.genFileString();
             fw.write(taskDescription);
             fw.close();
@@ -67,12 +75,12 @@ public class IOHandler {
         }
     }
 
-    public static void writeAllFromList(TaskList taskList) {
+    public void writeAllFromList(TaskList taskList) {
         try {
-            FileWriter fw = new FileWriter("src/main/data/Bunbun.txt");
+            FileWriter fw = new FileWriter(this.filePath);
             fw.write("");
             fw.close();
-            fw = new FileWriter("src/main/data/Bunbun.txt", true);
+            fw = new FileWriter(this.filePath, true);
             for (int i = 0; i < taskList.getNumOfTasks(); i++) {
                 writeTask(taskList.getTaskByIndex(i));
             }
