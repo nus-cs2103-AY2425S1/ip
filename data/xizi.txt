@@ -1,1 +1,5 @@
-E | 1 | project meeting | Mon 2pm | 4pm
+E | 0 | Project meeting | Aug 15 2024, 2:00pm | Aug 15 2024, 4:00pm
+E | 0 | Team outing | Sep 10 2024, 10:00am | Sep 10 2024, 3:00pm
+E | 0 | Conference | Oct 12 2024, 9:00am | Oct 12 2024, 5:00pm
+D | 0 | Submit assignment | Aug 20 2024, 11:59pm
+D | 0 | submit report | Aug 20 2024, 6:00pm

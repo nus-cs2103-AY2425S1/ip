@@ -25,7 +25,7 @@ public class TaskList {
         return this.size;
     }
 
-    public List<Task> getItem(){
+    public List<Task> getItems(){
         return this.items;
     }
 
@@ -51,9 +51,12 @@ public class TaskList {
 
 
 
-    public void printActions(){
+    public void printActions() {
         for (int i = 1; i <= this.size; i++){
             System.out.printf("%,d. %s%n", i ,this.items.get(i-1).toString());
+        }
+        if (this.size == 0) {
+            System.out.println("There are no tasks in the list now");
         }
     }
 

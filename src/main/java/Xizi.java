@@ -1,52 +1,18 @@
 //https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Xizi {
     private static final String FILE_PATH = "./data/xizi.txt";
     private static final String DIVIDER = "____________________________________________________________";
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    // Enums for command types
-    private enum CommandType {
-        MARK("^mark (\\d+)$"),
-        UNMARK("^unmark (\\d+)$"),
-        DELETE("^delete\\s+(\\d+)$"),
-        TODO("^todo\\s*(.*)$"),
-        DEADLINE("^deadline\\s*(.*?)\\s*/by\\s*(.*?)$"),
-        EVENT("^event\\s*(.*?)\\s*/from\\s*(.*?)\\s*/to\\s*(.*?)$"),
-        LIST("^list$"),
-        BYE("^bye$"),
-        HELP("^help$"),
-        UNKNOWN("");
-
-        private final Pattern pattern;
-
-        CommandType(String regex) {
-            this.pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        }
-
-        public Matcher matcher(String input) {
-            return pattern.matcher(input);
-        }
-
-        public static CommandType fromInput(String input) {
-            for (CommandType type : values()) {
-                if (type.matcher(input).matches()) {
-                    return type;
-                }
-            }
-            return UNKNOWN;
-        }
-    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -96,6 +62,9 @@ public class Xizi {
                 case BYE:
                     handleBye(scanner);
                     return;
+                case LIST_ON:
+                    handleListOn(actions, userInput);
+                    break;
                 case HELP:
                     printHelp();
                     break;
@@ -115,7 +84,7 @@ public class Xizi {
             int taskNumber = Integer.parseInt(matcher.group(1)) - 1;
             validateTaskNumber(taskNumber, actions);
             Task deleted = actions.deleteTask(taskNumber);
-            storage.saveTasks(actions.getItem());
+            storage.saveTasks(actions.getItems());
             System.out.println(DIVIDER);
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + deleted);
@@ -133,7 +102,7 @@ public class Xizi {
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println(actions.markTask(taskNumber));
             System.out.println(DIVIDER);
-            storage.saveTasks(actions.getItem());
+            storage.saveTasks(actions.getItems());
         }
     }
 
@@ -146,7 +115,7 @@ public class Xizi {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(actions.unmarkTask(taskNumber));
             System.out.println(DIVIDER);
-            storage.saveTasks(actions.getItem());
+            storage.saveTasks(actions.getItems());
         }
     }
 
@@ -175,11 +144,12 @@ public class Xizi {
             if (taskDescription.isEmpty() || deadline.isEmpty()) {
                 throw new XiziException("The description or time of a deadline cannot be empty.Type help to see the formats required.");
             }
-            actions.addTask(new Deadline(taskDescription, deadline));
-            storage.appendTask(new Deadline(taskDescription, deadline));
+            Deadline newTask = new Deadline(taskDescription, LocalDateTime.parse(deadline, INPUT_DATE_FORMAT));
+            actions.addTask(newTask);
+            storage.appendTask(newTask);
             System.out.println(DIVIDER);
             System.out.println("Got it. I've added this task:");
-            System.out.println("  [D][ ] " + taskDescription + " (by: " + deadline + ")");
+            System.out.println(newTask.toString());
             System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
             System.out.println(DIVIDER);
         }
@@ -194,13 +164,18 @@ public class Xizi {
             if (taskDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
                 throw new XiziException("The description, from or to time of an event cannot be empty.Type help to see the formats required.");
             }
-            actions.addTask(new Event(taskDescription, fromTime, toTime));
-            storage.appendTask(new Event(taskDescription, fromTime, toTime));
-            System.out.println(DIVIDER);
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  [E][ ] " + taskDescription + " (from: " + fromTime + " to: " + toTime + ")");
-            System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-            System.out.println(DIVIDER);
+            try {
+                Event newTask = new Event(taskDescription, LocalDateTime.parse(fromTime, INPUT_DATE_FORMAT), LocalDateTime.parse(toTime, INPUT_DATE_FORMAT));
+                actions.addTask(newTask);
+                storage.appendTask(newTask);
+                System.out.println(DIVIDER);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask.toString());
+                System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+                System.out.println(DIVIDER);
+            } catch (DateTimeParseException e){
+                printErrorMessage("The format of the time keyed in should be of the form 'd/M/yyyy HHmm'.");
+            }
         }
     }
 
@@ -208,6 +183,42 @@ public class Xizi {
         System.out.println(DIVIDER);
         System.out.println("Here are the tasks in your list:");
         actions.printActions();
+        System.out.println(DIVIDER);
+    }
+
+    public static void handleListOn(TaskList actions, String userInput) {
+        Matcher matcher = CommandType.LIST_ON.matcher(userInput);
+        boolean tasksFound = false;
+        if (matcher.matches()) {
+            String dateTimeStr = matcher.group(1);
+            try {
+                LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, INPUT_DATE_FORMAT);
+                System.out.println(DIVIDER);
+                System.out.println("Here are the tasks on the particular day in your list:");
+                for (Task task : actions.getItems()) {
+                    if (task instanceof Event) {
+                        Event event = (Event) task;
+                        if ((event.from.isBefore(dateTime) || event.from.equals(dateTime))&&
+                                (event.to.isAfter(dateTime) || event.to.equals(dateTime))) {
+                            System.out.println(event);
+                            tasksFound = true;
+                        }
+                    } else if (task instanceof Deadline) {
+                        Deadline deadline = (Deadline) task;
+                        if (deadline.ddl.equals(dateTime)) {
+                            System.out.println(deadline);
+                            tasksFound = true;
+                        }
+                    }
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date and time format. Please use 'd/M/yyyy HHmm'.");
+            }
+
+        }
+        if (!tasksFound) {
+            System.out.println("No tasks found on this date.");
+        }
         System.out.println(DIVIDER);
     }
 
@@ -234,38 +245,72 @@ public class Xizi {
         System.out.println(DIVIDER);
         System.out.println("Here are the available commands and their formats:");
         System.out.println();
-        System.out.println("1. list");
-        System.out.println("   - Displays all tasks in your list.");
-        System.out.println();
-        System.out.println("2. todo <task_description>");
-        System.out.println("   - Adds a new 'todo' task.");
-        System.out.println("     Example: todo read a book");
-        System.out.println();
-        System.out.println("3. deadline <task_description> /by <deadline>");
-        System.out.println("   - Adds a new 'deadline' task.");
-        System.out.println("     Example: deadline submit report /by Monday");
-        System.out.println();
-        System.out.println("4. event <task_description> /from <start_time> /to <end_time>");
-        System.out.println("   - Adds a new 'event' task.");
-        System.out.println("     Example: event project meeting /from Monday 2pm /to Monday 4pm");
-        System.out.println();
-        System.out.println("5. mark <task_number>");
-        System.out.println("   - Marks the specified task as completed.");
-        System.out.println("     Example: mark 3");
-        System.out.println();
-        System.out.println("6. unmark <task_number>");
-        System.out.println("   - Unmarks the specified task as not completed.");
-        System.out.println("     Example: unmark 3");
-        System.out.println();
-        System.out.println("7. delete <task_number>");
-        System.out.println("   - Deletes the specified task.");
-        System.out.println("     Example: delete 3");
-        System.out.println();
-        System.out.println("8. bye");
-        System.out.println("   - Exits the program.");
-        System.out.println();
-        System.out.println("9. help");
-        System.out.println("   - Displays this help message.");
+
+        // Display command formats and examples
+        printCommand("1. list",
+                "- Displays all tasks in your list.");
+
+        printCommand("2. todo <task_description>",
+                "- Adds a new 'todo' task.",
+                "  Example: todo read a book");
+
+        printCommand("3. deadline <task_description> /by <deadline>",
+                "- Adds a new 'deadline' task.",
+                "  Example: deadline submit report /by 20/08/2024 1800");
+
+        printCommand("4. event <task_description> /from <start_time> /to <end_time>",
+                "- Adds a new 'event' task.",
+                "  Example: event project meeting /from 15/08/2024 1400 /to 15/08/2024 1600");
+
+        printCommand("5. mark <task_number>",
+                "- Marks the specified task as completed.",
+                "  Example: mark 3");
+
+        printCommand("6. unmark <task_number>",
+                "- Unmarks the specified task as not completed.",
+                "  Example: unmark 3");
+
+        printCommand("7. delete <task_number>",
+                "- Deletes the specified task.",
+                "  Example: delete 3");
+
+        printCommand("8. bye",
+                "- Exits the program.");
+
+        printCommand("9. help",
+                "- Displays this help message.");
+
+        printCommand("10. list on <date> <time>",
+                "- Displays all tasks scheduled for a specific date and time.",
+                "  Example: list on 15/08/2024 1400");
+
         System.out.println(DIVIDER);
     }
+
+    /**
+     * Helper method to print a command description.
+     *
+     * @param command Command name and format
+     * @param description Description of the command
+     */
+    private static void printCommand(String command, String description) {
+        System.out.println(command);
+        System.out.println("  " + description);
+        System.out.println();
+    }
+
+    /**
+     * Overloaded helper method to print a command description with an example.
+     *
+     * @param command Command name and format
+     * @param description Description of the command
+     * @param example Example usage of the command
+     */
+    private static void printCommand(String command, String description, String example) {
+        System.out.println(command);
+        System.out.println("  " + description);
+        System.out.println(example);
+        System.out.println();
+    }
+
 }
