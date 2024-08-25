@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -23,6 +24,11 @@ public class Optimus {
         String greeting = "Hello! I'm Optimus.\n" +
                 "What can I do for you?\n";
         System.out.println(greeting);
+        System.out.println("You need to start your input with either todo, deadline, or event.\n" +
+                        "For example:\n" +
+                        "todo borrow book\n" +
+                        "deadline return book /by Sunday\n" +
+                        "event project meeting /from Mon 2pm /to 4pm");
 
         // Load tasks from the file if it exists
         loadTasks();
@@ -53,13 +59,16 @@ public class Optimus {
                         continue;
                     }
                     markTaskAsDone(taskIndex);
+                    saveTasks();
                 } else if (userInput.startsWith("delete")) { // Check if user wants to delete a task
                     String[] parts = userInput.split(" ");
                     int taskIndex = Integer.parseInt(parts[1]) - 1; // Convert 1-based index to 0-based
                     delete(taskIndex);
+                    saveTasks();
                 } else {
                     // Add user task to taskList array and echo "added: <task>"
                     addTask(userInput);
+                    saveTasks();
                 }
             } catch (OptimusException e) { // Handle custom OptimusException
                 System.out.println(e.getMessage());
@@ -201,7 +210,7 @@ public class Optimus {
                     taskList.add(task);
                 }
                 scanner.close();
-                System.out.println("Loaded tasks from file optimus.txt\n");
+                System.out.println("Loaded tasks from file optimus.txt");
             }
         } catch (IOException e) {
             // Handle file I/O exceptions
@@ -210,6 +219,28 @@ public class Optimus {
             // Handle invalid file formatting
             // Suggested by ChatGPT
             System.out.println("Invalid task format in file.");
+        }
+    }
+
+    /**
+     * Saves the tasks in the taskList to the file.
+     * Overwrites the file with the current state of the taskList.
+     * This method was partially inspired by code examples provided by W3Schools.
+     * Asked ChatGPT for advice on how to incorporate polymorphism. It suggested toFileFormat method.
+     * Reference: https://www.w3schools.com/java/java_files_create.asp
+     */
+    private static void saveTasks() {
+        try {
+            FileWriter myWriter = new FileWriter(FILE_PATH);
+
+            // Loop through taskList to add each task to file
+            for (int i = 0; i < taskList.size(); i++) {
+                myWriter.write(taskList.get(i).toFileFormat());
+            }
+            myWriter.close();
+            System.out.println("Tasks saved successfully!");
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 }

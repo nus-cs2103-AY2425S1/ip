@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     public Task(String description) {
@@ -14,4 +14,7 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    // Abstract method to be implemented by subclasses to save task data to file
+    public abstract String toFileFormat();
 }
