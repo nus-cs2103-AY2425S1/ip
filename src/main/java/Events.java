@@ -4,12 +4,18 @@ public class Events extends Task {
     String endTime;
     public Events(String description, String start, String end) {
         super(description);
-        this.startTime = start.replaceFirst("from ", "");
-        this.endTime = end.replaceFirst("to ", "");
+        this.startTime = start;
+        this.endTime = end;
     }
 
+    /**
+     * Returns the Event as a string with its status, description, start time and end time
+     *
+     * @return a String of the Event
+     */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() +
+                " (from: " + startTime + " to: " + endTime + ")";
     }
 }
