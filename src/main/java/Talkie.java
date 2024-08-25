@@ -1,3 +1,5 @@
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,8 +27,88 @@ public class Talkie {
         }
     }
 
+    private static String directory = "./data";
+    private static String fileName = "Talkie.txt";
+    private static String dataPath = String.valueOf(Paths.get(Talkie.directory, Talkie.fileName));
+
     protected static List<Task> taskList = new ArrayList<>();
     protected static Scanner scanner = new Scanner(System.in);
+
+
+    private static void loadData() {
+
+        File database = new File(Talkie.dataPath);
+        try {
+
+            Scanner fileReader = new Scanner(database);
+            while (fileReader.hasNextLine()) {
+                String entry = fileReader.nextLine();
+                readEntry(entry);
+            }
+        } catch (FileNotFoundException e) {
+            Talkie.createDatabase();
+
+        } catch (TalkieException e) {
+            System.out.println("OH NO! Error when reading data entry!");
+        }
+    }
+
+    private static void readEntry(String entry) throws TalkieNoTaskFoundException {
+        String[] fields = entry.split(" \\| ");
+        Task taskToBeAdded;
+
+        switch(fields[0]) {
+            case "T":
+                taskToBeAdded = new ToDo(fields[2]);
+                break;
+
+            case "E":
+                System.out.println(fields[2] + " " + fields[3] + " " + fields[4]);
+                taskToBeAdded = new Event(fields[2], fields[3], fields[4]);
+                break;
+
+            case "D":
+                taskToBeAdded = new Deadline(fields[2], fields[3]);
+                break;
+
+            default:
+                throw new TalkieNoTaskFoundException();
+        }
+
+        if (Integer.parseInt(fields[1]) == 1) {
+            taskToBeAdded.markAsDone();
+        }
+
+        Talkie.taskList.add(taskToBeAdded);
+    }
+
+    private static void createDatabase() {
+        File db = new File(Talkie.dataPath);
+        File dir = new File(Talkie.directory);
+
+        dir.mkdir();
+
+        try {
+            db.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong when creating the database!");
+        }
+    }
+
+    private static void saveData() throws IOException {
+        FileWriter writer = new FileWriter(Talkie.dataPath, false);
+        BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+        for (Task task : Talkie.taskList) {
+            bufferedWriter.write(task.stringifyTask());
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+        writer.close();
+    }
+
+
 
     // Creates Deadline Task
     public static void createDeadline(String input) throws TalkieMissingArgumentException {
@@ -215,6 +297,16 @@ public class Talkie {
         }
     }
 
+    // Exits the program
+    public static void exit() {
+        try {
+            Talkie.saveData();
+            System.out.println(MessageType.BYE_MESSAGE.getMessage());
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong when saving the data!");
+        }
+    }
+
     // Runs the main program
     public static void runTalkie() {
         System.out.println(MessageType.WELCOME_MESSAGE.getMessage());
@@ -225,7 +317,7 @@ public class Talkie {
 
             try {
                 if (input.equalsIgnoreCase("bye")) {
-                    System.out.println(MessageType.BYE_MESSAGE.getMessage());
+                    Talkie.exit();
                     isFinished = true;
 
                 } else if (input.equalsIgnoreCase("list")) {
@@ -260,6 +352,8 @@ public class Talkie {
     }
 
     public static void main(String[] args) {
+        // Load data
+        Talkie.loadData();
         // Start of Talkie
         Talkie.runTalkie();
     }
