@@ -1,5 +1,9 @@
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
 
 /**
  * Delta is a chatbot to assist in task management.
@@ -12,6 +16,8 @@ import java.util.Scanner;
  *      * delete [index of task]
  */
 public class Delta {
+    private static final String SAVE_DIR_PATH = "./data";
+    private static final String SAVE_FILE_PATH = SAVE_DIR_PATH + "/DeltaList.txt";
     /** List to store all tasks */
     private static ArrayList<Task> list = new ArrayList<>();
 
@@ -166,6 +172,100 @@ public class Delta {
     }
 
     /**
+     * Saves tasks in list to SAVE_FILE_PATH location.
+     *
+     * @throws DeltaException If directory or file unable to be created.
+     */
+    public static void saveTasks() throws DeltaException {
+        File saveDirectory = new File(SAVE_DIR_PATH);
+        if (!saveDirectory.exists()) {
+            boolean directoryCreatedSuccessfully = saveDirectory.mkdir();
+            if (!directoryCreatedSuccessfully) {
+                throw new DeltaException("""
+                        OOPS!!! Save Directory unable to be created!
+                        \t Please check Save Directory path:
+                        \t """ + saveDirectory.getAbsolutePath());
+            }
+        }
+
+        File saveFile = new File(SAVE_FILE_PATH);
+        if (!saveFile.exists()) {
+            try {
+                boolean fileCreatedSuccessfully = saveFile.createNewFile();
+                if (!fileCreatedSuccessfully) {
+                    throw new DeltaException("""
+                            OOPS!!! Save File unable to be created!
+                            \t Please check Save File path:
+                            \t """ + saveFile.getAbsolutePath());
+                }
+            }
+            catch (IOException e) {
+                throw new DeltaException("""
+                        OOPS!!! Save File unable to be created!
+                        \t Please check Save File path:
+                        \t """ + saveFile.getAbsolutePath());
+            }
+        }
+        String fileContents = "";
+        for (Task task : list) {
+            fileContents += task.saveDetails() + "\n";
+        }
+
+        try {
+            FileWriter fw = new FileWriter(saveFile);
+            fw.write(fileContents);
+            fw.close();
+        }
+        catch (IOException e) {
+            throw new DeltaException("""
+                    OOPS!!! List unable to save!
+                    \t Please type command to manually save:
+                    \t * save""");
+        }
+    }
+
+    /**
+     * Loads tasks from SAVE_FILE_PATH and adds tasks into list.
+     *
+     * @return String List of all tasks from previous session.
+     * @throws DeltaException If save file not found.
+     */
+    public static String loadTasks() throws DeltaException {
+        String output = """
+                \t____________________________________________________________
+                \t Loading the list of tasks from your previous session...
+                \t____________________________________________________________
+                """;
+        File loadFile = new File(SAVE_FILE_PATH);
+        if (loadFile.exists()) {
+            try {
+                Scanner sc = new Scanner(loadFile);
+                while (sc.hasNextLine()) {
+                    String[] details = sc.nextLine().replace("\n", "").split(" \\| ");
+                    if (details[0].equals("T")) {
+                        addTask(new Todo(details[2]));
+                    } else if (details[0].equals("D")) {
+                        addTask(new Deadline(details[2], details[3]));
+                    } else {
+                        addTask(new Event(details[2], details[3], details[4]));
+                    }
+                    if (details[1].equals("1")) {
+                        markTask(list.size());
+                    }
+                }
+            }
+            catch (FileNotFoundException e) {
+                throw new DeltaException("""
+                        OOPS!!! Save File not found!
+                        \t Please check Save File path:
+                        \t """ + loadFile.getAbsolutePath());
+            }
+        }
+        output += printTasks();
+        return output;
+    }
+
+    /**
      * Runs Delta Chatbot.
      *
      * @param args User input following formats:
@@ -178,6 +278,18 @@ public class Delta {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        // Load Tasks from previous session
+        try {
+            System.out.println(loadTasks());
+        }
+        catch (DeltaException e) {
+            System.out.println("""
+                    \t____________________________________________________________
+                    \t Loading the list of tasks from your previous session...
+                    \t____________________________________________________________
+                    """ + printError(e.getMessage()));
+        }
 
         // Hello
         System.out.println(sayHello());
@@ -194,9 +306,13 @@ public class Delta {
                     output = sayBye();
                     break;
 
-                // Print Entire List
+                // Print entire list
                 } else if (task.equalsIgnoreCase("list")) {
                     output = printTasks();
+
+                // Save Tasks to list
+                } else if (task.equalsIgnoreCase("save")) {
+                    saveTasks();
 
                 // Add Todo to list
                 } else if (task.equalsIgnoreCase("todo")) {
@@ -310,6 +426,8 @@ public class Delta {
                             \t * unmark [index of task]
                             \t * delete [index of task]""");
                 }
+
+                saveTasks();
             }
             catch (DeltaException e) {
                 System.out.println(printError(e.getMessage()));
