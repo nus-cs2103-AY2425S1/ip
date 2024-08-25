@@ -1,8 +1,11 @@
 import java.io.IOException;
+
+import java.util.Scanner;
+
 import java.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Sentinel chatbot system.
@@ -12,6 +15,7 @@ import java.util.Scanner;
 public class Sentinel {
     private TaskList taskList;
     private final Map<String, Commands> commands;
+    private final Ui ui;
 
     /**
      * Constructs a new Sentinel and initializes it with commands and
@@ -20,15 +24,15 @@ public class Sentinel {
      */
     public Sentinel() {
         this.commands = new HashMap<>();
+        this.ui = new Ui();
 
         // Load save file
         try {
             this.taskList = Storage.load();
         } catch(IOException e) {
-            say("OOPS NO FILE???");
+            ui.showError("OOPS NO FILE???");
             this.taskList = new TaskList();
         }
-
 
         // Initialize Commands
         commands.put("list", new ListTasks());
@@ -48,7 +52,8 @@ public class Sentinel {
      * Makes Sentinel output the list of tasks.
      */
     public void outputTaskList() {
-        say("Here are the list of your tasks \n" + this.taskList.toString());
+        say("Here are the list of your tasks \n" + this.taskList.toString() +
+            String.format("\n You have %d tasks in total.", this.taskList.getTotal()));
     }
 
     /**
@@ -135,7 +140,7 @@ public class Sentinel {
      * @param message Message for Sentinel to say.
      */
     public void say(String message) {
-        System.out.println(message);
+        ui.output(message);
     }
 
     /**
@@ -169,12 +174,12 @@ public class Sentinel {
 
             // Check if command exists, if so, run the command
             if (this.commands.get(parsedCommands[0]) == null) {
-                say("Invalid command broski");
+                ui.showError("Invalid command broski");
             } else {
                 try {
                     this.commands.get(parsedCommands[0]).run(this, userInput);
                 } catch (SentinelException exception) {
-                    say(exception.getMessage());
+                    ui.showError(exception.getMessage());
                 }
             }
 

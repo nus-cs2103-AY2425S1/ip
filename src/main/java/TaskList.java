@@ -97,6 +97,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the number of tasks currently in the list.
+     *
+     * @return Number of tasks in the list.
+     */
+    public int getTotal() {
+        return this.tasks.size();
+    }
+
+    /**
      * Deletes the task on the list.
      *
      * @param taskNumber Number of the task.
