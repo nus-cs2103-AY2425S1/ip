@@ -6,6 +6,7 @@ import java.util.List;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.MissingDetailsException;
 import sumode.exception.NonExistentTaskException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
@@ -71,7 +72,7 @@ public class SumoTaskList {
     public boolean execute(Command command, String item)
             throws NonExistentTaskException, UnknownCommandException,
             WrongSyntaxForCommandException, AlreadyMarkedException,
-            AlreadyUnmarkedException {
+            AlreadyUnmarkedException, MissingDetailsException {
         switch(command) {
         case BYE:
         case EXIT: // added this to allow flexibility though not required by qn

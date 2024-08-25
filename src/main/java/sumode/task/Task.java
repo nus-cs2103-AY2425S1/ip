@@ -2,6 +2,7 @@ package sumode.task;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.MissingDetailsException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
 import sumode.util.Command;
@@ -58,7 +59,8 @@ public class Task {
      * @param item Details of task.
      * @return Task needed.
      */
-    public static Task of(Command command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
+    public static Task of(Command command, String item) throws WrongSyntaxForCommandException,
+            UnknownCommandException, MissingDetailsException {
         switch(command) {
         case TODO:
             return new Todo(item);

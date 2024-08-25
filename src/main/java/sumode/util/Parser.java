@@ -1,5 +1,6 @@
 package sumode.util;
 
+import sumode.exception.MissingDetailsException;
 import sumode.exception.WrongSyntaxForCommandException;
 
 /**
@@ -42,14 +43,17 @@ public class Parser {
      * @return a String array of size 2
      * @throws WrongSyntaxForCommandException thrown when Wrong Syntax for command is given
      */
-    public static String[] parseDeadline(String item) throws WrongSyntaxForCommandException {
+    public static String[] parseDeadline(String item) throws WrongSyntaxForCommandException, MissingDetailsException {
         int spaceLocation = item.indexOf(" /by ");
         if (spaceLocation == -1) {
             throw new WrongSyntaxForCommandException(Command.DEADLINE);
         }
-        String name = item.substring(0, spaceLocation);
-        String due = item.substring(spaceLocation + 5);
+        String name = item.substring(0, spaceLocation).trim();
+        String due = item.substring(spaceLocation + 5).trim();
 
+        if (name.isEmpty() | due.isEmpty()) {
+            throw new MissingDetailsException(Command.DEADLINE);
+        }
         return new String[] {name, due};
     }
 
@@ -63,7 +67,7 @@ public class Parser {
      * @return a String array of size 3
      * @throws WrongSyntaxForCommandException thrown when Wrong Syntax for command is given
      */
-    public static String[] parseEvent(String item) throws WrongSyntaxForCommandException {
+    public static String[] parseEvent(String item) throws WrongSyntaxForCommandException, MissingDetailsException {
         int fromLocation = item.indexOf(" /from ");
         int toLocation = item.indexOf(" /to ");
         String name;
@@ -73,13 +77,16 @@ public class Parser {
             throw new WrongSyntaxForCommandException(Command.EVENT);
         }
         if (fromLocation < toLocation) {
-            name = item.substring(0, fromLocation);
-            start = item.substring(fromLocation + 7, toLocation);
-            end = item.substring(toLocation + 5);
+            name = item.substring(0, fromLocation).trim();
+            start = item.substring(fromLocation + 7, toLocation).trim();
+            end = item.substring(toLocation + 5).trim();
         } else {
-            name = item.substring(0, toLocation);
-            end = item.substring(toLocation + 5, fromLocation);
-            start = item.substring(fromLocation + 7);
+            name = item.substring(0, toLocation).trim();
+            end = item.substring(toLocation + 5, fromLocation).trim();
+            start = item.substring(fromLocation + 7).trim();
+        }
+        if (name.isEmpty() | start.isEmpty() | end.isEmpty()) {
+            throw new MissingDetailsException(Command.EVENT);
         }
         return new String[] {name, start, end};
     }

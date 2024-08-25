@@ -8,7 +8,7 @@ import sumode.util.Command;
 public class WrongSyntaxForCommandException extends Exception {
 
     /**
-     * Constructor for AlreadyMarked Exception
+     * Constructor for WrongSyntaxForCommandException
      * @param command The command which user tried to perform.
      */
     public WrongSyntaxForCommandException(Command command) {
