@@ -14,13 +14,26 @@ public class Event extends Task {
      * @param end End date/time of event.
      */
     public Event(String description, String start, String end) {
-        super(description);
+        super(description, TaskType.Event);
         this.start = start;
         this.end = end;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+    }
+
+    @Override
+    public String saveDetails() {
+        return "E | " + super.saveDetails() + " | " + start + " | " + end;
     }
 }

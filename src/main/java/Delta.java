@@ -1,5 +1,8 @@
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
 
 /**
  * Delta is a chatbot to assist in task management.
@@ -12,6 +15,8 @@ import java.util.Scanner;
  *      * delete [index of task]
  */
 public class Delta {
+    private static final String SAVE_DIR_PATH = "./data";
+    private static final String SAVE_FILE_PATH = SAVE_DIR_PATH + "/DeltaList.txt";
     /** List to store all tasks */
     private static ArrayList<Task> list = new ArrayList<>();
 
@@ -165,6 +170,54 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    public static void saveTasks() throws DeltaException {
+        File saveDirectory = new File(SAVE_DIR_PATH);
+        if (!saveDirectory.exists()) {
+            boolean directoryCreatedSuccessfully = saveDirectory.mkdir();
+            if (!directoryCreatedSuccessfully) {
+                throw new DeltaException("""
+                        OOPS!!! Save Directory unable to be created!
+                        \t Please check Save Directory path:
+                        \t """ + saveDirectory.getAbsolutePath());
+            }
+        }
+
+        File saveFile = new File(SAVE_FILE_PATH);
+        if (!saveFile.exists()) {
+            try {
+                boolean fileCreatedSuccessfully = saveFile.createNewFile();
+                if (!fileCreatedSuccessfully) {
+                    throw new DeltaException("""
+                            OOPS!!! Save File unable to be created!
+                            \t Please check Save File path:
+                            \t """ + saveFile.getAbsolutePath());
+                }
+            }
+            catch (IOException e) {
+                throw new DeltaException("""
+                        OOPS!!! Save File unable to be created!
+                        \t Please check Save File path:
+                        \t """ + saveFile.getAbsolutePath());
+            }
+        }
+        String fileContents = "";
+        for (Task task : list) {
+            fileContents += task.saveDetails() + "\n";
+        }
+
+        try {
+            FileWriter fw = new FileWriter(saveFile);
+            fw.write(fileContents);
+            fw.close();
+        }
+        catch (IOException e) {
+            throw new DeltaException("""
+                    OOPS!!! List unable to save!
+                    \t Please type command to manually save:
+                    \t * save""");
+        }
+    }
+
     /**
      * Runs Delta Chatbot.
      *
@@ -310,6 +363,8 @@ public class Delta {
                             \t * unmark [index of task]
                             \t * delete [index of task]""");
                 }
+
+                saveTasks();
             }
             catch (DeltaException e) {
                 System.out.println(printError(e.getMessage()));

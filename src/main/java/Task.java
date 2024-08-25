@@ -5,14 +5,16 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected TaskType type;
 
     /**
      * Constructor for Task instance.
      *
      * @param description Description of task.
      */
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
+        this.type = type;
         this.isDone = false;
     }
 
@@ -22,6 +24,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public TaskType getType() {
+        return type;
     }
 
     @Override
@@ -41,5 +47,9 @@ public class Task {
      */
     public void markAsNotDone() {
         isDone = false;
+    }
+
+    public String saveDetails() {
+        return (isDone ? "1" : "0") + " | " + getDescription();
     }
 }

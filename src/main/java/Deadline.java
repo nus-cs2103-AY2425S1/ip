@@ -12,12 +12,21 @@ public class Deadline extends Task {
      * @param by Deadline for task.
      */
     public Deadline(String description, String by) {
-        super(description);
+        super(description, TaskType.Deadline);
         this.by = by;
+    }
+
+    public String getBy() {
+        return by;
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String saveDetails() {
+        return "D | " + super.saveDetails() + " | " + by;
     }
 }
