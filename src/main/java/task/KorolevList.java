@@ -62,7 +62,7 @@ public class KorolevList {
             case "deadline" -> {
                 try {
                     name = EventParser.parseName("deadline", "/by", event);
-                    date = EventParser.parseDate(event);
+                    date = EventParser.parseBy(event);
                     e = new KorolevDeadline(name, date);
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
@@ -73,8 +73,6 @@ public class KorolevList {
             }
             default -> throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
-
 
         System.out.println("Now you have " + events.size() + " tasks in the list");
     }

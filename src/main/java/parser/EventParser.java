@@ -15,10 +15,10 @@ public class EventParser {
         Matcher byMatcher = byPattern.matcher(eventString);
 
         if (byMatcher.find()) {
-            if (byMatcher.groupCount() == 2) {
+            if (byMatcher.group(2) != null) {
                 return byMatcher.group(1) + "T" + byMatcher.group(2);
             } else {
-                return byMatcher.group(1);
+                return byMatcher.group(1) + "T00:00";
             }
         } else {
             throw new ParseException("Wrong format of dates");
