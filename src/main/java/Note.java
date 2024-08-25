@@ -17,16 +17,16 @@ public class Note {
             if (description.isEmpty()) {
                 throw new EmptyDescriptionException("You can't leave the descriptions empty!.");
             }
-            System.out.println("____________________________________________________________");
+            System.out.println("--------------------------------------------");
             System.out.println("Got it. I've added this task:");
             task = new ToDo(description);
         } else if (input.startsWith("deadline ")) {
-            System.out.println("____________________________________________________________");
+            System.out.println("--------------------------------------------");
             System.out.println("Got it. I've added this task:");
             String[] parts = input.substring(9).split(" /by ");
             task = new Deadline(parts[0], parts[1]);
         } else if (input.startsWith("event ")) {
-            System.out.println("____________________________________________________________");
+            System.out.println("--------------------------------------------");
             System.out.println("Got it. I've added this task:");
             String[] parts = input.substring(6).split(" /from ");
             String description = parts[0];

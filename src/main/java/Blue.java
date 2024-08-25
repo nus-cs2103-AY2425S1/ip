@@ -95,6 +95,7 @@ public class Blue {
 
         // Farewell message
         Blue.farewell();
+
         // Close the scanner
         scanner.close();
     }
