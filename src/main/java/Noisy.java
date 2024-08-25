@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Noisy {
 
@@ -51,7 +52,6 @@ public class Noisy {
             try {
                 switch (input.split(" ")[0]) {
                     case "todo":
-
                         if (input.split(" ", 2).length < 2) {
                             throw new NoisyException("OOPS!!! The description of a todo cannot be empty.");
                         }
@@ -71,16 +71,17 @@ public class Noisy {
             } catch (NoisyException e) {
                 System.out.println(e);
             }
-        }
 
-        taskList[currentPointer] = task;
-        currentPointer++;
-        String taskAdd = "____________________________________________________________\n" +
-                " Got it. I've added this task:\n" +
-                task + "\n" +
-                "Now you have " + currentPointer + " tasks in the list.\n" +
-                "____________________________________________________________";
-        System.out.println(taskAdd);
+
+            taskList[currentPointer] = task;
+            currentPointer++;
+            String taskAdd = "____________________________________________________________\n" +
+                    " Got it. I've added this task:\n" +
+                    task + "\n" +
+                    "Now you have " + currentPointer + " tasks in the list.\n" +
+                    "____________________________________________________________";
+            System.out.println(taskAdd);
+        }
     }
 }
 
