@@ -1,14 +1,13 @@
-package David;
+package david;
 
-import David.Data.Storage;
-import David.Exceptions.*;
-import David.Parser.DateParser;
-import David.Parser.StringParser;
-import David.Task.*;
-import David.UI.Ui;
+import david.Data.Storage;
+import david.Exceptions.*;
+import david.Parser.DateParser;
+import david.Parser.StringParser;
+import david.Task.*;
+import david.UI.Ui;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 public class David {
     TaskList tasks;
@@ -56,6 +55,9 @@ public class David {
                     case "DELETE":
                         deleteTask(inputString);
                         break;
+                case "FIND":
+                    findEvent(inputString);
+                    break;
                     default:
                         throw new DavidUnknownActionException();
                 }
@@ -70,6 +72,17 @@ public class David {
 
         }
     }
+
+    /**
+     * Lists all events corresponding to the specified event
+     * @param s input string
+     * @throws DavidInvalidArgumentsException
+     */
+    public void findEvent(String s) throws DavidInvalidArgumentsException{
+        String event = StringParser.parseStringToArguments(s);
+        ui.findEvent(event, tasks);
+    }
+
 
     /**
     Adds todo task to array list of tasks

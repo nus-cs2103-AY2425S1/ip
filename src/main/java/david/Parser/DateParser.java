@@ -1,6 +1,6 @@
-package David.Parser;
+package david.Parser;
 
-import David.Exceptions.DavidInvalidDateTimeException;
+import david.Exceptions.DavidInvalidDateTimeException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

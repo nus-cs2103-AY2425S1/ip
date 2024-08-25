@@ -1,7 +1,6 @@
-package David.Parser;
+package david.Parser;
 
-import David.Exceptions.DavidInvalidArgumentsException;
-import David.Exceptions.DavidInvalidDateTimeException;
+import david.Exceptions.DavidInvalidDateTimeException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

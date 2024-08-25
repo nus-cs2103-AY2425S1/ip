@@ -1,4 +1,4 @@
-# David.David User Guide
+# david.david User Guide
 
 // Update the title above to match the actual product name
 

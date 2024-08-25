@@ -1,4 +1,4 @@
-package David.Exceptions;
+package david.Exceptions;
 
 /*
     Exception to handle invalid event task

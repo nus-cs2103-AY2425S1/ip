@@ -1,6 +1,6 @@
-package David.UI;
+package david.UI;
 
-import David.Task.*;
+import david.Task.*;
 
 import java.util.Scanner;
 
@@ -76,5 +76,15 @@ public class Ui {
 
     public void listTasks(TaskList tasks) {
         System.out.println(tasks.toString());
+    }
+
+    /**
+     * Calls the findEvent() method of TaskList that returns the String format of all events matching
+     * the specified string
+     * @param s specified event String
+     * @param tasks TaskList of all tasks
+     */
+    public void findEvent(String s, TaskList tasks) {
+        System.out.println(tasks.findEvent(s));
     }
 }
