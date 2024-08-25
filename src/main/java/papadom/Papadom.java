@@ -8,9 +8,9 @@ import papadom.commands.*;
 import java.util.Scanner;
 
 public class Papadom {
-    enum Command {
+    enum CommandType {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
-        public static Command fromString(String command) {
+        public static CommandType fromString(String command) {
             return switch (command.toLowerCase()) {
                 case "list" -> LIST;
                 case "bye" -> BYE;
@@ -25,9 +25,9 @@ public class Papadom {
         }
     }
     private static final Ui ui = new Ui();
-    private static final Storage storage = new Storage("src/main/java/papadom.Storage.papadom.Storage/tasks.txt");
+    private static final Storage storage = new Storage("./src/main/java/papadom/Storage/tasks.txt");
     private static final Parser parser = new Parser();
-    private static final TaskList taskList = new TaskList();
+    private static final TaskList taskList = new TaskList(storage);
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -35,45 +35,42 @@ public class Papadom {
         storage.createFileIfNotPresent();
 
         while (true) {
+            Command command = null;
             try {
                 String text = scanner.nextLine();
                 String commandText = text.split(" ")[0];
-                Command command = Command.fromString(commandText);
-                switch (command) {
+                CommandType commandType = CommandType.fromString(commandText);
+                switch (commandType) {
                 case LIST:
-                    ListCommand listCommand = new ListCommand();
-                    listCommand.execute(taskList, ui, storage);
+                    command = new ListCommand();
                     break;
                 case BYE:
-                    ExitCommand exitCommand = new ExitCommand();
-                    exitCommand.execute(taskList, ui, storage);
-                    return;
+                    command = new ExitCommand();
+                    break;
                 case MARK:
-                    MarkCommand markCommand = new MarkCommand(text);
-                    markCommand.execute(taskList, ui, storage);
+                    command = new MarkCommand(text);
                     break;
                 case UNMARK:
-                    UnmarkCommand unmarkCommand = new UnmarkCommand(text);
-                    unmarkCommand.execute(taskList, ui, storage);
+                    command = new UnmarkCommand(text);
                     break;
                 case TODO:
-                    AddTodoCommand addTodoCommand = new AddTodoCommand(text);
-                    addTodoCommand.execute(taskList, ui, storage);
+                    command = new AddTodoCommand(text);
                     break;
                 case DEADLINE:
-                    AddDeadlineCommand addDeadlineCommand = new AddDeadlineCommand(text);
-                    addDeadlineCommand.execute(taskList, ui, storage);
+                    command = new AddDeadlineCommand(text);
                     break;
                 case EVENT:
-                    AddEventCommand addEventCommand = new AddEventCommand(text);
-                    addEventCommand.execute(taskList, ui, storage);
+                    command = new AddEventCommand(text);
                     break;
                 case DELETE:
-                    DeleteEventCommand deleteEventCommand = new DeleteEventCommand(text);
-                    deleteEventCommand.execute(taskList, ui, storage);
+                    command = new DeleteEventCommand(text);
                     break;
                 default:
                     throw new UnknownCommandException();
+                }
+                command.execute(taskList, ui, storage);
+                if (command instanceof ExitCommand) {
+                    return;
                 }
             } catch (Exception e) {
                 ui.output(e.getMessage());

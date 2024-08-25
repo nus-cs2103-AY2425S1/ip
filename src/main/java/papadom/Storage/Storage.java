@@ -20,7 +20,6 @@ public class Storage {
         }
     }
     public void createFileIfNotPresent() {
-        String filePath = "src/main/java/papadom.Storage.papadom.Storage/tasks.txt";
         File file = new File(filePath);
         try {
             // Check if the file exists

@@ -7,7 +7,7 @@ public class Ui {
         System.out.println(openingLine + message + closingLine);
     }
     public void welcomeMessage() {
-        System.out.println(openingLine + " Hello! I'm Papadom\n What can I do for you?" + closingLine);
+        System.out.println(openingLine + " Hello! Hellooeo I'm Papadom\n What can I do for you?" + closingLine);
     }
     public void exitMessage() {
         System.out.println(openingLine + " Bye. Hope to see you again soon!" + closingLine);

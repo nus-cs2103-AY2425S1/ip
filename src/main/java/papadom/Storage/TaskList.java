@@ -8,8 +8,11 @@ import papadom.Task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final Storage storage = new Storage("src/main/java/papadom.Storage.papadom.Storage/tasks.txt");
+    private final Storage storage;
     private final ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList(Storage storage) {
+        this.storage = storage;
+    }
     public ArrayList<Task> getTasks () {
         return this.tasks;
     }
@@ -29,7 +32,7 @@ public class TaskList {
             throw new NoTaskException();
         }
         this.tasks.add(task);
-        TaskList.storage.addTaskToDatabase(task);
+        this.storage.addTaskToDatabase(task);
         String response = " Got it. I've added this task:\n  " + task.toString() + "\n"
                 + " Now you have " + (this.tasks.size()) + " tasks in the list.";
         return response;
