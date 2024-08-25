@@ -2,8 +2,8 @@ public class Event extends Task {
     protected String startTime;
     protected String endTime;
 
-    public Event(String description, String startTime, String endTime) {
-        super(description);
+    public Event(String description, String startTime, String endTime, String taskType) {
+        super(description, taskType);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -12,5 +12,13 @@ public class Event extends Task {
     public String toString() {
         return "[📅 Event] " + super.toString() + " - Mark your calendar! 🗓️ " +
                 "(from: " + startTime + " to: " + endTime + ")";
+    }
+
+    public String getEndTime() {
+        return this.endTime;
+    }
+
+    public String getStartTime() {
+        return this.startTime;
     }
 }

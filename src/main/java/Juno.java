@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Juno {
@@ -5,6 +6,8 @@ public class Juno {
     private String greeting;
     private String farewell;
     private TaskManager taskManager;
+
+    private FileManager fileManager;
 
     public Juno() {
         this.logo = """
@@ -34,8 +37,19 @@ public class Juno {
         System.out.println(this.greeting);
         System.out.println("___________________________________________________________________");
 
+
+        // file manager to handle all file related method calls
+        this.fileManager = new FileManager();
+
+        // check if the tasks.json file exist
+        fileManager.ensureFileExist();
+
+        // read the data from the file
+        ArrayList<Task> storedTasks = fileManager.readTasksFromFile();
+
         // task manager to handle all the task related method calls
-        this.taskManager = new TaskManager();
+        this.taskManager = new TaskManager(storedTasks);
+
         // detect what user inputs with a scanner
         this.detectUserInput();
     }
@@ -62,17 +76,32 @@ public class Juno {
                 } else if (userInput.isEmpty()) {
                     this.invalidUserInput();
                 } else if (userInput.startsWith(markTaskString)) {
-                    this.taskManager.toggleTaskStatus(userInput, true, false);
+                    ArrayList<Task> tasks = this.taskManager.toggleTaskStatus(
+                            userInput,
+                            true,
+                            false);
+                    this.fileManager.writeTasksToFile(tasks);
                 } else if (userInput.startsWith(unmarkTaskString)) {
-                    this.taskManager.toggleTaskStatus(userInput, false, false);
+                    ArrayList<Task> tasks = this.taskManager.toggleTaskStatus(
+                            userInput,
+                            false,
+                            false);
+                    this.fileManager.writeTasksToFile(tasks);
                 } else if (userInput.startsWith(deleteTaskString)) {
-                    this.taskManager.toggleTaskStatus(userInput, false, true);
+                    ArrayList<Task> tasks = this.taskManager.toggleTaskStatus(
+                            userInput,
+                            false,
+                            true);
+                    this.fileManager.writeTasksToFile(tasks);
                 } else if (userInput.startsWith(addTodoTaskString)) {
-                    this.taskManager.addTask(userInput, "todo");
+                    ArrayList<Task> tasks = this.taskManager.addTask(userInput, "todo");
+                    this.fileManager.writeTasksToFile(tasks);
                 } else if (userInput.startsWith(addDeadlineTaskString)) {
-                    this.taskManager.addTask(userInput, "deadline");
+                    ArrayList<Task> tasks = this.taskManager.addTask(userInput, "deadline");
+                    this.fileManager.writeTasksToFile(tasks);
                 } else if (userInput.startsWith(addEventTaskString)) {
-                    this.taskManager.addTask(userInput, "event");
+                    ArrayList<Task> tasks = this.taskManager.addTask(userInput, "event");
+                    this.fileManager.writeTasksToFile(tasks);
                 } else {
                     this.invalidFunctionInput();
                 }
@@ -103,5 +132,6 @@ public class Juno {
     public static void main(String[] args) {
         Juno junoChatBot = new Juno();
         junoChatBot.startBot();
+
     }
 }

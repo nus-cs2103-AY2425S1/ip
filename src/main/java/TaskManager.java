@@ -3,8 +3,12 @@ import java.util.ArrayList;
 public class TaskManager {
     private ArrayList<Task> tasks;
 
-    public TaskManager() {
-        this.tasks = new ArrayList<>();
+    public TaskManager(ArrayList<Task> tasks) {
+        if (tasks == null) {
+            this.tasks = new ArrayList<>();
+        } else {
+            this.tasks = tasks;
+        }
     }
 
     protected void listTasks() throws TaskManagerException {
@@ -25,7 +29,7 @@ public class TaskManager {
         }
     }
 
-    protected void addTask(String userInput, String taskType) throws TaskManagerException {
+    protected ArrayList<Task> addTask(String userInput, String taskType) throws TaskManagerException {
         String taskInfo;
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
@@ -51,7 +55,7 @@ public class TaskManager {
                                     TaskManagerException.ErrorType.DUPLICATE_TASK);
                         }
                     }
-                    t = new Deadline(taskDescription, taskInfoArray[1]);
+                    t = new Deadline(taskDescription, taskInfoArray[1], taskType);
                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                     throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
@@ -71,7 +75,7 @@ public class TaskManager {
                                     TaskManagerException.ErrorType.DUPLICATE_TASK);
                         }
                     }
-                    t = new Event(taskInfoArray[0], taskInfoArray[1], taskInfoArray[2]);
+                    t = new Event(taskInfoArray[0], taskInfoArray[1], taskInfoArray[2], taskType);
                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                     throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
@@ -89,15 +93,16 @@ public class TaskManager {
                                 TaskManagerException.ErrorType.DUPLICATE_TASK);
                     }
                 }
-                t = new Todo(taskInfo);
+                t = new Todo(taskInfo, taskType);
                 break;
         }
         this.tasks.add(t);
         System.out.println("\uD83C\uDF89 Got it! I've added: \"" + taskDescription + "\" to your list!");
         System.out.println("\uD83C\uDFAF You now have " + this.tasks.size() + " tasks in the list. Keep going!");
+        return this.tasks;
     }
 
-    protected void toggleTaskStatus(String userInput, boolean markAsDone, boolean isDelete) throws TaskManagerException {
+    protected ArrayList<Task> toggleTaskStatus(String userInput, boolean markAsDone, boolean isDelete) throws TaskManagerException {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
@@ -108,7 +113,7 @@ public class TaskManager {
                     System.out.println(taskToDelete.toString());
                     System.out.println("Your list just got lighter! 🌟 " +
                             "Now you're down to " + this.tasks.size() + " tasks. Keep up the momentum!");
-                    return;
+                    return this.tasks;
                 }
 
                 Task taskToMark = this.tasks.get(taskNumber);
@@ -144,6 +149,7 @@ public class TaskManager {
                     "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
                     TaskManagerException.ErrorType.INVALID_MARK_TASK_NUMBER);
         }
+        return this.tasks;
     }
 
 }
