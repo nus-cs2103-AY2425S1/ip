@@ -11,10 +11,9 @@ import java.util.ArrayList;
  * Concrete class representing a command to create a DeadlineTask.
  */
 public class DeadlineCommand extends Command {
-    private final String input;
 
     public DeadlineCommand(String input) {
-        this.input = input;
+        super(input);
     }
 
     private static final String ERR_MSG = """

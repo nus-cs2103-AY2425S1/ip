@@ -10,10 +10,8 @@ import java.util.ArrayList;
  */
 public class TodoCommand extends Command {
 
-    private final String input;
-
     public TodoCommand(String input) {
-        this.input = input;
+        super(input);
     }
 
     private static final String ERR_MSG = """

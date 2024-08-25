@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class EmptyCommand extends Command {
 
     public EmptyCommand() {
+        super();
     }
 
     /**

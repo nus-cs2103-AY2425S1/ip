@@ -9,10 +9,8 @@ import java.util.ArrayList;
  */
 public class UnmarkCommand extends Command {
 
-    private final String input;
-
     public UnmarkCommand(String input) {
-        this.input = input;
+        super(input);
     }
 
     private static final String ERR_MSG = """

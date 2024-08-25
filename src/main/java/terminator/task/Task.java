@@ -34,6 +34,13 @@ public abstract class Task {
     }
 
     /**
+     * Returns the description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns the completion status of the task ("X" for complete, " " for incomplete).
      */
     public String getStatusIcon() {

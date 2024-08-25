@@ -9,10 +9,8 @@ import java.util.ArrayList;
  */
 public class DeleteCommand extends Command {
 
-    private final String input;
-
     public DeleteCommand(String input) {
-        this.input = input;
+        super(input);
     }
 
     private static final String ERR_MSG = """

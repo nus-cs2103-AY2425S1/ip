@@ -9,11 +9,8 @@ import java.util.ArrayList;
  */
 public class MarkCommand extends Command {
 
-    private final String input;
-
     public MarkCommand(String input) {
-        super();
-        this.input = input;
+        super(input);
     }
 
     private static final String ERR_MSG = """

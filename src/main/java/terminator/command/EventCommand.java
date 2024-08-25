@@ -12,15 +12,13 @@ import java.util.ArrayList;
  */
 public class EventCommand extends Command {
 
-    private final String input;
-
     private static final String ERR_MSG = """
             Event description cannot be empty.
             
             Usage: event <description> /from dd/MM/yyyy HH:mm /to dd/MM/yyyy HH:mm""";
 
     public EventCommand(String input) {
-        this.input = input;
+        super(input);
     }
 
     /**

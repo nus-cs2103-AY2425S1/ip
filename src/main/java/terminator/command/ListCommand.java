@@ -9,11 +9,8 @@ import java.util.ArrayList;
  */
 public class ListCommand extends Command {
 
-    private final String input;
-
     public ListCommand(String input) {
-        super();
-        this.input = input;
+        super(input);
     }
 
     private static final String ERR_MSG = """

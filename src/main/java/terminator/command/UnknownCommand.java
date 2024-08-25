@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class UnknownCommand extends Command {
 
     public UnknownCommand() {
+        super();
     }
 
     /**

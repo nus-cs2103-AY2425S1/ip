@@ -7,6 +7,13 @@ import java.util.regex.Pattern;
  * Class to handle and parse user input from standard input.
  */
 public class CommandParser {
+
+    // Any ASCII character any number of times
+    private static final String ANY_WORDS = "\\p{ASCII}*";
+
+    // dd/MM/YYYY HHmm
+    private static final String TASK_DATETIME_FORMAT = "\\d\\d?/\\d\\d?/\\d{4} \\d{4}";
+
     private final Pattern listPattern;
     private final Pattern markPattern;
     private final Pattern unmarkPattern;
@@ -14,12 +21,7 @@ public class CommandParser {
     private final Pattern eventPattern;
     private final Pattern deadlinePattern;
     private final Pattern deletePattern;
-
-    // Any ASCII character any number of times
-    private static final String ANY_WORDS = "\\p{ASCII}*";
-
-    // dd/MM/YYYY HHmm
-    private static final String TASK_DATETIME_FORMAT = "\\d\\d?/\\d\\d?/\\d{4} \\d{4}";
+    private final Pattern findPattern;
 
     public CommandParser() {
         this.listPattern = Pattern.compile("^list(\\s+" + ANY_WORDS + ")?$");
@@ -38,6 +40,7 @@ public class CommandParser {
                 + " /by " + TASK_DATETIME_FORMAT
                 + "\\s*$)?");
         this.deletePattern = Pattern.compile("^delete(\\s+\\d+\\s*$)?");
+        this.findPattern = Pattern.compile("find(\\s+" + ANY_WORDS + "$)?");
     }
 
     /**
@@ -65,6 +68,10 @@ public class CommandParser {
             return new DeadlineCommand(matcher.group(1));
         } else if ((matcher = deletePattern.matcher(input)).find()) {
             return new DeleteCommand(matcher.group(1));
-        } else return new UnknownCommand();
+        } else if ((matcher = findPattern.matcher(input)).find()) {
+            return new FindCommand(matcher.group(1));
+        } else {
+            return new UnknownCommand();
+        }
     }
 }
