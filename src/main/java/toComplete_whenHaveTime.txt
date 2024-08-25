@@ -2,3 +2,6 @@
 - if list is size 7, shouldnt mark or unmark index 9
 - add name of user
 - check for duplicate items
+- implement setters and getters
+- enum for tasktype
+- public, private etc settings

@@ -1,6 +1,6 @@
 import java.text.MessageFormat;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -12,6 +12,11 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    protected String getDescription() {
+        return this.description;
+    }
+
     public Task markAsDone() {
         this.isDone = true;
         return this;
@@ -22,17 +27,8 @@ public class Task {
         return this;
     }
 
-    public String getListing(){
-        return MessageFormat.format("[{0}] {1}", this.getStatusIcon(), this.description);
-    }
-
-    public String getMarkAction() {
-        String listing = this.getListing();
-        if (this.isDone) {
-            return "Okiee! I've marked this task as done: \n    " + listing;
-        } else {
-            return "Okiee! I've marked this task as not done yet: \n    " + listing;
-        }
-    }
+    public String toString(){
+        return MessageFormat.format("[{0}] {1}", this.getStatusIcon(), this.getDescription());
+    };
 
 }
