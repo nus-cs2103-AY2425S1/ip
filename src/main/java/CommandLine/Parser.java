@@ -1,6 +1,8 @@
-import CommandLine.Line;
+package CommandLine;
+
 import Task.TaskList;
 import Task.Task;
+
 import static java.lang.Integer.parseInt;
 
 public class Parser {
