@@ -40,4 +40,19 @@ public class TaskList extends ArrayList<Task> {
         storage.writeTasks(this);
         System.out.println("Now you have " + this.size() + " tasks in the list.\n");
     }
+
+    /**
+     * Finds all the tasks in the task list that contain the specified keyword in description.
+     *
+     * @param keyword The index of the task to be marked as done.
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task t : this) {
+            if (t.getDescription().contains(keyword)) {
+                matchingTasks.add(t);
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -19,6 +19,7 @@ public class Parser {
             CommandWord instruction = CommandWord.valueOf(getInstruction(message));
             return switch (instruction) {
                 case LIST -> new ListCommand(message);
+                case FIND -> new FindCommand(message);
                 case MARK -> new MarkCommand(message);
                 case UNMARK -> new UnmarkCommand(message);
                 case DELETE -> new DeleteCommand(message);

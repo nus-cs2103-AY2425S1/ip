@@ -35,6 +35,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Returns a string representation of the task's completion status.
      * The status is represented as "X" for completed tasks and a space for not done tasks.
      *
@@ -84,4 +93,6 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+
 }

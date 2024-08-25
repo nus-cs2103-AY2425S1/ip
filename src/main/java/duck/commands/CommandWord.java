@@ -12,8 +12,14 @@ public enum CommandWord {
     LIST,
 
     /**
+     * Command to find tasks by a keyword.
+     */
+    FIND,
+
+    /**
      * Command to mark a task as done.
      */
+
     MARK,
 
     /**
