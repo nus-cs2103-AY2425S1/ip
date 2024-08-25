@@ -20,4 +20,8 @@ public class Deadline extends Task {
     public String toSaveFormat() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.toString();
     }
+
+    public LocalDate getByDate() {
+        return by;
+    }
 }

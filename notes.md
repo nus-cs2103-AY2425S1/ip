@@ -18,3 +18,8 @@ event /from 2pm /to 4pm -> OOPS!!! The description of a event cannot be empty.
 list -> lists out all tasks
 mark 2 -> marks task as done
 unmark 3 -> unmarks task as undone
+
+## datetime
+deadline return book /by 2019-10-15
+deadline buy groceries /by 2019-10-15
+deadline cook lunch /by 2019-10-14

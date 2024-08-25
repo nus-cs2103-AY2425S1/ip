@@ -1,1 +1,3 @@
-D | 0 | return book | 2019-10-15
+D | 1 | return book | 2019-10-15
+D | 0 | buy groceries | 2019-10-15
+D | 0 | cook lunch | 2019-10-14

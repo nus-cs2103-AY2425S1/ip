@@ -26,6 +26,29 @@ public class Duke {
         }
     }
 
+    private void printTasksOnDate(LocalDate date) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+
+        boolean hasTasks = false;
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getByDate().equals(date)) {
+                    System.out.println(" " + task);
+                    hasTasks = true;
+                }
+            } else if (task instanceof Event) {
+                // Implement similar logic if Event tasks have a date-based filtering
+            }
+        }
+
+        if (!hasTasks) {
+            System.out.println(" No tasks found on this date.");
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
@@ -127,6 +150,16 @@ public class Duke {
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                     storage.save(tasks); // Save the updated tasks list
+                } else if (input.startsWith("show on ")) {
+                    String dateStr = input.substring(8).trim();
+                    try {
+                        LocalDate date = LocalDate.parse(dateStr); // Accepting date in yyyy-MM-dd format
+                        printTasksOnDate(date);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("OOPS!!! The date format is incorrect. Please use yyyy-MM-dd format.");
+                        System.out.println("____________________________________________________________");
+                    }
                 } else {
                     throw new UnknownCommandException(input);
                 }
