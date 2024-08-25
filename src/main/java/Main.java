@@ -75,7 +75,7 @@ public class Main {
         // get the end time
         LocalTime inputEndTime = LocalTime.parse(commandDetails[indexOfTo + 2]);
         String outputEndTime = inputEndTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        String endDateAndTime = outputEndTime + " " + outputEndTime;
+        String endDateAndTime = outputEndDate + " " + outputEndTime;
         return new String[]{description, startDateAndTime, endDateAndTime};
     }
 
