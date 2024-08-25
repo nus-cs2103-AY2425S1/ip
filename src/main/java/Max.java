@@ -19,9 +19,7 @@ public class Max {
         loadList();
     }
     public void runMax() {
-
         printHello();
-
         boolean running = true;
 
         while (running) {
@@ -179,6 +177,22 @@ public class Max {
         printLine();
     }
 
+    public void deleteTask(int index) throws MaxException {
+        int arrayIndexToDelete = index - 1;
+        if (arrayIndexToDelete >= storedTasks.size() || arrayIndexToDelete < 0) {
+            throw new MaxException("This task does not exist! Deletion unsuccessful.");
+        }
+
+        Task removedTask = storedTasks.remove(arrayIndexToDelete);
+
+        printLine();
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.println("\t   " + removedTask.toString());
+        System.out.println("\t Now you have " + storedTasks.size() + " tasks in the list.");
+        printLine();
+
+    }
+    
     public void markDone(int index) {
         int arrayIndex = index - 1;
         storedTasks.get(arrayIndex).markDone();
@@ -197,19 +211,4 @@ public class Max {
         printLine();
     }
 
-    public void deleteTask(int index) throws MaxException {
-        int arrayIndexToDelete = index - 1;
-        if (arrayIndexToDelete >= storedTasks.size() || arrayIndexToDelete < 0) {
-            throw new MaxException("This task does not exist! Deletion unsuccessful.");
-        }
-
-        Task removedTask = storedTasks.remove(arrayIndexToDelete);
-
-        printLine();
-        System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t   " + removedTask.toString());
-        System.out.println("\t Now you have " + storedTasks.size() + " tasks in the list.");
-        printLine();
-
-    }
 }
