@@ -9,6 +9,12 @@ public abstract class Task {
         this.type = type;
     }
 
+    public Task(String description, boolean isDone, TaskType type) {
+        this.description = description;
+        this.isDone = isDone;
+        this.type = type;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -29,5 +35,10 @@ public abstract class Task {
 
     public String toString() {
         return String.format("[%s][%s] %s", this.type.name().charAt(0), this.getStatusIcon(), this.description);
+    }
+
+    public String formatToSave() {
+        String done = this.isDone ? "1" : "0";
+        return String.format("%s | %s | %s", this.type.name().charAt(0), done, this.description);
     }
 }
