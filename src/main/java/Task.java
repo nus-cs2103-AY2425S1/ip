@@ -5,7 +5,7 @@ public class Task {
     /**
      * Constructor for Task.
      * @param description a String describing the Task
-     * @throws IllegalArgumentException a Throwable thrown to indicate an illegal or inappropriate argument has been passed
+     * @throws IllegalArgumentException if description.isEmpty()
      *
      */
     public Task(String description) throws IllegalArgumentException {

@@ -60,7 +60,7 @@ public class Joe {
     /**
      * Adds a task to the user's list of tasks.
      * @param s a String representation of the user input
-     * @throws InvalidCommandException a Throwable that raises an exception when an invalid command was provided
+     * @throws InvalidCommandException if unknown user command was used
      */
     public static void add(String s) throws InvalidCommandException {
         System.out.println(line);
