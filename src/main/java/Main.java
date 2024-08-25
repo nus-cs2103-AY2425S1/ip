@@ -1,8 +1,36 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.IOException;
+import java.io.File;
 
 public class Main {
+    public ArrayList<Task> taskHistory;
 
     public static void main(String[] args) {
+        // save data feature
+        String fileName = "Ynch.txt";
+        File file = new File(fileName);
+
+        // check if file exists
+        try {
+            if (file.exists()) {
+                //  read file contents
+                Scanner scanner = new Scanner(file);
+                
+                // add each task to taskHistory
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    System.out.println(line);
+                }
+                scanner.close();
+            } else {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
         Scanner scanner = new Scanner(System.in);
         String userInput;
         Ynch chatbot = new Ynch();
