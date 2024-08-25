@@ -21,7 +21,7 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public void listTasks() {
+    public void listAll() {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.tasks.size(); i++) {

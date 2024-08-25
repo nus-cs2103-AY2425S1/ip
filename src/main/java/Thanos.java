@@ -4,6 +4,7 @@ import java.util.Scanner;
 import static utility.Printer.printWithDivider;
 
 import commands.CommandType;
+import ui.Ui;
 import utility.DateTimeUtility;
 import exceptions.InvalidCommandException;
 import storage.Storage;
@@ -15,6 +16,7 @@ import tasks.Todo;
 public class Thanos {
     private static final Storage storage = new Storage("data.txt");
     private static final TaskList tasks = new TaskList(storage);
+    private Ui ui = new Ui();
 
     private static String[] parseInput(String input) throws InvalidCommandException {
         if (input.trim().isEmpty()) {
@@ -32,7 +34,7 @@ public class Thanos {
     }
 
     private static void listTasks() {
-        tasks.listTasks();
+        tasks.listAll();
     }
 
     private static void markTask(String argument) throws InvalidCommandException {
