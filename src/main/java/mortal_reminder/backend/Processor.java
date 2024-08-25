@@ -29,6 +29,11 @@ public class Processor {
             FormattedPrinting.printList(taskList);
             break;
 
+        case FIND:
+            TaskList foundTasks = taskList.findTasks(commandDetails);
+            FormattedPrinting.printSimilarTasks(foundTasks);
+            break;
+
         case MARK:
         case UNMARK:
         case DELETE:

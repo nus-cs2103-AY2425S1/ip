@@ -41,14 +41,28 @@ public class FormattedPrinting {
         } else {
             StringBuilder currentList = new StringBuilder();
             currentList.append("Here are the tasks in your list:\n");
-            for (int i = 1; i < taskList.getSize() + 1; i++) {
-                currentList.append(i).append(".").append(printTask(taskList.getTask(i - 1)));
-                if (i < taskList.getSize()) {
-                    currentList.append("\n");
-                }
-            }
-            formatPrint(currentList.toString());
+            addListItems(taskList, currentList);
         }
+    }
+
+    public static void printSimilarTasks(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            formatPrint("No matching tasks!");
+        } else {
+            StringBuilder currentList = new StringBuilder();
+            currentList.append("Here are the matching tasks in your list:\n");
+            addListItems(taskList, currentList);
+        }
+    }
+
+    private static void addListItems(TaskList taskList, StringBuilder currentList) {
+        for (int i = 1; i < taskList.getSize() + 1; i++) {
+            currentList.append(i).append(".").append(printTask(taskList.getTask(i - 1)));
+            if (i < taskList.getSize()) {
+                currentList.append("\n");
+            }
+        }
+        formatPrint(currentList.toString());
     }
 
     public static String printTask(Task task) {
