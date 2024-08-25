@@ -1,9 +1,11 @@
+package gravitas.task;
+
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
     public Event(String description, String startDate, String endDate) {
-        super(description, 'E', startDate, endDate);
+        super(description, "E", startDate, endDate);
     }
 
     public String getDescription() {

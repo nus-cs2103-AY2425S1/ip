@@ -1,10 +1,11 @@
-import java.time.LocalDate;
+package gravitas.task;
+
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
     public Deadline(String description, String endDate) {
-        super(description, 'D', endDate, endDate);
+        super(description, "D", endDate, endDate);
     }
 
     public String getDescription() {

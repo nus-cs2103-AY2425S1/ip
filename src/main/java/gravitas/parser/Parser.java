@@ -1,3 +1,12 @@
+package gravitas.parser;
+
+import gravitas.exception.DukeException;
+import gravitas.task.Deadline;
+import gravitas.task.Event;
+import gravitas.task.Task;
+import gravitas.task.Todo;
+import gravitas.tasklist.TaskList;
+
 public class Parser {
 
     private String mark;

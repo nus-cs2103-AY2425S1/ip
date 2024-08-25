@@ -1,3 +1,6 @@
+package gravitas.tasklist;
+
+import gravitas.task.Task;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -31,7 +34,7 @@ public class TaskList {
     }
     public void printTask(Task task) {
         int size = tasklist.size();
-        System.out.println("  [" + task.getEventType() + "][" + task.getStatusIcon() + "] " + task.description);
+        System.out.println("  [" + task.getEventType() + "][" + task.getStatusIcon() + "] " + task.getDescription());
         System.out.println("Now you have " + size + " tasks in the list.");
     }
     public int size() {
