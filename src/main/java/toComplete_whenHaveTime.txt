@@ -1,0 +1,4 @@
+- Already mark items shouldn’t be marked again. Give warning message
+- if list is size 7, shouldnt mark or unmark index 9
+- add name of user
+- check for duplicate items
