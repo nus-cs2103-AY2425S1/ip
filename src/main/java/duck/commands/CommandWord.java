@@ -2,6 +2,7 @@ package duck.commands;
 
 public enum CommandWord {
     LIST,
+    FIND,
     MARK,
     UNMARK,
     DELETE,

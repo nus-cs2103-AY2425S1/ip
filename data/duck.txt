@@ -1,2 +1,5 @@
 T | 1 | Walk the dog
 T | 0 | Read a book
+T | 0 | supp
+T | 0 | ok!
+T | 0 | sus
