@@ -140,6 +140,33 @@ public class DemureBot {
             throw new DemureBotException("Invalid command\nCreate a new task starting with the command todo, deadline or event.\n");
         }
     }
+
+    public static void checkFolder(String folderPath) {
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            boolean isFolderCreated = folder.mkdirs();
+            if (!isFolderCreated) {
+                System.out.println("Failed to create directory: " + folderPath);
+            }
+        }
+    }
+
+    public static boolean checkFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                boolean isFileCreated = file.createNewFile();
+                if (!isFileCreated) {
+                    System.out.println("Failed to create file: " + filePath);
+                }
+                return false;
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -157,6 +184,14 @@ public class DemureBot {
 
             """
         );
+
+        // check if data folder exists if not create it
+        String folderPath = "./data";
+        checkFolder(folderPath);
+
+        // check if saved data exists if not create it
+        String filePath = "./data/tasks.txt";
+        boolean savedDataExists = checkFile(filePath);
 
         // while user hasn't ended session
         while (!isFinished) {
@@ -190,35 +225,12 @@ public class DemureBot {
             """
         );
 
-        // check if data folder exists if not create it
-        String folderPath = "./data";
-        File folder = new File(folderPath);
-        if (!folder.exists()) {
-            boolean isFolderCreated = folder.mkdirs();
-            if (!isFolderCreated) {
-                System.out.println("Failed to create directory: " + folderPath);
-            }
-        }
-
-        // check if saved data exists if not create it
-        String filePath = "./data/tasks.txt";
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                boolean isFileCreated = file.createNewFile();
-                if (!isFileCreated) {
-                    System.out.println("Failed to create file: " + filePath);
-                }
-            } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
-            }
-        }
-
-        // write the tasks to file
+        // save the tasks
         FileWriter writer = null;
         try {
             writer = new FileWriter(filePath);
             for (Task task : list) {
+
                 writer.write(task.toString() + "\n");
             }
         } catch (IOException e) {
