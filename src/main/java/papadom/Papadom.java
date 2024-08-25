@@ -49,10 +49,12 @@ public class Papadom {
                     exitCommand.execute(taskList, ui, storage);
                     return;
                 case MARK:
-                    ui.output(taskList.markTask(text));
+                    MarkCommand markCommand = new MarkCommand(text);
+                    markCommand.execute(taskList, ui, storage);
                     break;
                 case UNMARK:
-                    ui.output(taskList.unmarkTask(text));
+                    UnmarkCommand unmarkCommand = new UnmarkCommand(text);
+                    unmarkCommand.execute(taskList, ui, storage);
                     break;
                 case TODO:
                     AddTodoCommand addTodoCommand = new AddTodoCommand(text);
