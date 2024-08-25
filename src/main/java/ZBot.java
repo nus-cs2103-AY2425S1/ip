@@ -8,7 +8,6 @@ public class ZBot {
 
     public static void main(String[] args) {
         storage.createFileIfNotExists();
-
         greet();
 
         Scanner sc = new Scanner(System.in);
@@ -18,7 +17,7 @@ public class ZBot {
             input = sc.nextLine();
         }
 
-        saveTasks();
+        storage.saveTasks(tasks);
         sc.close();
         exit();
     }
@@ -118,26 +117,5 @@ public class ZBot {
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task number!\n");
         }
-    }
-
-    // Save tasks to file using "," as delimiter
-    public static void saveTasks() {
-        StringBuilder sb = new StringBuilder();
-        for (Task task : tasks) {
-            // Append task type, status, and description, separated by ","
-            char taskType = task instanceof ToDo ? 'T' : task instanceof Deadline ? 'D' : 'E';
-            int taskStatus = task.getStatus() ? 1 : 0;
-            sb.append(taskType).append(",").append(taskStatus).append(",").append(task.description);
-
-            // Append task-specific details
-            if (taskType == 'D') {
-                sb.append(",").append(((Deadline) task).by);
-            } else if (taskType == 'E') {
-                sb.append(",").append(((Event) task).from).append(",").append(((Event) task).to);
-            }
-            sb.append("\n");
-        }
-
-        storage.writeToFile(sb.toString());
     }
 }
