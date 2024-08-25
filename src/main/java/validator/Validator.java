@@ -84,7 +84,7 @@ public class Validator {
         return new String[]{description, from.toString(), to.toString()};
     }
 
-    public String[] validateDeadlineCommand(String[] parts) throws InvalidDeadlineException {
+    public String[] validateDeadlineCommand(String[] parts) throws InvalidDeadlineException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("deadline")) {
             throw new InvalidDeadlineException("Invalid deadline command format. Use: deadline <description> /by <due date>");
         }
@@ -97,13 +97,15 @@ public class Validator {
         }
 
         String description = fullCommand.substring("deadline".length(), byIndex).trim();
-        String by = fullCommand.substring(byIndex + "/by".length()).trim();
+        String byStr = fullCommand.substring(byIndex + "/by".length()).trim();
 
-        if (description.isEmpty() || by.isEmpty()) {
+        if (description.isEmpty() || byStr.isEmpty()) {
             throw new InvalidDeadlineException("Description and due date cannot be empty");
         }
 
-        return new String[]{description, by};
+        LocalDateTime by = parseDateTime(byStr);
+
+        return new String[]{description, by.toString()};
     }
 
     public int validateDeleteCommand(String[] parts, TaskManager manager) throws InvalidDeleteException, InvalidIndexException {
