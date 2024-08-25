@@ -1,4 +1,8 @@
+import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -10,6 +14,7 @@ public class Neko {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String ADD_COMMAND = "add";
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
@@ -19,7 +24,10 @@ public class Neko {
     private static final String FILE_PATH = "./data/neko.txt";
     private static final String DIRECTORY_PATH = "./data";
     private static final ArrayList<Task> taskList = new ArrayList<>(100);
-
+    private static final String DATE_TIME_FORMAT = "eee, d MMM uuuu h:mma";
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    private static final DateTimeFormatter parseFormatter= DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     public static void main(String[] args) {
 
         File f = new File(FILE_PATH);
@@ -33,7 +41,6 @@ public class Neko {
             }
         }
 
-        Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
         while (!input.equals(EXIT_COMMAND)) {
@@ -70,7 +77,7 @@ public class Neko {
                 isDone = parts[1].trim().equals("1");
                 taskName = parts[2].trim();
                 String deadline = parts[3].trim();
-                task = new Deadline(taskName, deadline);
+                task = new Deadline(taskName, LocalDateTime.parse(deadline, parseFormatter));
                 break;
             case 'E':
                 parts = str.split("\\|", 5);
@@ -78,7 +85,7 @@ public class Neko {
                 taskName = parts[2].trim();
                 String start = parts[3].trim();
                 String end = parts[4].trim();
-                task = new Event(taskName, start, end);
+                task = new Event(taskName, LocalDateTime.parse(start, parseFormatter), LocalDateTime.parse(end, parseFormatter));
                 break;
             }
             if (task != null)  {
@@ -101,7 +108,6 @@ public class Neko {
         }
         FileWriter fw = new FileWriter(FILE_PATH, true);
         fw.write(text);
-        System.out.println("Writing..");
         fw.close();
     }
 
@@ -112,8 +118,8 @@ public class Neko {
             markTask(input);
         } else if (input.startsWith(UNMARK_COMMAND)) {
             unmarkTask(input);
-        } else if (input.startsWith(TODO_COMMAND) || input.startsWith(DEADLINE_COMMAND) || input.startsWith(EVENT_COMMAND)) {
-            addTask(input);
+        } else if (input.equals(ADD_COMMAND)) {
+            addTask();
         } else if (input.startsWith(DELETE_COMMAND)) {
             deleteTask(input);
         } else {
@@ -121,70 +127,96 @@ public class Neko {
         }
     }
 
-    private static void addTask(String input) throws NekoException {
-        Task task;
-        if (input.startsWith(TODO_COMMAND)) {
-            String taskName = input.substring(TODO_COMMAND.length()).trim();
-            if (taskName == "") {
-                throw new NekoException("The description of a todo cannot be empty!");
-            }
-            task = new Todo(taskName);
-            try {
-                writeFile("T | 0 | " + taskName);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        } else if (input.startsWith(DEADLINE_COMMAND)) {
-            String[] parts = input.split("/", 2);
+    private static void addTask() throws NekoException {
+        System.out.println("Nyaa~ What kind of task would you like to add today?\n  1: Todo (Just a simple task meow)\n" +
+                "  2: Deadline (Something with a time limit meow)\n  3: Event (A task with a start and end time meow)\n" +
+                "Please enter the number of the task type you'd like to add meow~");
 
-            if (parts.length < 2 || !parts[1].startsWith("by")) {
-                throw new NekoException("The deadline must contain a '/by' to separate the task description and the deadline!");
-            }
-
-            String taskName = parts[0].substring(DEADLINE_COMMAND.length()).trim();
-            String deadline = parts[1].substring(2).trim();
-
-            if (taskName.isEmpty()) {
-                throw new NekoException("The description of a deadline cannot be empty!");
-            }
-            if (deadline.isEmpty()) {
-                throw new NekoException("The deadline of a deadline cannot be empty!");
-            }
-            task = new Deadline(taskName, deadline);
-            try {
-                writeFile("D | 0 | " + taskName + " | " + deadline);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            String[] parts = input.split("/", 3);
-
-            if (parts.length < 3 || !parts[1].startsWith("from") || !parts[2].startsWith("to")) {
-                throw new NekoException("The event must contain '/from' and '/to' to specify the start and end times!");
-            }
-            String taskName = parts[0].substring(EVENT_COMMAND.length()).trim();
-            String start = parts[1].substring(4).trim();
-            String end = parts[2].substring(2).trim();
-
-            if (taskName.isEmpty()) {
-                throw new NekoException("The description of an event cannot be empty!");
-            }
-            if (start.isEmpty()) {
-                throw new NekoException("The start time of an event cannot be empty!");
-            }
-            if (end.isEmpty()) {
-                throw new NekoException("The end time of an event cannot be empty!");
-            }
-            task = new Event(taskName, start, end);
-            try {
-                writeFile("D | 0 | " + taskName + " | " + start + " | " + end);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+        Task task = null;
+        while (task == null) {
+            String taskType = scanner.nextLine().trim();
+            switch (taskType) {
+                case "1":
+                    task = addTodo();
+                    break;
+                case "2":
+                    task = addDeadline();
+                    break;
+                case "3":
+                    task = addEvent();
+                    break;
+                default:
+                    System.out.println("Oops /ᐠ > ˕ <マ, that's not a valid option meow! Please enter 1, 2, or 3 meow!");
+                    break;
             }
         }
         taskList.add(task);
-        System.out.println("Got it meow. I've added this task ฅ/ᐠᓀ ﻌ ᓂマ\n "
+        System.out.println("Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n "
                 + task + "\nNow you have " + taskList.size() + " tasks in your list meow");
+    }
+
+    private static String getTaskName() {
+        while (true) {
+            System.out.println("What will this task be called meow?");
+            String taskName = scanner.nextLine().trim();
+            if (!taskName.isEmpty()) {
+                return taskName;
+            }
+            System.out.println("Meow /ᐠ > ˕ <マ The description of a task cannot be empty, please try again meow");
+        }
+    }
+
+    private static LocalDateTime getDateTime(String prompt) {
+        while (true) {
+            System.out.println(prompt + " (e.g., 2024-01-01T13:00 for January 1, 2024, at 1:00 PM)");
+            String input = scanner.nextLine().trim();
+            try {
+                return LocalDateTime.parse(input, dateFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Meow /ᐠ > ˕ <マ Invalid date/time format ! Please use 'yyyy-MM-ddTHH:mm' format.");
+            }
+        }
+    }
+    private static Task addTodo() {
+        String taskName = getTaskName();
+        try {
+            writeFile("T | 0 | " + taskName + "\n");
+            return new Todo(taskName);
+        } catch (IOException e) {
+            System.out.println("Nyaa! There was an error saving your task: " + e.getMessage());
+        }
+        return null;
+    }
+
+    private static Task addDeadline() {
+        String taskName = getTaskName();
+        LocalDateTime deadline = getDateTime("Enter the deadline date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
+        Task task = new Deadline(taskName, deadline);
+        try {
+            writeFile("D | 0 | " + taskName + " | " + task.getTime() + "\n");
+        } catch (IOException e) {
+            System.out.println("Nyaa! There was an error saving your task: " + e.getMessage());
+        }
+        return task;
+    }
+
+    private static Task addEvent() {
+        String taskName = getTaskName();
+        LocalDateTime startDateTime = getDateTime("Enter the start date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
+        LocalDateTime endDateTime = getDateTime("Enter the end date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
+
+        while (endDateTime.isBefore(startDateTime)) {
+            System.out.println("End time cannot be before start time meow! Please enter the end date and time again");
+            endDateTime = getDateTime("Enter the end date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
+        }
+
+        Task task = new Event(taskName, startDateTime, endDateTime);
+        try {
+            writeFile("E | 0 | " + taskName + " | " + task.getTime() + "\n");
+        } catch (IOException e) {
+            System.out.println("Nyaa! There was an error saving your task: " + e.getMessage());
+        }
+        return task;
     }
     private static void listTask() {
         if (taskList.isEmpty()) {
@@ -230,10 +262,10 @@ public class Neko {
 
     private static void checkValidIndex(int index) throws NekoException {
         if (index >= taskList.size()) {
-            throw new NekoException("You only have " + taskList.size() + " tasks now!");
+            throw new NekoException("You only have " + taskList.size() + " tasks now meow!");
         }
         if (index < 0 || index >= 100) {
-            throw new NekoException("Invalid task number! Please enter a number between 1 and " + taskList.size() + ".");
+            throw new NekoException("Invalid task number meow! Please enter a number between 1 and " + taskList.size() + ".");
         }
     }
 }
