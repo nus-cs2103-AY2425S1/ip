@@ -32,20 +32,14 @@ public class Ui {
     /**
      * Displays all tasks that the user has previously added to Hoshi
      */
-    public void displayTasks(ArrayList<Task> arrayList) {
+    public void displayTasks(TaskList taskList) {
 
-        if (!arrayList.isEmpty()) {
-            for (int i = 0; i < arrayList.size(); i++) {
-                System.out.println(i + 1 + ". " + arrayList.get(i).toString() + "\n");
-            }
+        if (!taskList.isEmpty()) {
+            System.out.println(taskList);
         } else {
             System.out.println("Hoshi doesn't have anything stored! Please add a task first");
         }
 
-    }
-
-    public void displayTaskDeleted(String description) {
-        System.out.println("OK, Hoshi has removed ( " + description + " )! \n");
     }
 
     public void displayTaskMarked(Task task) {

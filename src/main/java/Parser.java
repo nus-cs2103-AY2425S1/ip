@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -9,26 +8,26 @@ import java.util.Scanner;
 public class Parser {
 
 
-    public void parseCommand(String input, Scanner scanner, ArrayList<Task> arrayList, Ui ui, Storage storage) {
+    public void parseCommand(String input, Scanner scanner, TaskList taskList, Ui ui, Storage storage) {
 
         if (input.equalsIgnoreCase("bye")) {
             ui.displayBye();
         } else if (input.equalsIgnoreCase("list")) {
-            ui.displayTasks(arrayList);
+            ui.displayTasks(taskList);
         } else if (input.toLowerCase().startsWith("mark")) {
-            handleMark(input, arrayList, ui);
+            handleMark(input, taskList, ui);
         } else if (input.toLowerCase().startsWith("unmark")) {
-            handleUnmark(input, arrayList, ui);
+            handleUnmark(input, taskList, ui);
         } else if (input.toLowerCase().startsWith("delete")) {
-            handleDelete(input, arrayList, ui);
+            handleDelete(input, taskList, ui);
         } else if (input.toLowerCase().startsWith("add")) {
-            handleAdd(input, scanner, arrayList, ui);
+            handleAdd(input, scanner, taskList, ui);
         } else {
             ui.displayError("Hoshi doesn't understand, try a different input?");
         }
     }
 
-    private void handleMark(String input, ArrayList<Task> arrayList, Ui ui) {
+    private void handleMark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 5) {
 
@@ -46,10 +45,10 @@ public class Parser {
             try {
 
                 // if specified index is not out of bounds
-                if (markIndex <= arrayList.size() - 1) {
+                if (markIndex <= taskList.size() - 1) {
 
-                    arrayList.get(markIndex).setIsDone(true);
-                    ui.displayTaskMarked(arrayList.get(markIndex));
+                    taskList.get(markIndex).setIsDone(true);
+                    ui.displayTaskMarked(taskList.get(markIndex));
 
                 } else {
                     throw new HoshiException("Hoshi doesn't have such a task!");
@@ -64,7 +63,7 @@ public class Parser {
     }
 
 
-    private void handleUnmark(String input, ArrayList<Task> arrayList, Ui ui) {
+    private void handleUnmark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 7) {
             ui.displayTaskToMark();
@@ -81,12 +80,12 @@ public class Parser {
             try {
 
                 // if specified index is not out of bounds
-                if (markIndex <= arrayList.size() - 1) {
+                if (markIndex <= taskList.size() - 1) {
 
                     // set isDone to false
-                    arrayList.get(markIndex).setIsDone(false);
+                    taskList.get(markIndex).setIsDone(false);
 
-                    ui.displayTaskMarked(arrayList.get(markIndex));
+                    ui.displayTaskMarked(taskList.get(markIndex));
 
                 } else {
                     throw new HoshiException("Hoshi doesn't have such a task! \n");
@@ -98,7 +97,7 @@ public class Parser {
         }
     }
 
-    private void handleDelete(String input, ArrayList<Task> arrayList, Ui ui) {
+    private void handleDelete(String input, TaskList taskList, Ui ui) {
 
         if (input.length() < 7) {
             ui.displayTaskToDelete();
@@ -111,21 +110,21 @@ public class Parser {
             // get only the number from the 2nd half of the splitInput
             int markIndex = Character.getNumericValue(taskNo) - 1;
 
-            arrayList.remove(markIndex);
-            ui.displayTaskDeleted(arrayList.get(markIndex));
+            taskList.delete(markIndex);
+            ui.displayTaskDeleted(taskList.get(markIndex));
 
         }
     }
 
     /**
-     * Adds either to do/deadline/event tasks that are described by the user to ArrayList which is to be written to a
+     * Adds either to do/deadline/event tasks that are described by the user to TaskList which is to be written to a
      * txt file later
      *
      * @param input  String that represents general user input before add task details are required.
      * @param scanner Scanner that allows user input to be read.
-     * @param arrayList ArrayList of 3 types of tasks that will be added to in this method.
+     * @param taskList TaskList of 3 types of tasks that will be added to in this method.
      */
-    private static void handleAdd(String input, Scanner scanner, ArrayList<Task> arrayList, Ui ui) {
+    private static void handleAdd(String input, Scanner scanner, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 4) {
 
@@ -150,7 +149,7 @@ public class Parser {
                     }
 
                     Todo newToDo = new Todo(desc);
-                    arrayList.add(newToDo);
+                    taskList.add(newToDo);
                     ui.displayTaskAdded(input);
 
                 } catch (HoshiException e) {
@@ -177,7 +176,7 @@ public class Parser {
                     LocalDate dateTime = LocalDate.parse(endTime);
 
                     Deadline newDeadline = new Deadline(desc, dateTime);
-                    arrayList.add(newDeadline);
+                    taskList.add(newDeadline);
                     ui.displayTaskAdded(input);
 
                 } catch (HoshiException e) {
@@ -213,7 +212,7 @@ public class Parser {
                     LocalDate dateTimeEnd = LocalDate.parse(endTime);
 
                     Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
-                    arrayList.add(newEvent);
+                    taskList.add(newEvent);
                     ui.displayTaskAdded(input);
 
 

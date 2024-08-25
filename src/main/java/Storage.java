@@ -29,9 +29,9 @@ public class Storage {
      * Loads tasks from hoshi txt file if user is not new else greets the user.
      *
      * @param filePath  String filepath that contains the path of the hoshi txt file.
-     * @param arrayList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
+     * @param taskList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
      */
-    private static void Load(String filePath, ArrayList<Task> arrayList) throws FileNotFoundException {
+    private static void Load(String filePath, TaskList taskList) throws FileNotFoundException {
 
         File file = new File(filePath);
 
@@ -54,7 +54,7 @@ public class Storage {
                 case "Todo":
 
                     Todo todo = new Todo(description, isDone);
-                    arrayList.add(todo);
+                    taskList.add(todo);
                     break;
 
                 case "Deadline":
@@ -64,7 +64,7 @@ public class Storage {
                     LocalDate deadlineDateTimeEnd = LocalDate.parse(deadlineEndTime);
 
                     Deadline deadline = new Deadline(description, isDone, deadlineDateTimeEnd);
-                    arrayList.add(deadline);
+                    taskList.add(deadline);
                     break;
 
                 case "Event":
@@ -76,7 +76,7 @@ public class Storage {
                     LocalDate dateTimeStart = LocalDate.parse(startTime);
 
                     Event event = new Event(description, isDone, dateTimeEnd, dateTimeStart);
-                    arrayList.add(event);
+                    taskList.add(event);
                     break;
 
                 default:
@@ -100,14 +100,16 @@ public class Storage {
      * Saves tasks added and retrieved during the program to hoshi txt file.
      *
      * @param filePath  String filepath that contains the path of the hoshi txt file.
-     * @param arrayList ArrayList of 3 types of tasks to be written to hoshi txt file.
+     * @param taskList TaskList of 3 types of tasks to be written to hoshi txt file.
      */
-    private static void Save(String filePath, ArrayList<Task> arrayList) throws IOException {
+    private static void Save(String filePath, TaskList taskList) throws IOException {
 
         try {
             FileWriter fileWriter = new FileWriter(filePath);
 
-            for (Task task : arrayList) {
+            for (int i = 0; i< taskList.size(); i++) {
+
+                Task task = taskList.get(i);
 
                 // Deadline(TaskType), T(D = Done/ ND = Not Done), Description, endTime, startTime
                 String taskType = task.getClass().getName();
