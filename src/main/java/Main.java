@@ -15,6 +15,17 @@ public class Main {
                 break;
             } 
 
+            try {
+                checkForEmpty(userInput);
+                checkForInvalid(userInput);
+            } catch (EmptyTaskException e) {
+                System.out.println(e.getMessage());
+                continue;
+            } catch (InvalidCommandException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+
             if (userInput.equals("list")) {
                 System.out.println(chatbot.list());
             } else if (userInput.startsWith("mark")) {
@@ -42,5 +53,26 @@ public class Main {
             
         }
         scanner.close();  
+    }
+
+    private static void checkForEmpty(String userInput) throws EmptyTaskException {
+        if (userInput.equals("todo")) {
+            throw new EmptyTaskException();
+        }
+    }
+
+    private static void checkForInvalid(String userInput) throws InvalidCommandException {
+        if (!isValidInput(userInput)) {
+            throw new InvalidCommandException();
+        }
+    }
+
+    private static boolean isValidInput(String userInput) { 
+        try {
+            validCommand.valueOf(userInput); 
+            return true; // valid enum
+        } catch (IllegalArgumentException e) {
+            return false; // invalid enum
+        }
     }
 }
