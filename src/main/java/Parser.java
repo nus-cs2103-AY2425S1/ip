@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Parser {
     protected Storage storage;
     protected TaskList tasks;
@@ -15,47 +17,38 @@ public class Parser {
         return isExit;
     }
 
-    public void parse(String command) {
+    public Command parse(String command) throws PikappiException {
         if (command.equals("bye")) {
-            storage.save(tasks);
-            ui.goodbye();
             isExit = true;
+            return new ExitCommand();
         } else if (command.equals("list")) {
-            tasks.listTasks();
+            return new ListCommand();
         } else if (command.startsWith("mark")) {
-            tasks.markTask(Integer.parseInt(command.split(" ")[1]));
+            return new MarkCommand(Integer.parseInt(command.split(" ")[1]));
         } else if (command.startsWith("unmark")) {
-            tasks.unmarkTask(Integer.parseInt(command.split(" ")[1]));
+            return new UnmarkCommand(Integer.parseInt(command.split(" ")[1]));
         } else if (command.startsWith("todo")) {
             try {
-                tasks.addTask(command, TaskList.TaskType.TODO);
-            } catch (PikappiException e) {
-                System.out.println(e.getMessage());
+                return new TodoCommand(command.split("todo ")[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new PikappiException("Pika..? What is the task?");
             }
         } else if (command.startsWith("deadline")) {
             try {
-                tasks.addTask(command, TaskList.TaskType.DEADLINE);
-            } catch (PikappiException e) {
-                System.out.println(e.getMessage());
+                return new DeadlineCommand(command.split("deadline ")[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new PikappiException("Pika..? What is the task?");
             }
         } else if (command.startsWith("event")) {
             try {
-                tasks.addTask(command, TaskList.TaskType.EVENT);
-            } catch (PikappiException e) {
-                System.out.println(e.getMessage());
+                return new EventCommand(command.split("event ")[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new PikappiException("Pika..? What is the task?");
             }
         } else if (command.startsWith("delete")) {
-            try {
-                tasks.deleteTask(command);
-            } catch (PikappiException e) {
-                System.out.println(e.getMessage());
-            }
+            return new DeleteCommand(Integer.parseInt(command.split(" ")[1]));
         } else {
-            try {
-                throw new PikappiException("Pi-ka..?? I don't understand..");
-            } catch (PikappiException e) {
-                System.out.println(e.getMessage());
-            }
+            throw new PikappiException("Pi-ka..?? I don't understand..");
         }
     }
 }

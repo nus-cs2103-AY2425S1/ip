@@ -2,9 +2,6 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-    enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
@@ -18,89 +15,34 @@ public class TaskList {
         return tasks;
     }
 
-    public Task get(int index) {
-        return tasks.get(index);
-    }
-
-    public int size() {
-        return tasks.size();
-    }
-
     public void add(Task task) {
         tasks.add(task);
     }
 
-    public void remove(int index) {
-        tasks.remove(index);
-    }
-
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
-
-    public void addTask(String command, TaskType tasktype) throws PikappiException {
-        String[] substrings = command.split(" ");
-        if (substrings.length == 1) {
+    public void addTask(Task task) throws PikappiException {
+        if (task == null) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
         }
-        String task = substrings[1];
-        if (task.isEmpty()) {
-            throw new PikappiException("Pi-ka..?? What is the task..?");
-        }
-        switch (tasktype) {
-        case TODO:
-            tasks.add(new TodoTask(task));
+        if (task instanceof TodoTask) {
+            tasks.add(task);
             System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
-            break;
-        case DEADLINE:
-            String by = "";
-            try {
-                for (int i = 3; i < substrings.length; i++) {
-                    by += substrings[i] + " ";
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new PikappiException("Pi-ka..?? When is the deadline..?");
-            }
-            tasks.add(new DeadlineTask(task, by));
+        } else if (task instanceof DeadlineTask) {
+            tasks.add(task);
             System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
-            break;
-        case EVENT:
-            String from = "";
-            String to = "";
-            try {
-                from = substrings[3];
-                if (!substrings[4].equals("/to")) {
-                    from += " " + substrings[4];
-                    for (int i = 6; i < substrings.length; i++) {
-                        to += substrings[i] + " ";
-                    }
-                } else {
-                    for (int i = 5; i < substrings.length; i++) {
-                        to += substrings[i] + " ";
-                    }
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new PikappiException("Pi-ka..?? When is the event starting and ending..?");
-            }
-            tasks.add(new EventTask(task, from, to));
+        } else if (task instanceof EventTask) {
+            tasks.add(task);
             System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
-            break;
         }
     }
 
-    public void deleteTask(String command) throws PikappiException {
-        String[] substrings = command.split(" ");
-        if (substrings.length == 1) {
-            throw new PikappiException("Pi-ka..?? What do you want to delete..?");
-        }
-        int taskToDelete = Integer.parseInt(substrings[1]);
-        if (taskToDelete > tasks.size() || taskToDelete < 1) {
+    public void deleteTask(int taskNum) throws PikappiException {
+        if (taskNum > tasks.size() || taskNum < 1) {
             throw new PikappiException("Pi-ka..?? Task does not exist..");
         }
-        tasks.remove(taskToDelete - 1);
+        tasks.remove(taskNum - 1);
         System.out.println("Pipi-ka-pi! I've removed this task:\n " + tasks.get(tasks.size() - 1) +
                 "\nNow you have " + tasks.size() + " tasks in the list.");
     }

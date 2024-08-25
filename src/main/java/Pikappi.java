@@ -16,7 +16,12 @@ public class Pikappi {
         while (!isExit) {
             String command = ui.readCommand();
             ui.showLine();
-            parser.parse(command);
+            try {
+                Command c = parser.parse(command);
+                c.execute(tasks, ui, storage);
+            } catch (PikappiException e) {
+                ui.showErrorMessage(e.getMessage());
+            }
             isExit = parser.isExit();
             ui.showLine();
         }

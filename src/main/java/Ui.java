@@ -21,4 +21,8 @@ public class Ui {
     public String readCommand() {
         return reader.nextLine();
     }
+
+    public void showErrorMessage(String message) {
+        System.out.println(message);
+    }
 }
