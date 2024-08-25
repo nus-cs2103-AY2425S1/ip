@@ -5,25 +5,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Alice {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private final Storage storage;
+
+    public Alice(String filePath) {
+        storage = new Storage(filePath);
+        // load tasks
+        storage.loadTasks();
+        Alice.tasks = storage.getTasks();
+    }
+
     public static void main(String[] args) {
-        // load tasks before starting
-        File file = new File("data.txt");
-        try {
-            // create new file if it doesn't exist
-            // if file already exists, read its contents
-            if (!file.createNewFile()) {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    createTask(line);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        // create instance of Alice with loaded tasks
+        new Alice("data.txt").run();
+    }
 
-
+    // starts the program
+    public void run() {
         System.out.println("Hello! I am Alice! \nWhat can I do for you?");
         System.out.println("------------------------------------------");
 
@@ -62,17 +60,7 @@ public class Alice {
         System.out.println("------------------------------------------");
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
-
-        // at the end of the program, save the tasks to the file
-        try {
-            FileWriter writer = new FileWriter(file);
-            for (Task task : tasks) {
-                writer.write(writeTask(task));
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        storage.saveTasks(tasks);
     }
 
     // for marking tasks as done or undone: separate the string from the index
