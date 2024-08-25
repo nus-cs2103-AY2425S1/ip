@@ -1,0 +1,2 @@
+T | 0 | read book
+E | 0 | meeting | Dec 2 2023, 2:00pm | Dec 2 2023, 3:00pm
