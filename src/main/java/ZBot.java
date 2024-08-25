@@ -8,6 +8,7 @@ public class ZBot {
 
     public static void main(String[] args) {
         storage.createFileIfNotExists();
+        tasks = storage.loadTasks();
         greet();
 
         Scanner sc = new Scanner(System.in);

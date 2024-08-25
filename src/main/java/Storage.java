@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class Storage {
     private String filePath;
@@ -56,5 +58,32 @@ public class Storage {
         }
 
         writeToFile(sb.toString());
+    }
+
+    // Load tasks from file using "," as delimiter
+    public ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            Scanner sc = new Scanner(new File(filePath));
+            while (sc.hasNextLine()) {
+                String[] taskParts = sc.nextLine().split(",");
+                Task task;
+                if (taskParts[0].equals("T")) {
+                    task = new ToDo(taskParts[2]);
+                } else if (taskParts[0].equals("D")) {
+                    task = new Deadline(taskParts[2], taskParts[3]);
+                } else {
+                    task = new Event(taskParts[2], taskParts[3], taskParts[4]);
+                }
+                if (taskParts[1].equals("1")) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        }
+        return tasks;
     }
 }
