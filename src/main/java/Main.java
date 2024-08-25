@@ -277,7 +277,10 @@ public class Main {
                     case DEADLINE -> {
                         // get the details of the deadline task and create a new Deadline object
                         String[] deadlineDetails = findDeadlineDetails(commandDetails);
-                        Task deadline = new Deadline(deadlineDetails[0], "D", deadlineDetails[1]);
+                        String dateAndTimeString = deadlineDetails[1];    // MMM dd yyyy hh:mm a
+                        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+                        LocalDateTime dateAndTime = LocalDateTime.parse(dateAndTimeString, stringToDateTime);
+                        Task deadline = new Deadline(deadlineDetails[0], "D", dateAndTime);
                         String addTaskSuccess = janet.addTaskToList(deadline);
                         System.out.println(addTaskSuccess);
                     }
