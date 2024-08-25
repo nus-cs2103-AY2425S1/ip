@@ -1,6 +1,6 @@
 public enum Command {
     BYE("bye"), LIST("list"), MARK("mark"), UNMARK("unmark"), DELETE("delete"), TODO("todo"), DEADLINE("deadline"),
-    EVENT("event");
+    EVENT("event"), ON("on");
     private final String command;
 
     Command(String command) {
