@@ -71,14 +71,14 @@ public class TaskList {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
         Task task = null;
-
+        list();
         switch (taskType) {
         case T:
             task = ToDo.of(description, taskType);
             break;
         case D:
             try {
-                task = Deadline.of(description + "/by " + parts[3], taskType);
+                task = Deadline.of(description + " /by " + parts[3], taskType);
             } catch (TaskCreationException e) {
                 System.out.println("Error occured while parsing task");
             }
