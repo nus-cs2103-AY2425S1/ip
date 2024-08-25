@@ -2,27 +2,29 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.io.File;
+import java.io.FileWriter;
 
 public class Main {
-    public ArrayList<Task> taskHistory;
 
     public static void main(String[] args) {
         // save data feature
-        String fileName = "Ynch.txt";
-        File file = new File(fileName);
+        String filename = "Ynch.txt";
+        File file = new File(filename);
+        String userInput;
+        Ynch chatbot = new Ynch();
 
         // check if file exists
         try {
             if (file.exists()) {
                 //  read file contents
-                Scanner scanner = new Scanner(file);
+                Scanner scannerHistory = new Scanner(file);
                 
-                // add each task to taskHistory
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    System.out.println(line);
+                // add each task to chatbot history
+                while (scannerHistory.hasNextLine()) {
+                    String task = scannerHistory.nextLine();
+                    chatbot.processInput(task);
                 }
-                scanner.close();
+                scannerHistory.close();
             } else {
                 file.createNewFile();
             }
@@ -32,8 +34,7 @@ public class Main {
         }
 
         Scanner scanner = new Scanner(System.in);
-        String userInput;
-        Ynch chatbot = new Ynch();
+
         System.out.println(chatbot.greet());
         while (true) {
             userInput = scanner.nextLine();
@@ -54,36 +55,21 @@ public class Main {
                 continue;
             }
 
-            if (userInput.equals("list")) {
-                System.out.println(chatbot.list());
-            } else if (userInput.startsWith("mark")) {
-                int i = Integer.valueOf(userInput.split(" ")[1]);
-                System.out.println(chatbot.mark(i));
-            } else if (userInput.startsWith("unmark")) {
-                int i = Integer.valueOf(userInput.split(" ")[1]);
-                System.out.println(chatbot.unmark(i));
-            } else if (userInput.startsWith("todo")) {
-                System.out.println(chatbot.addTodo(userInput.split(" ", 2)[1]));
-            } else if (userInput.startsWith("deadline")) {
-                userInput = userInput.split(" ", 2)[1];
-                String task = userInput.split("/by")[0];
-                String deadline = userInput.split("/by")[1];
-                System.out.println(chatbot.addDeadline(task, deadline));
-            } else if (userInput.startsWith("event")) {
-                userInput = userInput.split(" ", 2)[1];
-                String task = userInput.split("/from")[0];
-                String fromAndTo = userInput.split("/from")[1];
-                String from = fromAndTo.split("/to")[0];
-                String to = fromAndTo.split("/to")[1];
-                System.out.println(chatbot.addEvent(task, from, to));
-            } else if (userInput.startsWith("delete")) {
-                int i = Integer.valueOf(userInput.split(" ")[1]);
-                System.out.println(chatbot.delete(i));
+            chatbot.processInput(userInput);
+
+            // save chat history
+            try (FileWriter writer = new FileWriter(filename, true)) {
+                writer.write(userInput + System.lineSeparator());
+                // System.out.println("Appended: " + userInput);
+            } catch (IOException e) {
+                System.out.println("An error occurred while writing to the file.");
+                e.printStackTrace();
             }
-            
-            
+
         }
-        scanner.close();  
+        scanner.close(); 
+        
+        
     }
 
     private static void checkForEmpty(String userInput) throws EmptyTaskException {

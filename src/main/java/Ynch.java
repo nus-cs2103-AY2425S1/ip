@@ -9,6 +9,35 @@ class Ynch {
         this.todoList = new ArrayList<Task>();
     }
 
+    void processInput(String userInput) {
+        if (userInput.equals("list")) {
+            System.out.println(this.list());
+        } else if (userInput.startsWith("mark")) {
+            int i = Integer.valueOf(userInput.split(" ")[1]);
+            System.out.println(this.mark(i));
+        } else if (userInput.startsWith("unmark")) {
+            int i = Integer.valueOf(userInput.split(" ")[1]);
+            System.out.println(this.unmark(i));
+        } else if (userInput.startsWith("todo")) {
+            System.out.println(this.addTodo(userInput.split(" ", 2)[1]));
+        } else if (userInput.startsWith("deadline")) {
+            userInput = userInput.split(" ", 2)[1];
+            String task = userInput.split("/by")[0];
+            String deadline = userInput.split("/by")[1];
+            System.out.println(this.addDeadline(task, deadline));
+        } else if (userInput.startsWith("event")) {
+            userInput = userInput.split(" ", 2)[1];
+            String task = userInput.split("/from")[0];
+            String fromAndTo = userInput.split("/from")[1];
+            String from = fromAndTo.split("/to")[0];
+            String to = fromAndTo.split("/to")[1];
+            System.out.println(this.addEvent(task, from, to));
+        } else if (userInput.startsWith("delete")) {
+            int i = Integer.valueOf(userInput.split(" ")[1]);
+            System.out.println(this.delete(i));
+        }
+    }
+
     String addTodo(String task) {
         Todo newTask = new Todo(task);
         this.todoList.add(newTask);
