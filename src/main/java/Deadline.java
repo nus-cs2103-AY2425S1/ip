@@ -12,6 +12,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns summary of task
+     *
+     * @return task summary
+     */
+    public String summary() {
+        return "D " + super.summary() + " | " + this.by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

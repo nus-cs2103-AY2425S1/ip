@@ -53,6 +53,16 @@ public class Task {
         return this.isDone;
     }
 
+    /**
+     * Returns summary of task
+     *
+     * @return task summary
+     */
+    public String summary() {
+        return  "| " + (this.isDone() ? "1" : "0") + " | "
+                + this.getDescription();
+    }
+
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
