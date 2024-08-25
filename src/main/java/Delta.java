@@ -1,8 +1,13 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -172,6 +177,27 @@ public class Delta {
     }
 
     /**
+     * Checks if date/time input by user is the correct format to be stored as a LocalDateTime object.
+     *
+     * @param input Date/time input by user.
+     * @return LocalDateTime object Object that contains the date/time according to the user input.
+     * @throws DeltaException If format of user input is wrong.
+     */
+    public static LocalDateTime formatDateTime(String input) throws DeltaException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(input, formatter);
+        }
+        catch (DateTimeParseException e) {
+            throw new DeltaException("""
+                    OOPS!!! The format used for date/time is wrong!
+                    \t Please follow the proper format:
+                    \t yyyy-MM-dd HHmm
+                    \t eg. 2024-08-25 1800""");
+        }
+    }
+
+    /**
      * Saves tasks in list to SAVE_FILE_PATH location.
      *
      * @throws DeltaException If directory or file unable to be created.
@@ -332,7 +358,14 @@ public class Delta {
                         String[] details = description[1].strip().split(" /by ");
                         if (details.length == 2) {
                             String taskName = details[0].strip();
-                            String by = details[1].strip();
+                            LocalDateTime by = formatDateTime(details[1].strip());
+                            if (by.isBefore(LocalDateTime.now())) {
+                                throw new DeltaException("""
+                                    OOPS!!! The date/time cannot be in the past!
+                                    \t Please set to a future date/time!
+                                    \t Follow the proper format:
+                                    \t * deadline [description] /by [date/time]""");
+                            }
                             output = addTask(new Deadline(taskName, by));
                         } else {
                             throw new DeltaException("""
@@ -355,8 +388,21 @@ public class Delta {
                             String taskName = details[0].strip();
                             String[] timings = details[1].strip().split(" /to ");
                             if (timings.length == 2) {
-                                String start = timings[0].strip();
-                                String end = timings[1].strip();
+                                LocalDateTime start = formatDateTime(timings[0].strip());
+                                LocalDateTime end = formatDateTime(timings[1].strip());
+                                if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
+                                    throw new DeltaException("""
+                                            OOPS!!! The date/time cannot be in the past!
+                                            \t Please set to a future date/time!
+                                            \t Follow the proper format:
+                                            \t * event [description] /from [start] /to [end]""");
+                                } else if (end.isBefore(start)) {
+                                    throw new DeltaException("""
+                                            OOPS!!! The end date cannot be before the start date!
+                                            \t Please set the correct date/time!
+                                            \t Follow the proper format:
+                                            \t * event [description] /from [start] /to [end]""");
+                                }
                                 output = addTask(new Event(taskName, start, end));
                             } else {
                                 throw new DeltaException("""
