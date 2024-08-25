@@ -1,7 +1,7 @@
 list
 todo Read a book
-deadline Complete assignment /by next Monday
-event Team meeting /from 2pm /to 4pm
+deadline Complete assignment /by 28/08/2024 1800
+event Team meeting /from 25/08/2024 1400 /to 25/08/2024 1600
 list
 mark 2
 list
@@ -9,14 +9,14 @@ unmark 2
 delete 1
 list
 todo Buy groceries
-deadline Submit report /by Friday
-event Birthday party /from Saturday 6pm /to Sunday 2am
+deadline Submit report /by 30/08/2024 1700
+event Birthday party /from 31/08/2024 1800 /to 01/09/2024 0200
 list
 mark 3
 delete 2
 list
 todo Walk the dog
-deadline Pay bills /by end of month
-event Family dinner /from Sunday 7pm /to 9pm
+deadline Pay bills /by 31/08/2024 2359
+event Family dinner /from 01/09/2024 1900 /to 01/09/2024 2100
 list
 bye

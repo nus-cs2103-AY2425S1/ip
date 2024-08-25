@@ -12,31 +12,31 @@ Now you have 1 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Got it. I've added this task:
-  [D][ ] Complete assignment (by: next Monday)
+  [D][ ] Complete assignment (by: 28 Aug 2024 18:00)
 Now you have 2 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[T][ ] Team meeting (from: 4pm to: 2pm)
+[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
 Now you have 3 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
 1.[T][ ] Read a book
-2.[D][ ] Complete assignment (by: next Monday)
-3.[T][ ] Team meeting (from: 4pm to: 2pm)
+2.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
+3.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
-Marked task as done: [D][x] Complete assignment (by: next Monday)
+Marked task as done: [D][x] Complete assignment (by: 28 Aug 2024 18:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
 1.[T][ ] Read a book
-2.[D][x] Complete assignment (by: next Monday)
-3.[T][ ] Team meeting (from: 4pm to: 2pm)
+2.[D][x] Complete assignment (by: 28 Aug 2024 18:00)
+3.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
-The program threw an exception. It is:Your input was unmark 2 .However, the correct way to use mark  is to type mark 1 to mark the list shown by 1
+Unmarked task: [D][ ] Complete assignment (by: 28 Aug 2024 18:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
 Noted. I've removed this task:
@@ -45,8 +45,8 @@ Now you have 2 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
-1.[D][x] Complete assignment (by: next Monday)
-2.[T][ ] Team meeting (from: 4pm to: 2pm)
+1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
+2.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
@@ -55,36 +55,36 @@ Now you have 3 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Got it. I've added this task:
-  [D][ ] Submit report (by: Friday)
+  [D][ ] Submit report (by: 30 Aug 2024 17:00)
 Now you have 4 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
+[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
 Now you have 5 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
-1.[D][x] Complete assignment (by: next Monday)
-2.[T][ ] Team meeting (from: 4pm to: 2pm)
+1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
+2.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
 3.[T][ ] Buy groceries
-4.[D][ ] Submit report (by: Friday)
-5.[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
+4.[D][ ] Submit report (by: 30 Aug 2024 17:00)
+5.[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
 Marked task as done: [T][x] Buy groceries
 ────────────────────────────────────────
 ────────────────────────────────────────
 Noted. I've removed this task:
-  [T][ ] Team meeting (from: 4pm to: 2pm)
+  [E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
 Now you have 4 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
-1.[D][x] Complete assignment (by: next Monday)
+1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
 2.[T][x] Buy groceries
-3.[D][ ] Submit report (by: Friday)
-4.[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
+3.[D][ ] Submit report (by: 30 Aug 2024 17:00)
+4.[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
@@ -93,23 +93,23 @@ Now you have 5 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Got it. I've added this task:
-  [D][ ] Pay bills (by: end of month)
+  [D][ ] Pay bills (by: 31 Aug 2024 23:59)
 Now you have 6 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[T][ ] Family dinner (from: 9pm to: Sunday 7pm)
+[E][ ] Family dinner (from: 01 Sep 2024 19:00 to: 01 Sep 2024 21:00)
 Now you have 7 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
-1.[D][x] Complete assignment (by: next Monday)
+1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
 2.[T][x] Buy groceries
-3.[D][ ] Submit report (by: Friday)
-4.[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
+3.[D][ ] Submit report (by: 30 Aug 2024 17:00)
+4.[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
 5.[T][ ] Walk the dog
-6.[D][ ] Pay bills (by: end of month)
-7.[T][ ] Family dinner (from: 9pm to: Sunday 7pm)
+6.[D][ ] Pay bills (by: 31 Aug 2024 23:59)
+7.[E][ ] Family dinner (from: 01 Sep 2024 19:00 to: 01 Sep 2024 21:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
 Bye. Hope to see you again soon!

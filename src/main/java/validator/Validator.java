@@ -1,8 +1,15 @@
 package validator;
 import orionExceptions.*;
+import task.DeadlineDetails;
+import task.EventDetails;
 import taskManager.TaskManager;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Validator {
 
@@ -28,13 +35,14 @@ public class Validator {
 
 
     public int validateMarkAndUnMarkCommand(String[] parts, TaskManager manager) throws InvalidMarkException, InvalidIndexException {
-        if (parts == null || parts.length < 2 || !parts[0].equals("mark")) {
+        if (parts == null || parts.length < 2 || !(parts[0].equals("mark") || parts[0].equals("unmark"))) {
             throw new InvalidMarkException(parts == null ? "null" : String.join(" ", parts));
         }
         String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
         String[] split_parts = joinedString.split(" ");
         if (split_parts.length != 1 || ! isInteger(split_parts[0])) {
+            System.out.println(Arrays.toString(split_parts));
             throw new InvalidMarkException(joinedString);
         }
         int index = Integer.parseInt(split_parts[0]);
@@ -55,7 +63,7 @@ public class Validator {
         return parts[1];
     }
 
-    public String[] validateEventCommand(String[] parts) throws InvalidEventException {
+    public EventDetails validateEventCommand(String[] parts) throws InvalidEventException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("event")) {
             throw new InvalidEventException(parts == null ? "null" : String.join(" ", parts));
         }
@@ -66,17 +74,20 @@ public class Validator {
         }
 
         String description = eventDetails[0].trim();
-        String from = eventDetails[1].trim();
-        String to = eventDetails[2].trim();
+        String fromStr = eventDetails[1].trim();
+        String toStr = eventDetails[2].trim();
 
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+        if (description.isEmpty() || fromStr.isEmpty() || toStr.isEmpty()) {
             throw new InvalidEventException(String.join(" ", parts));
         }
 
-        return new String[]{description, from, to};
+        LocalDateTime from = parseDateTime(fromStr);
+        LocalDateTime to = parseDateTime(toStr);
+
+        return new EventDetails(description, from, to);
     }
 
-    public String[] validateDeadlineCommand(String[] parts) throws InvalidDeadlineException {
+    public DeadlineDetails validateDeadlineCommand(String[] parts) throws InvalidDeadlineException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("deadline")) {
             throw new InvalidDeadlineException("Invalid deadline command format. Use: deadline <description> /by <due date>");
         }
@@ -89,13 +100,15 @@ public class Validator {
         }
 
         String description = fullCommand.substring("deadline".length(), byIndex).trim();
-        String by = fullCommand.substring(byIndex + "/by".length()).trim();
+        String byStr = fullCommand.substring(byIndex + "/by".length()).trim();
 
-        if (description.isEmpty() || by.isEmpty()) {
+        if (description.isEmpty() || byStr.isEmpty()) {
             throw new InvalidDeadlineException("Description and due date cannot be empty");
         }
 
-        return new String[]{description, by};
+        LocalDateTime by = parseDateTime(byStr);
+
+        return new DeadlineDetails(description, by);
     }
 
     public int validateDeleteCommand(String[] parts, TaskManager manager) throws InvalidDeleteException, InvalidIndexException {
@@ -117,6 +130,25 @@ public class Validator {
         return index;
     }
 
+    private LocalDateTime parseDateTime(String dateTimeStr) throws InvalidDateFormatException {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
+        try {
+            // Try parsing with time
+            return LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            try {
+                // If time is not provided, parse date only and default to 00:00
+                LocalDate date = LocalDate.parse(dateTimeStr, dateFormatter);
+                return LocalDateTime.of(date, LocalTime.MIDNIGHT);
+            } catch (DateTimeParseException ex) {
+                throw new InvalidDateFormatException(dateTimeStr);
+            }
+        }
+    }
 
 
-}
+
+
+    }
