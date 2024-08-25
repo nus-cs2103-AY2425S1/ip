@@ -5,10 +5,16 @@ public class EventTask extends Task{
     private String from;
     private String to;
 
-    public EventTask(String eventName, String from, String to) {
-        super(eventName);
+    public EventTask(String eventName, String from, String to, boolean completed) {
+        super(eventName, completed);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String toCacheString() {
+        return "E|" + (this.isCompleted() ? "1" : "0") + "|"
+                + this.getTask() + "|" + this.from + "|" + this.to;
     }
 
     @Override
