@@ -39,19 +39,19 @@ Well, seems like you did not input anything! Please try again.
 The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
 Here's a rundown of all your tasks! 😊
 1. [📝 ToDo] [ ] Finish homework - Let's get this done! 💪
-2. [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
-3. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: Saturday 1pm to: Sunday 1am)
+2. [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)
+3. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: 17 Nov 2024, 10:00AM to: 18 Nov 2024, 03:00AM)
 🎯 You have 3 tasks in the list. Keep going!
 Great work! Knew you would have completed it.
   [📝 ToDo] [X] Finish homework - Let's get this done! 💪
 Hey, I have unmarked this task for you. Maybe you should start working on it soon?
   [📝 ToDo] [ ] Finish homework - Let's get this done! 💪
 Great work! Knew you would have completed it.
-  [⏰ Deadline] [X] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+  [⏰ Deadline] [X] Submit project  - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)
 Here's a rundown of all your tasks! 😊
 1. [📝 ToDo] [ ] Finish homework - Let's get this done! 💪
-2. [⏰ Deadline] [X] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
-3. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: Saturday 1pm to: Sunday 1am)
+2. [⏰ Deadline] [X] Submit project  - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)
+3. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: 17 Nov 2024, 10:00AM to: 18 Nov 2024, 03:00AM)
 🎯 You have 3 tasks in the list. Keep going!
 Well, seems like you did not input anything! Please try again.
 The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
@@ -62,23 +62,23 @@ You have completed the task "Finish homework" already!
 Well, seems like you did not input anything! Please try again.
 The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
 Hey, I have unmarked this task for you. Maybe you should start working on it soon?
-  [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+  [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)
 Task "Submit project " is still not done! You can't unmark an undone task!
-  [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+  [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)
 Well, seems like you did not input anything! Please try again.
 The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
 Got it! 🗑️ I've waved goodbye to this task:
 [📝 ToDo] [X] Finish homework - Let's get this done! 💪
 Your list just got lighter! 🌟 Now you're down to 2 tasks. Keep up the momentum!
 Got it! 🗑️ I've waved goodbye to this task:
-[⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+[⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)
 Your list just got lighter! 🌟 Now you're down to 1 tasks. Keep up the momentum!
 Here's a rundown of all your tasks! 😊
-1. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: Saturday 1pm to: Sunday 1am)
+1. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: 17 Nov 2024, 10:00AM to: 18 Nov 2024, 03:00AM)
 🎯 You have 1 tasks in the list. Keep going!
 🚫 Oops! That task number is out of range. (💡 Tip: You can type "list" to see task numbers)
 Here's a rundown of all your tasks! 😊
-1. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: Saturday 1pm to: Sunday 1am)
+1. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: 17 Nov 2024, 10:00AM to: 18 Nov 2024, 03:00AM)
 🎯 You have 1 tasks in the list. Keep going!
 Well, seems like you did not input anything! Please try again.
 The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
