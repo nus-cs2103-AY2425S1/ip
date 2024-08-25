@@ -145,11 +145,18 @@ public class Main {
                     }
                     case 'D' -> {
                         // deadline object
-
+                        String deadlineDescription = line.substring(8, line.indexOf("|", 8) - 1);
+                        String dueDate = line.substring(line.indexOf("|", 8) + 2);
+                        task = new Deadline(deadlineDescription, "D", dueDate);
+                        task.setDone(isDone);
                     }
                     case 'E' -> {
                         // event object
-
+                        String eventDescription = line.substring(8, line.indexOf("|", 8) - 1);
+                        String startDate = line.substring(line.indexOf("|", 8) + 2, line.indexOf("-", line.indexOf("|", 8)));
+                        String endDate = line.substring(line.indexOf("-", line.indexOf("|", 8)) + 1);
+                        task = new Event(eventDescription, "E", startDate, endDate);
+                        task.setDone(isDone);
                     }
                 }
                 listOfTasks.add(task);
