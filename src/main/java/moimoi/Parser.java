@@ -16,47 +16,35 @@ import moimoi.exception.MoiMoiException;
 public class Parser {
 
     public static Command parse(String input) throws MoiMoiException {
-
         try {
             String[] commandArgs = input.split(" ", 2);
             CommandEnum commandEnum = CommandEnum.valueOf(commandArgs[0].toUpperCase());
-            Command command;
 
             switch (commandEnum) {
             case TODO:
             case DEADLINE:
             case EVENT:
-                command = new AddCommand(commandEnum, Parser.extractArgs(commandArgs));
-                break;
+                return new AddCommand(commandEnum, Parser.extractArgs(commandArgs));
             case DELETE:
-                command = new DeleteCommand(Parser.extractArgs(commandArgs));
-                break;
+                return new DeleteCommand(Parser.extractArgs(commandArgs));
             case MARK:
-                command = new MarkCommand(Parser.extractArgs(commandArgs));
-                break;
+                return new MarkCommand(Parser.extractArgs(commandArgs));
             case UNMARK:
-                command = new UnmarkCommand(Parser.extractArgs(commandArgs));
-                break;
+                return new UnmarkCommand(Parser.extractArgs(commandArgs));
             case LIST:
-                command = new ListCommand();
-                break;
+                return new ListCommand();
             case FILTER:
-                command = new FilterCommand(Parser.extractArgs(commandArgs));
-                break;
+                return new FilterCommand(Parser.extractArgs(commandArgs));
             case BYE:
-                command = new ExitCommand();
-                break;
+                return new ExitCommand();
             default:
                 throw new InvalidCommandException();
             }
-
-            return command;
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
         }
-
     }
 
     private static String extractArgs(String[] commandArgs) {

@@ -8,14 +8,14 @@ import moimoi.task.Task;
 
 public class Ui {
 
-    private static final String LOGO = "               __\n" +
-            "              / >)\n" +
-            "     _.----._/ /\n" +
-            "    /         /\n" +
-            " __/ (  | (  |\n" +
-            "/__.-'|_|--|_|\n";
-    private static final String MOI_MOI_HEADER = "\n⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆";
-    private static final String USER_HEADER = "⋆⭒˚.⋆User⋆⭒˚.⋆";
+    private static final String LOGO = "               __\n"
+            + "              / >)\n"
+            + "     _.----._/ /\n"
+            + "    /         /\n"
+            + " __/ (  | (  |\n"
+            + "/__.-'|_|--|_|\n";
+    private static final String HEADER_MOIMOI = "\n⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆";
+    private static final String HEADER_USER = "⋆⭒˚.⋆User⋆⭒˚.⋆";
     private Scanner sc;
 
     public Ui(){
@@ -23,15 +23,15 @@ public class Ui {
     }
 
     public void showMoiMoiHeader() {
-        print(Ui.MOI_MOI_HEADER);
+        print(Ui.HEADER_MOIMOI);
     }
 
     public void showUserHeader() {
-        print(Ui.USER_HEADER);
+        print(Ui.HEADER_USER);
     }
 
     public void showGreeting() {
-        print(Ui.LOGO + Ui.MOI_MOI_HEADER + "\nHello, master! How may I help you today? ><" + "\n");
+        print(Ui.LOGO + Ui.HEADER_MOIMOI + "\nHello, master! How may I help you today? ><" + "\n");
     }
 
     public void showExitMessage() {
@@ -60,7 +60,7 @@ public class Ui {
                 + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "!");
         for (int i = 1; i <= tasks.size(); i = i + 1) {
             Task task = tasks.get(i);
-            if (task.occurringOn(date)) {
+            if (task.occursOn(date)) {
                 print(i + ". " + task.stringUI());
             }
         }

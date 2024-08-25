@@ -12,8 +12,8 @@ public class InvalidDateTimeException extends MoiMoiException {
         } else if (this.type.equals("date")) {
             this.formatter = "yyyy-MM-dd";
         }
-
     }
+
     @Override
     public String getMessage() {
         return super.getMessage() + "The " + this.type

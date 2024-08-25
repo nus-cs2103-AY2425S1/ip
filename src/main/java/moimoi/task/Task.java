@@ -26,7 +26,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean occurringOn(LocalDate date) {
+    public boolean occursOn(LocalDate date) {
         return false;
     }
 
@@ -34,7 +34,7 @@ public class Task {
         return "[" + this.taskEnum.name() + "][" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public String stringStorage(){
+    public String stringStorage() {
         return this.taskEnum.name() + " | " + this.getStatusIcon() + " | " + this.description;
     }
 

@@ -28,6 +28,7 @@ public class ParserTest {
 
     @Test
     public void parse_invalidInput_invalidCommandExceptionThrown() {
+
         String expected = new InvalidCommandException().getMessage();
 
         try {
@@ -50,6 +51,7 @@ public class ParserTest {
         } catch (MoiMoiException e) {
             assertEquals(expected, e.getMessage());
         }
+
     }
 
     @Test

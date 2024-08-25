@@ -16,28 +16,34 @@ public class DeadlineTest {
 
     @Test
     public void testMarkUnmark() {
+
         Deadline deadline = new Deadline(this.description, this.datetime);
         assertEquals(" ", deadline.getStatusIcon());
+
         deadline.mark();
         assertEquals("X", deadline.getStatusIcon());
+
         deadline.mark();
         assertEquals("X", deadline.getStatusIcon());
+
         deadline.unmark();
         assertEquals(" ", deadline.getStatusIcon());
+
         deadline.unmark();
         assertEquals(" ", deadline.getStatusIcon());
+
     }
 
     @Test
     public void occurringOn_occurringDate_returnsTrue() {
         Deadline deadline = new Deadline(this.description, this.datetime);
-        assertTrue(deadline.occurringOn(LocalDate.parse("2024-08-24")));
+        assertTrue(deadline.occursOn(LocalDate.parse("2024-08-24")));
     }
 
     @Test
     public void occurringOn_notOccurringDate_returnsFalse() {
         Deadline deadline = new Deadline(this.description, this.datetime);
-        assertFalse(deadline.occurringOn(LocalDate.parse("2024-07-17")));
+        assertFalse(deadline.occursOn(LocalDate.parse("2024-07-17")));
     }
 
     @Test

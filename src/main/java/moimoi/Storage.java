@@ -57,6 +57,7 @@ public class Storage {
         try {
             Task task;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
             switch (TaskEnum.valueOf(taskInfo[0])) {
             case T:
                 task = new Todo(taskInfo[2]);
@@ -82,8 +83,7 @@ public class Storage {
             }
 
             return task;
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException
-                 | IllegalArgumentException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
             throw new StorageCorruptedException();
         }
     }
