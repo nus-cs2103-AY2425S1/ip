@@ -1,4 +1,6 @@
-public class Task {
+import java.io.FileNotFoundException;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -11,7 +13,7 @@ public class Task {
             if (descriptions.length() <= 5 || descriptions.charAt(5) == ' ') {
                 throw new MissingInformationException("description", "todo");
             }
-            return new ToDo(descriptions.substring(5));
+            return new ToDo(false, descriptions.substring(5));
         } else if (descriptions.startsWith("deadline ")) {
             if (descriptions.length() <= 9 || descriptions.charAt(9) == ' ') {
                 throw new MissingInformationException("description", "deadline");
@@ -20,7 +22,7 @@ public class Task {
             if (strings.length < 2 || !strings[1].startsWith("by ")) {
                 throw new MissingInformationException("by time", "deadline");
             }
-            return new DeadLine(strings[0],strings[1].substring(3));
+            return new DeadLine(false, strings[0],strings[1].substring(3));
         } else if (descriptions.startsWith("event ")) {
             if (descriptions.length() <= 6 || descriptions.charAt(6) == ' ') {
                 throw new MissingInformationException("description", "event");
@@ -31,15 +33,41 @@ public class Task {
             } else if (strings.length < 3 || !strings[2].startsWith("to ")) {
                 throw new MissingInformationException("to time", "event");
             }
-            return new Event(strings[0],strings[1].substring(5),strings[2].substring(3));
+            return new Event(false, strings[0],strings[1].substring(5),strings[2].substring(3));
         } else {
             throw new InvalidInputException();
         }
     }
 
-    private Task(String description) {
+    public static Task read(String[] strings) throws CorruptedFileException{
+        if (strings.length <= 2) {
+            throw new CorruptedFileException("");
+        } else if (strings[0].equals("T") && strings.length == 3) {
+            return new ToDo(parseIcon(strings[1]), strings[2]);
+        } else if (strings[0].equals("D") && strings.length == 4) {
+            return new DeadLine(parseIcon(strings[1]), strings[2], strings[3]);
+        } else if (strings[0].equals("E") && strings.length == 5) {
+            return new Event(parseIcon(strings[1]), strings[2], strings[3], strings[4]);
+        } else {
+            throw new CorruptedFileException("");
+        }
+    }
+
+    public abstract String getStorageMessage();
+
+    private Task(boolean isDone, String description) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
+    }
+
+    private static boolean parseIcon(String s) throws CorruptedFileException {
+        if (s.equals("X")) {
+            return true;
+        } else if (s.equals(" ")) {
+            return false;
+        } else {
+            throw new CorruptedFileException("");
+        }
     }
 
     public String getStatusIcon() {
@@ -50,6 +78,8 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(),description);
     }
+
+
 
     public void mark() throws IncorrectStateException{
         if (this.isDone) {
@@ -67,27 +97,37 @@ public class Task {
 
     private static class ToDo extends Task {
 
-        public ToDo(String description) {
-            super(description);
+        public ToDo(boolean isDone, String description) {
+            super(isDone, description);
         }
 
         @Override
         public String toString() {
-            return String.format("[T][%s] %s",getStatusIcon(),description);
+            return String.format("[T][%s] %s", getStatusIcon(), description);
+        }
+
+        @Override
+        public String getStorageMessage() {
+            return String.format("T | %s | %s", getStatusIcon(), description);
         }
     }
 
     private static class DeadLine extends Task {
         private String deadLine;
 
-        public DeadLine(String description, String deadLine) {
-            super(description);
+        public DeadLine(boolean isDone, String description, String deadLine) {
+            super(isDone, description);
             this.deadLine = deadLine;
         }
 
         @Override
         public String toString() {
-            return String.format("[D][%s] %s (by: %s)",getStatusIcon(),description,deadLine);
+            return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, deadLine);
+        }
+
+        @Override
+        public String getStorageMessage() {
+            return String.format("D | %s | %s | %s", getStatusIcon(), description, deadLine);
         }
     }
 
@@ -95,8 +135,8 @@ public class Task {
         private String from;
         private String to;
 
-        private Event(String description, String from, String to) {
-            super(description);
+        private Event(boolean isDone, String description, String from, String to) {
+            super(isDone, description);
             this.from = from;
             this.to = to;
         }
@@ -104,6 +144,11 @@ public class Task {
         @Override
         public String toString() {
             return String.format("[E][%s] %s (from: %s to: %s)",getStatusIcon(),description,from,to);
+        }
+
+        @Override
+        public String getStorageMessage() {
+            return String.format("E | %s | %s | %s | %s", getStatusIcon(), description, from, to);
         }
     }
 
