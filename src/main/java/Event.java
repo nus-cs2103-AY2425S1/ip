@@ -39,6 +39,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (from: %s to: %s", super.getTaskName(), this.startTime, this.endTime);
+        return String.format("%s (from: %s to: %s)", super.getTaskName(), this.startTime, this.endTime);
     }
 }
