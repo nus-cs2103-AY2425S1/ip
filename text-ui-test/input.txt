@@ -1,0 +1,11 @@
+hello
+todo read notes
+deadline individual project /by Sunday
+event cs2100 tutorial /from Tuesday 1 pm /to 2 pm
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+bye
