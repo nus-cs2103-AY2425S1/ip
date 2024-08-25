@@ -16,9 +16,9 @@ public class David {
     private Storage c;
 
     //constructor for David
-    public David() {
+    public David(String path) {
         this.ui = new Ui();
-        this.c = new Storage("./src/main/java/Data/database.txt");
+        this.c = new Storage(path);
         this.tasks = c.loadTasks();
     };
 
@@ -197,7 +197,6 @@ public class David {
     }
 
     public static void main(String[] args) {
-        David chat = new David();
-        chat.activateChatBot();
+        new David("./src/main/java/Data/database.txt").activateChatBot();
     }
 }
