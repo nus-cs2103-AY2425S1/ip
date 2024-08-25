@@ -16,9 +16,16 @@ public abstract class Task {
     }
 
     /**
+     * Returns the Task as a fancier string with its status and description
+     *
+     * @return Fancier string of the Task
+     */
+    abstract public String toFancyString();
+
+    /**
      * Returns the Task as a string with its status and description
      *
-     * @return a String of the Task
+     * @return String of the Task
      */
     @Override
     public String toString() {
@@ -30,10 +37,34 @@ public abstract class Task {
     }
 
     /**
+     * Returns the status of the Task
+     *
+     * @return 1 if the task is marked as completed and 0 if the task is unmarked
+     */
+    public int getStatus() {
+        return isCompleted ? 1 : 0;
+    }
+
+    /**
+     * Returns the description of the task
+     *
+     * @return returns the description of the task
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Sets the isCompleted variable to true and prints out a display message
      */
     public void mark() {
         this.isCompleted = true;
+    }
+
+    /**
+     * Prints display message after marking a task
+     */
+    public void printMarkMessage() {
         System.out.println(LINE_BREAK + "\nNice! I've marked this task as done:\n" +
                 this.toString() + "\n" + LINE_BREAK);
     }

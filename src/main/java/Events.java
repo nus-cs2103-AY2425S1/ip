@@ -18,4 +18,16 @@ public class Events extends Task {
         return "[E]" + super.toString() +
                 " (from: " + startTime + " to: " + endTime + ")";
     }
+
+    /**
+     * Returns Event as a fancier string with its status, description, start time and end time
+     * Meant for recording in text files
+     *
+     * @return Fancier string of the Deadline
+     */
+    @Override
+    public String toFancyString() {
+        return "Event | " + super.getStatus() + " | " +
+                super.getDescription() + " | /from "  + this.startTime + " /to " + this.endTime;
+    }
 }
