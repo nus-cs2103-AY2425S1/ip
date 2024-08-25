@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Storage {
-    protected final static String storageListFilePath = "src/main/text-files/listStorage.txt";
+    protected final static String storageListFilePath = "src/main/resources/listStorage.txt";
 
     public static void appendToListFile(Task task) {
         try {
