@@ -47,11 +47,11 @@ public class YihuiBot {
             String s = "No file with path " + filePath + "found.";
             String t = "If this file exists, make sure to run the program where";
             String u = filePath + " is accessible.";
-            String v = "Initializing TaskList as an empty array of tasks.";
+            String v = "Initializing an empty TaskList.";
             ui.warningPrint(e.getMessage(), s, t, u, v);
             tasks = new TaskList();
         } catch (IncorrectTaskFormatException e) {
-            String message = "Initializing TaskList as an empty array of tasks.";
+            String message = "Initializing an empty TaskList.";
             ui.warningPrint(e.getMessage(), message);
             tasks = new TaskList();
         }
