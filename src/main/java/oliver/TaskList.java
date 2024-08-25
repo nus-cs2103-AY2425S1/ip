@@ -14,6 +14,11 @@ public class TaskList {
 
     public TaskList() { this.tasks = new ArrayList<>(); }
 
+    /**
+     * Adds a task to the arraylist.
+     *
+     * @param t the task to be added to the arraylist
+     */
     public void add(Task t) {
         this.tasks.add(t);
     }
@@ -52,5 +57,21 @@ public class TaskList {
      */
     public ArrayList<Task> getList() {
         return this.tasks;
+    }
+
+    /**
+     * Returns a taskList with tasks that have descriptions containing the keyword.
+     *
+     * @param keyword the word to search for
+     * @return a taskList with the relevant tasks
+     */
+    public TaskList filter(String keyword) {
+        TaskList filteredList = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.description.contains(keyword)) {
+                filteredList.add(task);
+            }
+        }
+        return filteredList;
     }
 }
