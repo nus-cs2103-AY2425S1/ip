@@ -38,13 +38,13 @@ public class StorageList {
     public void mark(int index) {
         //index - 1 because task list displayed to user starts from 1
         storageList[index - 1].completeTask();
-        System.out.println("I've marked the task as done ^o^ :\n    " + storageList[index - 1].toString());
+        System.out.println("I've marked the task as done ^o^ :\n  " + storageList[index - 1].toString());
     }
 
     public void unmark(int index) {
         //index - 1 because task list displayed to user starts from 1
         storageList[index - 1].uncompleteTask();
-        System.out.println("I've marked the task as not done T.T :\n    " + storageList[index - 1].toString());
+        System.out.println("I've marked the task as not done T.T :\n  " + storageList[index - 1].toString());
     }
 
     private void addToList(Task task) {

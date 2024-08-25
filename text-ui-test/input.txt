@@ -1,0 +1,17 @@
+todo abc
+
+event aaa /from 2pm /to 4pm
+
+deadline ddd /by 5pm
+
+list
+
+mark 2
+
+list
+
+unmark 2
+
+list
+
+bye

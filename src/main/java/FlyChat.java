@@ -12,7 +12,7 @@ public class FlyChat {
 
     private static void start() {
         System.out.println(lineBreak);
-        System.out.println("Hello! I'm FlyChat\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm FlyChat\nWhat can I do for you?");
         System.out.println(lineBreak);
     }
 
