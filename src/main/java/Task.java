@@ -7,6 +7,11 @@ public abstract class Task {
         this.description = description;
     }
 
+    public Task(String description, boolean completed) {
+        this.completed = completed;
+        this.description = description;
+    }
+
     public String getDescription() {
         return description;
     }
