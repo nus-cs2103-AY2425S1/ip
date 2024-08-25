@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 public class EventParser {
     public static String parseBy(String eventString) throws ParseException{
-        //YYYY-DD-MM HH:MM
         Pattern byPattern = Pattern.compile("/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*");
         Matcher byMatcher = byPattern.matcher(eventString);
 

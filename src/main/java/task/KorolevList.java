@@ -2,10 +2,6 @@ package task;
 
 import exception.DukeException;
 import exception.ParseException;
-import task.KorolevDeadline;
-import task.KorolevEvent;
-import task.KorolevTask;
-import task.KorolevTodo;
 import storage.KorolevStorage;
 import parser.EventParser;
 
@@ -84,12 +80,10 @@ public class KorolevList {
     }
 
     public String displayList() {
-        StringBuilder msg = new StringBuilder(listNotice);
-        msg.append(this.toString());
-        return msg.toString();
+        return listNotice + this.toString();
     }
 
-    public String markEvent(int index) throws DukeException {
+    public void markEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
@@ -97,10 +91,9 @@ public class KorolevList {
         t.markTask();
         System.out.println(markNotice);
         System.out.println(t);
-        return t.toString();
     }
 
-    public String removeEvent(int index) throws DukeException {
+    public void removeEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
@@ -108,10 +101,9 @@ public class KorolevList {
         System.out.println(t);
         System.out.println(deleteNotice);
         System.out.println("Now you have " + this.events.size() + " tasks in the list.");
-        return t.toString();
     }
 
-    public String unmarkEvent(int index) throws DukeException {
+    public void unmarkEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
@@ -119,7 +111,6 @@ public class KorolevList {
         t.unmarkTask();
         System.out.println(unmarkNotice);
         System.out.println(t);
-        return t.toString();
     }
 
     private String createSaveInfo() {
