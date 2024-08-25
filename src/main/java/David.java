@@ -205,8 +205,13 @@ public class David {
     }
 
     public void endChatBot() {
-        c.saveTask(tasks);
-        System.out.println(outro);
+        try {
+            c.saveTask(tasks);
+            System.out.println(outro);
+        } catch (DavidCacheException e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package Data;
 
+import Exceptions.DavidCacheException;
 import Task.*;
 
 import java.io.File;
@@ -97,8 +98,10 @@ public class Cache {
 
     /**
      * Overwrites the file with the list of current tasks
+     * @throws DavidCacheException if the named file exists but is a directory rather than a regular file,
+     * does not exist but cannot be created, or cannot be opened for any other reason
      */
-    public void saveTask(List<Task> tasks) {
+    public void saveTask(List<Task> tasks) throws DavidCacheException{
         try {
             FileWriter writer = new FileWriter(this.path, false);
             String text = "";
@@ -109,8 +112,8 @@ public class Cache {
             writer.write(text);
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("error writing to file");
+            //Thrown when the named file is invalid/ unavailable
+            throw new DavidCacheException();
         }
     }
 
