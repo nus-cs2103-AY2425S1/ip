@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -190,10 +193,46 @@ public class Joe {
         System.out.println(line);
     }
 
+    private static void syncData() {
+        File f = new File("src/main/data/joe.txt");
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String str = s.nextLine();
+                String[] params = str.strip().split(" \\|");
+
+                Task t;
+                switch (params[0]) {
+                case "T":
+                    t = new ToDo(params[2]);
+                    break;
+                case "D":
+                    t = new Deadline(params[2], params[3]);
+                    break;
+                case "E":
+                    t = new Event(params[2], params[3], params[4]);
+                    break;
+                default:
+                    throw new CorruptedFileException();
+                }
+
+                boolean done = Integer.parseInt(params[1].strip()) == 1;
+                t.setDone(done);
+                userTasks.add(t);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (CorruptedFileException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         System.out.printf("%s\nHello! I'm Joe\nWhat can I do for you?\n%s\n",
                 line, line);
 //        echo();
+
+        syncData();
 
         Scanner reader = new Scanner(System.in);
         String userIn = reader.nextLine().strip();
