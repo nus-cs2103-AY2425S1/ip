@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -9,7 +10,7 @@ public class Nah {
             + "____________________________________________________________\n";
     private static String byeLine = " Bye. Hope to see you again soon!\n";
 
-    private Task[] task = new Task[100];
+    private LinkedList<Task> task = new LinkedList<Task>();
     private int taskCount = 0;
     private void greet() {
         System.out.println(greetLine);
@@ -21,7 +22,7 @@ public class Nah {
     }
 
     private void add(Task newTask) {
-        task[taskCount] = newTask;
+        task.add(newTask);
         taskCount ++;
         System.out.println(" Got it. I've added this task:\n"
                         + "   " + newTask.toString() + "\n"
@@ -31,7 +32,7 @@ public class Nah {
     private void readTask() {
         System.out.println(" Here are the tasks in your list:\n");
         for (int i = 1; i <= taskCount; i ++) {
-            System.out.println( " " + i + ". " + task[i - 1].toString() + "\n");
+            System.out.println( " " + i + ". " + task.get(i - 1).toString() + "\n");
         }
     }
 
@@ -42,9 +43,9 @@ public class Nah {
         if (i <= 0 || i >= taskCount) {
             throw new InvalidTaskNumber(i, taskCount);
         }
-        task[i - 1].mark();
+        task.get(i - 1).mark();
         System.out.println(" Nice! I've marked this task as done:\n"
-                        + "   " + task[i - 1].toString());
+                        + "   " + task.get(i - 1).toString());
     }
 
     private void unMark(int i) throws InvalidTaskNumber{
@@ -54,9 +55,23 @@ public class Nah {
         if (i <= 0 || i >= taskCount) {
             throw new InvalidTaskNumber(i, taskCount);
         }
-        task[i - 1].unMark();
+        task.get(i - 1).unMark();
         System.out.println(" OK, I've marked this task as not done yet:\n"
-                + "   " + task[i - 1].toString());
+                + "   " + task.get(i - 1).toString());
+    }
+
+    private void delete(int i) throws InvalidTaskNumber{
+        if (taskCount == 0) {
+            throw new InvalidTaskNumber();
+        }
+        if (i <= 0 || i >= taskCount) {
+            throw new InvalidTaskNumber(i, taskCount);
+        }
+        taskCount --;
+        System.out.println(" Noted. I've removed this task:\n"
+                + "   " + task.get(i - 1).toString() + "\n"
+                + " Now you have " + taskCount + " tasks in the list.\n");
+        task.remove(i - 1);
     }
 
     public static void main(String[] args) {
@@ -99,6 +114,11 @@ public class Nah {
                     case "unmark": {
                         int i = parseInt(command[1]);
                         nah.unMark(i);
+                        break;
+                    }
+                    case "delete": {
+                        int i = parseInt(command[1]);
+                        nah.delete(i);
                         break;
                     }
                     case "todo": {
