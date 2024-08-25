@@ -12,6 +12,8 @@ public class Dave {
         System.out.println("Hello! I'm Dave.");
         System.out.println("What can I do for you?");
         System.out.println(horizontal);
-        
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(horizontal);
+
     }
 }
