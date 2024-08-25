@@ -2,9 +2,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class ZBot {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        Storage storage = new Storage("../../../data/tasks.txt");
+        storage.createFileIfNotExists();
+
         greet();
 
         Scanner sc = new Scanner(System.in);
