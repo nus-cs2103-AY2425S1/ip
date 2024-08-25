@@ -1,5 +1,8 @@
 package oliver;
 
+/**
+ * Represents a task to be done
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

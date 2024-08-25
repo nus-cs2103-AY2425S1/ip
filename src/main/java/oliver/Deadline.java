@@ -1,8 +1,12 @@
 package oliver;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that has to be completed by a certain deadline
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
@@ -11,6 +15,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns the formatted string to be stored in the data file.
+     *
+     * @return formatted string representing the deadline task
+     */
     @Override
     public String getFormatted() {
         return "D|" + super.getStatusIcon() + "|" + super.description + "|" + this.by;
