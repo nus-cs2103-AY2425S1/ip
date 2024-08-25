@@ -1,11 +1,12 @@
 package commands;
 
 import exceptions.InvalidCommandException;
+import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
 public class UnmarkCommand extends Command {
-    private String input;
+    private final String input;
 
     public UnmarkCommand(String input) {
         this.input = input;
@@ -27,7 +28,8 @@ public class UnmarkCommand extends Command {
 
         try {
             int index = Integer.parseInt(this.input) - 1;
-            taskList.unmark(index);
+            Task task = taskList.unmark(index);
+            ui.displayTaskUnmarked(task);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {

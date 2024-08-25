@@ -22,5 +22,6 @@ public class TodoCommand extends Command {
 
         Todo todo = new Todo(this.input);
         taskList.add(todo);
+        ui.displayTaskAdded(todo, taskList.size());
     }
 }

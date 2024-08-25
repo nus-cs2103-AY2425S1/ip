@@ -9,4 +9,9 @@ public class ByeCommand extends Command {
     public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
         ui.display("Bye. Hope to see you again soon!\n");
     }
+
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }

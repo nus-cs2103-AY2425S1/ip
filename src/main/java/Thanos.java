@@ -23,15 +23,13 @@ public class Thanos {
         this.ui.displayWelcome();
 
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean isExit = false;
+        while (!isExit) {
             try {
                 String userInput = scanner.nextLine();
                 Command command = Parser.parse(userInput);
                 command.execute(taskList, ui);
-
-                if (command instanceof ByeCommand) {
-                    break;
-                }
+                isExit = command.isExit();
             } catch (InvalidCommandException e) {
                 ui.display(e.getMessage() + "\n");
             }

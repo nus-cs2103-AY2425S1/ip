@@ -9,7 +9,7 @@ import ui.Ui;
 import utility.DateTimeUtility;
 
 public class EventCommand extends Command {
-    private String input;
+    private final String input;
 
     public EventCommand(String input) {
         this.input = input;
@@ -33,9 +33,11 @@ public class EventCommand extends Command {
 
         LocalDateTime startDate = DateTimeUtility.parse(fromToArr[0]);
         LocalDateTime endDate = DateTimeUtility.parse(fromToArr[1]);
-        if (startDate != null && endDate != null) {
-            Event event = new Event(description, startDate, endDate);
-            taskList.add(event);
+        if (startDate == null || endDate == null) {
+            return;
         }
+        Event event = new Event(description, startDate, endDate);
+        taskList.add(event);
+        ui.displayTaskAdded(event, taskList.size());
     }
 }

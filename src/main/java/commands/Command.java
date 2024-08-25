@@ -6,4 +6,8 @@ import ui.Ui;
 
 public abstract class Command {
     public abstract void execute(TaskList taskList, Ui ui) throws InvalidCommandException;
+
+    public boolean isExit() {
+        return false;
+    }
 }

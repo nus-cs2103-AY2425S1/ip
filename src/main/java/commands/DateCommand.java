@@ -1,8 +1,12 @@
 package commands;
 
+import static utility.DateTimeUtility.format;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import exceptions.InvalidCommandException;
+import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 import utility.DateTimeUtility;
@@ -23,8 +27,10 @@ public class DateCommand extends Command {
         }
 
         LocalDateTime date = DateTimeUtility.parse(this.input);
-        if (date != null) {
-            taskList.findByDate(date);
+        if (date == null) {
+            return;
         }
+        ArrayList<Task> result = taskList.findByDate(date);
+        ui.displayTasks(result, "Here are the tasks on: " + format(date));
     }
 }

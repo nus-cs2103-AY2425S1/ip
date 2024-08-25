@@ -1,5 +1,7 @@
 package utility;
 
+import static ui.Ui.printDivider;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -49,6 +51,7 @@ public class DateTimeUtility {
 
         // If all parsing attempts fail, print an error message and return null
         System.out.println("Invalid datetime format: " + s);
+        printDivider();
         return null;
     }
 

@@ -1,11 +1,12 @@
 package commands;
 
 import exceptions.InvalidCommandException;
+import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
 public class DeleteCommand extends Command {
-    private String input;
+    private final String input;
 
     public DeleteCommand(String input) {
         this.input = input;
@@ -27,7 +28,8 @@ public class DeleteCommand extends Command {
 
         try {
             int index = Integer.parseInt(this.input) - 1;
-            taskList.remove(index);
+            Task task = taskList.remove(index);
+            ui.displayTaskRemoved(task, taskList.size());
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {

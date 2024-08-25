@@ -1,8 +1,5 @@
 package tasks;
 
-import static utility.DateTimeUtility.format;
-import static utility.Printer.printWithDivider;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -17,69 +14,48 @@ public class TaskList {
         this.storage = storage;
     }
 
+    public ArrayList<Task> getTaskList() {
+        return this.tasks;
+    }
+
     public int size() {
         return this.tasks.size();
     }
 
-    public void listAll() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task task = this.tasks.get(i);
-            sb.append(String.format("%d.%s\n", i + 1, task));
-        }
-        printWithDivider(sb.toString());
-    }
-
-    public void mark(int index) {
+    public Task mark(int index) {
         Task task = this.tasks.get(index);
         task.setDone(true);
         this.storage.save(this.tasks);
-        printWithDivider(String.format("Nice! I've marked this task as done:\n  %s\n", task));
+        return task;
     }
 
-    public void unmark(int index) {
+    public Task unmark(int index) {
         Task task = this.tasks.get(index);
         task.setDone(false);
         this.storage.save(this.tasks);
-        printWithDivider(String.format("OK, I've marked this task as not done yet:\n  %s\n", task));
+        return task;
     }
 
-    public void add(Task task) {
+    public Task add(Task task) {
         this.tasks.add(task);
         this.storage.save(this.tasks);
-        printWithDivider(String.format(
-                "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n", task, this.size()
-        ));
+        return task;
     }
 
-    public void remove(int index) {
+    public Task remove(int index) {
         Task task = this.tasks.remove(index);
         this.storage.save(this.tasks);
-        printWithDivider(String.format(
-                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n", task, this.size())
-        );
+        return task;
+
     }
 
-    public void findByDate(LocalDateTime date) {
+    public ArrayList<Task> findByDate(LocalDateTime date) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task: this.tasks) {
             if (task.checkDate(date)) {
                 matchingTasks.add(task);
             }
         }
-
-        if (matchingTasks.isEmpty()) {
-            printWithDivider(String.format("No tasks found for: %s\n", format(date)));
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Here are the tasks on %s:\n", format(date)));
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            Task task = matchingTasks.get(i);
-            sb.append(String.format("%d.%s\n", i + 1, task));
-        }
-        printWithDivider(sb.toString());
+        return matchingTasks;
     }
 }

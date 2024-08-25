@@ -26,9 +26,11 @@ public class DeadlineCommand extends Command {
 
         String description = detailsArr[0];
         LocalDateTime date = DateTimeUtility.parse(detailsArr[1]);
-        if (date != null) {
-            Deadline deadline = new Deadline(description, date);
-            taskList.add(deadline);
+        if (date == null) {
+            return;
         }
+        Deadline deadline = new Deadline(description, date);
+        taskList.add(deadline);
+        ui.displayTaskAdded(deadline, taskList.size());
     }
 }
