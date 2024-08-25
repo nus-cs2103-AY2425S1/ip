@@ -1,10 +1,14 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
+
 public class SeanBot {
+    private static final String PATH = "./data/seanbot.txt";
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm SeanBot\n" + "What can I do for you?");
-        ArrayList<Task> tasks = new ArrayList<>();
-
+        loadTasks();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
@@ -14,6 +18,7 @@ public class SeanBot {
 
                 if (first.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
+                    saveTasks();
                     break;
                 } else if (first.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
@@ -29,6 +34,7 @@ public class SeanBot {
                         throw new SeanBotException("The task number must be valid");
                     }
                     tasks.get(second).Done();
+                    saveTasks();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks.get(second));
                 } else if (first.equals("unmark")) {
@@ -40,6 +46,7 @@ public class SeanBot {
                         throw new SeanBotException("The task number must be valid");
                     }
                     tasks.get(second).Undone();
+                    saveTasks();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(second));
                 } else if (first.equals("todo")) {
@@ -48,6 +55,7 @@ public class SeanBot {
                     }
                     Task todo = new Todo(part[1]);
                     tasks.add(todo);
+                    saveTasks();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + todo);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -58,6 +66,7 @@ public class SeanBot {
                     }
                     Task deadline = new Deadline(specifications[0], specifications[1]);
                     tasks.add(deadline);
+                    saveTasks();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + deadline);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -72,6 +81,7 @@ public class SeanBot {
                     }
                     Task event = new Event(firstPart[0].trim(), secondPart[0].trim(), secondPart[1].trim());
                     tasks.add(event);
+                    saveTasks();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + event);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -84,6 +94,7 @@ public class SeanBot {
                         throw new SeanBotException("The task number to delete must be valid.");
                     }
                     Task remove = tasks.remove(second);
+                    saveTasks();
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + remove);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -96,4 +107,60 @@ public class SeanBot {
         }
         scanner.close();
     }
-}
+
+    private static void saveTasks() {
+        try (FileWriter fw = new FileWriter(PATH);) {
+            for (Task task : tasks) {
+                fw.write(task.toFileString() + System.lineSeparator());
+            }
+            fw.close(); 
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+    
+    private static void loadTasks() {
+        File file = new File(PATH);
+    
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+    
+        if (!file.exists()) {
+            try {
+                file.createNewFile();  
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+                return;
+            }
+        }
+    
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                Task task = null;
+                switch (parts[0]) {
+                    case "T":
+                        task = new Todo(parts[2]);
+                        break;
+                    case "D":
+                        task = new Deadline(parts[2], parts[3]);
+                        break;
+                    case "E":
+                        task = new Event(parts[2], parts[3], parts[4]);
+                        break;
+                }
+                if (task != null && parts[1].equals("1")) {
+                    task.Done();
+                }
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+    
+}   
