@@ -1,5 +1,9 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+
+import java.io.IOException;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Ontos {
     public static String hello = " Hello! I'm Ontos \n"
@@ -12,34 +16,36 @@ public class Ontos {
     public static String taskAdded = " Got it. I've added this task:\n";
 
     public static void main(String[] args) {
-        // String logo = " ____        _        \n"
-        //         + "|  _ \\ _   _| | _____ \n"
-        //         + "| | | | | | | |/ / _ \\\n"
-        //         + "| |_| | |_| |   <  __/\n"
-        //         + "|____/ \\__,_|_|\\_\\___|\n";
-        
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        Path projectRoot = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
+        SaveManager saveManager = new SaveManager(projectRoot, "Ontos");
 
+        saveManager.createSave();
+
+        TaskList tasks = saveManager.loadSave();
+        Scanner sc = new Scanner(System.in);
+        
         System.out.println(line + hello + line);
 
         while (true){
             String input = sc.nextLine().trim();
 
             if (input.equalsIgnoreCase("bye")) {
+                try {
+                    saveManager.writeToSave(tasks);
+                } catch (IOException e) {
+                    //Shouldn't reach here as the file is created when the script starts
+                    System.out.println("Failed to save: " + e.getMessage());
+                }
                 System.out.println(line + bye + line);
                 break;
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println(line + listPrompt);
-                for (int i = 0; i < tasks.size(); i++) {
-                    int j = i + 1;
-                    System.out.println(" " + j + ". " + tasks.get(i).toString());
-                }
+                System.out.println(tasks.toString());
                 System.out.println(line);
             } else if (input.startsWith("mark")) {
                 int index = 0;
                 try {
-                    index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    index = Integer.parseInt(input.split(" ")[1]);
                 } catch (Exception e) {
                     System.out.println(line 
                         + "The correct usage of 'mark' is: mark n, where n is a natural number (ℕ).\n" 
@@ -48,16 +54,16 @@ public class Ontos {
                 }
 
                 try {
-                    tasks.get(index).completeTask();
+                    tasks.completeTaskAt(index);
                 } catch (Exception e) {
                     System.out.println(line + "I'm sorry, but this task doesn't exist.\n" + line);
                     continue;
                 }
-                System.out.println(line + completeTaskPrompt + tasks.get(index).toString() + "\n" + line); 
+                System.out.println(line + completeTaskPrompt + tasks.getTaskString(index) + "\n" + line); 
             } else if (input.startsWith("unmark")) {
                 int index = 0;
                 try {
-                    index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    index = Integer.parseInt(input.split(" ")[1]);
                 } catch (Exception e) {
                     System.out.println(line 
                         + "The correct usage of 'unmark' is: unmark n, where n is a natural number (ℕ).\\n"
@@ -66,26 +72,30 @@ public class Ontos {
                 }
 
                 try {
-                    tasks.get(index).uncompleteTask();
+                    tasks.uncompleteTaskAt(index);;
                 } catch (Exception e) {
                     System.out.println(line + "I'm sorry, but this task doesn't exist.\n" + line);
                     continue;
                 }
-                System.out.println(line + uncompleteTaskPrompt + tasks.get(index).toString() + "\n" + line); 
+                System.out.println(line + uncompleteTaskPrompt + tasks.getTaskString(index) + "\n" + line); 
             } else if (input.startsWith("todo")) {
+                Task newToDo = null;
                 try {
-                    tasks.add(Task.toDo(input.split(" ", 2)[1]));
+                    newToDo = Task.toDo(input.split(" ", 2)[1]);
                 } catch (Exception e) {
                     System.out.println(line + " OOPS!!! The description of a todo cannot be empty.\n" + line);
                     continue;
                 }
 
+                tasks.addTask(newToDo);
+
                 System.out.println(line 
                         + taskAdded 
-                        + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                        + " Now you have " + tasks.size() + " tasks in the list.\n" 
+                        + " " + newToDo.toString() + "\n" 
+                        + " Now you have " + tasks.getSize() + " tasks in the list.\n" 
                         + line);
             } else if (input.startsWith("deadline")) {
+                Task newDeadline = null;
                 try {
                     int startOfDesc = input.indexOf(" ");
                     int endOfDesc = input.indexOf(" /by");
@@ -93,18 +103,21 @@ public class Ontos {
                     String description = input.substring(startOfDesc, endOfDesc).trim();
                     String dueBy = input.substring(endOfDesc + 4).trim();
 
-                    tasks.add(Task.deadline(description, dueBy));
+                    newDeadline = Task.deadline(description, dueBy);
                 } catch (Exception e) {
                     System.out.println(line + " OOPS!!! The description of a deadline cannot be empty.\n" + line);
                     continue;
                 }
 
+                tasks.addTask(newDeadline);
+
                 System.out.println(line 
                         + taskAdded 
-                        + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                        + " Now you have " + tasks.size() + " tasks in the list.\n" 
+                        + " " + newDeadline.toString() + "\n" 
+                        + " Now you have " + tasks.getSize() + " tasks in the list.\n" 
                         + line);
             } else if (input.startsWith("event")) {
+                Task newEvent = null;
                 try {
                     int startOfDesc = input.indexOf(" ");
                     int endOfDesc = input.indexOf(" /from");
@@ -114,21 +127,23 @@ public class Ontos {
                     String start = input.substring(endOfDesc + 6, endOfFrom).trim();
                     String end = input.substring(endOfFrom + 4).trim();
 
-                    tasks.add(Task.event(description, start, end));
+                    newEvent = Task.event(description, start, end);
                 } catch (Exception e) {
                 System.out.println(line + " OOPS!!! The description of a event cannot be empty.\n" + line);
                 continue;
                 }
+                
+                tasks.addTask(newEvent);
 
                 System.out.println(line 
                         + taskAdded 
-                        + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                        + " Now you have " + tasks.size() + " tasks in the list.\n" 
+                        + " " + newEvent + "\n" 
+                        + " Now you have " + tasks.getSize() + " tasks in the list.\n" 
                         + line);
             } else if (input.startsWith("delete")) {
                 int index = 0;
                 try {
-                    index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    index = Integer.parseInt(input.split(" ")[1]);
                 } catch (Exception e) {
                     System.out.println(line 
                             + "The correct usage of 'delete' is: delete n, where n is a natural number (ℕ).\\n" 
@@ -138,8 +153,7 @@ public class Ontos {
                 
                 Task task = null;
                 try {
-                    task = tasks.get(index);
-                    tasks.remove(index);
+                    task = tasks.removeTaskAt(index);
                 } catch (Exception e) {
                     System.out.println(line + "I'm sorry, but this task doesn't exist.\n" + line);
                     continue;
@@ -149,7 +163,7 @@ public class Ontos {
                         + " " + task.toString() + "\n"
                         + line);
             } else {
-                System.out.println(line + " OOPS!!! I'm sorry, but I don't know what that means :-(" + line);
+                System.out.println(line + " OOPS!!! I'm sorry, but I don't know what that means :-( \n" + line);
             }
         }
         sc.close();
