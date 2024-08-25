@@ -21,8 +21,8 @@ public enum Command {
         return switch (command) {
             case HELP -> "help";
             case TODO -> "todo <description>";
-            case DEADLINE -> "deadline <description> /by <date>";
-            case EVENT -> "event <description> /from <date/time> /to <date/time>";
+            case DEADLINE -> "deadline <description> /by <date: DD-MM-YY> <time: HHMM>";
+            case EVENT -> "event <description> /from <date: DD-MM-YY> <time: HHMM> /to <date: DD-MM-YY> <time: HHMM>";
             case LIST -> "list";
             case MARK -> "mark <task number>";
             case UNMARK -> "unmark <task number>";
