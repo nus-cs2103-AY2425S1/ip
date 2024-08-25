@@ -1,14 +1,9 @@
 package hana.ui;
 
-<<<<<<< HEAD
-=======
-import hana.HanaException;
-import hana.task.Task;
-
->>>>>>> branch-Level-9
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import hana.HanaException;
 import hana.task.Task;
 
 /**
@@ -108,7 +103,6 @@ public class Ui {
         printLine();
     }
 
-<<<<<<< HEAD
     /**
      * Print all tasks.
      */
@@ -118,6 +112,15 @@ public class Ui {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
         printLine();
+    }
+
+    /**
+     * Print any message.
+     *
+     * @param message Message to print.
+     */
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 
     /**
@@ -134,39 +137,11 @@ public class Ui {
                             5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
                             6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
                             7. Delete a task: delete [task number]
-                            8. Find By Date: findByDate [d/M/yyyy]""");
+                            8. Find By Date: findByDate [d/M/yyyy]
+                            9. Find By Keyword: findByKey [keyword]""");
         printLine();
     }
 
-    /**
-     * Print any message.
-     *
-     * @param message Message to print.
-     */
-    public void printMessage(String message) {
-        System.out.println(message);
-    }
-}
-=======
-	public void printCommands() {
-		printLine();
-		System.out.println("""
-							Here are some examples of what you can do:
-							1. List all tasks: list
-							2. Mark a task as done: mark [task number]
-							3. Unmark a task: unmark [task number]
-							4. Add a todo: todo [description]
-							5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
-							6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
-							7. Delete a task: delete [task number]
-							8. Find By Date: findByDate [d/M/yyyy]
-							9. Find By Keyword: findByKey [keyword]""");
-		printLine();
-	}
-
-	public void printMessage(String message) {
-		System.out.println(message);
-	}
 
     /**
      * Prints the tasks that match the search criteria.
@@ -186,4 +161,3 @@ public class Ui {
         printLine();
     }
 }
->>>>>>> branch-Level-9

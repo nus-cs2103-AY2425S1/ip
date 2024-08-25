@@ -1,14 +1,9 @@
 package hana.task;
 
-<<<<<<< HEAD
 /**
  * Represents a task with a description and completion status.
  * This is a base class for different types of tasks.
  */
-=======
-import java.util.Collection;
-
->>>>>>> branch-Level-9
 public abstract class Task {
     protected String description;
     protected boolean isDone;

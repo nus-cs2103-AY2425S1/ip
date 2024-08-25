@@ -56,7 +56,6 @@ public class TaskList {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Delete task from task list.
      *
@@ -78,10 +77,7 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
-=======
-	public boolean isEmpty() {
-		return tasks.isEmpty();
-	}
+    }
 
     /**
      * Finds tasks containing the specified keyword.
@@ -97,6 +93,5 @@ public class TaskList {
             }
         }
         return result;
->>>>>>> branch-Level-9
     }
 }
