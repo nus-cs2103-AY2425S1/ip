@@ -1,9 +1,9 @@
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm/to 4pm
+deadline return book /by 2024-09-10
+event project meeting /from 2024-07-08/to 2024-08-26
 todo wash clothes
-deadline CS2104 Assignment 1/by Friday
-event LAJ1201 Lecture /from Tue 6pm/to 8pm
+deadline CS2104 Assignment 1/by 2024-08-29
+event LAJ1201 Lecture /from 2024-08-08/to 2024-08-08
 list
 mark 1
 mark 3
@@ -21,3 +21,6 @@ event do some work/
 event dd some work/from Tues
 delete 1
 list
+deadline do some work/by garbage
+find 2024-08-23
+find 2025-01-01

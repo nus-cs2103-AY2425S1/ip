@@ -1,4 +1,7 @@
-public class Task {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -65,6 +68,8 @@ public class Task {
         this.isDone = false;
     }
 
+    public abstract boolean isRelatedToDate(LocalDate date);
+
     private static class ToDo extends Task {
 
         public ToDo(String description) {
@@ -75,35 +80,50 @@ public class Task {
         public String toString() {
             return String.format("[T][%s] %s",getStatusIcon(),description);
         }
+
+        @Override
+        public boolean isRelatedToDate(LocalDate date) {
+            return false;
+        }
     }
 
     private static class DeadLine extends Task {
-        private String deadLine;
+        private LocalDate deadLine;
 
         public DeadLine(String description, String deadLine) {
             super(description);
-            this.deadLine = deadLine;
+            this.deadLine = LocalDate.parse(deadLine);
         }
 
         @Override
         public String toString() {
             return String.format("[D][%s] %s (by: %s)",getStatusIcon(),description,deadLine);
         }
+
+        @Override
+        public boolean isRelatedToDate(LocalDate date) {
+            return date.isBefore(deadLine);
+        }
     }
 
     private static class Event extends Task {
-        private String from;
-        private String to;
+        private LocalDate from;
+        private LocalDate to;
 
         private Event(String description, String from, String to) {
             super(description);
-            this.from = from;
-            this.to = to;
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
         }
 
         @Override
         public String toString() {
             return String.format("[E][%s] %s (from: %s to: %s)",getStatusIcon(),description,from,to);
+        }
+
+        @Override
+        public boolean isRelatedToDate(LocalDate date) {
+            return date.isAfter(from) && date.isBefore(to);
         }
     }
 
