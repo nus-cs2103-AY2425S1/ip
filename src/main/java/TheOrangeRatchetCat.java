@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
+import java.nio.file.*;
 
 enum CommandType {
     LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE;
@@ -8,17 +10,22 @@ enum CommandType {
 
 public class TheOrangeRatchetCat {
 
+    private static final String FILE_PATH = "./data/OrangeCat.txt";
     public static void main(String[] args) {
         // The ChatBot named OrangeRatchetCat
-        ratchetCatBot();
+        //ratchetCatBot();
+
+        List<Task> items = new ArrayList<>();
+        loadTasks(items); // Load tasks from file at startup
+        ratchetCatBot(items); // Pass the list of tasks to the chatbot
+        saveTasks(items); // Save tasks to file before exiting
     }
 
-    private static void ratchetCatBot() {
+    private static void ratchetCatBot(List<Task> items) {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm TheOrangeRatchetCat");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        List<Task> items = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine(); // Reads a line of text
         while (!input.equals("bye")) {
@@ -81,6 +88,78 @@ public class TheOrangeRatchetCat {
         }
         TheOrangeRatchetCat.bidFarewell();
         scanner.close(); // Close the scanner to avoid resource leaks
+    }
+
+    // Method to load tasks from file
+    private static void loadTasks(List<Task> items) {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            System.out.println("Data file does not exist. A new file will be created.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                if (parts.length >= 3) {
+                    String type = parts[0].trim();
+                    boolean isDone = parts[1].trim().equals("1");
+                    String description = parts[2].trim();
+
+                    Task task;
+                    if (type.equals("T")) {
+                        task = new ToDo(description);
+                    } else if (type.equals("D")) {
+                        task = new Deadline(description, parts.length > 3 ? parts[3].trim() : "");
+                    } else if (type.equals("E")) {
+                        task = new Event(description, parts.length > 3 ? parts[3].trim() : "", parts.length > 4 ? parts[4].trim() : "");
+                    } else {
+                        continue; // Unknown task type
+                    }
+
+                    task.isDone = isDone;
+                    items.add(task);
+                    //Task.taskCount++; // How did this introduce the bug, please find out!
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading the data file: " + e.getMessage());
+        }
+    }
+
+    // Method to save tasks to file
+    private static void saveTasks(List<Task> items) {
+        File file = new File(FILE_PATH);
+        file.getParentFile().mkdirs(); // Ensure that the parent directory exists
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            for (Task item : items) {
+                String taskType = "";
+                if (item instanceof ToDo) {
+                    taskType = "T";
+                } else if (item instanceof Deadline) {
+                    taskType = "D";
+                } else if (item instanceof Event) {
+                    taskType = "E";
+                }
+
+                String isDone = item.isDone ? "1" : "0";
+                String description = item.description;
+                String extraInfo = "";
+
+                if (item instanceof Deadline) {
+                    extraInfo = ((Deadline) item).by;
+                } else if (item instanceof Event) {
+                    Event event = (Event) item;
+                    extraInfo = event.fromDuration + " | " + event.toDuration;
+                }
+
+                bw.write(String.format("%s | %s | %s %s%n", taskType, isDone, description, extraInfo));
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to the data file: " + e.getMessage());
+        }
     }
 
     private static String checkList(String input, List<Task> items, Scanner scanner) {
