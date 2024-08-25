@@ -4,6 +4,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Returns a formatted string representation
+     *
+     * @return data format
+     */
+    @Override
+    public String toDataFormat() {
+        return "todo | " + super.toDataFormat();
+    }
+
+    /**
      * Returns a formatted message with status icon
      * and description
      *
