@@ -23,8 +23,20 @@ public class Main {
             } else if (userInput.startsWith("unmark")) {
                 int i = Integer.valueOf(userInput.split(" ")[1]);
                 System.out.println(chatbot.unmark(i));
-            } else {
-                System.out.println(chatbot.addTask(userInput));
+            } else if (userInput.startsWith("todo")) {
+                System.out.println(chatbot.addTodo(userInput.split(" ", 2)[1]));
+            } else if (userInput.startsWith("deadline")) {
+                userInput = userInput.split(" ", 2)[1];
+                String task = userInput.split("/by")[0];
+                String deadline = userInput.split("/by")[1];
+                System.out.println(chatbot.addDeadline(task, deadline));
+            } else if (userInput.startsWith("event")) {
+                userInput = userInput.split(" ", 2)[1];
+                String task = userInput.split("/from")[0];
+                String fromAndTo = userInput.split("/from")[1];
+                String from = fromAndTo.split("/to")[0];
+                String to = fromAndTo.split("/to")[1];
+                System.out.println(chatbot.addEvent(task, from, to));
             }
             
             

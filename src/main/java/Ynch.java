@@ -9,10 +9,25 @@ class Ynch {
         this.todoList = new ArrayList<Task>();
     }
 
-    String addTask(String task) {
-        Task newTask = new Task(task);
+    String addTodo(String task) {
+        Todo newTask = new Todo(task);
         this.todoList.add(newTask);
-        return task;
+        return "Meow! I've added this task: \n" + newTask + 
+            "\n Now you have " + this.todoList.size() + " tasks in the list.";
+    }
+
+    String addDeadline(String task, String deadline) {
+        Deadline newTask = new Deadline(task, deadline);
+        this.todoList.add(newTask);
+        return "Meow! I've added this task: \n" + newTask + 
+            "\n Now you have " + this.todoList.size() + " tasks in the list."; 
+    }
+
+    String addEvent(String task, String from, String to) {
+        Event newTask = new Event(task, from, to);
+        this.todoList.add(newTask);
+        return "Meow! I've added this task: \n" + newTask + 
+            "\n Now you have " + this.todoList.size() + " tasks in the list."; 
     }
 
     String mark(int i) {
