@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Potong {
@@ -17,7 +16,7 @@ public class Potong {
             if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println(data.toString());
+                System.out.println(data);
                 System.out.println(Potong.LINE);
             } else if (userInput.startsWith("mark")) {
                 int index = Integer.valueOf(userInput.substring(5));
