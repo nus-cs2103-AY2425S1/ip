@@ -12,15 +12,19 @@ then
     rm ACTUAL.TXT
 fi
 
+# Define the path to the Gson JAR file
+GSON_JAR_PATH="../lib/gson-2.11.0.jar"
+GSON_ERROR_HANDLING_PATH="../lib/error_prone_annotations-2.27.0.jar"
+
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java:$GSON_JAR_PATH:$GSON_ERROR_HANDLING_PATH -Xlint:none -d ../bin ../src/main/java/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Juno < input.txt > ACTUAL.TXT
+java -classpath ../bin:$GSON_JAR_PATH Juno < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

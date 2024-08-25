@@ -18,6 +18,7 @@ public class FileManager {
          this.gsonInstance = new GsonBuilder()
                 .registerTypeAdapter(Task.class, new TaskAdapter())
                 .setPrettyPrinting()
+                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
     }
 

@@ -10,10 +10,10 @@ add event Attend meeting /1 4
 # Test for adding same tasks
 add todo Finish homework
 add todo Finish homework
-add deadline Submit project /Monday 3pm
-add deadline Submit project /Monday 3pm
-add event Attend meeting /Saturday 1pm/Sunday 1am
-add event Attend meeting /Saturday 1pm/ Saturday 3pm
+add deadline Submit project /2024 11 17 10.00AM
+add deadline Submit project /2024 11 17 10.00AM
+add event Attend meeting /2024 11 17 10.00AM /2024 11 18 03.00AM
+add event Attend meeting /2024 11 17 10.00AM/ 2024 11 17 03.40PM
 
 # Test for current functionality
 list
