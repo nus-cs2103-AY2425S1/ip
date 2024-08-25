@@ -9,8 +9,11 @@ public class YappingBot {
             BOT_NAME
     );
     private static final String LIST_TEXT = "Here are the tasks in your list:";
-    private static final String SELECT_TASK_NOT_INT_TEXT = "I'm sorry, I do not understand which item '%s' refers to!";
-    private static final String SELECT_TASK_MISSING_TEXT = "I'm sorry, but task number %d does not exist!";
+    private static final String ADDED_TEXT = "Got it. I've added this task:";
+    private static final String TASK_PRINT_TEXT_3s = "[%s][%s] %s";
+    private static final String LIST_SUMMARY_TEXT_1d = "Now you have %d tasks in the list.";
+    private static final String SELECT_TASK_NOT_INT_TEXT_1s = "I'm sorry, I do not understand which item '%s' refers to!";
+    private static final String SELECT_TASK_MISSING_TEXT_1d = "I'm sorry, but task number %d does not exist!";
     private static final String MARKED_TASK_AS_DONE_TEXT = "Nice! I've marked this task as done:";
     private static final String UNMARKED_TASK_AS_DONE_TEXT = "OK, I've marked this task as not done:";
     private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
@@ -47,7 +50,7 @@ public class YappingBot {
     }
     private static void printUserList() {
         if (userList.isEmpty()) {
-            System.out.println(quoteSinglelineText("List is empty!\n"));
+            System.out.println(quoteSinglelineText("List is empty!"));
             return;
         }
 
@@ -56,7 +59,16 @@ public class YappingBot {
         for (int i = 0; i < userList.size(); i++) {
             Task t = userList.get(i);
             quoteSinglelineText(
-                    String.format("%2d.[%s] %s", i+1, t.getTaskDoneCheckmark(), t.getTaskName()),
+                    String.format(
+                            "%2d.%s",
+                            i+1,
+                            String.format(
+                                    TASK_PRINT_TEXT_3s,
+                                    t.getTaskTypeSymbol(),
+                                    t.getTaskDoneCheckmark(),
+                                    t.toString()
+                            )
+                    ),
                     sb
             );
         }
@@ -68,13 +80,13 @@ public class YappingBot {
         try {
             i = Integer.parseInt(userInputSlice) - 1;
         } catch (NumberFormatException ex) {
-            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_NOT_INT_TEXT, userInputSlice)));
+            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_NOT_INT_TEXT_1s, userInputSlice)));
             return i;
         }
 
         // OOB
         if (i < 0 || i >= userList.size()) {
-            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_MISSING_TEXT, i+1)));
+            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_MISSING_TEXT_1d, i+1)));
             i = -1;
         }
 
@@ -89,9 +101,112 @@ public class YappingBot {
         } else {
             quoteSinglelineText(UNMARKED_TASK_AS_DONE_TEXT, sb);
         }
-        quoteSinglelineText(String.format("[%s] %s", t.getTaskDoneCheckmark(), t.getTaskName()), sb);
+        quoteSinglelineText(
+                String.format(
+                        TASK_PRINT_TEXT_3s,
+                        t.getTaskTypeSymbol(),
+                        t.getTaskDoneCheckmark(),
+                        t.toString()
+                ),
+                sb
+        );
         sb.append("\n");
         System.out.println(sb.toString());
+    }
+    private static boolean addTaskToList(String[] userInputSpliced, TaskTypes taskTypes) {
+        // returns true on success, false on failure
+        if (userInputSpliced.length <= 1) {
+            return false;
+        }
+        Task newTask;
+        String taskName = null;
+        String command = null;
+        StringBuilder sb = new StringBuilder();
+        switch (taskTypes) {
+            case TODO:
+                // pattern: ^[COMMAND] ( titles )$
+                for (String s : userInputSpliced) {
+                    if (command == null) {
+                       command = s;
+                    } else {
+                        sb.append(s);
+                    }
+                }
+                taskName = sb.toString();
+                newTask = new Todo(taskName, false);
+                break;
+            case DEADLINE:
+                // pattern: ^[COMMAND] (titles) /by (date)$
+                String deadline = null;
+                for (String s : userInputSpliced) {
+                    if (command == null) {
+                        command = s;
+                        continue;
+                    } else if (taskName == null && s.equals("/by")) {
+                        taskName = sb.toString();
+                        sb = new StringBuilder();
+                        continue;
+                    }
+                    sb.append(s);
+                }
+                deadline = sb.toString();
+                if (deadline == null || taskName == null) {
+                    return false;
+                }
+                newTask = new Deadline(taskName, false, deadline);
+                break;
+            case EVENT:
+                // pattern: ^[COMMAND] (titles) /from (date) /to ([date])$
+                String fromTime = null;
+                String toTime = null;
+                // todo: regexify this to use capture groups
+                for (String s : userInputSpliced) {
+                    if (command == null) {
+                        command = s;
+                        continue;
+                    } else if (taskName == null && (s.equals("/from") || s.equals("/to"))) {
+                        taskName = sb.toString();
+                        sb = new StringBuilder();
+                        continue;
+                    } else {
+                        if (fromTime == null && s.equals("/to")) {
+                            fromTime = sb.toString();
+                            sb = new StringBuilder();
+                            continue;
+                        } else if (toTime == null && s.equals("/from")) {
+                            toTime = sb.toString();
+                            sb = new StringBuilder();
+                            continue;
+                        }
+                    }
+                    sb.append(s);
+                }
+                if (toTime == null) {
+                    toTime = sb.toString();
+                } else if (fromTime == null) {
+                    fromTime = sb.toString();
+                }
+                if (fromTime == null || toTime == null || taskName == null) {
+                    return false;
+                }
+                newTask = new Event(taskName, false, fromTime, toTime);
+                break;
+            default:
+                return false;
+        }
+        userList.add(newTask);
+        sb = new StringBuilder();
+        quoteSinglelineText(ADDED_TEXT, sb);
+        quoteSinglelineText(
+                String.format(TASK_PRINT_TEXT_3s, 
+                        newTask.getTaskTypeSymbol(),
+                        newTask.getTaskDoneCheckmark(), 
+                        newTask.toString()),
+                sb
+        );
+        quoteSinglelineText(String.format(LIST_SUMMARY_TEXT_1d, userList.size()), sb);
+        System.out.println(sb.toString());
+        return true;
     }
     // end of class methods
 
@@ -111,8 +226,6 @@ public class YappingBot {
             switch (userInputSlices[0].toLowerCase()) {
                case "bye":
                    break programmeLoop;
-               case "":
-                   break; // ignore multiple enters
                case "list":
                    printUserList();
                    break;
@@ -132,10 +245,23 @@ public class YappingBot {
                        changeTaskListStatus(taskListIndexPtr, false);
                    }
                    break;
-               default:
-                   userList.add(new Task(userInput, false));
-                   System.out.println(quoteMultilineText(String.format("added: %s", userInput)));
-                   break; // sanity break
+                case "todo":
+                    if (!addTaskToList(userInputSlices, TaskTypes.TODO)) {
+                        // todo: usage
+                    }
+                    break;
+                case "event":
+                    if(!addTaskToList(userInputSlices, TaskTypes.EVENT)) {
+                        // todo: usage
+                    }
+                    break;
+                case "deadline":
+                    if(!addTaskToList(userInputSlices, TaskTypes.DEADLINE)) {
+                        // todo: usage
+                    }
+                    break;
+                default:
+                    break; // sanity break
            }
         }
 
