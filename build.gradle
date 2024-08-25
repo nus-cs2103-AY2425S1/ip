@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("sentinel.Sentinel.main")
+    mainClass.set("sentinel.Sentinel")
 }
 
 shadowJar {
