@@ -1,8 +1,7 @@
 package papadom.commands;
 
+import papadom.Exceptions.IncorrectTaskInputFormatException;
 import papadom.tasks.Event;
-import papadom.Exceptions.NoDateException;
-import papadom.Exceptions.NoTaskException;
 import papadom.Parser;
 import papadom.Storage.Storage;
 import papadom.Storage.TaskList;
@@ -15,8 +14,12 @@ public class AddEventCommand extends Command{
         this.text = text;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws NoDateException, NoTaskException {
-        Event eventTask = parser.eventTaskCreator(text.substring(6));
-        ui.output(taskList.addToList(eventTask));
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
+        try {
+            Event eventTask = parser.eventTaskCreator(text.substring(6));
+            ui.output(taskList.addToList(eventTask));
+        } catch (IndexOutOfBoundsException e) {
+            throw new IncorrectTaskInputFormatException();
+        }
     }
 }

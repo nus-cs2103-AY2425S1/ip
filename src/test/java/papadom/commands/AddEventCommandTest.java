@@ -1,8 +1,7 @@
 package papadom.commands;
 
 import org.junit.jupiter.api.Test;
-import papadom.Exceptions.NoDateException;
-import papadom.Exceptions.NoTaskException;
+import papadom.Exceptions.IncorrectTaskInputFormatException;
 import papadom.Storage.Storage;
 import papadom.Storage.TaskList;
 import papadom.Ui;
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddEventCommandTest {
     @Test
-    public void testExecute() throws NoTaskException, NoDateException {
+    public void testExecute() throws IncorrectTaskInputFormatException {
         Storage storage = new Storage("testStorage.txt");
         TaskList taskList = new TaskList(storage);
         Ui ui = new Ui();

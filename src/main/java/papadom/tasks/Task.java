@@ -18,6 +18,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns the status icon of the task.
      * An "X" indicates the task is done, and a space " " indicates it is not done.

@@ -1,6 +1,6 @@
 package papadom.Storage;
 
-import papadom.Exceptions.NoTaskException;
+import papadom.Exceptions.IncorrectTaskInputFormatException;
 import papadom.Exceptions.NoTaskNumberException;
 import papadom.Exceptions.WrongTaskNumberException;
 import papadom.tasks.Task;
@@ -27,9 +27,9 @@ public class TaskList {
         }
         return finalList;
     }
-    public String addToList(Task task) throws NoTaskException {
+    public String addToList(Task task) throws IncorrectTaskInputFormatException {
         if (task.toString() == "") {
-            throw new NoTaskException();
+            throw new IncorrectTaskInputFormatException();
         }
         this.tasks.add(task);
         this.storage.addTaskToDatabase(task);

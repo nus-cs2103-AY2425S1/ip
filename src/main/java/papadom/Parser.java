@@ -1,8 +1,6 @@
 package papadom;
 
-import papadom.Exceptions.IncorrectDeadlineDateFormatException;
-import papadom.Exceptions.NoDateException;
-import papadom.Exceptions.NoTaskException;
+import papadom.Exceptions.IncorrectTaskInputFormatException;
 import papadom.tasks.Deadline;
 import papadom.tasks.Event;
 import papadom.tasks.Task;
@@ -14,12 +12,10 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public Deadline deadlineTaskCreator(String details) throws NoTaskException, NoDateException, IncorrectDeadlineDateFormatException {
+    public Deadline deadlineTaskCreator(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /by ");
-        if (parts[0] == "") {
-            throw new NoTaskException();
-        } else if (parts.length == 1) {
-            throw new NoDateException();
+        if (parts[0] == "" || parts.length == 1) {
+            throw new IncorrectTaskInputFormatException();
         }
         try {
             // Determine if the input includes a time
@@ -35,15 +31,13 @@ public class Parser {
                 return new Deadline(parts[0], date);
             }
         } catch (DateTimeParseException e) {
-            throw new IncorrectDeadlineDateFormatException(); // Throw custom exception if parsing fails
+            throw new IncorrectTaskInputFormatException(); // Throw custom exception if parsing fails
         }
     }
-    public Event eventTaskCreator(String details) throws NoTaskException, NoDateException {
+    public Event eventTaskCreator(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /from | /to ");
-        if (parts[0] == "") {
-            throw new NoTaskException();
-        } else if (parts.length <= 2) {
-            throw new NoDateException();
+        if (parts[0] == "" || parts.length <= 2) {
+            throw new IncorrectTaskInputFormatException();
         }
         return new Event(parts[0], parts[1], parts[2]);
     }

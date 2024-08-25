@@ -1,6 +1,5 @@
 package papadom.Storage;
 
-import papadom.Exceptions.NoTaskException;
 import papadom.Exceptions.NoTaskNumberException;
 import papadom.Exceptions.WrongTaskNumberException;
 import papadom.tasks.Task;
@@ -27,10 +26,7 @@ public class TaskList {
         }
         return finalList;
     }
-    public String addToList(Task task) throws NoTaskException {
-        if (task.toString() == "") {
-            throw new NoTaskException();
-        }
+    public String addToList(Task task){
         this.tasks.add(task);
         this.storage.addTaskToDatabase(task);
         String response = " Got it. I've added this task:\n  " + task.toString() + "\n"
