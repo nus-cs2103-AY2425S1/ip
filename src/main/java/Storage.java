@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import task.Task;
@@ -38,7 +39,8 @@ public class Storage {
             if (taskType.equals("T")) {
                 task = new ToDo(description);
             } else if (taskType.equals("D")) {
-                String by = parts[3];
+                // Parse the date stored in the file into a LocalDate object
+                LocalDate by = LocalDate.parse(parts[3]);
                 task = new Deadline(description, by);
             } else if (taskType.equals("E")) {
                 String from = parts[3];

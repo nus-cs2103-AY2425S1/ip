@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import task.Task;
@@ -93,14 +96,22 @@ public class Duke {
                         throw new EmptyDescriptionException("deadline");
                     }
                     String taskDescription = parts[0].trim();
-                    String by = parts[1];
-                    tasks.add(new Deadline(taskDescription, by));
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   [D][ ] " + taskDescription + " (by: " + by + ")");
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                    storage.save(tasks); // Save the updated tasks list
+                    String by = parts[1].trim();
+
+                    try {
+                        LocalDate byDate = LocalDate.parse(by);  // Assumes the date is provided in yyyy-MM-dd format
+                        tasks.add(new Deadline(taskDescription, byDate));
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Got it. I've added this task:");
+                        System.out.println("   [D][ ] " + taskDescription + " (by: " + byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")");
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                        storage.save(tasks); // Save the updated tasks list
+                    } catch (DateTimeParseException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("OOPS!!! The date format is incorrect. Please use yyyy-MM-dd format.");
+                        System.out.println("____________________________________________________________");
+                    }
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
                     if (parts.length < 3 || parts[0].trim().isEmpty()) {
