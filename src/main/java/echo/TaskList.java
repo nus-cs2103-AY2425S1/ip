@@ -43,4 +43,8 @@ public class TaskList implements Serializable {
         System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
     }
 
+    @Override
+    public String toString() {
+        return this.allTasks.toString();
+    }
 }
