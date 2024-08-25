@@ -30,6 +30,6 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
 
-        return "[D]" + super.toString() + "(Due by: " + this.dueDate.format(this.dateFormat) + ")";
+        return "[D]" + super.toString() + " (Due by: " + this.dueDate.format(this.dateFormat) + ")";
     }
 }

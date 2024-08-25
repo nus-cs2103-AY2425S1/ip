@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class Quack {
 
     /** String to print out the spacers between each command */
-    public String spacer = "-".repeat(50);
+    public String spacer = "-".repeat(70);
     /** Date time format for printing LocalDateTime objects */
     public DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     /** The name of the chatbot */
@@ -126,28 +126,33 @@ public class Quack {
 
             try {
                 startDate = LocalDateTime.parse(startDateString, this.dateFormat);
+                System.out.println(this.spacer);
             } catch (DateTimeParseException dateTimeError){
                 System.out.println("Im sorry but the date input is invalid try DD/MM/YYYY HH:MM:SS");
-            } finally {
-                System.out.println(this.spacer);
+                return;
             }
         }
 
         if (!taskType.equals(TaskType.TODO.name())) {
             System.out.println("When is this task due? (Format date as : DD/MM/YYYY HH:MM:SS)");
-            String startDateString = sc.nextLine();
+            String endDateString = sc.nextLine();
 
             try {
-                endDate = LocalDateTime.parse(startDateString, this.dateFormat);
+                endDate = LocalDateTime.parse(endDateString, this.dateFormat);
+                System.out.println(this.spacer);
             } catch (DateTimeParseException dateTimeError){
                 System.out.println("Im sorry but the date input is invalid try DD/MM/YYYY HH:MM:SS");
-            } finally {
-                System.out.println(this.spacer);
+                return;
             }
         }
         
         // Add the task into the list
-        this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
+        try {
+            this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
+        } catch (InvalidDateTimeException dateTimeError) {
+            System.out.println(dateTimeError.getMessage());
+        }
+        
     }
 
     /**
