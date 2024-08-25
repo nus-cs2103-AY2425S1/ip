@@ -1,0 +1,4 @@
+| T |   | bye
+| T |   | hi
+| T | X | this
+| E |   | here | h-----y

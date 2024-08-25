@@ -4,12 +4,17 @@ public class Event extends Task {
 
     public Event(String desc, String from, String to) {
         super(desc);
-        this.from = "from: " + from;
-        this.to = "to : " + to;
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String getDesc() {
+        return "| E | " + super.getDesc() + " | " + this.from + "-----" + this.to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (" + this.from + " " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }

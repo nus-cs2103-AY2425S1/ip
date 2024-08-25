@@ -3,11 +3,16 @@ public class Deadline extends Task {
 
     public Deadline(String desc, String by) {
         super(desc);
-        this.by = "by: " + by;
+        this.by = by;
+    }
+
+    @Override
+    public String getDesc() {
+        return "| D | " + super.getDesc() + " | " + this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (" + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 }

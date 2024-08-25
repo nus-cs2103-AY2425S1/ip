@@ -25,6 +25,10 @@ public class Task {
         Task.totalTasks = totalTasks;
     }
 
+    public String getDesc() {
+        return this.isDone.charAt(1) + " | " + this.desc;
+    }
+
     @Override
     public String toString() {
         return this.isDone + " " + this.desc;
