@@ -1,3 +1,5 @@
+package lama;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -16,7 +18,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println(BAR);
-        System.out.println("Hello! I'm Lama");
+        System.out.println("Hello! I'm lama.Lama");
         System.out.println("What can I do for you?");
         System.out.println(BAR + "\n");
     }

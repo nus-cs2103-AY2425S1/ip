@@ -1,3 +1,10 @@
+package lama;
+
+import lama.command.*;
+import lama.task.Deadline;
+import lama.task.Event;
+import lama.task.Todo;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,3 +1,8 @@
+package lama.command;
+
+import lama.*;
+import lama.task.Task;
+
 public class DeleteCommand extends Command {
 
     private int indexOfDeleteCommand;

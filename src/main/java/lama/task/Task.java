@@ -1,3 +1,5 @@
+package lama.task;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -24,5 +26,5 @@ public abstract class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    abstract String toFile();
+    public abstract String toFile();
 }

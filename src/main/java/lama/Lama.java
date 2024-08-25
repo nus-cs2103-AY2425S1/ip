@@ -1,3 +1,7 @@
+package lama;
+
+import lama.command.Command;
+
 public class Lama {
 
     private Storage storage;

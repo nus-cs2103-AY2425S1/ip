@@ -1,4 +1,4 @@
-# Lama User Guide
+# lama.Lama User Guide
 
 // Update the title above to match the actual product name
 

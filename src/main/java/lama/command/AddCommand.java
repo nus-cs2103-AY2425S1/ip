@@ -1,4 +1,7 @@
-import java.io.IOException;
+package lama.command;
+
+import lama.*;
+import lama.task.Task;
 
 public class AddCommand extends Command {
 

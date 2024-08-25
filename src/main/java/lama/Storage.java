@@ -1,3 +1,10 @@
+package lama;
+
+import lama.task.Deadline;
+import lama.task.Event;
+import lama.task.Task;
+import lama.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.zip.DataFormatException;
 
 public class Storage {
 
