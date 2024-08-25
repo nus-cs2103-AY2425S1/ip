@@ -59,7 +59,7 @@ public class Oliver {
         new Oliver("./data/oliver.txt").run();
     }
 
-    public void handleMark(String input) {
+    private void handleMark(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
@@ -74,7 +74,7 @@ public class Oliver {
         }
     }
 
-    public void handleUnmark(String input) {
+    private void handleUnmark(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
@@ -89,7 +89,7 @@ public class Oliver {
         }
     }
 
-    public void handleTodo(String input) {
+    private void handleTodo(String input) {
         try {
             ToDo t = new ToDo(Parser.parseArgs(input));
             tasks.add(t);
@@ -99,7 +99,7 @@ public class Oliver {
         }
     }
 
-    public void handleDeadline(String input) { // Date is required, time is optional
+    private void handleDeadline(String input) { // Date is required, time is optional
         try {
             String[] parts = input.split("/by ");
             String[] dateAndTime = parts[1].split(" ");
@@ -123,7 +123,7 @@ public class Oliver {
         }
     }
 
-    public void handleEvent(String input) { // Both date and time are required
+    private void handleEvent(String input) { // Both date and time are required
         try {
             String[] parts = input.split("/from |/to ");
             String action = parts[0].trim();
@@ -144,7 +144,7 @@ public class Oliver {
         }
     }
 
-    public void handleDelete(String input) {
+    private void handleDelete(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
