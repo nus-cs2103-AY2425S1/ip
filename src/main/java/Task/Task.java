@@ -1,3 +1,5 @@
+package Task;
+
 public class Task {
     public enum TaskType {
         T,
