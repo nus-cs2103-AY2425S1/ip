@@ -164,14 +164,14 @@ public enum Commands {
      */
     public static Commands getCommand(String commandString) {
         return switch (commandString) {
-            case "list" -> LIST_TASKS;
-            case "mark" -> MARK_DONE;
-            case "unmark" -> MARK_UNDONE;
-            case "todo" -> ADD_TODO;
-            case "deadline" -> ADD_DEADLINE;
-            case "event" -> ADD_EVENT;
-            case "delete" -> DELETE_TASK;
-            default -> null;
+        case "list" -> LIST_TASKS;
+        case "mark" -> MARK_DONE;
+        case "unmark" -> MARK_UNDONE;
+        case "todo" -> ADD_TODO;
+        case "deadline" -> ADD_DEADLINE;
+        case "event" -> ADD_EVENT;
+        case "delete" -> DELETE_TASK;
+        default -> null;
         };
     }
 }
