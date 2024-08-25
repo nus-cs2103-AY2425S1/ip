@@ -1,8 +1,13 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Rex {
+    // File path of task list
+    private static String filepath = "./data/duke.txt";
+
     // Horizontal line separation
     private static String separation = "____________________________________________________________";
 
@@ -13,6 +18,12 @@ public class Rex {
     private static String errorPrefix = "RAWRRRR!!!";
 
     public static void main(String[] args) {
+        try {
+            loadFile();
+        } catch (IOException e) {
+            System.out.println("I/O Error: Cannot create new file.");
+            return;
+        }
         // Rex's greeting message
         System.out.println(separation);
         System.out.println("Hello! I'm Rex! " + rawr);
@@ -206,5 +217,21 @@ public class Rex {
         System.out.println("Noted. I've removed this task:");
         System.out.println(actionTask);
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+    }
+
+    private static File loadFile() throws IOException {
+        File f = new File(filepath);
+
+        File dir = f.getParentFile();
+
+        if (!dir.isDirectory()) {
+            dir.mkdirs();
+        }
+
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+
+        return f;
     }
 }
