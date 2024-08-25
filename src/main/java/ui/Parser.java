@@ -1,0 +1,297 @@
+package ui;
+
+import java.util.Arrays;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import executable.AddTask;
+import executable.DeleteTask;
+import executable.Executable;
+import executable.Exit;
+import executable.ListTask;
+import executable.MarkTask;
+import executable.UnmarkTask;
+
+import task.Deadline;
+import task.Event;
+import task.Todo;
+
+import exception.parse.CommandNotFoundException;
+import exception.parse.IncorrectArrangementException;
+import exception.parse.InvalidArgumentException;
+import exception.parse.MissingDeadlineException;
+import exception.parse.MissingDescriptionException;
+import exception.parse.MissingEndTimeException;
+import exception.parse.MissingStartTimeException;
+import exception.parse.ParseException;
+import exception.parse.TooLittleArgumentsException;
+import exception.parse.TooManyArgumentsException;
+
+/**
+ * A parser to parse user's input from YihuiBot, returning the appropriate executable.
+ *
+ * @author Toh Yi Hui A0259080A
+ */
+public class Parser {
+    private String dateTimeFormat;
+    private DateTimeFormatter formatter;
+
+    /**
+     * Constructor for a new Parser. Takes in a string pattern for formatting
+     * date time strings.
+     *
+     * @param dateTimeFormat the date time format pattern.
+     * @throws IllegalArgumentException if the pattern is not valid.
+     */
+    public Parser(String dateTimeFormat) throws IllegalArgumentException {
+        this.dateTimeFormat = dateTimeFormat;
+        formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+    }
+
+     /**
+     * Parse the user's input, breaking it down into a command and an array of
+     * arguments. Based on what command and arguments were given, the Parser will
+     * instantiate the appropriate executable with the appropriate arguments. This
+     * executable can then be separately executed to get its output.
+     *
+     * @param input the user's input.
+     * @return the appropriate executable instantiated with the arguments.
+     * @throws NullPointerException when input is null.
+     * @throws ParseException when error occurred during parsing (e.g. incorrect arguments).
+     */
+    public Executable parse(String input) throws NullPointerException, ParseException {
+        if (input == null) {
+            throw new NullPointerException("User's input cannot be null.");
+        }
+
+        String[] inputArray = input.split(" ");
+        String command = inputArray.length < 1 ? "" : inputArray[0];
+        String[] arguments = inputArray.length < 2
+                ? null
+                : Arrays.copyOfRange(inputArray, 1, inputArray.length);
+
+        switch (command) {
+        case "bye":
+            return bye(arguments);
+        case "list":
+            return list(arguments);
+        case "mark":
+            return mark(arguments);
+        case "unmark":
+            return unmark(arguments);
+        case "todo":
+            return todo(arguments);
+        case "deadline":
+            return deadline(arguments);
+        case "event":
+            return event(arguments);
+        case "delete":
+            return delete(arguments);
+        default:
+            throw new CommandNotFoundException(input);
+        }
+    }
+
+    private Executable bye(String[] arguments) throws TooManyArgumentsException {
+        if (arguments != null) {
+            throw new TooManyArgumentsException(0);
+        }
+        return new Exit();
+    }
+
+    private Executable list(String[] arguments) throws TooManyArgumentsException {
+        if (arguments != null) {
+            throw new TooManyArgumentsException(0);
+        }
+        return new ListTask();
+    }
+
+    private Executable mark(String[] arguments) throws TooLittleArgumentsException,
+            TooManyArgumentsException, InvalidArgumentException {
+        String sample = "mark 2";
+
+        if (arguments == null) {
+            throw new TooLittleArgumentsException(1, sample);
+        }
+
+        if (arguments.length > 1) {
+            throw new TooManyArgumentsException(1, sample);
+        }
+
+        try {
+            int idx = Integer.parseInt(arguments[0]);
+            return new MarkTask(idx);
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentException("int", arguments[0]);
+        }
+    }
+
+    private Executable unmark(String[] arguments) throws TooLittleArgumentsException,
+            TooManyArgumentsException, InvalidArgumentException {
+        String sample = "unmark 2";
+
+        if (arguments == null) {
+            throw new TooLittleArgumentsException(1, sample);
+        }
+
+        if (arguments.length > 1) {
+            throw new TooManyArgumentsException(1, sample);
+        }
+
+        try {
+            int idx = Integer.parseInt(arguments[0]);
+            return new UnmarkTask(idx);
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentException("int", arguments[0]);
+        }
+    }
+
+    private Executable delete(String[] arguments) throws TooLittleArgumentsException,
+            TooManyArgumentsException, InvalidArgumentException {
+        String sample = "delete 2";
+
+        if (arguments == null) {
+            throw new TooLittleArgumentsException(1, sample);
+        }
+
+        if (arguments.length > 1) {
+            throw new TooManyArgumentsException(1, sample);
+        }
+
+        try {
+            int idx = Integer.parseInt(arguments[0]);
+            return new DeleteTask(idx);
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentException("int", arguments[0]);
+        }
+    }
+
+    private Executable todo(String[] arguments) throws MissingDescriptionException {
+        String sample = "todo read book";
+
+        if (arguments == null || arguments.length < 1) {
+            throw new MissingDescriptionException(sample);
+        }
+
+        String description = String.join(" ", arguments);
+        Todo task = new Todo(description);
+        return new AddTask(task);
+    }
+
+    private Executable deadline(String[] arguments) throws MissingDescriptionException,
+            MissingDeadlineException, InvalidArgumentException {
+        String sample = "deadline return book /by 2024-04-08 06:30";
+
+        if (arguments == null) {
+            throw new MissingDescriptionException(sample);
+        }
+
+        int idx = findIndexOfStringInArray(arguments, "/by");
+
+        if (idx == 0) {
+            throw new MissingDescriptionException(sample);
+        }
+
+        if (idx < 0 || idx == arguments.length - 1) {
+            throw new MissingDeadlineException(sample);
+        }
+
+        String description = sliceAndJoinAt(arguments, 0, idx, " ");
+        String s = sliceAndJoinAt(arguments, idx + 1, arguments.length, " ");
+        try {
+            LocalDateTime deadline = parseDateTime(s);
+            Deadline task = new Deadline(description, deadline);
+            return new AddTask(task);
+        } catch (DateTimeParseException e) {
+            throw new InvalidArgumentException(dateTimeFormat, s);
+        }
+    }
+
+    private Executable event(String[] arguments) throws MissingDescriptionException,
+            MissingStartTimeException, MissingEndTimeException, InvalidArgumentException,
+            IncorrectArrangementException {
+        String sample = "event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30";
+
+        if (arguments == null) {
+            throw new MissingDescriptionException(sample);
+        }
+
+        int fromIdx = findIndexOfStringInArray(arguments, "/from");
+        int toIdx = findIndexOfStringInArray(arguments, "/to");
+
+        if (fromIdx < 0) {
+            throw new MissingStartTimeException(sample);
+        }
+
+        if (toIdx < 0) {
+            throw new MissingEndTimeException(sample);
+        }
+
+        if (toIdx < fromIdx) {
+            throw new IncorrectArrangementException(sample);
+        }
+
+        if (fromIdx == 0) {
+            throw new MissingDescriptionException(sample);
+        }
+
+        if (toIdx - fromIdx < 2) {
+            throw new MissingStartTimeException(sample);
+        }
+
+        if (toIdx == arguments.length - 1) {
+            throw new MissingEndTimeException(sample);
+        }
+
+        String description = sliceAndJoinAt(arguments, 0, fromIdx, " ");
+        String s = sliceAndJoinAt(arguments, fromIdx + 1, toIdx, " ");
+        try {
+            LocalDateTime from = parseDateTime(s);
+            String t = sliceAndJoinAt(arguments, toIdx + 1, arguments.length, " ");
+            LocalDateTime to = parseDateTime(t);
+            Event task = new Event(description, from, to);
+            return new AddTask(task);
+        } catch (DateTimeParseException e) {
+            throw new InvalidArgumentException(dateTimeFormat);
+        }
+    }
+
+    /**
+     * Find and return the index of String s in a String array.
+     *
+     * @param array the string array to be searched.
+     * @param s the string to search for.
+     * @return the index of the String s in given array.
+     *         Return -1 if no such String is found.
+     */
+    private int findIndexOfStringInArray(String[] array, String s) {
+        return Arrays.<String>asList(array).indexOf(s);
+    }
+
+    /**
+     * Slice the array with range from and to, and then join the remaining array using
+     * the given delimiter.
+     *
+     * @param array the string array to slice.
+     * @param from the index of the array to slice from, inclusive.
+     * @param to the index of the array to slice to, exclusive.
+     * @param delimiter the delimiter that separates each element.
+     * @return the resulting String after joining it using delimiter.
+     */
+    private String sliceAndJoinAt(String[] array, int from, int to, CharSequence delimiter) {
+        return String.join(delimiter, Arrays.<String>copyOfRange(array, from, to));
+    }
+
+    /**
+     * Converts the String into a LocalDateTime object.
+     *
+     * @param dateTime the dateTime in String.
+     * @return a LocalDateTime object.
+     * @throws DateTimeParseException when the string cannot be parsed.
+     */
+    private LocalDateTime parseDateTime(String dateTime) throws DateTimeParseException {
+        return LocalDateTime.parse(dateTime, formatter);
+    }
+}

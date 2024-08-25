@@ -1,10 +1,8 @@
 package executable;
 
-import java.util.ArrayList;
+import task.TaskList;
 
-import task.Task;
-
-import exception.InvalidArgumentException;
+import exception.executable.ExecutableException;
 
 /**
  * An executable to mark tasks as undone.
@@ -28,10 +26,10 @@ public class UnmarkTask extends TaskModifier {
     /**
      * Constructor for a new UnmarkTask executable.
      *
-     * @param tasks the tasks to modify.
+     * @param tasks the TaskList to modify.
      * @param idx the 1-index of the tasks to mark as incomplete.
      */
-    public UnmarkTask(ArrayList<Task> tasks, int idx) {
+    public UnmarkTask(TaskList tasks, int idx) {
         super(tasks);
         this.idx = idx;
     }
@@ -39,28 +37,27 @@ public class UnmarkTask extends TaskModifier {
     /**
      * Mark the task at idx as incomplete.
      *
-     * @return NORMAL normally, ERROR if tasks == null.
-     * @throws InvalidArgumentException when given index is out of bounds of ArrayList.
+     * @return false.
+     * @throws NullPointerException when TaskList is null.
+     * @throws ExecutableException when given index is out of bounds of ArrayList.
      */
     @Override
-    public exitCode execute() throws InvalidArgumentException {
-        if (tasks == null) {
-            output = "Task list cannot be null.";
-            return exitCode.ERROR;
+    public boolean execute() throws NullPointerException, ExecutableException {
+        if (super.tasks == null) {
+            throw new NullPointerException("TaskList cannot be null.");
         }
 
         try {
-            Task task = super.tasks.get(idx - 1);
-            if (task.markIncomplete()) {
-                output = "Ok. I've marked this task as not done:\n" + task.toString();
+            if (super.tasks.markIncomplete(idx - 1)) {
+                output = "Ok. I've marked this task as not done:\n" + super.tasks.get(idx - 1).toString();
             } else {
                 output = "Task " + idx + " is not complete.";
             }
         } catch (IndexOutOfBoundsException e) {
             String message = idx + " index out of bounds of task list of size " + super.tasks.size() + ".";
-            throw new InvalidArgumentException(message);
+            throw new ExecutableException(message);
         }
-        return exitCode.NORMAL;
+        return false;
     }
 
     /**

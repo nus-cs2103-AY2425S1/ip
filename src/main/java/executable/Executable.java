@@ -1,6 +1,6 @@
 package executable;
 
-import exception.BotException;
+import exception.executable.ExecutableException;
 
 /**
  * A class for all executables by YihuiBot.
@@ -8,17 +8,13 @@ import exception.BotException;
  * @author Toh Yi Hui A0259080A
  */
 public interface Executable {
-    public enum exitCode {NORMAL, TERMINATE, ERROR};
-
     /**
      * Executes the executable and store the output.
      *
-     * @return the exit code after executing the executable. In general, it should return:
-     *         NORMAL if there are no issues.
-     *         TERMINATE if the bot should be terminated (e.g. after a terminating executable).
-     *         ERROR if there are any unexpected errors encountered when executing.
+     * @return true if the program should exit. False otherwise.
+     * @throws ExecutableException when an error occurs during execute.
      */
-    public abstract exitCode execute() throws BotException;
+    public abstract boolean execute() throws ExecutableException;
 
     /**
      * Return the output of the executable.

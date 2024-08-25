@@ -1,8 +1,7 @@
 package executable;
 
-import java.util.ArrayList;
-
 import task.Task;
+import task.TaskList;
 
 /**
  * An executable for adding tasks.
@@ -29,7 +28,7 @@ public class AddTask extends TaskModifier {
      * @param tasks the task list to add the new task into.
      * @param task the task to be added.
      */
-    public AddTask(ArrayList<Task> tasks, Task task) {
+    public AddTask(TaskList tasks, Task task) {
         super(tasks);
         this.task = task;
     }
@@ -37,19 +36,19 @@ public class AddTask extends TaskModifier {
     /**
      * Add the task to the list of tasks.
      *
-     * @return NORMAL normally, ERROR if tasks == null.
+     * @return false.
+     * @throws NullPointerException when TaskList is null.
      */
     @Override
-    public exitCode execute() {
-        if (tasks == null) {
-            output = "Task list cannot be null.";
-            return exitCode.ERROR;
+    public boolean execute() throws NullPointerException {
+        if (super.tasks == null) {
+            throw new NullPointerException("TaskList cannot be null.");
         }
 
-        tasks.add(task);
+        super.tasks.add(task);
         output = "Got it. I've added this task:\n" + task.toString()
                 + "\nNow you have " + super.tasks.size() + " task(s) in your list.";
-        return exitCode.NORMAL;
+        return false;
     }
 
     /**

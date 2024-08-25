@@ -1,10 +1,8 @@
 package executable;
 
-import java.util.ArrayList;
+import task.TaskList;
 
-import task.Task;
-
-import exception.InvalidArgumentException;
+import exception.executable.ExecutableException;
 
 /**
  * An executable to mark tasks as done.
@@ -28,10 +26,10 @@ public class MarkTask extends TaskModifier {
     /**
      * Constructor for a new MarkTask executable.
      *
-     * @param tasks the tasks to modify.
+     * @param tasks the TaskList to modify.
      * @param idx the 1-index of the tasks to mark as complete.
      */
-    public MarkTask(ArrayList<Task> tasks, int idx) {
+    public MarkTask(TaskList tasks, int idx) {
         super(tasks);
         this.idx = idx;
     }
@@ -39,28 +37,27 @@ public class MarkTask extends TaskModifier {
     /**
      * Mark the task at idx as completed.
      *
-     * @return NORMAL normally, ERROR if tasks == null.
-     * @throws InvalidArgumentException when given index is out of bounds of ArrayList.
+     * @return false.
+     * @throws NullPointerException when TaskList is null.
+     * @throws ExecutableException when given index is out of bounds of TaskList.
      */
     @Override
-    public exitCode execute() throws InvalidArgumentException {
+    public boolean execute() throws NullPointerException, ExecutableException {
         if (super.tasks == null) {
-            output = "Task list cannot be null.";
-            return exitCode.ERROR;
+            throw new NullPointerException("TaskList cannot be null.");
         }
 
         try {
-            Task task = super.tasks.get(idx - 1);
-            if (task.markComplete()) {
-                output = "Nice! I've marked this task as done:\n" + task.toString();
+            if (super.tasks.markComplete(idx - 1)) {
+                output = "Nice! I've marked this task as done:\n" + super.tasks.get(idx - 1).toString();
             } else {
                 output = "Task " + idx + " is already completed.";
             }
         } catch (IndexOutOfBoundsException e) {
             String message = idx + " index out bounds of task list of size " + super.tasks.size() + ".";
-            throw new InvalidArgumentException(message);
+            throw new ExecutableException(message);
         }
-        return exitCode.NORMAL;
+        return false;
     }
 
     /**
