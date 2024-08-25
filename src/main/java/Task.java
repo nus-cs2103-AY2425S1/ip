@@ -24,6 +24,17 @@ public abstract class Task {
     }
 
     /**
+     * Constructs a new Task with the specified description and completion status.
+     *
+     * @param description The description of the task.
+     * @param isDone The completion status of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
      * Returns a string representation of the task, including its completion status.
      *
      * @return A string representation of the task.
@@ -32,6 +43,16 @@ public abstract class Task {
     public String toString() {
         String indicator = this.isDone ? "[X]" : "[ ]";
         return indicator + " " + this.description;
+    }
+
+    /**
+     * Converts the task to a string format suitable for saving to a file.
+     * The format includes the completion status and the description of the task.
+     *
+     * @return A string representation of the task for file storage.
+     */
+    public String toFileEntry() {
+        return isDone + "/" + description;
     }
 
     /**

@@ -15,6 +15,16 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructs a new Todo task with the specified description and completion status.
+     *
+     * @param description The description of the Todo task.
+     * @param isDone The completion status of the Todo task.
+     */
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
+    /**
      * Returns a string representation of the Todo task, including its type indicator.
      *
      * @return A string representation of the Todo task.
@@ -22,6 +32,17 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    /**
+     * Converts the Todo task to a string format suitable for saving to a file.
+     * The format includes the type indicator "T", the completion status, and the description of the task.
+     *
+     * @return A string representation of the Todo task for file storage.
+     */
+    @Override
+    public String toFileEntry() {
+        return "T/" + super.toFileEntry();
     }
 
     /**
