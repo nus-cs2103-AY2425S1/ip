@@ -34,4 +34,8 @@ do
         echo "Test Case $testNo: FAILED"
     fi
     rm ACTUAL.txt
+    if [ -d "./data" ]
+    then
+        rm -r ./data
+    fi
 done

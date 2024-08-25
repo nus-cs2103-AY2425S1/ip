@@ -7,7 +7,7 @@ public class Revir {
     static TaskList taskList;
 
     public static void main(String[] args) {
-        taskList = new TaskList(Path.of("data", "tasks.txt"));
+        taskList = new TaskList(Path.of("data", "tasks.dat"));
         String name = "Revir";
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");

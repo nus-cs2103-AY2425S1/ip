@@ -1,4 +1,6 @@
-class Task {
+import java.io.Serializable;
+
+class Task implements Serializable {
     private boolean completed = false;
     private String description;
 

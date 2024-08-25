@@ -1,5 +1,8 @@
+import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+
 
 class TaskList {
     private ArrayList<Task> tasks;
@@ -8,6 +11,10 @@ class TaskList {
     TaskList(Path filePath) {
         this.tasks = new ArrayList<Task>();
         this.filePath = filePath;
+        // check if file exists
+        if (Files.exists(filePath)) {
+            loadFromFile();
+        } 
     }
 
     // add
@@ -30,7 +37,31 @@ class TaskList {
 
     // save to file
     void saveToFile() {
-        // save tasks to file
+        try {
+            // Create directories if they don't exist
+            Files.createDirectories(this.filePath.getParent());
+            
+            // Create file if it doesn't exist
+            if (!Files.exists(this.filePath)) {
+                Files.createFile(this.filePath);
+            }
+            
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filePath.toFile()))) {
+                oos.writeObject(this.tasks);
+                // System.out.println("ArrayList saved to file successfully.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    void loadFromFile() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath.toString()))) {
+            this.tasks = (ArrayList<Task>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
     }
 
     // list
