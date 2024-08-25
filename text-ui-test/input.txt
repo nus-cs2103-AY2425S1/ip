@@ -1,13 +1,19 @@
-todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idea :-p
-list
-mark 1
-mark 4
+?
+todo test
+deadline test1 /by 2021-09-17 1800
+deadline
+deadline test2 /by 2021-09-17 180
+event test3 /from 2021-09-17 1800 /to 2021-09-17 1801
+event
+event test4 /from 2021-09-17 1800 /to 2021-09-17 1800
+mark
 mark 0
-mark 5
+mark 1
+unmark
+unmark 0
 unmark 1
-unmark 5
+delete 3
+delete 2
+delete 1
 bye

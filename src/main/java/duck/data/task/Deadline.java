@@ -1,7 +1,9 @@
+package duck.data.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Deadline extends Task implements Datable{
+public class Deadline extends Task implements Datable {
     private LocalDateTime by;
     public Deadline(String description, LocalDateTime by) {
         super(description);

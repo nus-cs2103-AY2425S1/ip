@@ -1,7 +1,9 @@
+package duck.data.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Event extends Task implements Datable{
+public class Event extends Task implements Datable {
     private LocalDateTime from;
     private LocalDateTime to;
     public Event(String description, LocalDateTime start, LocalDateTime end) {

@@ -1,13 +1,1 @@
-E | 0 | event | 1pm | 9pm
-D | 0 | d | 10pm
-E | 0 | hello | s | b
-D | 0 | ok | ok
-D | 0 | return book | 2019-12-31T18:00
-D | 0 | return book | 2019-12-31T18:00
-D | 0 | return book | 2019-12-31T18:00
-D | 0 | return book | 2019-12-31T18:00
-D | 0 | return book | 2019-12-08T18:00
-D | 0 | return book | 2019-01-02 1800
-E | 0 | return book | 2019-02-01 1800 | 2019-01-02 1800
-E | 0 | return book | 2002-12-31 1800 | 2002-12-31 1801
-D | 0 | hello | 2002-12-31 1800
+
