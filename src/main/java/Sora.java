@@ -1,68 +1,169 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Sora {
-    public static void main(String[] args) {
-        final String horizontalLine = "\t------------------------------";
-        String greeting = "\tHello! I'm Sora!\n\tWhat can I do for you?\n" + horizontalLine;
-        System.out.println(horizontalLine + "\n" + greeting);
+    private static final String HORIZONTALLINE = "---------------------------------------------------";
+    private final List<Task> taskList;
 
+    public Sora() {
+        this.taskList = new ArrayList<>();
+    }
+
+    public static void main(String[] args) {
+        Sora sora = new Sora();
         Scanner commandScanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+
+        System.out.println(greeting());
+
         while (true) {
+            ArrayList<String> parsedCommand = parse(commandScanner.nextLine().trim());
+
+            String mainCommand = parsedCommand.get(0).toLowerCase();
             try {
-                String[] command = commandScanner.nextLine().trim().split(" ", 2);
-                if (command[0].equalsIgnoreCase("bye") && command.length == 1) {
-                    break;
-                } else if (command[0].equalsIgnoreCase("list") && command.length == 1) {
-                    taskList.displayList();
-                } else if (command[0].equalsIgnoreCase("mark") && command.length == 2) {
-                    taskList.get(Integer.parseInt(command[1]) - 1).setDone(true);
-                    System.out.println("\tNice! Sora has marked this task as done:");
-                    System.out.println("\t" + taskList.get(Integer.parseInt(command[1]) - 1));
-                } else if (command[0].equalsIgnoreCase("unmark") && command.length == 2) {
-                    taskList.get(Integer.parseInt(command[1]) - 1).setDone(false);
-                    System.out.println("\tOk, Sora has unmarked this task as not done:");
-                    System.out.println("\t" + taskList.get(Integer.parseInt(command[1]) - 1));
-                } else if (command[0].equalsIgnoreCase("todo") && command.length == 2) {
-                    taskList.add(new ToDo(command[1]));
-                    System.out.println("\tGot it. Sora has added this task:");
-                    System.out.println("\t" + taskList.get(taskList.size() - 1));
-                    System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
-                } else if (command[0].equalsIgnoreCase("deadline") && command.length == 2) {
-                    String[] deadlineInformation = command[1].trim().split(" /by ", 2);
-                    taskList.add(new Deadline(deadlineInformation[0], deadlineInformation[1]));
-                    System.out.println("\tGot it. Sora has added this task:");
-                    System.out.println("\t" + taskList.get(taskList.size() - 1));
-                    System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
-                } else if (command[0].equalsIgnoreCase("event") && command.length == 2) {
-                    String eventFrom = command[1].trim().split(" /from ", 2)[1].split(" /to", 2)[0];
-                    String eventTo = command[1].trim().split("/to ", 2)[1];
-                    taskList.add(new Event(command[0], eventFrom, eventTo));
-                    System.out.println("\tGot it. Sora has added this task:");
-                    System.out.println("\t" + taskList.get(taskList.size() - 1));
-                    System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
-                } else if (command[0].equalsIgnoreCase("delete") && command.length == 2) {
-                    Task deletedTask = taskList.remove(Integer.parseInt(command[1]) - 1);
-                    System.out.println("\tNoted. Sora has removed this task:");
-                    System.out.println("\t" + deletedTask);
-                } else if (command.length == 0) {
-                    throw new SoraException("Error: No Command Inputted.");
-                } else {
-                    throw new SoraException("Error: Command cannot be understood.");
+                switch (mainCommand) {
+                    case "bye":
+                        System.out.println(farewell());
+                        break;
+                    case "list":
+                        sora.displayList();
+                        break;
+                    case "mark":
+                        sora.markTask(parsedCommand.get(1));
+                        break;
+                    case "unmark":
+                        sora.unmarkTask(parsedCommand.get(1));
+                        break;
+                    case "todo":
+                        sora.addTask("todo", parsedCommand);
+                        break;
+                    case "deadline":
+                        sora.addTask("deadline", parsedCommand);
+                        break;
+                    case "event":
+                        sora.addTask("event", parsedCommand);
+                        break;
+                    case "delete":
+                        sora.deleteTask(parsedCommand.get(1));
+                        break;
+                    case "":
+                        throw new SoraException("\tPlease Enter a Command\n" + HORIZONTALLINE);
+                    default:
+                        System.out.println("\tSora doesn't understand! Please Try Again!");
+
                 }
-                System.out.println(horizontalLine);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Error: Number Entered > No. of tasks in your list. Please Try Again.");
+                System.out.println(HORIZONTALLINE);
             } catch (SoraException e) {
                 System.out.println(e.getMessage());
             }
         }
-
-        String exit = "\tBye. Hope to see you again soon!";
-        System.out.println(exit + "\n" + horizontalLine);
     }
 
+    private static String greeting() {
+        return HORIZONTALLINE + "\n" + "\tHello! I'm Sora!\n\tWhat can I do for you?\n" + HORIZONTALLINE;
+    }
 
+    private static String farewell() {
+        return "\tBye. Hope to see you again soon!";
+    }
+
+    private static ArrayList<String> parse(String command) {
+        ArrayList<String> parsedResult = new ArrayList<>();
+        String[] parse_1 = command.split(" ", 2);
+        parsedResult.add(parse_1[0]);
+        if (parse_1.length > 1) {
+            String[] parse_2 = parse_1[1].split(" /", 3);
+            for (String s: parse_2) {
+                parsedResult.add(s);
+            }
+        }
+        return parsedResult;
+    }
+
+    private void displayList() {
+        if (this.taskList.isEmpty()) {
+            System.out.println("\tSeems like there are no tasks!");
+            return;
+        }
+        for (Task t : this.taskList) {
+            System.out.println("\t" + t.toString());
+        }
+    }
+
+    private void markTask(String value) throws SoraException {
+        try {
+            Task task = this.taskList.get(Integer.parseInt(value) - 1);
+            if (task.isDone) {
+                System.out.println("\tSora has discovered this task is already done!");
+                return;
+            }
+            task.markAsDone();
+            System.out.println("\tNice! Sora has marked this task as done:");
+            System.out.println("\t" + task);
+        } catch (NumberFormatException e) {
+            throw new SoraException("\tPlease Enter - Mark (int)\n" + HORIZONTALLINE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTALLINE);
+        }
+    }
+
+    private void unmarkTask(String value) throws SoraException {
+        try {
+            Task task = this.taskList.get(Integer.parseInt(value) - 1);
+            if (!task.isDone) {
+                System.out.println("\tSora has discovered this task is already not done!");
+                return;
+            }
+            task.markAsNotDone();
+            System.out.println("\tOk, Sora has unmarked this task as not done:");
+            System.out.println("\t" + task);
+        } catch (NumberFormatException e) {
+            throw new SoraException("\tPlease Enter - Mark (int)\n" + HORIZONTALLINE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTALLINE);
+        }
+    }
+
+    private void addTask(String mainCommand, ArrayList<String> parsedCommand) throws SoraException {
+        switch (mainCommand) {
+            case "todo":
+                try {
+                    this.taskList.add(new ToDo(parsedCommand.get(1)));
+                    break;
+                } catch (IndexOutOfBoundsException e) {
+                    throw new SoraException("\tPlease Enter - Todo (Description)");
+                }
+            case "deadline":
+                try {
+                    this.taskList.add(new Deadline(parsedCommand.get(1), parsedCommand.get(2).substring(3)));
+                    break;
+                } catch (IndexOutOfBoundsException e) {
+                    throw new SoraException("\tPlease Enter - Deadline (Description) /by (by)");
+                }
+            case "event":
+                try {
+                    this.taskList.add(new Event(parsedCommand.get(1), parsedCommand.get(2).substring(5), parsedCommand.get(3).substring(3)));
+                    break;
+                } catch (IndexOutOfBoundsException e) {
+                    throw new SoraException("\tPlease Enter - Event (Description) /from (from) /to (to)");
+                }
+        }
+        System.out.println("\tGot it. Sora has added this task:");
+        System.out.println("\t" + taskList.get(taskList.size() - 1));
+        System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
+    }
+
+    private void deleteTask(String value) throws SoraException {
+        try {
+            int index = Integer.parseInt(value) - 1;
+            Task deletedTask = this.taskList.remove(index);
+            System.out.println("\tNoted. Sora has removed this task:");
+            System.out.println("\t" + deletedTask);
+        } catch (NumberFormatException e) {
+            throw new SoraException("\tPlease Enter - Delete (int)\n" + HORIZONTALLINE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTALLINE);
+        }
+    }
 }
