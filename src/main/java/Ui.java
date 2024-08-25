@@ -1,11 +1,14 @@
+import java.util.Scanner;
+
 public class Ui {
 
-	private static final String END_LINE = "_______________________________________________________________________";
-	private static final String GREETING = "Hello! I'm Wiggly\n" +
+	public static final String END_LINE = "_______________________________________________________________________";
+	public static final String GREETING = "Hello! I'm Wiggly\n" +
 	                                       "What can I do for you?";
-	private static final String TASK_HEADER = "Here are the tasks in your list:";
-	private static final String EXIT = "Bye. Hope to see you again soon!";
+	public static final String TASK_HEADER = "Here are the tasks in your list:";
+	public static final String EXIT = "Bye. Hope to see you again soon!";
 
+	private final Scanner sc = new Scanner(System.in);
 
 	public Ui() {
 
@@ -23,14 +26,16 @@ public class Ui {
 		printWrappedString(GREETING);
 	}
 
-	public void printTaskList(TaskList taskList) {
-		String str = TASK_HEADER + "\n" +
-		            taskList.toString();
-		printWrappedString(str);
+	public void showError(String error) {
+		printWrappedString(error);
 	}
 
 	public void printExit() {
 		printWrappedString(EXIT);
+	}
+
+	public String readCommand() {
+		return sc.nextLine();
 	}
 
 }

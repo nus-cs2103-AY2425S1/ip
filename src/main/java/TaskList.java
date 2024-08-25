@@ -15,10 +15,9 @@ public class TaskList {
 
     public String addTask(Task task) {
         tasks.add(task);
-        StringBuilder sb = new StringBuilder();
-        sb.append("Got it. I've added this task:\n").append(task).append("\n");
-        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!");
-        return sb.toString();
+	    String sb = "Got it. I've added this task:\n" + task + "\n" +
+			    "Now you have " + tasks.size() + " tasks in the list!";
+        return sb;
     }
 
     public int getSize() {
