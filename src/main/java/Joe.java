@@ -202,11 +202,11 @@ public class Joe {
                 help();
             } else if (userIn.equals("list")) {
                 list();
-            } else if (userIn.toLowerCase().startsWith("mark")) {
+            } else if (userIn.startsWith("mark")) {
                 mark(getDigits(userIn));
-            } else if (userIn.toLowerCase().startsWith("unmark")) {
+            } else if (userIn.startsWith("unmark")) {
                 unmark(getDigits(userIn));
-            } else if (userIn.toLowerCase().startsWith("delete")) {
+            } else if (userIn.startsWith("delete")) {
                 delete(getDigits(userIn));
             } else {
                 try {
