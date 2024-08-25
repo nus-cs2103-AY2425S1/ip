@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
-import sumode.exception.MissingDetailsException;
 import sumode.exception.NonExistentTaskException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
@@ -82,7 +81,7 @@ public class SumoDE {
                 ui.unknownCommand(commandString);
             } catch (WrongSyntaxForCommandException | UnknownCommandException
                      | NonExistentTaskException | AlreadyUnmarkedException
-                     | AlreadyMarkedException | MissingDetailsException e) {
+                     | AlreadyMarkedException e) {
                 ui.handleError(e);
             } finally {
                 if (!terminate) {

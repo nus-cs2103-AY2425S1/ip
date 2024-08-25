@@ -1,6 +1,5 @@
 package sumode.util;
 
-import sumode.exception.MissingDetailsException;
 import sumode.exception.WrongSyntaxForCommandException;
 
 /**
@@ -43,7 +42,7 @@ public class Parser {
      * @return a String array of size 2
      * @throws WrongSyntaxForCommandException thrown when Wrong Syntax for command is given
      */
-    public static String[] parseDeadline(String item) throws WrongSyntaxForCommandException, MissingDetailsException {
+    public static String[] parseDeadline(String item) throws WrongSyntaxForCommandException {
         int spaceLocation = item.indexOf(" /by ");
         if (spaceLocation == -1) {
             throw new WrongSyntaxForCommandException(Command.DEADLINE);
@@ -52,7 +51,7 @@ public class Parser {
         String due = item.substring(spaceLocation + 5).trim();
 
         if (name.isEmpty() | due.isEmpty()) {
-            throw new MissingDetailsException(Command.DEADLINE);
+            throw new WrongSyntaxForCommandException(Command.DEADLINE);
         }
         return new String[] {name, due};
     }
@@ -67,7 +66,7 @@ public class Parser {
      * @return a String array of size 3
      * @throws WrongSyntaxForCommandException thrown when Wrong Syntax for command is given
      */
-    public static String[] parseEvent(String item) throws WrongSyntaxForCommandException, MissingDetailsException {
+    public static String[] parseEvent(String item) throws WrongSyntaxForCommandException {
         int fromLocation = item.indexOf(" /from ");
         int toLocation = item.indexOf(" /to ");
         String name;
@@ -86,7 +85,7 @@ public class Parser {
             start = item.substring(fromLocation + 7).trim();
         }
         if (name.isEmpty() | start.isEmpty() | end.isEmpty()) {
-            throw new MissingDetailsException(Command.EVENT);
+            throw new WrongSyntaxForCommandException(Command.EVENT);
         }
         return new String[] {name, start, end};
     }
