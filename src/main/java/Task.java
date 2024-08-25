@@ -30,4 +30,9 @@ public abstract class Task {
     public String toString() {
         return String.format("[%s][%s] %s", this.type.name().charAt(0), this.getStatusIcon(), this.description);
     }
+
+    public String formatToSave() {
+        String done = this.isDone ? "1" : "0";
+        return String.format("T | %s | %s", done, this.description);
+    }
 }

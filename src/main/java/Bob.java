@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Bob {
     private static final String LINE = "____________________________________________________________";
     private static final String NAME = "Bob";
@@ -8,28 +13,29 @@ public class Bob {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(LINE);
-        System.out.printf("Hello! I'm %s!\n", NAME);
+        System.out.println(Bob.LINE);
+        System.out.printf("Hello! I'm %s!\n", Bob.NAME);
         System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        System.out.println(Bob.LINE);
 
         String phrase = scanner.nextLine();
 
         while (!phrase.equals("bye")) {
             try {
-                System.out.println(LINE);
-                handleInput(phrase);
+                System.out.println(Bob.LINE);
+                Bob.handleInput(phrase);
+                Bob.writeToFile();
             } catch (ChatBotException e) {
                 System.out.println(" Error: " + e.getMessage());
             } finally {
-                System.out.println(LINE);
+                System.out.println(Bob.LINE);
                 phrase = scanner.nextLine();
             }
         }
 
-        System.out.println(LINE);
+        System.out.println(Bob.LINE);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+        System.out.println(Bob.LINE);
     }
 
     private static void handleInput(String phrase) throws ChatBotException {
@@ -61,6 +67,41 @@ public class Bob {
         }
     }
 
+    private static void writeToFile() {
+        try {
+            String directoryPath = "./data";
+            if (!Files.exists(Paths.get(directoryPath)) ||
+                    !Files.isDirectory(Paths.get(directoryPath))) {
+                Files.createDirectory(Paths.get(directoryPath));
+            }
+
+            String filePath = "./data/bob.txt";
+            if (!Files.exists(Paths.get(filePath)) ||
+                    !Files.isRegularFile(Paths.get(filePath))) {
+                Files.createFile(Paths.get(filePath));
+            }
+
+            FileWriter fw = new FileWriter(filePath);
+            String[] tasksToSave = Bob.getTasksToSave();
+            for (int i = 0; i < tasksToSave.length; i++) {
+                fw.write(tasksToSave[i]);
+                if (i != tasksToSave.length - 1) {
+                    fw.write(System.lineSeparator());
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Save failed. Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static String[] getTasksToSave() {
+        String[] taskArr = new String[Bob.tasks.size()];
+        for (int i = 0; i < Bob.tasks.size(); i++) {
+            taskArr[i] = Bob.tasks.get(i).formatToSave();
+        }
+        return taskArr;
+    }
 
     private static void listTasks() {
         System.out.println("Here are the tasks in your list:");
