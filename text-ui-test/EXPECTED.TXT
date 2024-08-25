@@ -65,3 +65,4 @@ Here are the tasks in your list:
 4. [T][ ] borrow book
 5. [D][ ] return book (by: Sunday)
 6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Aight, Cya later.
