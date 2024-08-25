@@ -10,7 +10,7 @@ public class Todo extends Task {
     public static Todo createNewTodo(String textString) throws InputMismatchException {
         if (textString.matches("\\s*")) {
             throw new InputMismatchException("Todo description cannot be empty");
-        }
+        } 
         return new Todo(textString.trim());
     }
 

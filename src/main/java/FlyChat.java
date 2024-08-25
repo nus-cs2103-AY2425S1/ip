@@ -49,18 +49,35 @@ public class FlyChat {
             //when user types "mark [num]", the task with index num is marked as done
             } else if (inputString.startsWith("mark ")) {
                 System.out.println(lineBreak);
-                storageList.mark(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
+                try {
+                    storageList.mark(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please ensure that you typed the correct task number");
+                }
                 System.out.println(lineBreak);
             //when user types "unmark [num]", the task with index num is marked as not done
             } else if (inputString.startsWith("unmark ")) {
                 System.out.println(lineBreak);
-                storageList.unmark(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
+                try {
+                    storageList.unmark(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please ensure that you typed the correct task number");
+                }
                 System.out.println(lineBreak);
             //when user types todo/deadline/event at the start, a new corresponding task is created
-            } else if (inputString.startsWith("todo") || inputString.startsWith("deadline") || 
-                        inputString.startsWith("event")) {
+            } else if (inputString.startsWith("todo ") || inputString.startsWith("deadline ") || 
+                        inputString.startsWith("event ")) {
                 System.out.println(lineBreak);
                 storageList.addTask(inputString);
+                System.out.println(lineBreak);
+            //when user types "delete [num]", the task with the index num is removed
+            } else if (inputString.startsWith("delete ")) {
+                System.out.println(lineBreak);
+                try {
+                    storageList.deleteTask(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please ensure that you typed the correct task number");
+                }
                 System.out.println(lineBreak);
             } else {
                 throw new InputMismatchException("Invalid input command");
