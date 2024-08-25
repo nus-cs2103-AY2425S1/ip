@@ -23,7 +23,11 @@ public class Michael {
             if (input.equals("bye")) { // special bye command to exit
                 break;
             }
-            processor(input);
+            try {
+                processor(input);
+            } catch (MichaelException e) {
+                System.out.println(e.getMessage());
+            } finally {}
         }
 
         // Exit
@@ -31,13 +35,21 @@ public class Michael {
     }
 
     // Function to match command to required actions
-    private static void processor(String input) {
-        if (input.length() > 4 && input.substring(0, 4).equals("mark")) { // mark a task as done
+    private static void processor(String input) throws MichaelException {
+        if (input.length() >= 4 && input.substring(0, 4).equals("mark")) { // mark a task as done
+            if (input.length() < 6) { // no number given to mark
+                throw new MichaelException("Enter integer position of task on list to mark. " +
+                        "Use command list to check the position of the required task.");
+            }
             int index = Integer.valueOf(input.substring(5));
             Task target = tasks.get(index - 1);
             target.doTask();
             printer("Nice! I've marked this task as done:\n" + "  " + target);
-        } else if (input.length() > 6 && input.substring(0, 6).equals("unmark")) { // unmark a task
+        } else if (input.length() >= 6 && input.substring(0, 6).equals("unmark")) { // unmark a task
+            if (input.length() < 8) { // no number given to unmark
+                throw new MichaelException("Enter integer position of task on list to unmark. " +
+                        "Use command list to check the position of the required task.");
+            }
             int index = Integer.valueOf(input.substring(7));
             Task target = tasks.get(index - 1);
             target.undoTask();
@@ -49,13 +61,19 @@ public class Michael {
                 list = list.concat(elem);
             }
             printer(list.substring(0, list.length() - 1)); // substring to remove last line break
-        } else if (input.length() > 4 && input.substring(0, 4).equals("todo")) { // task of type todo to be added
+        } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) { // task of type todo to be added
+            if (input.length() < 6) { // no task given
+                throw new MichaelException("Enter a task to be done.");
+            }
             ToDo curr = new ToDo(input.substring(5));
             tasks.add(curr);
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
             printer(message);
-        } else if (input.length() > 8 && input.substring(0, 8).equals("deadline")) { // task of type deadline to be added
+        } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) { // task of type deadline to be added
+            if (input.length() < 10) { // no deadline task given
+                throw new MichaelException("Enter a valid task with a deadline.");
+            }
             String task = input.substring(9);
             String[] parts = task.split("/");
             for (int i = 0; i < parts.length - 1; i++) {
@@ -67,7 +85,10 @@ public class Michael {
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
             printer(message);
-        } else if (input.length() > 5 && input.substring(0, 5).equals("event")) {
+        } else if (input.length() >= 5 && input.substring(0, 5).equals("event")) {
+            if (input.length() < 7) { // no event given
+                throw new MichaelException("Enter a valid event.");
+            }
             String task = input.substring(6);
             String[] parts = task.split("/");
             for (int i = 0; i < parts.length - 1; i++) {
@@ -79,9 +100,9 @@ public class Michael {
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
             printer(message);
-        } else { // other new task to be added
-            tasks.add(new Task(input));
-            printer("added: " + input);
+        } else { // invalid command
+            throw new MichaelException("Invalid command entered. Please enter one of the following valid commands: " +
+                    "todo, deadline, event, mark, unmark, list, bye");
         }
     }
 }
