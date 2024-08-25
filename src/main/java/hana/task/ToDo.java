@@ -3,7 +3,7 @@ package hana.task;
 /**
  * Represents a ToDo task with a description and deadline.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Constructs a ToDo task with description and deadline.
