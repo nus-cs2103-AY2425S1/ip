@@ -14,6 +14,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the number of task in the taskList
+     *
+     * @return number of task in taskList
+     */
+    public int sizeOfTaskList() {
+        return this.taskList.size();
+    }
+
+    /**
      * Returns the Task at a given index of taskList
      *
      * @param index of the task in taskList
@@ -21,8 +30,8 @@ public class TaskList {
      * @throws EchoException If index is greater than the total number of tasks in taskList
      */
     public Task getTask(int index) {
-        int numOfTask = this.taskList.size() - 1;
-        if (index > numOfTask) {
+        int largestIndex = this.sizeOfTaskList() - 1;
+        if (index > largestIndex) {
             throw new EchoException(LINE_BREAK + "\nThere is not enough task. " +
                     "\nPlease add more task or change another index\n" + LINE_BREAK);
         }
@@ -34,7 +43,7 @@ public class TaskList {
      */
     public void listAllTask() {
         System.out.println(LINE_BREAK + "\nHere are the tasks in your list:");
-        for(int i = 0; i < this.taskList.size(); i ++) {
+        for(int i = 0; i < this.sizeOfTaskList(); i ++) {
             System.out.println((i + 1) + "." + this.getTask(i).toString());
         }
         System.out.println(LINE_BREAK);
@@ -48,19 +57,19 @@ public class TaskList {
      */
     public void deleteTask(int index) throws EchoException {
         try {
-            int numOfTask = this.taskList.size() - 1;
+            int largestIndex = this.sizeOfTaskList() - 1;
 
-            if (index > numOfTask) {
+            if (index > largestIndex) {
                 throw new EchoException(LINE_BREAK + "\nThere is not enough task. " +
                         "\nPlease add more task or change another index\n" + LINE_BREAK);
             }
 
             System.out.println(LINE_BREAK + "\nNoted. I've removed this task:\n" +
                     this.getTask(index).toString());
-            System.out.println("Now you have " + numOfTask + " tasks in the list.\n" + LINE_BREAK);
+            System.out.println("Now you have " + largestIndex + " tasks in the list.\n" + LINE_BREAK);
 
             this.taskList.remove(index);
-            Collections.rotate(this.taskList.subList(index, this.taskList.size()), -1);
+            Collections.rotate(this.taskList.subList(index, this.sizeOfTaskList()), -1);
             this.taskList.trimToSize();
 
         } catch (EchoException e) {
@@ -75,8 +84,14 @@ public class TaskList {
      */
     public void addTask(Task userTask) {
         this.taskList.add(userTask);
-        int numOfTask = this.taskList.size();
+    }
+
+    /**
+     * Prints a display message of the task being added
+     */
+    public void printAddTaskMessage(Task userTask) {
+        int numOfTask = this.sizeOfTaskList();
         System.out.println(LINE_BREAK + "\nGot it. I've added this task:\n" + userTask.toString());
         System.out.println("Now you have " + numOfTask + " tasks in the list.\n" + LINE_BREAK);
-        }
+    }
 }

@@ -13,8 +13,15 @@ public class ToDos extends Task {
         return "[T]" + super.toString();
     }
 
-
-
-
-
+    /**
+     * Returns the ToDos as a fancier string with its status and description
+     * Meant for recording in text files
+     *
+     * @return Fancier string of the ToDos
+     */
+    @Override
+    public String toFancyString() {
+        return "ToDo | " + super.getStatus() + " | " +
+                super.getDescription();
+    }
 }

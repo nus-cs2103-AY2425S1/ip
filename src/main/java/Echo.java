@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -137,6 +142,7 @@ public class Echo {
                 int index = getIndexFromInput(taskDescription);
                 Task currTask1 = taskList.getTask(index);
                 currTask1.mark();
+                currTask1.printMarkMessage();
                 break;
             case "unmark":
                 int index1 = getIndexFromInput(taskDescription);
@@ -146,14 +152,17 @@ public class Echo {
             case "todo":
                 ToDos toDoTask = this.createTodoTask(taskDescription);
                 taskList.addTask(toDoTask);
+                taskList.printAddTaskMessage(toDoTask);
                 break;
             case "deadline":
                 Deadlines deadlineTask = this.createDeadlineTask(taskDescription);
                 taskList.addTask(deadlineTask);
+                taskList.printAddTaskMessage(deadlineTask);
                 break;
             case "event":
                 Events eventTask = createEventTask(taskDescription);
                 taskList.addTask(eventTask);
+                taskList.printAddTaskMessage(eventTask);
                 break;
             case "delete":
                 int index2 = getIndexFromInput(taskDescription);
@@ -167,17 +176,91 @@ public class Echo {
             System.err.println(e.getMessage());
         }
     }
-    public static void main(String[] args) {
-        Echo echo = new Echo();
-        echo.greet();
-        TaskList taskList = new TaskList();
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
-            echo.checkInput(input, taskList);
-            input = scanner.nextLine();
+
+    /**
+     * Marks Task objects if the task status is equal to 1
+     *
+     * @param taskStatus 1 if the task is marked and 0 if the task is unmark
+     * @param taskToMark Task object to be marked or not
+     */
+    public void markTask(String taskStatus, Task taskToMark) {
+        if (taskStatus.equals("1")) {
+            taskToMark.mark();
         }
-        scanner.close();
-        echo.bye();
+    }
+
+    /**
+     * Adds all the task in the saved file into the taskList
+     *
+     * @param filePath path from project root to file path
+     * @throws FileNotFoundException if file is not found in file path
+     */
+    public void loadTaskList(String filePath, TaskList taskList) throws FileNotFoundException {
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String task = scanner.nextLine();
+            String[] textArray = task.split(" \\| ");
+            String command = textArray[0].toLowerCase();
+            String taskStatus = textArray[1];
+            String taskDescription = textArray[2];
+
+            switch (command) {
+            case "todo":
+                ToDos toDoTask = createTodoTask(taskDescription);
+                markTask(taskStatus, toDoTask);
+                taskList.addTask(toDoTask);
+                break;
+            case "deadline":
+                taskDescription = taskDescription + " /by " + textArray[3];
+                Deadlines deadlineTask = createDeadlineTask(taskDescription);
+                markTask(taskStatus, deadlineTask);
+                taskList.addTask(deadlineTask);
+                break;
+            case "event":
+                taskDescription = taskDescription + " " + textArray[3];
+                Events eventTask = createEventTask(taskDescription);
+                markTask(taskStatus, eventTask);
+                taskList.addTask(eventTask);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Save all the task in task list into a text file
+     *
+     * @param filePath path to the text file
+     * @param taskList TaskList containing all the tasks
+     * @throws IOException if there is an invalid output or input
+     */
+    public void saveTaskList(String filePath, TaskList taskList) throws IOException {
+        FileWriter writer = new FileWriter(filePath);
+        for(int i = 0; i < taskList.sizeOfTaskList(); i ++) {
+            writer.write(taskList.getTask(i).toFancyString() + System.lineSeparator());
+        }
+        writer.close();
+    }
+    public static void main(String[] args) {
+        try {
+            String filePath = "./src/main/data/echo.txt";
+            Echo echo = new Echo();
+            TaskList taskList = new TaskList();
+            echo.greet();
+            echo.loadTaskList(filePath, taskList);
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            while (!input.equals("bye")) {
+                echo.checkInput(input, taskList);
+                input = scanner.nextLine();
+            }
+            scanner.close();
+            echo.bye();
+            echo.saveTaskList(filePath, taskList);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Invalid Input or Output");
+        }
     }
 }
