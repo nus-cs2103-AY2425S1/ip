@@ -2,9 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -133,12 +133,14 @@ public class Bobby {
                 throw new EmptyArgsException();
             }
             try {
-                Task newTask = new Deadline(name, LocalDate.parse(deadline));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                Task newTask = new Deadline(name, LocalDateTime.parse(deadline, formatter));
                 this.tasks.add(newTask);
                 this.writeToFile();
                 this.printAddSuccess(newTask);
             } catch (DateTimeParseException e) {
-                System.out.println("Error: Unable to parse date");
+                System.out.println(
+                        "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format");
             }
         }
         case "event" -> {
@@ -166,12 +168,15 @@ public class Bobby {
                 throw new EmptyArgsException();
             }
             try {
-                Task newTask = new Event(name, LocalDate.parse(from), LocalDate.parse(to));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                Task newTask = new Event(name, LocalDateTime.parse(from, formatter),
+                        LocalDateTime.parse(to, formatter));
                 this.tasks.add(newTask);
                 this.writeToFile();
                 this.printAddSuccess(newTask);
             } catch (DateTimeParseException e) {
-                System.out.println("Error: Unable to parse date");
+                System.out.println(
+                        "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format");
             }
         }
         default -> throw new InvalidCommandException();
@@ -216,8 +221,8 @@ public class Bobby {
         String title = tokens[2];
         return switch (tokens[0]) {
             case "T" -> new Todo(title, isDone);
-            case "D" -> new Deadline(title, LocalDate.parse(tokens[3]), isDone);
-            case "E" -> new Event(title, LocalDate.parse(tokens[3]), LocalDate.parse(tokens[4]), isDone);
+            case "D" -> new Deadline(title, LocalDateTime.parse(tokens[3]), isDone);
+            case "E" -> new Event(title, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]), isDone);
             default -> throw new IOException();
         };
     }
