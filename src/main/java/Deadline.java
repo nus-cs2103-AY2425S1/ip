@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * This class represents a Deadline with a description, completion status and end time.
  *
@@ -7,15 +9,15 @@
 
 public class Deadline extends Task{
 
-    protected String endTime;
+    protected LocalDate endTime;
 
     /**
      * Constructs a new instance of Deadline.
      *
      * @param description String description of Deadline.
-     * @param endTime String end time of Deadline.
+     * @param endTime LocalDateTime end time of Deadline.
      */
-    public Deadline(String description, String endTime) {
+    public Deadline(String description, LocalDate endTime) {
         super(description);
         this.endTime = endTime;
     }
@@ -25,9 +27,9 @@ public class Deadline extends Task{
      *
      * @param description String description of Deadline.
      * @param isDone Boolean indicating whether Deadline is done or not.
-     * @param endTime String end time of Deadline.
+     * @param endTime LocalDateTime end time of Deadline.
      */
-    public Deadline(String description, Boolean isDone, String endTime) {
+    public Deadline(String description, Boolean isDone, LocalDate endTime) {
         super(description, isDone);
         this.endTime = endTime;
     }
@@ -37,7 +39,7 @@ public class Deadline extends Task{
      *
      * @return description endTime which indicates when the Deadline is due by.
      */
-    public String getEndTime() {
+    public LocalDate getEndTime() {
         return endTime;
     }
 
@@ -50,7 +52,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime + ")";
+        return "[D]" + super.toString() + " (by: " + endTime.toString() + ")";
     }
 
 }

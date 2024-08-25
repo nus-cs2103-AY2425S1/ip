@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -72,11 +75,12 @@ public class Hoshi {
 
                 } else {
 
-                    // split string
-                    String[] splitInput = input.split(" ");
+                    String trimmedInput = input.trim();
+
+                    char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
                     // get only the number from the 2nd half of the splitInput
-                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                    int markIndex = Character.getNumericValue(taskNo) - 1;
 
                     try {
 
@@ -107,11 +111,12 @@ public class Hoshi {
 
                 } else {
 
-                    // split string
-                    String[] splitInput = input.split(" ");
+                    String trimmedInput = input.trim();
+
+                    char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
                     // get only the number from the 2nd half of the splitInput
-                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                    int markIndex = Character.getNumericValue(taskNo) - 1;
 
                     try {
 
@@ -142,11 +147,12 @@ public class Hoshi {
 
                 } else {
 
-                    // split string
-                    String[] splitInput = input.split(" ");
+                    String trimmedInput = input.trim();
+
+                    char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
                     // get only the number from the 2nd half of the splitInput
-                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                    int markIndex = Character.getNumericValue(taskNo) - 1;
 
                     System.out.println("OK, Hoshi has removed ( " + arrayList.get(markIndex).getDesc() + " )! \n");
 
@@ -156,105 +162,7 @@ public class Hoshi {
                 // add a Task
             } else if (input.toLowerCase().startsWith("add")) {
 
-                if (input.trim().length() < 4) {
-
-                    System.out.println("Please specify the task to add! E.g. Add {task to be added} \n");
-
-                } else {
-                    {
-
-                    }
-                    String[] splitInput = input.split(" ");
-
-
-                    String taskInput = splitInput[1];
-
-                    switch (taskInput) {
-                    case "todo" -> {
-
-                        System.out.println("Understood! What is your ToDo? ");
-                        String desc = scanner.nextLine();
-
-                        try {
-
-                            if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
-                            }
-
-                            Todo newToDo = new Todo(desc);
-                            arrayList.add(newToDo);
-                            System.out.println("added: " + input);
-
-                        } catch (HoshiException e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                    }
-                    case "deadline" -> {
-
-                        System.out.println("Understood! What is your Deadline? ");
-                        String desc = scanner.nextLine();
-
-                        try {
-
-                            if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
-                            }
-
-                            System.out.println("When would you like your Deadline to be due by? ");
-
-                            // take in input
-                            String endTime = scanner.nextLine();
-
-                            Deadline newDeadline = new Deadline(desc, endTime);
-                            arrayList.add(newDeadline);
-                            System.out.println("added: " + input);
-
-                        } catch (HoshiException e) {
-                            System.out.println(e.getMessage());
-                        }
-
-
-                    }
-                    case "event" -> {
-
-                        System.out.println("Understood! What is your Event? ");
-
-                        String desc = scanner.nextLine();
-
-                        try {
-                            if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
-                            }
-
-                            System.out.println("When would you like your Event to start? ");
-
-                            // take in input
-                            String startTime = scanner.nextLine();
-
-                            System.out.println("When would you like your Event to end? ");
-
-                            // take in input
-                            String endTime = scanner.nextLine();
-
-                            Event newEvent = new Event(desc, startTime, endTime);
-                            arrayList.add(newEvent);
-                            System.out.println("added: " + input);
-
-
-                        } catch (HoshiException e) {
-                            System.out.println(e.getMessage());
-                        }
-
-
-                    }
-                    default ->
-
-                        // in event of invalid input
-                            System.out.println("Hoshi doesn't understand! Please try again with the above keywords");
-                    }
-
-                }
+                addTask(input, scanner, arrayList);
 
             } else {
 
@@ -266,7 +174,7 @@ public class Hoshi {
 
         }
 
-        writeToFile("./data/Hoshi.txt",arrayList);
+        writeToFile("./data/Hoshi.txt", arrayList);
         bye();
 
 
@@ -276,7 +184,7 @@ public class Hoshi {
     /**
      * Gets tasks from hoshi txt file if user is not new else greets the user.
      *
-     * @param filePath String filepath that contains the path of the hoshi txt file.
+     * @param filePath  String filepath that contains the path of the hoshi txt file.
      * @param arrayList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
      */
     private static void getFileContents(String filePath, ArrayList<Task> arrayList) throws FileNotFoundException {
@@ -310,7 +218,10 @@ public class Hoshi {
                 case "Deadline":
 
                     String deadlineEndTime = parts[3];
-                    Deadline deadline = new Deadline(description, isDone, deadlineEndTime);
+
+                    LocalDate deadlineDateTimeEnd = LocalDate.parse(deadlineEndTime);
+
+                    Deadline deadline = new Deadline(description, isDone, deadlineDateTimeEnd);
                     arrayList.add(deadline);
                     break;
 
@@ -318,7 +229,11 @@ public class Hoshi {
 
                     String endTime = parts[3];
                     String startTime = parts[4];
-                    Event event = new Event(description, isDone, endTime, startTime);
+
+                    LocalDate dateTimeEnd = LocalDate.parse(endTime);
+                    LocalDate dateTimeStart = LocalDate.parse(startTime);
+
+                    Event event = new Event(description, isDone, dateTimeEnd, dateTimeStart);
                     arrayList.add(event);
                     break;
 
@@ -341,7 +256,7 @@ public class Hoshi {
     /**
      * Writes tasks added and retrieved during the program to hoshi txt file.
      *
-     * @param filePath String filepath that contains the path of the hoshi txt file.
+     * @param filePath  String filepath that contains the path of the hoshi txt file.
      * @param arrayList ArrayList of 3 types of tasks to be written to hoshi txt file.
      */
     private static void writeToFile(String filePath, ArrayList<Task> arrayList) throws IOException {
@@ -388,16 +303,142 @@ public class Hoshi {
     }
 
     /**
+     * Adds either to do/deadline/event tasks that are described by the user to ArrayList which is to be written to a
+     * txt file later
+     *
+     * @param input  String that represents general user input before add task details are required.
+     * @param scanner Scanner that allows user input to be read.
+     * @param arrayList ArrayList of 3 types of tasks that will be added to in this method.
+     */
+    private static void addTask(String input, Scanner scanner, ArrayList<Task> arrayList) {
+
+        if (input.trim().length() < 4) {
+
+            System.out.println("Please specify the task to add! E.g. Add {task to be added} \n");
+
+        } else {
+            {
+
+            }
+            String[] splitInput = input.split(" ");
+
+
+            String taskInput = splitInput[1];
+
+            switch (taskInput) {
+            case "todo" -> {
+
+                System.out.println("Understood! What is your ToDo? ");
+                String desc = scanner.nextLine();
+
+                try {
+
+                    if (desc.isEmpty()) {
+                        throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
+                    }
+
+                    Todo newToDo = new Todo(desc);
+                    arrayList.add(newToDo);
+                    System.out.println("added: " + input);
+
+                } catch (HoshiException e) {
+                    System.out.println(e.getMessage());
+                }
+
+            }
+            case "deadline" -> {
+
+                System.out.println("Understood! What is your Deadline? ");
+                String desc = scanner.nextLine();
+
+                try {
+
+                    if (desc.isEmpty()) {
+                        throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
+                    }
+
+                    System.out.println("When would you like your Deadline to be due by? ");
+
+                    // take in input
+                    String endTime = scanner.nextLine();
+
+                    LocalDate dateTime = LocalDate.parse(endTime);
+
+                    Deadline newDeadline = new Deadline(desc, dateTime);
+                    arrayList.add(newDeadline);
+                    System.out.println("added: " + input);
+
+                } catch (HoshiException e) {
+                    System.out.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Hoshi doesn't understand! Try YYYY-MY-DD format");
+                }
+
+
+            }
+            case "event" -> {
+
+                System.out.println("Understood! What is your Event? ");
+
+                String desc = scanner.nextLine();
+
+                try {
+                    if (desc.isEmpty()) {
+                        throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
+                    }
+
+                    System.out.println("When would you like your Event to start? ");
+
+                    // take in input
+                    String startTime = scanner.nextLine();
+
+                    LocalDate dateTimeStart = LocalDate.parse(startTime);
+
+
+                    System.out.println("When would you like your Event to end? ");
+
+                    // take in input
+                    String endTime = scanner.nextLine();
+
+                    LocalDate dateTimeEnd = LocalDate.parse(endTime);
+
+                    Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
+                    arrayList.add(newEvent);
+                    System.out.println("added: " + input);
+
+
+                } catch (HoshiException e) {
+                    System.out.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Hoshi doesn't understand! Try YYYY-MY-DD format");
+                }
+
+
+            }
+            default ->
+
+                // in event of invalid input
+                    System.out.println("Hoshi doesn't understand! Please try again with the above keywords");
+            }
+
+        }
+
+    }
+
+    /**
      * Prints bye message when user terminates the program
      *
      */
-    static void bye() {
+    static void bye () {
 
         System.out.println("""
-                Bye. Hope to see you again soon!\s
-                ____________________________________________________________
-                """);
+                    Bye. Hope to see you again soon!\s
+                    ____________________________________________________________
+                    """);
     }
+
+
+
 
 
 }

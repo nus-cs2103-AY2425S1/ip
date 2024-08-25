@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * This class represents an Event with a description, completion status, start time and end time.
  *
@@ -6,19 +8,19 @@
  */
 public class Event extends Task{
 
-    protected String startTime;
+    protected LocalDate startTime;
 
-    protected String endTime;
+    protected LocalDate endTime;
 
 
     /**
      * Constructs a new instance of Event.
      *
      * @param description String description of Event.
-     * @param startTime String start time of Event.
-     * @param endTime String end time of Event.
+     * @param startTime LocalDateTime start time of Event.
+     * @param endTime LocalDateTime end time of Event.
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -29,10 +31,10 @@ public class Event extends Task{
      *
      * @param description String description of Event.
      * @param isDone Boolean indicating whether Event is done or not.
-     * @param startTime String start time of Event.
-     * @param endTime String end time of Event.
+     * @param startTime LocalDateTime start time of Event.
+     * @param endTime LocalDateTime end time of Event.
      */
-    public Event(String description, Boolean isDone, String startTime, String endTime) {
+    public Event(String description, Boolean isDone, LocalDate startTime, LocalDate endTime) {
         super(description, isDone);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -42,7 +44,7 @@ public class Event extends Task{
      *
      * @return description startTime which indicates when the event is starting.
      */
-    public String getStartTime() {
+    public LocalDate getStartTime() {
         return startTime;
     }
 
@@ -51,7 +53,7 @@ public class Event extends Task{
      *
      * @return description endTime which indicates when the event is ending.
      */
-    public String getEndTime() {
+    public LocalDate getEndTime() {
         return endTime;
     }
 
@@ -64,6 +66,6 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + " )";
+        return "[E]" + super.toString() + " (from: " + startTime.toString() + " to: " + endTime.toString() + " )";
     }
 }
