@@ -1,217 +1,44 @@
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
-import static utility.Printer.printWithDivider;
-
-import commands.CommandType;
+import commands.ByeCommand;
+import commands.Command;
 import ui.Ui;
-import utility.DateTimeUtility;
 import exceptions.InvalidCommandException;
+import parser.Parser;
 import storage.Storage;
-import tasks.Deadline;
-import tasks.Event;
 import tasks.TaskList;
-import tasks.Todo;
 
 public class Thanos {
-    private static final Storage storage = new Storage("data.txt");
-    private static final TaskList tasks = new TaskList(storage);
-    private Ui ui = new Ui();
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Ui ui;
 
-    private static String[] parseInput(String input) throws InvalidCommandException {
-        if (input.trim().isEmpty()) {
-            throw new InvalidCommandException("No input provided. Please enter a command.");
-        }
-
-        String[] inputArr = input.trim().split(" ", 2);
-        String command = inputArr[0].toLowerCase();
-        if (inputArr.length == 1) {
-            return new String[] { command, "" };
-        }
-
-        String argument = inputArr[1].trim();
-        return new String[] { command, argument };
+    public Thanos(String fileName) {
+        this.storage = new Storage(fileName);
+        this.taskList = new TaskList(storage);
+        this.ui = new Ui();
     }
 
-    private static void listTasks() {
-        tasks.listAll();
-    }
-
-    private static void markTask(String argument) throws InvalidCommandException {
-        if (argument.isEmpty()) {
-            throw new InvalidCommandException(
-                    "No task index provided. Please use the correct format: 'mark [task index]'"
-            );
-        }
-
-        if (argument.split(" ").length != 1) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please use the correct format: 'mark [task index]'"
-            );
-        }
-
-        try {
-            int index = Integer.parseInt(argument) - 1;
-            tasks.mark(index);
-        } catch (NumberFormatException e) {
-            throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
-        }
-    }
-
-    private static void unmarkTask(String argument) throws InvalidCommandException {
-        if (argument.isEmpty()) {
-            throw new InvalidCommandException(
-                    "No task index provided. Please use the correct format: 'unmark [task index]'"
-            );
-        }
-
-        if (argument.split(" ").length != 1) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please use the correct format: 'unmark [task index]'"
-            );
-        }
-
-        try {
-            int index = Integer.parseInt(argument) - 1;
-            tasks.unmark(index);
-        } catch (NumberFormatException e) {
-            throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
-        }
-    }
-
-    private static void addTodo(String argument) throws InvalidCommandException {
-        if (argument.isEmpty()) {
-            throw new InvalidCommandException(
-                    "No task description provided. Please use the correct format: 'todo [task]'"
-            );
-        }
-        Todo todo = new Todo(argument);
-        tasks.add(todo);
-    }
-
-    private static void addDeadline(String argument) throws InvalidCommandException {
-        String[] detailsArr = argument.split(" /by ");
-        if (detailsArr.length != 2) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'"
-            );
-        }
-        LocalDateTime date = DateTimeUtility.parse(detailsArr[1]);
-        if (date != null) {
-            Deadline deadline = new Deadline(detailsArr[0], date);
-            tasks.add(deadline);
-        }
-    }
-
-    private static void addEvent(String argument) throws InvalidCommandException {
-        String[] detailsArr = argument.split(" /from ");
-        if (detailsArr.length != 2) {
-            throw new InvalidCommandException("Invalid input format." +
-                    "Please use the correct format: 'event [task] /from [start time] /to [end time]'");
-        }
-
-        String description = detailsArr[0];
-        String[] fromToArr = detailsArr[1].split(" /to ");
-        if (fromToArr.length != 2) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please ensure both start and end times are provided."
-            );
-        }
-
-        LocalDateTime startDate = DateTimeUtility.parse(fromToArr[0]);
-        LocalDateTime endDate = DateTimeUtility.parse(fromToArr[1]);
-        if (startDate != null && endDate != null) {
-            Event event = new Event(description, startDate, endDate);
-            tasks.add(event);
-        }
-    }
-
-    private static void deleteTask(String argument) throws InvalidCommandException {
-        if (argument.isEmpty()) {
-            throw new InvalidCommandException(
-                    "No task index provided. Please use the correct format: 'delete [task index]'"
-            );
-        }
-
-        if (argument.split(" ").length != 1) {
-            throw new InvalidCommandException(
-                    "Invalid input format. Please use the correct format: 'delete [task index]'"
-            );
-        }
-
-        try {
-            int index = Integer.parseInt(argument) - 1;
-            tasks.remove(index);
-        } catch (NumberFormatException e) {
-            throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
-        }
-    }
-
-    public static void findTaskByDate(String argument) throws InvalidCommandException {
-        if (argument.isEmpty()) {
-            throw new InvalidCommandException(
-                    "No date provided. Please use the correct format: 'date [date_to_search]'"
-            );
-        }
-
-        LocalDateTime date = DateTimeUtility.parse(argument);
-        if (date != null) {
-            tasks.findByDate(date);
-        }
-    }
-
-    public static void main(String[] args) {
-        printWithDivider("Hello! I'm Thanos!\nWhat can I do for you?\n");
+    public void run() {
+        this.ui.displayWelcome();
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
                 String userInput = scanner.nextLine();
-                String[] inputArr = parseInput(userInput);
-                CommandType commandType = CommandType.getCommandType(inputArr[0]);
-                String argument = inputArr[1];
-                switch (commandType) {
-                case BYE:
-                    printWithDivider("Bye. Hope to see you again soon!\n");
-                    return;
-                case LIST:
-                    listTasks();
+                Command command = Parser.parse(userInput);
+                command.execute(taskList, ui);
+
+                if (command instanceof ByeCommand) {
                     break;
-                case MARK:
-                    markTask(argument);
-                    break;
-                case UNMARK:
-                    unmarkTask(argument);
-                    break;
-                case TODO:
-                    addTodo(argument);
-                    break;
-                case DEADLINE:
-                    addDeadline(argument);
-                    break;
-                case EVENT:
-                    addEvent(argument);
-                    break;
-                case DELETE:
-                    deleteTask(argument);
-                    break;
-                case DATE:
-                    findTaskByDate(argument);
-                    break;
-                default:
-                    throw new InvalidCommandException(
-                            "Oops! I don't recognise the command you entered. Please enter a valid command."
-                    );
                 }
             } catch (InvalidCommandException e) {
-                printWithDivider(e.getMessage() + "\n");
+                ui.display(e.getMessage() + "\n");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Thanos("data.txt").run();
     }
 }

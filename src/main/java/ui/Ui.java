@@ -8,6 +8,10 @@ public class Ui {
         printDivider();
     }
 
+    public void displayWelcome() {
+        this.display("Hello! I'm Thanos!\nWhat can I do for you?\n");
+    }
+
     public void displayTaskAdded(Task task, int size) {
         this.display(String.format(
                 "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n", task, size
