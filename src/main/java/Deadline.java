@@ -15,7 +15,7 @@ public class Deadline extends Task {
     public String getDueDate() {
         String time = this.dueDate.format(DateTimeFormatter.ofPattern("HH:mm a"));
         String date = this.dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return date + "-" + time;
+        return date + " " + time;
     }
 
     @Override
