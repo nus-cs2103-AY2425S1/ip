@@ -14,7 +14,6 @@ public class Task {
             return " "; 
         }
     }
-    
 
     public void Done() {
         this.isDone = true;
@@ -22,6 +21,13 @@ public class Task {
 
     public void Undone() {
         this.isDone = false;
+    }
+
+    public String toFileString() {
+        return (this instanceof Todo ? "T" :
+                this instanceof Deadline ? "D" :
+                this instanceof Event ? "E" : " ") + " | " +
+                (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
