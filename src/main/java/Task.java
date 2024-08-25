@@ -57,6 +57,11 @@ public abstract class Task {
         System.out.println(this.toString());
     }
 
+    public String toCSVFormat() {
+        
+        return this.description + "," + this.isChecked;
+    }
+
     @Override
     public String toString() {
         if (isChecked) {

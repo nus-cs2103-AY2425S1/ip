@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -130,6 +134,7 @@ public class Quack {
 
     /**
      * Executes the command input by the user.
+     * <p>
      * Depending on the input given by the user, Quack will execute the command.
      * <p>
      * If the command is not supported by Quack an invalid input exception will be thrown.
@@ -196,9 +201,36 @@ public class Quack {
     }
 
     /**
+     * Saves the task list into a .csv folder.
+     * <p>
+     * All tasks inside the task list will be saved into a .csv folder once Quack stops running.
+     * 
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
+     */
+    private void saveData() throws IOException{
+
+        // Create a csv file to save the tasks
+        File dataFile = new File("data/savedData.csv");
+        FileWriter fw = new FileWriter(dataFile);
+
+        // Convert each task into a csv string format and write into the file
+        ArrayList<String> savedData = this.toDoList.convertToCSVFormat();
+        
+        for (String s : savedData) {
+            fw.write(s + "\n");
+        }
+
+        // Close the file writter
+        fw.close();
+    }
+
+    /**
      * Runs the chatbot and start taking inputs from the user.
      */
     private void run() {
+
+        // Retrieved save data from a text file if it exists
+
 
         // Chatbot is running for the first time, display the logo and greet the user
         this.printLogo();
@@ -215,6 +247,12 @@ public class Quack {
                 System.out.println(inputErr.getMessage());
                 System.out.println(spacer);
             }
+        }
+
+        try {
+            this.saveData();
+        } catch (IOException IOErr){
+            System.out.println("An error has occured " + IOErr.getMessage());
         }
 
         // Close the scanner

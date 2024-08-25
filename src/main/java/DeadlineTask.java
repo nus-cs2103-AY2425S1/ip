@@ -20,6 +20,12 @@ public class DeadlineTask extends Task {
     }
 
     @Override
+    public String toCSVFormat(){
+        
+        return "DEADLINE," + super.toCSVFormat() + "," + this.dueDate;
+    }
+
+    @Override
     public String toString() {
 
         return "[D]" + super.toString() + "(Due by: " + this.dueDate + ")";

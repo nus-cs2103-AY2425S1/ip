@@ -12,6 +12,11 @@ public class ToDoTask extends Task{
     }
 
     @Override
+    public String toCSVFormat() {
+        return "TODO," + super.toCSVFormat();
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

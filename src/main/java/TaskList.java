@@ -97,6 +97,19 @@ public class TaskList {
                         + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
+    public ArrayList<String> convertToCSVFormat () {
+
+        ArrayList<String> savedData = new ArrayList<String>();
+
+        for (Task t : this.toDo) {
+            String taskInCSVFormat = t.toCSVFormat();
+            savedData.add(taskInCSVFormat);
+        }
+
+        return savedData;
+    }
+
+
     @Override
     public String toString() {
         if (this.toDo.size() == 0) {

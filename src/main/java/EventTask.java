@@ -24,6 +24,12 @@ public class EventTask extends Task{
     }
 
     @Override
+    public String toCSVFormat(){
+        
+        return "EVENT," + super.toCSVFormat() + "," + this.startDate + "," + this.endDate;
+    }
+
+    @Override
     public String toString() {
 
         return "[E]" + super.toString() + "(From: " + this.startDate + " To: " + this.endDate + ")";
