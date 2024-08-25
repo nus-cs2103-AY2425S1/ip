@@ -1,4 +1,4 @@
-Hello! I'm Simon
+Hello! I'm simon.Simon
  What can I do for you?
 	____________________________________________________________
 	Got it. I've added this task:

@@ -1,3 +1,5 @@
+package simon;
+
 public class ListCommand implements Command{
     int index;
     public ListCommand() {

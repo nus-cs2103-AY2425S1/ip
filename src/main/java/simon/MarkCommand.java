@@ -1,3 +1,5 @@
+package simon;
+
 public class MarkCommand implements Command{
     int index;
     boolean mark;

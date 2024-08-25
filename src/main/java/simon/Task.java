@@ -1,3 +1,5 @@
+package simon;
+
 public class Task {
     public String name;
     //public Integer number;

@@ -1,6 +1,7 @@
+package simon;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task {
     private LocalDateTime deadline;
     private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

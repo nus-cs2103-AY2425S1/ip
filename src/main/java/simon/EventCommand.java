@@ -1,3 +1,5 @@
+package simon;
+
 public class EventCommand implements Command{
     String name;
     String from;

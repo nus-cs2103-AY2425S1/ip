@@ -1,12 +1,6 @@
+package simon;
+
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.*;
-import java.util.NoSuchElementException;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 
 
 public class Simon {

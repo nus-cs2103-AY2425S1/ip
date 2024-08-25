@@ -1,3 +1,5 @@
+package simon;
+
 public class ToDoCommand implements Command{
     String name;
 

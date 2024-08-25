@@ -1,3 +1,5 @@
+package simon;
+
 public class DeleteCommand implements Command{
     int index;
     public DeleteCommand(int index) {

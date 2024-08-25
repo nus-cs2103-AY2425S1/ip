@@ -1,7 +1,10 @@
+package simon;
+
 import java.util.Scanner;
+
 public class Ui {
     final String HOR_LINE = "\t____________________________________________________________\n";
-    final String WLC_MSG = " Hello! I'm Simon \n" +
+    final String WLC_MSG = " Hello! I'm simon.Simon \n" +
             " What can I do for you?\n";
     final String EXT_MSG = " Bye. Hope to see you again soon!";
     public void showWelcome () {
