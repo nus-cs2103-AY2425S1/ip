@@ -24,7 +24,7 @@ public class Parser {
      * @param additionalArgs String containing arguments input from the user.
      * @return A hashmap containing parameters and their arguments
      */
-    private static HashMap<String, String> parseArgs(String additionalArgs) {
+    public static HashMap<String, String> parseArgs(String additionalArgs) {
         HashMap<String, String> map = new HashMap<>();
 
         //extract first argument separately because it has no identifier
