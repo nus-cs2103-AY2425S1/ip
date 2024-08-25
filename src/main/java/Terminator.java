@@ -1,9 +1,7 @@
-import command.Command;
-import command.CommandParser;
-import command.DukeException;
-import task.Task;
+import command.*;
+import task.TaskList;
+import task.TaskIOHandler;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Terminator {
@@ -25,49 +23,71 @@ public class Terminator {
                          \\  \\       \\ |     | /        /
                           \\  \\      \\        /
                   """;
-    private final ArrayList<Task> todoList;
+
+    private final TaskList taskList;
     private final CommandParser parser;
+
     private Terminator() {
-        this.todoList = new ArrayList<>();
+        this.taskList = new TaskList();
         this.parser = new CommandParser();
     }
+
     public static Terminator build() {
         return new Terminator();
     }
 
-    public static void printHorizontalLine() {
+    private static void printHorizontalLine() {
         System.out.print(HLINE);
     }
 
-    public void greet() {
+    private void greet() {
         String msg = HLINE + LOGO + "Device booted successfully. State your request.\n" + HLINE;
-        System.out.println(msg);
+        System.out.print(msg);
     }
 
-    public void exit() {
+    private void exit() {
         String exitMsg = HLINE + "Connection terminated. I will be back...\n" + HLINE;
-        System.out.println(exitMsg);
+        System.out.print(exitMsg);
     }
-    public void mainEventLoop() {
+
+    private void mainEventLoop() throws DukeException {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             printHorizontalLine();
             try {
                 Command command = this.parser.parse(input);
-                command.execute(this.todoList);
+                command.execute(this.taskList.getTaskList());
+                if (command instanceof TodoCommand
+                    || command instanceof EventCommand
+                    || command instanceof DeadlineCommand
+                    || command instanceof DeleteCommand) {
+                    taskList.printTasksRemaining();
+                }
             } catch (DukeException de) {
                 System.out.println("Error detected: " + de.getMessage());
             }
             printHorizontalLine();
             input = sc.nextLine();
         }
+        sc.close();
+
+        // Save data before exit
+        taskList.writeToDisk();
     }
 
     public static void main(String[] args) {
         Terminator tChatbot = Terminator.build();
-        tChatbot.greet();
-        tChatbot.mainEventLoop();
-        tChatbot.exit();
+        try {
+            boolean loadFileSuccess = TaskIOHandler.loadDataFromFile(tChatbot.taskList);
+            System.out.println("Load file success: " + loadFileSuccess);
+            if (loadFileSuccess) {
+                tChatbot.greet();
+                tChatbot.mainEventLoop();
+                tChatbot.exit();
+            }
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+        }
     }
 }

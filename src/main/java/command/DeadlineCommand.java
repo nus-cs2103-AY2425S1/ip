@@ -3,24 +3,41 @@ package command;
 import task.DeadlineTask;
 import task.Task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
     private final String input;
+
     public DeadlineCommand(String input) {
         this.input = input;
     }
+
+    private static final String ERR_MSG = """
+            Deadline description cannot be empty. 
+            
+            Usage: deadline <description> /by dd/MM/yyyy HHmm""";
+
     @Override
     public void execute(ArrayList<Task> todoList) throws DukeException {
-        String[] tokens = input.split("/by ");
-        String description = tokens[0].substring(8).trim();
-        if (description.isEmpty()) {
-            throw new DukeException("Deadline description cannot be empty");
+        if (input == null) {
+            throw new DukeException(ERR_MSG);
         }
-        String deadline = tokens[1];
-        Task t = new DeadlineTask(description, deadline);
+
+        // Parse description and date
+        int byIdx = input.indexOf("/by");
+        String description = input.substring(0, byIdx).trim();
+        if (description.isEmpty()) {
+            throw new DukeException(ERR_MSG);
+        }
+        String byDateString = input.substring(byIdx + 4);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime byDate = LocalDateTime.parse(byDateString, dateTimeFormatter);
+
+        // Add to TaskList
+        Task t = new DeadlineTask(description, byDate);
         todoList.add(t);
-        System.out.println("Mission parameters updated. Added new objective: " + t);
-        System.out.println(todoList.size() + " objective(s) remaining.");
+        System.out.println("Mission parameters updated. Added new objective:\n\n" + t);
     }
 }

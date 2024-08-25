@@ -18,6 +18,13 @@ public enum TaskType {
         public String toString() {
             return "D";
         }
+    },
+    UNKNOWN {
+        @Override
+        public String toString() {
+            return "ERROR";
+        }
     };
+
     public abstract String toString();
 }

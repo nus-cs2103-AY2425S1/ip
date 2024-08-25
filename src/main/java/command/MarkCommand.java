@@ -11,10 +11,20 @@ public class MarkCommand extends Command {
         this.input = input;
     }
 
+    private static final String ERR_MSG = """
+            Index to mark cannot be empty.
+            
+            Usage: mark <index>""";
+
     @Override
     public void execute(ArrayList<Task> todoList) throws DukeException {
+        if (input == null) {
+            throw new DukeException(ERR_MSG);
+        }
+        String trimmedInput = input.trim();
         try {
-            int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+            int idx = Integer.parseInt(trimmedInput) - 1;
+
             if (idx >= 0 && idx < todoList.size()) {
                 System.out.println("Objective marked as completed. Awaiting next directive:");
                 Task currentTask = todoList.get(idx);
@@ -24,7 +34,7 @@ public class MarkCommand extends Command {
                 throw new DukeException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("Error in parsing int.");
+            System.out.println("Error: index is not a valid integer.");
         }
     }
 }

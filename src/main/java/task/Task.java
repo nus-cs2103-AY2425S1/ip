@@ -31,4 +31,8 @@ public abstract class Task {
     public void markAsIncomplete() {
         this.isDone = false;
     }
+
+    public String getDataRepresentation() {
+        return this.taskType.toString() + " " + String.valueOf(isDone ? 1 : 0) + " ";
+    }
 }
