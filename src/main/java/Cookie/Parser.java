@@ -1,3 +1,4 @@
+package Cookie;
 public class Parser {
     public String parseCommand(String input) {
         String[] splitInput = input.split(" ", 2);
