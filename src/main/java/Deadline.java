@@ -1,7 +1,10 @@
-public class Deadline extends Task {
-    private final String dueDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    Deadline(String description, String symbol, String dueDate) {
+public class Deadline extends Task {
+    private final LocalDateTime dueDate;
+
+    Deadline(String description, String symbol, LocalDateTime dueDate) {
         super(description, symbol);
         this.dueDate = dueDate;
     }
@@ -10,7 +13,9 @@ public class Deadline extends Task {
      * @return task's dueDate (deadline)
      */
     public String getDueDate() {
-        return this.dueDate;
+        String time = this.dueDate.format(DateTimeFormatter.ofPattern("HH:mm a"));
+        String date = this.dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return date + " " + time;
     }
 
     @Override
