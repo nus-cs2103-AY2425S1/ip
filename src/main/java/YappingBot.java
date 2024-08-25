@@ -13,7 +13,7 @@ public class YappingBot {
     // End of text strings
 
     // class properties
-    private static ArrayList<String> userList;
+    private static ArrayList<Task> userList;
     private static Scanner userInputScanner;
     // end of class properties
 
@@ -43,18 +43,16 @@ public class YappingBot {
     }
     private static void printUserList() {
         if (userList.isEmpty()) {
-            System.out.println(quoteSinglelineText("List is empty!"));
+            System.out.println(quoteSinglelineText("List is empty!\n"));
             return;
         }
 
         StringBuilder sb = new StringBuilder();
         quoteSinglelineText(LIST_TEXT, sb);
         for (int i = 0; i < userList.size(); i++) {
+            Task t = userList.get(i);
             quoteSinglelineText(
-                    new String[]{
-                            String.format("%2d. ", i+1), // item number (from 1)
-                            userList.get(i)             // item
-                    },
+                    String.format("%2d.[%s] %s", i+1, t.getTaskDoneCheckmark(), t.getTaskName()),
                     sb
             );
         }
@@ -82,8 +80,10 @@ public class YappingBot {
                case "list":
                    printUserList();
                    break;
+               case "mark":
+
                default:
-                   userList.add(userInput);
+                   userList.add(new Task(userInput, false));
                    System.out.println(quoteMultilineText(String.format("added: %s", userInput)));
                    break; // sanity break
            }
