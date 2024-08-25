@@ -1,5 +1,8 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 
 public class DemureBot {
     public static void check(String command, ArrayList<Task> list) throws DemureBotException {
@@ -186,5 +189,48 @@ public class DemureBot {
 
             """
         );
+
+        // check if data folder exists if not create it
+        String folderPath = "./data";
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            boolean isFolderCreated = folder.mkdirs();
+            if (!isFolderCreated) {
+                System.out.println("Failed to create directory: " + folderPath);
+            }
+        }
+
+        // check if saved data exists if not create it
+        String filePath = "./data/tasks.txt";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                boolean isFileCreated = file.createNewFile();
+                if (!isFileCreated) {
+                    System.out.println("Failed to create file: " + filePath);
+                }
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
+
+        // write the tasks to file
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(filePath);
+            for (Task task : list) {
+                writer.write(task.toString() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("Error closing FileWriter: " + e.getMessage());
+                }
+            }
+        }
     }
 }
