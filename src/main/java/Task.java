@@ -10,16 +10,35 @@ public class Task {
         this.ranking = 0;
     }
 
+    /* getStatusIcon returns status of the Task, checking
+    if its marked or unmarked
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markAsDone(String mark, int x) {
-        if (mark.equals("mark")) {
-            if (!this.isDone) {
-                this.isDone = true;
-                Bobby.list[x - 1] = x + ". [" + this.getStatusIcon() + " ] " + this.description;
-            }
+    /* markAsDone function marks the Task status from
+    undone to done
+     */
+    public void markAsDone() {
+        System.out.println("Nice! I've marked this task as done: \n" );
+        if (!this.isDone) {
+            this.isDone = true;
+            System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
+        }
+
+    }
+
+    /* markAsDone function marks the Task status from
+    done to undone
+     */
+    public void unMark() {
+        System.out.println("OK, I've marked this task as not done yet:");
+        if (this.isDone) {
+            this.isDone = false;
+            System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
+        } else {
+            System.out.println("this tasked has not been marked \n");
         }
     }
 
