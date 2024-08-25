@@ -224,6 +224,12 @@ public class Delta {
         }
     }
 
+    /**
+     * Loads tasks from SAVE_FILE_PATH and adds tasks into list.
+     *
+     * @return String List of all tasks from previous session.
+     * @throws DeltaException If save file not found.
+     */
     public static String loadTasks() throws DeltaException {
         String output = """
                 \t____________________________________________________________
@@ -273,6 +279,7 @@ public class Delta {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        // Load Tasks from previous session
         try {
             System.out.println(loadTasks());
         }
