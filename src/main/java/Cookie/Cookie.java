@@ -3,6 +3,7 @@ package Cookie;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cookie {
@@ -12,7 +13,8 @@ public class Cookie {
     private Parser parser = new Parser();
 
     private void handlePrintTasks() {
-        System.out.println(this.taskList.printTasks());
+        ui.printBeforeListResult();
+        ui.printTasks(taskList.getTaskArrayList());
     }
 
     private void handleDelete(String string) throws CookieException {
@@ -93,6 +95,12 @@ public class Cookie {
         ui.printNoTasksInList(this.taskList.getTaskArrayList());
     }
 
+    private void handleFind(String string) {
+        ArrayList<Task> arrayMatchKeyword = taskList.findByKeyword(string);
+        ui.printBeforeFindResult();
+        ui.printTasks(arrayMatchKeyword);
+    }
+
     /**
      * Boots up Cookie bot.
      */
@@ -114,6 +122,9 @@ public class Cookie {
                 switch (command) {
                     case "list":
                         handlePrintTasks();
+                        break;
+                    case "find":
+                        handleFind(description);
                         break;
                     case "delete":
                         handleDelete(description);
