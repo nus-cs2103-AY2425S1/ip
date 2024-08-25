@@ -100,6 +100,16 @@ public class Michael {
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
             printer(message);
+        } else if (input.length() >= 6 && input.substring(0, 6).equals("delete")) {
+            if (input.length() < 8) { // no number given to delete
+                throw new MichaelException("Enter integer position of task on list to delete. " +
+                        "Use command list to check the position of the required task.");
+            }
+            int index = Integer.valueOf(input.substring(7));
+            Task target = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            printer("Noted. I've removed this task:\n" + "  " + target + "\n" +
+                    "Now you have " + tasks.size() + " tasks in the list.");
         } else { // invalid command
             throw new MichaelException("Invalid command entered. Please enter one of the following valid commands: " +
                     "todo, deadline, event, mark, unmark, list, bye");
