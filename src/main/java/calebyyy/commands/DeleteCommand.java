@@ -2,10 +2,12 @@ package calebyyy.commands;
 
 import calebyyy.Calebyyy;
 import calebyyy.exceptions.InvalidArgumentException;
+import calebyyy.TaskList;
+import calebyyy.Ui;
 
 public class DeleteCommand extends Command {
-    public DeleteCommand(Calebyyy calebyyy) {
-        super(calebyyy);
+    public DeleteCommand(Calebyyy calebyyy, Ui ui, TaskList taskList) {
+        super(calebyyy, ui, taskList);
     }
 
     @Override
@@ -15,6 +17,6 @@ public class DeleteCommand extends Command {
             throw new InvalidArgumentException();
         }
         int taskNumber = Integer.parseInt(input.substring(input.indexOf(' ') + 1)); 
-        calebyyy.deleteTask(taskNumber);
+        taskList.deleteTask(taskNumber);
     }
 }

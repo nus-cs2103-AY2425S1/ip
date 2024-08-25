@@ -2,10 +2,12 @@ package calebyyy.commands;
 
 import calebyyy.Calebyyy;
 import calebyyy.exceptions.InvalidArgumentException;
+import calebyyy.TaskList;
+import calebyyy.Ui;
 
 public class UnmarkCommand extends Command {
-    public UnmarkCommand(Calebyyy calebyyy) {
-        super(calebyyy);
+    public UnmarkCommand(Calebyyy calebyyy, Ui ui, TaskList taskList) {
+        super(calebyyy, ui, taskList);
     }
 
     @Override
@@ -16,6 +18,6 @@ public class UnmarkCommand extends Command {
         }
 
         int taskNumber = Integer.parseInt(input.substring(input.indexOf(' ') + 1));
-        calebyyy.unmarkTask(taskNumber);
+        taskList.unmarkTask(taskNumber);
     }
 }

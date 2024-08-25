@@ -6,10 +6,12 @@ import calebyyy.Tasks.Event;
 import calebyyy.Tasks.Task;
 import calebyyy.Tasks.Todo;
 import calebyyy.exceptions.InvalidArgumentException;
+import calebyyy.TaskList;
+import calebyyy.Ui;
 
 public class AddCommand extends Command {
-    public AddCommand(Calebyyy calebyyy) {
-        super(calebyyy);
+    public AddCommand(Calebyyy calebyyy, Ui ui, TaskList taskList) {
+        super(calebyyy, ui, taskList);
     }
 
     @Override
@@ -36,11 +38,7 @@ public class AddCommand extends Command {
             throw new IllegalArgumentException("Unknown task type");
         }
 
-        calebyyy.addTask(task);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + calebyyy.getTaskCount() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        taskList.addTask(task);
+        ui.addTaskMessage(task, taskList.getTaskCount());
     }
 }

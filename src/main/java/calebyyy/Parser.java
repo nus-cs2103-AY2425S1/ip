@@ -11,7 +11,7 @@ import calebyyy.exceptions.InvalidCommandException;
 import calebyyy.exceptions.CalebyyyException;
 import java.util.Scanner;
 
-public class CommandManager {
+public class Parser {
     private Command addCommand;
     private Command listCommand;
     private Command markCommand;
@@ -19,16 +19,19 @@ public class CommandManager {
     private Command byeCommand;
     private Command deleteCommand;
     private Scanner scanner;
-    private Calebyyy calebyyy;
+    private TaskList taskList;
+    private Storage storage;
 
-    public CommandManager(Calebyyy calebyyy) {
-        this.calebyyy = calebyyy;
-        addCommand = new AddCommand(calebyyy);
-        listCommand = new ListCommand(calebyyy);
-        markCommand = new MarkCommand(calebyyy);
-        unmarkCommand = new UnmarkCommand(calebyyy);
-        byeCommand = new ByeCommand(calebyyy);
-        deleteCommand = new DeleteCommand(calebyyy);
+
+    public Parser(Calebyyy calebyyy, TaskList taskList, Storage storage, Ui ui) {
+        this.taskList = taskList;
+        this.storage = storage;
+        addCommand = new AddCommand(calebyyy, ui, taskList);
+        listCommand = new ListCommand(calebyyy, ui, taskList);
+        markCommand = new MarkCommand(calebyyy, ui, taskList);
+        unmarkCommand = new UnmarkCommand(calebyyy, ui, taskList);
+        byeCommand = new ByeCommand(calebyyy, ui, taskList);
+        deleteCommand = new DeleteCommand(calebyyy, ui, taskList);
         scanner = new Scanner(System.in);
     }
 
@@ -107,6 +110,6 @@ public class CommandManager {
 
         Command command = getCommand(commandType);
         command.execute(input);
-        calebyyy.saveTasks();
+        storage.saveTasks(taskList);
     }
 }
