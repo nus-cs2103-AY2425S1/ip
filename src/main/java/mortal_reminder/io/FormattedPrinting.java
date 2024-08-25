@@ -21,7 +21,7 @@ public class FormattedPrinting {
         }
         outputMessage.append("\n")
                 .append(separatorLine);
-        System.out.println(outputMessage.toString());
+        System.out.println(outputMessage);
     }
 
     public static void welcome() {

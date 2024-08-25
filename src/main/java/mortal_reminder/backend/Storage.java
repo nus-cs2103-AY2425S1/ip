@@ -5,8 +5,8 @@ import mortal_reminder.io.Parser;
 import mortal_reminder.tasks.Task;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
