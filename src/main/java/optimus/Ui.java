@@ -22,7 +22,8 @@ public class Ui {
                 "For example:\n" +
                 "todo borrow book\n" +
                 "deadline return book /by 2019-12-02\n" +
-                "event project meeting /from 2019-12-02 /to 2019-12-03");
+                "event project meeting /from 2019-12-02 /to 2019-12-03\n");
+        System.out.println("You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list");
     }
 
     /**
@@ -34,6 +35,7 @@ public class Ui {
                 "todo borrow book\n" +
                 "deadline return book /by 2019-12-02\n" +
                 "event project meeting /from 2019-12-02 /to 2019-12-03");
+        System.out.println("You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list");
     }
 
     /**
@@ -46,12 +48,12 @@ public class Ui {
     /**
      * Lists all tasks in the TaskList.
      *
-     * @param tasks The TaskList object containing the tasks to be listed.
+     * @param taskList The TaskList object containing the tasks to be listed.
      */
-    public void listTasks(TaskList tasks) {
-        ArrayList<Task> taskList = tasks.getTasks();
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + "." + taskList.get(i).toString());
+    public void listTasks(TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getTasks();
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
 
@@ -62,5 +64,24 @@ public class Ui {
      */
     public void showError(String message) {
         System.out.println("Error: " + message);
+    }
+
+    /**
+     * Finds and displays tasks from the task list that contain the specified keyword.
+     *
+     * @param userInput The raw input from the user, which includes the "find" command and the keyword.
+     * @param taskList The TaskList object containing the list of tasks to search through.
+     */
+
+    public void findTasks(String userInput, TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getTasks();
+        String[] command = Parser.parseCommand(userInput);
+        String keyword = command[1];
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keyword)) {
+                System.out.println((i + 1) + "." + tasks.get(i).toString());
+            }
+        }
     }
 }
