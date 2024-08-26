@@ -38,6 +38,10 @@ public class Task {
         this.taskName = taskName;
     }
 
+    public void setTaskStatus(boolean bool) {
+        isDone = bool;
+    }
+
     @Override
     public String toString() {
         String res;
