@@ -1,7 +1,7 @@
 package main.java;
-import main.java.Task;
-import main.java.ToDo;
+import java.io.File;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -161,16 +161,50 @@ public class MrTracker {
         } catch (NumberFormatException ex) {
             System.out.println("Please provide a valid number");
         }
-        
-        
-
     }
 
 
+    public static void loadData (String filepath, ArrayList<Task> taskList) throws FileNotFoundException {
+        File file = new File(filepath);
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            // each line of text file is as follows:
+            // 'task type (T, D, E), done/not done (1,0), description,
+            // /from, /to'. Each field is separated by a |
+            String input = sc.nextLine();
+            String type = input.substring(0, 1);
+            String[] args = input.substring(1).split("|");
+            Task newTask = null;
+            switch (type){
+            case "T":
+                newTask = new ToDo(args);
+                break;
+
+            case "D":
+                newTask = new DeadLine(args);
+                break;
+
+            case "E":
+                newTask = new Event(args);
+                break;
+            }
+            taskList.add(newTask);
+        }
+    }
+
     public static void main(String[] args) {
+
+//        String test = "hello\thello";
+//        String[] arr = test.split("\t");
+//        for (String item: arr) {
+//            System.out.println(item);
+//        }
+
+        ArrayList<Task> taskList = new ArrayList<Task>();
+//        MrTracker.loadData("data/tasks.txt", taskList);
+
         String name = "Mr Tracker";
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<Task>();
         MrTracker.printLine();
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you? \n");
