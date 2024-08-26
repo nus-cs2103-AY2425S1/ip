@@ -109,69 +109,60 @@ public class PurrfessorDipsy {
         }
     }
 
-    private static void handleTaskCreation(String userInput, Command command) throws InvalidCommandException, UnknownCommandException {
-        Matcher matcher;
-        String description, by, start, end;
-
+    private static void handleTaskCreation(String userInput, Command command) throws InvalidCommandException {
         switch (command) {
-            case TODO:
-                matcher = TODO_PATTERN.matcher(userInput);
-                if (matcher.matches()) {
-                    description = matcher.group(1);
-                    saveToMemory(new ToDo(description));
-                } else {
-                    throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_TODO);
-                }
-                break;
+            case TODO -> createTodoTask(userInput);
+            case DEADLINE -> createDeadlineTask(userInput);
+            case EVENT -> createEventTask(userInput);
+        }
+    }
 
-            case DEADLINE:
-                matcher = DEADLINE_PATTERN.matcher(userInput);
-                if (matcher.matches()) {
-                    description = matcher.group(1);
-                    by = matcher.group(2);
-                    LocalDate parsedBy;
-                    try {
-                        parsedBy = DateTimeParser.parseDate(by);
-                        saveToMemory(new Deadline(description, parsedBy));
-                    } catch (DateTimeParseException e) {
-                        printDateParseErrorMessage(by);
-                    }
-                } else {
-                    throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DEADLINE);
-                }
-                break;
+    private static void createTodoTask(String userInput) throws InvalidCommandException {
+        Matcher matcher = TODO_PATTERN.matcher(userInput);
+        if (matcher.matches()) {
+            String description = matcher.group(1);
+            saveToMemory(new ToDo(description));
+        } else {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_TODO);
+        }
+    }
 
-            case EVENT:
-                matcher = EVENT_PATTERN.matcher(userInput);
-                if (matcher.matches()) {
-                    description = matcher.group(1);
-                    start = matcher.group(2);
-                    end = matcher.group(3);
-                    LocalDate parsedStart, parsedEnd;
-                    try {
-                        parsedStart = DateTimeParser.parseDate(start);
-                        try {
-                            parsedEnd = DateTimeParser.parseDate(end);
-                            saveToMemory(new Event(description, parsedStart, parsedEnd));
-                        } catch (DateTimeParseException e) {
-                            printDateParseErrorMessage(end);
-                        }
-                    } catch (DateTimeParseException e) {
-                        printDateParseErrorMessage(start);
-                    }
-                } else {
-                    throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_EVENT);
-                }
-                break;
+    private static void createDeadlineTask(String userInput) throws InvalidCommandException {
+        Matcher matcher = DEADLINE_PATTERN.matcher(userInput);
+        if (matcher.matches()) {
+            String description = matcher.group(1);
+            String by = matcher.group(2);
+            try {
+                LocalDate parsedBy = DateTimeParser.parseDate(by);
+                saveToMemory(new Deadline(description, parsedBy));
+            } catch (DateTimeParseException e) {
+                printDateParseErrorMessage(by);
+            }
+        } else {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DEADLINE);
+        }
+    }
 
-            default:
-                throw new UnknownCommandException();
+    private static void createEventTask(String userInput) throws InvalidCommandException {
+        Matcher matcher = EVENT_PATTERN.matcher(userInput);
+        if (matcher.matches()) {
+            String description = matcher.group(1);
+            String start = matcher.group(2);
+            String end = matcher.group(3);
+            try {
+                LocalDate parsedStart = DateTimeParser.parseDate(start);
+                LocalDate parsedEnd = DateTimeParser.parseDate(end);
+                saveToMemory(new Event(description, parsedStart, parsedEnd));
+            } catch (DateTimeParseException e) {
+                printDateParseErrorMessage(e.getParsedString());
+            }
+        } else {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_EVENT);
         }
     }
 
     private static void handleListCommand(String userInput) {
         String[] parts = userInput.trim().split("\\s+");
-
         if (parts.length == 1) {
             // Case where input is 'list'
             printTasks(taskTable);
