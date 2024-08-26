@@ -1,4 +1,4 @@
-package main.java.echochat;
+package echochat;
 
 public class Command {
 

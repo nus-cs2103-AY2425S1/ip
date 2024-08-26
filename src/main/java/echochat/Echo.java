@@ -1,5 +1,4 @@
-package main.java.echochat;
-
+package echochat;
 public class Echo extends ChatBot{
     public Echo() {
         super("Echo");

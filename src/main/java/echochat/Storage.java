@@ -1,5 +1,4 @@
-package main.java.echochat;
-
+package echochat;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;

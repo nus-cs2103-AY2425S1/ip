@@ -1,5 +1,4 @@
-package main.java.echochat;
-
+package echochat;
 import java.util.ArrayList;
 
 public class TaskList {

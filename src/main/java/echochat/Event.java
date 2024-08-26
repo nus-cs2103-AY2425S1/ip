@@ -1,5 +1,4 @@
-package main.java.echochat;
-
+package echochat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

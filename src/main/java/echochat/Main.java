@@ -1,5 +1,4 @@
-package main.java.echochat;
-
+package echochat;
 import main.java.Exceptions.EmptyDescriptionError;
 import main.java.Exceptions.InvalidCommandError;
 
