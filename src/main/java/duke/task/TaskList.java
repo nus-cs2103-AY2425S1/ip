@@ -42,13 +42,8 @@ public class TaskList {
         tasks.get(index).markAsNotDone();
     }
 
-    public void printTasks() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i));
-        }
-        System.out.println("____________________________________________________________");
+    public List<Task> getTasksList() {
+        return new ArrayList<>(tasks); // Return a copy of the tasks list
     }
 
     public void printTasksOnDate(LocalDate date) {

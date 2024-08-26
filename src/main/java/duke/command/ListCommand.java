@@ -9,7 +9,7 @@ import duke.ui.Ui;
 public class ListCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.printTasks();
+        ui.showTasks(tasks.getTasksList()); // Use the new getter to display tasks
     }
 
     @Override
