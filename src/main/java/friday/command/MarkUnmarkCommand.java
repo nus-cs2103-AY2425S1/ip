@@ -8,13 +8,30 @@ import friday.util.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to mark or unmark a task as done or not done.
+ */
 public class MarkUnmarkCommand extends Command {
     private final String[] inputs;
 
+    /**
+     * Constructs a MarkUnmarkCommand with the specified input.
+     *
+     * @param inputs The input array containing the command type ('mark' or 'unmark') and the task index.
+     */
     public MarkUnmarkCommand(String[] inputs) {
         this.inputs = inputs;
     }
 
+    /**
+     * Executes the mark/unmark command, updating the status of the specified task.
+     *
+     * @param tasks   The task list to be modified by the command.
+     * @param ui      The user interface for interacting with the user.
+     * @param storage The storage for saving the task list.
+     * @throws IOException       If an input/output error occurs during execution.
+     * @throws FridayException   If there is an error specific to the command execution.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (!inputs[1].chars().allMatch(Character::isDigit))

@@ -4,8 +4,18 @@ import static friday.command.CommandType.*;
 
 import friday.command.*;
 
+/**
+ * Parses user input and returns the corresponding Command object.
+ */
 public class Parser {
 
+    /**
+     * Parses the given input string and returns the corresponding Command object.
+     *
+     * @param fullCommand The input string to be parsed.
+     * @return The Command object corresponding to the input string.
+     * @throws FridayException If the input string is invalid or not recognized.
+     */
     public static Command parse(String fullCommand) throws FridayException {
         String[] inputs = fullCommand.split(" ");
         CommandType commandType;
