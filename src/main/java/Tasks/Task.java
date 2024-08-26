@@ -15,7 +15,10 @@ public abstract class Task {
      public void unComplete() {
           isCompleted = false;
      }
-     public boolean isOccuringOnDate(LocalDate date) { return false; }
+     public boolean isOccurringOnDate(LocalDate date) { return false; }
+     public String formatData() {
+          return String.format("%d : %s", isCompleted ? 1 : 0, name);
+     };
      @Override
      public String toString() {
           String checkBox = isCompleted ? "[X]" : "[ ]";

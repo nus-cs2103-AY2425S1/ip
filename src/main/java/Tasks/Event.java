@@ -14,11 +14,17 @@ public class Event extends Task {
         this.endTime = endTime;
     }
     @Override
-    public boolean isOccuringOnDate(LocalDate date) {
+    public boolean isOccurringOnDate(LocalDate date) {
         boolean isOnStartTime = date.equals(startTime);
         boolean isOnEndTime = date.equals(endTime);
         boolean isBetweenStartTimeAndEndTime = date.isAfter(startTime) && date.isBefore(endTime);
         return isOnStartTime || isOnEndTime || isBetweenStartTimeAndEndTime;
+    }
+    @Override
+    public String formatData() {
+        String startTimeStr = DateTime.format(startTime);
+        String endTimeStr = DateTime.format(endTime);
+        return String.format("E : %s : %s : %s", super.formatData(), startTimeStr, endTimeStr);
     }
     @Override
     public String toString() {

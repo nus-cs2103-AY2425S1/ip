@@ -15,9 +15,9 @@ import java.io.FileWriter;
 
 public class TaskManager {
     private final List<Task> tasks;
-    private final FileStorage storage;
-    public TaskManager(FileStorage storage) {
-        tasks = new ArrayList<>();
+    private final FileStorage<Task> storage;
+    public TaskManager(FileStorage<Task> storage) {
+        tasks = storage.fetchAll();
         this.storage = storage;
     }
     private String getItem(int index) {
@@ -66,21 +66,20 @@ public class TaskManager {
         printStatus();
     }
     private void saveList() {
-        storage.write(this.toString());
+        storage.write(this.formatData());
     }
     public void getTasksByDate(LocalDate date) {
         print("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).isOccuringOnDate(date)) {
+            if (tasks.get(i).isOccurringOnDate(date)) {
                 print(getItem(i));
             }
         }
     }
-    @Override
-    public String toString() {
+    public String formatData() {
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            str.append(getItem(i)).append("\n");
+        for (Task task : tasks) {
+            str.append(task.formatData()).append("\n");
         }
         return str.toString();
     }

@@ -1,5 +1,7 @@
 package Commands;
 import Storage.FileStorage;
+import Storage.TaskParser;
+import Tasks.Task;
 import Tasks.TaskManager;
 
 import java.util.Map;
@@ -9,7 +11,7 @@ public class CommandManager {
     private final Map<String, Command> commandMap;
     private final Command unknownCommand;
     public CommandManager() {
-        TaskManager manager = new TaskManager(new FileStorage("data"));
+        TaskManager manager = new TaskManager(new FileStorage<Task>("data", new TaskParser()));
         commandMap = new HashMap<String, Command>();
         commandMap.put(CommandName.LIST.getName(), new ListCommand(manager));
         commandMap.put(CommandName.MARK.getName(), new MarkCommand(manager));

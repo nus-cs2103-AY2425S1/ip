@@ -1,2 +1,2 @@
-1. [T] [ ] borrow book
-2. [E] [ ] project meeting  (from: Dec 5 2024 to: Dec 27 2024)
+T | false | borrow book
+D | false | project meeting  | Dec 5 2024 | Dec 27 2024

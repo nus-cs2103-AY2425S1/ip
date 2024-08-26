@@ -11,7 +11,14 @@ public class DateTime {
         try {
             return LocalDate.parse(input.trim());
         } catch (DateTimeParseException e) {
-            throw new AvoException("Please provide your date format in yyyy-mm-dd instead of " + input + "1");
+            throw new AvoException("Please provide your date format in yyyy-mm-dd instead of " + input);
+        }
+    }
+    public static LocalDate parse(String input, DateTimeFormatter formatter) throws AvoException {
+        try {
+            return LocalDate.parse(input.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new AvoException("Please provide your date format in correct format instead of " + input);
         }
     }
     public static String format(LocalDate date) {
