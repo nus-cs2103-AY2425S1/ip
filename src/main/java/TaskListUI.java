@@ -93,7 +93,7 @@ public class TaskListUI {
           System.out.println("____________________________________________________________");
 
           CommandParser parser = new CommandParser(input);
-          CommandType commandType = parser.getCommand();
+          CommandType commandType = parser.getCommandType();
           Command command = commandType.createCommand();
           command.execute(this, taskList, parser);
 

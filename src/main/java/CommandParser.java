@@ -1,7 +1,7 @@
 public class CommandParser {
   private String argument; // Input text after command title
 
-  private CommandType command;
+  private CommandType commandType;
 
   // Only description or integer description is allowed
   private String description;
@@ -9,7 +9,7 @@ public class CommandParser {
 
   public CommandParser(String input) throws IllegalCommandException {
     String[] parts = input.split(" ", 2);
-    this.command = CommandType.fromString(parts[0]);
+    this.commandType = CommandType.fromString(parts[0]);
     this.argument = parts.length > 1 ? parts[1] : "";
   }
 
@@ -26,7 +26,8 @@ public class CommandParser {
     this.description = "";
 
     if (hasDescription && this.argument.length() == 0) {
-      throw new IllegalCommandArgumentException(this.command, hasDescription, isIntegerDescription, expectedOptions);
+      throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
+          expectedOptions);
     }
 
     // Create a pattern to match all options and end of string
@@ -48,14 +49,16 @@ public class CommandParser {
       } catch (IllegalCommandException e) {
         throw e;
       } catch (IllegalArgumentException e) {
-        throw new IllegalCommandArgumentException(this.command, hasDescription, isIntegerDescription, expectedOptions);
+        throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
+            expectedOptions);
       }
     }
 
     // Get description
     String description = this.argument.substring(0, minStartMatch).trim();
     if (hasDescription && description.length() == 0) {
-      throw new IllegalCommandArgumentException(this.command, hasDescription, isIntegerDescription, expectedOptions);
+      throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
+          expectedOptions);
     }
     this.description = description;
 
@@ -63,13 +66,14 @@ public class CommandParser {
       try {
         this.intParam = Integer.parseInt(this.description);
       } catch (NumberFormatException e) {
-        throw new IllegalCommandArgumentException(this.command, hasDescription, isIntegerDescription, expectedOptions);
+        throw new IllegalCommandArgumentException(this.commandType, hasDescription, isIntegerDescription,
+            expectedOptions);
       }
     }
   }
 
-  public CommandType getCommand() {
-    return this.command;
+  public CommandType getCommandType() {
+    return this.commandType;
   }
 
   public String getDescription() {
