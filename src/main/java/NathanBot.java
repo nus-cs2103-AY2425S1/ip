@@ -9,7 +9,7 @@ public class NathanBot {
 
     public static void main(String[] args) {
         Storage storage = new Storage("./data", "./data/TaskList.txt", "./data/TaskList.dat");
-        TaskList taskList = new TaskList(storage));
+        TaskList taskList = new TaskList(storage);
         CommandHandler.handleGreet();
 
         try (Scanner scanner = new Scanner(System.in)) {
