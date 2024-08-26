@@ -1,15 +1,52 @@
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Papagu {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
+        File file = new File("./Tasks.txt");
 
         System.out.println("____________________________________________________________");
         System.out.println("Hello from Papagu!");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
+
+        //Hanlde file creating if it dont exist
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating file");
+            }
+        }
+        
+        //Handle file reading
+        try {
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNext()) {
+                String line = fileScanner.nextLine();
+                String[] type = line.split(" | ");
+                String taskType = type[0];
+                if (taskType.equals("T")) {
+                    String[] data = type[1].split(" | ");
+                    String isDone = data[0];
+                    if (isDone.equals("1")) {
+                        ToDos newToDo = new ToDos(data[1]);
+                        newToDo.markAsDone();
+                        taskList.addTask(newToDo);
+                    } else {
+                        ToDos newToDo = new ToDos(data[1]);
+                        taskList.addTask(newToDo);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
         String userInput = scanner.nextLine();
 
