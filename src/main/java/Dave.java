@@ -19,12 +19,15 @@ public class Dave {
         while (true)
         {
             userInput = scanner.nextLine();
-            System.out.println(horizontal);
-            System.out.println(userInput);
-            System.out.println(horizontal);
-            if (userInput.equals("bye"))
+            if (userInput.trim().equals("bye"))
             {
                 break;
+            }
+            else
+            {
+                System.out.println(horizontal);
+                System.out.println(userInput);
+                System.out.println(horizontal);
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
