@@ -1,11 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * TodoItem represents a to-do entry with a specified time period
  */
 public class EventItem extends TodoItem {
     /** Start datetime of the event **/
-    private final String from;
+    private final LocalDateTime from;
     /** End datetime of the event **/
-    private final String to;
+    private final LocalDateTime to;
 
     /**
      * Creates a new to-do item with the specified content and time period set for the to-do
@@ -14,10 +17,10 @@ public class EventItem extends TodoItem {
      * @param from The starting datetime of the event
      * @param to The ending datetime of the event
      */
-    public EventItem(String content, String from, String to) {
+    public EventItem(String content, LocalDateTime from, LocalDateTime to) {
         super(content);
-        this.from = from.trim();
-        this.to = to.trim();
+        this.from = from;
+        this.to = to;
     }
 
     @Override
@@ -25,14 +28,15 @@ public class EventItem extends TodoItem {
         String baseString = super.toString();
         return String.format("%s (from: %s to %s)",
                 baseString.replaceFirst("T", "E"),
-                this.from, this.to);
+                this.from.format(DateTimeFormatter.ofPattern("E dd MMM yyyy HHmm")),
+                this.to.format(DateTimeFormatter.ofPattern("E dd MMM yyyy HHmm")));
 
     }
 
     @Override
     public String getSaveString() {
         String baseString = super.getSaveString();
-        return String.format("%s | %s | %s", baseString.replaceFirst("T", "D"), this.from, this.to);
+        return String.format("%s | %s | %s", baseString.replaceFirst("T", "E"), this.from, this.to);
     }
 
 }
