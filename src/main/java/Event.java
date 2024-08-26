@@ -1,18 +1,20 @@
+import java.time.LocalDate;
+
 public class Event extends Task {
-    private final String from;
-    private final String to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     public Event(String name, String from, String to) {
         super(name);
-        this.from = from;
-        this.to = to;
+        this.from = DateFormatters.getDateFromStr(from);
+        this.to = DateFormatters.getDateFromStr(to);
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return this.from;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return this.to;
     }
 
@@ -23,6 +25,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + DateFormatters.getStrFromDate(this.from) + " to: " + DateFormatters.getStrFromDate(this.to) + ")";
     }
 }
