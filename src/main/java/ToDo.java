@@ -34,4 +34,15 @@ class Todo extends Task {
         return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription();
     }
 
+    /**
+     * Returns a string representation of the task for file storage.
+     * The format includes the task type, status icon, description, and deadline.
+     *
+     * @return A string in the format "TaskType | StatusIcon | Description".
+     */
+    @Override
+    public String toFileString() {
+        return this.type()+" | "+this.getFileIcon()+" | "+ this.getDescription();
+    }
+
 }

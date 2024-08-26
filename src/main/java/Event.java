@@ -57,4 +57,15 @@ public class Event extends Task{
     public String toString(){
         return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription()+" (from: "+this.from + " to: " + this.to+ ")";
     }
+
+    /**
+     * Returns a string representation of the task for file storage.
+     * The format includes the task type, status icon, description, and the time range (from and to).
+     *
+     * @return A string in the format "TaskType | StatusIcon | Description | From-To".
+     */
+    @Override
+    public String toFileString() {
+        return this.type()+" | "+this.getFileIcon()+" | "+ this.getDescription()+" | "+this.from + "-" + this.to;
+    }
 }

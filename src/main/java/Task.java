@@ -41,6 +41,9 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getFileIcon() {
+        return (isDone ? "1" : "0");
+    }
     /**
      * Retrieves the description of this task.
      *
@@ -57,5 +60,13 @@ public abstract class Task {
      * @return The TaskType of the task.
      */
     protected abstract TaskType type();
+
+    /**
+     * Returns a string representation of the task for file storage.
+     * The format includes the task type, status icon, description, and deadline.
+     *
+     * @return A string in the format depending on the type of task.
+     */
+    public abstract String toFileString();
 
 }

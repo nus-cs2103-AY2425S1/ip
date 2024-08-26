@@ -10,6 +10,7 @@ public class SilverWolf {
     // List to store the tasks
     private static ArrayList<Task> list = new ArrayList<>();
 
+
     /**
      * Prints a divider line to the console for visual separation.
      */
@@ -94,6 +95,8 @@ public class SilverWolf {
                 " What can I help you with?\n" +
                 "____________________________________________________________\n");
         Scanner scanner = new Scanner(System.in);
+        
+
         while(true) {
             try {
                 // reading the user input
@@ -117,7 +120,7 @@ public class SilverWolf {
                     handleEvent(input);
                 } else if (input.startsWith("delete")) {
                     handleDeleteCommand(input);
-                } else {
+                }else {
                     handleWrongInput();
                 }
             } catch(SilverWolfException e){
@@ -251,7 +254,7 @@ public class SilverWolf {
         } catch (StringIndexOutOfBoundsException e){
             throw new SilverWolfException("Hey! your deadline cannot be empty you know");
         } catch (ArrayIndexOutOfBoundsException e){
-            throw new SilverWolfException("Wrong usage. Correct usage: deadline [task in String] /by [date/time] e.g deadline submit report by 11/10/2019 ");
+            throw new SilverWolfException("Wrong usage. Correct usage: deadline [task in String] /by [date/time] e.g deadline submit report /by 11/10/2019 ");
         }
     }
 

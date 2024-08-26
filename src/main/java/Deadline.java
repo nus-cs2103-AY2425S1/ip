@@ -55,5 +55,15 @@ public class Deadline extends Task{
         return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription()+" (by: "+this.by +")";
     }
 
+    /**
+     * Returns a string representation of the task for file storage.
+     * The format includes the task type, status icon, description, and deadline.
+     *
+     * @return A string in the format "TaskType | StatusIcon | Description | By".
+     */
+    @Override
+    public String toFileString() {
+        return this.type()+" | "+this.getFileIcon()+" | "+ this.getDescription()+" | "+this.by;
+    }
 
 }
