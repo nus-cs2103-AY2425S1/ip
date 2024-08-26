@@ -43,6 +43,22 @@ public class TaskList {
         tasks.set(index - 1, task);
     }
 
+    public void unmarkTask(int index) throws DeltaException {
+        if (tasks.isEmpty()) {
+            throw new DeltaException("OOPS!!! List is empty, there is no task to unmark.");
+        } else if (index < 1 || index > tasks.size()) {
+            throw new DeltaException("""
+                    OOPS!!! Task not found in list.
+                    \t Please provide a valid Task to unmark.""");
+        }
+        Task task = tasks.get(index - 1);
+        if (task.getStatusIcon().equals(" ")) {
+            throw new DeltaException("OOPS!!! Task is already marked as not done yet.");
+        }
+        task.markAsNotDone();
+        tasks.set(index - 1, task);
+    }
+
     public void deleteTask(int index) throws DeltaException {
         if (tasks.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to delete.");
