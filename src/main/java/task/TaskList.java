@@ -54,4 +54,15 @@ public class TaskList {
 
         return stringBuilder.toString();
     }
+
+    public String toData() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < getTaskCount(); i++) {
+            stringBuilder.append(taskList.get(i).toData());
+            if (i != getTaskCount() - 1) {
+                stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

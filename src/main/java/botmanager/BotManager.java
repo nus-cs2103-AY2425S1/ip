@@ -1,5 +1,8 @@
 package botmanager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import action.Action;
 import exception.BotException;
 import task.TaskList;
@@ -25,7 +28,12 @@ public class BotManager {
 
     public void run() {
        ui.start();
-       TaskList taskList = storage.loadTaskList();
+       TaskList taskList = new TaskList();
+       try {
+           storage.loadTaskList(taskList);
+       } catch (FileNotFoundException e) {
+           throw new RuntimeException(e);
+       }
 
        while (true) {
            String input = ui.readUserInput();
@@ -35,7 +43,11 @@ public class BotManager {
            try {
                Action action = parser.parseInput(input);
                String output = action.execute(taskList);
-               storage.saveTaskList(taskList);
+               try {
+                   storage.saveTaskList(taskList);
+               } catch (IOException e) {
+                   throw new RuntimeException(e);
+               }
                ui.printMessage(output);
            } catch (BotException e) {
                 ui.printMessage(e.getMessage());

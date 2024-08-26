@@ -13,6 +13,11 @@ public abstract class Task {
         this.description = description;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     protected void mark() {
         isDone = true;
     }
@@ -28,5 +33,9 @@ public abstract class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    public String toData() {
+        return description + " | " + isDone;
     }
 }
