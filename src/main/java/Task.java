@@ -1,6 +1,9 @@
-public class Task {
+public abstract class Task {
     protected String desc;
     protected boolean isDone;
+
+    public abstract String toStorageFormat();
+
     public Task(String desc) {
         this.desc = desc;
         this.isDone = false;
