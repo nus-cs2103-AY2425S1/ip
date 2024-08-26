@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Sora {
-    private static final String HORIZONTALLINE = "---------------------------------------------------";
+    private static final String HORIZONTAL_LINE = "---------------------------------------------------";
     private final List<Task> taskList;
     private boolean isLive;
 
@@ -24,38 +25,37 @@ public class Sora {
             String mainCommand = parsedCommand.get(0).toLowerCase();
             try {
                 switch (mainCommand) {
-                    case "bye":
-                        System.out.println(farewell());
-                        sora.isLive = false;
-                        break;
-                    case "list":
-                        sora.displayList();
-                        break;
-                    case "mark":
-                        sora.markTask(parsedCommand.get(1));
-                        break;
-                    case "unmark":
-                        sora.unmarkTask(parsedCommand.get(1));
-                        break;
-                    case "todo":
-                        sora.addTask("todo", parsedCommand);
-                        break;
-                    case "deadline":
-                        sora.addTask("deadline", parsedCommand);
-                        break;
-                    case "event":
-                        sora.addTask("event", parsedCommand);
-                        break;
-                    case "delete":
-                        sora.deleteTask(parsedCommand.get(1));
-                        break;
-                    case "":
-                        throw new SoraException("\tPlease Enter a Command\n" + HORIZONTALLINE);
-                    default:
-                        System.out.println("\tSora doesn't understand! Please Try Again!");
-
+                case "bye":
+                    System.out.println(farewell());
+                    sora.isLive = false;
+                    break;
+                case "list":
+                    sora.displayList();
+                    break;
+                case "mark":
+                    sora.markTask(parsedCommand.get(1));
+                    break;
+                case "unmark":
+                    sora.unmarkTask(parsedCommand.get(1));
+                    break;
+                case "todo":
+                    sora.addTask("todo", parsedCommand);
+                    break;
+                case "deadline":
+                    sora.addTask("deadline", parsedCommand);
+                    break;
+                case "event":
+                    sora.addTask("event", parsedCommand);
+                    break;
+                case "delete":
+                    sora.deleteTask(parsedCommand.get(1));
+                    break;
+                case "":
+                    throw new SoraException("\tPlease Enter a Command\n" + HORIZONTAL_LINE);
+                default:
+                    System.out.println("\tSora doesn't understand! Please Try Again!");
                 }
-                System.out.println(HORIZONTALLINE);
+                System.out.println(HORIZONTAL_LINE);
             } catch (SoraException e) {
                 System.out.println(e.getMessage());
             }
@@ -63,7 +63,7 @@ public class Sora {
     }
 
     private static String greeting() {
-        return HORIZONTALLINE + "\n" + "\tHello! I'm Sora!\n\tWhat can I do for you?\n" + HORIZONTALLINE;
+        return HORIZONTAL_LINE + "\n" + "\tHello! I'm Sora!\n\tWhat can I do for you?\n" + HORIZONTAL_LINE;
     }
 
     private static String farewell() {
@@ -76,9 +76,7 @@ public class Sora {
         parsedResult.add(parse_1[0]);
         if (parse_1.length > 1) {
             String[] parse_2 = parse_1[1].split(" /", 3);
-            for (String s: parse_2) {
-                parsedResult.add(s);
-            }
+            parsedResult.addAll(Arrays.stream(parse_2).toList());
         }
         return parsedResult;
     }
@@ -104,9 +102,9 @@ public class Sora {
             System.out.println("\tNice! Sora has marked this task as done:");
             System.out.println("\t" + task);
         } catch (NumberFormatException e) {
-            throw new SoraException("\tPlease Enter - Mark (int)\n" + HORIZONTALLINE);
+            throw new SoraException("\tPlease Enter - Mark (int)\n" + HORIZONTAL_LINE);
         } catch (IndexOutOfBoundsException e) {
-            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTALLINE);
+            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTAL_LINE);
         }
     }
 
@@ -121,9 +119,9 @@ public class Sora {
             System.out.println("\tOk, Sora has unmarked this task as not done:");
             System.out.println("\t" + task);
         } catch (NumberFormatException e) {
-            throw new SoraException("\tPlease Enter - Mark (int)\n" + HORIZONTALLINE);
+            throw new SoraException("\tPlease Enter - Mark (int)\n" + HORIZONTAL_LINE);
         } catch (IndexOutOfBoundsException e) {
-            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTALLINE);
+            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTAL_LINE);
         }
     }
 
@@ -163,9 +161,9 @@ public class Sora {
             System.out.println("\tNoted. Sora has removed this task:");
             System.out.println("\t" + deletedTask);
         } catch (NumberFormatException e) {
-            throw new SoraException("\tPlease Enter - Delete (int)\n" + HORIZONTALLINE);
+            throw new SoraException("\tPlease Enter - Delete (int)\n" + HORIZONTAL_LINE);
         } catch (IndexOutOfBoundsException e) {
-            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTALLINE);
+            throw new SoraException("\tPlease Enter Integer Value within List Size\n" + HORIZONTAL_LINE);
         }
     }
 }
