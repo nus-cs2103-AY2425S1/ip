@@ -48,6 +48,7 @@ public class Bao {
                         int index = Integer.parseInt(number) - 1;
                         checkIndex(index);
                         taskList.get(index).mark();
+                        saveTasks();
                         System.out.println("Bao has marked it as done!");
                         System.out.println(taskList.get(index));
                     } catch (NumberFormatException e) {
@@ -59,6 +60,7 @@ public class Bao {
                         int index = Integer.parseInt(number) - 1;
                         checkIndex(index);
                         taskList.get(index).unmark();
+                        saveTasks();
                         System.out.println("Bao has marked it as not done!");
                         System.out.println(taskList.get(index));
                     } catch (NumberFormatException e) {
@@ -119,6 +121,7 @@ public class Bao {
 
     private static void deleteTask(int index) {
         Task removed = taskList.remove(index);
+        saveTasks();
         System.out.println("Bao has removed this task:");
         System.out.println(removed.toString());
         System.out.println("Bao is now tracking " + taskList.size() + " tasks");
@@ -151,7 +154,6 @@ public class Bao {
                     }
                     String deadline = taskDescription.substring(byIndex + 4);
                     String description = taskDescription.substring(0, byIndex - 1);
-                    System.out.println(description);
                     taskList.add(new Deadline(description, deadline));
                     System.out.println("Bao got it! Bao is now tracking:");
                     System.out.println(taskList.get(taskList.size() - 1).toString());
@@ -176,9 +178,28 @@ public class Bao {
                     System.out.println(taskList.get(taskList.size() - 1).toString());
                 }
             }
+            saveTasks();
         } else {
             System.out.println(baoSad);
             System.out.println("Bao cannot remember so many things :(");
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            File file = new File(file_Path);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            PrintWriter writer = new PrintWriter(file);
+            for (Task task : taskList) {
+                writer.println(task.toString());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(baoSad);
+            System.out.println("Bao could not save tasks: " + e.getMessage());
         }
     }
 
