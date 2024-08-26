@@ -34,27 +34,10 @@ public class PurrfessorDipsyException extends Exception {
                     "'delete' command requires a valid index.\nUsage: delete <index>";
             case INVALID_DELETE_INDEX ->
                     "index given in 'delete <index>' lies outside of the table's valid range.";
-            default -> "Unrecognized command.\n\n" + getUsage();
+            default -> "Unknown invalid command. Please try again." ;
         };
     }
 
-    private static String getUsage() {
-        return "Usage: <command> [options]\n" +
-                "\nCommands:\n" +
-                "  todo <description>                            Create a new todo item\n" +
-                "  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)\n" +
-                "  event <description> /from <start> /to <end>   Create an event with start and end dates\n" +
-                "  mark <index>                                  Mark the task at the given index as done\n" +
-                "  unmark <index>                                Unmark the task at the given index\n" +
-                "  list                                          List all tasks\n" +
-                "  list <date>                                   List tasks on the specified date\n" +
-                "  bye                                           Exit the program\n" +
-                "\nExamples:\n" +
-                "  todo Buy treats for Dipsy\n" +
-                "  deadline Submit report /by 2024-05-12\n" +
-                "  event Conference /from 2024-08-12 /to 2024-08-14\n" +
-                "  mark 1\n" +
-                "\nDate format: yyyy-MM-dd\n";
-    }
+
 
 }
