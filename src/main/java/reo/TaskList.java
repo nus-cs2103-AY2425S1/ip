@@ -1,11 +1,8 @@
 package reo;
 
-import reo.Deadline;
-import reo.Event;
-import reo.Task;
-
 import java.util.ArrayList;
 
+/** Manages the list of tasks stored */
 public class TaskList {
     /** The current list of tasks based on user input */
     private ArrayList<Task> tasks;
@@ -89,6 +86,13 @@ public class TaskList {
         return tasks.get(taskNumber).toString();
     }
 
+    /**
+     * Get the Task object
+     * at the specified index (0-indexed) of the ArrayList.
+     *
+     * @param taskNumber Index of the task of interest.
+     * @return The Task object at index i.
+     */
     public Task get(int taskNumber) {
         return tasks.get(taskNumber);
     }
