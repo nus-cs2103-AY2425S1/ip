@@ -1,5 +1,4 @@
 // use Scanner class to get user inputs
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
