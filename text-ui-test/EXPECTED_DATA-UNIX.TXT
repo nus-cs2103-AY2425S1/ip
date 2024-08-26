@@ -1,5 +1,0 @@
-T | 0 | a
-T | 1 | b
-D | 0 | homework
-E | 0 | A
-E | 0 | B
