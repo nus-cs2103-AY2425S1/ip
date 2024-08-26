@@ -73,4 +73,8 @@ public class Ui {
         System.out.println("Some tasks may not have loaded correctly due to corrupted data file.");
     }
 
+    public static void printInvalidCommandErr() {
+        System.out.println("That is not a valid command. Use the \"bye\" command if you wish to exit the bot.");
+    }
+
 }

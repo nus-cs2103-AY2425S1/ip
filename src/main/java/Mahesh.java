@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Mahesh {
 
@@ -21,48 +20,12 @@ public class Mahesh {
         
         while (!exit) {
             String originalInput = scan.nextLine();
-            StringTokenizer tokenizedInput = new StringTokenizer(originalInput);
-            String commandString = tokenizedInput.nextToken();
+            Parser parserObj = new Parser(list, store);
             try {
-                Command command = Command.fromString(commandString);
-                switch (command) {
-                case LIST:
-                    Mahesh.list.printList();
-                    break;
-                case BYE:
-                    Ui.printExitMessage();
-                    exit = true;
-                    break;
-                case MARK:
-                    Mahesh.list.markTaskAsDone(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                    break;
-                case UNMARK:
-                    Mahesh.list.unmarkTaskAsDone(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                    break;
-                case TODO:
-                    try {
-                        Mahesh.list.addToList(Todo.parseTodo(tokenizedInput));
-                    } catch (MaheshException err) {
-                        Ui.printIncompleteCommandErr(err);
-                    }
-                    break;
-                case DEADLINE:
-                    try { 
-                        Mahesh.list.addToList(Deadline.parseDeadline(tokenizedInput));
-                    } catch (MaheshException err) {
-                        Ui.printIncompleteCommandErr(err);
-                    }
-                    break;
-                case EVENT: 
-                    try {
-                        Mahesh.list.addToList((Event.parseEvent(tokenizedInput)));
-                    } catch (MaheshException err) {
-                        Ui.printIncompleteCommandErr(err);
-                    }
-                    break;
-                case DELETE:
-                    Mahesh.list.deleteFromList(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                    break;
+                Command command = parserObj.parse(originalInput);
+                if (command != null) {
+                    command.execute();
+                    exit = command.isExit();
                 }
             } catch (MaheshException err) {
                 System.out.println(err.getMessage());
