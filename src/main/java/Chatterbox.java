@@ -222,6 +222,7 @@ ____________________________________________________________
 
 
 
+        //TODO: Change to abstract
         public Event(String desc, String startDate, String endDate) throws ChatterBoxNoInput{
             super(desc);
             this.startDate = startDate;
@@ -321,7 +322,6 @@ ____________________________________________________________
                     case DELETE:
                         response = response.trim();
                         int delIndex = Chatterbox.extractNum(response) - 1;
-
                         System.out.println(LINESEPERATOR);
                         System.out.println("Removing Task: ");
                         System.out.println(userList.get(delIndex).toString());
