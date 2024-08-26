@@ -7,6 +7,9 @@ public class Deadline extends Task {
         this.date = date;
     }
 
+    public String getDate() {
+        return this.date;
+    }
     public void changeDate(String newDate) {
         this.date = newDate;
     }

@@ -6,9 +6,16 @@ import java.util.ArrayList;
 public class Tars {
 
     private List<Task> tasks;
+    private Storage storage;
 
     public Tars() {
-        this.tasks = new ArrayList<>();
+        this.storage = new Storage("./data/tars.txt");
+        try {
+            tasks = storage.loadTasks();
+        } catch (TarsException e) {
+            tasks = new ArrayList<>();
+            System.out.println("There was an error loading tasks: " + e.getMessage());
+        }
     }
 
     // Takes the input
@@ -94,11 +101,12 @@ public class Tars {
         return ("Here are the tasks in your list: \n" + result.toString().trim());
     }
 
-    private void addTask(Task task) {
+    private void addTask(Task task) throws TarsException{
         this.tasks.add(task);
+        saveTasks();
     }
 
-    private String markDone(String input) {
+    private String markDone(String input) throws TarsException{
         if (input.isEmpty()) return "Task could not be found!";
         boolean canFind = false;
         for (Task currTask : this.tasks) {
@@ -106,12 +114,13 @@ public class Tars {
             if (Objects.equals(taskName, input)) {
                 canFind = true;
                 currTask.setDone();
+                saveTasks();
                 return ("Nice! I've marked this task as done:\n" + "  " + currTask.toString());
             }
         }
         return ("The task you specified cannot be found. Please try again");
     }
-    private String markUndone(String input) {
+    private String markUndone(String input) throws TarsException{
         if (input.isEmpty()) return "Task could not be found!";
         boolean canFind = false;
         for (Task currTask : this.tasks) {
@@ -119,6 +128,7 @@ public class Tars {
             if (Objects.equals(taskName, input)) {
                 canFind = true;
                 currTask.setUndone();
+                saveTasks();
                 return ("OK, I've marked this task as not done yet:\n" + "  " + currTask.toString());
             }
         }
@@ -130,16 +140,24 @@ public class Tars {
                 + this.tasks.size() + " tasks in the list\n";
     }
 
-    private String removeAndRespond(int idx) {
+    private String removeAndRespond(int idx) throws TarsException, IndexOutOfBoundsException{
         if (idx <= 0 || idx > tasks.size()) {
             throw new IndexOutOfBoundsException("The specified task number is out of bounds.");
         }
         String taskDescription = tasks.get(idx - 1).toString();
         tasks.remove(idx - 1);
+        saveTasks();
         return "Noted. I've removed this task:\n" + taskDescription + "\n" + "Now you have "
                 + this.tasks.size() + " tasks in the list\n";
     }
 
+    private void saveTasks() throws TarsException {
+        try {
+            storage.saveTasks(this.tasks);
+        } catch (TarsException e) {
+            System.out.println("Error saving task: "+ e.getMessage());
+        }
+    }
     public static void main(String[] args) throws TarsException {
         System.out.println("____________________________________");
         System.out.println("Hello! I'm TARS");
