@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -112,6 +113,16 @@ public class Blitz {
         return matcher.find();
     }
 
+    private static LocalDateTime stringToLocaldatetime(String str) {
+        int year = Integer.parseInt(str.substring(0, 4));
+        int month = Integer.parseInt(str.substring(5, 7));
+        int day = Integer.parseInt(str.substring(8, 10));
+        int hour = Integer.parseInt(str.substring(11, 13));
+        int min = Integer.parseInt(str.substring(13, 15));
+
+        return LocalDateTime.of(year, month, day, hour, min);
+    }
+
     private static boolean checkCommandExist(String command) {
         return commandList.contains(command);
     }
@@ -178,12 +189,12 @@ public class Blitz {
             if (params.length != 4) {
                 throw new BlitzIOException("Failed to read from database");
             }
-            return new Deadline(params[2], "D", params[3], Boolean.parseBoolean(params[1]));
+            return new Deadline(params[2], "D", stringToLocaldatetime(params[3]), Boolean.parseBoolean(params[1]));
         case "E":
             if (params.length != 5) {
                 throw new BlitzIOException("Failed to read from database");
             }
-            return new Event(params[2], "E", params[3], params[4], Boolean.parseBoolean(params[1]));
+            return new Event(params[2], "E", stringToLocaldatetime(params[3]), stringToLocaldatetime(params[4]), Boolean.parseBoolean(params[1]));
         default:
             throw new BlitzIOException("Failed to read from database");
         }
@@ -249,23 +260,23 @@ public class Blitz {
     }
 
     private static void commandDeadline(String command) throws BlitzException {
-        if (!regexChecker(".+ /by .+", command)) {
+        if (!regexChecker(".+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]", command)) {
             throw new BlitzInvalidParameterRegexException("deadline [Task name] /by [Deadline]");
         }
 
         String[] param = command.split(" /by ");
 
         if (param[0].contains("/by") || param[1].contains("/by")) {
-            throw new BlitzInvalidParameterRepeatedFlagException("/by", "deadline [Task name] /by [Deadline]");
+            throw new BlitzInvalidParameterRepeatedFlagException("/by", "deadline [Task name] /by [yyyy-mm-dd hhmm]");
         }
 
         if (param[1].isBlank()) {
-            throw new BlitzInvalidParameterMissingContentException("/by", "deadline [Task name] /by [Deadline]");
+            throw new BlitzInvalidParameterMissingContentException("/by", "deadline [Task name] /by [yyyy-mm-dd hhmm]");
         } else if (param[0].isBlank()) {
-            throw new BlitzInvalidParameterMissingContentException("[Task name]", "deadline [Task name] /by [Deadline]");
+            throw new BlitzInvalidParameterMissingContentException("[Task name]", "deadline [Task name] /by [yyyy-mm-dd hhmm]");
         }
 
-        Task temp = new Deadline(param[0], "D", param[1], false);
+        Task temp = new Deadline(param[0], "D", stringToLocaldatetime(param[1]), false);
 
         db.add(temp);
         writeOneToFile(temp);
@@ -273,26 +284,26 @@ public class Blitz {
     }
 
     private static void commandEvent(String command) throws BlitzException {
-        if (!regexChecker(".+ /from .+ /to .+", command)) {
-            throw new BlitzInvalidParameterRegexException("event [Task name] /from [Start date or time] /to [End date or time]");
+        if (!regexChecker(".+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9] \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]", command)) {
+            throw new BlitzInvalidParameterRegexException("event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         }
 
         String[] param1 = command.split(" /from ");
         String[] param2 = param1[1].split(" /to ");
 
         if (param1[0].contains("/from") || param1[1].contains("/from")) {
-            throw new BlitzInvalidParameterRepeatedFlagException("/from", "event [Task name] /from [Start date or time] /to [End date or time]");
+            throw new BlitzInvalidParameterRepeatedFlagException("/from", "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         } else if (param2[0].contains("/to") || param2[1].contains("/to")) {
-            throw new BlitzInvalidParameterRepeatedFlagException("/to", "event [Task name] /from [Start date or time] /to [End date or time]");
+            throw new BlitzInvalidParameterRepeatedFlagException("/to", "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         } else if (param1[0].isBlank()) {
-            throw new BlitzInvalidParameterMissingContentException("[Task name]", "event [Task name] /from [Start date or time] /to [End date or time]");
+            throw new BlitzInvalidParameterMissingContentException("[Task name]", "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         } else if (param2[0].isBlank()) {
-            throw new BlitzInvalidParameterMissingContentException("/from", "event [Task name] /from [Start date or time] /to [End date or time]");
+            throw new BlitzInvalidParameterMissingContentException("/from", "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         } else if (param2[1].isBlank()) {
-            throw new BlitzInvalidParameterMissingContentException("/to", "event [Task name] /from [Start date or time] /to [End date or time]");
+            throw new BlitzInvalidParameterMissingContentException("/to", "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         }
 
-        Task temp = new Event(param1[0], "E", param2[0], param2[1], false);
+        Task temp = new Event(param1[0], "E", stringToLocaldatetime(param2[0]), stringToLocaldatetime(param2[1]), false);
 
         db.add(temp);
         writeOneToFile(temp);
