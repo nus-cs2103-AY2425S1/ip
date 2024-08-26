@@ -4,6 +4,7 @@ public class ListCommand extends Command {
     HashMap<String, String> argumentMap;
 
     public ListCommand(HashMap<String, String> argumentMap) {
+        super("list");
         this.argumentMap = argumentMap;
     }
 
@@ -13,10 +14,5 @@ public class ListCommand extends Command {
 
         ui.printList(tasks);
         return true;
-    }
-
-    @Override
-    public void verifyFlags(HashMap<String, String> argumentMap) throws InvalidArgumentException {
-        // do nothing
     }
 }

@@ -25,7 +25,11 @@ public class Barney {
     }
 
     public static void main(String[] args) {
-        new Barney("list.txt").run();
+        String saveFilePath = "list.txt";
+        if (args.length > 0) {
+            saveFilePath = args[0];
+        }
+        new Barney(saveFilePath).run();
     }
 
     public void run() {
