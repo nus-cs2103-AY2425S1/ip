@@ -1,10 +1,12 @@
 package task;
 
+import java.time.*;
+import java.time.format.*;
 import java.util.*;
 
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     public Event(String line) throws InvalidTaskException {
         super(line);
@@ -16,8 +18,16 @@ public class Event extends Task {
         if (!flags.containsKey("to")) {
             throw new InvalidTaskException("Missing /to flag.");
         }
-        this.from = flags.get("from");
-        this.to = flags.get("to");
+        try {
+            this.from = parseDateString(flags.get("from"));
+        } catch (DateTimeParseException exception) {
+            throw new InvalidTaskException("Invalid /from datetime. Should be yyyy-mm-dd hh:mm`");
+        }
+        try {
+            this.to = parseDateString(flags.get("to"));
+        } catch (DateTimeParseException exception) {
+            throw new InvalidTaskException("Invalid /to datetime. Should be yyyy-mm-dd hh:mm`");
+        }
     }
 
     @Override
@@ -31,8 +41,8 @@ public class Event extends Task {
         keyValuePairs.add("\"taskType\": \"event\"");
         keyValuePairs.add(String.format("\"description\": \"%s\"", description));
         keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
-        keyValuePairs.add(String.format("\"from\": \"%s\"", from));
-        keyValuePairs.add(String.format("\"to\": \"%s\"", to));
+        keyValuePairs.add(String.format("\"from\": \"%s\"", toDateString(from)));
+        keyValuePairs.add(String.format("\"to\": \"%s\"", toDateString(from)));
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 

@@ -1,9 +1,18 @@
 package task;
 
+import java.time.*;
+import java.time.format.*;
 import java.util.*;
 import java.util.regex.*;
 
 public abstract class Task {
+    private static final DateTimeFormatter[] DATETIME_FORMATTERS = new DateTimeFormatter[]{
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
+    };
+
     protected String description;
     protected boolean isCompleted;
 
@@ -50,7 +59,7 @@ public abstract class Task {
 
     protected static Map<String, String> parseJsonString(String jsonString) {
         Map<String, String> arguments = new HashMap<>();
-        Pattern keyValuePairPattern = Pattern.compile("(\\\"\\w+\\\"): (\\\"[\\w\\s]+\\\")");
+        Pattern keyValuePairPattern = Pattern.compile("(\\\"\\w+\\\"): (\\\"[\\w\\s:-]+\\\")");
         Matcher matcher = keyValuePairPattern.matcher(jsonString);
         while (matcher.find()) {
             // remove string quotes from json
@@ -73,6 +82,21 @@ public abstract class Task {
             default:
                 throw new InvalidTaskException();
         }
+    }
+
+    protected static LocalDateTime parseDateString(String dateString) throws DateTimeParseException {
+        for (DateTimeFormatter formatter :  DATETIME_FORMATTERS) {
+            try {
+                return LocalDateTime.parse(dateString, formatter);
+            } catch (DateTimeParseException exception) {
+                // try another format
+            }
+        }
+        return LocalDateTime.parse(dateString);
+    }
+
+    protected static String toDateString(LocalDateTime datetime) {
+        return DATETIME_FORMATTERS[0].format(datetime);
     }
 
     @Override

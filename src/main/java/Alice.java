@@ -88,7 +88,7 @@ public class Alice {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(tokens[1]);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             warn("Invalid task number. Usage: mark <task number>");
             return;
         }
@@ -116,7 +116,7 @@ public class Alice {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(tokens[1]);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             warn("Invalid task number. Usage: unmark <task number>");
             return;
         }
@@ -145,7 +145,7 @@ public class Alice {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(tokens[1]);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             warn("Invalid task number. Usage: delete <task number>");
             return;
         }
@@ -184,8 +184,8 @@ public class Alice {
             }
             reader.close();
             input.close();
-        } catch (IOException | InvalidTaskException e){
-            warn("Unable to load tasks.");
+        } catch (IOException | InvalidTaskException exception){
+            warn(String.format("%s Unable to load tasks.", exception));
         }
     }
 
@@ -206,8 +206,8 @@ public class Alice {
             }
             writer.close();
             output.close();
-        } catch (IOException e){
-            warn("Unable to save tasks.");
+        } catch (IOException exception){
+            warn(String.format("%s Unable to save tasks.", exception));
         }
     }
 

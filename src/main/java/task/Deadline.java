@@ -1,9 +1,11 @@
 package task;
 
+import java.time.*;
+import java.time.format.*;
 import java.util.*;
 
 public class Deadline extends Task {
-    private String by;
+    private LocalDateTime by;
 
     public Deadline(String line) throws InvalidTaskException {
         super(line);
@@ -12,7 +14,11 @@ public class Deadline extends Task {
         if (!flags.containsKey("by")) {
             throw new InvalidTaskException("Missing /by flag.");
         }
-        this.by = flags.get("by");
+        try {
+            this.by = parseDateString(flags.get("by"));
+        } catch (DateTimeParseException exception) {
+            throw new InvalidTaskException("Invalid /by datetime. Should be yyyy-mm-dd hh:mm`");
+        }
     }
 
     @Override
@@ -26,7 +32,7 @@ public class Deadline extends Task {
         keyValuePairs.add("\"taskType\": \"deadline\"");
         keyValuePairs.add(String.format("\"description\": \"%s\"", description));
         keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
-        keyValuePairs.add(String.format("\"by\": \"%s\"", by));
+        keyValuePairs.add(String.format("\"by\": \"%s\"", toDateString(by)));
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
