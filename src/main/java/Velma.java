@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Velma {
-
     private static final String FILE_PATH = "./data/velma.txt";
     public static void printLine() {
         for (int i = 0; i < 50; i++) {
