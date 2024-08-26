@@ -49,7 +49,13 @@ public class Echo {
                         break;
                     case "event":
                         addEvent(tasks, input);
-                    
+                    case "delete":
+                        if (parts.length == 2) {
+                            deleteTask(tasks, parts[1]);
+                        } else {
+                            throw new EchoException("Please specify the task number to delete.");
+                        }
+                        break;
                     default:
                         throw new EchoException(" I'm sorry, but I don't know what that means :-(");
 
@@ -137,6 +143,19 @@ public class Echo {
         System.out.println("Got it. I've added this task:\n" + todo.toString() + "Now you have " + tasks.size() + " tasks in the list");
     }
 
-
+    private static void deleteTask(List<Task> tasks, String input) throws EchoException {
+        try {
+            int num = Integer.parseInt(input);
+            if (num > 0 && num <= tasks.size()) {
+                Task removedTask = tasks.remove(num - 1);
+                System.out.println(" Noted. I've removed this task:\n   " + removedTask);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                throw new EchoException("Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            throw new EchoException("Please enter a valid number.");
+        }
+    }
 
 }
