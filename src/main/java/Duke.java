@@ -3,6 +3,9 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Stream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Duke {
     public static void main(String[] args) {
@@ -81,6 +84,18 @@ public class Duke {
             }else {
                 System.out.println("Command does not exist!");
             }
+        }
+    }
+
+    private static String[] matchTask(String input, ArrayList<String> splitters) {
+        if (splitters.size() == 1) {
+            return input.split(splitters.get(0));
+        }else {
+            String[] split = input.split(splitters.get(0));
+            splitters.remove(0);
+            return Stream.of(new String[]{split[0].trim()}, matchTask(split[1], splitters)) // Stream<String[]>
+                    .flatMap(x -> Stream.of(x)) // flattens to Stream<String>
+                    .toArray(String[]::new);
         }
     }
 
