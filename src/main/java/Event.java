@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Event extends Task {
@@ -10,8 +9,8 @@ public class Event extends Task {
     private static String EventRegexWithoutFrom = "^event (.+) /to (.+)";
     private static String EventRegexWithEmptyFrom = "^event (.+) /from\\s/to (.+)";
 
-    protected Event(String taskDescription, String fromTiming, String toTiming) {
-        super(taskDescription);
+    protected Event(String taskDescription, String fromTiming, String toTiming, boolean isDone) {
+        super(taskDescription, isDone);
         this.fromTiming = fromTiming;
         this.toTiming = toTiming;
         this.taskType = "E";
@@ -22,7 +21,7 @@ public class Event extends Task {
         return String.format("%s (from: %s to: %s)", super.toString(), this.fromTiming, this.toTiming);
     }
 
-    public static void addTask(String input, ArrayList<Task> listOfText) throws NedException {
+    public static Task createTask(String input) throws NedException {
         String[] parsed_inputs = input.split("event|/from|/to", 4);
         int parsed_inputs_len = Task.checkSizeOfInput(parsed_inputs);
         if (parsed_inputs[1].strip().isBlank()) {
@@ -39,9 +38,24 @@ public class Event extends Task {
                         "or no 'to' date. Gods be good, fill both up!");
             }
         }
-        Task newTask = new Event(parsed_inputs[1].strip(), parsed_inputs[2].strip(), parsed_inputs[3].strip());
-        listOfText.add(newTask);
-        Ned.print("Aye, I've added this task m'lord:");
-        Ned.print(Ned.INDENTATIONS + newTask);
+        Task newTask = new Event(parsed_inputs[1].strip(), parsed_inputs[2].strip(), parsed_inputs[3].strip(), false);
+        return newTask;
     }
+    public static Event createEvent(boolean taskStatus, String taskDescription, String eventFromDate, String eventToDate) throws NedException {
+        if (taskDescription.isBlank()) {
+            throw new NedException("M'lord, this saved event task has no task description!");
+        } else if (eventFromDate.isBlank()) {
+            throw new NedException("M'lord, this saved event task has no from date!");
+        } else if (eventToDate.isBlank()) {
+            throw new NedException("M'lord, this saved event task has no to date!");
+        }
+        return new Event(taskDescription, eventFromDate, eventToDate, taskStatus);
+    }
+
+    @Override
+    public String toTextForm() {
+        int status = this.isDone ? 1 : 0;
+        return String.format("event|%d|%s", status,this.taskDescription);
+    }
+
 }

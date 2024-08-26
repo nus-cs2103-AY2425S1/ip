@@ -1,8 +1,12 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 public class Ned {
     public static final String INDENTATIONS = "    ";
 
@@ -16,6 +20,7 @@ public class Ned {
 
     public static void main(String[] args) {
         Ned.showWelcomeMessage();
+        Ned.loadInSavedTasks("cachedTasks.txt");
         Ned.checkCommands();
         Ned.showByeMessage();
     }
@@ -24,6 +29,24 @@ public class Ned {
         print("Hello! I'm\n" + logo + "\n");
         print("Lord of Winterfell and Warden Of The North");
         print("What can I do for you?");
+    }
+
+
+    public static void loadInSavedTasks(String cacheFilePath) {
+        //loads in the tasks saved as csv : e.g. ("todo", "Read") and ("deadline", "read", "monday 2pm") etc
+        try {
+            File f = new File(cacheFilePath);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()){
+                Task newTask = CommandManager.parseSavedTask(s.nextLine());
+                if (newTask != null) {
+                    Ned.listOfText.add(newTask);
+                };
+            }
+        } catch (FileNotFoundException e) {
+            print("M'lord, do not be alarmed, but it appears that there was no previous saved task file. Not to " +
+                    "worry, we'll sort this out yet...");
+        }
     }
 
     public static void showByeMessage() {

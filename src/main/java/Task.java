@@ -1,12 +1,12 @@
 public abstract class Task {
-    private boolean isDone;
-    private String taskDescription;
+    protected boolean isDone;
+    protected String taskDescription;
 
     protected String taskType;
 
-    protected Task(String taskDescription) {
+    protected Task(String taskDescription, boolean isDone) {
         this.taskDescription = taskDescription;
-        this.isDone = false;
+        this.isDone = isDone;
     };
 
     public void markAsDone() {
@@ -32,4 +32,6 @@ public abstract class Task {
         String marker = this.isDone ? "X" : " ";
         return String.format("[%s][%s] %s",this.taskType, marker, this.taskDescription);
     };
+    public abstract String toTextForm();
+
 }

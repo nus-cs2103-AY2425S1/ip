@@ -7,7 +7,7 @@ public class DeleteCommand {
         this.commandInput = commandInput;
     }
 
-    public void executeDeleteCommand(ArrayList<Task> listOfText) {
+    public int parseDeleteCommand() throws NedException{
         String[] words = this.commandInput.split(" ");
         try {
             if (words.length != 2) {
@@ -15,21 +15,12 @@ public class DeleteCommand {
             } else {
                 String possibleIndex = words[1];
                 int index = Integer.parseInt(possibleIndex) - 1;
-                Task selectedTask = listOfText.get(index);
-                Ned.print("Noted m'lord. The following task has been removed:");
-                Ned.print(Ned.INDENTATIONS + selectedTask);
-                listOfText.remove(index); //removes the index specified
-                Ned.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfText.size()));
+                return index;
             }
-            ;
         } catch (NumberFormatException e) {
             Ned.print("Sorry m'lord, your command must specify a valid number");
             Ned.print(CommandManager.COMMAND_MESSAGE);
-        } catch (IndexOutOfBoundsException e) {
-            Ned.print("Sorry m'lord, seems the item number you specified is not valid");
-        } catch (NedException e) {
-            Ned.print(e.getMessage());
-            Ned.print(CommandManager.COMMAND_MESSAGE);
         }
+        return -1;
     }
 }
