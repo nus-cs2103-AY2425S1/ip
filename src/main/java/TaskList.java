@@ -8,12 +8,14 @@ public class TaskList {
 
     String add(Task task) {
         lst.add(task);
-        return "added: " + task;
+        return "Got it. I've added this task:\n" +
+                "   " + task + "\n" +
+                "Now you have " + lst.size() + " tasks in the list.";
     }
 
     String view() {
         int i = 1;
-        String s = "";
+        String s = "Here are the tasks in your list:";
         for (Task task : lst) {
             s += "\n" + i + ". " + task;
             i++;

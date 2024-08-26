@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
@@ -27,13 +28,36 @@ public class Loafy {
                 int taskId = Integer.parseInt(arr[1]);
                 String msg = tl.markTask(isDone, taskId);
                 reply.accept(msg);
-            } else {
-                Task task = new Task(command);
+            } else if (arr[0].equals("todo")) {
+                String name = joinRange(arr, 1, arr.length);
+                Task task = new Todo(name);
+                String msg = tl.add(task);
+                reply.accept(msg);
+            } else if (arr[0].equals("deadline")) {
+                int i = Arrays.asList(arr).indexOf("/by");
+                System.out.println(i);
+                String name = joinRange(arr, 1, i);
+                String date = joinRange(arr, i + 1, arr.length);
+                Task task = new Deadline(name, date);
+                String msg = tl.add(task);
+                reply.accept(msg);
+            } else if (arr[0].equals("event")) {
+                int fromIndex = Arrays.asList(arr).indexOf("/from");
+                int toIndex = Arrays.asList(arr).indexOf("/to");
+                String name = joinRange(arr, 1, fromIndex);
+                String from = joinRange(arr, fromIndex + 1, toIndex);
+                String to = joinRange(arr, toIndex + 1, arr.length);
+                Task task = new Event(name, from, to);
                 String msg = tl.add(task);
                 reply.accept(msg);
             }
         }
 
         reply.accept("Byeee see you soon! ;)");
+    }
+
+    static String joinRange(String[] arr, int start, int end) {
+        String[] subArr = Arrays.copyOfRange(arr, start, end);
+        return String.join(" ", subArr);
     }
 }
