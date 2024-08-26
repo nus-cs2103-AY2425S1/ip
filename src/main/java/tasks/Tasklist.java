@@ -55,6 +55,10 @@ public class TaskList {
 
     private void saveTasksToFile() {
         // Assisted by Copilot
+        File dataDir = new File("./data");
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();
+        }   
         try (
             FileWriter writer = new FileWriter(txtFileName);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datFileName))
