@@ -1,4 +1,10 @@
-public class DeleteCommand extends Command{
+package dumpling.command;
+
+import dumpling.task.TaskList;
+import dumpling.Ui;
+import dumpling.Storage;
+
+public class DeleteCommand extends Command {
 
     private int itemIdx;
 
