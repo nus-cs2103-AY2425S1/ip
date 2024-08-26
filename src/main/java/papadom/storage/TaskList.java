@@ -1,7 +1,7 @@
-package papadom.Storage;
+package papadom.storage;
 
-import papadom.Exceptions.NoTaskNumberException;
-import papadom.Exceptions.WrongTaskNumberException;
+import papadom.exceptions.NoTaskNumberException;
+import papadom.exceptions.WrongTaskNumberException;
 import papadom.tasks.Task;
 
 import java.util.ArrayList;

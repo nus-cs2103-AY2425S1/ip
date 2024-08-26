@@ -1,9 +1,9 @@
 package papadom.commands;
 
 import org.junit.jupiter.api.Test;
-import papadom.Exceptions.IncorrectTaskInputFormatException;
-import papadom.Storage.Storage;
-import papadom.Storage.TaskList;
+import papadom.exceptions.IncorrectTaskInputFormatException;
+import papadom.storage.Storage;
+import papadom.storage.TaskList;
 import papadom.Ui;
 
 import java.io.ByteArrayOutputStream;

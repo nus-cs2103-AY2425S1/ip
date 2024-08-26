@@ -1,6 +1,6 @@
 package papadom.commands;
-import papadom.Exceptions.IncorrectTaskInputFormatException;
-import papadom.Storage.*;
+import papadom.exceptions.IncorrectTaskInputFormatException;
+import papadom.storage.*;
 import papadom.tasks.Todo;
 import papadom.Ui;
 

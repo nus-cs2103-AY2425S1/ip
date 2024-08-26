@@ -1,6 +1,6 @@
 package papadom;
 
-import papadom.Exceptions.IncorrectTaskInputFormatException;
+import papadom.exceptions.IncorrectTaskInputFormatException;
 import papadom.tasks.Deadline;
 import papadom.tasks.Event;
 

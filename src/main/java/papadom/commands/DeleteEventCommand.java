@@ -1,9 +1,9 @@
 package papadom.commands;
 
-import papadom.Exceptions.NoTaskNumberException;
-import papadom.Exceptions.WrongTaskNumberException;
-import papadom.Storage.Storage;
-import papadom.Storage.TaskList;
+import papadom.exceptions.NoTaskNumberException;
+import papadom.exceptions.WrongTaskNumberException;
+import papadom.storage.Storage;
+import papadom.storage.TaskList;
 import papadom.Ui;
 
 /**

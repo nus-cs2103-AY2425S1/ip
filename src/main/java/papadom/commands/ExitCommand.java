@@ -1,7 +1,7 @@
 package papadom.commands;
 
-import papadom.Storage.Storage;
-import papadom.Storage.TaskList;
+import papadom.storage.Storage;
+import papadom.storage.TaskList;
 import papadom.Ui;
 
 /**

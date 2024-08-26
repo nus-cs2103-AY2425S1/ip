@@ -1,8 +1,8 @@
 package papadom;
 
-import papadom.Exceptions.*;
-import papadom.Storage.Storage;
-import papadom.Storage.TaskList;
+import papadom.exceptions.*;
+import papadom.storage.Storage;
+import papadom.storage.TaskList;
 import papadom.commands.*;
 
 import java.util.Scanner;

@@ -1,6 +1,6 @@
 package papadom.commands;
 
-import papadom.Storage.*;
+import papadom.storage.*;
 import papadom.Ui;
 
 /**

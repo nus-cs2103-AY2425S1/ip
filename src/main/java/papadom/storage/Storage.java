@@ -1,4 +1,4 @@
-package papadom.Storage;
+package papadom.storage;
 
 import java.io.File;
 import java.io.FileWriter;

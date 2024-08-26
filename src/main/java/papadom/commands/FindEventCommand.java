@@ -1,11 +1,10 @@
 package papadom.commands;
 
-import papadom.Exceptions.IncorrectTaskInputFormatException;
+import papadom.exceptions.IncorrectTaskInputFormatException;
 import papadom.Parser;
-import papadom.Storage.Storage;
-import papadom.Storage.TaskList;
+import papadom.storage.Storage;
+import papadom.storage.TaskList;
 import papadom.Ui;
-import papadom.tasks.Deadline;
 
 public class FindEventCommand extends Command {
     private final String TEXT;
