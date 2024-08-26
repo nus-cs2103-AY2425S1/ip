@@ -12,7 +12,7 @@ public class Ui {
     }
 
     public String readCommand() {
-        System.out.print("\nWhat can I do for you? ");
+        System.out.print("What can I do for you? ");
         return scanner.nextLine();
     }
 
