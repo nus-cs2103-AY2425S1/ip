@@ -18,11 +18,11 @@ public class Task {
     }
 
 
-    public void markStatus() {
+    public void setMark() {
         this.isDone = true;
     }
 
-    public void unmarkStatus() {
+    public void setUnmark() {
         this.isDone = false;
     }
 

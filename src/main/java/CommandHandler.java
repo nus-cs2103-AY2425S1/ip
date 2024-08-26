@@ -23,6 +23,7 @@ public class CommandHandler {
         case MARK:
             try {
                 tasks.markItem(input);
+                storage.saveTasksToFile(tasks);
             } catch (MissingPositionException | MissingItemException e) {
                 System.out.println(e.getMessage());
             }
@@ -30,6 +31,7 @@ public class CommandHandler {
         case UNMARK: {
             try {
                 tasks.unmarkItem(input);
+                storage.saveTasksToFile(tasks);
             } catch (MissingPositionException | MissingItemException e) {
                 System.out.println(e.getMessage());
             }
@@ -46,6 +48,7 @@ public class CommandHandler {
         case DELETE: {
             try {
                 tasks.delete(input);
+                storage.saveTasksToFile(tasks);
             } catch (MissingItemException | MissingPositionException | EmptyListException e) {
                 System.out.println(e.getMessage());
             }
@@ -54,6 +57,7 @@ public class CommandHandler {
         case TODO: {
             try {
                 tasks.addTodo(input);
+                storage.saveTasksToFile(tasks);
             } catch (InvalidDescriptionException e) {
                 System.out.println(e.getMessage());
             }
@@ -62,16 +66,21 @@ public class CommandHandler {
         case DEADLINE: {
             try {
                 tasks.addDeadline(input);
-
+                storage.saveTasksToFile(tasks);
             } catch (InvalidDescriptionException e) {
                 System.out.println(e.getMessage());
             }
             break;
+>>>>>>> branch-A-CodingStandard
         }
         case EVENT: {
             try {
                 tasks.addEvent(input);
+<<<<<<< HEAD
 
+=======
+                storage.saveTasksToFile(tasks);
+>>>>>>> branch-A-CodingStandard
             } catch (InvalidDescriptionException e) {
                 System.out.println(e.getMessage());
             }
