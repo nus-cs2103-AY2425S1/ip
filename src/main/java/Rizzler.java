@@ -13,53 +13,55 @@ public class Rizzler {
         // interact with user
         boolean userIsDone = false;
         while (!userIsDone) {
-            try {
-                String userInput = scanner.nextLine();
-                String[] userInputArr = userInput.split(" ");
-                int userInputLen = userInputArr.length;
-                switch (userInputArr[0]) {
-                    case "bye":
-                        userIsDone = true;
-                        continue;
-                    case "list":
-                        rizzlerSpeech.list(taskLog.getLog());
-                        continue;
-                    case "mark":
-                        int taskToMark = Integer.parseInt(userInputArr[1]);
-                        Task doneTask = taskLog.doTask(taskToMark);
-                        rizzlerSpeech.lineBreak();
-                        rizzlerSpeech.say("aight, i'll note that you've completed this.");
-                        rizzlerSpeech.say(doneTask.toString());
-                        rizzlerSpeech.lineBreak();
-                        continue;
-                    case "unmark":
-                        int taskToUnMark = Integer.parseInt(userInputArr[1]);
-                        Task undoneTask = taskLog.undoTask(taskToUnMark);
-                        rizzlerSpeech.lineBreak();
-                        rizzlerSpeech.say("no worries, we'll circle back around to this.");
-                        rizzlerSpeech.say(undoneTask.toString());
-                        rizzlerSpeech.lineBreak();
-                        continue;
-                    case "todo":
-                        String[] todoDescArr = Arrays.copyOfRange(userInputArr, 1, userInputLen);
-                        String todoDesc = String.join(" ", todoDescArr);
-                        ToDo newTodo = new ToDo(todoDesc);
-                        taskLog.addTask(newTodo);
-                        rizzlerSpeech.lineBreak();
-                        rizzlerSpeech.say("added: " + newTodo);
-                        rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
-                        rizzlerSpeech.lineBreak();
-                        continue;
-                    default:
-                        Task newTask = new Task(userInput);
-                        rizzlerSpeech.lineBreak();
-                        rizzlerSpeech.say("added: " + newTask);
-                        rizzlerSpeech.lineBreak();
-                        taskLog.addTask(newTask);
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                break;
+            String userInput = scanner.nextLine();
+            String[] userInputArr = userInput.split(" ");
+            int userInputLen = userInputArr.length;
+
+            switch (userInputArr[0]) {
+                case "bye":
+                    userIsDone = true;
+                    continue;
+                case "list":
+                    rizzlerSpeech.list(taskLog.getLog());
+                    continue;
+                case "mark":
+                    int taskToMark = Integer.parseInt(userInputArr[1]);
+                    Task doneTask = taskLog.doTask(taskToMark);
+                    rizzlerSpeech.say();
+                    rizzlerSpeech.say("aight, i'll note that you've completed this.");
+                    rizzlerSpeech.say("\t" + doneTask.toString());
+                    rizzlerSpeech.say();
+                    continue;
+                case "unmark":
+                    int taskToUnMark = Integer.parseInt(userInputArr[1]);
+                    Task undoneTask = taskLog.undoTask(taskToUnMark);
+                    rizzlerSpeech.say();
+                    rizzlerSpeech.say("no worries, we'll circle back around to this.");
+                    rizzlerSpeech.say("\t" + undoneTask.toString());
+                    rizzlerSpeech.say();
+                    continue;
+                case "todo":
+                    String[] todoDescArr = Arrays.copyOfRange(userInputArr, 1, userInputLen);
+                    String todoDesc = String.join(" ", todoDescArr);
+                    ToDo newTodo = new ToDo(todoDesc);
+                    taskLog.addTask(newTodo);
+                    rizzlerSpeech.say();
+                    rizzlerSpeech.say("added: " + newTodo);
+                    rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
+                    rizzlerSpeech.say();
+                    continue;
+                case "deadline":
+                    String[] deadlineInfoArr = Arrays.copyOfRange(userInputArr, 1, userInputLen);
+                    String deadlineInfo = String.join(" ", deadlineInfoArr);
+                    String deadlineDesc = deadlineInfo.split("/")[0];
+                    String deadlineTime = deadlineInfo.split("/")[1];
+
+                default:
+                    Task newTask = new Task(userInput);
+                    rizzlerSpeech.say();
+                    rizzlerSpeech.say("added: " + newTask);
+                    rizzlerSpeech.say();
+                    taskLog.addTask(newTask);
             }
         }
         scanner.close();

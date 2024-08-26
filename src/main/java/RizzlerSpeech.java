@@ -1,6 +1,10 @@
+import java.util.HashMap;
+
 public class RizzlerSpeech extends Speech {
     private static final String DEFAULT_PREFIX = "\t";
+    private static final HashMap<String, String[]> RESPONSES = new HashMap<String, String[]>();
     private String prefix;
+
 
     RizzlerSpeech() {
         this(DEFAULT_PREFIX);
@@ -9,11 +13,17 @@ public class RizzlerSpeech extends Speech {
     RizzlerSpeech(String prefix) {
         super();
         this.prefix = prefix;
+        initResponses();
     }
 
-    RizzlerSpeech(String line, String prefix) {
-        super(line);
-        this.prefix = prefix;
+    private static void initResponses() {
+        RESPONSES.put("list", new String[]{"these are the things we gotta do:"});
+        RESPONSES.put("add", new String[]{"add a new thing"});
+        RESPONSES.put("greet", new String[]{"how ya' doin. i'm the rizzler.",
+                "how may i be of service to you today?"});
+        RESPONSES.put("farewell", new String[]{"aight bet, cya."});
+        RESPONSES.put("mark", new String[]{"niceeee, i'll note that you've completed this."});
+        RESPONSES.put("unmark", new String[]{"hey no worries, "});
     }
 
     public void changePrefix(String newPrefix) {
@@ -31,31 +41,29 @@ public class RizzlerSpeech extends Speech {
         }
     }
 
-    @Override
-    public void lineBreak() {
-        super.lineBreak(this.prefix, "");
-
+    public void say() {
+        System.out.print(this.prefix);
+        super.lineBreak();
     }
 
     public void list(Task[] log) {
-        this.lineBreak();
-        this.say("these are the things we've gotta do.");
+        this.say();
+        this.say(RESPONSES.get("list"));
         for (int i = 0; i < log.length; i++) {
             this.say((i + 1) + ". " + log[i]);
         }
-        this.lineBreak();
+        this.say();
     }
 
     public void greet() {
-        this.lineBreak();
-        this.say("hey. i'm the rizzler.");
-        this.say("what do you want");
-        this.lineBreak();
+        this.say();
+        this.say(RESPONSES.get("greet"));
+        this.say();
     }
 
     public void bidFarewell() {
-        this.lineBreak();
-        this.say("sure, cya.");
-        this.lineBreak();
+        this.say();
+        this.say(RESPONSES.get("farewell"));
+        this.say();
     }
 }

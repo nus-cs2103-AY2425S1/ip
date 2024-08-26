@@ -19,7 +19,7 @@ public abstract class Speech {
     }
 
     public void lineBreak() {
-        this.lineBreak("", "");
+        System.out.println(this.line);
     }
 
     public void lineBreak(String prefix, String postfix) {
