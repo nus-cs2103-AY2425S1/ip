@@ -1,10 +1,13 @@
 package main.java;
 
+import static java.lang.Integer.parseInt;
+
 public abstract class Task {
     protected String name;
     protected boolean isDone = false;
 
 
+    public abstract String toSave();
 
     public void mark() {
         this.isDone = true;
