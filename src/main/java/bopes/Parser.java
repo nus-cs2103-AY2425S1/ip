@@ -98,6 +98,9 @@ public class Parser {
 
     public static Task parseTask(String taskData) throws BopesException {
         String[] data = taskData.split(" \\| ");
+        if (data.length < 3) {
+            throw new BopesException("Corrupted data: Insufficient task data in file.");
+        }
         String taskType = data[0];
         boolean isDone = data[1].equals("1");  // Parse the done status
         String description = data[2];

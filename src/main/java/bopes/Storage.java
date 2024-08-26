@@ -40,7 +40,7 @@ public class Storage {
         // Ensure the directory exists before trying to save
         File directory = new File(filePath).getParentFile();
         if (directory != null && !directory.exists()) {
-            directory.mkdirs(); // Create the directory if it doesn't exist
+            directory.mkdirs();
         }
 
         try (FileWriter writer = new FileWriter(filePath)) {
