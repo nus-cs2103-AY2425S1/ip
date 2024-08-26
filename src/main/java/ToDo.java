@@ -1,16 +1,6 @@
 public class ToDo extends Task {
-
     public ToDo(String description) {
-        super(description);
+        super(description, TaskType.TODO);
     }
 
-    @Override
-    public String getType() {
-        return "[T]";
-    }
-
-    @Override
-    public String toString() {
-        return getType() + getStatusIcon() + " " + description;
-    }
 }

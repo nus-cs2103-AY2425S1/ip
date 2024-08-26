@@ -12,37 +12,49 @@ public class SKD {
     public void run() {
         greet();
         Scanner scanner = new Scanner(System.in);
+        boolean isRunning = true;
 
-        while (true) {
+        while (isRunning) {
             String input = scanner.nextLine();
+            CommandType commandType = parseCommand(input);
             try {
-                if (input.equals("bye")) {
-                    bye();
-                    break;
-                } else if (input.equals("list")) {
-                    System.out.println(input);
-                    returnList();
-                } else if (input.startsWith("mark")) {
-                    System.out.println(input);
-                    executeMark(input);
-                } else if (input.startsWith("unmark")) {
-                    System.out.println(input);
-                    executeUnmark(input);
-                } else if (input.startsWith("todo")) {
-                    System.out.println(input);
-                    executeToDo(input);
-                } else if (input.startsWith("deadline")) {
-                    System.out.println(input);
-                    executeDeadline(input);
-                } else if (input.startsWith("event")) {
-                    System.out.println(input);
-                    executeEvent(input);
-                } else if (input.startsWith("delete")){
-                    System.out.println(input);
-                    executeDelete(input);
-                } else {
-                    System.out.println(input);
-                    throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                switch (commandType) {
+                    case BYE:
+                        bye();
+                        isRunning = false;
+                        break;
+                    case LIST:
+                        System.out.println(input);
+                        returnList();
+                        break;
+                    case MARK:
+                        System.out.println(input);
+                        executeMark(input);
+                        break;
+                    case UNMARK:
+                        System.out.println(input);
+                        executeUnmark(input);
+                        break;
+                    case TODO:
+                        System.out.println(input);
+                        executeToDo(input);
+                        break;
+                    case DEADLINE:
+                        System.out.println(input);
+                        executeDeadline(input);
+                        break;
+                    case EVENT:
+                        System.out.println(input);
+                        executeEvent(input);
+                        break;
+                    case DELETE:
+                        System.out.println(input);
+                        executeDelete(input);
+                        break;
+                    case ETC:
+                    default:
+                        System.out.println(input);
+                        throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(LINE);
@@ -179,6 +191,29 @@ public class SKD {
     private void printAddedMessage(Task task) {
         task.printTaskAddedMessage(tasks.size());
     }
+
+    private CommandType parseCommand(String input) {
+        if (input.startsWith("todo")) {
+            return CommandType.TODO;
+        } else if (input.startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        } else if (input.startsWith("event")) {
+            return CommandType.EVENT;
+        } else if (input.equals("list")) {
+            return CommandType.LIST;
+        } else if (input.startsWith("mark")) {
+            return CommandType.MARK;
+        } else if (input.startsWith("unmark")) {
+            return CommandType.UNMARK;
+        } else if (input.startsWith("delete")) {
+            return CommandType.DELETE;
+        } else if (input.equals("bye")) {
+            return CommandType.BYE;
+        } else {
+            return CommandType.ETC;
+        }
+    }
+
 
     public static void main(String[] args) {
         new SKD().run();
