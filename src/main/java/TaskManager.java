@@ -1,3 +1,4 @@
+import mendel.dbmanager.DBManager;
 import mendel.metacognition.TaskStorage;
 import mendel.metacognition.Leave;
 import mendel.mendelexception.MendelException;
@@ -10,9 +11,12 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 
 public class TaskManager {
     private final TaskStorage taskStorage;
+    private final DBManager dbContoller;
 
     public TaskManager() {
         this.taskStorage = new TaskStorage();
+        this.dbContoller = new DBManager("data/dbTaskList.txt");
+        dbContoller.loadInto(taskStorage);
     }
 
     public void manage(String currAction) throws MendelException {
@@ -40,11 +44,11 @@ public class TaskManager {
             } else if(segments[0].equals("delete")) {
                 taskStorage.delete(Integer.parseInt(segments[1]) - 1);
             } else if(segments[0].equals("todo")) {
-                taskStorage.add(new Todo(currAction));
+                taskStorage.add(Todo.of(currAction));
             } else if(segments[0].equals("deadline")) {
-                taskStorage.add(new Deadline(currAction));
+                taskStorage.add(Deadline.of(currAction));
             } else if(segments[0].equals("event")) {
-                taskStorage.add(new Event(currAction));
+                taskStorage.add(Event.of(currAction));
             } else {
                 throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
             }
