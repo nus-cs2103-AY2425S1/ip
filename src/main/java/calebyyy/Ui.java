@@ -2,7 +2,13 @@ package calebyyy;
 import calebyyy.Tasks.Task;
 import java.util.ArrayList;
 
+/**
+ * Represents the user interface of the application.
+ */
 public class Ui {
+    /**
+     * Constructor for Ui.
+     */
     public Ui() {
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Calebyyy");
@@ -10,6 +16,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Print task added message.
+     * @param task
+     * @param taskCount
+     */
     public void addTaskMessage(Task task, int taskCount) {
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
@@ -18,12 +29,20 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Print goodbye message.
+     */
     public void byeMessage() {
         System.out.println("____________________________________________________________");
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Print task deleted message.
+     * @param task
+     * @param taskCount
+     */
     public void deleteTaskMessage(Task task, int taskCount) {
         System.out.println("____________________________________________________________");
         System.out.println(" Noted. I've removed this task:");
@@ -32,6 +51,10 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints list of tasks.
+     * @param taskList
+     */
     public void listTasksMessage(TaskList taskList) {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
@@ -41,6 +64,10 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints list of tasks with keyword.
+     * @param tasks
+     */
     public void listTasksWithKeyword(ArrayList<Task> tasks) {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the matching tasks in your list:");
