@@ -1,3 +1,8 @@
+package alice;
+
+import alice.command.*;
+import alice.storage.*;
+import alice.ui.*;
 import java.util.*;
 
 public class Alice {

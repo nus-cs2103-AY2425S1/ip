@@ -1,4 +1,4 @@
-package task;
+package alice.task;
 
 public class InvalidTaskException extends Exception {
     public InvalidTaskException() {

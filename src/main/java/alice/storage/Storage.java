@@ -1,7 +1,8 @@
+package alice.storage;
+
+import alice.task.*;
 import java.io.*;
 import java.util.*;
-import task.*;
-
 
 public class Storage {
     private final String dataDirectoryPath;

@@ -1,6 +1,8 @@
+package alice.storage;
+
+import alice.task.*;
 import java.io.*;
 import java.util.*;
-import task.*;
 
 public class TaskList {
     private final Storage storage;
@@ -19,25 +21,25 @@ public class TaskList {
         return tasks;
     }
 
-    public void addTask(Task task) throws IOException, InvalidTaskException {
+    public void addTask(Task task) throws IOException {
         tasks.add(task);
         saveTasks();
     }
 
-    public Task deleteTask(int index) throws IOException, InvalidTaskException {
+    public Task deleteTask(int index) throws IOException {
         Task removedTask = tasks.remove(index);
         saveTasks();
         return removedTask;
     }
 
-    public Task markTask(int index) throws IOException, InvalidTaskException {
+    public Task markTask(int index) throws IOException {
         tasks.get(index).setCompletion(true);
         saveTasks();
         return tasks.get(index);
     }
 
-    public Task unmarkTask(int index) throws IOException, InvalidTaskException {
-        tasks.get(index).setCompletion(true);
+    public Task unmarkTask(int index) throws IOException {
+        tasks.get(index).setCompletion(false);
         saveTasks();
         return tasks.get(index);
     }
@@ -46,7 +48,7 @@ public class TaskList {
         return storage.loadTasks();
     }
 
-    private void saveTasks() throws IOException, InvalidTaskException {
+    private void saveTasks() throws IOException {
         storage.saveTasks(tasks);
     }
 }

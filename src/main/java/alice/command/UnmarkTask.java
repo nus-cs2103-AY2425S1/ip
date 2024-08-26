@@ -1,5 +1,9 @@
+package alice.command;
+
+import alice.storage.*;
+import alice.task.*;
+import alice.ui.*;
 import java.io.*;
-import task.*;
 
 public class UnmarkTask extends Command {
     public UnmarkTask(Ui ui, TaskList taskList) {
@@ -32,7 +36,7 @@ public class UnmarkTask extends Command {
             ui.say(lines);
         } catch (IndexOutOfBoundsException e) {
             ui.warn("Task number out of bounds. Usage: unmark <task number>");
-        } catch (IOException | InvalidTaskException e) {
+        } catch (IOException e) {
             ui.warn("Unable to save task.");
         }
     }

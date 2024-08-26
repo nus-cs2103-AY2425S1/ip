@@ -1,3 +1,8 @@
+package alice.command;
+
+import alice.storage.*;
+import alice.ui.*;
+
 public abstract class Command {
     private enum Action {
         LIST,

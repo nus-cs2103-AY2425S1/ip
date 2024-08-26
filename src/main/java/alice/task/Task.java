@@ -1,4 +1,4 @@
-package task;
+package alice.task;
 
 import java.util.*;
 

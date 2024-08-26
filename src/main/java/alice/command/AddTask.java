@@ -1,5 +1,9 @@
+package alice.command;
+
+import alice.storage.*;
+import alice.task.*;
+import alice.ui.*;
 import java.io.*;
-import task.*;
 
 public class AddTask extends Command {
     public AddTask(Ui ui, TaskList taskList) {
@@ -32,7 +36,7 @@ public class AddTask extends Command {
             };
             ui.say(lines);
         } catch (InvalidTaskException exception) {
-            ui.warn(String.format("%s Usage: Alice <description>", exception));
+            ui.warn(String.format("%s Usage: <task type> <description> <flags>", exception));
         } catch (IOException e) {
             ui.warn("Unable to save task.");
         }

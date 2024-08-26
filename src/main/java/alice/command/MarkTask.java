@@ -1,8 +1,12 @@
-import java.io.*;
-import task.*;
+package alice.command;
 
-public class DeleteTask extends Command {
-    public DeleteTask(Ui ui, TaskList taskList) {
+import alice.storage.*;
+import alice.task.*;
+import alice.ui.*;
+import java.io.*;
+
+public class MarkTask extends Command {
+    public MarkTask(Ui ui, TaskList taskList) {
         super(ui, taskList);
     }
 
@@ -10,7 +14,7 @@ public class DeleteTask extends Command {
     public void execute(String line) {
         String[] tokens = line.split(" ", 2);
         if (tokens.length != 2) {
-            ui.warn("Missing task number. Usage: delete <task number>");
+            ui.warn("Missing task number. Usage: mark <task number>");
             return;
         }
 
@@ -18,22 +22,21 @@ public class DeleteTask extends Command {
         try {
             taskNumber = Integer.parseInt(tokens[1]);
         } catch (NumberFormatException exception) {
-            ui.warn("Invalid task number. Usage: delete <task number>");
+            ui.warn("Invalid task number. Usage: mark <task number>");
             return;
         }
 
-        Task removedTask;
         try {
             int index = taskNumber - 1;
-            removedTask = taskList.deleteTask(index);
+            Task markedTask = taskList.markTask(index);
             String[] lines = new String[]{
-                "Noted. I've removed this task:",
-                removedTask.toString()
+                "Nice! I've marked this task as done:",
+                markedTask.toString()
             };
             ui.say(lines);
         } catch (IndexOutOfBoundsException e) {
-            ui.warn("Task number out of bounds. Usage: delete <task number>");
-        } catch (IOException | InvalidTaskException e) {
+            ui.warn("Task number out of bounds. Usage: mark <task number>");
+        } catch (IOException e) {
             ui.warn("Unable to save task.");
         }
     }
