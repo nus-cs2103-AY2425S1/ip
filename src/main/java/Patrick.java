@@ -1,13 +1,18 @@
-import java.awt.*;
+import javax.sound.midi.SysexMessage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Patrick {
-    static String horizontalLine = "____________________________________________________________\n";
-    static String greetingMsg = horizontalLine + "Hello! I'm Patrick, Spongebob bestie\nHow can I help you?\n" + horizontalLine;
-    static String exitMsg = horizontalLine + "Bye. Hope to see you again soon!\n" + horizontalLine;
-    static String taskMsg = "Got it. I've added this task:\n";
-    static String numTaskMsg1 = "Now you have ";
-    static String numTaskMsg2 = " tasks in the list.\n";
+    static String HORIZONTAL_LINE = "____________________________________________________________\n";
+    static String GREETING_MSG = HORIZONTAL_LINE + "Hello! I'm Patrick, Spongebob bestie\nHow can I help you?\n" + HORIZONTAL_LINE;
+    static String EXIT_MSG = HORIZONTAL_LINE + "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE;
+    static String TASK_MSG = "Got it. I've added this task:\n";
+    static String NUM_TASK_MSG_1 = "Now you have ";
+    static String NUM_TASK_MSG_2 = " tasks in the list.\n";
     static String input;
     static ArrayList<Task> list = new ArrayList<>();
     static Task task;
@@ -15,95 +20,137 @@ public class Patrick {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR
     }
     static Type inputType;
+    static File file;
+    static String FILE_PATH = "data/bob.txt";
 
     public static void main(String[] args) {
         Scanner inputMsg = new Scanner(System.in);
-        System.out.println(greetingMsg);
+        System.out.println(GREETING_MSG);
+        loadFile();
+        printFileContents();
+
         do {
             input = inputMsg.nextLine();
-            CheckType(input);
+            checkType(input);
             switch (inputType) {
-                case LIST:
-                    System.out.println(horizontalLine + "Here are the tasks in your list:");
-                    for (int i = 1; i <= list.size(); i++) {
-                        Task curr = (Task) list.get(i - 1);
-                        System.out.println(i + "." + curr.toString());
-                    }
-                    System.out.println(horizontalLine);
+            case LIST:
+                printFileContents();
+                break;
+
+            case BYE:
+                System.out.println(EXIT_MSG);
+                break;
+
+            case MARK:
+                try {
+                    mark(input);
                     break;
+                } catch (PatrickException e) {
+                    System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                }
 
-                case BYE:
-                    System.out.println(exitMsg);
+            case UNMARK:
+                try {
+                    unmark(input);
                     break;
+                } catch (PatrickException e) {
+                    System.out.println(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                }
 
-                case MARK:
-                    try {
-                        Mark(input);
-                        break;
-                    } catch (PatrickException e) {
-                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                    }
-
-                case UNMARK:
-                    try {
-                        Unmark(input);
-                        break;
-                    } catch (PatrickException e) {
-                        System.out.println(horizontalLine + e.toString() + "\n" + horizontalLine);
-                    }
-
-                case TODO:
-                    try {
-                        ToDoTask(input);
-                        break;
-                    } catch (PatrickException e) {
-                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                    }
-
-                case DEADLINE:
-                    try {
-                        DeadlineTask(input);
-                        break;
-                    } catch (PatrickException e) {
-                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                    }
-
-                case EVENT:
-                    try {
-                        EventTask(input);
-                        break;
-                    } catch (PatrickException e) {
-                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                    }
-
-                case DELETE:
-                    try {
-                        Delete(input);
-                        break;
-                    } catch (PatrickException e) {
-                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                    }
-
-                default:
-                    System.out.println(horizontalLine + "What are you trying to say man. Re-enter your command \n" + horizontalLine);
+            case TODO:
+                try {
+                    toDoTask(input);
                     break;
+                } catch (PatrickException e) {
+                    System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                }
+
+            case DEADLINE:
+                try {
+                    deadlineTask(input);
+                    break;
+                } catch (PatrickException e) {
+                    System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                }
+
+            case EVENT:
+                try {
+                    eventTask(input);
+                    break;
+                } catch (PatrickException e) {
+                    System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                }
+
+            case DELETE:
+                try {
+                    delete(input);
+                    break;
+                } catch (PatrickException e) {
+                    System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                }
+
+            default:
+                System.out.println(HORIZONTAL_LINE + "What are you trying to say man. Re-enter your command \n" + HORIZONTAL_LINE);
+                break;
             }
         } while (!inputType.equals(Type.BYE));
     }
 
-    private static void ToDoTask(String input) throws PatrickException {
+    private static void readTasks() throws FileNotFoundException {
+        file = new File(FILE_PATH);
+        Scanner s = new Scanner(file);
+        Task currTask;
+        while (s.hasNext()) {
+            String taskString = s.nextLine();
+            if (taskString.startsWith("T")) {
+                String taskDescription = taskString.substring(7);
+                currTask = new ToDo(taskDescription);
+                list.add(currTask);
+                if (taskString.substring(4).startsWith("X")) {
+                    currTask.markAsDone();
+                }
+            } else if (taskString.startsWith("D")) {
+                String taskDescription = taskString.substring(7);
+                taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
+                String deadline = taskString.substring(7).replace(taskDescription, "").replace("| ", "");
+                currTask = new Deadline(taskDescription, deadline);
+                list.add(currTask);
+                if (taskString.substring(4).startsWith("X")) {
+                    currTask.markAsDone();
+                }
+            } else if (taskString.startsWith("E")) {
+                String taskDescription = taskString.substring(7);
+                taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
+                String tempFrom = taskString.substring(7).replace(taskDescription, "").substring(2);
+                String to = tempFrom.substring(tempFrom.indexOf("-") + 1);
+                String from = tempFrom.replace("-" + to, "");
+                currTask = new Event(taskDescription, from, to);
+                list.add(currTask);
+                if (taskString.substring(4).startsWith("X")) {
+                    currTask.markAsDone();
+                }
+            }
+        }
+    }
+
+    private static void toDoTask(String input) throws PatrickException {
         String taskDescription = input.replace("todo", "");
         if (taskDescription.isEmpty()) {
             throw new PatrickException("Description of a todo cannot be empty!!");
         } else {
             task = new ToDo(taskDescription);
             list.add(task);
-            System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1
-                    + list.size() + numTaskMsg2 + horizontalLine);
+            System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
+                    + list.size() + NUM_TASK_MSG_2 + HORIZONTAL_LINE);
+            try {
+                appendToFile("\n" + task.toString());
+            } catch (IOException e) {
+                System.out.println("There is an error: " + e.getMessage());
+            }
         }
     }
 
-    private static void DeadlineTask(String input) throws PatrickException {
+    private static void deadlineTask(String input) throws PatrickException {
         String newInput = input.replace("deadline", "");
         if (newInput.isEmpty()) {
             throw new PatrickException("Deadline Task Details cannot be empty!!");
@@ -124,14 +171,19 @@ public class Patrick {
                 else {
                     task = new Deadline(taskDescription, deadline);
                     list.add(task);
-                    System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1
-                            + list.size() + numTaskMsg2 + horizontalLine);
+                    System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
+                            + list.size() + NUM_TASK_MSG_2 + HORIZONTAL_LINE);
+                    try {
+                        appendToFile("\n" + task.toString());
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
     }
 
-    private static void EventTask(String input) throws PatrickException {
+    private static void eventTask(String input) throws PatrickException {
         String newInput = input.replace("event", "");
         if (newInput.isEmpty()) {
             throw new PatrickException("Event Task Details cannot be empty!!");
@@ -153,14 +205,19 @@ public class Patrick {
                 } else {
                     task = new Event(taskDescription, from, to);
                     list.add(task);
-                    System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1
-                            + list.size() + numTaskMsg2 + horizontalLine);
+                    System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
+                            + list.size() + NUM_TASK_MSG_2 + HORIZONTAL_LINE);
+                    try {
+                        appendToFile("\n" + task.toString());
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
     }
 
-    private static void Mark(String input) throws PatrickException {
+    private static void mark(String input) throws PatrickException {
         String taskNo = input.replace("mark", "").trim();
         if (taskNo.isEmpty()) {
             throw new PatrickException("Task Number cannot be empty!!");
@@ -179,14 +236,19 @@ public class Patrick {
                     throw new PatrickException("You cannot mark a completed task!!");
                 } else {
                     curr.markAsDone();
-                    System.out.println(horizontalLine + "Nice! I've marked this task as done:\n  "
-                            + curr.toString() + "\n" + horizontalLine);
+                    System.out.println(HORIZONTAL_LINE + "Nice! I've marked this task as done:\n  "
+                            + curr.toString() + "\n" + HORIZONTAL_LINE);
+                    try {
+                        writeToFile();
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
     }
 
-    private static void Unmark(String input) throws PatrickException {
+    private static void unmark(String input) throws PatrickException {
         String taskNo = input.replace("unmark", "").trim();
         if (taskNo.isEmpty()) {
             throw new PatrickException("Task Number cannot be empty!!");
@@ -206,14 +268,19 @@ public class Patrick {
                     throw new PatrickException("You cannot unmark an incomplete task!!");
                 } else {
                     curr.markAsUndone();
-                    System.out.println(horizontalLine + "Nice! I've marked this task as as not done yet:\n  "
-                            + curr.toString() + "\n" + horizontalLine);
+                    System.out.println(HORIZONTAL_LINE + "Nice! I've marked this task as as not done yet:\n  "
+                            + curr.toString() + "\n" + HORIZONTAL_LINE);
+                    try {
+                        writeToFile();
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
     }
 
-    private static void Delete(String input) throws PatrickException {
+    private static void delete(String input) throws PatrickException {
         String taskNo = input.replace("delete", "").trim();
         try {
             Integer.parseInt(taskNo);
@@ -228,13 +295,18 @@ public class Patrick {
             throw new PatrickException("Input task index is invalid. Please try again!!");
         }
         else {
-            System.out.println(horizontalLine + "Noted. I've removed this task:\n"
-                + list.get(num - 1).toString() + "\n" + numTaskMsg1 + (list.size() - 1) + numTaskMsg2);
+            System.out.println(HORIZONTAL_LINE + "Noted. I've removed this task:\n"
+                + list.get(num - 1).toString() + "\n" + NUM_TASK_MSG_1 + (list.size() - 1) + NUM_TASK_MSG_2);
             list.remove(num - 1);
+            try {
+                writeToFile();
+            } catch (IOException e) {
+                System.out.println("There is an error: " + e.getMessage());
+            }
         }
     }
 
-    private static void CheckType(String input) {
+    private static void checkType(String input) {
         if (input.startsWith("list"))
             inputType = Type.LIST;
         else if (input.startsWith("bye"))
@@ -265,7 +337,7 @@ public class Patrick {
         }
 
         public String getStatusIcon() {
-            return (isDone ? "X" : " ");
+            return (isDone ? "X" : "O");
         }
 
         public void markAsDone() {
@@ -278,8 +350,9 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[" + getStatusIcon() + "]" + this.description;
+            return  getStatusIcon() + " |" + this.description;
         }
+
     }
 
     public static class Deadline extends Task {
@@ -292,7 +365,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by:" + this.by + ")";
+            return "D | " + super.toString() + " |" + this.by;
         }
     }
 
@@ -303,7 +376,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[T]" + super.toString();
+            return "T | " + super.toString();
         }
     }
 
@@ -318,7 +391,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from:" + this.from + " to:" + this.to + ")";
+            return "E | " + super.toString() + " |" + this.from + "-" + this.to;
         }
     }
 
@@ -327,5 +400,43 @@ public class Patrick {
         public PatrickException(String str) {
             super(str);
         }
+    }
+
+    private static void printFileContents() {
+        System.out.println(HORIZONTAL_LINE + "Here are the tasks in your list:");
+        for (int i = 1; i <= list.size(); i++) {
+            Task curr = (Task) list.get(i - 1);
+            System.out.println(i + ". " + curr.toString());
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void loadFile() {
+        try {
+            readTasks();
+        } catch (FileNotFoundException e) {
+            File newFile = new File(FILE_PATH);
+            try {
+                newFile.createNewFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.out.println("File created!");
+        }
+    }
+
+    private static void appendToFile(String text) throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH, true);
+        fileWriter.write(text);
+        fileWriter.close();
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        for (int i = 0; i < list.size(); i++) {
+            String temp = list.get(i).toString();
+            fileWriter.write(temp + "\n");
+        }
+        fileWriter.close();
     }
 }

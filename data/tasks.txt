@@ -1,0 +1,4 @@
+T | X | read book
+D | O | return book | June 6th
+E | O | project meeting | Aug 6th 2-4pm
+T | X | join sports club
