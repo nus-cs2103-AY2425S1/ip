@@ -1,4 +1,4 @@
-import mendel.dbmanager.DBManager;
+import mendel.dbmanager.Storage;
 import mendel.metacognition.LeaveCommand;
 import mendel.metacognition.TaskStorage;
 import mendel.mendelexception.MendelException;
@@ -11,11 +11,11 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 
 public class TaskManager {
     private final TaskStorage taskStorage;
-    private final DBManager dbContoller;
+    private final Storage dbContoller;
 
     public TaskManager() {
         this.taskStorage = new TaskStorage();
-        this.dbContoller = new DBManager("data/dbTaskList.txt");
+        this.dbContoller = new Storage("data/dbTaskList.txt");
         dbContoller.loadInto(taskStorage);
     }
 
