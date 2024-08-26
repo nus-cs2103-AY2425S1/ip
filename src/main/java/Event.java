@@ -3,6 +3,10 @@ public class Event extends DatedTask {
         super(event, date);
     }
 
+    public Event() {
+        super();
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + getDate() + ")";
