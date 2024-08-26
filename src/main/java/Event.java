@@ -1,5 +1,7 @@
 package main.java;
 
+import static java.lang.Integer.parseInt;
+
 public class Event extends Task {
 
     protected String fromDate;
@@ -37,11 +39,35 @@ public class Event extends Task {
         }
     }
 
+    public Event(String[] input) {
+        int isDone = parseInt(input[0]);
+        if (isDone == 0) {
+            this.isDone = false;
+        } else {
+            this.isDone = true;
+        }
+        this.name = input[1];
+        this.fromDate = input[2];
+        this.toDate = input[3];
+    }
+
     @Override
     public String toString() {
         String res = "[E]";
         res += super.toString();
         res += "(from: " + this.fromDate + " to: " + this.toDate + ")";
+        return res;
+    }
+
+    @Override
+    public String toSave() {
+        String res = "D|";
+        res.concat(this.isDone ? "1|" : "0|");
+        res.concat(this.name);
+        res.concat("|");
+        res.concat(this.fromDate);
+        res.concat("|");
+        res.concat(this.toDate);
         return res;
     }
 }

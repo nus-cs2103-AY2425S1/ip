@@ -1,5 +1,7 @@
 package main.java;
 
+import static java.lang.Integer.parseInt;
+
 public class DeadLine extends Task {
 
     protected String endDate;
@@ -25,11 +27,32 @@ public class DeadLine extends Task {
         }
     }
 
+    public DeadLine(String[] input) {
+        int isDone = parseInt(input[0]);
+        if (isDone == 0) {
+            this.isDone = false;
+        } else {
+            this.isDone = true;
+        }
+        this.name = input[1];
+        this.endDate = input[2];
+    }
+
     @Override
     public String toString() {
         String res = "[D]";
         res += super.toString();
         res += "(by: " + this.endDate + ")";
+        return res;
+    }
+
+    @Override
+    public String toSave() {
+        String res = "D|";
+        res.concat(this.isDone ? "1|" : "0|");
+        res.concat(this.name);
+        res.concat("|");
+        res.concat(this.endDate);
         return res;
     }
 }
