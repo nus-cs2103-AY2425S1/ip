@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -118,10 +119,10 @@ public class Soju {
 
                     // The due date is after the "/by"
                     String by = parts[1].trim();
-
+                    LocalDate localDate = LocalDate.parse(by);
 
                     // Create a new Deadline task
-                    Deadline deadlineTask = new Deadline(description, by);
+                    Deadline deadlineTask = new Deadline(description, localDate);
 
                     // Add the task to your tasks list
                     addToList(deadlineTask);

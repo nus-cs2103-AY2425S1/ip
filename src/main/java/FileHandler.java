@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -42,7 +43,8 @@ public class FileHandler {
                     case "D":
                         // Create a new Deadline task
                         String doneBy = parts[3];
-                        newTask = new Deadline(description, doneBy);
+                        LocalDate localDate = LocalDate.parse(doneBy);
+                        newTask = new Deadline(description, localDate);
                         break;
                     case "E":
                         // Create a new Event task
