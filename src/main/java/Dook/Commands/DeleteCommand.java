@@ -23,7 +23,11 @@ public class DeleteCommand extends Command{
         ui.separate();
         ui.showMessage("Noted. I've removed this task");
         ui.showMessage(removed.toString());
-        ui.showMessage("Now you have " + taskList.numOfTasks() + " tasks in the list");
+        if (taskList.numOfTasks() == 1) {
+            ui.showMessage("Now you have " + taskList.numOfTasks() + " task in the list");
+        } else {
+            ui.showMessage("Now you have " + taskList.numOfTasks() + " tasks in the list");
+        }
         ui.separate();
     }
 }
