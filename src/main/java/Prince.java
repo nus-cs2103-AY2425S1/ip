@@ -1,9 +1,18 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class Prince {
 
-    private static String LINE = "    ___________________________________________";
+    private static final String LINE = "    ___________________________________________";
+    private static final Path FILE_PATH = Paths.get("data", "storage.txt");
 
     // flag to control input printing when running automated tests
     private static boolean DEBUG = false;
@@ -19,7 +28,7 @@ public class Prince {
         Scanner sc = new Scanner(System.in);
 
         // initialise array for input storage
-        ArrayList<Task> tasksArray = new ArrayList<Task>();
+        ArrayList<Task> tasksArray = loadFromFile();
 
         printline();
         System.out.println("    Hello! I'm Prince");
@@ -43,24 +52,29 @@ public class Prince {
                 } else if (input.equals("list")) {
                     printList(tasksArray);
                 } else if (input.contains("unmark")) {
-                    unmark(input, tasksArray);
+                    // saveToFile("unmark", unmark(input, tasksArray), tasksArray);
                 } else if (input.contains("mark")) {
-                    mark(input, tasksArray);
+                    // saveToFile("mark", mark(input, tasksArray), tasksArray);
                 } else if (input.contains("delete")) {
                     delete(input, tasksArray);
+                    // saveToFile("delete", tasksArray);
                 } else if (input.equals("todo") || input.equals("deadline") ||
                         input.equals("event")) {
-                    throw new PrinceException("    Please describe your '" + input + "' task in more detail!");
+                    throw new PrinceException("    Please describe your '" + input +
+                            "' task in more detail!");
                 } else if (input.contains("todo") || input.contains("deadline") ||
                         input.contains("event")) {
                     if (input.contains("todo")) {
-                        handleTodo(input, tasksArray);
+                        Task task = handleTodo(input, tasksArray);
+                        // saveToFile("task", task, tasksArray);
                     }
                     if (input.contains("deadline")) {
-                        handleDeadline(input, tasksArray);
+                        Task task = handleDeadline(input, tasksArray);
+                        // saveToFile("task", task, tasksArray);
                     }
                     if (input.contains("event")) {
-                        handleEvent(input, tasksArray);
+                        Task task = handleEvent(input, tasksArray);
+                        // saveToFile("task", task, tasksArray);
                     }
                     printline();
                 } else {
@@ -116,7 +130,7 @@ public class Prince {
         return todo;
     }
 
-    private static void handleTodo(String input, ArrayList<Task> tasksArray) {
+    private static Task handleTodo(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getTodo(input);
         Todo todo = new Todo(desc);
@@ -124,6 +138,7 @@ public class Prince {
         System.out.println("      " + todo.toString());
         System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
+        return todo;
     }
 
     /*
@@ -144,7 +159,7 @@ public class Prince {
         return by;
     }
 
-    private static void handleDeadline(String input, ArrayList<Task> tasksArray) {
+    private static Task handleDeadline(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getDeadline(input);
         String by = getBy(input);
@@ -153,6 +168,7 @@ public class Prince {
         System.out.println("      " + deadlineTask.toString());
         System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
+        return deadlineTask;
     }
 
     /*
@@ -180,7 +196,7 @@ public class Prince {
         return to;
     }
 
-    private static void handleEvent(String input, ArrayList<Task> tasksArray) {
+    private static Task handleEvent(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getEvent(input);
         String from = getFrom(input);
@@ -190,6 +206,7 @@ public class Prince {
         System.out.println("      " + event.toString());
         System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
+        return event;
     }
 
     /*
@@ -229,7 +246,7 @@ public class Prince {
             int index = getIndex(input);
             Task task = tasksArray.get(index);
             task.markAsNotDone();
-            System.out.println("      " + task.toString());
+            System.out.println(" " + task.toString());
         }
         printline();
     }
@@ -253,11 +270,173 @@ public class Prince {
             int index = getIndex(input);
             Task task = tasksArray.get(index);
             task.delete(); // prints "the noted i removed this task" string
-            tasksArray.remove(index); 
+            tasksArray.remove(index);
             System.out.println("      " + task.toString());
             System.out.println("    Now you have " + tasksArray.size() +
                     " tasks in the list.");
         }
         printline();
+    }
+
+    /*
+     * Methods relating to reading and writing inputs to files
+     */
+
+     // method will read from a text file, convert the text to relevant tasks, and return a tasksArray
+    private static ArrayList<Task> loadFromFile() {
+        ArrayList<Task> tasksArray = new ArrayList<>();
+
+        try {
+
+            if (Files.notExists(FILE_PATH.getParent())) {
+                Files.createDirectories(FILE_PATH.getParent());
+            }
+
+            if (Files.notExists(FILE_PATH)) {
+                Files.createFile(FILE_PATH);
+            }
+
+            
+
+            // read from file path
+            List<String> lines = Files.readAllLines(FILE_PATH);
+
+
+            // for each line, need to splice it according to the format
+            // create new tasks in taskarray based on each line
+            for (String stringTask : lines) {
+                String[] arr = stringTask.split(" .. ");
+                String taskType = "";
+                String description = "";
+                String status = "";
+                String byFrom = "";
+                String to = "";
+                // for each line in the file, splice and extract relevant fields
+                for (int i = 0; i < arr.length; i++) {
+                    if (arr[i] != null) {
+                        String trimmed = arr[i].trim();
+                        if (i == 0) {
+                            taskType = trimmed;
+                        }
+                        if (i == 1) {
+                            status = trimmed;
+                        }
+                        if (i == 2) {
+                            description = trimmed;
+                        }
+                        if (i == 3) {
+                            byFrom = trimmed;
+                        }
+                        if (i == 4) {
+                            to = trimmed;
+                        }
+                    }
+                }
+
+                // create new task based on each line in the file
+                if (taskType.equals("T")) {
+                    Task todoTask = new Todo(description);
+                    tasksArray.add(todoTask);
+                    if (status.equals("1")) {
+                        todoTask.markAsDone();
+                    } 
+                }
+                if (taskType.equals("D")) {
+                    System.out.println("creating deadline");
+                    Task deadlineTask = new Deadline(description, byFrom);
+                    tasksArray.add(deadlineTask);
+                    if (status.equals("1")) {
+                        deadlineTask.markAsDone();
+                    } 
+                }
+                if (taskType.equals("E")) {
+                    Task eventTask = new Event(description, byFrom, to);
+                    tasksArray.add(eventTask);
+                    if (status.equals("1")) {
+                        eventTask.markAsDone();
+                    } 
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return tasksArray;
+    }
+
+    private static void saveToFile(String identifier, Task task, ArrayList<Task> tasksArray) {
+        try {
+
+            if (Files.notExists(FILE_PATH.getParent())) {
+                Files.createDirectories(FILE_PATH.getParent());
+            }
+
+            if (Files.notExists(FILE_PATH)) {
+                Files.createFile(FILE_PATH);
+            }
+
+            BufferedWriter bw = Files.newBufferedWriter(FILE_PATH, StandardOpenOption.APPEND);
+
+            if (identifier.equals("unmark")) {
+                String desc = task.getDescription();
+                // check description against the descriptions in our txt file
+                // find the mathcing one
+                // replace that line with a new unmarked line
+
+            }
+            if (identifier.equals("mark")) {
+                String desc = task.getDescription();
+                // check description against the descriptions in our txt file
+                // find the mathcing one
+                // replace that line with a new marked line
+            }
+            if (identifier.equals("delete")) {
+                handleFileDelete(task);
+            }
+
+            if (identifier.equals("task")) {
+                String taskString = task.toFileFormat();
+                bw.write(taskString);
+                bw.newLine();
+            }
+            bw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void handleFileDelete(Task task) {
+        try {
+            // Open the old file for reading
+            BufferedReader reader = Files.newBufferedReader(FILE_PATH);
+            // Open a new (temporary) file for writing
+            Path tempPath = Paths.get("data", "temp.txt");
+            BufferedWriter writer = Files.newBufferedWriter(tempPath);
+            // Iterate over the lines in the old file (probably using a BufferedReader)
+            String lineToRemove = task.toString();
+            String currLine;
+            // For each line, check if it matches what you are supposed to remove
+            while (reader.readLine() != null) {
+                currLine = reader.readLine();
+                if (currLine.equals(lineToRemove)) {
+                    // If it matches, do nothing
+                    continue;
+                }
+                // If it doesn't match, write it to the temporary file
+                writer.write(currLine);
+            }
+
+            // When done, close both files
+            reader.close();
+            writer.close();
+            // Copy temp file to old file
+            Files.copy(tempPath, FILE_PATH);
+            // Delete temp file
+            Files.delete(tempPath);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
