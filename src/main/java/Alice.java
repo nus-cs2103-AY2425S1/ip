@@ -5,10 +5,11 @@ import task.*;
 public class Alice {
     private static final String NAME = "Alice";
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String DATA_DIRECTORY = "./data";
-    private static final String TASKS_FILE = "tasks.jsonl";
+    private static final String DATA_DIRECTORY_PATH = "./data";
+    private static final String TASKS_FILE_NAME = "tasks.jsonl";
 
     private Ui ui;
+    private Storage storage;
     private final List<Task> tasks;
 
     private enum Commands {
@@ -24,8 +25,8 @@ public class Alice {
 
     public Alice() {
         this.ui = new Ui();
-        this.tasks = new ArrayList<>();
-        loadTasks();
+        this.storage = new Storage(DATA_DIRECTORY_PATH, TASKS_FILE_NAME);
+        this.tasks = loadTasks();
     }
 
     private void greet() {
@@ -154,48 +155,18 @@ public class Alice {
         saveTasks();
     }
 
-    private void loadTasks() {
-        File dataDirectory = new File(DATA_DIRECTORY);
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdir();
-        }
-
-        File tasksFile = new File(String.format("%s/%s", DATA_DIRECTORY, TASKS_FILE));
+    private List<Task> loadTasks() {
         try {
-            FileReader input = new FileReader(tasksFile.getAbsoluteFile());
-            BufferedReader reader = new BufferedReader(input);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.isEmpty()) {
-                    continue;
-                }
-                Task task = Task.fromJsonString(line);
-                tasks.add(task);
-            }
-            reader.close();
-            input.close();
+            return storage.loadTasks();
         } catch (IOException | InvalidTaskException exception){
             ui.warn(String.format("%s Unable to load tasks.", exception));
         }
+        return new ArrayList<>();
     }
 
     private void saveTasks() {
-        File dataDirectory = new File(DATA_DIRECTORY);
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdir();
-        }
-
-        File tasksFile = new File(String.format("%s/%s", DATA_DIRECTORY, TASKS_FILE));
         try {
-            // overwrite file
-            FileWriter output = new FileWriter(tasksFile.getAbsoluteFile(), false);
-            BufferedWriter writer = new BufferedWriter(output);
-            for (Task task : tasks) {
-                writer.write(task.toJsonString());
-                writer.write("\n");
-            }
-            writer.close();
-            output.close();
+            storage.saveTasks(tasks);
         } catch (IOException exception){
             ui.warn(String.format("%s Unable to save tasks.", exception));
         }
