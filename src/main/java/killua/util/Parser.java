@@ -1,3 +1,12 @@
+package killua.util;
+
+import killua.command.UnmarkCommand;
+import killua.command.*;
+import killua.task.Deadline;
+import killua.task.Event;
+import killua.task.Task;
+import killua.task.Todo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -90,7 +99,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new KilluaException("Please provide a valid task number!");
         } catch (IndexOutOfBoundsException e) {
-            throw new KilluaException("Task " + argument + " not found!");
+            throw new KilluaException("killua.task.Task " + argument + " not found!");
         }
     }
 

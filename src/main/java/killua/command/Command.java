@@ -1,3 +1,10 @@
+package killua.command;
+
+import killua.util.KilluaException;
+import killua.util.Storage;
+import killua.util.TaskList;
+import killua.util.Ui;
+
 import java.io.IOException;
 
 public abstract class Command {
