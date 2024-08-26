@@ -2,18 +2,31 @@ package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
 
     protected LocalDate start;
     protected LocalDate end;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws EventException {
         super(description);
 
         // Parse datetime
-        this.start = LocalDate.parse(start);
-        this.end = LocalDate.parse(end);
+        try {
+            this.start = LocalDate.parse(start);
+
+        } catch (DateTimeParseException e) {
+            throw new EventException("Cannot parse start date");
+        }
+
+        try {
+            this.end = LocalDate.parse(end);
+
+        } catch (DateTimeParseException e) {
+            throw new EventException("Cannot parse end date");
+        }
+
     }
 
     /**
