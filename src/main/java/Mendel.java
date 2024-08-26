@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 import mendel.mendelexception.ServerError;
-import mendel.preetyprint.FormatText;
 import mendel.mendelexception.MendelException;
 
 public class Mendel {
@@ -14,11 +13,11 @@ public class Mendel {
         while (!currAction.equals("bye")) {
             currAction = sc.nextLine().trim();
             try {
-                taskManager.manage(currAction);
+                ui.preetyPrint(taskManager.manage(currAction));
             } catch (MendelException e) {
-                System.out.println(new FormatText(e.toString()).wrapLines());
+                ui.preetyPrint(taskManager.manage(e.toString()));
             } catch (ServerError e) {
-                System.out.println(new FormatText(e.toString()).wrapLines());
+                ui.preetyPrint(taskManager.manage(e.toString()));
                 taskManager.manage("bye");
                 currAction = "bye";
             }

@@ -1,9 +1,8 @@
 import mendel.dbmanager.DBManager;
+import mendel.metacognition.LeaveCommand;
 import mendel.metacognition.TaskStorage;
-import mendel.metacognition.Leave;
 import mendel.mendelexception.MendelException;
 
-import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.discretetask.Event;
 import mendel.discretetask.Deadline;
@@ -20,11 +19,11 @@ public class TaskManager {
         dbContoller.loadInto(taskStorage);
     }
 
-    public void manage(String currAction) throws MendelException {
+    public String manage(String currAction) throws MendelException {
         if (currAction.equals("bye")) {
-            new Leave().speak();
+            return new LeaveCommand().speak();
         } else if (currAction.equals("list")) {
-            this.taskStorage.speak();
+            return this.taskStorage.speak();
         } else {
             String[] segments = currAction.split(" ");
             if (segments[0].equals("mark") || segments[0].equals("unmark") || segments[0].equals("delete")) {
@@ -38,29 +37,34 @@ public class TaskManager {
                 }
             }
 
+            String message;
             if (segments[0].equals("mark")) {
-                Task task = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
+                message = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
                 this.dbContoller.update(this.taskStorage);
             } else if(segments[0].equals("unmark")) {
-                Task task = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
+                message = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
                 this.dbContoller.update(this.taskStorage);
             } else if(segments[0].equals("delete")) {
-                Task task = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
+                message = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
                 this.dbContoller.update(this.taskStorage);
             } else if(segments[0].equals("todo")) {
-                Task task = taskStorage.add(Todo.of(currAction));
+                Todo task = Todo.of(currAction);
+                message = taskStorage.add(task);
                 this.dbContoller.create(task, taskStorage.isFirstTask());
             } else if(segments[0].equals("deadline")) {
-                Task task = taskStorage.add(Deadline.of(currAction));
+                Deadline task = Deadline.of(currAction);
+                message = taskStorage.add(task);
                 this.dbContoller.create(task, taskStorage.isFirstTask());
             } else if(segments[0].equals("event")) {
-                Task task = taskStorage.add(Event.of(currAction));
+                Event task = Event.of(currAction);
+                message = taskStorage.add(task);
                 this.dbContoller.create(task, taskStorage.isFirstTask());
             } else if(segments[0].equals("findeventon")) {
-                taskStorage.find(segments[1]);
+                message = taskStorage.find(segments[1]);
             } else {
                 throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
             }
+            return message;
         }
     }
 }
