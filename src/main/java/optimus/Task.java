@@ -46,4 +46,8 @@ public abstract class Task {
      * @return A string in the format suitable for writing to a file.
      */
     public abstract String toFileFormat();
+
+    public String getDescription() {
+        return this.description;
+    }
 }

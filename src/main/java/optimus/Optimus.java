@@ -58,11 +58,19 @@ public class Optimus {
                     taskList.markTaskAsDone(Integer.parseInt(command[1]) - 1);
                     storage.saveTasks(taskList);
                 } else if (command[0].equals("delete")) { // Delete a task
+                    if (command.length != 2) { // Check if command is in format like "delete 2"
+                        throw new OptimusException("Invalid format. Use 'delete [task number]'.");
+                    }
                     taskList.delete(Integer.parseInt(command[1]) - 1);
                     storage.saveTasks(taskList);
                 } else if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event")) { // Add a task
                     taskList.addTask(userInput);
                     storage.saveTasks(taskList);
+                } else if (command[0].equals("find")) { // Find tasks which contain keyword and print them out
+                    if (command.length != 2) { // Check if command is in format like "find book"
+                        throw new OptimusException("Invalid format. Use 'find [keyword]'.");
+                    }
+                    ui.findTasks(userInput, taskList);
                 } else { // Handle invalid command
                     ui.showError("Invalid command.");
                     ui.showExampleCommand();
