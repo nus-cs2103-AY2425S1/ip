@@ -20,11 +20,11 @@ public class Event extends Task {
     }
 
     public String getStart() {
-        return start.format(printFormatter);
+        return start.format(parseFormatter);
     }
 
     public String getEnd() {
-        return end.format(printFormatter);
+        return end.format(parseFormatter);
     }
 
     /**
@@ -34,6 +34,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), this.getStart(), this.getEnd());
+                super.toString(), start.format(printFormatter), end.format(printFormatter));
     }
 }

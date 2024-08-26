@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -198,6 +199,8 @@ public class Joe {
     }
 
     private static void syncData() {
+        System.out.println(line);
+        System.out.println("Attempting to sync your data......");
         File f = new File("src/main/data/joe.txt");
         try {
             Scanner s = new Scanner(f);
@@ -226,9 +229,13 @@ public class Joe {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
+            System.out.println(line);
         } catch (CorruptedFileException e) {
             System.out.println(e.getMessage());
+            System.out.println(line);
         }
+        System.out.println("Data loaded successfully");
+        System.out.println(line);
     }
 
     public static void save() {
@@ -245,17 +252,17 @@ public class Joe {
                             t.getDescription()));
                 } else if (t instanceof Deadline) {
                     Deadline d = (Deadline) t;
-                    sb.append(String.format("D | %d | %s | %s",
+                    sb.append(String.format("D | %d | %s | by %s",
                             d.isDone() ? 1 : 0,
                             d.getDescription(),
-                            d.getDue().replace(":", "")));
+                            d.getDue()));
                 } else if (t instanceof Event) {
                     Event e = (Event) t;
-                    sb.append(String.format("E | %d | %s | %s | %s",
+                    sb.append(String.format("E | %d | %s | from %s | to %s",
                             e.isDone() ? 1 : 0,
                             e.getDescription(),
-                            e.getStart().replace(":", ""),
-                            e.getEnd().replace(":", "")));
+                            e.getStart(),
+                            e.getEnd()));
                 } else {
                     sb.append("<????????>");
                 }
