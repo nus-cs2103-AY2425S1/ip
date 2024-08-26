@@ -2,9 +2,13 @@ public abstract class Task {
     private boolean completed;
     private String description;
 
-    public Task(String description) {
-        this.completed = false;
+    public Task(String description, boolean isDone) {
         this.description = description;
+        if (isDone) {
+            markDone();
+        } else {
+            markNotDone();
+        }
     }
 
     public void markDone() {

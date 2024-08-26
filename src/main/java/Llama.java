@@ -14,7 +14,7 @@ public class Llama {
             throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
         }
 
-        tasks.addTask(new Todo(remaining));
+        tasks.addTask(new Todo(remaining, false));
     }
 
     public static void addDeadline(String remaining, TaskStorage tasks) {
@@ -22,7 +22,8 @@ public class Llama {
             throw new LlamaException("Empty Deadline?!? What's the point of keeping track of nothing?");
         }
 
-        tasks.addTask(new Deadline(remaining));
+        String[] substringArr = remaining.split("/by ");
+        tasks.addTask(new Deadline(substringArr[0], substringArr[1], false));
     }
 
     public static void addEvent(String remaining, TaskStorage tasks) {
@@ -30,7 +31,11 @@ public class Llama {
             throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
         }
 
-        tasks.addTask(new Event(remaining));
+        String[] substringArr = remaining.split("/");
+        String desc = substringArr[0];
+        String startTime = substringArr[1].substring(substringArr[1].indexOf(" ") + 1);
+        String endTime = substringArr[2].substring(substringArr[2].indexOf(" ") + 1);
+        tasks.addTask(new Event(desc, startTime, endTime, false));
     }
 
     public static void main(String[] args) {
