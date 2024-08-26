@@ -30,6 +30,7 @@ public class BeeBoo {
         Tasks task = list.get(index);
         task.markDone();
         chatBox("Nice! I've marked this task as done:\n" + task);
+        saveItem();
     }
 
     //Unchecks item and mark as not done
@@ -37,6 +38,7 @@ public class BeeBoo {
         Tasks task = list.get(index);
         task.unmarkDone();
         chatBox("OK, I've marked this task as not done yet:\n" + task);
+        saveItem();
     }
 
     //Deletes item

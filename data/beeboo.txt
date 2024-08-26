@@ -1,4 +1,4 @@
-E | 0 | meeting | 5pm | 6pm
-D | 0 | ca1 | tomorrow
-T | 0 | play ball
-D | 0 | homework | tomorrow
+T | 1 | hug raeboo
+D | 1 | kiss raeboo | 5min later
+E | 0 | cuddle raeboo | now | forever
+T | 0 | work
