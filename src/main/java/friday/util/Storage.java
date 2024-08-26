@@ -65,6 +65,11 @@ public class Storage {
             writer = new FileWriter(FILE_PATH);
         }
         else {
+            currentDir = new File("../data/friday.txt");
+            if (!currentDir.exists()) { // If file is still not found, create the file and directory
+                currentDir.getParentFile().mkdirs();
+                currentDir.createNewFile();
+            }
             writer = new FileWriter("../data/friday.txt");
         }
         for (Task task : tasks) {
