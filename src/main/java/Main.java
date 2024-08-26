@@ -217,6 +217,14 @@ public class Main {
     }
 
 
+    /**
+     * Returns a ToDo object,
+     * based on a line, containing information about a ToDo, read from janet.txt.
+     *
+     * @param line a line of text from the janet.txt file.
+     * @param isDone isDone = true if task has been marked else false.
+     * @return a new ToDo object created using the parameters.
+     */
     public static ToDo createToDoFromJanetTextFile(String line, boolean isDone) {
         // get description from text file
         String toDoDescription = line.substring(8, line.indexOf("|", 8) - 1);
