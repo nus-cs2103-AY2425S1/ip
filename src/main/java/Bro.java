@@ -1,5 +1,9 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Bro {
     static final String line = "   ______________________________________________________\n";
@@ -64,7 +68,64 @@ public class Bro {
         System.out.printf("   Now you have %d tasks in the list\n%s", list.size(), line);
     }
 
+    private void saveToFile() {
+        try {
+            FileWriter f = new FileWriter("./src/main/java/data.txt");
+            f.write(this.toString());
+            f.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        int len = list.size();
+        for (int i = 0; i < len; i++) {
+            s.append(String.format("%d.%s\n", i + 1, list.get(i)));
+        }
+        return s.toString();
+    }
+
+    public void loadIn() throws FileNotFoundException, BroException {
+        File f = new File("./src/main/java/data.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String curr = s.nextLine();
+            switch (curr.charAt(3)) {
+                case 'T':
+                    addTodo(curr.split("] ", 2)[1]);
+                    if (curr.charAt(6) == 'X') {
+                        list.get(list.size() - 1).mark();
+                    }
+                    break;
+                case 'E':
+                    addEvent(curr.split("] ", 2)[1]);
+                    if (curr.charAt(6) == 'X') {
+                        list.get(list.size() - 1).mark();
+                    }
+                    break;
+                case 'D':
+                    addDeadline(curr.split("] ", 2)[1]);
+                    if (curr.charAt(6) == 'X') {
+                        list.get(list.size() - 1).mark();
+                    }
+                    break;
+                default:
+                    System.out.println("Error");
+            }
+        }
+    }
+
     public void run() {
+        try {
+            loadIn();
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Nothing to load");
+        } catch (BroException be) {
+            System.out.println(be.getMessage());
+        }
         System.out.println(line + "   Hello! I'm Bro\n   What can I do for you?\n" + line);
         Scanner prompt = new Scanner(System.in);
         String word = prompt.nextLine();
@@ -88,21 +149,27 @@ public class Bro {
                     switch (action.toLowerCase()) {
                         case "mark":
                             this.markTask(Integer.parseInt(info));
+                            this.saveToFile();
                             break;
                         case "unmark":
                             this.unmarkTask(Integer.parseInt(info));
+                            this.saveToFile();
                             break;
                         case "delete":
                             this.deleteTask(Integer.parseInt(info));
+                            this.saveToFile();
                             break;
                         case "todo":
                             this.addTodo(info);
+                            this.saveToFile();
                             break;
                         case "deadline":
                             this.addDeadline(info);
+                            this.saveToFile();
                             break;
                         case "event":
                             this.addEvent(info);
+                            this.saveToFile();
                             break;
                         default:
                             System.out.println(line + "   Well, what are u trying to do here? " +
