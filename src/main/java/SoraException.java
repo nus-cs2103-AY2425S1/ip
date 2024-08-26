@@ -1,4 +1,4 @@
-public class SoraException extends IllegalArgumentException {
+public class SoraException extends Exception {
     public SoraException(String message) {
         super(message);
     }
