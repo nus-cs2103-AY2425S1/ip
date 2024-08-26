@@ -9,7 +9,7 @@ public class Dave {
                 + "| |_| / ___ \\   \\ V / | |___\n"
                 + "|____/_/   \\_\\   \\_/  |_____|\n";
         String horizontal = "__________________________________________________________";
-        String[] dataList = new String[100];
+        Task[] dataList = new Task[100];
         Boolean[] booleanList = new Boolean[100];
         int dataIndex = 0;
         String state;
@@ -29,7 +29,7 @@ public class Dave {
 
         while (true)
         {
-            String[] reply = scanner.nextLine().trim().split(" ");
+            String[] reply = scanner.nextLine().trim().split(" ", 2);
             userInput = reply[0];
 
             if (userInput.isEmpty()) {
@@ -47,8 +47,7 @@ public class Dave {
                 case "list":
                     System.out.println(horizontal);
                     for (int i = 0; i < dataIndex; i++) {
-                        state = booleanList[i] ? "X" : "";
-                        statement = String.format("%d.[%s] %s", i+1, state, dataList[i]);
+                        statement = String.format("%d.%s", i+1, dataList[i]);
                         System.out.println(statement);
                     }
                     System.out.println(horizontal);
@@ -65,10 +64,10 @@ public class Dave {
                             System.out.println(horizontal);
                             continue;
                         }
-                        booleanList[taskNumber - 1] = true;
+                        dataList[taskNumber - 1].markAsDone();
                         System.out.println(horizontal);
                         System.out.println("Nice! I've marked this task as done:");
-                        statement = String.format("[X] %s", dataList[taskNumber - 1]);
+                        statement = String.format("%s", dataList[taskNumber - 1]);
                         System.out.println(statement);
                     }
                     System.out.println(horizontal);
@@ -85,17 +84,49 @@ public class Dave {
                             System.out.println(horizontal);
                             continue;
                         }
-                        booleanList[taskNumber - 1] = false;
+                        dataList[taskNumber - 1].markAsNotDone();
                         System.out.println(horizontal);
                         System.out.println("Ok, I've marked this task as not done yet:");
-                        statement = String.format("[] %s", dataList[taskNumber - 1]);
+                        statement = String.format("%s", dataList[taskNumber - 1]);
                         System.out.println(statement);
                     }
                     System.out.println(horizontal);
                     break;
 
+                case "todo":
+                    dataList[dataIndex] = new Todo(reply[1]);
+                    dataIndex ++;
+                    System.out.println(horizontal);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(dataList[dataIndex - 1]);
+                    System.out.println("Now you have " + dataIndex + " tasks in the list.");
+                    System.out.println(horizontal);
+                    break;
+
+                case "deadline":
+                    String[] deadlineParts = reply[1].split(" /by ");
+                    dataList[dataIndex] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    dataIndex++;
+                    System.out.println(horizontal);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(dataList[dataIndex - 1]);
+                    System.out.println("Now you have " + dataIndex + " tasks in the list.");
+                    System.out.println(horizontal);
+                    break;
+
+                case "event":
+                    String[] eventParts = reply[1].split(" /from | /to ");
+                    dataList[dataIndex] = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                    dataIndex++;
+                    System.out.println(horizontal);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(dataList[dataIndex - 1]);
+                    System.out.println("Now you have " + dataIndex + " tasks in the list.");
+                    System.out.println(horizontal);
+                    break;
+
                 default:
-                    dataList[dataIndex] = userInput;
+                    dataList[dataIndex] = new Task(userInput);
                     dataIndex ++;
                     System.out.println(horizontal);
                     System.out.printf("added: %s%n", userInput);
