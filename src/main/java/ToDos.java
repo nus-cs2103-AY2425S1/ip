@@ -1,9 +1,6 @@
 public class ToDos extends Task{
-<<<<<<< HEAD
     public ToDos(String content) {
-=======
-    ToDos(String content) {
->>>>>>> origin/master
+
         super(content);
     }
     @Override
