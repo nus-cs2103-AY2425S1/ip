@@ -5,6 +5,7 @@ import tina.TinaException;
 public abstract class Task {
     protected final String des;
     protected boolean isMark = false;
+
     public Task(String des) throws TinaException {
         if (des.isEmpty()) {
             throw new TinaException("Enter your description after the space");

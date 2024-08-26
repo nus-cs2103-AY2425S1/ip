@@ -3,6 +3,7 @@ package tina;
 import java.util.Scanner;
 
 public class Ui {
+
     public void greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"

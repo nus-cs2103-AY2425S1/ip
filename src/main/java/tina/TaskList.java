@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> list;
     private final Storage storage;
+
     public TaskList(Storage storage) {
         this.storage = storage;
         this.list = storage.read();

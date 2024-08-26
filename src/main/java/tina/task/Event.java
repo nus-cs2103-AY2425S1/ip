@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
+
     public Event(String des, String start, String end) {
         super(des);
         this.end = Parser.parseDate(end);

@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+
     private static void parseTask(String input, TaskList tasks) throws TinaException {
         try {
             if (input.startsWith("todo")) {
@@ -36,6 +37,7 @@ public class Parser {
             throw new TinaException("Where is your description?");
         }
     }
+
     public static void parseInput(String input, TaskList tasks) throws TinaException {
         try {
             if (input.equals("list")) {
