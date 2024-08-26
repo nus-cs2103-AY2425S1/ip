@@ -15,6 +15,14 @@ public abstract class Task {
         this.completed = false;
     }
 
+    public String getSaveTaskString() {
+        if (completed) {
+            return "|1|" + description;
+        }
+
+        return "|0|" + description;
+    }
+
     @Override
     public String toString() {
         if (completed) {

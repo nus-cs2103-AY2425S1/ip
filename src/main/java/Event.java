@@ -11,6 +11,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getSaveTaskString() {
+        return "E" + super.getSaveTaskString() + "|" + this.startTime + "|" + this.endTime;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() +
                 "(from: " + this.startTime + "|to: " + this.endTime + ")";
