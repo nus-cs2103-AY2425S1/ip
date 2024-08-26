@@ -1,3 +1,5 @@
+package mendel.frontend;
+
 import mendel.dbmanager.Storage;
 import mendel.discretetask.Deadline;
 import mendel.discretetask.Event;
