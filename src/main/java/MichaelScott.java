@@ -1,8 +1,9 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MichaelScott {
     static final String DEFAULTNAME = "Todo.txt";
@@ -145,11 +146,12 @@ public class MichaelScott {
                         }
 
                         // Parse the date string
-                        LocalDate deadlineDate;
+                        LocalDateTime deadlineDate;
                         try {
-                            deadlineDate = LocalDate.parse(deadlineParts[1]);
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                            deadlineDate = LocalDateTime.parse(deadlineParts[1], formatter);
                         } catch (java.time.format.DateTimeParseException e) {
-                            throw new MichaelScottException("Invalid date format. Please use the format YYYY-MM-DD.");
+                            throw new MichaelScottException("Invalid date format. Please use the format YYYY-MM-DD HH:MM.");
                         }
 
                         task = new Deadline(deadlineParts[0], deadlineDate);
@@ -174,7 +176,19 @@ public class MichaelScott {
                         if (eventParts.length != 3) {
                             throw new MichaelScottException("Please specify description, start-time and end-time");
                         }
-                        task = new Event(eventParts[0], eventParts[1], eventParts[2]);
+
+                        // Parse the date string
+                        LocalDateTime startDate;
+                        LocalDateTime endDate;
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                            startDate = LocalDateTime.parse(eventParts[1], formatter);
+                            endDate = LocalDateTime.parse(eventParts[2], formatter);
+                        } catch (java.time.format.DateTimeParseException e) {
+                            throw new MichaelScottException("Invalid date format. Please use the format YYYY-MM-DD HH:MM.");
+                        }
+
+                        task = new Event(eventParts[0], startDate, endDate);
                         todo.add(task);
                         printLine();
                         System.out.println("Got it. I've added this task:");
