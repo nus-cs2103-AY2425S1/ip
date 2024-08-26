@@ -1,15 +1,32 @@
-public class Deadline extends Task {
-    public String deadlineTiming;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
-    private Deadline(String taskDescription, String deadlineTiming, boolean isDone) {
+public class Deadline extends Task {
+    public LocalDate deadlineTiming;
+
+    private Deadline(String taskDescription, String deadlineTiming, boolean isDone) throws NedException{
         super(taskDescription, isDone);
-        this.deadlineTiming = deadlineTiming;
+        try {
+            System.out.println(deadlineTiming);
+            this.deadlineTiming = LocalDate.parse(deadlineTiming);
+        } catch (DateTimeParseException e) {
+            throw new NedException("M'lord, the time formatting in /by does not follow ISO 8601 (yyyy-mm-dd). Here " +
+                    "are " +
+                    "examples of" +
+                    " " +
+                    "valid " +
+                    "timings:\n" + Ned.INDENTATIONS + "2015-08-04\n" + Ned.INDENTATIONS + "2015-08-04T10:11:30");
+        }
         this.taskType = "D";
     }
 
+    private String showTiming() {
+            return String.format("%s %d %d", deadlineTiming.getMonth(), deadlineTiming.getDayOfMonth(),
+                    deadlineTiming.getYear());
+    }
     @Override
     public String toString() {
-        return super.toString() + " " + String.format("(by: %s)", this.deadlineTiming);
+        return super.toString() + " " + String.format("(by: %s)", showTiming());
     }
 
     public static Deadline createDeadline(String taskDescription, String deadlineTiming, boolean taskStatus) throws NedException {
@@ -24,6 +41,6 @@ public class Deadline extends Task {
     @Override
     public String toTextForm() {
         int status = this.isDone ? 1 : 0;
-        return String.format("deadline|%d|%s", status, this.taskDescription);
+        return String.format("deadline|%d|%s|%s", status, this.taskDescription, this.deadlineTiming);
     }
 }
