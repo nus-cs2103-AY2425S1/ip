@@ -194,8 +194,7 @@ public class Main {
                 switch (taskSymbol) {
                 case 'T' -> {
                     // todo object
-                    task = new ToDo(line.substring(8), "T");
-                    task.setDone(isDone);
+                    task = createToDoFromJanetTextFile(line, isDone);
                 }
                 case 'D' -> {
                     // deadline object
