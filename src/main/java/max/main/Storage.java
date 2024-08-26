@@ -1,3 +1,12 @@
+package max.main;
+
+import max.exception.MaxException;
+import max.main.Parser;
+import max.task.Deadline;
+import max.task.Event;
+import max.task.Task;
+import max.task.Todo;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

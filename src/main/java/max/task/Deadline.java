@@ -1,3 +1,7 @@
+package max.task;
+
+import max.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

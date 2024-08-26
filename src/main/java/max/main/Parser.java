@@ -1,10 +1,14 @@
+package max.main;
+
+import max.exception.MaxException;
+import max.task.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Parser {
-    private String text;
 
     private TaskList taskList;
     private Ui ui;
@@ -48,7 +52,9 @@ public class Parser {
                     handleEvent(text);
                 } else if (text.startsWith("delete")){
                     int index = Integer.parseInt(text.replace("delete ", "")) - 1;
+                    Task task = taskList.getTask(index);
                     taskList.deleteTask(index);
+                    ui.printDeleteTask(task, taskList.getSize());
                 } else {
                     throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
                 }

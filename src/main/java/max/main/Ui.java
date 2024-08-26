@@ -1,3 +1,7 @@
+package max.main;
+
+import max.task.Task;
+
 import java.util.ArrayList;
 
 public class Ui {

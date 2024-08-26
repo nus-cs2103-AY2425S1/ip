@@ -1,5 +1,7 @@
+package max.exception;
+
 public class MaxException extends Exception {
-    MaxException(String message) {
+    public MaxException(String message) {
         super(message);
     }
 }

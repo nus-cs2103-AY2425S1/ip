@@ -1,3 +1,8 @@
+package max.task;
+
+import max.exception.MaxException;
+import max.task.Task;
+
 public class Event extends Task {
     protected String startTime;
     protected String endTime;
