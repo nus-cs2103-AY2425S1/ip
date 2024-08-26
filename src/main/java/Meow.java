@@ -21,7 +21,7 @@ public class Meow {
         Meow MEOW = new Meow();
 
 
-        System.out.println("_____________________________________________________________\n" +
+        System.out.println("____________________________________________________________\n" +
                 " Hello! I'm " + MEOW.name + "\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n");
@@ -36,8 +36,12 @@ public class Meow {
                     MEOW.line();
                     break;
                 } else if (input.equals("list")) {
-                    for (int i = 0; i < MEOW.taskCount; i++) {
-                        System.out.println((i + 1) + "." + MEOW.tasks.get(i));
+                    if (MEOW.taskCount == 0) {
+                        System.out.println("No outstanding tasks. MEOW!");
+                    } else {
+                        for (int i = 0; i < MEOW.taskCount; i++) {
+                            System.out.println((i + 1) + "." + MEOW.tasks.get(i));
+                        }
                     }
                     MEOW.line();
                 } else if (input.startsWith("mark")) {
@@ -84,15 +88,16 @@ public class Meow {
                     } else {
                         throw new MeowException("Invalid deadline format. Example: deadline return book /by Christmas");
                     }
+                    MEOW.line();
                 } else if (input.startsWith("event")) {
                     if (input.startsWith("event ")) {
                         String[] parts = input.substring(6).split(" /from | /to "); // split input into 3 args for event
                         if (parts.length == 3) {
-                            MEOW.tasks.add(new Event(parts[0], parts[1], parts[2]));;
+                            MEOW.tasks.add(new Event(parts[0], parts[1], parts[2]));
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(MEOW.tasks.size() - 1);
+                            System.out.println(MEOW.tasks.get(MEOW.tasks.size() - 1));
                             MEOW.taskCount++;
-                            System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " in the list."
+                            System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
                                     : "Now you have " + MEOW.taskCount + " tasks in the list.");
                         } else {
                             throw new MeowException("Invalid event format. Example: event gym workout /from Mon 1pm /to 2.30pm");
@@ -100,6 +105,7 @@ public class Meow {
                     } else {
                         throw new MeowException("Invalid event format. Example: event gym workout /from Mon 1pm /to 2.30pm");
                     }
+                    MEOW.line();
                 } else if (input.startsWith("todo")) {
                     if (input.startsWith("todo ")) {
                         String description = input.substring(5).trim(); // chop off the first few letters to get task
@@ -107,12 +113,13 @@ public class Meow {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(MEOW.tasks.get(MEOW.tasks.size() - 1));
                         MEOW.taskCount++;
-                        System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + (MEOW.tasks.size() == 1 ? " task" : " tasks") + " in the list."
+                        System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
                                 : "Now you have " + MEOW.taskCount + " tasks in the list.");
                         MEOW.line();
                     } else {
                         throw new MeowException("Invalid todo format. Example: todo eat lunch");
                     }
+
                 } else if (input.startsWith("delete")) {
                    if (input.startsWith("delete ")) {
                        int index = Integer.parseInt(input.substring(7).trim()) - 1; // Get index from the input
@@ -128,6 +135,7 @@ public class Meow {
                    } else {
                         throw new MeowException("Invalid todo format. Example: delete 1");
                    }
+
                 } else {
                     throw new MeowException("Whatchu sayin bruh?");
                 }
