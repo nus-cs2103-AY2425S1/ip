@@ -29,21 +29,24 @@ public class Parser {
         String commandType = commandWords[0];
 
         switch (commandType) {
-        case "list":
-            ui.showTasks(tasks);
-            break;
-        case "mark":
-            handleMarkCommand(commandWords[1], tasks, ui, storage);
-            break;
-        case "unmark":
-            handleUnmarkCommand(commandWords[1], tasks, ui, storage);
-            break;
-        case "delete":
-            handleDeleteCommand(commandWords[1], tasks, ui, storage);
-            break;
-        default:
-            handleAddTaskCommand(fullCommand, tasks, ui, storage);
-            break;
+            case "find":
+                handleFindCommand(commandWords[1], tasks, ui);
+                break;
+            case "list":
+                ui.showTasks(tasks);
+                break;
+            case "mark":
+                handleMarkCommand(commandWords[1], tasks, ui, storage);
+                break;
+            case "unmark":
+                handleUnmarkCommand(commandWords[1], tasks, ui, storage);
+                break;
+            case "delete":
+                handleDeleteCommand(commandWords[1], tasks, ui, storage);
+                break;
+            default:
+                handleAddTaskCommand(fullCommand, tasks, ui, storage);
+                break;
         }
     }
 
@@ -175,5 +178,10 @@ public class Parser {
         default:
             throw new BopesException("Error: Unknown task type in file.");
         }
+    }
+
+    private static void handleFindCommand(String keyword, TaskList tasks, Ui ui) {
+        TaskList matchingTasks = tasks.findTasks(keyword);
+        ui.showFoundTasks(matchingTasks);
     }
 }
