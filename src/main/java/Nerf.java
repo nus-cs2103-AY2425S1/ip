@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -60,6 +62,15 @@ public class Nerf {
             System.out.println("An error occurred while writing to the file. Please restart the application");
         }
     }
+    private static LocalDate parseStringToDate(String dateTimeString){
+        System.out.println(dateTimeString);
+        try {
+            return LocalDate.parse(dateTimeString);
+        } catch (DateTimeParseException  e) {
+            System.out.println("Please use the format yyyy-MM-dd for datetime inputs");
+            return null;
+        }
+    }
 
     private static void loadTask(){
         List<String> fileData = readFile();
@@ -67,10 +78,13 @@ public class Nerf {
             String[] task = taskLine.split("\\|");
             switch (task[0].trim()) {
             case "T" -> listings.add(new ToDos(task[2].trim(),task[1].trim().equals("1")));
-            case "D" -> listings.add(new Deadlines(task[2].trim(),task[1].trim().equals("1"),task[3].trim()));
+            case "D" -> {
+                listings.add(new Deadlines(task[2].trim(),task[1].trim().equals("1"),parseStringToDate(task[3].trim())));
+            }
             case "E" -> {
                 String[] timeFrame = task[3].trim().split("-");
-                listings.add(new Events(task[2].trim(),task[1].trim().equals("1"),timeFrame[0],timeFrame[1]));
+                listings.add(new 
+                    Events(task[2].trim(),task[1].trim().equals("1"),parseStringToDate(timeFrame[0]),parseStringToDate(timeFrame[1])));
             }
             default -> System.out.println("Save file seems to be corrupted.");
             }
@@ -164,8 +178,8 @@ public class Nerf {
             System.out.println("Syntax: deadline <taskname> /by <datetime>");
         } else {
             String taskDesc = parts[0].trim();
-            String deadline = parts[1].trim();
-            if (taskDesc.equals("") || deadline.equals("")){
+            LocalDate deadline = parseStringToDate(parts[1].trim());
+            if (taskDesc.equals("") || deadline == null){
                 throw new InvalidDataException();
             }
             addToList(new Deadlines(taskDesc,deadline));
@@ -185,9 +199,9 @@ public class Nerf {
                 System.out.println("Syntax: event <taskname> /from <datetime> /to <datetime>");
             } else {
                 String taskDesc = part1[0].trim();
-                String from = part2[0].trim();
-                String to = part2[1].trim();
-                if (taskDesc.equals("") || from.equals("") || to.equals("")){
+                LocalDate from = parseStringToDate(part2[0].trim());
+                LocalDate to = parseStringToDate(part2[1].trim());
+                if (taskDesc.equals("") || from == null || to  == null){
                     throw new InvalidDataException();
                 }
                 addToList(new Events(taskDesc,from,to));
