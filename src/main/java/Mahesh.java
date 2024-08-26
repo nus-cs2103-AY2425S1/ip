@@ -8,28 +8,7 @@ import java.util.StringTokenizer;
 
 public class Mahesh {
 
-    /**
-     * The logo to be displayed when the application starts.
-     */
-    private static String LOGO = 
-      "#     #                                       ######                               ###### \n"
-    + "##   ##   ##   #    # ######  ####  #    #    #     #   ##   #      #              #      \n"
-    + "# # # #  #  #  #    # #      #      #    #    #     #  #  #  #      #              #      \n"
-    + "#  #  # #    # ###### #####   ####  ######    #     # #    # #      #      #####   #####  \n"
-    + "#     # ###### #    # #           # #    #    #     # ###### #      #              #      \n"
-    + "#     # #    # #    # #      #    # #    #    #     # #    # #      #              #      \n"
-    + "#     # #    # #    # ######  ####  #    #    ######  #    # ###### ######         ###### \n";
-
-    /**
-     * Divider line used for separating sections in the console output.
-     */
-    private static String DIVIDER = "-------------------------------------------------------";
-
-    /**
-     * Error message for incomplete or incorrect commands.
-     */
-    private static String INCOMPLETE_COMMAND_ERR = "The command is incomplete/incorrect.";
-
+    
     /**
      * List to store tasks.
      */
@@ -42,13 +21,8 @@ public class Mahesh {
 
     public static void main(String[] args) {
         Mahesh.initializeList();
+        Ui.printStartupMessage();
 
-        System.out.println("Hello from\n" + LOGO);
-
-        System.out.println(DIVIDER);
-        System.out.println("Hello! I'm Mahesh Dall-E [but you can call me Mahesh ;)]");
-        System.out.println("What can I do for you?\n");
-        System.out.println(DIVIDER);
         
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
@@ -56,7 +30,6 @@ public class Mahesh {
         while (!exit) {
             String originalInput = scan.nextLine();
             StringTokenizer tokenizedInput = new StringTokenizer(originalInput);
-            System.out.println(DIVIDER);
             String commandString = tokenizedInput.nextToken();
             Task task;
             try {
@@ -70,60 +43,53 @@ public class Mahesh {
                     }
                     break;
                 case BYE:
+                    Ui.printExitMessage();
                     exit = true;
                     break;
                 case MARK:
                     try {
                         task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
                         task.markAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  " + task);
+                        Ui.printMarkedAsDone(task);
                     } catch (IndexOutOfBoundsException err) {
-                        System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
-                        System.out.println("Use the \"list\" command to view all your tasks.");
+                        Ui.printNoSuchTaskErr(taskCount);
                     }
                     break;
                 case UNMARK:
                     try {
                         task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
                         task.unmarkAsDone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("  " + task);
+                        Ui.printUnmarkedAsDone(task);
                     } catch (IndexOutOfBoundsException err) {
-                        System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
-                        System.out.println("Use the \"list\" command to view all your tasks.");
+                        Ui.printNoSuchTaskErr(taskCount);
                     }
                     break;
                 case TODO:
                     try {
                         Mahesh.addToList(Todo.parseTodo(tokenizedInput));
                     } catch (MaheshException err) {
-                        System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println(err.getMessage());
+                        Ui.printIncompleteCommandErr(err);
                     }
                     break;
                 case DEADLINE:
                     try { 
                         Mahesh.addToList(Deadline.parseDeadline(tokenizedInput));
                     } catch (MaheshException err) {
-                        System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println(err.getMessage());
+                        Ui.printIncompleteCommandErr(err);
                     }
                     break;
                 case EVENT: 
                     try {
                         Mahesh.addToList((Event.parseEvent(tokenizedInput)));
                     } catch (MaheshException err) {
-                        System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println(err.getMessage());
+                        Ui.printIncompleteCommandErr(err);
                     }
                     break;
                 case DELETE:
                     try {
                         Mahesh.deleteFromList(Integer.parseInt(tokenizedInput.nextToken()) - 1);
                     } catch (IndexOutOfBoundsException err) {
-                        System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
-                        System.out.println("Use the \"list\" command to view all your tasks.");
+                        Ui.printNoSuchTaskErr(taskCount);
                     }
                     break;
                 }
@@ -131,11 +97,8 @@ public class Mahesh {
                 System.out.println(err.getMessage());
             }
             Mahesh.saveListToFile();
-            System.out.println(DIVIDER);
         }
 
-        System.out.println("Bye. Hope to see you again soon!\n");
-        System.out.println(DIVIDER);
         scan.close();
     }
 
@@ -147,9 +110,7 @@ public class Mahesh {
     private static void addToList(Task task) {
         Mahesh.list.add(task);
         Mahesh.taskCount++;
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
+        Ui.printTaskAdded(task, taskCount);
     }
     
     /**
@@ -159,12 +120,10 @@ public class Mahesh {
      * @throws IndexOutOfBoundsException If the index is out of range (index < 0 || index >= size()).
      */
     private static void deleteFromList(int index) throws IndexOutOfBoundsException {
-        Task task = list.get(index);
+        Task task = Mahesh.list.get(index);
         Mahesh.list.remove(index);
         Mahesh.taskCount--;
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
+        Ui.printTaskDeleted(task, index);
     }
     
     /**
