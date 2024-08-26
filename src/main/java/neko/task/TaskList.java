@@ -20,18 +20,18 @@ public class TaskList {
     public void addTask(String taskType, Ui ui, Storage storage) throws IOException {
         Task task = null;
         switch (taskType) {
-            case "1":
-                task = addTodoTask(ui, storage);
-                break;
-            case "2":
-                task = addDeadlineTask(ui, storage);
-                break;
-            case "3":
-                task = addEventTask(ui, storage);
-                break;
-            default:
-                ui.showMessage("Oops /ᐠ > ˕ <マ, that's not a valid option meow! Please enter 1, 2, or 3 meow!");
-                break;
+        case "1":
+            task = addTodoTask(ui, storage);
+            break;
+        case "2":
+            task = addDeadlineTask(ui, storage);
+            break;
+        case "3":
+            task = addEventTask(ui, storage);
+            break;
+        default:
+            ui.showMessage("Oops /ᐠ > ˕ <マ, that's not a valid option meow! Please enter 1, 2, or 3 meow!");
+            break;
         }
         if (task != null) {
             tasks.add(task);
@@ -87,7 +87,7 @@ public class TaskList {
         }
         ui.showMessage("Here are the tasks in your list meow:");
         for (int i = 0; i < tasks.size(); i++) {
-            ui.showMessageWODivier((i + 1) + ". " + tasks.get(i));
+            ui.showMessageWithoutDivider((i + 1) + ". " + tasks.get(i));
         }
     }
 
@@ -110,9 +110,15 @@ public class TaskList {
     }
 
     protected void checkValidIndex(int index) throws NekoException {
-        if (index < 0)  throw new NekoException("Invalid task number meow!");
-        if (tasks.isEmpty())  throw new NekoException("You don't have any tasks yet meow!");
-        if (index >= tasks.size()) throw new NekoException("You only have " + tasks.size() + " tasks now meow!");
+        if (index < 0)  {
+            throw new NekoException("Invalid task number meow!");
+        }
+        if (tasks.isEmpty())  {
+            throw new NekoException("You don't have any tasks yet meow!");
+        }
+        if (index >= tasks.size()) {
+            throw new NekoException("You only have " + tasks.size() + " tasks now meow!");
+        }
     }
 
     public void deleteTask(int index) throws NekoException {

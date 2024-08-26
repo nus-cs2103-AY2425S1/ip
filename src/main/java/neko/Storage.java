@@ -17,26 +17,37 @@ public class Storage {
     }
 
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
+
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath);
+
         if (f.exists()) {
+
             Scanner s = new Scanner(f);
+
             while (s.hasNext()) {
                 String str = s.nextLine();
                 Task task = Parser.parseTask(str);
-                if (task != null) tasks.add(task);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
         }
         return tasks;
     }
 
     public void writeFile(String text) throws IOException {
+        //check if the directory exists, else create a new one
         File directory = new File(DIRECTORY_PATH);
-        if (!directory.exists()) directory.mkdirs();
-
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //check if the file exists, else create a new one
         File file = new File(filePath);
-        if (!file.exists()) file.createNewFile();
-
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        //set append to true to add to the file not overwrite
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(text);
         fw.close();
@@ -51,6 +62,7 @@ public class Storage {
             String status = task.isDone() ? "1" : "0";
             String taskDetails = "";
 
+            // check the task type to specify the string representation of the task
             if (task instanceof Todo) {
                 taskDetails = task.getDescription();
             } else if (task instanceof Deadline) {
