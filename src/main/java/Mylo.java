@@ -28,6 +28,11 @@ public class Mylo {
                         System.out.println(list);
                         separator();
                         break;
+                    case "delete":
+                        separator();
+                        list.deleteTask(Integer.parseInt(keys[1]));
+                        separator();
+                        break;
                     case "mark":
                         separator();
                         list.markTaskAsDone(Integer.parseInt(keys[1]));

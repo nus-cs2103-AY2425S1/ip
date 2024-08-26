@@ -9,8 +9,13 @@ public class TaskList {
         } else {
             Task task = Task.of(info.substring(1), type);
             list.add(task);
-            System.out.printf("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.%n", task, list.size());
+            System.out.printf("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.\n", task, list.size());
         }
+    }
+
+    public void deleteTask(int index) {
+        Task removed = list.remove(index - 1);
+        System.out.printf("Noted. I've removed this task:\n %s\nNow you have %s tasks in the list.\n", removed, list.size());
     }
 
     public void markTaskAsDone(int index) {
