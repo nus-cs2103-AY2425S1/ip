@@ -7,6 +7,9 @@ import gravitas.task.Task;
 import gravitas.task.Todo;
 import gravitas.tasklist.TaskList;
 
+/**
+ * Parser class is responsible for parsing the user input and executing the respective commands.
+ */
 public class Parser {
 
     private String mark;
@@ -19,6 +22,9 @@ public class Parser {
     private String emptyEvent;
     private String emptyDelete;
 
+    /**
+     * Constructor for Parser class.
+     */
     public Parser() {
         this.outOfBound = "The task that you wish to mark is invalid! please try again!";
         this.emptyTodo = "OOPS!!! The description of a todo cannot be empty.";
@@ -32,6 +38,13 @@ public class Parser {
         this.deleteMsg = "Noted. I've removed this task:";
     }
 
+    /**
+     * Parses the user input and mark the respective task.
+     *
+     * @param tasklist TaskList object that contains the list of tasks.
+     * @param msg      User input.
+     * @throws DukeException If the user input is invalid.
+     */
     public void parseMark(TaskList tasklist, String msg) throws DukeException {
         String[] msgFrag = msg.split(" ", 2);
         int index = Integer.parseInt((msgFrag[1])) - 1;
@@ -46,6 +59,13 @@ public class Parser {
         tasklist.printTask(task);
     }
 
+    /**
+     * Parses the user input and unmark the respective task.
+     *
+     * @param tasklist TaskList object that contains the list of tasks.
+     * @param msg      User input.
+     * @throws DukeException If the user input is invalid.
+     */
     public void parseUnmark(TaskList tasklist, String msg) throws DukeException {
         String[] msgFrag = msg.split(" ", 2);
         int index = Integer.parseInt((msgFrag[1])) - 1;
@@ -59,6 +79,13 @@ public class Parser {
         tasklist.printTask(task);
     }
 
+    /**
+     * Parses the user input and save the user task into the tasklist.
+     *
+     * @param tasklist TaskList object that contains the list of tasks.
+     * @param msg      User input.
+     * @throws DukeException If the user input is invalid.
+     */
     public void parseTask(TaskList tasklist, String msg) throws DukeException {
         String[] msgFrag = msg.split(" ", 2);
         Task task;
@@ -91,6 +118,13 @@ public class Parser {
         tasklist.printTask(task);
     }
 
+    /**
+     * Parses the user input and delete the respective task.
+     *
+     * @param tasklist TaskList object that contains the list of tasks.
+     * @param msg      User input.
+     * @throws DukeException If the user input is invalid.
+     */
     public void parseDelete(TaskList tasklist, String msg) throws DukeException {
         String[] msgFrag = msg.split(" ", 2);
         if (msgFrag.length <= 1) {

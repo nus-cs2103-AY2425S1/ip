@@ -7,6 +7,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Event task.
+ */
 public class Event extends Task {
 
     private LocalDate startDate;
@@ -14,6 +17,14 @@ public class Event extends Task {
     private LocalTime startTime;
     private LocalTime endTime;
 
+    /**
+     * Constructor for Event class.
+     *
+     * @param description Description of the event task.
+     * @param startDate   Start date of the event task.
+     * @param endDate     End date of the event task.
+     * @throws DukeException If the date and time format is invalid.
+     */
     public Event(String description, String startDate, String endDate) throws DukeException {
         super(description, "E");
 
