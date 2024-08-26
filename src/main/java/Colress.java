@@ -42,7 +42,7 @@ public class Colress {
     }
 
     public static void getInput() {
-        Colress.input = Colress.SCANNER.nextLine();
+        Colress.input = Colress.SCANNER.nextLine().toLowerCase();
     }
 
     public static void makeList() {
