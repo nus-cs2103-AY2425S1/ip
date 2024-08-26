@@ -5,7 +5,7 @@ import mendel.discretetask.Event;
 import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.mendelexception.ServerError;
-import mendel.metacognition.TaskStorage;
+import mendel.metacognition.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +32,7 @@ public class Storage {
         }
     }
 
-    public void loadInto(TaskStorage taskStorage) throws ServerError {
+    public void loadInto(TaskList taskStorage) throws ServerError {
         try {
             Scanner s = new Scanner(this.db);
             while (s.hasNext()) {
@@ -69,7 +69,7 @@ public class Storage {
         }
     }
 
-    public void update(TaskStorage taskStorage) {
+    public void update(TaskList taskStorage) {
         try {
             FileWriter fwRedo = new FileWriter(this.filePath);
             fwRedo.close();

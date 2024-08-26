@@ -2,19 +2,17 @@ package mendel.metacognition;
 
 import mendel.datetime.DateTimeManager;
 import mendel.discretetask.Task;
-import mendel.mendelexception.MendelException;
 import mendel.mendelexception.ConditionalExceptionHandler;
-
+import mendel.mendelexception.MendelException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class TaskStorage extends Command{
+public class TaskList extends Command{
     private final List<Task> messages;
     int counter;
 
-    public TaskStorage() {
+    public TaskList() {
         this.messages = new ArrayList<>();
         this.counter = 0;
     }
@@ -111,4 +109,3 @@ public class TaskStorage extends Command{
         return finalMessage;
     }
 }
-

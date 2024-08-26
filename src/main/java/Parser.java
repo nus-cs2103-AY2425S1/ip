@@ -5,14 +5,14 @@ import mendel.discretetask.Todo;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 import mendel.metacognition.LeaveCommand;
-import mendel.metacognition.TaskStorage;
+import mendel.metacognition.TaskList;
 
 public class Parser {
-    private final TaskStorage taskStorage;
+    private final TaskList taskStorage;
     private final Storage dbContoller;
 
     public Parser() {
-        this.taskStorage = new TaskStorage();
+        this.taskStorage = new TaskList();
         this.dbContoller = new Storage("data/dbTaskList.txt");
         dbContoller.loadInto(taskStorage);
     }
