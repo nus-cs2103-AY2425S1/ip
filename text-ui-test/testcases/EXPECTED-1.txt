@@ -3,6 +3,6 @@ What can I do for you?
 Todo task added: borrow book
 List:
 [T][ ] borrow book
-Deadline task added: return book (by: Sunday)
-Event task added: project meeting (from: Mon 2pm to: 4pm)
+Task added: [D][ ] return book (by: 12/11/2020 0000)
+Task added: [E][ ] project meeting (from: 2/12/2019 1800 to 2/12/2022 1900)
 Bye. Hope to see you again soon!
