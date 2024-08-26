@@ -13,6 +13,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Formats a date string from "yyyy-MM-dd" to "d MMM yyyy".
+     * If invalid format, returns original string.
+     *
+     * @param by The date string in "yyyy-MM-dd" format.
+     * @return The formatted date string in "d MMM yyyy" format, or the original string if parsing fails.
+     */
     private String formatDate(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {

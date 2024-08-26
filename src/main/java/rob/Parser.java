@@ -10,12 +10,21 @@ public class Parser {
 
     }
 
+    /**
+     * Checks if the input string is empty and prints an error message if it is.
+     *
+     */
     public void checkString() {
         if (string.isEmpty()) {
             System.out.println("Invalid input! Please enter a task.");
         }
     }
 
+    /**
+     * Gets the command from the input string.
+     *
+     * @return The command extracted from the input string.
+     */
     public String getCommand() {
         return string.split(" ", 2)[0];
     }
@@ -37,6 +46,14 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Gets the deadline date from the input string.
+     * If the input string does not contain the "/by" keyword, throws an exception.
+     * If it contains "/by", returns the date following this keyword.
+     *
+     * @return The deadline date as a string.
+     * @throws DukeException If "/by" is missing in the input string.
+     */
     public String getDay() throws DukeException {
         if (!string.contains(" /by")) {
             throw new DukeException("Missing '/by' in deadline command.");
@@ -46,6 +63,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the start date from the input string for an event.
+     * If the input string does not contain the "/from" keyword, throws an exception.
+     * If it contains "/from", returns the date following this keyword.
+     *
+     * @return The start date of the event as a string.
+     * @throws DukeException If "/from" is missing in the input string.
+     */
     public String getFrom() throws DukeException {
         if (!string.contains(" /from")) {
             throw new DukeException("Missing '/from' or '/to' in event command.");
@@ -56,6 +81,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the end date from the input string for an event.
+     * If the input string does not contain the "/to" keyword, throws an exception.
+     * If it contains "/to", returns the date following this keyword.
+     *
+     * @return The end date of the event as a string.
+     * @throws DukeException If "/to" is missing in the input string.
+     */
     public String getTo() throws DukeException {
         if (!string.contains(" /to")) {
             throw new DukeException("Missing '/from' or '/to' in event command.");

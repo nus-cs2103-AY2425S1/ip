@@ -18,6 +18,12 @@ public class TaskList {
         return taskList.size();
     }
 
+    /**
+     * Gets a task from the list at the specified index.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index, or null if the index is invalid.
+     */
     public Task getTask(int index) {
         if (index >= 0 && index < taskList.size()) {
             return taskList.get(index);
