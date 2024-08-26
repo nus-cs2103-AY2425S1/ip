@@ -1,6 +1,8 @@
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import tasks.*;
 import java.io.*;
+import java.time.*;
 
 public class ThatOneGuy {
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -13,6 +15,57 @@ public class ThatOneGuy {
         ThatOneGuy guy = new ThatOneGuy();
         guy.readData();
         guy.cmd();
+    }
+
+    private void readData() {
+        try {
+            File dir = new File("data/");
+            if (!dir.exists()) {
+                boolean created = dir.mkdir();
+            }
+
+            File f = new File("data/guy.txt");
+            if (!f.exists()) {
+                boolean created = f.createNewFile();
+            }
+
+            Scanner read = new Scanner(f);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            while (read.hasNextLine()) {
+                String[] line = read.nextLine().split("\\s*\\|\\s*");
+                String type = line[0];
+
+                Task task = switch (type) {
+                    case "T" -> new ToDo(line[2]);
+                    case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], dtf));
+                    case "E" -> new Event(line[2], LocalDateTime.parse(line[3], dtf), LocalDateTime.parse(line[4], dtf));
+                    default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
+                };
+
+                if (line[1].equals("1")) {
+                    task.mark();
+                }
+                tasks.add(task);
+            }
+
+            read.close();
+        } catch (GuyException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("I got a problem, and it sure as f*** ain't my fault! It says: \n" + e.getMessage());
+        }
+    }
+
+    private void writeData() {
+        try {
+            FileWriter writer = new FileWriter("data/guy.txt");
+            for (Task task : tasks) {
+                writer.write(task.saveFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("I got a problem, and it sure as f*** ain't my fault! It says: \n" + e.getMessage());
+        }
     }
 
     private void cmd() {
@@ -127,12 +180,13 @@ public class ThatOneGuy {
         }
     }
 
-    private void addTask(String cmd, String input) {
+    private void addTask(String cmd, String input) throws GuyException{
         try {
             if (input.isEmpty()) {
                 throw new GuyException("You really think I can add an EMPTY TASK!?");
             }
             Task task;
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             switch (cmd) {
                 case "todo":
                     task = new ToDo(input);
@@ -142,7 +196,7 @@ public class ThatOneGuy {
                         throw new GuyException("That isn't even a valid description!");
                     }
                     String[] splitted = input.split("/by", 2);
-                    task = new Deadline(splitted[0].trim(), splitted[1].trim());
+                    task = new Deadline(splitted[0].trim(), LocalDateTime.parse(splitted[1].trim(), dtf));
                     break;
                 case "event":
                     if (
@@ -153,7 +207,9 @@ public class ThatOneGuy {
                     ) throw new GuyException("That isn't even a valid description!");
                     String[] splitFrom = input.split("/from", 2);
                     String[] splitTo = splitFrom[1].split("/to", 2);
-                    task = new Event(splitFrom[0].trim(), splitTo[0].trim(), splitTo[1].trim());
+                    task = new Event(splitFrom[0].trim(),
+                            LocalDateTime.parse(splitTo[0].trim(), dtf),
+                            LocalDateTime.parse(splitTo[1].trim(), dtf));
                     break;
                 default:
                     throw new GuyException("That's not even a task type!");
@@ -164,6 +220,8 @@ public class ThatOneGuy {
             System.out.println("That's " + tasks.size() + " tasks for your ass to handle.");
         } catch (GuyException e) {
             System.out.println(e.getMessage());
+        } catch (DateTimeException e) {
+            System.out.println("I got a problem, and it sure as f*** ain't my fault! It says: \n" + e.getMessage());
         }
     }
 
@@ -193,54 +251,6 @@ public class ThatOneGuy {
         }
     }
 
-    private void readData() {
-        try {
-            File dir = new File("data/");
-            if (!dir.exists()) {
-                boolean created = dir.mkdir();
-            }
 
-            File f = new File("data/guy.txt");
-            if (!f.exists()) {
-                boolean created = f.createNewFile();
-            }
-
-            Scanner read = new Scanner(f);
-            while (read.hasNext()) {
-                String[] line = read.nextLine().split("\\s*\\|\\s*");
-                String type = line[0];
-
-                Task task = switch (type) {
-                    case "T" -> new ToDo(line[2]);
-                    case "D" -> new Deadline(line[2], line[3]);
-                    case "E" -> new Event(line[2], line[3], line[4]);
-                    default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
-                };
-
-                if (line[1].equals("1")) {
-                    task.mark();
-                }
-                tasks.add(task);
-            }
-
-            read.close();
-        } catch (GuyException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println("I got a problem, and it sure as f*** ain't my fault! It says: \n" + e.getMessage());
-        }
-    }
-
-    private void writeData() {
-        try {
-            FileWriter writer = new FileWriter("data/guy.txt");
-            for (Task task : tasks) {
-                writer.write(task.saveFormat() + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("I got a problem, and it sure as f*** ain't my fault! It says: \n" + e.getMessage());
-        }
-    }
 
 }

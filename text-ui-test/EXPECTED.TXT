@@ -11,20 +11,34 @@ You dingus. This task was already done:
 [T] [X] break something
 Consider picking a number that's actually in range.
 Fine. Added this lousy task:
-[D] [ ] whack table (by: tomorrow)
+2. [D] [ ] whack table (by: 2024-09-01 12:00)
 That's 2 tasks for your ass to handle.
 Fine. Added this lousy task:
-[E] [ ] malding (from: Wednesday to: Friday)
+[E] [ ] malding (from: 2024-09-02 11:00 to: 2024-09-04 19:00)
 That's 3 tasks for your ass to handle.
 Eh. Consider this task done:
-[D] [X] whack table (by: tomorrow)
+[D] [X] whack table (by: 2024-09-01 12:00)
 Sucks to be you. Looks like you haven't done this task:
 [T] [ ] break something
 You dingus. This task still hasn't been done:
 [T] [ ] break something
 Here are your damned tasks. Complete them or something.
 1. [T] [ ] break something
-2. [D] [X] whack table (by: tomorrow)
-3. [E] [ ] malding (from: Wednesday to: Friday)
+2. [D] [X] whack table (by: 2024-09-01 12:00)
+3. [E] [ ] malding (from: 2024-09-02 11:00 to: 2024-09-04 19:00)
 Maybe put in an actual command next time, shitass.
+There goes this dumb task:
+[T] [ ] break something
+Your ass still needs to handle 2 more tasks.
+Here are your damned tasks. Complete them or something.
+1. [D] [X] whack table (by: 2024-09-01 12:00)
+2. [E] [ ] malding (from: 2024-09-02 11:00 to: 2024-09-04 19:00)
+You really think I can add an EMPTY TASK!?
+There goes this dumb task:
+[D] [X] whack table (by: 2024-09-01 12:00)
+Your ass still needs to handle 1 more tasks.
+There goes this dumb task:
+[E] [ ] malding (from: 2024-09-02 11:00 to: 2024-09-04 19:00)
+Your ass still needs to handle 0 more tasks.
+You have nothing to delete. You dumb or what?
 Whatever. Hope you never come back.

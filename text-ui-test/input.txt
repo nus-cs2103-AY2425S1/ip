@@ -4,11 +4,17 @@ mark 0
 mark 1
 mark 1
 mark 3
-deadline whack table /by tomorrow
-event malding /from Wednesday /to Friday
+deadline whack table /by 2024-09-01 12:00
+event malding /from 2024-09-02 11:00 /to 2024-09-04 19:00
 mark 2
 unmark 1
 unmark 1
 list
 eat ass
+delete 1
+list
+event
+delete 1
+delete 1
+delete 1
 bye
