@@ -66,7 +66,9 @@ public class Ui {
                 parse.parseTask(tasklist, msg);
             } else if (msgFrag[0].equals("delete")) {
                 parse.parseDelete(tasklist, msg);
-            } else {
+            } else if (msgFrag[0].equals("find")) {
+                parse.parseFind(tasklist, msg);
+            }else {
                 throw new DukeException(error);
             }
         } catch (DukeException e) {

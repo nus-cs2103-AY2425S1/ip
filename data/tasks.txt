@@ -1,2 +1,3 @@
 T | 1 | boo
 E | 0 | event drink beer | 12/2/2024 | 0000 | 12/2/2024 | 2359
+T | 0 | boo boo

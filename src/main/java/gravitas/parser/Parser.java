@@ -21,6 +21,7 @@ public class Parser {
     private String emptyDeadline;
     private String emptyEvent;
     private String emptyDelete;
+    private String emptyFind;
 
     /**
      * Constructor for Parser class.
@@ -36,6 +37,7 @@ public class Parser {
         this.unMark = "OK, I've marked this task as not done yet:";
         this.added = "Got it. I've added this task:";
         this.deleteMsg = "Noted. I've removed this task:";
+        this.emptyFind = "OOPS!!! The keyword to find cannot be empty.";
     }
 
     /**
@@ -139,5 +141,15 @@ public class Parser {
         System.out.println(deleteMsg);
         tasklist.removeTask(index);
         tasklist.printTask(task);
+    }
+
+    public void parseFind(TaskList tasklist, String msg) throws DukeException {
+        String[] msgFrag = msg.split(" ", 2);
+
+        if (msgFrag.length <= 1) {
+            throw new DukeException(this.emptyFind);
+        }
+        String keyword = msgFrag[1];
+        tasklist.printFindTask(keyword);
     }
 }
