@@ -194,7 +194,7 @@ public class Blitz {
             if (params.length != 5) {
                 throw new BlitzIOException("Failed to read from database");
             }
-            return new Event(params[2], "E", params[3], params[4], Boolean.parseBoolean(params[1]));
+            return new Event(params[2], "E", stringToLocaldatetime(params[3]), stringToLocaldatetime(params[4]), Boolean.parseBoolean(params[1]));
         default:
             throw new BlitzIOException("Failed to read from database");
         }
@@ -303,7 +303,7 @@ public class Blitz {
             throw new BlitzInvalidParameterMissingContentException("/to", "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         }
 
-        Task temp = new Event(param1[0], "E", param2[0], param2[1], false);
+        Task temp = new Event(param1[0], "E", stringToLocaldatetime(param2[0]), stringToLocaldatetime(param2[1]), false);
 
         db.add(temp);
         writeOneToFile(temp);
