@@ -3,6 +3,10 @@ public class Deadline extends DatedTask{
         super(task, deadline);
     }
 
+    public Deadline() {
+        super();
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by: " + getDate() + ")";

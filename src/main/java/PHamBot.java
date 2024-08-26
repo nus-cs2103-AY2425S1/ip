@@ -1,4 +1,5 @@
 import javax.lang.model.type.ErrorType;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PHamBot {
@@ -35,29 +36,25 @@ public class PHamBot {
                 removeTask(Integer.parseInt(input.substring(7)));
             }
             if (input.contains("todo")) {
-                if (input.length() < 6) {
-                    handleErrors(Errors.MissingTask);
-                }
-                else {
-                    String task = input.substring(5);
-                    OutlineMessage(addToDo(task));
+                try {
+                    ToDo task = checkToDoInput(input, new ToDo());
+                    tasks.addTask(task);
+                    OutlineMessage("Added: " + task.toString());
+                } catch (MissingTaskException e) {
+                    OutlineMessage("You gotta give me a task man!");
                 }
             }
             if (input.contains("deadline")) {
-                int dateIndex = input.indexOf("/");
-                //handle error for missing /
-
-                if (input.length() < 10) {
-                    handleErrors(Errors.MissingTask);
-                } else if (dateIndex == -1) {
-                    handleErrors(Errors.MissingDivider);
-                } else if (input.substring(dateIndex).length() == 1) {
-                    handleErrors(Errors.MissingDate);
-                }
-                else {
-                    String task = input.substring(9, dateIndex);
-                    String deadline = input.substring(dateIndex + 1);
-                    OutlineMessage(addDeadline(task, deadline));
+                try {
+                    DatedTask task = checkDatedTaskInput(input, new Deadline());
+                    tasks.addTask(task);
+                    OutlineMessage("Added: " + task.toString());
+                } catch (MissingTaskException e) {
+                    OutlineMessage("You gotta give me a task man!");
+                } catch (MissingDateException e) {
+                    OutlineMessage("You haven't added a date for the task!");
+                } catch (MissingDividerException e) {
+                    OutlineMessage("You missed out a slash to separate the task and date!");
                 }
             }
             if (input.contains("event")) {
@@ -171,7 +168,7 @@ public class PHamBot {
         tasks.deleteTask(index - 1);
     }
 
-    public static ToDo checkInput(String input, ToDo toDo) throws MissingTaskException {
+    public static ToDo checkToDoInput(String input, ToDo toDo) throws MissingTaskException {
         String[] temp = input.split(" ", 2);
         if (temp.length < 2) {
             throw new MissingTaskException("Missing a task to add!");
@@ -182,7 +179,7 @@ public class PHamBot {
         }
     }
 
-    public static DatedTask checkInput(String input, DatedTask task) throws
+    public static DatedTask checkDatedTaskInput(String input, DatedTask task) throws
             MissingTaskException, MissingDateException, MissingDividerException{
         String[] temp = input.split("/", 2);
         if (temp.length < 2) {
@@ -198,6 +195,16 @@ public class PHamBot {
         task.setTaskName(temp2[1]);
         task.setDate(temp[1]);
         return task;
+    }
+
+    public static int checkIndexInput(String input) throws MissingIndexException {
+        String[] temp = input.split(" ", 2);
+        if (temp.length < 2 || Objects.equals(temp[1], "")) {
+            throw new MissingIndexException("There is no list index!");
+        }
+        else {
+            return Integer.parseInt(temp[1]);
+        }
     }
 
 }

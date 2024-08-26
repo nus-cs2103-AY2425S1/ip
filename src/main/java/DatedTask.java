@@ -6,6 +6,11 @@ public class DatedTask extends Task {
         this.date = date;
     }
 
+    public DatedTask() {
+        super();
+        this.date = null;
+    }
+
     public String getDate() {
         return this.date;
     }
