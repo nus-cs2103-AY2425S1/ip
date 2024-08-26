@@ -39,9 +39,9 @@
 	list - View all entries to the current list of things you have asked me to take note of.
 	mark <integer> - Mark an entry in the list as a completed task.
 	unmark <integer> - Unmark an entry in the list as a completed task.
-	todo <string> - Remember a TODO Task for you to revisit again.
-	deadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline Task for you to complete by the deadline.
-	event <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event Task from when it begins to when it ends.
+	todo <string> - Remember a TODO friday.task.Task for you to revisit again.
+	deadline <string> /by <yyyy-mm-dd hhmm> - Remember a friday.task.Deadline friday.task.Task for you to complete by the deadline.
+	event <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an friday.task.Event friday.task.Task from when it begins to when it ends.
 	delete <integer> - Delete an entry from your current list.
 	bye - Exits this app and says Good Bye to Friday :)
 	____________________________________________________________

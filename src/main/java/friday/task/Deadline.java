@@ -1,7 +1,9 @@
+package friday.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
-    private LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     public Deadline(String description, String by) {
         super(description);

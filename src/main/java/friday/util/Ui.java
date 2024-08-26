@@ -1,3 +1,8 @@
+package friday.util;
+
+import friday.task.Task;
+import friday.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -20,10 +25,10 @@ public class Ui {
                 " you have asked me to take note of.");
         System.out.println("\tmark <integer> - Mark an entry in the list as a completed task.");
         System.out.println("\tunmark <integer> - Unmark an entry in the list as a completed task.");
-        System.out.println("\ttodo <string> - Remember a TODO Task for you to revisit again.");
-        System.out.println("\tdeadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline Task for" +
+        System.out.println("\ttodo <string> - Remember a TODO friday.task.Task for you to revisit again.");
+        System.out.println("\tdeadline <string> /by <yyyy-mm-dd hhmm> - Remember a friday.task.Deadline friday.task.Task for" +
                 " you to complete by the deadline.");
-        System.out.println("\tevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event Task" +
+        System.out.println("\tevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an friday.task.Event friday.task.Task" +
                 " from when it begins to when it ends.");
         System.out.println("\tdelete <integer> - Delete an entry from your current list.");
         System.out.println("\tbye - Exits this app and says Good Bye to Friday :)");
