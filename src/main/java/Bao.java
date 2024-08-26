@@ -21,6 +21,7 @@ public class Bao {
             + " |    ^    |\n"
             + " \\________/\n";
     public static void main(String[] args) {
+        loadFile();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("____________________________________________________________");
@@ -178,6 +179,42 @@ public class Bao {
         } else {
             System.out.println(baoSad);
             System.out.println("Bao cannot remember so many things :(");
+        }
+    }
+
+    private static void loadFile() {
+        try {
+            File file = new File(file_Path);
+            // Break if file does not exist
+            if (!file.exists()) {
+                return;
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] lineParts = line.split(" \\| ");
+                String type = lineParts[0];
+                boolean isDone = lineParts[1].equals("1");
+                String description = lineParts[2];
+                String[] duration;
+                switch (type) {
+                    case "T" -> taskList.add(new ToDo(description));
+                    case "D" -> taskList.add(new Deadline(description, lineParts[3]));
+                    case "E" -> {
+                        duration = lineParts[3].split("-");
+                        taskList.add(new Event(description, duration[0], duration[1]));
+                    }
+                }
+                if (isDone) {
+                    taskList.get(taskList.size() - 1).mark();
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Bao could not load this file: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Bao was fed a corrupted file, starting new one!");
+            taskList.clear();
         }
     }
 }
