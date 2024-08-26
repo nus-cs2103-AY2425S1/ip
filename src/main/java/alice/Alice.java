@@ -1,9 +1,11 @@
 package alice;
 
-import alice.command.*;
-import alice.storage.*;
-import alice.ui.*;
-import java.util.*;
+import java.util.Scanner;
+
+import alice.command.Command;
+import alice.storage.Storage;
+import alice.storage.TaskList;
+import alice.ui.Ui;
 
 public class Alice {
     private static final String NAME = "Alice";

@@ -1,6 +1,6 @@
 package alice.task;
 
-import java.util.*;
+import java.util.Map;
 
 public abstract class Task {
     protected String description;

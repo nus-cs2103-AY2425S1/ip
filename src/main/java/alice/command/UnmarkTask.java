@@ -1,9 +1,10 @@
 package alice.command;
 
-import alice.storage.*;
-import alice.task.*;
-import alice.ui.*;
-import java.io.*;
+import java.io.IOException;
+
+import alice.storage.TaskList;
+import alice.task.Task;
+import alice.ui.Ui;
 
 public class UnmarkTask extends Command {
     public UnmarkTask(Ui ui, TaskList taskList) {

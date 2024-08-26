@@ -1,9 +1,10 @@
 package alice.command;
 
-import alice.storage.*;
-import alice.task.*;
-import alice.ui.*;
-import java.util.*;
+import java.util.List;
+
+import alice.storage.TaskList;
+import alice.task.Task;
+import alice.ui.Ui;
 
 public class ListTask extends Command {
     public ListTask(Ui ui, TaskList taskList) {
