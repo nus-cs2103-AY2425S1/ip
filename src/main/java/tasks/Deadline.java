@@ -1,19 +1,23 @@
 package tasks;
-public class Deadline extends Task {
-    protected String by;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String name, String by) {
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    public Deadline(String name, LocalDateTime by) {
         super(name);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + by + ")";
+        return "[D] " + super.toString() + " (by: "
+                + this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + ")";
     }
 
     @Override
     public String saveFormat() {
-        return "D" + super.saveFormat() + " | " + this.by;
+        return "D" + super.saveFormat() + " | " + this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }
