@@ -67,6 +67,4 @@ public class Loafy {
     static void exit() {
         reply("Byeee see you soon! ;)");
     }
-
-
 }
