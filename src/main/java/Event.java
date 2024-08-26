@@ -15,40 +15,38 @@ public class Event extends Task {
         setDatesAndTimes(from, to);
     }
 
-    public Event(String description, String from, String to, boolean isDone) throws JudeException {
+    public Event(String description, String fromDate, String fromTime, String toDate, String toTime, boolean isDone)
+            throws JudeException {
         super(description, isDone);
-        setDatesAndTimes(from, to);
+        this.fromDate = LocalDate.parse(fromDate);
+        this.fromTime = LocalTime.parse(fromTime);
+        this.toDate = LocalDate.parse(toDate);
+        this.toTime = LocalTime.parse(toTime);
     }
 
     public void setDatesAndTimes(String from, String to) throws JudeException {
         String[] fromDateAndTime = from.split(" ");
-        String[] toDateAndTime = to.split(" ");
-
         try {
-            String fromDate = fromDateAndTime[0].replace("/", "-");
-            this.fromDate = LocalDate.parse(fromDate);
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            this.fromDate = LocalDate.parse(fromDateAndTime[0], dateFormat);
 
-            String fromTime;
-            if (fromDateAndTime[1].contains(":")) {
-                fromTime = new StringBuilder(fromDateAndTime[1]).insert(2, ":").toString();
-            } else {
-                fromTime = fromDateAndTime[1];
-            }
-            this.fromTime = LocalTime.parse(fromTime);
-
-            String toDate = toDateAndTime[0].replace("/", "-");
-            this.toDate = LocalDate.parse(toDate);
-
-            String toTime;
-            if (fromDateAndTime[1].contains(":")) {
-                toTime = new StringBuilder(toDateAndTime[1]).insert(2, ":").toString();
-            } else {
-                toTime = fromDateAndTime[1];
-            }
-            this.toTime = LocalTime.parse(toTime);
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
+            this.fromTime = LocalTime.parse(fromDateAndTime[1], timeFormat);
 
         } catch (DateTimeParseException de) {
-            throw new JudeException("wrong date or time format was provided.");
+            throw new JudeException("wrong fromDate or fromTime format was provided.");
+        }
+
+        String[] toDateAndTime = to.split(" ");
+        try {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            this.toDate = LocalDate.parse(toDateAndTime[0], dateFormat);
+
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
+            this.toTime = LocalTime.parse(toDateAndTime[1], timeFormat);
+
+        } catch (DateTimeParseException de) {
+            throw new JudeException("wrong toDate or toTime format was provided.");
         }
     }
 
@@ -57,14 +55,14 @@ public class Event extends Task {
         return String.format("[E]%s (from: %s %s to: %s %s)",
                 super.toStringDetails(),
                 this.fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                this.fromTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
+                this.fromTime.format(DateTimeFormatter.ofPattern("HH:mm")),
                 this.toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                this.toTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                this.toTime.format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
     @Override
     public String toFileFormat() {
-        return String.format("%s | %d | %s | %s | %s | %s | %s",
+        return String.format("%s | %d | %s | %s %s | %s %s",
                 "E", getStatusBinary(), getDescription(), this.fromDate, this.fromTime, this.toDate, this.toTime);
     }
 }

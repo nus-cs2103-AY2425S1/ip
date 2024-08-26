@@ -165,8 +165,7 @@ public class Jude {
                         task = new Deadline(descriptions[0], descriptions[1]);
                     } else if (command.equals("event")) {
                         task = new Event(descriptions[0], descriptions[1], descriptions[2]);
-                        // Invalid input
-                    } else {
+                    } else {  // Invalid input
                         continue;
                     }
                     list.add(task);
@@ -175,9 +174,7 @@ public class Jude {
                     System.out.println(je.getMessage());
                 }
             }
-
         }
-
         // Terminate the chat
         System.out.println("Poyo. Hope to see you again soon!");
     }
@@ -218,7 +215,6 @@ public class Jude {
             throw new JudeException("IOException has occurred while writing to a save file.");
         }
     }
-
 
     private static void loadFile(String filePath, List<Task> list) throws JudeException {
         File file = new File(filePath);
@@ -266,13 +262,17 @@ public class Jude {
                 if (split.length != 5) {
                     throw new JudeException(errorMessage);
                 }
-                list.add(new Event(description, split[3], split[4], isDone));
+                String[] fromDateAndTime = split[3].split(" ");
+                String[] toDateAndTime = split[4].split(" ");
+
+                list.add(new Event(
+                        description, fromDateAndTime[0], fromDateAndTime[1],
+                        toDateAndTime[0], toDateAndTime[1], isDone));
                 break;
             default:
                 break;
             }
         }
-
     }
 }
 

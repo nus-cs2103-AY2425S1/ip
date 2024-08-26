@@ -7,10 +7,9 @@ public class Deadline extends Task {
     private LocalDate date;
     private LocalTime time;
 
-    public Deadline (String description, String date, String time) throws JudeException {
+    public Deadline (String description, String deadline) throws JudeException {
         super(description);
-        this.date = LocalDate.parse(date);
-        this.time = LocalTime.parse(time);
+        setDateAndTime(deadline);
     }
 
     public Deadline (String description, String date, String time, boolean isDone) throws JudeException {
@@ -19,21 +18,20 @@ public class Deadline extends Task {
         this.time = LocalTime.parse(time);
     }
 
-    /*
     public void setDateAndTime(String deadline) throws JudeException {
         String[] dateAndTime = deadline.split(" ");
         try {
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // default
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/MM/yyyy");
             this.date = LocalDate.parse(dateAndTime[0], dateFormat);
 
-            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm"); // default
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
             this.time = LocalTime.parse(dateAndTime[1], timeFormat);
 
         } catch (DateTimeParseException de) {
             throw new JudeException("wrong date or time format was provided.");
         }
     }
-    */
+
 
 
     @Override
