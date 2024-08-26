@@ -1,6 +1,7 @@
 package wolfie.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,13 +23,18 @@ class UiTest {
     @Test
     void testShowWelcome() {
         ui.showWelcome();
-        assertEquals("Hello! I'm Wolfie\nWhat can I do for you?\n", outputStreamCaptor.toString().trim());
+        String expectedOutput = """
+                         Hello Dean's Lister! I'm Wolfie
+                         What can I do for you?
+                        """;
+        assertTrue(outputStreamCaptor.toString().trim().contains(expectedOutput));
     }
 
     @Test
     void testReadCommand() {
         String simulatedUserInput = "bye\n";
         System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
+        ui = new Ui(); // Reinitialize Ui to ensure it reads from the new System.in
         String command = ui.readCommand();
         assertEquals("bye", command);
     }
