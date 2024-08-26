@@ -14,7 +14,7 @@ import cheese.task.ToDo;
 
 
 /**
- * Manipulate file that store task information
+ * Manipulate file that store tasks information
  */
 public class Storage {
     private final String filePath;
