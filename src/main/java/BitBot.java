@@ -1,4 +1,8 @@
 import javax.crypto.spec.PSource;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -30,6 +34,10 @@ class Task {
         this.isDone = false;
     }
 
+    public String toFileFormat() {
+        return " ";
+    }
+
 }
 
 /**
@@ -48,6 +56,11 @@ class Deadline extends Task {
     public String finalString() {
         return "[D]" + super.finalString() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toFileFormat() {
+        return "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + by + "|" + " ";
+    }
 }
 
 class ToDos extends Task {
@@ -59,6 +72,11 @@ class ToDos extends Task {
     @Override
     public String finalString() {
         return "[T]" + super.finalString();
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "T|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + "NIL" + "|" + " NIL";
     }
 }
 
@@ -76,9 +94,95 @@ class Events extends Task {
     public String finalString() {
         return "[E]" + super.finalString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toFileFormat() {
+        return "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + from + "|" + to;
+    }
 }
 
 public class BitBot {
+
+
+    private static final String PATH_TO_FILE = "./data/Bitbot.txt";
+
+    private static void ensureFileExists() throws IOException {
+        File file = new File(PATH_TO_FILE);
+
+        if (!file.exists()) {
+            // creating the relevant directory
+            // USAGE OF HELP FROM AI:
+            /*
+                Prompt given: How to create a new directory if the user's system does not have the
+                directory initially?
+
+                Answer from ChatGPT:
+                "To create a new directory if it doesn't already exist on the user's system,
+                you can use the mkdir() or mkdirs() methods from the File class in Java.
+                Here’s how you can do it:
+
+                Using mkdir() and mkdirs()
+                mkdir(): Creates the directory if it doesn’t exist.
+                         It will not create any required but non-existent parent directories.
+                mkdirs(): Creates the directory and any necessary but non-existent parent directories."
+             */
+            file.getParentFile().mkdirs();
+            // creating the new file.
+            file.createNewFile();
+        }
+    }
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
+        ensureFileExists();
+        FileWriter fileWriter = new FileWriter(PATH_TO_FILE);
+        for (Task task : tasks) {
+            fileWriter.write(task.toFileFormat() + System.lineSeparator());
+        }
+
+        fileWriter.close();
+    }
+
+    private static ArrayList<Task> readTasksFromFile(String filePath) throws FileNotFoundException {
+        ArrayList<Task> listFromFile = new ArrayList<>();
+        try {
+            File file = new File(filePath);
+            Scanner scanner = new Scanner(file);
+
+            // adapted from W3.4c (using Scanner) of notes.
+            while (scanner.hasNextLine()) {
+                String[] partsOfLineFromFile = scanner.nextLine().split("\\|");
+                Task task = null;
+
+                // trims the trailing whitespace
+                switch (partsOfLineFromFile[0].trim()) {
+                    case "D":
+                    task = handleDeadlineFromFile(partsOfLineFromFile[2], partsOfLineFromFile[3]);;
+                    break;
+
+                    case "T":
+                    task = handleTodoFromFile(partsOfLineFromFile[2]);;
+                    break;
+
+                    case "E":
+                    task = handleEventFromFile(partsOfLineFromFile[2], partsOfLineFromFile[3], partsOfLineFromFile[4]);;
+                    break;
+                }
+
+                if (partsOfLineFromFile[1].trim().equals("X")) {
+                    task.markAsDone();
+                }
+                listFromFile.add(task);
+
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found" + e.getMessage());
+        }
+        return listFromFile;
+
+    }
+
 
     /**
      * Checks if the string is a string or whether it is an integer wrapped in a string.
@@ -156,6 +260,10 @@ public class BitBot {
                 + "          ____________________________________");
     }
 
+    private static Task handleEventFromFile (String description, String from, String to) {
+        Task event = new Events(description, from, to);
+        return event;
+    }
     /**
      * Handles the deadline task by helping to extract the "by" time
      * @param arrayList the list of tasks
@@ -167,6 +275,7 @@ public class BitBot {
      * @param task This helps to determine if I need to add "task" or "tasks"
      * @throws BitBotException if input is invalid
      */
+
     private static void handleDeadline (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, int indexBy, StringBuilder by, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! You need to add the \"by\" details.\n" +
@@ -196,6 +305,11 @@ public class BitBot {
                 + "          ____________________________________");
     }
 
+    private static Task handleDeadlineFromFile (String description, String by) {
+        Task deadline = new Deadline(description, by);
+        return deadline;
+    }
+
     /**
      * Handles the todo by extracting the description.
      * @param arrayList the list of tasks
@@ -222,6 +336,10 @@ public class BitBot {
                 + "          ____________________________________\n");
     }
 
+    private static Task handleTodoFromFile (String description) {
+        Task todo = new ToDos(description);
+        return todo;
+    }
     /**
      * Handles the displaying of the list in order
      * @param arrayList the list of tasks
@@ -234,9 +352,9 @@ public class BitBot {
         System.out.println("          ____________________________________\n");
     }
 
-        public static void main(String[] args) throws BitBotException {
+    public static void main(String[] args) throws BitBotException, FileNotFoundException {
 
-        ArrayList<Task> arrayList = new ArrayList<>();
+        ArrayList<Task> arrayList = readTasksFromFile(PATH_TO_FILE);
 
         String inputData;
         String intro = "          ____________________________________\n          Hello! I'm BitBot\n          What can I do for you?\n          ____________________________________";
@@ -328,8 +446,13 @@ public class BitBot {
                     // the same concept as above for the keyword "list"
                     else if (Objects.equals(keyWord, "list")) {
                        handleList(arrayList);
-                    } else if (Objects.equals(keyWord, "bye")) {
-                        //do nothing and move on to switch case below.
+                    }
+                    else if (Objects.equals(keyWord, "bye")) {
+                        // once the user types in bye,
+                        // add all the tasks in the list into BitBot.txt
+                        // and then do nothing else.
+                        saveTasksToFile(arrayList);
+
                     }
                     // if it does not fall in any of this keyword,
                     // throw an error saying there is no such keyword.
@@ -392,6 +515,8 @@ public class BitBot {
                 System.out.println("          ____________________________________");
                 System.out.println("          " + e.getMessage());
                 System.out.println("          ____________________________________");
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());;
             }
         }
 
