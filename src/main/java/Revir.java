@@ -1,4 +1,6 @@
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Exceptions.*;
@@ -25,6 +27,8 @@ public class Revir {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("Invalid task index. Expected a number.");
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
             }
         }
         scanner.close();
@@ -65,9 +69,14 @@ public class Revir {
             String[] taskInfo = taskDetails.split(" /by ");
             if (taskInfo.length == 2) {
                 String taskDescription = taskInfo[0];
-                String deadline = taskInfo[1];
-                taskList.add(new Deadline(taskDescription, deadline));
-                System.out.println("Deadline task added: " + taskDescription + " (by: " + deadline + ")");
+                String deadlineStr = taskInfo[1];
+                try {
+                    LocalDateTime deadline = LocalDateTime.parse(deadlineStr);
+                    taskList.add(new Deadline(taskDescription, deadline));
+                    System.out.println("Deadline task added: " + taskDescription + " (by: " + deadline + ")");
+                } catch (DateTimeParseException e) {
+                    throw new InvalidFormatException(Deadline.format);
+                }
             } else {
                 throw new InvalidFormatException(Deadline.format);
             }
@@ -77,11 +86,17 @@ public class Revir {
             String[] taskInfo = taskDetails.split(" /from ");
             if (taskInfo.length == 2) {
                 String taskDescription = taskInfo[0];
-                String startDate = taskInfo[1].split(" /to ")[0];
-                String endDate = taskInfo[1].split(" /to ")[1];
-                taskList.add(new Event(taskDescription, startDate, endDate));
-                System.out.println(
-                        "Event task added: " + taskDescription + " (from: " + startDate + " to: " + endDate + ")");
+                String startDateStr = taskInfo[1].split(" /to ")[0];
+                String endDateStr = taskInfo[1].split(" /to ")[1];
+                try {
+                    LocalDateTime startDate = LocalDateTime.parse(startDateStr);
+                    LocalDateTime endDate = LocalDateTime.parse(endDateStr);
+                    taskList.add(new Event(taskDescription, startDate, endDate));
+                    System.out.println(
+                            "Event task added: " + taskDescription + " (from: " + startDate + " to: " + endDate + ")");
+                } catch (DateTimeParseException e) {
+                    throw new InvalidFormatException(Event.format);
+                }
             } else {
                 throw new InvalidFormatException(Event.format);
             }
