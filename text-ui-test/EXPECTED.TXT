@@ -1,7 +1,27 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Prince!
+What would you like me to add to your TODO list today?
+Got it. I've added this task:
+  [T][ ] play basketball
+Now you have 1 tasks in the list
+How else would you like me to edit your TODO list today?
+Got it. I've added this task:
+  [D][ ] return book (by: Tuesday)
+Now you have 2 tasks in the list
+How else would you like me to edit your TODO list today?
+Got it. I've added this task:
+  [E][ ] project meeting (from: Mon 9pm to: 12am)
+Now you have 3 tasks in the list
+How else would you like me to edit your TODO list today?
+Here are the tasks in your list:
+1. [T][ ] play basketball
+2. [D][ ] return book (by: Tuesday)
+3. [E][ ] project meeting (from: Mon 9pm to: 12am)
 
+How else would you like me to edit your TODO list today?
+Nice! I've marked this task as done:
+  [T][X] play basketball
+How else would you like me to edit your TODO list today?
+OK! I've marked this task as not done yet:
+  [T][ ] play basketball
+How else would you like me to edit your TODO list today?
+Bye! Hope to see you again soon!

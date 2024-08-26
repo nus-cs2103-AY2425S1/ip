@@ -1,0 +1,7 @@
+todo play basketball
+deadline return book /by Tuesday
+event project meeting /from Mon 9pm /to 12am
+list
+mark 1
+unmark 1
+bye
