@@ -11,14 +11,26 @@ import wiggly.exception.WigglyException;
 import wiggly.task.Task;
 import wiggly.task.TaskList;
 
+/**
+ * A class representation of a file storage to load and save a list of tasks
+ */
 public class Storage {
 	private final File file;
 
-
+	/**
+	 * Creates a new {@code Storage} instance by creating a {@code File} instance with the given filePath
+	 * to load and save data
+	 * @param filePath Path name of the file
+	 */
 	public Storage(String filePath) {
 		this.file = new File(filePath);
 	}
 
+	/**
+	 * Saves the given tasklist in {@code Storage} into {@code toFileFormat()} by overwriting the entire
+	 * stored file
+	 * @param taskList The entire taskList to save overwrite into
+	 */
 	public void save(TaskList taskList) {
 		try {
 			FileWriter fw = new FileWriter(file);
@@ -30,6 +42,12 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Returns an {@code ArrayList<Task>} by reading and parsing the contents of the stored file
+	 * @return the tasks stored in the file
+	 * @throws WigglyException if the file is in an incorrect format
+	 * @throws FileNotFoundException if the file cannot be found
+	 */
 	public ArrayList<Task> load() throws WigglyException, FileNotFoundException {
 		ArrayList<Task> tasks = new ArrayList<>();
 
@@ -43,7 +61,7 @@ public class Storage {
 				try {
 					tasks.add(Task.createFromData(line));
 				} catch (IllegalArgumentException e) {
-					throw new IllegalArgumentException(e.getMessage() + " at line " + count);
+					throw new WigglyException(e.getMessage() + " at line " + count);
 				} finally {
 					count++;
 				}

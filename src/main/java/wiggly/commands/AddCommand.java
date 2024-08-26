@@ -13,7 +13,9 @@ import wiggly.task.Event;
 import wiggly.util.Storage;
 import wiggly.util.Ui;
 
-
+/**
+ * A class representation of the add command
+ */
 public class AddCommand extends Command {
 
 	private final TaskType taskType;
@@ -22,6 +24,15 @@ public class AddCommand extends Command {
 	private final LocalDate from;
 	private final LocalDate to;
 
+	/**
+	 * Creates a {@code AddCommand} instance with the given taskType, description, and dates. If there is no date for
+	 * that parameter, use {@code null} instead.
+	 * @param taskType The type of task to instantiate
+	 * @param description The description of the task
+	 * @param by The due date of the task, if empty, use {@code null} as the parameter
+	 * @param from The start date of the task, if empty, use {@code null} as the parameter
+	 * @param to The end date of the task, if empty, use {@code null} as the parameter
+	 */
 	public AddCommand(TaskType taskType, String description, LocalDate by, LocalDate from, LocalDate to) {
 		this.taskType = taskType;
 		this.description = description;
@@ -30,6 +41,13 @@ public class AddCommand extends Command {
 		this.to = to;
 	}
 
+	/**
+	 * Executes the add command by creating a {@code Task} based on {@code taskType} and
+	 * adds it into the {@code taskList}
+	 * @param taskList The tasklist to execute the command on
+	 * @param ui The user interface for printing status
+	 * @param storage The storage file to save and load from
+	 */
 	@Override
 	public void execute(TaskList taskList, Ui ui, Storage storage) {
 

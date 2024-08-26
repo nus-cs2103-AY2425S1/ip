@@ -3,18 +3,33 @@ package wiggly.task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class representation of an ordered, mutable collection of {@code Task}
+ */
 public class TaskList {
 
     private final List<Task> tasks;
 
+    /**
+     * Creates a {@code TaskList} instance from a {@code List<Task>}
+     * @param tasks the specified {@code List<Task>}
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Creates a {@code TaskList} instance containing no tasks
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a {@code Task} into the {@code TaskList}
+     * @param task the {@code Task} to be added
+     * @return a message to indicate the added {@code Task}
+     */
     public String addTask(Task task) {
         tasks.add(task);
 	    String sb = "Got it. I've added this task:\n" + task + "\n" +
@@ -22,14 +37,20 @@ public class TaskList {
         return sb;
     }
 
-    public int getSize() {
-        return tasks.size();
-    }
-
-    public Task getTask(int index) {
+    /**
+     * Returns the {@code Task} at the specified index of {@code TaskList}
+     * @param index The index of {@code Task} to return
+     * @return The {@code Task} at the specified index
+     */
+    private Task getTask(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Marks the {@code Task} of the given taskNumber as done. If the task is already done, it will remain the same
+     * @param taskNumber the task number of the {@code Task}
+     * @return a message to indicate that the mark was successful
+     */
     public String markDone(int taskNumber) {
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
@@ -39,6 +60,12 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Marks the {@code Task} of the given taskNumber as undone.
+     * If the task is already marked as undone, it will remain the same
+     * @param taskNumber the task number of the {@code Task}
+     * @return a message to indicate that the mark was successful
+     */
     public String markUndone(int taskNumber) {
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
@@ -48,6 +75,11 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Deletes the {@code Task} of the given taskNumber.
+     * @param taskNumber the task number of the {@code Task}
+     * @return a message to indicate that the task has been deleted
+     */
     public String deleteTask(int taskNumber) {
         StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
@@ -58,6 +90,10 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Returns a String representation of the entire task list to be stored in a data file
+     * @return The converted string
+     */
     public String toFileFormat() {
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks) {
@@ -65,6 +101,11 @@ public class TaskList {
         }
         return sb.toString();
     }
+
+    /**
+     * Returns a String representation of the task list
+     * @return a String representation of the task list
+     */
     @Override
     public String toString() {
         int count = 1;
