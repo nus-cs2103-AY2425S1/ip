@@ -75,6 +75,20 @@ public class Parser {
             }
             break;
         }
+        case "find": {
+            if (!line.contains(" ")) {
+                throw new CommandException("The search string must not be empty.");
+            }
+            String query = line.split(" ", 2)[1];
+            ui.addToBuffer("Here are the matching tasks in your list:");
+            int displayIndex = 1;
+            for (Task task : list) {
+                if (String.valueOf(task).contains(query)) {
+                    ui.addToBuffer((displayIndex++) + ". " + task);
+                }
+            }
+            break;
+        }
         case "delete": {
             int idx = Integer.parseInt(line.split(" ")[1]) - 1;
             if (idx < 0 || idx >= list.size()) {
