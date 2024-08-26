@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Kafka {
 
     public void greet() {
@@ -8,9 +10,13 @@ public class Kafka {
         System.out.println(message);
     }
 
-    public void exit() {
+    public void goodbye() {
         String message = "Farewell. I look forward to our next meeting, wherever destiny may lead us. ";
         System.out.println(message);
+    }
+
+    public void echo(String task) {
+        System.out.println(task);
     }
     public static void main(String[] args) {
         String logo = """
@@ -20,9 +26,21 @@ public class Kafka {
                 |     \\ | |_| |   |  |   |   <  | |_| |
                 |__|\\__\\ \\____|   |__|   |_|\\ \\  \\____|
                 """;
-        System.out.println("Hello from\n" + logo);
+        Scanner scanner = new Scanner(System.in);
         Kafka kafka = new Kafka();
+        boolean exitChat = false;
+
+        System.out.println("Hello from\n" + logo);
         kafka.greet();
-        kafka.exit();
+        System.out.println("What do you need me for?");
+        while (!exitChat) {
+            String task = scanner.nextLine();
+            if (task.trim().equalsIgnoreCase("Bye")) {
+                exitChat = true;
+            } else {
+                kafka.echo(task);
+            }
+        }
+        kafka.goodbye();
     }
 }
