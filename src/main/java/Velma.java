@@ -1,8 +1,13 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Velma {
 
+    private static final String FILE_PATH = "./data/velma.txt";
     public static void printLine() {
         for (int i = 0; i < 50; i++) {
             System.out.print("_");
@@ -43,8 +48,42 @@ public class Velma {
         }
     }
 
+    public static ArrayList<Task> loadTasks() {
+        ArrayList<Task> list = new ArrayList<>();
+        File file = new File("/Users/zeonchew04/ip/data/velma.txt");
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                Task task;
+                switch (parts[0]) {
+                    case "T":
+                        task = new Todo(parts[2]);
+                        break;
+                    case "D":
+                        task = new Deadline(parts[2], parts[3]);
+                        break;
+                    case "E":
+                        task = new Event(parts[2], parts[3], parts[4]);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unknown task type: " + parts[0]);
+                }
+                if (parts[1].equals("1")) {
+                    task.changeIsDone();
+                }
+                list.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No previous tasks found.");
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
+
+        String projectRoot = System.getProperty("user.dir");
+        System.out.println("Project root: " + projectRoot);
 
         int count = 1;
         ArrayList<Task> list = new ArrayList<>(100);
