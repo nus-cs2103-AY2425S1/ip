@@ -17,5 +17,6 @@ public class DeleteCommand extends Command {
                 "\t   " + task + "\n" +
                 "\t Now you have " + tasks.getSize() + " tasks" + " in the list.\n" +
                 "\t____________________________________________________________");
+        storage.save(tasks);
     }
 }
