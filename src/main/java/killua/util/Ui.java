@@ -22,8 +22,8 @@ public class Ui {
 
     public void showWelcomeMessage() {
         printLine();
-        System.out.println("Welcome to killua.Killua killua.task.Task Manager!");
-        System.out.println("Here are some killua.commands you can use:");
+        System.out.println("Welcome to Killua Task Manager!");
+        System.out.println("Here are some commands you can use:");
         System.out.println("  bye - Exit the application");
         System.out.println("  list - List all tasks");
         System.out.println("  mark <task number> - Mark a task as done");
