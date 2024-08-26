@@ -22,7 +22,10 @@ public class Mel {
         while (true) {
             String input = scanner.nextLine();
             System.out.println(LINE);
-            if (Objects.equals(input, "bye")) {
+            if (input.length() > 100) {
+                System.out.println("Mel's eyes explode "
+                        + "reading your many words XD");
+            } else if (Objects.equals(input, "bye")) {
                 System.out.println("Buh-bye :)\n" + LINE);
                 break;
             } else if (Objects.equals(input, "list")) {
