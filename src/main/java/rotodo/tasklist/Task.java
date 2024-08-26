@@ -11,8 +11,9 @@ public abstract class Task {
     String name;
     boolean done = false;
     
-    public Task(String value) {
+    public Task(String value, String done) {
         this.name = value;
+        this.done = (done == "1");
     }
 
     /**
@@ -40,5 +41,11 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + (done ? "X" : " ") + "] " + name; 
+    }
+
+    public abstract String saveString();
+
+    public String saveString(String insert) {
+        return name + " | " + (insert == "" ? "" : insert + " | ") + (done ? "1" : "0");
     }
 }
