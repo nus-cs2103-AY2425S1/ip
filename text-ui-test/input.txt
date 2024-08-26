@@ -1,9 +1,10 @@
 todo Buy Christmas gifts
-deadline Finish wrapping /by Dec 24
-event Christmas party /from Dec 25 6PM /to Dec 25 11PM
+deadline Finish wrapping /by 2023-12-24 1800
+event Christmas party /from 2023-12-25 1800 /to 2023-12-25 2300
 list
 mark 1
 unmark 1
 delete 2
 list
 bye
+

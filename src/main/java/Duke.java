@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -111,18 +112,22 @@ public class Duke {
                 String[] substrings = input.split(" /by ");
                 if (substrings.length == 2) {
                     if (substrings[0].length() <= 9) {
-                        System.out.println("Oops! The description of a todo cannot be empty.");
+                        System.out.println("Oops! The description of a deadline cannot be empty.");
                     } else {
                         String description = substrings[0].substring(9).trim();
                         String by = substrings[1].trim();
                         if (description.isEmpty()) {
                             System.out.println("Oops! The description of a deadline cannot be empty.");
                         } else {
-                            tasks.add(new Deadline(description, by));
-                            isChanged = true;
-                            System.out.println("Gotcha. I've added this task:");
-                            System.out.println("  " + tasks.get(tasks.size() - 1));
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list. Let it snow!");
+                            try {
+                                tasks.add(new Deadline(description, by));
+                                isChanged = true;
+                                System.out.println("Gotcha. I've added this task:");
+                                System.out.println("  " + tasks.get(tasks.size() - 1));
+                                System.out.println("Now you have " + tasks.size() + " tasks in the list. Let it snow!");
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Please enter the date and time in the format yyyy-MM-dd HHmm.");
+                            }
                         }
                     }
                 } else {
@@ -132,7 +137,7 @@ public class Duke {
                 String[] substrings = input.split(" /from ");
                 if (substrings.length == 2) {
                     if (substrings[0].length() <= 6) {
-                        System.out.println("Oops! The description of a todo cannot be empty.");
+                        System.out.println("Oops! The description of an event cannot be empty.");
                     } else {
                         String description = substrings[0].substring(6).trim();
                         String[] fromTo = substrings[1].split(" /to ");
@@ -142,13 +147,16 @@ public class Duke {
                             if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                                 System.out.println("Oops! The description, start time, or end time of an event cannot be empty.");
                             } else {
-                                tasks.add(new Event(description, from, to));
-                                isChanged = true;
-                                System.out.println("Gotcha. I've added this task:");
-                                System.out.println("  " + tasks.get(tasks.size() - 1));
-                                System.out.println("Now you have " + tasks.size() + " tasks in the list. Feliz Navidad!");
+                                try {
+                                    tasks.add(new Event(description, from, to));
+                                    isChanged = true;
+                                    System.out.println("Gotcha. I've added this task:");
+                                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                                    System.out.println("Now you have " + tasks.size() + " tasks in the list. Feliz Navidad!");
+                                } catch (DateTimeParseException e) {
+                                    System.out.println("Please enter the date and time in the format yyyy-MM-dd HHmm.");
+                                }
                             }
-
                         } else {
                             System.out.println("Sorry, I don't understand. Did you mean: event <description> /from <start date/time> /to <end date/time>");
                         }
