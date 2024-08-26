@@ -1,5 +1,6 @@
 package simon;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -58,5 +59,15 @@ public class Ui {
     }
     public void showLoadingError() {
         System.out.println("Error in loading");
+    }
+
+    public void showSearchTask(ArrayList<Task> tasks) {
+        System.out.println(HOR_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.println("\t" + (i + 1) + ". " + task.toString());
+        }
+        System.out.print(HOR_LINE);
     }
 }

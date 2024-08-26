@@ -50,9 +50,11 @@ public class Parser {
         } else if (input.startsWith("delete")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             return new DeleteCommand(index);
-
-        }
-        else {
+        } else if (input.startsWith("find")) {
+            String[] parts = input.split(" ");
+            String title = parts[1];
+            return new FindCommand(title);
+        } else {
             throw new IllegalArgumentException("Illegal command.");
         }
     }
