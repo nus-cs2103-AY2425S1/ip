@@ -1,3 +1,5 @@
+package friday.task;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -5,10 +7,6 @@ public abstract class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
     }
 
     public void markAsDone() {
@@ -23,6 +21,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return (isDone ? "[X] " : "[ ] ") + description;
     }
 }

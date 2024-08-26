@@ -1,3 +1,10 @@
+package friday;
+
+import friday.task.Deadline;
+import friday.task.Event;
+import friday.task.Task;
+import friday.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
