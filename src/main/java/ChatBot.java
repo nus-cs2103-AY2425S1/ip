@@ -71,9 +71,9 @@ public class ChatBot {
             in = new ObjectInputStream(fileIn);
             lst = (ArrayList<Task>) in.readObject();
         } catch (Exception e) {
-            e.printStackTrace();
             // Handle the case where the file is not found or class is not found
             lst = new ArrayList<>();
+            saveTasksToFile();
         } finally {
             try {
                 if (in != null) {
