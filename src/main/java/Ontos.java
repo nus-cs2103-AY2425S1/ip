@@ -24,7 +24,6 @@ public class Ontos {
         ui.showLine();
         ui.greet();
         ui.showLine();
-        saveManager.loadSave();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -44,7 +43,7 @@ public class Ontos {
     }
 
     public static void main(String[] args) {
-        Ontos ontos = new Ontos("Ontos.txt");
+        Ontos ontos = new Ontos("Ontos");
         ontos.run();
     }
 }
