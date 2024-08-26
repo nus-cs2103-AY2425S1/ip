@@ -22,6 +22,8 @@ public class Parser {
                 return new DeadlineCommand(input);
             case "event":
                 return new EventCommand(input);
+            case "find":
+                return new FindCommand(input);
             default:
                 throw new SojuException("Unknown command, type help to see a list of soju.commands");
         }

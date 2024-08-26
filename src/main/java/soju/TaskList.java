@@ -37,6 +37,11 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+    public String findMatchingTasks(String keyword) {
+        return tasks.stream().filter(task -> task.getDescription().contains(keyword))
+                .map(task -> (tasks.indexOf(task) + 1) + "." + task)
+                .collect(Collectors.joining("\n"));
+    }
     @Override
     public String toString() {
         return tasks.stream()
