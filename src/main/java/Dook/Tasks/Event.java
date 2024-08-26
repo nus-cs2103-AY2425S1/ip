@@ -23,4 +23,17 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
         return "[E]" + super.toString() + " (From: " + this.start.format(formatter) + " To: " + this.end.format(formatter) + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Event)) {
+            return false;
+        } else if (o == this) {
+            return true;
+        }
+
+        Event e = (Event) o;
+
+        return e.description.equals(this.description) && e.start.equals(this.start) && e.end.equals(this.end);
+    }
 }

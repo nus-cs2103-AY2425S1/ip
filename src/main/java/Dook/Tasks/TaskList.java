@@ -17,7 +17,7 @@ public class TaskList {
     }
 
     public Task delete(int taskNumber) throws DookException, IOException {
-        if (taskNumber > numOfTasks()) {
+        if (taskNumber < 0 || taskNumber > numOfTasks()) {
             throw new DookException("You don't have that many tasks");
         }
 
