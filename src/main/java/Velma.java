@@ -91,11 +91,8 @@ public class Velma {
     }
 
     public static void main(String[] args) {
-        
-        ;
-
         int count = 1;
-        ArrayList<Task> list = new ArrayList<>(100);
+        ArrayList<Task> list = loadTasks();
         boolean end = false;
         printLine();
         System.out.println("Hello! I am Velma!");
@@ -121,6 +118,7 @@ public class Velma {
                         System.out.println("  " + newTodo.toString());
                         System.out.println("Now you have " + list.size() + " tasks in the list");
                         printLine();
+                        saveTasks(list);
                         break;
 
                     case DEADLINE:
@@ -137,6 +135,7 @@ public class Velma {
                         System.out.println("  " + newDeadline.toString());
                         System.out.println("Now you have " + list.size() + " tasks in the list");
                         printLine();
+                        saveTasks(list);
                         break;
 
                     case EVENT:
@@ -154,6 +153,7 @@ public class Velma {
                         System.out.println("  " + newEvent.toString());
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                         printLine();
+                        saveTasks(list);
                         break;
 
                     case LIST:
@@ -183,6 +183,7 @@ public class Velma {
                         }
                         System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
                         printLine();
+                        saveTasks(list);
                         break;
 
                     case DELETE:
@@ -197,6 +198,7 @@ public class Velma {
                         list.remove(taskNumber);
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                         printLine();
+                        saveTasks(list);
                         break;
 
                     case BYE:
