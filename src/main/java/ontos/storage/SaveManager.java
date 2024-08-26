@@ -1,3 +1,5 @@
+package ontos.storage;
+
 import java.util.Scanner;
 import java.util.HashMap;
 
@@ -10,6 +12,9 @@ import java.nio.file.Path;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import ontos.task.TaskList;
+import ontos.task.Task;
 
 public class SaveManager {
     protected Path savePath;

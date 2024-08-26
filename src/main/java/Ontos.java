@@ -1,11 +1,16 @@
 import java.util.Scanner;
 
-import javax.sql.rowset.serial.SerialJavaObject;
+import ontos.commands.Command;
 
 import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import ontos.parser.Parser;
+import ontos.storage.SaveManager;
+import ontos.task.TaskList;
+import ontos.ui.Ui;
 
 public class Ontos {
     private Ui ui;
@@ -31,7 +36,7 @@ public class Ontos {
                 ui.showLine();
                 Command c = Parser.parse(input);
                 c.execute(tasks, ui, saveManager);
-                isExit = c.isExit;
+                isExit = c.isExit();
             } catch (IllegalArgumentException e) {
                 ui.badInput();
             } catch (Exception e) {

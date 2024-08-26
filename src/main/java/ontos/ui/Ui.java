@@ -1,4 +1,9 @@
+package ontos.ui;
+
 import java.util.Scanner;
+
+import ontos.task.Task;
+import ontos.task.TaskList;
 
 public class Ui {
     private static String hello = " Hello! I'm Ontos \n What can I do for you?";

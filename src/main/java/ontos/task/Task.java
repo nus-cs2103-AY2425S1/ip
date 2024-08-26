@@ -1,6 +1,6 @@
+package ontos.task;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public abstract class Task {
     protected String description;

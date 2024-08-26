@@ -1,10 +1,20 @@
+package ontos.commands;
 import java.io.IOException;
+
+import ontos.storage.SaveManager;
+import ontos.task.Task;
+import ontos.task.TaskList;
+import ontos.ui.Ui;
 
 public abstract class Command {
     protected boolean isExit;
 
     protected Command() {
         this.isExit = false;
+    }
+
+    public boolean isExit() {
+        return this.isExit;
     }
 
     public abstract void execute(TaskList tasks, Ui ui, SaveManager saveManager);
