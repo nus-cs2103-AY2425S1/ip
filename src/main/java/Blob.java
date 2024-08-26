@@ -1,9 +1,17 @@
-import java.io.*;
+import javax.print.attribute.standard.MediaSize;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Blob {
     private static boolean active = true;
@@ -72,35 +80,35 @@ public class Blob {
 
     //DEADLINE CLASS
     public static class Deadline extends Task {
-        private String deadline;
+        private LocalDateTime deadline;
         public Deadline(String name, boolean isDone, String deadline) {
             super(name,isDone);
-            this.deadline = deadline;
+            this.deadline = LocalDateTime.parse(deadline);
             super.type = "D";
         }
 
         @Override
         public String toString() {
-            return "[D]" + "[" + this.check() + "] " + this.name + " (by: " + deadline + ")";
+            return "[D]" + "[" + this.check() + "] " + this.name + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
         }
     }
 
     //EVENT CLASS
     public static class Event extends Task {
 
-        private String start;
-        private String end;
+        private LocalDateTime start;
+        private LocalDateTime end;
 
         public Event(String name, boolean isDone, String start, String end) {
-            super(name,isDone);
-            this.start = start;
-            this.end = end;
+            super(name, isDone);
+            this.start = LocalDateTime.parse(start);
+            this.end = LocalDateTime.parse(end);
             super.type = "E";
         }
 
         @Override
         public String toString() {
-            return "[E]" + "[" + this.check() + "] " + this.name + " (from: " + start + " to: " + end + ")";
+            return "[E]" + "[" + this.check() + "] " + this.name + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d HH:mm")) + ")";
         }
     }
 
@@ -213,19 +221,22 @@ public class Blob {
                     a = a.append(str);
                 }
                 // for task deadline string
-                StringBuilder s = new StringBuilder(arr[by + 1]);
-                for (int k = by + 2; k < arr.length; k++) {
-                    StringBuilder str = new StringBuilder(" " + arr[k]);
-                    s = s.append(str);
-                }
+                StringBuilder sDate = new StringBuilder(arr[by + 1]);
+                StringBuilder sTime = new StringBuilder(arr[by + 2]);
+                String ISO8601Format = sDate.toString() + "T" + sTime.toString() + ":00";
 
-                Deadline d = new Deadline(a.toString(), false, s.toString());
-                db.add(d);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(d);
-                System.out.println("Now you have " + db.size() + " tasks in the list.");
-                System.out.println("______________________________________________");
-                updateFileContents("./src/main/java/database.csv", db);
+                try {
+                    Deadline d = new Deadline(a.toString(), false, ISO8601Format);
+                    db.add(d);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(d);
+                    System.out.println("Now you have " + db.size() + " tasks in the list.");
+                    System.out.println("______________________________________________");
+                    updateFileContents("./src/main/java/database.csv", db);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
+                    System.out.println("______________________________________________");
+                }
                 break;
 
             } else if (Objects.equals(act, "event")) {
@@ -263,25 +274,27 @@ public class Blob {
                     a = a.append(str);
                 }
                 //for start string
-                StringBuilder st = new StringBuilder(arr[start + 1]);
-                for (int k = start + 2; k < end; k++) {
-                    StringBuilder str = new StringBuilder(" " + arr[k]);
-                    st = st.append(str);
-                }
-                //for end string
-                StringBuilder en = new StringBuilder(arr[end + 1]);
-                for (int k = end + 2; k < arr.length; k++) {
-                    StringBuilder str = new StringBuilder(" " + arr[k]);
-                    en = en.append(str);
-                }
+                StringBuilder stDate = new StringBuilder(arr[start + 1]);
+                StringBuilder stTime = new StringBuilder(arr[start + 2]);
+                String startISO8601Format = stDate.toString() + "T" + stTime.toString() + ":00";
 
-                Event e = new Event(a.toString(), false, st.toString(), en.toString());
-                db.add(e);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(e);
-                System.out.println("Now you have " + db.size() + " tasks in the list.");
-                System.out.println("______________________________________________");
-                updateFileContents("./src/main/java/database.csv", db);
+                //for end string
+                StringBuilder enDate = new StringBuilder(arr[end + 1]);
+                StringBuilder enTime = new StringBuilder(arr[end + 2]);
+                String endISO8601Format = enDate.toString() + "T" + enTime.toString() + ":00";
+
+                try {
+                    Event e = new Event(a.toString(), false, startISO8601Format, endISO8601Format);
+                    db.add(e);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(e);
+                    System.out.println("Now you have " + db.size() + " tasks in the list.");
+                    System.out.println("______________________________________________");
+                    updateFileContents("./src/main/java/database.csv", db);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
+                    System.out.println("______________________________________________");
+                }
                 break;
 
             } else {
