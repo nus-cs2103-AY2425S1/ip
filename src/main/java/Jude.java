@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 
 import java.lang.reflect.Array;
 import java.nio.CharBuffer;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +37,7 @@ public class Jude {
             loadFile(filePath, list);
         } catch (JudeException je) {
             System.out.println(je.getMessage());
+            je.printStackTrace();
             return;
         }
 
@@ -156,18 +158,22 @@ public class Jude {
             } else {
                 Task task;
                 String[] descriptions = parser.getDescriptions();
-                if (command.equals("to-do")) {
-                    task = new Todo(descriptions[0]);
-                } else if (command.equals("deadline")) {
-                    task = new Deadline(descriptions[0], descriptions[1]);
-                } else if (command.equals("event")) {
-                    task = new Event(descriptions[0], descriptions[1], descriptions[2]);
-                    // Invalid input
-                } else {
-                    continue;
+                try {
+                    if (command.equals("to-do")) {
+                        task = new Todo(descriptions[0]);
+                    } else if (command.equals("deadline")) {
+                        task = new Deadline(descriptions[0], descriptions[1]);
+                    } else if (command.equals("event")) {
+                        task = new Event(descriptions[0], descriptions[1], descriptions[2]);
+                        // Invalid input
+                    } else {
+                        continue;
+                    }
+                    list.add(task);
+                    System.out.println("Poyo! added: " + task.toStringDetails());
+                } catch (JudeException je) {
+                    System.out.println(je.getMessage());
                 }
-                list.add(task);
-                System.out.println("Poyo! added: " + task.toStringDetails());
             }
 
         }
@@ -232,7 +238,7 @@ public class Jude {
 
 
         while (fileReader.hasNextLine()) {
-            String[] split = fileReader.nextLine().replaceAll("\\s","").split("\\|");
+            String[] split = fileReader.nextLine().split(" \\| ");
             String errorMessage = "There was an error while loading the file.";
 
             // Handles file format with no Type letter
@@ -253,7 +259,8 @@ public class Jude {
                 if (split.length != 4) {
                     throw new JudeException(errorMessage);
                 }
-                list.add(new Deadline(description, split[3], isDone));
+                String[] dateAndTime = split[3].split(" ");
+                list.add(new Deadline(description, dateAndTime[0], dateAndTime[1], isDone));
                 break;
             case "E":
                 if (split.length != 5) {

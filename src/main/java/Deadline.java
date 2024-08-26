@@ -1,23 +1,51 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    private String deadline;
+    private LocalDate date;
+    private LocalTime time;
 
-    public Deadline (String description, String deadline) {
+    public Deadline (String description, String date, String time) throws JudeException {
         super(description);
-        this.deadline = deadline;
+        this.date = LocalDate.parse(date);
+        this.time = LocalTime.parse(time);
     }
 
-    public Deadline (String description, String deadline, boolean isDone) {
+    public Deadline (String description, String date, String time, boolean isDone) throws JudeException {
         super(description, isDone);
-        this.deadline = deadline;
+        this.date = LocalDate.parse(date);
+        this.time = LocalTime.parse(time);
     }
+
+    /*
+    public void setDateAndTime(String deadline) throws JudeException {
+        String[] dateAndTime = deadline.split(" ");
+        try {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // default
+            this.date = LocalDate.parse(dateAndTime[0], dateFormat);
+
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm"); // default
+            this.time = LocalTime.parse(dateAndTime[1], timeFormat);
+
+        } catch (DateTimeParseException de) {
+            throw new JudeException("wrong date or time format was provided.");
+        }
+    }
+    */
+
 
     @Override
     public String toStringDetails() {
-        return String.format("[D]%s (by: %s)", super.toStringDetails(), this.deadline);
+        return String.format("[D]%s (by: %s %s)",
+                super.toStringDetails(), this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
+                this.time.format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
     @Override
     public String toFileFormat() {
-        return String.format("%s | %d | %s | %s", "D", getStatusBinary(), getDescription(), this.deadline);
+        return String.format("%s | %d | %s | %s %s",
+                "D", getStatusBinary(), getDescription(), this.date, this.time);
     }
 }

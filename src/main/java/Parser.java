@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
     private String command;
     private String[] descriptions;
 
     public Parser() {
-
     }
 
     public void setUpUserInput(String input) throws JudeException {
@@ -73,5 +76,17 @@ public class Parser {
 
     public String[] getDescriptions() {
         return this.descriptions;
+    }
+
+    public static LocalDate convertDateFormat(String userInput) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(userInput, dateFormat);
+        return date;
+    }
+
+    public static LocalTime convertTimeFormat(String userInput) {
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
+        LocalTime time = LocalTime.parse(userInput, timeFormat);
+        return time;
     }
 }
