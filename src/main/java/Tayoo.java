@@ -1,19 +1,24 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Tayoo {
-    private static final ArrayList<Task> tasklist = new ArrayList<Task>(100);
-    private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE"};
+    private static final Logger logger = Logger.getLogger(Tayoo.class.getName());
+    private static final String TASKLIST_FILEPATH = "./tasklist.txt";
+    private static final ArrayList<Task> tasklist = new ArrayList<>(100);
+    private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE", "QUIT"};
     public static void main(String[] args) {
         String name = "Tayoo";
         Scanner scanner = new Scanner(System.in);
 
         //Introduce self
-        printText("Hello! I'm " + name + "\nWhat can I do for you?\n");
+        printText("Hello! I'm " + name + "\nAt your service! O7");
 
-        //Await command
-        awaitCommand(scanner);
+        //Initialise bot
+        botInit(scanner);
 
 
 
@@ -21,15 +26,32 @@ public class Tayoo {
         scanner.close();
         System.exit(0);
     }
+
+    private static void botInit(Scanner scanner) {
+        //contains all initialisation
+        File f = new File(TASKLIST_FILEPATH);
+        try {
+            if (f.createNewFile()) {
+                printText("Creating a new tasklist file for you!");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        readFromTasklist();
+        awaitCommand(scanner);
+
+    }
+
     private static void printHoriLine() {
-        System.out.println("\t_______________________________________");
+        System.out.println("\t_______________________________________________________________________");
     }
 
     private static void printText(String text) {
-        printHoriLine();
+        System.out.println("\n");
         System.out.println(text);
         printHoriLine();
-        System.out.println("\n");
     }
 
     private static void exitBot(Scanner scanner) {
@@ -48,51 +70,11 @@ public class Tayoo {
             } else if (input.equals("LIST")) {
                 printTaskList();
             } else if (input.startsWith("MARK ")) {
-                try {
-                    int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
-                    try {
-                        if (tasklist.get(taskNumber).markAsDone()) {
-                            printText("Nice! I've marked this task as done:\n" + tasklist.get(taskNumber));
-                        } else {
-                            printText("Hey! You've done that one already!\n" + tasklist.get(taskNumber));
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        if (taskNumber < 0) {
-                            System.out.println("Dude, your task list starts from 1! Input a number that's above 0!");
-                        } else if (taskNumber > 100) {
-                            System.out.println("My task list can't go that high! Try a smaller number");
-                        } else {
-                            System.out.println("Hmm... my task list doesn't contain that number... try again");
-                        }
-                    } catch (NumberFormatException e) {
-                        printText("Hey, that's not a task number! Give me a number please!");
-                    }
-                } catch (NumberFormatException e) {
-                    printText("Hey, that's not a task number! Give me a number please!");
-                }
+                int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
+                markTask(taskNumber);
             } else if (input.startsWith("UNMARK ")) {
-                try {
-                    int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
-                    try {
-                        if (tasklist.get(taskNumber).unmark()) {
-                            printText("OK, I've marked this task as not done yet:\n" + tasklist.get(taskNumber));
-                        } else {
-                            printText("Hey! You haven't even done that one yet!\n" + tasklist.get(taskNumber));
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        if (taskNumber <= 0) {
-                            System.out.println("Dude, your task list starts from 1! Input a number that's above 0!");
-                        } else if (taskNumber > 100) {
-                            System.out.println("My task list can't go that high! Try a smaller number");
-                        } else {
-                            System.out.println("Hmm... my task list doesn't contain that number... try again");
-                        }
-                    } catch (NumberFormatException e) {
-                        printText("Hey, that's not a task number! Give me a number please!");
-                    }
-                } catch (NumberFormatException e) {
-                    printText("Hey, that's not a task number! Give me a number please!");
-                }
+                int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+                unmarkTask(taskNumber);
             } else if (input.startsWith("TODO")){
                 try {
                     addTask(new ToDo(command.substring(5).trim()));
@@ -154,7 +136,13 @@ public class Tayoo {
             printText("Too many tasks! Complete some first! >:( ");
             return;
         }
+
         tasklist.add(task);
+        try {
+            appendToFile(TASKLIST_FILEPATH, task.toTxt() + System.lineSeparator());
+        } catch (IOException e) {
+            logger.warning("Something went wrong. Could not write to file.");
+        }
 
         String toPrint = "Got it. I've added this task: \n" + task.toString();
 
@@ -183,7 +171,7 @@ public class Tayoo {
     private static void deleteAll() {
         int length = tasklist.size();
         printText("Removing all tasks");
-        for (int i = 0; i < length; i++) {
+        for (int i = length - 1; i >= 0; i--) {
             tasklist.remove(i);
         }
     }
@@ -198,5 +186,151 @@ public class Tayoo {
 
         printText(toPrint.toString());
     }
+
+    private static void appendToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void readFromTasklist() {
+        File f = new File(TASKLIST_FILEPATH);
+        StringBuilder tasklistStr = new StringBuilder("Added tasks:\n");
+        try {
+            Scanner s = new Scanner(f);
+            if (s.hasNextLine()) {
+                printText("I see you have some tasks from the last time we chatted! Pulling them up now :)");
+            }
+            while (s.hasNextLine()) {
+                //read file and add task to tasklist
+                String taskStr = s.nextLine();
+                Task taskToAdd = parseTask(taskStr);
+                if (taskToAdd != null) {
+                    tasklistStr.append(taskToAdd).append("\n");
+                    tasklist.add(taskToAdd);
+                }
+
+            }
+
+            printText(tasklistStr.toString());
+            s.close();
+        } catch (FileNotFoundException e) {
+            logger.warning("No tasklist found.");
+        }
+    }
+
+    private static Task parseTask(String str) {
+        Scanner scanner = new Scanner(str);
+        scanner.useDelimiter("\\|");
+        boolean isComplete;
+        String title;
+
+        switch(scanner.next().trim()) {
+        case ("Task"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            scanner.close();
+            return new Task(title, isComplete);
+        case ("Todo"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            scanner.close();
+            return new ToDo(title, isComplete);
+        case ("Event"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            String start = scanner.next().trim();
+            String end = scanner.next().trim();
+            scanner.close();
+            return new Event(title, start, end, isComplete);
+        case ("Deadline"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            String deadline = scanner.next().trim();
+            scanner.close();
+            return new Deadline(title, deadline, isComplete);
+        default:
+            //should not ever reach here
+            scanner.close();
+            logger.warning("Reached end of parse task. Invalid input.");
+            return null;
+        }
+    }
+
+    private static void markTask(int taskNumber) {
+        try {
+            if (tasklist.get(taskNumber).markAsDone()) {
+                updateTxt(taskNumber, true);
+                printText("Nice! I've marked this task as done:\n" + tasklist.get(taskNumber));
+            } else {
+                printText("Hey! You've done that one already!\n" + tasklist.get(taskNumber));
+            }
+        } catch (IndexOutOfBoundsException e) {
+            if (taskNumber < 0) {
+                System.out.println("Dude, your task list starts from 1! Input a number that's above 0!");
+            } else if (taskNumber > 100) {
+                System.out.println("My task list can't go that high! Try a smaller number");
+            } else {
+                System.out.println("Hmm... my task list doesn't contain that number... try again");
+            }
+        } catch (NumberFormatException e) {
+            printText("Hey, that's not a task number! Give me a number please!");
+        }
+    }
+
+    private static void unmarkTask(int taskNumber) {
+        try {
+            if (tasklist.get(taskNumber).unmark()) {
+                updateTxt(taskNumber, false);
+                printText("OK, I've marked this task as not done yet:\n" + tasklist.get(taskNumber));
+            } else {
+                printText("Hey! You haven't even done that one yet!\n" + tasklist.get(taskNumber));
+            }
+        } catch (IndexOutOfBoundsException e) {
+            if (taskNumber <= 0) {
+                System.out.println("Dude, your task list starts from 1! Input a number that's above 0!");
+            } else if (taskNumber > 100) {
+                System.out.println("My task list can't go that high! Try a smaller number");
+            } else {
+                System.out.println("Hmm... my task list doesn't contain that number... try again");
+            }
+        } catch (NumberFormatException e) {
+            printText("Hey, that's not a task number! Give me a number please!");
+        }
+    }
+
+    private static void updateTxt(int taskNumber, boolean isCompleted) {
+        List<String> lines = new ArrayList<>();
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            logger.warning("Cannot find tasklist.txt");
+        } catch (IOException e) {
+            logger.warning("An error ocurred while reading the file");
+        }
+
+        String line = lines.get(taskNumber);
+        String[] parts = line.split(" \\| ");
+        parts[1] = Boolean.toString(isCompleted);
+        lines.set(taskNumber, String.join(" | ", parts));
+
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
+            for (String updatedLine : lines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            logger.warning("An error occurred while updating the task");
+        }
+    }
+
 
 }
