@@ -36,6 +36,10 @@ public class KorolevStorage {
         }
     }
 
+    /**
+     *
+     * @param msg
+     */
     public void writeToFile(String msg) {
         createNewFile();
 
@@ -48,6 +52,10 @@ public class KorolevStorage {
         }
     }
 
+    /**
+     *
+     * @param events
+     */
     public void readLines(ArrayList<KorolevTask> events) {
         createNewFile();
         try {

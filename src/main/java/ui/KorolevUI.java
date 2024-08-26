@@ -14,6 +14,9 @@ public class KorolevUI {
 
     private KorolevList repo = new KorolevList();
 
+    /**
+     *
+     */
     public void run() {
         System.out.println(newLogo);
         repo.loadEvent();
@@ -21,6 +24,9 @@ public class KorolevUI {
         System.out.println(end);
     }
 
+    /**
+     *
+     */
     private void readCommands() {
         String input = "";
         boolean isRunning = true;

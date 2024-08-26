@@ -8,10 +8,16 @@ public class KorolevTask {
         this.name = name;
     }
 
+    /**
+     *
+     */
     public void markTask() {
         this.status = true;
     }
 
+    /**
+     *
+     */
     public void unmarkTask() {
         this.status = false;
     }

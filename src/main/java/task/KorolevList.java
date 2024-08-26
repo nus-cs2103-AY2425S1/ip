@@ -32,6 +32,11 @@ public class KorolevList {
         return msg.toString();
     }
 
+    /**
+     *
+     * @param event
+     * @throws DukeException
+     */
     public void addEvent(String event) throws DukeException {
         KorolevTask e;
         String name, date, from, to;
@@ -79,10 +84,19 @@ public class KorolevList {
         System.out.println("Now you have " + events.size() + " tasks in the list");
     }
 
+    /**
+     *
+     * @return
+     */
     public String displayList() {
         return listNotice + this.toString();
     }
 
+    /**
+     *
+     * @param index
+     * @throws DukeException
+     */
     public void markEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
@@ -93,6 +107,11 @@ public class KorolevList {
         System.out.println(t);
     }
 
+    /**
+     *
+     * @param index
+     * @throws DukeException
+     */
     public void removeEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
@@ -103,6 +122,11 @@ public class KorolevList {
         System.out.println("Now you have " + this.events.size() + " tasks in the list.");
     }
 
+    /**
+     *
+     * @param index
+     * @throws DukeException
+     */
     public void unmarkEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
@@ -113,6 +137,10 @@ public class KorolevList {
         System.out.println(t);
     }
 
+    /**
+     *
+     * @return
+     */
     private String createSaveInfo() {
         StringBuilder msg = new StringBuilder();
         for (KorolevTask event : this.events) {
@@ -121,12 +149,18 @@ public class KorolevList {
         return msg.toString();
     }
 
+    /**
+     *
+     */
     public void saveEvent() {
         String msg = this.createSaveInfo();
         storage.writeToFile(msg);
     }
 
 
+    /**
+     *
+     */
     public void loadEvent() {
         storage.readLines(this.events);
     }

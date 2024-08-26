@@ -10,6 +10,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EventParser {
+    /**
+     *
+     * @param start
+     * @param stop
+     * @param input
+     * @return
+     * @throws ParseException
+     */
     public static String parseName(String start, String stop, String input)  throws ParseException {
         Pattern pattern = Pattern.compile(start + "\\s+(.+)\\s*" + stop);
         Matcher matcher = pattern.matcher(input);
@@ -20,6 +28,12 @@ public class EventParser {
         }
     }
 
+    /**
+     *
+     * @param record
+     * @return
+     * @throws ParseException
+     */
     public static KorolevTask parseLoadedRecord(String record) throws ParseException {
         char type = record.charAt(1);
         switch (type) {

@@ -14,6 +14,10 @@ public class KorolevCommand {
         this.target = command.split("\\s");
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean executeCommand() {
 
         if (input.equals("bye")) {
