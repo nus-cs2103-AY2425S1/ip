@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Sora {
     private static final String HORIZONTALLINE = "---------------------------------------------------";
     private final List<Task> taskList;
+    private boolean isLive;
 
     public Sora() {
         this.taskList = new ArrayList<>();
+        this.isLive = true;
     }
 
     public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class Sora {
 
         System.out.println(greeting());
 
-        while (true) {
+        while (sora.isLive) {
             ArrayList<String> parsedCommand = parse(commandScanner.nextLine().trim());
 
             String mainCommand = parsedCommand.get(0).toLowerCase();
@@ -25,6 +26,7 @@ public class Sora {
                 switch (mainCommand) {
                     case "bye":
                         System.out.println(farewell());
+                        sora.isLive = false;
                         break;
                     case "list":
                         sora.displayList();
