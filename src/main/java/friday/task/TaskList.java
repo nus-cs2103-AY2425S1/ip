@@ -1,3 +1,7 @@
+package friday.task;
+
+import friday.util.FridayException;
+
 import java.util.ArrayList;
 
 public class TaskList {

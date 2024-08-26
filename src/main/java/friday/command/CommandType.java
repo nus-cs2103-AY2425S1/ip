@@ -1,3 +1,5 @@
+package friday.command;
+
 public enum CommandType {
     HELP,
     LIST,
