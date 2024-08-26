@@ -11,7 +11,7 @@ public class Event extends Task{
 
     @Override
     public String toFileFormat() {
-        return "D .. " + super.toFileFormat() + " .. " + this.from + " .. " + this.to;
+        return "E .. " + super.toFileFormat() + " .. " + this.from + " .. " + this.to;
     }
 
     @Override
