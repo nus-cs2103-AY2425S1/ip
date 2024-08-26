@@ -112,7 +112,7 @@ public class TaskListTest {
     @Test
     public void testCheckValidIndexWithInvalidIndex() {
         try {
-            tasks.checkValidIndex(0);
+            tasks.checkValidIndex(-1);
             fail();
         } catch (NekoException e) {
             assertEquals("Meow /ᐠ > ˕ <マ Invalid task number meow!", e.getMessage());
