@@ -1,3 +1,5 @@
+package GPT;
+
 public class GPT {
     private Ui ui;
     private Storage storage;

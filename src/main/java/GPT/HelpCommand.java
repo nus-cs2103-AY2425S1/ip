@@ -1,3 +1,4 @@
+package GPT;
 public class HelpCommand extends Command {
 
     @Override
