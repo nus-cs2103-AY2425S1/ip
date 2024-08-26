@@ -11,6 +11,6 @@ public class EventTask extends Task {
     // must make the description correctly
     @Override
     public String printTask() {
-        return "[E] " + super.printTask() +  " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.printTask() +  " (from: " + start + " to: " + end + ")";
     }
 }

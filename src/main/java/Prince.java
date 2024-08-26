@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 
 public class Prince {
     static ArrayList<Task> list = new ArrayList<>(); //static variable
-    public static String conversation(String command) {
+    public static String conversation(String command) throws UnknownWordException, IncompleteDescException{
         if(command.equals("bye")) { //string cannot do ==
             return "Bye! Hope to see you again soon!";
         } else if(command.equals("list")) {
@@ -32,11 +32,20 @@ public class Prince {
                 return t.markIncomplete();
             }
 
+        } else if(checkCommandLength(command)) {
+            if(command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+                throw new IncompleteDescException("OH NO! Description of the task cannot be empty!\n " +
+                        "Please retry with a command like this format <task type> <task>");
+            } else {
+                throw new UnknownWordException("Sorry, I do not know what that means :(\n " +
+                        "Please try again with a proper command.");
+            }
         } else {
             // according to the first word, create a new specific task
             // split into two, first word is type, and the second phrase is task
 
             String[] split = command.split(" ", 2);
+
             String type = split[0];
             String stringTask = split[1];
 
@@ -73,6 +82,11 @@ public class Prince {
         }
     }
 
+    public static boolean checkCommandLength(String command) {
+        String[] split = command.split(" ");
+        return split.length == 1;
+    }
+
     public static String listDisplay(ArrayList<Task> list) {
         int length = list.size();
         // use String Builder to ensure that the string can be created on another line
@@ -82,7 +96,7 @@ public class Prince {
             sb.append(i + 1 + ". " + list.get(i).printTask()).append("\n");
         }
 
-        return "Here are the tasks in your list: \n" + sb.toString();
+        return "Here are the tasks in your list:\n" + sb.toString();
     }
 
     public static void addTask(Task task){
@@ -93,7 +107,7 @@ public class Prince {
     }
 
     public static String taskDescription(Task task) {
-        return "Got it. I've added this task: \n" + "  " + task.printTask() + "\n" +
+        return "Got it. I've added this task:\n" + "  " + task.printTask() + "\n" +
                 "Now you have " + list.size() + " tasks in the list";
     }
 
@@ -109,12 +123,24 @@ public class Prince {
         line = scanner.nextLine(); // what the user replied
 
         while(!line.equals("bye")) {
-            System.out.println(conversation(line));
+            try {
+                System.out.println(conversation(line));
+            } catch (IncompleteDescException e) {
+                System.out.println(e.getMessage());
+            } catch (UnknownWordException e) {
+                System.out.println(e.getMessage());
+            }
             System.out.println("How else would you like me to edit your TODO list today?");
             line = scanner.nextLine();
         }
 
-        System.out.println(conversation(line));
+        try {
+            System.out.println(conversation(line));
+        } catch (IncompleteDescException e) {
+            System.out.println(e.getMessage());
+        } catch (UnknownWordException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
 

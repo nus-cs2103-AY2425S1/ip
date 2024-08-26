@@ -23,12 +23,12 @@ public class Task {
 
     public String markDone() {
         this.setProgress(true);
-        return "Nice! I've marked this task as done: \n  " + this.printTask();
+        return "Nice! I've marked this task as done:\n  " + this.printTask();
     }
 
     public String markIncomplete() {
         this.setProgress(false);
-        return "OK! I've marked this task as not done yet: \n  " + this.printTask();
+        return "OK! I've marked this task as not done yet:\n  " + this.printTask();
     }
 
 }

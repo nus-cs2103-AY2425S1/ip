@@ -6,7 +6,7 @@ public class ToDoTask extends Task {
 
     @Override
     public String printTask() {
-        return "[T] " + super.printTask();
+        return "[T]" + super.printTask();
     }
 
 }
