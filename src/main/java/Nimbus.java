@@ -5,6 +5,16 @@ public class Nimbus {
     final private static String name = "Nimbus";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
+    public enum Command {
+        Remove,
+        List,
+        Mark,
+        Unmark,
+        Todo,
+        Deadline,
+        Event
+    }
+
     private static void printDash() {
         System.out.println("____________________________________________________________");
     }
@@ -110,7 +120,6 @@ public class Nimbus {
                 }
                 default:
                     throw new InvalidCommandException(command + " is not a valid command");
-
             }
         }
     }
