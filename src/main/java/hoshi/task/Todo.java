@@ -1,3 +1,7 @@
+package hoshi.task;
+
+import hoshi.task.Task;
+
 /**
  * This class represents a "to do" with a description and completion status.
  *
@@ -5,7 +9,7 @@
  * of a to do and whether the task has been completed or not.</p>
  */
 
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructs a new instance of to do.

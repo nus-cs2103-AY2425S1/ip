@@ -1,3 +1,11 @@
+package hoshi;
+
+import hoshi.exception.HoshiException;
+import hoshi.task.*;
+import hoshi.ui.Ui;
+import hoshi.utils.Parser;
+import hoshi.utils.Storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

@@ -1,3 +1,8 @@
+package hoshi.ui;
+
+import hoshi.task.Task;
+import hoshi.task.TaskList;
+
 /**
  * Ui class that handles User Interactions for HoSHI
  */

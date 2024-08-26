@@ -1,3 +1,5 @@
+package hoshi.task;
+
 /**
  * This class represents an abstract task with a description and completion status.
  *

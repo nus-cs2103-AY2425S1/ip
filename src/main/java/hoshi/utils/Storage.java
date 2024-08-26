@@ -1,3 +1,11 @@
+package hoshi.utils;
+
+import hoshi.task.TaskList;
+import hoshi.task.Todo;
+import hoshi.task.Deadline;
+import hoshi.task.Event;
+import hoshi.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -109,7 +117,7 @@ public class Storage {
                 Task task = taskList.get(i);
 
                 // Deadline(TaskType), T(D = Done/ ND = Not Done), Description, endTime, startTime
-                String taskType = task.getClass().getName();
+                String taskType = task.getClass().getSimpleName();
                 String isDone = task.getStatusIcon();
                 if (Objects.equals(isDone, " ")) {
                     isDone = "ND";

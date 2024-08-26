@@ -1,3 +1,12 @@
+package hoshi.utils;
+
+import hoshi.exception.HoshiException;
+import hoshi.task.Deadline;
+import hoshi.task.Event;
+import hoshi.task.TaskList;
+import hoshi.task.Todo;
+import hoshi.ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -152,10 +161,11 @@ public class Parser {
             char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
             // get only the number from the 2nd half of the splitInput
+
             int markIndex = Character.getNumericValue(taskNo) - 1;
 
-            taskList.delete(markIndex);
             ui.displayTaskDeleted(taskList.get(markIndex));
+            taskList.delete(markIndex);
 
         }
     }

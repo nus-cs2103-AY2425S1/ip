@@ -1,3 +1,5 @@
+package hoshi.exception;
+
 /**
  * Exception class for handling errors specific to Hoshi.
  */
