@@ -315,6 +315,7 @@ public class Applemazer {
         sc.close();
     }
 
+    
     public static void main(String[] args) {
         Applemazer chatBot = new Applemazer();
         chatBot.load();
