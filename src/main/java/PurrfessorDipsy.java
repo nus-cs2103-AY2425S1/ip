@@ -48,7 +48,7 @@ public class PurrfessorDipsy {
         if (userInput.startsWith("deadline")) return Command.DEADLINE;
         if (userInput.startsWith("event")) return Command.EVENT;
         if (userInput.startsWith("delete")) return Command.DELETE;
-        if (userInput.equals("list")) return Command.LIST;
+        if (userInput.startsWith("list")) return Command.LIST;
         if (userInput.equals("bye")) return Command.BYE;
         return Command.UNKNOWN;
     }
