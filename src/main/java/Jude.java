@@ -255,19 +255,14 @@ public class Jude {
                 if (split.length != 4) {
                     throw new JudeException(errorMessage);
                 }
-                String[] dateAndTime = split[3].split(" ");
-                list.add(new Deadline(description, dateAndTime[0], dateAndTime[1], isDone));
+                list.add(new Deadline(description,split[3], isDone));
                 break;
             case "E":
                 if (split.length != 5) {
                     throw new JudeException(errorMessage);
                 }
-                String[] fromDateAndTime = split[3].split(" ");
-                String[] toDateAndTime = split[4].split(" ");
 
-                list.add(new Event(
-                        description, fromDateAndTime[0], fromDateAndTime[1],
-                        toDateAndTime[0], toDateAndTime[1], isDone));
+                list.add(new Event(description, split[3], split[4], isDone));
                 break;
             default:
                 break;

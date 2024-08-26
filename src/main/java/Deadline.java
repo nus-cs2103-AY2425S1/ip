@@ -1,31 +1,27 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    private LocalDate date;
-    private LocalTime time;
+    private LocalDateTime dateTime;
 
     public Deadline (String description, String deadline) throws JudeException {
         super(description);
         setDateAndTime(deadline);
     }
 
-    public Deadline (String description, String date, String time, boolean isDone) throws JudeException {
+    public Deadline (String description, String dateTime, boolean isDone) throws JudeException {
         super(description, isDone);
-        this.date = LocalDate.parse(date);
-        this.time = LocalTime.parse(time);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.dateTime = LocalDateTime.parse(dateTime, format);
     }
 
     public void setDateAndTime(String deadline) throws JudeException {
-        String[] dateAndTime = deadline.split(" ");
         try {
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/MM/yyyy");
-            this.date = LocalDate.parse(dateAndTime[0], dateFormat);
-
-            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
-            this.time = LocalTime.parse(dateAndTime[1], timeFormat);
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            this.dateTime = LocalDateTime.parse(deadline, format);
 
         } catch (DateTimeParseException de) {
             throw new JudeException("wrong date or time format was provided.");
@@ -36,14 +32,13 @@ public class Deadline extends Task {
 
     @Override
     public String toStringDetails() {
-        return String.format("[D]%s (by: %s %s)",
-                super.toStringDetails(), this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                this.time.format(DateTimeFormatter.ofPattern("HH:mm")));
+        return String.format("[D]%s (by: %s)",
+                super.toStringDetails(), this.dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
     }
 
     @Override
     public String toFileFormat() {
-        return String.format("%s | %d | %s | %s %s",
-                "D", getStatusBinary(), getDescription(), this.date, this.time);
+        return String.format("%s | %d | %s | %s",
+                "D", getStatusBinary(), getDescription(), this.dateTime);
     }
 }
