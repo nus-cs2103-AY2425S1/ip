@@ -9,9 +9,9 @@ import UI.UI;
 public class Avo {
     private final UI ui;
     private final CommandParser parser;
-    private Avo() {
-        ui = new UI();
-        parser = new CommandParser();
+    private Avo(UI ui, CommandParser parser) {
+        this.ui = ui;
+        this.parser = parser;
     }
     private void start() {
         ui.showWelcome();
@@ -37,7 +37,8 @@ public class Avo {
         }
     }
     public static void main(String[] args) {
-        Avo chatBot = new Avo();
+        CommandParser parser = new CommandParser(new CommandManager());
+        Avo chatBot = new Avo(new UI(), parser);
         chatBot.start();
         chatBot.run();
         chatBot.stop();

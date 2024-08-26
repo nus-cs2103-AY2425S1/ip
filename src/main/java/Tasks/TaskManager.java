@@ -16,9 +16,9 @@ import java.io.FileWriter;
 public class TaskManager {
     private final List<Task> tasks;
     private final FileStorage storage;
-    public TaskManager() {
+    public TaskManager(FileStorage storage) {
         tasks = new ArrayList<>();
-        storage = new FileStorage("data");
+        this.storage = storage;
     }
     private String getItem(int index) {
         return index + 1 + ". " + tasks.get(index);
