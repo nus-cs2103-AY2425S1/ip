@@ -49,12 +49,14 @@ public class UnmarkTask extends TaskModifier {
 
         try {
             if (super.tasks.markIncomplete(idx - 1)) {
-                output = "Ok. I've marked this task as not done:\n" + super.tasks.get(idx - 1).toString();
+                output = "Ok. I've marked this task as not done:\n"
+                        + super.tasks.get(idx - 1).toString();
             } else {
                 output = "Task " + idx + " is not complete.";
             }
         } catch (IndexOutOfBoundsException e) {
-            String message = idx + " index out of bounds of task list of size " + super.tasks.size() + ".";
+            String message = idx + " index out of bounds of task list of size "
+                    + super.tasks.size() + ".";
             throw new ExecutableException(message);
         }
         return false;
