@@ -2,17 +2,15 @@ import java.util.Scanner;
 
 import mendel.mendelexception.ServerError;
 import mendel.preetyprint.FormatText;
-import mendel.metacognition.Welcome;
 import mendel.mendelexception.MendelException;
 
 public class Mendel {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String logo = "Mendel";
-        System.out.println("Hello from\n" + logo);
         String currAction = "hello";
         TaskManager taskManager = new TaskManager();
-        new Welcome().speak();
+        UI ui = new UI();
+        ui.showWelcome();
         while (!currAction.equals("bye")) {
             currAction = sc.nextLine().trim();
             try {
