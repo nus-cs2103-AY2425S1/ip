@@ -24,7 +24,7 @@ public class Ui {
         this.out = out;
     }
     public String getUserCommand() {
-        out.println("Enter command: ");
+        out.println("Enter command:");
         return in.nextLine();
     }
     public String getInput() {

@@ -1,10 +1,22 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4p
-deadline do homework /by no idea :-p
+add
+1
+borrow book
+add
+2
+return book
+2024-08-31T23:59
+add
+3
+project meeting
+2024-09-01T13:00
+2024-09-01T15:00
+list
 mark 1
-mark 3
+mark 2
 list
 unmark 1
+delete 1
+delete 1
+delete 1
 list
 bye

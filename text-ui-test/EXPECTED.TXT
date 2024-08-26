@@ -2,32 +2,93 @@
 ( ̳̳• · ̳• )
  づ Meow! I'm Neko
 What can I do for you?
-Got it meow. I've added this task ฅ/ᐠᓀ ﻌ ᓂマ
+===================================================
+Enter command:
+Let's add a task meow!
+===================================================
+What kind of task would you like to add today?
+  1: Todo (Just a simple task meow)
+  2: Deadline (Something with a time limit meow)
+  3: Event (A task with a start and end time meow)
+Please enter the number of the task type you'd like to add meow~
+What will this task be called meow?
+
+===================================================
+Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ
  [T][ ] borrow book
 Now you have 1 tasks in your list meow
-Got it meow. I've added this task ฅ/ᐠᓀ ﻌ ᓂマ
- [D][ ] return book (by: Sunday)
+===================================================
+Enter command:
+Let's add a task meow!
+===================================================
+What kind of task would you like to add today?
+  1: Todo (Just a simple task meow)
+  2: Deadline (Something with a time limit meow)
+  3: Event (A task with a start and end time meow)
+Please enter the number of the task type you'd like to add meow~
+What will this task be called meow?
+Enter the deadline date and time in the form 'yyyy-MM-ddTHH:mm' meow: (e.g., 2024-01-01T13:00 for January 1, 2024, at 1:00 PM)
+Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ
+ [D][ ] return book (by: Sat, 31 Aug 2024 11:59pm)
 Now you have 2 tasks in your list meow
-Got it meow. I've added this task ฅ/ᐠᓀ ﻌ ᓂマ
- [E][ ] project meeting (from: Mon 2pm to: 4p)
+===================================================
+Enter command:
+Let's add a task meow!
+===================================================
+What kind of task would you like to add today?
+  1: Todo (Just a simple task meow)
+  2: Deadline (Something with a time limit meow)
+  3: Event (A task with a start and end time meow)
+Please enter the number of the task type you'd like to add meow~
+What will this task be called meow?
+Enter the start date and time in the form 'yyyy-MM-ddTHH:mm' meow: (e.g., 2024-01-01T13:00 for January 1, 2024, at 1:00 PM)
+Enter the end date and time in the form 'yyyy-MM-ddTHH:mm' meow: (e.g., 2024-01-01T13:00 for January 1, 2024, at 1:00 PM)
+Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ
+ [E][ ] project meeting (from: Sun, 1 Sep 2024 1:00pm to: Sun, 1 Sep 2024 3:00pm)
 Now you have 3 tasks in your list meow
-Got it meow. I've added this task ฅ/ᐠᓀ ﻌ ᓂマ
- [D][ ] do homework (by: no idea :-p)
-Now you have 4 tasks in your list meow
+===================================================
+Enter command:
+Here are the tasks in your list meow:
+===================================================
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sat, 31 Aug 2024 11:59pm)
+3. [E][ ] project meeting (from: Sun, 1 Sep 2024 1:00pm to: Sun, 1 Sep 2024 3:00pm)
+Enter command:
 Nice meow! I've marked this task as done:
  [T][X] borrow book
+===================================================
+Enter command:
 Nice meow! I've marked this task as done:
- [E][X] project meeting (from: Mon 2pm to: 4p)
-Here are the task in your list meow:
-1.[T][X] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4p)
-4.[D][ ] do homework (by: no idea :-p)
+ [D][X] return book (by: Sat, 31 Aug 2024 11:59pm)
+===================================================
+Enter command:
+Here are the tasks in your list meow:
+===================================================
+1. [T][X] borrow book
+2. [D][X] return book (by: Sat, 31 Aug 2024 11:59pm)
+3. [E][ ] project meeting (from: Sun, 1 Sep 2024 1:00pm to: Sun, 1 Sep 2024 3:00pm)
+Enter command:
 Ok meow, I've marked this task as not done yet:
  [T][ ] borrow book
-Here are the task in your list meow:
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4p)
-4.[D][ ] do homework (by: no idea :-p)
+===================================================
+Enter command:
+Noted meow. I've removed this task
+ [T][ ] borrow book
+Now you have 2 tasks in the list.
+===================================================
+Enter command:
+Noted meow. I've removed this task
+ [D][X] return book (by: Sat, 31 Aug 2024 11:59pm)
+Now you have 1 tasks in the list.
+===================================================
+Enter command:
+Noted meow. I've removed this task
+ [E][ ] project meeting (from: Sun, 1 Sep 2024 1:00pm to: Sun, 1 Sep 2024 3:00pm)
+Now you have 0 tasks in the list.
+===================================================
+Enter command:
+You don't have any tasks yet meow!
+===================================================
+Enter command:
 Bye! Hope to see you again soon meow ฅ ฅ
+===================================================
