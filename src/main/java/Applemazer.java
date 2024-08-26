@@ -1,6 +1,9 @@
+import java.time.DateTimeException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Applemazer {
     static Scanner sc = new Scanner(System.in);
@@ -62,11 +65,18 @@ public class Applemazer {
     }
 
     private static class Deadline extends Task {
-        private final String deadline;
+        private final LocalDateTime localDateTime;
+        private final LocalDate localDate;
 
-        public Deadline(String description, String deadline) {
+        public Deadline(String description, String deadline) throws DateTimeException {
             super(description);
-            this.deadline = deadline;
+
+            localDateTime = DateHandler.parseLocalDateTime(deadline);
+            localDate = DateHandler.parseLocalDate(deadline);
+
+            if (localDateTime == null && localDate == null) {
+                throw new DateTimeException("");
+            }
         }
 
         @Override
@@ -76,17 +86,36 @@ public class Applemazer {
 
         @Override
         public String toString() {
-            return super.description + " (by: " + deadline + ") ";
+            String date;
+
+            if (localDateTime != null) {
+                date = localDateTime.format(DateHandler.dateTimeFormat);
+            } else {
+                date = localDate.format(DateHandler.dateFormat);
+            }
+
+            return super.description + " (by: " + date + ") ";
         }
     }
 
     private static class Event extends Task {
-        private final String from, to;
+        private final LocalDateTime localDateTimeFrom;
+        private final LocalDate localDateFrom;
+        private final LocalDateTime localDateTimeTo;
+        private final LocalDate localDateTo;
 
         public Event(String description, String from, String to) {
             super(description);
-            this.from = from;
-            this.to = to;
+
+            localDateTimeFrom = DateHandler.parseLocalDateTime(from);
+            localDateFrom = DateHandler.parseLocalDate(from);
+            localDateTimeTo = DateHandler.parseLocalDateTime(to);
+            localDateTo = DateHandler.parseLocalDate(to);
+
+            if ((localDateTimeFrom == null && localDateFrom == null)
+                    || (localDateTimeTo == null && localDateTo == null)) {
+                throw new DateTimeException("");
+            }
         }
 
         @Override
@@ -96,6 +125,20 @@ public class Applemazer {
 
         @Override
         public String toString() {
+            String from, to;
+
+            if (localDateTimeFrom != null) {
+                from = localDateTimeFrom.format(DateHandler.dateTimeFormat);
+            } else {
+                from = localDateFrom.format(DateHandler.dateFormat);
+            }
+
+            if (localDateTimeTo != null) {
+                to = localDateTimeTo.format(DateHandler.dateTimeFormat);
+            } else {
+                to = localDateTo.format(DateHandler.dateFormat);
+            }
+
             return super.description + " (from: " + from + " to: " + to + ") ";
         }
     }
@@ -280,10 +323,12 @@ public class Applemazer {
                         tasks.add(task);
                         task.printTaskAddedMessage();
                         save();
-                    } catch (IndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException | DateTimeException e) {
                         System.out.println("""
                                            OOPS!!! The description of deadline is wrong.
-                                           Try 'deadline <description> /by <date>'.
+                                           Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
+                                               'deadline <description> /by <MM/dd/yyyy> <HHmm>'.
+                                           It is not necessary to input the time!
                                            """);
                     }
                     break;
@@ -297,10 +342,12 @@ public class Applemazer {
                         tasks.add(task);
                         task.printTaskAddedMessage();
                         save();
-                    } catch (IndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException | DateTimeException e) {
                         System.out.println("""
                                            OOPS!!! The description of event is wrong.
                                            Try 'event <description> /from <date1> /to <date2>'.
+                                           <date> should be <yyyy-mm-dd> <HHmm> or <MM/dd/yyyy> <HHmm>.
+                                           It is not necessary to input the time!
                                            """);
                     }
                     break;
