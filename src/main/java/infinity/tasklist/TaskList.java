@@ -6,14 +6,25 @@ import infinity.task.Task;
 import infinity.ui.Ui;
 import java.util.ArrayList;
 
+/**
+ * This class handles the list of tasks actions. Each action method has to be called
+ * with the current input already sanitised from the user.
+ */
 public class TaskList {
 
     private final Ui botUI;
 
+    /** Maximum size of the task list */
     public static final int MAXSIZE = 100;
     private ArrayList<Task> tasks = new ArrayList<>(MAXSIZE);
     private int nextTaskIndex = 0;
 
+    /**
+     * Adds a task to the list of tasks.
+     * @param <T> Type of Task that extends Task. Examples include ToDos, Events and Deadline.
+     * @param task The task, T, to be added.
+     * @throws InfinityException If the task list is full.
+     */
     public <T extends Task> void addTask(T task) throws InfinityException {
         if (nextTaskIndex >= MAXSIZE) {
             throw new InfinityException(
@@ -26,6 +37,11 @@ public class TaskList {
         botUI.botSays(String.format("I've added '%s'", task));
     }
 
+    /**
+     * Deletes a task from the list of tasks.
+     * @param currentInput The string input from the user, but only the index as string.
+     * @throws InfinityException If the task index is out of bounds or not a number.
+     */
     public void deleteTask(String currentInput) throws InfinityException {
         int taskIndex = 0;
 
@@ -54,13 +70,23 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done.
+     * @param currentInput The full string input from the user.
+     * @throws InfinityException If the task index is out of bounds or not a number.
+     */
     public void markTask(String currentInput) throws InfinityException {
         String[] words = currentInput.split(" ");
+        int taskIndex;
 
-        int taskIndex = Integer.parseInt(words[1]) - 1;
-        if (taskIndex >= nextTaskIndex || taskIndex < 0) {
-            throw new InfinityException(
-                    "Hmmm, I can't find that task. Please try again.");
+        try {
+            taskIndex = Integer.parseInt(words[1]) - 1;
+            if (taskIndex >= nextTaskIndex || taskIndex < 0) {
+                throw new InfinityException(
+                        "Hmmm, I can't find that task. Please try again.");
+            }
+        } catch (NumberFormatException e) {
+            throw new InfinityException("Hey! That's not a number");   
         }
 
         tasks.get(taskIndex).markAsDone();
@@ -71,18 +97,34 @@ public class TaskList {
                 tasks.get(taskIndex).toString()));
     }
 
+    /**
+     * Lists all the tasks in the list.
+     */
     public void listTasks() {
         botUI.listTasks(this);
     }
 
+    /**
+     * Checks if the task list is empty.
+     * @return True if the task list is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return nextTaskIndex == 0;
     }
 
+    /**
+     * Gets the list of tasks.
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     };
 
+    /**
+     * Constructor for the TaskList class.
+     * @param initialTask The initial list of tasks. If empty, pass in an empty ArrayList.
+     * @param botUI The initialised UI object to interact with the user.
+     */
     @SuppressWarnings("unchecked")
     public TaskList(ArrayList initialTask, Ui botUI) {
         this.tasks = (ArrayList<Task>) initialTask;

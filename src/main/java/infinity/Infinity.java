@@ -10,6 +10,11 @@ import infinity.tasklist.TaskList;
 import infinity.ui.Ui;
 import java.io.IOException;
 
+/**
+ * This is the Infinity Bot that will run the program. Create a new instance and it will run.
+ * 
+ * @param <T> Type of Task that extends Task. Examples include ToDos, Events and Deadline.
+ */
 public class Infinity <T extends Task> {
     
     enum KnownCommands {
@@ -27,6 +32,10 @@ public class Infinity <T extends Task> {
     Storage storage = new Storage(botUI);
     TaskList botTasks;
 
+    /**
+     * Constructor for the Infinity class.
+     * Initialises the bot and runs infinitely until "bye" command is given
+     */
     public Infinity() {
 
         this.botTasks = new TaskList(storage.readFile(), botUI);
@@ -93,6 +102,10 @@ public class Infinity <T extends Task> {
         }
     }
 
+    /**
+     * Main method to run the Infinity bot.
+     * @param args The arguments to run the bot.
+     */
     public static void main(String[] args) {
         Infinity infinityBot = new Infinity();
     }

@@ -16,15 +16,29 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * This class handles the storage of the tasks in a file.
+ */
 public class Storage {
     
+    /** Filepath Directory for Savefile */
     public static final String FILEDIRPATH = "../../../../data";
+    /** Filename for Savefile */
     public static final String FILENAME = "save-file.txt";
+    /** Filepath for Savefile */
     public static final String FILEPATH = FILEDIRPATH + "/" + FILENAME;
+    /** Delimiter for Savefile */
     public static final String DELIMITER = "\0";
 
     private final Ui botUI;
 
+    /**
+     * Combines the description of the remainder of the text, if the text includes the delimiter.
+     * 
+     * @param description The array of words in the text, already split with delimiter.
+     * @param startIndex The index to start combining the rest of the description, inclusive.
+     * @return The combined description as a String.
+     */
     private String combineDescription(String[] description, int startIndex) {
         StringBuilder combinedDescription = new StringBuilder();
 
@@ -38,6 +52,11 @@ public class Storage {
         return combinedDescription.toString();
     }
 
+    /**
+     * Reads the file and returns the tasks in the file.
+     * 
+     * @return The tasks in the file as an ArrayList of Task.
+     */
     public ArrayList<Task> readFile() {
         @SuppressWarnings("unchecked")
         ArrayList<Task> tasks = new ArrayList<>(TaskList.MAXSIZE);
@@ -92,6 +111,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks into the file.
+     * 
+     * @param tasks The tasks to be saved in an ArrayList of Task.
+     * @throws IOException If there is an error writing to the file.
+     */
     public void saveFile(ArrayList<Task> tasks) throws IOException {
         createFileIfNotExists();
 
@@ -107,11 +132,18 @@ public class Storage {
         botUI.botSays("Save Successful, Woohoo!");
     }
 
+    /**
+     * Checks if the file and directory exists.
+     * @return True if exists, false otherwise.
+     */
     private boolean doesFileExist() {
         File file = new File(FILEPATH);
         return file.exists() && !file.isDirectory();
     }
 
+    /**
+     * Creates the file and directory if they do not exist.
+     */
     private void createFileIfNotExists() {
         try {
             if (!doesFileExist()) {
@@ -125,6 +157,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Constructor for the Storage class.
+     * @param botUI The Ui object to interact with the user.
+     */
     public Storage(Ui botUI) {
         this.botUI = botUI;
     }
