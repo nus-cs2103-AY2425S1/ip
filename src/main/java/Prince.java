@@ -58,8 +58,8 @@ public class Prince {
                     mark(input, tasksArray);
                     // updateFile("M", input, tasksArray);
                 } else if (input.contains("delete")) {
-                    delete(input, tasksArray);
                     deleteFromFile(input, tasksArray);
+                    delete(input, tasksArray);
                 } else if (input.equals("todo") || input.equals("deadline") ||
                         input.equals("event")) {
                     throw new PrinceException("    Please describe your '" + input +
@@ -248,7 +248,7 @@ public class Prince {
             int index = getIndex(input);
             Task task = tasksArray.get(index);
             task.markAsNotDone();
-            System.out.println(" " + task.toString());
+            System.out.println("      " + task.toString());
         }
         printline();
     }
@@ -284,8 +284,6 @@ public class Prince {
      * Methods relating to reading and writing inputs to files
      */
 
-    // method will read from a text file, convert the text to relevant tasks, and
-    // return a tasksArray
     private static ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasksArray = new ArrayList<>();
 
@@ -391,31 +389,33 @@ public class Prince {
         try {
             int index = getIndex(input);
             Task task = tasksArray.get(index);
-            // Open the old file for reading
+            // open the old file for reading
             BufferedReader reader = Files.newBufferedReader(FILE_PATH);
-            // Open a new (temporary) file for writing
+            // open a new (temporary) file for writing
             Path tempPath = Paths.get("data", "temp.txt");
             BufferedWriter writer = Files.newBufferedWriter(tempPath);
-            // Iterate over the lines in the old file (probably using a BufferedReader)
-            String lineToRemove = task.toString();
+            // iterate over the lines in the old file (probably using a BufferedReader)
+            String lineToRemove = task.toFileFormat();
             String currLine;
-            // For each line, check if it matches what you are supposed to remove
-            while (reader.readLine() != null) {
-                currLine = reader.readLine();
+            // for each line, check if it matches what you are supposed to remove
+            while ((currLine = reader.readLine()) != null) {
                 if (currLine.equals(lineToRemove)) {
-                    // If it matches, do nothing
                     continue;
                 }
-                // If it doesn't match, write it to the temporary file
+                // if it doesn't match, write it to the temporary file
                 writer.write(currLine);
+                writer.newLine();
             }
 
-            // When done, close both files
+            // close both files
             reader.close();
             writer.close();
-            // Copy temp file to old file
+
+            // delete the old file
+            Files.delete(FILE_PATH);
+            // copy temp file to old file path
             Files.copy(tempPath, FILE_PATH);
-            // Delete temp file
+            // delete temp file
             Files.delete(tempPath);
 
         } catch (IOException e) {
