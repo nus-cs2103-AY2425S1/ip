@@ -4,40 +4,41 @@ Happy to be of service to you today!
 ____________________________________________________________
 
 ____________________________________________________________
-Added:
-return book
+Added: [T][ ] return book
 ____________________________________________________________
 
+[event meet friends , Sunday 2pm to 4pm]1
+[event, meet friends]2
 ____________________________________________________________
-Added:
-meet friends 
+Added: [E][ ] meet friends(from: Sunday 2pm to 4pm)
 ____________________________________________________________
 
+[deadline CS2103T assignment , Friday 3pm]1
+[deadline, CS2103T assignment]2
 ____________________________________________________________
-Added:
-CS2103T assignment 
+Added: [D][ ] CS2103T assignment(by: Friday 3pm)
 ____________________________________________________________
 
 ____________________________________________________________
 1. [T][ ] return book
-2. [E][ ] meet friends (from: Sunday 2pm to 4pm)
-3. [D][ ] CS2103T assignment (by: Friday 3pm)
+2. [E][ ] meet friends(from: Sunday 2pm to 4pm)
+3. [D][ ] CS2103T assignment(by: Friday 3pm)
 
 ____________________________________________________________
 
 ____________________________________________________________
 I've marked the following task as done!
-[E][X] meet friends (from: Sunday 2pm to 4pm)
+[E][X] meet friends(from: Sunday 2pm to 4pm)
 ____________________________________________________________
 
 ____________________________________________________________
 I've marked the following task as not done.
-[E][ ] meet friends (from: Sunday 2pm to 4pm)
+[E][ ] meet friends(from: Sunday 2pm to 4pm)
 ____________________________________________________________
 
 ____________________________________________________________
 I've marked the following task as not done.
-[D][ ] CS2103T assignment (by: Friday 3pm)
+[D][ ] CS2103T assignment(by: Friday 3pm)
 ____________________________________________________________
 
 ____________________________________________________________
@@ -51,38 +52,55 @@ I've marked the following task as done!
 ____________________________________________________________
 
 ____________________________________________________________
-I'm sorry, I can't add a task without knowing what to add!
-Please try again, and enter the intended task after the task type
+You gotta give me a task man!
 ____________________________________________________________
 
 ____________________________________________________________
-I'm sorry, I can't add a task without knowing what to add!
-Please try again, and enter the intended task after the task type
+Added: [T][ ] buy groceries
+____________________________________________________________
+
+[event]1
+____________________________________________________________
+You gotta give me a task man!
+____________________________________________________________
+
+[event meet friends Sunday 2pm]1
+____________________________________________________________
+You missed out a slash to separate the task and date!
+____________________________________________________________
+
+[event meet friends , ]1
+____________________________________________________________
+You haven't added a date for the task!
+____________________________________________________________
+
+[deadline]1
+____________________________________________________________
+You gotta give me a task man!
+____________________________________________________________
+
+[deadline 2103 assignment Friday 12pm]1
+____________________________________________________________
+You missed out a slash to separate the task and date!
+____________________________________________________________
+
+[deadline 2103 assignment , ]1
+____________________________________________________________
+You haven't added a date for the task!
 ____________________________________________________________
 
 ____________________________________________________________
-I'm sorry, I can't identify the date.
-Please try again and add a slash (/) after the task.
+On it boss. I've removed this task:
+[T][X] return book
 ____________________________________________________________
 
 ____________________________________________________________
-Sorry, I couldn't find a date.
-Try again with the date after the slash (/)
+Sorry boss, you need to give me a positive number, I not good with negatives.
 ____________________________________________________________
 
 ____________________________________________________________
-I'm sorry, I can't add a task without knowing what to add!
-Please try again, and enter the intended task after the task type
-____________________________________________________________
-
-____________________________________________________________
-I'm sorry, I can't identify the date.
-Please try again and add a slash (/) after the task.
-____________________________________________________________
-
-____________________________________________________________
-Sorry, I couldn't find a date.
-Try again with the date after the slash (/)
+On it boss. I've removed this task:
+[T][ ] buy groceries
 ____________________________________________________________
 
 ____________________________________________________________

@@ -29,10 +29,17 @@ public class PHamBot {
             if (input.contains("delete")) {
                 try {
                     int index = checkIndexInput(input) - 1;
-                    printRemoveTask(index);
-                    tasks.deleteTask(index);
+                    if (index < 0) {
+                        OutlineMessage("Sorry boss, you need to give me a positive number, I not good with negatives.");
+                    }
+                    else {
+                        printRemoveTask(index);
+                        tasks.deleteTask(index);
+                    }
                 } catch (MissingIndexException e) {
                     OutlineMessage("Bro, which task you want me to delete sia...");
+                } catch (IndexOutOfBoundsException e) {
+                    OutlineMessage("Laoban, you don't even have that many task!");
                 }
             }
 
@@ -185,13 +192,17 @@ public class PHamBot {
         return task;
     }
 
-    public static int checkIndexInput(String input) throws MissingIndexException {
+    public static int checkIndexInput(String input) throws MissingIndexException, IndexOutOfBoundsException {
         String[] temp = input.split(" ", 2);
         if (temp.length < 2 || Objects.equals(temp[1], "")) {
             throw new MissingIndexException("There is no list index!");
         }
         else {
-            return Integer.parseInt(temp[1]);
+            int index = Integer.parseInt(temp[1]);
+            if (index > tasks.taskCount()) {
+                throw new IndexOutOfBoundsException("There aren't even that many task!");
+            }
+            return index;
         }
     }
 

@@ -8,12 +8,16 @@ unmark 3
 mark 1
 mark 1
 todo
+todo buy groceries
 event
 event meet friends Sunday 2pm
 event meet friends /
 deadline
 deadline 2103 assignment Friday 12pm
 deadline 2103 assignment /
+delete 1
+delete 0
+delete 3
 Hi
 Hello!
 What's up?

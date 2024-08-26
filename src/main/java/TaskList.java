@@ -1,6 +1,8 @@
+import java.io.*;
 import java.util.ArrayList;
 
 public class TaskList {
+    private String saveFileDirectory;
     private ArrayList<Task> tasks;
 
     public TaskList() {
@@ -30,6 +32,18 @@ public class TaskList {
     public int taskCount() {
         return tasks.size();
     }
+
+    private void saveTasks() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFileDirectory))) {
+            for (Task task : tasks) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public String toString() {
         String res = "";
