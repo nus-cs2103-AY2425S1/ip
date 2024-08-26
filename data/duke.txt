@@ -1,4 +1,2 @@
-T | 1 | Buy Christmas gifts
-D | 0 | Finish wrapping | Dec 24
-E | 0 | Christmas party | Dec 25 6PM | Dec 25 11PM
-T | 0 | Bake Cookies
+D | 0 | Finish wrapping | 2023-12-24 1800
+E | 0 | Christmas party | 2023-12-25 1800 | 2023-12-25 2300
