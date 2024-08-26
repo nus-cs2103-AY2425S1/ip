@@ -23,6 +23,6 @@ public class UnknownCommandException extends Exception {
                 "  deadline Submit report /by 2024-05-12\n" +
                 "  event Conference /from 2024-08-12 /to 2024-08-14\n" +
                 "  mark 1\n" +
-                "\nDate format: yyyy-MM-dd\n";
+                "\nDate format: yyyy-MM-dd";
     }
 }
