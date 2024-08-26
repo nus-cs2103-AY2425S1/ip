@@ -1,8 +1,23 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 public class TrackBot {
+    
     public static void main(String[] args) {
+        TrackBotStorage storage;
+        TrackList trackList = null;
+        String filePath = "src/main/java/data/TrackBot.txt";
+        try {
+            storage = new TrackBotStorage(filePath);
+            trackList = new TrackList(new File(filePath), storage);
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+        if (trackList == null) {
+            System.out.println("Failed to initialize TrackList.");
+            return;
+        }
         Scanner scanner = new Scanner(System.in);
-        ToDoList toDoList = new ToDoList();
         System.out.println("************************************************************");
         System.out.println("Hello from TrackBot!\n" + "How may I assist you?");
 
@@ -12,7 +27,7 @@ public class TrackBot {
 
             try {
                 if (userInput.equalsIgnoreCase("list")) {
-                    toDoList.listToString();
+                    trackList.listToString();
                 } else if (userInput.equalsIgnoreCase("how are you?")) {
                     System.out.println("I'm good, thank you. How about you?");
                 } else if (userInput.equalsIgnoreCase("bye")) {
@@ -24,7 +39,7 @@ public class TrackBot {
                     } else {
                         try {
                             int num = Integer.parseInt(input) - 1;
-                            toDoList.markTask(num);
+                            trackList.markTask(num);
                         } catch (NumberFormatException e) {
                             throw TrackBotException.invalidFormat("mark", "mark <task number>");
                         }
@@ -36,7 +51,7 @@ public class TrackBot {
                     } else {
                         try {
                             int num = Integer.parseInt(input) - 1;
-                            toDoList.unmarkTask(num);
+                            trackList.unmarkTask(num);
                         } catch (NumberFormatException e) {
                             throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
                         }
@@ -47,21 +62,21 @@ public class TrackBot {
                         throw TrackBotException.invalidFormat("todo", "todo <task description>");
                     }
                     ToDo todo = new ToDo(taskDescription);
-                    toDoList.addToList(todo);
+                    trackList.addToList(todo);
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
                     String[] parts = userInput.substring(8).trim().split(" /by ", 2);
                     if (parts.length < 2) {
                         throw TrackBotException.invalidFormat("deadline", "deadline <task description> /by <date/time>");
                     }
                     Deadline deadline = new Deadline(parts[0], parts[1]);
-                    toDoList.addToList(deadline);
+                    trackList.addToList(deadline);
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     String[] parts = userInput.substring(5).trim().split(" /from | /to ", 3);
                     if (parts.length < 3) {
                         throw TrackBotException.invalidFormat("event", "event <description> /from <start> /to <end>");
                     }
                     Event event = new Event(parts[0], parts[1], parts[2]);
-                    toDoList.addToList(event);
+                    trackList.addToList(event);
                 } else if (userInput.toLowerCase().startsWith("delete")) {
                     String input = userInput.substring(6).trim();
                     if (input.isEmpty()) {
@@ -69,7 +84,7 @@ public class TrackBot {
                     } else {
                         try {
                             int num = Integer.parseInt(input) - 1;
-                            toDoList.deleteFromList(num);
+                            trackList.deleteFromList(num);
                         } catch (NumberFormatException e) {
                             throw TrackBotException.invalidFormat("delete", "delete <task number>");
                         }
