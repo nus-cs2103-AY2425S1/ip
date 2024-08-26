@@ -1,6 +1,5 @@
  Here are the tasks in your list:
  1. [T][X] finish homework
- 2. [E][ ] team building retreat (from: Sep 10th 9am to: Sep 12th 5pm)
- 3. [E][ ] dinner with friends (from: Sep 15th 7pm to: Sep 15th 9pm)
+ 2. [E][ ] prom (from: Dec 20 2024, 7:00 PM to: Dec 20 2024, 9:00 PM)
+ 3. [E][ ] dinner with friends (from: Sep 15 2025, 7:00 PM to: Sep 15 2025, 9:00 PM)
  4. [T][ ] start reading new book
- 5. [D][ ] renew library books (by: Sep 18th)

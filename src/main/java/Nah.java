@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.IOException;
@@ -8,10 +9,10 @@ import java.io.IOException;
 import static java.lang.Integer.parseInt;
 
 public class Nah {
-    private static String greetLine = "____________________________________________________________\n"
+    private static String greetLine = "________________________________________________________________________________\n"
             + " Hello! I'm NAH\n"
             + " What can I do for you?\n"
-            + "____________________________________________________________\n";
+            + "________________________________________________________________________________\n";
     private static String byeLine = " Bye. Hope to see you again soon!\n";
 
     private enum Command {BYE, TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, UNKNOWN};
@@ -78,7 +79,7 @@ public class Nah {
     }
     private void exit() {
         System.out.println(byeLine);
-        System.out.println("____________________________________________________________\n");
+        System.out.println("________________________________________________________________________________\n");
 
     }
 
@@ -154,7 +155,7 @@ public class Nah {
 
         while (true) {
             input = scanner.nextLine();
-            System.out.println("____________________________________________________________\n");
+            System.out.println("________________________________________________________________________________\n");
 
             Command cmd = nah.getCommand(input);
             String[] command = input.split(" ", 2);
@@ -230,9 +231,11 @@ public class Nah {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println(" Nah!!! Please give me a valid ordinal number for the task\n");
+            } catch (DateTimeParseException e) {
+                System.out.println(" Nahh!!! Time should be in the format yyyy-mm-dd hhmm, with valid date and time\n");
             }
 
-            System.out.println("____________________________________________________________\n");
+            System.out.println("________________________________________________________________________________\n");
         }
 
     }

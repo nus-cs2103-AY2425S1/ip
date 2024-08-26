@@ -1,17 +1,20 @@
 todo finish homework
-Deadline submit assignment /by Aug 31st 11:59pm
-event team building retreat /from Sep 10th 9am /to Sep 12th 5pm
+Deadline submit assignment /by 2023-09-31 2359
+Event prom /from 2024-12-20 1900 /to 2024-12-20 2100
 list
-mark 1
+Mark 1
 Todo
 DELETE 2
-EVEnt dinner with friends /from Sep 15th 7pm /to Sep 15th 9pm
+EVEnt dinner with friends /from 2025-09-15 1900 /to 2025-09-15 2100
 EvenT National Day
 EVent Music Concert /from 9/2
 Todo start reading new book
+Deadline return bike /by 2025-9-18
+EVEnt dinner with friends /from 2025-9-15 1900 /to 2025-9-15 2100
 unmark 3
 deadline renew library books /by Sep 18th
+deadline renew library books /by 2024-09-18
 Deadline IP1
-list
+List
 DElete 10
 bye
