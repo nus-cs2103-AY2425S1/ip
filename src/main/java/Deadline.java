@@ -7,7 +7,6 @@ public class Deadline extends Task {
     private Deadline(String taskDescription, String deadlineTiming, boolean isDone) throws NedException{
         super(taskDescription, isDone);
         try {
-            System.out.println(deadlineTiming);
             this.deadlineTiming = LocalDate.parse(deadlineTiming);
         } catch (DateTimeParseException e) {
             throw new NedException("M'lord, the time formatting in /by does not follow ISO 8601 (yyyy-mm-dd). Here " +
