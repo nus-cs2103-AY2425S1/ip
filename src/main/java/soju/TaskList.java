@@ -22,12 +22,12 @@ public class TaskList {
         return task;
     }
     public Task markTask(int taskNumber) {
-        Task task = tasks.get(taskNumber);
+        Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
         return task;
     }
     public Task unmarkTask(int taskNumber) {
-        Task task = tasks.get(taskNumber);
+        Task task = tasks.get(taskNumber - 1);
         task.unmark();
         return task;
     }
