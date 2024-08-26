@@ -1,5 +1,6 @@
 package command;
 
+import ouiouibaguette.OuiOuiBaguetteException;
 import tasklist.TaskList;
 
 import tasks.Deadline;
@@ -10,7 +11,7 @@ import ui.CommandLineUI;
 public class AddDeadlineCommand extends Command {
     protected Task task;
 
-    public AddDeadlineCommand(String desc, String date) {
+    public AddDeadlineCommand(String desc, String date) throws OuiOuiBaguetteException {
         task = new Deadline(desc, date);
 
     }
