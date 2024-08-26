@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -87,7 +90,16 @@ public class FileStore {
                             continue;
                         }
 
-                        DeadlineItem deadline = new DeadlineItem(entryDeadlineString, entryDeadlineDueString);
+                        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+                        LocalDateTime deadlineDue = null;
+                        try {
+                            deadlineDue = LocalDateTime.parse(entryDeadlineDueString, formatter);
+                        } catch (DateTimeParseException e) {
+                            errorEntriesCount++;
+                            continue;
+                        }
+
+                        DeadlineItem deadline = new DeadlineItem(entryDeadlineString, deadlineDue);
                         deadline.setCompleted(status);
                         todoList.add(deadline);
                         break;
