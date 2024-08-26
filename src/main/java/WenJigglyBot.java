@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +8,7 @@ public class WenJigglyBot {
     static List<Task> tasks = new ArrayList<>(100);
 
     public static void main(String[] args) {
+        loadTasksFromStorage();
         Scanner scanner = new Scanner(System.in);
         String name = "WenJigglyBot";
         System.out.println("Sup im " + name);
@@ -33,56 +32,132 @@ public class WenJigglyBot {
             String taskName;
 
             switch (Objects.requireNonNull(command)) {
-                case LIST:
-                    displayTasks();
-                    break;
-                case MARK:
-                    strings = task.split(" ");
-                    action = "mark";
-                    idx = Integer.parseInt(strings[1].trim()) - 1;
-                    toggleTask(action, idx);
-                    break;
-                case UNMARK:
-                    action = "unmark";
-                    strings = task.split(" ");
-                    idx = Integer.parseInt(strings[1].trim()) - 1;
-                    toggleTask(action, idx);
-                    break;
-                case TODO:
-                    taskName = task.replaceFirst("todo", "").trim();
-                    addTask(new ToDoTask(taskName));
-                    break;
-                case DEADLINE:
-                    try {
-                        String[] parts = processDeadlineTask(task);
-                        taskName = parts[0].trim();
-                        String deadline = parts[1].trim();
-                        addTask(new DeadlineTask(taskName, deadline));
-                    } catch (DeadlineException deadlineException) {
-                        System.out.println(deadlineException);
-                    }
-                    break;
-                case EVENT:
-                    // Split the string by "/from" and "/to"
-                    try {
-                        String[] processedEvent = processEventTask(task);
-                        addTask(new EventTask(processedEvent[0], processedEvent[1], processedEvent[2]));
-                    } catch (EventException eventException) {
-                        System.out.println(eventException);
-                    }
-                    break;
-                case DELETE:
-                    strings = task.split(" ");
-                    idx = Integer.parseInt(strings[1].trim()) - 1;
-                    deleteTask(idx);
-                    break;
-                case BYE:
-                    flag = false;
-                    break;
+            case LIST:
+                displayTasks();
+                break;
+            case MARK:
+                strings = task.split(" ");
+                action = "mark";
+                idx = Integer.parseInt(strings[1].trim()) - 1;
+                toggleTask(action, idx);
+                break;
+            case UNMARK:
+                action = "unmark";
+                strings = task.split(" ");
+                idx = Integer.parseInt(strings[1].trim()) - 1;
+                toggleTask(action, idx);
+                break;
+            case TODO:
+                taskName = task.replaceFirst("todo", "").trim();
+                addTask(new ToDoTask(taskName));
+                break;
+            case DEADLINE:
+                try {
+                    String[] parts = processDeadlineTask(task);
+                    taskName = parts[0].trim();
+                    String deadline = parts[1].trim();
+                    addTask(new DeadlineTask(taskName, deadline));
+                } catch (DeadlineException deadlineException) {
+                    System.out.println(deadlineException);
+                }
+                break;
+            case EVENT:
+                // Split the string by "/from" and "/to"
+                try {
+                    String[] processedEvent = processEventTask(task);
+                    addTask(new EventTask(processedEvent[0], processedEvent[1], processedEvent[2]));
+                } catch (EventException eventException) {
+                    System.out.println(eventException);
+                }
+                break;
+            case DELETE:
+                strings = task.split(" ");
+                idx = Integer.parseInt(strings[1].trim()) - 1;
+                deleteTask(idx);
+                break;
+            case BYE:
+                flag = false;
+                break;
 
             }
         }
         System.out.println("Goodbye!");
+    }
+
+    private static void loadTasksFromStorage() {
+        File file = new File("./data/data.txt");
+
+        // Check if the file exists
+        if (!file.exists()) {
+            System.out.println("No saved tasks found.");
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            System.out.println("Tasks loaded from " + file.getPath());
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    private static Task parseTask(String line) {
+        // Example format: 1. [T][X] task description
+        String[] parts = line.split(" ", 3);
+        if (parts.length < 3) {
+            return null;
+        }
+
+        String taskType = parts[1].substring(1, 2);
+        boolean isDone = parts[1].substring(3, 4).equals("X");
+        String description = parts[2];
+
+        switch (taskType) {
+        case "T": // ToDo task
+            ToDoTask todo = new ToDoTask(description);
+            if (isDone) {
+                todo.markTask();
+            }
+            return todo;
+        case "D": // Deadline task
+            // Format: [D][ ] description (by: date/time)
+            String[] deadlineParts = description.split("\\(by: ");
+            if (deadlineParts.length == 2) {
+                String taskDescription = deadlineParts[0].trim();
+                String deadline = deadlineParts[1].replace(")", "").trim();
+                DeadlineTask deadlineTask = new DeadlineTask(taskDescription, deadline);
+                if (isDone) {
+                    deadlineTask.markTask();
+                }
+                return deadlineTask;
+            }
+            break;
+        case "E": // Event task
+            // Format: [E][ ] description (from: start time to: end time)
+            String[] eventParts = description.split("\\(from: ");
+            if (eventParts.length == 2) {
+                String taskDescription = eventParts[0].trim();
+                String[] timeParts = eventParts[1].split(" to: ");
+                if (timeParts.length == 2) {
+                    String startTime = timeParts[0].trim();
+                    String endTime = timeParts[1].replace(")", "").trim();
+                    EventTask eventTask = new EventTask(taskDescription, startTime, endTime);
+                    if (isDone) {
+                        eventTask.markTask();
+                    }
+                    return eventTask;
+                }
+            }
+            break;
+        }
+
+        return null; // return null if the task could not be parsed
     }
 
     private static Command parseCommand(String command) throws InvalidCommandException {
