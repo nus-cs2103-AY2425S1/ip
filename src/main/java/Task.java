@@ -12,6 +12,10 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String toDataString() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }

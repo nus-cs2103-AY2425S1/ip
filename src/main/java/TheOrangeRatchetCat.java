@@ -1,8 +1,12 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 enum CommandType {
     LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE;
@@ -11,10 +15,9 @@ enum CommandType {
 public class TheOrangeRatchetCat {
 
     private static final String FILE_PATH = "./data/OrangeCat.txt";
+
     public static void main(String[] args) {
         // The ChatBot named OrangeRatchetCat
-        //ratchetCatBot();
-
         List<Task> items = new ArrayList<>();
         loadTasks(items); // Load tasks from file at startup
         ratchetCatBot(items); // Pass the list of tasks to the chatbot
@@ -90,75 +93,64 @@ public class TheOrangeRatchetCat {
         scanner.close(); // Close the scanner to avoid resource leaks
     }
 
-    // Method to load tasks from file
-    private static void loadTasks(List<Task> items) {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            System.out.println("Data file does not exist. A new file will be created.");
-            return;
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\|");
-                if (parts.length >= 3) {
-                    String type = parts[0].trim();
-                    boolean isDone = parts[1].trim().equals("1");
-                    String description = parts[2].trim();
-
-                    Task task;
-                    if (type.equals("T")) {
-                        task = new ToDo(description);
-                    } else if (type.equals("D")) {
-                        task = new Deadline(description, parts.length > 3 ? parts[3].trim() : "");
-                    } else if (type.equals("E")) {
-                        task = new Event(description, parts.length > 3 ? parts[3].trim() : "", parts.length > 4 ? parts[4].trim() : "");
-                    } else {
-                        continue; // Unknown task type
-                    }
-
-                    task.isDone = isDone;
-                    items.add(task);
-                    //Task.taskCount++; // How did this introduce the bug, please find out!
-                }
+    private static void saveTasks(List<Task> items) {
+        try {
+            Path path = Paths.get(FILE_PATH);
+            Files.createDirectories(path.getParent()); // Create directories if they don't exist
+            // BufferedWriter is simply more efficient than FileWriter - speeds up the writing process
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (Task task : items) {
+                writer.write(task.toDataString());
+                writer.newLine();
             }
+            writer.close();
         } catch (IOException e) {
-            System.out.println("Error reading the data file: " + e.getMessage());
+            System.out.println("An error occurred while saving tasks: " + e.getMessage());
         }
     }
 
-    // Method to save tasks to file
-    private static void saveTasks(List<Task> items) {
-        File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs(); // Ensure that the parent directory exists
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            for (Task item : items) {
-                String taskType = "";
-                if (item instanceof ToDo) {
-                    taskType = "T";
-                } else if (item instanceof Deadline) {
-                    taskType = "D";
-                } else if (item instanceof Event) {
-                    taskType = "E";
+    private static void loadTasks(List<Task> items) {
+        try {
+            // Similar to BufferedWriter, BufferedReader allows reading of files to be more efficient
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line; // To hold each line read from the file
+            while ((line = reader.readLine()) != null) {
+                // Gets a string array separate into different parts marked by '|'
+                // Note: parts can be of different length depending on the length of the input being read
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0]; // Either "T"/"D"/"E"
+                // Arrangement is as follows
+                // <TaskType> <isDone> <TaskDescription> <fromDate> <toDate>
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                Task task = null;
+                switch (taskType) {
+                    case "T":
+                        task = new ToDo(description);
+                        break; // Continues with reading the next task in the next line
+                    case "D":
+                        String by = parts[3];
+                        task = new Deadline(description, LocalDate.parse(by));
+                        break;
+                    case "E":
+                        String from = parts[3];
+                        String to = parts[4];
+                        task = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
+                        break;
                 }
-
-                String isDone = item.isDone ? "1" : "0";
-                String description = item.description;
-                String extraInfo = "";
-
-                if (item instanceof Deadline) {
-                    extraInfo = ((Deadline) item).by;
-                } else if (item instanceof Event) {
-                    Event event = (Event) item;
-                    extraInfo = event.fromDuration + " | " + event.toDuration;
+                if (task != null) {
+                    task.isDone = isDone;
+                    items.add(task);
                 }
-
-                bw.write(String.format("%s | %s | %s %s%n", taskType, isDone, description, extraInfo));
             }
+            reader.close();
+        } catch (FileNotFoundException e) { // If FILE_PATH does not exist
+            System.out.println("Data file not found, starting with an empty task list.");
         } catch (IOException e) {
-            System.out.println("Error writing to the data file: " + e.getMessage());
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("The data file is corrupted, starting with an empty task list.");
+            items.clear();
         }
     }
 
@@ -251,10 +243,21 @@ public class TheOrangeRatchetCat {
         }
         // The "by" part is the second part, if it exists
         String date = parts.length > 1 ? parts[1].trim() : "";
+        LocalDate dateBy;
+
+        try { // Utilises LocalDate static method to parse input
+            dateBy = LocalDate.parse(date); // Could throw a DateTimeParseException
+            //System.out.println(dateBy);
+        } catch (DateTimeParseException e) {
+            System.out.println("The deadline follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
+            return scanner.nextLine();
+        }
+
         if (date.isEmpty()) {
             throw new TheOrangeRatchetCatException("You need to provide a deadline!");
         }
-        Task nextTask = new Deadline(taskDescription, date);
+        // If task added successfully, the program will reach here!
+        Task nextTask = new Deadline(taskDescription, dateBy);
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(nextTask);
@@ -274,14 +277,25 @@ public class TheOrangeRatchetCat {
         }
         // Further split the remaining part by "/to"
         String[] dateParts = parts[1].split("/to");
+
         // The "fromDate" is the first part
         String fromDate = dateParts[0].trim();
         // The "toDate" is the second part
         String toDate = dateParts.length > 1 ? dateParts[1].trim() : "";
+        LocalDate toLocalDate;
+        LocalDate fromLocalDate;
+        try { // Utilises LocalDate static method to parse input
+            toLocalDate = LocalDate.parse(toDate); // Could throw a DateTimeParseException
+            fromLocalDate = LocalDate.parse(fromDate);
+        } catch (DateTimeParseException e) {
+            System.out.println("The event follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
+            return scanner.nextLine();
+        }
+
         if (toDate.isEmpty()) {
             throw new TheOrangeRatchetCatException("You need to specify an end time!");
         }
-        Task nextTask = new Event(taskDescription, fromDate, toDate);
+        Task nextTask = new Event(taskDescription, fromLocalDate, toLocalDate);
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(nextTask);
@@ -289,6 +303,11 @@ public class TheOrangeRatchetCat {
         System.out.println("____________________________________________________________");
         items.add(nextTask);
         return scanner.nextLine();
+    }
+
+    // Suppose to print out all activities associated with this date. To be implemented
+    private static void activitiesOnThisDate(LocalDate date) {
+
     }
 
     private static void bidFarewell() {
