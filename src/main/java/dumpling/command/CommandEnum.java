@@ -1,3 +1,5 @@
+package dumpling.command;
+
 public enum CommandEnum {
     LIST,
     TODO,

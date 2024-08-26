@@ -1,3 +1,10 @@
+package dumpling.command;
+
+import dumpling.DumplingException;
+import dumpling.task.TaskList;
+import dumpling.Ui;
+import dumpling.Storage;
+
 public class MarkCommand extends Command {
 
     private CommandEnum commandEnum;

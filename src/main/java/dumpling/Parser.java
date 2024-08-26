@@ -1,3 +1,13 @@
+package dumpling;
+
+import dumpling.command.Command;
+import dumpling.command.CommandEnum;
+import dumpling.command.AddCommand;
+import dumpling.command.DeleteCommand;
+import dumpling.command.ByeCommand;
+import dumpling.command.MarkCommand;
+import dumpling.command.ListCommand;
+
 public class Parser {
     public static Command parse(String stringCommand) throws DumplingException {
         String commandString = stringCommand.split(" ")[0];

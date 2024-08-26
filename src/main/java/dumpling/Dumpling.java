@@ -1,3 +1,8 @@
+package dumpling;
+
+import dumpling.command.Command;
+import dumpling.task.TaskList;
+
 public class Dumpling {
 
     private Storage storage;

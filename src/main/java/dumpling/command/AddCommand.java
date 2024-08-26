@@ -1,3 +1,12 @@
+package dumpling.command;
+
+import dumpling.DumplingException;
+import dumpling.Pair;
+import dumpling.task.Task;
+import dumpling.task.TaskList;
+import dumpling.Ui;
+import dumpling.Storage;
+
 public class AddCommand extends Command {
 
     private String userInput;
