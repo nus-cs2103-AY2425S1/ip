@@ -1,3 +1,4 @@
+package bopes.exception;
 public class BopesException extends Exception {
     public BopesException(String message) {
         super(message);

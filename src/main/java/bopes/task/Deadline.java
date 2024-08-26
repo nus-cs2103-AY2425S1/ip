@@ -1,11 +1,13 @@
+package bopes.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     protected LocalDateTime by;
 
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         this.by = LocalDateTime.parse(by.toLowerCase(), formatter);
     }

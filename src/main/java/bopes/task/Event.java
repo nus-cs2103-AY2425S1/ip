@@ -1,3 +1,5 @@
+package bopes.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -5,8 +7,8 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String description, String start, String end, boolean isDone) {
+        super(description, isDone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         this.start = LocalDateTime.parse(start.toLowerCase(), formatter);
         this.end = LocalDateTime.parse(end.toLowerCase(), formatter);
