@@ -94,6 +94,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Return an Exit Executable if there no arguments are provided. Throws
+     * TooManyArgumentsException when 'bye' is called with arguments.
+     *
+     * @param arguments the list of arguments called with 'bye'.
+     * @return an Exit Executable.
+     * @throws TooManyArgumentsException when command is called with any arguments.
+     */
     private Executable bye(String[] arguments) throws TooManyArgumentsException {
         if (arguments != null) {
             throw new TooManyArgumentsException(0);
@@ -101,6 +109,14 @@ public class Parser {
         return new Exit();
     }
 
+    /**
+     * Return a ListTask Executable if there no arguments are provided. Throws
+     * TooManyArgumentsException when 'list' is called with arguments.
+     *
+     * @param arguments the list of arguments called with 'list'.
+     * @return an ListTask Executable.
+     * @throws TooManyArgumentsException when command is called with any arguments.
+     */
     private Executable list(String[] arguments) throws TooManyArgumentsException {
         if (arguments != null) {
             throw new TooManyArgumentsException(0);
@@ -108,6 +124,16 @@ public class Parser {
         return new ListTask();
     }
 
+    /**
+     * Return a MarkTask Executable if 'mark' is called with an integer. Otherwise,
+     * throws ParseExceptions.
+     *
+     * @param arguments the list of arguments called with 'mark'.
+     * @return a MarkTask Executable.
+     * @throws TooLittleArgumentsException if 'mark' is not called with any arguments.
+     * @throws TooManyArgumentsException when more than one argument is provided.
+     * @throws InvalidArgumentException when the argument for 'mark' is not an integer.
+     */
     private Executable mark(String[] arguments) throws TooLittleArgumentsException,
             TooManyArgumentsException, InvalidArgumentException {
         String sample = "mark 2";
@@ -128,6 +154,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Return an UnmarkTask Executable if 'unmark' is called with an integer. Otherwise,
+     * throws ParseException.
+     *
+     * @param arguments the list of arguments called with 'unmark'.
+     * @return a UnmarkTask Executable.
+     * @throws TooLittleArgumentsException when 'unmark' is not called with any arguments.
+     * @throws TooManyArgumentsException when more than one argument is provided.
+     * @throws InvalidArgumentException when the argument for 'unmark' is not an integer.
+     */
     private Executable unmark(String[] arguments) throws TooLittleArgumentsException,
             TooManyArgumentsException, InvalidArgumentException {
         String sample = "unmark 2";
@@ -148,6 +184,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Return a DeleteTask Executable if 'delete' is called with an integer. Otherwise,
+     * throws ParseException.
+     *
+     * @param arguments the list of arguments called with 'delete'.
+     * @return a DeleteTask Executable.
+     * @throws TooLittleArgumentsException when 'delete' is not called with any arguments.
+     * @throws TooManyArgumentsException when more than one argument is provided.
+     * @throws InvalidArgumentException when the argument for 'delete' is not an integer.
+     */
     private Executable delete(String[] arguments) throws TooLittleArgumentsException,
             TooManyArgumentsException, InvalidArgumentException {
         String sample = "delete 2";
@@ -168,6 +214,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Return a AddTask Executable that adds a new Todo Task. Throws MissingDescriptionException
+     * when no description for the Task is provided.
+     *
+     * @param arguments the list of arguments called with 'todo'.
+     * @return a AddTask Executable.
+     * @throws MissingDescriptionException when no description is provided for the Todo Task.
+     */
     private Executable todo(String[] arguments) throws MissingDescriptionException {
         String sample = "todo read book";
 
@@ -180,6 +234,18 @@ public class Parser {
         return new AddTask(task);
     }
 
+    /**
+     * Return a AddTask Executable that adds a new Deadline Task. Throws ParseExceptions when
+     * the description or deadline is not provided as arguments. Also throws ParseExceptions
+     * when deadline provided cannot be converted to a LocalDateTime object.
+     *
+     * @param arguments the list of arguments called with 'deadline'.
+     * @return a AddTask Executable.
+     * @throws MissingDescriptionException when no description is provided for the Deadline Task.
+     * @throws MissingDeadlineException when no deadline is provided for the Deadline Task.
+     * @throws InvalidArgumentException when the deadline cannot be converted into a LocalDateTime
+     *                                  object.
+     */
     private Executable deadline(String[] arguments) throws MissingDescriptionException,
             MissingDeadlineException, InvalidArgumentException {
         String sample = "deadline return book /by 2024-04-08 06:30";
@@ -209,6 +275,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Return a AddTask Executable that adds a new Event Task. Throws ParseExceptions when
+     * the description, start or end time is not provided as arguments. Also throws ParseExceptions
+     * when start or end time provided cannot be converted to a LocalDateTime object.
+     *
+     * @param arguments the list of arguments called with 'event'.
+     * @return a AddTask Executable.
+     * @throws MissingDescriptionException when no description is provided for the Event Task.
+     * @throws MissingStartTimeException when no start time is provided for the Event Task.
+     * @throws MissingEndTimeException when no end time is provided for the Event Task.
+     * @throws InvalidArgumentException when the deadline cannot be converted into a LocalDateTime
+     *                                  object.
+     * @throws IncorrectArrangementException when user input the end time before the start time.
+     */
     private Executable event(String[] arguments) throws MissingDescriptionException,
             MissingStartTimeException, MissingEndTimeException, InvalidArgumentException,
             IncorrectArrangementException {
