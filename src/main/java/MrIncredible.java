@@ -1,9 +1,14 @@
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class MrIncredible {
     private static final Scanner scanner = new Scanner(System.in);
     private static final HarddiskStorage harddiskStorage = new HarddiskStorage("./data/duke.txt");
     private static final TaskStorage taskStorage = new TaskStorage(harddiskStorage);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     public static void main(String[] args) {
         MrIncredible.greet();
 
@@ -81,32 +86,49 @@ public class MrIncredible {
     }
 
     public static void addDeadlineTask(String input) {
-        String[] parts = input.split(" /by ");
-        String description = parts[0];
-        String by = parts[1];
+        try {
+            String[] parts = input.split(" /by ");
+            String description = parts[0];
+            String by = parts[1];
 
-        Deadline task = new Deadline(description, by);
-        taskStorage.addTask(task);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+            LocalDateTime byDateTime = LocalDateTime.parse(by, formatter);
+
+            Deadline task = new Deadline(description, byDateTime);
+            taskStorage.addTask(task);
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + task);
+            System.out.println("     Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
+            System.out.println("    ____________________________________________________________");
+        } catch (DateTimeParseException e) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Error: Invalid date and time format. Please use 'yyyy-MM-dd HH:mm'.");
+            System.out.println("    ____________________________________________________________");
+        }
     }
 
     public static void addEventTask(String input) {
-        String[] parts = input.split(" /from | /to ");
-        String description = parts[0];
-        String from = parts[1];
-        String to = parts[2];
+        try {
+            String[] parts = input.split(" /from | /to ");
+            String description = parts[0];
+            String from = parts[1];
+            String to = parts[2];
 
-        Event task = new Event(description, from, to);
-        taskStorage.addTask(task);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
+            LocalDateTime toDateTime = LocalDateTime.parse(to, formatter);
+
+            Event task = new Event(description, fromDateTime, toDateTime);
+            taskStorage.addTask(task);
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + task);
+            System.out.println("     Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
+            System.out.println("    ____________________________________________________________");
+        } catch (DateTimeParseException e) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Error: Invalid date and time format. Please use 'yyyy-MM-dd HH:mm'.");
+            System.out.println("    ____________________________________________________________");
+        }
     }
 
     public static void greet() {
@@ -141,14 +163,6 @@ public class MrIncredible {
     public static void listTasks() {
         System.out.println("    ____________________________________________________________");
         taskStorage.listTasks();
-        System.out.println("    ____________________________________________________________");
-    }
-
-    public static void addTask(String input) {
-        Task task = new Task(input);
-        taskStorage.addTask(task);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     added: " + task);
         System.out.println("    ____________________________________________________________");
     }
 }

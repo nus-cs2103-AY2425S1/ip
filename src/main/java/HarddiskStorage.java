@@ -1,9 +1,12 @@
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+    import java.time.LocalDateTime;
 
 public class HarddiskStorage {
     private final String filePath;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public HarddiskStorage(String filePath) {
         this.filePath = filePath;
@@ -24,11 +27,11 @@ public class HarddiskStorage {
                 if (type.equals("T")) {
                     task = new ToDo(description);
                 } else if (type.equals("D")) {
-                    String by = parts[4];
+                    LocalDateTime by = LocalDateTime.parse(parts[4], formatter);
                     task = new Deadline(description, by);
                 } else if (type.equals("E")) {
-                    String from = parts[4];
-                    String to = parts[5];
+                    LocalDateTime from = LocalDateTime.parse(parts[4], formatter);
+                    LocalDateTime to = LocalDateTime.parse(parts[5], formatter);
                     task = new Event(description, from, to);
                 }
 
