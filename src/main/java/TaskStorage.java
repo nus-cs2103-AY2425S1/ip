@@ -1,8 +1,5 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,6 +34,7 @@ public class TaskStorage {
                 taskList.add(currentLoadedTask);
             }
         }
+        s.close();
     }
 
     private static void appendTaskToFile(File file, String text) throws IOException {
@@ -44,6 +42,27 @@ public class TaskStorage {
         writer.newLine();
         writer.write(text);
         writer.close();
+    }
+
+    private static void deleteTaskFromFile(File file, int taskNum) throws IOException {
+        File tempFile = new File("./data/tempFile.txt");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+
+        String currLine;
+        int i = 0;
+        while ((currLine = reader.readLine()) != null) {
+            String trimmedLine = currLine.trim();
+            if (i == taskNum) continue;
+            writer.write(currLine);
+            writer.newLine();
+            i++;
+        }
+        reader.close();
+        writer.close();
+
+        file.delete();
+        tempFile.renameTo(file);
     }
 
     public TaskStorage() {
@@ -87,6 +106,14 @@ public class TaskStorage {
         }
         Task task = this.taskList.get(i - 1);
         this.taskList.remove(i - 1);
+
+        try {
+            deleteTaskFromFile(taskFile, i);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
+
         System.out.println("\tDeleted: " + task);
         this.numberOfTasks--;
         System.out.println("\tYou now have " + this.numberOfTasks + " tasks.");
