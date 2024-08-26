@@ -200,16 +200,16 @@ public class LeBron {
         while ((line = br.readLine()) != null) {
             String[] parts = line.split("\\|");
             String type = parts[0].trim();
-            boolean isDone = parts[1].equals("1");
+            boolean isDone = parts[1].trim().equals("1");
 
             Task task;
             if (type.equals("T")) {
                 task = new ToDos(parts[2].trim());
             } else if (type.equals("D")) {
-                task = new Deadlines(parts[2].trim(), parts[3]);
+                task = new Deadlines(parts[2].trim(), parts[3].trim());
             } else if (type.equals("E")) {
                 String[] startEnd = parts[3].split("-");
-                task = new Event(parts[2].trim(), startEnd[0], startEnd[1]);
+                task = new Event(parts[2].trim(), startEnd[0].trim(), startEnd[1].trim());
             } else {
                 continue;
             }
