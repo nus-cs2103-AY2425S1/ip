@@ -23,11 +23,11 @@ public class Parser {
 
         if (input.isEmpty()) {
             throw new LunaException("""
-                            Please enter one of the following commands:
-                            "todo", "deadline", "event"
-                            "mark", "unmark", "delete"
-                            "list", "bye"
-                            """);
+                    Please enter one of the following commands:
+                    "todo", "deadline", "event"
+                    "mark", "unmark", "delete"
+                    "list", "bye"
+                    """);
         }
 
         String[] commands = input.split(" ", 2);
@@ -115,8 +115,7 @@ public class Parser {
             String[] deadline = commands[1].split(" /");
 
             if (deadline.length == 1) {
-                throw new LunaException("Enter deadline for task " +
-                        "e.g. deadline [task] /by [deadline]");
+                throw new LunaException("Enter deadline for task e.g. deadline [task] /by [deadline]");
             }
 
             if (!deadline[1].contains("by ") || deadline[1].trim().length() <= 2) {
@@ -185,12 +184,12 @@ public class Parser {
 
         default:
             throw new LunaException("""
-                Invalid Command!
-                Please enter one of the following commands:
-                "todo", "deadline", "event"
-                "mark", "unmark", "delete"
-                "list", "bye"
-                """);
+                    Invalid Command!
+                    Please enter one of the following commands:
+                    "todo", "deadline", "event"
+                    "mark", "unmark", "delete"
+                    "list", "bye"
+                    """);
         }
     }
 }
