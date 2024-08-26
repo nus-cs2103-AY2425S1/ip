@@ -20,6 +20,6 @@ public class BopesException extends Exception {
     }
 
     public static BopesException unknownCommand() {
-        return new BopesException("Error: Unknown command. Please use 'todo', 'deadline', or 'event' followed by the task details.");
+        return new BopesException("Error: Unknown command. Please use 'todo', 'deadline', or 'event' followed by the task details. Example: 'todo read book'. Use 'bye' to exit the program.");
     }
 }

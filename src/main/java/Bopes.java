@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bopes {
+    public static final String FILE_PATH = "data/tasks.txt";
     public static void main(String[] args) {
         String intro = "Bopes is a personal assistant that helps you manage your tasks.";
         System.out.println(intro);
@@ -9,7 +10,18 @@ public class Bopes {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        ArrayList<Task> inputs = new ArrayList<Task>();
+        TaskStorage storage = new TaskStorage(FILE_PATH);
+        ArrayList<Task> tasks = storage.loadTasks();
+
+         // Display tasks loaded from storage
+        if (tasks.size() > 0) {
+            System.out.println("Here are your tasks loaded from storage:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            }
+        } else {
+            System.out.println("No tasks found in storage.");
+        }
 
         while (true) {
             System.out.println("\nWhat can I do for you?");
@@ -25,34 +37,37 @@ public class Bopes {
                 // Input special commands
                 if (input.equalsIgnoreCase("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < inputs.size(); i++) {
-                        System.out.println((i + 1) + ". " + inputs.get(i).toString());
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i).toString());
                     }
                 } else if (input.split(" ")[0].equalsIgnoreCase("mark")) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index >= 0 && index < inputs.size()) {
-                        inputs.get(index).markAsDone();
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).markAsDone();
                         System.out.println("Marked task " + (index + 1) + " as done.");
+                        storage.saveTasks(tasks);
                     } else {
-                        throw BopesException.invalidIndex(inputs.size());
+                        throw BopesException.invalidIndex(tasks.size());
                     }
                 } else if (input.split(" ")[0].equalsIgnoreCase("unmark")) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index >= 0 && index < inputs.size()) {
-                        inputs.get(index).markAsUndone();
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).markAsUndone();
                         System.out.println("Unmarked task " + (index + 1) + " as undone.");
+                        storage.saveTasks(tasks);
                     } else {
-                        throw BopesException.invalidIndex(inputs.size());
+                        throw BopesException.invalidIndex(tasks.size());
                     }
                 } else if (input.split(" ")[0].equalsIgnoreCase("delete")) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index >= 0 && index < inputs.size()) {
+                    if (index >= 0 && index < tasks.size()) {
                         System.out.println("Noted. I've removed this task:");
-                        System.out.println(inputs.get(index).toString());
-                        inputs.remove(index);
-                        System.out.println("Now you have " + inputs.size() + " tasks in the list.");
+                        System.out.println(tasks.get(index).toString());
+                        tasks.remove(index);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        storage.saveTasks(tasks);
                     } else {
-                        throw BopesException.invalidIndex(inputs.size());
+                        throw BopesException.invalidIndex(tasks.size());
                     }
                 }else {
                     // Adding of tasks
@@ -76,10 +91,11 @@ public class Bopes {
                     } else {
                         throw BopesException.unknownCommand();
                     }
-                    inputs.add(newTask);
+                    tasks.add(newTask);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(newTask.toString());
-                    System.out.println("Now you have " + inputs.size() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    storage.saveTasks(tasks);
                 }
             } catch (BopesException e) {
                 System.out.println(e.getMessage());
