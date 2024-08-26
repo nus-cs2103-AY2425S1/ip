@@ -11,7 +11,7 @@ public class UI {
         System.out.println(this.addMsgWithOutline("Hello! I'm EchoChat\n\t\t\tWhat can I do for you?"));
     }
 
-    public void printTaskList(List<Task> tasks) {
+    public void printTaskList(List<? extends Task> tasks) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:\n\t\t\t");
         for (int i = 0; i < tasks.size(); i++) {

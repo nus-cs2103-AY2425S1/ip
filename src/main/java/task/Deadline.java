@@ -4,6 +4,7 @@ import exception.DeadlineEmptyException;
 import exception.InvalidDeadlineFormatException;
 import exception.TaskNameEmptyException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Deadline extends ScheduledTask {
@@ -15,6 +16,11 @@ public class Deadline extends ScheduledTask {
             throw new DeadlineEmptyException();
         }
         this.deadline = super.parseInputDateTime(deadline);
+    }
+
+    @Override
+    public boolean isTaskWithinThisDate(LocalDate date) {
+        return this.deadline.toLocalDate().isAfter(date) || this.deadline.toLocalDate().isEqual(date);
     }
 
     @Override

@@ -3,11 +3,12 @@ package task;
 import exception.InvalidDeadlineFormatException;
 import exception.TaskNameEmptyException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class ScheduledTask extends Task {
+public abstract class ScheduledTask extends Task {
     private final String DATE_TIME_INPUT_FORMAT = "dd-MM-yyyy HH:mm";
     private final String DATE_TIME_OUTPUT_FORMAT = "MMM dd yyyy HH:mm";
 
@@ -19,7 +20,7 @@ public class ScheduledTask extends Task {
         try {
             return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(this.DATE_TIME_INPUT_FORMAT));
         } catch (DateTimeParseException e) {
-            throw new InvalidDeadlineFormatException("Invalid deadline format! Please follow " + this.DATE_TIME_INPUT_FORMAT + "!");
+            throw new InvalidDeadlineFormatException(this.DATE_TIME_INPUT_FORMAT);
         }
     }
 
@@ -30,6 +31,8 @@ public class ScheduledTask extends Task {
     protected String formatOutputDateTime(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern(this.DATE_TIME_OUTPUT_FORMAT));
     }
+
+    public abstract boolean isTaskWithinThisDate(LocalDate date);
 
     @Override
     public String save() {

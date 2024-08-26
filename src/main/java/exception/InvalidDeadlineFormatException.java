@@ -6,6 +6,6 @@ public class InvalidDeadlineFormatException extends EchoBotException {
     }
 
     public InvalidDeadlineFormatException(String message) {
-        super(message);
+        super("Invalid deadline format! Please follow " + message + "!");
     }
 }

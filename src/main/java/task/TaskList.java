@@ -1,8 +1,10 @@
 package task;
 
+import exception.InvalidDeadlineFormatException;
 import exception.TaskNotFoundException;
 import io.Saveable;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,18 @@ public class TaskList implements Saveable {
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNotFoundException();
         }
+    }
+
+    public List<Task> getTasksOccurringOn(LocalDate date) throws InvalidDeadlineFormatException {
+        List<Task> taskList1 = new ArrayList<>();
+
+        for (Task task : this.taskList) {
+            if ((task instanceof ScheduledTask) && !task.isDone() && ((ScheduledTask) task).isTaskWithinThisDate(date)) {
+                taskList1.add(task);
+            }
+        }
+
+        return taskList1;
     }
 
     @Override

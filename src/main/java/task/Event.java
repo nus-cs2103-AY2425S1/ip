@@ -4,6 +4,7 @@ import exception.EventStartEndDateEmptyException;
 import exception.InvalidDeadlineFormatException;
 import exception.TaskNameEmptyException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Event extends ScheduledTask {
@@ -17,6 +18,13 @@ public class Event extends ScheduledTask {
         }
         this.from = super.parseInputDateTime(from);
         this.to = super.parseInputDateTime(to);
+    }
+
+    @Override
+    public boolean isTaskWithinThisDate(LocalDate date) {
+        LocalDate from = this.from.toLocalDate();
+        LocalDate to = this.to.toLocalDate();
+        return (from.isBefore(date) || from.isEqual(date)) && (to.isAfter(date) || to.isEqual(date));
     }
 
     @Override
