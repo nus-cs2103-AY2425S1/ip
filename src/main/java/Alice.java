@@ -8,6 +8,7 @@ public class Alice {
     private static final String DATA_DIRECTORY = "./data";
     private static final String TASKS_FILE = "tasks.jsonl";
 
+    private Ui ui;
     private final List<Task> tasks;
 
     private enum Commands {
@@ -22,66 +23,51 @@ public class Alice {
     }
 
     public Alice() {
+        this.ui = new Ui();
         this.tasks = new ArrayList<>();
         loadTasks();
     }
 
-    private void say(String message) {
-        System.out.println(String.format("> %s", message));
-    }
-
     private void greet() {
-        System.out.println(HORIZONTAL_LINE);
-        say(String.format("Hello! I'm %s.", NAME));
-        say("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+        ui.say(String.format("Hello! I'm %s. What can I do for you?", NAME));
     }
 
     private void bye() {
-        System.out.println(HORIZONTAL_LINE);
-        say("Bye. Hope to see you again soon!");
-        System.out.println(HORIZONTAL_LINE);
+        ui.say("Bye. Hope to see you again soon!");
     }
 
     private void echo(String line) {
         // echo user inputs
-        System.out.println(HORIZONTAL_LINE);
-        say(String.format("%s", line));
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    private void warn(String message) {
-        System.out.println(HORIZONTAL_LINE);
-        say(String.format("Oops! %s", message));
-        System.out.println(HORIZONTAL_LINE);
+        ui.say(String.format("%s", line));
     }
 
     private void addTask(Task task) {
         tasks.add(task);
-        System.out.println(HORIZONTAL_LINE);
-        say("Got it. I've added this task:");
-        System.out.println(String.format("\t%s", task));
-        System.out.println(HORIZONTAL_LINE);
+        String[] lines = new String[]{
+            "Got it. I've added this task:",
+            task.toString()
+        };
+        ui.say(lines);
         saveTasks();
     }
 
     private void listTasks() {
-        System.out.println(HORIZONTAL_LINE);
         if (tasks.isEmpty()) {
-            say("You have no tasks.");
+            ui.say("You have no tasks.");
         } else {
-            say("These are your tasks:");
+            String[] lines = new String[tasks.size() + 1];
+            lines[0] = "These are your tasks:";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(String.format("\t%d. %s", i + 1, tasks.get(i)));
+                lines[i + 1] = String.format("%d. %s", i + 1, tasks.get(i));
             }
+            ui.say(lines);
         }
-        System.out.println(HORIZONTAL_LINE);
     }
 
     private void markTask(String line) {
         String[] tokens = line.split(" ", 2);
         if (tokens.length != 2) {
-            warn("Missing task number. Usage: mark <task number>");
+            ui.warn("Missing task number. Usage: mark <task number>");
             return;
         }
 
@@ -89,27 +75,29 @@ public class Alice {
         try {
             taskNumber = Integer.parseInt(tokens[1]);
         } catch (NumberFormatException exception) {
-            warn("Invalid task number. Usage: mark <task number>");
+            ui.warn("Invalid task number. Usage: mark <task number>");
             return;
         }
 
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            warn("Task number out of bounds. Usage: mark <task number>");
+            ui.warn("Task number out of bounds. Usage: mark <task number>");
             return;
         }
+
         int index = taskNumber - 1;
         tasks.get(index).setCompletion(true);
-        System.out.println(HORIZONTAL_LINE);
-        say("Nice! I've marked this task as done:");
-        System.out.println(String.format("\t%s", tasks.get(index)));
-        System.out.println(HORIZONTAL_LINE);
+        String[] lines = new String[]{
+            "Nice! I've marked this task as done:",
+            tasks.get(index).toString()
+        };
+        ui.say(lines);
         saveTasks();
     }
 
     private void unmarkTask(String line) {
         String[] tokens = line.split(" ", 2);
         if (tokens.length != 2) {
-            warn("Missing task number. Usage: unmark <task number>");
+            ui.warn("Missing task number. Usage: unmark <task number>");
             return;
         }
 
@@ -117,28 +105,29 @@ public class Alice {
         try {
             taskNumber = Integer.parseInt(tokens[1]);
         } catch (NumberFormatException exception) {
-            warn("Invalid task number. Usage: unmark <task number>");
+            ui.warn("Invalid task number. Usage: unmark <task number>");
             return;
         }
 
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            warn("Task number out of bounds. Usage: unmark <task number>");
+            ui.warn("Task number out of bounds. Usage: unmark <task number>");
             return;
         }
 
         int index = taskNumber - 1;
-        tasks.get(index).setCompletion(false);            
-        System.out.println(HORIZONTAL_LINE); 
-        say("OK, I've marked this task as not done yet:");
-        System.out.println(String.format("\t%s", tasks.get(index)));
-        System.out.println(HORIZONTAL_LINE);
+        tasks.get(index).setCompletion(true);
+        String[] lines = new String[]{
+            "OK, I've marked this task as not done yet:",
+            tasks.get(index).toString()
+        };
+        ui.say(lines);
         saveTasks();
     }
 
     private void deleteTask(String line) {
         String[] tokens = line.split(" ", 2);
         if (tokens.length != 2) {
-            warn("Missing task number. Usage: delete <task number>");
+            ui.warn("Missing task number. Usage: delete <task number>");
             return;
         }
 
@@ -146,21 +135,22 @@ public class Alice {
         try {
             taskNumber = Integer.parseInt(tokens[1]);
         } catch (NumberFormatException exception) {
-            warn("Invalid task number. Usage: delete <task number>");
+            ui.warn("Invalid task number. Usage: delete <task number>");
             return;
         }
 
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            warn("Task number out of bounds. Usage: delete <task number>");
+            ui.warn("Task number out of bounds. Usage: delete <task number>");
             return;
         }
 
         int index = taskNumber - 1;
         Task removedTask = tasks.remove(index);
-        System.out.println(HORIZONTAL_LINE);
-        say("Noted. I've removed this task:");
-        System.out.println(String.format("\t%s", removedTask));
-        System.out.println(HORIZONTAL_LINE);
+        String[] lines = new String[]{
+            "Noted. I've removed this task:",
+            removedTask.toString()
+        };
+        ui.say(lines);
         saveTasks();
     }
 
@@ -185,7 +175,7 @@ public class Alice {
             reader.close();
             input.close();
         } catch (IOException | InvalidTaskException exception){
-            warn(String.format("%s Unable to load tasks.", exception));
+            ui.warn(String.format("%s Unable to load tasks.", exception));
         }
     }
 
@@ -207,7 +197,7 @@ public class Alice {
             writer.close();
             output.close();
         } catch (IOException exception){
-            warn(String.format("%s Unable to save tasks.", exception));
+            ui.warn(String.format("%s Unable to save tasks.", exception));
         }
     }
 
@@ -245,7 +235,7 @@ public class Alice {
                     Task toDo = new ToDo(line);
                     addTask(toDo);
                 } catch (InvalidTaskException exception) {
-                    warn(String.format("%s Usage: Alice <description>", exception));
+                    ui.warn(String.format("%s Usage: Alice <description>", exception));
                 }
                 continue;
             }
@@ -255,7 +245,7 @@ public class Alice {
                     Task deadline = new Deadline(line);
                     addTask(deadline);
                 } catch (InvalidTaskException exception) {
-                    warn(String.format("%s Usage: deadline <description> /by <deadline>", exception));
+                    ui.warn(String.format("%s Usage: deadline <description> /by <deadline>", exception));
                 }
                 continue;
             }
@@ -265,7 +255,7 @@ public class Alice {
                     Task event = new Event(line);
                     addTask(event);
                 } catch (InvalidTaskException exception) {
-                    warn(String.format("%s Usage: event <description> /from <start> /to <end>", exception));
+                    ui.warn(String.format("%s Usage: event <description> /from <start> /to <end>", exception));
                 }
                 continue;
             }
