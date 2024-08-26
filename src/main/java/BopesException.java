@@ -3,8 +3,8 @@ public class BopesException extends Exception {
         super(message);
     }
 
-    public static BopesException invalidIndex(int index) {
-        return new BopesException("Error: The task index " + (index + 1) + " is out of range. Please provide a valid task number between 1 and " + (index) + ".");
+    public static BopesException invalidIndex(int size) {
+        return new BopesException("Error: The task index is out of range. Please provide a valid task number between 1 and " + size + ".");
     }
 
     public static BopesException invalidNumberFormat() {
@@ -12,11 +12,11 @@ public class BopesException extends Exception {
     }
 
     public static BopesException invalidDeadlineFormat() {
-        return new BopesException("Error: Incorrect deadline format. Please use the format 'deadline <task> /by <time>'. Example: 'deadline submit report /by tomorrow 5pm'.");
+        return new BopesException("Error: Incorrect deadline format. Please use the format 'deadline <task> /by <dd/MM/yyyy hh:mm a>'.");
     }
 
     public static BopesException invalidEventFormat() {
-        return new BopesException("Error: Incorrect event format. Please use the format 'event <task> /from <start> /to <end>'. Example: 'event project meeting /from Monday 2pm /to Monday 4pm'.");
+        return new BopesException("Error: Incorrect event format. Please use the format 'event <task> /from <dd/MM/yyyy hh:mm a> /to <dd/MM/yyyy hh:mm a>'.");
     }
 
     public static BopesException unknownCommand() {

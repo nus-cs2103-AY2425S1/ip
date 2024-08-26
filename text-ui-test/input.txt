@@ -1,7 +1,7 @@
 todo borrow book
 todo buy groceries
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 27/08/2024 05:00 PM
+event project meeting /from 26/08/2024 02:00 PM /to 26/08/2024 04:00 PM
 todo study for exams
 list
 mark 1
@@ -9,9 +9,9 @@ mark 3
 list
 unmark 1
 list
-deadline submit assignment /by Friday
-event team lunch /from Fri 12pm /to 2pm
+deadline submit assignment /by 29/08/2024 11:59 PM
+event team lunch /from 30/08/2024 12:00 PM /to 30/08/2024 02:00 PM
 list
-mark 10
-event company outing /from Saturday
+mark 10 
+event company outing /from 31/08/2024 09:00 AM /to 31/08/2024 05:00 PM
 bye
