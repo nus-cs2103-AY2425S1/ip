@@ -5,19 +5,25 @@ import java.io.File;
 public class TaskStorage {
     private ArrayList<Task> taskList;
     private int numberOfTasks;
+    private final String filePath = "./data/taskFile.txt";
 
     public TaskStorage() {
         try {
-            File taskFile = new File("./data/taskFile.txt");
+            File taskFile = new File(filePath);
+            if (!taskFile.exists()){ // Checks if directory exists
+                taskFile.mkdirs();
+            }
             taskFile.createNewFile(); // Attempts to create new file if not present
         } catch (IOException e) {
             System.err.println(e);
         }
+
         this.taskList = new ArrayList<>();
         this.numberOfTasks = 0;
     }
 
     public void addTask(Task task) {
+        // Add task into the task list
         this.taskList.add(task);
         System.out.println("\tAdded: " + task);
         this.numberOfTasks++;
