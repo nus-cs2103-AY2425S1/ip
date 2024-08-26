@@ -1,6 +1,9 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Nameless {
     private static final String line = "______________________________________________________________";
@@ -9,6 +12,8 @@ public class Nameless {
     private static final String goodbye = "Bye. Hope to see you again!";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static Storage storage;
+    private static final DateTimeFormatter parse_format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+
     private static int splitGetNum(String input){
         String[] words = input.split(" ");
         return Integer.parseInt(words[1]) - 1;
@@ -53,20 +58,31 @@ public class Nameless {
                     if (words.length < 2) {
                         throw new DukeException("incorrect format use 'deadline <task> /by <date>'");
                     }
-                    tasks.add(new Deadline(words[0], words[1]));
-                    System.out.println(line + "\n" + "Got it. I've added this task:" +
-                            "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
-                            "Now you have " + tasks.size() + " task left \n" + line);
+                    try {
+                        LocalDateTime date = LocalDateTime.parse(words[1], parse_format);
+                        tasks.add(new Deadline(words[0], date));
+                        System.out.println(line + "\n" + "Got it. I've added this task:" +
+                                "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
+                                "Now you have " + tasks.size() + " task left \n" + line);
+                    } catch (Exception e) {
+                        throw new DukeException("incorrect format must be in yyyy-mm-dd hh:mm am/pm");
+                    }
                 } else if (input.matches("event(?: .+)?")) {
                     temp = splitGetWords(input);
                     String[] words = temp.split(" /from | /to ");
                     if (words.length != 3) {
                         throw new DukeException("incorrect format use 'event <task> /from <date> /to <date>'");
                     }
-                    tasks.add(new Event(words[0], words[1], words[2]));
-                    System.out.println(line + "\n" + "Got it. I've added this task:" +
-                            "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
-                            "Now you have " + tasks.size() + " task left \n" + line);
+                    try {
+                        LocalDateTime from = LocalDateTime.parse(words[1], parse_format);
+                        LocalDateTime to = LocalDateTime.parse(words[2], parse_format);
+                        tasks.add(new Event(words[0], from, to));
+                        System.out.println(line + "\n" + "Got it. I've added this task:" +
+                                "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
+                                "Now you have " + tasks.size() + " task left \n" + line);
+                    } catch (Exception e) {
+                        throw new DukeException("incorrect format must be in yyyy-mm-dd hh:mm am/pm");
+                    }
                 } else if (input.matches("todo(?: .+)?")) {
                     //store tasking
                     String words = splitGetWords(input);

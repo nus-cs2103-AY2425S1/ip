@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -7,11 +6,14 @@ import java.io.FileWriter;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
     private static Path filePath = null;
     private static String line;
+    private static final DateTimeFormatter display_format = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
     public Storage(String filePath) throws DukeException {
         Storage.filePath = Paths.get(filePath);
         createFile();
@@ -82,9 +84,10 @@ public class Storage {
         if(words[0].equals("T")){
             return new Todo(words[2]);
         } else if(words[0].equals("D")){
-            return new Deadline(words[2], words[3]);
+            return new Deadline(words[2], LocalDateTime.parse(words[3], display_format));
         } else if(words[0].equals("E")){
-            return new Event(words[2], words[3], words[4]);
+            return new Event(words[2], LocalDateTime.parse(words[3], display_format),
+                    LocalDateTime.parse(words[4], display_format));
         } else {
             return null;
         }
