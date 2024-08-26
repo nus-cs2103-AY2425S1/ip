@@ -129,8 +129,25 @@ public class ChattyBuddy {
                         System.out.println(e.getMessage());
                         System.out.println(breakLine);
                     }
+                } else if (slicedStr.length == 2 && slicedStr[0].equals("delete")){
+                    try {
+                        if (Integer.parseInt(slicedStr[1]) > inputList.size() || Integer.parseInt(slicedStr[1]) <= 0 ) {
+                            throw new TaskIndexOutOfBound();
+                        }
+                        Task target = inputList.get(Integer.parseInt(slicedStr[1]) - 1);
+                        inputList.remove(Integer.parseInt(slicedStr[1]) - 1);
+                        System.out.println(breakLine);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.printf("[%s][%s] %s%n", target.type, target.getStatusIcon(), target.description);
+                        System.out.printf("Now you have %d tasks in the list%n", inputList.size());
+                        System.out.println(breakLine);
+                    } catch (TaskIndexOutOfBound e) {
+                        System.out.println(breakLine);
+                        System.out.println(e.getMessage());
+                        System.out.println(breakLine);
+                    }
 
-                    // user enters otherwise
+                // user enters otherwise
                 } else {
                     throw new InvalidInputException();
                 }
