@@ -15,9 +15,8 @@ public class Event extends Task {
 
     public Event(String description, String fromDateTime, String toDateTime, boolean isDone) throws JudeException {
         super(description, isDone);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.fromDateTime = LocalDateTime.parse(fromDateTime, format);
-        this.toDateTime = LocalDateTime.parse(toDateTime, format);
+        this.fromDateTime = LocalDateTime.parse(fromDateTime);
+        this.toDateTime = LocalDateTime.parse(toDateTime);
     }
 
     public void setDatesAndTimes(String from, String to) throws JudeException {

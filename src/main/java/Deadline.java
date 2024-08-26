@@ -14,8 +14,7 @@ public class Deadline extends Task {
 
     public Deadline (String description, String dateTime, boolean isDone) throws JudeException {
         super(description, isDone);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.dateTime = LocalDateTime.parse(dateTime, format);
+        this.dateTime = LocalDateTime.parse(dateTime);
     }
 
     public void setDateAndTime(String deadline) throws JudeException {
