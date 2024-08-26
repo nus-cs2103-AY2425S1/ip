@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Bob {
@@ -5,11 +7,12 @@ public class Bob {
         LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, INVALID
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = "Bob";
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
         ArrayList<Task> list = new ArrayList<>();
+        // add function to add tasks to list from file
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
@@ -48,6 +51,7 @@ public class Bob {
             }
             input = scanner.nextLine();
         }
+        FileWriting.writeToFile("data/bob.txt", list);
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -60,17 +64,16 @@ public class Bob {
         return Command.INVALID;
     }
 
-    private static void listTasks(ArrayList<Task> list) {
+    private static void listTasks(ArrayList<Task> list) throws FileNotFoundException {
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i));
-        }
+
+        FileReading.printFileContents("data/bob.txt");
     }
 
     private static void markTask(ArrayList<Task> list, String input) throws BobException {
         String[] parts = input.split(" ");
         int index = Integer.parseInt(parts[1]) - 1;
-        if(index < 0 || index >= list.size()) {
+        if (index < 0 || index >= list.size()) {
             throw new BobException("Please enter a valid task number.");
         }
         list.get(index).markAsDone();
@@ -80,7 +83,7 @@ public class Bob {
     private static void unmarkTask(ArrayList<Task> list, String input) throws BobException {
         String[] parts = input.split(" ");
         int index = Integer.parseInt(parts[1]) - 1;
-        if(index < 0 || index >= list.size()) {
+        if (index < 0 || index >= list.size()) {
             throw new BobException("Please enter a valid task number.");
         }
         list.get(index).markAsNotDone();
@@ -90,7 +93,7 @@ public class Bob {
     private static void deleteTask(ArrayList<Task> list, String input) throws BobException {
         String[] parts = input.split(" ");
         int index = Integer.parseInt(parts[1]) - 1;
-        if(index < 0 || index >= list.size()) {
+        if (index < 0 || index >= list.size()) {
             throw new BobException("Please enter a valid task number.");
         }
 
