@@ -13,7 +13,7 @@ import wolfie.task.TaskList;
  */
 @SuppressWarnings("checkstyle:Regexp")
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         scanner = new Scanner(System.in);
@@ -142,5 +142,9 @@ public class Ui {
         for (Task task : tasks) {
             System.out.println("   " + task);
         }
+    }
+
+    public void showMessage(String s) {
+        System.out.println(s);
     }
 }

@@ -5,6 +5,7 @@ import wolfie.command.AddTodoCommand;
 import wolfie.command.Command;
 import wolfie.command.DeleteCommand;
 import wolfie.command.ExitCommand;
+import wolfie.command.FindCommand;
 import wolfie.command.ListCommand;
 import wolfie.command.MarkCommand;
 import wolfie.command.OnCommand;
@@ -37,6 +38,7 @@ public class Parser {
         case "event" -> new AddEventCommand(arguments);
         case "delete" -> new DeleteCommand(arguments);
         case "on" -> new OnCommand(arguments);
+        case "find" -> new FindCommand(arguments);
         default -> throw new WolfieException("I'm sorry Dean's Lister, but I don't know what that means :-(");
         };
     }
