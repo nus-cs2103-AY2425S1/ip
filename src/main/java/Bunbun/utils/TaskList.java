@@ -41,7 +41,7 @@ public class TaskList {
         this.taskList.add(task);
         this.numOfTasks += 1;
         this.ui.response("Added \'" + task + "\' task!");
-        String msg = String.format("By the way, you have %d Bunbun.tasks now!", this.numOfTasks);
+        String msg = String.format("By the way, you have %d tasks now!", this.numOfTasks);
         this.ui.response(msg);
     }
 

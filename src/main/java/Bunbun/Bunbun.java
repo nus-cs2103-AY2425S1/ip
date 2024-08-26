@@ -34,32 +34,8 @@ public class Bunbun {
             } else {
                 System.out.println(msg);
                 ArrayList<String> tokens = Parser.getTokens();
-                String firstWord = tokens.get(0);
-                int len = tokens.size();
-                if (firstWord.equals("list")) {
-                    this.list.displayList();
-                } else if (firstWord.equals("mark")) {
-                    if (len == 2) {
-                        String val = tokens.get(1);
-                        this.list.markDoneTask(Integer.parseInt(val));
-                    } else {
-                        this.ui.response("Specify 1! positive integer to mark task as complete D:");
-                    }
-                } else if (firstWord.equals("todo")) {
-                    this.list.addToDo(tokens);
-                } else if (firstWord.equals("deadline")) {
-                    this.list.addDeadline(tokens);
-                } else if (firstWord.equals("event")) {
-                    this.list.addEvent(tokens);
-                } else if (firstWord.equals("delete")) {
-                    if (len == 2) {
-                        this.list.deleteTask(Integer.parseInt(tokens.get(1)));
-                    } else {
-                        this.ui.response("Specify 1! positive integer to delete task D:");
-                    }
-                } else {
-                    this.ui.response("Sorry, I don't understand ><");
-                }
+                Command c = new Command(this.list, this.ui);
+                c.execute(tokens);
             }
         }
     }
