@@ -263,7 +263,7 @@ public class PurrfessorDipsy {
     }
 
     private static void printDateParseErrorMessage(String date) {
-        System.out.println("Invalid date format: " + date +
+        System.out.println("Invalid date formsdat: " + date +
                            " Please enter the date in the format yyyy-MM-dd (e.g., 2024-08-25).");
     }
 
