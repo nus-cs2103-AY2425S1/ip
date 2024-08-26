@@ -1,9 +1,56 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoUnit;
 public class Bao {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String file_Path = "./data/bao.txt";
+    private static DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder()
+            .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-M-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-M-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-M-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-M-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/dc"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/d"))
+
+
+
+            .toFormatter();
+    //private static DateTimeFormatter inputDateFormat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    //private static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+    // private static DateTimeFormatter outputDateOnlyFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+
 
     private static String baoHappy =
               "     ___\n"
@@ -154,9 +201,15 @@ public class Bao {
                     }
                     String deadline = taskDescription.substring(byIndex + 4);
                     String description = taskDescription.substring(0, byIndex - 1);
-                    taskList.add(new Deadline(description, deadline));
-                    System.out.println("Bao got it! Bao is now tracking:");
-                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    try {
+                        LocalDateTime dateTime = LocalDateTime.parse(deadline, inputDateFormat);
+                        taskList.add(new Deadline(description, dateTime));
+                        System.out.println("Bao got it! Bao is now tracking:");
+                        System.out.println(taskList.get(taskList.size() - 1).toString());
+                    } catch (DateTimeParseException e) {
+                        throw new IllegalArgumentException("Bao needs a valid date format: yyyy-MM-dd HHmm");
+                    }
+
                 }
                 case "E" -> {
                     int fromIndex = taskDescription.indexOf("/from ");
@@ -167,15 +220,21 @@ public class Bao {
                     } else if (fromIndex == 0) {
                         throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
-                    String from = taskDescription.substring(fromIndex + 6, toIndex - 1);
-                    String to = taskDescription.substring(toIndex + 4);
+                    String fromString = taskDescription.substring(fromIndex + 6, toIndex - 1);
+                    String toString = taskDescription.substring(toIndex + 4);
                     String description = taskDescription.substring(0, fromIndex - 1);
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
-                    taskList.add(new Event(description, from, to));
-                    System.out.println("Bao got it! Bao is now tracking:");
-                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    try {
+                        LocalDateTime from = LocalDateTime.parse(fromString, inputDateFormat);
+                        LocalDateTime to = LocalDateTime.parse(toString, inputDateFormat);
+                        taskList.add(new Event(description, from, to));
+                        System.out.println("Bao got it! Bao is now tracking:");
+                        System.out.println(taskList.get(taskList.size() - 1).toString());
+                    } catch (DateTimeParseException e) {
+                        throw new IllegalArgumentException("Bao needs a valid date format: yyyy-MM-dd HHmm");
+                    }
                 }
             }
             saveTasks();
@@ -220,10 +279,15 @@ public class Bao {
                 String[] duration;
                 switch (type) {
                     case "T" -> taskList.add(new ToDo(description));
-                    case "D" -> taskList.add(new Deadline(description, lineParts[3]));
+                    case "D" -> {
+                        LocalDateTime deadline = LocalDateTime.parse(lineParts[3], inputDateFormat);
+                        taskList.add(new Deadline(description, deadline));
+                    }
                     case "E" -> {
                         duration = lineParts[3].split("-");
-                        taskList.add(new Event(description, duration[0], duration[1]));
+                        LocalDateTime from = LocalDateTime.parse(duration[0], inputDateFormat);
+                        LocalDateTime to = LocalDateTime.parse(duration[0], inputDateFormat);
+                        taskList.add(new Event(description, from, to));
                     }
                 }
                 if (isDone) {

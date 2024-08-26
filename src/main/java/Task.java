@@ -23,4 +23,12 @@ public class Task {
             return "0 | " + description;
         }
     }
+
+    public String toFileString() {
+        if (isDone) {
+            return "1 | " + description;
+        } else {
+            return "0 | " + description;
+        }
+    }
 }
