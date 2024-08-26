@@ -5,52 +5,52 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    protected LocalDateTime fromDateTime;
-    protected LocalDateTime toDateTime;
-    protected LocalDate fromDate;
-    protected LocalDate toDate;
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
 
     // Constructor for LocalDateTime
     public Event(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(description);
-        this.fromDateTime = fromDateTime;
-        this.toDateTime = toDateTime;
+        this.startDateTime = fromDateTime;
+        this.endDateTime = toDateTime;
     }
 
     // Constructor for LocalDate
     public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.startDate = fromDate;
+        this.endDate = toDate;
     }
 
-    private String[] format() {
-        if (fromDateTime != null && toDateTime != null) {
+    public String[] format() {
+        if (startDateTime != null && endDateTime != null) {
             return new String[]{
-                    fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")),
-                    toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
+                    startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")),
+                    endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
             };
-        } else if (fromDate != null && toDate != null) {
+        } else if (startDate != null && endDate != null) {
             return new String[]{
-                    fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
-                    toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                    endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
             };
         }
         return new String[]{};
     }
 
     public LocalDate getStartDate() {
-        if (fromDate != null) {
-            return fromDate;
+        if (startDate != null) {
+            return startDate;
         }
-        return fromDateTime.toLocalDate();
+        return startDateTime.toLocalDate();
     }
 
     public LocalDate getEndDate() {
-        if (toDate != null) {
-            return toDate;
+        if (endDate != null) {
+            return endDate;
         }
-        return toDateTime.toLocalDate();
+        return endDateTime.toLocalDate();
     }
 
     @Override
@@ -64,4 +64,11 @@ public class Event extends Task {
     }
 
 
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
 }

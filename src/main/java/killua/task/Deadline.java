@@ -20,7 +20,7 @@ public class Deadline extends Task {
         this.date = date;
     }
 
-    private String format() {
+    public String format() {
         if (dateTime != null) {
             return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
         } else if (date != null) {
@@ -34,6 +34,10 @@ public class Deadline extends Task {
             return date;
         }
         return dateTime.toLocalDate();
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
