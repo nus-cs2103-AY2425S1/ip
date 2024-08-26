@@ -49,13 +49,13 @@ public class TaskManager {
                 this.dbContoller.update(this.taskStorage);
             } else if(segments[0].equals("todo")) {
                 Task task = taskStorage.add(Todo.of(currAction));
-                this.dbContoller.create(task);
+                this.dbContoller.create(task, taskStorage.isFirstTask());
             } else if(segments[0].equals("deadline")) {
                 Task task = taskStorage.add(Deadline.of(currAction));
-                this.dbContoller.create(task);
+                this.dbContoller.create(task, taskStorage.isFirstTask());
             } else if(segments[0].equals("event")) {
                 Task task = taskStorage.add(Event.of(currAction));
-                this.dbContoller.create(task);
+                this.dbContoller.create(task, taskStorage.isFirstTask());
             } else {
                 throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
             }

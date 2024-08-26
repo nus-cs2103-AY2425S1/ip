@@ -1,4 +1,6 @@
 import java.util.Scanner;
+
+import mendel.mendelexception.ServerError;
 import mendel.preetyprint.FormatText;
 import mendel.metacognition.Welcome;
 import mendel.mendelexception.MendelException;
@@ -17,6 +19,10 @@ public class Mendel {
                 taskManager.manage(currAction);
             } catch (MendelException e) {
                 System.out.println(new FormatText(e.toString()).wrapLines());
+            } catch (ServerError e) {
+                System.out.println(new FormatText(e.toString()).wrapLines());
+                taskManager.manage("bye");
+                currAction = "bye";
             }
         }
     }

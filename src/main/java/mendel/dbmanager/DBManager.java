@@ -4,7 +4,7 @@ import mendel.discretetask.Deadline;
 import mendel.discretetask.Event;
 import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
-import mendel.mendelexception.MendelException;
+import mendel.mendelexception.ServerError;
 import mendel.metacognition.TaskStorage;
 
 import java.io.FileNotFoundException;
@@ -18,7 +18,7 @@ public class DBManager {
     private final String filePath;
     private final File db;
 
-    public DBManager(String filePath) {
+    public DBManager(String filePath) throws ServerError {
         this.filePath = filePath;
         File db = new File(filePath);
         this.db = db;
@@ -28,12 +28,12 @@ public class DBManager {
                 new File(dirLst[0]).mkdir();
                 db.createNewFile();
             } catch (IOException e) {
-                System.out.println("here");
+                throw new ServerError("File cannot be created. Check data directory");
             }
         }
     }
 
-    public void loadInto(TaskStorage taskStorage) {
+    public void loadInto(TaskStorage taskStorage) throws ServerError {
         try {
             Scanner s = new Scanner(this.db);
             while (s.hasNext()) {
@@ -47,22 +47,26 @@ public class DBManager {
                     taskStorage.silencedAdd(Event.loadOf(lineSegments[1].equals("1"), lineSegments[2], lineSegments[3],
                             lineSegments[4]));
                 } else {
-                    throw new MendelException("OOPS! The database is corrupted");
+                    throw new ServerError(String.format("Unidentifiable task type %s. Ensure correct task type", lineSegments[0]));
                 }
 
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            throw new ServerError("File cannot be found. Check database is not removed");
         }
     }
 
-    public void create(Task task) {
+    public void create(Task task, boolean isNew) throws ServerError {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
-            fw.write("\n" + task.parseDetailsForDB());
+            if (isNew) {
+                fw.write(task.parseDetailsForDB());
+            } else {
+                fw.write("\n" + task.parseDetailsForDB());
+            }
             fw.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            throw new ServerError("File cannot be found. Check database is not removed");
         }
     }
 
@@ -79,12 +83,21 @@ public class DBManager {
                 } else {
                     fw.write("\n" + task.parseDetailsForDB());
                 }
-
                 counter++;
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            throw new ServerError("File cannot be found. Check database is not removed");
         }
     }
 }
+
+
+/*
+
+T | 1 | read book
+D | 0 | return book | June 6th
+E | 0 | project meeting | Aug 6th | 2-4pm
+T | 1 | join sports club
+T | 0 | testDBOps
+ */

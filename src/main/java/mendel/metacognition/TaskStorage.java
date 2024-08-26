@@ -30,6 +30,10 @@ public class TaskStorage extends MendelAction{
         return serial >= 0 && serial < this.counter;
     }
 
+    public boolean isFirstTask() {
+        return this.counter == 1;
+    }
+
     public Task marker(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
