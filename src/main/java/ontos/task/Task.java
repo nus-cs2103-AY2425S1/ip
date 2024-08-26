@@ -1,6 +1,7 @@
 package ontos.task;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class Task {
     protected String description;
@@ -82,6 +83,19 @@ public abstract class Task {
         public String storeData() {
             String statusIcon = this.getStatusData();
             return "T " + statusIcon + " /d" + this.description;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            
+            ToDo toDo = (ToDo) o;
+            return Objects.equals(this.description, toDo.description);
         }
     }
     
