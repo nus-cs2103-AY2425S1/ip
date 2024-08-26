@@ -1,25 +1,38 @@
 package xizi.chatbot;
 
-import xizi.chatbot.task.TaskList;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the chatbot, handling all interactions with the user.
+ */
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Creates a new Ui instance with default input and output streams.
+     */
     public Ui() {
         this(System.in, System.out);
     }
 
+    /**
+     * Creates a new Ui instance with specified input and output streams.
+     *
+     * @param in The InputStream to read user input from.
+     * @param out The PrintStream to print messages to.
+     */
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }
 
+    /**
+     * Displays a welcome message to the user.
+     */
     public void showWelcomeMessage() {
         out.println(DIVIDER);
         out.println("Hello! I'm Xizi.");
@@ -27,18 +40,31 @@ public class Ui {
         out.println(DIVIDER);
     }
 
+    /**
+     * Prints an error message to the user.
+     *
+     * @param message The error message to display.
+     */
     public void printErrorMessage(String message) {
         out.println(DIVIDER);
         out.println("OOPS!!! " + message);
         out.println(DIVIDER);
     }
 
+    /**
+     * Displays a goodbye message to the user.
+     */
     public void showGoodbyeMessage() {
         out.println(DIVIDER);
         out.println("Goodbye! Have a great day!");
         out.println(DIVIDER);
     }
 
+    /**
+     * Reads a line of input from the user.
+     *
+     * @return The trimmed user input.
+     */
     public String readUserInput() {
         try {
             return in.nextLine().trim();
@@ -48,14 +74,25 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a line divider to the output stream.
+     */
     public void showLine() {
         out.println(DIVIDER);
     }
 
+    /**
+     * Prints a generic message to the output stream.
+     *
+     * @param message The message to display.
+     */
     public void printMessage(String message) {
         out.println(message);
     }
-
+    
+    /**
+     * Displays a help message with command descriptions and examples.
+     */
     public void printHelp() {
         out.println(DIVIDER);
         out.println("Here are the available commands and their formats:");
@@ -99,6 +136,9 @@ public class Ui {
                 "- Displays all tasks scheduled for a specific date and time.",
                 "  Example: list on 15/08/2024 1400");
 
+        printCommand("11. find <keyword>",
+                "- Displays all tasks that contain such keyword");
+
         out.println(DIVIDER);
     }
 
@@ -115,10 +155,4 @@ public class Ui {
         out.println();
     }
 
-    public void handleList(TaskList actions) {
-        this.showLine();
-        out.println("Here are the tasks in your list:");
-        actions.printActions();
-        this.showLine();
-    }
 }
