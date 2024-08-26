@@ -1,3 +1,5 @@
+import java.util.List;
+
 public abstract class Task {
     protected boolean isDone;
     protected String description;
@@ -24,4 +26,5 @@ public abstract class Task {
         return "[" + getStatus() + "] " + description;
     }
 
+    public abstract List<String> getTaskDetails();
 }

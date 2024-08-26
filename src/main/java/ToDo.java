@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
@@ -6,5 +8,10 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public List<String> getTaskDetails() {
+        return List.of("T", getStatus(), description);
     }
 }
