@@ -92,11 +92,7 @@ public class Parser {
                     taskList.get(markIndex).setIsDone(true);
                     ui.displayTaskMarked(taskList.get(markIndex));
 
-                    try {
-                        storage.save(taskList);
-                    } catch (IOException e) {
-                        ui.displaySavingError(e.getMessage());
-                    }
+                    handleSave(ui, taskList);
 
                 } else {
                     throw new HoshiException("Hoshi doesn't have such a task!");
@@ -139,11 +135,7 @@ public class Parser {
                     // set isDone to false
                     taskList.get(markIndex).setIsDone(false);
 
-                    try {
-                        storage.save(taskList);
-                    } catch (IOException e) {
-                        ui.displaySavingError(e.getMessage());
-                    }
+                    handleSave(ui, taskList);
 
                     ui.displayTaskMarked(taskList.get(markIndex));
 
@@ -181,11 +173,8 @@ public class Parser {
             ui.displayTaskDeleted(taskList.get(markIndex));
             taskList.delete(markIndex);
 
-            try {
-                storage.save(taskList);
-            } catch (IOException e) {
-                ui.displaySavingError(e.getMessage());
-            }
+            handleSave(ui, taskList);
+
 
         }
     }
@@ -225,11 +214,7 @@ public class Parser {
                     Todo newToDo = new Todo(desc);
                     taskList.add(newToDo);
 
-                    try {
-                        storage.save(taskList);
-                    } catch (IOException e) {
-                        ui.displaySavingError(e.getMessage());
-                    }
+                    handleSave(ui, taskList);
 
                     ui.displayTaskAdded(input);
 
@@ -261,11 +246,7 @@ public class Parser {
                     Deadline newDeadline = new Deadline(desc, dateTime);
                     taskList.add(newDeadline);
 
-                    try {
-                        storage.save(taskList);
-                    } catch (IOException e) {
-                        ui.displaySavingError(e.getMessage());
-                    }
+                    handleSave(ui, taskList);
 
                     ui.displayTaskAdded(input);
 
@@ -304,11 +285,7 @@ public class Parser {
                     Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
                     taskList.add(newEvent);
 
-                    try {
-                        storage.save(taskList);
-                    } catch (IOException e) {
-                        ui.displaySavingError(e.getMessage());
-                    }
+                    handleSave(ui, taskList);
 
                     ui.displayTaskAdded(input);
 
@@ -329,6 +306,15 @@ public class Parser {
 
         }
 
+    }
+
+    public void handleSave(Ui ui, TaskList taskList) {
+
+        try {
+            storage.save(taskList);
+        } catch (IOException e) {
+            ui.displaySavingError(e.getMessage());
+        }
     }
 
 
