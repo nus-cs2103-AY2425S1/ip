@@ -3,7 +3,6 @@ package thanos.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +28,7 @@ public class TodoCommandTest {
         TodoCommand command = new TodoCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No task description provided. Please use the correct format: 'todo [task]'",

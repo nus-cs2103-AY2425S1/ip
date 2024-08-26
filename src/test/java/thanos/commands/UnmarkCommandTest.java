@@ -27,8 +27,7 @@ public class UnmarkCommandTest {
         UnmarkCommand command = new UnmarkCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No task index provided. Please use the correct format: 'unmark [task index]'",
@@ -40,8 +39,7 @@ public class UnmarkCommandTest {
         UnmarkCommand command = new UnmarkCommand("1 2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'unmark [task index]'",
@@ -49,7 +47,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_validTaskIndex_unmarkTaskSucess() throws InvalidCommandException {
+    public void execute_validTaskIndex_unmarkTaskSuccess() throws InvalidCommandException {
         Todo todo = new Todo("read book");
         taskList.add(todo);
         taskList.mark(0);
@@ -67,8 +65,7 @@ public class UnmarkCommandTest {
         UnmarkCommand command = new UnmarkCommand("one");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is not an integer.", exception.getMessage());
@@ -80,8 +77,7 @@ public class UnmarkCommandTest {
         UnmarkCommand command = new UnmarkCommand("2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is out of range.", exception.getMessage());

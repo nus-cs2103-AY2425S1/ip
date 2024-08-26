@@ -3,8 +3,6 @@ package thanos.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +22,7 @@ public class ParserTest {
     @Test
     public void parse_emptyInput_throwsInvalidCommandException() {
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> Parser.parse(""),
+                InvalidCommandException.class, () -> Parser.parse(""),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No input provided. Please enter a command.", exception.getMessage());
@@ -34,8 +31,7 @@ public class ParserTest {
     @Test
     public void parse_invalidCommand_throwsInvalidCommandException() {
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> Parser.parse("test test"),
+                InvalidCommandException.class, () -> Parser.parse("test test"),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Oops! I don't recognise the command you entered. Please enter a valid command.",

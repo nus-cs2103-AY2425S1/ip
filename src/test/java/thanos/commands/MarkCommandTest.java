@@ -27,8 +27,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No task index provided. Please use the correct format: 'mark [task index]'",
@@ -40,8 +39,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("1 2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'mark [task index]'",
@@ -65,8 +63,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("one");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is not an integer.", exception.getMessage());
@@ -78,8 +75,7 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand("2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is out of range.", exception.getMessage());
