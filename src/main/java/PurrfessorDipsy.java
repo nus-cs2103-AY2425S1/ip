@@ -57,27 +57,12 @@ public class PurrfessorDipsy {
     private static void processCommand(String userInput) throws UnknownCommandException, InvalidCommandException {
         Command command = parseCommand(userInput);
         switch (command) {
-            case MARK:
-            case UNMARK:
-                handleMarkCommand(userInput);
-                break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                handleTaskCreation(userInput, command);
-                break;
-            case DELETE:
-                deleteFromMemory(userInput);
-                break;
-            case LIST:
-                handleList(userInput);
-                break;
-            case BYE:
-                exitProgram();
-                break;
-            case UNKNOWN:
-            default:
-                throw new UnknownCommandException();
+            case MARK, UNMARK -> handleMarkCommand(userInput);
+            case TODO, DEADLINE, EVENT -> handleTaskCreation(userInput, command);
+            case DELETE -> handleDeleteCommand(userInput);
+            case LIST -> handleListCommand(userInput); // More specific naming
+            case BYE -> exitProgram();
+            default -> throw new UnknownCommandException();
         }
     }
 
@@ -184,8 +169,7 @@ public class PurrfessorDipsy {
         }
     }
 
-
-    private static void handleList(String userInput) {
+    private static void handleListCommand(String userInput) {
         String[] parts = userInput.trim().split("\\s+");
 
         if (parts.length == 1) {
@@ -202,29 +186,34 @@ public class PurrfessorDipsy {
         }
     }
 
+    private static void handleDeleteCommand(String userInput) throws InvalidCommandException {
+        Matcher matcher = DELETE_PATTERN.matcher(userInput);
+
+        if (matcher.matches()) {
+            int index = Integer.parseInt(matcher.group(1));
+            deleteTaskAtIndex(index);  // Delegate deletion logic
+        } else {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_COMMAND);
+        }
+    }
+
+    private static void deleteTaskAtIndex(int index) throws InvalidCommandException {
+        if (index >= 1 && index <= taskTable.size()) {
+            Task removedTask = taskTable.remove(index - 1); // Adjust for zero-based index
+            printWithTerminalLines("Purrr, I've swatted this task away:\n" + removedTask +
+                    "\nYou now have " + taskTable.size() + " tasks in your list.");
+            Storage.saveTasksToLocalDisk(taskTable);
+        } else {
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_INDEX);
+        }
+    }
+
     // Other util methods used for performing commands.
     private static void saveToMemory(Task task) {
         taskTable.add(task);
         printWithTerminalLines("Got it! I've added this task:\n" + task +
                 "\nYou now have " + taskTable.size() + " tasks in your list.");
         Storage.saveTasksToLocalDisk(taskTable);
-    }
-
-    private static void deleteFromMemory(String userInput) throws InvalidCommandException {
-        Matcher matcher = DELETE_PATTERN.matcher(userInput);
-        if (matcher.matches()) {
-            int index = Integer.parseInt(matcher.group(1));
-            if (index >= 1 && index <= taskTable.size()) {
-                Task removedTask = taskTable.remove(index);
-                printWithTerminalLines("Purrr, I've swatted this task away:\n" + removedTask +
-                        "\nYou now have " + taskTable.size() + " tasks in your list.");
-                Storage.saveTasksToLocalDisk(taskTable);
-            } else {
-                throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_INDEX);
-            }
-        } else {
-            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_COMMAND);
-        }
     }
 
     private static void printTasks(ArrayList<Task> tasks) {
