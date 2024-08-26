@@ -14,7 +14,8 @@ public class Ui {
     private String footer;
     private String bye;
 
-    private static String error = "OOPS!!! I'm sorry, but I don't know what that means :-(";;
+    private static String error = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+
     public Ui() {
         this.line = "____________________________________________________________";
         this.name = "Gravitas";
