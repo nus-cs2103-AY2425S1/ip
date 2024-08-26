@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Meow {
     private final String name = "Meow";
@@ -32,6 +34,16 @@ public class Meow {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
     }
+
+    private static LocalDate parseDate(String dateString) throws MeowException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDate.parse(dateString, formatter);
+        } catch (Exception e) {
+            throw new MeowException("Invalid date format. Use yyyy-MM-dd");
+        }
+    }
+
     public static class MeowException extends Exception {
         public MeowException(String message) {
             super(message);
@@ -101,13 +113,18 @@ public class Meow {
                     if (input.startsWith("deadline ")) {
                         String[] parts = input.substring(9).split(" /by "); // chop off the first few letters to get deadline
                         if (parts.length == 2) {
-                            MEOW.tasks.add(new Deadline(parts[0], parts[1]));
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(MEOW.tasks.get(MEOW.tasks.size() - 1));
-                            MEOW.taskCount++;
-                            System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
-                                    : "Now you have " + MEOW.taskCount + " tasks in the list.");
-                            MEOW.saveTasks();
+                            try {
+                                LocalDate by = parseDate(parts[1].trim());
+                                MEOW.tasks.add(new Deadline(parts[0], by));
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println(MEOW.tasks.get(MEOW.tasks.size() - 1));
+                                MEOW.taskCount++;
+                                System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
+                                        : "Now you have " + MEOW.taskCount + " tasks in the list.");
+                                MEOW.saveTasks();
+                            } catch (MeowException e) {
+                                System.out.println(e.getMessage());
+                            }
                         } else {
                             throw new MeowException("Invalid deadline format. Example: deadline return book /by Christmas");
                         }
@@ -119,13 +136,23 @@ public class Meow {
                     if (input.startsWith("event ")) {
                         String[] parts = input.substring(6).split(" /from | /to "); // split input into 3 args for event
                         if (parts.length == 3) {
-                            MEOW.tasks.add(new Event(parts[0], parts[1], parts[2]));
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(MEOW.tasks.get(MEOW.tasks.size() - 1));
-                            MEOW.taskCount++;
-                            System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
-                                    : "Now you have " + MEOW.taskCount + " tasks in the list.");
-                            MEOW.saveTasks();
+                            try {
+                                LocalDate from = parseDate(parts[1].trim());
+                                LocalDate to = parseDate(parts[2].trim());
+                                if (from.isBefore(to)) {
+                                    MEOW.tasks.add(new Event(parts[0], from, to));
+                                    System.out.println("Got it. I've added this task:");
+                                    System.out.println(MEOW.tasks.get(MEOW.tasks.size() - 1));
+                                    MEOW.taskCount++;
+                                    System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
+                                            : "Now you have " + MEOW.taskCount + " tasks in the list.");
+                                    MEOW.saveTasks();
+                                } else {
+                                    throw new MeowException("GRRR! Start date cannot be after End date");
+                                }
+                            } catch (MeowException e) {
+                                System.out.println(e.getMessage());
+                            }
                         } else {
                             throw new MeowException("Invalid event format. Example: event gym workout /from Mon 1pm /to 2.30pm");
                         }
@@ -158,6 +185,7 @@ public class Meow {
                            MEOW.taskCount--;
                            System.out.println("Now you have " + MEOW.tasks.size() + (MEOW.tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                            MEOW.saveTasks();
+                           MEOW.line();
                        } else {
                            throw new MeowException("GRRR! Invalid task number, you only have " + MEOW.tasks.size() + (MEOW.tasks.size() == 1 ? " task" : " tasks"));
                        }
