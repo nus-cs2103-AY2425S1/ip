@@ -110,7 +110,7 @@ public class TaskList {
     }
 
     protected void checkValidIndex(int index) throws NekoException {
-        if (index <= 0)  throw new NekoException("Invalid task number meow!");
+        if (index < 0)  throw new NekoException("Invalid task number meow!");
         if (tasks.isEmpty())  throw new NekoException("You don't have any tasks yet meow!");
         if (index >= tasks.size()) throw new NekoException("You only have " + tasks.size() + " tasks now meow!");
     }
