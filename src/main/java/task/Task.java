@@ -1,8 +1,9 @@
 package task;
 
 import exception.TaskNameEmptyException;
+import io.Saveable;
 
-public class Task {
+public class Task implements Saveable {
     private final String taskName;
     private boolean isDone;
 
@@ -22,12 +23,13 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getTxtSavedToFile() {
-        return "| " + (isDone ? "1" : "0") + " | " + this.taskName;
-    }
-
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + taskName;
+    }
+
+    @Override
+    public String save() {
+        return "| " + (isDone ? "1" : "0") + " | " + this.taskName;
     }
 }

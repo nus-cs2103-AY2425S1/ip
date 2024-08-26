@@ -8,8 +8,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String getTxtSavedToFile() {
-        return "T " + super.getTxtSavedToFile();
+    public String save() {
+        return "T " + super.save();
     }
 
     @Override

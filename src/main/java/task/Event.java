@@ -1,28 +1,31 @@
 package task;
 
 import exception.EventStartEndDateEmptyException;
+import exception.InvalidDeadlineFormatException;
 import exception.TaskNameEmptyException;
 
-public class Event extends Task {
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
 
-    public Event(boolean isDone, String taskName, String from, String to) throws TaskNameEmptyException, EventStartEndDateEmptyException {
+public class Event extends ScheduledTask {
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Event(boolean isDone, String taskName, String from, String to) throws TaskNameEmptyException, EventStartEndDateEmptyException, InvalidDeadlineFormatException {
         super(isDone, taskName);
         if (from.isBlank() || to.isBlank()) {
             throw new EventStartEndDateEmptyException();
         }
-        this.from = from;
-        this.to = to;
+        this.from = super.parseInputDateTime(from);
+        this.to = super.parseInputDateTime(to);
     }
 
     @Override
-    public String getTxtSavedToFile() {
-        return "E " + super.getTxtSavedToFile() + " | " + this.from + " | " + this.to;
+    public String save() {
+        return "E " + super.save() + " | " + super.formatSaveFileDateTime(this.from) + " | " + super.formatSaveFileDateTime(this.to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + super.formatOutputDateTime(this.from) + " to: " + super.formatOutputDateTime(this.to) + ")";
     }
 }

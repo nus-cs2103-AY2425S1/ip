@@ -1,10 +1,12 @@
+package task;
+
 import exception.TaskNotFoundException;
-import task.Task;
+import io.Saveable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskList {
+public class TaskList implements Saveable {
     private final List<Task> taskList;
 
     public TaskList() {
@@ -39,7 +41,17 @@ public class TaskList {
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (Task task : this.taskList) {
-            output.append(task.getTxtSavedToFile());
+            output.append(task);
+            output.append("\n");
+        }
+        return output.toString();
+    }
+
+    @Override
+    public String save() {
+        StringBuilder output = new StringBuilder();
+        for (Saveable task : this.taskList) {
+            output.append(task.save());
             output.append("\n");
         }
         return output.toString();
