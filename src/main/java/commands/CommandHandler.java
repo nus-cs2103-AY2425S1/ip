@@ -1,5 +1,8 @@
 package commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -77,10 +80,16 @@ public abstract class CommandHandler {
 
         String description = parts[0].trim();
         String by = parts[1].trim();
-        Deadline task = new Deadline(description, by);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(by, formatter);
+            Deadline task = new Deadline(description, deadline);
 
-        taskList.addTask(task);
-        printAddTaskLine(task, taskList);
+            taskList.addTask(task);
+            printAddTaskLine(task, taskList);
+        } catch (DateTimeParseException e) {
+            System.out.println(LINE + "Invalid date format. Please use dd/MM/yyyy HHmm.\n" + LINE);
+        }
     }
 
     public static void handleEventCommand(String input, TaskList taskList) {
@@ -96,12 +105,19 @@ public abstract class CommandHandler {
         String description = parts[0].trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
+            LocalDateTime toDateTime = LocalDateTime.parse(to, formatter);
+            System.out.println(fromDateTime);
+            System.out.println(toDateTime);
+            Event task = new Event(description, fromDateTime, toDateTime);
 
-        Event task = new Event(description, from, to);
-
-        taskList.addTask(task);
-
-        printAddTaskLine(task, taskList);
+            taskList.addTask(task);
+            printAddTaskLine(task, taskList);
+        } catch (DateTimeParseException e) {
+            System.out.println(LINE + "Invalid date format. Please use dd/MM/yyyy HHmm.\n" + LINE);
+        }
     }
 
     public static void handleUnknownCommand() {
