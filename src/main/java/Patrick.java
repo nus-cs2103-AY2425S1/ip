@@ -1,5 +1,8 @@
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,13 +26,15 @@ public class Patrick {
     public static void main(String[] args) {
         Scanner inputMsg = new Scanner(System.in);
         System.out.println(GREETING_MSG);
+        loadFile();
+        printFileContents();
 
         do {
             input = inputMsg.nextLine();
             checkType(input);
             switch (inputType) {
             case LIST:
-                loadFile(FILE_PATH);
+                printFileContents();
                 break;
 
             case BYE:
@@ -91,6 +96,16 @@ public class Patrick {
         } while (!inputType.equals(Type.BYE));
     }
 
+    private static void readTasks() throws FileNotFoundException {
+        file = new File(FILE_PATH);
+        Scanner s = new Scanner(file);
+        while (s.hasNext()) {
+            String taskString = s.nextLine();
+            Task task = new Task(taskString);
+            list.add(task);
+        }
+    }
+
     private static void toDoTask(String input) throws PatrickException {
         String taskDescription = input.replace("todo", "");
         if (taskDescription.isEmpty()) {
@@ -100,6 +115,7 @@ public class Patrick {
             list.add(task);
             System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
                     + list.size() + NUM_TASK_MSG_2 + HORIZONTAL_LINE);
+            System.out.println(task.toString());
         }
     }
 
@@ -265,7 +281,7 @@ public class Patrick {
         }
 
         public String getStatusIcon() {
-            return (isDone ? "X" : " ");
+            return (isDone ? "X" : "O");
         }
 
         public void markAsDone() {
@@ -278,7 +294,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[" + getStatusIcon() + "]" + this.description;
+            return  getStatusIcon() + " |" + this.description;
         }
 
     }
@@ -293,7 +309,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by:" + this.by + ")";
+            return "D | " + super.toString() + " (by:" + this.by + ")";
         }
     }
 
@@ -304,7 +320,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[T]" + super.toString();
+            return "T | " + super.toString();
         }
     }
 
@@ -330,21 +346,26 @@ public class Patrick {
         }
     }
 
-    private static void printFileContents(String filepath) throws FileNotFoundException {
-        file = new File(filepath);
-        Scanner s = new Scanner(file);
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
+    private static void printFileContents() {
+        System.out.println(HORIZONTAL_LINE + "Here are the tasks in your list:");
+        for (int i = 1; i <= list.size(); i++) {
+            Task curr = (Task) list.get(i - 1);
+            System.out.println(i + ". " + curr.description);
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void loadFile() {
+        try {
+            readTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println(HORIZONTAL_LINE + "File not found!" + "\n" + HORIZONTAL_LINE);
         }
     }
 
-    private static void loadFile(String filePath) {
-        System.out.println(HORIZONTAL_LINE + "Here are the tasks in your list:");
-        try {
-            printFileContents(filePath);
-        } catch (FileNotFoundException e) {
-            System.out.println(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
-        }
-        System.out.println(HORIZONTAL_LINE);
+    private static void appendToFile(String filePath, String text) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath, true);
+        fileWriter.write(text);
+        fileWriter.close();
     }
 }
