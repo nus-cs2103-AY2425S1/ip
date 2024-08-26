@@ -68,6 +68,7 @@ public class Ui {
     }
 
     private final Scanner sc = new Scanner(System.in);
+
     public String readCommand() {
         if (sc.hasNextLine()) {
             return sc.nextLine();

@@ -10,7 +10,7 @@ import friday.util.Ui;
 import java.io.IOException;
 
 public class TodoCommand extends Command {
-    private String description;
+    private final String description;
 
     public TodoCommand(String description) {
         this.description = description;
