@@ -26,12 +26,32 @@ public class Gale {
                 listTasks();
             } else if (input.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                markTask(taskIndex, true);
+                if (taskList.get(taskIndex).status()) {
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("Your task is already completed!");
+                    System.out.println(HORIZONTAL_LINE);
+                } else {
+                    markTask(taskIndex, true);
+                }
             } else if (input.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                markTask(taskIndex, false);
+                if (!taskList.get(taskIndex).status()) {
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("Your task is already unmarked!");
+                    System.out.println(HORIZONTAL_LINE);
+                } else {
+                    markTask(taskIndex, false);
+                }
+            } else if (input.startsWith("todo")) {
+                addToDo(input);
+            } else if (input.startsWith("deadline")) {
+                addDeadline(input);
+            } else if (input.startsWith("event")) {
+                addEvent(input);
             } else {
-                addToTasks(input);
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println("Oops, your command is not valid in this windy realm.");
+                System.out.println(HORIZONTAL_LINE);
             }
         }
 
@@ -40,19 +60,47 @@ public class Gale {
     public void greet() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Gale, your friendly windy assistant.");
-        System.out.println("I'll keep your tasks on my tab. What do you have to do?");
+        System.out.println("I'll keep your deadlines, to-do's and events in my memory. What do you have to do?");
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void addToTasks(String description) {
-        Task newTask = new Task(description);
-        taskList.add(newTask);
+    public void printAddedTask(Task task) {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Whoosh! Task \"" + newTask.toString() + "\" added to my windy memory.");
+        System.out.println("Whoosh! Task \"" + task.toString() + "\" added to my windy memory.");
+        if (taskList.size() == 1) {
+            System.out.println("Now you have 1 task in the list.");
+        } else {
+            System.out.println("Now you have " + taskList.size() + " tasks in the air.");
+        }
         System.out.println("Anything else?");
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public void addToDo(String input) {
+        String description = input.substring(5).trim();
+        Task task = new ToDo(description);
+        taskList.add(task);
+        printAddedTask(task);
+    }
+
+    public void addDeadline(String input) {
+        String[] truncatedInput = input.substring(9).split("/by");
+        String description = truncatedInput[0].trim();
+        String by = truncatedInput[1].trim();
+        Task task = new Deadline(description, by);
+        taskList.add(task);
+        printAddedTask(task);
+    }
+
+    public void addEvent(String input) {
+        String[] truncatedInput = input.substring(6).split("/from|/to");
+        String description = truncatedInput[0].trim();
+        String from = truncatedInput[1].trim();
+        String to = truncatedInput[2].trim();
+        Task task = new Event(description, from, to);
+        taskList.add(task);
+        printAddedTask(task);
+    }
     public void listTasks() {
         System.out.println(HORIZONTAL_LINE);
         if (taskList.isEmpty()) {
