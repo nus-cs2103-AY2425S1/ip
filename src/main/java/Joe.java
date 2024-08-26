@@ -2,7 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +21,8 @@ public class Joe {
     private static void bye() {
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
     }
+
+    private static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
 
     /**
      * Repeats the user's input until the user types "bye".
@@ -239,30 +243,33 @@ public class Joe {
     }
 
     public static void save() {
-        int numOfTasks = userTasks.size();
+        int taskCount = userTasks.size();
         System.out.println(line);
         try {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < numOfTasks; i++) {
+            for (int i = 0; i < taskCount; i++) {
                 Task t = userTasks.get(i);
                 System.out.println(t + " (saved)");
                 if (t instanceof ToDo) {
                     sb.append(String.format("T | %d | %s",
                             t.isDone() ? 1 : 0,
-                            t.getDescription()));
+                            t.getDescription()
+                    ));
                 } else if (t instanceof Deadline) {
                     Deadline d = (Deadline) t;
                     sb.append(String.format("D | %d | %s | by %s",
                             d.isDone() ? 1 : 0,
                             d.getDescription(),
-                            d.getDue()));
+                            d.getDue().format(parseFormatter)
+                    ));
                 } else if (t instanceof Event) {
                     Event e = (Event) t;
                     sb.append(String.format("E | %d | %s | from %s | to %s",
                             e.isDone() ? 1 : 0,
                             e.getDescription(),
-                            e.getStart(),
-                            e.getEnd()));
+                            e.getStart().format(parseFormatter),
+                            e.getEnd().format(parseFormatter)
+                    ));
                 } else {
                     sb.append("<????????>");
                 }
@@ -277,6 +284,36 @@ public class Joe {
             System.out.println("Something went wrong: " + e.getMessage());
             System.out.println(line);
         }
+        System.out.println(line);
+    }
+
+    public static void queryTasksByDate(String date) {
+        System.out.println(line);
+
+        // The arbitrary 1200 time here will not affect the output
+        LocalDateTime targetDate = LocalDateTime.parse(date.strip() + " 1200", parseFormatter);
+
+        int tasksFound = 0;
+        for (Task t : userTasks) {
+            if (t instanceof Deadline) {
+                Deadline d = (Deadline) t;
+                long days = ChronoUnit.DAYS.between(targetDate, d.getDue());
+                if (days == 0L) {
+                    System.out.printf("%d.%s\n", ++tasksFound, d);
+                }
+            } else if (t instanceof Event) {
+                Event e = (Event) t;
+                long days = ChronoUnit.DAYS.between(targetDate, e.getStart());
+                if (days == 0L) {
+                    System.out.printf("%d.%s\n", ++tasksFound, e);
+                }
+            }
+        }
+
+        if (tasksFound == 0) {
+            System.out.printf("There are no tasks on %s\n", targetDate.format(DateTimeFormatter.ISO_DATE));
+        }
+
         System.out.println(line);
     }
 
@@ -302,6 +339,8 @@ public class Joe {
                 delete(getDigits(userIn));
             } else if (userIn.equals("save")) {
                 save();
+            } else if (userIn.startsWith("query")) {
+                queryTasksByDate(userIn.substring(6));
             } else {
                 try {
                     add(userIn);
