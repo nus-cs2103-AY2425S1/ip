@@ -14,6 +14,9 @@ public class Parser {
         String commandType = commandWords[0];
 
         switch (commandType) {
+            case "find":
+                handleFindCommand(commandWords[1], tasks, ui);
+                break;
             case "list":
                 ui.showTasks(tasks);
                 break;
@@ -115,5 +118,10 @@ public class Parser {
             default:
                 throw new BopesException("Error: Unknown task type in file.");
         }
+    }
+
+    private static void handleFindCommand(String keyword, TaskList tasks, Ui ui) {
+        TaskList matchingTasks = tasks.findTasks(keyword);
+        ui.showFoundTasks(matchingTasks);
     }
 }
