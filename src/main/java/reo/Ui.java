@@ -1,10 +1,8 @@
 package reo;
 
-import reo.*;
-
 public class Ui {
     /** The current user tasks. */
-    TaskList tasks;
+    private TaskList tasks;
     public Ui (TaskList tasks) {
         this.tasks = tasks;
     }

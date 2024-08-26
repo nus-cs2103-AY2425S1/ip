@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /** Supports the required file operations for reo.Reo. */
 public class Storage {
-    String filePath;
+    private String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
