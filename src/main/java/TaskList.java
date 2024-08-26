@@ -6,6 +6,28 @@ public class TaskList {
   public TaskList() {
   }
 
+  public static TaskList deserialize(String str) {
+    TaskList taskList = new TaskList();
+    String[] taskStrings = str.split("\n");
+    for (String taskString : taskStrings) {
+      if (taskString.trim().isEmpty()) {
+        continue;
+      }
+      Task task = Task.deserialize(taskString);
+      taskList.add(task);
+    }
+    return taskList;
+  }
+
+  public String serialize() {
+    StringBuilder sb = new StringBuilder();
+    for (Task task : this.tasks) {
+      sb.append(task.serialize());
+      sb.append("\n");
+    }
+    return sb.toString();
+  }
+
   public int size() {
     return this.tasks.size();
   }

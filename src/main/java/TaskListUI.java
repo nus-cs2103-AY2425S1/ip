@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class TaskListUI {
   private Scanner scanner = new Scanner(System.in);
   private TaskList taskList = new TaskList();
+  private TasksStorage storage = TasksStorage.getInstance();
 
   public TaskListUI(Scanner scanner) {
     this.scanner = scanner;
@@ -74,6 +75,8 @@ public class TaskListUI {
   }
 
   public void run() {
+    this.taskList = storage.readTasks();
+
     System.out.println("____________________________________________________________");
     System.out.println("Hello! I'm Vuewee\nWhat can I do for you?");
     System.out.println("____________________________________________________________");
@@ -147,6 +150,7 @@ public class TaskListUI {
         System.out.println(e.getMessage());
       }
       System.out.println("____________________________________________________________");
+      storage.storeTasks(this.taskList);
     }
 
     System.out.println("Bye. Hope to see you again soon!");
