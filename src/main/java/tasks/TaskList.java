@@ -18,17 +18,15 @@ public class TaskList extends ArrayList<Task> {
 
     public TaskList tasksOccurringOn(ReginaDateAndTime dateAndTime) {
         TaskList list = new TaskList();
-        for (int i = 0; i < this.toArray().length; i++) {
-            Task currTask = (Task)this.toArray()[i];
-            if (currTask.isOccurringOn(dateAndTime)) {
-                list.add(currTask);
+        for (Task task : this) {
+            if (task.isOccurringOn(dateAndTime)) {
+                list.add(task);
             }
         }
         return list;
     }
 
-    @Override
-    public String toString() {
+    public String toSavedFormatting() {
         StringBuilder tasksRepresentation = new StringBuilder();
 
         for (Task task : this) {
@@ -38,5 +36,20 @@ public class TaskList extends ArrayList<Task> {
         }
 
         return tasksRepresentation.toString();  // Returns the final string representation.
+    }
+
+    @Override
+    public String toString() {
+        if (this.isEmpty()) {
+            return "don't waste your time, nothing happening then.\n";
+        }
+        StringBuilder taskList = new StringBuilder();
+        int count = 1;
+        for (Task task : this) {
+            taskList.append(count).append(
+                    String.format(". %s\n", task.toString()));
+            count++;
+        }
+        return taskList.toString();
     }
 }
