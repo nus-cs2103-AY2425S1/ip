@@ -2,10 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class Soju {
-    private static final List<Task> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
+    private static FileHandler fileHandler;
+
+    public Soju() {
+        fileHandler = new FileHandler("./data/soju.txt");
+    }
     public static void main(String[] args) {
-         runWithHorizontalLine(Soju::greet);
-         echo();
+        Soju soju = new Soju();
+        runWithHorizontalLine(Soju::greet);
+        tasks = fileHandler.getTasksFromFile();
+        soju.echo();
     }
 
     public static void greet() {
@@ -51,7 +58,7 @@ public class Soju {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         });
     }
-    public static void echo() {
+    public void echo() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -140,7 +147,9 @@ public class Soju {
             } catch (SojuException sojuException) {
                 runWithHorizontalLine(sojuException.getMessage());
             }
+            fileHandler.saveToFile(tasks);
         }
+
         scanner.close();
     }
 }
