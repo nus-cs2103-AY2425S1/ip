@@ -14,66 +14,69 @@ public class CommandHandler {
 
     public void execute(String input, TaskList tasks,Storage storage, Ui ui) {
         switch (command) {
-            case BYE:
-                this.isExit = true;
-                break;
-            case LIST:
-                tasks.list();
-                break;
-            case MARK:
-                try {
-                    tasks.markItem(input);
-                } catch (MissingPositionException | MissingItemException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-            case UNMARK: {
-                try {
-                    tasks.unmarkItem(input);
-
-                } catch (MissingPositionException | MissingItemException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
+        case BYE:
+            this.isExit = true;
+            break;
+        case LIST:
+            tasks.list();
+            break;
+        case MARK:
+            try {
+                tasks.markItem(input);
+                storage.saveTasksToFile(tasks);
+            } catch (MissingPositionException | MissingItemException e) {
+                System.out.println(e.getMessage());
             }
-            case DELETE: {
-                try {
-                    tasks.delete(input);
-                } catch (MissingItemException | MissingPositionException | EmptyListException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
+            break;
+        case UNMARK: {
+            try {
+                tasks.unmarkItem(input);
+                storage.saveTasksToFile(tasks);
+            } catch (MissingPositionException | MissingItemException e) {
+                System.out.println(e.getMessage());
             }
-            case TODO: {
-                try {
-                    tasks.addTodo(input);
-                } catch (InvalidDescriptionException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
+            break;
+        }
+        case DELETE: {
+            try {
+                tasks.delete(input);
+                storage.saveTasksToFile(tasks);
+            } catch (MissingItemException | MissingPositionException | EmptyListException e) {
+                System.out.println(e.getMessage());
             }
-            case DEADLINE: {
-                try {
-                    tasks.addDeadline(input);
-
-                } catch (InvalidDescriptionException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
+            break;
+        }
+        case TODO: {
+            try {
+                tasks.addTodo(input);
+                storage.saveTasksToFile(tasks);
+            } catch (InvalidDescriptionException e) {
+                System.out.println(e.getMessage());
             }
-            case EVENT: {
-                try {
-                    tasks.addEvent(input);
-
-                } catch (InvalidDescriptionException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
+            break;
+        }
+        case DEADLINE: {
+            try {
+                tasks.addDeadline(input);
+                storage.saveTasksToFile(tasks);
+            } catch (InvalidDescriptionException e) {
+                System.out.println(e.getMessage());
             }
-            case UNKNOWN: {
-                System.out.println("Please specify the type of item that you wish to add ( Todo / Event / Deadline )");
-                break;
+            break;
+        }
+        case EVENT: {
+            try {
+                tasks.addEvent(input);
+                storage.saveTasksToFile(tasks);
+            } catch (InvalidDescriptionException e) {
+                System.out.println(e.getMessage());
             }
+            break;
+        }
+        case UNKNOWN: {
+            System.out.println("Please specify the type of item that you wish to add ( Todo / Event / Deadline )");
+            break;
+        }
         }
     }
 }

@@ -59,7 +59,7 @@ public class Storage {
 
                 if (task != null) {
                     if (isDone) {
-                        task.markStatus();
+                        task.setMark();
                     }
                     result.add(task);
                 }

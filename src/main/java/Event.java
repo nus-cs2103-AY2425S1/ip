@@ -26,7 +26,8 @@ public class Event extends Task{
 
     @Override
     public String changeFormat() {
-        return "E | " + (this.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description + " | " + this.start + " | " + this.end;
+        return "E | " + (this.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description + " | "
+                + this.start + " | " + this.end;
     }
 
     @Override

@@ -52,7 +52,8 @@ public class TaskList {
         try {
             todo = new Todo(input.split(" ", 2)[1]);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidDescriptionException("You have not added any description for the todo task. Please try again.");
+            throw new InvalidDescriptionException("You have not added any description for the todo task. "
+                    + "Please try again.");
         }
         this.tasks.add(todo);
         System.out.println("Got it. I have added this todo.");
@@ -69,13 +70,15 @@ public class TaskList {
         try {
             time = input.split("/by")[1];
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidDescriptionException("You have not added any deadline for the todo task. Please try again.");
+            throw new InvalidDescriptionException("You have not added any deadline for the todo task. "
+                    + "Please try again.");
         }
 
         try {
             description = input.split("/by")[0].split(" ", 2)[1];
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidDescriptionException("You have not added any description for the todo task. Please try again.");
+            throw new InvalidDescriptionException("You have not added any description for the todo task. "
+                    + "Please try again.");
         }
 
         Deadline deadline = new Deadline(description, time);
@@ -109,8 +112,6 @@ public class TaskList {
             throw new InvalidDescriptionException("You are missing the end time for the event. Please try again.");
         }
 
-
-
         Event event = new Event(description, start, end);
         this.tasks.add(event);
         System.out.println("Got it. I have added this event.");
@@ -134,7 +135,7 @@ public class TaskList {
         }
 
         Task task = this.tasks.get(position - 1);
-        task.markStatus();
+        task.setMark();
         System.out.println("I have marked this task as done!");
         System.out.println(task);
     }
@@ -154,7 +155,7 @@ public class TaskList {
         }
 
         Task task = this.tasks.get(position - 1);
-        task.unmarkStatus();
+        task.setUnmark();;
         System.out.println("I have marked this task as not done yet!");
         System.out.println(task);
     }
