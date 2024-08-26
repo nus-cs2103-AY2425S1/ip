@@ -22,7 +22,7 @@ public class Parser {
      * @param maxNo The maximum value of the number.
      * @return True if the value is within the specified range and is a number, false otherwise.
      */
-    private static boolean numberCheck(String value, int min, int max, int minNo, int maxNo) {
+    private static boolean isNumberInRange(String value, int min, int max, int minNo, int maxNo) {
         return value.length() >= min 
                 && value.length() <= max 
                 && value.chars().allMatch(Character::isDigit)
@@ -83,12 +83,12 @@ public class Parser {
         String[] dateTimeBrokenDown = dateTime.replace("/", "-")
                 .replace(" ", "-").split("-");
         if (dateTimeBrokenDown.length != 4
-                || !numberCheck(dateTimeBrokenDown[0], 1, 2, 1, 31)
-                || !numberCheck(dateTimeBrokenDown[1], 1, 2, 1, 12)
-                || !numberCheck(dateTimeBrokenDown[2], 4, 4, 2024, 9999)
-                || !numberCheck(dateTimeBrokenDown[3], 4, 4, 0, 2359)
-                || !numberCheck(dateTimeBrokenDown[3].substring(0, 2), 2, 2, 0, 23)
-                || !numberCheck(dateTimeBrokenDown[3].substring(2), 2, 2, 0, 59)) {;
+                || !isNumberInRange(dateTimeBrokenDown[0], 1, 2, 1, 31)
+                || !isNumberInRange(dateTimeBrokenDown[1], 1, 2, 1, 12)
+                || !isNumberInRange(dateTimeBrokenDown[2], 4, 4, 2024, 9999)
+                || !isNumberInRange(dateTimeBrokenDown[3], 4, 4, 0, 2359)
+                || !isNumberInRange(dateTimeBrokenDown[3].substring(0, 2), 2, 2, 0, 23)
+                || !isNumberInRange(dateTimeBrokenDown[3].substring(2), 2, 2, 0, 59)) {;
             throw new DateTimeException("Invalid date time format");
         };
         return LocalDateTime.of(

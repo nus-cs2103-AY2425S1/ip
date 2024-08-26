@@ -3,6 +3,7 @@ package infinity.ui;
 import infinity.infinityexception.InfinityException;
 import infinity.task.Task;
 import infinity.tasklist.TaskList;
+
 import java.util.Scanner;
 
 /**
@@ -10,10 +11,10 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private static final String BOTNAME = "Infinity";
+    private static final String BOT_NAME = "Infinity";
     private static final String BREAKLINE = 
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-    Scanner userInputs = new Scanner(System.in);
+    private Scanner userInputs = new Scanner(System.in);
 
     /**
      * Prepends the bot name to the input.
@@ -22,7 +23,7 @@ public class Ui {
      * @return The input with the bot name prepended.
      */
     public String prependBotName(String input) {
-        return String.format("%s: %s", BOTNAME, input);
+        return String.format("%s: %s", BOT_NAME, input);
     }
 
     /**
@@ -91,6 +92,6 @@ public class Ui {
     public Ui() {
         System.out.println(BREAKLINE);
         botSays(String.format(
-                "Hello, I'm a dummy bot called %s\n%s", BOTNAME, "What can I not do for you?"));
+                "Hello, I'm a dummy bot called %s\n%s", BOT_NAME, "What can I not do for you?"));
     }
 }

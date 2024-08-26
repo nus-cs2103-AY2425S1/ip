@@ -1,16 +1,16 @@
 package infinity.tasklist;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.ArrayList;
-
 import infinity.tasklist.TaskList;
 import infinity.task.ToDos;
 import infinity.ui.Ui;
 import infinity.infinityexception.InfinityException;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
 
@@ -32,7 +32,7 @@ public class TaskListTest {
     public void addTask_overMaxTasksAdded_exceptionCaught() {
         TaskList taskList = new TaskList(new ArrayList<>(), new Ui());
         try {
-            for (int i = 0; i < (TaskList.MAXSIZE + 1); i++) {
+            for (int i = 0; i < (TaskList.MAX_SIZE + 1); i++) {
                 taskList.addTask(new ToDos("todo task " + i));
             }
             fail();
@@ -99,7 +99,7 @@ public class TaskListTest {
         try {
             taskList.markTask("mark 1");
             fail();
-          } catch (InfinityException e) {
+        } catch (InfinityException e) {
             assertEquals(e.getMessage(), "Hmmm, I can't find that task. Please try again.");
             System.out.println("Test 7: Invalid Marked Test - passed");
         }
