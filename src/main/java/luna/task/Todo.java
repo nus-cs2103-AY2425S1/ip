@@ -1,7 +1,9 @@
 package luna.task;
 
+/**
+ * Represents a task to be completed.
+ */
 public class Todo extends Task {
-    protected String by;
 
     public Todo(String description) {
         super(description);

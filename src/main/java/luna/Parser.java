@@ -7,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import luna.command.*;
 import luna.task.*;
 
+/**
+ * Parser for inputs given by the user through the chatbot.
+ */
 public class Parser {
     enum CommandType {
         LIST,
@@ -19,6 +22,13 @@ public class Parser {
         BYE,
     }
 
+    /**
+     * Returns a Command to be executed.
+     *
+     * @param input command from user.
+     * @return Command to be executed.
+     * @throws LunaException If input has invalid format.
+     */
     public static Command parse(String input) throws LunaException {
 
         if (input.isEmpty()) {

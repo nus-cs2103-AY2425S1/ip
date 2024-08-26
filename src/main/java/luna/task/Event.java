@@ -3,6 +3,9 @@ package luna.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with start and end time.
+ */
 public class Event extends Task {
 
     protected LocalDateTime startTime;

@@ -2,6 +2,9 @@ import luna.*;
 import luna.command.Command;
 import luna.command.ExitCommand;
 
+/**
+ * Represents a chatbot that allows users to add, remove and manipulate tasks.
+ */
 public class Luna {
 
     private Storage storage;
