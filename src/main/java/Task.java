@@ -2,12 +2,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    protected int ranking;
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.ranking = 0;
     }
 
     /* getStatusIcon returns status of the Task, checking
@@ -40,6 +37,11 @@ public class Task {
         } else {
             System.out.println("this tasked has not been marked \n");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "]" +  this.description;
     }
 
 }

@@ -5,14 +5,13 @@ public class Bobby {
     public static String exit = "Bye. Hope to see you again soon!\n";
     public static Scanner scan = new Scanner(System.in);
     public static Task[] list = new Task[100];
-    public static int counter = 1;
+    public static int counter = 0;
 
     /*create an add_list function that takes in a
     Task to add it to the list of Task.
      */
     public static void add_list(Task input) {
-        input.ranking = counter;
-        list[counter - 1] = input;
+        list[counter] = input;
         counter++;
     }
 
@@ -38,13 +37,12 @@ public class Bobby {
     }
 
     /* create a print_list function that takes in a
-    list of Task to print each Task in a new line. 
+    list of Task to print each Task in a new line.
      */
     public static void print_list() {
         System.out.println("Here are the tasks in your list: \n");
         for (int x = 0; list[x] != null; x++) {
-            System.out.println(x + 1 + ". [" + list[x].getStatusIcon() + "] "
-                    + list[x].description + "\n");
+            System.out.println(x + 1 + "." + list[x].toString() + "\n");
         }
     }
 
@@ -70,11 +68,31 @@ public class Bobby {
             curr_task.unMark();
             check_action(scan.next());
             return;
-        } else {
-            input = input + scan.nextLine();
-            Task curr_task = new Task(input);
-            add_list(curr_task);
-            System.out.println("added: " + input);
+        } if (input.equals("todo")) {
+            input = scan.nextLine();
+            ToDos curr_ToDos = new ToDos(input);
+            add_list(curr_ToDos);
+            System.out.println("Got it. I've added this task: \n" +
+                    curr_ToDos.toString() + "\n" +
+                    "Now you have " + counter + " tasks in the list.");
+            check_action(scan.next());
+        } if (input.equals("deadline")) {
+                input = scan.nextLine();
+                String details[] = input.split("/");
+                Deadlines curr_deadlines = new Deadlines(details[0], details[1]);
+                add_list(curr_deadlines);
+                System.out.println("Got it. I've added this task: \n" +
+                        curr_deadlines.toString() + "\n" +
+                        "Now you have " + counter + " tasks in the list.");
+                check_action(scan.next());
+        } if (input.equals("event")) {
+            input = scan.nextLine();
+            String details[] = input.split("/");
+            Events curr_events = new Events(details[0], details[1], details[2]);
+            add_list(curr_events);
+            System.out.println("Got it. I've added this task: \n" +
+                    curr_events.toString() + "\n" +
+                    "Now you have " + counter + " tasks in the list.");
             check_action(scan.next());
         }
     }
