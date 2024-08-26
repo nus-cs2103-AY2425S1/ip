@@ -43,8 +43,8 @@ public class BeeBoo {
 
     //Deletes item
     private void deleteItem(int index) {
-        Tasks item = list.get(index - 1);
-        list.remove(index - 1);
+        Tasks item = list.get(index);
+        list.remove(item);
         chatBox("Ok i have removed the following item\n" + item + "\n" + "You have " + list.size() + " tasks left");
         saveItem();
     }
