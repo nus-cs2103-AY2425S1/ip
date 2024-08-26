@@ -4,24 +4,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import luna.task.*;
 
 public class Storage {
-    public static final String FILEPATH = "./data/luna.txt";
+    public static final String FILE_PATH = "./data/luna.txt";
 
     public ArrayList<Task> loadTasks() throws LunaException {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
-            File file = new File(FILEPATH);
+            File file = new File(FILE_PATH);
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {
