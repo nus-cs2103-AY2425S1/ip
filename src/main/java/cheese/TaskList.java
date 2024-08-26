@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import cheese.task.Task;
 
 /**
- * contains the task list
- * e.g., it has operations to add/delete tasks in the list
+ * Stores the list of tasks for the chat bot
  * All operations are the same as ArrayList
  */
 public class TaskList {
