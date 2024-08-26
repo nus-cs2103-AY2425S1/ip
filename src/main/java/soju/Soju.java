@@ -33,12 +33,15 @@ public class Soju {
                 String userInput = scanner.nextLine();
                 Command command = parser.parse(userInput);
                 command.execute(tasks, ui, storage);
+                ui.printHorizontalLine();
                 storage.saveToFile(tasks);
                 if (command instanceof ByeCommand) {
                     break;
                 }
             } catch (SojuException e) {
                 ui.printError(e);
+            } finally {
+                ui.printHorizontalLine();
             }
         }
         ui.exit();

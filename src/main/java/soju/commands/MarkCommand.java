@@ -13,6 +13,5 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printString("Nice! I've marked this task as done:");
         ui.printString("  " + tasks.markTask(index));
-        ui.printHorizontalLine();
     }
 }

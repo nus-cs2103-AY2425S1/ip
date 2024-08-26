@@ -14,6 +14,5 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printString("OK, I've marked this task as not done yet:");
         ui.printString("  " + tasks.unmarkTask(index));
-        ui.printHorizontalLine();
     }
 }

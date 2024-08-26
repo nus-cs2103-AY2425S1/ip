@@ -15,6 +15,5 @@ public class DeleteCommand extends Command {
         ui.printString("Noted. I've removed this task:");
         ui.printString("  " + tasks.deleteTask(index));
         ui.printString("Now you have " + tasks.size() + " tasks in the list.");
-        ui.printHorizontalLine();
     }
 }

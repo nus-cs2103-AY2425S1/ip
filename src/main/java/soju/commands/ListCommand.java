@@ -11,6 +11,5 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printString("Here are the tasks in your list:");
         ui.printString(tasks.toString());
-        ui.printHorizontalLine();
     }
 }
