@@ -1,8 +1,12 @@
-public class StrandWrongIndexException extends StrandException{
+package Exceptions;
+
+public class StrandWrongIndexException extends StrandException {
     protected int size;
+
     public StrandWrongIndexException(int size) {
         this.size = size;
     }
+
     @Override
     public String toString() {
         return "Index out of range " + super.toString()

@@ -1,3 +1,5 @@
+import Exceptions.StrandException;
+
 /**
  * The Todo class represents a simple task without any specific time constraints.
  */
@@ -8,7 +10,7 @@ public class Todo extends Task {
      *
      * @param description The description of the task.
      */
-    public Todo(String description) throws  StrandException{
+    public Todo(String description) throws StrandException {
         super(description);
     }
 

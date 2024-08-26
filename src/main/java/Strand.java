@@ -1,3 +1,5 @@
+import Exceptions.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +16,7 @@ public class Strand {
     private static final ArrayList<Task> strandList = new ArrayList<>();
 
     private static final String FILENAME = "./data/strand.txt";
+
     enum Commands {
         TODO,
         DEADLINE,
@@ -28,10 +31,10 @@ public class Strand {
     /**
      * Prints a string with an indentation of 4 spaces.
      *
-     * @param s The string to be printed.
+     * @param str The string to be printed.
      */
-    private static void print(String s) {
-        System.out.println(s.indent(4));
+    private static void print(String str) {
+        System.out.println(str.indent(4));
     }
 
     /**
@@ -59,7 +62,7 @@ public class Strand {
      * @return A string listing all tasks, each with its index and status icon.
      */
     private static String listAllTasks() {
-        return(
+        return (
                 strandList.stream()
                         .map((x) -> (strandList.indexOf(x) + 1) + "." + x.toString() + "\n")
                         .reduce((a, b) -> a + b).orElse("")
@@ -69,14 +72,14 @@ public class Strand {
     private static void writeToFile() {
         try {
             File file = new File(FILENAME);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 File parentFile = file.getParentFile();
-                if(parentFile != null && !parentFile.exists()) {
-                    if(!parentFile.mkdir()) {
+                if (parentFile != null && !parentFile.exists()) {
+                    if (!parentFile.mkdir()) {
                         throw new IOException("Error creating parent file");
                     }
                 }
-                if(!file.createNewFile()) {
+                if (!file.createNewFile()) {
                     throw new IOException("Error creating data file");
                 }
 
@@ -148,32 +151,32 @@ public class Strand {
             throw new StrandWrongCommandException();
         }
         switch (command) {
-            case TODO: {
-                strandList.add(new Todo(desc));
-                break;
+        case TODO: {
+            strandList.add(new Todo(desc));
+            break;
+        }
+        case DEADLINE: {
+            if (!desc.contains(" /by ")) {
+                throw new StrandDescNotFoundException("Deadline");
             }
-            case DEADLINE: {
-                if (!desc.contains(" /by ")) {
-                    throw new StrandDescNotFoundException("Deadline");
-                }
-                String description = desc.substring(0, desc.indexOf(" /by ")).trim();
-                String deadline = desc.substring(desc.indexOf(" /by ") + 5).trim();
-                strandList.add(new Deadline(description, deadline));
-                break;
+            String description = desc.substring(0, desc.indexOf(" /by ")).trim();
+            String deadline = desc.substring(desc.indexOf(" /by ") + 5).trim();
+            strandList.add(new Deadline(description, deadline));
+            break;
+        }
+        case EVENT: {
+            if (!desc.contains(" /from ")) {
+                throw new StrandDescNotFoundException("Start time");
             }
-            case EVENT: {
-                if (!desc.contains(" /from ")) {
-                    throw new StrandDescNotFoundException("Start time");
-                }
-                if (!desc.contains(" /to ")) {
-                    throw new StrandDescNotFoundException("End time");
-                }
-                String description = desc.substring(0, desc.indexOf(" /from ")).trim();
-                String start = desc.substring(desc.indexOf(" /from ") + 7, desc.indexOf(" /to ") + 1).trim();
-                String end = desc.substring(desc.indexOf(" /to ") + 5).trim();
-                strandList.add(new Event(description, start, end));
-                break;
+            if (!desc.contains(" /to ")) {
+                throw new StrandDescNotFoundException("End time");
             }
+            String description = desc.substring(0, desc.indexOf(" /from ")).trim();
+            String start = desc.substring(desc.indexOf(" /from ") + 7, desc.indexOf(" /to ") + 1).trim();
+            String end = desc.substring(desc.indexOf(" /to ") + 5).trim();
+            strandList.add(new Event(description, start, end));
+            break;
+        }
         }
         output("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:\n  "
                 + strandList.get(strandList.size() - 1).toString()
@@ -217,7 +220,7 @@ public class Strand {
      */
     private static void inputs(String input) throws StrandException {
         String[] split = input.toUpperCase().split("\\s+");
-        if(split.length == 0) {
+        if (split.length == 0) {
             throw new StrandWrongCommandException();
         }
         String uppercaseInput = split[0];
@@ -229,33 +232,33 @@ public class Strand {
         }
 
         switch (command) {
-            case TODO, DEADLINE, EVENT: {
-                addTask(input);
-                writeToFile();
-                break;
-            }
-            case DELETE: {
-                deleteTask(input);
-                writeToFile();
-                break;
-            }
-            case MARK, UNMARK : {
-                mark(input);
-                writeToFile();
-                break;
-            }
-            case BYE: {
-                output("Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)");
-                running = false;
-                break;
-            }
-            case LIST : {
-                output(listAllTasks());
-                break;
-            }
-            default: {
-                throw new StrandWrongCommandException();
-            }
+        case TODO, DEADLINE, EVENT: {
+            addTask(input);
+            writeToFile();
+            break;
+        }
+        case DELETE: {
+            deleteTask(input);
+            writeToFile();
+            break;
+        }
+        case MARK, UNMARK: {
+            mark(input);
+            writeToFile();
+            break;
+        }
+        case BYE: {
+            output("Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)");
+            running = false;
+            break;
+        }
+        case LIST: {
+            output(listAllTasks());
+            break;
+        }
+        default: {
+            throw new StrandWrongCommandException();
+        }
         }
     }
 

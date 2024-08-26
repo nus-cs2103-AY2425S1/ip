@@ -1,3 +1,5 @@
+import Exceptions.StrandException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -12,8 +14,8 @@ public class Event extends Task {
      * Constructs a new Event task with the specified description, start date, and end date.
      *
      * @param description The description of the event.
-     * @param start The start date and time of the event.
-     * @param end The end date and time of the event.
+     * @param start       The start date and time of the event.
+     * @param end         The end date and time of the event.
      */
     public Event(String description, String start, String end) throws StrandException {
         super(description);

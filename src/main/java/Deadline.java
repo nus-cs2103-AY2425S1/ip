@@ -1,3 +1,5 @@
+import Exceptions.StrandException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -10,7 +12,8 @@ public class Deadline extends Task {
      * Constructs a new Deadline task with the specified description and deadline.
      *
      * @param description The description of the task.
-     * @param date The deadline by which the task needs to be completed.
+     * @param date        The deadline by which the task needs to be completed.
+     * @throws StrandException Throws an exception if the description is empty
      */
     public Deadline(String description, String date) throws StrandException {
         super(description);
