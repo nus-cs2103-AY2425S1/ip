@@ -1,55 +1,55 @@
 ______________________________________________________________
-Hello, I'm Nameless
+Hello, I'm nameless.Nameless
 What can I do for you?
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this task:
+Got it. I've added this nameless.task:
      [T][ ] borrow book
-Now you have 1 task left
+Now you have 1 nameless.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this task:
+Got it. I've added this nameless.task:
      [D][ ] return book (by: 6th June)
-Now you have 2 task left
+Now you have 2 nameless.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this task:
+Got it. I've added this nameless.task:
      [E][ ] project meeting (form: Aug 6th 2pm to: 4pm)
-Now you have 3 task left
+Now you have 3 nameless.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this task:
+Got it. I've added this nameless.task:
      [T][ ] join sports club
-Now you have 4 task left
+Now you have 4 nameless.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this task:
+Got it. I've added this nameless.task:
      [T][ ] borrow book
-Now you have 5 task left
+Now you have 5 nameless.task left
 ______________________________________________________________
 ______________________________________________________________
-Nice! I've marked this task as done:
+Nice! I've marked this nameless.task as done:
    [X] borrow book
 ______________________________________________________________
 ______________________________________________________________
-Nice! I've marked this task as done:
+Nice! I've marked this nameless.task as done:
    [X] join sports club
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this task:
+Got it. I've added this nameless.task:
      [D][ ] return book (by: Sunday)
-Now you have 6 task left
+Now you have 6 nameless.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this task:
+Got it. I've added this nameless.task:
      [E][ ] project meeting (form: Mon 2pm to: 4pm)
-Now you have 7 task left
+Now you have 7 nameless.task left
 ______________________________________________________________
 ______________________________________________________________
 Sorry! I don't understand what you are saying. Please enter a valid command. todo, deadline, event, list, mark/unmark, bye
 ______________________________________________________________
 ______________________________________________________________
-incorrect format use 'deadline <task> /by <date>'
+incorrect format use 'deadline <nameless.task> /by <date>'
 ______________________________________________________________
 ______________________________________________________________
 The description of a todo cannot be empty.
@@ -65,12 +65,12 @@ ______________________________________________________________
     7.[E][ ] project meeting (form: Mon 2pm to: 4pm)
 ______________________________________________________________
 ______________________________________________________________
-Noted. I've removed this task:
+Noted. I've removed this nameless.task:
     [T][ ] borrow book
 Now you have 6 tasks in the list.
 ______________________________________________________________
 ______________________________________________________________
-Noted. I've removed this task:
+Noted. I've removed this nameless.task:
     [T][X] join sports club
 Now you have 5 tasks in the list.
 ______________________________________________________________

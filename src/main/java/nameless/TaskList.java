@@ -1,3 +1,7 @@
+package nameless;
+
+import nameless.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -16,7 +20,7 @@ public class TaskList {
 
     public void deleteTask(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Invalid task number.");
+            throw new DukeException("Invalid nameless.task number.");
         }
         tasks.remove(index);
     }

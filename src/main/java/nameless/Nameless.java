@@ -1,7 +1,10 @@
-import java.lang.reflect.Type;
-import java.net.PasswordAuthentication;
+package nameless;
+
+import nameless.task.Deadline;
+import nameless.task.Event;
+import nameless.task.Todo;
+
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.time.LocalDateTime;

@@ -1,3 +1,5 @@
+package nameless;
+
 public class DukeException extends Exception {
     private final String LINE = "______________________________________________________________";
     public DukeException(String message) {

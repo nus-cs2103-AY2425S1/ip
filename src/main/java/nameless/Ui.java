@@ -1,6 +1,10 @@
+package nameless;
+
+import nameless.task.Task;
+
 public class Ui {
     private final String LINE = "______________________________________________________________";
-    private final String NAME = "Nameless";
+    private final String NAME = "nameless";
     private final String GREETINGS = "Hello, I'm " + NAME + "\n" + "What can I do for you?";
     private final String GOODBYE = "Bye. Hope to see you again!";
 
@@ -13,17 +17,17 @@ public class Ui {
     }
 
     public void showAddTask (TaskList tasks) {
-        System.out.println(LINE + "\n" + "Got it. I've added this task:" +
+        System.out.println(LINE + "\n" + "Got it. I've added this nameless.task:" +
                 "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
-                "Now you have " + tasks.size() + " task left \n" + LINE);
+                "Now you have " + tasks.size() + " nameless.task left \n" + LINE);
     }
 
     public void showDeleteTask (TaskList tasks, int index) throws DukeException {
         Task task = tasks.get(index);
         tasks.deleteTask(index);
-        System.out.println(LINE + "\n" + "Noted. I've removed this task:" +
+        System.out.println(LINE + "\n" + "Noted. I've removed this nameless.task:" +
                 "\n     " + task.toString() + "\n" +
-                "Now you have " + tasks.size() + " task left \n" + LINE);
+                "Now you have " + tasks.size() + " nameless.task left \n" + LINE);
 
     }
 

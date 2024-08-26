@@ -1,3 +1,5 @@
+package nameless;
+
 public class TypeOfException {
     public void showLoadingError() throws DukeException {
         throw new DukeException("Error loading file");
@@ -9,15 +11,15 @@ public class TypeOfException {
     }
 
     public void todoFormatError() throws DukeException {
-        throw new DukeException("incorrect format use 'todo <task>'");
+        throw new DukeException("incorrect format use 'todo <nameless.task>'");
     }
 
     public void deadlineFormatError() throws DukeException {
-        throw new DukeException("incorrect format use 'deadline <task> /by <date time>'");
+        throw new DukeException("incorrect format use 'deadline <nameless.task> /by <date time>'");
     }
 
     public void eventFormatError() throws DukeException {
-        throw new DukeException("incorrect format use 'event <task> /from <date time> /to <date time>'");
+        throw new DukeException("incorrect format use 'event <nameless.task> /from <date time> /to <date time>'");
     }
 
     public void timeFormatError() throws DukeException {

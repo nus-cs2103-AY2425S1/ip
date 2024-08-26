@@ -1,3 +1,5 @@
+package nameless;
+
 public class Parser {
     public static int splitGetNum(String input){
         String[] words = input.split(" ");

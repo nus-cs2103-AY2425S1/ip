@@ -1,3 +1,10 @@
+package nameless;
+
+import nameless.task.Task;
+import nameless.task.Todo;
+import nameless.task.Deadline;
+import nameless.task.Event;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -57,7 +64,7 @@ public class Storage {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toString()))) {
             for (Task task : tasks) {
                 bw.write(task.toFileString());
-                bw.newLine(); // Ensure each task is on a new line
+                bw.newLine(); // Ensure each nameless.task is on a new line
             }
         } catch (IOException e) {
             throw new DukeException("Error writing to file");
@@ -71,7 +78,7 @@ public class Storage {
             while ((line = br.readLine()) != null) {
                 isDone = line.charAt(4) == '1';
                 tasks.add(stringToTask(line));
-                tasks.get(tasks.size() - 1).isDone = isDone;
+                tasks.get(tasks.size() - 1).setDone(isDone);
             };
         } catch (IOException e) {
             throw new DukeException("Error reading file");
