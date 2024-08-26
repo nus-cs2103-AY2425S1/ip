@@ -1,7 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.File;
+
 public class Bean {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         String greeting = "________________________________\n"
                 + "Hello! I'm Bean\n"
                 + "What can i do for you?\n"
@@ -14,6 +17,33 @@ public class Bean {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
         int pointer = 0;
+        File f = new File("src\\main\\java\\data\\tasks.txt"); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            String response = s.nextLine();
+            String[] splited = response.split(" ");
+            if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
+                Task current = null;
+                try {
+                    switch (splited[0]) {
+                        case "todo":
+                            current = new Todo(response.replace("todo ", ""));
+                            break;
+                        case "event":
+                            current = new Event(response.replace("event ", ""));
+                            break;
+                        case "deadline":
+                            current = new Deadline(response.replace("deadline ", ""));
+                            break;
+                    }
+                    taskList.add(current);
+                    pointer++;
+                } catch (DukeException e) {
+                    System.out.println("________________________________");
+                    System.out.println(e.getMessage() + "________________________________");
+                }
+            }
+        }
         while (true) {
             String response = scanner.nextLine();
             String[] splited = response.split(" ");
