@@ -21,6 +21,13 @@ public class Ui {
         System.out.println(BREAKLINE);
     }
 
+    public void botSays(String input, boolean isBreakLine) {
+        System.out.println(prependBotName(input));
+        if (isBreakLine) {
+            System.out.println(BREAKLINE);
+        }
+    }
+
     public void listTasks(TaskList tasks) {
         if (tasks.isEmpty()) {
             System.out.println(prependBotName("Task list is empty :("));
@@ -29,11 +36,15 @@ public class Ui {
 
             int i = 1;
             for (Task task : tasks.getTasks()) {
-                System.err.println(String.format("    %d. %s", i, task.toString()));
+                System.out.println(String.format("    %d. %s", i, task.toString()));
                 i++;
             }
         }
         System.out.println(BREAKLINE);
+    }
+
+    public void listTask(Task task, int i) {
+        System.out.println(String.format("    %d. %s", i, task.toString()));
     }
 
     public void echo(String input) throws InfinityException {

@@ -83,6 +83,20 @@ public class TaskList {
         return tasks;
     };
 
+    public void findTasks(String keyword) {
+        int i = 1;
+        botUI.botSays("Alright, alright, let me find that for you...", false);
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                botUI.listTask(task, i);
+                i++;
+            }
+        }
+        if (i == 1) {
+            botUI.botSays("Strange, I can't find any tasks with that keyword...");
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public TaskList(ArrayList initialTask, Ui botUI) {
         this.tasks = (ArrayList<Task>) initialTask;
