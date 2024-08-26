@@ -48,10 +48,13 @@ public class TaskList {
 
     public List<Task> getTasksOnDate(LocalDate date) {
         List<Task> tasksOnDate = new ArrayList<>();
+    public List<Task> getTasksOnDate(LocalDate date) {
+        List<Task> tasksOnDate = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getByDate().equals(date)) {
+                    tasksOnDate.add(task);
                     tasksOnDate.add(task);
                 }
             }
@@ -59,7 +62,7 @@ public class TaskList {
         return tasksOnDate;
     }
 
-        public List<Task> findTasksByKeyword(String keyword) {
+    public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
