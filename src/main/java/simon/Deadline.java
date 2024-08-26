@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a task with a specific deadline in the Simon application.
  * Inherits from the Task class and adds a deadline property.
  */
+
 public class Deadline extends Task {
     private LocalDateTime deadline;
     private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -28,7 +29,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline.format(DISPLAY_FORMATTER) + ")";
+        return "[D]" + super.toString() +
+                " (by: " + deadline.format(DISPLAY_FORMATTER) + ")";
     }
 
     /**
@@ -38,7 +40,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "D | " + (completed ? 1 : 0) + " | " + name + " | " + deadline.format(SAVE_FORMATTER);
+        return "D | " + (completed ? 1 : 0) + " | " + name + " | " +
+                deadline.format(SAVE_FORMATTER);
     }
     /**
      * Parses a Deadline object from a string representation in the save format.

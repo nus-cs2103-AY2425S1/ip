@@ -27,7 +27,9 @@ public class Events extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" +
+                super.toString() +
+                " (from: " + this.from + " to: " + this.to + ")";
     }
     /**
      * Returns a string representation of the Events task in the format used for saving to storage.
@@ -36,6 +38,8 @@ public class Events extends Task{
      */
     @Override
     public String toSaveFormat() {
-        return "E | " + (completed ? 1 : 0) + " | " + name + " | " + from + " | " + to;
+        return "E | " +
+                (completed ? 1 : 0) + " | " + name +
+                " | " + from + " | " + to;
     }
 }
