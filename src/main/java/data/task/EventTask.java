@@ -1,5 +1,9 @@
+package data.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import data.datetime.BarneyDateTime;
 
 public class EventTask extends Task {
     private String atString;
@@ -27,13 +31,9 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        String rtrAtString = (this.atDate != null)
-                ? BarneyDateTime.formatDate(this.atDate)
-                : this.atString;
+        String rtrAtString = (this.atDate != null) ? BarneyDateTime.formatDate(this.atDate) : this.atString;
 
-        String rtrToString = (this.toDate != null)
-                ? BarneyDateTime.formatDate(this.toDate)
-                : this.toString;
+        String rtrToString = (this.toDate != null) ? BarneyDateTime.formatDate(this.toDate) : this.toString;
 
         return "[E]" + super.toString() + " (at: " + rtrAtString + " to: " + rtrToString + ")";
     }

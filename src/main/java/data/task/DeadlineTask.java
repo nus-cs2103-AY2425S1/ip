@@ -1,5 +1,9 @@
+package data.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import data.datetime.BarneyDateTime;
 
 public class DeadlineTask extends Task {
     private String byString;
@@ -21,9 +25,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        String rtrByString = (this.byDate != null)
-                ? BarneyDateTime.formatDate(this.byDate)
-                : this.byString;
+        String rtrByString = (this.byDate != null) ? BarneyDateTime.formatDate(this.byDate) : this.byString;
         return "[D]" + super.toString() + " (by: " + rtrByString + ")";
     }
 }

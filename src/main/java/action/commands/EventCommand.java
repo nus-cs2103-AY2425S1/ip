@@ -1,4 +1,11 @@
+package action.commands;
+
 import java.util.HashMap;
+
+import data.TaskList;
+import data.exception.InvalidArgumentException;
+import data.task.EventTask;
+import ui.Ui;
 
 public class EventCommand extends Command {
     HashMap<String, String> argumentMap;

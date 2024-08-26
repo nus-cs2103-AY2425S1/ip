@@ -1,9 +1,19 @@
+package storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import data.TaskList;
+import data.exception.BarneyException;
+import data.exception.InvalidSaveFormatException;
+import data.task.DeadlineTask;
+import data.task.EventTask;
+import data.task.Task;
+import data.task.TodoTask;
 
 public class Storage {
 
@@ -30,29 +40,29 @@ public class Storage {
             // taskType
             String taskType = taskData[2];
             switch (taskType) {
-                case "T":
-                    newTask = new TodoTask(description);
-                    break;
-                case "D":
-                    newTask = new DeadlineTask(description, taskData[3]);
-                    break;
-                case "E":
-                    newTask = new EventTask(description, taskData[3], taskData[4]);
-                    break;
-                default:
-                    throw new InvalidSaveFormatException("Invalid task type in the file: " + taskData[2]);
+            case "T":
+                newTask = new TodoTask(description);
+                break;
+            case "D":
+                newTask = new DeadlineTask(description, taskData[3]);
+                break;
+            case "E":
+                newTask = new EventTask(description, taskData[3], taskData[4]);
+                break;
+            default:
+                throw new InvalidSaveFormatException("Invalid task type in the file: " + taskData[2]);
             }
 
             // isMarked
             switch (taskData[0]) {
-                case "1":
-                    newTask.mark();
-                    break;
-                case "0":
-                    newTask.unmark();
-                    break;
-                default:
-                    throw new InvalidSaveFormatException("Invalid task status in the file: " + taskData[1]);
+            case "1":
+                newTask.mark();
+                break;
+            case "0":
+                newTask.unmark();
+                break;
+            default:
+                throw new InvalidSaveFormatException("Invalid task status in the file: " + taskData[1]);
             }
 
             taskList.add(newTask);

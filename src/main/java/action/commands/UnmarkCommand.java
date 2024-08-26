@@ -1,10 +1,17 @@
+package action.commands;
+
 import java.util.HashMap;
 
-public class MarkCommand extends Command {
+import data.TaskList;
+import data.exception.InvalidArgumentException;
+import data.task.Task;
+import ui.Ui;
+
+public class UnmarkCommand extends Command {
     HashMap<String, String> argumentMap;
 
-    public MarkCommand(HashMap<String, String> argumentMap) {
-        super("mark");
+    public UnmarkCommand(HashMap<String, String> argumentMap) {
+        super("unmark");
         this.argumentMap = argumentMap;
     }
 
@@ -23,7 +30,7 @@ public class MarkCommand extends Command {
         }
 
         Task task = tasks.get(index);
-        task.mark();
+        task.unmark();
 
         ui.printMarked(task);
 
