@@ -64,12 +64,25 @@ public class Rizzler {
                     rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
                     rizzlerSpeech.say();
                     continue;
+                case "event":
+                    String[] eventInfoArr = Arrays.copyOfRange(userInputArr, 1, userInputLen);
+                    String eventInfo = String.join(" ", eventInfoArr);
+                    String eventDesc = eventInfo.split("/from")[0];
+                    String eventDuration = eventInfo.split("/from")[1];
+                    String eventStart = eventDuration.split("/to")[0];
+                    String eventEnd = eventDuration.split("/to")[1];
+                    Event newEvent = new Event(eventDesc, eventStart, eventEnd);
+                    taskLog.addTask(newEvent);
+                    rizzlerSpeech.say();
+                    rizzlerSpeech.say("certainly, i'll keep track of this event for you ;)");
+                    rizzlerSpeech.say("\t" + newEvent);
+                    rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
+                    rizzlerSpeech.say();
+                    continue;
                 default:
-                    Task newTask = new Task(userInput);
                     rizzlerSpeech.say();
-                    rizzlerSpeech.say("added: " + newTask);
+                    rizzlerSpeech.say("my sincerest apologies darlin', i don't understand you.");
                     rizzlerSpeech.say();
-                    taskLog.addTask(newTask);
             }
         }
         scanner.close();
