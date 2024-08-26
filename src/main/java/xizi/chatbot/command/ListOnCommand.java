@@ -28,7 +28,7 @@ public class ListOnCommand implements Command {
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) {
         ui.showLine();
-        boolean tasksFound = false;
+        boolean hasTasksFound = false;
         ui.printMessage("Here are the tasks on the particular day in your list:");
         try {
             for (Task task : actions.getItems()) {
@@ -37,13 +37,13 @@ public class ListOnCommand implements Command {
                     if ((event.getFrom().isBefore(date) || event.getFrom().equals(date))&&
                                 (event.getTo().isAfter(date) || event.getTo().equals(date))) {
                             ui.printMessage(event.toString());
-                            tasksFound = true;
+                            hasTasksFound = true;
                         }
                     } else if (task instanceof Deadline) {
                         Deadline deadline = (Deadline) task;
                         if (deadline.getDdl().equals(date)) {
                             ui.printMessage(deadline.toString());
-                            tasksFound = true;
+                            hasTasksFound = true;
                         }
                     }
                 }
@@ -51,7 +51,7 @@ public class ListOnCommand implements Command {
                 throw new RuntimeException(e);
             }
 
-        if (!tasksFound) {
+        if (!hasTasksFound) {
             ui.printMessage("No tasks found on this date.");
         }
         ui.showLine();
