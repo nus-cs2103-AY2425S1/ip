@@ -17,13 +17,13 @@ import tasks.TaskList;
  * The FileSaver class manages the saving and loading of tasks to and from a persistent storage file.
  * It provides methods to read saved tasks and save the current task list in a specified format.
  */
-public class FileSaver {
+public class Storage {
     /**
      * The file path where tasks are saved.
      */
     private final static String FILE_PATH = "./data/savedData.txt";
 
-    /**
+    /** 
      * Reads the saved task data from the specified file and creates a TaskList populated with those tasks.
      *
      * @return A TaskList containing the tasks read from the saved data file.
