@@ -30,3 +30,10 @@ Here are the tasks in your list:
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 4.[D][X] do homework (by: no idea :-p)
+BigdogException: Please give me something to add!
+BigdogException: That's out of your list!
+BigdogException: That's out of your list!
+BigdogException: That's out of your list!
+BigdogException: todo can't be empty! How can you do nothing!
+BigdogException: Event has to have a start and end!
+BigdogException: Come on! Set a due by date and get to work!

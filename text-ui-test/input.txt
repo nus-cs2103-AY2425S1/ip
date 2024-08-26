@@ -8,3 +8,10 @@ mark 4
 mark 1
 unmark 3
 list
+
+mark 0
+mark 101
+mark 50
+todo
+event Meeting with Johnny
+deadline Finish Quiz 20

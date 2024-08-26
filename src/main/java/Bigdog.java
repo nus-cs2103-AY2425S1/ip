@@ -8,13 +8,25 @@ public class Bigdog {
     // Counter to keep track of the number of tasks
     static int taskCounter = 0;
 
-    private static void editList(String str) {
+    private static void editList(String str) throws BigdogException {
+        if (taskCounter == 100) {
+            throw new BigdogException("Your list is full!");
+        }
+        if (str.isEmpty()) {
+            throw new BigdogException("Please give me something to add!");
+        }
         if (str.startsWith("mark")) {
-            int ind = str.charAt(str.length() - 1) - '1';
+            if (Integer.parseInt(str.substring(5)) <= 0 || Integer.parseInt(str.substring(5)) > taskCounter) {
+                throw new BigdogException("That's out of your list!");
+            }
+            int ind = Integer.parseInt(str.substring(5)) - 1;
             toDoList[ind].mark();
             System.out.print("Nice! I've marked this task as done:\n" + toDoList[ind] + "\n");
-        } else if (str.startsWith("unmark")){
-            int ind = str.charAt(str.length() - 1) - '1';
+        } else if (str.startsWith("unmark")) {
+            if (Integer.parseInt(str.substring(7)) <= 0 || Integer.parseInt(str.substring(7)) > taskCounter) {
+                throw new BigdogException("That's out of your list!");
+            }
+            int ind = Integer.parseInt(str.substring(7)) - 1;
             toDoList[ind].unmark();
             System.out.print("OK, I've marked this task as not done yet:\n" + toDoList[ind] + "\n");
         } else {
@@ -51,7 +63,11 @@ public class Bigdog {
                     System.out.println((i + 1) + "." + toDoList[i]);
                 }
             } else {
-                editList(userInput);
+                try {
+                    editList(userInput);
+                } catch (BigdogException e) {
+                    System.out.println(e.toString());
+                }
             }
         }
         scanner.close();
