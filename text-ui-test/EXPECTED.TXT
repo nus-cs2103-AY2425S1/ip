@@ -36,11 +36,8 @@ ____________________________________________________________
 ____________________________________________________________
 
  Here are the tasks in your list:
-
  1. [T][ ] finish homework
-
  2. [D][ ] submit assignment (by: Aug 31st 11:59pm)
-
  3. [E][ ] team building retreat (from: Sep 10th 9am to: Sep 12th 5pm)
 
 ____________________________________________________________
@@ -116,15 +113,10 @@ ____________________________________________________________
 ____________________________________________________________
 
  Here are the tasks in your list:
-
  1. [T][X] finish homework
-
  2. [E][ ] team building retreat (from: Sep 10th 9am to: Sep 12th 5pm)
-
  3. [E][ ] dinner with friends (from: Sep 15th 7pm to: Sep 15th 9pm)
-
  4. [T][ ] start reading new book
-
  5. [D][ ] renew library books (by: Sep 18th)
 
 ____________________________________________________________
