@@ -142,7 +142,11 @@ public class Patrick {
             list.add(task);
             System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
                     + list.size() + NUM_TASK_MSG_2 + HORIZONTAL_LINE);
-            System.out.println(task.toString());
+            try {
+                appendToFile("\n" + task.toString());
+            } catch (IOException e) {
+                System.out.println("There is an error: " + e.getMessage());
+            }
         }
     }
 
@@ -169,6 +173,11 @@ public class Patrick {
                     list.add(task);
                     System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
                             + list.size() + NUM_TASK_MSG_2 + HORIZONTAL_LINE);
+                    try {
+                        appendToFile("\n" + task.toString());
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
@@ -198,6 +207,11 @@ public class Patrick {
                     list.add(task);
                     System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
                             + list.size() + NUM_TASK_MSG_2 + HORIZONTAL_LINE);
+                    try {
+                        appendToFile("\n" + task.toString());
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
@@ -224,6 +238,11 @@ public class Patrick {
                     curr.markAsDone();
                     System.out.println(HORIZONTAL_LINE + "Nice! I've marked this task as done:\n  "
                             + curr.toString() + "\n" + HORIZONTAL_LINE);
+                    try {
+                        writeToFile();
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
@@ -251,6 +270,11 @@ public class Patrick {
                     curr.markAsUndone();
                     System.out.println(HORIZONTAL_LINE + "Nice! I've marked this task as as not done yet:\n  "
                             + curr.toString() + "\n" + HORIZONTAL_LINE);
+                    try {
+                        writeToFile();
+                    } catch (IOException e) {
+                        System.out.println("There is an error: " + e.getMessage());
+                    }
                 }
             }
         }
@@ -274,6 +298,11 @@ public class Patrick {
             System.out.println(HORIZONTAL_LINE + "Noted. I've removed this task:\n"
                 + list.get(num - 1).toString() + "\n" + NUM_TASK_MSG_1 + (list.size() - 1) + NUM_TASK_MSG_2);
             list.remove(num - 1);
+            try {
+                writeToFile();
+            } catch (IOException e) {
+                System.out.println("There is an error: " + e.getMessage());
+            }
         }
     }
 
@@ -390,9 +419,18 @@ public class Patrick {
         }
     }
 
-    private static void appendToFile(String filePath, String text) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath, true);
+    private static void appendToFile(String text) throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH, true);
         fileWriter.write(text);
+        fileWriter.close();
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        for (int i = 0; i < list.size(); i++) {
+            String temp = list.get(i).toString();
+            fileWriter.write(temp + "\n");
+        }
         fileWriter.close();
     }
 }
