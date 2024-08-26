@@ -1,3 +1,5 @@
+package Boombotroz;
+
 public abstract class Task {
     boolean mark;
     String task;

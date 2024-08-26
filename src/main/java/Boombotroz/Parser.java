@@ -1,3 +1,4 @@
+package Boombotroz;
 import java.io.IOException;
 
 public class Parser {
