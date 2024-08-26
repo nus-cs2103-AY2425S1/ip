@@ -1,5 +1,8 @@
 @ECHO OFF
 
+REM delete data folder if it exists
+if exist data rmdir /s /q data
+
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
@@ -19,3 +22,6 @@ java -classpath ..\bin Vuewee < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+REM compare the data to the expected data
+FC data\tasks.txt EXPECTED_DATA.TXT
