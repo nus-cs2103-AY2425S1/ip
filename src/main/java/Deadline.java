@@ -1,12 +1,14 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
-    private final String byTime;
+    private final LocalDate byTime;
 
     public Deadline(String name, String byTime) {
         super(name);
-        this.byTime = byTime;
+        this.byTime = DateFormatters.getDateFromStr(byTime);
     }
 
-    public String getByTime() {
+    public LocalDate getByTime() {
         return this.byTime;
     }
 
@@ -17,6 +19,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.byTime + ")";
+        return "[D]" + super.toString() + " (by: " + DateFormatters.getStrFromDate(this.byTime) + ")";
     }
 }
