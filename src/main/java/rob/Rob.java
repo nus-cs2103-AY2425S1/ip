@@ -24,6 +24,10 @@ public class Rob {
         }
     }
 
+    /**
+     * Reads user input and processes commands such as "bye", "list", "mark", "unmark", "delete", "deadline", "event", and "todo".
+     * Saves and loads tasks
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         ui.greet();
@@ -105,8 +109,7 @@ public class Rob {
     }
 
     /**
-     * Finds and returns the last integer found in the input string,
-     * which is assumed to be a task number.
+     * Finds and returns the last integer found in the input string.
      *
      * @param input The input string that contains the task number.
      * @return The task number extracted from the input string.
@@ -133,7 +136,5 @@ public class Rob {
             }
         }
     }
-
-
 
 }

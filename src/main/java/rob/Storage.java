@@ -14,6 +14,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from a file and adds them to the provided task list.
+     * If the file does not exist, no tasks are added.
+     *
+     * @param tasks The task list to add loaded tasks to.
+     * @return The updated list of tasks.
+     * @throws IOException If an error occurs while reading the file.
+     */
     public List<Task> loadTasks(TaskList tasks) throws IOException {
         File file = new File(this.filePath);
         if (file.exists()) {
@@ -53,6 +61,12 @@ public class Storage {
         return tasks.getTasks();
     }
 
+    /**
+     * Saves the tasks from the provided task list to a file.
+     * Ensures that the necessary directory is created if they do not exist.
+     *
+     * @param tasks The task list containing tasks to be saved.
+     */
     public void saveTasks(TaskList tasks) {
         List<Task> taskList = tasks.getTasks();
         try {

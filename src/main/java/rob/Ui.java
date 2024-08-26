@@ -17,6 +17,11 @@ public class Ui {
         System.out.println(EXIT);
     }
 
+    /**
+     * Prints the tasks in the provided task list.
+     *
+     * @param taskList The task list containing tasks to be displayed.
+     */
     public void showList(TaskList taskList) {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < taskList.len(); i++) {
