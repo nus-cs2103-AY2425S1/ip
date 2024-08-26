@@ -29,6 +29,8 @@ public class Parser {
                     return new CreateCommand(eventComponents[0], timings[0].trim(), timings[1].trim(), TaskType.EVENT);
                 case "delete":
                     return new DeleteCommand(Integer.parseInt(components[1]));
+                case "find":
+                    return new FindCommand(components[1]);
                 default:
                     throw new DookException("Invalid command");
             }

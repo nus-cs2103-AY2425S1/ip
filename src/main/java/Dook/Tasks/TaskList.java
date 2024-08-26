@@ -16,6 +16,10 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
     public Task delete(int taskNumber) throws DookException, IOException {
         if (taskNumber < 0 || taskNumber > numOfTasks()) {
             throw new DookException("You don't have that many tasks");
@@ -36,4 +40,6 @@ public class TaskList {
         }
         return this.tasks.get(index);
     }
+
+
 }
