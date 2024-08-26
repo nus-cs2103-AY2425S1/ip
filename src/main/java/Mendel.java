@@ -7,7 +7,7 @@ public class Mendel {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String currAction = "hello";
-        TaskManager taskManager = new TaskManager();
+        Parser taskManager = new Parser();
         UI ui = new UI();
         ui.showWelcome();
         while (!currAction.equals("bye")) {

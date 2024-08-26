@@ -1,19 +1,17 @@
 import mendel.dbmanager.Storage;
+import mendel.discretetask.Deadline;
+import mendel.discretetask.Event;
+import mendel.discretetask.Todo;
+import mendel.mendelexception.ConditionalExceptionHandler;
+import mendel.mendelexception.MendelException;
 import mendel.metacognition.LeaveCommand;
 import mendel.metacognition.TaskStorage;
-import mendel.mendelexception.MendelException;
 
-import mendel.discretetask.Todo;
-import mendel.discretetask.Event;
-import mendel.discretetask.Deadline;
-
-import mendel.mendelexception.ConditionalExceptionHandler;
-
-public class TaskManager {
+public class Parser {
     private final TaskStorage taskStorage;
     private final Storage dbContoller;
 
-    public TaskManager() {
+    public Parser() {
         this.taskStorage = new TaskStorage();
         this.dbContoller = new Storage("data/dbTaskList.txt");
         dbContoller.loadInto(taskStorage);
