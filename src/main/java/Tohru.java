@@ -9,6 +9,7 @@ public class Tohru {
         TodoList todoList = new TodoList();
         Scanner userInput = new Scanner(System.in);
         boolean toExit = false;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/y HHmm");
 
         // Greetings
         printDivider();
@@ -154,7 +155,6 @@ public class Tohru {
                     if (deadlineStr.isBlank()) {
                         throw new TohruException("Missing argument: Please specify deadline");
                     }
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/y HHmm");
                     LocalDateTime deadline = LocalDateTime.parse(deadlineStr.trim(), formatter);
 
                     DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
@@ -184,17 +184,26 @@ public class Tohru {
                     if (eventContent.isBlank()) {
                         throw new TohruException("Missing argument: Please specify description");
                     }
-                    String from = dissectedEventArgument[1];
+                    String fromStr = dissectedEventArgument[1];
+                    String toStr = dissectedEventArgument[2];
                     // Check for valid from date
-                    if (from.isBlank()) {
+                    if (fromStr.isBlank()) {
                         throw new TohruException("Missing argument: Please specify from date");
                     }
-                    String to = dissectedEventArgument[2];
                     // Check for valid to date
-                    if (to.isBlank()) {
+                    if (toStr.isBlank()) {
                         throw new TohruException("Missing argument: Please specify to date");
                     }
-                    EventItem newEvent = new EventItem(eventContent, from, to);
+
+                    LocalDateTime eventFromDate = LocalDateTime.parse(fromStr.trim(), formatter);
+
+                    LocalDateTime eventToDate = LocalDateTime.parse(toStr.trim(), formatter);
+
+                    if (eventFromDate.isAfter(eventToDate)) {
+                        throw new TohruException("Invalid argument: To date cannot be earlier than From date");
+                    }
+
+                    EventItem newEvent = new EventItem(eventContent, eventFromDate, eventToDate);
 
                     if (todoList.addItem(newEvent)) {
                         System.out.println(String.format("Added event entry: %s", eventContent.trim()));
@@ -217,7 +226,7 @@ public class Tohru {
                 System.out.println(String.format("%s is not valid index for %s operation", argument, command));
                 printDivider();
             } catch (DateTimeParseException e) {
-                System.out.println(String.format("Argument '%s' contains invalid datetime foramt", argument));
+                System.out.println(String.format("Argument '%s' contains invalid datetime format", argument));
                 printDivider();
             }
         }
