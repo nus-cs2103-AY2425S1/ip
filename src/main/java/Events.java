@@ -12,6 +12,11 @@ public class Events extends Task{
     }
 
     @Override
+    public LocalDateTime endTime() {
+        return this.end;
+    }
+
+    @Override
     public String toString() {
         return "[E]"
                 + super.toString()

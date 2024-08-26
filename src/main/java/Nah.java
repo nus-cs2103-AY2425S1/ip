@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -15,7 +18,7 @@ public class Nah {
             + "________________________________________________________________________________\n";
     private static String byeLine = " Bye. Hope to see you again soon!\n";
 
-    private enum Command {BYE, TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, UNKNOWN};
+    private enum Command {BYE, TODO, DEADLINE, EVENT, LIST, DUEON, DELETE, MARK, UNMARK, UNKNOWN};
     private LinkedList<Task> task = new LinkedList<Task>();
     private int taskCount = 0;
     private String hardDisk = Paths.get("D:","cs2103T_week_2", "Data", "Nah.txt").toString();
@@ -51,6 +54,9 @@ public class Nah {
         case "delete" : {
             return Command.DELETE;
         }
+        case "dueon" : {
+            return Command.DUEON;
+        }
         default:
             return Command.UNKNOWN;
 
@@ -66,7 +72,19 @@ public class Nah {
             System.out.println("Something went wrong: " + e.getMessage() +"\n");
         }
     }
-
+    private String dueOn(String time) {
+        LocalDateTime due = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        String s = " Here are the tasks in your list that ends before the due:\n";
+        int i = 1;
+        for (Task t : task) {
+            if (t instanceof Deadlines || t instanceof Events) {
+                if (t.endTime().isBefore(due)) {
+                    s += " " + i + ". " + t.toString() + "\n";
+                }
+            }
+        }
+        return s;
+    }
     private String readTask() {
         String s = " Here are the tasks in your list:\n";
         for (int i = 1; i <= taskCount; i ++) {
@@ -183,6 +201,14 @@ public class Nah {
                 case DELETE: {
                     int i = parseInt(command[1]);
                     System.out.println(nah.delete(i));
+                    break;
+                }
+
+                case DUEON: {
+                    if (command.length < 2 || command[1].trim().isEmpty()) {
+                        throw new LackDescription(" Nahhh!!! Dueon needs time and date description");
+                    }
+                    System.out.println(nah.dueOn(command[1]));
                     break;
                 }
                 case TODO: {

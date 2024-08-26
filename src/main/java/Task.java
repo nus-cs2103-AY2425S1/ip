@@ -1,4 +1,6 @@
-public class Task {
+import java.time.LocalDateTime;
+
+public abstract class Task {
     private String description;
     private boolean isDone = false;
     Task(String description) {
@@ -25,6 +27,8 @@ public class Task {
     private String getStatus() {
         return isDone ? "[X]" : "[ ]";
     }
+    public abstract LocalDateTime endTime();
+
 
     @Override
     public String toString() {

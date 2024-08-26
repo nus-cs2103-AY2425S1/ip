@@ -11,6 +11,11 @@ public class Deadlines extends Task{
     }
 
     @Override
+    public LocalDateTime endTime() {
+        return this.time;
+    }
+
+    @Override
     public String toString() {
         return "[D]"
                 + super.toString()
