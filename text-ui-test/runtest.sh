@@ -23,7 +23,7 @@ fi
 for testNo in {1..3}
 do
     # run the program, feed commands from input file and redirect the output to the ACTUAL.TXT
-    java -classpath ../bin Revir < "testcases/TEST-$testNo.txt" > ACTUAL.txt
+    java -classpath ../bin Revir < "testcases/TEST-$testNo.txt" > ACTUAL.txt 2>&1
 
     # compare the output to the expected output
     diff ACTUAL.txt testcases/EXPECTED-$testNo.txt
