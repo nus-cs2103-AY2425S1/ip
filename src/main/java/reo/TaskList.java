@@ -1,9 +1,5 @@
 package reo;
 
-import reo.Deadline;
-import reo.Event;
-import reo.Task;
-
 import java.util.ArrayList;
 
 public class TaskList {
@@ -94,6 +90,20 @@ public class TaskList {
     }
 
     /**
+     * Filter the current task list.
+     *
+     * @param s The keyword to search for.
+     * @return A new ArrayList, which only contains tasks whose names
+     * contain the keyword s.
+     */
+    public ArrayList<Task> filter(String s) {
+        ArrayList<Task> copy = new ArrayList<>();
+        copy.addAll(tasks);
+        copy.removeIf(t -> !t.nameDoesContain(s));
+        return copy;
+    }
+
+    /**
      * Create the String representation of the stored ArrayList so far.
      *
      * @return The String representation of the stored ArrayList so far.
@@ -101,6 +111,9 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
+//        if (tasks.size() == 0) {
+//            return "The list is empty.\n";
+//        }
         for (int i = 0; i < tasks.size(); i++) {
             int listIndex = i + 1;
             res += listIndex + ". " + tasks.get(i).toString() + "\n";

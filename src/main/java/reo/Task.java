@@ -19,6 +19,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean nameDoesContain(String s) {
+        return this.name.contains(s);
+    }
+
     @Override
     public String toString() {
         String checkbox;

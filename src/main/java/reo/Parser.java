@@ -10,6 +10,7 @@ public class Parser {
         MARK,
         UNMARK,
         DELETE,
+        FIND,
         UNKNOWN,
     }
     String input;
@@ -115,6 +116,15 @@ public class Parser {
                 ui.delete(tasks.get(index));
             } catch (IndexOutOfBoundsException e) {
                 ui.deleteError();
+            }
+            break;
+        case FIND:
+            try {
+                String keyword = words[1];
+                TaskList filtered = new TaskList(tasks.filter(keyword));
+                ui.find(filtered);
+            } catch (IndexOutOfBoundsException e) {
+                ui.findError();
             }
             break;
         case BYE:

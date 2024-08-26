@@ -10,6 +10,7 @@ public class Reo {
 
     public Reo() {
         TaskList taskList;
+        storage = new Storage("./data/reo.txt");
         try {
             tasklist = new TaskList(storage.readFile());
         } catch (Exception e) {
