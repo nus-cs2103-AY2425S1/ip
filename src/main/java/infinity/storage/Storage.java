@@ -7,6 +7,7 @@ import infinity.task.Task;
 import infinity.task.ToDos;
 import infinity.tasklist.TaskList;
 import infinity.ui.Ui;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,9 +19,9 @@ import java.util.Scanner;
 
 public class Storage {
     
-    public static final String FILEDIRPATH = "../../../../data";
-    public static final String FILENAME = "save-file.txt";
-    public static final String FILEPATH = FILEDIRPATH + "/" + FILENAME;
+    public static final String FILE_DIR_PATH = "../../../../data";
+    public static final String FILE_NAME = "save-file.txt";
+    public static final String FILE_PATH = FILE_DIR_PATH + "/" + FILE_NAME;
     public static final String DELIMITER = "\0";
 
     private final Ui botUI;
@@ -40,11 +41,11 @@ public class Storage {
 
     public ArrayList<Task> readFile() {
         @SuppressWarnings("unchecked")
-        ArrayList<Task> tasks = new ArrayList<>(TaskList.MAXSIZE);
+        ArrayList<Task> tasks = new ArrayList<>(TaskList.MAX_SIZE);
 
         if (doesFileExist()) {
             try {
-                Scanner file = new Scanner(new File(FILEPATH));
+                Scanner file = new Scanner(new File(FILE_PATH));
                 while (file.hasNextLine()) {
 
                     String currentLine = file.nextLine();
@@ -95,7 +96,7 @@ public class Storage {
     public void saveFile(ArrayList<Task> tasks) throws IOException {
         createFileIfNotExists();
 
-        FileWriter file = new FileWriter(FILEPATH);
+        FileWriter file = new FileWriter(FILE_PATH);
 
         for (Task task : tasks) {
             file.write(task.saveFileFormat(DELIMITER));
@@ -108,15 +109,15 @@ public class Storage {
     }
 
     private boolean doesFileExist() {
-        File file = new File(FILEPATH);
+        File file = new File(FILE_PATH);
         return file.exists() && !file.isDirectory();
     }
 
     private void createFileIfNotExists() {
         try {
             if (!doesFileExist()) {
-                Files.createDirectories(Paths.get(FILEDIRPATH));
-                Files.createFile(Paths.get(FILEPATH));
+                Files.createDirectories(Paths.get(FILE_DIR_PATH));
+                Files.createFile(Paths.get(FILE_PATH));
             }
         } catch (IOException e) {
             botUI.botSays(

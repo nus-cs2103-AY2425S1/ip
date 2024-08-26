@@ -1,18 +1,19 @@
 package infinity;
 
 import infinity.infinityexception.InfinityException;
-import infinity.storage.Storage;
 import infinity.task.Deadline;
+import infinity.storage.Storage;
 import infinity.task.Event;
 import infinity.task.Task;
 import infinity.task.ToDos;
 import infinity.tasklist.TaskList;
 import infinity.ui.Ui;
+
 import java.io.IOException;
 
 public class Infinity <T extends Task> {
     
-    enum KnownCommands {
+    private enum KnownCommands {
         BYE, 
         DEADLINE, 
         DELETE,
@@ -23,9 +24,9 @@ public class Infinity <T extends Task> {
         TODO
     }
 
-    Ui botUI = new Ui();
-    Storage storage = new Storage(botUI);
-    TaskList botTasks;
+    private Ui botUI = new Ui();
+    private Storage storage = new Storage(botUI);
+    private TaskList botTasks;
 
     public Infinity() {
 

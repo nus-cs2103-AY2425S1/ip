@@ -4,18 +4,20 @@ package infinity.tasklist;
 import infinity.infinityexception.InfinityException;
 import infinity.task.Task;
 import infinity.ui.Ui;
+
 import java.util.ArrayList;
 
 public class TaskList {
 
+    public static final int MAX_SIZE = 100;
+    
     private final Ui botUI;
 
-    public static final int MAXSIZE = 100;
-    private ArrayList<Task> tasks = new ArrayList<>(MAXSIZE);
+    private ArrayList<Task> tasks = new ArrayList<>(MAX_SIZE);
     private int nextTaskIndex = 0;
 
     public <T extends Task> void addTask(T task) throws InfinityException {
-        if (nextTaskIndex >= MAXSIZE) {
+        if (nextTaskIndex >= MAX_SIZE) {
             throw new InfinityException(
                     "I'm sorry, but I can't remember more tasks.");
         }
