@@ -217,6 +217,15 @@ public class Main {
     }
 
 
+    public static ToDo createToDoFromJanetTextFile(String line, boolean isDone) {
+        // get description from text file
+        String toDoDescription = line.substring(8, line.indexOf("|", 8) - 1);
+        ToDo task = new ToDo(toDoDescription, "T");
+        task.setDone(isDone);
+        return task;
+    }
+
+
     /**
      * Returns a Deadline object,
      * based on a line, containing information about a Deadline, read from janet.txt.
