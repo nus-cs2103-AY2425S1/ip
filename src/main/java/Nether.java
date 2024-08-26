@@ -2,7 +2,7 @@
  * Produces greetings for users and initializes chatbot.
  */
 
-import java.sql.Array;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ public class Nether {
                 + "|  \\| |/ _ \\ __| '_ \\/ _ \\ '__|\n"
                 + "| |\\  |  __/ |_| | | ||__/ |  \n"
                 + "|_| \\_|\\___|\\__|_| |_\\___|_|\n";
-        ArrayList<Task> tasks = new ArrayList<>(storage.loadTasks());
+        List<Task> tasks = new ArrayList<>(storage.loadTasks());
         int counter = tasks.size();
 
         System.out.println("Hello from\n" + logo);
@@ -96,16 +96,16 @@ public class Nether {
                 String[] processedInput;
                 if (userInput.toLowerCase().startsWith(TODO_TASK_COMMAND)) {
                     processedInput = extractInputDetails(userInput, TODO_TASK_COMMAND);
-                    System.out.println("Got it. I've added this task:");
                     tasks.add(new TodoTask(processedInput[0]));
+                    System.out.println("Got it. I've added this task:");
                 } else if (userInput.toLowerCase().startsWith(DEADLINE_TASK_COMMAND)) {
                     processedInput = extractInputDetails(userInput, DEADLINE_TASK_COMMAND);
-                    System.out.println("Got it. I've added this task:");
                     tasks.add(new DeadlineTask(processedInput[0], processedInput[1]));
+                    System.out.println("Got it. I've added this task:");
                 } else if (userInput.toLowerCase().startsWith(EVENT_TASK_COMMAND)) {
                     processedInput = extractInputDetails(userInput, EVENT_TASK_COMMAND);
-                    System.out.println("Got it. I've added this task:");
                     tasks.add(new EventTask(processedInput[0], processedInput[1], processedInput[2]));
+                    System.out.println("Got it. I've added this task:");
                 } else {
                     extractInputDetails(userInput, userInput);
                 }
@@ -141,7 +141,7 @@ public class Nether {
      *
      * @param tasks array that holds the task list
      */
-    private static void printList(ArrayList<Task> tasks) {
+    private static void printList(List<Task> tasks) {
         int listIndex = 1;
         System.out.println("Here are the tasks in your list:");
         for (Task task: tasks) {
@@ -176,6 +176,7 @@ public class Nether {
     private static String[] extractInputDetails(String userInput, String taskType) {
         String[] preprocessArray;
         String[] resultArray = new String[]{};
+
         switch (taskType) {
         case "todo":
             preprocessArray = userInput.split("(?i)todo ", 2);
@@ -194,6 +195,7 @@ public class Nether {
             if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
                 throw new NetherException("The description or date/time of a deadline cannot be empty.");
             }
+
             resultArray = new String[] {deadlineParts[0], deadlineParts[1]};
             break;
 
@@ -208,6 +210,7 @@ public class Nether {
                 throw new NetherException(
                         "The description, start time, or end time of an event cannot be empty.");
             }
+
             resultArray = new String[]{eventParts[0], eventParts[1], eventParts[2]};
             break;
         default:
