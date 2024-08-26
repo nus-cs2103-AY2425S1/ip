@@ -2,12 +2,22 @@ package simon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * Parses user input into commands for the Simon application.
+ * This class is responsible for interpreting different command formats and creating corresponding Command objects.
+ */
 public class Parser {
     private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-
+    /**
+     * Parses a string input into a Command object.
+     * The input string is analyzed to determine the type of command and its parameters.
+     *
+     * @param input the string input representing a user command
+     * @return a Command object corresponding to the parsed input
+     * @throws Exception if the input string is invalid or cannot be parsed into a command
+     */
     public static Command parse(String input) throws Exception{
         if (input.isEmpty()) {
             return null;

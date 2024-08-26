@@ -9,15 +9,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * Manages the storage and retrieval of task data for the Simon application.
+ * Handles saving tasks to a file and loading tasks from a file.
+ */
 public class Storage {
     private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     public String filepath;
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filepath the path to the file where tasks will be saved and loaded
+     */
     public Storage (String filepath) {
         this.filepath = filepath;
     }
-
+    /**
+     * Saves the provided list of tasks to the file.
+     * Each task is saved in a format suitable for later retrieval.
+     *
+     * @param taskList the list of tasks to be saved
+     */
     public void saveToFile(ArrayList<Task> taskList) {
         try (FileWriter writer = new FileWriter(filepath)) {
             for (Task task : taskList) {
@@ -27,6 +40,12 @@ public class Storage {
             System.out.println("An error occurred while saving the file: " + e.getMessage());
         }
     }
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     * Creates a new file if it does not exist.
+     *
+     * @return an ArrayList of tasks loaded from the file
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<Task>();
         File file = new File(filepath);
