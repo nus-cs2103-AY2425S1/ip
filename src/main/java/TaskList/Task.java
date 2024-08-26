@@ -1,6 +1,8 @@
-import java.io.FileNotFoundException;
+package TaskList;
+
+import Storage.CorruptedFileException;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public abstract class Task {
     protected String description;
@@ -41,7 +43,7 @@ public abstract class Task {
         }
     }
 
-    public static Task read(String[] strings) throws CorruptedFileException{
+    public static Task read(String[] strings) throws CorruptedFileException {
         if (strings.length <= 2) {
             throw new CorruptedFileException("");
         } else if (strings[0].equals("T") && strings.length == 3) {
@@ -83,14 +85,14 @@ public abstract class Task {
 
 
 
-    public void mark() throws IncorrectStateException{
+    public void mark() throws IncorrectStateException {
         if (this.isDone) {
             throw new IncorrectStateException("mark");
         }
         this.isDone = true;
     }
 
-    public void unmark() throws IncorrectStateException{
+    public void unmark() throws IncorrectStateException {
         if (!this.isDone) {
             throw new IncorrectStateException("unmark");
         }
