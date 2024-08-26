@@ -52,6 +52,8 @@ public class Parser {
             return new DeleteCommand(index);
 
         }
-        return null;
+        else {
+            throw new IllegalArgumentException("Illegal command.");
+        }
     }
 }
