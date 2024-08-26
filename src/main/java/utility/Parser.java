@@ -5,15 +5,23 @@ import exceptions.LukeException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/** A class used for parsing command */
 public class Parser {
     public Command command;
     public String description, by, from, to;
     public int index;
 
+    /**
+     * Returns an instance of Parser object.
+     */
     public Parser() {
-
     }
 
+    /**
+     * Parses the command given and updates the class variable.
+     * @param line Is the command.
+     * @throws LukeException When parsing an invalid command.
+     */
     public void parse(String line) throws LukeException {
         String[] parameters = line.split(" ");
         try {
@@ -38,6 +46,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse DeadLine task to retrieve description and by date.
+     * @param input Is the instruction without the command keyword.
+     * @throws LukeException When instruction format is invalid.
+     */
     public void parseDeadLine(String input) throws LukeException {
         int slashIndex = input.indexOf(" /by ");
         if (slashIndex == -1) {
@@ -57,6 +70,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse Event task to retrieve description, from and to dates.
+     * @param input Is the instruction without the command keyword.
+     * @throws LukeException When instruction format is invalid.
+     */
     public void parseEvent(String input) throws LukeException {
         int firstSlashIndex = input.indexOf(" /from ");
         if (firstSlashIndex == -1) {
