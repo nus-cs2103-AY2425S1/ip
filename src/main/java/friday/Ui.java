@@ -8,7 +8,15 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Ui class handles all interactions with the user.
+ * It provides methods to display messages, read commands, and show task-related information.
+ */
 public class Ui {
+
+    /**
+     * Greets the user with a welcome message.
+     */
     public void greet() {
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -18,6 +26,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -26,15 +39,29 @@ public class Ui {
         );
     }
 
+    /**
+     * Reads the user's input command.
+     *
+     * @return The command entered by the user as a String.
+     */
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
+    /**
+     * Displays an error message indicating a loading failure.
+     */
     public void showLoadingError() {
         System.out.println("Error loading file.");
     }
 
+    /**
+     * Displays a message indicating that a task has been added to the task list.
+     *
+     * @param task      The task that was added.
+     * @param noOfTasks The current number of tasks in the list.
+     */
     public void showAddedTask(Task task, int noOfTasks) {
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -45,6 +72,12 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating that a task has been deleted from the task list.
+     *
+     * @param task      The task that was deleted.
+     * @param noOfTasks The current number of tasks remaining in the list.
+     */
     public void showDeletedTask(Task task, int noOfTasks) {
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -55,6 +88,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating that a task has been marked as done.
+     *
+     * @param task The task that was marked as done.
+     */
     public void showMarkedTask(Task task) {
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -64,6 +102,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating that a task has been unmarked as done.
+     *
+     * @param task The task that was unmarked as done.
+     */
     public void showUnmarkedTask(Task task) {
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -73,6 +116,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays the list of all tasks.
+     *
+     * @param tasks The TaskList containing all tasks to be displayed.
+     */
     public void showTaskList(TaskList tasks) {
         System.out.println("    ____________________________________________________________");
         if (tasks.isTaskListEmpty()) {
@@ -86,6 +134,12 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays the tasks that occur on a specific date.
+     *
+     * @param tasks The TaskList containing all tasks.
+     * @param date  The date to filter tasks by.
+     */
     public void showSpecificTasks(TaskList tasks, LocalDate date) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are your tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
@@ -112,6 +166,9 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays a goodbye message when the user exits the application.
+     */
     public void sayGoodbye() {
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -119,5 +176,4 @@ public class Ui {
                         "    ____________________________________________________________"
         );
     }
-
 }
