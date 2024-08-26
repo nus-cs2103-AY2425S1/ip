@@ -7,7 +7,9 @@ public class TaskManagerException extends Exception {
         INVALID_ADD_TASK_NUMBER,
         DUPLICATE_TASK,
         TASK_OUT_OF_RANGE,
-        INVALID_DATETIME_ARGUMENT
+        INVALID_DATETIME_ARGUMENT,
+        INVALID_FUNCTION,
+        EMPTY_INPUT
     }
 
     public TaskManagerException(String message, ErrorType errorType) {
