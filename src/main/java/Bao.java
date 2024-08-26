@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
@@ -43,6 +44,7 @@ public class Bao {
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/d"))
             .toFormatter();
     private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static DateTimeFormatter dateOnlyFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     private static String baoHappy =
               "     ___\n"
@@ -141,6 +143,15 @@ public class Bao {
                     } catch (NumberFormatException e) {
                         throw new IllegalArgumentException("Bao needs a task number to delete!");
                     }
+                } else if (input.startsWith("on")) {
+                    String inputDate = input.substring(3).trim();
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        showTasksOn(date);
+                    } catch (DateTimeParseException e) {
+                        throw new IllegalArgumentException("Bao needs a valid date format such as 2024-08-28");
+                    }
                 } else {
                     throw new UnsupportedOperationException("Bao needs a proper command :(");
                 }
@@ -213,9 +224,7 @@ public class Bao {
                         throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
                     String fromString = taskDescription.substring(fromIndex + 6, toIndex - 1);
-                    System.out.println(fromString);
                     String toString = taskDescription.substring(toIndex + 4);
-                    System.out.println(toString);
                     String description = taskDescription.substring(0, fromIndex - 1);
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("Bao needs a valid description of the task!");
@@ -235,6 +244,29 @@ public class Bao {
         } else {
             System.out.println(baoSad);
             System.out.println("Bao cannot remember so many things :(");
+        }
+    }
+
+    private static void showTasksOn(LocalDate date) {
+        System.out.println("Bao showing tasks on " + date.format(dateOnlyFormat) + ":");
+        boolean found = false;
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.getDate().toLocalDate().equals(date)) {
+                    System.out.println(deadlineTask);
+                    found = true;
+                }
+            } else if (task instanceof Event){
+                Event eventTask = (Event) task;
+                if (eventTask.getFromDateTime().toLocalDate().equals(date)) {
+                    System.out.println(eventTask);
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("Bao cannot find any tasks on this date!");
         }
     }
 

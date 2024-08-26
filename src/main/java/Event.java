@@ -13,6 +13,10 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public LocalDateTime getFromDateTime() {
+        return from;
+    }
+
     @Override
     public String toString() {
         return String.format(String.format("E | " + super.toString() + " | " + from.format(outputDateFormat) + "-"
