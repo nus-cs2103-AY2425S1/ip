@@ -26,7 +26,7 @@ public class Event extends Task{
         }
         String[] splitBySlash = splitDeadline[1].split("/",3);
         if (splitBySlash.length != 3) {
-            throw new InputFormatException("Oops! I need a /to and a /from regex to save your event task");
+            throw new InputFormatException("Oops! I need a /from and a /to regex to save your event task");
         }
         String[] splitByColon1 = splitBySlash[1].split(" ",2);
         String[] splitByColon2 = splitBySlash[2].split(" ", 2);

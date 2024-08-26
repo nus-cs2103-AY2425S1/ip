@@ -54,19 +54,38 @@ public class ScoobyDoo {
                 continue;
             }
 
-            if (Task.matchesMark(input) != 0) {
-                int num = Task.matchesMark(input);
-                printFormattedResponse(taskList.getTask(num - 1).markAsDone());
+            if (input.startsWith("mark")) {
+                try {
+                    int num = Task.matchesMark(input);
+                    printFormattedResponse(taskList.getTask(num - 1).markAsDone());
+                } catch (InputFormatException e) {
+                    printFormattedResponse(e.getMessage());
+                }
                 continue;
             }
 
-            if (Task.matchesUnmark(input) != 0) {
-                int num = Task.matchesUnmark(input);
-                printFormattedResponse(taskList.getTask(num - 1).markAsUndone());
+            if (input.startsWith("unmark")) {
+                try {
+                    int num = Task.matchesUnmark(input);
+                    printFormattedResponse(taskList.getTask(num - 1).markAsUndone());
+                } catch (InputFormatException e) {
+                    printFormattedResponse(e.getMessage());
+                }
+                continue;
+            }
+
+            if (input.startsWith("delete")) {
+                try {
+                    int i = TaskList.getDeleteNumber(input);
+                    printFormattedResponse(taskList.deleteTask(i));
+                } catch (InputFormatException e) {
+                    printFormattedResponse(e.getMessage());
+                }
+                continue;
             }
 
             else {
-                printFormattedResponse("The available inputs are deadline, event, todo, mark, unmark, list and bye");
+                printFormattedResponse("The available inputs are\n deadline\n event\n todo\n mark\n unmark\n list\n delete\n bye");
             }
         }
         scanIn.close();
@@ -83,12 +102,6 @@ public class ScoobyDoo {
             System.out.print("_");
         }
         System.out.println("\n");
-
     }
-
-
-
-
-
 }
 

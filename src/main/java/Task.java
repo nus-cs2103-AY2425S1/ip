@@ -28,32 +28,28 @@ public abstract class Task {
         return (done ? "X" : " "); // mark done task with X
     }
 
-    public static int matchesUnmark(String input) {
-        if (input.startsWith("unmark")) {
-            String[] inputArr = input.split(" ");
-            if (inputArr.length == 2) {
-                try {
-                    return Integer.parseInt(inputArr[1]);
-                } catch (NumberFormatException e){
-                    return 0;
-                }
-            }
+    public static int matchesUnmark(String input) throws InputFormatException{
+        String[] inputArr = input.split(" ");
+        if (inputArr.length != 2) {
+            throw new InputFormatException("Please specify a number after \"unmark\"");
         }
-        return 0;
+        try {
+            return Integer.parseInt(inputArr[1]);
+        } catch (NumberFormatException e){
+            throw new InputFormatException("Please input a number after \"unmark\"");
+        }
     }
 
     //if returns 0 means no matches
-    public static int matchesMark(String input) {
-        if (input.startsWith("mark")) {
-            String[] inputArr = input.split(" ");
-            if (inputArr.length == 2) {
-                try {
-                    return Integer.parseInt(inputArr[1]);
-                } catch (NumberFormatException e){
-                    return 0;
-                }
-            }
+    public static int matchesMark(String input) throws InputFormatException{
+        String[] inputArr = input.split(" ");
+        if (inputArr.length != 2) {
+            throw new InputFormatException("Please specify a number after \"mark\"");
         }
-        return 0;
+        try {
+            return Integer.parseInt(inputArr[1]);
+        } catch (NumberFormatException e){
+            throw new InputFormatException("Please input a number after \"mark\"");
+        }
     }
 }
