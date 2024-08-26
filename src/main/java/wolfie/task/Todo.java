@@ -8,6 +8,10 @@ public class Todo extends Task {
         super(description, TaskType.TODO, isDone); // call the constructor of the parent class simple task
     }
 
+    /**
+     * Returns the task in the format to be saved in the file.
+     * @return the task in the format to be saved in the file
+     */
     @Override
     public String toFileFormat() {
         return "T | " + (getIsDone() ? "1" : "0") + " | " + getDescription();

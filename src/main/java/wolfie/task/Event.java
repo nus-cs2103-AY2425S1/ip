@@ -33,6 +33,10 @@ public class Event extends Task {
         return to;
     }
 
+    /**
+     * Returns the event task in the format to be saved in the file.
+     * @return Event task in the format to be saved in the file.
+     */
     @Override
     public String toFileFormat() {
         return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | "

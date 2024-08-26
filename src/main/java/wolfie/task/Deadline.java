@@ -24,6 +24,11 @@ public class Deadline extends Task {
         return by;
     }
 
+    /**
+     * Returns the deadline task in the format to be saved in the file.
+     *
+     * @return Deadline task in the format to be saved in the file.
+     */
     @Override
     public String toFileFormat() {
         return "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | "

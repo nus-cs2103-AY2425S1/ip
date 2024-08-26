@@ -38,6 +38,11 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Returns a list of tasks that are on the specified date in the parameter.
+     * @param date The date to check for tasks
+     * @return A list of tasks that are on the specified date
+     */
     public List<Task> getTasksOnDate(LocalDate date) {
         List<Task> tasksOnDate = new ArrayList<>();
         for (Task task : tasks) {
