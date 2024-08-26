@@ -53,7 +53,6 @@ public class FindTaskCommand extends Command {
             }
         }
 
-        // Display the found tasks using the user interface
-        System.out.println(Ui.formatTaskListings(foundTasks, false));
+        ui.showMessage(ui.formatTaskListings(foundTasks, false));
     }
 }
