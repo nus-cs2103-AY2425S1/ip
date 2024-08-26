@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +11,7 @@ public class WenJigglyBot {
 
     public static void main(String[] args) {
         loadTasksFromStorage();
+        System.out.println(tasks);
         Scanner scanner = new Scanner(System.in);
         String name = "WenJigglyBot";
         System.out.println("Sup im " + name);
@@ -56,7 +59,13 @@ public class WenJigglyBot {
                     String[] parts = processDeadlineTask(task);
                     taskName = parts[0].trim();
                     String deadline = parts[1].trim();
-                    addTask(new DeadlineTask(taskName, deadline));
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(deadline);
+                        addTask(new DeadlineTask(taskName, date));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Incorrect date format, please input in yyyy-mm-dd format!");
+                    }
                 } catch (DeadlineException deadlineException) {
                     System.out.println(deadlineException);
                 }
@@ -115,7 +124,7 @@ public class WenJigglyBot {
         }
 
         String taskType = parts[1].substring(1, 2);
-        boolean isDone = parts[1].substring(3, 4).equals("X");
+        boolean isDone = parts[1].charAt(3) == 'X';
         String description = parts[2];
 
         switch (taskType) {
@@ -129,7 +138,8 @@ public class WenJigglyBot {
             // Format: [D][ ] description (by: date/time)
             String[] deadlineParts = description.split("\\(by: ");
             if (deadlineParts.length == 2) {
-                String taskDescription = deadlineParts[0].trim();
+                String unprocessedTaskDescription = deadlineParts[0].trim();
+                String taskDescription = unprocessedTaskDescription.split(" ")[1];
                 String deadline = deadlineParts[1].replace(")", "").trim();
                 DeadlineTask deadlineTask = new DeadlineTask(taskDescription, deadline);
                 if (isDone) {
