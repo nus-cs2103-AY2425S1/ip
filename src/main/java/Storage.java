@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
@@ -16,7 +17,7 @@ public class Storage {
      *
      * @param tasks a task list to be saved in the data file
      */
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(List<Task> tasks) {
         File file = new File(filePath);
         file.getParentFile().mkdirs(); // create directories just in case they don't exist
 
@@ -34,8 +35,8 @@ public class Storage {
      *
      * @return arraylist of tasks
      */
-    public ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public List<Task> loadTasks() {
+        List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
             return tasks; // return an empty arraylist of tasks if the file doesn't exist yet
