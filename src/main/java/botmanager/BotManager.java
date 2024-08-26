@@ -4,6 +4,7 @@ import action.Action;
 import exception.BotException;
 import task.TaskList;
 import util.Parser;
+import util.Storage;
 import util.Ui;
 
 /**
@@ -14,16 +15,17 @@ import util.Ui;
 public class BotManager {
     private final Ui ui;
     private final Parser parser;
-    private final TaskList taskList;
+    private final Storage storage;
 
     public BotManager() {
         ui = new Ui();
         parser = new Parser();
-        taskList = new TaskList();
+        storage = new Storage();
     }
 
     public void run() {
        ui.start();
+       TaskList taskList = storage.loadTaskList();
 
        while (true) {
            String input = ui.readUserInput();
@@ -33,6 +35,7 @@ public class BotManager {
            try {
                Action action = parser.parseInput(input);
                String output = action.execute(taskList);
+               storage.saveTaskList(taskList);
                ui.printMessage(output);
            } catch (BotException e) {
                 ui.printMessage(e.getMessage());
