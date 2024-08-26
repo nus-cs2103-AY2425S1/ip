@@ -4,6 +4,10 @@ import Dook.Tasks.TaskList;
 import Dook.Storage.Storage;
 import Dook.Ui.Ui;
 import Dook.DookException;
+
+/**
+ * The command that lists all the tasks in the TaskList.
+ */
 public class ListCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DookException {

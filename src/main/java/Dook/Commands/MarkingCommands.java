@@ -8,6 +8,9 @@ import Dook.DookException;
 
 import java.io.IOException;
 
+/**
+ * The command that marks and unmarks a task as done.
+ */
 public class MarkingCommands extends Command{
 
     private int taskNumber;

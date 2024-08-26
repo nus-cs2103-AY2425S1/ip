@@ -8,6 +8,9 @@ import Dook.DookException;
 
 import java.io.IOException;
 
+/**
+ * The command to delete a task from the TaskList.
+ */
 public class DeleteCommand extends Command{
 
     private int taskNumber;

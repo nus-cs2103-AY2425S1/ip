@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * Creates a Task object and adds it to the TaskList.
+ */
 public class CreateCommand extends Command{
 
     private String description;
@@ -25,11 +27,25 @@ public class CreateCommand extends Command{
     private String by;
     private TaskType type;
 
+    /**
+     * Creates a CreateCommand for a Todo task.
+     *
+     * @param description Description of the Todo.
+     * @param type The type of task (TODO).
+     */
     public CreateCommand(String description, TaskType type) {
         this.description = description;
         this.type = type;
     }
 
+    /**
+     * Creates a CreateCommand for an Event task.
+     *
+     * @param description Description of the Event.
+     * @param start Start date of the Event.
+     * @param end End date of the Event.
+     * @param type The type of task (EVENT).
+     */
     public CreateCommand(String description, String start, String end, TaskType type) {
         this.description = description;
         this.start = start;
@@ -37,6 +53,13 @@ public class CreateCommand extends Command{
         this.type = type;
     }
 
+    /**
+     * Creates a CreateCommand for a Deadline task.
+     *
+     * @param description Description of the Deadline.
+     * @param by Due date of the Deadline.
+     * @param type The type of task (DEADLINE).
+     */
     public CreateCommand(String description, String by, TaskType type) {
         this.description = description;
         this.by = by;

@@ -16,6 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class deals with the loading of tasks from the file and saving tasks in the file.
+ */
 public class Storage {
 
     private File savedTasks;
@@ -23,6 +26,12 @@ public class Storage {
         this.savedTasks = new File(filePath);
     }
 
+    /**
+     * Ensures that the directory and file for saving tasks exist. If the directory or file does not exist,
+     * the method will create them.
+     *
+     * @throws IOException If an I/O error occurs during the creation of the file or directories.
+     */
     public void setup() throws IOException {
         File directory = savedTasks.getParentFile();
 
@@ -37,6 +46,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the saved file and returns them as an ArrayList.
+     * The tasks are created based on the String format used in the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws FileNotFoundException If the file does not exist.
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner reader = new Scanner(this.savedTasks);
@@ -71,6 +87,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the list of tasks to the saved file.
+     *
+     * @param tasks The list of tasks to be written to the file.
+     * @throws DookException If a problem occurs while retrieving task data.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void write(TaskList tasks) throws DookException,IOException {
         FileWriter writer = new FileWriter(savedTasks);
         for (int i = 0; i < tasks.numOfTasks(); i++) {
