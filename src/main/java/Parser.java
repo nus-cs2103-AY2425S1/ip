@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     public static Command parse(String input) throws IllegalArgumentException, OntosException{
@@ -46,12 +49,18 @@ public class Parser {
 
             try {
                 String description = input.substring(startOfDesc, endOfDesc).trim();
-                String dueBy = input.substring(endOfDesc + 4).trim();
+                LocalDate dueBy = LocalDate.parse(input.substring(endOfDesc + 4).trim());
+
+                if (description == "") {
+                    throw new OntosException("");
+                }
 
                 Task deadline = Task.deadline(description, dueBy);
                 return new Command.AddTaskCommand(deadline);
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (OntosException e) {
                 throw new OntosException(" OOPS!!! The description of a deadline cannot be empty.");
+            } catch (DateTimeParseException e) {
+                throw new OntosException(" OOPS!!! An deadline task requires valid deadline.");
             }
         } else if (input.startsWith("event")) {
             int startOfDesc = input.indexOf(" ");
@@ -59,18 +68,24 @@ public class Parser {
             int endOfFrom = input.indexOf(" /to");
 
             if (endOfDesc == -1 || endOfFrom == -1) {
-                throw new OntosException(" OOPS!!! An event task requires a start and end time.");
+                throw new OntosException(" OOPS!!! An event task requires a start and end date.");
             }
 
             try {
                 String description = input.substring(startOfDesc, endOfDesc).trim();
-                String start = input.substring(endOfDesc + 6, endOfFrom).trim();
-                String end = input.substring(endOfFrom + 4).trim();
+                LocalDate start = LocalDate.parse(input.substring(endOfDesc + 6, endOfFrom).trim());
+                LocalDate end = LocalDate.parse(input.substring(endOfFrom + 4).trim());
+
+                if (description == "") {
+                    throw new OntosException("");
+                }
 
                 Task event = Task.event(description, start, end);
                 return new Command.AddTaskCommand(event);
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (OntosException e) {
                 throw new OntosException(" OOPS!!! The description of an event cannot be empty.");
+            } catch (DateTimeParseException e) {
+                throw new OntosException(" OOPS!!! An event task requires valid a start and end date.");
             }
         } else {
             throw new IllegalArgumentException();

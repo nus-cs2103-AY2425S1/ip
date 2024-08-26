@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -20,19 +24,19 @@ public abstract class Task {
         return new ToDo(description, isDone);
     }
 
-    public static Task deadline(String description, String time) {
+    public static Task deadline(String description, LocalDate time) {
         return new Deadline(description, time);
     }
 
-    public static Task deadline(String description, boolean isDone, String time) {
+    public static Task deadline(String description, boolean isDone, LocalDate time) {
         return new Deadline(description, isDone, time);
     } 
 
-    public static Task event(String description, String start, String end) {
+    public static Task event(String description, LocalDate start, LocalDate end) {
         return new Event(description, start, end);
     }
 
-    public static Task event(String description, boolean isDone, String start, String end) {
+    public static Task event(String description, boolean isDone, LocalDate start, LocalDate end) {
         return new Event(description, isDone, start, end);
     }
 
@@ -82,14 +86,14 @@ public abstract class Task {
     }
     
     protected static class Deadline extends Task {
-        protected String time;
+        protected LocalDate time;
 
-        public Deadline(String description, String time) {
+        public Deadline(String description, LocalDate time) {
             super(description);
             this.time = time;
         }
 
-        public Deadline(String description, boolean isDone, String time) {
+        public Deadline(String description, boolean isDone, LocalDate time) {
             super(description, isDone);
             this.time = time;
         }
@@ -108,16 +112,16 @@ public abstract class Task {
     }
 
     protected static class Event extends Task {
-        protected String start;
-        protected String end;
+        protected LocalDate start;
+        protected LocalDate end;
 
-        public Event(String description, String start, String end) {
+        public Event(String description, LocalDate start, LocalDate end) {
             super(description);
             this.start = start;
             this.end = end;
         }
 
-        public Event(String description, boolean isDone, String start, String end) {
+        public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
             super(description, isDone);
             this.start = start;
             this.end = end;

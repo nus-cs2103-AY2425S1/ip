@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class SaveManager {
     protected Path savePath;
     protected Path saveFilePath;
@@ -40,7 +43,7 @@ public class SaveManager {
                 try {
                 Task task = stringToTask(sc.nextLine());
                 tasks.addTask(task);
-                } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+                } catch (StringIndexOutOfBoundsException | IllegalArgumentException | DateTimeParseException e) {
                     System.out.println("Data is corrupted: " + e.toString());
                 }
             }
@@ -50,7 +53,8 @@ public class SaveManager {
         }
     }
 
-    private Task stringToTask(String input) throws StringIndexOutOfBoundsException, NumberFormatException, IllegalArgumentException{
+    private Task stringToTask(String input) throws StringIndexOutOfBoundsException, 
+            NumberFormatException, IllegalArgumentException, DateTimeParseException{
 
         Boolean isDone = IS_DONE.get(input.charAt(2));
         if (isDone == null) {
@@ -65,7 +69,7 @@ public class SaveManager {
             int startOfTime = input.indexOf(" /t");
 
             String description = input.substring(startOfDesc + 3, startOfTime);
-            String time = input.substring(startOfTime + 3).trim();
+            LocalDate time = LocalDate.parse(input.substring(startOfTime + 3).trim());
 
             return Task.deadline(description, isDone, time);
         } else if (input.startsWith("E")) {
@@ -74,8 +78,8 @@ public class SaveManager {
             int startOfEnd = input.indexOf(" /e");
 
             String description = input.substring(startOfDesc + 3, startOfStart);
-            String start = input.substring(startOfStart + 3, startOfEnd);
-            String end = input.substring(startOfEnd + 3).trim();
+            LocalDate start = LocalDate.parse(input.substring(startOfStart + 3, startOfEnd));
+            LocalDate end = LocalDate.parse(input.substring(startOfEnd + 3).trim());
 
             return Task.event(description, isDone, start, end);
         } else {
