@@ -17,33 +17,33 @@ Understood. I've added the following task:
 You now have 1 task(s) in total.
 ____________________________________________________________
 Understood. I've added the following task:
-  [D][ ] item 2 (by: today)
+  [D][ ] item 2 (by: Jan 1 2024)
 You now have 2 task(s) in total.
 ____________________________________________________________
 Understood. I've added the following task:
-  [E][ ] item 3 (from: Mon 2pm to: 4pm)
+  [E][ ] item 3 (from: Feb 2 2024 to: Mar 3 2024)
 You now have 3 task(s) in total.
 ____________________________________________________________
 Wow! Congrats on finishing another task!
 I've marked this task as done:
-[D][X] item 2 (by: today)
+[D][X] item 2 (by: Jan 1 2024)
 ____________________________________________________________
 ____________________________________________________________
 Here are the task(s) in your list:
 1. [T][ ] item 1
-2. [D][X] item 2 (by: today)
-3. [E][ ] item 3 (from: Mon 2pm to: 4pm)
+2. [D][X] item 2 (by: Jan 1 2024)
+3. [E][ ] item 3 (from: Feb 2 2024 to: Mar 3 2024)
 ____________________________________________________________
 ____________________________________________________________
 Ok noted!
 I've marked this task as undone:
-[D][ ] item 2 (by: today)
+[D][ ] item 2 (by: Jan 1 2024)
 ____________________________________________________________
 ____________________________________________________________
 Here are the task(s) in your list:
 1. [T][ ] item 1
-2. [D][ ] item 2 (by: today)
-3. [E][ ] item 3 (from: Mon 2pm to: 4pm)
+2. [D][ ] item 2 (by: Jan 1 2024)
+3. [E][ ] item 3 (from: Feb 2 2024 to: Mar 3 2024)
 ____________________________________________________________
 ____________________________________________________________
 Goodbye. Hope to see you soon!
