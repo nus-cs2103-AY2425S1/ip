@@ -23,6 +23,11 @@ public class Storage {
      */
     public Storage(String filename) {
         this.filename = filename;
+        File file = new File(filename);
+        File directory = file.getParentFile(); // Get the parent directory
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
     }
 
     /**

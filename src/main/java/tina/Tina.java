@@ -18,6 +18,6 @@ public class Tina {
     }
 
     public static void main(String[] args) {
-        new Tina("./src/main/java/tina.txt").run();
+        new Tina("./data/tina.txt").run();
     }
 }
