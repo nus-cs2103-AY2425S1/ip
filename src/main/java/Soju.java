@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -136,9 +138,11 @@ public class Soju {
                     String[] timeParts = parts[1].split(" /to ", 2);
                     String from = timeParts[0].trim(); // Start time
                     String to = timeParts[1].trim(); // End time
-
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime localFromDate = LocalDateTime.parse(from, formatter);
+                    LocalDateTime localToDate = LocalDateTime.parse(to, formatter);
                     // Create a new Event task
-                    Event eventTask = new Event(description, from, to);
+                    Event eventTask = new Event(description, localFromDate, localToDate);
 
                     // Add the task to your tasks list
                     addToList(eventTask);

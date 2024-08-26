@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -51,7 +53,10 @@ public class FileHandler {
                         String[] eventTimes = parts[3].split(" - ");
                         String from = eventTimes[0];
                         String to = eventTimes[1];
-                        newTask = new Event(description, from, to);
+//                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                        LocalDateTime localFromDate = LocalDateTime.parse(from);
+                        LocalDateTime localToDate = LocalDateTime.parse(to);
+                        newTask = new Event(description, localFromDate, localToDate);
                         break;
                     default:
                         System.out.println("Unknown task type: " + taskType);
