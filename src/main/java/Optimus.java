@@ -27,8 +27,8 @@ public class Optimus {
         System.out.println("You need to start your input with either todo, deadline, or event.\n" +
                         "For example:\n" +
                         "todo borrow book\n" +
-                        "deadline return book /by Sunday\n" +
-                        "event project meeting /from Mon 2pm /to 4pm");
+                        "deadline return book /by 2019-12-02\n" +
+                        "event project meeting /from 2019-12-02 /to 2019-12-03");
 
         // Load tasks from the file if it exists
         loadTasks();
@@ -99,7 +99,7 @@ public class Optimus {
             }
             String[] parts = userInput.substring(9).split("/by");
             if (parts.length < 2) { // Ensure input is valid
-                throw new OptimusException("Invalid input");
+                throw new OptimusException("Invalid input. Use this format: deadline return book /by 2019-12-02");
             }
             String description = parts[0].trim();
             String by = parts[1].trim();
@@ -110,7 +110,7 @@ public class Optimus {
             }
             String[] parts = userInput.substring(6).split ("/from|/to");
             if (parts.length < 3) { // Ensure input is valid
-                throw new OptimusException("Invalid input");
+                throw new OptimusException("Invalid input. Use this format: event project meeting /from 2019-12-02 /to 2019-12-03");
             }
             String description = parts[0].trim();
             String from = parts[1].trim();
@@ -120,8 +120,8 @@ public class Optimus {
             throw new OptimusException("Sorry, you need to start your input with either todo, deadline, or event.\n" +
                     "For example:\n" +
                     "todo borrow book\n" +
-                    "deadline return book /by Sunday\n" +
-                    "event project meeting /from Mon 2pm /to 4pm");
+                    "deadline return book /by 2019-12-02\n" +
+                    "event project meeting /from 2019-12-02 /to 2019-12-03");
         }
         // Add the created task to the task list
         taskList.add(task);
@@ -198,12 +198,22 @@ public class Optimus {
                     } else if (taskType.equals("D")) {
                         String description = parts[2].trim();
                         String by = parts[3].trim();
-                        task = new Deadline(description, by);
+                        try {
+                            task = new Deadline(description, by);
+                        } catch (OptimusException e) {
+                            System.out.println("Error loading deadline task: " + e.getMessage());
+                            continue;
+                        }
                     } else {
                         String description = parts[2].trim();
                         String from = parts[3].trim();
                         String to = parts[4].trim();
-                        task = new Event(description, from, to);
+                        try {
+                            task = new Event(description, from, to);
+                        } catch (OptimusException e) {
+                            System.out.println("Error loading event task: " + e.getMessage());
+                            continue;
+                        }
                     }
                     // Mark task as done if indicated in the file
                     task.isDone = parts[1].trim().equals("1");

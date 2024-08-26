@@ -1,2 +1,1 @@
-D | 1 | return book | Sunday
-T | 0 | borrow book
+T | 0 | borrow bookDT | 1 | borrow bookE | 0 | project meeting | 2019-12-02 | 2019-12-03
