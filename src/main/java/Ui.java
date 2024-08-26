@@ -54,7 +54,7 @@ public class Ui {
     }
 
     public static void printNoSuchTaskErr(int taskCount) {
-        System.out.println("There is no such task. You currently have " + taskCount + " tasks.");
+        System.out.println("There is no such task. You currently have " + taskCount + " task(s).");
         System.out.println("Use the \"list\" command to view all your tasks.");
         System.out.println(DIVIDER);
     }
@@ -65,6 +65,12 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    public static void printEmptyListErr() {
+        System.out.println("You have no tasks! Add a few tasks (todo, deadline or event)");
+    }
 
+    public static void printCorruptedDataErr() {
+        System.out.println("Some tasks may not have loaded correctly due to corrupted data file.");
+    }
 
 }
