@@ -1,9 +1,50 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatterBuilder;
 public class Bao {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String file_Path = "./data/bao.txt";
+    private static DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder()
+            .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-M-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-M-yyyy HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-M-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-M-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/dd HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/d HHmm"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/dc"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/d"))
+            .toFormatter();
+    private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static DateTimeFormatter dateOnlyFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     private static String baoHappy =
               "     ___\n"
@@ -102,6 +143,15 @@ public class Bao {
                     } catch (NumberFormatException e) {
                         throw new IllegalArgumentException("Bao needs a task number to delete!");
                     }
+                } else if (input.startsWith("on")) {
+                    String inputDate = input.substring(3).trim();
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        showTasksOn(date);
+                    } catch (DateTimeParseException e) {
+                        throw new IllegalArgumentException("Bao needs a valid date format such as 2024-08-28");
+                    }
                 } else {
                     throw new UnsupportedOperationException("Bao needs a proper command :(");
                 }
@@ -154,9 +204,15 @@ public class Bao {
                     }
                     String deadline = taskDescription.substring(byIndex + 4);
                     String description = taskDescription.substring(0, byIndex - 1);
-                    taskList.add(new Deadline(description, deadline));
-                    System.out.println("Bao got it! Bao is now tracking:");
-                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    try {
+                        LocalDateTime dateTime = LocalDateTime.parse(deadline, inputDateFormat);
+                        taskList.add(new Deadline(description, dateTime));
+                        System.out.println("Bao got it! Bao is now tracking:");
+                        System.out.println(taskList.get(taskList.size() - 1).toString());
+                    } catch (DateTimeParseException e) {
+                        throw new IllegalArgumentException("Bao needs a valid date format");
+                    }
+
                 }
                 case "E" -> {
                     int fromIndex = taskDescription.indexOf("/from ");
@@ -167,21 +223,50 @@ public class Bao {
                     } else if (fromIndex == 0) {
                         throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
-                    String from = taskDescription.substring(fromIndex + 6, toIndex - 1);
-                    String to = taskDescription.substring(toIndex + 4);
+                    String fromString = taskDescription.substring(fromIndex + 6, toIndex - 1);
+                    String toString = taskDescription.substring(toIndex + 4);
                     String description = taskDescription.substring(0, fromIndex - 1);
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
-                    taskList.add(new Event(description, from, to));
-                    System.out.println("Bao got it! Bao is now tracking:");
-                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    try {
+                        LocalDateTime from = LocalDateTime.parse(fromString, inputDateFormat);
+                        LocalDateTime to = LocalDateTime.parse(toString, inputDateFormat);
+                        taskList.add(new Event(description, from, to));
+                        System.out.println("Bao got it! Bao is now tracking:");
+                        System.out.println(taskList.get(taskList.size() - 1).toString());
+                    } catch (DateTimeParseException e) {
+                        throw new IllegalArgumentException("Bao needs a valid date format");
+                    }
                 }
             }
             saveTasks();
         } else {
             System.out.println(baoSad);
             System.out.println("Bao cannot remember so many things :(");
+        }
+    }
+
+    private static void showTasksOn(LocalDate date) {
+        System.out.println("Bao showing tasks on " + date.format(dateOnlyFormat) + ":");
+        boolean found = false;
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.getDate().toLocalDate().equals(date)) {
+                    System.out.println(deadlineTask);
+                    found = true;
+                }
+            } else if (task instanceof Event){
+                Event eventTask = (Event) task;
+                if (eventTask.getFromDateTime().toLocalDate().equals(date)) {
+                    System.out.println(eventTask);
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("Bao cannot find any tasks on this date!");
         }
     }
 
@@ -194,7 +279,7 @@ public class Bao {
             }
             PrintWriter writer = new PrintWriter(file);
             for (Task task : taskList) {
-                writer.println(task.toString());
+                writer.println(task.toFileString());
             }
             writer.close();
         } catch (IOException e) {
@@ -220,10 +305,15 @@ public class Bao {
                 String[] duration;
                 switch (type) {
                     case "T" -> taskList.add(new ToDo(description));
-                    case "D" -> taskList.add(new Deadline(description, lineParts[3]));
+                    case "D" -> {
+                        LocalDateTime deadline = LocalDateTime.parse(lineParts[3], fileDateFormat);
+                        taskList.add(new Deadline(description, deadline));
+                    }
                     case "E" -> {
                         duration = lineParts[3].split("-");
-                        taskList.add(new Event(description, duration[0], duration[1]));
+                        LocalDateTime from = LocalDateTime.parse(duration[0], fileDateFormat);
+                        LocalDateTime to = LocalDateTime.parse(duration[0], fileDateFormat);
+                        taskList.add(new Event(description, from, to));
                     }
                 }
                 if (isDone) {

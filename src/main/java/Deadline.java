@@ -1,12 +1,29 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String info;
-    public Deadline(String description, String info) {
+    private static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+    private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    private LocalDateTime deadline;
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        this.info = info;
+        this.deadline = deadline;
+    }
+
+    public LocalDateTime getDate() {
+        return deadline;
     }
 
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + info;
+        return "D | " + super.toString() + " | " + deadline.format(outputDateFormat);
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + super.toFileString() + " | " + deadline.format(fileDateFormat);
+
     }
 }
