@@ -1,5 +1,5 @@
 public enum Command {
-    BYE, LIST, MARK, UNMARK, DELETE, ADD, UNKNOWN;
+    BYE, LIST, MARK, UNMARK, DELETE, ADD, ON, UNKNOWN;
 
     /**
      * Converts a string command into a Command enum.
@@ -20,6 +20,8 @@ public enum Command {
             return DELETE;
         } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
             return ADD;
+        } else if (command.startsWith("on ")) {
+            return ON;
         } else {
             return UNKNOWN;
         }

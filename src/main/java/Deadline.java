@@ -21,6 +21,11 @@ public class Deadline extends Task {
         this.date = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    @Override
+    public boolean occursOn(LocalDate date) {
+        return this.date.toLocalDate().equals(date);
+    }
+
     /**
      * Returns a string representation of the deadline, including its status icon, description,
      * and due date.

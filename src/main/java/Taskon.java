@@ -11,8 +11,7 @@ public class Taskon {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks = FileManager.loadTasks();
+        ArrayList<Task> tasks = FileManager.loadTasks();
 
         greet();
         Scanner scanner = new Scanner(System.in);
@@ -80,6 +79,16 @@ public class Taskon {
                     } catch (TaskonException e) {
                         System.out.println(e.getMessage());
                     }
+                    break;
+
+                case ON:
+                    try {
+                        String date = description.substring(3);
+                        getTasksOnDate(date, tasks);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Please input date in correct format.\n");
+                    }
+
                     break;
 
                 case UNKNOWN:
@@ -220,6 +229,21 @@ public class Taskon {
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
             System.out.println(i+1 + "." + t.toString());
+        }
+    }
+
+    public static void getTasksOnDate(String date, ArrayList<Task> tasks) {
+        LocalDate localDate = LocalDate.parse(date);
+        boolean isFound = false;
+        System.out.println("Tasks on " + localDate + " :");
+        for (Task task : tasks) {
+            if (task.occursOn(localDate)) {
+                System.out.println(task);
+                isFound = true;
+            }
+        }
+        if (!isFound) {
+            System.out.println("Hmm, it looks like you've got a free day!\n");
         }
     }
 }

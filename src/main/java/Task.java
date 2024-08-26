@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * The Task class represents a task with a description and a completion status.
  * It provides methods to mark the task as done or undone, and to retrieve the task's status icon.
@@ -48,6 +50,10 @@ public class Task {
             throw new TaskonException("Hmm... it looks like you've already left this task unchecked.\n" + this + "\n");
         }
         this.isDone = false;
+    }
+
+    public boolean occursOn(LocalDate date) {
+        return false;
     }
 
     /**
