@@ -1,4 +1,4 @@
-package IpMan;
+package ipman;
 
 public class Task {
     protected String description;

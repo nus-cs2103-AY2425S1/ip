@@ -1,4 +1,4 @@
-package IpMan;
+package ipman;
 import java.util.ArrayList;
 import java.util.Scanner;
 

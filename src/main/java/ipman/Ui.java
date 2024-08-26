@@ -1,4 +1,4 @@
-package IpMan;
+package ipman;
 
 public class Ui {
     public static final String SEPARATOR = "____________________________________________________________";

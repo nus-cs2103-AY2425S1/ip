@@ -1,4 +1,4 @@
-package IpMan;
+package ipman;
 
 import java.io.File;
 import java.io.FileNotFoundException;

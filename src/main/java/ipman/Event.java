@@ -1,4 +1,4 @@
-package IpMan;
+package ipman;
 
 public class Event extends Task {
     protected String from, to;
