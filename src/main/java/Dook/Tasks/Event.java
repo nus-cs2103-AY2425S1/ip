@@ -3,15 +3,31 @@ package Dook.Tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task, that has a description, start, and end time.
+ */
 public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
+
+    /**
+     * Creates an Event with the specified description, start time, and end time.
+     *
+     * @param description The description of the Event.
+     * @param start The start time of the Event.
+     * @param end The end time of the Event.
+     */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Returns a formatted string to be written to a file.
+     *
+     * @return The formatted string for file storage.
+     */
     @Override
     public String fileFormatted() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

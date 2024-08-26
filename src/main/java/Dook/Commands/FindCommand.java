@@ -9,6 +9,9 @@ import Dook.Ui.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The command to find a Task by searching for a keyword.
+ */
 public class FindCommand extends Command {
 
     private String keyword;

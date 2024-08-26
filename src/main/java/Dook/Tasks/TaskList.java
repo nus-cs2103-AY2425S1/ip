@@ -5,6 +5,9 @@ import Dook.DookException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The TaskList class contains the list of all created tasks.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;

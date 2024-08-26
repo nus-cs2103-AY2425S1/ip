@@ -1,10 +1,24 @@
 package Dook.Tasks;
 
+/**
+ * Represents a Todo task, that has a description.
+ */
 public class Todo extends Task {
+
+    /**
+     * Creates a Todo with the specified description.
+     *
+     * @param description The description of the Todo.
+     */
     public Todo(String description) {
         super(description);
     }
 
+    /**
+     * Returns a formatted string to be written to a file.
+     *
+     * @return The formatted string for file storage.
+     */
     @Override
     public String fileFormatted() {
         return "T | " + super.fileFormatted();

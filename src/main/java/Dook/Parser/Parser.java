@@ -3,7 +3,18 @@ package Dook.Parser;
 import Dook.Commands.*;
 import Dook.DookException;
 
+/**
+ * The Parser class deals with making sense of the user's commands.
+ */
 public class Parser {
+
+    /**
+     * Parses user input and returns the corresponding Command object.
+     *
+     * @param input The raw input from the user.
+     * @return The Command object corresponding to the user input.
+     * @throws DookException If the input format is invalid or the command is unrecognised.
+     */
     public Command parse(String input) throws DookException {
         try {
             String[] components = input.split(" ", 2);
