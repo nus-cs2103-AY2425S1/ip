@@ -20,6 +20,11 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getWriteTaskInfo() {
+        // for polymorphism
+        return "";
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getTaskStatus(), this.name);

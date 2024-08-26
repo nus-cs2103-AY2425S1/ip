@@ -6,13 +6,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Peter {
     static final String FILE_PATH = "tasks/data.txt";
 
-    static void updateUser(String name, int lastIndex) {
+    static void updateUser(String name, int size) {
         System.out.println("I've added: " + name);
-        System.out.println(String.format("Now you have %d in the list!", lastIndex));
+        System.out.println(String.format("Now you have %d in the list!", size));
     }
 
     static void writeTaskToFile(String details) {
@@ -43,10 +44,10 @@ public class Peter {
                     tasks.add(new ToDos(splits[2]));
                     break;
                 case "D":
-                    tasks.add(new Deadlines(splits[2], splits[3]));
+                    tasks.add(new Deadlines(splits[2], splits[3].strip()));
                     break;
                 case "E":
-                    tasks.add(new Event(splits[2], splits[3]));
+                    tasks.add(new Event(splits[2], splits[3].strip(), splits[4].strip()));
                     break;
                 }
                 if (splits[1].strip() == "0") {
@@ -67,7 +68,6 @@ public class Peter {
             }
         }
         
-        int lastIndex = tasks.size();
         Scanner scanner = new Scanner(System.in);
         String command = "";
 
@@ -107,12 +107,9 @@ public class Peter {
                             fw.write(line + "\n");
                         }
                         fw.close();
-                    } catch (FileNotFoundException e) {
+                    } catch (IOException e) {
                         System.out.println("Some error has occured, please try again.");
                         System.out.println(e.getMessage());
-                    } catch (IOException ex) {
-                        System.out.println("Some error has occured, please try again.");
-                        System.out.println(ex.getMessage());
                     }
 
                     System.out.println("OK! I've marked the task as not done yet: ");
@@ -140,12 +137,9 @@ public class Peter {
                             fw.write(line + "\n");
                         }
                         fw.close();
-                    } catch (FileNotFoundException e) {
+                    } catch (IOException e) {
                         System.out.println("Some error has occured, please try again.");
                         System.out.println(e.getMessage());
-                    } catch (IOException ex) {
-                        System.out.println("Some error has occured, please try again.");
-                        System.out.println(ex.getMessage());
                     }
 
                     System.out.println("Good job! I've marked this task as done: ");
@@ -157,7 +151,6 @@ public class Peter {
 
                     Task t = tasks.get(index - 1);
                     tasks.remove(index - 1);
-                    lastIndex--;
                     ArrayList<String> fileContents = new ArrayList<>();
 
                     try {
@@ -173,12 +166,9 @@ public class Peter {
                             fw.write(line + "\n");
                         }
                         fw.close();
-                    } catch (FileNotFoundException e) {
+                    } catch (IOException e) {
                         System.out.println("Some error has occured, please try again.");
                         System.out.println(e.getMessage());
-                    } catch (IOException ex) {
-                        System.out.println("Some error has occured, please try again.");
-                        System.out.println(ex.getMessage());
                     }
 
                     System.out.println("Noted! I've removed this task:");
@@ -191,8 +181,7 @@ public class Peter {
                             throw new BadDescriptionException(TaskTypes.TODO);
                         }
                         tasks.add(new ToDos(name));
-                        lastIndex++;
-                        updateUser(name, lastIndex);
+                        updateUser(name, tasks.size());
                         writeTaskToFile(String.format("T, %d, %s", 0, name));
                     } else if (command.startsWith("deadline")) {
                         String[] splits = command.split("/");
@@ -201,11 +190,14 @@ public class Peter {
                             throw new BadDescriptionException(TaskTypes.DEADLINE);
                         }
                         // specific to deadlines
-                        String details = splits[1].replace("by", "by:");
-                        tasks.add(new Deadlines(name, details));
-                        lastIndex++;
-                        updateUser(name, lastIndex);
-                        writeTaskToFile(String.format("D, %d, %s, %s", 0, name, details));
+                        String details = splits[1].replace("by", "");
+                        try {
+                            tasks.add(new Deadlines(name, details.strip()));
+                        } catch (DateTimeParseException ex) {
+                            throw new DateTimeException(name);
+                        }
+                        updateUser(name, tasks.size());
+                        writeTaskToFile(String.format("D, %d, %s, %s", 0, name, tasks.get(tasks.size() - 1).getWriteTaskInfo()));
                     } else if (command.startsWith("event")) {
                         String[] splits = command.split("/");
                         name = splits[0].substring(5).strip();
@@ -213,16 +205,20 @@ public class Peter {
                             throw new BadDescriptionException(TaskTypes.EVENT);
                         }
                         // specific to events
-                        String details = splits[1].replace("from", "from:") + splits[2].replace("to", "to:");
-                        tasks.add(new Event(name, details));
-                        lastIndex++;
-                        updateUser(name, lastIndex);
-                        writeTaskToFile(String.format("E, %d, %s, %s", 0, name, details));
+                        String startDetails = splits[1].replace("from", "");
+                        String endDetails = splits[2].replace("to", "");
+                        try {
+                            tasks.add(new Event(name, startDetails.strip(), endDetails.strip()));
+                        } catch (DateTimeParseException ex) {
+                            throw new DateTimeException(name);
+                        }
+                        updateUser(name, tasks.size());
+                        writeTaskToFile(String.format("E, %d, %s, %s", 0, name, tasks.get(tasks.size() - 1).getWriteTaskInfo()));
                     } else {
                         throw new UnknownCommandException();
                     }
                 }
-            } catch (UnknownCommandException | BadDescriptionException e) {
+            } catch (UnknownCommandException | BadDescriptionException | DateTimeException e) {
                 System.out.println(e.getMessage());
             }
         }
