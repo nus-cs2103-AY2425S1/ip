@@ -1,8 +1,10 @@
 package tasks;
+import java.io.Serializable;
 
-public class Task {
+public class Task implements Serializable {
     private final String description;
     private boolean isDone;
+    private static final long serialVersionUID = 1L;
 
     public Task(String description) {
         this.description = description;
