@@ -1,4 +1,6 @@
-public class ToDo extends Task {
+import java.io.Serializable;
+
+public class ToDo extends Task implements Serializable {
 
     protected String by;
 

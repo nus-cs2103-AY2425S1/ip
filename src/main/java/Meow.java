@@ -1,3 +1,8 @@
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +15,23 @@ public class Meow {
         System.out.println("____________________________________________________________");
     }
 
+    private void saveTasks() { // whenever we update the list: add delete, mark unmark
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("tasks.ser"))) {
+            oos.writeObject(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void loadTasks() { // whenever we start up the app load the tasks
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tasks.ser"))) {
+            tasks.addAll((ArrayList<Task>) ois.readObject());
+            taskCount = tasks.size();
+        } catch (IOException | ClassNotFoundException e) { // catch errors like missing file for first run
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
     public static class MeowException extends Exception {
         public MeowException(String message) {
             super(message);
@@ -20,6 +42,7 @@ public class Meow {
         Scanner scanner = new Scanner(System.in);
         Meow MEOW = new Meow();
 
+        MEOW.loadTasks();
 
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm " + MEOW.name + "\n" +
@@ -51,6 +74,7 @@ public class Meow {
                             MEOW.tasks.get(index).mark();
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(MEOW.tasks.get(index));
+                            MEOW.saveTasks();
                         } else {
                             throw new MeowException("GRRR! Invalid task number, you only have " + MEOW.taskCount + (MEOW.tasks.size() == 1 ? " task." : " tasks."));
                         }
@@ -65,6 +89,7 @@ public class Meow {
                             MEOW.tasks.get(index).unMark();
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println(MEOW.tasks.get(index));
+                            MEOW.saveTasks();
                         } else {
                             throw new MeowException("GRRR! Invalid task number, you only have " + MEOW.taskCount + (MEOW.tasks.size() == 1 ? " task." : " tasks."));
                         }
@@ -82,6 +107,7 @@ public class Meow {
                             MEOW.taskCount++;
                             System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
                                     : "Now you have " + MEOW.taskCount + " tasks in the list.");
+                            MEOW.saveTasks();
                         } else {
                             throw new MeowException("Invalid deadline format. Example: deadline return book /by Christmas");
                         }
@@ -99,6 +125,7 @@ public class Meow {
                             MEOW.taskCount++;
                             System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
                                     : "Now you have " + MEOW.taskCount + " tasks in the list.");
+                            MEOW.saveTasks();
                         } else {
                             throw new MeowException("Invalid event format. Example: event gym workout /from Mon 1pm /to 2.30pm");
                         }
@@ -115,6 +142,7 @@ public class Meow {
                         MEOW.taskCount++;
                         System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
                                 : "Now you have " + MEOW.taskCount + " tasks in the list.");
+                        MEOW.saveTasks();
                         MEOW.line();
                     } else {
                         throw new MeowException("Invalid todo format. Example: todo eat lunch");
@@ -129,6 +157,7 @@ public class Meow {
                            System.out.println(removedTask);
                            MEOW.taskCount--;
                            System.out.println("Now you have " + MEOW.tasks.size() + (MEOW.tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                           MEOW.saveTasks();
                        } else {
                            throw new MeowException("GRRR! Invalid task number, you only have " + MEOW.tasks.size() + (MEOW.tasks.size() == 1 ? " task" : " tasks"));
                        }
