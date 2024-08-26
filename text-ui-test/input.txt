@@ -1,6 +1,6 @@
 todo item 1
-deadline item 2 /by today
-event item 3 /from Mon 2pm /to 4pm
+deadline item 2 /by 2024-01-01
+event item 3 /from 2024-02-02 /to 2024-03-03
 mark 2
 list
 unmark 2

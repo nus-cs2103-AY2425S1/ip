@@ -63,7 +63,6 @@ public class Nerf {
         }
     }
     private static LocalDate parseStringToDate(String dateTimeString){
-        System.out.println(dateTimeString);
         try {
             return LocalDate.parse(dateTimeString);
         } catch (DateTimeParseException  e) {
@@ -82,9 +81,8 @@ public class Nerf {
                 listings.add(new Deadlines(task[2].trim(),task[1].trim().equals("1"),parseStringToDate(task[3].trim())));
             }
             case "E" -> {
-                String[] timeFrame = task[3].trim().split("-");
                 listings.add(new 
-                    Events(task[2].trim(),task[1].trim().equals("1"),parseStringToDate(timeFrame[0]),parseStringToDate(timeFrame[1])));
+                    Events(task[2].trim(),task[1].trim().equals("1"),parseStringToDate(task[3].trim()),parseStringToDate(task[4].trim())));
             }
             default -> System.out.println("Save file seems to be corrupted.");
             }
