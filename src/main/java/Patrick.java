@@ -1,6 +1,8 @@
-import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Patrick {
     static String horizontalLine = "____________________________________________________________\n";
     static String greetingMsg = horizontalLine + "Hello! I'm Patrick, Spongebob bestie\nHow can I help you?\n" + horizontalLine;
@@ -15,21 +17,19 @@ public class Patrick {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR
     }
     static Type inputType;
+    static File file;
+    static String FILE_PATH = "data/tasks.txt";
 
     public static void main(String[] args) {
         Scanner inputMsg = new Scanner(System.in);
         System.out.println(greetingMsg);
+
         do {
             input = inputMsg.nextLine();
             CheckType(input);
             switch (inputType) {
                 case LIST:
-                    System.out.println(horizontalLine + "Here are the tasks in your list:");
-                    for (int i = 1; i <= list.size(); i++) {
-                        Task curr = (Task) list.get(i - 1);
-                        System.out.println(i + "." + curr.toString());
-                    }
-                    System.out.println(horizontalLine);
+                    loadFile(FILE_PATH);
                     break;
 
                 case BYE:
@@ -51,7 +51,7 @@ public class Patrick {
                     } catch (PatrickException e) {
                         System.out.println(horizontalLine + e.toString() + "\n" + horizontalLine);
                     }
-
+    
                 case TODO:
                     try {
                         ToDoTask(input);
@@ -280,6 +280,7 @@ public class Patrick {
         public String toString() {
             return "[" + getStatusIcon() + "]" + this.description;
         }
+
     }
 
     public static class Deadline extends Task {
@@ -327,5 +328,23 @@ public class Patrick {
         public PatrickException(String str) {
             super(str);
         }
+    }
+
+    private static void printFileContents(String filepath) throws FileNotFoundException {
+        file = new File(filepath);
+        Scanner s = new Scanner(file);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void loadFile(String filePath) {
+        System.out.println(horizontalLine + "Here are the tasks in your list:");
+        try {
+            printFileContents(filePath);
+        } catch (FileNotFoundException e) {
+            System.out.println(horizontalLine + e.toString() + "\n" + horizontalLine);
+        }
+        System.out.println(horizontalLine);
     }
 }
