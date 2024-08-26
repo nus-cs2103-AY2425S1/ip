@@ -29,12 +29,11 @@ public class Parser {
                 return rem.split(" /by")[0].trim();
             } else if (Objects.equals(this.getCommand(), "event")) {
                 return rem.split(" /from")[0].trim();
-            } else if (Objects.equals(this.getCommand(), "todo")
-                    || Objects.equals(this.getCommand(), "find")) {
+            } else if (Objects.equals(this.getCommand(), "todo")) {
                 return rem;
             }
         }
-        return this.getCommand();
+        return "";
     }
 
     public String getDay() throws DukeException {
