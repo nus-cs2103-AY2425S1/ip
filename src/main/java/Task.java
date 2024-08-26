@@ -10,11 +10,11 @@ public class Task {
 
     public static Task of(String task) {
         if (task.startsWith("todo")) {
-            return new Todo(task.substring(5, task.length()));
+            return new Todo(task.substring(5));
         } else if (task.startsWith("deadline")) {
             for (int i = 0; i < task.length(); i++) {
                 if (task.charAt(i) == '/') {
-                    return new Deadline(task.substring(9, i - 1), task.substring(i + 1, task.length()));
+                    return new Deadline(task.substring(9, i - 1), task.substring(i + 1));
                 }
             }
 
@@ -27,7 +27,7 @@ public class Task {
                 for (int i = 0; i < task.length(); i++) {
                     if (task.charAt(i) == '/') {
                         return new Event(task.substring(6, i - 1), task.substring(i + 1, j - 1),
-                                task.substring(j + 1, task.length()));
+                                task.substring(j + 1));
                     }
                 }
             }

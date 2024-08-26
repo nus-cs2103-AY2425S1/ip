@@ -4,7 +4,7 @@ public class Deadline extends Task {
 
     public Deadline(String str, String end) {
         super(str);
-        this.end = end.substring(0, 2) + ":" + end.substring(2, end.length());
+        this.end = end.substring(0, 2) + ":" + end.substring(2);
     }
 
     @Override

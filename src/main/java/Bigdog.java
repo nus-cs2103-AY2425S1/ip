@@ -20,7 +20,7 @@ public class Bigdog {
         } else {
             // Add and Echo user input
             toDoList[taskCounter] = Task.of(str);
-            System.out.println("added: " + toDoList[taskCounter]);
+            System.out.println("Got it. I've added this task:\n" + toDoList[taskCounter]);
             taskCounter++;
             System.out.printf("Now you have %s tasks in the list.\n", taskCounter);
         }
