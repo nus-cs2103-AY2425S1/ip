@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * The list of tasks for fishman bot.
  * This class provides the methods to add, retrieve, and get the
  * size of the task list.
  */
-class TaskList {
+class TaskList implements Iterable<Task> {
     /** The list of tasks stored as an ArrayList. */
     private ArrayList<Task> tasks;
 
@@ -65,5 +66,10 @@ class TaskList {
      */
     public int size() {
         return tasks.size();
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
     }
 }

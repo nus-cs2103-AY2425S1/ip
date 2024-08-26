@@ -19,12 +19,21 @@ abstract class Task {
     }
 
     /**
-     * Display and mark the task done.
+     * Determines the completion status of the task.
      *
-     * @return "X" if the task is done.
+     * @return true or false depending on the task completion .
      */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public boolean getStatus() {
+        return isDone;
+    }
+
+    /**
+     * Retrieves the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -44,6 +53,7 @@ abstract class Task {
     }
 
     public abstract String getTaskType();
+
 
     @Override
     public String toString() {
