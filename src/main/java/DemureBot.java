@@ -1,8 +1,11 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.format.DateTimeFormatter;
 
 public class DemureBot {
     /**
@@ -93,19 +96,7 @@ public class DemureBot {
                 "\n"
             );
         } else if (command.startsWith("deadline")) {
-            String remainder = command.substring(8).trim();
-            // check that there is a task description
-            if (remainder.isEmpty() || remainder.startsWith("/by")) {
-                throw new DemureBotException("The description of a deadline cannot be empty.\nAdd description after deadline.\n");
-            }
-            String[] splitBy = remainder.split("/by");
-            // check that there is a deadline
-            if (splitBy.length == 1) {
-                throw new DemureBotException("The deadline of a deadline cannot be empty.\nAdd deadline after /by.\n");
-            }
-            String description = splitBy[0].trim();
-            String by = splitBy[1].trim();
-            Deadline deadline = new Deadline(description, by, false);
+            Deadline deadline = getDeadline(command);
             list.add(deadline);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
@@ -115,25 +106,7 @@ public class DemureBot {
                 "\n"
             );
         } else if (command.startsWith("event")) {
-            String remainder = command.substring(5).trim();
-            // check that there is a task description
-            if (remainder.isEmpty() || remainder.startsWith("/from")) {
-                throw new DemureBotException("The description of an event cannot be empty.\nAdd description after event.\n");
-            }
-            String[] splitFrom = remainder.split("/from");
-            // check that there is a start time
-            if (splitFrom.length == 1) {
-                throw new DemureBotException("The start time of an event cannot be empty.\nAdd start time after /from.\n");
-            }
-            String description = splitFrom[0].trim();
-            String[] splitTo = splitFrom[1].split("/to");
-            // check that there is an end time
-            if (splitTo.length == 1) {
-                throw new DemureBotException("The end time of an event cannot be empty.\nAdd end time after /to.\n");
-            }
-            String from = splitTo[0].trim();
-            String to = splitTo[1].trim();
-            Event event = new Event(description, from, to, false);
+            Event event = getEvent(command);
             list.add(event);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
@@ -145,6 +118,74 @@ public class DemureBot {
         } else {
             // throw invalid command exception
             throw new DemureBotException("Invalid command\nCreate a new task starting with the command todo, deadline or event.\n");
+        }
+    }
+
+    /**
+     * Returns a Deadline created from the user command.
+     *
+     * @param command User command.
+     * @return Deadline created from the user command.
+     * @throws DemureBotException If the user command is invalid.
+     */
+    private static Deadline getDeadline(String command) throws DemureBotException {
+        String remainder = command.substring(8).trim();
+        // check that there is a task description
+        if (remainder.isEmpty() || remainder.startsWith("/by")) {
+            throw new DemureBotException("The description of a deadline cannot be empty.\nAdd description after deadline.\n");
+        }
+        String[] splitBy = remainder.split("/by");
+        // check that there is a deadline
+        if (splitBy.length == 1) {
+            throw new DemureBotException("The deadline of a deadline cannot be empty.\nAdd deadline after /by.\n");
+        }
+        String description = splitBy[0].trim();
+        String by = formatDateTime(splitBy[1].trim());
+        return new Deadline(description, by, false);
+    }
+
+    /**
+     * Returns an Event created from the user command.
+     *
+     * @param command User command.
+     * @return Event created from the user command.
+     * @throws DemureBotException If the user command is invalid.
+     */
+    private static Event getEvent(String command) throws DemureBotException {
+        String remainder = command.substring(5).trim();
+        // check that there is a task description
+        if (remainder.isEmpty() || remainder.startsWith("/from")) {
+            throw new DemureBotException("The description of an event cannot be empty.\nAdd description after event.\n");
+        }
+        String[] splitFrom = remainder.split("/from");
+        // check that there is a start time
+        if (splitFrom.length == 1) {
+            throw new DemureBotException("The start time of an event cannot be empty.\nAdd start time after /from.\n");
+        }
+        String description = splitFrom[0].trim();
+        String[] splitTo = splitFrom[1].split("/to");
+        // check that there is an end time
+        if (splitTo.length == 1) {
+            throw new DemureBotException("The end time of an event cannot be empty.\nAdd end time after /to.\n");
+        }
+        String from = formatDateTime(splitTo[0].trim());
+        String to = formatDateTime(splitTo[1].trim());
+        return new Event(description, from, to, false);
+    }
+
+    /**
+     * Returns a formatted date/time string.
+     *
+     * @param dateTime Date/time string to be formatted.
+     * @return Formatted date/time string.
+     * @throws DemureBotException If the date/time string is invalid.
+     */
+    private static String formatDateTime(String dateTime) throws DemureBotException {
+        try {
+            LocalDateTime dateTimeParsed = LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            return dateTimeParsed.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new DemureBotException("Invalid date/time format. Please enter date in yyyy-MM-dd, time in HHmm, or date and time in yyyy-MM-dd HHmm format.\n");
         }
     }
 
