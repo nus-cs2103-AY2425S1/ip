@@ -1,34 +1,61 @@
+   *        *        *        __o    *       *
+*      *       *        *    /_| _     *
+  FF  *    FF      *        O'_)/ \  *    *
+  o')____  o')____    __*   V   \  ) __  *
+   \ ___ )--\ ___ )--( (    (___|__)/ /*     *
+ *  |   |    |   |  * \ \____| |___/ /  *
+    |*  |    |   |     \____________/       *
+Hello, I am Rudolf, Santa's trusty red-nose reindeer
+Christmas is nearing, and I am here to help you with your christmas preparations.
+Here's how you can chat with me:
+1. Add a ToDo: todo <description>
+2. Add a Deadline: deadline <description> /by <date/time>
+3. Add an Event: event <description> /from <start date/time> /to <end date/time>
+4. List all tasks: list
+5. Mark a task as done: mark <task number>
+6. Unmark a task: unmark <task number>
+7. Delete a task: delete <task number>
+8. Exit: bye
+____________________________________________________________
 ____________________________________________________________
 Gotcha. I've added this task:
   [T][ ] Buy Christmas gifts
-Now you have 1 task in the list. Jingle bells!
+Now you have 1 tasks in the list. Jingle bells!
+____________________________________________________________
 ____________________________________________________________
 Gotcha. I've added this task:
   [D][ ] Finish wrapping (by: Dec 24)
 Now you have 2 tasks in the list. Let it snow!
 ____________________________________________________________
+____________________________________________________________
 Gotcha. I've added this task:
   [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
 Now you have 3 tasks in the list. Feliz Navidad!
+____________________________________________________________
 ____________________________________________________________
 Ho Ho Ho! Here are the tasks in your Christmas list:
 1. [T][ ] Buy Christmas gifts
 2. [D][ ] Finish wrapping (by: Dec 24)
 3. [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
 ____________________________________________________________
+____________________________________________________________
 Sleigh! I've marked this task as done:
   [T][X] Buy Christmas gifts
 ____________________________________________________________
+____________________________________________________________
 Alright-o, I've marked this task as not done yet:
   [T][ ] Buy Christmas gifts
+____________________________________________________________
 ____________________________________________________________
 Aww okay. I've removed this task:
   [D][ ] Finish wrapping (by: Dec 24)
 Now you have 2 tasks in the list.
 ____________________________________________________________
+____________________________________________________________
 Ho Ho Ho! Here are the tasks in your Christmas list:
 1. [T][ ] Buy Christmas gifts
 2. [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
+____________________________________________________________
 ____________________________________________________________
 Bye~ Hope to see you again!
 Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •
@@ -38,4 +65,3 @@ Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •
 ˚ ˛ •˛• ˚ ｜ 田田 ｜門｜ ˚
 And a happy new year!
 ____________________________________________________________
-
