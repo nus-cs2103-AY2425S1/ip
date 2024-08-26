@@ -205,8 +205,11 @@ public class Tayoo {
                 //read file and add task to tasklist
                 String taskStr = s.nextLine();
                 Task taskToAdd = parseTask(taskStr);
-                tasklistStr.append(taskToAdd).append("\n");
-                tasklist.add(taskToAdd);
+                if (taskToAdd != null) {
+                    tasklistStr.append(taskToAdd).append("\n");
+                    tasklist.add(taskToAdd);q
+                }
+
             }
 
             printText(tasklistStr.toString());
