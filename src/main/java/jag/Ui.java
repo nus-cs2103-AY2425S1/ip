@@ -128,7 +128,7 @@ public class Ui {
         System.out.println(this.dashed);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Now you have " + size + " tasks in the list.");
         System.out.println(this.dashed);
         command = scanner.nextLine();
     }

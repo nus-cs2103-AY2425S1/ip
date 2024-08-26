@@ -10,7 +10,7 @@ public class DeleteCommand extends Command {
 
         // jag.Ui response + deletion
         Task task = tasks.getTask(index - 1);
-        ui.deleteResponse(task, tasks, tasks.size());
+        ui.deleteResponse(task, tasks, tasks.size() - 1);
         tasks.deleteTask(index - 1);
 
         // jag.Storage
