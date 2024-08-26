@@ -131,7 +131,6 @@ public class Parser {
      */
     private String end() {
         try {
-
             String home = System.getProperty("user.home");
             String filePath = home + "/Desktop/hoodini.txt";
             store.writeToFile(filePath);
@@ -256,7 +255,7 @@ public class Parser {
 
     private String handleFind(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("find")) {
-            throw new InvalidTaskException("Whoopsie! Please enter a task");
+            throw new InvalidTaskException("Whoopsie! Please enter something to find");
         } else {
             return store.find(str);
         }

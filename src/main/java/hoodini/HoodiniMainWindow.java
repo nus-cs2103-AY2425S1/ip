@@ -24,7 +24,7 @@ public class HoodiniMainWindow extends Stage {
 
     private Hoodini hoodini;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Pikachu.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/MochiUser.png"));
     private Image hoodiniImage = new Image(this.getClass().getResourceAsStream("/images/Mochi.png"));
 
 
@@ -39,7 +39,7 @@ public class HoodiniMainWindow extends Stage {
         );
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Hoodini instance */
     public void setHoodini(Hoodini hoodini) {
         this.hoodini = hoodini;
     }
