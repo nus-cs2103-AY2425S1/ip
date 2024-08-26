@@ -17,19 +17,7 @@ import friday.task.Deadline;
 import friday.task.Event;
 import friday.task.Todo;
 
-/**
- * The Parser class handles parsing user input and converting it into commands that
- * the application can execute. It supports various command types such as adding tasks,
- * marking tasks, and listing tasks.
- */
 public class Parser {
-
-    /**
-     * Parses the user input and returns the corresponding Command object.
-     *
-     * @param fullCommand The full command string entered by the user.
-     * @return A Command object corresponding to the parsed user input.
-     */
     public static Command parse(String fullCommand) {
         String[] parts = fullCommand.split(" ", 2);
 
@@ -60,12 +48,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses the arguments for a todo command and returns an AddCommand object.
-     *
-     * @param arguments The arguments string containing the task description.
-     * @return An AddCommand object for the todo task.
-     */
     private static Command parseTodo(String arguments) {
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The description of a todo cannot be empty.");
@@ -73,12 +55,6 @@ public class Parser {
         return new AddCommand(new Todo(arguments));
     }
 
-    /**
-     * Parses the arguments for a deadline command and returns an AddCommand object.
-     *
-     * @param arguments The arguments string containing the task description and deadline.
-     * @return An AddCommand object for the deadline task.
-     */
     private static Command parseDeadline(String arguments) {
         String[] splitArguments = arguments.split(" /by ");
         if (splitArguments.length < 2) {
@@ -93,12 +69,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses the arguments for an event command and returns an AddCommand object.
-     *
-     * @param arguments The arguments string containing the task description and event date/time.
-     * @return An AddCommand object for the event task.
-     */
     private static Command parseEvent(String arguments) {
         String[] splitArguments = arguments.split(" /from ");
         if (splitArguments.length < 2) {
@@ -118,12 +88,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses the arguments for a mark command and returns a MarkCommand object.
-     *
-     * @param arguments The arguments string containing the task index.
-     * @return A MarkCommand object for marking the task as done.
-     */
     private static Command parseMark(String arguments) {
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
@@ -133,12 +97,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses the arguments for an unmark command and returns an UnmarkCommand object.
-     *
-     * @param arguments The arguments string containing the task index.
-     * @return An UnmarkCommand object for unmarking the task as done.
-     */
     private static Command parseUnmark(String arguments) {
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
@@ -148,12 +106,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses the arguments for a delete command and returns a DeleteCommand object.
-     *
-     * @param arguments The arguments string containing the task index.
-     * @return A DeleteCommand object for deleting the task.
-     */
     private static Command parseDelete(String arguments) {
         try {
             int index = Integer.parseInt(arguments.trim()) - 1;
@@ -163,12 +115,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses the arguments for an on command and returns an OnCommand object.
-     *
-     * @param arguments The arguments string containing the date.
-     * @return An OnCommand object for filtering tasks by the given date.
-     */
     private static Command parseOn(String arguments) {
         try {
             LocalDate date = LocalDate.parse(arguments.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
