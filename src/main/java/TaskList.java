@@ -14,4 +14,12 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    public int getSize() {
+        return tasks.size();
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
 }

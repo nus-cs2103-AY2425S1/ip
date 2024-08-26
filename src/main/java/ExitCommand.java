@@ -4,6 +4,6 @@ public class ExitCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showExit();
+        ui.showCommand("\t Bye. Hope to see you again soon!");
     }
 }

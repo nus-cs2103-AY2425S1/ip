@@ -18,8 +18,8 @@ public class Ui {
         showLine();
     }
 
-    public void showExit() {
-        System.out.println("\t Bye. Hope to see you again soon!");
+    public void showCommand(String command) {
+        System.out.println(command);
     }
 
     public void showError(String message) {
