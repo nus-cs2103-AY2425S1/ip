@@ -1,5 +1,6 @@
 package Tasks;
 
+import Storage.FileStorage;
 import Tasks.Task;
 import Utils.DateTime;
 
@@ -13,16 +14,11 @@ import java.util.List;
 import java.io.FileWriter;
 
 public class TaskManager {
-    private static final String DIR_PATH = "data";
-    private static final String FILE_NAME = "avo.txt";
-    List<Task> tasks;
+    private final List<Task> tasks;
+    private final FileStorage storage;
     public TaskManager() {
         tasks = new ArrayList<>();
-        try {
-            Files.createDirectories(Paths.get(DIR_PATH));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        storage = new FileStorage("data");
     }
     private String getItem(int index) {
         return index + 1 + ". " + tasks.get(index);
@@ -70,13 +66,7 @@ public class TaskManager {
         printStatus();
     }
     private void saveList() {
-        try {
-            FileWriter fw = new FileWriter(DIR_PATH + "/" + FILE_NAME);
-            fw.write(this.toString());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        storage.write(this.toString());
     }
     public void getTasksByDate(LocalDate date) {
         print("Here are the tasks in your list:");

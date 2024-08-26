@@ -7,11 +7,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTime {
-    public static LocalDate parse(String date) throws AvoException {
+    public static LocalDate parse(String input) throws AvoException {
         try {
-            return LocalDate.parse(date);
+            return LocalDate.parse(input.trim());
         } catch (DateTimeParseException e) {
-            throw new AvoException("Please provide your date format in yyyy-mm-dd");
+            throw new AvoException("Please provide your date format in yyyy-mm-dd instead of " + input + "1");
         }
     }
     public static String format(LocalDate date) {

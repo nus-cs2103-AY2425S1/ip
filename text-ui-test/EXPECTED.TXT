@@ -5,32 +5,32 @@ What can I do for you?
          1. [T] [ ] borrow book
          Got it. I've added this task:
          Now you have 2 tasks in the list
-         2. [D] [ ] return book  (by: Sunday)
+         2. [D] [ ] return book  (by: Dec 27 2024)
          Got it. I've added this task:
          Now you have 3 tasks in the list
-         3. [E] [ ] project meeting  (from: Mon 2pm  to: 4pm)
+         3. [E] [ ] project meeting  (from: Dec 5 2024 to: Dec 27 2024)
          Here are the tasks in your list:
          1. [T] [ ] borrow book
-         2. [D] [ ] return book  (by: Sunday)
-         3. [E] [ ] project meeting  (from: Mon 2pm  to: 4pm)
+         2. [D] [ ] return book  (by: Dec 27 2024)
+         3. [E] [ ] project meeting  (from: Dec 5 2024 to: Dec 27 2024)
          Nice! I've marked this task as done:
          1. [T] [X] borrow book
          Nice! I've marked this task as done:
-         2. [D] [X] return book  (by: Sunday)
+         2. [D] [X] return book  (by: Dec 27 2024)
          Here are the tasks in your list:
          1. [T] [X] borrow book
-         2. [D] [X] return book  (by: Sunday)
-         3. [E] [ ] project meeting  (from: Mon 2pm  to: 4pm)
+         2. [D] [X] return book  (by: Dec 27 2024)
+         3. [E] [ ] project meeting  (from: Dec 5 2024 to: Dec 27 2024)
          OK, I've marked this task as not done yet:
          1. [T] [ ] borrow book
          Here are the tasks in your list:
          1. [T] [ ] borrow book
-         2. [D] [X] return book  (by: Sunday)
-         3. [E] [ ] project meeting  (from: Mon 2pm  to: 4pm)
+         2. [D] [X] return book  (by: Dec 27 2024)
+         3. [E] [ ] project meeting  (from: Dec 5 2024 to: Dec 27 2024)
          Noted. I've removed this task:
-         [D] [X] return book  (by: Sunday)
+         [D] [X] return book  (by: Dec 27 2024)
          Now you have 2 tasks in the list
          Here are the tasks in your list:
          1. [T] [ ] borrow book
-         2. [E] [ ] project meeting  (from: Mon 2pm  to: 4pm)
+         2. [E] [ ] project meeting  (from: Dec 5 2024 to: Dec 27 2024)
 Bye. Hope to see you again soon!
