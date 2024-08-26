@@ -9,7 +9,7 @@ public class ToDo extends Task{
     }
     
     public String storageFormat () {
-        return "T " + super.storageFormat();
+        return "T " + super.storageFormat() + "\n";
     }
     
     @Override
