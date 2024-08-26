@@ -1,8 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Justbot {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JustbotException {
         final String chatbotName = "JustBot";
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -104,31 +107,47 @@ public class Justbot {
                         String[] splitPartsDeadline = input.split("/by");
 
                         if (splitPartsDeadline.length < 2) {
-                            throw new JustbotException("Hey man you have provided me an invalid format for deadline.\n" +
-                                    "Use the format: deadline [description] /by [deadline]");
+                            throw new JustbotException("Hey man please enter the deadline in the following format:\n" +
+                                    "  deadline [description] /by DD/MM/YYYY HHmm\n\n" +
+                                    "For example:\n" +
+                                    "  deadline run /by 26/09/2024 1800");
                         }
 
                         String commandAndDescriptionDeadline = splitPartsDeadline[0].trim();
-                        String by = splitPartsDeadline[1];
+                        String deadlineDateTimeString = splitPartsDeadline[1].trim();
                         String deadlineDescription = commandAndDescriptionDeadline.substring(8).trim();
 
-                        if (deadlineDescription.isBlank() && by.isBlank()) {
+                        if (deadlineDescription.isBlank() && deadlineDateTimeString.isBlank()) {
                             throw new JustbotException("Hey man the description and deadline date cannot be blank!");
                         } else if (deadlineDescription.isBlank()) {
                             throw new JustbotException("Hey man the description cannot be blank!");
-                        } else if (by.isBlank()) {
+                        } else if (deadlineDateTimeString.isBlank()) {
                             throw new JustbotException("Hey man the deadline date cannot be blank!");
                         }
-                        Commands.addTask(tasks, new Deadline(deadlineDescription, by));
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        if (!deadlineDateTimeString.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}")) {
+                            throw new JustbotException("Deadline date and time must be in the format: dd/MM/yyyy HHmm");
+                        }
+                        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
+
+                        Commands.addTask(tasks, new Deadline(deadlineDescription, deadlineDateTime));
                         taskFileHandler.saveTasks(tasks);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Hey man please enter the deadline in the following format:\n" +
+                                "  deadline [description] /by DD/MM/YYYY HHmm\n\n" +
+                                "For example:\n" +
+                                "  deadline run /by 26/09/2024 1800");
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
                         System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("------------------------------------------");
-                        System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
-                                + "deadline [description] /by [deadline]");
+                        System.out.println("Hey man please enter the deadline in the following format:\n" +
+                                "  deadline [description] /by DD/MM/YYYY HHmm\n\n" +
+                                "For example:\n" +
+                                "  deadline run /by 26/09/2024 1800");
                         System.out.println("------------------------------------------");
                     }
                     break;
@@ -137,14 +156,26 @@ public class Justbot {
                         String[] splitPartsEvent = input.split("/from");
 
                         if (splitPartsEvent.length < 2) {
-                            throw new JustbotException("Hey man you have provided me an invalid format for event.\n" +
-                                    "Use the format: event [description] /from [start] /to [end]");
+                            throw new JustbotException("Hey man, you have provided me an invalid format for an event.\n" +
+                                    "Please enter the event in the following format:\n" +
+                                    "  event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n\n" +
+                                    "For example:\n" +
+                                    "  event meeting /from 26/09/2024 1400 /to 26/09/2024 1600");
                         }
                         String commandAndDescriptionEvent = splitPartsEvent[0].trim();
                         String startAndEnd = splitPartsEvent[1].trim();
                         String eventDescription = commandAndDescriptionEvent.substring(5).trim();
-                        String eventStart = startAndEnd.split("/to")[0].trim();
-                        String eventEnd = startAndEnd.split("/to")[1].trim();
+
+                        String[] splitStartEnd = startAndEnd.split("/to");
+                        if (splitStartEnd.length < 2) {
+                            throw new JustbotException("Hey man, you have provided me an invalid format for event timing.\n" +
+                                    "Please enter the event in the following format:\n" +
+                                    "  event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n\n" +
+                                    "For example:\n" +
+                                    "  event meeting /from 26/09/2024 1400 /to 26/09/2024 1600");
+                        }
+                        String eventStart = splitStartEnd[0].trim();
+                        String eventEnd = splitStartEnd[1].trim();
 
                         if (eventDescription.isBlank() && eventStart.isBlank() && eventEnd.isBlank()) {
                             throw new JustbotException("Hey man the event and start/end cannot be blank!");
@@ -155,7 +186,20 @@ public class Justbot {
                         } else if (eventEnd.isBlank()) {
                             throw new JustbotException("Hey man the end of the event cannot be blank!");
                         }
-                        Commands.addTask(tasks, new Event(eventDescription, eventStart, eventEnd));
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
+                        if (!eventStart.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}") || !eventEnd.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}")) {
+                            throw new JustbotException("Event date and time must be in the format: dd/MM/yyyy HHmm");
+                        }
+                        LocalDateTime startDateTime = LocalDateTime.parse(eventStart, formatter);
+                        LocalDateTime endDateTime = LocalDateTime.parse(eventEnd, formatter);
+
+                        if (startDateTime.isAfter(endDateTime)) {
+                            throw new JustbotException("Hey man, why is the event start time after the event end time?");
+                        }
+
+                        Commands.addTask(tasks, new Event(eventDescription, startDateTime, endDateTime));
                         taskFileHandler.saveTasks(tasks);
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
@@ -163,8 +207,11 @@ public class Justbot {
                         System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("------------------------------------------");
-                        System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
-                                + "event [description] /from [start] /to [end]");
+                        System.out.println("Hey man, you have provided me an invalid format for event timing.\n" +
+                                "Please enter the event in the following format:\n" +
+                                "  event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n\n" +
+                                "For example:\n" +
+                                "  event meeting /from 26/09/2024 1400 /to 26/09/2024 1600");
                         System.out.println("------------------------------------------");
                     }
                     break;
@@ -224,7 +271,7 @@ public class Justbot {
                     break;
                 default:
                     System.out.println("------------------------------------------");
-                    System.out.println("Hey man please use one of these valid commands\n" + "list\n" + "delete [task number]\n" + "mark [task number]\n" + "unmark [task number]\n" + "todo [description]\n" + "deadline [description] /by [deadline]\n" + "event [description] /from [start] /to [end]\n");
+                    System.out.println("Hey man please use one of these valid commands\n" + "list\n" + "delete [task number]\n" + "mark [task number]\n" + "unmark [task number]\n" + "todo [description]\n" + "deadline [description] /by DD/MM/YYYY HHmm\n" + "event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n");
                     System.out.println("------------------------------------------");
             }
         }

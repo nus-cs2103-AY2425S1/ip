@@ -14,13 +14,14 @@ Here are the tasks in your list:
 ------------------------------------------
 ------------------------------------------
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] run (by: 26 September 2024, 0600pm)
 Now you have 2 tasks in your list.
 ------------------------------------------
 ------------------------------------------
-Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in your list.
+Here are the tasks in your list:
+
+1. [T][ ] borrow book
+2. [D][ ] run (by: 26 September 2024, 0600pm)
 ------------------------------------------
 ------------------------------------------
 Hey man there is no such task!
@@ -28,6 +29,24 @@ Hey man there is no such task!
 ------------------------------------------
 Nice! I have marked this task as done:
 [T][X] borrow book
+------------------------------------------
+------------------------------------------
+Here are the tasks in your list:
+
+1. [T][X] borrow book
+2. [D][ ] run (by: 26 September 2024, 0600pm)
+------------------------------------------
+------------------------------------------
+Got it. I've added this task:
+[E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
+Now you have 3 tasks in your list.
+------------------------------------------
+------------------------------------------
+Here are the tasks in your list:
+
+1. [T][X] borrow book
+2. [D][ ] run (by: 26 September 2024, 0600pm)
+3. [E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
 ------------------------------------------
 ------------------------------------------
 Hey man there is no such task!
@@ -40,22 +59,22 @@ OK, I've marked this task as not done yet:
 Here are the tasks in your list:
 
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] run (by: 26 September 2024, 0600pm)
+3. [E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
 ------------------------------------------
 ------------------------------------------
 Hey man there is no such task!
 ------------------------------------------
 ------------------------------------------
 Noted. I've removed this task:
-[D][ ] return book (by: Sunday)
+[D][ ] run (by: 26 September 2024, 0600pm)
 Now you have 2 tasks in your list.
 ------------------------------------------
 ------------------------------------------
 Here are the tasks in your list:
 
 1. [T][ ] borrow book
-2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
 ------------------------------------------
 ------------------------------------------
 Bye. Hope to see you again soon!

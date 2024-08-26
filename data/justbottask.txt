@@ -1,2 +1,4 @@
 Todo | 0 | borrow book | No time constraint
-Event | 0 | project meeting | start: Mon 2pm end: 4pm
+Todo | 0 | borrow book | No time constraint
+Deadline | 0 | run | 26/09/2024 1800
+Event | 0 | meeting | from 26/09/2024 1400 to 26/09/2024 1600
