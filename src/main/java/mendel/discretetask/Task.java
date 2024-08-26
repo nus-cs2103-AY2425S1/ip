@@ -29,6 +29,8 @@ public abstract class Task {
 
     public abstract String parseDetailsForDB();
 
+    public abstract boolean isTargetDueDate(String formattedDate);
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(),this.description);

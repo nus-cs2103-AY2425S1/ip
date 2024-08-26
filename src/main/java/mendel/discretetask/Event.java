@@ -80,6 +80,11 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean isTargetDueDate(String formattedDate) {
+        return new DateTimeManager(formattedDate).removeTimeStamp().equals(new DateTimeManager(this.to).removeTimeStamp());
+    }
+
+    @Override
     public String parseDetailsForDB() {
         return String.format("E | %d | %s | %s | %s", super.getStatus() ? 1 : 0, this.description, this.from, this.to);
     }

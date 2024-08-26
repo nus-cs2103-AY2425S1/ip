@@ -8,7 +8,7 @@ public class Deadline extends Task {
     private final String description;
     private final String by;
 
-    public Deadline(String description, String by) {
+    private Deadline(String description, String by) {
         super(String.format("%s (by: %s)", description, by));
         this.description = description;
         this.by = by;
@@ -63,6 +63,11 @@ public class Deadline extends Task {
         String endMsg = slashSegments[1];
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
+    }
+
+    @Override
+    public boolean isTargetDueDate(String formattedDate) {
+        return new DateTimeManager(formattedDate).removeTimeStamp().equals(new DateTimeManager(this.by).removeTimeStamp());
     }
 
     @Override

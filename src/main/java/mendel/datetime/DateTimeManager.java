@@ -26,8 +26,10 @@ public class DateTimeManager {
                     break;
                 }
             }
-            String[] possibleFormatsUnTimed = new String[] {"dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy",
-                    "MMM, dd yyyy", "MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy",
+            String[] possibleFormatsUnTimed = new String[] {
+                    "dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy",
+                    "d MMM yyyy", "d/MMM/yyyy", "d-MMM-yyyy", "MMM d yyyy", "MMM, d yyyy",
+                    "MM dd yyyy", "dd MM yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy dd MM", "yyyy, dd MM", "dd-MM-yyyy",
                     "MM d yyyy", "d MM yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy d MM", "yyyy, d MM", "d-MM-yyyy",
                     "M dd yyyy", "dd M yyyy", "dd/M/yyyy", "M/dd/yyyy", "yyyy dd M", "yyyy, dd M", "dd-M-yyyy",
                     "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy"};
@@ -43,7 +45,15 @@ public class DateTimeManager {
                 this.formattedDate = rawDate;
             }
         }
+    }
 
+    public String removeTimeStamp() {
+        try {
+            LocalDate date = LocalDate.parse(this.formattedDate, DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
+            return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            return this.formattedDate;
+        }
     }
 
     private boolean isValidFormat(String rawDate, DateTimeFormatter dateFormatter) {
@@ -53,7 +63,6 @@ public class DateTimeManager {
         } catch (DateTimeParseException e) {
             return false;
         }
-
     }
 
     @Override
