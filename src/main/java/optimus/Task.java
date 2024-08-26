@@ -1,13 +1,15 @@
+package optimus;
+
 /**
- * Abstract class representing a Task in the Optimus task management system.
+ * Abstract class representing a optimus.Task in the Optimus task management system.
  * This class is extended by specific task types such as Todo, Deadline, and Event.
  */
 public abstract class Task {
     protected String description; // Description of the task
-    protected boolean isDone; // Task completion status
+    protected boolean isDone; // optimus.Task completion status
 
     /**
-     * Constructor to initialize a new Task with a description.
+     * Constructor to initialize a new optimus.Task with a description.
      * By default, the task is not done.
      *
      * @param description The description of the task.

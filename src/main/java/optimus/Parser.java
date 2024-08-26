@@ -1,3 +1,5 @@
+package optimus;
+
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
 /**
  * Handles the parsing of user commands into executable formats.

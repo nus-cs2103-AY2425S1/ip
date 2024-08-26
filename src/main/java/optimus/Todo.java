@@ -1,3 +1,5 @@
+package optimus;
+
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
 /**
  * Represents a Todo task that only has a description without any date or time.
