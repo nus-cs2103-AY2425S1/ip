@@ -3,9 +3,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Stream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 public class Duke {
     public static void main(String[] args) {
@@ -32,7 +29,7 @@ public class Duke {
                 }
             } else if (input.contains("unmark")) {
                 try {
-                    Task chosen = getTaskForMark(input, tasks, tasks.size() - 1);
+                    Task chosen = getTaskForUnMark(input, tasks);
                     chosen.unMark();
                     System.out.println(notCompleted);
                     System.out.println(chosen);
@@ -42,7 +39,7 @@ public class Duke {
 
             } else if (input.contains("mark")) {
                 try {
-                    Task chosen = getTaskForMark(input, tasks, tasks.size() - 1);
+                    Task chosen = getTaskForMark(input, tasks);
                     chosen.mark();
                     System.out.println(completed);
                     System.out.println(chosen);
@@ -51,30 +48,30 @@ public class Duke {
                 }
             } else if (input.contains("todo")) {
                 try {
-                    tasks.add(new ToDo(getTask(input)));
+                    tasks.add(getTodo(input));
                     printDetails(tasks.get(tasks.size() - 1), tasks.size());
                 } catch (DukeException e) {
                     System.out.println(e);
                 }
             } else if (input.contains("deadline")) {
                 try{
-                    String [] pieces = getTaskAndDeadLine(input);
-                    tasks.add(new DeadLine(pieces[0], pieces[1]));
+                    Task deadline = getDeadLine(input);
+                    tasks.add(deadline);
                     printDetails(tasks.get(tasks.size() - 1), tasks.size());
                 } catch (DukeException e) {
                     System.out.println(e);
                 }
             }else if (input.contains("event")) {
                 try{
-                    String [] pieces = getTaskAndEvent(input);
-                    tasks.add(new Event(pieces[0], pieces[1], pieces[2]));
+                    Task event = getEvent(input);
+                    tasks.add(event);
                     printDetails(tasks.get(tasks.size() - 1), tasks.size());
                 } catch (DukeException e) {
                     System.out.println(e);
                 }
             } else if (input.contains("delete")) {
                 try {
-                    int index = getIndexForMark(input, tasks.size() - 1);
+                    int index = getTaskIndexForDelete(input, tasks);
                     Task t = tasks.remove(index);
                     printRemoveDetails(t, tasks.size());
 
@@ -88,76 +85,110 @@ public class Duke {
     }
 
     private static String[] matchTask(String input, ArrayList<String> splitters) {
+        String[] split = input.split(splitters.get(0));
+        if (split.length == 0) {
+            return new String[]{};
+        }
         if (splitters.size() == 1) {
-            return input.split(splitters.get(0));
+            return split;
         }else {
-            String[] split = input.split(splitters.get(0));
             splitters.remove(0);
-            return Stream.of(new String[]{split[0].trim()}, matchTask(split[1], splitters)) // Stream<String[]>
+            return Stream
+                    .of(new String[]{split[0].trim()},
+                            split.length == 2 ? matchTask(split[1], splitters) : new String[]{}) // Stream<String[]>
                     .flatMap(x -> Stream.of(x)) // flattens to Stream<String>
                     .toArray(String[]::new);
         }
     }
 
-    private static int getIndexForMark(String input, int current) throws DukeException{
-        String [] pieces = input.split(" ");
-        if (pieces.length <= 1) {
-            throw new DukeException("Index must be specified!");
+    private static Task getTodo(String input) throws DukeException{
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("todo");
+
+        String[] todoItems = Arrays.stream(matchTask(input, commands)).map(String::trim).toArray(String[]::new);;
+
+        if(todoItems.length == 0 || Objects.equals(todoItems[1], "")) {
+            throw new DukeException("Task must be specified!");
         }
-        int index = Integer.parseInt(pieces[1]) - 1;
-        if (index > current || index < 0) {
-            throw new DukeException("Task does not exist");
-        }
-        return index;
+
+        return new ToDo(todoItems[1]);
     }
 
-    private static Task getTaskForMark(String input, ArrayList<Task> tasks, int current) throws DukeException{
-        int index = getIndexForMark(input, current);
+    private static Task getDeadLine(String input) throws DukeException{
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("deadline");
+        commands.add("/by");
+
+        String[] deadLineItems = Arrays.stream(matchTask(input, commands)).map(String::trim).toArray(String[]::new);;
+
+        if(deadLineItems.length == 0 || Objects.equals(deadLineItems[1], "")) {
+            throw new DukeException("Task must be specified!");
+        }
+
+        if(deadLineItems.length < 3) {
+            throw new DukeException("DeadLine must be specified!");
+        }
+
+        return new DeadLine(deadLineItems[1], deadLineItems[2]);
+    }
+
+    private static Task getEvent(String input) throws DukeException{
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("event");
+        commands.add("/from");
+        commands.add("/to");
+
+        String[] eventItems = Arrays.stream(matchTask(input, commands)).map(String::trim).toArray(String[]::new);;
+
+        if(eventItems.length == 0 || Objects.equals(eventItems[1], "")) {
+            throw new DukeException("Task must be specified!");
+        }
+
+        if(eventItems.length == 2) {
+            throw new DukeException("from must be specified!");
+        }
+
+        if(eventItems.length == 3) {
+            throw new DukeException("to must be specified!");
+        }
+
+        return new Event(eventItems[1], eventItems[2], eventItems[3]);
+    }
+
+    private static Task getTaskForMark(String input, ArrayList<Task> tasks) throws DukeException{
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("mark");
+
+        int index = getIndex(input, tasks, commands);
         return tasks.get(index);
     }
 
-    private static String getTask(String input) throws DukeException {
-        String [] pieces = input.split(" ");
-        if(pieces.length <= 1) {
-            throw new DukeException("Task must be specified!");
-        }
-        Stream<String> a = Arrays.stream(pieces).skip(1);
-        return a.reduce("", (s1, s2) -> s1  + s2 + " ").trim();
+    private static Task getTaskForUnMark(String input, ArrayList<Task> tasks) throws DukeException{
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("unmark");
+
+        int index = getIndex(input, tasks, commands);
+        return tasks.get(index);
     }
 
-    private static String[] getTaskAndDeadLine(String input) throws DukeException {
-        String noCommand = getTask(input);
-        String [] pieces = noCommand.split("/by");
-        if(Objects.equals(pieces[0], "")) {
-            throw new DukeException("Task is empty");
-        }
-        if(pieces.length == 1) {
-            throw new DukeException("Time must be specified!");
-        }
-        return new String[] {pieces[0].trim() , pieces[1].trim()};
+    private static int getTaskIndexForDelete(String input, ArrayList<Task> tasks) throws DukeException {
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("delete");
+        return getIndex(input, tasks, commands);
     }
 
-    private static String[] getTaskAndEvent(String input) throws DukeException {
-        String noCommand = getTask(input); //removes event etc
-        String [] splitByFrom = noCommand.split("/from");
+    private static int getIndex(String input, ArrayList<Task> tasks, ArrayList<String> commands) throws DukeException {
+        String[] markItems = Arrays.stream(matchTask(input, commands)).map(String::trim).toArray(String[]::new);
 
-        if(Objects.equals(splitByFrom[0], "")) {
-            throw new DukeException("Task is empty");
+        if(markItems.length == 0 ||Objects.equals(markItems[1], "")) {
+            throw new DukeException("Task number must be specified!");
         }
 
-        if(splitByFrom.length == 1) {
-            throw new DukeException("Time must be specified");
+        int index = Integer.parseInt(markItems[1]) - 1;
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeException("Invalid task number!");
         }
-
-        String task = splitByFrom[0];
-        String noFrom = Arrays.stream(splitByFrom).skip(1).reduce("", (s1, s2) -> s1  + s2 + " ").trim();
-        String [] splitByTo = noFrom.split("/to");
-
-        if(splitByTo.length == 1) {
-            throw new DukeException("Time must be specified");
-        }
-
-        return new String[] {task , splitByTo[0].trim(), splitByTo[1].trim()};
+        return index;
     }
 
     private static void printDetails(Task task, int length) {
