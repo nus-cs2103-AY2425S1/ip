@@ -15,9 +15,15 @@ public class TaskList {
         int i = 1;
         String s = "";
         for (Task task : lst) {
-            s += i + ". " + task + "\n";
+            s += "\n" + i + ". " + task;
             i++;
         }
         return s;
+    }
+
+    String markTask(boolean isDone, int taskId) {
+        Task task = lst.get(taskId - 1);
+        task.changeStatus(isDone);
+        return task.toString();
     }
 }
