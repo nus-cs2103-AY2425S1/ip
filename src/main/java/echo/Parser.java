@@ -53,6 +53,17 @@ public class Parser {
     }
 
     /**
+     * Prints tasks in the task list with provided keywords.
+     *
+     * @param cmdParts command user input.
+     * @param allTasks task list.
+     */
+    public static void findTask(String[] cmdParts, TaskList allTasks) {
+        String keywords = cmdParts[1];
+        allTasks.find(keywords);
+    }
+
+    /**
      * Sends goodbye message to user and exits.
      */
     public static void bye() {
@@ -68,7 +79,7 @@ public class Parser {
      */
     public static boolean parse(String userInput, TaskList allTasks) {
         // parse the command
-        String[] cmdParts = userInput.split(" ");
+        String[] cmdParts = userInput.split(" ", 2);
         String CMD = cmdParts[0].toUpperCase();
 
         // set isExit flag to indicate bot exit
@@ -90,6 +101,9 @@ public class Parser {
                 break;
             case DELETE:
                 deleteTask(cmdParts, allTasks);
+                break;
+            case FIND:
+                findTask(cmdParts, allTasks);
                 break;
             default:
                 Task task = Task.createTask(userInput);
