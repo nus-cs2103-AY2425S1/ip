@@ -2,20 +2,17 @@ package mendel.metacognition;
 
 import mendel.datetime.DateTimeManager;
 import mendel.discretetask.Task;
-import mendel.preetyprint.FormatText;
-import mendel.mendelexception.MendelException;
 import mendel.mendelexception.ConditionalExceptionHandler;
-
+import mendel.mendelexception.MendelException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class TaskStorage extends MendelAction{
+public class TaskList extends Command{
     private final List<Task> messages;
     int counter;
 
-    public TaskStorage() {
+    public TaskList() {
         this.messages = new ArrayList<>();
         this.counter = 0;
     }
@@ -35,50 +32,42 @@ public class TaskStorage extends MendelAction{
         return this.counter == 1;
     }
 
-    public Task marker(int serial) throws MendelException {
+    public String marker(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
         Task task = this.messages.get(serial);
         task.markAsDone();
-        String outputMessage = String.format("Nice! I've marked this task as done:\n  %s",
+        return String.format("Nice! I've marked this task as done:\n  %s",
                 task);
-        System.out.println(new FormatText(outputMessage).wrapLines());
-        return task;
     }
 
-    public Task unMarker(int serial) throws MendelException {
+    public String unMarker(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
         Task task = this.messages.get(serial);
         task.markAsUnDone();
-        String outputMessage = String.format("OK, I've marked this task as not done yet:\n  %s",
+        return String.format("OK, I've marked this task as not done yet:\n  %s",
                 task);
-        System.out.println(new FormatText(outputMessage).wrapLines());
-        return task;
     }
 
-    public Task delete(int serial) throws MendelException{
+    public String delete(int serial) throws MendelException{
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
         Task task = this.messages.remove(serial);
         this.counter--;
-        String outputMessage = String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
+        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
                 task,
                 this.counter);
-        System.out.println(new FormatText(outputMessage).wrapLines());
-        return task;
     }
 
-    public Task add(Task element) {
+    public String add(Task element) {
         this.messages.add(element);
         this.counter++;
-        String outputMessage = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
+        return String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
                 element, this.counter);
-        System.out.println(new FormatText(outputMessage).wrapLines());
-        return element;
     }
 
     public void silencedAdd(Task element) {
@@ -86,7 +75,7 @@ public class TaskStorage extends MendelAction{
         this.counter++;
     }
 
-    public void find(String rawDate) {
+    public String find(String rawDate) {
         String formattedDate = new DateTimeManager(rawDate).toString();
         String finalMessage = String.format("Here are the tasks with deadlines on: %s", formattedDate);
         int increment = 0;
@@ -97,13 +86,11 @@ public class TaskStorage extends MendelAction{
                         this.messages.get(i).toString());
             }
         }
-        System.out.println(new FormatText(finalMessage).wrapLines());
+        return finalMessage;
     }
 
-    public void speak() {
-        String outputMessage = String.format("Here are the tasks in your list:\n%s",
-                this);
-        System.out.println(new FormatText(outputMessage).wrapLines());
+    public String speak() {
+        return String.format("Here are the tasks in your list:\n%s", this);
     }
 
     @Override
@@ -122,4 +109,3 @@ public class TaskStorage extends MendelAction{
         return finalMessage;
     }
 }
-

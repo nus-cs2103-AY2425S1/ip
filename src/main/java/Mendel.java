@@ -1,26 +1,23 @@
 import java.util.Scanner;
 
 import mendel.mendelexception.ServerError;
-import mendel.preetyprint.FormatText;
-import mendel.metacognition.Welcome;
 import mendel.mendelexception.MendelException;
 
 public class Mendel {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String logo = "Mendel";
-        System.out.println("Hello from\n" + logo);
         String currAction = "hello";
-        TaskManager taskManager = new TaskManager();
-        new Welcome().speak();
+        Parser taskManager = new Parser();
+        UI ui = new UI();
+        ui.showWelcome();
         while (!currAction.equals("bye")) {
             currAction = sc.nextLine().trim();
             try {
-                taskManager.manage(currAction);
+                ui.preetyPrint(taskManager.manage(currAction));
             } catch (MendelException e) {
-                System.out.println(new FormatText(e.toString()).wrapLines());
+                ui.preetyPrint(e.toString());
             } catch (ServerError e) {
-                System.out.println(new FormatText(e.toString()).wrapLines());
+                ui.preetyPrint(e.toString());
                 taskManager.manage("bye");
                 currAction = "bye";
             }

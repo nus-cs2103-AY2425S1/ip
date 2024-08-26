@@ -5,20 +5,19 @@ import mendel.discretetask.Event;
 import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.mendelexception.ServerError;
-import mendel.metacognition.TaskStorage;
+import mendel.metacognition.TaskList;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
-
-public class DBManager {
+public class Storage {
     private final String filePath;
     private final File db;
 
-    public DBManager(String filePath) throws ServerError {
+    public Storage(String filePath) throws ServerError {
         this.filePath = filePath;
         File db = new File(filePath);
         this.db = db;
@@ -33,7 +32,7 @@ public class DBManager {
         }
     }
 
-    public void loadInto(TaskStorage taskStorage) throws ServerError {
+    public void loadInto(TaskList taskStorage) throws ServerError {
         try {
             Scanner s = new Scanner(this.db);
             while (s.hasNext()) {
@@ -70,7 +69,7 @@ public class DBManager {
         }
     }
 
-    public void update(TaskStorage taskStorage) {
+    public void update(TaskList taskStorage) {
         try {
             FileWriter fwRedo = new FileWriter(this.filePath);
             fwRedo.close();
@@ -91,13 +90,3 @@ public class DBManager {
         }
     }
 }
-
-
-/*
-
-T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th | 2-4pm
-T | 1 | join sports club
-T | 0 | testDBOps
- */
