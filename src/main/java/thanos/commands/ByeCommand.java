@@ -5,6 +5,10 @@ import thanos.tasks.TaskList;
 import thanos.ui.Ui;
 
 public class ByeCommand extends Command {
+    public ByeCommand(String argument) {
+        super(argument);
+    }
+
     @Override
     public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
         ui.display("Bye. Hope to see you again soon!\n");

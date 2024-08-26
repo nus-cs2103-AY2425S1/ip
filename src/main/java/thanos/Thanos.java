@@ -3,6 +3,7 @@ package thanos;
 import java.util.Scanner;
 
 import thanos.commands.Command;
+import thanos.storage.IStorage;
 import thanos.ui.Ui;
 import thanos.exceptions.InvalidCommandException;
 import thanos.parser.Parser;
@@ -10,7 +11,7 @@ import thanos.storage.Storage;
 import thanos.tasks.TaskList;
 
 public class Thanos {
-    private final Storage storage;
+    private final IStorage storage;
     private final TaskList taskList;
     private final Ui ui;
 

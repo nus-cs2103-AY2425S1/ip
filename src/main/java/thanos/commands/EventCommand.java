@@ -9,18 +9,16 @@ import thanos.ui.Ui;
 import thanos.utility.DateTimeUtility;
 
 public class EventCommand extends Command {
-    private final String input;
-
-    public EventCommand(String input) {
-        this.input = input;
+    public EventCommand(String argument) {
+        super(argument);
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
-        String[] detailsArr = this.input.split(" /from ");
+        String[] detailsArr = this.getArgument().split(" /from ");
         if (detailsArr.length != 2) {
-            throw new InvalidCommandException("Invalid input format." +
-                    "Please use the correct format: 'event [task] /from [start time] /to [end time]'");
+            throw new InvalidCommandException("Invalid input format."
+                    + "Please use the correct format: 'event [task] /from [start time] /to [end time]'");
         }
 
         String description = detailsArr[0];

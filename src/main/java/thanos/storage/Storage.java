@@ -18,7 +18,7 @@ import thanos.tasks.Task;
 import thanos.tasks.Todo;
 import thanos.utility.DateTimeUtility;
 
-public class Storage {
+public class Storage implements IStorage {
     private static final String directoryPath = "./data";
     private final File file;
 
@@ -27,19 +27,20 @@ public class Storage {
         this.file = new File(filePath);
     }
 
+    @Override
     public ArrayList<Task> load() {
         ensureFileExists();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            ArrayList<Task> tasks = new ArrayList<>();
+            ArrayList<Task> taskList = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = convertStringToTask(line);
                 if (task != null) {
-                    tasks.add(task);
+                    taskList.add(task);
                 }
             }
-            return tasks;
+            return taskList;
         } catch (FileNotFoundException e) {
             System.out.println("No data file found");
         } catch (IOException e) {
@@ -48,11 +49,12 @@ public class Storage {
         return new ArrayList<>();
     }
 
-    public void save(ArrayList<Task> tasks) {
+    @Override
+    public void save(ArrayList<Task> taskList) {
         ensureFileExists();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (Task task : tasks) {
+            for (Task task : taskList) {
                 writer.write(task.toFileString());
                 writer.newLine();
             }
@@ -64,8 +66,12 @@ public class Storage {
     private void ensureFileExists() {
         try {
             if (!file.exists()) {
-                this.file.getParentFile().mkdirs();
-                this.file.createNewFile();
+                if (!this.file.getParentFile().mkdirs()) {
+                    throw new IOException("Failed to create the necessary directories for the file");
+                }
+                if (!this.file.createNewFile()) {
+                    throw new IOException("Failed to create file");
+                }
             }
         } catch (IOException e) {
             System.err.println("Error creating file: " + e.getMessage());

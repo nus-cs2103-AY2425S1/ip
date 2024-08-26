@@ -9,15 +9,13 @@ import thanos.ui.Ui;
 import thanos.utility.DateTimeUtility;
 
 public class DeadlineCommand extends Command {
-    private final String input;
-
-    public DeadlineCommand(String input) {
-        this.input = input;
+    public DeadlineCommand(String argument) {
+        super(argument);
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
-        String[] detailsArr = this.input.split(" /by ");
+        String[] detailsArr = this.getArgument().split(" /by ");
         if (detailsArr.length != 2) {
             throw new InvalidCommandException(
                     "Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'"
