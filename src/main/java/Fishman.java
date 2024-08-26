@@ -11,9 +11,6 @@ public class Fishman {
     /** The parser object to interpret user inputs. */
     private final Parser parser;
 
-    /** The storage object to save and load tasks from a file. */
-    private final Storage storage;
-
     /**
      * Constructs a new instance of Fishman
      * Initializes the UI, task list and parser.
@@ -22,7 +19,6 @@ public class Fishman {
         ui = new Ui();
         tasks = new TaskList();
         parser = new Parser();
-        storage = new Storage("./data/fishman.csv");
     }
 
     /**
@@ -49,7 +45,6 @@ public class Fishman {
                 ui.displayError("Uh oh, an unexpected error has occured: " + e.getMessage());
             }
         }
-        storage.save(tasks);
     }
 
     /**
@@ -60,7 +55,6 @@ public class Fishman {
      */
     public static void main(String[] args) {
         new Fishman().start();
-
     }
 }
 
