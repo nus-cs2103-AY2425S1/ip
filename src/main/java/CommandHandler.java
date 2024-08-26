@@ -8,10 +8,23 @@ public class CommandHandler {
         this.command = command;
     }
 
+    /**
+     * Checks whether the user would like to exit the program.
+     *
+     * @return A Boolean value indicating whether the user would like to exit the program.
+     */
     public boolean checkExit() {
         return this.isExit;
     }
 
+    /**
+     * Execute the command given by the user.
+     *
+     * @param input The string input given by the user.
+     * @param tasks The TaskList containing all the tasks.
+     * @param storage The storage in charge of saving and loading the TaskList.
+     * @param ui The Ui in charge of user interactions
+     */
     public void execute(String input, TaskList tasks,Storage storage, Ui ui) {
         switch (command) {
         case BYE:

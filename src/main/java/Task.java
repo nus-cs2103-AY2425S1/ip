@@ -17,15 +17,25 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-
+    /**
+     * Change the task status to DONE.
+     */
     public void setMark() {
         this.isDone = true;
     }
 
+    /**
+     * Change the task status to UNDONE.
+     */
     public void setUnmark() {
-        this.isDone = false;
+        this.isDone = true;
     }
-
+    
+    /**
+     * Returns an 'X' if the task is marked as DONE, otherwise returns " ".
+     *
+     * @return A string indicating the task's status.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
