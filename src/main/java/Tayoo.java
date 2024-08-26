@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -105,8 +107,16 @@ public class Tayoo {
                         continue;
                     }
 
-                    addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(),
-                            command.substring(deadlineIndex + 4).trim()));
+                    String deadlineStr = command.substring(deadlineIndex + 4).trim();
+                    LocalDateTime deadline = dateTimeParser(deadlineStr);
+
+                    if (deadline != null) {
+                        addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(),
+                                deadline));
+                    } else {
+                        addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(), deadlineStr));
+                    }
+
                 } catch (IndexOutOfBoundsException e) {
                     printText("You've made a fatal error! Report it to the developer or face eternal DOOM!!");
                 }
@@ -256,9 +266,14 @@ public class Tayoo {
         case ("Deadline"):
             isComplete = Boolean.parseBoolean(scanner.next().trim());
             title = scanner.next().trim();
-            String deadline = scanner.next().trim();
+            String deadlineStr = scanner.next().trim();
+            LocalDateTime deadline = dateTimeParser(deadlineStr);
             scanner.close();
-            return new Deadline(title, deadline, isComplete);
+            if (deadline != null) {
+                return new Deadline(title, deadline, isComplete);
+            } else {
+                return new Deadline(title, deadlineStr, isComplete);
+            }
         default:
             //should not ever reach here
             scanner.close();
@@ -342,7 +357,29 @@ public class Tayoo {
         }
     }
 
+    private static LocalDateTime dateTimeParser(String dateTime) {
 
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("dd MM yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                .optionalStart()
+                .appendOptional(DateTimeFormatter.ofPattern(" HH:mm"))
+                .appendOptional(DateTimeFormatter.ofPattern(" HHmm"))
+                .optionalEnd()
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .toFormatter();
+
+        try{
+            return LocalDateTime.parse(dateTime, formatter);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
 
 
 }
