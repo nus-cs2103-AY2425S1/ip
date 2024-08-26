@@ -1,5 +1,9 @@
 package ipman;
 
+/**
+ * Todo class
+ * @author miloaisdino
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
