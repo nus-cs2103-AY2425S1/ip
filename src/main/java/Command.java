@@ -1,18 +1,10 @@
-public enum Command {
-    BYE("bye"), LIST("list"), MARK("mark"), UNMARK("unmark"), DELETE("delete"), TODO("todo"), DEADLINE("deadline"),
-    EVENT("event"), ON("on");
-    private final String command;
+import java.io.IOException;
 
-    Command(String command) {
-        this.command = command;
-    }
+public abstract class Command {
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException;
 
-    public static Command fromString(String command) throws KilluaException {
-        for (Command cmd : Command.values()) {
-            if (cmd.command.equalsIgnoreCase(command)) {
-                return cmd;
-            }
-        }
-        throw new KilluaException("Invalid input: " + command);
+    public boolean isExit() {
+        return false;
     }
 }
+
