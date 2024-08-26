@@ -1,3 +1,5 @@
+package tasks;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -19,5 +21,11 @@ public abstract class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public void setDone(boolean done) { this.isDone = done; }
+
+    public boolean getDoneStatus() { return this.isDone; }
+
+    public String getDes() { return this.description; }
 }
 

@@ -7,6 +7,14 @@ import java.nio.file.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import storage.*;
+import ui.*;
+import parser.Parser;
+import tasklist.TaskList;
+import ui.Ui;
+import tasks.*;
+import exceptions.*;
+
 
 enum CommandType {
     LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE;
@@ -19,9 +27,11 @@ public class TheOrangeRatchetCat {
     public static void main(String[] args) {
         // The ChatBot named OrangeRatchetCat
         List<Task> items = new ArrayList<>();
-        loadTasks(items); // Load tasks from file at startup
+        Storage.loadTasks(items);
+        //loadTasks(items); // Load tasks from file at startup
         ratchetCatBot(items); // Pass the list of tasks to the chatbot
-        saveTasks(items); // Save tasks to file before exiting
+        Storage.saveTasks(items);
+        //saveTasks(items); // Save tasks to file before exiting
     }
 
     private static void ratchetCatBot(List<Task> items) {
@@ -33,23 +43,27 @@ public class TheOrangeRatchetCat {
         String input = scanner.nextLine(); // Reads a line of text
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                input = TheOrangeRatchetCat.checkList(input, items, scanner);
+                input = TaskList.checkList(input, items, scanner);
+                //input = TheOrangeRatchetCat.checkList(input, items, scanner);
                 continue;
             }
             if (input.startsWith("mark")) {
                 String numberPart = input.substring(4).trim();
-                input = TheOrangeRatchetCat.markingTask(numberPart, items, scanner);
+                input = TaskList.markingTask(numberPart, items, scanner);
+                //input = TheOrangeRatchetCat.markingTask(numberPart, items, scanner);
                 continue;
             }
             if (input.startsWith("unmark")) {
                 String numberPart = input.substring(6).trim();
-                input = TheOrangeRatchetCat.unmarkingTask(numberPart, items, scanner);
+                input = TaskList.unmarkingTask(numberPart, items, scanner);
+                //input = TheOrangeRatchetCat.unmarkingTask(numberPart, items, scanner);
                 continue;
             }
             if (input.startsWith("todo")) {
                 try {
                     String taskDescription = input.substring(4).trim();
-                    input = TheOrangeRatchetCat.addingToDo(taskDescription, items, scanner);
+                    input = TaskList.addingToDo(taskDescription, items, scanner);
+                    //input = TheOrangeRatchetCat.addingToDo(taskDescription, items, scanner);
                     continue;
                 } catch (TheOrangeRatchetCatException e) {
                     System.out.println(e.getMessage());
@@ -59,7 +73,8 @@ public class TheOrangeRatchetCat {
             }
             if (input.startsWith("deadline")) {
                 try {
-                    input = TheOrangeRatchetCat.addingDeadline(input, items, scanner);
+                    input = TaskList.addingDeadline(input, items, scanner);
+                    //input = TheOrangeRatchetCat.addingDeadline(input, items, scanner);
                     continue;
                 } catch (TheOrangeRatchetCatException e) {
                     System.out.println(e.getMessage());
@@ -69,7 +84,8 @@ public class TheOrangeRatchetCat {
             }
             if (input.startsWith("event")) {
                 try {
-                    input = TheOrangeRatchetCat.addingEvent(input, items, scanner);
+                    input = TaskList.addingEvent(input, items, scanner);
+                    //input = TheOrangeRatchetCat.addingEvent(input, items, scanner);
                     continue;
                 } catch (TheOrangeRatchetCatException e) {
                     System.out.println(e.getMessage());
@@ -83,17 +99,19 @@ public class TheOrangeRatchetCat {
             }
             if (input.startsWith("delete")) {
                 int indexToDelete = Integer.parseInt(input.substring(6).trim());
-                input = TheOrangeRatchetCat.deleteTask(indexToDelete, items, scanner);
+                input = TaskList.deleteTask(indexToDelete, items, scanner);
+                //input = TheOrangeRatchetCat.deleteTask(indexToDelete, items, scanner);
                 continue;
             }
             System.out.print("Inappropriate Command try again with adding either a Deadline/Todo/Event: ");
             input = scanner.nextLine(); // Reads the next line of input text again
         }
-        TheOrangeRatchetCat.bidFarewell();
+        Ui.bidFarewell();
+        //TheOrangeRatchetCat.bidFarewell();
         scanner.close(); // Close the scanner to avoid resource leaks
     }
 
-    private static void saveTasks(List<Task> items) {
+    /*private static void saveTasks(List<Task> items) {
         try {
             Path path = Paths.get(FILE_PATH);
             Files.createDirectories(path.getParent()); // Create directories if they don't exist
@@ -139,7 +157,8 @@ public class TheOrangeRatchetCat {
                         break;
                 }
                 if (task != null) {
-                    task.isDone = isDone;
+                    task.setDone(isDone);
+                    //task.isDone = isDone;
                     items.add(task);
                 }
             }
@@ -152,7 +171,7 @@ public class TheOrangeRatchetCat {
             System.out.println("The data file is corrupted, starting with an empty task list.");
             items.clear();
         }
-    }
+    }*/
 
     private static String checkList(String input, List<Task> items, Scanner scanner) {
         int index = 1;
@@ -168,10 +187,12 @@ public class TheOrangeRatchetCat {
         try {
             int taskIndex = Integer.parseInt(input) - 1;
             Task markingTask = items.get(taskIndex);
-            markingTask.isDone = true;
+            markingTask.setDone(true);
+            //markingTask.isDone = true;
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
+            //System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
+            System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
             System.out.println("____________________________________________________________");
             return scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
@@ -187,10 +208,12 @@ public class TheOrangeRatchetCat {
         try {
             int taskIndex = Integer.parseInt(input) - 1;
             Task markingTask = items.get(taskIndex);
-            markingTask.isDone = false;
+            markingTask.setDone(false);
+            //markingTask.isDone = false;
             System.out.println("____________________________________________________________");
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
+            System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
+            //System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
             System.out.println("____________________________________________________________");
             return scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
@@ -310,9 +333,9 @@ public class TheOrangeRatchetCat {
 
     }
 
-    private static void bidFarewell() {
+    /*private static void bidFarewell() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
-    }
+    }*/
 }
