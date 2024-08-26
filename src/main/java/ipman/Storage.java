@@ -21,6 +21,7 @@ public class Storage {
         try {
             file = new File(filePath);
             if (!file.isFile()) {
+                file.getParentFile().mkdirs();
                 file.createNewFile();
             }
         } catch (IOException e) {
