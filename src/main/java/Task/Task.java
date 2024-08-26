@@ -1,5 +1,7 @@
 package Task;
 
+import java.time.LocalDate;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -35,6 +37,10 @@ public class Task {
         return "Task";
     }
 
+    public LocalDate getRelevantDate() {
+        return null; // By default, no relevant date for a generic task
+    }
+
     public String formatToCSV() {
         String[] arr = new String[]{
                 wrapInQuotes(this.getStatusIcon()),
@@ -43,6 +49,7 @@ public class Task {
         };
         return String.join(DELIMITER, arr);
     }
+
 
     @Override
     public String toString() {

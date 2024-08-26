@@ -250,15 +250,9 @@ public class PurrfessorDipsy {
 
     public static ArrayList<Task> filterTasksByDate(LocalDate date) {
         ArrayList<Task> res = new ArrayList<>();
-        for (Task t: taskTable) {
-            if (t instanceof Deadline deadline) {
-                if (deadline.getBy().equals(date)) {
-                    res.add(t);
-                }
-            } else if (t instanceof Event event) {
-                if (event.getStart().equals(date)) {
-                    res.add(t);
-                }
+        for (Task t : taskTable) {
+            if (date.equals(t.getRelevantDate())) {
+                res.add(t);
             }
         }
         return res;

@@ -20,17 +20,14 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public LocalDate getStart() {
-        return start;
-    }
-
-    public LocalDate getEnd() {
-        return end;
-    }
-
     @Override
     protected String getTaskType() {
         return "Event";
+    }
+
+    @Override
+    public LocalDate getRelevantDate() {
+        return this.start; // Or the most relevant date for your use case
     }
 
     @Override
