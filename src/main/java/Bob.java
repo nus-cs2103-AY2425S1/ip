@@ -7,9 +7,15 @@ public class Bob {
         Scanner scanner = new Scanner(System.in);
         String input = "";
         ArrayList<Task> tasks = new ArrayList<>();
+        String logo = " ____        ____\n"
+                + "| __ )  ___ | __ )\n"
+                + "|  _ \\ / _ \\|  _ \\\n"
+                + "| |_) | (_) | |_) |\n"
+                + "|____/ \\___/|____/\n";
 
         System.out.println("------------------------------------------");
         System.out.println("Hello! I'm Bob!\nHow can I help you today?");
+        System.out.println(logo);
         System.out.println("------------------------------------------");
 
         while (!input.equals("bye")) {
