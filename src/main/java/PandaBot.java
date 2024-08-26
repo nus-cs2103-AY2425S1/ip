@@ -29,6 +29,8 @@ public class PandaBot {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
 
+        loadTaskList(taskList);
+
         // Greet the user
         printLine();
         System.out.println("Hello! I'm PandaBot.");
@@ -67,6 +69,7 @@ public class PandaBot {
                 int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
                 if (taskNum >= 0 && taskNum < taskList.size()) {
                     taskList.get(taskNum).markAsDone();
+                    saveTaskList(taskList);
                     printLine();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(taskList.get(taskNum));
@@ -84,6 +87,7 @@ public class PandaBot {
                 int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
                 if (taskNum >= 0 && taskNum < taskList.size()) {
                     taskList.get(taskNum).unmark();
+                    saveTaskList(taskList);
                     printLine();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(taskList.get(taskNum));
@@ -103,6 +107,7 @@ public class PandaBot {
                     printLine();
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(taskList.remove(taskNum));
+                    saveTaskList(taskList);
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                     printLine();
                 } else {
@@ -139,6 +144,7 @@ public class PandaBot {
                         continue;
                     }
                     taskList.add(task);
+                    saveTaskList(taskList);
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     System.out.println(taskList.get(taskList.size() - 1));
@@ -150,5 +156,108 @@ public class PandaBot {
             }
         }
         scanner.close();
+    }
+
+    /**
+     * Loads the list of tasks from a file
+     *
+     * @param taskList the list to populate with tasks.
+     */
+    private static void loadTaskList(ArrayList<Task> taskList) {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTask(line);
+                if (task != null) {
+                    taskList.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while loading tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Parses a line from the file to create that task.
+     *
+     * @param line the selected line from the file.
+     * @return the created task.
+     */
+    private static Task parseTask(String line) {
+        String[] details = line.split(" \\| ");
+        if (details.length < 3) {
+            return null;
+        }
+
+        String type = details[0];
+        boolean isDone = details[1].equals("1");
+        String description = details[2];
+
+        Task task = null;
+
+        switch (type) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            if (details.length < 4) {
+                return null;
+            }
+            String by = details[3];
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            if (details.length < 5) {
+                return null;
+            }
+            String from = details[3];
+            String to = details[4];
+            task = new Event(description, from, to);
+            break;
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Saves the current task list to a file.
+     *
+     * @param taskList the list of tasks to save.
+     */
+    private static void saveTaskList(ArrayList<Task> taskList) {
+        try {
+            // Ensure the directory exists
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+                for (Task task : taskList) {
+                    String type = task instanceof ToDo ? "T" :
+                            task instanceof Deadline ? "D" : "E";
+                    String taskString = type + " | " + (task.isDone ? "1" : "0") + " | " + task.description;
+
+                    if (task instanceof Deadline) {
+                        taskString += " | " + ((Deadline) task).by;
+                    } else if (task instanceof Event) {
+                        taskString += " | " + ((Event) task).from + " | " + ((Event) task).to;
+                    }
+
+                    writer.write(taskString + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while saving tasks: " + e.getMessage());
+        }
     }
 }
