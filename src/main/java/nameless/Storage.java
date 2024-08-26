@@ -64,7 +64,7 @@ public class Storage {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toString()))) {
             for (Task task : tasks) {
                 bw.write(task.toFileString());
-                bw.newLine(); // Ensure each nameless.task is on a new line
+                bw.newLine();
             }
         } catch (IOException e) {
             throw new DukeException("Error writing to file");

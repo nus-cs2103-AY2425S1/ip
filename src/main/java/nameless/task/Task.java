@@ -15,17 +15,17 @@ public abstract class Task {
         this.isDone = isDone;
     }
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done nameless.task with X
+        return (isDone ? "X" : " ");
     }
 
     public void unMarkTask() {
         this.isDone = false;
-        System.out.println("OK, I've unmarked this nameless.task as not done yet: \n" +
+        System.out.println("OK, I've unmarked this task as not done yet: \n" +
                 "   [" + this.getStatusIcon() + "] " + this.description);
     }
     public void markTask() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this nameless.task as done: \n" +
+        System.out.println("Nice! I've marked this task as done: \n" +
                 "   [" + this.getStatusIcon() + "] " + this.description);
     }
     @Override
