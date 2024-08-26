@@ -1,5 +1,11 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
-import  java.util.ArrayList;
+import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
 
 public class Rasputin {
 
@@ -9,19 +15,58 @@ public class Rasputin {
         System.out.println(lineBreak + "\n");
     }
 
+    private static ArrayList<Task> readFile(File file) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] split = line.split("\\|");
+                switch (split[0]) {
+                    case "T":
+                        tasks.add(new Todo(split[2]));
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(split[2], split[3]));
+                        break;
+                    case "E":
+                        tasks.add(new Event(split[2], split[3], split[4]));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Task file not found");
+        } catch (IOException e) {
+            System.out.println("Error reading file");
+        }
+
+        return tasks;
+    }
+
     private static String lineBreak = "____________________________________";
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
         String name = "Rasputin";
-
         // initialize task list
         ArrayList<Task> ls = new ArrayList<>();
+
+        File file = new File("src/main/data/rasputin.txt");
+        if (file.exists()) {
+            System.out.println("Task file found.");
+            ls = readFile(file);
+            
+        } else {
+            System.out.println("Task file not found, creating task file.");
+            try {
+                file.createNewFile();
+                System.out.println("Task file created");
+            } catch (IOException e) {
+                System.out.println("Unable to create task file.");
+            }
+        }
+
+
+
 
         // scanner to read user input
         Scanner scanner = new Scanner(System.in);
