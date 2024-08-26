@@ -1,4 +1,4 @@
-import Tasks.Task;
+package soju.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

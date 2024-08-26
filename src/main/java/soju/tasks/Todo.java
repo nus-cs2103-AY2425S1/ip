@@ -1,4 +1,4 @@
-import Tasks.Task;
+package soju.tasks;
 
 public class Todo extends Task {
 

@@ -1,7 +1,9 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+package soju;
+
+import soju.tasks.Deadline;
+import soju.tasks.Event;
+import soju.tasks.Task;
+import soju.tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileHandler {
+public class Storage {
     String filePath;
     File tasksFile;
-    public FileHandler(String filePath) {
+
+    public Storage(String filePath) {
         this.filePath = filePath;
         this.tasksFile = new File(filePath);
         try {
@@ -27,10 +30,11 @@ public class FileHandler {
                 System.out.println("Unable to make directory or create new file");
             }
         } catch (IOException e) {
-            System.out.println("Unable to create new tasks file: " + e);
+            System.out.println("Unable to create new soju.tasks file: " + e);
         }
     }
-    public List<Task> getTasksFromFile() {
+
+    public List<Task> load() throws SojuException {
         List<Task> taskList = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
@@ -75,32 +79,35 @@ public class FileHandler {
                 }
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while reading the file.");
+//            System.out.println("An error occurred while reading the file.");
 //            e.printStackTrace();
+            throw new SojuException("Error trying to read the file! It may be corrupted!");
         }
         return taskList;
     }
-    public void saveToFile(List<Task> tasks) {
+
+    public void saveToFile(TaskList tasks) throws SojuException {
+        List<Task> listOfTasks = tasks.getTasks();
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-            for (Task task : tasks) {
+            for (Task task : listOfTasks) {
                 fileWriter.append(task.toFileString()).append("\n");
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error saving to file" + e);
+//            System.out.println("Error saving to file" + e);
+            throw new SojuException("Error saving file!!!");
         }
     }
-    public void saveToFile(Task task) {
+
+    public void saveToFile(Task task) throws SojuException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.append(task.toFileString()).append("\n");
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error saving to file" + e);
+//            System.out.println("Error saving to file" + e);
+            throw new SojuException("Error saving file!!!");
         }
-    }
-    public void editToFile(Task task) {
-
     }
 }

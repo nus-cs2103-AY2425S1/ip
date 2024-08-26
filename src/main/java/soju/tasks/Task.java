@@ -1,3 +1,5 @@
+package soju.tasks;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
