@@ -27,7 +27,7 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new TaskManagerException("Your format for date is wrong! Please use this format: " +
                     "add event {description} " +
-                    "/yyyy-MM-dd HHmm (start) /yyyy-MM-dd HHmm (end).",
+                    "/yyyy MM dd hh.mma /yyyy MM dd hh.mma .",
                     TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT);
         }
         this.startTimeString = startTimeString.trim();
