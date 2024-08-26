@@ -5,3 +5,15 @@
 - implement setters and getters
 - enum for tasktype
 - public, private etc settings
+
+exceptions:
+- when mark, unmark doesn' come with an integer;
+
+/*String logo = " ,-----.              ,--.          \n"
+                + "'  .--./,--,--.,--.--.|  |,--. ,--. \n"
+                + "|  |   ' ,-.  ||  .--'|  | \\  '  / \n"
+                + "'  '--'\\ '-'  ||  |   |  |  \\   ' \n"
+                + " `-----'`--`--'`--'   `--'.-'  /    \n"
+                + "                          `---'  ";
+
+        System.out.println("Hello from\n" + logo);*/
