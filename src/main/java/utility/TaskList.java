@@ -32,6 +32,16 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> findTasks(String description) {
+        ArrayList<Task> findings = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.getDescription().contains(description)) {
+                findings.add(t);
+            }
+        }
+        return findings;
+    }
+
     public Task markTask(int index) {
         Task t = tasks.get(index);
         t.mark();

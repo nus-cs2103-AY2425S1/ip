@@ -2,6 +2,8 @@ package presentation;
 
 import tasks.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
     public Ui() {}
 
@@ -44,5 +46,11 @@ public class Ui {
     public void unMarkDialog(Task t) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(t);
+    }
+
+    public void findDialog(ArrayList<Task> foundTasks) {
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, foundTasks.get(i).toString());
+        }
     }
 }

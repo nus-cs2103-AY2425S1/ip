@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     public Command command;
-    public String description, by, from, to;
+    public String description, by, from, to = null;
     public int index;
 
     public Parser() {
@@ -23,6 +23,7 @@ public class Parser {
         }
         switch (command) {
         case list -> {}
+        case find -> description = line.substring(4).trim();
         case mark, unmark, delete -> {
             try {
                 index = Integer.parseInt(parameters[1].trim());

@@ -9,6 +9,7 @@ import utility.Storage;
 import utility.TaskList;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Luke {
     private final Storage storage;
@@ -41,6 +42,9 @@ public class Luke {
             case list -> {
                 ui.listTaskDialog();
                 this.taskList.listTasks();
+            }
+            case find -> {
+                ui.findDialog(taskList.findTasks(parser.description));
             }
             case mark -> {
                 Task t = taskList.markTask(parser.index - 1);
