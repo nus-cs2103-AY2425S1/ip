@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.lama.Lama")
+    mainClass.set("lama.Lama")
 }
 
 shadowJar {
