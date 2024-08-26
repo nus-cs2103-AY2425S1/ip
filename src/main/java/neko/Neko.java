@@ -26,6 +26,7 @@ public class Neko {
     private static final String COMMAND_UNMARK = "unmark";
     private static final String COMMAND_ADD = "add";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String FILE_PATH = "./data/neko.txt";
     private Ui ui;
     private Storage storage;
@@ -131,6 +132,15 @@ public class Neko {
         case COMMAND_ADD:
             ui.showMessage("Let's add a task meow!");
             tasks.addTask(ui.getTaskType(), ui, storage);
+            break;
+        case COMMAND_FIND:
+            String key = input.split(" ")[1].trim();
+            String tasksFound = tasks.findTasks(key);
+            if (tasksFound.isEmpty()) {
+                ui.showMessage("No tasks found meow!");
+            } else {
+                ui.showMessage("Here are the matching tasks in your list meow:\n" + tasksFound);
+            }
             break;
         default:
             throw new NekoException("Unknown command.");

@@ -30,15 +30,6 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list.
-     *
-     * @param task The task to be added.
-     */
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    /**
      * Prompts the user to add a task based on the task type and updates the storage.
      *
      * @param taskType The type of task to be added ("1" for Todo, "2" for Deadline, "3" for Event).
@@ -226,4 +217,15 @@ public class TaskList {
         checkValidIndex(index);
         tasks.remove(index);
     }
+
+    public String findTasks(String key) {
+        String tasksFound = "";
+        int numTasksFound = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(key)) {
+                tasksFound += ++numTasksFound + "." + task.toString() + "\n";
+            }
+        }
+        return tasksFound.trim();
+        }
 }
