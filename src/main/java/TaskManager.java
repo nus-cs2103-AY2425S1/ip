@@ -33,6 +33,7 @@ public class TaskManager {
                 break;
             case DELETE:
                 task = handleDelete(taskList, argument);
+                taskIO.deleteTask(taskList);
                 Denim.displayDeleteMessage(task, taskList);
                 break;
             case TODO:

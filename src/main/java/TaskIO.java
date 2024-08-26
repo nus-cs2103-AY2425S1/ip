@@ -17,7 +17,7 @@ public class TaskIO {
     private final File taskFile;
 
     public TaskIO(String pathname) {
-        taskFile = new File(pathname);
+        this.taskFile = new File(pathname);
     }
 
     private void createSavePoint(fileStatus status, Scanner sc) throws DenimException {
@@ -115,6 +115,22 @@ public class TaskIO {
         }
     }
 
+    public void deleteTask(TaskList taskList) throws DenimException {
+        File overridingFile = new File("data","denim.txt");
+        Task task;
+
+        try {
+            FileWriter fw = new FileWriter(overridingFile);
+            for (int i = 0; i < taskList.getTaskListSize(); i++) {
+                task = taskList.getTask(i);
+                fw.write(task.toSimplifiedString());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new DenimException("Error has occurred while trying to overwrite denim.txt.");
+        }
+    }
+
     private void processTask(TaskList taskList, String task) throws DenimException {
         String[] taskComponents = task.split("\\|");
         String taskType = taskComponents[0].trim();
@@ -133,9 +149,8 @@ public class TaskIO {
             taskList.addTask(incomingTask);
             break;
         case EVENT:
-            String[] duration = taskComponents[3].trim().split("-");
-            String eventFrom = duration[0];
-            String eventTo = duration[1];
+            String eventFrom = taskComponents[3];
+            String eventTo = taskComponents[4];
             incomingTask = new Event(taskDescription, taskStatus, eventFrom, eventTo);
             taskList.addTask(incomingTask);
             break;
