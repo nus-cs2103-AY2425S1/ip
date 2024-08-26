@@ -1,5 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -45,9 +48,12 @@ public class Bro {
             throw new BroException("Please include \"/by\" in Deadline!!!");
         }
         String[] info = s.split(" /by ", 2);
-        Task curr = new Deadline(info[0], info[1]);
-        list.add(curr);
-        this.printStatus(curr);
+        LocalDateTime by = this.parseDate(info[1]);
+        if (by != null) {
+            Task curr = new Deadline(info[0], by);
+            list.add(curr);
+            this.printStatus(curr);
+        }
     }
 
     private void addEvent(String s) throws BroException {
@@ -57,9 +63,24 @@ public class Bro {
             throw new BroException("Please include \"/from\" and \"/to\" in Event!!!");
         }
         String[] info = s.split(" /from | /to ", 3);
-        Task curr = new Event(info[0], info[1], info[2]);
-        list.add(curr);
-        this.printStatus(curr);
+        LocalDateTime from = this.parseDate(info[1]);
+        if (from != null) {
+            LocalDateTime to = this.parseDate(info[2]);
+            if (to != null) {
+                Task curr = new Event(info[0], from, to);
+                list.add(curr);
+                this.printStatus(curr);
+            }
+        }
+    }
+
+    private LocalDateTime parseDate(String s) {
+        try {
+            return LocalDateTime.parse(s, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException dte) {
+            System.out.println("   Input date and time format at yyyy-mm-dd tttt");
+        }
+        return null;
     }
 
     private void printStatus(Task t) {
@@ -83,7 +104,7 @@ public class Bro {
         StringBuilder s = new StringBuilder();
         int len = list.size();
         for (int i = 0; i < len; i++) {
-            s.append(String.format("%d.%s\n", i + 1, list.get(i)));
+            s.append(String.format("%d.%s\n", i + 1, list.get(i).toLoad()));
         }
         return s.toString();
     }

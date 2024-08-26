@@ -14,6 +14,10 @@ public class Task {
         this.done = false;
     }
 
+    public String toLoad() {
+        return "";
+    }
+
     @Override
     public String toString() {
         if (done) {
