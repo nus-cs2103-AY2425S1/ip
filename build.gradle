@@ -28,12 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("gravitas.Gravitas")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "gravitas"
     archiveClassifier = null
+    archiveFileName = 'gravitas.jar'
 }
 
 run{
