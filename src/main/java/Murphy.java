@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,6 +19,7 @@ public class Murphy {
         System.out.println("Hello! I'm Murphy");
         System.out.println("What can I do for you?");
         prLine();
+        loadSave();
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNextLine()) {
             String input = scanner.nextLine();
@@ -204,5 +208,28 @@ public class Murphy {
         System.out.println(task);
         System.out.println("Now you have " + Murphy.tasks.size() + " task(s) in the list.");
         prLine();
+    }
+
+    private static void loadSave() {
+        File file = new File("./data/murphy.txt");
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error occurred creating save file: " + e.getMessage());
+            }
+        }
+        Scanner scanner;
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.err.println("Save file not found: " + e.getMessage());
+            return;
+        }
+        while (scanner.hasNext()) {
+            String nextTask = scanner.nextLine();
+
+        }
     }
 }
