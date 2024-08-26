@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +67,8 @@ public class Sora {
                 System.out.println(HORIZONTAL_LINE);
             } catch (SoraException e) {
                 System.out.println(e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\tSora doesn't understand! Please Try Again!");
             }
         }
     }
@@ -143,18 +148,36 @@ public class Sora {
                     throw new SoraException("\tPlease Enter - Todo (Description)");
                 }
             case "deadline":
+                String by = parsedCommand.get(2).substring(3);
+                LocalDateTime byDate = parseDate(by);
                 try {
-                    this.taskList.add(new Deadline(parsedCommand.get(1), parsedCommand.get(2).substring(3)));
+                    if (byDate == null) {
+                        this.taskList.add(new Deadline(parsedCommand.get(1), by));
+                    } else {
+                        this.taskList.add(new Deadline(parsedCommand.get(1), byDate));
+                    }
                     break;
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SoraException("\tPlease Enter - Deadline (Description) /by (by)");
+                    throw new SoraException("\tPlease Enter - Deadline (Description) /by (dd/MM/yy HHmm)");
                 }
             case "event":
+                String from = parsedCommand.get(2).substring(5);
+                LocalDateTime fromDate = parseDate(from);
+                String to = parsedCommand.get(3).substring(3);
+                LocalDateTime toDate = parseDate(to);
                 try {
-                    this.taskList.add(new Event(parsedCommand.get(1), parsedCommand.get(2).substring(5), parsedCommand.get(3).substring(3)));
+                    if (fromDate != null && toDate != null) {
+                        this.taskList.add(new Event(parsedCommand.get(1), fromDate, toDate));
+                    } else if (fromDate != null && toDate == null) {
+                        this.taskList.add(new Event(parsedCommand.get(1), fromDate, to));
+                    } else if (fromDate == null && toDate != null) {
+                        this.taskList.add(new Event(parsedCommand.get(1), from, toDate));
+                    } else {
+                        this.taskList.add(new Event(parsedCommand.get(1), from, to));
+                    }
                     break;
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SoraException("\tPlease Enter - Event (Description) /from (from) /to (to)");
+                    throw new SoraException("\tPlease Enter - Event (Description) /from (dd/MM/yy HHmm) /to (dd/MM/yy HHmm)");
                 }
         }
         saveTaskList();
@@ -225,29 +248,36 @@ public class Sora {
         switch (parsedFileTaskDetails[0]) {
         case "T":
             if (parsedFileTaskDetails.length != 3) {
-                throw new Exception("\tSora is unable to read file from line " + String.valueOf(lineNumber));
+                throw new Exception("\tSora is unable to read file from line " + lineNumber);
             }
             taskList.add(new ToDo(parsedFileTaskDetails[2]));
             break;
         case "D":
             if (parsedFileTaskDetails.length != 4) {
-                throw new Exception("\tSora is unable to read file from line " + String.valueOf(lineNumber));
+                throw new Exception("\tSora is unable to read file from line " + lineNumber);
             }
-            taskList.add(new Deadline(parsedFileTaskDetails[2], parsedFileTaskDetails[3]));
+            taskList.add(new Deadline(parsedFileTaskDetails[2],
+                    parsedFileTaskDetails[3]));
             break;
         case "E":
             if (parsedFileTaskDetails.length != 5) {
-                throw new Exception("\tSora is unable to read file from line " + String.valueOf(lineNumber));
+                throw new Exception("\tSora is unable to read file from line " + lineNumber);
             }
-            taskList.add(new Event(parsedFileTaskDetails[2], parsedFileTaskDetails[3], parsedFileTaskDetails[4]));
+            taskList.add(new Event(parsedFileTaskDetails[2],
+                    parsedFileTaskDetails[3],
+                    parsedFileTaskDetails[4]));
             break;
         }
         if (parsedFileTaskDetails[1].equalsIgnoreCase("X")) {
-            try {
-                markTask(String.valueOf(lineNumber));
-            } catch (SoraException e) {
-                System.out.println(e.getMessage());
-            }
+            this.taskList.get(taskList.size() - 1).markAsDone();
+        }
+    }
+
+    private LocalDateTime parseDate(String date) {
+        try {
+            return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            return null;
         }
     }
 }
