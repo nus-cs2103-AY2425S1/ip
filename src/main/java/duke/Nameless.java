@@ -1,8 +1,8 @@
-package nameless;
+package duke;
 
-import nameless.task.Deadline;
-import nameless.task.Event;
-import nameless.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;

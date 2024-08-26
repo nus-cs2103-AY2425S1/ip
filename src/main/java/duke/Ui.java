@@ -1,10 +1,10 @@
-package nameless;
+package duke;
 
-import nameless.task.Task;
+import duke.task.Task;
 
 public class Ui {
     private final String LINE = "______________________________________________________________";
-    private final String NAME = "nameless";
+    private final String NAME = "duke";
     private final String GREETINGS = "Hello, I'm " + NAME + "\n" + "What can I do for you?";
     private final String GOODBYE = "Bye. Hope to see you again!";
 

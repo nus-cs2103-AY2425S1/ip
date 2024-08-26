@@ -1,4 +1,4 @@
-package nameless;
+package duke;
 
 public class Parser {
     public static int splitGetNum(String input){

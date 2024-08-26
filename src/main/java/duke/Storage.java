@@ -1,9 +1,9 @@
-package nameless;
+package duke;
 
-import nameless.task.Task;
-import nameless.task.Todo;
-import nameless.task.Deadline;
-import nameless.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -47,16 +47,6 @@ public class Storage {
             } catch (IOException e) {
                 throw new DukeException("Error creating file");
             }
-        }
-    }
-
-    public void readFile() throws DukeException {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath.toString()))) {
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            throw new DukeException("Error reading file");
         }
     }
 

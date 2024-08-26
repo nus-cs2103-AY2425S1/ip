@@ -1,4 +1,4 @@
-package nameless;
+package duke;
 
 public class TypeOfException {
     public void showLoadingError() throws DukeException {

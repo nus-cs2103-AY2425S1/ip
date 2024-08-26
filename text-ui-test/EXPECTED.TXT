@@ -1,55 +1,55 @@
 ______________________________________________________________
-Hello, I'm nameless.Nameless
+Hello, I'm duke.Nameless
 What can I do for you?
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this nameless.task:
+Got it. I've added this duke.task:
      [T][ ] borrow book
-Now you have 1 nameless.task left
+Now you have 1 duke.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this nameless.task:
+Got it. I've added this duke.task:
      [D][ ] return book (by: 6th June)
-Now you have 2 nameless.task left
+Now you have 2 duke.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this nameless.task:
+Got it. I've added this duke.task:
      [E][ ] project meeting (form: Aug 6th 2pm to: 4pm)
-Now you have 3 nameless.task left
+Now you have 3 duke.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this nameless.task:
+Got it. I've added this duke.task:
      [T][ ] join sports club
-Now you have 4 nameless.task left
+Now you have 4 duke.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this nameless.task:
+Got it. I've added this duke.task:
      [T][ ] borrow book
-Now you have 5 nameless.task left
+Now you have 5 duke.task left
 ______________________________________________________________
 ______________________________________________________________
-Nice! I've marked this nameless.task as done:
+Nice! I've marked this duke.task as done:
    [X] borrow book
 ______________________________________________________________
 ______________________________________________________________
-Nice! I've marked this nameless.task as done:
+Nice! I've marked this duke.task as done:
    [X] join sports club
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this nameless.task:
+Got it. I've added this duke.task:
      [D][ ] return book (by: Sunday)
-Now you have 6 nameless.task left
+Now you have 6 duke.task left
 ______________________________________________________________
 ______________________________________________________________
-Got it. I've added this nameless.task:
+Got it. I've added this duke.task:
      [E][ ] project meeting (form: Mon 2pm to: 4pm)
-Now you have 7 nameless.task left
+Now you have 7 duke.task left
 ______________________________________________________________
 ______________________________________________________________
 Sorry! I don't understand what you are saying. Please enter a valid command. todo, deadline, event, list, mark/unmark, bye
 ______________________________________________________________
 ______________________________________________________________
-incorrect format use 'deadline <nameless.task> /by <date>'
+incorrect format use 'deadline <duke.task> /by <date>'
 ______________________________________________________________
 ______________________________________________________________
 The description of a todo cannot be empty.
@@ -65,12 +65,12 @@ ______________________________________________________________
     7.[E][ ] project meeting (form: Mon 2pm to: 4pm)
 ______________________________________________________________
 ______________________________________________________________
-Noted. I've removed this nameless.task:
+Noted. I've removed this duke.task:
     [T][ ] borrow book
 Now you have 6 tasks in the list.
 ______________________________________________________________
 ______________________________________________________________
-Noted. I've removed this nameless.task:
+Noted. I've removed this duke.task:
     [T][X] join sports club
 Now you have 5 tasks in the list.
 ______________________________________________________________
