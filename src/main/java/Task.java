@@ -19,6 +19,10 @@ public class Task {
         return this.name;
     }
 
+    public String type() {
+        return " ";
+    }
+
     @Override
     public String toString() {
         return "[" + (this.getCompleted() ? "X" : " ") + "] " + this.name;

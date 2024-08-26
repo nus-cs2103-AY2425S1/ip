@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Kita {
-    private final static ArrayList<Task> commandsList = new ArrayList<>();
+    private static ArrayList<Task> commandsList;
     private final static Pattern toDoPattern = Pattern.compile("^todo (.+)$");
     private final static Pattern deadlinePattern = Pattern.compile("^deadline (.+) /by (.+)$");
     private final static Pattern eventPattern = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
@@ -15,7 +15,18 @@ public class Kita {
     }
 
     public static void main(String[] args) {
+
         Scanner getInput = new Scanner(System.in);
+        SavingSystem saveSystem;
+        try {
+            saveSystem = new SavingSystem();
+            Kita.commandsList = saveSystem.readTasksFromFile();
+        }
+        catch (Exception e) {
+            System.out.println("Oh no, Kita failed to create/read from the save file successfully :c");
+            System.out.println(e);
+            return;
+        }
 
         printLine();
         System.out.println(" Hello! I'm Kita!");
@@ -44,6 +55,7 @@ public class Kita {
                     System.out.println("Nice! I've marked this task as done:");
                     Task selectedTask = commandsList.get(numberToMark - 1);
                     selectedTask.setCompleted(true);
+                    saveSystem.writeTasksToFile(Kita.commandsList);
                     System.out.println("  " + selectedTask);
                 } else if (command.startsWith("unmark")) {
                     String[] splitCommand = command.split(" ");
@@ -55,6 +67,7 @@ public class Kita {
                     System.out.println("OK, I've marked this task as not done yet:");
                     Task selectedTask = commandsList.get(numberToMark - 1);
                     selectedTask.setCompleted(false);
+                    saveSystem.writeTasksToFile(Kita.commandsList);
                     System.out.println("  " + selectedTask);
                 }
                 else if (command.startsWith("delete")) {
@@ -71,6 +84,7 @@ public class Kita {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + commandsList.get(numberToDelete - 1));
                     commandsList.remove(numberToDelete-1);
+                    saveSystem.writeTasksToFile(Kita.commandsList);
                     System.out.println("Now you have " + commandsList.size() + " tasks in the list.");
                 }
                 else {
@@ -110,7 +124,9 @@ public class Kita {
                         // No valid command found :c
                         throw new KitaNotFound();
                     }
+
                     commandsList.add(newTask);
+                    saveSystem.writeTasksToFile(Kita.commandsList);
                     System.out.println("Got it. I've added this task: ");
                     System.out.println("  " + newTask);
                     System.out.println("Now you have " + commandsList.size() + " tasks in the list.");
