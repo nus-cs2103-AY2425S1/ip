@@ -207,7 +207,7 @@ public class Tayoo {
                 Task taskToAdd = parseTask(taskStr);
                 if (taskToAdd != null) {
                     tasklistStr.append(taskToAdd).append("\n");
-                    tasklist.add(taskToAdd);q
+                    tasklist.add(taskToAdd);
                 }
 
             }
