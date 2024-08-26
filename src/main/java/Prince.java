@@ -53,10 +53,10 @@ public class Prince {
                     printList(tasksArray);
                 } else if (input.contains("unmark")) {
                     unmark(input, tasksArray);
-                    // updateFile("U", input, tasksArray);
+                    updateFile("U", input, tasksArray);
                 } else if (input.contains("mark")) {
                     mark(input, tasksArray);
-                    // updateFile("M", input, tasksArray);
+                    updateFile("M", input, tasksArray);
                 } else if (input.contains("delete")) {
                     deleteFromFile(input, tasksArray);
                     delete(input, tasksArray);
@@ -419,6 +419,57 @@ public class Prince {
             Files.delete(tempPath);
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void updateFile(String identifier, String input, ArrayList<Task> tasksArray) {
+        // check identifier is U or M
+        // get the description of the input
+        // read from the file
+        // find matching description
+        // update description (complicated part)
+        try {
+            int index = getIndex(input);
+            Task task = tasksArray.get(index);
+            String desc = task.getDescription();
+            // open the old file for reading
+            BufferedReader reader = Files.newBufferedReader(FILE_PATH);
+            // open a new (temporary) file for writing
+            Path tempPath = Paths.get("data", "temp.txt");
+            BufferedWriter writer = Files.newBufferedWriter(tempPath);
+            String currLine;
+            // for each line, check if it matches what you are supposed to remove
+            while ((currLine = reader.readLine()) != null) {
+                if (currLine.contains(desc)) {
+                    // if it matches, update the status part of the line
+                    // mark the task as done or not done
+                    // use the to file format
+                    // update there
+                    String updatedLine = task.toFileFormat();
+                    writer.write(updatedLine);
+                    writer.newLine();
+                } else {
+                    // if it doesn't match, write it normally
+                    writer.write(currLine);
+                    writer.newLine();
+                }
+            }
+
+            // close both files
+            reader.close();
+            writer.close();
+
+            // delete the old file
+            Files.delete(FILE_PATH);
+            // copy temp file to old file path
+            Files.copy(tempPath, FILE_PATH);
+            // delete temp file
+            Files.delete(tempPath);
+
+        } catch (
+
+        IOException e) {
             e.printStackTrace();
         }
     }
