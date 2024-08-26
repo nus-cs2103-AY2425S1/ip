@@ -1,10 +1,17 @@
 package task;
 
 import java.util.*;
+import java.util.regex.*;
 
 public abstract class Task {
     protected String description;
     protected boolean isCompleted;
+
+    private enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
 
     public Task(String line) throws InvalidTaskException {
         this.description = parseDescription(line);
@@ -15,7 +22,7 @@ public abstract class Task {
         this.isCompleted = isCompleted;
     }
 
-    private String parseDescription(String line) throws InvalidTaskException {
+    private static String parseDescription(String line) throws InvalidTaskException {
         String[] tokens = line.split(" ", 2);
         if (tokens.length != 2) {
             throw new InvalidTaskException();
@@ -24,7 +31,7 @@ public abstract class Task {
         return arguments.split("/", 2)[0].trim();
     }
 
-    protected Map<String, String> parseFlags(String line) {
+    protected static Map<String, String> parseFlags(String line) {
         String[] tokens = line.split("/");
         Map<String, String> arguments = new HashMap<>();
         for (int i = 1; i < tokens.length; i++) {
@@ -41,8 +48,37 @@ public abstract class Task {
         return arguments;
     }
 
+    protected static Map<String, String> parseJsonString(String jsonString) {
+        Map<String, String> arguments = new HashMap<>();
+        Pattern keyValuePairPattern = Pattern.compile("(\\\"\\w+\\\"): (\\\"[\\w\\s]+\\\")");
+        Matcher matcher = keyValuePairPattern.matcher(jsonString);
+        while (matcher.find()) {
+            // remove string quotes from json
+            String key = matcher.group(1).replaceAll("\"", "");
+            String value = matcher.group(2).replaceAll("\"", "");
+            arguments.put(key, value);
+        }
+        return arguments;
+    }
+
+    public static Task fromJsonString(String jsonString) throws InvalidTaskException {
+        Map<String, String> arguments = parseJsonString(jsonString);        
+        switch (TaskType.valueOf(arguments.get("taskType").toUpperCase())) {
+            case TODO:
+                return ToDo.fromJsonString(jsonString);
+            case DEADLINE:
+                return Deadline.fromJsonString(jsonString);
+            case EVENT:
+                return Event.fromJsonString(jsonString);
+            default:
+                throw new InvalidTaskException();
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", isCompleted ? "X" : " ", description);
     }
+
+    public abstract String toJsonString();
 }

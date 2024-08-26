@@ -19,4 +19,26 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), by);
     }
+
+    @Override
+    public String toJsonString() {
+        List<String> keyValuePairs = new ArrayList<>();
+        keyValuePairs.add("\"taskType\": \"deadline\"");
+        keyValuePairs.add(String.format("\"description\": \"%s\"", description));
+        keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
+        keyValuePairs.add(String.format("\"by\": \"%s\"", by));
+        return String.format("{%s}", String.join(", ", keyValuePairs));
+    }
+
+    public static Task fromJsonString(String jsonString) throws InvalidTaskException {
+        Map<String, String> arguments = parseJsonString(jsonString);
+        String inputLine = String.format(
+            "deadline %s /by %s",
+            arguments.get("description"),
+            arguments.get("by")
+        );
+        Deadline deadline = new Deadline(inputLine);
+        deadline.isCompleted = arguments.get("isCompleted").compareTo("true") == 0;
+        return deadline;
+    }
 }

@@ -1,9 +1,12 @@
+import java.io.*;
 import java.util.*;
 import task.*;
 
 public class Alice {
     private static final String NAME = "Alice";
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String DATA_DIRECTORY = "./data";
+    private static final String TASKS_FILE = "tasks.jsonl";
 
     private final List<Task> tasks;
 
@@ -20,6 +23,7 @@ public class Alice {
 
     public Alice() {
         this.tasks = new ArrayList<>();
+        loadTasks();
     }
 
     private void say(String message) {
@@ -58,14 +62,15 @@ public class Alice {
         say("Got it. I've added this task:");
         System.out.println(String.format("\t%s", task));
         System.out.println(HORIZONTAL_LINE);
+        saveTasks();
     }
 
     private void listTasks() {
         System.out.println(HORIZONTAL_LINE);
         if (tasks.isEmpty()) {
-            System.out.println("> You have no tasks.");
+            say("You have no tasks.");
         } else {
-            System.out.println("> These are your tasks:");
+            say("These are your tasks:");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println(String.format("\t%d. %s", i + 1, tasks.get(i)));
             }
@@ -98,6 +103,7 @@ public class Alice {
         say("Nice! I've marked this task as done:");
         System.out.println(String.format("\t%s", tasks.get(index)));
         System.out.println(HORIZONTAL_LINE);
+        saveTasks();
     }
 
     private void unmarkTask(String line) {
@@ -126,6 +132,7 @@ public class Alice {
         say("OK, I've marked this task as not done yet:");
         System.out.println(String.format("\t%s", tasks.get(index)));
         System.out.println(HORIZONTAL_LINE);
+        saveTasks();
     }
 
     private void deleteTask(String line) {
@@ -154,6 +161,54 @@ public class Alice {
         say("Noted. I've removed this task:");
         System.out.println(String.format("\t%s", removedTask));
         System.out.println(HORIZONTAL_LINE);
+        saveTasks();
+    }
+
+    private void loadTasks() {
+        File dataDirectory = new File(DATA_DIRECTORY);
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        File tasksFile = new File(String.format("%s/%s", DATA_DIRECTORY, TASKS_FILE));
+        try {
+            FileReader input = new FileReader(tasksFile.getAbsoluteFile());
+            BufferedReader reader = new BufferedReader(input);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.isEmpty()) {
+                    continue;
+                }
+                Task task = Task.fromJsonString(line);
+                tasks.add(task);
+            }
+            reader.close();
+            input.close();
+        } catch (IOException | InvalidTaskException e){
+            warn("Unable to load tasks.");
+        }
+    }
+
+    private void saveTasks() {
+        File dataDirectory = new File(DATA_DIRECTORY);
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        File tasksFile = new File(String.format("%s/%s", DATA_DIRECTORY, TASKS_FILE));
+        try {
+            // overwrite file
+            FileWriter output = new FileWriter(tasksFile.getAbsoluteFile(), false);
+            BufferedWriter writer = new BufferedWriter(output);
+            for (Task task : tasks) {
+                writer.write(task.toJsonString());
+                writer.write("\n");
+            }
+            writer.close();
+            output.close();
+        } catch (IOException e){
+            warn("Unable to save tasks.");
+        }
     }
 
     private void listen() {
@@ -190,7 +245,7 @@ public class Alice {
                     Task toDo = new ToDo(line);
                     addTask(toDo);
                 } catch (InvalidTaskException exception) {
-                    warn(String.format("%s Usage: todo <description>", exception));
+                    warn(String.format("%s Usage: Alice <description>", exception));
                 }
                 continue;
             }
