@@ -12,15 +12,28 @@ import calebyyy.Tasks.Event;
 import calebyyy.Tasks.Task;
 import calebyyy.Tasks.Todo;
 
+/**
+ * Represents the storage of the application.
+ */
 public class Storage {
 
     String filePath;
 
+    /**
+     * Constructor for Storage.
+     * 
+     * @param filePath The file path to store the tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
     }
 
+    /**
+     * Loads tasks from the file.
+     * 
+     * @param tasklist The task list to load the tasks into.
+     */
     void loadTasks(TaskList tasklist) {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -63,6 +76,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to the file.
+     * 
+     * @param taskList The task list to save the tasks from.
+     */
     public void saveTasks(TaskList taskList) {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
