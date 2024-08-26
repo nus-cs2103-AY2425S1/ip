@@ -9,7 +9,6 @@ public class Reo {
     private Storage storage;
 
     public Reo() {
-        TaskList taskList;
         try {
             tasklist = new TaskList(storage.readFile());
         } catch (Exception e) {

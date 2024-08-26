@@ -12,12 +12,12 @@ public class Parser {
         DELETE,
         UNKNOWN,
     }
-    String input;
-    String[] words;
-    Command command;
-    TaskList tasks;
-    Ui ui;
-    Storage storage;
+    private String input;
+    private String[] words;
+    private Command command;
+    private TaskList tasks;
+    private Ui ui;
+    private Storage storage;
     public Parser(String input, TaskList tasks, Ui ui, Storage storage) {
         this.input = input;
         this.tasks = tasks;
