@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Garfield {
 
@@ -18,6 +20,51 @@ public class Garfield {
         String initialGreeting = "Hey. I'm\n\n" + logo
                 + "\nLet's get this over with. What do you want?";
         Garfield.speak(initialGreeting);
+
+        // Load harddisk file
+        String filePath = "./data/save.txt";
+        File savedFile = new File(filePath);
+        try {
+            Scanner fileScanner = new Scanner(savedFile);
+            String savedTask;
+            while (fileScanner.hasNext()) {
+                savedTask = fileScanner.nextLine();
+                String[] taskDetails = savedTask.split(" \\| ");
+                String taskType = taskDetails[0];
+
+                switch (taskType) {
+                    case "T":
+                        Todo newTodo = new Todo(taskDetails[2]);
+                        taskList.add(newTodo);
+                        if (taskDetails[1].equals("1")) {
+                            newTodo.markAsDone();
+                        } else {
+                            newTodo.markAsUndone();
+                        }
+                        break;
+                    case "D":
+                        Deadline newDeadline = new Deadline(taskDetails[2], taskDetails[3]);
+                        taskList.add(newDeadline);
+                        if (taskDetails[1].equals("1")) {
+                            newDeadline.markAsDone();
+                        } else {
+                            newDeadline.markAsUndone();
+                        }
+                        break;
+                    case "E":
+                        Event newEvent = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                        taskList.add(newEvent);
+                        if (taskDetails[1].equals("1")) {
+                            newEvent.markAsDone();
+                        } else {
+                            newEvent.markAsUndone();
+                        }
+                        break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            Garfield.speak("Something went wrong with your save file!");
+        }
 
         // Loop to get user input
         Scanner inputScanner = new Scanner(System.in);
