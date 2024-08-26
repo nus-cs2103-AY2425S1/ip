@@ -166,14 +166,14 @@ public class Max {
         }
     }
 
-    private LocalDateTime parseDate(String date){
+    private LocalDateTime parseDate(String date) throws MaxException {
         DateTimeFormatter converter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
         try {
             LocalDateTime LDT = LocalDateTime.parse(date, converter);
             return LDT;
         } catch (DateTimeParseException e){
-            return null;
+            throw new MaxException("Invalid date format! Please use d/M/yyyy HHmm. "
+                    + "For example, '2/12/2024 1800'");
         }
     }
 
