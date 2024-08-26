@@ -188,4 +188,23 @@ public class Ui {
     public String readCommand() {
         return in.nextLine().trim();
     }
+
+    /**
+     * Displays the tasks that match a specified keyword.
+     * Prints a message to indicate whether any matching tasks were found.
+     * If matching tasks are found, prints each matching task to the console.
+     * Otherwise, prints a message indicating that no matching tasks were found.
+     *
+     * @param tasks The TaskList containing the tasks to be displayed.
+     */
+    public void showMatchedTask(TaskList tasks) {
+        printLine();
+        if (tasks.isEmpty()) {
+            System.out.println("No matching task in your list!");
+        } else {
+            System.out.println("Here are the Matching tasks in your list:");
+            tasks.printTasks();
+        }
+        printLine();
+    }
 }

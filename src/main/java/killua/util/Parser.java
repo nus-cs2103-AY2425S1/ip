@@ -51,6 +51,11 @@ public class Parser {
                 throw new KilluaException("Arguments cannot be empty!");
             }
             return new OnCommand(arguments);
+        case "find":
+            if (arguments.isEmpty()) {
+                throw new KilluaException("Arguments cannot be empty!");
+            }
+            return new FindCommand(arguments);
         default:
             throw new KilluaException("Unknown command: " + commandWord);
         }

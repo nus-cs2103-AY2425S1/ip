@@ -53,6 +53,17 @@ public class Task {
     }
 
     /**
+     * Checks if the task description contains the specified keyword.
+     * This method is used to determine if a task matches the search criteria based on a keyword.
+     *
+     * @param keyword The keyword to search for in the task description.
+     * @return true if the task description contains the keyword, false otherwise.
+     */
+    public boolean isMatched(String keyword) {
+        return description.contains(keyword);
+    }
+
+    /**
      * Returns a string representation of this task in a format suitable for saving to a file.
      * The format includes the completion status and description.
      *
