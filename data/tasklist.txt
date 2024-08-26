@@ -1,3 +1,0 @@
-D | 1 | tut2 | Aug 29 2024 23:59
-E | 0 | hackathon | Aug 26 2024 | Aug 27 2024
-E | 0 | CTF | Aug 26 2024 00:00 | Aug 27 2024 23:59
