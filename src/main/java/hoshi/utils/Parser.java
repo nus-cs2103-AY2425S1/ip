@@ -7,6 +7,7 @@ import hoshi.task.TaskList;
 import hoshi.task.Todo;
 import hoshi.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ import java.util.Scanner;
  */
 public class Parser {
 
+    private Storage storage = new Storage("./data/Hoshi.txt");
 
     /**
      * Parses all user commands into their respective methods as well as display the bye message once
@@ -90,6 +92,12 @@ public class Parser {
                     taskList.get(markIndex).setIsDone(true);
                     ui.displayTaskMarked(taskList.get(markIndex));
 
+                    try {
+                        storage.save(taskList);
+                    } catch (IOException e) {
+                        ui.displaySavingError(e.getMessage());
+                    }
+
                 } else {
                     throw new HoshiException("Hoshi doesn't have such a task!");
                 }
@@ -131,6 +139,12 @@ public class Parser {
                     // set isDone to false
                     taskList.get(markIndex).setIsDone(false);
 
+                    try {
+                        storage.save(taskList);
+                    } catch (IOException e) {
+                        ui.displaySavingError(e.getMessage());
+                    }
+
                     ui.displayTaskMarked(taskList.get(markIndex));
 
                 } else {
@@ -167,6 +181,12 @@ public class Parser {
             ui.displayTaskDeleted(taskList.get(markIndex));
             taskList.delete(markIndex);
 
+            try {
+                storage.save(taskList);
+            } catch (IOException e) {
+                ui.displaySavingError(e.getMessage());
+            }
+
         }
     }
 
@@ -178,7 +198,7 @@ public class Parser {
      * @param scanner Scanner that allows user input to be read.
      * @param taskList TaskList of 3 types of tasks that will be added to in this method.
      */
-    private static void handleAdd(String input, Scanner scanner, TaskList taskList, Ui ui) {
+    private void handleAdd(String input, Scanner scanner, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 4) {
 
@@ -204,7 +224,16 @@ public class Parser {
 
                     Todo newToDo = new Todo(desc);
                     taskList.add(newToDo);
+
+                    try {
+                        storage.save(taskList);
+                    } catch (IOException e) {
+                        ui.displaySavingError(e.getMessage());
+                    }
+
                     ui.displayTaskAdded(input);
+
+
 
                 } catch (HoshiException e) {
                     ui.displayError(e.getMessage());
@@ -231,6 +260,13 @@ public class Parser {
 
                     Deadline newDeadline = new Deadline(desc, dateTime);
                     taskList.add(newDeadline);
+
+                    try {
+                        storage.save(taskList);
+                    } catch (IOException e) {
+                        ui.displaySavingError(e.getMessage());
+                    }
+
                     ui.displayTaskAdded(input);
 
                 } catch (HoshiException e) {
@@ -267,6 +303,13 @@ public class Parser {
 
                     Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
                     taskList.add(newEvent);
+
+                    try {
+                        storage.save(taskList);
+                    } catch (IOException e) {
+                        ui.displaySavingError(e.getMessage());
+                    }
+
                     ui.displayTaskAdded(input);
 
 
@@ -275,7 +318,6 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format");
                 }
-
 
             }
             default ->
