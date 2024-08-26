@@ -1,4 +1,4 @@
-package main.java;
+package main.java.echochat;
 
 import java.io.Serializable;
 import java.time.LocalDate;

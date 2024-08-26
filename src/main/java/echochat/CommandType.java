@@ -1,4 +1,4 @@
-package main.java;
+package main.java.echochat;
 
 public enum CommandType {
     TODO,

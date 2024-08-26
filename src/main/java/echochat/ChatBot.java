@@ -1,7 +1,4 @@
-package main.java;
-
-import main.java.Exceptions.EmptyDescriptionError;
-import main.java.Exceptions.InvalidCommandError;
+package main.java.echochat;
 
 public class ChatBot {
     private Ui ui;
