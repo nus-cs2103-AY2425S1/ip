@@ -122,16 +122,21 @@ public class TaskListUI {
           // Add deadline task to task list
           // (Usage: deadline <description> /by <date>)
           case DEADLINE: {
-            parser.parse(true, false, new CommandOption[] { new CommandOption("by", "date") });
-            addTask(new DeadlineTask(parser.getDescription(), parser.getOption("by")));
+            CommandOption<TaskLocalDate> byOption = new CommandOption<TaskLocalDate>("by", "date",
+                TaskLocalDate::parse);
+            parser.parse(true, false, byOption);
+            addTask(new DeadlineTask(parser.getDescription(), byOption.getParsedValue()));
             break;
           }
           // Add event task to task list
           // (Usage: event <description> /from <fromDate> /to <toDate>)
           case EVENT: {
-            parser.parse(true, false,
-                new CommandOption[] { new CommandOption("from", "fromDate"), new CommandOption("to", "toDate") });
-            addTask(new EventTask(parser.getDescription(), parser.getOption("from"), parser.getOption("to")));
+            CommandOption<TaskLocalDate> fromOption = new CommandOption<TaskLocalDate>("from", "fromDate yyyy-mm-dd",
+                TaskLocalDate::parse);
+            CommandOption<TaskLocalDate> toOption = new CommandOption<TaskLocalDate>("to", "toDate yyyy-mm-dd",
+                TaskLocalDate::parse);
+            parser.parse(true, false, fromOption, toOption);
+            addTask(new EventTask(parser.getDescription(), fromOption.getParsedValue(), toOption.getParsedValue()));
             break;
           }
           // Delete task from task list

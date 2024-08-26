@@ -10,7 +10,7 @@ public class CommandParser {
   private String description;
   private int intParam;
 
-  private Map<String, String> options = new HashMap<>();
+  private Map<String, CommandOption<?>> options = new HashMap<>();
 
   public CommandParser(String input) throws IllegalCommandException {
     String[] parts = input.split(" ", 2);
@@ -26,7 +26,7 @@ public class CommandParser {
     this.parse(hasDescription, isIntegerDescription, new CommandOption[0]);
   }
 
-  public void parse(boolean hasDescription, boolean isIntegerDescription, CommandOption[] expectedOptions) {
+  public void parse(boolean hasDescription, boolean isIntegerDescription, CommandOption<?>... expectedOptions) {
     // Reset states
     this.description = "";
     options.clear();
@@ -37,7 +37,7 @@ public class CommandParser {
 
     // Create a pattern to match all options and end of string
     StringBuilder endDelimeter = new StringBuilder("(?:$");
-    for (CommandOption option : expectedOptions) {
+    for (CommandOption<?> option : expectedOptions) {
       endDelimeter.append("| /");
       endDelimeter.append(option.getOption());
     }
@@ -47,11 +47,11 @@ public class CommandParser {
     // Parse options
     // All options should start with /option_name <option_value>
     int minStartMatch = this.argument.length();
-    for (CommandOption option : expectedOptions) {
+    for (CommandOption<?> option : expectedOptions) {
       try {
-        OptionMatch match = option.parse(this.argument, end);
-        this.options.put(option.getOption(), match.getMatch());
-        minStartMatch = Math.min(minStartMatch, match.getIndex());
+        int matchStart = option.parse(this.argument, end);
+        this.options.put(option.getOption(), option);
+        minStartMatch = Math.min(minStartMatch, matchStart);
       } catch (IllegalArgumentException e) {
         throw new IllegalCommandArgumentException(this.command, hasDescription, isIntegerDescription, expectedOptions);
       }
@@ -85,7 +85,7 @@ public class CommandParser {
     return this.intParam;
   }
 
-  public String getOption(String option) {
+  public CommandOption<?> getOption(String option) {
     return this.options.get(option);
   }
 }

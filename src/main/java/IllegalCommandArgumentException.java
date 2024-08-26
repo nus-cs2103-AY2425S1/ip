@@ -2,10 +2,10 @@ public class IllegalCommandArgumentException extends IllegalCommandException {
   private CommandType command;
   private boolean hasDescription;
   private boolean isIntegerDescription;
-  private CommandOption[] options;
+  private CommandOption<?>[] options;
 
   public IllegalCommandArgumentException(CommandType command, boolean hasDescription, boolean isIntegerDescription,
-      CommandOption[] options) {
+      CommandOption<?>[] options) {
     super();
     this.command = command;
     this.hasDescription = hasDescription;
@@ -20,7 +20,7 @@ public class IllegalCommandArgumentException extends IllegalCommandException {
     if (hasDescription) {
       usage.append(isIntegerDescription ? " <value>" : " <description>");
     }
-    for (CommandOption option : options) {
+    for (CommandOption<?> option : options) {
       usage.append(" /");
       usage.append(option.getOption());
       usage.append(" <");

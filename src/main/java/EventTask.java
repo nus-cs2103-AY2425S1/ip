@@ -1,8 +1,8 @@
 public class EventTask extends Task {
-  private String from;
-  private String to;
+  private TaskLocalDate from;
+  private TaskLocalDate to;
 
-  public EventTask(String description, String from, String to) {
+  public EventTask(String description, TaskLocalDate from, TaskLocalDate to) {
     super(description, TaskType.EVENT);
     this.from = from;
     this.to = to;

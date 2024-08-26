@@ -1,8 +1,8 @@
-public class OptionMatch {
+public class OptionMatch<T> {
   private final int index;
-  private final String match;
+  private final T match;
 
-  public OptionMatch(int index, String match) {
+  public OptionMatch(int index, T match) {
     this.index = index;
     this.match = match;
   }
@@ -11,7 +11,7 @@ public class OptionMatch {
     return this.index;
   }
 
-  public String getMatch() {
+  public T getMatch() {
     return this.match;
   }
 }
