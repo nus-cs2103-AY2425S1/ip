@@ -69,7 +69,7 @@ public class PurrfessorDipsy {
                 deleteFromMemory(userInput);
                 break;
             case LIST:
-                printMemory();
+                handleList(userInput);
                 break;
             case BYE:
                 exitProgram();
@@ -148,7 +148,7 @@ public class PurrfessorDipsy {
                         parsedBy = DateTimeParser.parseDate(by);
                         saveToMemory(new Deadline(description, parsedBy));
                     } catch (DateTimeParseException e) {
-                        printDateParseErrorMessage();
+                        printDateParseErrorMessage(by);
                     }
                 } else {
                     throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DEADLINE);
@@ -164,10 +164,14 @@ public class PurrfessorDipsy {
                     LocalDate parsedStart, parsedEnd;
                     try {
                         parsedStart = DateTimeParser.parseDate(start);
-                        parsedEnd = DateTimeParser.parseDate(end);
-                        saveToMemory(new Event(description, parsedStart, parsedEnd));
+                        try {
+                            parsedEnd = DateTimeParser.parseDate(end);
+                            saveToMemory(new Event(description, parsedStart, parsedEnd));
+                        } catch (DateTimeParseException e) {
+                            printDateParseErrorMessage(end);
+                        }
                     } catch (DateTimeParseException e) {
-                        printDateParseErrorMessage();
+                        printDateParseErrorMessage(start);
                     }
                 } else {
                     throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_EVENT);
@@ -176,6 +180,24 @@ public class PurrfessorDipsy {
 
             default:
                 throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.UNKNOWN_COMMAND);
+        }
+    }
+
+
+    private static void handleList(String userInput) {
+        String[] parts = userInput.trim().split("\\s+");
+
+        if (parts.length == 1) {
+            // Case where input is 'list'
+            printTasks(taskTable);
+        } else if (parts.length == 2) {
+            // Case where input is 'list <date>'
+            try {
+                LocalDate date = LocalDate.parse(parts[1]);
+                printTasks(filterTasksByDate(date));
+            } catch (DateTimeParseException e) {
+                printDateParseErrorMessage(parts[1]);
+            }
         }
     }
 
@@ -204,16 +226,16 @@ public class PurrfessorDipsy {
         }
     }
 
-    private static void printMemory() {
-        int taskTableSize = taskTable.size();
-        if (taskTableSize == 0) {
+    private static void printTasks(ArrayList<Task> tasks) {
+        int taskCount = tasks.size();
+        if (taskCount == 0) {
             printWithTerminalLines("Your task list is as empty as a well-sunned nap spot.");
         } else {
             StringBuilder result = new StringBuilder("Time to stretch those paws and tackle your tasks!\n");
-            for (int i = 0; i < taskTableSize; i++) {
+            for (int i = 0; i < taskCount; i++) {
                 int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
-                result.append(printedIndex).append(".").append(taskTable.get(i));
-                if (i < taskTableSize - 1) { // Don't append a newline after the last task
+                result.append(printedIndex).append(".").append(tasks.get(i));
+                if (i < taskCount - 1) { // Don't append a newline after the last task
                     result.append("\n");
                 }
             }
@@ -240,8 +262,24 @@ public class PurrfessorDipsy {
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
     }
 
-    private static void printDateParseErrorMessage() {
-        System.out.println("Incorrect date formatting! " +
-                           "Please enter the date in the format yyyy-MM-dd (e.g., 2024-08-25).");
+    private static void printDateParseErrorMessage(String date) {
+        System.out.println("Invalid date format: " + date +
+                           " Please enter the date in the format yyyy-MM-dd (e.g., 2024-08-25).");
+    }
+
+    public static ArrayList<Task> filterTasksByDate(LocalDate date) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task t: taskTable) {
+            if (t instanceof Deadline deadline) {
+                if (deadline.getBy().equals(date)) {
+                    res.add(t);
+                }
+            } else if (t instanceof Event event) {
+                if (event.getStart().equals(date)) {
+                    res.add(t);
+                }
+            }
+        }
+        return res;
     }
 }
