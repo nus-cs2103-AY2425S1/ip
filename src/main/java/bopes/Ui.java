@@ -17,7 +17,14 @@ public class Ui {
 
     public String readCommand() {
         System.out.print("What can I do for you? ");
-        return scanner.nextLine();
+        if (scanner.hasNextLine()) {
+            return scanner.nextLine();
+        } else {
+            System.out.println("No input detected. Exiting...");
+            System.exit(0);
+            return "";
+        }
+        
     }
 
     public void showLine() {
