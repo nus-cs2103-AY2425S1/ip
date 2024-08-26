@@ -4,11 +4,11 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Todo extends Task {
-    private String detail;
+    private String description;
 
     private Todo(String description) {
         super(description);
-        this.detail = description;
+        this.description = description;
     }
 
     public static Todo of(String rawDescription) {
@@ -45,6 +45,11 @@ public class Todo extends Task {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(segments.length == 1,
                         "OOPS! todo description cannot be empty.\nAdd description.");
+    }
+
+    @Override
+    public String parseDetailsForDB() {
+        return String.format("T | %d | %s", super.getStatus() ? 1 : 0, this.description);
     }
 
     @Override

@@ -2,6 +2,7 @@ package mendel.dbmanager;
 
 import mendel.discretetask.Deadline;
 import mendel.discretetask.Event;
+import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.mendelexception.MendelException;
 import mendel.metacognition.TaskStorage;
@@ -9,14 +10,16 @@ import mendel.metacognition.TaskStorage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
-import java.util.Arrays;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 
 public class DBManager {
-    private File db;
+    private final String filePath;
+    private final File db;
 
     public DBManager(String filePath) {
+        this.filePath = filePath;
         File db = new File(filePath);
         this.db = db;
         if (!db.exists()) {
@@ -32,7 +35,7 @@ public class DBManager {
 
     public void loadInto(TaskStorage taskStorage) {
         try {
-            Scanner s = new Scanner(this.db); // create a Scanner using the File as the source
+            Scanner s = new Scanner(this.db);
             while (s.hasNext()) {
                 String line = s.nextLine();
                 String[] lineSegments = line.split(" \\| ");
@@ -51,6 +54,37 @@ public class DBManager {
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
+    }
 
+    public void create(Task task) {
+        try {
+            FileWriter fw = new FileWriter(this.filePath, true);
+            fw.write("\n" + task.parseDetailsForDB());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    public void update(TaskStorage taskStorage) {
+        try {
+            FileWriter fwRedo = new FileWriter(this.filePath);
+            fwRedo.close();
+            FileWriter fw = new FileWriter(this.filePath, true);
+            int counter = 0;
+            while (taskStorage.hasTask(counter)) {
+                Task task = taskStorage.getTask(counter);
+                if (counter == 0) {
+                    fw.write(task.parseDetailsForDB());
+                } else {
+                    fw.write("\n" + task.parseDetailsForDB());
+                }
+
+                counter++;
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
     }
 }

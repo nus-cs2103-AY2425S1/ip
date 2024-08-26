@@ -4,8 +4,15 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Event extends Task {
+    private final String description;
+    private final String from;
+    private final String to;
+
     private Event(String description, String from, String to) {
         super(String.format("%s (from: %s to %s)", description, from, to));
+        this.description = description;
+        this.from = from;
+        this.to = to;
     }
 
     public static Event of(String rawDescription) {
@@ -37,7 +44,6 @@ public class Event extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-//        reformattedMsg += String.format(" (from: %s to %s)", startMsg, endMsg);
         return new String[]{reformattedMsg, startMsg, endMsg};
     }
 
@@ -70,6 +76,11 @@ public class Event extends Task {
                 .conditionTriggerException(startMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
 
+    }
+
+    @Override
+    public String parseDetailsForDB() {
+        return String.format("E | %d | %s | %s | %s", super.getStatus() ? 1 : 0, this.description, this.from, this.to);
     }
 
     @Override

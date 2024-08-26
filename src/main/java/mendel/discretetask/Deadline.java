@@ -4,8 +4,13 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Deadline extends Task {
+    private final String description;
+    private final String by;
+
     public Deadline(String description, String by) {
         super(String.format("%s (by: %s)", description, by));
+        this.description = description;
+        this.by = by;
     }
 
     public static Deadline of(String rawDescription) {
@@ -36,7 +41,6 @@ public class Deadline extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-//        reformattedMsg += String.format(" (by: %s)", endMsg);
         return new String[]{reformattedMsg, endMsg};
     }
 
@@ -58,6 +62,11 @@ public class Deadline extends Task {
         String endMsg = slashSegments[1];
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
+    }
+
+    @Override
+    public String parseDetailsForDB() {
+        return String.format("D | %d | %s | %s", super.getStatus() ? 1 : 0, this.description, this.by);
     }
 
     @Override

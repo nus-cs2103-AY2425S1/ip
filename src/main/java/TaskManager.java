@@ -3,6 +3,7 @@ import mendel.metacognition.TaskStorage;
 import mendel.metacognition.Leave;
 import mendel.mendelexception.MendelException;
 
+import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.discretetask.Event;
 import mendel.discretetask.Deadline;
@@ -38,17 +39,23 @@ public class TaskManager {
             }
 
             if (segments[0].equals("mark")) {
-                taskStorage.marker(Integer.parseInt(segments[1]) - 1);
+                Task task = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
+                this.dbContoller.update(this.taskStorage);
             } else if(segments[0].equals("unmark")) {
-                taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
+                Task task = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
+                this.dbContoller.update(this.taskStorage);
             } else if(segments[0].equals("delete")) {
-                taskStorage.delete(Integer.parseInt(segments[1]) - 1);
+                Task task = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
+                this.dbContoller.update(this.taskStorage);
             } else if(segments[0].equals("todo")) {
-                taskStorage.add(Todo.of(currAction));
+                Task task = taskStorage.add(Todo.of(currAction));
+                this.dbContoller.create(task);
             } else if(segments[0].equals("deadline")) {
-                taskStorage.add(Deadline.of(currAction));
+                Task task = taskStorage.add(Deadline.of(currAction));
+                this.dbContoller.create(task);
             } else if(segments[0].equals("event")) {
-                taskStorage.add(Event.of(currAction));
+                Task task = taskStorage.add(Event.of(currAction));
+                this.dbContoller.create(task);
             } else {
                 throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
             }
