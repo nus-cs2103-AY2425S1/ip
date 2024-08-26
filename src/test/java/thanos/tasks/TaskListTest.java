@@ -68,6 +68,18 @@ public class TaskListTest {
     }
 
     @Test
+    public void testFind() {
+        Task task1 = new Todo("read book");
+        Task task2 = new Todo("write code");
+        taskList.add(task1);
+        taskList.add(task2);
+
+        ArrayList<Task> result = taskList.find("read");
+        assertEquals(1, result.size());
+        assertTrue(result.contains(task1));
+    }
+
+    @Test
     public void testFindByDate() {
         LocalDateTime date = LocalDateTime.of(2024, 8, 26, 0, 0);
         Task task1 = new Deadline("Task 1", date);

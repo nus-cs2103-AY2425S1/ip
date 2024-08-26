@@ -106,6 +106,16 @@ public class TaskList {
         this.storage.save(this.tasks);
         return task;
     }
+    
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task: this.tasks) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 
     /**
      * Returns a list of tasks that match on the specified date, as determined by each task's {@code checkDate} method.

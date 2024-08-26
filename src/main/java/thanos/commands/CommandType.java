@@ -9,6 +9,7 @@ public enum CommandType {
     DEADLINE,
     DELETE,
     EVENT,
+    FIND,
     INVALID,
     LIST,
     MARK,
@@ -30,22 +31,24 @@ public enum CommandType {
         switch (command) {
         case "bye":
             return BYE;
+        case "date":
+            return DATE;
+        case "deadline":
+            return DEADLINE;
+        case "delete":
+            return DELETE;
+        case "event":
+            return EVENT;
+        case "find":
+            return FIND;
         case "list":
             return LIST;
         case "mark":
             return MARK;
-        case "unmark":
-            return UNMARK;
         case "todo":
             return TODO;
-        case "deadline":
-            return DEADLINE;
-        case "event":
-            return EVENT;
-        case "delete":
-            return DELETE;
-        case "date":
-            return DATE;
+        case "unmark":
+            return UNMARK;
         default:
             return INVALID;
         }
