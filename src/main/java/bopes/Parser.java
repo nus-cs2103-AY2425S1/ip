@@ -1,3 +1,12 @@
+package bopes;
+
+import bopes.exception.BopesException;
+import bopes.task.Deadline;
+import bopes.task.Event;
+import bopes.task.Task;
+import bopes.task.TaskList;
+import bopes.task.ToDo;
+
 public class Parser {
 
     public static void parse(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws BopesException {

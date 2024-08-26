@@ -1,4 +1,7 @@
+package bopes.task;
+
 import java.util.ArrayList;
+import bopes.exception.BopesException;
 
 public class TaskList {
     private ArrayList<Task> tasks;

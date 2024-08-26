@@ -1,4 +1,8 @@
+package bopes;
+
 import java.util.Scanner;
+import bopes.task.Task;
+import bopes.task.TaskList;
 
 public class Ui {
     private Scanner scanner;
