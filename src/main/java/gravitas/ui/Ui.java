@@ -17,7 +17,7 @@ public class Ui {
     private String footer;
     private String bye;
 
-    private static String error = "OOPS!!! I'm sorry, but I don't know what that means :-(";;
+    private static String error = "OOPS!!! I'm sorry, but I don't know what that means :-(";
 
     /**
      * Constructor for the Ui class
