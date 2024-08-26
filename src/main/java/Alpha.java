@@ -11,12 +11,16 @@ public class Alpha {
                 + "____________________________________________________________\n";
         
         System.out.println(initialResponse);
-    
+        String s1 = "";
         while (true) {
-            String s1 = scanner.nextLine();
+            if (!scanner.hasNext()) {
+                break;
+            } else {
+                s1 = scanner.nextLine();
+            }
         
             // Check if the user input is "bye"
-            if (s1.equalsIgnoreCase(Commands.BYE.getDescription())) {
+            if (s1.equalsIgnoreCase(Commands.BYE.getCommand())) {
                 String echoResponse = "____________________________________________________________\n"
                         + "Bye. Hope to see you again soon!" +"\n"
                         + "____________________________________________________________\n";
@@ -24,7 +28,7 @@ public class Alpha {
                 break;  // Exit the loop
             }
     
-            else if (s1.equalsIgnoreCase(Commands.LIST.getDescription())) {
+            else if (s1.equalsIgnoreCase(Commands.LIST.getCommand())) {
                 String echoResponse = "____________________________________________________________\n"
                         +"Here are the tasks in your list:\n"
                         + storage.listWord() +"\n"
@@ -32,7 +36,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.MARK.getDescription())) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.MARK.getCommand())) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.modifyOperation(indexInvolved, true);
                 String echoResponse = "____________________________________________________________\n"
@@ -42,7 +46,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
     
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.UNMARK.getDescription())) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.UNMARK.getCommand())) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.modifyOperation(indexInvolved, false);
                 String echoResponse = "____________________________________________________________\n"
@@ -52,7 +56,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DELETE.getDescription())) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DELETE.getCommand())) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.deleteOperation(indexInvolved);
                 String echoResponse = "____________________________________________________________\n"
@@ -63,7 +67,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.TODO.getDescription())) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.TODO.getCommand())) {
                 try {
                     String[] splitArray = s1.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
@@ -71,7 +75,7 @@ public class Alpha {
                     storage.storeTask(NewToDo);
                     String echoResponse = "____________________________________________________________ \n"
                             + "Got it. I've added this task: \n"
-                            + storage.lastTask().toString() + "\n"
+                            + storage.lastTask().toString()
                             + storage.getLength() + "\n"
                             + "____________________________________________________________ \n";
                     System.out.println(echoResponse);
@@ -81,7 +85,7 @@ public class Alpha {
                 }
             }
 
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DEADLINE.getDescription())) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DEADLINE.getCommand())) {
                 try {
                     String[] splitArray = s1.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
@@ -97,7 +101,7 @@ public class Alpha {
                     storage.storeTask(NewDeadline);
                     String echoResponse = "____________________________________________________________ \n"
                             + "Got it. I've added this task: \n"
-                            + storage.lastTask().toString() + "\n"
+                            + storage.lastTask().toString()
                             + storage.getLength() + "\n"
                             + "____________________________________________________________ \n";
                     System.out.println(echoResponse);
@@ -107,7 +111,7 @@ public class Alpha {
                 }
             }
 
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.EVENT.getDescription())) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.EVENT.getCommand())) {
                 try {
                     String[] splitArray = s1.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
@@ -121,13 +125,13 @@ public class Alpha {
     
                     //Further processing to get start date after the "/"
                     String end = processedInput.split("/")[2].trim();
-                    end = start.replace("to", "");
+                    end = end.replace("to", "");
     
                     Event NewEvent = new Event(description, start, end);
                     storage.storeTask(NewEvent);
                     String echoResponse = "____________________________________________________________ \n"
                             + "Got it. I've added this task: \n"
-                            + storage.lastTask().toString() + "\n"
+                            + storage.lastTask().toString()
                             + storage.getLength() + "\n"
                             + "____________________________________________________________ \n";
                     System.out.println(echoResponse);
