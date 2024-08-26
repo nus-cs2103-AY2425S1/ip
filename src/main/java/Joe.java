@@ -21,6 +21,19 @@ public class Joe {
         System.out.printf("Bye. Hope to see you again soon!\n%s", HORIZONTAL_LINE);
     }
 
+    public static void printHelp() {
+        System.out.println("Here are the commands you can use:");
+        System.out.println("list - List all tasks");
+        System.out.println("todo <task> - Add a todo task");
+        System.out.println("deadline <task> /by <date> - Add a deadline task with date in yyyy-mm-dd format");
+        System.out.println("event <task> /from <date> /to <date> - Add an event task with dates in yyyy-mm-dd format");
+        System.out.println("mark <index> - Mark a task as done");
+        System.out.println("unmark <index> - Mark a task as not done yet");
+        System.out.println("delete <index> - Delete a task");
+        System.out.println("help - Show this help message");
+        System.out.println("bye - Exit the program");
+    }
+
     public static void handleList(ArrayList<Task> list) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
@@ -147,6 +160,7 @@ public class Joe {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         loadTasks();
+        printHelp();
         greet();
         while (!input.equals("bye")) {
             input = scanner.nextLine();
@@ -179,6 +193,9 @@ public class Joe {
             }
             else if (input.startsWith("delete")) {
                 handleDelete(store, Integer.parseInt(input.split(" ")[1]) - 1);
+            }
+            else if (input.equals("help")) {
+                printHelp();
             }
             else {
                 System.out.println("Give me a valid command!");
