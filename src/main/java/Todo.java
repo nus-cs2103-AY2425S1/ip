@@ -7,6 +7,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String taskToString() {
+        return this.type + "," + super.getStatus() + "," + super.getDesc() + "\n";
+    }
+
+    @Override
     public String getType() {
         return this.type;
     }

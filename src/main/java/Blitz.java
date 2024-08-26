@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -5,6 +9,7 @@ import java.util.regex.Pattern;
 
 public class Blitz {
     private static ArrayList<Task> db = new ArrayList<>();
+    private static final String PATH = "./Blitz.txt";
     private enum commandList {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
 
@@ -26,6 +31,7 @@ public class Blitz {
                 TAB + "What can I do for you?\n";
         String end = TAB + "Bye. Hope to see you again soon!\n";
 
+        readFromFile();
         printInDivider(greet);
 
         Scanner sc = new Scanner(System.in);
@@ -56,12 +62,23 @@ public class Blitz {
                     }
 
                     switch (command) {
-                        case "mark", "unmark" -> commandMarkAndUnmark(command.equals("mark"), cont[1]);
-                        case "todo" -> commandTodo(cont[1]);
-                        case "deadline" -> commandDeadline(cont[1]);
-                        case "event" -> commandEvent(cont[1]);
-                        case "delete" -> commandDelete(cont[1]);
-                        default -> throw new BlitzCommandDoesNotExistException();
+                    case "mark", "unmark":
+                        commandMarkAndUnmark(command.equals("mark"), cont[1]);
+                        break;
+                    case "todo":
+                        commandTodo(cont[1]);
+                        break;
+                    case "deadline":
+                        commandDeadline(cont[1]);
+                        break;
+                    case "event":
+                        commandEvent(cont[1]);
+                        break;
+                    case "delete":
+                        commandDelete(cont[1]);
+                        break;
+                    default:
+                        throw new BlitzCommandDoesNotExistException();
                     }
                 } catch (BlitzException e) {
                     printError(e);
@@ -99,7 +116,73 @@ public class Blitz {
         return commandList.contains(command);
     }
 
+    private static void writeOneToFile(Task task) throws BlitzException {
+        try {
+            FileWriter fw = new FileWriter(PATH, true);
+            fw.write(task.getType().equals("Empty") ? "" : task.taskToString());
+            fw.close();
+        } catch (IOException e) {
+            throw new BlitzIOException();
+        }
+    }
+
+    private static void writeAllToFile() throws BlitzException {
+        try {
+            FileWriter fw = new FileWriter(PATH);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            throw new BlitzIOException();
+        }
+
+        if (!db.isEmpty()) {
+            for (Task task : db) {
+                writeOneToFile(task);
+            }
+        }
+    }
+
+    private static void readFromFile() {
+        File f = new File(PATH);
+        ArrayList<Task> list = new ArrayList<>();
+
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                list.add(stringToTask(s.nextLine()));
+            }
+        } catch (FileNotFoundException e) {
+            try {
+                writeAllToFile();
+            } catch (BlitzException e2) {
+                printError(e2);
+            }
+        } catch (BlitzException e) {
+            printError(e);
+        }
+
+        db = list;
+    }
+
+    private static Task stringToTask(String str) throws BlitzException {
+        String[] params = str.split(",");
+        String type = params[0];
+
+        switch (type) {
+        case "T":
+            return new Todo(params[2], "T", Boolean.parseBoolean(params[1]));
+        case "D":
+            return new Deadline(params[2], "D", params[3], Boolean.parseBoolean(params[1]));
+        case "E":
+            return new Event(params[2], "E", params[3], params[4], Boolean.parseBoolean(params[1]));
+        default:
+            throw new BlitzIOException();
+        }
+    }
+
     private static void commandList() throws BlitzException {
+        readFromFile();
+
         if (db.isEmpty()) {
             throw new BlitzEmptyTaskListException();
         }
@@ -139,6 +222,7 @@ public class Blitz {
                         TAB + "  [" + task.getType() + "]" + "[ ] " + task + "\n";
             }
 
+            writeAllToFile();
             printInDivider(toPrint);
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
@@ -147,10 +231,11 @@ public class Blitz {
         }
     }
 
-    private static void commandTodo(String command) {
+    private static void commandTodo(String command) throws BlitzException {
         Task temp = new Todo(command, "T", false);
 
         db.add(temp);
+        writeOneToFile(temp);
         printTaskAddedWithDivider("T", db.size(), temp);
     }
 
@@ -174,6 +259,7 @@ public class Blitz {
         Task temp = new Deadline(param[0], "D", param[1], false);
 
         db.add(temp);
+        writeOneToFile(temp);
         printTaskAddedWithDivider("D", db.size(), temp);
     }
 
@@ -200,6 +286,7 @@ public class Blitz {
         Task temp = new Event(param1[0], "E", param2[0], param2[1], false);
 
         db.add(temp);
+        writeOneToFile(temp);
         printTaskAddedWithDivider("E", db.size(), temp);
     }
 
@@ -217,6 +304,7 @@ public class Blitz {
             }
 
             Task task = db.remove(ind);
+            writeAllToFile();
 
             String toPrint = TAB + "Noted. I've removed this task:\n" +
                     TAB + "  [" + task.getType() + "]" + "[" + (task.getStatus() ? "X" : " ") + "] " + task + "\n";
