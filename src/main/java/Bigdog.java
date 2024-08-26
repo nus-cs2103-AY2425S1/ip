@@ -1,40 +1,45 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 
 public class Bigdog {
 
     // Array to store tasks
-    static Task[] toDoList = new Task[100];
+    static ArrayList<Task> toDoList = new ArrayList<>();
+
     // Counter to keep track of the number of tasks
-    static int taskCounter = 0;
 
     private static void editList(String str) throws BigdogException {
-        if (taskCounter == 100) {
-            throw new BigdogException("Your list is full!");
-        }
         if (str.isEmpty()) {
             throw new BigdogException("Please give me something to add!");
         }
         if (str.startsWith("mark")) {
-            if (Integer.parseInt(str.substring(5)) <= 0 || Integer.parseInt(str.substring(5)) > taskCounter) {
+            if (Integer.parseInt(str.substring(5)) <= 0 || Integer.parseInt(str.substring(5)) > toDoList.size()) {
                 throw new BigdogException("That's out of your list!");
             }
             int ind = Integer.parseInt(str.substring(5)) - 1;
-            toDoList[ind].mark();
-            System.out.print("Nice! I've marked this task as done:\n" + toDoList[ind] + "\n");
+            toDoList.get(ind).mark();
+            System.out.print("Nice! I've marked this task as done:\n" + toDoList.get(ind) + "\n");
         } else if (str.startsWith("unmark")) {
-            if (Integer.parseInt(str.substring(7)) <= 0 || Integer.parseInt(str.substring(7)) > taskCounter) {
+            if (Integer.parseInt(str.substring(7)) <= 0 || Integer.parseInt(str.substring(7)) > toDoList.size()) {
                 throw new BigdogException("That's out of your list!");
             }
             int ind = Integer.parseInt(str.substring(7)) - 1;
-            toDoList[ind].unmark();
-            System.out.print("OK, I've marked this task as not done yet:\n" + toDoList[ind] + "\n");
+            toDoList.get(ind).unmark();
+            System.out.print("OK, I've marked this task as not done yet:\n" + toDoList.get(ind) + "\n");
+        } else if (str.startsWith("delete")) {
+            if (Integer.parseInt(str.substring(7)) <= 0 || Integer.parseInt(str.substring(7)) > toDoList.size()) {
+                throw new BigdogException("That's out of your list!");
+            }
+            Task temp = toDoList.get(Integer.parseInt(str.substring(7)) - 1);
+            toDoList.remove(Integer.parseInt(str.substring(7)) - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(temp);
+            System.out.printf("Now you have %s tasks in the list.\n", toDoList.size());
         } else {
             // Add and Echo user input
-            toDoList[taskCounter] = Task.of(str);
-            System.out.println("Got it. I've added this task:\n" + toDoList[taskCounter]);
-            taskCounter++;
-            System.out.printf("Now you have %s tasks in the list.\n", taskCounter);
+            toDoList.add(Task.of(str));
+            System.out.println("Got it. I've added this task:\n" + toDoList.get(toDoList.size() - 1));
+            System.out.printf("Now you have %s tasks in the list.\n", toDoList.size());
         }
     }
 
@@ -44,7 +49,8 @@ public class Bigdog {
         Scanner scanner = new Scanner(System.in);
 
         // Welcome message
-        System.out.println("Hello! I'm Bigdog!\n" + "What can I do for you?\n");
+        System.out.println("Hello! I'm Bigdog!");
+        System.out.println("What can I do for you?\n");
 
         while (true) {
 
@@ -59,14 +65,14 @@ public class Bigdog {
 
                 // Print the list
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + "." + toDoList[i]);
+                for (int i = 0; i < toDoList.size(); i++) {
+                    System.out.println((i + 1) + "." + toDoList.get(i));
                 }
             } else {
                 try {
                     editList(userInput);
                 } catch (BigdogException e) {
-                    System.out.println(e.toString());
+                    System.out.println(e.getMessage());
                 }
             }
         }
