@@ -50,8 +50,8 @@ public class Parser {
             String[] half = words[1].split(" /by ");
 
             if (half.length < 2) {
-                throw new LamaException("Please specify the date of deadline in the format of:\n" +
-                        "deadline [description] /by [date]");
+                throw new LamaException("Please specify the date of deadline in the format of:\n"
+                        + "deadline [description] /by [date]");
             }
 
             try {
@@ -63,22 +63,22 @@ public class Parser {
 
         case "event":
             if (words.length < 2) {
-                throw new LamaException("Please specify the description of event in the format of:\n" +
-                        "event [description] /from [start time] /to [end time]");
+                throw new LamaException("Please specify the description of event in the format of:\n"
+                        + "event [description] /from [start time] /to [end time]");
             }
 
             String[] first = words[1].split(" /from ");
 
             if (first.length < 2) {
-                throw new LamaException("Please specify the start time of event in the format of:\n" +
-                        "event [description] /from [start time] /to [end time]");
+                throw new LamaException("Please specify the start time of event in the format of:\n"
+                        + "event [description] /from [start time] /to [end time]");
             }
 
             String[] time = first[1].split(" /to ");
 
             if (time.length < 2) {
-                throw new LamaException("Please specify the start time of event in the format of:\n" +
-                        "event [description] /from [start time] /to [end time]");
+                throw new LamaException("Please specify the end time of event in the format of:\n"
+                        + "event [description] /from [start time] /to [end time]");
             }
 
             try {
@@ -98,15 +98,15 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(words[1]) - 1);
 
         default:
-            throw new LamaException("Sorry, I don't know what you want to do!\n" +
-                    "You can either choose to use:\n" +
-                    "1. todo [Your TODO]\n" +
-                    "2. deadline [Your TODO] /by [date of deadline]\n" +
-                    "3. event [Your event] /from [start time] /to [end time]\n" +
-                    "4. list\n" +
-                    "5. mark [number of todo in the list]\n" +
-                    "6. unmark [number of todo in the list]\n" +
-                    "7. bye");
+            throw new LamaException("Sorry, I don't know what you want to do!\n"
+                    + "You can either choose to use:\n"
+                    + "1. todo [Your TODO]\n"
+                    + "2. deadline [Your TODO] /by [date of deadline]\n"
+                    + "3. event [Your event] /from [start time] /to [end time]\n"
+                    + "4. list\n"
+                    + "5. mark [number of todo in the list]\n"
+                    + "6. unmark [number of todo in the list]\n"
+                    + "7. bye");
         }
 
 
