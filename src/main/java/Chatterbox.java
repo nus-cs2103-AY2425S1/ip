@@ -1,142 +1,193 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
 
+import static java.lang.System.exit;
+
+enum Commands {
+    DEADLINE,
+    EVENT,
+    TODO,
+    LIST,
+    MARK,
+    UNMARK,
+    DELETE
+
+}
 public class Chatterbox {
+    static StoredList taskList = new StoredList();
+
     public static void main(String[] args) {
-        String welcomeMessage = """
-                ____________________________________________________________
-                 Hello! I'm Chatterbox
-                 What can I do for you?
-                ____________________________________________________________
-                """;
-        System.out.println(welcomeMessage);
-        StoredList l1 = new StoredList();
-        Scanner sc = new Scanner(System.in);
-        boolean done = false;
-        while (!done) {
+        readFromSave();
+        Scanner userInputReader = new Scanner(System.in);
+        boolean isRunningProgram = true;
+        while (isRunningProgram) {
             try {
-                String input = sc.nextLine();
-                String[] command = processInput(input);
-                switch (command[0]) {
-                    case "0": //bye
-                        String byeMessage = """
-                                ____________________________________________________________
-                                Bye. Hope to see you again soon!
-                                ____________________________________________________________
-                                """;
-                        System.out.println(byeMessage);
-                        done = true;
-                        break;
-                    case "1": //list
-                        System.out.println("____________________________________________________________");
-                        for (int i = 1; i < l1.getSize(); i++) {
-                            System.out.println(i + ". " + l1.getItem(i - 1));
-                        }
-                        System.out.println("____________________________________________________________");
-                        break;
-                    case "2": //mark & unmark
-                        int taskNum = Integer.parseInt(command[2]) - 1;
-                        try {
-                            l1.getItem(taskNum).setCompleted(command[1].equals("mark"));
-                            break;
-                        } catch (NullPointerException e) {
-                            throw new ChatterBoxNullTaskError();
-                        }
-                    case "3": //todo
-                        l1.addItem(new ToDos(command[1]));
-                        break;
-                    case "4": //deadline
-                        l1.addItem(new Deadline(command[1], command[2]));
-                        break;
-                    case "5": //event
-                        l1.addItem(new Event(command[1], command[2], command[3]));
-                        break;
-                    case "6": //delete
-                        try {
-                            l1.removeItem(Integer.parseInt(command[1]) - 1);
-                            break;
-                        } catch (IndexOutOfBoundsException e) {
-                            throw new ChatterBoxNullTaskError();
-                        }
-                }
+                String userInput = userInputReader.nextLine();
+                isRunningProgram = processCommand(userInput, true);
             }
             catch (ChatterBoxError e) {
                 System.out.println(e.getMessage());
             }
+        }
+        writeToSave();
+        exit(0);
+    }
 
+    public static boolean processCommand(String input, boolean toPrint) throws ChatterBoxError {
+        String message = "";
+        if(input.equals("bye")) {
+            message = """
+                ____________________________________________________________
+                Bye. Hope to see you again soon!
+                ____________________________________________________________""";
+            System.out.println(message);
+            return false;
+        } else {
+            String[] command = input.split(" ", 2);
+            try {
+                Commands commandToExecute = Commands.valueOf(command[0].toUpperCase());
+                switch (commandToExecute) {
+                case LIST:
+                    System.out.println(taskList);
+                    break;
+                case MARK:
+                    if (command.length == 2) {
+                        try {
+                            int taskNum = Integer.parseInt(command[1]) - 1;
+                            try {
+                                message = Chatterbox.taskList.getItem(taskNum).setCompleted(true);
+                                break;
+                            } catch (NullPointerException e) {
+                                throw new ChatterBoxNullTaskError();
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new ChatterBoxMarkError();
+                        }
+                    } else {
+                        throw new ChatterBoxMarkError();
+                    }
+                case UNMARK:
+                    if (command.length == 2) {
+                        try {
+                            int taskNum = Integer.parseInt(command[1]) - 1;
+                            try {
+                                message = Chatterbox.taskList.getItem(taskNum).setCompleted(false);
+                                break;
+                            } catch (NullPointerException e) {
+                                throw new ChatterBoxNullTaskError();
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new ChatterBoxMarkError();
+                        }
+                    } else {
+                        throw new ChatterBoxMarkError();
+                    }
+                case TODO:
+                    if (command.length == 2) {
+                        message = Chatterbox.taskList.addItem(new ToDos(command[1]));
+                        break;
+                    } else {
+                        throw new ChatterBoxToDoError();
+                    }
+                case DEADLINE:
+                    if (command.length == 2) {
+                        try {
+                            String[] details = command[1].split("/by ");
+                            message = Chatterbox.taskList.addItem(new Deadline(details[0], details[1]));
+                            break;
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new ChatterBoxDeadlineError();
+                        }
+                    } else {
+                        throw new ChatterBoxDeadlineError();
+                    }
+                case EVENT:
+                    if (command.length == 2) {
+                        try {
+                            String[] details = command[1].split("/from ");
+                            String[] times = details[1].split("/to ");
+                            message = Chatterbox.taskList.addItem(new Event(details[0], times[0], times[1]));
+                            break;
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new ChatterBoxEventError();
+                        }
+                    } else {
+                        throw new ChatterBoxEventError();
+                    }
+                case DELETE:
+                    if (command.length == 2) {
+                        try {
+                            message = taskList.removeItem(Integer.parseInt(command[1]) - 1);
+                            break;
+                        } catch (NumberFormatException e) {
+                            throw new ChatterBoxDeleteError();
+                        }
+                    } else {
+                        throw new ChatterBoxDeleteError();
+                    }
+                }
+                if (toPrint) {
+                    System.out.print(message);
+                }
+            } catch (IllegalArgumentException e) {
+                throw new ChatterBoxError();
+            }
+        }
+        return true;
+    }
+
+    public static void readFromSave() {
+        File saveFile = new File("chatterbox_save.txt");
+        try {
+            Scanner fileReader = new Scanner(saveFile);
+            int taskCount = 0;
+            while (fileReader.hasNextLine()) {
+                String lineData = fileReader.nextLine();
+                String[] saveData = lineData.split(", ", 2);
+                try {
+                    processCommand(saveData[1], false);
+                    taskCount++;
+                    if (saveData[0].equals("done")) {
+                        processCommand("mark " + taskCount, false);
+                    }
+                } catch (ChatterBoxError | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Error reading line:  " + lineData);
+                }
+            }
+            fileReader.close();
+            System.out.println("Save File Loaded");
+            String welcomeMessage = """
+                ____________________________________________________________
+                Hello! I'm Chatterbox
+                Below is your current list!
+                What can I do for you?
+                ____________________________________________________________""";
+            System.out.println(welcomeMessage);
+            processCommand("list", true);
+        } catch (FileNotFoundException e) {
+            try {
+                saveFile.createNewFile();
+                readFromSave();
+            } catch (IOException e1) {
+                System.out.println("Error Reading Chatterbox save file");
+            }
+        } catch (ChatterBoxError e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public static String[] processInput(String input) throws ChatterBoxError {
+    public static void writeToSave() {
         try {
-            if (input.equals("bye")) {
-                return new String[] {"0", " "};
-            } else {
-                String[] command = input.split(" ", 2);
-                switch (command[0]) {
-                    case "list" -> {
-                        return new String[]{"1", " "};
-                    }
-                    case "mark", "unmark" -> {
-                        if (command.length == 2) {
-                            try {
-                                Integer.parseInt(command[1]);
-                                return new String[]{"2", command[0], command[1]};
-                            } catch (NumberFormatException e) {
-                                throw new ChatterBoxMarkError();
-                            }
-                        } else {
-                            throw new ChatterBoxMarkError();
-                        }
-                    }
-                    case "todo" -> {
-                        if (command.length == 2) {
-                            return new String[]{"3", command[1]};
-                        } else {
-                            throw new ChatterBoxToDoError();
-                        }
-                    }
-                    case "deadline" -> {
-                        if (command.length == 2) {
-                            try {
-                                String[] details = command[1].split("/by ");
-                                return new String[]{"4", details[0], details[1]};
-                            } catch (ArrayIndexOutOfBoundsException e) {
-                                throw new ChatterBoxDeadlineError();
-                            }
-                        } else {
-                            throw new ChatterBoxDeadlineError();
-                        }
-                    }
-                    case "event" -> {
-                        if (command.length == 2) {
-                            try {
-                                String[] details = command[1].split("/from ");
-                                String[] times = details[1].split("/to ");
-                                return new String[]{"5", details[0], times[0], times[1]};
-                            } catch (ArrayIndexOutOfBoundsException e) {
-                                throw new ChatterBoxEventError();
-                            }
-                        } else {
-                            throw new ChatterBoxEventError();
-                        }
-                    }
-                    case "delete" -> {
-                        if (command.length == 2) {
-                            try {
-                                Integer.parseInt(command[1]);
-                                return new String[]{"6", command[1]};
-                            } catch (NumberFormatException e) {
-                                throw new ChatterBoxDeleteError();
-                            }
-                        } else {
-                            throw new ChatterBoxDeleteError();
-                        }
-                    }
-                    default -> throw new ChatterBoxError();
-                }
+            FileWriter fileWriter = new FileWriter("chatterbox_save.txt");
+            for (int i = 0; i < Chatterbox.taskList.getSize(); i++) {
+                fileWriter.write(Chatterbox.taskList.getItem(i).storeTask());
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ChatterBoxError();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error Writing Chatterbox save file");
         }
     }
 }

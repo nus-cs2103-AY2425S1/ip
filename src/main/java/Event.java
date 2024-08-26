@@ -9,6 +9,25 @@ public class Event extends Task {
     }
 
     @Override
+    public String storeTask() {
+        StringBuilder saveTaskInfo = new StringBuilder();
+        if (this.getCompleted()) {
+            saveTaskInfo.append("done, ");
+        }
+        else {
+            saveTaskInfo.append("undone, ");
+        }
+        saveTaskInfo.append("event ");
+        saveTaskInfo.append(this.getName());
+        saveTaskInfo.append(" /from ");
+        saveTaskInfo.append(this.start);
+        saveTaskInfo.append(" /to ");
+        saveTaskInfo.append(this.end);
+        saveTaskInfo.append("\n");
+        return saveTaskInfo.toString();
+    }
+
+    @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + start + "to: " + end + ")";
     }

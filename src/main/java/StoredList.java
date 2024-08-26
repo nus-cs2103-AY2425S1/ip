@@ -7,13 +7,15 @@ public class StoredList {
         this.data = new ArrayList<Task>();
     }
 
-    public void addItem(Task item) {
+    public String addItem(Task item) {
+        StringBuilder message = new StringBuilder();
         this.data.add(item);
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it, I've added this task: ");
-        System.out.println(item);
-        System.out.println("Now you have " + this.getSize() + " task in the list.");
-        System.out.println("____________________________________________________________");
+        message.append("____________________________________________________________\n");
+        message.append("Got it, I've added this task: \n");
+        message.append(item).append("\n");
+        message.append("Now you have ").append(this.getSize()).append(" task in the list.\n");
+        message.append("____________________________________________________________\n");
+        return message.toString();
     }
 
     public Task getItem(int index) {
@@ -24,12 +26,24 @@ public class StoredList {
         return this.data.size();
     }
 
-    public void removeItem(int index) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(this.getItem(index));
-        System.out.println("Now you have " + this.getSize() + " task in the list.");
-        System.out.println("____________________________________________________________");
+    public String removeItem(int index) {
+        StringBuilder message = new StringBuilder();
+        message.append("____________________________________________________________\n");
+        message.append("Noted. I've removed this task:\n");
+        message.append(this.getItem(index)).append("\n");
+        message.append("Now you have ").append(this.getSize()).append(" task in the list.\n");
+        message.append("____________________________________________________________\n");
         this.data.remove(index);
+        return message.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder message = new StringBuilder("____________________________________________________________\n");
+        for (int i = 0; i < this.getSize(); i++) {
+            message.append(i+1).append(". ").append(this.getItem(i).toString()).append("\n");
+        }
+        message.append("____________________________________________________________");
+        return message.toString();
     }
 }

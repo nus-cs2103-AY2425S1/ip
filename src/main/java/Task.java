@@ -1,42 +1,64 @@
 public class Task {
     private String name;
-    private Boolean completed;
+    private Boolean isCompleted;
 
     public Task (String name) {
         this.name = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
-    public void setCompleted(Boolean completed) throws ChatterBoxMarkError {
-        if (!this.completed && completed) {
-            this.completed = true;
-            System.out.println("____________________________________________________________");
-            System.out.println("Nice! I've marked this task as done: ");
-            System.out.println(this);
-            System.out.println("____________________________________________________________");
-
-        } else if (this.completed && !completed) {
-            this.completed = false;
-            System.out.println("____________________________________________________________");
-            System.out.println("Ok, I've marked this task as not done yet: ");
-            System.out.println(this);
-            System.out.println("____________________________________________________________");
-
-        } else if (this.completed && completed) {
-            System.out.println("____________________________________________________________");
-            System.out.println("This task is already completed: ");
-            System.out.println(this);
-            System.out.println("____________________________________________________________");
+    public String setCompleted(Boolean completed) throws ChatterBoxMarkError {
+        StringBuilder message = new StringBuilder();
+        if (!this.isCompleted && completed) {
+            this.isCompleted = true;
+            message.append("____________________________________________________________\n");
+            message.append("Nice! I've marked this task as done: ");
+            message.append(this).append("\n");
+            message.append("____________________________________________________________\n");
+        } else if (this.isCompleted && !completed) {
+            this.isCompleted = false;
+            message.append("____________________________________________________________\n");
+            message.append("Ok, I've marked this task as not done yet: ");
+            message.append(this).append("\n");
+            message.append("____________________________________________________________\n");
+        } else if (this.isCompleted && completed) {
+            message.append("____________________________________________________________\n");
+            message.append("This task is already completed: ");
+            message.append(this).append("\n");
+            message.append("____________________________________________________________\n");
         } else {
-            System.out.println("____________________________________________________________");
-            System.out.println("This task is not completed: ");
-            System.out.println(this);
-            System.out.println("____________________________________________________________");
+            message.append("____________________________________________________________\n");
+            message.append("This task is not completed: ");
+            message.append(this).append("\n");
+            message.append("____________________________________________________________\n");
         }
+        return message.toString();
+    }
+
+    public Boolean getCompleted() {
+        return isCompleted;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String storeTask() {
+        StringBuilder saveTaskInfo = new StringBuilder();
+        if (this.getCompleted()) {
+            saveTaskInfo.append("done, ");
+        }
+        else {
+            saveTaskInfo.append("undone, ");
+        }
+        saveTaskInfo.append("task ");
+        saveTaskInfo.append(this.getName());
+        saveTaskInfo.append("\n");
+        return saveTaskInfo.toString();
     }
 
     @Override
     public String toString() {
-        return this.completed ? "[X] " + this.name : "[ ] " + this.name;
+        return this.isCompleted ? "[X] " + this.name : "[ ] " + this.name;
     }
 }
