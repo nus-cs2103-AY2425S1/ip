@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class ToDo extends Task {
     public ToDo(boolean mark, String task) {
         super(mark, task);
@@ -8,15 +5,14 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void hasDate() throws BoombotrozException {
-
-    }
+    public void hasDate(Ui ui) throws BoomException {}
 
     @Override
     public String toString() {
         String s;
         s = String.format("[T]%s", super.toString());
         return s;
+
     }
 
 }
