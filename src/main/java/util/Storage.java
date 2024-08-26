@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import task.Deadline;
@@ -31,8 +32,11 @@ public class Storage {
         String[] args = data.split(" \\| ");
         return switch (args[0]) {
             case "T" -> new Todo(args[1], Boolean.parseBoolean(args[2]));
-            case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), args[3]);
-            case "E" -> new Event(args[1], Boolean.parseBoolean(args[2]), args[3], args[4]);
+            case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
+            case "E" -> new Event(args[1],
+                    Boolean.parseBoolean(args[2]),
+                    LocalDate.parse(args[3]),
+                    LocalDate.parse(args[4]));
             default -> null;
         };
     }

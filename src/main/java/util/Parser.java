@@ -1,5 +1,9 @@
 package util;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import action.Action;
 import action.AddTaskAction;
 import action.DeleteTaskAction;
@@ -11,6 +15,7 @@ import enums.Command;
 import exception.BotException;
 import exception.InvalidCommandException;
 import exception.InvalidCommandFormatException;
+import exception.InvalidDateFormatException;
 import exception.InvalidTaskIndexException;
 import task.Deadline;
 import task.Event;
@@ -71,15 +76,19 @@ public class Parser {
         return new Todo(arg.strip());
     }
 
-    private Deadline parseDeadline(String input) throws InvalidCommandFormatException {
+    private Deadline parseDeadline(String input) throws InvalidCommandFormatException, InvalidDateFormatException {
         String[] args = input.substring(8).split(" /by ");
         if (args.length != 2 || args[0].isBlank() || args[1].isBlank()) {
             throw new InvalidCommandFormatException(Command.DEADLINE);
         }
-        return new Deadline(args[0].strip(), args[1].strip());
+        try {
+            return new Deadline(args[0].strip(), LocalDate.parse(args[1].strip()));
+        } catch (DateTimeParseException e){
+            throw new InvalidDateFormatException(e.getParsedString());
+        }
     }
 
-    private Event parseEvent(String input) throws InvalidCommandFormatException {
+    private Event parseEvent(String input) throws InvalidCommandFormatException, InvalidDateFormatException {
         String[] args = input.substring(5).split(" /from ");
         if (args.length != 2 || args[0].isBlank()) {
             throw new InvalidCommandFormatException(Command.EVENT);
@@ -88,6 +97,10 @@ public class Parser {
         if (range.length != 2 || range[0].isBlank() || range[1].isBlank()) {
             throw new InvalidCommandFormatException(Command.EVENT);
         }
-        return new Event(args[0].strip(), range[0].strip(), range[1].strip());
+        try {
+            return new Event(args[0].strip(), LocalDate.parse(range[0].strip()), LocalDate.parse(range[1].strip()));
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException(e.getParsedString());
+        }
     }
 }

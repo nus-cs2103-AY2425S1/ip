@@ -1,3 +1,2 @@
-T | asdf | false
-D | asdf | false | ffff
-E | affdf | false | asdf | fffdasdf
+D | asdf | false | 2020-12-21
+E | asdf | true | 0001-02-01 | 0001-02-01
