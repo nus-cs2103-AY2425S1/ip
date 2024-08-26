@@ -48,6 +48,16 @@ public class TaskList {
         return task;
     }
 
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task: this.tasks) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
     public ArrayList<Task> findByDate(LocalDateTime date) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task: this.tasks) {

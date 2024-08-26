@@ -7,6 +7,7 @@ import thanos.commands.DateCommand;
 import thanos.commands.DeadlineCommand;
 import thanos.commands.DeleteCommand;
 import thanos.commands.EventCommand;
+import thanos.commands.FindCommand;
 import thanos.commands.ListCommand;
 import thanos.commands.MarkCommand;
 import thanos.commands.TodoCommand;
@@ -34,6 +35,8 @@ public class Parser {
             return new DeleteCommand(argument);
         case EVENT:
             return new EventCommand(argument);
+        case FIND:
+            return new FindCommand(argument);
         case LIST:
             return new ListCommand(argument);
         case MARK:
