@@ -25,22 +25,35 @@ public class Rasputin {
                 String[] split = line.split("\\|");
                 switch (split[0]) {
                     case "T":
-                        tasks.add(new Todo(split[2]));
+                        Todo todo = new Todo(split[2]);
+                        if (split[1].equals("1")) {
+                            todo.markAsDone();
+                        }
+                        tasks.add(todo);
                         break;
                     case "D":
-                        tasks.add(new Deadline(split[2], split[3]));
+                        Deadline deadline = new Deadline(split[2], split[3]);
+                        if (split[1].equals("1")) {
+                            deadline.markAsDone();
+                        }
+                        tasks.add(deadline);
                         break;
                     case "E":
-                        tasks.add(new Event(split[2], split[3], split[4]));
+                        Event event = new Event(split[2], split[3], split[4]);
+                        if (split[1].equals("1")) {
+                            event.markAsDone();
+                        }
+                        tasks.add(event);
+                        break;
                 }
-                fileReader.close();
-                bufferedReader.close();
             }
+            fileReader.close();
+            bufferedReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Task file not found");
         } catch (IOException e) {
             System.out.println("Error reading file");
-        } 
+        }
 
         return tasks;
     }
@@ -66,8 +79,6 @@ public class Rasputin {
                 System.out.println("Unable to create task file.");
             }
         }
-
-
 
 
         // scanner to read user input
