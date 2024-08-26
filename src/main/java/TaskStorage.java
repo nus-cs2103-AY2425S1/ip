@@ -1,11 +1,18 @@
-import java.lang.reflect.Array;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
 
 public class TaskStorage {
     private ArrayList<Task> taskList;
     private int numberOfTasks;
 
     public TaskStorage() {
+        try {
+            File taskFile = new File("./data/taskFile.txt");
+            taskFile.createNewFile(); // Attempts to create new file if not present
+        } catch (IOException e) {
+            System.err.println(e);
+        }
         this.taskList = new ArrayList<>();
         this.numberOfTasks = 0;
     }
