@@ -6,14 +6,6 @@ import exception.TaskNameEmptyException;
 public class Deadline extends Task {
     private final String deadline;
 
-    public Deadline(String taskName, String deadline) throws TaskNameEmptyException, DeadlineEmptyException {
-        super(taskName);
-        if (deadline.isBlank()) {
-            throw new DeadlineEmptyException();
-        }
-        this.deadline = deadline;
-    }
-
     public Deadline(boolean isDone, String taskName, String deadline) throws TaskNameEmptyException, DeadlineEmptyException {
         super(isDone, taskName);
         if (deadline.isBlank()) {

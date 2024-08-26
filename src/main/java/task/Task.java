@@ -6,16 +6,11 @@ public class Task {
     private final String taskName;
     private boolean isDone;
 
-    public Task(String taskName) throws TaskNameEmptyException {
+    public Task(boolean isDone, String taskName) throws TaskNameEmptyException {
         if (taskName.isBlank()) {
             throw new TaskNameEmptyException();
         }
         this.taskName = taskName;
-        this.isDone = false;
-    }
-
-    public Task(boolean isDone, String taskName) throws TaskNameEmptyException {
-        this(taskName);
         this.isDone = isDone;
     }
 

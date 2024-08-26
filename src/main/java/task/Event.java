@@ -7,15 +7,6 @@ public class Event extends Task {
     private final String from;
     private final String to;
 
-    public Event(String taskName, String from, String to) throws TaskNameEmptyException, EventStartEndDateEmptyException {
-        super(taskName);
-        if (from.isBlank() || to.isBlank()) {
-            throw new EventStartEndDateEmptyException();
-        }
-        this.from = from;
-        this.to = to;
-    }
-
     public Event(boolean isDone, String taskName, String from, String to) throws TaskNameEmptyException, EventStartEndDateEmptyException {
         super(isDone, taskName);
         if (from.isBlank() || to.isBlank()) {

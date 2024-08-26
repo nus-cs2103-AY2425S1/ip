@@ -49,19 +49,19 @@ public class EchoBot {
                     fileManagement.save();
                 } else if ("deadline".equals(commandSplit[0])) {
                     String[] commands = splitCommand(commandSplit, new String[]{"/by"});
-                    Task task = new Deadline(commands[0], commands[1]);
+                    Task task = new Deadline(false, commands[0], commands[1]);
                     taskList.addTask(task);
                     ui.printAddTaskFeedback(task, taskList.getTaskList().size());
                     fileManagement.save();
                 } else if ("todo".equals(commandSplit[0])) {
                     String[] commands = splitCommand(commandSplit, new String[]{});
-                    Task task = new ToDo(commands[0]);
+                    Task task = new ToDo(false, commands[0]);
                     taskList.addTask(task);
                     ui.printAddTaskFeedback(task, taskList.getTaskList().size());
                     fileManagement.save();
                 } else if ("event".equals(commandSplit[0])) {
                     String[] commands = splitCommand(commandSplit, new String[]{"/from", "/to"});
-                    Task task = new Event(commands[0], commands[1], commands[2]);
+                    Task task = new Event(false, commands[0], commands[1], commands[2]);
                     taskList.addTask(task);
                     ui.printAddTaskFeedback(task, taskList.getTaskList().size());
                     fileManagement.save();

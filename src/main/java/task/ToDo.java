@@ -3,10 +3,6 @@ package task;
 import exception.TaskNameEmptyException;
 
 public class ToDo extends Task {
-    public ToDo(String taskName) throws TaskNameEmptyException {
-        super(taskName);
-    }
-
     public ToDo(Boolean isDone, String taskName) throws TaskNameEmptyException {
         super(isDone, taskName);
     }
