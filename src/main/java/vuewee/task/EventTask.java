@@ -1,3 +1,5 @@
+package vuewee.task;
+
 public class EventTask extends Task {
   private TaskLocalDate from;
   private TaskLocalDate to;

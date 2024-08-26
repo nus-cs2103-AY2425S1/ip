@@ -1,3 +1,7 @@
+package vuewee.parser;
+
+import vuewee.task.Task;
+
 public class IllegalCommandException extends IllegalArgumentException {
 
   public IllegalCommandException() {

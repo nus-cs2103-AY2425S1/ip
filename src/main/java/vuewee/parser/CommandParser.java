@@ -1,3 +1,7 @@
+package vuewee.parser;
+
+import vuewee.command.CommandType;
+
 public class CommandParser {
   private String argument; // Input text after command title
 

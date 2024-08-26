@@ -1,3 +1,5 @@
+package vuewee.parser;
+
 public class OptionMatch<T> {
   private final int index;
   private final T match;

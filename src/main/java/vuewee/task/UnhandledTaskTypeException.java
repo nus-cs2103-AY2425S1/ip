@@ -1,4 +1,6 @@
-public class UnhandledTaskTypeException extends RuntimeException {
+package vuewee.task;
+
+class UnhandledTaskTypeException extends RuntimeException {
   public UnhandledTaskTypeException(char enumValue) {
     super("Unexpected TaskType char value: " + enumValue);
   }

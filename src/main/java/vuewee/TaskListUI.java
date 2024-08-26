@@ -1,4 +1,13 @@
+package vuewee;
+
 import java.util.Scanner;
+
+import vuewee.command.Command;
+import vuewee.command.CommandType;
+import vuewee.parser.CommandParser;
+import vuewee.parser.IllegalCommandException;
+import vuewee.task.Task;
+import vuewee.task.TaskList;
 
 public class TaskListUI {
   private Scanner scanner = new Scanner(System.in);
@@ -15,7 +24,7 @@ public class TaskListUI {
   }
 
   // Add a task to the list
-  protected void addTask(Task task) {
+  public void addTask(Task task) {
     taskList.add(task);
 
     System.out.println("Got it. I've added this task:");
@@ -24,7 +33,7 @@ public class TaskListUI {
   }
 
   // Delete a task from the list at the specified index
-  protected void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
+  public void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
     taskNumber--; // Adjust task number to match array index
 
     if (taskNumber >= this.taskList.size() || taskNumber < 0) {
@@ -41,7 +50,7 @@ public class TaskListUI {
   }
 
   // Display all tasks in the list
-  protected void displayTasks() throws IllegalCommandException {
+  public void displayTasks() throws IllegalCommandException {
     if (this.taskList.size() == 0) {
       throw new IllegalCommandException("You have no tasks in your list.");
     }
@@ -53,7 +62,7 @@ public class TaskListUI {
   }
 
   // Mark a task as done or not done
-  protected void markTask(int taskNumber, boolean done)
+  public void markTask(int taskNumber, boolean done)
       throws IllegalCommandException {
     taskNumber--; // Adjust task number to match array index
 

@@ -1,3 +1,7 @@
+package vuewee.parser;
+
+import vuewee.command.CommandType;
+
 public class IllegalCommandArgumentException extends IllegalCommandException {
   private CommandType command;
   private boolean hasDescription;

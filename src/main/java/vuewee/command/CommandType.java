@@ -1,3 +1,7 @@
+package vuewee.command;
+
+import vuewee.parser.IllegalCommandException;
+
 public enum CommandType {
   BYE(ByeCommand.class),
   LIST(ListCommand.class),

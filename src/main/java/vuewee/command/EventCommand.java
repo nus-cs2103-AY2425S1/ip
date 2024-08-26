@@ -1,4 +1,13 @@
-public class EventCommand extends Command {
+package vuewee.command;
+
+import vuewee.parser.CommandOption;
+import vuewee.parser.CommandParser;
+import vuewee.task.EventTask;
+import vuewee.task.TaskList;
+import vuewee.TaskListUI;
+import vuewee.task.TaskLocalDate;
+
+class EventCommand extends Command {
   public void execute(TaskListUI ui, TaskList taskList, CommandParser parser) {
     CommandOption<TaskLocalDate> fromOption = new CommandOption<TaskLocalDate>("from", "fromDate yyyy-mm-dd",
         TaskLocalDate::parse);

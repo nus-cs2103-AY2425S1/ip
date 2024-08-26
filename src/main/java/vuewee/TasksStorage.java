@@ -1,10 +1,15 @@
+package vuewee;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import vuewee.task.TaskList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 
 // Singleton class to manage reading and writing tasks to a file
-public class TasksStorage {
+class TasksStorage {
   private static final Path DATA_DIRECTORY = Paths.get("data");
   private final Path TASKS_FILE_PATH = Paths.get(DATA_DIRECTORY.toString(), "tasks.txt");
   private static TasksStorage instance;
