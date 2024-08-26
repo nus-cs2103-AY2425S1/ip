@@ -39,6 +39,7 @@ class OnCommandTest {
 
         String output = outputStreamCaptor.toString().trim(); // Trim to remove any extra newlines
         String expectedOutput = "[D][ ] Test deadline (by: Jan 25 2021, 10:00 am)";
+        // Only the deadline on Jan 25 should be printed
         assertTrue(output.contains(expectedOutput));
     }
 }

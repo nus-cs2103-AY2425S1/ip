@@ -38,11 +38,13 @@ class ListCommandTest {
         LocalDateTime by = LocalDateTime.parse("2021-01-25 10:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         tasks.add(new Deadline("Test deadline", by, false));
         ListCommand command = new ListCommand();
-        command.execute(tasks, ui, storage);
+        command.execute(tasks, ui, storage); // Should print the list of tasks
 
         String output = outputStreamCaptor.toString().trim(); // Trim to remove any extra newlines
-        String expectedOutput = "Here are the tasks in your list:\n "
-                + "1. [T][ ] Test task\n 2. [D][ ] Test deadline (by: Jan 25 2021, 10:00 am)";
+        String expectedOutput = """
+                Here are the tasks in your list:
+                 1. [T][ ] Test task
+                 2. [D][ ] Test deadline (by: Jan 25 2021, 10:00 am)""";
         assertTrue(output.contains(expectedOutput));
     }
 }
