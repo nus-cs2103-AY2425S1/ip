@@ -28,11 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("xizi.chatbot.Xizi")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "xizi" // Name of the output JAR file
+    //run command to create jar file: ./gradlew shadowJar
+    //run jar file: java -jar build/libs/xizi.jar
     archiveClassifier = null
 }
 
