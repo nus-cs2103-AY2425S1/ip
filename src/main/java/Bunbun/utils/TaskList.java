@@ -1,4 +1,5 @@
 package Bunbun.utils;
+import Bunbun.exceptions.*;
 import Bunbun.tasks.*;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -50,9 +51,9 @@ public class TaskList {
      *
      * @param tokens ArrayList with Strings specifying the task.
      */
-    public void addToDo(ArrayList<String> tokens) {
+    public void addToDo(ArrayList<String> tokens) throws MissingTaskException {
         if (tokens.size() == 1) {
-            this.ui.response("Failed. Specify a task for your todo!!!! D:");
+            throw new MissingTaskException("Failed. Specify a task for your todo!!!! D:");
         } else {
             String taskDescription = "";
             int len = tokens.size();
@@ -69,12 +70,12 @@ public class TaskList {
      *
      * @param tokens ArrayList with Strings specifying the task.
      */
-    public void addDeadline(ArrayList<String> tokens) {
+    public void addDeadline(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/by")) {
-
-            this.ui.response("Failed. Specify a task for your deadline task!!! D:");
+            throw new MissingTaskException("Failed. Specify a task for your deadline task!!!! D:");
         } else if (!(tokens.contains("/by")) || tokens.indexOf("/by") == tokens.size() - 1) {
-            this.ui.response("Failed. Add /by [DATE] to specify when to complete your task by!!! ;=;");
+            throw new InvalidTaskFormatException(
+                    "Failed. Add /by [DATE] to specify when to complete your task by!!! ;=;");
         } else {
             String taskDescription = "";
             LocalDate deadline = null;
@@ -95,7 +96,7 @@ public class TaskList {
                 Deadline deadlineTask = new Deadline(taskDescription, deadline);
                 this.addTask(deadlineTask);
             } else {
-                this.ui.response("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
+                throw new InvalidDateFormatException("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
             }
         }
     }
@@ -105,14 +106,15 @@ public class TaskList {
      *
      * @param tokens ArrayList with Strings specifying the task.
      */
-    public void addEvent(ArrayList<String> tokens) {
+    public void addEvent(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/from") || tokens.get(1).equals("/to")) {
-            this.ui.response("Failed. Specify a task for your event task!!! D:");
+            throw new MissingTaskException("Failed. Specify a task for your event task!!!! D:");
         } else if (!(tokens.contains("/from")) || !(tokens.contains("/to")) ||
                 (tokens.indexOf("/from") > tokens.indexOf("/to")) ||
                 (tokens.indexOf("/from") + 1 == tokens.indexOf("/to")) ||
                 tokens.indexOf("/to") == tokens.size() - 1) {
-            this.ui.response("Failed. Add /from [DATE] /to [DATE] to specify the duration of your event!!! ;=;");
+            throw new InvalidTaskFormatException(
+                    "Failed. Add /from [DATE] /to [DATE] to specify the duration of your event!!! ;=;");
         } else {
             String taskDescription = "";
             LocalDate start = null;
@@ -127,13 +129,11 @@ public class TaskList {
             i += 1;
             start = DateTimeHandler.isValidLocalDate(tokens.get(i));
             if (start == null || !tokens.get(i + 1).equals("/to")) {
-                System.out.println("Failed start");
                 failed = true;
             } else {
                 i += 2;
                 end = DateTimeHandler.isValidLocalDate(tokens.get(i));
                 if (end == null || tokens.size() > i + 1) {
-                    System.out.println("Failed end");
                     failed = true;
                 }
             }
@@ -142,7 +142,7 @@ public class TaskList {
                 Event event = new Event(taskDescription, start, end);
                 this.addTask(event);
             } else {
-                this.ui.response("Failed. Specify your dates in yyyy-MM-dd format!! ;^;");
+                throw new InvalidDateFormatException("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
             }
         }
     }
@@ -171,9 +171,10 @@ public class TaskList {
      *
      * @param taskNum int to indicate which task to mark as complete.
      */
-    public void markDoneTask(int taskNum) {
+    public void markDoneTask(int taskNum) throws TaskNumOutOfBoundsException {
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
-            this.ui.response(String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
+            throw new TaskNumOutOfBoundsException(
+                    String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
         } else {
             Task reqTask = this.taskList.get(taskNum - 1);
             reqTask.complete();
@@ -188,14 +189,15 @@ public class TaskList {
      *
      * @param taskNum int to indicate which task to delete.
      */
-    public void deleteTask(int taskNum) {
+    public void deleteTask(int taskNum) throws TaskNumOutOfBoundsException {
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
-            this.ui.response(String.format("I can't delete task %d cause it doesn't exist!!! ;-;", taskNum));
+            throw new TaskNumOutOfBoundsException(
+                    String.format("I can't delete task %d cause it doesn't exist!!! ;-;", taskNum));
         } else {
             this.ui.response(String.format("Oki, I've deleted %s task!", this.taskList.get(taskNum - 1)));
             this.taskList.remove(taskNum - 1);
             this.numOfTasks -= 1;
-            this.ui.response(String.format("You have %d Bunbun.tasks left!!", this.numOfTasks));
+            this.ui.response(String.format("You have %d tasks left!!", this.numOfTasks));
         }
     }
 
