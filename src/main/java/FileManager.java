@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -93,10 +95,11 @@ public class FileManager {
             taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.description;
         } else if (task instanceof Deadline) {
             taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.description +
-                    SEPARATOR + ((Deadline) task).by;
+                    SEPARATOR + ((Deadline) task).date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else {
             taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.description +
-                    SEPARATOR + ((Event) task).start + SEPARATOR + ((Event) task).end;
+                    SEPARATOR + ((Event) task).start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) +
+                    SEPARATOR + ((Event) task).end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         return taskDescription;

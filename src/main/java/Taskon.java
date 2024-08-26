@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -122,24 +124,28 @@ public class Taskon {
      */
     private static Task getTask(String description) throws TaskonException {
         TaskType taskType = TaskType.fromString(description);
-        Task t;
+        Task t = null;
 
         switch (taskType) {
             case TODO:
                 if (description.length() < 6) {
                     throw new TaskonException("It looks like you forgot to add a description for your todo. Please try again.\n");
                 }
-                t = new Todo(description.substring(5));
+                t = new Todo(description.substring(5).trim());
                 break;
 
             case DEADLINE:
                 if (!description.contains("/by")) {
                     throw new TaskonException("It looks like you forgot to add a due date. Please try again.\n");
                 }
-                String by = description.substring(description.indexOf("/by") + 4);
-                String substring = description.substring(9, description.indexOf("/by"));
-                t = new Deadline(substring, by);
-                break;
+                try {
+                    String date = description.substring(description.indexOf("/by") + 4);
+                    String substring = description.substring(9, description.indexOf("/by")).trim();
+                    t = new Deadline(substring, date);
+                    break;
+                } catch (DateTimeParseException e) {
+                    throw new TaskonException("Invalid date! Please use yyyy-MM-dd HHmm format!\n");
+                }
 
             case EVENT:
                 if (!description.contains("/from") || !description.contains("/to")) {
@@ -152,8 +158,13 @@ public class Taskon {
                 int end = description.indexOf("/to") + 4;
                 String from = description.substring(start, description.indexOf("/to")-1);
                 String to = description.substring(end);
-                String desc = description.substring(6, description.indexOf("/from")-1);
-                t = new Event(desc, from, to);
+                String desc = description.substring(6, description.indexOf("/from")-1).trim();
+                try {
+                    t = new Event(desc, from, to);
+                } catch (DateTimeParseException e) {
+                    throw new TaskonException("Invalid date! Please use yyyy-MM-dd HHmm format!\n");
+                }
+
                 break;
 
             case UNKNOWN:

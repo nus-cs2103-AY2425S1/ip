@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Event class represents a task that occurs during a specific time frame.
  * It extends the Task class by adding a start and end time.
  */
 public class Event extends Task {
-    protected String start, end;
+    protected LocalDateTime start, end;
 
     /**
      * Constructs a new Event with the given description, start time, and end time.
@@ -14,8 +17,8 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -26,7 +29,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " +
+                start.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + " to: " +
+                end.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
     }
 }
 
