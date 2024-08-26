@@ -29,12 +29,12 @@ public class Parser {
                 return rem.split(" /by")[0].trim();
             } else if (Objects.equals(this.getCommand(), "event")) {
                 return rem.split(" /from")[0].trim();
-
-            } else if (Objects.equals(this.getCommand(), "todo")) {
+            } else if (Objects.equals(this.getCommand(), "todo")
+                    || Objects.equals(this.getCommand(), "find")) {
                 return rem;
             }
         }
-        return "";
+        return this.getCommand();
     }
 
     public String getDay() throws DukeException {
@@ -62,6 +62,15 @@ public class Parser {
         } else {
             String rem = string.split(" ", 2)[1].trim(); // ignore first keyword of input
             return rem.split(" /from")[1].split(" /to")[1].trim();
+        }
+    }
+
+    public String getFind() throws DukeException {
+        if (string.split(" ", 2).length < 2) {
+            throw new DukeException("Invalid format... What task would you like to find?");
+        } else {
+            System.out.println(string.split(" ", 2)[0].trim());
+            return string.split(" ", 2)[1].trim();
         }
     }
 }

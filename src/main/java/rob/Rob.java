@@ -1,6 +1,7 @@
 package rob;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -44,8 +45,8 @@ public class Rob {
             } else if (Objects.equals(command, "mark")) {
                 try {
                     int taskNum = findTaskNum(input);
-                    tasks.getTask(taskNum - 1).markAsDone();
                     ui.mark(tasks, taskNum);
+                    tasks.getTask(taskNum - 1).markAsDone();
                     storage.saveTasks(tasks);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
@@ -65,6 +66,15 @@ public class Rob {
                     ui.delete(tasks, taskNum);
                     tasks.removeTask(taskNum - 1);
                     storage.saveTasks(tasks);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (Objects.equals(command, "find")) {
+                try {
+                    String keyword = parser.getFind();
+                    List<Task> filteredList = tasks.searchTasks(keyword);
+                    TaskList filteredTasks = new TaskList(filteredList);
+                    ui.showList(filteredTasks);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -133,7 +143,5 @@ public class Rob {
             }
         }
     }
-
-
 
 }
