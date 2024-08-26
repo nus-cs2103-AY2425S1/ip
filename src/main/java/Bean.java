@@ -1,10 +1,12 @@
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.File;
+import java.io.IOException;
 
 public class Bean {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         String greeting = "________________________________\n"
                 + "Hello! I'm Bean\n"
                 + "What can i do for you?\n"
@@ -17,48 +19,55 @@ public class Bean {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
         int pointer = 0;
-        File f = new File("src\\main\\java\\data\\tasks.txt"); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            String response = s.nextLine();
-            String[] splited = response.split(" ");
-            if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
-                Task current = null;
-                try {
-                    switch (splited[0]) {
-                        case "todo":
-                            current = new Todo(response.replace("todo ", ""));
-                            break;
-                        case "event":
-                            current = new Event(response.replace("event ", ""));
-                            break;
-                        case "deadline":
-                            current = new Deadline(response.replace("deadline ", ""));
-                            break;
+        try {
+            File f = new File("src\\main\\java\\data\\tasks.txt"); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                String response = s.nextLine();
+                String[] splited = response.split(" ", 3);
+                if (splited[1].equals("todo") || splited[1].equals("event") || splited[1].equals("deadline")) {
+                    Task current = null;
+                    try {
+                        switch (splited[1]) {
+                            case "todo":
+                                current = new Todo(splited[2]);
+                                break;
+                            case "event":
+                                current = new Event(splited[2]);
+                                break;
+                            case "deadline":
+                                current = new Deadline(splited[2]);
+                                break;
+                        }
+                        if ("1".equals(splited[0])) {
+                            current.mark();
+                        }
+                        taskList.add(current);
+                        pointer++;
+                    } catch (DukeException e) {
+                        System.out.println("________________________________");
+                        System.out.println(e.getMessage() + "________________________________");
                     }
-                    taskList.add(current);
-                    pointer++;
-                } catch (DukeException e) {
-                    System.out.println("________________________________");
-                    System.out.println(e.getMessage() + "________________________________");
                 }
             }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
         }
         while (true) {
             String response = scanner.nextLine();
-            String[] splited = response.split(" ");
+            String[] splited = response.split(" ",2);
             if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
                 Task current = null;
                 try {
                     switch (splited[0]) {
                         case "todo":
-                            current = new Todo(response.replace("todo ", ""));
+                            current = new Todo(splited[1]);
                             break;
                         case "event":
-                            current = new Event(response.replace("event ", ""));
+                            current = new Event(splited[1]);
                             break;
                         case "deadline":
-                            current = new Deadline(response.replace("deadline ", ""));
+                            current = new Deadline(splited[1]);
                             break;
                     }
                     taskList.add(current);
@@ -133,6 +142,44 @@ public class Bean {
                     System.out.println(e.getMessage() + "\n________________________________");
                 }
             } else if (splited[0].equals("bye")){
+                try {
+                    FileWriter fw = new FileWriter("src\\main\\java\\data\\tasks.txt");
+                    for (int i = 0; i < pointer; i++) {
+                        String output = "";
+                        Task curr = taskList.get(i);
+                        if (curr.isDone()) {
+                            output += "1 ";
+                        } else {
+                            output += "0 ";
+                        }
+                        String substring = curr.getString().split("] ",2)[1];
+                        String type = (curr.getString().split("]")[0]);
+                        switch (type) {
+                            case "[T":
+                                output += "todo ";
+                                output += substring + '\n';
+                                fw.write(output);
+                                break;
+                            case "[E":
+                                output += "event ";
+                                substring = substring.replace("(from:", "/from").replace("to:", "/to");
+                                substring = substring.substring(0, substring.length() - 1) + "\n";
+                                output += substring;
+                                fw.write(output);
+                                break;
+                            case "[D":
+                                output += "deadline ";
+                                substring = substring.replace("(by:", "/by");
+                                substring = substring.substring(0, substring.length() - 1) + "\n";
+                                output += substring;
+                                fw.write(output);
+                                break;
+                        }
+                    }
+                    fw.close();
+                } catch (IOException e){
+                    System.out.println(e.getMessage());
+                }
                 System.out.println(byeMsg);
                 break;
             } else {
