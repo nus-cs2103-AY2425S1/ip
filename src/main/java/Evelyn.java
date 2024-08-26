@@ -9,16 +9,58 @@ public class Evelyn {
     private static String horizontalLine = "-----------------------------------------";
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList lst = new ArrayList(100);
-    private static boolean cont = true;
+    private static boolean isChatting = true;
     private static String dataFilePath = "src/main/data/evelyn.txt";
 
-    private static void decipher(String text) throws NoInputException {
+    public static void main(String[] args) throws IOException {
+        String text = null;
+        System.out.println(horizontalLine);
+        System.out.println("Hi! I am Evelyn");
+        System.out.println("What can I do for you?");
+        System.out.println(horizontalLine);
 
+        File file = new File(dataFilePath);
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating file: " + e.getMessage());
+        }
+
+        while (isChatting) {
+            text = scanner.nextLine();
+
+            try {
+                decipher(text);
+            } catch (InvalidInputException e) {
+                System.out.println(horizontalLine);
+                System.out.println("You did not use the keywords properly!");
+                System.out.println("Please use the following key words:");
+                System.out.println("todo [task description]");
+                System.out.println("deadline [task description] /by [date]");
+                System.out.println("event [task description] /from [start date and time] /to [end date and time");
+                System.out.println(horizontalLine);
+            } catch (NoInputException e) {
+                System.out.println(horizontalLine);
+                System.out.println("Invalid");
+                System.out.println("Please use the following key words:");
+                System.out.println("todo [task description]");
+                System.out.println("deadline [task description] /by [date]");
+                System.out.println("event [task description] /from [start date and time] /to [end date and time");
+                System.out.println(horizontalLine);
+            }
+        }
+    }
+
+    private static void decipher(String text) throws NoInputException {
         if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
             System.out.println(horizontalLine);
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println(horizontalLine);
-            cont = false;
+            isChatting = false;
         } else if (text.startsWith("delete")) {
             int index = Integer.parseInt(text.substring(7)) - 1;
             Task task = (Task) lst.get(index);
@@ -94,49 +136,6 @@ public class Evelyn {
             System.out.println(horizontalLine);
         } else {
             throw new NoInputException("no input!");
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        String text = null;
-        System.out.println(horizontalLine);
-        System.out.println("Hi! I am Evelyn");
-        System.out.println("What can I do for you?");
-        System.out.println(horizontalLine);
-
-        File file = new File(dataFilePath);
-
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            } else {
-            }
-        } catch (IOException e) {
-            System.err.println("Error creating file: " + e.getMessage());
-        }
-
-        while (cont) {
-            text = scanner.nextLine();
-
-            try {
-                decipher(text);
-            } catch (InvalidInputException e) {
-                System.out.println(horizontalLine);
-                System.out.println("You did not use the keywords properly!");
-                System.out.println("Please use the following key words:");
-                System.out.println("todo [task description]");
-                System.out.println("deadline [task description] /by [date]");
-                System.out.println("event [task description] /from [start date and time] /to [end date and time");
-                System.out.println(horizontalLine);
-            } catch (NoInputException e) {
-                System.out.println(horizontalLine);
-                System.out.println("Invalid");
-                System.out.println("Please use the following key words:");
-                System.out.println("todo [task description]");
-                System.out.println("deadline [task description] /by [date]");
-                System.out.println("event [task description] /from [start date and time] /to [end date and time");
-                System.out.println(horizontalLine);
-            }
         }
     }
 }
