@@ -15,11 +15,10 @@ import thanos.stubs.StorageStub;
 
 public class TaskListTest {
     private TaskList taskList;
-    private IStorage storageStub;
 
     @BeforeEach
     public void setUp() {
-        storageStub = new StorageStub();
+        IStorage storageStub = new StorageStub();
         taskList = new TaskList(storageStub);
     }
 

@@ -28,8 +28,7 @@ public class DeadlineCommandTest {
         DeadlineCommand command = new DeadlineCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'",
@@ -41,8 +40,7 @@ public class DeadlineCommandTest {
         DeadlineCommand command = new DeadlineCommand("finish assignment");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'",
@@ -54,8 +52,7 @@ public class DeadlineCommandTest {
         DeadlineCommand command = new DeadlineCommand("finish assignment tomorrow");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'",

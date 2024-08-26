@@ -28,8 +28,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("No task index provided. Please use the correct format: 'delete [task index]'",
@@ -41,8 +40,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("1 2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid input format. Please use the correct format: 'delete [task index]'",
@@ -67,8 +65,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("one");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is not an integer.",
@@ -82,8 +79,7 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("2");
 
         InvalidCommandException exception = assertThrows(
-                InvalidCommandException.class,
-                () -> command.execute(taskList, ui),
+                InvalidCommandException.class, () -> command.execute(taskList, ui),
                 "Expected InvalidCommandException to be thrown"
         );
         assertEquals("Invalid task index. The task index provided is out of range.",
