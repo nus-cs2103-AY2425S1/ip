@@ -7,10 +7,10 @@ import Dook.DookException;
 
 import java.io.IOException;
 
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DookException,IOException {
-        storage.write(taskList);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException,IOException {
+        storage.write(tasks);
         ui.exit();
         super.isExit = true;
     }
