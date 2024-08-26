@@ -14,6 +14,7 @@ import thanos.commands.DateCommand;
 import thanos.commands.DeadlineCommand;
 import thanos.commands.DeleteCommand;
 import thanos.commands.EventCommand;
+import thanos.commands.FindCommand;
 import thanos.commands.ListCommand;
 import thanos.commands.MarkCommand;
 import thanos.commands.TodoCommand;
@@ -88,6 +89,12 @@ public class ParserTest {
     public void parse_unmark_returnsUnmarkCommand() throws InvalidCommandException {
         Command command = Parser.parse("unmark 1");
         assertInstanceOf(UnmarkCommand.class, command, "Expected an UnmarkCommand");
+    }
+
+    @Test
+    public void parse_find_returnsFindCommand() throws InvalidCommandException {
+        Command command = Parser.parse("find read book");
+        assertInstanceOf(FindCommand.class, command, "Expected a FindCommand");
     }
 
     @Test
