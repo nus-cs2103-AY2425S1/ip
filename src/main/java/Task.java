@@ -1,7 +1,11 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 public abstract class Task {
 
     private static final ArrayList<Task> list = new ArrayList<Task>();
+    protected final static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMddyyyy HHmm");
+    protected final static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("Mmm dd yyyy HHmm");
+
     private final String task;
     public String type;
     private boolean completed;
@@ -50,7 +54,7 @@ public abstract class Task {
         return Task.list.get(i).saveFileFormat();
     }
 
-    private void done() {
+    protected void done() {
         this.completed = true;
     }
 
@@ -59,6 +63,10 @@ public abstract class Task {
     }
 
     public abstract String saveFileFormat();
+
+    public boolean getCompleted() {
+        return this.completed;
+    }
 
     public String getTask() {
         return this.task;

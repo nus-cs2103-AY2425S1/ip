@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class ToDo extends Task {
 
     public ToDo(String t) {
@@ -6,10 +8,19 @@ public class ToDo extends Task {
     }
 
     public static void load(String[] arr) {
-        new ToDo(arr[1]);
+        ToDo newTodo = new ToDo(arr[2]);
+        if (Objects.equals(arr[1], "1")) {
+            newTodo.done();
+        }
     }
     @Override
     public String saveFileFormat() {
-        return "T | " + this.getTask();
+        String status;
+        if (this.getCompleted()) {
+            status = "1 | ";
+        } else {
+            status = "0 | ";
+        }
+        return "T | " + status + this.getTask();
     }
 }
