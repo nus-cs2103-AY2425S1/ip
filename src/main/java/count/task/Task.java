@@ -1,3 +1,5 @@
+package count.task;
+
 public class Task {
     private String description;
     private boolean completion;
@@ -5,6 +7,11 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.completion = false;
+    }
+
+    public Task(String description, boolean completion) {
+        this.description = description;
+        this.completion = completion;
     }
 
     public void setCompletion(boolean completion) {

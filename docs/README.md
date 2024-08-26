@@ -1,4 +1,4 @@
-# Count User Guide
+# count.Count User Guide
 
 // Update the title above to match the actual product name
 
@@ -8,7 +8,7 @@
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+// Describe the count.action and its outcome.
 
 // Give examples of usage
 

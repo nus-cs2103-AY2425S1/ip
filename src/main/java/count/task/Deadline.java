@@ -1,13 +1,20 @@
+package count.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadlines extends Task {
+public class Deadline extends Task {
     protected LocalDate endTime;
     protected DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     protected DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("LLLL dd yyyy");
-    public Deadlines(String description, String endTime) {
+    public Deadline(String description, String endTime) {
         super(description);
         this.endTime = LocalDate.parse(endTime, inputFormat);
+    }
+
+    public Deadline(String description, LocalDate endTime, boolean completion) {
+        super(description, completion);
+        this.endTime = endTime;
     }
 
     @Override
