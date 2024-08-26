@@ -27,40 +27,39 @@ public class BotManager {
     }
 
     public void run() {
-       ui.start();
-       TaskList taskList = new TaskList();
-       try {
-           storage.loadTaskList(taskList);
-       } catch (FileNotFoundException e) {
-           ui.showLoadError();
-           storage.initFile();
-       }
+        TaskList taskList = new TaskList();
+        try {
+            storage.loadTaskList(taskList);
+        } catch (FileNotFoundException e) {
+            ui.showLoadError();
+            storage.initFile();
+        }
+        ui.start();
+        while (true) {
+            // read user input
+            String input = ui.readUserInput();
+            if (input.strip().equals("bye")) {
+                break;
+            }
 
-       while (true) {
-           // read user input
-           String input = ui.readUserInput();
-           if (input.strip().equals("bye")) {
-               break;
-           }
-
-           // parse and execute command
-           try {
-               Action action = parser.parseInput(input);
-               String output = action.execute(taskList);
-               ui.printMessage(output);
-           } catch (BotException e) {
+            // parse and execute command
+            try {
+                Action action = parser.parseInput(input);
+                String output = action.execute(taskList);
+                ui.printMessage(output);
+            } catch (BotException e) {
                 ui.printMessage(e.getMessage());
-           }
+            }
 
-           // save task list to file
-           try {
-               storage.saveTaskList(taskList);
-           } catch (IOException e) {
-               ui.showSaveError();
-           }
-       }
+            // save task list to file
+            try {
+                storage.saveTaskList(taskList);
+            } catch (IOException e) {
+                ui.showSaveError();
+            }
+        }
 
-       ui.exit();
+        ui.exit();
     }
 
     public static void main(String[] args) {
