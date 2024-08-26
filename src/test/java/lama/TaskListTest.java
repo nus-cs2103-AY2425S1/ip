@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {
 
     @Test
-    public void testInstantiateEmptyTaskList() {
+    public void instantiateEmptyTaskListTest() {
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size());
     }
 
     @Test
-    public void testInstantiateGivenTaskList() {
+    public void instantiateGivenTaskListTest() {
         ArrayList<Task> given = new ArrayList<>();
         Task todo = new Todo("Read Book");
         given.add(todo);
@@ -28,13 +28,13 @@ public class TaskListTest {
     }
 
     @Test
-    public void testSize() {
+    public void sizeTest() {
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size());
     }
 
     @Test
-    public void testAdd() {
+    public void addTest() {
         TaskList taskList = new TaskList();
         Task task = new Todo("Read Book");
         taskList.add(task);
@@ -43,7 +43,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testGet() {
+    public void getTest() {
         TaskList taskList = new TaskList();
         Task task = new Todo("Read Book");
         taskList.add(task);
@@ -51,7 +51,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testRemove() {
+    public void removeTest() {
         TaskList taskList = new TaskList();
         Task task = new Todo("Read Book");
         taskList.add(task);
