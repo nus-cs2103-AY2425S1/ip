@@ -20,31 +20,37 @@ Invalid deadline format. Usage: deadline <description> /by <date>
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] homework (by: 5pm)
+  [D][ ] homework (by: 29 Oct 2020)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
+Invalid event format. Usage: event <description> /from <fromDate yyyy-mm-dd> /to <toDate yyyy-mm-dd>
+____________________________________________________________
+____________________________________________________________
+Invalid date. End date 20 Sep 2020 is before 19 Oct 2020
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
-  [E][ ] A (from: 1 to: 2)
+  [E][ ] A (from: 19 Aug 2020 to: 20 Sep 2020)
 Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] B (from: 3 to: 4)
+  [E][ ] B (from: 13 Dec 2019 to: 2 Jan 2020)
 Now you have 5 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>
+Invalid event format. Usage: event <description> /from <fromDate yyyy-mm-dd> /to <toDate yyyy-mm-dd>
 ____________________________________________________________
 ____________________________________________________________
-Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>
+Invalid event format. Usage: event <description> /from <fromDate yyyy-mm-dd> /to <toDate yyyy-mm-dd>
 ____________________________________________________________
 ____________________________________________________________
   1. [T][ ] a
   2. [T][ ] b
-  3. [D][ ] homework (by: 5pm)
-  4. [E][ ] A (from: 1 to: 2)
-  5. [E][ ] B (from: 3 to: 4)
+  3. [D][ ] homework (by: 29 Oct 2020)
+  4. [E][ ] A (from: 19 Aug 2020 to: 20 Sep 2020)
+  5. [E][ ] B (from: 13 Dec 2019 to: 2 Jan 2020)
 ____________________________________________________________
 ____________________________________________________________
 Invalid task number. There are 5 tasks in your list.
@@ -67,9 +73,9 @@ ____________________________________________________________
 ____________________________________________________________
   1. [T][X] a
   2. [T][X] b
-  3. [D][ ] homework (by: 5pm)
-  4. [E][ ] A (from: 1 to: 2)
-  5. [E][ ] B (from: 3 to: 4)
+  3. [D][ ] homework (by: 29 Oct 2020)
+  4. [E][ ] A (from: 19 Aug 2020 to: 20 Sep 2020)
+  5. [E][ ] B (from: 13 Dec 2019 to: 2 Jan 2020)
 ____________________________________________________________
 ____________________________________________________________
 Invalid task number. There are 5 tasks in your list.
@@ -80,7 +86,7 @@ OK, I've marked this task as not done yet:
 ____________________________________________________________
 ____________________________________________________________
 This task is already marked as not done:
-  [D][ ] homework (by: 5pm)
+  [D][ ] homework (by: 29 Oct 2020)
 ____________________________________________________________
 ____________________________________________________________
 Invalid task number. There are 5 tasks in your list.
@@ -88,9 +94,9 @@ ____________________________________________________________
 ____________________________________________________________
   1. [T][ ] a
   2. [T][X] b
-  3. [D][ ] homework (by: 5pm)
-  4. [E][ ] A (from: 1 to: 2)
-  5. [E][ ] B (from: 3 to: 4)
+  3. [D][ ] homework (by: 29 Oct 2020)
+  4. [E][ ] A (from: 19 Aug 2020 to: 20 Sep 2020)
+  5. [E][ ] B (from: 13 Dec 2019 to: 2 Jan 2020)
 ____________________________________________________________
 ____________________________________________________________
 Unknown command: unknown

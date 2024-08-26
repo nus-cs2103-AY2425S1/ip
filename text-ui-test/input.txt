@@ -2,9 +2,11 @@ list
 todo a
 todo b
 deadline /by 5pm
-deadline homework /by 5pm
+deadline homework /by 2020-10-29
 event A /from 1 /to 2
-event B /to 4 /from 3
+event A /from 2020-10-19 /to 2020-09-20
+event A /from 2020-08-19 /to 2020-09-20
+event B /to 2020-01-02 /from 2019-12-13
 event /from a /to b
 event C
 list

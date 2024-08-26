@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class CommandParser {
   private String argument; // Input text after command title
 
@@ -9,8 +6,6 @@ public class CommandParser {
   // Only description or integer description is allowed
   private String description;
   private int intParam;
-
-  private Map<String, CommandOption<?>> options = new HashMap<>();
 
   public CommandParser(String input) throws IllegalCommandException {
     String[] parts = input.split(" ", 2);
@@ -29,7 +24,6 @@ public class CommandParser {
   public void parse(boolean hasDescription, boolean isIntegerDescription, CommandOption<?>... expectedOptions) {
     // Reset states
     this.description = "";
-    options.clear();
 
     if (hasDescription && this.argument.length() == 0) {
       throw new IllegalCommandArgumentException(this.command, hasDescription, isIntegerDescription, expectedOptions);
@@ -50,8 +44,9 @@ public class CommandParser {
     for (CommandOption<?> option : expectedOptions) {
       try {
         int matchStart = option.parse(this.argument, end);
-        this.options.put(option.getOption(), option);
         minStartMatch = Math.min(minStartMatch, matchStart);
+      } catch (IllegalCommandException e) {
+        throw e;
       } catch (IllegalArgumentException e) {
         throw new IllegalCommandArgumentException(this.command, hasDescription, isIntegerDescription, expectedOptions);
       }
@@ -83,9 +78,5 @@ public class CommandParser {
 
   public int getIntParam() {
     return this.intParam;
-  }
-
-  public CommandOption<?> getOption(String option) {
-    return this.options.get(option);
   }
 }

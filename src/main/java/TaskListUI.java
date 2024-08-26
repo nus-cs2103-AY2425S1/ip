@@ -76,6 +76,10 @@ public class TaskListUI {
 
   public void run() {
     this.taskList = storage.readTasks();
+    if (this.taskList.size() > 0) {
+      System.out.println(
+          "Loaded " + this.taskList.size() + " " + this.taskWord() + " into your task list.");
+    }
 
     System.out.println("____________________________________________________________");
     System.out.println("Hello! I'm Vuewee\nWhat can I do for you?");
@@ -134,7 +138,7 @@ public class TaskListUI {
             CommandOption<TaskLocalDate> fromOption = new CommandOption<TaskLocalDate>("from", "fromDate yyyy-mm-dd",
                 TaskLocalDate::parse);
             CommandOption<TaskLocalDate> toOption = new CommandOption<TaskLocalDate>("to", "toDate yyyy-mm-dd",
-                TaskLocalDate::parse);
+                TaskLocalDate.createParserWithFrom(na -> fromOption.getParsedValue()));
             parser.parse(true, false, fromOption, toOption);
             addTask(new EventTask(parser.getDescription(), fromOption.getParsedValue(), toOption.getParsedValue()));
             break;
