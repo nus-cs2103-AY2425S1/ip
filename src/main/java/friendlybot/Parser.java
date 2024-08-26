@@ -1,3 +1,7 @@
+package friendlybot;
+
+import friendlybot.command.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 

@@ -1,3 +1,10 @@
+package friendlybot.command;
+
+import friendlybot.Storage;
+import friendlybot.Ui;
+import friendlybot.task.TaskList;
+import friendlybot.task.Task;
+
 public class DeleteCommand extends Command {
     private int taskNumber;
 

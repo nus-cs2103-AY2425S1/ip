@@ -1,19 +1,21 @@
+package friendlybot.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Deadline task.
- * A Deadline task is a simple task with a description and a deadline.
+ * Represents a friendlybot.task.Deadline task.
+ * A friendlybot.task.Deadline task is a simple task with a description and a deadline.
  */
 public class Deadline extends Task {
 
     protected LocalDate by;
 
     /**
-     * Constructs a new Deadline task with the specified description and deadline.
+     * Constructs a new friendlybot.task.Deadline task with the specified description and deadline.
      *
-     * @param description The description of the Deadline task.
-     * @param by The deadline of the Deadline task.
+     * @param description The description of the friendlybot.task.Deadline task.
+     * @param by The deadline of the friendlybot.task.Deadline task.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -21,7 +23,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task.
+     * Returns a string representation of the friendlybot.task.Deadline task.
      *
      * @return A string in the format "[D][statusIcon] description (by: date)".
      */
