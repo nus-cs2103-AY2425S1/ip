@@ -1,20 +1,22 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 public class Joe {
-    public static final String horizontalLine = "____________________________________________________________";
-    public static final String chatbotName = "Joe";
-    public static final String addTaskMessage = "Got it. I've added this task:\n";
-    public static final String taskCountMessage = "Now you have %d tasks in the list.\n";
+    public static final String HORIZONTAL_LINE = "____________________________________________________________";
+    public static final String CHATBOT_NAME = "Joe";
+    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n";
+    public static final String TASK_COUNT_MESSAGE = "Now you have %d tasks in the list.\n";
 
     public static String input = "";
     public static ArrayList<Task> store = new ArrayList<>();
 
     public static void greet() {
-        System.out.printf("%s\nHello! I'm %s\nWhat can I do for you?\n%s\n", horizontalLine, chatbotName, horizontalLine);
+        System.out.printf("%s\nHello! I'm %s\nWhat can I do for you?\n%s\n", HORIZONTAL_LINE, CHATBOT_NAME, HORIZONTAL_LINE);
     }
 
     public static void farewell() {
-        System.out.printf("Bye. Hope to see you again soon!\n%s", horizontalLine);
+        System.out.printf("Bye. Hope to see you again soon!\n%s", HORIZONTAL_LINE);
     }
 
     public static void handleList(ArrayList<Task> list) {
@@ -37,7 +39,7 @@ public class Joe {
     public static void handleDelete(ArrayList<Task> list, int index) {
         System.out.printf("Noted. I've removed this task:\n%s\n", list.get(index));
         list.remove(index);
-        System.out.printf(taskCountMessage, list.size());
+        System.out.printf(TASK_COUNT_MESSAGE, list.size());
     }
 
     public static void handleTodo(String input) {
@@ -47,8 +49,8 @@ public class Joe {
             return;
         }
         store.add(new TaskTodo(task));
-        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
-        System.out.printf(taskCountMessage, store.size());
+        System.out.printf("%s%s\n", ADD_TASK_MESSAGE, store.getLast());
+        System.out.printf(TASK_COUNT_MESSAGE, store.size());
     }
 
     public static void handleDeadline(String input) {
@@ -64,8 +66,8 @@ public class Joe {
         }
         String by = input.substring(byIndex + 4);
         store.add(new TaskDeadline(task, by));
-        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
-        System.out.printf(taskCountMessage, store.size());
+        System.out.printf("%s%s\n", ADD_TASK_MESSAGE, store.getLast());
+        System.out.printf(TASK_COUNT_MESSAGE, store.size());
     }
 
     public static void handleEvent(String input) {
@@ -83,8 +85,8 @@ public class Joe {
         String from = input.substring(fromIndex + 6, toIndex - 1);
         String to = input.substring(toIndex + 4);
         store.add(new TaskEvent(task, from, to));
-        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
-        System.out.printf(taskCountMessage, store.size());
+        System.out.printf("%s%s\n", ADD_TASK_MESSAGE, store.getLast());
+        System.out.printf(TASK_COUNT_MESSAGE, store.size());
     }
 
     public static void main(String[] args) {
@@ -93,7 +95,7 @@ public class Joe {
         greet();
         while (!input.equals("bye")) {
             input = scanner.nextLine();
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
             if (input.equals("bye")) {
                 break;
             }
@@ -123,7 +125,7 @@ public class Joe {
             else {
                 System.out.println("Give me a valid command!");
             }
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
         }
         farewell();
         scanner.close();
