@@ -1,6 +1,6 @@
 todo Add a todo task
-deadline Add a deadline task /by Sunday
-event Add a event task /from Sunday 12pm /to 3pm
+deadline Add a deadline task /by 01/02/2025 1300
+event Add a event task /from 01/02/2025 1300 /to 01/02/2025 1500
 list
 mark 1
 mark 2
