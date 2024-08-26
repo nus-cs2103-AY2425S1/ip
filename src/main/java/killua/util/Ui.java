@@ -49,9 +49,9 @@ public class Ui {
         System.out.println("  delete <task number> - Delete a task");
         System.out.println("  todo <description> - Add a new todo task");
         System.out.println("  deadline <description> /by <yyyy-mm-dd> OR ");
-        System.out.println("        deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task");
+        System.out.println("  deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task");
         System.out.println("  event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR ");
-        System.out.println("        event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task");
+        System.out.println("  event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task");
         printLine();
     }
 
