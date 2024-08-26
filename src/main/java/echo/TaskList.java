@@ -43,6 +43,31 @@ public class TaskList implements Serializable {
         System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
     }
 
+    /**
+     * Prints a list of tasks with target keywords
+     *
+     * @param keywords the keywords to search for within the task descriptions.
+     */
+    public void find(String keywords) {
+        CharSequence cs = keywords;
+        ArrayList<Task> result = new ArrayList<>();
+        // Traversal the list to find Task object with keywords in description
+        for (Task t : this.allTasks) {
+            if (t.toString().contains(cs)) {
+                result.add(t);
+            }
+        }
+
+        // print search result
+        String tasks = "";
+        for (int i = 0; i < result.size(); i++) {
+            tasks += (i + 1) + ". " + result.get(i).toString();
+            tasks += (i == result.size() - 1) ? "" : "\n";
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(tasks);
+    }
+
     @Override
     public String toString() {
         return this.allTasks.toString();
