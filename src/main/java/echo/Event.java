@@ -2,6 +2,10 @@ package echo;
 
 import java.io.Serializable;
 
+/**
+ * Represents a task with a start time and an end time that needs to be completed.
+ * This class extends the Task class and implements Serializable for object serialization.
+ */
 public class Event extends Task implements Serializable {
     private String startTime;
     private String endTime;

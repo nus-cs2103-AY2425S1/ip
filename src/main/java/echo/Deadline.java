@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Represents a task with a deadline that needs to be completed before a specific date and time.
+ * This class extends the Task class and implements Serializable for object serialization.
+ */
 public class Deadline extends Task implements Serializable {
     private LocalDateTime deadline;
 
@@ -14,7 +18,9 @@ public class Deadline extends Task implements Serializable {
      * Creates task that need to be done before a specific date/time.
      *
      * @param task task information of the deadline task.
-     * @param deadline time when task need to be done.
+     * @param deadline the time by which the task needs to be completed,
+     *                 in the format "yyyy/MM/dd HH:mm".
+     * @throws DateTimeParseException if the deadline string is not in the correct format.
      */
     public Deadline(String task, String deadline) throws DateTimeParseException {
         this.task = task;

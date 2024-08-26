@@ -5,6 +5,10 @@ import echo.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents a simple task management bot that interacts with the user via the console.
+ * It handles task storage, user input, and displays task-related information.
+ */
 public class EchoBot {
     private Scanner scanner = new Scanner(System.in);
     private Ui ui = new Ui();
@@ -16,6 +20,11 @@ public class EchoBot {
         this.ui.greet();
     }
 
+    /**
+     * Runs the main function of the EchoBot.
+     * Continuously reads users' input, processes the input to perform actions
+     * on the task list, and displays results until the exit condition is met.
+     */
     public void run() {
         boolean isExit = false;
         while (!isExit) {

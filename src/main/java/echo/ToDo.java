@@ -2,10 +2,14 @@ package echo;
 
 import java.io.Serializable;
 
+/**
+ * Represents a task to be completed.
+ * This class extends the Task class and implements Serializable for object serialization.
+ */
 public class ToDo extends Task implements Serializable {
 
     /**
-     * Create a task to be completed.
+     * Creates a task to be completed.
      *
      * @param task without any date/time attached to it.
      */

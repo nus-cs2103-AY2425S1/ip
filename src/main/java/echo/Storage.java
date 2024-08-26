@@ -5,9 +5,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/**
+ * Handles file operations for storing and retrieving a TaskList object.
+ * It manages the initialization of the data file, reading data from the file,
+ * and writing data to the file.
+ */
 public class Storage {
     private static final String DATA_PATH = "data/data.txt";
+
+    /**
+     * Initializes the data file.
+     * If the file already exists, checks if it's empty and writes an empty TaskList to it.
+     * If the file does not exist, creates the necessary directory and file, and then
+     * writes an empty TaskList to the file.
+     */
     public static void init() {
         Path filePath = Paths.get(Storage.DATA_PATH);
 
@@ -32,6 +43,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the data file is empty. If it is, writes an empty TaskList
+     * to the file.
+     */
     public static void setEmptyFile() {
         File f = new File(Storage.DATA_PATH);
         if (f.length() == 0) {
@@ -40,6 +55,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the provided TaskList object to the data file.
+     *
+     * @param taskList the TaskList object to be written to the file.
+     */
     public static void setData(TaskList taskList) {
         try {
             FileOutputStream fileStream = new FileOutputStream(Storage.DATA_PATH);
@@ -51,6 +71,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the TaskList object from the data file.
+     *
+     * @return the TaskList object read from the file, or an empty TaskList
+     *         if the file is empty or an error occurs.
+     */
     public static TaskList getData() {
         TaskList allTasks = null;
         try {
