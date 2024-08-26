@@ -1,7 +1,7 @@
 package alice.ui;
 
 public class Ui {
-    private static final String FACE = "(ᵕ—ᴗ—)";
+    private static final String FACE = "(*-.-)";
     private static final String DIVIDER = "____________________________________________________________";
 
     public void say(String line) {

@@ -13,4 +13,4 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Alice.java` file, right-click it, and choose `Run Alice.main()` (if the code editor is showing compile errors, try restarting the IDE).
+3. After that, locate the `src/main/java/alice/Alice.java` file, right-click it, and choose `Run Alice.main()` (if the code editor is showing compile errors, try restarting the IDE).
