@@ -5,16 +5,34 @@ import papadom.Exceptions.WrongTaskNumberException;
 import papadom.tasks.Task;
 
 import java.util.ArrayList;
-
+/**
+ * Manages the list of tasks and provides methods for task operations like adding,
+ * deleting, marking, and unmarking tasks.
+ */
 public class TaskList {
     private final Storage storage;
     private final ArrayList<Task> tasks = new ArrayList<>();
+    /**
+     * Constructs a TaskList with the specified storage.
+     *
+     * @param storage The storage instance for saving tasks.
+     */
     public TaskList(Storage storage) {
         this.storage = storage;
     }
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The ArrayList of tasks.
+     */
     public ArrayList<Task> getTasks () {
         return this.tasks;
     }
+    /**
+     * Outputs the current list of tasks as a formatted string.
+     *
+     * @return The formatted string representing the task list.
+     */
     public String outputList() {
         String finalList = " Here are the tasks in your list:";
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -26,6 +44,12 @@ public class TaskList {
         }
         return finalList;
     }
+    /**
+     * Adds a task to the list and stores it in the database.
+     *
+     * @param task The task to be added.
+     * @return The message confirming the addition of the task.
+     */
     public String addToList(Task task){
         this.tasks.add(task);
         this.storage.addTaskToDatabase(task);
@@ -33,6 +57,14 @@ public class TaskList {
                 + " Now you have " + (this.tasks.size()) + " tasks in the list.";
         return response;
     }
+    /**
+     * Deletes a task from the list based on the provided command text.
+     *
+     * @param text The command text specifying the task number to be deleted.
+     * @return The message confirming the deletion of the task.
+     * @throws NoTaskNumberException     If the task number is missing or invalid.
+     * @throws WrongTaskNumberException  If the task number does not exist.
+     */
     public String deleteEvent(String text) throws NoTaskNumberException, WrongTaskNumberException {
         String[] parts = text.split(" ");
         if (parts.length <= 1) {
@@ -51,6 +83,14 @@ public class TaskList {
             throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
         }
     }
+    /**
+     * Marks a task as completed based on the provided command text.
+     *
+     * @param text The command text specifying the task number to be marked.
+     * @return The message confirming the task has been marked.
+     * @throws NoTaskNumberException     If the task number is missing or invalid.
+     * @throws WrongTaskNumberException  If the task number does not exist.
+     */
     public String markTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
         String[] parts = text.split(" ");
         if (parts.length <= 1) {
@@ -68,6 +108,14 @@ public class TaskList {
             throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
         }
     }
+    /**
+     * Unmarks a task as incomplete based on the provided command text.
+     *
+     * @param text The command text specifying the task number to be unmarked.
+     * @return The message confirming the task has been unmarked.
+     * @throws NoTaskNumberException     If the task number is missing or invalid.
+     * @throws WrongTaskNumberException  If the task number does not exist.
+     */
     public String unmarkTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
         String[] parts = text.split(" ");
         if (parts.length <= 1) {
