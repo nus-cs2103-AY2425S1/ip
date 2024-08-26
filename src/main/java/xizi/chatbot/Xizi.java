@@ -31,7 +31,7 @@ public class Xizi {
     }
 
     public static void main(String[] args) {
-        new Xizi(FILE_PATH).run();
+        new Xizi("./data/xizi.txt").run();
     }
 
     public void run() {

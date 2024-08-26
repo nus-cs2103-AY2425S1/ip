@@ -23,10 +23,6 @@ public class Parser {
     }
 
 
-    public Matcher matchCommand(String userInput, CommandType commandType) {
-        return commandType.matcher(userInput);
-    }
-
     public Command parse(String userInput) throws IOException, XiziException {
         CommandType commandType = CommandType.fromInput(userInput);
 
