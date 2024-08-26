@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Tohru {
@@ -146,11 +149,14 @@ public class Tohru {
                     if (deadlineContent.isBlank()) {
                         throw new TohruException("Missing argument: Please specify description");
                     }
-                    String deadline = dissectedDeadlineArgument[1];
+                    String deadlineStr = dissectedDeadlineArgument[1];
                     // Check for valid deadline
-                    if (deadline.isBlank()) {
+                    if (deadlineStr.isBlank()) {
                         throw new TohruException("Missing argument: Please specify deadline");
                     }
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/y HHmm");
+                    LocalDateTime deadline = LocalDateTime.parse(deadlineStr.trim(), formatter);
+
                     DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
 
                     if (todoList.addItem(newDeadline)) {
@@ -209,6 +215,9 @@ public class Tohru {
                 printDivider();
             } catch (NumberFormatException e) {
                 System.out.println(String.format("%s is not valid index for %s operation", argument, command));
+                printDivider();
+            } catch (DateTimeParseException e) {
+                System.out.println(String.format("Argument '%s' contains invalid datetime foramt", argument));
                 printDivider();
             }
         }
