@@ -11,11 +11,11 @@ public class TaskList {
         this.taskList.add(task);
     }
 
-    public void completeTaskAt(int index) throws NullPointerException {
+    public void completeTaskAt(int index) throws IndexOutOfBoundsException {
         this.taskList.get(index - 1).completeTask();
     }
 
-    public void uncompleteTaskAt(int index) throws NullPointerException {
+    public void uncompleteTaskAt(int index) throws IndexOutOfBoundsException {
         this.taskList.get(index - 1).uncompleteTask();
     }
 
@@ -23,7 +23,7 @@ public class TaskList {
         return taskList.size();
     }
 
-    public Task removeTaskAt(int index) throws NullPointerException{
+    public Task removeTaskAt(int index) throws IndexOutOfBoundsException{
         Task removedTask = taskList.get(index - 1);
         taskList.remove(index - 1);
         return removedTask;
