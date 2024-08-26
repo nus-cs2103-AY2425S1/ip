@@ -13,10 +13,6 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
     public void addTask(String taskType, Ui ui, Storage storage) throws IOException {
         Task task = null;
         switch (taskType) {
@@ -119,4 +115,15 @@ public class TaskList {
         checkValidIndex(index);
         tasks.remove(index);
     }
+
+    public String findTasks(String key) {
+        String tasksFound = "";
+        int numTasksFound = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(key)) {
+                tasksFound += ++numTasksFound + "." + task.toString() + "\n";
+            }
+        }
+        return tasksFound.trim();
+        }
 }

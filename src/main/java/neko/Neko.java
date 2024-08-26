@@ -14,6 +14,7 @@ public class Neko {
     private static final String UNMARK_COMMAND = "unmark";
     private static final String ADD_COMMAND = "add";
     private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
     private static final String FILE_PATH = "./data/neko.txt";
     private Ui ui;
     private Storage storage;
@@ -53,39 +54,48 @@ public class Neko {
     private void handleInput(String command, String input) throws NekoException, IOException {
         Task task;
         switch (command) {
-            case LIST_COMMAND:
-                tasks.listTasks(ui);
-                break;
-            case MARK_COMMAND:
-                task = tasks.markTask(
-                        Integer.parseInt(input.split(" ")[1]) - 1);
-                if (task != null) {
-                    ui.showMessage("Nice meow! I've marked this task as done:\n " + task);
-                } else {
-                    throw new NekoException("The task is already marked as done meow!");
-                }
-                break;
-            case UNMARK_COMMAND:
-                task = tasks.unmarkTask(
-                        Integer.parseInt(input.split(" ")[1]) - 1);
-                if (task != null) {
-                    ui.showMessage("Ok meow, I've marked this task as not done yet:\n " + task);
-                } else {
-                    throw new NekoException("The task is not marked as done yet meow!");
-                }
-                break;
-            case DELETE_COMMAND:
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                task = tasks.getTask(index);
-                tasks.deleteTask(index);
-                storage.rewriteFile(tasks);
-                ui.showMessage("Noted meow. I've removed this task\n " + task +"\nNow you have "
-                        + tasks.size() + " tasks in the list.");
-                break;
-            case ADD_COMMAND:
-                ui.showMessage("Let's add a task meow!");
-                tasks.addTask(ui.getTaskType(), ui, storage);
-                break;
+        case LIST_COMMAND:
+            tasks.listTasks(ui);
+            break;
+        case MARK_COMMAND:
+            task = tasks.markTask(
+                    Integer.parseInt(input.split(" ")[1]) - 1);
+            if (task != null) {
+                ui.showMessage("Nice meow! I've marked this task as done:\n " + task);
+            } else {
+                throw new NekoException("The task is already marked as done meow!");
+            }
+            break;
+        case UNMARK_COMMAND:
+            task = tasks.unmarkTask(
+                    Integer.parseInt(input.split(" ")[1]) - 1);
+            if (task != null) {
+                ui.showMessage("Ok meow, I've marked this task as not done yet:\n " + task);
+            } else {
+                throw new NekoException("The task is not marked as done yet meow!");
+            }
+            break;
+        case DELETE_COMMAND:
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            task = tasks.getTask(index);
+            tasks.deleteTask(index);
+            storage.rewriteFile(tasks);
+            ui.showMessage("Noted meow. I've removed this task\n " + task +"\nNow you have "
+                    + tasks.size() + " tasks in the list.");
+            break;
+        case ADD_COMMAND:
+            ui.showMessage("Let's add a task meow!");
+            tasks.addTask(ui.getTaskType(), ui, storage);
+            break;
+        case FIND_COMMAND:
+            String key = input.split(" ")[1].trim();
+            String tasksFound = tasks.findTasks(key);
+            if (tasksFound.isEmpty()) {
+                ui.showMessage("No tasks found meow!");
+            } else {
+                ui.showMessage("Here are the matching tasks in your list meow:\n" + tasksFound);
+            }
+            break;
             default:
                 throw new NekoException("Unknown command.");
         }
