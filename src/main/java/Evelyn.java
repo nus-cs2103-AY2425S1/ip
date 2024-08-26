@@ -1,8 +1,7 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
 
 public class Evelyn {
     private static String chatbotName = "Evelyn";
@@ -11,6 +10,7 @@ public class Evelyn {
     private static ArrayList lst = new ArrayList(100);
     private static boolean isChatting = true;
     private static String dataFilePath = "src/main/data/evelyn.txt";
+    private static File file = new File(dataFilePath);
 
     public static void main(String[] args) throws IOException {
         String text = null;
@@ -19,12 +19,15 @@ public class Evelyn {
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
 
-        File file = new File(dataFilePath);
-
         try {
             if (!file.exists()) {
                 file.createNewFile();
             } else {
+                BufferedReader br = new BufferedReader(new FileReader(dataFilePath));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    lst.add(line);
+                }
             }
         } catch (IOException e) {
             System.err.println("Error creating file: " + e.getMessage());
@@ -51,11 +54,13 @@ public class Evelyn {
                 System.out.println("deadline [task description] /by [date]");
                 System.out.println("event [task description] /from [start date and time] /to [end date and time");
                 System.out.println(horizontalLine);
+            } catch (IOException e) {
+                System.out.println("Error reading/writing file");
             }
         }
     }
 
-    private static void decipher(String text) throws NoInputException {
+    private static void decipher(String text) throws NoInputException, IOException {
         if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
             System.out.println(horizontalLine);
             System.out.println("Bye. Hope to see you again soon!");
@@ -94,6 +99,7 @@ public class Evelyn {
             String description = text.substring(5);
             Todo newTodo = new Todo(description);
             lst.add(newTodo);
+            writeToFile(dataFilePath, newTodo.toString() + System.lineSeparator());
             System.out.println(horizontalLine);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + newTodo.toString());
@@ -110,6 +116,7 @@ public class Evelyn {
             String deadline = parts[1];
             Deadline newDeadline = new Deadline(description, deadline);
             lst.add(newDeadline);
+            writeToFile(dataFilePath, newDeadline.toString() + System.lineSeparator());
             System.out.println(horizontalLine);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + newDeadline.toString());
@@ -128,6 +135,7 @@ public class Evelyn {
             String end = partB[1];
             Event newEvent = new Event(description, start, end);
             lst.add(newEvent);
+            writeToFile(dataFilePath, newEvent.toString() + System.lineSeparator());
             System.out.println(horizontalLine);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + newEvent.toString());
@@ -137,5 +145,11 @@ public class Evelyn {
         } else {
             throw new NoInputException("no input!");
         }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd);
+        fw.close();
     }
 }
