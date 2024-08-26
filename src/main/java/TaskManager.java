@@ -24,11 +24,13 @@ public class TaskManager {
                 break;
             case MARK:
                 index = handleMark(taskList, argument);
+                taskIO.markTask(taskList);
                 Denim.displayMarkMessage(taskList, index);
                 break;
             case UNMARK:
                 index = handleUnmark(taskList, argument);
                 handleUnmark(taskList, argument);
+                taskIO.unmarkTask(taskList);
                 Denim.displayUnmarkMessage(taskList,index);
                 break;
             case DELETE:

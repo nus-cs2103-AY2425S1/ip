@@ -131,6 +131,38 @@ public class TaskIO {
         }
     }
 
+    public void markTask(TaskList taskList) throws DenimException {
+        File overridingFile = new File("data","denim.txt");
+        Task task;
+
+        try {
+            FileWriter fw = new FileWriter(overridingFile);
+            for (int i = 0; i < taskList.getTaskListSize(); i++) {
+                task = taskList.getTask(i);
+                fw.write(task.toSimplifiedString());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new DenimException("Error has occurred while trying to overwrite denim.txt.");
+        }
+    }
+
+    public void unmarkTask(TaskList taskList) throws DenimException {
+        File overridingFile = new File("data","denim.txt");
+        Task task;
+
+        try {
+            FileWriter fw = new FileWriter(overridingFile);
+            for (int i = 0; i < taskList.getTaskListSize(); i++) {
+                task = taskList.getTask(i);
+                fw.write(task.toSimplifiedString());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new DenimException("Error has occurred while trying to overwrite denim.txt.");
+        }
+    }
+
     private void processTask(TaskList taskList, String task) throws DenimException {
         String[] taskComponents = task.split("\\|");
         String taskType = taskComponents[0].trim();
