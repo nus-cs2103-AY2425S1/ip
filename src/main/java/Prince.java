@@ -52,12 +52,14 @@ public class Prince {
                 } else if (input.equals("list")) {
                     printList(tasksArray);
                 } else if (input.contains("unmark")) {
-                    // saveToFile("unmark", unmark(input, tasksArray), tasksArray);
+                    unmark(input, tasksArray);
+                    // updateFile("U", input, tasksArray);
                 } else if (input.contains("mark")) {
-                    // saveToFile("mark", mark(input, tasksArray), tasksArray);
+                    mark(input, tasksArray);
+                    // updateFile("M", input, tasksArray);
                 } else if (input.contains("delete")) {
                     delete(input, tasksArray);
-                    // saveToFile("delete", tasksArray);
+                    deleteFromFile(input, tasksArray);
                 } else if (input.equals("todo") || input.equals("deadline") ||
                         input.equals("event")) {
                     throw new PrinceException("    Please describe your '" + input +
@@ -66,15 +68,15 @@ public class Prince {
                         input.contains("event")) {
                     if (input.contains("todo")) {
                         Task task = handleTodo(input, tasksArray);
-                        // saveToFile("task", task, tasksArray);
+                        saveToFile(task, tasksArray);
                     }
                     if (input.contains("deadline")) {
                         Task task = handleDeadline(input, tasksArray);
-                        // saveToFile("task", task, tasksArray);
+                        saveToFile(task, tasksArray);
                     }
                     if (input.contains("event")) {
                         Task task = handleEvent(input, tasksArray);
-                        // saveToFile("task", task, tasksArray);
+                        saveToFile(task, tasksArray);
                     }
                     printline();
                 } else {
@@ -282,7 +284,8 @@ public class Prince {
      * Methods relating to reading and writing inputs to files
      */
 
-     // method will read from a text file, convert the text to relevant tasks, and return a tasksArray
+    // method will read from a text file, convert the text to relevant tasks, and
+    // return a tasksArray
     private static ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasksArray = new ArrayList<>();
 
@@ -296,11 +299,8 @@ public class Prince {
                 Files.createFile(FILE_PATH);
             }
 
-            
-
             // read from file path
             List<String> lines = Files.readAllLines(FILE_PATH);
-
 
             // for each line, need to splice it according to the format
             // create new tasks in taskarray based on each line
@@ -339,22 +339,21 @@ public class Prince {
                     tasksArray.add(todoTask);
                     if (status.equals("1")) {
                         todoTask.markAsDone();
-                    } 
+                    }
                 }
                 if (taskType.equals("D")) {
-                    System.out.println("creating deadline");
                     Task deadlineTask = new Deadline(description, byFrom);
                     tasksArray.add(deadlineTask);
                     if (status.equals("1")) {
                         deadlineTask.markAsDone();
-                    } 
+                    }
                 }
                 if (taskType.equals("E")) {
                     Task eventTask = new Event(description, byFrom, to);
                     tasksArray.add(eventTask);
                     if (status.equals("1")) {
                         eventTask.markAsDone();
-                    } 
+                    }
                 }
             }
         } catch (IOException e) {
@@ -364,7 +363,7 @@ public class Prince {
         return tasksArray;
     }
 
-    private static void saveToFile(String identifier, Task task, ArrayList<Task> tasksArray) {
+    private static void saveToFile(Task task, ArrayList<Task> tasksArray) {
         try {
 
             if (Files.notExists(FILE_PATH.getParent())) {
@@ -377,28 +376,10 @@ public class Prince {
 
             BufferedWriter bw = Files.newBufferedWriter(FILE_PATH, StandardOpenOption.APPEND);
 
-            if (identifier.equals("unmark")) {
-                String desc = task.getDescription();
-                // check description against the descriptions in our txt file
-                // find the mathcing one
-                // replace that line with a new unmarked line
+            String taskString = task.toFileFormat();
+            bw.write(taskString);
+            bw.newLine();
 
-            }
-            if (identifier.equals("mark")) {
-                String desc = task.getDescription();
-                // check description against the descriptions in our txt file
-                // find the mathcing one
-                // replace that line with a new marked line
-            }
-            if (identifier.equals("delete")) {
-                handleFileDelete(task);
-            }
-
-            if (identifier.equals("task")) {
-                String taskString = task.toFileFormat();
-                bw.write(taskString);
-                bw.newLine();
-            }
             bw.close();
 
         } catch (IOException e) {
@@ -406,8 +387,10 @@ public class Prince {
         }
     }
 
-    private static void handleFileDelete(Task task) {
+    private static void deleteFromFile(String input, ArrayList<Task> tasksArray) {
         try {
+            int index = getIndex(input);
+            Task task = tasksArray.get(index);
             // Open the old file for reading
             BufferedReader reader = Files.newBufferedReader(FILE_PATH);
             // Open a new (temporary) file for writing
