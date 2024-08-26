@@ -1,5 +1,6 @@
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,8 @@ public class WenJigglyBot {
                 String unprocessedTaskDescription = deadlineParts[0].trim();
                 String taskDescription = unprocessedTaskDescription.split(" ")[1];
                 String deadline = deadlineParts[1].replace(")", "").trim();
-                DeadlineTask deadlineTask = new DeadlineTask(taskDescription, deadline);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy");
+                DeadlineTask deadlineTask = new DeadlineTask(taskDescription, LocalDate.parse(deadline, formatter));
                 if (isDone) {
                     deadlineTask.markTask();
                 }
