@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Alice {
     private static final String NAME = "Alice";
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String DATA_DIRECTORY_PATH = "./data";
     private static final String TASKS_FILE_NAME = "tasks.jsonl";
 
@@ -13,7 +12,7 @@ public class Alice {
     public Alice() {
         this.ui = new Ui();
         this.storage = new Storage(DATA_DIRECTORY_PATH, TASKS_FILE_NAME);
-        this.taskManager = new TaskList(this.ui, this.storage);
+        this.taskManager = new TaskList(this.storage);
     }
 
     private void greet() {
@@ -38,9 +37,11 @@ public class Alice {
                 break;
             }
 
-            boolean isValidCommand = taskManager.handleInput(line);
-            if (!isValidCommand) {
-                // default
+            try {
+                Command command = Command.fromInput(line, ui, taskManager);
+                command.execute(line);
+            } catch (IllegalArgumentException e) {
+                // default behavior
                 echo(line);
             }
         }

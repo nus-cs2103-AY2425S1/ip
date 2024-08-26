@@ -6,7 +6,7 @@ public abstract class Task {
     protected String description;
     protected boolean isCompleted;
 
-    private enum TaskType {
+    public enum TaskType {
         TODO,
         DEADLINE,
         EVENT
