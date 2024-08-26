@@ -33,6 +33,21 @@ public abstract class Command {
             }
             ui.goodbye();
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            if (o instanceof ByeCommand) {
+                ByeCommand byeCommand = (ByeCommand) o;
+                return byeCommand.isExit == this.isExit;
+            }
+            return false;
+        }
     }
 
     public static class ListCommand extends Command {
@@ -43,6 +58,21 @@ public abstract class Command {
         @Override
         public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             ui.list(tasks);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            if (o instanceof ListCommand) {
+                ListCommand listCommand = (ListCommand) o;
+                return listCommand.isExit == this.isExit;
+            }
+            return false;
         }
     }
 
