@@ -38,7 +38,7 @@ public class Luke {
                 continue;
             }
 
-            switch (parser.command) {
+            switch (parser.getCommand()) {
             case list -> {
                 ui.listTaskDialog();
                 this.taskList.listTasks();
@@ -47,29 +47,29 @@ public class Luke {
                 ui.findDialog(taskList.findTasks(parser.description));
             }
             case mark -> {
-                Task t = taskList.markTask(parser.index - 1);
+                Task t = taskList.markTask(parser.getIndex() - 1);
                 ui.markDialog(t);
             }
             case unmark -> {
-                Task t = taskList.unMarkTask(parser.index - 1);
+                Task t = taskList.unMarkTask(parser.getIndex() - 1);
                 ui.unMarkDialog(t);
             }
             case delete -> {
-                Task deletedTask = this.taskList.deleteTask(parser.index - 1);
+                Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
                 ui.deleteTaskDialog(deletedTask, this.taskList.getTasksSize());
             }
             case todo -> {
-                Task t = new Todo(parser.description);
+                Task t = new Todo(parser.getDescription());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTasksSize());
             }
             case event -> {
-                Task t = new Event(parser.description, parser.from, parser.to);
+                Task t = new Event(parser.getDescription(), parser.getFrom(), parser.getTo());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTasksSize());
             }
             case deadline -> {
-                Task t = new DeadLine(parser.description, parser.by);
+                Task t = new DeadLine(parser.getDescription(), parser.getBy());
                 this.taskList.addTask(t);
                 ui.addTaskDialog(t, taskList.getTasksSize());
             }
