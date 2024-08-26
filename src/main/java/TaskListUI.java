@@ -15,7 +15,7 @@ public class TaskListUI {
   }
 
   // Add a task to the list
-  private void addTask(Task task) {
+  protected void addTask(Task task) {
     taskList.add(task);
 
     System.out.println("Got it. I've added this task:");
@@ -24,7 +24,7 @@ public class TaskListUI {
   }
 
   // Delete a task from the list at the specified index
-  private void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
+  protected void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
     taskNumber--; // Adjust task number to match array index
 
     if (taskNumber >= this.taskList.size() || taskNumber < 0) {
@@ -41,7 +41,7 @@ public class TaskListUI {
   }
 
   // Display all tasks in the list
-  private void displayTasks() throws IllegalCommandException {
+  protected void displayTasks() throws IllegalCommandException {
     if (this.taskList.size() == 0) {
       throw new IllegalCommandException("You have no tasks in your list.");
     }
@@ -53,7 +53,7 @@ public class TaskListUI {
   }
 
   // Mark a task as done or not done
-  private void markTask(int taskNumber, boolean done)
+  protected void markTask(int taskNumber, boolean done)
       throws IllegalCommandException {
     taskNumber--; // Adjust task number to match array index
 
@@ -86,83 +86,28 @@ public class TaskListUI {
     System.out.println("____________________________________________________________");
 
     // Echo input from user until user types "bye"
-    while (true) {
-      String input = scanner.nextLine();
-      try {
+    try {
+      while (true) {
+        String input = scanner.nextLine();
+        try {
+          System.out.println("____________________________________________________________");
+
+          CommandParser parser = new CommandParser(input);
+          CommandType commandType = parser.getCommand();
+          Command command = commandType.createCommand();
+          command.execute(this, taskList, parser);
+
+        } catch (IndexOutOfBoundsException | IllegalCommandException e) {
+          System.out.println(e.getMessage());
+        }
         System.out.println("____________________________________________________________");
-
-        CommandParser parser = new CommandParser(input);
-
-        // Exit the loop if user types "bye"
-        if (parser.getCommand() == CommandType.BYE) {
-          break;
-        }
-
-        switch (parser.getCommand()) {
-          // List all tasks with done status if user types "list"
-          case LIST: {
-            this.displayTasks();
-            break;
-          }
-          // Mark task as done if user types "mark <task number>"
-          case MARK: {
-            parser.parse(true, true);
-            markTask(parser.getIntParam(), true);
-            break;
-          }
-          // Unmark task as done if user types "unmark <task number>"
-          case UNMARK: {
-            parser.parse(true, true);
-            markTask(parser.getIntParam(), false);
-            break;
-          }
-          // Add todo task to task list
-          // (Usage: todo <description>)
-          case TODO: {
-            parser.parse(true);
-            addTask(new TodoTask(parser.getDescription()));
-            break;
-          }
-          // Add deadline task to task list
-          // (Usage: deadline <description> /by <date>)
-          case DEADLINE: {
-            CommandOption<TaskLocalDate> byOption = new CommandOption<TaskLocalDate>("by", "date",
-                TaskLocalDate::parse);
-            parser.parse(true, false, byOption);
-            addTask(new DeadlineTask(parser.getDescription(), byOption.getParsedValue()));
-            break;
-          }
-          // Add event task to task list
-          // (Usage: event <description> /from <fromDate> /to <toDate>)
-          case EVENT: {
-            CommandOption<TaskLocalDate> fromOption = new CommandOption<TaskLocalDate>("from", "fromDate yyyy-mm-dd",
-                TaskLocalDate::parse);
-            CommandOption<TaskLocalDate> toOption = new CommandOption<TaskLocalDate>("to", "toDate yyyy-mm-dd",
-                TaskLocalDate.createParserWithFrom(na -> fromOption.getParsedValue()));
-            parser.parse(true, false, fromOption, toOption);
-            addTask(new EventTask(parser.getDescription(), fromOption.getParsedValue(), toOption.getParsedValue()));
-            break;
-          }
-          // Delete task from task list
-          // (Usage: delete <taskNumber>)
-          case DELETE: {
-            parser.parse(true, true);
-            deleteTask(parser.getIntParam());
-            break;
-          }
-          default: {
-            System.out.println("Unhandled unknown command: " + parser.getCommand());
-            break;
-          }
-        }
-      } catch (IndexOutOfBoundsException | IllegalCommandException e) {
-        System.out.println(e.getMessage());
+        storage.storeTasks(this.taskList);
       }
+    } catch (EndProgramException e) {
+    } finally {
+      System.out.println("Bye. Hope to see you again soon!");
       System.out.println("____________________________________________________________");
-      storage.storeTasks(this.taskList);
+      scanner.close();
     }
-
-    System.out.println("Bye. Hope to see you again soon!");
-    System.out.println("____________________________________________________________");
   }
 }

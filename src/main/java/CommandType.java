@@ -1,56 +1,36 @@
 public enum CommandType {
-  BYE,
-  LIST,
-  MARK,
-  UNMARK,
-  DELETE,
-  TODO,
-  DEADLINE,
-  EVENT;
+  BYE(ByeCommand.class),
+  LIST(ListCommand.class),
+  MARK(MarkCommand.class),
+  UNMARK(UnmarkCommand.class),
+  DELETE(DeleteCommand.class),
+  TODO(TodoCommand.class),
+  DEADLINE(DeadlineCommand.class),
+  EVENT(EventCommand.class);
+
+  private final Class<? extends Command> commandClass;
+
+  CommandType(Class<? extends Command> commandClass) {
+    this.commandClass = commandClass;
+  }
+
+  public Command createCommand() {
+    try {
+      return commandClass.getDeclaredConstructor().newInstance();
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to create command instance", e);
+    }
+  }
 
   public static CommandType fromString(String command) {
-    switch (command) {
-      case "bye":
-        return BYE;
-      case "list":
-        return LIST;
-      case "mark":
-        return MARK;
-      case "unmark":
-        return UNMARK;
-      case "delete":
-        return DELETE;
-      case "todo":
-        return TODO;
-      case "deadline":
-        return DEADLINE;
-      case "event":
-        return EVENT;
-      default:
-        throw new IllegalCommandException("Unknown command: " + command);
+    try {
+      return CommandType.valueOf(command.toUpperCase());
+    } catch (IllegalArgumentException e) {
+      throw new IllegalCommandException("Unknown command: " + command);
     }
   }
 
   public static String toString(CommandType commandType) {
-    switch (commandType) {
-      case BYE:
-        return "bye";
-      case LIST:
-        return "list";
-      case MARK:
-        return "mark";
-      case UNMARK:
-        return "unmark";
-      case DELETE:
-        return "delete";
-      case TODO:
-        return "todo";
-      case DEADLINE:
-        return "deadline";
-      case EVENT:
-        return "event";
-      default:
-        throw new IllegalCommandException("Unknown command: " + commandType);
-    }
+    return commandType.name().toLowerCase();
   }
 }
