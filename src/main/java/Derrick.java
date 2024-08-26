@@ -18,7 +18,9 @@ public class Derrick {
         this.tasks = new TaskList(storage.loadTasksFromFile());
     }
 
-
+    /**
+     * Runs the chatbot where the user can input his/her commands.
+     */
     public void run() {
 
         ui.greetings();

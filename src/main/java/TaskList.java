@@ -9,10 +9,19 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return An ArrayList of tasks currently in the list.
+     */
     public ArrayList<Task> output() {
         return this.tasks;
     }
 
+    /**
+     * Prints out all the tasks in the list. If the list is empty,
+     * it notifies the user that there are no tasks in the list.
+     */
     public void list() {
         if (this.tasks.isEmpty()) {
             System.out.println("You have nothing in your list.");
@@ -24,6 +33,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list based on the position provided in the input string.
+     *
+     * @param input The input string containing the position of the task to be deleted.
+     * @throws MissingPositionException If the position is missing or not an integer.
+     * @throws MissingItemException If the position does not correspond to an existing task.
+     * @throws EmptyListException If the task list is empty.
+     */
     public void delete(String input) throws MissingPositionException, MissingItemException, EmptyListException {
         int position;
         try {
@@ -46,7 +63,12 @@ public class TaskList {
         System.out.println("You have " + this.tasks.size() + " items in your list.");
     }
 
-
+    /**
+     * Adds a new todo task to the list based on the description provided in the input string.
+     *
+     * @param input The input string containing the description of the todo task.
+     * @throws InvalidDescriptionException If the description for the todo task is missing or invalid.
+     */
     public void addTodo(String input) throws InvalidDescriptionException {
         Todo todo;
         try {
@@ -61,7 +83,12 @@ public class TaskList {
 
     }
 
-
+    /**
+     * Adds a new deadline task to the list based on the description and deadline time provided in the input string.
+     *
+     * @param input The input string containing the description and deadline time for the deadline task.
+     * @throws InvalidDescriptionException If the description or deadline time is missing or invalid.
+     */
     public void addDeadline(String input) throws InvalidDescriptionException {
         String time;
         String description;
@@ -85,7 +112,12 @@ public class TaskList {
         System.out.println("You have " + this.tasks.size() + " items in your list");
     }
 
-
+    /**
+     * Adds a new event task to the list based on the description, start time, and end time provided in the input string.
+     *
+     * @param input The input string containing the description, start time, and end time for the event task.
+     * @throws InvalidDescriptionException If the description, start time, or end time is missing or invalid.
+     */
     public void addEvent(String input) throws InvalidDescriptionException {
         String start;
         String end;
@@ -109,8 +141,6 @@ public class TaskList {
             throw new InvalidDescriptionException("You are missing the end time for the event. Please try again.");
         }
 
-
-
         Event event = new Event(description, start, end);
         this.tasks.add(event);
         System.out.println("Got it. I have added this event.");
@@ -118,7 +148,13 @@ public class TaskList {
         System.out.println("You have " + this.tasks.size() + " items in your list.");
     }
 
-
+    /**
+     * Marks a task as completed based on the position provided in the input string.
+     *
+     * @param input The input string containing the position of the task to be marked as completed.
+     * @throws MissingPositionException If the position is missing or not an integer.
+     * @throws MissingItemException If the position does not correspond to an existing task.
+     */
     public void markItem(String input) throws MissingPositionException, MissingItemException {
         int position;
         try {
@@ -139,6 +175,13 @@ public class TaskList {
         System.out.println(task);
     }
 
+    /**
+     * Unmarks a task as incomplete based on the position provided in the input string.
+     *
+     * @param input The input string containing the position of the task to be unmarked.
+     * @throws MissingPositionException If the position is missing or not an integer.
+     * @throws MissingItemException If the position does not correspond to an existing task.
+     */
     public void unmarkItem(String input) throws MissingPositionException, MissingItemException {
         int position;
         try {

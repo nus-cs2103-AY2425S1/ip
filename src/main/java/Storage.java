@@ -12,6 +12,10 @@ public class Storage {
         createDirectory();
     }
 
+    /**
+     * Creates a new directory if the specified directory does not exist.
+     * If the specified FILE_NAME does not exist at the specified directory, it also creates the file.
+     */
     public void createDirectory() {
         Path folderPath = Paths.get(FOLDER_PATH);
         if (!java.nio.file.Files.exists(folderPath)) {
@@ -31,6 +35,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a specified file.
+     * If the file is empty, return an empty ArrayList.
+     * @return ArrayList<Task> result.
+     * @throws RuntimeException If an I/O error occurs during the retrieval of the directory or file.
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> result = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(FILE_PATH)) {
@@ -70,6 +80,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Update the specified file and save it to the specified directory and folder.
+     * @param list The list to be updated and saved to a specified file.
+     */
     public void saveTasksToFile(TaskList list) {
         try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
             for (Task task : list.output()) {
