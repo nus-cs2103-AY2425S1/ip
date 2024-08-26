@@ -13,7 +13,22 @@ import thanos.commands.TodoCommand;
 import thanos.commands.UnmarkCommand;
 import thanos.exceptions.InvalidCommandException;
 
+/**
+ * The {@code Parser} class is responsible for parsing user input into appropriate {@code Command} objects.
+ */
 public class Parser {
+    /**
+     * Parses the provided input string and returns the corresponding {@code Command} object.
+     * <p>
+     * The input string is split into a command and its arguments. The command is matched to a {@code CommandType},
+     * and a new instance of the appropriate {@code Command} subclass is created with the given arguments.
+     * If the input is invalid or unrecognized, an {@code InvalidCommandException} is thrown.
+     * </p>
+     *
+     * @param input the user input string to be parsed. It should contain the command and optional arguments.
+     * @return a {@code Command} object corresponding to the input string.
+     * @throws InvalidCommandException if the input is empty or if the command is not recognized.
+     */
     public static Command parse(String input) throws InvalidCommandException {
         if (input.trim().isEmpty()) {
             throw new InvalidCommandException("No input provided. Please enter a command.");

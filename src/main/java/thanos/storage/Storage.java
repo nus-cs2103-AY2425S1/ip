@@ -18,15 +18,49 @@ import thanos.tasks.Task;
 import thanos.tasks.Todo;
 import thanos.utility.DateTimeUtility;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * <p>
+ * The {@code Storage} class implements the {@code IStorage} interface to manage
+ * reading from and writing to a file, ensuring that task data is preserved
+ * across application runs.
+ * </p>
+ */
 public class Storage implements IStorage {
+    /**
+     * The directory path where the data file is stored.
+     */
     private static final String directoryPath = "./data";
+
+    /**
+     * The file that stores the task data.
+     */
     private final File file;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file name.
+     * <p>
+     * This constructor initializes the file path for storing task data,
+     * creating a {@code File} object to represent the file.
+     * </p>
+     *
+     * @param fileName the name of the file to store task data.
+     */
     public Storage(String fileName) {
         String filePath = String.format("%s/%s", directoryPath, fileName);
         this.file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from the file.
+     * <p>
+     * This method reads the file line by line, converting each line to a {@code Task}
+     * object. It returns a list of tasks loaded from the file. If an error occurs,
+     * it returns an empty list.
+     * </p>
+     *
+     * @return an {@code ArrayList} of {@code Task} objects read from the file.
+     */
     @Override
     public ArrayList<Task> load() {
         ensureFileExists();
@@ -49,6 +83,16 @@ public class Storage implements IStorage {
         return new ArrayList<>();
     }
 
+    /**
+     * Saves the given list of tasks to the file.
+     * <p>
+     * This method writes each task's string representation to the file,
+     * with each task on a new line. If an error occurs during writing,
+     * it prints an error message to the console.
+     * </p>
+     *
+     * @param taskList the list of {@code Task} objects to be saved to the file.
+     */
     @Override
     public void save(ArrayList<Task> taskList) {
         ensureFileExists();
@@ -63,6 +107,13 @@ public class Storage implements IStorage {
         }
     }
 
+    /**
+     * Ensures that the file exists and creates it if necessary.
+     * <p>
+     * This method checks if the file's parent directories exist and creates them if they don't.
+     * It also creates a new file if it does not already exist.
+     * </p>
+     */
     private void ensureFileExists() {
         try {
             if (!file.exists()) {
@@ -77,6 +128,17 @@ public class Storage implements IStorage {
             System.err.println("Error creating file: " + e.getMessage());
         }
     }
+
+    /**
+     * Converts a string representation of a task to a {@code Task} object.
+     * <p>
+     * This method parses a line from the file into a {@code Task} object based on its type and data.
+     * It handles different task types (Todo, Deadline, Event) and validates the data.
+     * </p>
+     *
+     * @param line the string representation of the task from the file.
+     * @return a {@code Task} object if the string is valid; {@code null} otherwise.
+     */
 
     private Task convertStringToTask(String line) {
         try {
