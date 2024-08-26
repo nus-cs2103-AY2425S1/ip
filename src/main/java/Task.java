@@ -21,4 +21,16 @@ public class Task {
     public void toggleDone() {
         this.isDone = !this.isDone;
     }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String getTask() {
+        return this.task;
+    }
+
+    public String toSaveString() {
+        return String.format("T|%d|%s", isDone() ? 1 : 0, getTask());
+    }
 }

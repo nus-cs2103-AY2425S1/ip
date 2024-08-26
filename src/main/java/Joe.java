@@ -1,20 +1,24 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Joe {
-    public static final String horizontalLine = "____________________________________________________________";
-    public static final String chatbotName = "Joe";
-    public static final String addTaskMessage = "Got it. I've added this task:\n";
-    public static final String taskCountMessage = "Now you have %d tasks in the list.\n";
+    public static final String HORIZONTAL_LINE = "____________________________________________________________";
+    public static final String CHATBOT_NAME = "Joe";
+    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n";
+    public static final String TASK_COUNT_MESSAGE = "Now you have %d tasks in the list.\n";
+    public static final String FILE_NAME = "./data/store.txt";
 
     public static String input = "";
     public static ArrayList<Task> store = new ArrayList<>();
 
     public static void greet() {
-        System.out.printf("%s\nHello! I'm %s\nWhat can I do for you?\n%s\n", horizontalLine, chatbotName, horizontalLine);
+        System.out.printf("%s\nHello! I'm %s\nWhat can I do for you?\n%s\n", HORIZONTAL_LINE, CHATBOT_NAME, HORIZONTAL_LINE);
     }
 
     public static void farewell() {
-        System.out.printf("Bye. Hope to see you again soon!\n%s", horizontalLine);
+        System.out.printf("Bye. Hope to see you again soon!\n%s", HORIZONTAL_LINE);
     }
 
     public static void handleList(ArrayList<Task> list) {
@@ -37,7 +41,7 @@ public class Joe {
     public static void handleDelete(ArrayList<Task> list, int index) {
         System.out.printf("Noted. I've removed this task:\n%s\n", list.get(index));
         list.remove(index);
-        System.out.printf(taskCountMessage, list.size());
+        System.out.printf(TASK_COUNT_MESSAGE, list.size());
     }
 
     public static void handleTodo(String input) {
@@ -47,8 +51,8 @@ public class Joe {
             return;
         }
         store.add(new TaskTodo(task));
-        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
-        System.out.printf(taskCountMessage, store.size());
+        System.out.printf("%s%s\n", ADD_TASK_MESSAGE, store.getLast());
+        System.out.printf(TASK_COUNT_MESSAGE, store.size());
     }
 
     public static void handleDeadline(String input) {
@@ -64,8 +68,8 @@ public class Joe {
         }
         String by = input.substring(byIndex + 4);
         store.add(new TaskDeadline(task, by));
-        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
-        System.out.printf(taskCountMessage, store.size());
+        System.out.printf("%s%s\n", ADD_TASK_MESSAGE, store.getLast());
+        System.out.printf(TASK_COUNT_MESSAGE, store.size());
     }
 
     public static void handleEvent(String input) {
@@ -83,19 +87,75 @@ public class Joe {
         String from = input.substring(fromIndex + 6, toIndex - 1);
         String to = input.substring(toIndex + 4);
         store.add(new TaskEvent(task, from, to));
-        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
-        System.out.printf(taskCountMessage, store.size());
+        System.out.printf("%s%s\n", ADD_TASK_MESSAGE, store.getLast());
+        System.out.printf(TASK_COUNT_MESSAGE, store.size());
+    }
+
+    public static void saveTasks() {
+        try {
+            System.out.println("Saving tasks...");
+            File file = new File(FILE_NAME);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+            for (Task task : store) {
+                writer.write(task.toSaveString() + "\n");
+            }
+            writer.close();
+            System.out.println("Tasks saved!");
+        } catch (IOException e) {
+            System.out.println(e);
+            System.out.println("An error occurred, tasks not saved.");
+        }
+    }
+
+    public static void loadTasks() {
+        try {
+            System.out.println("Loading tasks...");
+            File file = new File(FILE_NAME);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String data = reader.nextLine();
+                String[] parts = data.split("\\|");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String task = parts[2];
+                if (type.equals("T")) {
+                    store.add(new TaskTodo(task));
+                } else if (type.equals("D")) {
+                    String by = parts[3];
+                    store.add(new TaskDeadline(task, by));
+                } else if (type.equals("E")) {
+                    String from = parts[3];
+                    String to = parts[4];
+                    store.add(new TaskEvent(task, from, to));
+                }
+                if (isDone) {
+                    store.get(store.size() - 1).toggleDone();
+                }
+            }
+            reader.close();
+            System.out.println("Tasks loaded!");
+        } catch (IOException e) {
+            System.out.println(e);
+            System.out.println("An error occurred, tasks not loaded.");
+        }
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        loadTasks();
         greet();
         while (!input.equals("bye")) {
             input = scanner.nextLine();
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
             if (input.equals("bye")) {
                 break;
+            }
+            else if (input.contains("|")) {
+                System.out.println("| is a special character and cannot be used.");
             }
             else if (input.equals("list")) {
                 handleList(store);
@@ -123,8 +183,9 @@ public class Joe {
             else {
                 System.out.println("Give me a valid command!");
             }
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
         }
+        saveTasks();
         farewell();
         scanner.close();
     }
