@@ -48,8 +48,6 @@ public class TaskList {
 
     public List<Task> getTasksOnDate(LocalDate date) {
         List<Task> tasksOnDate = new ArrayList<>();
-    public List<Task> getTasksOnDate(LocalDate date) {
-        List<Task> tasksOnDate = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;

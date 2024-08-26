@@ -4,3 +4,6 @@ D | 0 | cook lunch | 2019-10-14
 D | 0 | cook lunch | 2019-10-14
 D | 0 | buy groceries | 2019-10-15
 T | 0 | buy a mop
+D | 0 | return book | 2019-10-15
+D | 0 | buy groceries | 2019-10-15
+T | 0 | -> OOPS!!! I'm sorry, but I don't know what that means :-(
