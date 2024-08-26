@@ -7,7 +7,11 @@ public class Justbot {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String input = "";
+        final String filePath = "/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt";
 
+        TaskFileHandler taskFileHandler = new TaskFileHandler(filePath);
+        taskFileHandler.createFileIfDoesNotExist();
+        taskFileHandler.loadTasks(tasks);
         Commands.botIntro(chatbotName);
 
         while (!input.equals("bye")) {
@@ -49,6 +53,7 @@ public class Justbot {
                             throw new JustbotException("Hey man this task is already marked!");
                         }
                         Commands.markTask(tasks, markNumber);
+                        taskFileHandler.saveTasks(tasks);
                     } catch (NumberFormatException e) {
                         System.out.println("------------------------------------------");
                         System.out.println("Hey man please input a number for the task number!");
@@ -79,6 +84,7 @@ public class Justbot {
                             throw new JustbotException("Hey man this task is already unmarked!");
                         }
                         Commands.unmarkTask(tasks, unmarkNumber);
+                        taskFileHandler.saveTasks(tasks);
                     } catch (NumberFormatException e) {
                         System.out.println("------------------------------------------");
                         System.out.println("Hey man please input a number for the task number!");
@@ -114,6 +120,7 @@ public class Justbot {
                             throw new JustbotException("Hey man the deadline date cannot be blank!");
                         }
                         Commands.addTask(tasks, new Deadline(deadlineDescription, by));
+                        taskFileHandler.saveTasks(tasks);
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
@@ -149,6 +156,7 @@ public class Justbot {
                             throw new JustbotException("Hey man the end of the event cannot be blank!");
                         }
                         Commands.addTask(tasks, new Event(eventDescription, eventStart, eventEnd));
+                        taskFileHandler.saveTasks(tasks);
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
@@ -174,6 +182,7 @@ public class Justbot {
                             throw new JustbotException("Hey man the description cannot be blank!");
                         }
                         Commands.addTask(tasks, new Todo(description));
+                        taskFileHandler.saveTasks(tasks);
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
@@ -181,7 +190,7 @@ public class Justbot {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("------------------------------------------");
                         System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
-                                + "event [description] /from [start] /to [end]");
+                                + "todo [description]");
                         System.out.println("------------------------------------------");
                     }
                     break;
@@ -198,6 +207,7 @@ public class Justbot {
                             throw new IndexOutOfBoundsException("Hey man there is no such task");
                         }
                         Commands.deleteTask(tasks, deleteNumber);
+                        taskFileHandler.saveTasks(tasks);
                     } catch (NumberFormatException e) {
                         System.out.println("------------------------------------------");
                         System.out.println("Hey man please input a number for the task number!");
@@ -214,7 +224,7 @@ public class Justbot {
                     break;
                 default:
                     System.out.println("------------------------------------------");
-                    System.out.println("Hey man please provide me with a valid command!");
+                    System.out.println("Hey man please use one of these valid commands\n" + "list\n" + "delete [task number]\n" + "mark [task number]\n" + "unmark [task number]\n" + "todo [description]\n" + "deadline [description] /by [deadline]\n" + "event [description] /from [start] /to [end]\n");
                     System.out.println("------------------------------------------");
             }
         }

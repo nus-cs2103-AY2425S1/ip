@@ -12,4 +12,14 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " +  this.end + ")";
     }
+
+    @Override
+    public String getTaskType() {
+        return "Event";
+    }
+
+    @Override
+    public String getTimeConstraint() {
+        return "start: " + this.start + " end: " + this.end;
+    }
 }
