@@ -12,4 +12,8 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + String.format(" (from: %s to: %s)", start, end);
     }
+
+    public String toFileString() {
+        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, start, end);
+    }
 }
