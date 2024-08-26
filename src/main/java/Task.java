@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class Task {
+public abstract class Task {
     boolean mark;
     String task;
     static List<Task> task_list = new ArrayList<>();
@@ -11,6 +11,8 @@ public class Task {
         this.task = task;
         task_list.add(this);
     }
+
+    public abstract void hasDate() throws BoombotrozException;
 
     public void addTaskWithMessage() {
         System.out.println("Got it. I've added this task:");

@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class Boombotroz {
@@ -23,6 +25,7 @@ public class Boombotroz {
                 } else if (line.substring(3).startsWith("[ ]")) {
                     new ToDo(false, toDoTask);
                 }
+
             } else if (line.startsWith("[D]")) {
                 String dlTask = line.substring(7).split(" \\(by: ")[0];
                 String time = line.substring(7).split(" \\(by: ")[1];
@@ -126,6 +129,7 @@ public class Boombotroz {
                     String dlTask = dlTaskTime.split(" /by ")[0];
                     String time = dlTaskTime.split(" /by ")[1];
                     Task created_task = new Deadline(false, dlTask, time);
+                    created_task.hasDate();
                     created_task.addTaskWithMessage();
                     writeTasks(FILE_PATH, Task.getAll());
                     input = scanner.nextLine();
@@ -152,6 +156,7 @@ public class Boombotroz {
                             .split(" /to ")[1];
                     Task created_task = new Event(false, eventTask,
                             time_start, time_end);
+                    created_task.hasDate();
                     created_task.addTaskWithMessage();
                     writeTasks(FILE_PATH, Task.getAll());
                     input = scanner.nextLine();
