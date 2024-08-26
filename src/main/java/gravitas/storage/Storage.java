@@ -59,7 +59,7 @@ public class Storage {
                         }
                         t.add(task);
                     } else if (frags[0].equals("D")){
-                        String endDate = frags[5] + " " + frags[6];
+                        String endDate = frags[3] + " " + frags[4];
                         Task task = new Deadline(frags[2], endDate);
                         if (frags[1].equals("1")) {
                             task.markTask();
@@ -81,7 +81,6 @@ public class Storage {
 
         try {
             FileWriter fw = new FileWriter(this.filePath.toString());
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             for (int i = 0; i < tasklist.size(); i++) {
                 Task task = tasklist.getTask(i);
                 fw.write(task.formatData());
