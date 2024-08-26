@@ -1,3 +1,0 @@
-T, 0, borrow book
-D, 0, return book, by: Sunday
-T, 1, borrow notes
