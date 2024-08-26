@@ -10,9 +10,6 @@ public class Ui {
     String bye = this.dashed + "\nBye. Hope to see you again soon!\n" + this.dashed;
 
     String command;
-
-
-
     public void showLoadingError() {
         System.out.println(this.loadingError);;
     }

@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class TaskList {
     ArrayList<Task> tasks;
     Storage storage;
+    int size;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
     public TaskList() {
         this.tasks = new ArrayList<>();
+        this.size = 0;
     }
     public void addTask(Task task) {
         this.tasks.add(task);
