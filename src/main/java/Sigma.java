@@ -21,7 +21,14 @@ public class Sigma {
             try {
                 String[] split = userPrompt.split(" ", 2);
                 String command = split[0].toUpperCase(); // Convert input to uppercase to match enum
-                Commands cmd = Commands.valueOf(command); // Convert to Commands enum
+                Commands cmd;
+                try {
+                    cmd = Commands.valueOf(command); // Convert to Commands enum
+                } catch (IllegalArgumentException e) {
+                    throw new SigmaException("What the sigma? I don't understand! Try again! Enter " +
+                            "\"todo\", \"deadline\", \"event\", \"list\", \"mark\", \"unmark\" or \"bye\"!");
+                }
+
                 switch (cmd) {
                     case BYE:
                         exit();
