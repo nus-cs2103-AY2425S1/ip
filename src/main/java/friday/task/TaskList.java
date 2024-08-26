@@ -46,6 +46,44 @@ public class TaskList {
     }
 
     /**
+     * Searches for tasks containing the specified keyword in their description.
+     * <p>
+     * The method checks if the keyword is empty and prompts the user to provide a valid keyword if it is.
+     * It then iterates through the list of tasks, comparing each task's description with the keyword.
+     * Matching tasks are printed with their index in the list. If no tasks match the keyword, a message is displayed.
+     * </p>
+     *
+     * @param keyword The keyword to search for in the task descriptions. 
+     *                The search is case-insensitive and looks for exact matches of words in the description.
+     */
+    public void findTasks(String keyword) {
+        if (keyword.trim().isEmpty()) {
+            System.out.println("\tPlease provide a keyword to search for.");
+            return;
+        }
+
+        System.out.println("\tHere are the matching tasks in your list:");
+        boolean found = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String description = task.toString().toLowerCase();
+            String[] words = description.split("\\s+");
+
+            for (String word : words) {
+                if (word.equals(keyword.toLowerCase())) {
+                    System.out.println("\t" + (i + 1) + "." + task);
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("\tNo matching tasks found.");
+        }
+    }
+
+    /**
      * Returns the list of tasks in the TaskList.
      *
      * @return An ArrayList of tasks.

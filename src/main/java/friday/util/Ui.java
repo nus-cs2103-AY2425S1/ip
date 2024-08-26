@@ -47,6 +47,7 @@ public class Ui {
         System.out.println("\tevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event task" +
                 " from when it begins to when it ends.");
         System.out.println("\tdelete <integer> - Delete an entry from your current list.");
+        System.out.println("\tfind <string> - Find tasks by a keyword from your current list.");
         System.out.println("\tbye - Exits this app and says Good Bye to Friday :)");
         return true;
     }

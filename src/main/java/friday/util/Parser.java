@@ -76,6 +76,7 @@ public class Parser {
                 }
                 yield new DeleteCommand(inputs);
             }
+            case FIND -> new FindCommand(inputs);
             default ->
                     throw new FridayException("Invalid input. Please ensure that this command is supported by me" +
                             " and you have utilized the right syntax.\n\tCheck 'help' for more information.");
