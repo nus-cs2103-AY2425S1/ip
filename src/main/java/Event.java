@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -11,5 +13,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    public List<String> getTaskDetails() {
+        return List.of("E", getStatus(), description, from, to);
     }
 }
