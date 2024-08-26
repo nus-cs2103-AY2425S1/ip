@@ -4,6 +4,7 @@ public class Bob {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Bob \nWhat can I do for you?");
         System.out.println();
+        Storage.loadData();
         String s;
         while (true) {
             try {
@@ -25,7 +26,10 @@ public class Bob {
                                 Task.unmark(a);
                             }
                         }
-                        case "todo" -> new ToDo(s2);
+                        case "todo" -> {
+                            new ToDo(s2);
+                            System.out.println("Sure! I'll add that in for you.");
+                            System.out.printf("You now have %s tasks in your list.\n\n", Task.getNumTask());}
                         case "deadline" -> {
                             int a = s2.indexOf(" /by ");
                             if (a == -1) {throw new BotException("Please format your instructions " +
@@ -33,6 +37,8 @@ public class Bob {
                             String s3 = s2.substring(0, a);
                             String s4 = s2.substring(a + 5);
                             new Deadline(s3, s4);
+                            System.out.println("Sure! I'll add that in for you.");
+                            System.out.printf("You now have %s tasks in your list.\n\n", Task.getNumTask());
                         }
                         case "event" -> {
                             int a = s2.indexOf(" /from ");
@@ -43,6 +49,8 @@ public class Bob {
                             String s4 = s2.substring(a + 7, b);
                             String s5 = s2.substring(b + 5);
                             new Event(s3, s4, s5);
+                            System.out.println("Sure! I'll add that in for you.");
+                            System.out.printf("You now have %s tasks in your list.\n\n", Task.getNumTask());
                         }
                         case "delete" -> {
                             int a = Integer.parseInt(s2);
@@ -58,6 +66,7 @@ public class Bob {
                     System.out.println("--------------------------------------------------");
                 } else if (s.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
+                    Storage.saveData();
                     System.out.println("--------------------------------------------------");
                     break;
                 } else {

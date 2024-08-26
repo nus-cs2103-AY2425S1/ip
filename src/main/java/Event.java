@@ -1,6 +1,6 @@
 public class Event extends Task {
-    private String start;
-    private String end;
+    private final String start;
+    private final String end;
 
     public Event(String t, String s, String e) {
 
@@ -8,6 +8,15 @@ public class Event extends Task {
         this.start = s;
         this.end = e;
         this.type = "[E]";
+    }
+
+    public static void load(String[] arr) {
+        new Event(arr[1], arr[2], arr[3]);
+    }
+
+    @Override
+    public String saveFileFormat() {
+        return "E | " + this.getTask() + " | " + this.start + " | " + this.end;
     }
 
     @Override

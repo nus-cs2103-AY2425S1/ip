@@ -5,6 +5,7 @@ public abstract class Task {
     private final String task;
     public String type;
     private boolean completed;
+    private static Task loader;
 
 
 
@@ -13,10 +14,11 @@ public abstract class Task {
         this.type = "[ ]";
         this.completed = false;
         Task.list.add(this);
-        System.out.println("Sure! I'll add that in for you.");
-        System.out.printf("You now have %s tasks in your list.\n\n", Task.list.size());
     }
 
+    public static int getNumTask() {
+        return Task.list.size();
+    }
     public static void printList() {
         int a = 1;
         for (Task i : Task.list) {
@@ -44,12 +46,22 @@ public abstract class Task {
         Task.list.remove(i-1);
     }
 
+    public static String taskFileFormatGet(int i) {
+        return Task.list.get(i).saveFileFormat();
+    }
+
     private void done() {
         this.completed = true;
     }
 
     private void undone() {
         this.completed = false;
+    }
+
+    public abstract String saveFileFormat();
+
+    public String getTask() {
+        return this.task;
     }
 
     @Override
