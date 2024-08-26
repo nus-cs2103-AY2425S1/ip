@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.time.format.DateTimeFormatter;
 
 public class DemureBot {
+    private static TaskList list;
+
     /**
      * Checks if user command is valid and executes the command.
      *
@@ -15,12 +17,12 @@ public class DemureBot {
      * @param list List of tasks the user has.
      * @throws DemureBotException If the user command is invalid.
      */
-    private static void check(String command, ArrayList<Task> list) throws DemureBotException {
+    private static void check(String command, TaskList list) throws DemureBotException {
         if (command.startsWith("mark")) {
             String remainder = command.substring(4).trim();
             try {
                 int index = Integer.parseInt(remainder) - 1;
-                Task task = list.get(index);
+                Task task = list.getTask(index);
                 task.markAsDone();
                 System.out.println("____________________________________________________________\n" +
                     " Nice! I've marked this task as done:\n   " +
@@ -41,7 +43,7 @@ public class DemureBot {
             String remainder = command.substring(6).trim();
             try {
                 int index = Integer.parseInt(remainder) - 1;
-                Task task = list.get(index);
+                Task task = list.getTask(index);
                 task.unmark();
                 System.out.println("____________________________________________________________\n" +
                     " OK, I've marked this task as not done yet:\n   " +
@@ -62,12 +64,12 @@ public class DemureBot {
             String remainder = command.substring(6).trim();
             try {
                 int index = Integer.parseInt(remainder) - 1;
-                Task task = list.get(index);
-                list.remove(index);
+                Task task = list.getTask(index);
+                list.removeTask(index);
                 System.out.println("____________________________________________________________\n" +
                     " Noted. I've removed this task:\n   " +
                     task + "\n" +
-                    "Now you have " + list.size() + " tasks in the list.\n" +
+                    "Now you have " + list.getSize() + " tasks in the list.\n" +
                     "____________________________________________________________\n" +
                     "\n"
                 );
@@ -87,31 +89,31 @@ public class DemureBot {
                 throw new DemureBotException("The description of a todo cannot be empty.\nAdd description after todo.\n");
             }
             Todo todo = new Todo(description, false);
-            list.add(todo);
+            list.addTask(todo);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
                 todo + "\n" +
-                "Now you have " + list.size() + " tasks in the list.\n" +
+                "Now you have " + list.getSize() + " tasks in the list.\n" +
                 "____________________________________________________________\n" +
                 "\n"
             );
         } else if (command.startsWith("deadline")) {
             Deadline deadline = getDeadline(command);
-            list.add(deadline);
+            list.addTask(deadline);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
                 deadline + "\n" +
-                "Now you have " + list.size() + " tasks in the list.\n" +
+                "Now you have " + list.getSize() + " tasks in the list.\n" +
                 "____________________________________________________________\n" +
                 "\n"
             );
         } else if (command.startsWith("event")) {
             Event event = getEvent(command);
-            list.add(event);
+            list.addTask(event);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
                 event + "\n" +
-                "Now you have " + list.size() + " tasks in the list.\n" +
+                "Now you have " + list.getSize() + " tasks in the list.\n" +
                 "____________________________________________________________\n" +
                 "\n"
             );
@@ -310,7 +312,7 @@ public class DemureBot {
         // check if user ended session
         boolean isFinished = false;
         // list of items to do
-        ArrayList<Task> list = new ArrayList<>();
+        DemureBot.list = new TaskList(new ArrayList<Task>());
 
         // introduction to chatbot
         System.out.println("""
@@ -336,7 +338,7 @@ public class DemureBot {
                 while (fileScanner.hasNext()) {
                     String line = fileScanner.nextLine();
                     Task task = getTask(line);
-                    list.add(task);
+                    list.addTask(task);
                 }
             } catch (IOException e) {
                 System.out.println("Error reading file: " + e.getMessage());
@@ -354,8 +356,8 @@ public class DemureBot {
                 isFinished = true;
             } else if (command.equals("list")) {
                 // list all tasks
-                for (int i = 0; i < list.size(); i++) {
-                    Task task = list.get(i);
+                for (int i = 0; i < list.getSize(); i++) {
+                    Task task = list.getTask(i);
                     System.out.println((i + 1) + "." + task);
                 }
             } else {
@@ -381,7 +383,8 @@ public class DemureBot {
         FileWriter writer = null;
         try {
             writer = new FileWriter(filePath);
-            for (Task task : list) {
+            for (int i = 0; i < list.getSize(); i++) {
+                Task task = list.getTask(i);
                 String formattedTask = formatTask(task);
                 writer.write(formattedTask + "\n");
             }
