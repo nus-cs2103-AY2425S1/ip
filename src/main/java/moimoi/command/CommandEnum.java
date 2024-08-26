@@ -12,5 +12,6 @@ public enum CommandEnum {
     UNMARK,
     LIST,
     FILTER,
+    FIND,
     BYE
 }
