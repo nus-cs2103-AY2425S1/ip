@@ -17,7 +17,7 @@ public class Bob {
         this.counter = 0;
     }
 
-    public static void main(String[] args) throws InvalidTaskException {
+    public static void main(String[] args)  {
         String welcome = "Hello! I'm Bob\n"
                 + "\tWhat can I do for you?";
         Bob.printLines(welcome);
@@ -28,7 +28,7 @@ public class Bob {
     /**
      * This is a chat function by Bob.
      */
-    static void chat(Bob bob) throws InvalidTaskException {
+    static void chat(Bob bob)  {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().trim(); //input with NO whitespace in front/back
 
@@ -80,22 +80,26 @@ public class Bob {
      * Adds a task to records.
      * @param input Input given by a user.
      */
-    public void addTask(String input, String[] inputWords ) throws InvalidTaskException {
-        String keyword = inputWords[0];
-        Task newTask = getTask(keyword, input); //initialise the exact Task class
-        String immediateAdd = "Got it. I've added this task:\n\t"
-                + "  ["
-                + newTask.taskLetter()
-                + "][ ] "
-                + this.getInputDescription(input)
-                + "\n\t"
-                + "Now you have "
-                + (String.valueOf(counter+1))
-                + " tasks in the list.";
+    public void addTask(String input, String[] inputWords )  {
+        try {
+            String keyword = inputWords[0];
+            Task newTask = getTask(keyword, input); //initialise the exact Task class
+            String immediateAdd = "Got it. I've added this task:\n\t"
+                    + "  ["
+                    + newTask.taskLetter()
+                    + "][ ] "
+                    + this.getInputDescription(input)
+                    + "\n\t"
+                    + "Now you have "
+                    + (String.valueOf(counter + 1))
+                    + " tasks in the list.";
 
-        Bob.printLines(immediateAdd);
-        this.records.add(this.counter, newTask);
-        this.setCounter(this.counter + 1);
+            Bob.printLines(immediateAdd);
+            this.records.add(this.counter, newTask);
+            this.setCounter(this.counter + 1);
+        } catch (InvalidTaskException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -105,30 +109,38 @@ public class Bob {
      * @param input
      * @return
      */
-    public Task getTask(String keyword, String input) throws InvalidTaskException{
+    public Task getTask(String keyword, String input) throws InvalidTaskException {
+        Task newTask = new Task("");
         String[] inputWords = input.split("\s+");
         String taskDescription = this.getInputDescription(input); //gets the specific task description based on keyword.
-        Task newTask = new Task("");
-        try {
-            switch (keyword) {
-                case "todo":
-                    newTask = new Todo(taskDescription);
-                    break;
-                case "deadline":
-                    String deadline = inputWords[Arrays.asList(inputWords).indexOf("/by") + 1];
+        switch (keyword) {
+            case "todo":
+                if (taskDescription.equals("")) {
+                    throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
+                }
+                newTask = new Todo(taskDescription);
+                break;
+            case "deadline":
+                if (taskDescription.equals("")) {
+                    throw new InvalidTaskException("OOPS!!! The description of a deadline cannot be empty.");
+                }
 
-                    newTask = new Deadline(taskDescription, deadline);
-                    break;
-                case "event":
-                    String startDateTime = inputWords[Arrays.asList(inputWords).indexOf("/from") + 1];
-                    String endDateTime = inputWords[Arrays.asList(inputWords).indexOf("/to") + 1];
-                    newTask = new Event(taskDescription, startDateTime, endDateTime);
-                    break;
-                default:
-                    newTask = new Task(taskDescription);
-            }
-        } catch (Exception e) {
-            System.out.println("Invalid use of the keywords. Please key in the command:" + keyword + " correctly.");
+                String deadline = inputWords[Arrays.asList(inputWords).indexOf("/by") + 1];
+
+                newTask = new Deadline(taskDescription, deadline);
+                break;
+            case "event":
+                if (taskDescription.equals("")) {
+                    throw new InvalidTaskException("OOPS!!! The description of a event cannot be empty.");
+                }
+
+                String startDateTime = inputWords[Arrays.asList(inputWords).indexOf("/from") + 1];
+                String endDateTime = inputWords[Arrays.asList(inputWords).indexOf("/to") + 1];
+                newTask = new Event(taskDescription, startDateTime, endDateTime);
+                break;
+            default:
+//                newTask = new Task(taskDescription);
+                throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return newTask;
     }
@@ -141,25 +153,45 @@ public class Bob {
      */
     public String getInputDescription(String input) throws InvalidTaskException {
         String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
-
         switch (separateKeyword[0]) {
             case "todo":
+                if (separateKeyword.length == 1) {
+                    throw new InvalidTaskException("OOPS!!! The description of todo cannot be empty.");
+                }
                 return separateKeyword[1];
             case "deadline":
+                if (separateKeyword.length == 1) {
+                    throw new InvalidTaskException("OOPS!!! The description of deadline cannot be empty.");
+                }
                 String[] subString1 = separateKeyword[1].split("/by");
                 if (subString1.length <= 1) {
-                    throw new InvalidTaskException("Invalid use of deadline. Should contain '/by'.");
+                    throw new InvalidTaskException("Invalid use of deadline. Should be '... /by ...'.");
                 }
                 return subString1[0].trim() + " (by:" + subString1[1] + ")";
             case "event":
+                if (separateKeyword.length == 1) {
+                    throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
+                }
+
                 String[] subString2 = separateKeyword[1].split("/from");
                 if (subString2.length <= 1) {
-                    throw new InvalidTaskException("Invalid use of event format. Should contain '/from'.");
+                    if (subString2.length == 0) {
+                        throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
+                    }
+                    throw new InvalidTaskException("Invalid use of event format. Should be  '... /from ...'");
                 }
+
                 String[] subString3 = subString2[1].split("/to");
                 if (subString3.length <= 1) {
-                    throw new InvalidTaskException("Invalid use of event format. Should contain '/to'.");
+                    throw new InvalidTaskException("Invalid use of event format. Should be '... /to ...'.");
                 }
+                if (subString3[0].trim().isEmpty()) {
+                    throw new InvalidTaskException("OOPS!!! The start time for the event cannot be empty.");
+                }
+                if (subString3[1].trim().isEmpty()) {
+                    throw new InvalidTaskException("OOPS!!! The end time for the event cannot be empty.");
+                }
+
                 return subString2[0].trim() + " (from:" + subString3[0] + " to:" + subString3[1] + ")";
             default:
                 return input;
