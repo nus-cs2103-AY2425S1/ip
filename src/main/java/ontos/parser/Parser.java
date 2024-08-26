@@ -103,6 +103,16 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 throw new OntosException(" OOPS!!! An event task requires valid a start and end date.");
             }
+        } else if (input.startsWith("find")) {
+            String searchCriteria = "";
+            try {
+                searchCriteria = input.split(" ", 2)[1].trim();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new OntosException("The correct usage of 'find' is:"
+                        + " find n, where n is the keyword you want to search.");
+            }
+            return new Command.FindCommand(searchCriteria);
+        
         } else {
             throw new IllegalArgumentException();
         }

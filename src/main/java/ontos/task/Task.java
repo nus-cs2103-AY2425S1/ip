@@ -151,6 +151,10 @@ public abstract class Task {
         return "[" + statusIcon + "] " + this.description;
     }
 
+    public boolean containsString(String searchCriteria) {
+        return this.description.indexOf(searchCriteria) != -1;
+    } 
+
     /**
      * Converts the task into a string representation suitable for storing in a file.
      *

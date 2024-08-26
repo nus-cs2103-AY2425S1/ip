@@ -112,4 +112,11 @@ public class Ui {
         System.out.println(output);
         return output;
     }
+
+    public String findOutput(String filteredList) {
+        String output = "Here are the matching tasks in your list:\n"
+                + filteredList;
+        System.out.println(output);
+        return output;
+    }
 }
