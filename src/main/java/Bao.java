@@ -1,7 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
 public class Bao {
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final String file_Path = "./data/bao.txt";
 
     private static String baoHappy =
               "     ___\n"
@@ -143,9 +145,12 @@ public class Bao {
                     int byIndex = taskDescription.indexOf("/by ");
                     if (byIndex == -1) {
                         throw new IllegalArgumentException("Bao needs the deadline to be after /by");
+                    } else if (byIndex == 0) {
+                        throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
                     String deadline = taskDescription.substring(byIndex + 4);
                     String description = taskDescription.substring(0, byIndex - 1);
+                    System.out.println(description);
                     taskList.add(new Deadline(description, deadline));
                     System.out.println("Bao got it! Bao is now tracking:");
                     System.out.println(taskList.get(taskList.size() - 1).toString());
@@ -154,11 +159,17 @@ public class Bao {
                     int fromIndex = taskDescription.indexOf("/from ");
                     int toIndex = taskDescription.indexOf("/to ");
                     if (fromIndex == -1 || toIndex == -1) {
-                        throw new IllegalArgumentException("Bao needs the start and end to be after /from and /to");
+                        throw new IllegalArgumentException("Bao needs the start and end to be after /from and /to " +
+                                "and formatted properly");
+                    } else if (fromIndex == 0) {
+                        throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
                     String from = taskDescription.substring(fromIndex + 6, toIndex - 1);
                     String to = taskDescription.substring(toIndex + 4);
                     String description = taskDescription.substring(0, fromIndex - 1);
+                    if (description.isEmpty()) {
+                        throw new IllegalArgumentException("Bao needs a valid description of the task!");
+                    }
                     taskList.add(new Event(description, from, to));
                     System.out.println("Bao got it! Bao is now tracking:");
                     System.out.println(taskList.get(taskList.size() - 1).toString());
