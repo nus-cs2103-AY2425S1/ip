@@ -1,32 +1,48 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task{
 
-    protected String from;
-    protected String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    public Event (String name, boolean done, String from, String to) {
+    public Event (String name, boolean done, String from, String to) throws TarsException{
         super(name, done);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = DateTimeParser.parse(from);
+            this.to = DateTimeParser.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
+        }
+
     }
 
-    public void setFrom(String newFrom) {
-        this.from = newFrom;
+    public void setFrom(String newFrom) throws TarsException {
+        try {
+            this.from = DateTimeParser.parse(newFrom);
+        }catch (DateTimeParseException e) {
+            throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
+        }
     }
 
-    public void setTo(String newTo) {
-        this.to = newTo;
+    public void setTo(String newTo) throws TarsException {
+        try {
+            this.to = DateTimeParser.parse(newTo);
+        } catch (DateTimeParseException e) {
+            throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
+        }
     }
 
     public String getFrom() {
-        return this.from;
+        return DateTimeParser.format(this.from);
     }
 
     public String getTo() {
-        return this.to;
+        return DateTimeParser.format(this.to);
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E] " + super.toString() + " (from: " + getFrom() + " to: " + getTo() + ")";
     }
 }
