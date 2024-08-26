@@ -1,4 +1,6 @@
 package duke.ui;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -78,6 +80,19 @@ public class Ui {
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + "." + tasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    public void showTasksOnDate(List<Task> tasks, LocalDate date) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        if (tasks.isEmpty()) {
+            System.out.println(" No tasks found on this date.");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + tasks.get(i));
+            }
         }
         System.out.println("____________________________________________________________");
     }

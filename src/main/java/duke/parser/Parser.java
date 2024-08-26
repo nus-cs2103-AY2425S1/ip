@@ -60,6 +60,21 @@ public class Parser {
                     throw new EmptyDescriptionException("find");
                 }
                 return new FindCommand(words[1].trim());
+            case "show":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("show");
+                }
+                String[] showParts = words[1].split(" ", 2);
+                if (showParts.length == 2 && showParts[0].equals("on")) {
+                    try {
+                        LocalDate date = LocalDate.parse(showParts[1].trim());
+                        return new ShowOnDateCommand(date);
+                    } catch (DateTimeParseException e) {
+                        throw new UnknownCommandException("The date format is incorrect. Please use yyyy-MM-dd format.");
+                    }
+                } else {
+                    throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
+                }
             default:
                 throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
         }
