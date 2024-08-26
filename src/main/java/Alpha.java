@@ -1,5 +1,8 @@
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.LocalDate;
+
 public class Alpha {
     public static void main(String[] args) {
         
@@ -37,34 +40,46 @@ public class Alpha {
             }
             
             else if (s1.split(" ")[0].equalsIgnoreCase(Commands.MARK.getCommand())) {
-                Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
-                String modifiedRecord = storage.modifyOperation(indexInvolved, true);
-                String echoResponse = "____________________________________________________________\n"
-                        +"Nice! I've marked this task as done:\n"
-                        + modifiedRecord +"\n"
-                        + "____________________________________________________________\n";
-                System.out.println(echoResponse);
+                try {
+                    Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
+                    String modifiedRecord = storage.modifyOperation(indexInvolved, true);
+                    String echoResponse = "____________________________________________________________\n"
+                            + "Nice! I've marked this task as done:\n"
+                            + modifiedRecord + "\n"
+                            + "____________________________________________________________\n";
+                    System.out.println(echoResponse);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! Must specify which task to mark");
+                }
             }
     
             else if (s1.split(" ")[0].equalsIgnoreCase(Commands.UNMARK.getCommand())) {
-                Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
-                String modifiedRecord = storage.modifyOperation(indexInvolved, false);
-                String echoResponse = "____________________________________________________________\n"
-                        +"OK, I've marked this task as not done yet:\n "
-                        + modifiedRecord +"\n"
-                        + "____________________________________________________________\n";
-                System.out.println(echoResponse);
+                try {
+                    Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
+                    String modifiedRecord = storage.modifyOperation(indexInvolved, false);
+                    String echoResponse = "____________________________________________________________\n"
+                            + "OK, I've marked this task as not done yet:\n "
+                            + modifiedRecord + "\n"
+                            + "____________________________________________________________\n";
+                    System.out.println(echoResponse);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! Must specify which task to unmark");
+                }
             }
             
             else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DELETE.getCommand())) {
-                Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
-                String modifiedRecord = storage.deleteOperation(indexInvolved);
-                String echoResponse = "____________________________________________________________\n"
-                        +"Noted. I've removed this task:\n "
-                        + modifiedRecord +"\n"
-                        + storage.getLength() + "\n"
-                        + "____________________________________________________________\n";
-                System.out.println(echoResponse);
+                try {
+                    Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
+                    String modifiedRecord = storage.deleteOperation(indexInvolved);
+                    String echoResponse = "____________________________________________________________\n"
+                            + "Noted. I've removed this task:\n "
+                            + modifiedRecord + "\n"
+                            + storage.getLength() + "\n"
+                            + "____________________________________________________________\n";
+                    System.out.println(echoResponse);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! Must specify which task to delete");
+                }
             }
             
             else if (s1.split(" ")[0].equalsIgnoreCase(Commands.TODO.getCommand())) {
@@ -94,10 +109,11 @@ public class Alpha {
                     String description = processedInput.split("/")[0].trim();
     
                     //Further processing to get by date after the "/"
-                    String by = processedInput.split("/")[1].trim();
-                    by = by.replace("by ", "");
+                    String by = processedInput.split("/")[1];
+                    by = by.replace("by ", "").trim();
+                    LocalDate byDate = LocalDate.parse(by);
     
-                    Deadline NewDeadline = new Deadline(description, by);
+                    Deadline NewDeadline = new Deadline(description, byDate);
                     storage.storeTask(NewDeadline);
                     String echoResponse = "____________________________________________________________ \n"
                             + "Got it. I've added this task: \n"
@@ -107,7 +123,10 @@ public class Alpha {
                     System.out.println(echoResponse);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //Handle invalid inputs
-                    System.out.println("Deadline creation should be in this format: deadline <Description> /by <Deadline>");
+                    System.out.println("Deadline creation should be in this format:" +
+                        " deadline <Description> /by <Deadline>");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Date should be in format yyyy-mm-dd");
                 }
             }
 
@@ -120,14 +139,16 @@ public class Alpha {
                     String description = processedInput.split("/")[0].trim();
     
                     //Further processing to get start date after the "/"
-                    String start = processedInput.split("/")[1].trim();
-                    start = start.replace("from ", "");
+                    String start = processedInput.split("/")[1];
+                    start = start.replace("from ", "").trim();
+                    LocalDate startDate = LocalDate.parse(start);
     
                     //Further processing to get start date after the "/"
-                    String end = processedInput.split("/")[2].trim();
-                    end = end.replace("to", "");
+                    String end = processedInput.split("/")[2];
+                    end = end.replace("to", "").trim();
+                    LocalDate endDate = LocalDate.parse(end);
     
-                    Event NewEvent = new Event(description, start, end);
+                    Event NewEvent = new Event(description, startDate, endDate);
                     storage.storeTask(NewEvent);
                     String echoResponse = "____________________________________________________________ \n"
                             + "Got it. I've added this task: \n"
@@ -138,6 +159,8 @@ public class Alpha {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //Handle invalid inputs
                     System.out.println("Event creation should be in this format: event <Description> /from <Start> /to <End>");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Command should be in format: event project meeting /from YYYY-MM-DD /to YYYY-MM-DD");
                 }
             } else {
                 System.out.println("Sorry User, command is not understood." +

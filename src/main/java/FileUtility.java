@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 //Solution below adapted from https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/topics.html#W3-4
 public class FileUtility {
@@ -42,17 +43,16 @@ public class FileUtility {
             while (scanner.hasNext()) {
                 String task = scanner.nextLine();
                 String[] taskProcessed = task.split("\\|");
-                System.out.println(taskProcessed[2]);
                 switch (taskProcessed[0].trim()) {
                     case "T":
                         taskList.add(new ToDo(taskProcessed[2], Integer.parseInt(taskProcessed[1].trim()) == 1));
                         break;
                     case "E":
-                        taskList.add(new Event(taskProcessed[2], taskProcessed[3], taskProcessed[4],
+                        taskList.add(new Event(taskProcessed[2], LocalDate.parse(taskProcessed[3].trim()),  LocalDate.parse(taskProcessed[4].trim()),
                             Integer.parseInt(taskProcessed[1].trim()) == 1));
                         break;
                     case "D":
-                        taskList.add(new Deadline(taskProcessed[2], taskProcessed[3],
+                        taskList.add(new Deadline(taskProcessed[2],  LocalDate.parse(taskProcessed[3].trim()),
                             Integer.parseInt(taskProcessed[1].trim()) == 1));
                         break;
                 }

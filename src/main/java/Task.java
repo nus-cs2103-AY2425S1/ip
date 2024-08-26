@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -31,6 +34,10 @@ public class Task {
     public String storageFormat() {
         String doneStatus = String.valueOf(this.isDone ? 1 : 0);
         return "| " + doneStatus + " | " + this.getDescription();
+    }
+    
+    public String dateFormatPrintVersion(LocalDate dateConversion) {
+        return dateConversion.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
     
     @Override
