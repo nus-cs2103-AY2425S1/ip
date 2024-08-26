@@ -10,12 +10,12 @@ public class Deadline extends Task {
     public Deadline(String line) throws InvalidTaskException {
         super(line);
 
-        Map<String, String> flags = parseFlags(line);
+        Map<String, String> flags = Parser.parseFlags(line);
         if (!flags.containsKey("by")) {
             throw new InvalidTaskException("Missing /by flag.");
         }
         try {
-            this.by = parseDateString(flags.get("by"));
+            this.by = Parser.parseDateString(flags.get("by"));
         } catch (DateTimeParseException exception) {
             throw new InvalidTaskException("Invalid /by datetime. Should be yyyy-mm-dd hh:mm`");
         }
@@ -32,12 +32,12 @@ public class Deadline extends Task {
         keyValuePairs.add("\"taskType\": \"deadline\"");
         keyValuePairs.add(String.format("\"description\": \"%s\"", description));
         keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
-        keyValuePairs.add(String.format("\"by\": \"%s\"", toDateString(by)));
+        keyValuePairs.add(String.format("\"by\": \"%s\"", Parser.toDateString(by)));
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
-        Map<String, String> arguments = parseJsonString(jsonString);
+        Map<String, String> arguments = Parser.parseJsonString(jsonString);
         String inputLine = String.format(
             "deadline %s /by %s",
             arguments.get("description"),

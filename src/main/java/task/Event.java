@@ -11,7 +11,7 @@ public class Event extends Task {
     public Event(String line) throws InvalidTaskException {
         super(line);
 
-        Map<String, String> flags = parseFlags(line);
+        Map<String, String> flags = Parser.parseFlags(line);
         if (!flags.containsKey("from")) {
             throw new InvalidTaskException("Missing /from flag.");
         }
@@ -19,12 +19,12 @@ public class Event extends Task {
             throw new InvalidTaskException("Missing /to flag.");
         }
         try {
-            this.from = parseDateString(flags.get("from"));
+            this.from = Parser.parseDateString(flags.get("from"));
         } catch (DateTimeParseException exception) {
             throw new InvalidTaskException("Invalid /from datetime. Should be yyyy-mm-dd hh:mm`");
         }
         try {
-            this.to = parseDateString(flags.get("to"));
+            this.to = Parser.parseDateString(flags.get("to"));
         } catch (DateTimeParseException exception) {
             throw new InvalidTaskException("Invalid /to datetime. Should be yyyy-mm-dd hh:mm`");
         }
@@ -41,13 +41,13 @@ public class Event extends Task {
         keyValuePairs.add("\"taskType\": \"event\"");
         keyValuePairs.add(String.format("\"description\": \"%s\"", description));
         keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
-        keyValuePairs.add(String.format("\"from\": \"%s\"", toDateString(from)));
-        keyValuePairs.add(String.format("\"to\": \"%s\"", toDateString(from)));
+        keyValuePairs.add(String.format("\"from\": \"%s\"", Parser.toDateString(from)));
+        keyValuePairs.add(String.format("\"to\": \"%s\"", Parser.toDateString(from)));
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
-        Map<String, String> arguments = parseJsonString(jsonString);
+        Map<String, String> arguments = Parser.parseJsonString(jsonString);
         String inputLine = String.format(
             "event %s /from %s /to %s",
             arguments.get("description"),
