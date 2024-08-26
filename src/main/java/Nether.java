@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Nether {
+    private static final String STORAGE_FILE_PATH = "./data/nether.txt";
+
     private static final String EXIT_COMMAND = "bye";
 
     private static final String LIST_COMMAND = "list";
@@ -25,13 +27,15 @@ public class Nether {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
+        Storage storage = new Storage(STORAGE_FILE_PATH);
+
         String logo = " _   _      _   _        \n"
                 + "| \\ | | ___| |_| |__  ___ _ __ \n"
                 + "|  \\| |/ _ \\ __| '_ \\/ _ \\ '__|\n"
                 + "| |\\  |  __/ |_| | | ||__/ |  \n"
                 + "|_| \\_|\\___|\\__|_| |_\\___|_|\n";
-        ArrayList<Task> tasks = new ArrayList<>();
-        int counter = 0;
+        ArrayList<Task> tasks = new ArrayList<>(storage.loadTasks());
+        int counter = tasks.size();
 
         System.out.println("Hello from\n" + logo);
         printHorizontalLine();
@@ -78,7 +82,7 @@ public class Nether {
                             System.out.println("Now you have " + counter + " task" + (counter > 1 ? "s" : "")
                                     + " in the list.");
                         }
-
+                        storage.saveTasks(tasks);
                     } else {
                         throw new NetherException("you inputted an invalid task index.");
                     }
@@ -111,6 +115,8 @@ public class Nether {
                 // distinguishing singular and plural
                 System.out.println("Now you have " + counter + " task" + (counter > 1 ? "s" : "") + " in the list.");
                 printHorizontalLine();
+
+                storage.saveTasks(tasks);
             } catch (NetherException e) {
                 System.out.println("Sir, " + e.getMessage());
                 printHorizontalLine();

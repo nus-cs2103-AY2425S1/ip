@@ -5,6 +5,10 @@ public class TodoTask extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        return "T|" + this.getStatusIcon() + "|" + this.getDescription();
+    }
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
