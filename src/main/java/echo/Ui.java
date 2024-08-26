@@ -1,5 +1,8 @@
 package echo;
 
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
     private String DASHLINE = "____________________________________________________________";
     private String Logo = " ____        _        \n"

@@ -1,5 +1,10 @@
 package echo;
 
+/**
+ * Represents a custom exception specific to the Duke application.
+ * This exception is thrown when an error occurs that is unique
+ * to the operations of Duke.
+ */
 public class DukeException extends Exception {
     /**
      * Create a DukeException without specific message.

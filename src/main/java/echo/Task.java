@@ -9,11 +9,12 @@ public abstract class Task implements Serializable {
 
     /**
      * Checks whether the user's input is a valid command.
-     * Sequentially checks task description, start time(if needed) and end time(if needed)
+     * Sequentially checks task description, start time(if needed)
+     * and end time(if needed)
      *
      * @param taskInfoArray user's input split by " ".
      * @param type task type.
-     * @throws DukeException a new Exception class defined to represent exceptions specific to EchoBot.
+     * @throws DukeException if user input invalid command.
      */
     public static void checkValidCommand(String[] taskInfoArray, TaskType type) throws DukeException{
         // Return incorrect input message when the length of input less or equal to 1
@@ -89,8 +90,8 @@ public abstract class Task implements Serializable {
     /**
      * Creates a task according to the user's input.
      *
-     * @param taskInfo task information, including task type, specific tasks information and
-     *                 important time information of the task.
+     * @param taskInfo task information, including task type, specific tasks
+     *                 information and important time information of the task.
      * @return task created according to the task information user entered.
      */
     public static Task createTask(String taskInfo) throws DukeException {
@@ -101,7 +102,7 @@ public abstract class Task implements Serializable {
         // Create a new task variable without initialize it
         Task newTask;
 
-        // Create task object according to the user input and assign it to newTask variable
+        // Create task object
         try {
             switch (TaskType.valueOf(type)) {
             case TODO:
@@ -137,31 +138,18 @@ public abstract class Task implements Serializable {
         return newTask;
     }
 
-    /**
-     * Marks the task as completed.
-     *
-     */
     public void setMark() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.toString());
     }
 
-    /**
-     * Marks the task as incomplete.
-     *
-     */
     public void setUnmark() {
         this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.toString());
     }
 
-    /**
-     * Returns the status of a task.
-     *
-     * @return status icon of the task.
-     */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
