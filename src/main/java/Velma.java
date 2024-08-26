@@ -48,6 +48,16 @@ public class Velma {
         }
     }
 
+    public static void saveTasks(ArrayList<Task> list) {
+        try (FileWriter writer = new FileWriter("/Users/zeonchew04/ip/data/velma.txt")) {
+            for (Task task : list) {
+                writer.write(task.toFileFormat() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+        }
+    }
+
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File("/Users/zeonchew04/ip/data/velma.txt");
@@ -81,9 +91,8 @@ public class Velma {
     }
 
     public static void main(String[] args) {
-
-        String projectRoot = System.getProperty("user.dir");
-        System.out.println("Project root: " + projectRoot);
+        
+        ;
 
         int count = 1;
         ArrayList<Task> list = new ArrayList<>(100);
