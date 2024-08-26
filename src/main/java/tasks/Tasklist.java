@@ -6,8 +6,8 @@ public class TaskList {
     private final ArrayList<Task> taskList;
     private final Storage storage;
 
-    public TaskList() {
-        this.storage = new Storage("./data/TaskList.txt", "./data/TaskList.dat");
+    public TaskList(Storage storage) {
+        this.storage = storage;
         this.taskList = storage.loadTasksFromFile();
     }
 

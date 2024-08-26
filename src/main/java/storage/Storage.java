@@ -14,15 +14,17 @@ import tasks.Task;
 public class Storage {
     private final String txtFileName;
     private final String datFileName;
+    private final String storageDirectory;
 
-    public Storage(String txtFileName, String datFileName) {
+    public Storage(String storageDirectory, String txtFileName, String datFileName) {
         this.txtFileName = txtFileName;
         this.datFileName = datFileName;
+        this.storageDirectory = storageDirectory;
     }
 
     public void saveTasksToFile(ArrayList<Task> taskList) {
         // Assisted by Copilot
-        File dataDir = new File("./data");
+        File dataDir = new File(storageDirectory);
         if (!dataDir.exists()) {
             dataDir.mkdirs();
         }   

@@ -1,13 +1,15 @@
 import commands.CommandHandler;
 import commands.CommandType;
 import java.util.Scanner;
+import storage.Storage;
 import tasks.TaskList;
 
 public class NathanBot {
     // cleaned up using Copilot
 
     public static void main(String[] args) {
-        TaskList taskList = new TaskList();
+        Storage storage = new Storage("./data", "./data/TaskList.txt", "./data/TaskList.dat");
+        TaskList taskList = new TaskList(storage));
         CommandHandler.handleGreet();
 
         try (Scanner scanner = new Scanner(System.in)) {
