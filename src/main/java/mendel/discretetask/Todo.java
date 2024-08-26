@@ -4,17 +4,18 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Todo extends Task {
-    private final String rawDescription;
-
-    public Todo(String description) {
+    private Todo(String description) {
         super(description);
-        this.rawDescription = description;
-        this.parseDescription();
     }
 
-    private void parseDescription() {
-        this.handleError();
-        String[] segments = this.rawDescription.split(" ");
+    public static Todo of(String rawDescription) {
+        String description = parseDescription(rawDescription);
+        return new Todo(description);
+    }
+
+    private static String parseDescription(String rawDescription) {
+        handleError(rawDescription);
+        String[] segments = rawDescription.split(" ");
         String reformattedMsg = "";
         for (int i = 1; i < segments.length; i++) {
             if (i == segments.length - 1) {
@@ -23,11 +24,11 @@ public class Todo extends Task {
                 reformattedMsg += segments[i] + " ";
             }
         }
-        super.editMessage(reformattedMsg);
+        return reformattedMsg;
     }
 
-    private void handleError() throws MendelException {
-        String[] segments = this.rawDescription.split(" ");
+    private static void handleError(String rawDescription) throws MendelException {
+        String[] segments = rawDescription.split(" ");
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(segments.length == 1,
                         "OOPS! todo description cannot be empty.\nAdd description.");

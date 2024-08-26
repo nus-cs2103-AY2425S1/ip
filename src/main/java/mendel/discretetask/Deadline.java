@@ -4,17 +4,18 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Deadline extends Task {
-    private final String rawDescription;
-
     public Deadline(String description) {
         super(description);
-        this.rawDescription = description;
-        this.parseDescription();
     }
 
-    private void parseDescription() {
-        this.handleError();
-        String[] slashSegments = this.rawDescription.split(" /by ");
+    public static Deadline of(String rawDescription) {
+        String description = parseDescription(rawDescription);
+        return new Deadline(description);
+    }
+
+    private static String parseDescription(String rawDescription) {
+        handleError(rawDescription);
+        String[] slashSegments = rawDescription.split(" /by ");
         String[] mainMessage = slashSegments[0].split(" ");
         String endMsg = slashSegments[1];
         String reformattedMsg = "";
@@ -26,10 +27,10 @@ public class Deadline extends Task {
             }
         }
         reformattedMsg += String.format(" (by: %s)", endMsg);
-        super.editMessage(reformattedMsg);
+        return reformattedMsg;
     }
 
-    private void handleError() throws MendelException {
+    private static void handleError(String rawDescription) throws MendelException {
         String[] slashSegments = rawDescription.split(" /by ");
         String[] misplacedSegments = rawDescription.split("/by");
         String[] mainMessage = slashSegments[0].split(" ");

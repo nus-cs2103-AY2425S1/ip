@@ -4,17 +4,18 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Event extends Task {
-    private final String rawDescription;
-
-    public Event(String description) {
+    private Event(String description) {
         super(description);
-        this.rawDescription = description;
-        this.parseDescription();
     }
 
-    private void parseDescription() {
-        this.handleError();
-        String[] slashSegments = this.rawDescription.split(" /from ");
+    public static Event of(String rawDescription) {
+        String description = parseDescription(rawDescription);
+        return new Event(description);
+    }
+
+    private static String parseDescription(String rawDescription) {
+        handleError(rawDescription);
+        String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
         String startMsg = slashSegments[1].split(" /to ")[0];
         String endMsg = slashSegments[1].split(" /to ")[1];
@@ -27,17 +28,17 @@ public class Event extends Task {
             }
         }
         reformattedMsg += String.format(" (from: %s to %s)", startMsg, endMsg);
-        super.editMessage(reformattedMsg);
+        return reformattedMsg;
     }
 
-    private void handleError() throws MendelException {
-        String[] slashSegments = this.rawDescription.split(" /from ");
+    private static void handleError(String rawDescription) throws MendelException {
+        String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
         ConditionalExceptionHandler.of()
                 .orConditionTriggerException(slashSegments.length < 2)
                 .andConditionTriggerException(slashSegments[0].equals("event"),
                         "OOPS! event needs more details.\nAdd description.")
-                .andConditionTriggerException(this.rawDescription.split("/from").length != slashSegments.length,
+                .andConditionTriggerException(rawDescription.split("/from").length != slashSegments.length,
                         "OOPS! deadline from wrongly formatted.\nPlease add spaces around /from.")
                 .conditionTriggerException(slashSegments.length < 2,
                         "OOPS! I am unsure of start.\nPlease specify only one start.")
