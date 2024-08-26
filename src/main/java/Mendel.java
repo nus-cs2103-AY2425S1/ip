@@ -7,6 +7,7 @@ import mendel.mendelexception.MendelException;
 
 public class Mendel {
     public static void main(String[] args) {
+        //
         Scanner sc = new Scanner(System.in);
         String logo = "Mendel";
         System.out.println("Hello from\n" + logo);
