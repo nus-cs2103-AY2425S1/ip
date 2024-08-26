@@ -76,24 +76,24 @@ public class Velma {
                 String[] parts = line.split(" ", 3);
                 Task task;
                 switch (parts[0].charAt(1)) { // Extract task type from the string
-                    case 'T':
-                        task = new Todo(parts[2]);
-                        break;
-                    case 'D':
-                        String[] deadlineParts = parts[2].split(" \\(by: ", 2);
-                        String deadlineDescription = deadlineParts[0];
-                        String by = deadlineParts[1].substring(0, deadlineParts[1].length() - 1); // Remove closing parenthesis
-                        task = new Deadline(deadlineDescription, by);
-                        break;
-                    case 'E':
-                        String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
-                        String eventDescription = eventParts[0];
-                        String startTime = eventParts[1];
-                        String endTime = eventParts[2].substring(0, eventParts[2].length() - 1); // Remove closing parenthesis
-                        task = new Event(eventDescription, startTime, endTime);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown task type: " + parts[0]);
+                case 'T':
+                    task = new Todo(parts[2]);
+                    break;
+                case 'D':
+                    String[] deadlineParts = parts[2].split(" \\(by: ", 2);
+                    String deadlineDescription = deadlineParts[0];
+                    String by = deadlineParts[1].substring(0, deadlineParts[1].length() - 1); // Remove closing parenthesis
+                    task = new Deadline(deadlineDescription, by);
+                    break;
+                case 'E':
+                    String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
+                    String eventDescription = eventParts[0];
+                    String startTime = eventParts[1];
+                    String endTime = eventParts[2].substring(0, eventParts[2].length() - 1); // Remove closing parenthesis
+                    task = new Event(eventDescription, startTime, endTime);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown task type: " + parts[0]);
                 }
                 if (parts[1].equals("[X]")) {
                     task.changeIsDone();
