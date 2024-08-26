@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,8 +18,16 @@ public class Bibi {
                         ########   #######   ########   #######\s
                       """;
 
-        // Mini Database
+        // Init
+        initializeDataDirectory();
         ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            restoreTasks(tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
         System.out.println("Hello from\n" + logo + "\n"
                     + "How can I help you?");
         printHorizontalLine();
@@ -126,6 +139,42 @@ public class Bibi {
                 printHorizontalLine();
                 System.out.printf("%s is an unknown command%n", cmd);
                 printHorizontalLine();
+            }
+        }
+    }
+
+    private static void restoreTasks(ArrayList<Task> tasks) throws FileNotFoundException {
+        File file = new File("data/list.txt");
+        if (!file.exists()) {
+            throw new FileNotFoundException("Save file not found");
+        }
+        Scanner s = new Scanner(file);
+        while (s.hasNext()) {
+            String taskLine = s.nextLine();
+            switch (taskLine.charAt(1)) {
+            case 'T':
+
+            case 'D':
+            case 'E':
+            default:
+            }
+        }
+    }
+
+    private static void initializeDataDirectory() {
+        String dirPath = "data";
+        String filePathStr = "data/list.txt";
+        if (!Files.exists(Path.of(dirPath))) {
+            new File(dirPath).mkdirs();
+        }
+
+        // Check if previous list exists
+        Path filePath = Path.of(filePathStr);
+        if (!Files.exists(filePath)) {
+            try {
+                Files.createFile(filePath);
+            } catch (IOException e) {
+                System.out.println("Something went wrong during file creation");
             }
         }
     }
