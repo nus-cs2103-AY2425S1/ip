@@ -13,11 +13,12 @@ public class LeBron {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
-        ArrayList<Task> taskList;
+        TaskList taskList;
+
         try {
-            taskList = loadTasks();
+            taskList = new TaskList(loadTasks());
         } catch (IOException e) {
-            taskList = new ArrayList<>();
+            taskList = new TaskList(new ArrayList<>());
         }
         int taskCount = taskList.size();
         
@@ -46,7 +47,7 @@ public class LeBron {
                     break;
                 } else if (input.equals("list")) {
                     for (int i = 1; i <= taskCount; i++) {
-                        Task task = taskList.get(i - 1);
+                        Task task = taskList.getTask(i - 1);
                         System.out.println(String.format("%d. %s", i, task.toString()));
                     }
                     System.out.println("------------------------");
@@ -54,7 +55,7 @@ public class LeBron {
                     if (parts.length > 1 && isNumeric(parts[1])) {
                         int taskNumber = Integer.parseInt(parts[1]);
                         if (taskCount >= taskNumber) {
-                            Task task = taskList.get(taskNumber - 1);
+                            Task task = taskList.getTask(taskNumber - 1);
                             task.markAsDone();
                             System.out.println("Alright bro, great work");
                             System.out.println(task.toString());
@@ -69,7 +70,8 @@ public class LeBron {
                     if (parts.length > 1 && isNumeric(parts[1])) {
                         int taskNumber = Integer.parseInt(parts[1]);
                         if (taskCount >= taskNumber) {
-                            Task task = taskList.remove(taskNumber - 1);
+                            Task task = taskList.getTask(taskNumber - 1);
+                            taskList.deleteTask(taskNumber - 1);
                             taskCount--;
                             System.out.println("Alright bro, I've deleted that task.");
                             System.out.println(task.toString());
@@ -84,7 +86,7 @@ public class LeBron {
                     if (parts.length > 1 && isNumeric(parts[1])) {
                         int taskNumber = Integer.parseInt(parts[1]);
                         if (taskCount >= taskNumber) {
-                            Task task = taskList.get(taskNumber - 1);
+                            Task task = taskList.getTask(taskNumber - 1);
                             task.markAsUndone();
                             System.out.println("Let's get it done soon!");
                             System.out.println(task.toString());
@@ -98,7 +100,7 @@ public class LeBron {
                 } else if (parts[0].equals("todo")) {
                     if (parts.length > 1) {
                         ToDos todo = new ToDos(parts[1].trim());
-                        taskList.add(todo);
+                        taskList.addTask(todo);
                         taskCount++;
                         System.out.println("Gotchu, I added the task: ");
                         System.out.println(todo.toString());
@@ -112,7 +114,7 @@ public class LeBron {
                         String[] splStr = parts[1].split("/by ", 2);
                         LocalDate date = LocalDate.parse(splStr[1]);
                         Deadlines deadline = new Deadlines(splStr[0].trim(), date);
-                        taskList.add(deadline);
+                        taskList.addTask(deadline);
                         taskCount++;
                         System.out.println("Gotchu, I added the task: ");
                         System.out.println(deadline.toString());
@@ -136,7 +138,7 @@ public class LeBron {
                                 throw new LeBronException("Your event has to end bro!");
                             }
                             Event event = new Event(taskDescription, start, end);
-                            taskList.add(event);
+                            taskList.addTask(event);
                             taskCount++;
                             System.out.println("Gotchu, I added the task: ");
                             System.out.println(event.toString());
@@ -173,13 +175,15 @@ public class LeBron {
         return true;
     }
 
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public static void saveTasks(TaskList taskList) throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
         FileWriter fw = new FileWriter("./data/lebron.txt");
+
+        ArrayList<Task> tasks = taskList.getTasks();
 
         for (Task task : tasks) {
             String taskString = task.toFileString();
