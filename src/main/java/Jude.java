@@ -1,12 +1,22 @@
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.FileReader;
 import java.io.InputStreamReader;
+
+import java.lang.reflect.Array;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Represents a Jude, the personal assistant chatbot.
- *
+ * <p>
  * This class helps a person to keep track of various things.
  *
  * @author Judy Park
@@ -19,16 +29,32 @@ public class Jude {
         List<Task> list = new ArrayList<>();
         BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
         Parser parser = new Parser();
-        String userInput;
+        String filePath = "data/jude.txt";
+
+        // Load from the save file
+        try {
+            loadFile(filePath, list);
+        } catch (JudeException je) {
+            System.out.println(je.getMessage());
+            return;
+        }
 
         // Initiate the chat
         System.out.println("Hello I'm " + name);
         System.out.println("What can I do for you, poyo?");
 
         while (true) {
-            // Iterate receiving until the valid input
+            String userInput;
 
-            // Handle I/OException.
+            // Save the file
+            try {
+                saveFile(filePath, createTaskListText(list));
+            } catch (JudeException je) {
+                System.out.println(je);
+                continue;
+            }
+
+            // Read an input from the user
             try {
                 userInput = bi.readLine();
             } catch (IOException ie) {
@@ -36,7 +62,7 @@ public class Jude {
                 continue;
             }
 
-            // Handle Invalid Input Exception.
+            // Handle Invalid Input Exception
             try {
                 parser.setUpUserInput(userInput);
             } catch (JudeException je) {
@@ -46,34 +72,26 @@ public class Jude {
 
             String command = parser.getCommand();
 
-            // Check if the command is bye
             if (command.equals("bye")) {
                 break;
-            }
-            // Check if the command is "list"
-            else if (command.equals("list")) {
-                // Print the list of tasks saved
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.printf("%d. %s\n", (i + 1), list.get(i).toStringDetails());
-                }
-                continue;
-            }
 
-            String[] descriptions = parser.getDescriptions();
+            } else if (command.equals("list")) {
+                printTaskList(list);
 
-            // Check if the command is "mark"
-            if (command.equals("mark")) {
-                // Get the valid index of the list with the given number
+            } else if (command.equals("mark")) {
+
+                String[] descriptions = parser.getDescriptions();
                 int index;
 
-                // Handle if number input is not valid.
+                // Handle if number input is not valid
                 try {
                     index = Integer.parseInt(descriptions[0]) - 1;
                 } catch (NumberFormatException e) {
                     System.out.println("The command for mark should be followed by a number. Please try again, poyo");
                     continue;
                 }
-                // Handle if index is within the valid list size.
+
+                // Handle if index is within the valid list size
                 if (index >= list.size() || index < 0) {
                     System.out.println("The task number provided is not valid."
                             + " Please provide your instruction again., poyo...");
@@ -84,14 +102,13 @@ public class Jude {
                 Task task = list.get(index);
                 task.markAsDone();
                 System.out.printf("Poyo! I've marked this task as done:\n%s\n", task.toStringDetails());
-                continue;
 
-            // Check if the command is "unmark"
             } else if (command.equals("unmark")) {
-                // Get the valid index of the list with the given number
+
+                String[] descriptions = parser.getDescriptions();
                 int index;
 
-                // Handle if number input is not valid.
+                // Handle if number input is not valid
                 try {
                     index = Integer.parseInt(descriptions[0]) - 1;
                 } catch (NumberFormatException e) {
@@ -99,7 +116,7 @@ public class Jude {
                     continue;
                 }
 
-                // Handle if index is within the valid list size.
+                // Handle if index is within the valid list size
                 if (index >= list.size() || index < 0) {
                     System.out.println("The task number provided is not valid."
                             + " Please provide your instruction again, poyo...");
@@ -112,8 +129,11 @@ public class Jude {
                 System.out.printf("Poyo! I've unmarked this task as not done:\n%s\n", task.toStringDetails());
 
             } else if (command.equals("delete")) {
+
+                String[] descriptions = parser.getDescriptions();
                 int index;
 
+                // Handle if number input is not valid
                 try {
                     index = Integer.parseInt(descriptions[0]) - 1;
                 } catch (NumberFormatException e) {
@@ -121,6 +141,7 @@ public class Jude {
                     continue;
                 }
 
+                // Handle if index is within the valid list size
                 if (index >= list.size() || index < 0) {
                     System.out.println("The task number provided is not valid."
                             + " Please provide your instruction again, poyo...");
@@ -131,9 +152,10 @@ public class Jude {
                 list.remove(index);
                 System.out.printf("Poyo! I've deleted this task:\n%s\n", task.toStringDetails());
 
-            // Check if the command is to add a task.
+                // Check if the command is to add a task
             } else {
                 Task task;
+                String[] descriptions = parser.getDescriptions();
                 if (command.equals("to-do")) {
                     task = new Todo(descriptions[0]);
                 } else if (command.equals("deadline")) {
@@ -147,10 +169,103 @@ public class Jude {
                 list.add(task);
                 System.out.println("Poyo! added: " + task.toStringDetails());
             }
+
         }
 
         // Terminate the chat
         System.out.println("Poyo. Hope to see you again soon!");
+    }
+
+    private static void printTaskList(List<Task> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("%d. %s\n", (i + 1), list.get(i).toStringDetails());
+        }
+    }
+
+    private static String createTaskListText(List<Task> list) {
+        String text = "";
+        for (Task task : list) {
+            text += task.toFileFormat() + "\n";
+        }
+        return text;
+    }
+
+    private static void saveFile(String filePath, String textToAdd) throws JudeException {
+        File save = new File(filePath);
+
+        // Check if file exists, create a file if it doesn't
+        if (!save.exists()) {
+            try {
+                save.createNewFile();
+            } catch (IOException ie) {
+                throw new JudeException("An error has occurred while creating a save file.");
+            }
+        }
+
+        // Write to the save file
+        FileWriter fw;
+        try {
+            fw = new FileWriter(filePath);
+            fw.write(textToAdd);
+            fw.close();
+        } catch (IOException ie) {
+            throw new JudeException("IOException has occurred while writing to a save file.");
+        }
+    }
+
+
+    private static void loadFile(String filePath, List<Task> list) throws JudeException {
+        File file = new File(filePath);
+
+        // Check if file exists
+        if (!file.exists()) {
+            System.out.println("No save file found. Starting with an empty task list.");
+            return;
+        }
+
+        Scanner fileReader;
+        try {
+            fileReader = new Scanner(file);
+        } catch (FileNotFoundException fe) {
+            throw new JudeException("File is not found. Starts with an empty list.");
+        }
+
+
+        while (fileReader.hasNextLine()) {
+            String[] split = fileReader.nextLine().replaceAll("\\s","").split("\\|");
+            String errorMessage = "There was an error while loading the file.";
+
+            // Handles file format with no Type letter
+            if (split.length < 3) {
+                throw new JudeException(errorMessage);
+            }
+            boolean isDone = split[1].equals("1");
+            String description = split[2];
+
+            switch (split[0]) {
+            case "T":
+                if (split.length != 3) {
+                    throw new JudeException(errorMessage);
+                }
+                list.add(new Todo(description, isDone));
+                break;
+            case "D":
+                if (split.length != 4) {
+                    throw new JudeException(errorMessage);
+                }
+                list.add(new Deadline(description, split[3], isDone));
+                break;
+            case "E":
+                if (split.length != 5) {
+                    throw new JudeException(errorMessage);
+                }
+                list.add(new Event(description, split[3], split[4], isDone));
+                break;
+            default:
+                break;
+            }
+        }
+
     }
 }
 

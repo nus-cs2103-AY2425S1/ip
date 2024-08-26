@@ -15,6 +15,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task (String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -27,6 +32,14 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public int getStatusBinary() {
+        return isDone ? 1 : 0;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         return description;
@@ -34,5 +47,9 @@ public class Task {
 
     public String toStringDetails() {
         return String.format("[%s] %s", getStatusIcon(), description);
+    }
+
+    public String toFileFormat() {
+        return String.format("%s | %d | %s", " ", getStatusBinary(), getDescription());
     }
 }
