@@ -2,6 +2,9 @@ package gravitas.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Todo task.
+ */
 public class Todo extends Task {
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");

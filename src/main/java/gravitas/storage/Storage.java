@@ -17,10 +17,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the storage of the task list.
+ */
 public class Storage {
 
     public Path filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath File path to load and save file
+     */
     public Storage(String filePath) {
         String home = System.getProperty("user.home");
         this.filePath = Paths.get(home, filePath);
@@ -36,6 +44,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the tasks from the storage to the task list.
+     *
+     * @return ArrayList of tasks
+     * @throws DukeException If there is an error in loading the tasks
+     */
     public ArrayList<Task> loadTasks() throws DukeException {
 
         if (new File(this.filePath.toString()).isFile()) {
@@ -77,6 +91,12 @@ public class Storage {
         return new ArrayList<>();
     }
 
+    /**
+     * Save the tasks from the task list to the storage.
+     *
+     * @param tasklist TaskList object that contains the list of tasks
+     * @throws DukeException If there is an error in saving the tasks
+     */
     public void saveTask(TaskList tasklist) throws DukeException {
 
         try {

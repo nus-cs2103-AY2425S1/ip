@@ -6,6 +6,9 @@ import gravitas.tasklist.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * This class is used to handle the user interface of the program
+ */
 public class Ui {
     private String line;
     private String name;
@@ -15,6 +18,10 @@ public class Ui {
     private String bye;
 
     private static String error = "OOPS!!! I'm sorry, but I don't know what that means :-(";;
+
+    /**
+     * Constructor for the Ui class
+     */
     public Ui() {
         this.line = "____________________________________________________________";
         this.name = "Gravitas";
@@ -25,10 +32,19 @@ public class Ui {
         this.bye = "Bye. Hope to see you again soon! \n" + this.line;
     }
 
+    /**
+     * This method is used to greet the user
+     */
     public void greet() {
         System.out.println(greet);
     }
 
+    /**
+     * This method is used to display the task list and take in user input
+     *
+     * @param tasklist the task list to be displayed
+     * @return boolean to check if the program should continue running
+     */
     public boolean display(TaskList tasklist) {
         Scanner sc = new Scanner(System.in);
         String msg = sc.nextLine();
@@ -61,6 +77,9 @@ public class Ui {
         return true;
     }
 
+    /**
+     * This method is used to display the loading error message
+     */
     public static void showLoadingError() {
         System.out.println(Ui.error);
     }
