@@ -30,7 +30,7 @@ public class Task {
     public void setUnmark() {
         this.isDone = true;
     }
-    
+
     /**
      * Returns an 'X' if the task is marked as DONE, otherwise returns " ".
      *

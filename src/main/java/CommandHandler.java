@@ -84,16 +84,11 @@ public class CommandHandler {
                 System.out.println(e.getMessage());
             }
             break;
->>>>>>> branch-A-CodingStandard
         }
         case EVENT: {
             try {
                 tasks.addEvent(input);
-<<<<<<< HEAD
-
-=======
                 storage.saveTasksToFile(tasks);
->>>>>>> branch-A-CodingStandard
             } catch (InvalidDescriptionException e) {
                 System.out.println(e.getMessage());
             }
