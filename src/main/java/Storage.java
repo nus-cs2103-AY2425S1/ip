@@ -1,9 +1,13 @@
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -39,17 +43,17 @@ public class FileHandler {
 
                 switch (taskType) {
                     case "T":
-                        // Create a new Todo task
+                        // Create a new Tasks.Todo task
                         newTask = new Todo(description);
                         break;
                     case "D":
-                        // Create a new Deadline task
+                        // Create a new Tasks.Deadline task
                         String doneBy = parts[3];
                         LocalDate localDate = LocalDate.parse(doneBy);
                         newTask = new Deadline(description, localDate);
                         break;
                     case "E":
-                        // Create a new Event task
+                        // Create a new Tasks.Event task
                         String[] eventTimes = parts[3].split(" - ");
                         String from = eventTimes[0];
                         String to = eventTimes[1];
