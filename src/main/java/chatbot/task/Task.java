@@ -1,3 +1,5 @@
+package chatbot.task;
+
 public abstract class Task {
     private String name;
     private boolean isDone;

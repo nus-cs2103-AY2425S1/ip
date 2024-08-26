@@ -1,8 +1,11 @@
-import java.time.LocalDate;
+package chatbot.task;
+
+import chatbot.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     LocalDateTime from;
     LocalDateTime to;
 

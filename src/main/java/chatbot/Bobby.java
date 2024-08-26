@@ -1,17 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
+package chatbot;
+
+import chatbot.exception.InputException;
 
 public class Bobby {
 //    private final Scanner input;
     private Ui ui;
-//    private ArrayList<Task> tasks;
+//    private ArrayList<Bobby.Task> tasks;
     private TaskList taskList;
     private Storage storage;
     private static final String DIR_PATH = "./data/";

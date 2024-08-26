@@ -1,3 +1,5 @@
+package chatbot;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -9,7 +11,7 @@ public class Ui {
         this.isRunning = true;
     }
     public void sayHi() {
-        System.out.println("Hello, I'm Bobby");
+        System.out.println("Hello, I'm Bobby.Bobby");
         System.out.println("What can I do for you?");
     }
 

@@ -1,3 +1,7 @@
+package chatbot.task;
+
+import chatbot.task.Task;
+
 public class Todo extends Task {
     public Todo(String name) {
         this(name, false);
