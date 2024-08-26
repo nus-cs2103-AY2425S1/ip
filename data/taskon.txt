@@ -1,0 +1,4 @@
+T|0|eat
+D|0|sleep|2pm
+E|1|talk|1pm|3pm
+T|0|lol
