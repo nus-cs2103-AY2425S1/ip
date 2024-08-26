@@ -15,6 +15,7 @@ bin/
 
 # Data files
 data/*
+test_data
 
 /text-ui-test/ACTUAL.TXT
 /text-ui-test/data/*
