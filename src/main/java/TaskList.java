@@ -159,4 +159,33 @@ public class TaskList {
         System.out.println(task);
     }
 
+    public void findItem(String input) throws MissingPositionException {
+        String keyword;
+        try {
+            String[] parts = input.split(" ", 2);
+            if (parts.length < 2 || parts[1].isBlank()) {
+                throw new MissingPositionException("You are missing the keyword to be searched. Please try again.");
+            }
+            keyword = parts[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingPositionException("You are missing the keyword to be searched. Please try again.");
+        }
+
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.toString().contains(keyword)) {
+                results.add(task);
+            }
+        }
+
+        if (results.isEmpty()) {
+            System.out.println("Nothing matches your keyword.");
+        } else {
+            System.out.println("Here are the items that match your keyword:");
+            for (int i = 0; i < results.size(); i++) {
+                System.out.println((i + 1) + ". " + results.get(i));
+            }
+        }
+    }
+
 }
