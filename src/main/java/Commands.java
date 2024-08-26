@@ -1,6 +1,6 @@
 package ip.derrick ;
 public enum Commands {
-    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+    BYE, LIST, MARK, UNMARK, FIND, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
     public static Commands fromString(String command) {
         try {
             return Commands.valueOf(command.toUpperCase());
