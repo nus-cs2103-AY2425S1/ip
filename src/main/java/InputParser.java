@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class InputParser {
     public static ToDo parseInputAsToDo(String input) throws InputException {
         String taskName = input.replace("todo ", "").trim();
@@ -11,7 +13,15 @@ public class InputParser {
         String description, startTime, endTime;
         try {
             parts = input.split(" /from ");
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new EventException(EventException.EventExceptionType.NOFROM);
+        }
+        try {
             times = parts[1].split(" /to ");
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new EventException(EventException.EventExceptionType.NOTO);
+        }
+        try {
             description = parts[0].replace("event ", "").trim();
             startTime = times[0].trim();
             endTime = times[1].trim();
