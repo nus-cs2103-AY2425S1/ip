@@ -31,98 +31,103 @@ public class Dawn {
     private static int counter = 0;
 
     private static void respond() throws DawnException { //provide responses to the user input
-        if (scanner.hasNextLine()) {
+        while (scanner.hasNextLine()) {
             String command = scanner.next();
-            Command cmd = Command.valueOf(command.toUpperCase());
-            String input = scanner.nextLine();
+            Command cmd;
+            try {
+                cmd = Command.valueOf(command.toUpperCase()); // convert the command input to a corresponding enum constant
+            } catch (IllegalArgumentException e) {
+                throw new DawnException("Am I supposed to know what that means? Try something else\n");
+            }
+
+            String input = scanner.nextLine().trim();
             switch (cmd) {
                 case BYE:
                     System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
-                    break;
+                    return;
                 case LIST:
                     System.out.println("listing all tasks...");
-                    for (int i = 0; i < counter; i++) {
-                        System.out.printf("%d. %s  \n", i + 1, tasks.get(i).getDesc());
+                    if (counter <= 1) {
+                        System.out.println("There are no tasks in the list... \nPlease feed me some tasks!");
+                    } else {
+                        for (int i = 0; i < counter; i++) {
+                            System.out.printf("%d. %s  \n", i + 1, tasks.get(i).getDesc());
+                        }
                     }
-                    respond();
                     break;
                 case MARK: case UNMARK:
                     mark(command, input);
-                    respond();
                     break;
                 case DELETE:
                     delete(input);
-                    respond();
                     break;
                 case TODO: case DEADLINE: case EVENT:
-                    addTask(command, input);
-                    respond();
+                    addTask(cmd, input);
                     break;
-                default:
-                    throw new DawnException("Am I supposed to know what that means? Try something else\n");
             }
         }
     }
 
-    private static void mark(String cmd, String index) { // mark the tasks accordingly
+    private static void mark(String cmd, String index) throws DawnException{ // mark the tasks accordingly
         int ind = 0;
         try {
             ind = Integer.parseInt(index);
         } catch (NumberFormatException e){
-            System.out.println("Please specify the index of the task to be marked! ");
+            throw new DawnException("Please specify the index of the task to be marked!\n");
         }
 
         if (cmd.equals("unmark")) {
-            tasks.get(ind).markAsNotDone();
+            tasks.get(ind - 1).markAsNotDone(); // account for index starting at 0
         } else {
-            tasks.get(ind).markAsDone();
+            tasks.get(ind - 1).markAsDone();
         }
-        System.out.println(tasks.get(ind).getDesc());
+        System.out.println(ind + ". " + tasks.get(ind - 1).getDesc());
     }
 
-    private static void addTask(String cmd, String input) throws DawnException{
-        Task t;
+    private static void addTask(Command cmd, String input) throws DawnException{
+        if (input.isBlank()) {
+            throw new DawnException("You might be missing the task description, please check again\n");
+        }
+
+        Task t = null;
         String[] s = input.split("/");
-        int indexOfSpace = s[0].indexOf(" ");
-        if (s[0].split(" ").length <= 1) { // splitting the front command part
-            if (input.contains("todo") || input.contains("deadline") || input.contains("event")) {
-                throw new DawnException("You might be missing the task description, please check again\n");
-            } else {
-                throw new DawnException("Am I supposed to know what that means? Try something else\n");
-            }
+
+        switch (cmd) {
+            case TODO:
+                t = new ToDo(s[0]);
+                break;
+            case DEADLINE:
+                if (s.length < 2) {
+                    throw new DawnException("Make sure you include both the task description and the deadline!\n");
+                }
+                t = new Deadline(s[0], s[1]);
+                break;
+            case EVENT:
+                if (s.length < 3) {
+                    throw new DawnException("Make sure you include the task description, start, and end times for " +
+                            "your event!\n");
+                }
+                t = new Event(s[0], s[1], s[2]);
+                break;
         }
-        s[0] = s[0].substring(indexOfSpace + 1); // remove the command word e.g. todo
-        if (cmd.equals("todo")) {
-            t = new ToDo(s[0]);
-        } else if (cmd.equals("deadline")) {
-            if (s.length < 2) {
-                throw new DawnException("Make sure you include both the task description and the deadline!\n");
-            }
-            t = new Deadline(s[0], s[1]);
-        } else {
-            if (s.length < 3) {
-                throw new DawnException("Make sure you include the task description, start, and end times for " +
-                        "your event!\n");
-            }
-            t = new Event(s[0], s[1], s[2]);
-        }
+
         tasks.add(t);
         counter++;
-        System.out.println("  Gotcha! I've added this task: \n" + t.getDesc());
+        System.out.println("  Gotcha! I've added this task: \n" + counter + "." + t.getDesc());
         System.out.printf("  Now you have %d task(s) in the list \n", counter);
     }
 
-    private static void delete(String input) throws DawnException{
-        String[] s = input.split(" ");
-        if (s.length < 2) {
-            throw new DawnException("Remember to specify the index of the task to delete!\n");
-        } else {
-            int ind = Integer.parseInt(s[1]) - 1;
-            Task temp = tasks.get(ind);
-            System.out.println("  OK! I have removed this task for you: \n" + temp.getDesc());
-            tasks.remove(ind);
-            counter--;
-            System.out.printf("  Now you have %d task(s) in the list \n", counter);
+    private static void delete(String index) throws DawnException {
+        int ind = 0;
+        try {
+            ind = Integer.parseInt(index);
+        } catch (NumberFormatException e){
+            throw new DawnException("Please specify the index of the task to be deleted!\n");
         }
+        Task t = tasks.get(ind - 1); // to account for index starting at 0
+        System.out.println("  OK! I have removed this task for you: \n" + ind + "." + t.getDesc());
+        tasks.remove(ind - 1);
+        counter--;
+        System.out.printf("  Now you have %d task(s) in the list \n", counter);
     }
 }
