@@ -65,6 +65,31 @@ public class TaskStorage {
         tempFile.renameTo(file);
     }
 
+    private static void editTaskFromFile(File file, int taskNum, String newTask) throws IOException {
+        File tempFile = new File("./data/tempFile.txt");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+
+        String currLine;
+        int i = 0;
+        while((currLine = reader.readLine()) != null) {
+            String trimmedLine = currLine.trim();
+            if (i == taskNum) {
+                writer.write(newTask);
+            } else {
+                writer.write(currLine);
+            }
+
+            writer.newLine();
+            i++;
+        }
+        reader.close();
+        writer.close();
+
+        file.delete();
+        tempFile.renameTo(file);
+    }
+
     public TaskStorage() {
         this.taskList = new ArrayList<>();
 
@@ -125,6 +150,13 @@ public class TaskStorage {
         }
         Task task = this.taskList.get(i - 1);
         task.markDone();
+
+        try {
+            editTaskFromFile(taskFile, i, task.getSaveTaskString());
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
         System.out.println("\tGood Job! The task is now marked as done: ");
         System.out.println("\tMarked task: " + task);
     }
@@ -135,6 +167,13 @@ public class TaskStorage {
         }
         Task task = this.taskList.get(i - 1);
         task.markNotDone();
+
+        try {
+            editTaskFromFile(taskFile, i, task.getSaveTaskString());
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
         System.out.println("\tAlright, the task is marked as not done: ");
         System.out.println("\tUnmarked task: " + task);
     }
