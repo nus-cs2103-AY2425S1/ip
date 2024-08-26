@@ -1,9 +1,24 @@
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        String filePath = "./data/duke.txt";
+        Storage storage = new Storage(filePath);
+        List<Task> tasks;
+
+        try {
+            tasks = storage.load();
+            if (!tasks.isEmpty()) {
+                System.out.println("Memory restored.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error encountered while loading previous tasks: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
+
         String greeting = "   *        *        *        __o    *       *\n"
                 + "*      *       *        *    /_| _     *\n"
                 + "  FF  *    FF      *        O'_)/ \\  *    *\n"
@@ -33,13 +48,14 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input = "";
-        List<Task> tasks = new ArrayList<>();
+        boolean isChanged = false;
 
         while (!input.equals("bye")) {
             input = scanner.nextLine();
             System.out.println("____________________________________________________________");
 
             if (input.equals("list")) {
+                isChanged = false;
                 if (tasks.isEmpty()) {
                     System.out.println("Ho Ho Ho! No tasks in your list yet. Add some tasks to get started.");
                 } else {
@@ -53,6 +69,7 @@ public class Duke {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (index >= 0 && index < tasks.size()) {
                         tasks.get(index).markAsDone();
+                        isChanged = true;
                         System.out.println("Sleigh! I've marked this task as done:");
                         System.out.println("  " + tasks.get(index));
                     } else {
@@ -66,6 +83,7 @@ public class Duke {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (index >= 0 && index < tasks.size()) {
                         tasks.get(index).markAsNotDone();
+                        isChanged = true;
                         System.out.println("Alright-o, I've marked this task as not done yet:");
                         System.out.println("  " + tasks.get(index));
                     } else {
@@ -80,6 +98,7 @@ public class Duke {
                 } else {
                     String description = input.substring(5).trim();
                     tasks.add(new ToDo(description));
+                    isChanged = true;
                     if (description.isEmpty()) {
                         System.out.println("Oops! The description of a todo cannot be empty.");
                     } else {
@@ -100,6 +119,7 @@ public class Duke {
                             System.out.println("Oops! The description of a deadline cannot be empty.");
                         } else {
                             tasks.add(new Deadline(description, by));
+                            isChanged = true;
                             System.out.println("Gotcha. I've added this task:");
                             System.out.println("  " + tasks.get(tasks.size() - 1));
                             System.out.println("Now you have " + tasks.size() + " tasks in the list. Let it snow!");
@@ -123,6 +143,7 @@ public class Duke {
                                 System.out.println("Oops! The description, start time, or end time of an event cannot be empty.");
                             } else {
                                 tasks.add(new Event(description, from, to));
+                                isChanged = true;
                                 System.out.println("Gotcha. I've added this task:");
                                 System.out.println("  " + tasks.get(tasks.size() - 1));
                                 System.out.println("Now you have " + tasks.size() + " tasks in the list. Feliz Navidad!");
@@ -140,6 +161,7 @@ public class Duke {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (index >= 0 && index < tasks.size()) {
                         Task removedTask = tasks.remove(index);
+                        isChanged = true;
                         System.out.println("Aww okay. I've removed this task:");
                         System.out.println("  " + removedTask);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -150,10 +172,21 @@ public class Duke {
                     System.out.println("Sorry, I don't understand. Did you mean: delete <task number>");
                 }
             } else if (input.equals("bye")) {
-                System.out.println("Bye~ Hope to see you again! \n" + festiveMessage);
+                isChanged = false;
+                System.out.println("Bye~ Hope to see you again!\n" + festiveMessage);
             } else {
+                isChanged = false;
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+            if (isChanged) {
+                try {
+                    storage.save(tasks);
+                    isChanged = false;
+                } catch (IOException e) {
+                    System.out.println("Oh no! It seems like an error was encountered while saving tasks: " + e.getMessage());
+                }
+            }
+
             System.out.println("____________________________________________________________");
         }
     }
