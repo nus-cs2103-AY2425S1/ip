@@ -2,9 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Stan {
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks;
+    private static final String FILE_PATH = "data/stan.txt";
+    private static Storage storage;
 
     public static void main(String[] args) {
+        storage = new Storage(FILE_PATH);
+        tasks = new ArrayList<>(storage.loadTasks());
+
         greet();
 
         Scanner scanner = new Scanner(System.in);
@@ -23,6 +28,7 @@ public class Stan {
                     case BYE:
                         System.out.println(" Bye. Hope to see you again soon!");
                         System.out.println("____________________________________________________________");
+                        saveTasks();
                         return;
 
                     case LIST:
@@ -109,6 +115,7 @@ public class Stan {
         }
         System.out.println("   " + task);
         System.out.println("____________________________________________________________");
+        saveTasks();
     }
 
     private static void handleTodoCommand(String[] words) throws StanMissingArgumentException {
@@ -120,6 +127,7 @@ public class Stan {
         System.out.println("   " + tasks.get(tasks.size() - 1));
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+        saveTasks();
     }
 
     private static void handleDeadlineCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
@@ -127,7 +135,7 @@ public class Stan {
             throw new StanMissingArgumentException("The description of a deadline must include a '/by' clause.");
         }
         String[] parts = words[1].split(" /by ");
-        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+        if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
             throw new StanInvalidArgumentException("The deadline description or time cannot be empty.");
         }
         tasks.add(new Deadline(parts[0], parts[1]));
@@ -135,6 +143,7 @@ public class Stan {
         System.out.println("   " + tasks.get(tasks.size() - 1));
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+        saveTasks();
     }
 
     private static void handleEventCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
@@ -143,7 +152,7 @@ public class Stan {
         }
         String[] parts = words[1].split(" /from ");
         String[] times = parts[1].split(" /to ");
-        if (parts.length < 2 || parts[0].trim().isEmpty() || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
+        if (parts[0].trim().isEmpty() || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
             throw new StanInvalidArgumentException("The event description, start, or end time cannot be empty.");
         }
         tasks.add(new Event(parts[0], times[0], times[1]));
@@ -151,6 +160,7 @@ public class Stan {
         System.out.println("   " + tasks.get(tasks.size() - 1));
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+        saveTasks();  
     }
 
     private static void handleDeleteCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
@@ -166,5 +176,10 @@ public class Stan {
         System.out.println("   " + removedTask);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+        saveTasks();
+    }
+
+    private static void saveTasks() {
+        storage.saveTasks(tasks);
     }
 }

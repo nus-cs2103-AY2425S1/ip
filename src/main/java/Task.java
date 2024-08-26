@@ -18,7 +18,7 @@ public abstract class Task {
     public void markAsNotDone(){
         this.isDone = false;
     }
-
+    public abstract String toStorageString();
     @Override
     public String toString() {
         return "[" + getStatus() + "] " + description;
