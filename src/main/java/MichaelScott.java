@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class MichaelScott {
     static final String DEFAULTNAME = "Todo.txt";
@@ -142,7 +143,16 @@ public class MichaelScott {
                         if (deadlineParts.length < 2) {
                             throw new MichaelScottException("Please specify the deadline");
                         }
-                        task = new Deadline(deadlineParts[0], deadlineParts[1]);
+
+                        // Parse the date string
+                        LocalDate deadlineDate;
+                        try {
+                            deadlineDate = LocalDate.parse(deadlineParts[1]);
+                        } catch (java.time.format.DateTimeParseException e) {
+                            throw new MichaelScottException("Invalid date format. Please use the format YYYY-MM-DD.");
+                        }
+
+                        task = new Deadline(deadlineParts[0], deadlineDate);
                         todo.add(task);
                         printLine();
                         System.out.println("Got it. I've added this task:");
