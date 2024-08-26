@@ -1,4 +1,9 @@
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,8 +12,14 @@ public class LeBron {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
-        ArrayList<Task> taskList = new ArrayList<>();
-        int taskCount = 0;
+        ArrayList<Task> taskList;
+        try {
+            taskList = loadTasks();
+        } catch (IOException e) {
+            taskList = new ArrayList<>();
+        }
+        int taskCount = taskList.size();
+        
 
         String name = "LeBron";
         System.out.println("------------------------");
@@ -26,6 +37,10 @@ public class LeBron {
                 if (input.equals("bye")) {
                     System.out.println(String.format("%s: Bye! I'm leaving now.", name));
                     System.out.println("------------------------");
+                    try {
+                        saveTasks(taskList);
+                    } catch (IOException e) {
+                    }
                     scanner.close();
                     break;
                 } else if (input.equals("list")) {
@@ -154,5 +169,56 @@ public class LeBron {
             }
         }
         return true;
+    }
+
+    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        FileWriter fw = new FileWriter("./data/lebron.txt");
+
+        for (Task task : tasks) {
+            String taskString = task.toFileString();
+            fw.write(taskString + "\n");
+        }
+
+        fw.close();
+    }
+
+    public static ArrayList<Task> loadTasks() throws IOException {
+        ArrayList<Task> taskList = new ArrayList<>();
+        File file = new File("./data/lebron.txt");
+        if (!file.exists()) {
+            return taskList;
+        }
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String line;
+
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split("\\|");
+            String type = parts[0].trim();
+            boolean isDone = parts[1].trim().equals("1");
+
+            Task task;
+            if (type.equals("T")) {
+                task = new ToDos(parts[2].trim());
+            } else if (type.equals("D")) {
+                task = new Deadlines(parts[2].trim(), parts[3].trim());
+            } else if (type.equals("E")) {
+                String[] startEnd = parts[3].split("-");
+                task = new Event(parts[2].trim(), startEnd[0].trim(), startEnd[1].trim());
+            } else {
+                continue;
+            }
+
+            if (isDone) {
+                task.markAsDone();
+            }
+            taskList.add(task);
+        }
+        return taskList;
     }
 }
