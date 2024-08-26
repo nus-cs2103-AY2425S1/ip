@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -131,39 +135,54 @@ public class GPT {
                     continue;
                 }
 
-                // Handle Deadline tasks
+                // Handle Deadline tasks with LocalDateTime parsing
                 if (input.startsWith("deadline")) {
                     String[] parts = input.substring(8).trim().split("/by");
                     if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
                         throw new GPTException("The description and deadline of a deadline task cannot be empty.");
                     }
-                    Task newTask = new Deadline(parts[0].trim(), parts[1].trim());
-                    tasks.add(newTask);
-                    saveTasks();
-                    printLine();
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + newTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    LocalDateTime byDateTime = parseDateTime(parts[1].trim());
+
+                    if (byDateTime != null) {
+                        Task newTask = new Deadline(parts[0].trim(), byDateTime);
+                        tasks.add(newTask);
+                        saveTasks();  // Save after adding a new Deadline task
+                        printLine();
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + newTask);
+                    } else {
+                        printLine();
+                        System.out.println("The task was not added because of an invalid date.");
+                    }
                     printLine();
                     continue;
                 }
 
-                // Handle Event tasks
+
+                // Handle Event tasks with LocalDateTime parsing
                 if (input.startsWith("event")) {
                     String[] parts = input.substring(5).trim().split("/from|/to");
                     if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
                         throw new GPTException("The description, start, and end time of an event cannot be empty.");
                     }
-                    Task newTask = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-                    tasks.add(newTask);
-                    saveTasks();
-                    printLine();
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + newTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    LocalDateTime fromDateTime = parseDateTime(parts[1].trim());
+                    LocalDateTime toDateTime = parseDateTime(parts[2].trim());
+
+                    if (fromDateTime != null && toDateTime != null) {
+                        Task newTask = new Event(parts[0].trim(), fromDateTime, toDateTime);
+                        tasks.add(newTask);
+                        saveTasks();  // Save after adding a new Event task
+                        printLine();
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + newTask);
+                    } else {
+                        printLine();
+                        System.out.println("The task was not added because of an invalid date or time.");
+                    }
                     printLine();
                     continue;
                 }
+
 
                 // Handle unrecognized commands
                 throw new GPTException("unrecognized");
@@ -214,12 +233,12 @@ public class GPT {
                     if (taskType.equals("T")) {
                         task = new ToDo(description);
                     } else if (taskType.equals("D")) {
-                        String by = parts[3];
-                        task = new Deadline(description, by);
+                        LocalDateTime byDateTime = parseDateTime(parts[3]); // Convert the string to LocalDateTime
+                        task = new Deadline(description, byDateTime);
                     } else if (taskType.equals("E")) {
-                        String from = parts[3];
-                        String to = parts[4];
-                        task = new Event(description, from, to);
+                        LocalDateTime fromDateTime = parseDateTime(parts[3]); // Convert the string to LocalDateTime
+                        LocalDateTime toDateTime = parseDateTime(parts[4]);   // Convert the string to LocalDateTime
+                        task = new Event(description, fromDateTime, toDateTime);
                     } else {
                         System.out.println("Unknown task type: " + taskType);
                         continue;
@@ -235,8 +254,7 @@ public class GPT {
                 System.out.println("An error occurred while loading tasks: " + e.getMessage());
             }
         }
-    }
-
+}
     private static void saveTasks() {
         try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
             for (Task task : tasks) {
@@ -245,6 +263,39 @@ public class GPT {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks: " + e.getMessage());
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
+        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
+        DateTimeFormatter formatter5 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            return LocalDateTime.parse(dateTimeStr, formatter1);  // Try the first format
+        } catch (DateTimeParseException e) {
+            try {
+                return LocalDateTime.parse(dateTimeStr, formatter2);  // Try the second format
+            } catch (DateTimeParseException ex) {
+                try {
+                    return LocalDateTime.parse(dateTimeStr, formatter3);  // Try the third format
+                } catch (DateTimeParseException exc) {
+                    try {
+                        LocalDate date = LocalDate.parse(dateTimeStr, formatter4);
+                        return date.atStartOfDay();  // If date only (d/M/yyyy), set time to start of day
+                    } catch (DateTimeParseException exc2) {
+                        try {
+                            LocalDate date = LocalDate.parse(dateTimeStr, formatter5);
+                            return date.atStartOfDay();  // If date only (yyyy-MM-dd), set time to start of day
+                        } catch (DateTimeParseException exc3) {
+                            System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm, d/M/yyyy HHmm, or yyyy-MM-dd format.");
+                            return null;
+                        }
+                    }
+                }
+            }
         }
     }
 
