@@ -11,12 +11,16 @@ public class Task {
         this.taskID = lastID++;
     }
 
-    private String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
     private String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] ");
+    }
+
+    private String getStatusNum() {
+        return (isDone ? "1" : "0");
     }
 
     public int getTaskID() {
@@ -35,6 +39,10 @@ public class Task {
 
     public void delete() {
         System.out.println("    Noted. I've removed this task:");
+    }
+
+    public String toFileFormat() {
+        return this.getStatusNum() + " .. " + this.getDescription();
     }
 
     @Override
