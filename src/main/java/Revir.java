@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Exceptions.*;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Todo;
 
 public class Revir {
     static TaskList taskList;

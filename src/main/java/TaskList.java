@@ -3,24 +3,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import Tasks.Task;
+
 
 class TaskList {
     private ArrayList<Task> tasks;
-    private Path filePath;
+    private Storage storage;
 
-    TaskList(Path filePath) {
+    TaskList(Storage storage) {
         this.tasks = new ArrayList<Task>();
-        this.filePath = filePath;
-        // check if file exists
-        if (Files.exists(filePath)) {
-            loadFromFile();
-        } 
+        this.storage = storage;
     }
 
     // add
     void add(Task task) {
         tasks.add(task);
-        saveToFile();
+        storage.saveToFile(this.tasks);
     }
 
     // delete
@@ -31,38 +29,11 @@ class TaskList {
         }
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
-        saveToFile();
+        storage.saveToFile(this.tasks);
         return "Task deleted: " + task.toString();
     }
 
-    // save to file
-    void saveToFile() {
-        try {
-            // Create directories if they don't exist
-            Files.createDirectories(this.filePath.getParent());
-            
-            // Create file if it doesn't exist
-            if (!Files.exists(this.filePath)) {
-                Files.createFile(this.filePath);
-            }
-            
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filePath.toFile()))) {
-                oos.writeObject(this.tasks);
-                // System.out.println("ArrayList saved to file successfully.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    void loadFromFile() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath.toString()))) {
-            this.tasks = (ArrayList<Task>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
-        }
-    }
+    
 
     // list
     String list() {
@@ -81,7 +52,7 @@ class TaskList {
         }
         Task task = tasks.get(index);
         task.setCompleted(status);
-        saveToFile();
+        storage.saveToFile(this.tasks);
         return "Task marked as" + (status ? "completed" : "incomplete") + ": " + task.toString();
     }
 

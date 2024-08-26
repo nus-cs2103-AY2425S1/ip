@@ -1,4 +1,6 @@
-class Todo extends Task {
+package Tasks;
+
+public class Todo extends Task {
     public static String format = "todo <description>";
 
     public Todo (String description) {

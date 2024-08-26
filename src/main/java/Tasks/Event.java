@@ -1,7 +1,8 @@
+package Tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-class Event extends Task {
+public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
