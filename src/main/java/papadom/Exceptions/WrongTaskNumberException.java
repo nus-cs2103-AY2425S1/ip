@@ -1,4 +1,5 @@
 package papadom.Exceptions;
+
 /**
  * Exception thrown when the task number provided does not exist.
  */

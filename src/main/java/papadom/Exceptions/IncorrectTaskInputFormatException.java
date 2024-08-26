@@ -1,4 +1,5 @@
 package papadom.Exceptions;
+
 /**
  * Exception thrown when the input format for a task is incorrect.
  */

@@ -1,4 +1,5 @@
 package papadom.Exceptions;
+
 /**
  * Exception thrown when the user enters an unrecognized command.
  */

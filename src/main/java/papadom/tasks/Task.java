@@ -8,7 +8,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a papadom.tasks.Task with the specified description.
+     * Constructs a Task with the specified description.
      * The task is initially marked as not done.
      *
      * @param description The description of the task.
@@ -18,6 +18,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
