@@ -6,15 +6,15 @@ package duke.ui;
  */
 public class Ui {
 
-    private final static String logo =
+    private static final String logo =
             " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private final static String greeting = "Hello from\n" + logo + "\nWhat can I do for you?";
-    private final static String goodbye = "Bye! Hope to see you again soon!";
+    private static final String greeting = "Hello! What can I do for you?";
+    private static final String goodbye = "Bye! Hope to see you again soon!";
 
     /**
      * Constructs a new Ui object.
@@ -26,6 +26,9 @@ public class Ui {
      */
     public void startup() {
         System.out.println(greeting);
+    }
+    public String getGreeting() {
+        return greeting;
     }
 
     /**

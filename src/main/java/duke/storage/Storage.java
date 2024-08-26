@@ -17,6 +17,10 @@ import duke.tasks.TaskList;
 public class Storage {
 
     private static Storage storage;
+    private static final String DATA_DIR = "data/";
+    private static final String MAIN_FILE = "duke.txt";
+    private static final String TEST_FILE = "duke_test.txt";
+    private static boolean isTestMode = false;
 
     /**
      * Gets the singleton instance of the Storage class.
@@ -35,13 +39,14 @@ public class Storage {
      * Creates necessary directories and files if they don't exist.
      */
     public void readData() {
+        String fileName = isTestMode ? TEST_FILE : MAIN_FILE;
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            File filedir = new File("data/");
+            File filedir = new File(DATA_DIR);
             if (!filedir.exists()) {
                 boolean success = filedir.mkdir();
             }
-            File file = new File("data/duke.txt");
+            File file = new File(DATA_DIR + fileName);
             if (!file.exists()) {
                 boolean success = file.createNewFile();
             }
@@ -61,8 +66,9 @@ public class Storage {
      * Writes the current TaskList data to the file system.
      */
     public void writeData() {
+        String fileName = isTestMode ? TEST_FILE : MAIN_FILE;
         try {
-            FileWriter filewriter = new FileWriter("data/duke.txt");
+            FileWriter filewriter = new FileWriter(DATA_DIR + fileName);
             ArrayList<Task> storage = TaskList.getInstance().getTaskList();
             for (Task t : storage) {
                 filewriter.write(t.saveFormat() + "\n");
@@ -79,5 +85,36 @@ public class Storage {
     public static void saveData() {
         Storage file = Storage.getInstance();
         file.writeData();
+    }
+
+    /**
+     * Sets up and enters testing environment.
+     */
+    public static void startTest() {
+        isTestMode = true;
+        TaskList.getInstance().clearTasks();
+        getInstance().readData();
+    }
+
+    /**
+     * Shuts down and exits testing environment.
+     */
+    public static void endTest() {
+        deleteTestFile();
+        isTestMode = false;
+        TaskList.getInstance().clearTasks();
+    }
+
+    /**
+     * Function to delete data file generated during tests.
+     */
+    private static void deleteTestFile() {
+        File testFile = new File(DATA_DIR + TEST_FILE);
+        if (testFile.exists()) {
+            boolean deleted = testFile.delete();
+            if (!deleted) {
+                System.err.println("Failed to delete test file: " + testFile.getAbsolutePath());
+            }
+        }
     }
 }

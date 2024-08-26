@@ -237,4 +237,11 @@ public class TaskList {
         this.taskStore.get(id - 1).markAsNotDone();
         Storage.saveData();
     }
+
+    /**
+     * Clears all tasks from the list.
+     */
+    public void clearTasks() {
+        this.taskStore.clear();
+    }
 }

@@ -1,5 +1,7 @@
 package duke.parser;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 import duke.exceptions.DukeException;
@@ -28,7 +30,6 @@ public class Parser {
      *
      * @return false if the user wants to exit, true otherwise
      */
-    @SuppressWarnings("checkstyle:Indentation")
     public boolean handleUserInput() {
         TaskList taskList = TaskList.getInstance();
         while (scan.hasNext()) {
@@ -68,6 +69,61 @@ public class Parser {
             }
         }
         return true;
+    }
+
+    /**
+     * Handles user input through the GUI, passed as a string.
+     * This method processes various commands such as list, mark, unmark, delete, and task creation.
+     *
+     * @param input user input through the GUI
+     *
+     * @return string
+     */
+    public String handleGuiInput(String input) throws DukeException {
+        TaskList tasklist = TaskList.getInstance();
+
+        ByteArrayOutputStream bstream = new ByteArrayOutputStream();
+        PrintStream pstream = new PrintStream(bstream);
+        PrintStream sysstream = System.out;
+        System.setOut(pstream);
+
+        String[] temp = preprocess(input);
+        String cmd = temp[0];
+        String args = temp[1];
+        try {
+            switch (cmd) {
+            case "bye":
+                System.setOut(sysstream);
+                return "Bye. Hope to see you again soon!";
+            case "list":
+                tasklist.printTaskList();
+                break;
+            case "unmark":
+                tasklist.unmark(args);
+                break;
+            case "mark":
+                tasklist.mark(args);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                tasklist.createTask(cmd, args);
+                break;
+            case "delete":
+                tasklist.deleteTask(args);
+                break;
+            case "find":
+                tasklist.filter(args);
+                break;
+            default:
+                throw new DukeException("Invalid command");
+            }
+            System.out.flush();
+            System.setOut(sysstream);
+            return bstream.toString();
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
     /**
