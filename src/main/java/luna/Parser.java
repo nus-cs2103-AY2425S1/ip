@@ -7,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import luna.command.*;
 import luna.task.*;
 
+/**
+ * Parser
+ */
 public class Parser {
     enum CommandType {
         LIST,
