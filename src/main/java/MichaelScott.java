@@ -1,14 +1,28 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class MichaelScott {
+    static final String DEFAULTNAME = "Todo.txt";
+    static final String FILEPATH = "./userdata";
     public static void printLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public static void saveList(ArrayList<Task> todo, String fileName) throws IOException {
+        FileWriter fw = new FileWriter(FILEPATH + "/" + DEFAULTNAME);
+        for (int i = 0; i < todo.toArray().length; i++) {
+            fw.write(todo.get(i).toFile() + "\n");
+        }
+        fw.close();
     }
 
     public static void main(String[] args) throws MichaelScottException{
         Scanner myScanner = new Scanner(System.in);
         boolean flag = true;
         ArrayList<Task> todo = new ArrayList<Task>();
+        Task task;
 
 
         System.out.println("Running MichaelScott.exe");
@@ -44,7 +58,7 @@ public class MichaelScott {
                         if (index > todo.size() - 1 || index < 0) {
                             throw new MichaelScottException("Please provide a task in range");
                         }
-                        Task task = todo.get(index);
+                        task = todo.get(index);
                         task.completeTask();
                         printLine();
                         System.out.println("Nice! I've marked this task as done:");
@@ -65,7 +79,7 @@ public class MichaelScott {
                         if (index > todo.size() - 1 || index < 0) {
                             throw new MichaelScottException("Please provide a task in range");
                         }
-                        Task task = todo.get(index);
+                        task = todo.get(index);
                         task.undoTask();
                         printLine();
                         System.out.println("OK, I've marked this task as not done yet:");
@@ -88,7 +102,7 @@ public class MichaelScott {
                             throw new MichaelScottException("Please provide a task in range");
                         }
 
-                        Task task = todo.get(index);
+                        task = todo.get(index);
                         todo.remove(index);
                         printLine();
                         System.out.println("Noted. I've removed this task:");
@@ -106,8 +120,8 @@ public class MichaelScott {
                         if (parts.length < 2 || parts[1].isBlank()) {
                             throw new MichaelScottException("Please specify the task you intend to do.");
                         }
-
-                        todo.add(new Todo(parts[1]));
+                        task = new Todo(parts[1]);
+                        todo.add(task);
                         printLine();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("    " + todo.get(todo.size() - 1).toString());
@@ -120,7 +134,6 @@ public class MichaelScott {
                     }
                 }
                 case "deadline" -> {
-
                     try {
                         if (parts.length < 2 || parts[1].isBlank()) {
                             throw new MichaelScottException("Please specify the task and its deadline after the command");
@@ -129,8 +142,8 @@ public class MichaelScott {
                         if (deadlineParts.length < 2) {
                             throw new MichaelScottException("Please specify the deadline");
                         }
-
-                        todo.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                        task = new Deadline(deadlineParts[0], deadlineParts[1]);
+                        todo.add(task);
                         printLine();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("    " + todo.get(todo.size() - 1).toString());
@@ -151,7 +164,8 @@ public class MichaelScott {
                         if (eventParts.length != 3) {
                             throw new MichaelScottException("Please specify description, start-time and end-time");
                         }
-                        todo.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                        task = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                        todo.add(task);
                         printLine();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("    " + todo.get(todo.size() - 1).toString());
@@ -172,6 +186,11 @@ public class MichaelScott {
                         printLine();
                     }
                 }
+            }
+            try {
+                saveList(todo, DEFAULTNAME);
+            } catch (IOException e) {
+                System.out.println("Something unexpected occurred: "+ e.getMessage());
             }
 
         }
