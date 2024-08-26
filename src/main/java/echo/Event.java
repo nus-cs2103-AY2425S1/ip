@@ -32,6 +32,7 @@ public class Event extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[E]" + super.toString() + " (from: "
+                + this.startTime + " to: " + this.endTime + ")";
     }
 }

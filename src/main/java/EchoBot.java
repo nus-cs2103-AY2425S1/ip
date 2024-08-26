@@ -27,6 +27,8 @@ public class EchoBot {
      */
     public void run() {
         boolean isExit = false;
+
+        // parse the user input iteratively
         while (!isExit) {
             String userInput = this.scanner.nextLine();
             ui.showLine();
