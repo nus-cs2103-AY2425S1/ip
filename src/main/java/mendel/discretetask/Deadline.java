@@ -4,16 +4,26 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Deadline extends Task {
-    public Deadline(String description) {
-        super(description);
+    public Deadline(String description, String by) {
+        super(String.format("%s (by: %s)", description, by));
     }
 
     public static Deadline of(String rawDescription) {
-        String description = parseDescription(rawDescription);
-        return new Deadline(description);
+        String[] descriptionLst = parseDescription(rawDescription);
+        return new Deadline(descriptionLst[0], descriptionLst[1]);
     }
 
-    private static String parseDescription(String rawDescription) {
+    public static Deadline loadOf(boolean mark, String description, String by) {
+        Deadline initObj = new Deadline(description, by);
+        if (mark) {
+            initObj.markAsDone();
+        } else {
+            initObj.markAsUnDone();
+        }
+        return initObj;
+    }
+
+    private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /by ");
         String[] mainMessage = slashSegments[0].split(" ");
@@ -26,8 +36,8 @@ public class Deadline extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        reformattedMsg += String.format(" (by: %s)", endMsg);
-        return reformattedMsg;
+//        reformattedMsg += String.format(" (by: %s)", endMsg);
+        return new String[]{reformattedMsg, endMsg};
     }
 
     private static void handleError(String rawDescription) throws MendelException {

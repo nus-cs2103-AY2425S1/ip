@@ -62,6 +62,11 @@ public class TaskStorage extends MendelAction{
         System.out.println(new FormatText(outputMessage).wrapLines());
     }
 
+    public void silencedAdd(Task element) {
+        this.messages.add(element);
+        this.counter++;
+    }
+
     public void speak() {
         String outputMessage = String.format("Here are the tasks in your list:\n%s",
                 this);

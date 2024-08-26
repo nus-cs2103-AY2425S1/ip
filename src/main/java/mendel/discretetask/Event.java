@@ -4,16 +4,26 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Event extends Task {
-    private Event(String description) {
-        super(description);
+    private Event(String description, String from, String to) {
+        super(String.format("%s (from: %s to %s)", description, from, to));
     }
 
     public static Event of(String rawDescription) {
-        String description = parseDescription(rawDescription);
-        return new Event(description);
+        String[] description = parseDescription(rawDescription);
+        return new Event(description[0], description[1], description[2]);
     }
 
-    private static String parseDescription(String rawDescription) {
+    public static Event loadOf(boolean mark, String description, String from, String to) {
+        Event initObj = new Event(description, from, to);
+        if (mark) {
+            initObj.markAsDone();
+        } else {
+            initObj.markAsUnDone();
+        }
+        return initObj;
+    }
+
+    private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
@@ -27,8 +37,8 @@ public class Event extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        reformattedMsg += String.format(" (from: %s to %s)", startMsg, endMsg);
-        return reformattedMsg;
+//        reformattedMsg += String.format(" (from: %s to %s)", startMsg, endMsg);
+        return new String[]{reformattedMsg, startMsg, endMsg};
     }
 
     private static void handleError(String rawDescription) throws MendelException {

@@ -4,16 +4,29 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Todo extends Task {
+    private String detail;
+
     private Todo(String description) {
         super(description);
+        this.detail = description;
     }
 
     public static Todo of(String rawDescription) {
-        String description = parseDescription(rawDescription);
-        return new Todo(description);
+        String[] descriptionLst = parseDescription(rawDescription);
+        return new Todo(descriptionLst[0]);
     }
 
-    private static String parseDescription(String rawDescription) {
+    public static Todo loadOf(boolean mark, String description) {
+        Todo initObj = new Todo(description);
+        if (mark) {
+            initObj.markAsDone();
+        } else {
+            initObj.markAsUnDone();
+        }
+        return initObj;
+    }
+
+    private static String[] parseDescription(String rawDescription) {
         handleError(rawDescription);
         String[] segments = rawDescription.split(" ");
         String reformattedMsg = "";
@@ -24,7 +37,7 @@ public class Todo extends Task {
                 reformattedMsg += segments[i] + " ";
             }
         }
-        return reformattedMsg;
+        return new String[]{reformattedMsg};
     }
 
     private static void handleError(String rawDescription) throws MendelException {
