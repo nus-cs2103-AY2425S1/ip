@@ -55,7 +55,7 @@ public class Velma {
 
         try (FileWriter writer = new FileWriter("/Users/zeonchew04/ip/data/velma.txt")) {
             for (Task task : list) {
-                writer.write(task.toFileFormat() + System.lineSeparator());
+                writer.write(task.toString() + System.lineSeparator());
             }
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks: " + e.getMessage());
@@ -65,32 +65,45 @@ public class Velma {
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File("/Users/zeonchew04/ip/data/velma.txt");
+        if (!file.exists()) {
+            System.out.println("No previous tasks found.");
+            return list;
+        }
+
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(" \\| ");
+                String[] parts = line.split(" ", 3);
                 Task task;
-                switch (parts[0]) {
-                    case "T":
+                switch (parts[0].charAt(1)) { // Extract task type from the string
+                    case 'T':
                         task = new Todo(parts[2]);
                         break;
-                    case "D":
-                        task = new Deadline(parts[2], parts[3]);
+                    case 'D':
+                        String[] deadlineParts = parts[2].split(" \\(by: ", 2);
+                        String deadlineDescription = deadlineParts[0];
+                        String by = deadlineParts[1].substring(0, deadlineParts[1].length() - 1); // Remove closing parenthesis
+                        task = new Deadline(deadlineDescription, by);
                         break;
-                    case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
+                    case 'E':
+                        String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
+                        String eventDescription = eventParts[0];
+                        String startTime = eventParts[1];
+                        String endTime = eventParts[2].substring(0, eventParts[2].length() - 1); // Remove closing parenthesis
+                        task = new Event(eventDescription, startTime, endTime);
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown task type: " + parts[0]);
                 }
-                if (parts[1].equals("1")) {
+                if (parts[1].equals("[X]")) {
                     task.changeIsDone();
                 }
                 list.add(task);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No previous tasks found.");
+            System.out.println("An error occurred while loading tasks.");
         }
+        System.out.println(list);
         return list;
     }
 

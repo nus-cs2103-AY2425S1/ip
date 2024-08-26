@@ -14,8 +14,4 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
     }
 
-    @Override
-    public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startTime + " | " + endTime;
-    }
 }
