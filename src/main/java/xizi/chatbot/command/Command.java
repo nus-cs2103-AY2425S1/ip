@@ -1,9 +1,9 @@
-package xizi.command;
+package xizi.chatbot.command;
 
-import xizi.Storage;
-import xizi.task.TaskList;
-import xizi.Ui;
-import xizi.XiziException;
+import xizi.chatbot.Storage;
+import xizi.chatbot.task.TaskList;
+import xizi.chatbot.Ui;
+import xizi.chatbot.XiziException;
 
 import java.io.IOException;
 

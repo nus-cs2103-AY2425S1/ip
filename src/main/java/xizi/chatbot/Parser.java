@@ -1,7 +1,7 @@
-package xizi;
+package xizi.chatbot;
 
-import xizi.command.*;
-import xizi.task.TaskList;
+import xizi.chatbot.command.*;
+import xizi.chatbot.task.TaskList;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

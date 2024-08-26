@@ -1,4 +1,4 @@
-package xizi.task;
+package xizi.chatbot.task;
 
 public abstract class Task {
     String name;

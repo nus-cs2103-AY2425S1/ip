@@ -1,12 +1,12 @@
-package xizi.command;
+package xizi.chatbot.command;
 
-import xizi.task.Event;
-import xizi.XiziException;
-import xizi.Parser;
-import xizi.task.TaskList;
-import xizi.Storage;
-import xizi.Ui;
-import xizi.task.Task;
+import xizi.chatbot.task.Event;
+import xizi.chatbot.XiziException;
+import xizi.chatbot.Parser;
+import xizi.chatbot.task.TaskList;
+import xizi.chatbot.Storage;
+import xizi.chatbot.Ui;
+import xizi.chatbot.task.Task;
 
 import java.io.IOException;
 import java.util.regex.Matcher;

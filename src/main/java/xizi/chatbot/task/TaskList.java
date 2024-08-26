@@ -1,4 +1,4 @@
-package xizi.task;
+package xizi.chatbot.task;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package xizi.command;
+package xizi.chatbot.command;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

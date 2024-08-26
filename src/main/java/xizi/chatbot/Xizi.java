@@ -1,8 +1,8 @@
-package xizi;//https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
+package xizi.chatbot;//https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
 
-import xizi.command.Command;
-import xizi.task.Task;
-import xizi.task.TaskList;
+import xizi.chatbot.command.Command;
+import xizi.chatbot.task.Task;
+import xizi.chatbot.task.TaskList;
 
 import java.io.IOException;
 import java.util.List;

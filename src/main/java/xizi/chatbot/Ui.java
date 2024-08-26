@@ -1,6 +1,6 @@
-package xizi;
+package xizi.chatbot;
 
-import xizi.task.TaskList;
+import xizi.chatbot.task.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;

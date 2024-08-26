@@ -1,8 +1,8 @@
-package xizi;// Do not use wildcard imports
-import xizi.task.Deadline;
-import xizi.task.Event;
-import xizi.task.Task;
-import xizi.task.Todo;
+package xizi.chatbot;// Do not use wildcard imports
+import xizi.chatbot.task.Deadline;
+import xizi.chatbot.task.Event;
+import xizi.chatbot.task.Task;
+import xizi.chatbot.task.Todo;
 
 import java.io.IOException;
 import java.io.BufferedReader;
