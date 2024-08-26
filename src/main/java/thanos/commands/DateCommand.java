@@ -12,21 +12,19 @@ import thanos.ui.Ui;
 import thanos.utility.DateTimeUtility;
 
 public class DateCommand extends Command {
-    private final String input;
-
-    public DateCommand(String input) {
-        this.input = input;
+    public DateCommand(String argument) {
+        super(argument);
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
-        if (this.input.isEmpty()) {
+        if (this.getArgument().isEmpty()) {
             throw new InvalidCommandException(
                     "No date provided. Please use the correct format: 'date [date_to_search]'"
             );
         }
 
-        LocalDateTime date = DateTimeUtility.parse(this.input);
+        LocalDateTime date = DateTimeUtility.parse(this.getArgument());
         if (date == null) {
             return;
         }

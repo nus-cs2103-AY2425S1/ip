@@ -3,13 +3,13 @@ package thanos.tasks;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import thanos.storage.Storage;
+import thanos.storage.IStorage;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
-    private final Storage storage;
+    private final IStorage storage;
 
-    public TaskList(Storage storage) {
+    public TaskList(IStorage storage) {
         this.tasks = storage.load();
         this.storage = storage;
     }
@@ -46,7 +46,6 @@ public class TaskList {
         Task task = this.tasks.remove(index);
         this.storage.save(this.tasks);
         return task;
-
     }
 
     public ArrayList<Task> findByDate(LocalDateTime date) {

@@ -25,7 +25,7 @@ public class Parser {
 
         switch (commandType) {
         case BYE:
-            return new ByeCommand();
+            return new ByeCommand(argument);
         case DATE:
             return new DateCommand(argument);
         case DEADLINE:
@@ -35,7 +35,7 @@ public class Parser {
         case EVENT:
             return new EventCommand(argument);
         case LIST:
-            return new ListCommand();
+            return new ListCommand(argument);
         case MARK:
             return new MarkCommand(argument);
         case TODO:
