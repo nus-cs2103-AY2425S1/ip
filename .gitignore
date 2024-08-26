@@ -20,5 +20,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 *.class
 
 # Ignore the data file
-./data/silverwolf.txt
+data/silverwolf.txt
 

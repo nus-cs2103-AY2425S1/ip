@@ -61,41 +61,46 @@ public class SilverWolf {
      *
      */
     private static void parseTask(){
-        String[] data = storage.readFile().split(System.getProperty("line.separator"));
-        for(String task : data){
-            String[] parts = task.split(" \\| ");
-            TaskType type = TaskType.fromString(parts[0]);
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
 
-            switch(type){
-            case TODO:
-                Todo todo = new Todo(description);
-                if(isDone) {
-                    todo.markAsDone();
+        String fileContent = storage.readFile();
+
+        if(fileContent != null) {
+            String[] data = fileContent.split(System.getProperty("line.separator"));
+            for (String task : data) {
+                String[] parts = task.split(" \\| ");
+                TaskType type = TaskType.fromString(parts[0]);
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (type) {
+                case TODO:
+                    Todo todo = new Todo(description);
+                    if (isDone) {
+                        todo.markAsDone();
+                    }
+                    lists.add(todo);
+                    break;
+                case DEADLINE:
+                    String by = parts[3];
+                    Deadline deadline = new Deadline(description, by);
+                    if (isDone) {
+                        deadline.markAsDone();
+                    }
+                    lists.add(deadline);
+                    break;
+                case EVENT:
+                    String[] eventTimes = parts[3].split("-");
+                    String from = eventTimes[0];
+                    String to = eventTimes[1];
+                    Event event = new Event(description, from, to);
+                    if (isDone) {
+                        event.markAsDone();
+                    }
+                    lists.add(event);
+                    break;
+                default:
+                    System.out.println("Invalid task type: " + type);
                 }
-                lists.add(todo);
-                break;
-            case DEADLINE:
-                String by = parts[3];
-                Deadline deadline = new Deadline(description, by);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
-                lists.add(deadline);
-                break;
-            case EVENT:
-                String[] eventTimes = parts[3].split("-");
-                String from = eventTimes[0];
-                String to = eventTimes[1];
-                Event event = new Event(description, from, to);
-                if (isDone) {
-                    event.markAsDone();
-                }
-                lists.add(event);
-                break;
-            default:
-                System.out.println("Invalid task type: " + type);
             }
         }
     }
