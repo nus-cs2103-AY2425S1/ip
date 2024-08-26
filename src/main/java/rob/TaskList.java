@@ -41,4 +41,25 @@ public class TaskList {
         taskList.remove(i);
     }
 
+    /**
+     * Searches for tasks containing the specified keyword.
+     * Returns a list of tasks that contain the keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that contain the specified keyword in their descriptions.
+     * @throws DukeException If an error occurs while processing the tasks.
+     */
+    public List<Task> searchTasks(String keyword) throws DukeException {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            String line = task.toSaveString();
+            String[] parts = line.split(" \\| ", 5);
+            String desc = parts[2].trim();
+
+            if (desc.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

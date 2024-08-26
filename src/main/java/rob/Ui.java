@@ -81,6 +81,7 @@ public class Ui {
         if (taskList.getTask(taskNum - 1).isDone) {
             System.out.println("Already done!");
         } else {
+            taskList.getTask(taskNum - 1).markAsDone();
             String marked = "____________________________________________________________\n" +
                     "Nice! I've marked this task as done:\n" + taskList.getTask(taskNum - 1) + "\n" +
                     "____________________________________________________________\n";
@@ -99,6 +100,7 @@ public class Ui {
         if (!taskList.getTask(taskNum - 1).isDone) {
             System.out.println("Already unmarked!");
         } else {
+            taskList.getTask(taskNum - 1).unmark();
             String unmarked = "____________________________________________________________\n" +
                     "OK, I've marked this task as not done yet:\n" + taskList.getTask(taskNum - 1) + "\n" +
                     "____________________________________________________________\n";
