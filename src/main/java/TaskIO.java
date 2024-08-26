@@ -187,7 +187,8 @@ public class TaskIO {
             taskList.addTask(incomingTask);
             break;
         default:
-            throw new DenimException("Unknown Formatting in data/denim.txt");
+            throw new DenimException("Unknown Formatting or Corrupted data in data/denim.txt. " +
+                    "Delete file to resume. Terminating.\n ");
         }
     }
 }
