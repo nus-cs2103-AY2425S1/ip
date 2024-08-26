@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class DemureBot {
     private static TaskList list;
     private static Storage storage;
+    private static Ui ui;
 
     /**
      * Checks if user command is valid and executes the command.
@@ -23,12 +24,7 @@ public class DemureBot {
                 int index = Integer.parseInt(remainder) - 1;
                 Task task = list.getTask(index);
                 task.markAsDone();
-                System.out.println("____________________________________________________________\n" +
-                    " Nice! I've marked this task as done:\n   " +
-                    task + "\n" +
-                    "____________________________________________________________\n" +
-                    "\n"
-                );
+                DemureBot.ui.displayMarkTask(task);
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a positive integer after mark.\n");
             } catch (IndexOutOfBoundsException e) {
@@ -44,12 +40,7 @@ public class DemureBot {
                 int index = Integer.parseInt(remainder) - 1;
                 Task task = list.getTask(index);
                 task.unmark();
-                System.out.println("____________________________________________________________\n" +
-                    " OK, I've marked this task as not done yet:\n   " +
-                    task + "\n" +
-                    "____________________________________________________________\n" +
-                    "\n"
-                );
+                DemureBot.ui.displayUnmarkTask(task);
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a positive integer after unmark.\n");
             } catch (IndexOutOfBoundsException e) {
@@ -65,13 +56,7 @@ public class DemureBot {
                 int index = Integer.parseInt(remainder) - 1;
                 Task task = list.getTask(index);
                 list.removeTask(index);
-                System.out.println("____________________________________________________________\n" +
-                    " Noted. I've removed this task:\n   " +
-                    task + "\n" +
-                    "Now you have " + list.getSize() + " tasks in the list.\n" +
-                    "____________________________________________________________\n" +
-                    "\n"
-                );
+                DemureBot.ui.displayDeleteTask(task, list.getSize());
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a positive integer after delete.\n");
             } catch (IndexOutOfBoundsException e) {
@@ -89,33 +74,15 @@ public class DemureBot {
             }
             Todo todo = new Todo(description, false);
             list.addTask(todo);
-            System.out.println("____________________________________________________________\n" +
-                "Got it. I've added this task:\n  " +
-                todo + "\n" +
-                "Now you have " + list.getSize() + " tasks in the list.\n" +
-                "____________________________________________________________\n" +
-                "\n"
-            );
+            DemureBot.ui.displayAddTask(todo, list.getSize());
         } else if (command.startsWith("deadline")) {
             Deadline deadline = getDeadline(command);
             list.addTask(deadline);
-            System.out.println("____________________________________________________________\n" +
-                "Got it. I've added this task:\n  " +
-                deadline + "\n" +
-                "Now you have " + list.getSize() + " tasks in the list.\n" +
-                "____________________________________________________________\n" +
-                "\n"
-            );
+            DemureBot.ui.displayAddTask(deadline, list.getSize());
         } else if (command.startsWith("event")) {
             Event event = getEvent(command);
             list.addTask(event);
-            System.out.println("____________________________________________________________\n" +
-                "Got it. I've added this task:\n  " +
-                event + "\n" +
-                "Now you have " + list.getSize() + " tasks in the list.\n" +
-                "____________________________________________________________\n" +
-                "\n"
-            );
+            DemureBot.ui.displayAddTask(event, list.getSize());
         } else {
             // throw invalid command exception
             throw new DemureBotException("Invalid command\nCreate a new task starting with the command todo, deadline or event.\n");
@@ -196,17 +163,11 @@ public class DemureBot {
         // check if user ended session
         boolean isFinished = false;
 
-        // introduction to chatbot
-        System.out.println("""
-            ____________________________________________________________
-             Hello! I'm DemureBot
-             What can I do for you?
-            ____________________________________________________________
-
-            """
-        );
-
         DemureBot.storage = new Storage();
+        DemureBot.ui = new Ui();
+
+        // introduction to chatbot
+        DemureBot.ui.displayStart();
 
         // check if data folder exists if not create it
         String folderPath = "./data";
@@ -256,13 +217,7 @@ public class DemureBot {
 
         // close scanner and end session
         scanner.close();
-        System.out.println("""
-            ____________________________________________________________
-             Bye. Hope to see you again soon!
-            ____________________________________________________________
-
-            """
-        );
+        DemureBot.ui.displayEnd();
 
         // save task list
         DemureBot.storage.save(filePath, DemureBot.list);
