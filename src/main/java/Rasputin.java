@@ -33,12 +33,14 @@ public class Rasputin {
                     case "E":
                         tasks.add(new Event(split[2], split[3], split[4]));
                 }
+                fileReader.close();
+                bufferedReader.close();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Task file not found");
         } catch (IOException e) {
             System.out.println("Error reading file");
-        }
+        } 
 
         return tasks;
     }
@@ -54,7 +56,7 @@ public class Rasputin {
         if (file.exists()) {
             System.out.println("Task file found.");
             ls = readFile(file);
-            
+
         } else {
             System.out.println("Task file not found, creating task file.");
             try {
