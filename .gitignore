@@ -23,6 +23,7 @@ data/
 # Java Files
 *.class
 src/main/java/infinity/compile.bat
+javadocgen.bat
 
 # Git Files
 .gitignore
