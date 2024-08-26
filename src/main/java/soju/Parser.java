@@ -3,7 +3,7 @@ package soju;
 import soju.commands.*;
 
 public class Parser {
-    public Command parse(String input) throws SojuException {
+    public static Command parse(String input) throws SojuException {
         String command = input.split(" ")[0];
         switch (command) {
             case "bye":

@@ -1,6 +1,9 @@
 package soju;
 
+import java.util.Scanner;
+
 public class Ui {
+    Scanner scanner = new Scanner(System.in);
     public void showLoadingError() {
 
     }
@@ -20,9 +23,11 @@ public class Ui {
     public void exit() {
         String exitMessage = "Bye. Hope to see you again soon!";
         System.out.println(exitMessage);
-        printHorizontalLine();
     }
     public void printString(String string) {
         System.out.println(string);
+    }
+    public String readCommand() {
+        return scanner.nextLine();
     }
 }
