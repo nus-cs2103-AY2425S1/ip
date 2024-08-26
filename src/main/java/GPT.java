@@ -1,10 +1,28 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GPT {
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final Path FILE_PATH = Paths.get("data", "tasks.txt");
 
     public static void main(String[] args) {
+        try {
+            if (!Files.exists(FILE_PATH.getParent())) {
+                Files.createDirectories(FILE_PATH.getParent());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating directories: " + e.getMessage());
+        }
+
+        // Load tasks from file
+        loadTasks();
+
         Scanner scanner = new Scanner(System.in);
         String chatbotName = "GPT";
 
@@ -48,6 +66,7 @@ public class GPT {
                         throw new GPTException("The task number is out of range.");
                     }
                     tasks.get(taskNumber).markAsDone();
+                    saveTasks();
                     printLine();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks.get(taskNumber));
@@ -62,6 +81,7 @@ public class GPT {
                         throw new GPTException("The task number is out of range.");
                     }
                     tasks.get(taskNumber).markAsNotDone();
+                    saveTasks();
                     printLine();
                     System.out.println("OK, I've marked this task as not done:");
                     System.out.println("  " + tasks.get(taskNumber));
@@ -85,6 +105,7 @@ public class GPT {
                     }
 
                     Task removedTask = tasks.remove(taskNumber);
+                    saveTasks();
                     printLine();
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + removedTask);
@@ -101,6 +122,7 @@ public class GPT {
                     }
                     Task newTask = new ToDo(description);
                     tasks.add(newTask);
+                    saveTasks();
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask);
@@ -117,6 +139,7 @@ public class GPT {
                     }
                     Task newTask = new Deadline(parts[0].trim(), parts[1].trim());
                     tasks.add(newTask);
+                    saveTasks();
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask);
@@ -133,6 +156,7 @@ public class GPT {
                     }
                     Task newTask = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
                     tasks.add(newTask);
+                    saveTasks();
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask);
@@ -175,6 +199,53 @@ public class GPT {
             }
         }
         scanner.close();
+    }
+    private static void loadTasks() {
+        if (Files.exists(FILE_PATH)) {
+            try (BufferedReader reader = Files.newBufferedReader(FILE_PATH)) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(" \\| ");
+                    String taskType = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+
+                    Task task;
+                    if (taskType.equals("T")) {
+                        task = new ToDo(description);
+                    } else if (taskType.equals("D")) {
+                        String by = parts[3];
+                        task = new Deadline(description, by);
+                    } else if (taskType.equals("E")) {
+                        String from = parts[3];
+                        String to = parts[4];
+                        task = new Event(description, from, to);
+                    } else {
+                        System.out.println("Unknown task type: " + taskType);
+                        continue;
+                    }
+
+                    if (isDone) {
+                        task.markAsDone();
+                    }
+
+                    tasks.add(task);
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while loading tasks: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void saveTasks() {
+        try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+        }
     }
 
     private static void printLine() {

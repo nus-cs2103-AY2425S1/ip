@@ -25,6 +25,13 @@ abstract class Task {
         return type;
     }
 
+    public String toFileFormat() {
+        return String.format("%s | %d | %s",
+                this.getClass().getSimpleName().charAt(0),
+                isDone ? 1 : 0,
+                description);
+    }
+
     @Override
     public String toString() {
         return "[" + type.name().charAt(0) + "][" + getStatusIcon() + "] " + description;
