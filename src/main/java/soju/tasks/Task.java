@@ -18,7 +18,6 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
-
     /**
      * Returns a status icon representing whether the task is done or not.
      * The icon is "X" if the task is done, and " " (a space) if the task is not done.
@@ -27,6 +26,14 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task as a string.
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**

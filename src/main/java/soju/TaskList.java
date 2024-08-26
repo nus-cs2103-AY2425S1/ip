@@ -92,7 +92,6 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
-
     /**
      * Returns a string representation of the task list.
      * Each task is listed with its position number and description.
@@ -105,4 +104,19 @@ public class TaskList {
                 .map(task -> (tasks.indexOf(task) + 1) + "." + task)
                 .collect(Collectors.joining("\n"));
     }
+
+    /**
+     * Finds and returns a string representation of tasks that contain the specified keyword in their description.
+     * Each matching task is listed with its position number and description.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A string representation of matching tasks, where each task is prefixed with its position number.
+     *         Returns an empty string if no tasks match the keyword.
+     */
+    public String findMatchingTasks(String keyword) {
+        return tasks.stream().filter(task -> task.getDescription().contains(keyword))
+                .map(task -> (tasks.indexOf(task) + 1) + "." + task)
+                .collect(Collectors.joining("\n"));
+    }
+
 }

@@ -25,6 +25,7 @@ public class Parser {
             case "todo" -> new TodoCommand(input);
             case "deadline" -> new DeadlineCommand(input);
             case "event" -> new EventCommand(input);
+            case "find" -> new FindCommand(input);
             default -> throw new SojuException("Unknown command, type help to see a list of commands");
         };
     }
