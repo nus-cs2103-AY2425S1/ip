@@ -32,6 +32,10 @@ unmark
 unmark 4
 unmark 1
 list
+find
+find book
+find read book
+find foo
 delete
 delete 4
 delete 5 3
