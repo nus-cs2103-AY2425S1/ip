@@ -150,6 +150,7 @@ public class TaskList {
                     break;
                 case BYE:
                     System.out.println("Bye. Hope to see you again soon!");
+                    // write a handle command to save the tasks to the file
                     break;
                 default:
                     throw new InvalidCommandException();
