@@ -1,3 +1,5 @@
+package blob;
+
 import java.io.IOException;
 
 public class Blob {

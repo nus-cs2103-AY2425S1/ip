@@ -1,3 +1,5 @@
+package blob;
+
 import java.util.Scanner;
 
 public class Ui {

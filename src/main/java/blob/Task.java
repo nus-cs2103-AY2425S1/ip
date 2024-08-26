@@ -1,3 +1,5 @@
+package blob;
+
 public class Task {
     protected String type;
     protected String name;
