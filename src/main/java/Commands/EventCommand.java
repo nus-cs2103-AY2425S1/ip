@@ -3,6 +3,9 @@ package Commands;
 import Exceptions.AvoException;
 import Tasks.Event;
 import Tasks.TaskManager;
+import Utils.DateTime;
+
+import java.time.LocalDate;
 
 public class EventCommand extends Command {
     private final TaskManager manager;
@@ -15,6 +18,8 @@ public class EventCommand extends Command {
         if (inputs.length < 4) {
             throw new AvoException("OOPS!!! The description of an event cannot be empty.");
         }
-        manager.addTask(new Event(inputs[1], inputs[2], inputs[3]));
+        LocalDate startTime = DateTime.parse(inputs[2]);
+        LocalDate endTime = DateTime.parse(inputs[3]);
+        manager.addTask(new Event(inputs[1], startTime, endTime));
     }
 }

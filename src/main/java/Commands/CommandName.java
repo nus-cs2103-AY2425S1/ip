@@ -7,7 +7,8 @@ public enum CommandName {
     EVENT("event"),
     MARK("mark"),
     UNMARK("unmark"),
-    DELETE("delete");
+    DELETE("delete"),
+    SEARCH_DATE("on");
     private final String commandName;
     CommandName(String commandName) {
         this.commandName = commandName;

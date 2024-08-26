@@ -3,6 +3,9 @@ package Commands;
 import Exceptions.AvoException;
 import Tasks.Deadline;
 import Tasks.TaskManager;
+import Utils.DateTime;
+
+import java.time.LocalDate;
 
 public class DeadlineCommand extends Command {
     private final TaskManager manager;
@@ -15,6 +18,7 @@ public class DeadlineCommand extends Command {
         if (inputs.length < 3) {
             throw new AvoException("OOPS!!! The description of a deadline cannot be empty.");
         }
-        manager.addTask(new Deadline(inputs[1], inputs[2]));
+        LocalDate dueDate = DateTime.parse(inputs[2]);
+        manager.addTask(new Deadline(inputs[1], dueDate));
     }
 }

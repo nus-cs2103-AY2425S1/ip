@@ -1,2 +1,2 @@
-1. [T] [ ] read book
-2. [T] [ ] sweep floor
+1. [D] [ ] return book  (by: Dec 2 2019)
+2. [T] [ ] read book

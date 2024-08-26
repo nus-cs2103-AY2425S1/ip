@@ -1,5 +1,7 @@
 package Tasks;
 
+import java.time.LocalDate;
+
 public abstract class Task {
      private boolean isCompleted;
      private final String name;
@@ -13,6 +15,7 @@ public abstract class Task {
      public void unComplete() {
           isCompleted = false;
      }
+     public boolean isOccuringOnDate(LocalDate date) { return false; }
      @Override
      public String toString() {
           String checkBox = isCompleted ? "[X]" : "[ ]";

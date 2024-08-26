@@ -17,6 +17,7 @@ public class CommandManager {
         commandMap.put(CommandName.DEADLINE.getName(), new DeadlineCommand(manager));
         commandMap.put(CommandName.EVENT.getName(), new EventCommand(manager));
         commandMap.put(CommandName.DELETE.getName(), new DeleteCommand(manager));
+        commandMap.put(CommandName.SEARCH_DATE.getName(), new SearchDateCommand(manager));
         unknownCommand = new UnknownCommand();
     }
     public Command getCommand(String identifier) {

@@ -1,11 +1,13 @@
 package Tasks;
 
 import Tasks.Task;
+import Utils.DateTime;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;
@@ -74,6 +76,14 @@ public class TaskManager {
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    public void getTasksByDate(LocalDate date) {
+        print("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).isOccuringOnDate(date)) {
+                print(getItem(i));
+            }
         }
     }
     @Override
