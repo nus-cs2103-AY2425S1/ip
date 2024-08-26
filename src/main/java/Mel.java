@@ -2,26 +2,28 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Mel {
-    private static final String logo = " __    __        __  \n"
+    private static final String LOGO = " __    __        __  \n"
             + "|   \\/   | ____ |  | \n"
             + "| |\\  /| |/ __ \\|  | \n"
             + "| | \\/ | |  ___/|  | \n"
             + "|_|    |_|\\____||__| ";
-    private static final String line = "____________________________________";
+    private static final String LINE = "____________________________________";
 
     public static void main(String[] args) {
-        System.out.println(logo + "\n" + line + "\n"
+        System.out.println(LOGO + "\n" + LINE + "\n"
                 + "Hihi! Mel here (:\n"
-                + "What you need?\n" + line);
+                + "What you need?\n" + LINE);
+
+        System.out.println();
 
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
 
         while (true) {
             String input = scanner.nextLine();
-            System.out.println(line);
+            System.out.println(LINE);
             if (Objects.equals(input, "bye")) {
-                System.out.println("Buh-bye :)\n" + line);
+                System.out.println("Buh-bye :)\n" + LINE);
                 break;
             } else if (Objects.equals(input, "list")) {
                 storage.printAll();
@@ -37,7 +39,7 @@ public class Mel {
                     System.out.println(e);
                 }
             }
-            System.out.println(line);
+            System.out.println(LINE);
         }
 
     }
