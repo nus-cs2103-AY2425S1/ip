@@ -1,3 +1,5 @@
+package ontos;
+
 import java.util.Scanner;
 
 import ontos.commands.Command;
@@ -45,10 +47,5 @@ public class Ontos {
                 ui.showLine();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Ontos ontos = new Ontos("Ontos");
-        ontos.run();
     }
 }
