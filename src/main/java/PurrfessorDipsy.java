@@ -15,7 +15,6 @@ import Utilities.DateTimeParser;
 
 public class PurrfessorDipsy {
     private static Ui ui;
-    private static ArrayList<Task> taskTable = new ArrayList<>();
     private static boolean isRunning = true; // to allow for a more graceful exit
 
     private static final Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
@@ -167,23 +166,7 @@ public class PurrfessorDipsy {
         }
     }
 
-    private static void deleteTaskAtIndex(int index) throws InvalidCommandException {
-        if (index >= 1 && index <= taskTable.size()) {
-            Task removedTask = taskTable.remove(index - 1); // Adjust for zero-based index
-
-            Storage.saveTasksToLocalDisk(taskTable);
-        } else {
-            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_INDEX);
-        }
-    }
-
     // Other util methods used for performing commands.
-    private static void saveToMemory(Task task) {
-        taskTable.add(task);
-
-        Storage.saveTasksToLocalDisk(taskTable);
-    }
-
     private static void markTaskAsDone(int index) {
         Task task = taskTable.get(index - 1);
         task.markAsDone();
