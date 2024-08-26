@@ -2,6 +2,7 @@ package Task;
 
 import java.time.LocalDate;
 import static Utilities.DateTimeParser.formatDateForDisplay;
+import static Utilities.DateTimeParser.formatDateForStorage;
 
 public class Event extends Task {
     LocalDate start;
@@ -35,8 +36,8 @@ public class Event extends Task {
     @Override
     public String formatToCSV() {
         String res = super.formatToCSV();
-        res += DELIMITER + wrapInQuotes(formatDateForDisplay(start));
-        res += DELIMITER + wrapInQuotes(formatDateForDisplay(end));
+        res += DELIMITER + wrapInQuotes(formatDateForStorage(start));
+        res += DELIMITER + wrapInQuotes(formatDateForStorage(end));
         return res;
     }
 

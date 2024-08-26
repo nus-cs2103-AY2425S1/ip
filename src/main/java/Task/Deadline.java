@@ -2,6 +2,7 @@ package Task;
 
 import java.time.LocalDate;
 import static Utilities.DateTimeParser.formatDateForDisplay;
+import static Utilities.DateTimeParser.formatDateForStorage;
 
 public class Deadline extends Task {
     protected LocalDate by;
@@ -28,7 +29,7 @@ public class Deadline extends Task {
     @Override
     public String formatToCSV() {
         String res = super.formatToCSV();
-        res += DELIMITER + wrapInQuotes(formatDateForDisplay(by));
+        res += DELIMITER + wrapInQuotes(formatDateForStorage(by));
         return res;
     }
 
