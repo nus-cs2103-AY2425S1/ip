@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
-    private static DateTimeFormatter inputDateFormat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     private LocalDateTime deadline;
     public Deadline(String description, LocalDateTime deadline) {
@@ -18,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString() + " | " + deadline.format(inputDateFormat1);
+        return "D | " + super.toFileString() + " | " + deadline.format(fileDateFormat);
 
     }
 }

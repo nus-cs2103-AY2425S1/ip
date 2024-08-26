@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     private static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
-    private static DateTimeFormatter inputDateFormat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     private LocalDateTime from;
     private LocalDateTime to;
@@ -20,7 +20,7 @@ public class Event extends Task {
     }
     @Override
     public String toFileString() {
-        return String.format(String.format("E | " + super.toFileString() + " | " + from.format(inputDateFormat1) + "-"
-                + to.format(inputDateFormat1)));
+        return String.format(String.format("E | " + super.toFileString() + " | " + from.format(fileDateFormat) + "-"
+                + to.format(fileDateFormat)));
     }
 }
