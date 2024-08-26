@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,6 +7,8 @@ import java.util.Scanner;
  * and delete tasks. It supports different types of tasks including ToDos, Deadlines, and Events.
  */
 public class PandaBot {
+
+    private static final String FILE_PATH = "./data/PandaBot.txt";
 
     /**
      * Prints a line separator for visual clarity in the console output.
