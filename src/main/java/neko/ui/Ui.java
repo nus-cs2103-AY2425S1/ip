@@ -1,4 +1,6 @@
-package neko;
+package neko.ui;
+import neko.Parser;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;

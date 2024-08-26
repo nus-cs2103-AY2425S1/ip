@@ -42,7 +42,7 @@ public class Storage {
         fw.close();
     }
 
-    public void rewriteFile(TaskList tasks) throws IOException {
+    public void rewriteFile(TaskList tasks) throws IOException, NekoException {
         FileWriter fw = new FileWriter(filePath, false);
 
         for (int i = 0; i < tasks.size(); i++) {
