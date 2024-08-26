@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Ui {
 
-    private static final String separator = "____________________________________________________________";
-    private static final String greeting = "Hello! I'm Dook.Dook\nWhat can I do for you?\n" + separator;
-    private static final String exit = "Bye. Hope to see you again soon!\n" + separator;
+    private static final String SEPARATOR = "____________________________________________________________";
+    private static final String GREETING = "Hello! I'm Dook\nWhat can I do for you?\n" + SEPARATOR;
+    private static final String EXIT = "Bye. Hope to see you again soon!\n" + SEPARATOR;
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -14,17 +14,17 @@ public class Ui {
     }
 
     public void separate() {
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
     }
 
     public void greet() {
-        System.out.println(separator);
-        System.out.println(greeting);
+        System.out.println(SEPARATOR);
+        System.out.println(GREETING);
     }
 
     public void exit() {
-        System.out.println(separator);
-        System.out.println(exit);
+        System.out.println(SEPARATOR);
+        System.out.println(EXIT);
     }
 
     public String readCommand() {
@@ -36,9 +36,9 @@ public class Ui {
     }
 
     public void errorMessage(String errorMessage) {
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
         System.out.println(errorMessage);
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
     }
 
 }

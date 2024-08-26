@@ -8,7 +8,7 @@ import Dook.DookException;
 
 import java.io.IOException;
 
-public class MarkingCommands extends Command{
+public class MarkingCommands extends Command {
 
     private int taskNumber;
     private boolean isMarked;
@@ -19,8 +19,8 @@ public class MarkingCommands extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DookException, IOException {
-        Task task = taskList.getTask(taskNumber - 1);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
+        Task task = tasks.getTask(taskNumber - 1);
         ui.separate();
         if (this.isMarked) {
             task.markAsDone();
@@ -29,7 +29,7 @@ public class MarkingCommands extends Command{
             task.unmark();
             ui.showMessage("Ok, I've marked this task as not done yet:");
         }
-        storage.write(taskList);
+        storage.write(tasks);
         ui.showMessage(task.toString());
         ui.separate();
     }

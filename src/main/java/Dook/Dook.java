@@ -14,14 +14,14 @@ public class Dook {
 
     private static Ui ui = new Ui();
     private static Storage storage = new Storage("data/Tasks.txt");
-    private static TaskList taskList;
+    private static TaskList tasks;
     private static Parser parser = new Parser();
 
     public static void main(String[] args) {
 
         try {
             storage.setup();
-            taskList = new TaskList(storage.load());
+            tasks = new TaskList(storage.load());
             ui.greet();
 
             boolean isExit = false;
@@ -30,7 +30,7 @@ public class Dook {
 
                 try {
                     Command command = parser.parse(input);
-                    command.execute(taskList, ui, storage);
+                    command.execute(tasks, ui, storage);
                     isExit = command.isExit();
                 } catch (DookException e) {
                     ui.errorMessage(e.getMessage());

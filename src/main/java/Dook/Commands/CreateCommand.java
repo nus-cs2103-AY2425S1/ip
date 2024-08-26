@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
-public class CreateCommand extends Command{
+public class CreateCommand extends Command {
 
     private String description;
     private String start;
@@ -43,7 +43,7 @@ public class CreateCommand extends Command{
         this.type = type;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DookException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
         if (this.description.isEmpty()) {
             throw new DookException("Need a description for your task");
         } else if (type == TaskType.DEADLINE && this.by.isEmpty()) {
@@ -73,13 +73,13 @@ public class CreateCommand extends Command{
                 throw new DookException("Invalid task type");
             }
 
-            taskList.add(task);
-            storage.write(taskList);
+            tasks.add(task);
+            storage.write(tasks);
 
             ui.separate();
             ui.showMessage("Got it. I've added this task:");
             ui.showMessage(task.toString());
-            ui.showMessage("Now you have " + taskList.numOfTasks() + " tasks in the list");
+            ui.showMessage("Now you have " + tasks.numOfTasks() + " tasks in the list");
             ui.separate();
         } catch (DateTimeParseException e) {
             throw new DookException("Invalid date format. Enter your date in dd/MM/yyyy HH:mm format");
