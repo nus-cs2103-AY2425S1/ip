@@ -3,6 +3,9 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
@@ -133,7 +136,7 @@ public class BeeBoo {
         try (FileWriter writer = new FileWriter("./data/beeboo.txt")){
             for (Tasks task: list) {
                 writer.write(task.saveFormat() + System.lineSeparator());
-           }
+            }
         } catch(IOException e) {
             System.out.println("Unable to create file");
         }
@@ -162,13 +165,21 @@ public class BeeBoo {
                             }
                             break;
                         case "D":
-                            newTask = new Deadlines(splitted[2].trim(), splitted[3].trim());
+                            String[]dateTime = splitted[3].split("T");
+                            LocalDateTime dates = LocalDateTime.of(LocalDate.parse(dateTime[0]), LocalTime.parse(dateTime[1]));
+                            newTask = new Deadlines(splitted[2].trim(), dates);
                             if(isDone) {
                                 newTask.markDone();
                             }
                             break;
                         case "E":
-                            newTask = new Events(splitted[2].trim(), splitted[3].trim(), splitted[4].trim());
+                            String[] startDateTime = splitted[3].split("T");
+                            String[] endDateTime = splitted[4].split("T");
+                            LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(startDateTime[0].trim()), LocalTime.parse(startDateTime[1].trim()));
+                            LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(endDateTime[0].trim()), LocalTime.parse(endDateTime[1].trim()));
+
+                            newTask = new Events(splitted[2].trim(), startDate,
+                                    endDate);
                             if(isDone) {
                                 newTask.markDone();
                             }

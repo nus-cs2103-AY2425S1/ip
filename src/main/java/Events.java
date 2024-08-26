@@ -1,8 +1,14 @@
-public class Events extends Tasks {
-    private String startDate;
-    private String endDate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-    public Events(String description, String startDate, String endDate) {
+public class Events extends Tasks {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mm a");
+
+    public Events(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -15,7 +21,7 @@ public class Events extends Tasks {
 
     @Override
     public String toString() {
-        return typeIcon() + super.toString() + "(from: " + startDate + " to: " + endDate + ")";
+        return typeIcon() + super.toString() + "(from: " + FORMATTER.format(startDate) + " to: " + FORMATTER.format(endDate)+ ")";
     }
 
     public static Events CreateEvent(String text) throws InvalidDateException ,NoDescriptionException {
@@ -33,13 +39,17 @@ public class Events extends Tasks {
 
         int startDateEnd = dateSubstring.indexOf('/');
         String startDate = dateSubstring.substring(4, startDateEnd).trim();
+        LocalDateTime startDateTime = TimeConverter.timeConverter(startDate);
 
         String endDateCommand = dateSubstring.substring(startDateEnd + 1);
         if (!endDateCommand.startsWith("to")) {
             throw new InvalidDateException(text);
         }
+
         String endDate = endDateCommand.substring(2).trim();
-        return new Events(description, startDate, endDate);
+        LocalDateTime endDateTime = TimeConverter.timeConverter(endDate);
+
+        return new Events(description, startDateTime, endDateTime);
     }
 
     @Override

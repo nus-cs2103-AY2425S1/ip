@@ -1,8 +1,14 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Tasks {
 
-    private String date;
+    private LocalDateTime date;
+    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mm a");
 
-    public Deadlines(String description, String date) {
+    public Deadlines(String description, LocalDateTime date) {
         super(description);
         this.date = date;
     }
@@ -25,16 +31,18 @@ public class Deadlines extends Tasks {
             throw new InvalidDateException(text);
         }
         String date = dateCommand.substring(2).trim();
-        return new Deadlines(description, date);
+        LocalDateTime dateTime = TimeConverter.timeConverter(date);
+        return new Deadlines(description, dateTime);
     }
 
     @Override
     public String toString() {
-        return typeIcon() + super.toString() + "(by:" + date + ")";
+        return typeIcon() + super.toString() + "(by:" + FORMATTER.format(date)+ ")";
     }
 
     @Override
     protected String saveFormat() {
        return "D | " + (super.isDone ? "1 | " : "0 | ") + description + " | "  + date;
     }
+
 }
