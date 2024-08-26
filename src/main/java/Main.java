@@ -12,7 +12,11 @@ import java.util.Scanner;
 public class Main {
 
     /**
+     * Returns a String array based on user's commands.
+     * First element = a String of Deadline's description.
+     * Second element = a String of Deadline's dueDate (MMM dd yyyy hh:mm a).
      * input date and time format must be "yyyy-mm-dd HH:MM"
+     *
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @return a String[], where first elem = Deadline.description, second elem = Deadline.dueDate.
      */
@@ -40,6 +44,12 @@ public class Main {
     }
 
     /**
+     * Returns a String array based on user's commands.
+     * First element = a String of Event's description.
+     * Second element = a String of Event's startDate (MMM dd yyyy hh:mm a).
+     * Third element = a String of Event's endDate (MMM dd yyyy hh:mm a).
+     * input date and time format must be "yyyy-mm-dd HH:MM"
+     *
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @return a String[], where first elem = Event.description, second elem = Event.startDate, third elem = Event.endDate.
      */
@@ -81,6 +91,10 @@ public class Main {
 
 
     /**
+     * Throws JanetException when,
+     * 1. mark/unmark/delete X, where X cannot be parsed into an Integer.
+     * 2. mark/unmark/delete X, where X can be parsed into an Integer but, is <= 0 or > number of tasks in list.
+     *
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @throws JanetException a custom exception class specific to Janet
      */
@@ -105,12 +119,18 @@ public class Main {
 
 
     /**
+     * Throws JanetException when,
+     * 1. first word in command is not todo/event/deadline/mark/unmark/delete.
+     * 2. mark/unmark/delete and the task number is not specified.
+     * 3. todo/event/deadline and the description is not stated.
+     *
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @throws JanetException a custom exception class specific to Janet
      */
     public static void checkInaccurateCommand(String[] commandDetails) throws JanetException {
         // checks for inaccurate commands 1. rubbish, 2. without any task description, 3. no number for mark/unmark/delete.
-        if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event") || commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete"))) {
+        if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event")
+                || commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete"))) {
             // when the command is gibberish and NOT one of the commands (todo, deadline, event, mark, unmark, delete)
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (commandDetails.length == 1) {
@@ -126,6 +146,10 @@ public class Main {
 
 
     /**
+     * Saves the elements in Janet's listOfTasks into a text file (janet.txt).
+     * Each Task object is saved in the format,
+     * symbol | isDone | description | startDate (if deadline/event)-endDate (if event)
+     *
      * @param listOfTasks the list of tasks (ArrayList<Task>) that Janet has.
      * @throws IOException
      */
@@ -133,7 +157,6 @@ public class Main {
         // using FileWriter to write text into a text file (janet.txt).
         FileWriter fileWriter = new FileWriter("janet.txt");
         for (Task task : listOfTasks) {
-            // task.symbol | task.isDone | task.description | if Deadline/Event, dueDate, start-end
             String marked = (task.isDone()) ? "1" : "0";
             String entry = task.getSymbol() + " | " + marked + " | " + task.getDescription();
             if (task instanceof Deadline) {
@@ -148,6 +171,9 @@ public class Main {
 
 
     /**
+     * Returns an ArrayList<Task> listOfTasks,
+     * each Task object is created based on each line read from janet.txt.
+     *
      * reads the content in janet.txt and loads them into an ArrayList<Task>, returns this ArrayList<Task>
      * @param path a String which represents the relative path to janet.txt in the directory.
      * @return an ArrayList<Task> listOfTasks, that contains Task objects
@@ -161,23 +187,24 @@ public class Main {
 
             while ((line = bufferedReader.readLine()) != null) {
                 Task task = null;
-                char taskSymbol = line.charAt(0);
-                String done = String.valueOf(line.charAt(4));
+                char taskSymbol = line.charAt(0);   // get task symbol
+                String done = String.valueOf(line.charAt(4));   // get mark/unmark value
                 boolean isDone = (done.equals("1"));
+
                 switch (taskSymbol) {
-                    case 'T' -> {
-                        // todo object
-                        task = new ToDo(line.substring(8), "T");
-                        task.setDone(isDone);
-                    }
-                    case 'D' -> {
-                        // deadline object
-                        task = createDeadlineFromJanetTextFile(line, isDone);
-                    }
-                    case 'E' -> {
-                        // event object
-                        task = createEventFromJanetTextFile(line, isDone);
-                    }
+                case 'T' -> {
+                    // todo object
+                    task = new ToDo(line.substring(8), "T");
+                    task.setDone(isDone);
+                }
+                case 'D' -> {
+                    // deadline object
+                    task = createDeadlineFromJanetTextFile(line, isDone);
+                }
+                case 'E' -> {
+                    // event object
+                    task = createEventFromJanetTextFile(line, isDone);
+                }
                 }
                 listOfTasks.add(task);
             }
@@ -191,6 +218,9 @@ public class Main {
 
 
     /**
+     * Returns a Deadline object,
+     * based on a line, containing information about a Deadline, read from janet.txt.
+     *
      * @param line a line of text from the janet.txt file.
      * @param isDone isDone = true if task has been marked else false.
      * @return a new Deadline object created using the parameters.
@@ -201,7 +231,7 @@ public class Main {
 
         // get the due date and convert into LocalDateTime
         String dueDateAndTime = line.substring(line.indexOf("|", 8) + 2);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");   // format String dueDateAndTime is in
         LocalDateTime dueDate = LocalDateTime.parse(dueDateAndTime, formatter);
 
         Deadline deadline = new Deadline(deadlineDescription, "D", dueDate);
@@ -211,6 +241,9 @@ public class Main {
 
 
     /**
+     * Returns an Event object,
+     * based on a line, containing information about an Event, read from janet.txt.
+     *
      * @param line a line of text from the janet.txt file
      * @param isDone isDone = true if task has been marked else false.
      * @return a new Event object created using the parameters.
@@ -221,7 +254,7 @@ public class Main {
 
         // get startDate and convert into LocalDateTime
         String startDateAndTime = line.substring(line.indexOf("|", 8) + 2, line.indexOf("-", line.indexOf("|", 8)));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");   // format String dueDateAndTime is in
         LocalDateTime startDate = LocalDateTime.parse(startDateAndTime, formatter);
 
         // get the endDate and convert into LocalDateTime
