@@ -19,6 +19,7 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) {
         File file = new File(filePath);
         file.getParentFile().mkdirs(); // create directories just in case they don't exist
+
         try (FileWriter writer = new FileWriter(file)) {
             for (Task task : tasks) {
                 writer.write(task.toSaveFormat() + System.lineSeparator());
