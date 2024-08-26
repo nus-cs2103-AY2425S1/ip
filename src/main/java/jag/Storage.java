@@ -89,8 +89,13 @@ public class Storage {
     public void write(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
 
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task task = this.tasks.getTask(i);
+        if (tasks.size() == 0) {
+            fw.close();
+            throw new IOException("No tasks to save :(");
+        }
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.getTask(i);
             fw.write(task.toString() + "\n");
         }
 
