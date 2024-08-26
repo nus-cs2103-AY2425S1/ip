@@ -6,6 +6,8 @@ import java.lang.NumberFormatException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -13,39 +15,32 @@ import java.util.ArrayList;
  * FriendlyBot is a simple task management bot that can list, mark, and unmark tasks.
  */
 public class FriendlyBot {
-    private ArrayList<Task> tasks;
-    private int numTasks;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
     private static final String taskListFilePath = "./data/task_list.txt";
+    private static final String taskListFilePathWithoutFile = "./data";
 
-    public FriendlyBot() {
-        this.tasks = new ArrayList<>();
-        this.numTasks = 0;
-    }
-
-    /**
-     * Prints a horizontal bar for visual separation in the console output.
-     */
-    private static void printHorizontalBar() {
-        System.out.println("    ____________________________________________________________");
+    public FriendlyBot(String filePath, String filePathWithoutFile) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath, filePathWithoutFile);
+        this.tasks = new TaskList(this.storage.load());
     }
 
     /**
      * Prints a farewell message to the console.
      */
     private void exit() {
-        writeToFile();
-        System.out.println("    Bye. Hope to see you again soon!");
+        Command cmd = new ExitCommand();
+        cmd.execute(this.tasks, this.ui, this.storage);
     }
 
     /**
      * Lists all the tasks currently in the task list.
      */
     private void list() {
-        System.out.println("    Here are the tasks in your list:");
-        for (int i = 1; i <= numTasks; i++) {
-            Task task = tasks.get(i - 1);
-            System.out.println("    " + i + "." + task.toString());
-        }
+        Command cmd = new ListCommand();
+        cmd.execute(this.tasks, this.ui, this.storage);
     }
 
     /**
@@ -56,16 +51,10 @@ public class FriendlyBot {
     private void mark(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
-            if (index > numTasks) {
-                System.out.println("    There's no such task yet!");
-            } else {
-                Task task = tasks.get(index - 1);
-                task.markAsDone();
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      " + task.toString());
-            }
+            Command cmd = new MarkCommand(true, index);
+            cmd.execute(this.tasks, this.ui, this.storage);
         } catch (NumberFormatException e) {
-            System.out.println("    Please input a valid task index!");
+            Ui.print("Please input a valid task index!");
         }
     }
 
@@ -77,16 +66,10 @@ public class FriendlyBot {
     private void unmark(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
-            if (index > numTasks) {
-                System.out.println("    There's no such task yet!");
-            } else {
-                Task task = tasks.get(index - 1);
-                task.markAsUndone();
-                System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("      " + task.toString());
-            }
+            Command cmd = new MarkCommand(false, index);
+            cmd.execute(this.tasks, this.ui, this.storage);
         } catch (NumberFormatException e) {
-            System.out.println("    Please input a valid task index!");
+            Ui.print("Please input a valid task index!");
         }
     }
 
@@ -98,23 +81,10 @@ public class FriendlyBot {
     private void delete(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
-            if (index > numTasks) {
-                System.out.println("    There's no such task yet!");
-            } else {
-                Task task = tasks.remove(index - 1);
-                numTasks--;
-                System.out.println("    Noted. I've removed this task:");
-                System.out.println("      " + task.toString());
-                if (numTasks == 1) {
-                    System.out.println("    Now you have 1 task in the list.");
-                } else if (numTasks == 0) {
-                    System.out.println("    You have no more tasks!");
-                } else {
-                    System.out.println("    Now you have " + numTasks + " tasks in the list.");
-                }
-            }
+            DeleteCommand command = new DeleteCommand(index);
+            command.execute(this.tasks, this.ui, this.storage);
         } catch (NumberFormatException e) {
-            System.out.println("    Please input a valid task index!");
+            Ui.print("Please input a valid task index!");
         }
     }
 
@@ -125,19 +95,11 @@ public class FriendlyBot {
      */
     private void createTodo(String response) {
         try {
-            String input = response.split("todo ", 2)[1];
-            Task newTask = new ToDo(input);
-            tasks.add(newTask);
-            numTasks++;
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("      " + newTask.toString());
-            if (numTasks == 1) {
-                System.out.println("    Now you have " + numTasks + " task in the list.");
-            } else {
-                System.out.println("    Now you have " + numTasks + " tasks in the list.");
-            }
+            String taskDescription = response.split("todo ", 2)[1];
+            Command cmd = new AddCommand("todo", taskDescription);
+            cmd.execute(this.tasks, this.ui, this.storage);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("    Please follow this format: todo {task_description}");
+            Ui.print("Please follow this format: todo {task_description}");
         }
     }
 
@@ -154,21 +116,15 @@ public class FriendlyBot {
             try {
                 date = LocalDate.parse(descriptions[1]);
             } catch (DateTimeParseException e) {
-                System.out.println("    Please enter a valid date! (YYYY-MM-DD)");
+                Ui.print("Please enter a valid date! (YYYY-MM-DD)");
                 return;
             }
-            Task newTask = new Deadline(descriptions[0], date);
-            tasks.add(newTask);
-            numTasks++;
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("      " + newTask.toString());
-            if (numTasks == 1) {
-                System.out.println("    Now you have " + numTasks + " task in the list.");
-            } else {
-                System.out.println("    Now you have " + numTasks + " tasks in the list.");
-            }
+            String taskDescription = descriptions[0];
+            Command cmd = new AddCommand("deadline", taskDescription, date);
+            cmd.execute(this.tasks, this.ui, this.storage);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("    Please follow this format: deadline {task_description} /by {date (DDDD-MM-YY)}");
+            Ui.print("Please follow this format: deadline {task_description} /by {date}");
+            Ui.print("Date must be in YYYY-MM-DD format!");
         }
     }
 
@@ -187,21 +143,15 @@ public class FriendlyBot {
                 from = LocalDate.parse(descriptions[1]);
                 to = LocalDate.parse(descriptions[2]);
             } catch (DateTimeParseException e) {
-                System.out.println("    Please enter a valid date! (YYYY-MM-DD)");
+                Ui.print("Please enter a valid date! (YYYY-MM-DD)");
                 return;
             }
-            Task newTask = new Event(descriptions[0], from, to);
-            tasks.add(newTask);
-            numTasks++;
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("      " + newTask.toString());
-            if (numTasks == 1) {
-                System.out.println("    Now you have " + numTasks + " task in the list.");
-            } else {
-                System.out.println("    Now you have " + numTasks + " tasks in the list.");
-            }
+            String taskDescription = descriptions[0];
+            Command cmd = new AddCommand("event", taskDescription, from, to);
+            cmd.execute(this.tasks, this.ui, this.storage);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("    Please follow this format: event {task_description} /from {date} /to {date}");
+            Ui.print("Please follow this format: event {task_description} /from {date} /to {date}");
+            Ui.print("Date must be in YYYY-MM-DD format!");
         }
     }
 
@@ -210,20 +160,11 @@ public class FriendlyBot {
         try {
             date = LocalDate.parse(response.split("date ", 2)[1]);
         } catch (DateTimeParseException e) {
-            System.out.println("    Please enter a valid date! (YYYY-MM-DD)");
+            Ui.print("Please enter a valid date! (YYYY-MM-DD)");
             return;
         }
-        for (Task task : this.tasks) {
-            if (task instanceof Deadline d) {
-                if (d.by.equals(date)) {
-                    System.out.println("    " + task.toString());
-                }
-            } else if (task instanceof Event e) {
-                if (e.from.equals(date) || e.to.equals(date) || (e.from.isBefore(date) && e.to.isAfter(date))) {
-                    System.out.println("    " + task.toString());
-                }
-            }
-        }
+        Command cmd = new DateCommand(date);
+        cmd.execute(this.tasks, this.ui, this.storage);
     }
 
     private void handleCommand(String command) {
@@ -246,84 +187,8 @@ public class FriendlyBot {
         } else if (command.startsWith("date")) {
             this.listEventsOnDate(command);
         } else {
-            System.out.println("    OOPS!! I'm sorry, that's not a command :-(");
+            Ui.print("OOPS!! I'm sorry, that's not a command :-(");
         }
-    }
-
-    private void writeToFile() {
-        try {
-            FileWriter fw = new FileWriter(taskListFilePath);
-            StringBuilder sb = new StringBuilder();
-            for (Task task : this.tasks) {
-                if (task instanceof ToDo) {
-                    sb.append("T | ");
-                } else if (task instanceof Deadline) {
-                    sb.append("D | ");
-                } else {
-                    sb.append("E | ");
-                }
-                if (task.isDone) {
-                    sb.append("1 | ");
-                } else {
-                    sb.append("0 | ");
-                }
-                sb.append(task.description);
-                if (task instanceof Deadline) {
-                    sb.append(" | ").append(((Deadline) task).by);
-                } else if (task instanceof Event e) {
-                    sb.append(" | ").append(e.from).append(" | ").append(e.to);
-                }
-                sb.append("\n");
-            }
-            fw.write(sb.toString());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("    Something went wrong: " + e.getMessage());
-        }
-    }
-
-    private void readFromFile() {
-        try {
-            File f = new File(taskListFilePath);
-            if (!f.createNewFile()) {
-                Scanner fileReader = new Scanner(f);
-                while (fileReader.hasNext()) {
-                    // task is in format {type of task} | {0 if not completed, else 1} | {name of task}
-                    // | {other task attributes}
-                    String task = fileReader.nextLine();
-                    try {
-                        Task newTask = getTask(task);
-                        this.tasks.add(newTask);
-                        this.numTasks++;
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("    Task is not in the expected format: " + task);
-                        System.out.println("    Removed from task list!");
-                    }
-                }
-                fileReader.close();
-            }
-        } catch (IOException e) {
-            System.out.println("    An error occurred: " + e.getMessage());
-        }
-    }
-
-    private static Task getTask(String task) {
-        String[] taskItems = task.split(" \\| ");
-        String taskType = taskItems[0];
-        String completed = taskItems[1];
-        String taskDescription = taskItems[2];
-        Task newTask;
-        if (taskType.equals("T")) {
-            newTask = new ToDo(taskDescription);
-        } else if (taskType.equals("D")) {
-            newTask = new Deadline(taskDescription, LocalDate.parse(taskItems[3]));
-        } else {
-            newTask = new Event(taskDescription, LocalDate.parse(taskItems[3]), LocalDate.parse(taskItems[4]));
-        }
-        if (completed.equals("1")) {
-            newTask.markAsDone();
-        }
-        return newTask;
     }
 
     /**
@@ -332,23 +197,21 @@ public class FriendlyBot {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        FriendlyBot friendlyBot = new FriendlyBot();
-        // Read file
-        friendlyBot.readFromFile();
+        FriendlyBot friendlyBot = new FriendlyBot(taskListFilePath, taskListFilePathWithoutFile);
         // Initialise variables
         Scanner reader = new Scanner(System.in);
         // Start of Chat Bot
-        FriendlyBot.printHorizontalBar();
-        System.out.println("    Hello! I'm Friendly Bot");
-        System.out.println("    What can I do for you?");
-        FriendlyBot.printHorizontalBar();
+        friendlyBot.ui.showWelcome();
         String response = "";
+        boolean isExit = false;
         // Commands
-        while (!response.equals("bye")) {
+        while (!isExit) {
             response = reader.nextLine();
-            FriendlyBot.printHorizontalBar();
-            friendlyBot.handleCommand(response);
-            FriendlyBot.printHorizontalBar();
+            friendlyBot.ui.printHorizontalBar();
+            Command cmd = Parser.parse(response);
+            cmd.execute(friendlyBot.tasks, friendlyBot.ui, friendlyBot.storage);
+            isExit = cmd.isExit();
+            friendlyBot.ui.printHorizontalBar();
         }
         reader.close();
     }
