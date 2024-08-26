@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Gale {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private ArrayList<String> taskList;
+    private ArrayList<Task> taskList;
 
     public Gale() {
         this.taskList = new ArrayList<>();
@@ -24,6 +24,12 @@ public class Gale {
                 break;
             } else if (input.equalsIgnoreCase("list")) {
                 listTasks();
+            } else if (input.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                markTask(taskIndex, true);
+            } else if (input.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                markTask(taskIndex, false);
             } else {
                 addToTasks(input);
             }
@@ -38,10 +44,11 @@ public class Gale {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void addToTasks(String task) {
-        taskList.add(task);
+    public void addToTasks(String description) {
+        Task newTask = new Task(description);
+        taskList.add(newTask);
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Whoosh! Task \"" + task + "\" added to my windy memory.");
+        System.out.println("Whoosh! Task \"" + newTask.toString() + "\" added to my windy memory.");
         System.out.println("Anything else?");
         System.out.println(HORIZONTAL_LINE);
     }
@@ -58,6 +65,25 @@ public class Gale {
         }
         System.out.println(HORIZONTAL_LINE);
     }
+    public void markTask(int index, boolean isDone) {
+        if (index >= 0 && index < taskList.size()) {
+            Task task = taskList.get(index);
+            if (isDone) {
+                task.markAsDone();
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println("Good work! You breezed through this task!");
+            } else {
+                task.markAsNotDone();
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println("Tough, this task is back in the windy realm.");
+            }
+            System.out.println("  " + task.toString());
+        } else {
+            System.out.println("Oops! That task number is lost in the wind. Try again?");
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public void exit() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Aw, it's time for you to go huh?");
