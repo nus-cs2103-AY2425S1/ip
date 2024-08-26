@@ -15,6 +15,10 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public boolean getStatus() {
+        return isDone;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -23,7 +27,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public void editMessage(String description) { this.description = description; }
+    public abstract String parseDetailsForDB();
 
     @Override
     public String toString() {

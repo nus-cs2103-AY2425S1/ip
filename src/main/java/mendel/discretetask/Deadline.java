@@ -4,17 +4,33 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Deadline extends Task {
-    private final String rawDescription;
+    private final String description;
+    private final String by;
 
-    public Deadline(String description) {
-        super(description);
-        this.rawDescription = description;
-        this.parseDescription();
+    public Deadline(String description, String by) {
+        super(String.format("%s (by: %s)", description, by));
+        this.description = description;
+        this.by = by;
     }
 
-    private void parseDescription() {
-        this.handleError();
-        String[] slashSegments = this.rawDescription.split(" /by ");
+    public static Deadline of(String rawDescription) {
+        String[] descriptionLst = parseDescription(rawDescription);
+        return new Deadline(descriptionLst[0], descriptionLst[1]);
+    }
+
+    public static Deadline loadOf(boolean mark, String description, String by) {
+        Deadline initObj = new Deadline(description, by);
+        if (mark) {
+            initObj.markAsDone();
+        } else {
+            initObj.markAsUnDone();
+        }
+        return initObj;
+    }
+
+    private static String[] parseDescription(String rawDescription) {
+        handleError(rawDescription);
+        String[] slashSegments = rawDescription.split(" /by ");
         String[] mainMessage = slashSegments[0].split(" ");
         String endMsg = slashSegments[1];
         String reformattedMsg = "";
@@ -25,11 +41,10 @@ public class Deadline extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        reformattedMsg += String.format(" (by: %s)", endMsg);
-        super.editMessage(reformattedMsg);
+        return new String[]{reformattedMsg, endMsg};
     }
 
-    private void handleError() throws MendelException {
+    private static void handleError(String rawDescription) throws MendelException {
         String[] slashSegments = rawDescription.split(" /by ");
         String[] misplacedSegments = rawDescription.split("/by");
         String[] mainMessage = slashSegments[0].split(" ");
@@ -47,6 +62,11 @@ public class Deadline extends Task {
         String endMsg = slashSegments[1];
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
+    }
+
+    @Override
+    public String parseDetailsForDB() {
+        return String.format("D | %d | %s | %s", super.getStatus() ? 1 : 0, this.description, this.by);
     }
 
     @Override

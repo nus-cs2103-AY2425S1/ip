@@ -19,7 +19,22 @@ public class TaskStorage extends MendelAction{
         this.counter = 0;
     }
 
-    public void marker(int serial) throws MendelException {
+    public Task getTask(int serial) {
+        ConditionalExceptionHandler.of()
+                .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
+                .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
+        return messages.get(serial);
+    }
+
+    public boolean hasTask(int serial) {
+        return serial >= 0 && serial < this.counter;
+    }
+
+    public boolean isFirstTask() {
+        return this.counter == 1;
+    }
+
+    public Task marker(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
@@ -28,10 +43,10 @@ public class TaskStorage extends MendelAction{
         String outputMessage = String.format("Nice! I've marked this task as done:\n  %s",
                 task);
         System.out.println(new FormatText(outputMessage).wrapLines());
-
+        return task;
     }
 
-    public void unMarker(int serial) throws MendelException {
+    public Task unMarker(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
@@ -40,9 +55,10 @@ public class TaskStorage extends MendelAction{
         String outputMessage = String.format("OK, I've marked this task as not done yet:\n  %s",
                 task);
         System.out.println(new FormatText(outputMessage).wrapLines());
+        return task;
     }
 
-    public void delete(int serial) throws MendelException{
+    public Task delete(int serial) throws MendelException{
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
@@ -52,14 +68,21 @@ public class TaskStorage extends MendelAction{
                 task,
                 this.counter);
         System.out.println(new FormatText(outputMessage).wrapLines());
+        return task;
     }
 
-    public void add(Task element) {
+    public Task add(Task element) {
         this.messages.add(element);
         this.counter++;
         String outputMessage = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
                 element, this.counter);
         System.out.println(new FormatText(outputMessage).wrapLines());
+        return element;
+    }
+
+    public void silencedAdd(Task element) {
+        this.messages.add(element);
+        this.counter++;
     }
 
     public void speak() {
