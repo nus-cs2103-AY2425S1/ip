@@ -4,17 +4,35 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Event extends Task {
-    private final String rawDescription;
+    private final String description;
+    private final String from;
+    private final String to;
 
-    public Event(String description) {
-        super(description);
-        this.rawDescription = description;
-        this.parseDescription();
+    private Event(String description, String from, String to) {
+        super(String.format("%s (from: %s to %s)", description, from, to));
+        this.description = description;
+        this.from = from;
+        this.to = to;
     }
 
-    private void parseDescription() {
-        this.handleError();
-        String[] slashSegments = this.rawDescription.split(" /from ");
+    public static Event of(String rawDescription) {
+        String[] description = parseDescription(rawDescription);
+        return new Event(description[0], description[1], description[2]);
+    }
+
+    public static Event loadOf(boolean mark, String description, String from, String to) {
+        Event initObj = new Event(description, from, to);
+        if (mark) {
+            initObj.markAsDone();
+        } else {
+            initObj.markAsUnDone();
+        }
+        return initObj;
+    }
+
+    private static String[] parseDescription(String rawDescription) {
+        handleError(rawDescription);
+        String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
         String startMsg = slashSegments[1].split(" /to ")[0];
         String endMsg = slashSegments[1].split(" /to ")[1];
@@ -26,18 +44,17 @@ public class Event extends Task {
                 reformattedMsg += mainMessage[i] + " ";
             }
         }
-        reformattedMsg += String.format(" (from: %s to %s)", startMsg, endMsg);
-        super.editMessage(reformattedMsg);
+        return new String[]{reformattedMsg, startMsg, endMsg};
     }
 
-    private void handleError() throws MendelException {
-        String[] slashSegments = this.rawDescription.split(" /from ");
+    private static void handleError(String rawDescription) throws MendelException {
+        String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
         ConditionalExceptionHandler.of()
                 .orConditionTriggerException(slashSegments.length < 2)
                 .andConditionTriggerException(slashSegments[0].equals("event"),
                         "OOPS! event needs more details.\nAdd description.")
-                .andConditionTriggerException(this.rawDescription.split("/from").length != slashSegments.length,
+                .andConditionTriggerException(rawDescription.split("/from").length != slashSegments.length,
                         "OOPS! deadline from wrongly formatted.\nPlease add spaces around /from.")
                 .conditionTriggerException(slashSegments.length < 2,
                         "OOPS! I am unsure of start.\nPlease specify only one start.")
@@ -59,6 +76,11 @@ public class Event extends Task {
                 .conditionTriggerException(startMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
 
+    }
+
+    @Override
+    public String parseDetailsForDB() {
+        return String.format("E | %d | %s | %s | %s", super.getStatus() ? 1 : 0, this.description, this.from, this.to);
     }
 
     @Override
