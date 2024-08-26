@@ -1,3 +1,8 @@
+package juno.command;
+
+import juno.ui.JunoUi;
+
+
 public class ExitCommand extends Command {
     JunoUi junoUi;
     public ExitCommand(JunoUi junoUi) {

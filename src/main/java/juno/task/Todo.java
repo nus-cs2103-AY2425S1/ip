@@ -1,3 +1,4 @@
+package juno.task;
 public class Todo extends Task {
 
     public Todo(String description, String taskType) {

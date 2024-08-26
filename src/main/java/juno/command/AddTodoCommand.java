@@ -1,3 +1,11 @@
+package juno.command;
+
+import juno.manager.FileManager;
+import juno.manager.TaskManager;
+import juno.manager.exception.TaskManagerException;
+import juno.task.Task;
+import juno.task.Todo;
+
 public class AddTodoCommand extends AddCommand {
 
     private final String TASK_TYPE = "todo";

@@ -1,3 +1,7 @@
+package juno.manager;
+
+import juno.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -15,7 +19,7 @@ public class TaskManager {
         return this.tasks;
     }
 
-    protected boolean checkDuplicateTask(String taskDescription) {
+    public boolean checkDuplicateTask(String taskDescription) {
         for (Task task : this.tasks) {
             if (task.getDescription().equalsIgnoreCase(taskDescription)) {
                 return true;

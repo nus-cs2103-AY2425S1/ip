@@ -1,3 +1,11 @@
+package juno.command;
+
+import juno.manager.FileManager;
+import juno.manager.TaskManager;
+import juno.manager.exception.TaskManagerException;
+import juno.task.Event;
+import juno.task.Task;
+
 public class AddEventCommand extends AddCommand {
     private final String TASK_TYPE = "event";
     public AddEventCommand(String userInput, TaskManager taskManager, FileManager fileManager) {

@@ -1,3 +1,4 @@
+package juno.manager.exception;
 public class TaskManagerException extends Exception {
     private final ErrorType errorType;
 

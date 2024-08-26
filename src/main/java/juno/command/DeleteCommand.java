@@ -1,3 +1,10 @@
+package juno.command;
+
+import juno.manager.FileManager;
+import juno.manager.TaskManager;
+import juno.manager.exception.TaskManagerException;
+import juno.task.Task;
+
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {

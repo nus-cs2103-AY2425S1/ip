@@ -1,7 +1,11 @@
+package juno.manager;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import juno.task.Task;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -36,7 +40,6 @@ public class FileManager {
         try (FileReader reader = new FileReader(FILE_PATH)) {
             Type taskListType = new TypeToken<ArrayList<Task>>() {}.getType();
             tasks = this.gsonInstance.fromJson(reader, taskListType);
-//            System.out.println("Tasks loaded from " + filePath);
         } catch (JsonSyntaxException e ) {
             System.out.println("Looks like the file content is not in the correct format!");
             System.out.println("Proceeding to delete the file and create a new one...");

@@ -1,6 +1,14 @@
+package juno.manager;
+
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import juno.manager.exception.TaskManagerException;
+import juno.task.Deadline;
+import juno.task.Event;
+import juno.task.Task;
+import juno.task.Todo;
+
 import java.io.IOException;
 
 public class TaskAdapter extends TypeAdapter<Task> {

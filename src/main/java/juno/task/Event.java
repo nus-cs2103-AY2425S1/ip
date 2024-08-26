@@ -1,4 +1,7 @@
+package juno.task;
+
 import com.google.gson.annotations.Expose;
+import juno.manager.exception.TaskManagerException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,6 +1,5 @@
+package juno.ui;
 // class to deal with user interaction
-
-import java.util.Scanner;
 
 public class JunoUi {
     private String logo;

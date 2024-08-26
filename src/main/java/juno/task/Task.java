@@ -1,3 +1,5 @@
+package juno.task;
+
 import com.google.gson.annotations.Expose;
 
 public class Task {
