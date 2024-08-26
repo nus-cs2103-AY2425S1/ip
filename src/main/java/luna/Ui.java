@@ -26,7 +26,7 @@ public class Ui {
     }
 
     public void showLine() {
-        System.out.println("______________________________________");
+        System.out.println("---------------------------------" + System.lineSeparator());
     }
 
     public void showError(String message) {
