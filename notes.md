@@ -31,3 +31,6 @@ deadline cook lunch /by 2019-10-14
 
 ## showing tasks on date
 show on 2019-10-15
+
+## find 
+find cook

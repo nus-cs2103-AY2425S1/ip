@@ -42,34 +42,21 @@ public class TaskList {
         tasks.get(index).markAsNotDone();
     }
 
-    public void printTasks() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i));
-        }
-        System.out.println("____________________________________________________________");
+    public List<Task> getTasksList() {
+        return new ArrayList<>(tasks);
     }
 
-    public void printTasksOnDate(LocalDate date) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks occurring on " + date + ":");
-
-        boolean hasTasks = false;
+    public List<Task> getTasksOnDate(LocalDate date) {
+        List<Task> tasksOnDate = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getByDate().equals(date)) {
-                    System.out.println(" " + task);
-                    hasTasks = true;
+                    tasksOnDate.add(task);
                 }
             }
         }
-
-        if (!hasTasks) {
-            System.out.println(" No tasks found on this date.");
-        }
-        System.out.println("____________________________________________________________");
+        return tasksOnDate;
     }
 
         public List<Task> findTasksByKeyword(String keyword) {

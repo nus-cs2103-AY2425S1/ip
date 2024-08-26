@@ -60,6 +60,18 @@ public class Parser {
                     throw new EmptyDescriptionException("find");
                 }
                 return new FindCommand(words[1].trim());
+            case "show":
+                if (words.length < 2 || !words[1].startsWith("on ")) {
+                    throw new EmptyDescriptionException("show on");
+                }
+                String dateString = words[1].substring(3).trim(); // Extract the date after "on"
+                try {
+                    LocalDate date = LocalDate.parse(dateString);
+                    return new ShowOnDateCommand(date);
+                } catch (DateTimeParseException e) {
+                    throw new UnknownCommandException("The date format is incorrect. Please use yyyy-MM-dd format.");
+                }
+
             default:
                 throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
         }
