@@ -1,0 +1,5 @@
+[T] | [ ] | plan trip
+[E] | [ ] | project meeting | Mon 2pm | 4pm
+[T] | [ ] | finish recipe
+[T] | [ ] | write songs
+[D] | [ ] | write essay | 2024-08-30

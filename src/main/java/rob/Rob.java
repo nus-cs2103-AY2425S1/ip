@@ -112,7 +112,7 @@ public class Rob {
      * @return The task number extracted from the input string.
      * @throws DukeException If no number is found in the input string or if the task number is out of range.
      */
-    private int findTaskNum(String input) throws DukeException {
+    public int findTaskNum(String input) throws DukeException {
         String regex = "\\d+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
