@@ -181,6 +181,22 @@ public class Ui {
         System.out.println(toPrint);
     }
 
+    public void find(TaskList filtered) {
+        String toPrint = "";
+        toPrint += "----------------------\n";
+        toPrint += "Here are the matching tasks in your list:\n";
+        toPrint += filtered.toString() + "\n";
+        toPrint += "----------------------";
+        System.out.println(toPrint);
+    }
+
+    public void findError() {
+        String toPrint;
+        toPrint = "----------------------\nERROR: Please enter a valid keyword to search for.\n" +
+                "----------------------";
+        System.out.println(toPrint);
+    }
+
     /**
      * Displays the goodbye message.
      */
