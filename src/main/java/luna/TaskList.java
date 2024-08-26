@@ -105,4 +105,14 @@ public class TaskList {
 
         return tasks;
     }
+
+    public ArrayList<Task> find(String query) {
+        ArrayList<Task> matched = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().substring(7).contains(query)) {
+                matched.add(task);
+            }
+        }
+        return matched;
+    }
 }

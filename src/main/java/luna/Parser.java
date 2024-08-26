@@ -20,6 +20,7 @@ public class Parser {
         UNMARK,
         DELETE,
         BYE,
+        FIND,
     }
 
     /**
@@ -36,7 +37,7 @@ public class Parser {
                     Please enter one of the following commands:
                     "todo", "deadline", "event"
                     "mark", "unmark", "delete"
-                    "list", "bye"
+                    "list", "bye", "find"
                     """);
         }
 
@@ -108,12 +109,18 @@ public class Parser {
 
             return new DeleteCommand(taskToDelete);
 
+        case FIND:
+            if (commands.length == 1 || commands[1].trim().isEmpty()) {
+                throw new LunaException("Enter task description to search e.g. find book");
+            }
+            return new FindCommand(commands[1].trim());
+
         case TODO:
             if (commands.length == 1 || commands[1].trim().isEmpty()) {
                 throw new LunaException("Enter description for todo e.g. todo [description]");
             }
 
-            Todo todo = new Todo(commands[1]);
+            Todo todo = new Todo(commands[1].trim());
             return new TodoCommand(todo);
 
         case DEADLINE:
@@ -147,7 +154,7 @@ public class Parser {
                         "eg. 14/02/2024 14:30");
             }
 
-            Deadline deadlineTask = new Deadline(deadline[0], deadlineDateTime);
+            Deadline deadlineTask = new Deadline(deadline[0].trim(), deadlineDateTime);
             return new DeadlineCommand(deadlineTask);
 
         case EVENT:
@@ -189,7 +196,7 @@ public class Parser {
                         "eg. 14/02/2024 14:30");
             }
 
-            Event eventTask = new Event(event[0], startTime, endTime);
+            Event eventTask = new Event(event[0].trim(), startTime, endTime);
             return new EventCommand(eventTask);
 
         default:
@@ -198,7 +205,7 @@ public class Parser {
                     Please enter one of the following commands:
                     "todo", "deadline", "event"
                     "mark", "unmark", "delete"
-                    "list", "bye"
+                    "list", "bye", "find"
                     """);
         }
     }
