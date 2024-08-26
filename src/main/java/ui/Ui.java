@@ -70,12 +70,6 @@ public class Ui {
     }
 
     /**
-<<<<<<< HEAD
-     * Displays a message indicating that a task has been marked as completed.
-     *
-     * @param task The task that was marked as completed.
-     */
-=======
      * Displays the list of tasks that match a given keyword.
      *
      * @param matchingTasks The list of tasks that match the search keyword.
@@ -91,7 +85,11 @@ public class Ui {
         }
     }
 
->>>>>>> branch-Level-9
+    /**
+     * Displays a message indicating that a task has been marked as completed.
+     *
+     * @param task The task that was marked as completed.
+     */
     public void showTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done:\n" + task);
     }
