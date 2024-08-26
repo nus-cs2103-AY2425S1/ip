@@ -15,9 +15,9 @@ public class Mendel {
             try {
                 ui.preetyPrint(taskManager.manage(currAction));
             } catch (MendelException e) {
-                ui.preetyPrint(taskManager.manage(e.toString()));
+                ui.preetyPrint(e.toString());
             } catch (ServerError e) {
-                ui.preetyPrint(taskManager.manage(e.toString()));
+                ui.preetyPrint(e.toString());
                 taskManager.manage("bye");
                 currAction = "bye";
             }
