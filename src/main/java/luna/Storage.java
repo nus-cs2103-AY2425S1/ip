@@ -14,9 +14,19 @@ import java.util.Scanner;
 
 import luna.task.*;
 
+/**
+ * Handles the storage of tasks.
+ * This class is responsible for saving and loading tasks from a file.
+ */
 public class Storage {
     public static final String FILEPATH = "./data/luna.txt";
 
+    /**
+     * Loads tasks from a specified file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws LunaException If an error occurs while reading the file.
+     */
     public ArrayList<Task> loadTasks() throws LunaException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -65,6 +75,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the specified file.
+     *
+     * @param tasks List of task to be saved to the file.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             File tempFile = new File("./data/temp.txt");

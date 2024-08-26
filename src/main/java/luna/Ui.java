@@ -2,6 +2,9 @@ package luna;
 
 import java.util.Scanner;
 
+/**
+ * Manages the UI of the chatbot.
+ */
 public class Ui {
     private final Scanner scanner;
 
