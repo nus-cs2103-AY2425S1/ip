@@ -63,18 +63,19 @@ public class Storage {
      */
     private Task parseTask(String[] taskData) {
         Task task = null;
+
         switch (taskData[0]) {
-            case "T":
-                task = new Todo(taskData[2]);
-                break;
-            case "D":
-                task = new Deadline(taskData[2], taskData[3]);
-                break;
-            case "E":
-                task = new Event(taskData[2], taskData[3], taskData[4]);
-                break;
-            default:
-                System.out.println("\tCorrupted data found: "  + String.join(" | ", taskData));
+        case "T":
+            task = new Todo(taskData[2]);
+            break;
+        case "D":
+            task = new Deadline(taskData[2], taskData[3]);
+            break;
+        case "E":
+            task = new Event(taskData[2], taskData[3], taskData[4]);
+            break;
+        default:
+            System.out.println("\tCorrupted data found: "  + String.join(" | ", taskData));
         }
         return task;
     }
@@ -88,6 +89,7 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         File currentDir = new File(System.getProperty("user.dir"));
         FileWriter writer;
+
         if (currentDir.getName().equals("ip")) {
             writer = new FileWriter(FILE_PATH);
         }
@@ -99,6 +101,7 @@ public class Storage {
             }
             writer = new FileWriter("../data/friday.txt");
         }
+
         for (Task task : tasks) {
             String taskData = task.toFileFormat();
             writer.write(taskData + "\n");

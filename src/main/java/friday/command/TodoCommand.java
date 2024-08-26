@@ -13,7 +13,7 @@ import java.io.IOException;
  * Represents a command to add a to-do task to the task list.
  */
 public class TodoCommand extends Command {
-    private String description;
+    private final String description;
 
     /**
      * Constructs a TodoCommand with the specified description.

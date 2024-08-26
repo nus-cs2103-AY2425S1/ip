@@ -34,12 +34,14 @@ public class MarkUnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        if (!inputs[1].chars().allMatch(Character::isDigit))
+        if (!inputs[1].chars().allMatch(Character::isDigit)) {
             throw new FridayException("\tInvalid input. Where would you like to " + inputs[0] + "?");
+        }
         int index = Integer.parseInt(inputs[1]);
-        if (index > tasks.getSize() || index <= 0)
+        if (index > tasks.getSize() || index <= 0) {
             throw new FridayException("\tInvalid input. It appears you are attempting to" +
                     " access something that does not exist yet.");
+        }
         Task task = tasks.getTasks().get(index - 1);
         if (inputs[0].equals("mark")) {
             task.markAsDone();
