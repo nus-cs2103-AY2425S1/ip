@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Applemazer {
     static Scanner sc = new Scanner(System.in);
@@ -10,7 +11,7 @@ public class Applemazer {
         Delete
     }
 
-    private static class Task {
+    private static class Task implements Serializable {
         private final String description;
         private boolean isDone;
 
@@ -109,6 +110,61 @@ public class Applemazer {
         System.out.println(farewell);
     }
 
+    private void save() {
+        System.out.println ("Saving data...");
+        String directoryPath = "./data";
+        File directory = new File(directoryPath);
+
+        if (!directory.exists()) {
+            System.out.println();
+            System.out.println("Directory ./data does not exist.\n" +
+                    "Creating new directory ./data... ");
+            if (directory.mkdir()) {
+                System.out.println("Directory ./data created successfully.\n");
+            }
+        }
+
+        String filePath = "./data/Applemazer.ser";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            System.out.println("File ./data/Applemazer.ser does not exist.\n" +
+                    "Creating new file ./data/Applemazer.ser... ");
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File ./data/Applemazer.ser created successfully.\n");
+                }
+            } catch (IOException e) {
+                System.err.println("File ./data/Applemazer.ser could not be created.");
+            }
+        }
+
+        try (ObjectOutputStream str = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            str.writeObject(tasks);
+            System.out.println ("Save successful.\n");
+        } catch (IOException e) {
+            System.err.println("Save unsuccessful. File might be corrupted.\n");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void load() {
+        String directoryPath = "./data";
+        File directory = new File(directoryPath);
+        String filePath = "./data/Applemazer.ser";
+        File file = new File(filePath);
+
+        if (directory.exists() && file.exists()) {
+            System.out.println ("Loading data...");
+
+            try (ObjectInputStream str = new ObjectInputStream(new FileInputStream(filePath))) {
+                tasks = (ArrayList<Task>) str.readObject();
+                System.out.println ("Loading successful.\n");
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Loading unsuccessful. File might be corrupted.\n");
+            }
+        }
+    }
+
     private void handleIntegerCommands(IntegerCommands shouldBeDone) {
         try {
             int taskNumber = Integer.parseInt(sc.nextLine().trim())-1; // Will throw error if non-integer or no input.
@@ -119,15 +175,18 @@ public class Applemazer {
                     task.setDone();
                     System.out.println("Nice! I've marked this task as done: ");
                     System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    save();
                     break;
                 case Unmark :
                     task.setUndone();
                     System.out.println("OK, I've marked this task as not done yet: ");
                     System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    save();
                     break;
                 case Delete :
                     tasks.remove(task);
                     task.printTaskDeletedMessage();
+                    save();
                     break;
             }
         } catch (IndexOutOfBoundsException e) {
@@ -206,6 +265,7 @@ public class Applemazer {
                         task = new Todo(command);
                         tasks.add(task);
                         task.printTaskAddedMessage();
+                        save();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -219,6 +279,7 @@ public class Applemazer {
                         task = new Deadline(split[0], split[1]);
                         tasks.add(task);
                         task.printTaskAddedMessage();
+                        save();
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("""
                                            OOPS!!! The description of deadline is wrong.
@@ -235,6 +296,7 @@ public class Applemazer {
                         task = new Event(split[0], split[1], split[2]);
                         tasks.add(task);
                         task.printTaskAddedMessage();
+                        save();
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("""
                                            OOPS!!! The description of event is wrong.
@@ -255,6 +317,7 @@ public class Applemazer {
 
     public static void main(String[] args) {
         Applemazer chatBot = new Applemazer();
+        chatBot.load();
         chatBot.greeting();
         chatBot.process();
         chatBot.farewell();
