@@ -18,6 +18,10 @@ public class Ui {
         showLine();
     }
 
+    public void showExit() {
+        System.out.println("\t Bye. Hope to see you again soon!");
+    }
+
     public void showError(String message) {
         System.out.println("\t " + message);
     }
