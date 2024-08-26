@@ -1,11 +1,19 @@
+package io;
+
 import exception.EchoBotException;
 import task.Deadline;
 import task.Event;
+import task.TaskList;
 import task.ToDo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
-import java.nio.file.*;
 
 public class FileManagement {
     private TaskList taskList;
@@ -36,7 +44,7 @@ public class FileManagement {
     public void save() {
         try {
             FileWriter fw = new FileWriter(String.valueOf(this.path));
-            fw.write(this.taskList.toString());
+            fw.write(this.taskList.save());
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();

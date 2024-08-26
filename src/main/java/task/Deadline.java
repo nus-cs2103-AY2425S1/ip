@@ -1,34 +1,35 @@
 package task;
 
 import exception.DeadlineEmptyException;
+import exception.InvalidDeadlineFormatException;
 import exception.TaskNameEmptyException;
 
-public class Deadline extends Task {
-    private final String deadline;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-    public Deadline(String taskName, String deadline) throws TaskNameEmptyException, DeadlineEmptyException {
-        super(taskName);
-        if (deadline.isBlank()) {
-            throw new DeadlineEmptyException();
-        }
-        this.deadline = deadline;
-    }
+public class Deadline extends ScheduledTask {
+    private final LocalDateTime deadline;
 
-    public Deadline(boolean isDone, String taskName, String deadline) throws TaskNameEmptyException, DeadlineEmptyException {
+    public Deadline(boolean isDone, String taskName, String deadline) throws TaskNameEmptyException, DeadlineEmptyException, InvalidDeadlineFormatException {
         super(isDone, taskName);
         if (deadline.isBlank()) {
             throw new DeadlineEmptyException();
         }
-        this.deadline = deadline;
+        this.deadline = super.parseInputDateTime(deadline);
     }
 
     @Override
-    public String getTxtSavedToFile() {
-        return "D " + super.getTxtSavedToFile() + " | " + this.deadline;
+    public boolean isTaskWithinThisDate(LocalDate date) {
+        return this.deadline.toLocalDate().isAfter(date) || this.deadline.toLocalDate().isEqual(date);
+    }
+
+    @Override
+    public String save() {
+        return "D " + super.save() + " | " + super.formatSaveFileDateTime(this.deadline);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + super.formatOutputDateTime(this.deadline) + ")";
     }
 }
