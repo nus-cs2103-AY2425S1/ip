@@ -92,4 +92,15 @@ public class Storage {
         }
     }
 
+    public void clearAll() {
+        try {
+            FileWriter fw = new FileWriter(this.filePath);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
