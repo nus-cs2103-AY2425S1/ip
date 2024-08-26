@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class MrIncredible {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final TaskStorage taskStorage = new TaskStorage();
+    private static final HarddiskStorage harddiskStorage = new HarddiskStorage("./data/duke.txt");
+    private static final TaskStorage taskStorage = new TaskStorage(harddiskStorage);
     public static void main(String[] args) {
         MrIncredible.greet();
 
