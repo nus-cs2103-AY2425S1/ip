@@ -28,18 +28,20 @@ public class TaskList {
         return this.tasks.get(taskNumber - 1);
     }
 
-    public void getTasksOnDate(LocalDate date) {
+    public ArrayList<Task> getTasksOnDate(LocalDate date) {
+        ArrayList<Task> res = new ArrayList<>();
         for (Task task : this.tasks) {
             if (task instanceof Deadline d) {
                 if (d.by.equals(date)) {
-                    Ui.print(task.toString());
+                    res.add(task);
                 }
             } else if (task instanceof Event e) {
                 if (e.from.equals(date) || e.to.equals(date) || (e.from.isBefore(date) && e.to.isAfter(date))) {
-                    Ui.print(task.toString());
+                    res.add(task);
                 }
             }
         }
+        return res;
     }
 
     public String formatTasksToSave() {

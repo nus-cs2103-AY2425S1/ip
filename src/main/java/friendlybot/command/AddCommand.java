@@ -39,6 +39,10 @@ public class AddCommand extends Command {
         } else if (eventType.equals("deadline")) {
             newTask = new Deadline(taskDescription, by);
         } else {
+            if (to.isBefore(from)) {
+                Ui.print("Uh oh, I can't create an event that is due before it even started!");
+                return;
+            }
             newTask = new Event(taskDescription, from, to);
         }
         tasks.addTask(newTask);
