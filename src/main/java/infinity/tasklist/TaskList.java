@@ -32,7 +32,7 @@ public class TaskList {
         try {
             taskIndex = Integer.parseInt(currentInput);
         } catch (NumberFormatException e) {
-            botUI.botSays("Hey! That's not a number");
+            throw new InfinityException("Hey! That's not a number");
         }
 
         taskIndex--;

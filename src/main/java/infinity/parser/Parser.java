@@ -12,7 +12,7 @@ public class Parser {
      * Checks the length of the value given whether it is within the specified range.
      * Also checks if the value is parsable to an integer.
      */
-    private static boolean dateCheck(String value, int min, int max, int minNo, int maxNo) {
+    private static boolean numberCheck(String value, int min, int max, int minNo, int maxNo) {
         return value.length() >= min 
                 && value.length() <= max 
                 && value.chars().allMatch(Character::isDigit)
@@ -47,12 +47,12 @@ public class Parser {
         String[] dateTimeBrokenDown = dateTime.replace("/", "-")
                 .replace(" ", "-").split("-");
         if (dateTimeBrokenDown.length != 4
-                || !dateCheck(dateTimeBrokenDown[0], 1, 2, 1, 31)
-                || !dateCheck(dateTimeBrokenDown[1], 1, 2, 1, 12)
-                || !dateCheck(dateTimeBrokenDown[2], 4, 4, 2024, 9999)
-                || !dateCheck(dateTimeBrokenDown[3], 4, 4, 0, 2359)
-                || !dateCheck(dateTimeBrokenDown[3].substring(0, 2), 2, 2, 0, 23)
-                || !dateCheck(dateTimeBrokenDown[3].substring(2), 2, 2, 0, 59)) {;
+                || !numberCheck(dateTimeBrokenDown[0], 1, 2, 1, 31)
+                || !numberCheck(dateTimeBrokenDown[1], 1, 2, 1, 12)
+                || !numberCheck(dateTimeBrokenDown[2], 4, 4, 2024, 9999)
+                || !numberCheck(dateTimeBrokenDown[3], 4, 4, 0, 2359)
+                || !numberCheck(dateTimeBrokenDown[3].substring(0, 2), 2, 2, 0, 23)
+                || !numberCheck(dateTimeBrokenDown[3].substring(2), 2, 2, 0, 59)) {;
             throw new DateTimeException("Invalid date time format");
         };
         return LocalDateTime.of(
