@@ -14,6 +14,7 @@ public class Task {
     public void completeTask() {
         this.isCompleted = true;
     }
+    public String getName() { return this.name; }
 
     public void uncompleteTask() {
         this.isCompleted = false;
