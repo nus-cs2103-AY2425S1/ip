@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Murphy {
@@ -19,7 +21,11 @@ public class Murphy {
         System.out.println("Hello! I'm Murphy");
         System.out.println("What can I do for you?");
         prLine();
-        loadSave();
+        try {
+            loadSave();
+        } catch (IOException | MurphyException e) {
+            System.err.println("Error loading save file: " + e.getMessage());
+        }
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNextLine()) {
             String input = scanner.nextLine();
@@ -210,26 +216,32 @@ public class Murphy {
         prLine();
     }
 
-    private static void loadSave() {
+    private static void loadSave() throws IOException, MurphyException {
         File file = new File("./data/murphy.txt");
         if (!file.exists()) {
             file.getParentFile().mkdirs();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.err.println("Error occurred creating save file: " + e.getMessage());
-            }
+            file.createNewFile();
         }
-        Scanner scanner;
-        try {
-            scanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            System.err.println("Save file not found: " + e.getMessage());
-            return;
-        }
+        Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String nextTask = scanner.nextLine();
-
+            String[] taskDetails = nextTask.split("\\|");
+            if (Objects.equals(taskDetails[0], "T") && taskDetails.length == 3) {
+                Task task = new Todo(taskDetails[2], Boolean.parseBoolean(taskDetails[1]));
+                Murphy.tasks.add(task);
+            } else if (Objects.equals(taskDetails[0], "D") && taskDetails.length == 4) {
+                Task task = new Deadline(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
+                                         taskDetails[3]);
+                Murphy.tasks.add(task);
+            } else if (Objects.equals(taskDetails[0], "E") && taskDetails.length == 5) {
+                Task task = new Event(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
+                                      taskDetails[3], taskDetails[4]);
+                Murphy.tasks.add(task);
+            } else {
+                FileWriter fw = new FileWriter("./data/murphy.txt");
+                fw.close();
+                throw new MurphyException("Save file seems to be corrupted. Overriding save.");
+            }
         }
     }
 }

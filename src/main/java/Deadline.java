@@ -9,6 +9,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, boolean isDone, String by) throws MurphyException {
+        super(description, isDone);
+        String byTrimmed = by.trim();
+        if (byTrimmed.isEmpty()) {
+            throw new MurphyException("Deadline by date cannot be empty!");
+        }
+        this.by = by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
