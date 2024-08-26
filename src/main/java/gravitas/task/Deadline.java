@@ -1,22 +1,29 @@
 package gravitas.task;
 
+import gravitas.exception.DukeException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
     private LocalDate endDate;
     private LocalTime endTime;
-    public Deadline(String description, String endDate) {
+    public Deadline(String description, String endDate) throws DukeException{
         super(description, "D");
 
-        String[] EndTimeArr = endDate.split(" ", 2);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        LocalDate localEndDate = LocalDate.parse(EndTimeArr[0], dateFormatter);
-        String formattedEndTime = EndTimeArr[1].substring(0, 2) + ":" + EndTimeArr[1].substring(2, 4);
-        this.endDate = localEndDate;
-        this.endTime = LocalTime.parse(formattedEndTime);
+        try {
+            String[] EndTimeArr = endDate.split(" ", 2);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            LocalDate localEndDate = LocalDate.parse(EndTimeArr[0], dateFormatter);
+            String formattedEndTime = EndTimeArr[1].substring(0, 2) + ":" + EndTimeArr[1].substring(2, 4);
+            this.endDate = localEndDate;
+            this.endTime = LocalTime.parse(formattedEndTime);
+        } catch(DateTimeParseException e) {
+            throw new DukeException("Please enter a valid date and time.");
+        }
     }
 
     @Override

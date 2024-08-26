@@ -22,9 +22,9 @@ public class Parser {
     public Parser() {
         this.outOfBound = "The task that you wish to mark is invalid! please try again!";
         this.emptyTodo = "OOPS!!! The description of a todo cannot be empty.";
-        this.emptyDeadline = "OOPS!!! The description of a Deadline cannot be empty " +
+        this.emptyEvent = "OOPS!!! The description of a event cannot be empty " +
                 "and must contain /from and /to.";
-        this.emptyEvent = "OOPS!!! The description of a Event cannot be empty and must contain /by ";
+        this.emptyDeadline = "OOPS!!! The description of a deadline cannot be empty and must contain /by ";
         this.emptyDelete = "OOPS!!! The description of a delete cannot be empty.";
         this.mark = "Nice! I've marked this task as done:";
         this.unMark = "OK, I've marked this task as not done yet:";
@@ -93,11 +93,12 @@ public class Parser {
 
     public void parseDelete(TaskList tasklist, String msg) throws DukeException {
         String[] msgFrag = msg.split(" ", 2);
-        int index = Integer.parseInt((msgFrag[1])) - 1;
-
         if (msgFrag.length <= 1) {
             throw new DukeException(emptyDelete);
-        } else if (index >= tasklist.size() || index < 0) {
+        }
+        int index = Integer.parseInt((msgFrag[1])) - 1;
+
+        if (index >= tasklist.size() || index < 0) {
             throw new DukeException(outOfBound);
         }
         Task task = tasklist.getTask(index);

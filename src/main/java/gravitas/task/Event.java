@@ -1,8 +1,11 @@
 package gravitas.task;
 
+import gravitas.exception.DukeException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
 
@@ -11,21 +14,25 @@ public class Event extends Task {
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public Event(String description, String startDate, String endDate) {
+    public Event(String description, String startDate, String endDate) throws DukeException {
         super(description, "E");
 
-        String[] startTimeArr = startDate.split(" ", 2);
-        String[] EndTimeArr = endDate.split(" ", 2);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        LocalDate localStartDate = LocalDate.parse(startTimeArr[0], dateFormatter);
-        LocalDate localEndDate = LocalDate.parse(EndTimeArr[0], dateFormatter);
-        String formattedStartTime = startTimeArr[1].substring(0, 2) + ":" +
-                startTimeArr[1].substring(2, 4);
-        String formattedEndTime = EndTimeArr[1].substring(0, 2) + ":" + EndTimeArr[1].substring(2, 4);
-        this.startDate = localStartDate;
-        this.endDate = localEndDate;
-        this.startTime = LocalTime.parse(formattedStartTime);
-        this.endTime = LocalTime.parse(formattedEndTime);
+        try {
+            String[] startTimeArr = startDate.split(" ", 2);
+            String[] EndTimeArr = endDate.split(" ", 2);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            LocalDate localStartDate = LocalDate.parse(startTimeArr[0], dateFormatter);
+            LocalDate localEndDate = LocalDate.parse(EndTimeArr[0], dateFormatter);
+            String formattedStartTime = startTimeArr[1].substring(0, 2) + ":" +
+                    startTimeArr[1].substring(2, 4);
+            String formattedEndTime = EndTimeArr[1].substring(0, 2) + ":" + EndTimeArr[1].substring(2, 4);
+            this.startDate = localStartDate;
+            this.endDate = localEndDate;
+            this.startTime = LocalTime.parse(formattedStartTime);
+            this.endTime = LocalTime.parse(formattedEndTime);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please enter a valid date and time.");
+        }
     }
 
     @Override
