@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final Storage storage;
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks;
     public TaskList(Storage storage) {
         this.storage = storage;
+        this.tasks = storage.getTasks();
     }
-    public ArrayList<Task> getTasks () {
+    public ArrayList<Task> getTasks() {
         return this.tasks;
     }
     public String outputList() {

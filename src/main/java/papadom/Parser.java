@@ -42,11 +42,25 @@ public class Parser {
         return new Event(parts[0], parts[1], parts[2]);
     }
 
+
     public static Task parseTask(String line) {
         // This is a placeholder logic. You will need to implement task parsing based on how tasks are saved.
         // For example, parsing the format `[D][ ] task description (by: Dec 1 2019)`
         return null;
     }
+
+    public String findKeyword(String command) throws IncorrectTaskInputFormatException {
+        // Split the command by space and store the words in an array
+        String[] words = command.split(" ");
+
+        // Check if the command starts with "find" and has a keyword following it
+        if (words.length > 1 && words[0].equals("find")) {
+            return words[1];  // Return the keyword after "find"
+        } else {
+            throw new IncorrectTaskInputFormatException();
+        }
+    }
+
 
     public static LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
