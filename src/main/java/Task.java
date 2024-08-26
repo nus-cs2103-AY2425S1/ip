@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -10,7 +11,7 @@ public abstract class Task {
     /** Determine if the task is marked or not */
     protected boolean isChecked;
     /** Date time format for printing LocalDateTime objects */
-    public DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    public static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
      * Creates a Task object with the given description.
@@ -18,6 +19,32 @@ public abstract class Task {
     Task(String description) {
         this.description = description;
         isChecked = false;
+    }
+
+    /**
+     * Creates a task object based on its task type.
+     * <p>
+     * This is a factory method used to create a task based
+     * on its corrosponding given task type.
+     * @param taskDetails A list of task information used to create the task object.
+     * @return A task object of its given task type.
+     */
+    public static Task createTask(String[] taskDetails) {
+        Task task = null;
+        switch (taskDetails[0]) {
+        case "TODO":
+            task = new ToDoTask(taskDetails[1]);
+            break;
+            
+        case "DEADLINE":
+            task = new DeadlineTask(taskDetails[1], LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT));
+            break;
+            
+        case "EVENT":
+            task = new EventTask(taskDetails[1], LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT), LocalDateTime.parse(taskDetails[4], Task.DATE_FORMAT));
+            break;
+        }
+        return task;
     }
 
     /**

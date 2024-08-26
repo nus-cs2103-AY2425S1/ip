@@ -28,13 +28,13 @@ public class EventTask extends Task{
     @Override
     public String toCSVFormat(){
         
-        return "EVENT," + super.toCSVFormat() + "," + this.startDate.format(this.dateFormat) + "," + this.endDate.format(this.dateFormat);
+        return "EVENT," + super.toCSVFormat() + "," + this.startDate.format(Task.DATE_FORMAT) + "," + this.endDate.format(Task.DATE_FORMAT);
     }
 
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + " (From: " + this.startDate.format(this.dateFormat) + " To: " + this.endDate.format(this.dateFormat) + ")";
+        return "[E]" + super.toString() + " (From: " + this.startDate.format(Task.DATE_FORMAT) + " To: " + this.endDate.format(Task.DATE_FORMAT) + ")";
     }
 }
 

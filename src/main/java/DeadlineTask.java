@@ -24,12 +24,12 @@ public class DeadlineTask extends Task {
     @Override
     public String toCSVFormat(){
         
-        return "DEADLINE," + super.toCSVFormat() + "," + this.dueDate.format(this.dateFormat);
+        return "DEADLINE," + super.toCSVFormat() + "," + this.dueDate.format(Task.DATE_FORMAT);
     }
 
     @Override
     public String toString() {
 
-        return "[D]" + super.toString() + " (Due by: " + this.dueDate.format(this.dateFormat) + ")";
+        return "[D]" + super.toString() + " (Due by: " + this.dueDate.format(Task.DATE_FORMAT) + ")";
     }
 }

@@ -41,6 +41,7 @@ public class Quack {
         DEADLINE,
         EVENT
     }
+    private Storage storage;
     
     /**
      * Creates a Quack chatbot object.
@@ -49,6 +50,7 @@ public class Quack {
 
         this.isRunning = true;
         this.toDoList = new TaskList();
+        this.storage = new Storage(this.toDoList);
     }
 
     /**
@@ -147,12 +149,12 @@ public class Quack {
             }
         }
         
-        // Add the task into the list
-        try {
-            this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
-        } catch (InvalidDateTimeException dateTimeError) {
-            System.out.println(dateTimeError.getMessage());
-        }
+        // // Add the task into the list
+        // try {
+        //     this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
+        // } catch (InvalidDateTimeException dateTimeError) {
+        //     System.out.println(dateTimeError.getMessage());
+        // }
         
     }
 
@@ -223,82 +225,11 @@ public class Quack {
 
         System.out.println(spacer);
     }
-    
-    /**
-     * Reads task data from the csv save file and add it into the task list.
-     * <p>
-     * All tasks that were saved will be readded into the task list upon running the chatbot.
-     */
-    private void loadData() {
-
-        // Load the datafile
-        File dataFile = new File("data/savedData.csv");
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(dataFile));
-
-            String line = br.readLine();
-
-            while (line != null) {
-                String[] data = line.split(",");
-
-                switch (data[0]) {
-                case "TODO":
-                    this.toDoList.addTask(data[1], data[0], null, null, Boolean.parseBoolean(data[2]));
-                    break;
-                
-                case "DEADLINE":
-                    this.toDoList.addTask(data[1], data[0], null, LocalDateTime.parse(data[3], this.dateFormat), Boolean.parseBoolean(data[2]));
-                    break;
-                
-                case "EVENT":
-                    this.toDoList.addTask(data[1], data[0], LocalDateTime.parse(data[3], this.dateFormat), LocalDateTime.parse(data[4], this.dateFormat), Boolean.parseBoolean(data[2]));
-                    break;
-
-                default:
-                    break;
-                }
-
-                line = br.readLine();
-            }
-
-            br.close();
-
-        } catch (Exception err) {
-            // There is no data file to read from, then continue as per normal.   
-        }
-    }
-
-    /**
-     * Saves the task list into a .csv folder.
-     * <p>
-     * All tasks inside the task list will be saved into a .csv folder once Quack stops running.
-     * 
-     * @throws IOException Signals that an I/O exception of some sort has occurred.
-     */
-    private void saveData() throws IOException{
-
-        // Create a csv file to save the tasks
-        File dataFile = new File("data/savedData.csv");
-        FileWriter fw = new FileWriter(dataFile);
-
-        // Convert each task into a csv string format and write into the file
-        ArrayList<String> savedData = this.toDoList.convertTasksToCSVFormat();
-        
-        for (String s : savedData) {
-            fw.write(s + "\n");
-        }
-
-        // Close the file writter
-        fw.close();
-    }
 
     /**
      * Runs the chatbot and start taking inputs from the user.
      */
     private void run() {
-
-        // Retrieved save data from a text file if it exists
-        this.loadData();
 
         // Chatbot is running for the first time, display the logo and greet the user
         this.printLogo();
@@ -318,7 +249,7 @@ public class Quack {
         }
 
         try {
-            this.saveData();
+            storage.saveData(this.toDoList);
         } catch (IOException IOErr){
             System.out.println("An error has occured " + IOErr.getMessage());
         }
