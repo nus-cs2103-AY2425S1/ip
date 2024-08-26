@@ -1,6 +1,6 @@
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 1/1/2020 0000
 list
 delete 1
 list

@@ -1,5 +1,6 @@
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,6 +8,7 @@ import Exceptions.*;
 
 public class Revir {
     static TaskList taskList;
+    static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public static void main(String[] args) {
         taskList = new TaskList(Path.of("data", "tasks.dat"));
@@ -71,9 +73,10 @@ public class Revir {
                 String taskDescription = taskInfo[0];
                 String deadlineStr = taskInfo[1];
                 try {
-                    LocalDateTime deadline = LocalDateTime.parse(deadlineStr);
-                    taskList.add(new Deadline(taskDescription, deadline));
-                    System.out.println("Deadline task added: " + taskDescription + " (by: " + deadline + ")");
+                    LocalDateTime deadline = LocalDateTime.parse(deadlineStr, dateFormat);
+                    Deadline task = new Deadline(taskDescription, deadline);
+                    taskList.add(task);
+                    System.out.println("Task added: " + task.toString());
                 } catch (DateTimeParseException e) {
                     throw new InvalidFormatException(Deadline.format);
                 }
@@ -89,11 +92,11 @@ public class Revir {
                 String startDateStr = taskInfo[1].split(" /to ")[0];
                 String endDateStr = taskInfo[1].split(" /to ")[1];
                 try {
-                    LocalDateTime startDate = LocalDateTime.parse(startDateStr);
-                    LocalDateTime endDate = LocalDateTime.parse(endDateStr);
-                    taskList.add(new Event(taskDescription, startDate, endDate));
-                    System.out.println(
-                            "Event task added: " + taskDescription + " (from: " + startDate + " to: " + endDate + ")");
+                    LocalDateTime startDate = LocalDateTime.parse(startDateStr, dateFormat);
+                    LocalDateTime endDate = LocalDateTime.parse(endDateStr, dateFormat);
+                    Event task = new Event(taskDescription, startDate, endDate);
+                    taskList.add(task);
+                    System.out.println("Task added: " + task.toString());
                 } catch (DateTimeParseException e) {
                     throw new InvalidFormatException(Event.format);
                 }
