@@ -1,3 +1,5 @@
+package friendlybot.task;
+
 /**
  * Represents a task with a description and a status indicating whether it is done.
  */
@@ -6,7 +8,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the specified description.
+     * Constructs a new friendlybot.task.Task with the specified description.
      *
      * @param description The description of the task.
      */

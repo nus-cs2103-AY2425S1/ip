@@ -1,9 +1,11 @@
+package friendlybot.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an Event task.
- * An Event task is a task with a description and a start and end timing.
+ * Represents an friendlybot.task.Event task.
+ * An friendlybot.task.Event task is a task with a description and a start and end timing.
  */
 public class Event extends Task {
 
@@ -11,11 +13,11 @@ public class Event extends Task {
     protected LocalDate to;
 
     /**
-     * Constructs a new Event task with the specified description and timings.
+     * Constructs a new friendlybot.task.Event task with the specified description and timings.
      *
-     * @param description The description of the Event task.
-     * @param from The start time of the Event task.
-     * @param to The end time of the Event task.
+     * @param description The description of the friendlybot.task.Event task.
+     * @param from The start time of the friendlybot.task.Event task.
+     * @param to The end time of the friendlybot.task.Event task.
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
@@ -24,7 +26,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task.
+     * Returns a string representation of the friendlybot.task.Event task.
      *
      * @return A string in the format "[E][statusIcon] description (from: time to: time)".
      */

@@ -1,3 +1,9 @@
+package friendlybot.command;
+
+import friendlybot.Storage;
+import friendlybot.Ui;
+import friendlybot.task.*;
+
 import java.time.LocalDate;
 
 public class AddCommand extends Command {

@@ -1,3 +1,10 @@
+package friendlybot;
+
+import friendlybot.task.Deadline;
+import friendlybot.task.Event;
+import friendlybot.task.Task;
+import friendlybot.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,7 +36,7 @@ public class Storage {
                         Task newTask = Storage.getTask(task);
                         tasks.add(newTask);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        Ui.print("Task is not in the expected format: " + task);
+                        Ui.print("friendlybot.task.Task is not in the expected format: " + task);
                         Ui.print("Removed from task list!");
                     }
                 }

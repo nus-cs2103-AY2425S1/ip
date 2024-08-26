@@ -1,3 +1,5 @@
+package friendlybot;
+
 public class Ui {
     public Ui() {
 
