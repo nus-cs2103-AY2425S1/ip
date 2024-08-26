@@ -37,6 +37,19 @@ public class Ui {
     }
 
     /**
+     * Prints the bot's response whilst being able to choose whether to print with a break line.
+     * 
+     * @param input The String input to print.
+     * @param isBreakLine Whether to print a break line after the input.
+     */
+    public void botSays(String input, boolean isBreakLine) {
+        System.out.println(prependBotName(input));
+        if (isBreakLine) {
+            System.out.println(BREAKLINE);
+        }
+    }
+    
+    /**
      * Lists the tasks in the task list.
      * 
      * @param tasks The task list to list.
@@ -49,19 +62,26 @@ public class Ui {
 
             int i = 1;
             for (Task task : tasks.getTasks()) {
-                System.err.println(String.format("    %d. %s", i, task.toString()));
+                System.out.println(String.format("    %d. %s", i, task.toString()));
                 i++;
             }
         }
         System.out.println(BREAKLINE);
     }
 
+<<<<<<< HEAD
     /**
      * Tries to echoe the input back to the user but fails as input is not recognised.
      * 
      * @param input The input to attempt to echo back.
      * @throws InfinityException Always thrown as the input is not recognised.
      */
+=======
+    public void listTask(Task task, int i) {
+        System.out.println(String.format("    %d. %s", i, task.toString()));
+    }
+
+>>>>>>> branch-Level-9
     public void echo(String input) throws InfinityException {
         throw new InfinityException("Wait a minute, that's not something I recognise...");
     }

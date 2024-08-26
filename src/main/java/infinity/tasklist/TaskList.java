@@ -128,6 +128,25 @@ public class TaskList {
     };
 
     /**
+     * Finds tasks with a keyword and lists them.
+     * 
+     * @param keyword The keyword to search for in the tasks.
+     */
+    public void findTasks(String keyword) {
+        int i = 1;
+        botUI.botSays("Alright, alright, let me find that for you...", false);
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                botUI.listTask(task, i);
+                i++;
+            }
+        }
+        if (i == 1) {
+            botUI.botSays("Strange, I can't find any tasks with that keyword...");
+        }
+    }
+    
+    /**
      * Constructor for the TaskList class.
      * 
      * @param initialTask The initial list of tasks. If empty, pass in an empty ArrayList.

@@ -23,6 +23,7 @@ public class Infinity <T extends Task> {
         DEADLINE, 
         DELETE,
         EVENT, 
+        FIND,
         LIST, 
         MARK, 
         SAVE,
@@ -78,6 +79,11 @@ public class Infinity <T extends Task> {
                         && currentInput.length() > 7) {
 
                     this.botTasks.deleteTask(currentInput.substring(7));
+
+                } else if (currentInput.startsWith(KnownCommands.FIND.toString().toLowerCase())
+                        && currentInput.length() > 5) {
+
+                    this.botTasks.findTasks(currentInput.substring(5));
 
                 } else if (currentInput.startsWith(KnownCommands.SAVE.toString().toLowerCase())) {
                     
