@@ -1,9 +1,8 @@
 package Exception;
 
-public class PurrfessorDipsyException extends Exception {
+public class InvalidCommandException extends Exception {
     private final ErrorType errorType;
     public enum ErrorType {
-        UNKNOWN_COMMAND,
         INVALID_TODO,
         INVALID_DEADLINE,
         INVALID_EVENT,
@@ -13,7 +12,7 @@ public class PurrfessorDipsyException extends Exception {
         INVALID_DELETE_INDEX
     }
 
-    public PurrfessorDipsyException(ErrorType errorType) {
+    public InvalidCommandException(ErrorType errorType) {
         super();
         this.errorType = errorType;
     }
@@ -37,7 +36,4 @@ public class PurrfessorDipsyException extends Exception {
             default -> "Unknown invalid command. Please try again." ;
         };
     }
-
-
-
 }

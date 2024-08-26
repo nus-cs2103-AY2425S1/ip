@@ -1,6 +1,7 @@
 package Exception;
 
 public class UnknownCommandException extends Exception {
+
     @Override
     public String getMessage() {
         return "Unrecognized command.\n\n" + getUsage();
