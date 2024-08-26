@@ -1,8 +1,11 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.format.DateTimeFormatter;
 
 public class DemureBot {
     /**
@@ -137,7 +140,7 @@ public class DemureBot {
             throw new DemureBotException("The deadline of a deadline cannot be empty.\nAdd deadline after /by.\n");
         }
         String description = splitBy[0].trim();
-        String by = splitBy[1].trim();
+        String by = formatDateTime(splitBy[1].trim());
         return new Deadline(description, by, false);
     }
 
@@ -165,9 +168,25 @@ public class DemureBot {
         if (splitTo.length == 1) {
             throw new DemureBotException("The end time of an event cannot be empty.\nAdd end time after /to.\n");
         }
-        String from = splitTo[0].trim();
-        String to = splitTo[1].trim();
+        String from = formatDateTime(splitTo[0].trim());
+        String to = formatDateTime(splitTo[1].trim());
         return new Event(description, from, to, false);
+    }
+
+    /**
+     * Returns a formatted date/time string.
+     *
+     * @param dateTime Date/time string to be formatted.
+     * @return Formatted date/time string.
+     * @throws DemureBotException If the date/time string is invalid.
+     */
+    private static String formatDateTime(String dateTime) throws DemureBotException {
+        try {
+            LocalDateTime dateTimeParsed = LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            return dateTimeParsed.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new DemureBotException("Invalid date/time format. Please enter date in yyyy-MM-dd, time in HHmm, or date and time in yyyy-MM-dd HHmm format.\n");
+        }
     }
 
     /**

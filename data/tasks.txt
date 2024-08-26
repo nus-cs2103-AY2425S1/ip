@@ -1,2 +1,0 @@
-D | 0 | task one | 2359
-E | 0 | task two | today | tomorrow
