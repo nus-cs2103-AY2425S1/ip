@@ -8,13 +8,13 @@ public enum Commands {
     DEADLINE("deadline"),
     EVENT("event");
     
-    private String description;
+    private String command;
     
-    Commands(String description) {
-        this.description = description;
+    Commands(String command) {
+        this.command = command;
     }
     
-    public String getDescription() {
-        return this.description;
+    public String getCommand() {
+        return this.command;
     }
 }

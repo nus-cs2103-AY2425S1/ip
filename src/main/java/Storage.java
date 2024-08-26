@@ -1,14 +1,23 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.util.stream.Collector;
 
 public class Storage {
     ArrayList<Task> TaskLists;
     
     public Storage() {
-        this.TaskLists = new ArrayList<Task>();
+        this.TaskLists = FileUtility.fileContents();
+    }
+    
+    private void updateMemory() {
+        String updatedTaskList = this.TaskLists.stream().map(Task::storageFormat).
+                reduce("", (firstLine, secondLine) -> firstLine + secondLine);
+        FileUtility.writeToFile(updatedTaskList);
     }
     
     public void storeTask(Task newTask) {
         this.TaskLists.add(newTask);
+        updateMemory();
     }
     
     public Task lastTask() {
@@ -28,7 +37,7 @@ public class Storage {
         StringBuilder result = new StringBuilder();
             for (int i =0; i < this.TaskLists.size(); i++) {
                 result.append(i + 1).append(". ")
-                        .append(this.TaskLists.get(i).toString()).append("\n");
+                    .append(this.TaskLists.get(i).toString()).append("\n");
             }
         return result.toString();
     }
@@ -41,6 +50,7 @@ public class Storage {
         } else {
             this.TaskLists.get(normalizedIndex).markAsUndone();
         }
+        updateMemory();
         result.append(this.TaskLists.get(normalizedIndex).toString());
         return result.toString();
     }
@@ -50,6 +60,7 @@ public class Storage {
         StringBuilder result = new StringBuilder();
         result.append(this.TaskLists.get(normalizedIndex).toString());
         this.TaskLists.remove(normalizedIndex);
+        updateMemory();
         return result.toString();
     }
     
