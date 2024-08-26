@@ -1,11 +1,18 @@
 package ipman;
 
+/**
+ * Ui class
+ * @author miloaisdino
+ */
 public class Ui {
     public static final String SEPARATOR = "____________________________________________________________";
-    public String buffer = "";
+    private String buffer = "";
     public Ui() {
     }
 
+    /**
+     * Prints the welcome banner
+     */
     public void showBanner() {
         System.out.println(SEPARATOR);
         System.out.println("Hello from Ip Man!\nWhat can I do for you?");
@@ -20,6 +27,9 @@ public class Ui {
         buffer = buffer + "\r\n" + str;
     }
 
+    /**
+     * Sends the buffer to the screen and clears it after
+     */
     public void outputBuffer() {
         if (!buffer.isEmpty()) {
             System.out.println(buffer);
