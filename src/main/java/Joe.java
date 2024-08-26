@@ -2,11 +2,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 public class Joe {
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final String CHATBOT_NAME = "Joe";
     public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n";
     public static final String TASK_COUNT_MESSAGE = "Now you have %d tasks in the list.\n";
+    public static final String FILE_NAME = "./data/store.txt";
 
     public static String input = "";
     public static ArrayList<Task> store = new ArrayList<>();
@@ -89,15 +91,71 @@ public class Joe {
         System.out.printf(TASK_COUNT_MESSAGE, store.size());
     }
 
+    public static void saveTasks() {
+        try {
+            System.out.println("Saving tasks...");
+            File file = new File(FILE_NAME);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+            for (Task task : store) {
+                writer.write(task.toSaveString() + "\n");
+            }
+            writer.close();
+            System.out.println("Tasks saved!");
+        } catch (IOException e) {
+            System.out.println(e);
+            System.out.println("An error occurred, tasks not saved.");
+        }
+    }
+
+    public static void loadTasks() {
+        try {
+            System.out.println("Loading tasks...");
+            File file = new File(FILE_NAME);
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String data = reader.nextLine();
+                String[] parts = data.split("\\|");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String task = parts[2];
+                if (type.equals("T")) {
+                    store.add(new TaskTodo(task));
+                } else if (type.equals("D")) {
+                    String by = parts[3];
+                    store.add(new TaskDeadline(task, by));
+                } else if (type.equals("E")) {
+                    String from = parts[3];
+                    String to = parts[4];
+                    store.add(new TaskEvent(task, from, to));
+                }
+                if (isDone) {
+                    store.get(store.size() - 1).toggleDone();
+                }
+            }
+            reader.close();
+            System.out.println("Tasks loaded!");
+        } catch (IOException e) {
+            System.out.println(e);
+            System.out.println("An error occurred, tasks not loaded.");
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        loadTasks();
         greet();
         while (!input.equals("bye")) {
             input = scanner.nextLine();
             System.out.println(HORIZONTAL_LINE);
             if (input.equals("bye")) {
                 break;
+            }
+            else if (input.contains("|")) {
+                System.out.println("| is a special character and cannot be used.");
             }
             else if (input.equals("list")) {
                 handleList(store);
@@ -127,6 +185,7 @@ public class Joe {
             }
             System.out.println(HORIZONTAL_LINE);
         }
+        saveTasks();
         farewell();
         scanner.close();
     }
