@@ -1,7 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
 public class Bao {
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final String file_Path = "./data/bao.txt";
 
     private static String baoHappy =
               "     ___\n"
@@ -19,6 +21,7 @@ public class Bao {
             + " |    ^    |\n"
             + " \\________/\n";
     public static void main(String[] args) {
+        loadFile();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("____________________________________________________________");
@@ -45,6 +48,7 @@ public class Bao {
                         int index = Integer.parseInt(number) - 1;
                         checkIndex(index);
                         taskList.get(index).mark();
+                        saveTasks();
                         System.out.println("Bao has marked it as done!");
                         System.out.println(taskList.get(index));
                     } catch (NumberFormatException e) {
@@ -56,6 +60,7 @@ public class Bao {
                         int index = Integer.parseInt(number) - 1;
                         checkIndex(index);
                         taskList.get(index).unmark();
+                        saveTasks();
                         System.out.println("Bao has marked it as not done!");
                         System.out.println(taskList.get(index));
                     } catch (NumberFormatException e) {
@@ -116,6 +121,7 @@ public class Bao {
 
     private static void deleteTask(int index) {
         Task removed = taskList.remove(index);
+        saveTasks();
         System.out.println("Bao has removed this task:");
         System.out.println(removed.toString());
         System.out.println("Bao is now tracking " + taskList.size() + " tasks");
@@ -143,6 +149,8 @@ public class Bao {
                     int byIndex = taskDescription.indexOf("/by ");
                     if (byIndex == -1) {
                         throw new IllegalArgumentException("Bao needs the deadline to be after /by");
+                    } else if (byIndex == 0) {
+                        throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
                     String deadline = taskDescription.substring(byIndex + 4);
                     String description = taskDescription.substring(0, byIndex - 1);
@@ -154,19 +162,80 @@ public class Bao {
                     int fromIndex = taskDescription.indexOf("/from ");
                     int toIndex = taskDescription.indexOf("/to ");
                     if (fromIndex == -1 || toIndex == -1) {
-                        throw new IllegalArgumentException("Bao needs the start and end to be after /from and /to");
+                        throw new IllegalArgumentException("Bao needs the start and end to be after /from and /to " +
+                                "and formatted properly");
+                    } else if (fromIndex == 0) {
+                        throw new IllegalArgumentException("Bao needs a valid description of the task!");
                     }
                     String from = taskDescription.substring(fromIndex + 6, toIndex - 1);
                     String to = taskDescription.substring(toIndex + 4);
                     String description = taskDescription.substring(0, fromIndex - 1);
+                    if (description.isEmpty()) {
+                        throw new IllegalArgumentException("Bao needs a valid description of the task!");
+                    }
                     taskList.add(new Event(description, from, to));
                     System.out.println("Bao got it! Bao is now tracking:");
                     System.out.println(taskList.get(taskList.size() - 1).toString());
                 }
             }
+            saveTasks();
         } else {
             System.out.println(baoSad);
             System.out.println("Bao cannot remember so many things :(");
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            File file = new File(file_Path);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            PrintWriter writer = new PrintWriter(file);
+            for (Task task : taskList) {
+                writer.println(task.toString());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(baoSad);
+            System.out.println("Bao could not save tasks: " + e.getMessage());
+        }
+    }
+
+    private static void loadFile() {
+        try {
+            File file = new File(file_Path);
+            // Break if file does not exist
+            if (!file.exists()) {
+                return;
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] lineParts = line.split(" \\| ");
+                String type = lineParts[0];
+                boolean isDone = lineParts[1].equals("1");
+                String description = lineParts[2];
+                String[] duration;
+                switch (type) {
+                    case "T" -> taskList.add(new ToDo(description));
+                    case "D" -> taskList.add(new Deadline(description, lineParts[3]));
+                    case "E" -> {
+                        duration = lineParts[3].split("-");
+                        taskList.add(new Event(description, duration[0], duration[1]));
+                    }
+                }
+                if (isDone) {
+                    taskList.get(taskList.size() - 1).mark();
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Bao could not load this file: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Bao was fed a corrupted file, starting new one!");
+            taskList.clear();
         }
     }
 }

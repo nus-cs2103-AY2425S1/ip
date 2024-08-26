@@ -18,9 +18,9 @@ public class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "[X] " + description;
+            return "1 | " + description;
         } else {
-            return "[ ] " + description;
+            return "0 | " + description;
         }
     }
 }
