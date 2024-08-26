@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class ChatterBox {
     private static final String FILE_PATH = "./data/chatterbox.txt";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     public static void createFileIfNotExists(String filePath) {
         File file = new File(filePath);
@@ -24,6 +28,8 @@ public class ChatterBox {
             }
         }
     }
+
+
     public static void saveTasks(ArrayList<Task> taskList, String filePath) {
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for(Task task : taskList) {
@@ -35,37 +41,37 @@ public class ChatterBox {
             System.out.println("\t\t" + "_".repeat(50));
         }
     }
-
     public static ArrayList<Task> readTasks(String filePath) {
-        createFileIfNotExists(FILE_PATH);
+        createFileIfNotExists(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
-        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 String[] component = line.split("\\|");
                 String taskType = component[0].trim();
                 boolean isDone = component[1].trim().equals("Done");
-                String description = component[2];
+                String description = component[2].trim();
                 Task task = null;
 
-                if(taskType.equalsIgnoreCase("ToDo")) {
+                if (taskType.equalsIgnoreCase("ToDo")) {
                     task = new ToDo(description);
-                } else if(taskType.equalsIgnoreCase("Event")) {
-                    String startDate = component[3].trim();
-                    String endDate = component[4].trim();
+                } else if (taskType.equalsIgnoreCase("Event")) {
+                    LocalDateTime startDate = LocalDateTime.parse(component[3].trim(), FORMATTER);
+                    LocalDateTime endDate = LocalDateTime.parse(component[4].trim(), FORMATTER);
                     task = new Event(description, startDate, endDate);
-                } else if(taskType.equalsIgnoreCase("Deadline")) {
-                    String by = component[3].trim();
+                } else if (taskType.equalsIgnoreCase("Deadline")) {
+                    LocalDateTime by = LocalDateTime.parse(component[3].trim(), FORMATTER);
                     task = new Deadline(description, by);
                 } else {
-                        System.out.println("Unknown task type");
+                    System.out.println("Unknown task type");
                 }
+
                 if (task != null && isDone) {
                     task.markAsDone();
                 }
                 taskList.add(task);
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("\t\t" + "_".repeat(50));
             System.out.println("\t\t" + "Error reading tasks from file.");
             System.out.println("\t\t" + "_".repeat(50));
@@ -73,9 +79,6 @@ public class ChatterBox {
         return taskList;
     }
 
-    public static void deleteTask(ArrayList<Task> taskList, int taskIndex) {
-        taskList.remove(taskIndex);
-    }
     public static void main(String[] args) {
         ArrayList<Task> taskList = new ArrayList<>();
 
