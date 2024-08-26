@@ -5,19 +5,21 @@ import papadom.Exceptions.WrongTaskNumberException;
 import papadom.Storage.Storage;
 import papadom.Storage.TaskList;
 import papadom.Ui;
+
 /**
  * Represents a command to delete an event task from the task list.
  */
 public class DeleteEventCommand extends Command {
-    private final String text;
+    private final String TEXT;
     /**
      * Constructs a DeleteEventCommand with the specified text input.
      *
      * @param text The input string that specifies which event to delete.
      */
     public DeleteEventCommand(String text) {
-        this.text = text;
+        this.TEXT = text;
     }
+
     /**
      * Executes the command to delete an event task from the task list.
      *
@@ -29,6 +31,6 @@ public class DeleteEventCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws WrongTaskNumberException, NoTaskNumberException {
-        ui.output(taskList.deleteEvent(text));
+        ui.output(taskList.deleteEvent(TEXT));
     }
 }

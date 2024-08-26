@@ -1,6 +1,8 @@
 package papadom.commands;
+
 import papadom.Storage.*;
 import papadom.Ui;
+
 /**
  * Represents an abstract command that can be executed.
  */

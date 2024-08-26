@@ -1,4 +1,5 @@
 package papadom.tasks;
+
 /**
  * Represents a to-do task.
  * A to-do task only contains a description and does not include any date or time information.
@@ -12,6 +13,7 @@ public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
+
     /**
      * Returns a string representation of the to-do task.
      *

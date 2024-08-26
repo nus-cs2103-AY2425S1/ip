@@ -9,15 +9,16 @@ import papadom.Ui;
  * Represents a command to mark a task as completed.
  */
 public class MarkCommand extends Command {
-    private final String text;
+    private final String TEXT;
     /**
      * Constructs a MarkCommand with the specified text input.
      *
      * @param text The input string that specifies which task to mark.
      */
     public MarkCommand(String text) {
-        this.text = text;
+        this.TEXT = text;
     }
+
     /**
      * Executes the command to mark a task as completed.
      *
@@ -29,6 +30,6 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws WrongTaskNumberException, NoTaskNumberException {
-        ui.output(taskList.markTask(text));
+        ui.output(taskList.markTask(TEXT));
     }
 }

@@ -6,6 +6,7 @@ import papadom.Storage.TaskList;
 import papadom.commands.*;
 
 import java.util.Scanner;
+
 /**
  * Main class for the Papadom chatbot.
  * This class handles user input and executes the corresponding commands.
@@ -36,22 +37,22 @@ public class Papadom {
             };
         }
     }
-    private static final Ui ui = new Ui();
-    private static final Storage storage = new Storage("./src/main/java/papadom/Storage/tasks.txt");
-    private static final Parser parser = new Parser();
-    private static final TaskList taskList = new TaskList(storage);
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Ui UI = new Ui();
+    private static final Storage STORAGE = new Storage("./src/main/java/papadom/Storage/tasks.txt");
+    private static final TaskList TASK_LIST = new TaskList(STORAGE);
+    private static final Scanner SCANNER = new Scanner(System.in);
+
     /**
      * Runs the Papadom chatbot, handling user input and executing commands in a loop.
      */
     private static void run() {
-        ui.welcomeMessage();
-        storage.createFileIfNotPresent();
+        UI.welcomeMessage();
+        STORAGE.createFileIfNotPresent();
 
         while (true) {
             Command command = null;
             try {
-                String text = scanner.nextLine();
+                String text = SCANNER.nextLine();
                 String commandText = text.split(" ")[0];
                 CommandType commandType = CommandType.fromString(commandText);
                 switch (commandType) {
@@ -82,15 +83,16 @@ public class Papadom {
                     default:
                         throw new UnknownCommandException();
                 }
-                command.execute(taskList, ui, storage);
+                command.execute(TASK_LIST, UI, STORAGE);
                 if (command instanceof ExitCommand) {
                     return;
                 }
             } catch (Exception e) {
-                ui.output(e.getMessage());
+                UI.output(e.getMessage());
             }
         }
     }
+
     /**
      * Main entry point for the Papadom application.
      *

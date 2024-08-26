@@ -9,15 +9,16 @@ import papadom.Ui;
  * Represents a command to unmark a task as completed.
  */
 public class UnmarkCommand extends Command {
-    private final String text;
+    private final String TEXT;
     /**
      * Constructs an UnmarkCommand with the specified text input.
      *
      * @param text The input string that specifies which task to unmark.
      */
     public UnmarkCommand(String text) {
-        this.text = text;
+        this.TEXT = text;
     }
+
     /**
      * Executes the command to unmark a task as completed.
      *
@@ -29,6 +30,6 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws WrongTaskNumberException, NoTaskNumberException {
-        ui.output(taskList.unmarkTask(text));
+        ui.output(taskList.unmarkTask(TEXT));
     }
 }

@@ -6,20 +6,23 @@ import papadom.Parser;
 import papadom.Storage.Storage;
 import papadom.Storage.TaskList;
 import papadom.Ui;
+
 /**
  * Represents a command to add an event task to the task list.
  */
 public class AddEventCommand extends Command{
-    private final String text;
-    private static final Parser parser = new Parser();
+    private final String TEXT;
+    private static final Parser PARSER = new Parser();
+
     /**
      * Constructs an AddEventCommand with the specified text input.
      *
      * @param text The input string that contains the details of the event task.
      */
     public AddEventCommand(String text) {
-        this.text = text;
+        this.TEXT = text;
     }
+
     /**
      * Executes the command to add an event task to the task list.
      *
@@ -31,7 +34,7 @@ public class AddEventCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
         try {
-            Event eventTask = parser.eventTaskCreator(text.substring(6));
+            Event eventTask = PARSER.eventTaskCreator(TEXT.substring(6));
             ui.output(taskList.addToList(eventTask));
         } catch (IndexOutOfBoundsException e) {
             throw new IncorrectTaskInputFormatException();

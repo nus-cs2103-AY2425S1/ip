@@ -1,4 +1,5 @@
 package papadom.tasks;
+
 /**
  * Represents an event task.
  * An event task contains a description, a start time, and an end time.
@@ -18,6 +19,7 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+
     /**
      * Returns a string representation of the event task, including the start and end times.
      *

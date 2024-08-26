@@ -3,7 +3,6 @@ package papadom;
 import papadom.Exceptions.IncorrectTaskInputFormatException;
 import papadom.tasks.Deadline;
 import papadom.tasks.Event;
-import papadom.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,6 +42,7 @@ public class Parser {
             throw new IncorrectTaskInputFormatException(); // Throw custom exception if parsing fails
         }
     }
+
     /**
      * Creates an Event task from the provided details.
      *

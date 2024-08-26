@@ -3,6 +3,7 @@ package papadom.tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a deadline task.
  * A deadline task contains a description and a deadline date, with or without a specific time.
@@ -22,6 +23,7 @@ public class Deadline extends Task {
         this.localDateTime = by;
         this.hasTime = true;
     }
+
     /**
      * Constructs a Deadline task with a description and a deadline date without time.
      *
@@ -33,6 +35,7 @@ public class Deadline extends Task {
         this.localDate = by;
         this.hasTime = false;
     }
+
     /**
      * Returns a string representation of the deadline task, including the deadline date and time if available.
      *
