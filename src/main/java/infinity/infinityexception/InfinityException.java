@@ -6,6 +6,7 @@ package infinity.infinityexception;
 public class InfinityException extends Exception {
     /**
      * Constructor for InfinityException.
+     * 
      * @param message The message to be displayed when the exception is thrown.
      */
     public InfinityException(String message) {

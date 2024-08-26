@@ -21,6 +21,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list of tasks.
+     * 
      * @param <T> Type of Task that extends Task. Examples include ToDos, Events and Deadline.
      * @param task The task, T, to be added.
      * @throws InfinityException If the task list is full.
@@ -39,6 +40,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list of tasks.
+     * 
      * @param currentInput The string input from the user, but only the index as string.
      * @throws InfinityException If the task index is out of bounds or not a number.
      */
@@ -72,6 +74,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
+     * 
      * @param currentInput The full string input from the user.
      * @throws InfinityException If the task index is out of bounds or not a number.
      */
@@ -106,6 +109,7 @@ public class TaskList {
 
     /**
      * Checks if the task list is empty.
+     * 
      * @return True if the task list is empty, false otherwise.
      */
     public boolean isEmpty() {
@@ -114,6 +118,7 @@ public class TaskList {
 
     /**
      * Gets the list of tasks.
+     * 
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
@@ -122,6 +127,7 @@ public class TaskList {
 
     /**
      * Constructor for the TaskList class.
+     * 
      * @param initialTask The initial list of tasks. If empty, pass in an empty ArrayList.
      * @param botUI The initialised UI object to interact with the user.
      */

@@ -32,6 +32,7 @@ public class Parser {
 
     /**
      * Prepends a zero to the value if it is less than 10.
+     * 
      * @param value The value to be checked.
      * @return The value as a String with a zero prepended if it is less than 10.
      */
@@ -41,6 +42,7 @@ public class Parser {
 
     /**
      * Parses a LocalDateTime object to a String in the format dd-mm-yyyy hhmm.
+     * 
      * @param dateTime The LocalDateTime object to be parsed.
      * @return The LocalDateTime object as a String in the format dd-mm-yyyy hhmm.
      */
@@ -55,6 +57,7 @@ public class Parser {
 
     /**
      * Parses a LocalDateTime object to a String in the format Month dd, yyyy, hhmm.
+     * 
      * @param dateTime The LocalDateTime object to be parsed.
      * @return The LocalDateTime object as a String in the format Month dd, yyyy, hhmm.
      */
@@ -69,6 +72,7 @@ public class Parser {
 
     /**
      * Parses a String to a LocalDateTime object.
+     * 
      * @param dateTime The String to be parsed in dd-mm-yyyy hhmm or dd/mm/yyyy hhmm, 
      *                 hhmm is in 24-hour format.
      * @return The String as a LocalDateTime object.

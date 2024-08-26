@@ -11,8 +11,9 @@ public class Event extends Task {
 
     /**
      * Constructor for the Event class.
-     * @param description The description of the event
-     * @throws InfinityException If the format of the event is wrong
+     * 
+     * @param description The description of the event.
+     * @throws InfinityException If the format of the event is wrong.
      */
     public Event(String description) throws InfinityException {
         try {
@@ -27,11 +28,12 @@ public class Event extends Task {
 
     /**
      * 2nd Constructor for the Event class.
-     * @param isDone The status of the event
-     * @param description The description of the event
-     * @param from The starting date of the event
-     * @param to The ending date of the event
-     * @throws InfinityException If the format of the event is wrong
+     * 
+     * @param isDone The status of the event.
+     * @param description The description of the event.
+     * @param from The starting date of the event.
+     * @param to The ending date of the event.
+     * @throws InfinityException If the format of the event is wrong.
      */
     public Event(boolean isDone, String description, String from, String to) throws InfinityException {
         this.isDone = isDone;
@@ -42,9 +44,10 @@ public class Event extends Task {
     }
 
     /**
-     * Parses the save-file format of the event
-     * @param delimiter The delimiter to separate the fields
-     * @return The save-file format of the event
+     * Parses the save-file format of the event.
+     * 
+     * @param delimiter The delimiter to separate the fields.
+     * @return The save-file format of the event.
      */
     @Override
     public String saveFileFormat(String delimiter) {

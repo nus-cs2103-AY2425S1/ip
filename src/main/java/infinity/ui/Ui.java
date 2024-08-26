@@ -17,6 +17,7 @@ public class Ui {
 
     /**
      * Prepends the bot name to the input.
+     * 
      * @param input The String input to prepend the bot name to.
      * @return The input with the bot name prepended.
      */
@@ -26,6 +27,7 @@ public class Ui {
 
     /**
      * Prints the bot's response.
+     * 
      * @param input The String input to print.
      */
     public void botSays(String input) {
@@ -35,6 +37,7 @@ public class Ui {
 
     /**
      * Lists the tasks in the task list.
+     * 
      * @param tasks The task list to list.
      */
     public void listTasks(TaskList tasks) {
@@ -54,6 +57,7 @@ public class Ui {
 
     /**
      * Tries to echoe the input back to the user but fails as input is not recognised.
+     * 
      * @param input The input to attempt to echo back.
      * @throws InfinityException Always thrown as the input is not recognised.
      */
@@ -63,6 +67,7 @@ public class Ui {
 
     /**
      * Gets the next input from the user.
+     * 
      * @return The next input from the user.
      */
     public String nextInput() {

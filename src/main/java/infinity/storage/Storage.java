@@ -134,6 +134,7 @@ public class Storage {
 
     /**
      * Checks if the file and directory exists.
+     * 
      * @return True if exists, false otherwise.
      */
     private boolean doesFileExist() {
@@ -159,6 +160,7 @@ public class Storage {
 
     /**
      * Constructor for the Storage class.
+     * 
      * @param botUI The Ui object to interact with the user.
      */
     public Storage(Ui botUI) {

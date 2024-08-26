@@ -104,6 +104,7 @@ public class Infinity <T extends Task> {
 
     /**
      * Main method to run the Infinity bot.
+     * 
      * @param args The arguments to run the bot.
      */
     public static void main(String[] args) {
