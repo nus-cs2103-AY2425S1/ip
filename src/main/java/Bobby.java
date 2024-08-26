@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Bobby {
     public static String greeting = "Hello! I'm Bobby\n"
             + "What can I do for you?\n";
-    public static String exit = "Bye. Hope to see you again soon!\n";
+    public static String exit = "Bye. Hope to see you again soon!";
     public static Scanner scan = new Scanner(System.in);
     public static Task[] list = new Task[100];
     public static int counter = 0;
@@ -40,10 +40,11 @@ public class Bobby {
     list of Task to print each Task in a new line.
      */
     public static void print_list() {
-        System.out.println("Here are the tasks in your list: \n");
+        System.out.println("Here are the tasks in your list:");
         for (int x = 0; list[x] != null; x++) {
-            System.out.println(x + 1 + "." + list[x].toString() + "\n");
+            System.out.println(x + 1 + "." + list[x].toString());
         }
+        System.out.println();
     }
 
     /* create a check_action function that takes in a
@@ -70,29 +71,30 @@ public class Bobby {
             return;
         } if (input.equals("todo")) {
             input = scan.nextLine();
-            ToDos curr_ToDos = new ToDos(input);
+            ToDos curr_ToDos = new ToDos(input.trim());
             add_list(curr_ToDos);
-            System.out.println("Got it. I've added this task: \n" +
+            System.out.println("Got it. I've added this task:\n" +
                     curr_ToDos.toString() + "\n" +
-                    "Now you have " + counter + " tasks in the list.");
+                    "Now you have " + counter + " tasks in the list.\n");
             check_action(scan.next());
         } if (input.equals("deadline")) {
-                input = scan.nextLine();
-                String details[] = input.split("/");
-                Deadlines curr_deadlines = new Deadlines(details[0], details[1]);
-                add_list(curr_deadlines);
-                System.out.println("Got it. I've added this task: \n" +
-                        curr_deadlines.toString() + "\n" +
-                        "Now you have " + counter + " tasks in the list.");
-                check_action(scan.next());
+            input = scan.nextLine();
+            String details[] = input.split("/by");
+            Deadlines curr_deadlines = new Deadlines(details[0].trim(), details[1].trim());
+            add_list(curr_deadlines);
+            System.out.println("Got it. I've added this task:\n" +
+                    curr_deadlines.toString() + "\n" +
+                    "Now you have " + counter + " tasks in the list.\n");
+            check_action(scan.next());
         } if (input.equals("event")) {
             input = scan.nextLine();
-            String details[] = input.split("/");
-            Events curr_events = new Events(details[0], details[1], details[2]);
+            String details[] = input.split("/from");
+            String duration[] = details[1].split("/to");
+            Events curr_events = new Events(details[0].trim(), duration[0].trim(), duration[1].trim());
             add_list(curr_events);
-            System.out.println("Got it. I've added this task: \n" +
+            System.out.println("Got it. I've added this task:\n" +
                     curr_events.toString() + "\n" +
-                    "Now you have " + counter + " tasks in the list.");
+                    "Now you have " + counter + " tasks in the list.\n");
             check_action(scan.next());
         }
     }

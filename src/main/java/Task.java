@@ -18,7 +18,7 @@ public class Task {
     undone to done
      */
     public void markAsDone() {
-        System.out.println("Nice! I've marked this task as done: \n" );
+        System.out.println("Nice! I've marked this task as done:" );
         if (!this.isDone) {
             this.isDone = true;
             System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
@@ -35,13 +35,13 @@ public class Task {
             this.isDone = false;
             System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
         } else {
-            System.out.println("this tasked has not been marked \n");
+            System.out.println("this tasked has not been marked!!\n");
         }
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" +  this.description;
+        return "[" + getStatusIcon() + "] " +  this.description;
     }
 
 }
