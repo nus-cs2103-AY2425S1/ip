@@ -19,5 +19,11 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    public String toFileFormat() {
+        return (this instanceof ToDo ? "T" :
+                this instanceof Deadline ? "D" : "E") +
+                " | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }
 
