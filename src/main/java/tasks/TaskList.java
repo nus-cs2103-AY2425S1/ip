@@ -68,4 +68,18 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
+
+    public ArrayList<Task> findTasks(String keyword) throws JarException {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            throw new JarException("Task cannot be empty!");
+        } else {
+            ArrayList<Task> sameTasks = new ArrayList<>();
+            for (Task task : tasks) {
+                if (task.toString().contains(keyword)) {
+                    sameTasks.add(task);
+                }
+            }
+            return sameTasks;
+        }
+    }
 }
