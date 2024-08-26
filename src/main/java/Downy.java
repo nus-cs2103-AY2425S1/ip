@@ -1,8 +1,9 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Downy {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // Divider for separating ChatBot from input messages
         String divider = "________________________________________\n";
         // Initialise scanner and taskList
@@ -22,13 +23,14 @@ public class Downy {
                 if (userInput.equals("bye")) {
                     break;
                 } else if (userInput.equals("list")) {
-                    if (taskCount == 0) {
+                    tasks = FileUtils.readFile();
+                    if (tasks.isEmpty()) {
                         System.out.println(divider + "There are no tasks!\n" + divider);
                         continue;
                     }
                     System.out.printf(divider);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     System.out.println(divider);
@@ -49,6 +51,7 @@ public class Downy {
                                 int taskNumber = Integer.parseInt(remainder);
                                 Task t = tasks.get(taskNumber - 1);
                                 t.completeTask();
+                                FileUtils.markComplete(t);
                                 System.out.println(divider);
                                 System.out.println("Nice! You've completed this task:\n  " + t);
                                 System.out.println(divider);
@@ -70,6 +73,7 @@ public class Downy {
                                 int taskNumber = Integer.parseInt(remainder);
                                 Task t = tasks.get(taskNumber - 1);
                                 t.uncompleteTask();
+                                FileUtils.markIncomplete(t);
                                 System.out.println(divider);
                                 System.out.println("Ok! This task is not complete:\n  " + t);
                                 System.out.println(divider);
@@ -92,6 +96,7 @@ public class Downy {
                                 Task t = tasks.get(taskNumber - 1);
                                 tasks.remove(taskNumber - 1);
                                 taskCount--;
+                                FileUtils.deleteTask(t);
                                 System.out.println(divider);
                                 System.out.println("Ok! This task has been removed:\n  " + t);
                                 System.out.println(divider);
@@ -109,7 +114,9 @@ public class Downy {
                                                                    "   todo <taskDescription>");
                             }
                             String remainder = parts[1];
-                            tasks.add(taskCount, new Todo(remainder));
+                            Todo t = new Todo(remainder);
+                            tasks.add(taskCount, t);
+                            FileUtils.writeTodoToFile(t);
                             taskCount++;
                             System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
@@ -130,7 +137,9 @@ public class Downy {
                             }
                             String name = splitParts[0].trim();
                             String time = splitParts[1].trim();
-                            tasks.add(taskCount, new Deadline(name, time));
+                            Deadline d = new Deadline(name, time);
+                            tasks.add(taskCount, d);
+                            FileUtils.writeDeadlineToFile(d);
                             taskCount++;
                             System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
@@ -154,7 +163,9 @@ public class Downy {
                             String[] time = splitParts[1].split("/to", 2);
                             String startTime = time[0].trim();
                             String endTime = time[1].trim();
-                            tasks.add(taskCount, new Event(name, startTime, endTime));
+                            Event e = new Event(name, startTime, endTime);
+                            tasks.add(taskCount, e);
+                            FileUtils.writeEventToFile(e);
                             taskCount++;
                             System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);

@@ -6,6 +6,14 @@ public class Event extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+    public String getEndTime() {
+        return this.endTime;
+    }
     @Override
     public String toString() {
         if (super.isComplete()) {

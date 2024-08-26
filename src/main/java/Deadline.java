@@ -4,6 +4,10 @@ public class Deadline extends Task{
         super(name);
         this.time = time;
     }
+
+    public String getTime() {
+        return this.time;
+    }
     @Override
     public String toString() {
         if (super.isComplete()) {
