@@ -1,9 +1,13 @@
 package botmanager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import action.Action;
 import exception.BotException;
 import task.TaskList;
 import util.Parser;
+import util.Storage;
 import util.Ui;
 
 /**
@@ -14,28 +18,45 @@ import util.Ui;
 public class BotManager {
     private final Ui ui;
     private final Parser parser;
-    private final TaskList taskList;
+    private final Storage storage;
 
     public BotManager() {
         ui = new Ui();
         parser = new Parser();
-        taskList = new TaskList();
+        storage = new Storage();
     }
 
     public void run() {
        ui.start();
+       TaskList taskList = new TaskList();
+       try {
+           storage.loadTaskList(taskList);
+       } catch (FileNotFoundException e) {
+           ui.showLoadError();
+           storage.initFile();
+       }
 
        while (true) {
+           // read user input
            String input = ui.readUserInput();
            if (input.strip().equals("bye")) {
                break;
            }
+
+           // parse and execute command
            try {
                Action action = parser.parseInput(input);
                String output = action.execute(taskList);
                ui.printMessage(output);
            } catch (BotException e) {
                 ui.printMessage(e.getMessage());
+           }
+
+           // save task list to file
+           try {
+               storage.saveTaskList(taskList);
+           } catch (IOException e) {
+               ui.showSaveError();
            }
        }
 

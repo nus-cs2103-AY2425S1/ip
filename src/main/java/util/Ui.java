@@ -11,7 +11,7 @@ public class Ui {
     private Scanner scanner;
 
     private void printMessageWithDividers(String message) {
-        String line = "____________________________________________________________";
+        String line = "______________________________________________________________________________________";
         System.out.println(line);
         System.out.print(message.indent(2));
         System.out.println(line);
@@ -28,6 +28,16 @@ public class Ui {
         String goodbyeMessage = "Goodbye! Hope to see you again soon!";
         printMessageWithDividers(goodbyeMessage);
         scanner.close();
+    }
+
+    public void showLoadError() {
+        String loadErrorMessage  = "File data/tasks.txt not found!. Initialising empty file...";
+        printMessageWithDividers(loadErrorMessage);
+    }
+
+    public void showSaveError() {
+        String saveErrorMessage = "Tasks could not be saved! Please check that the data file has not been removed";
+        printMessageWithDividers(saveErrorMessage);
     }
 
     public void printMessage(String message) {
