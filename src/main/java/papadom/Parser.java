@@ -10,8 +10,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class to handle parsing of user input into tasks.
+ */
 public class Parser {
-
+    /**
+     * Creates a Deadline task from the provided details.
+     *
+     * @param details The string containing the description and deadline date.
+     * @return A Deadline task.
+     * @throws IncorrectTaskInputFormatException If the input format is incorrect.
+     */
     public Deadline deadlineTaskCreator(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /by ");
         if (parts[0] == "" || parts.length == 1) {
@@ -34,6 +43,13 @@ public class Parser {
             throw new IncorrectTaskInputFormatException(); // Throw custom exception if parsing fails
         }
     }
+    /**
+     * Creates an Event task from the provided details.
+     *
+     * @param details The string containing the description, start time, and end time.
+     * @return An Event task.
+     * @throws IncorrectTaskInputFormatException If the input format is incorrect.
+     */
     public Event eventTaskCreator(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /from | /to ");
         if (parts[0] == "" || parts.length <= 2) {
@@ -42,12 +58,12 @@ public class Parser {
         return new Event(parts[0], parts[1], parts[2]);
     }
 
-    public static Task parseTask(String line) {
-        // This is a placeholder logic. You will need to implement task parsing based on how tasks are saved.
-        // For example, parsing the format `[D][ ] task description (by: Dec 1 2019)`
-        return null;
-    }
-
+    /**
+     * Parses a date and time string into a LocalDateTime object.
+     *
+     * @param dateTimeStr The string containing the date and time.
+     * @return A LocalDateTime object, or null if parsing fails.
+     */
     public static LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {

@@ -6,10 +6,22 @@ import papadom.Storage.TaskList;
 import papadom.commands.*;
 
 import java.util.Scanner;
-
+/**
+ * Main class for the Papadom chatbot.
+ * This class handles user input and executes the corresponding commands.
+ */
 public class Papadom {
+    /**
+     * Enum representing the different types of commands the chatbot can recognize.
+     */
     enum CommandType {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+        /**
+         * Converts a string command to a corresponding CommandType enum.
+         *
+         * @param command The string representation of the command.
+         * @return The CommandType enum corresponding to the command.
+         */
         public static CommandType fromString(String command) {
             return switch (command.toLowerCase()) {
                 case "list" -> LIST;
@@ -29,6 +41,9 @@ public class Papadom {
     private static final Parser parser = new Parser();
     private static final TaskList taskList = new TaskList(storage);
     private static final Scanner scanner = new Scanner(System.in);
+    /**
+     * Runs the Papadom chatbot, handling user input and executing commands in a loop.
+     */
     private static void run() {
         ui.welcomeMessage();
         storage.createFileIfNotPresent();
@@ -76,7 +91,11 @@ public class Papadom {
             }
         }
     }
-
+    /**
+     * Main entry point for the Papadom application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         Papadom.run();
     }
