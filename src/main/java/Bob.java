@@ -46,6 +46,9 @@ public class Bob {
                 case "unmark":
                     bob.updateMark(input, inputWords, false);
                     break;
+                case "delete":
+                    bob.delete(input);
+                    break;
                 default:
                     bob.addTask(input, inputWords);
             }
@@ -193,9 +196,25 @@ public class Bob {
                 }
 
                 return subString2[0].trim() + " (from:" + subString3[0] + " to:" + subString3[1] + ")";
+
             default:
                 return input;
         }
+    }
+
+    public boolean isValidTaskNumber(String value) {
+        if (value.trim().isEmpty() || value == null) {
+            return false;
+        }
+        if (Integer.valueOf(value) <= 0 ||Integer.valueOf(value) > this.records.size()) {
+            return false;
+        }
+        for (char c: value.trim().toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
 
     }
 
@@ -224,6 +243,32 @@ public class Bob {
      */
     public void setCounter(int x) {
         this.counter = x;
+    }
+
+    public void delete(String input) {
+        try {
+            String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
+            if (separateKeyword.length == 1) {
+                throw new InvalidTaskException("OOPS!!! The description of delete cannot be empty.");
+            }
+            if (!isValidTaskNumber(separateKeyword[1])) {
+                throw new InvalidTaskException("Invalid input. Integer required between range of record items.");
+            }
+
+            Task taskToDelete = records.get(Integer.parseInt(separateKeyword[1]) - 1);
+            String immediateAdd = "Noted. I've removed this task:\n\t"
+                    + taskToDelete.getTaskListItem()
+                    + "\n\t"
+                    + "Now you have "
+                    + (String.valueOf(counter - 1))
+                    + " tasks in the list.";
+
+            Bob.printLines(immediateAdd);
+            this.records.remove(Integer.parseInt((separateKeyword[1]).trim()) - 1);
+            this.setCounter(this.counter - 1);
+        } catch (InvalidTaskException e) {
+            System.err.println((e.getMessage()));
+        }
     }
 
     /**
