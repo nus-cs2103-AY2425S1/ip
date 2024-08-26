@@ -1,8 +1,14 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Storage {
-    private ArrayList<Task> list = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final File DIR_DATA = new File("data");
+    private final File PATH_TASKS = new File(DIR_DATA, "tasks.txt");
 
     public void add(String str) throws MelException {
         Task task;
@@ -21,9 +27,11 @@ public class Storage {
             System.out.println(e);
             return;
         }
-        list.add(task);
+        tasks.add(task);
+        updateTasks();
+
         System.out.println("  " + task);
-        System.out.println("Mel counts " + list.size()
+        System.out.println("Mel counts " + tasks.size()
                 + " stuffs memorized XD");
     }
 
@@ -34,14 +42,15 @@ public class Storage {
         try {
             if (Objects.equals(m, "mark")) {
                 System.out.println("Mel sees you completed your task!");
-                list.get(idx).mark();
+                tasks.get(idx).mark();
             } else {
                 System.out.println("Mel wonders how you undid your task...");
-                list.get(idx).unmark();
+                tasks.get(idx).unmark();
             }
+            updateTasks();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Mel's brain explodes in anger?! " +
-                    "Mel recalls only " + list.size() + " things");
+                    "Mel recalls only " + tasks.size() + " things");
         }
     }
 
@@ -50,23 +59,44 @@ public class Storage {
         int idx = Integer.parseInt(temp[1]) - 1;
         try {
             System.out.println("Mel helps you forget:\n"
-                    + "  " + list.get(idx));
-            list.remove(idx);
-            System.out.println("Mel counts " + list.size()
+                    + "  " + tasks.get(idx));
+            tasks.remove(idx);
+            updateTasks();
+            System.out.println("Mel counts " + tasks.size()
                     + " stuffs memorized XD");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Mel's brain explodes in anger?! " +
-                    "Mel recalls only " + list.size() + " things");
+                    "Mel recalls only " + tasks.size() + " things");
         }
     }
 
+    private void updateTasks() {
+        if (!DIR_DATA.exists()) {
+            DIR_DATA.mkdir();
+        }
+        try {
+            PATH_TASKS.delete();
+            PATH_TASKS.createNewFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(PATH_TASKS));
+            for (Task t : tasks) {
+                writer.write(t.toString() + "\n");
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Mel ran into an error"
+                    + " creating save file :(");
+        }
+
+    }
+
     public void printAll() {
-        if (list.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.println("Mel remembers... nothing?!");
         } else {
             System.out.println("Mel remembers all your stuff~");
             int i = 0;
-            for (Task t : list) {
+            for (Task t : tasks) {
                 System.out.println(++i + "." + t);
             }
         }

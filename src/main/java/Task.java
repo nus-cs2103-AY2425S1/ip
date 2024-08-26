@@ -6,10 +6,6 @@ public class Task {
         task = "";
     }
 
-    public Task(String task) {
-        this.task = task;
-    }
-
     public void mark() {
         isDone = true;
         System.out.println("  " + this);
