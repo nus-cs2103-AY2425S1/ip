@@ -1,10 +1,17 @@
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Tayoo {
-    private static final ArrayList<Task> tasklist = new ArrayList<Task>(100);
-    private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE"};
+    private static final Logger logger = Logger.getLogger(Tayoo.class.getName());
+    private static final String TASKLIST_FILEPATH = "./tasklist.txt";
+    private static final ArrayList<Task> tasklist = new ArrayList<>(100);
+    private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE", "QUIT"};
     public static void main(String[] args) {
         String name = "Tayoo";
         Scanner scanner = new Scanner(System.in);
@@ -12,8 +19,8 @@ public class Tayoo {
         //Introduce self
         printText("Hello! I'm " + name + "\nWhat can I do for you?\n");
 
-        //Await command
-        awaitCommand(scanner);
+        //Initialise bot
+        botInit(scanner);
 
 
 
@@ -21,6 +28,26 @@ public class Tayoo {
         scanner.close();
         System.exit(0);
     }
+
+    private static void botInit(Scanner scanner) {
+        //contains all initialisation
+        File f = new File(TASKLIST_FILEPATH);
+        try {
+            if (f.createNewFile()) {
+                logger.info("Created new tasklist.txt");
+            } else {
+                logger.info("tasklist.txt file found");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        readFromTasklist();
+        awaitCommand(scanner);
+
+    }
+
     private static void printHoriLine() {
         System.out.println("\t_______________________________________");
     }
@@ -154,7 +181,13 @@ public class Tayoo {
             printText("Too many tasks! Complete some first! >:( ");
             return;
         }
+
         tasklist.add(task);
+        try {
+            appendToFile(TASKLIST_FILEPATH, task.toTxt() + System.lineSeparator());
+        } catch (IOException e) {
+            logger.warning("Something went wrong. Could not write to file.");
+        }
 
         String toPrint = "Got it. I've added this task: \n" + task.toString();
 
@@ -183,7 +216,7 @@ public class Tayoo {
     private static void deleteAll() {
         int length = tasklist.size();
         printText("Removing all tasks");
-        for (int i = 0; i < length; i++) {
+        for (int i = length - 1; i >= 0; i--) {
             tasklist.remove(i);
         }
     }
@@ -198,5 +231,70 @@ public class Tayoo {
 
         printText(toPrint.toString());
     }
+
+    private static void appendToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void readFromTasklist() {
+        File f = new File(TASKLIST_FILEPATH);
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                //read file and add task to tasklist
+                String taskStr = s.nextLine();
+                Task taskToAdd = parseTask(taskStr);
+                tasklist.add(taskToAdd);
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            logger.warning("No tasklist found.");
+        }
+
+
+    }
+
+    private static Task parseTask(String str) {
+        Scanner scanner = new Scanner(str);
+        scanner.useDelimiter("\\|");
+        boolean isComplete;
+        String title;
+
+        switch(scanner.next().trim()) {
+        case ("Task"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            scanner.close();
+            return new Task(title, isComplete);
+        case ("Todo"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            scanner.close();
+            return new ToDo(title, isComplete);
+        case ("Event"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            String start = scanner.next().trim();
+            String end = scanner.next().trim();
+            scanner.close();
+            return new Event(title, start, end, isComplete);
+        case ("Deadline"):
+            isComplete = Boolean.parseBoolean(scanner.next().trim());
+            title = scanner.next().trim();
+            String deadline = scanner.next().trim();
+            scanner.close();
+            return new Deadline(title, deadline, isComplete);
+        default:
+            //should not ever reach here
+            scanner.close();
+            logger.warning("Reached end of parse task. Invalid input.");
+            return null;
+        }
+    }
+
+
+
 
 }
