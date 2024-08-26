@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
 
 public class Parser {
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -45,6 +44,8 @@ public class Parser {
             return new ByeCommand();
         case LIST_ON:
             return new ListOnCommand(userInput);
+        case FIND:
+            return new FindCommand(userInput);
         case HELP:
             return new HelpCommand();
         default:

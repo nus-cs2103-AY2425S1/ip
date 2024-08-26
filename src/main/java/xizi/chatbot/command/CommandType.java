@@ -14,6 +14,7 @@ public enum CommandType {
     BYE("^bye$"),
     HELP("^help$"),
     LIST_ON("^list on (\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})$"),
+    FIND("^find\\s*(.*)$"),
     UNKNOWN("");
 
 
