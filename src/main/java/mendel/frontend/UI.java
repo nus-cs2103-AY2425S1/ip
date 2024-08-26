@@ -1,3 +1,5 @@
+package mendel.frontend;
+
 public class UI {
     public UI() {
         String logo = "Mendel";

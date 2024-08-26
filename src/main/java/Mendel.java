@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import mendel.frontend.Parser;
+import mendel.frontend.UI;
 import mendel.mendelexception.ServerError;
 import mendel.mendelexception.MendelException;
 
