@@ -17,7 +17,6 @@ public class Ui {
 
     /**
      * Sends a greet message to the user.
-     *
      */
     public void greet() {
         System.out.println("Hello from\n" + Logo);
