@@ -11,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
-    private static Path filePath = null;
-    private static String line;
-    private static final DateTimeFormatter display_format = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
+    private static Path filePath;
+    private String line;
+    private final DateTimeFormatter display_format = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
     public Storage(String filePath) throws DukeException {
         Storage.filePath = Paths.get(filePath);
         createFile();
@@ -43,7 +43,7 @@ public class Storage {
         }
     }
 
-    public static void readFile() throws DukeException {
+    public void readFile() throws DukeException {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath.toString()))) {
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
@@ -53,7 +53,7 @@ public class Storage {
         }
     }
 
-    public static void writeFile(ArrayList<Task> tasks) throws DukeException {
+    public void writeFile(ArrayList<Task> tasks) throws DukeException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toString()))) {
             for (Task task : tasks) {
                 bw.write(task.toFileString());

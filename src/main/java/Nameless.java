@@ -1,119 +1,110 @@
+import java.lang.reflect.Type;
+import java.net.PasswordAuthentication;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 
 public class Nameless {
-    private static final String line = "______________________________________________________________";
-    private static final String name = "Nameless";
-    private static final String greetings = "Hello, I'm " + name + "\n" + "What can I do for you?";
-    private static final String goodbye = "Bye. Hope to see you again!";
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static Storage storage;
-    private static final DateTimeFormatter parse_format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+    private final DateTimeFormatter parse_format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+    private Storage storage;
+    private TaskList tasks;
+    private TypeOfException exception;
+    private Ui ui;
 
-    private static int splitGetNum(String input){
-        String[] words = input.split(" ");
-        return Integer.parseInt(words[1]) - 1;
+    public Nameless(String filePath) throws DukeException {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        exception = new TypeOfException();
+        try {
+            tasks = new TaskList(storage.loadFile());
+        } catch (DukeException e) {
+            exception.showLoadingError();
+            tasks = new TaskList();
+        }
     }
 
-    private static String splitGetWords(String input){
-        String[] words = input.split(" ", 2);
-        return words.length > 1 ? words[1] : "";
+    public void run() {
+        ui.greetings();
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            String input = sc.nextLine();
+            try {
+                if(input.equals("bye")) {
+                    bye();
+                    break;
+                } else if(input.equals("list")) {
+                    ui.showList(tasks);
+                } else if(input.matches("mark \\d+")) {
+                    ui.showMarkTask(tasks, Parser.splitGetNum(input));
+                } else if(input.matches("unmark \\d+")) {
+                    ui.showUnmarkTask(tasks, Parser.splitGetNum(input));
+                } else if(input.matches("todo(?: .+)?")) {
+                    todo(input);
+                } else if(input.matches("deadline(?: .+)?")) {
+                    deadline(input);
+                } else if(input.matches("event(?: .+)?")) {
+                    event(input);
+                } else if(input.matches("delete \\d+")) {
+                    ui.showDeleteTask(tasks, Parser.splitGetNum(input));
+                }
+                else {
+                    exception.noIdea();
+                }
+
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void bye() throws DukeException {
+        storage.writeFile(tasks.getTasks());
+        ui.goodbye();
+    }
+
+    private void todo(String input) throws DukeException {
+        String words = Parser.splitGetWords(input);
+        if (words.isEmpty()) {
+            exception.todoFormatError();
+        }
+        tasks.addTask(new Todo(words));
+        ui.showAddTask(tasks);
+    }
+
+    private void deadline(String input) throws DukeException {
+        String[] words = Parser.splitGetWords(input).split(" /by ", 2);
+        if(words.length != 2) {
+            exception.deadlineFormatError();
+        }
+        try {
+            LocalDateTime date = LocalDateTime.parse(words[1], parse_format);
+            tasks.addTask(new Deadline(words[0], date));
+            ui.showAddTask(tasks);
+        } catch (DateTimeParseException e) {
+            exception.timeFormatError();
+        }
+    }
+
+    private void event(String input) throws DukeException {
+        String[] words = Parser.splitGetWords(input).split(" /from | /to ", 3);
+        if (words.length != 3) {
+            exception.eventFormatError();
+        }
+        try {
+            LocalDateTime from = LocalDateTime.parse(words[1], parse_format);
+            LocalDateTime to = LocalDateTime.parse(words[2], parse_format);
+            tasks.addTask(new Event(words[0], from, to));
+            ui.showAddTask(tasks);
+        } catch (DateTimeParseException e) {
+            exception.timeFormatError();
+        }
     }
 
     public static void main(String[] args) throws DukeException {
-        storage = new Storage("data/tasks.txt");
-        tasks = storage.loadFile();
-        System.out.println(line + "\n" + greetings + "\n" + line);
-        String temp;
-        Scanner sc = new Scanner(System.in);
-
-        while(true){
-            String input = sc.nextLine();
-            try {
-                if (input.equals("bye")) {
-                    Storage.writeFile(tasks);
-                    break;
-                } else if (input.equals("list")) {
-                    //list tasking
-                    System.out.println(line + "\n Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i).toString());
-                    }
-                    System.out.println(line);
-                } else if (input.matches("mark \\d+")) {
-                    System.out.println(line);
-                    tasks.get(splitGetNum(input)).markTask();
-                    System.out.println(line);
-                } else if (input.matches("unmark \\d+")) {
-                    System.out.println(line);
-                    tasks.get(splitGetNum(input)).unMarkTask();
-                    System.out.println(line);
-                } else if (input.matches("deadline(?: .+)?")) {
-                    temp = splitGetWords(input);
-                    String[] words = temp.split(" /by ");
-                    if (words.length < 2) {
-                        throw new DukeException("incorrect format use 'deadline <task> /by <date>'");
-                    }
-                    try {
-                        LocalDateTime date = LocalDateTime.parse(words[1], parse_format);
-                        tasks.add(new Deadline(words[0], date));
-                        System.out.println(line + "\n" + "Got it. I've added this task:" +
-                                "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
-                                "Now you have " + tasks.size() + " task left \n" + line);
-                    } catch (Exception e) {
-                        throw new DukeException("incorrect format must be in yyyy-mm-dd hh:mm am/pm");
-                    }
-                } else if (input.matches("event(?: .+)?")) {
-                    temp = splitGetWords(input);
-                    String[] words = temp.split(" /from | /to ");
-                    if (words.length != 3) {
-                        throw new DukeException("incorrect format use 'event <task> /from <date> /to <date>'");
-                    }
-                    try {
-                        LocalDateTime from = LocalDateTime.parse(words[1], parse_format);
-                        LocalDateTime to = LocalDateTime.parse(words[2], parse_format);
-                        tasks.add(new Event(words[0], from, to));
-                        System.out.println(line + "\n" + "Got it. I've added this task:" +
-                                "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
-                                "Now you have " + tasks.size() + " task left \n" + line);
-                    } catch (Exception e) {
-                        throw new DukeException("incorrect format must be in yyyy-mm-dd hh:mm am/pm");
-                    }
-                } else if (input.matches("todo(?: .+)?")) {
-                    //store tasking
-                    String words = splitGetWords(input);
-                    if (words.isEmpty()) {
-                        throw new DukeException("The description of a todo cannot be empty.");
-                    }
-                    tasks.add(new Todo(words));
-                    System.out.println(line + "\n" + "Got it. I've added this task:" +
-                            "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
-                            "Now you have " + tasks.size() + " task left \n" + line);
-
-                } else if(input.matches("delete \\d+")){
-                    String task = tasks.get(splitGetNum(input)).toString();
-                    if (task.isEmpty()){
-                        throw new DukeException("Delete need number Delete <Number>.");
-                    }
-                    tasks.remove(splitGetNum(input));
-                    System.out.println(line);
-                    System.out.println("Noted. I've removed this task: \n" +
-                            "    " + task + "\nNow you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
-                }
-                else {
-                    throw new DukeException("Sorry! I don't understand what you are saying." +
-                            " Please enter a valid command. todo, deadline, event, list, mark/unmark, bye");
-                }
-            } catch (DukeException e) {
-                System.out.println(line + "\n" + e.getMessage() + "\n" + line);
-            }
-        }
-
-        System.out.println(line + "\n" + goodbye + "\n" + line);
+        new Nameless("data/tasks.txt").run();
     }
 }

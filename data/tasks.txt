@@ -1,4 +1,4 @@
 D | 0 | readbook | Aug-27-2024 1300
-T | 1 | join sports cca
 D | 0 | do ip project | Aug-30-2024 1600
 E | 0 | go to school | Aug-27-2024 1300 | Aug-27-2024 2200
+T | 1 | join sports cca
