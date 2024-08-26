@@ -19,12 +19,12 @@ public class Event extends Task {
         this.end = LocalDateTime.parse(end.strip().substring(3), parseFormatter);
     }
 
-    public String getStart() {
-        return start.format(parseFormatter);
+    public LocalDateTime getStart() {
+        return start;
     }
 
-    public String getEnd() {
-        return end.format(parseFormatter);
+    public LocalDateTime getEnd() {
+        return end;
     }
 
     /**
