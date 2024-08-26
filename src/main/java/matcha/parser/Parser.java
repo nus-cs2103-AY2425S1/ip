@@ -74,32 +74,31 @@ public class Parser {
 
         try {
             switch (taskType) {
-                case "T":
-                    task = new Todo(taskInfo[2]);
-                    if(isTaskDone) {
-                        task.markDone();
-                    }
-                    break;
-                case "D":
-                    task = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
-                    if(isTaskDone) {
-                        task.markDone();
-                    }
-                    break;
-                case "E":
-                    task = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
-                            LocalDateTime.parse(taskInfo[4]));
-                    if(isTaskDone) {
-                        task.markDone();
-                    }
-                    break;
-                default:
-                    throw new MatchaException("Oh no! Task data was saved in the wrong format.");
+            case "T":
+                task = new Todo(taskInfo[2]);
+                if(isTaskDone) {
+                    task.markDone();
+                }
+                break;
+            case "D":
+                task = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
+                if(isTaskDone) {
+                    task.markDone();
+                }
+                break;
+            case "E":
+                task = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
+                        LocalDateTime.parse(taskInfo[4]));
+                if(isTaskDone) {
+                    task.markDone();
+                }
+                break;
+            default:
+                throw new MatchaException("Oh no! Task data was saved in the wrong format.");
             }
         } catch (DateTimeParseException e) {
             throw new MatchaException("Invalid date format! Please format the Date as 'YYYY-MM-DD' and Time as 'HHMM'");
         }
-
         return task;
     }
 }
