@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.Objects;
+
 public abstract class Task {
     private boolean completed;
     private final String description;
@@ -51,5 +53,18 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", completedStringRepresentation(), this.description);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return completed == task.completed && Objects.equals(description, task.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(completed, description);
     }
 }

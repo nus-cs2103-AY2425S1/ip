@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.Objects;
+
 public class Event extends Task {
     private final String from;
     private final String to;
@@ -36,5 +38,19 @@ public class Event extends Task {
                 dateRange[1].trim(),
                 completed
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Event event = (Event) o;
+        return Objects.equals(from, event.from) && Objects.equals(to, event.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), from, to);
     }
 }

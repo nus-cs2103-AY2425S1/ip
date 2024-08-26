@@ -28,7 +28,7 @@ public class TaskList {
 
     public void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, tasks.get(i).toString()));
+            System.out.printf("%d. %s%n", i + 1, tasks.get(i).toString());
         }
     }
 

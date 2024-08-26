@@ -24,4 +24,5 @@ public class Todo extends Task {
         boolean completed = parameters[1].trim().equals("1");
         return new Todo(parameters[2].trim(), completed);
     }
+
 }
