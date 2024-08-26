@@ -38,8 +38,6 @@ public class Soju {
                 }
             } catch (SojuException e) {
                 ui.printError(e);
-            } finally {
-                ui.printHorizontalLine();
             }
         }
     }

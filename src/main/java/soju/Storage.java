@@ -24,10 +24,13 @@ public class Storage {
         try {
             boolean canMakeDirectory = tasksFile.getParentFile().mkdirs();
             boolean canCreateNewFile = tasksFile.createNewFile();
+
             if (canMakeDirectory && canCreateNewFile) {
                 System.out.println("Creating new Tasks File for you at: " + tasksFile.getPath());
             } else {
                 System.out.println("Unable to make directory or create new file");
+                System.out.println("Can make directory" + canMakeDirectory);
+                System.out.println("Can create new file" + canCreateNewFile);
             }
         } catch (IOException e) {
             System.out.println("Unable to create new soju.tasks file: " + e);
