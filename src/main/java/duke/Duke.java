@@ -2,6 +2,8 @@ package duke;
 
 import java.util.Scanner;
 
+import duke.exceptions.DukeException;
+import duke.gui.Launcher;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
@@ -15,6 +17,8 @@ public class Duke {
     private TaskList taskList;
     private final Ui ui;
     private final Storage storage;
+    private boolean isRunning;
+    private final Parser parser;
 
     /**
      * Constructs a new Duke object.
@@ -25,6 +29,8 @@ public class Duke {
         this.storage = new Storage();
         this.taskList = new TaskList();
         this.storage.readData();
+        this.isRunning = true;
+        this.parser = new Parser(new Scanner(System.in));
     }
 
     /**
@@ -34,24 +40,46 @@ public class Duke {
      * @param args Command line arguments (currently not used, but could be in the future)
      */
     public static void main(String... args) {
-        Duke duke = new Duke();
-        duke.ui.startup();
-        duke.continueReading();
-        duke.ui.shutdown();
-
-        // if (args.length > 0) {
-        //     System.out.println("Arguments provided: " + String.join(", ", args));
-        // }
+        if (args.length > 0 && args[0].equals("--cli")) {
+            Duke duke = new Duke();
+            duke.ui.startup();
+            duke.runCommandLine();
+            duke.ui.shutdown();
+        } else {
+            Launcher.main(args);
+        }
+    }
+    public String getGreeting() {
+        return ui.getGreeting();
     }
 
     /**
      * Continues reading user input and handling it until the user decides to exit.
      */
-    private void continueReading() {
+    private void runCommandLine() {
         Parser parser = new Parser(new Scanner(System.in));
-        boolean running = true;
-        while (running) {
-            running = parser.handleUserInput();
+        while (isRunning) {
+            isRunning = parser.handleUserInput();
         }
+    }
+
+    public String getResponse(String input) {
+        try {
+            String response = parser.handleGuiInput(input);
+            if (response.equals("Bye. Hope to see you again soon!")) {
+                isRunning = false;
+            }
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Getter method for Duke isRunning.
+     * @return boolean to show whether the Duke instance is running
+     */
+    public boolean isRunning() {
+        return isRunning;
     }
 }

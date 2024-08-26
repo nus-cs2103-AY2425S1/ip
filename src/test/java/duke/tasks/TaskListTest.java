@@ -6,11 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.DukeException;
+import duke.storage.Storage;
 
 /**
  * Test class for the TaskList class.
@@ -26,19 +27,24 @@ class TaskListTest {
     /**
      * Sets up the output streams for testing.
      */
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void setup() {
         System.setOut(new PrintStream(newOut));
         System.setErr(new PrintStream(newErr));
+        Storage.startTest();
+        TaskList.getInstance().clearTasks();
     }
 
     /**
      * Resets the output streams after testing.
      */
-    @AfterAll
-    public static void shutdown() {
+    @AfterEach
+    public void tearDown() {
         System.setOut(sysOut);
         System.setErr(sysErr);
+        Storage.endTest();
+        newOut.reset();
+        newErr.reset();
     }
 
     /**
@@ -77,21 +83,26 @@ class TaskListTest {
     @Test
     void testDeleteTask() throws DukeException {
         TaskList taskList = TaskList.getInstance();
-        String expected = "Noted. I've removed this task:\n"
-                + "[E][ ] project meeting (from: Aug 23 2024 14:00 to: Aug 23 2024 16:00)\n"
-                + "Now you have 2 tasks in the list.";
-        taskList.deleteTask("3");
-        assertEquals(expected, newOut.toString().trim());
+        taskList.createTask("todo", "task to delete");
         newOut.reset();
+        String expected = "Noted. I've removed this task:\n"
+                + "[T][ ] task to delete\n"
+                + "Now you have 0 tasks in the list.";
+        taskList.deleteTask("1");
+        assertEquals(expected, newOut.toString().trim());
     }
 
     /**
      * Tests the behavior when trying to delete a task with an invalid index.
      */
     @Test
-    void getTaskList() {
+    void testDeleteInvalidTask() throws DukeException {
         TaskList taskList = TaskList.getInstance();
-        DukeException e = assertThrows(DukeException.class, () -> taskList.deleteTask("3"));
+        DukeException e = assertThrows(DukeException.class, () -> taskList.deleteTask("1"));
+        assertEquals("Task list is already empty.", e.getMessage());
+        taskList.createTask("todo", "test task");
+        newOut.reset();
+        e = assertThrows(DukeException.class, () -> taskList.deleteTask("2"));
         assertEquals("Invalid index provided.", e.getMessage());
     }
 }
