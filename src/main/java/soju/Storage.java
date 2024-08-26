@@ -14,10 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class handles loading and saving tasks to a file.
+ * It ensures that tasks are stored persistently between sessions.
+ */
 public class Storage {
-    String filePath;
-    File tasksFile;
+    private String filePath;
+    private File tasksFile;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     * It also creates the necessary directories and file if they don't exist.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.tasksFile = new File(filePath);
@@ -29,14 +39,21 @@ public class Storage {
                 System.out.println("Creating new Tasks File for you at: " + tasksFile.getPath());
             } else {
                 System.out.println("Unable to make directory or create new file");
-                System.out.println("Can make directory" + canMakeDirectory);
-                System.out.println("Can create new file" + canCreateNewFile);
+                System.out.println("Can make directory: " + canMakeDirectory);
+                System.out.println("Can create new file: " + canCreateNewFile);
             }
         } catch (IOException e) {
-            System.out.println("Unable to create new soju.tasks file: " + e);
+            System.out.println("Unable to create new tasks file: " + e);
         }
     }
 
+    /**
+     * Loads tasks from the file specified during the construction of this {@code Storage} object.
+     * Each task is parsed and added to a list, which is then returned.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws SojuException If there is an error reading the file.
+     */
     public List<Task> load() throws SojuException {
         List<Task> taskList = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(filePath))) {
@@ -50,21 +67,20 @@ public class Storage {
 
                 switch (taskType) {
                     case "T":
-                        // Create a new Tasks.Todo task
+                        // Create a new Todo task
                         newTask = new Todo(description);
                         break;
                     case "D":
-                        // Create a new Tasks.Deadline task
+                        // Create a new Deadline task
                         String doneBy = parts[3];
                         LocalDate localDate = LocalDate.parse(doneBy);
                         newTask = new Deadline(description, localDate);
                         break;
                     case "E":
-                        // Create a new Tasks.Event task
+                        // Create a new Event task
                         String[] eventTimes = parts[3].split(" - ");
                         String from = eventTimes[0];
                         String to = eventTimes[1];
-//                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                         LocalDateTime localFromDate = LocalDateTime.parse(from);
                         LocalDateTime localToDate = LocalDateTime.parse(to);
                         newTask = new Event(description, localFromDate, localToDate);
@@ -82,13 +98,17 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-//            System.out.println("An error occurred while reading the file.");
-//            e.printStackTrace();
             throw new SojuException("Error trying to read the file! It may be corrupted!");
         }
         return taskList;
     }
 
+    /**
+     * Saves all tasks in the provided {@code TaskList} to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws SojuException If there is an error writing to the file.
+     */
     public void saveToFile(TaskList tasks) throws SojuException {
         List<Task> listOfTasks = tasks.getTasks();
         try {
@@ -98,18 +118,22 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-//            System.out.println("Error saving to file" + e);
             throw new SojuException("Error saving file!!!");
         }
     }
 
+    /**
+     * Saves a single task to the file.
+     *
+     * @param task The task to be saved.
+     * @throws SojuException If there is an error writing to the file.
+     */
     public void saveToFile(Task task) throws SojuException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.append(task.toFileString()).append("\n");
             fileWriter.close();
         } catch (IOException e) {
-//            System.out.println("Error saving to file" + e);
             throw new SojuException("Error saving file!!!");
         }
     }
