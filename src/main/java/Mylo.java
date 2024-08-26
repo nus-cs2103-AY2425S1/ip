@@ -1,6 +1,3 @@
-import level2.TaskList;
-import level2.TaskModel;
-
 import java.util.Scanner;
 
 public class Mylo {
@@ -39,6 +36,21 @@ public class Mylo {
                     list.markTaskAsUndone(Integer.parseInt(keys[1]));
                     separator();
                     break;
+                case "todo":
+                    separator();
+                    list.addTask(input.substring(5), TaskType.TODO);
+                    separator();
+                    break;
+                case "deadline":
+                    separator();
+                    list.addTask(input.substring(9), TaskType.DEADLINE);
+                    separator();
+                    break;
+                case "event":
+                    separator();
+                    list.addTask(input.substring(6), TaskType.EVENT);
+                    separator();
+                    break;
                 case "who are you":
                     separator();
                     System.out.println("I'm " + name);
@@ -46,7 +58,7 @@ public class Mylo {
                     break;
                 default:
                     separator();
-                    list.addTask(input);
+                    System.out.println("Not implemented yet");
                     separator();
             }
             input = scanner.nextLine();

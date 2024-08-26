@@ -1,13 +1,12 @@
-package level2;
-
 import java.util.ArrayList;
 
 public class TaskList {
-    private final ArrayList<TaskModel> list = new ArrayList<>();
+    private final ArrayList<Task> list = new ArrayList<>();
 
-    public void addTask(String title) {
-        list.add(new TaskModel(title));
-        System.out.println("added: " + title);
+    public void addTask(String title, TaskType type) {
+        Task task = Task.of(title, type);
+        list.add(task);
+        System.out.printf("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.%n", task, list.size());
     }
 
     public void markTaskAsDone(int index) {

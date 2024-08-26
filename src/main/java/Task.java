@@ -1,12 +1,25 @@
-package level2;
-
-public class TaskModel {
+public class Task {
     private final String title;
     private boolean status;
 
-    public TaskModel(String title) {
+    public Task(String title) {
         this.title = title;
         this.status = false;
+    }
+
+    public static Task of(String info, TaskType type) {
+        return switch (type) {
+            case TODO -> new Todo(info);
+            case EVENT -> {
+                String[] split = info.split(" /from ");
+                String[] from_to = split[1].split(" /to ");
+                yield new Event(split[0], from_to[0], from_to[1]);
+            }
+            case DEADLINE -> {
+                String[] split = info.split(" /by ");
+                yield new Deadline(split[0], split[1]);
+            }
+        };
     }
 
     public String getTitle() {
