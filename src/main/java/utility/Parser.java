@@ -6,12 +6,36 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public Command command;
-    public String description, by, from, to;
-    public int index;
+    private Command command;
+    private String description, by, from, to;
+    private int index;
 
     public Parser() {
 
+    }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getBy() {
+        return this.by;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public void parse(String line) throws LukeException {
@@ -22,7 +46,7 @@ public class Parser {
             throw new LukeException(String.format("Yo! This command \"%s\" doesn't exist.", parameters[0].trim()));
         }
         switch (command) {
-        case list -> {}
+        case list, bye -> {}
         case mark, unmark, delete -> {
             try {
                 index = Integer.parseInt(parameters[1].trim());
@@ -34,7 +58,6 @@ public class Parser {
         case todo -> description = line.substring(4).trim();
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
-        case bye -> {}
         }
     }
 
