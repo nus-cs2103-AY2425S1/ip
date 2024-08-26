@@ -126,7 +126,16 @@ public class Miku {
 
     public static void init(){
         File file = new File("src/main/resources/data.txt");
+        File dir = new File("src/main/resources");
 //        System.out.println("Does the file exist: " + file.exists());
+        if (!dir.exists()){
+            boolean dirCreated = dir.mkdirs();
+            if (dirCreated){
+                System.out.println("Directory created\n");
+            } else {
+                System.out.println("Directory not created\n");
+            }
+        }
         if (!file.exists()) {
             try {
                 file.createNewFile();
