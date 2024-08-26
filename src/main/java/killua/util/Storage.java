@@ -1,7 +1,10 @@
+package killua.util;
+
+import killua.task.Task;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
