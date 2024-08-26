@@ -47,7 +47,7 @@ public class EventParser {
             taskDescription = m.group(1);
             return new KorolevTodo(taskDescription);
         } else {
-            throw new ParseException("Fail to parse the record");
+            throw new ParseException("fail to parse the record");
         }
     }
 
@@ -63,7 +63,7 @@ public class EventParser {
             date = DateParser.parseRecordedDate(m2.group(1));
             return new KorolevDeadline(taskDescription, date);
         } else {
-            throw new ParseException("Fail to parse record");
+            throw new ParseException("fail to parse the record");
         }
     }
 
@@ -83,7 +83,7 @@ public class EventParser {
             to = DateParser.parseRecordedDate(m3.group(1).strip());
             return new KorolevEvent(taskDescription, from, to);
         } else {
-            throw new ParseException("Fail to parse record");
+            throw new ParseException("fail to parse the record");
         }
     }
 }
