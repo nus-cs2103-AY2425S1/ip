@@ -2,18 +2,30 @@ package ipman;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The entry point class for the chatbot
+ * @author miloaisdino
+ */
 public class IpMan {
-    public ArrayList<Task> list;
-    public Storage db;
-    public Ui ui;
-    public Parser parser;
+    private final ArrayList<Task> list;
+    private final Storage db;
+    private final Ui ui;
+    private final Parser parser;
 
+    /**
+     * Constructor for chatbot without persistence
+     */
     public IpMan() {
         list = new ArrayList<>();
         db = new Storage();
         ui = new Ui();
         parser = new Parser(list, db, ui);
     }
+
+    /**
+     * Constructor for chatbot with persistence
+     * @param filePath The path to save state
+     */
     public IpMan(String filePath) {
         list = new ArrayList<>();
         db = new Storage(filePath);
@@ -29,6 +41,9 @@ public class IpMan {
         }
     }
 
+    /**
+     *
+     */
     public void run() {
         ui.showBanner();
         Scanner saved = db.getFileScanner();

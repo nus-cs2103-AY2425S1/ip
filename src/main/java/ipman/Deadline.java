@@ -4,9 +4,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline class
+ * @author miloaisdino
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Constructor
+     * @param description Name of deadline
+     * @param stringDate String in DD/MM/YYYY hh[0-23]mm format
+     * @throws CommandException Error
+     */
     public Deadline(String description, String stringDate) throws CommandException {
         super(description);
         try {
