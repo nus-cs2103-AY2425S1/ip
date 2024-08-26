@@ -1,12 +1,15 @@
 package main.java;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MrTracker {
-
+    public static final String PATH = "./data/tasks.txt";
+    public static final String TMPPATH = "./data/tasksTmp.txt";
     public enum PrefixString {
         BYE("bye"),
         LIST("list"),
@@ -192,17 +195,28 @@ public class MrTracker {
         }
     }
 
+    public static void save(ArrayList<Task> taskList) {
+        try {
+            FileWriter file = new FileWriter(MrTracker.PATH);
+            for (Task item: taskList) {
+                file.write(item.toSave());
+            }
+        } catch (IOException ex) {
+            System.out.println("Sorry, your tasks could not be saved");
+        }
+
+    }
+
     public static void main(String[] args) {
 
-//        String test = "hello\thello";
-//        String[] arr = test.split("\t");
-//        for (String item: arr) {
-//            System.out.println(item);
-//        }
-
         ArrayList<Task> taskList = new ArrayList<Task>();
-//        MrTracker.loadData("data/tasks.txt", taskList);
-
+        try {
+            MrTracker.loadData(MrTracker.PATH, taskList);
+        } catch(FileNotFoundException ex) {
+            
+            System.out.println("No existing tasks were passed, " +
+                    "your task list is currently empty");
+        }
         String name = "Mr Tracker";
         Scanner sc = new Scanner(System.in);
         MrTracker.printLine();
@@ -270,6 +284,7 @@ public class MrTracker {
             }
 
             MrTracker.printLine();
+            MrTracker.save(taskList);
             
         }
         System.out.println("Bye. Hope to see you again soon! \n");
