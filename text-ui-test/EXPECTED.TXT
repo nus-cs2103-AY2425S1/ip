@@ -88,6 +88,10 @@ Done, removed that task for you.
 [D][ ] submit quiz (by: friday 10pm)
 ____________________________________
 
+____________________________________
+I'm sorry, I don't understand that command.
+____________________________________
+
 ERROR! Could not write to file.
 ____________________________________
 Bye. See you later!

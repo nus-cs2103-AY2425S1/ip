@@ -15,4 +15,5 @@ mark 4
 delete
 delete 6
 delete 2
+invalid command
 bye
