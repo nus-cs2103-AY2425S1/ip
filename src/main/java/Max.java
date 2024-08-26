@@ -1,4 +1,9 @@
+import javafx.util.converter.LocalDateTimeStringConverter;
+
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +29,6 @@ public class Max {
 
         while (running) {
             String text = scanner.nextLine().trim();
-
             try {
                 if (text.equals("bye")) {
                     running = false;
@@ -37,34 +41,11 @@ public class Max {
                     int index = Integer.parseInt(text.replace("unmark ", ""));
                     markNotDone(index);
                 } else if (text.startsWith("deadline")) {
-                    String[] temp = text.replace("deadline ", "").split(" /by ");
-                    if (temp.length != 2) {
-                        throw new MaxException("Oh no!! The description of the task cannot be empty. :(");
-                    }
-                    checkTask(temp[0].trim());
-                    checkTask(temp[1].trim());
-                    Deadline deadline = new Deadline(temp[0], temp[1]);
-                    this.storedTasks.add(deadline);
-                    saveTasks();
-                    printTaskTypeAdded(deadline);
+                    handleDeadline(text);
                 } else if (text.startsWith("todo")) {
-                    String temp = text.replace("todo", "").trim();
-                    checkTask(temp);
-                    Todo todo = new Todo(temp);
-                    this.storedTasks.add(todo);
-                    saveTasks();
-                    printTaskTypeAdded(todo);
+                    handleTodo(text);
                 } else if (text.startsWith("event")) {
-                    String[] temp = text.replace("event ", "").split(" /from ");
-                    if (temp.length != 2) {
-                        throw new MaxException("Oh no!! The description of the task cannot be empty. :(");
-                    }
-                    checkTask(temp[0].trim());
-                    checkTask(temp[1].trim());
-                    Event event = new Event(temp[0], temp[1]);
-                    this.storedTasks.add(event);
-                    saveTasks();
-                    printTaskTypeAdded(event);
+                    handleEvent(text);
                 } else if (text.startsWith("delete")){
                     int index = Integer.parseInt(text.replace("delete ", ""));
                     deleteTask(index);
@@ -78,6 +59,51 @@ public class Max {
             }
         }
         printBye();
+    }
+
+    private void handleDeadline(String text) throws MaxException {
+        String[] temp = text.replace("deadline ", "").split(" /by ");
+        if (temp.length != 2) {
+            throw new MaxException("Oh no!! The description of the task cannot be empty. :(");
+        }
+        checkTask(temp[0].trim());
+        checkTask(temp[1].trim());
+
+        LocalDateTime LDT = parseDate(temp[1]);
+        if (LDT != null) {
+            Deadline deadline = new Deadline(temp[0], LDT);
+            this.storedTasks.add(deadline);
+            printTaskTypeAdded(deadline);
+        } else {
+            Deadline deadline = new Deadline(temp[0], temp[1]);
+            this.storedTasks.add(deadline);
+            printTaskTypeAdded(deadline);
+        }
+        saveTasks();
+    }
+
+    private void handleEvent(String text) throws MaxException {
+        String[] temp = text.replace("event ", "").split(" /from ");
+        if (temp.length != 2) {
+            throw new MaxException("Oh no!! The description of the task cannot be empty. :(");
+        }
+        checkTask(temp[0].trim());
+        checkTask(temp[1].trim());
+
+        Event event = new Event(temp[0], temp[1]);
+        this.storedTasks.add(event);
+        printTaskTypeAdded(event);
+
+        saveTasks();
+    }
+
+    private void handleTodo(String text) throws MaxException {
+        String temp = text.replace("todo", "").trim();
+        checkTask(temp);
+        Todo todo = new Todo(temp);
+        this.storedTasks.add(todo);
+        saveTasks();
+        printTaskTypeAdded(todo);
     }
 
     private void loadList() {
@@ -98,7 +124,12 @@ public class Max {
                     task = new Todo(parts[2]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], parts[3]);
+                    LocalDateTime LDT = parseDate(parts[3]);
+                    if (LDT != null) {
+                        task = new Deadline(parts[2], LDT);
+                    } else {
+                        task = new Deadline(parts[2], parts[3]);
+                    }
                     break;
                 case "E":
                     task = new Event(parts[2], parts[3]);
@@ -125,13 +156,24 @@ public class Max {
             File file = new File(FILE_PATH);
             file.getParentFile().mkdirs();
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-            for (Task task : storedTasks) {  // Changed: iterate over ArrayList
+            for (Task task : storedTasks) {
                 writer.write(task.toFileFormat());
                 writer.newLine();
             }
             writer.close();
         } catch (IOException e) {
             throw new MaxException("An IOException occurred.");
+        }
+    }
+
+    private LocalDateTime parseDate(String date) throws MaxException {
+        DateTimeFormatter converter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        try {
+            LocalDateTime LDT = LocalDateTime.parse(date, converter);
+            return LDT;
+        } catch (DateTimeParseException e){
+            throw new MaxException("Invalid date format! Please use d/M/yyyy HHmm. "
+                    + "For example, '2/12/2024 1800'");
         }
     }
 
