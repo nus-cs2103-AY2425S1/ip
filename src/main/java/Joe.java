@@ -197,6 +197,10 @@ public class Joe {
         System.out.println(line);
     }
 
+    /**
+     * Loads the latest saved list of Tasks the user committed during their latest call to the save
+     * function
+     */
     private static void syncData() {
         File f = new File("src/main/data/joe.txt");
         try {
@@ -231,6 +235,9 @@ public class Joe {
         }
     }
 
+    /**
+     * Saves the user's current list of Tasks and automatically loads the saved list during their next session
+     */
     public static void save() {
         int numOfTasks = userTasks.size();
         System.out.println(line);
