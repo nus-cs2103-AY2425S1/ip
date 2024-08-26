@@ -1,8 +1,7 @@
-// src/test/java/wolfie/command/MarkCommandTest.java
 package wolfie.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
@@ -10,13 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import wolfie.exception.WolfieException;
-import wolfie.task.Task;
 import wolfie.task.TaskList;
 import wolfie.task.Todo;
 import wolfie.util.Storage;
 import wolfie.util.Ui;
 
-class MarkCommandTest {
+class UnmarkCommandTest {
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
@@ -30,17 +28,16 @@ class MarkCommandTest {
 
     @Test
     void testExecute_validIndex() throws IOException, WolfieException {
-        tasks.add(new Todo("Test task", false));
-        MarkCommand command = new MarkCommand("1");
+        tasks.add(new Todo("Test task", true));
+        UnmarkCommand command = new UnmarkCommand("1");
         command.execute(tasks, ui, storage);
 
-        Task task = tasks.get(0);
-        assertTrue(task.getIsDone());
+        assertEquals(false, tasks.get(0).getIsDone());
     }
 
     @Test
     void testExecute_invalidIndex() {
-        MarkCommand command = new MarkCommand("1");
+        UnmarkCommand command = new UnmarkCommand("1");
         assertThrows(WolfieException.class, () -> command.execute(tasks, ui, storage));
     }
 }

@@ -18,7 +18,7 @@ class StorageTest {
 
     @BeforeEach
     void setUp() {
-        String testFilePath = "data/tasks.txt";
+        String testFilePath = "data/testTasks.txt";
         storage = new Storage(testFilePath);
     }
 
