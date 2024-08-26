@@ -1,7 +1,166 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	#################################################################
+	how ya' doin. i'm the rizzler.
+	how may i be of service to you today?
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this todo for you ;)
+		[T][ ] wake up
+	now we have 1 tasks to work on.
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this deadline for you ;)
+		[D][ ] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	now we have 2 tasks to work on.
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this todo for you ;)
+		[T][ ] get to the bathroom
+	now we have 3 tasks to work on.
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this event for you ;)
+		[E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	now we have 4 tasks to work on.
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this todo for you ;)
+		[T][ ] decide what to eat for breakfast
+	now we have 5 tasks to work on.
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] wake up
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][ ] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][ ] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this todo for you ;)
+		[T][ ] head out of the house
+	now we have 6 tasks to work on.
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this deadline for you ;)
+		[D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	now we have 7 tasks to work on.
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[D][X] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] get to the bathroom
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][X] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][X] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	6. [T][ ] head out of the house
+	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this event for you ;)
+		[E][ ] order food (from: 8.07am to: 8.10)
+	now we have 8 tasks to work on.
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][X] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][X] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	6. [T][ ] head out of the house
+	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	8. [E][ ] order food (from: 8.07am to: 8.10)
+	#################################################################
+	#################################################################
+	no worries, we'll circle back around to this.
+		[D][ ] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][ ] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][X] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	6. [T][ ] head out of the house
+	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	8. [E][ ] order food (from: 8.07am to: 8.10)
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] wake up
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][ ] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][X] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	6. [T][ ] head out of the house
+	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	8. [E][ ] order food (from: 8.07am to: 8.10)
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[D][X] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][X] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][X] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	6. [T][ ] head out of the house
+	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	8. [E][ ] order food (from: 8.07am to: 8.10)
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] get to the bathroom
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][X] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][X] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	6. [T][ ] head out of the house
+	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	8. [E][ ] order food (from: 8.07am to: 8.10)
+	#################################################################
+	#################################################################
+	no worries, we'll circle back around to this.
+		[D][ ] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	#################################################################
+	#################################################################
+	these are the things we gotta do:
+	1. [T][X] wake up
+	2. [D][ ] get out of bed (by: <10 minutes after the alarm rings, hopefully)
+	3. [T][X] get to the bathroom
+	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	5. [T][ ] decide what to eat for breakfast
+	6. [T][ ] head out of the house
+	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	8. [E][ ] order food (from: 8.07am to: 8.10)
+	#################################################################
+	#################################################################
+	my sincerest apologies darlin', i don't understand you.
+	#################################################################
+	#################################################################
+	aight bet, cya.
+	#################################################################

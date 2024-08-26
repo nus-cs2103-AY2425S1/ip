@@ -1,0 +1,26 @@
+todo wake up
+deadline get out of bed /by <10 minutes after the alarm rings, hopefully
+todo get to the bathroom
+event brush teeth /from 10 minutes after waking (AW) /to 12 minutes AW
+todo decide what to eat for breakfast
+mark 1
+list
+todo head out of the house
+deadline call the lift to head downstairs /by the time the lift has not left yet
+mark 2
+mark 3
+list
+event order food /from 8.07am /to 8.10
+list
+unmark 2
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+cool
+bye
