@@ -1,3 +1,5 @@
+package Bunbun.utils;
+import Bunbun.tasks.*;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
@@ -14,7 +16,7 @@ public class TaskList {
 
 
     /**
-     * Constructor for a TaskList. Initializes number of tasks to 0.
+     * Constructor for a TaskList. Initializes number of Bunbun.tasks to 0.
      */
     public TaskList(Storage s, UI ui) {
         this.taskList = s.toArrayList();
@@ -39,7 +41,7 @@ public class TaskList {
         this.taskList.add(task);
         this.numOfTasks += 1;
         this.ui.response("Added \'" + task + "\' task!");
-        String msg = String.format("By the way, you have %d tasks now!", this.numOfTasks);
+        String msg = String.format("By the way, you have %d Bunbun.tasks now!", this.numOfTasks);
         this.ui.response(msg);
     }
 
@@ -150,7 +152,7 @@ public class TaskList {
      * Method to display task list for user.
      */
     public void displayList() {
-        this.ui.response("These are your tasks!");
+        this.ui.response("These are your Bunbun.tasks!");
         for (int i = 0; i < this.numOfTasks; i++) {
             Task currTask = this.taskList.get(i);
             String res;
@@ -161,7 +163,7 @@ public class TaskList {
             }
             this.ui.response(res);
         }
-        this.ui.response("That's all your tasks for now :>>>");
+        this.ui.response("That's all your Bunbun.tasks for now :>>>");
     }
 
     /**
@@ -193,7 +195,7 @@ public class TaskList {
             this.ui.response(String.format("Oki, I've deleted %s task!", this.taskList.get(taskNum - 1)));
             this.taskList.remove(taskNum - 1);
             this.numOfTasks -= 1;
-            this.ui.response(String.format("You have %d tasks left!!", this.numOfTasks));
+            this.ui.response(String.format("You have %d Bunbun.tasks left!!", this.numOfTasks));
         }
     }
 

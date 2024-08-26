@@ -4,6 +4,7 @@
  * @author Eda Yeo
  * @version CS2103T AY24/25 Semester 1
  */
+package Bunbun.tasks;
 abstract public class Task {
     private String task;
     private boolean complete;

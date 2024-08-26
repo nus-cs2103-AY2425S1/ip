@@ -1,9 +1,10 @@
 /**
- * This class implements a UI for Bunbun.
+ * This class implements a UI for Bunbun.Bunbun.
  *
  * @author Eda Yeo
  * @version CS2103T AY24/25 Semester 1
  */
+package Bunbun.utils;
 public class UI {
 
     /**
