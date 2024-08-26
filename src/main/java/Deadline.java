@@ -8,6 +8,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String taskToString() {
+        return this.type + "::" + super.getStatus() + "::" + super.getDesc() + "::" + this.dateTime + "\n";
+    }
+
+    @Override
     public String getType() {
         return this.type;
     }

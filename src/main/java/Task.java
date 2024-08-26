@@ -7,6 +7,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public String getDesc() {
+        return this.desc;
+    }
+
     public boolean getStatus() {
         return this.isDone;
     }
@@ -20,6 +24,8 @@ public abstract class Task {
     }
 
     public abstract String getType();
+
+    public abstract String taskToString();
 
     @Override
     public String toString() {
