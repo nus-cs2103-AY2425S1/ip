@@ -1,5 +1,6 @@
 package mendel.metacognition;
 
+import mendel.datetime.DateTimeManager;
 import mendel.discretetask.Task;
 import mendel.preetyprint.FormatText;
 import mendel.mendelexception.MendelException;
@@ -83,6 +84,20 @@ public class TaskStorage extends MendelAction{
     public void silencedAdd(Task element) {
         this.messages.add(element);
         this.counter++;
+    }
+
+    public void find(String rawDate) {
+        String formattedDate = new DateTimeManager(rawDate).toString();
+        String finalMessage = String.format("Here are the tasks with deadlines on: %s", formattedDate);
+        int increment = 0;
+        for (int i = 0; i < counter; i++) {
+            if (this.messages.get(i).isTargetDueDate(formattedDate)) {
+                increment++;
+                finalMessage += String.format("\n%d.%s", increment,
+                        this.messages.get(i).toString());
+            }
+        }
+        System.out.println(new FormatText(finalMessage).wrapLines());
     }
 
     public void speak() {

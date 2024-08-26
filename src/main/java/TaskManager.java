@@ -56,6 +56,8 @@ public class TaskManager {
             } else if(segments[0].equals("event")) {
                 Task task = taskStorage.add(Event.of(currAction));
                 this.dbContoller.create(task, taskStorage.isFirstTask());
+            } else if(segments[0].equals("findeventon")) {
+                taskStorage.find(segments[1]);
             } else {
                 throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
             }

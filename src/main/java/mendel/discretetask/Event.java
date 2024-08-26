@@ -1,5 +1,6 @@
 package mendel.discretetask;
 
+import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
@@ -34,8 +35,8 @@ public class Event extends Task {
         handleError(rawDescription);
         String[] slashSegments = rawDescription.split(" /from ");
         String[] mainMessage = slashSegments[0].split(" ");
-        String startMsg = slashSegments[1].split(" /to ")[0];
-        String endMsg = slashSegments[1].split(" /to ")[1];
+        String startMsg = new DateTimeManager(slashSegments[1].split(" /to ")[0]).toString();
+        String endMsg = new DateTimeManager(slashSegments[1].split(" /to ")[1]).toString();
         String reformattedMsg = "";
         for (int i = 1; i < mainMessage.length; i++) {
             if (i == mainMessage.length - 1) {
@@ -76,6 +77,11 @@ public class Event extends Task {
                 .conditionTriggerException(startMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.");
 
+    }
+
+    @Override
+    public boolean isTargetDueDate(String formattedDate) {
+        return new DateTimeManager(formattedDate).removeTimeStamp().equals(new DateTimeManager(this.to).removeTimeStamp());
     }
 
     @Override

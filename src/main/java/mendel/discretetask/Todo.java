@@ -48,6 +48,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public boolean isTargetDueDate(String formattedDate) {
+        return false;
+    }
+
+    @Override
     public String parseDetailsForDB() {
         return String.format("T | %d | %s", super.getStatus() ? 1 : 0, this.description);
     }
