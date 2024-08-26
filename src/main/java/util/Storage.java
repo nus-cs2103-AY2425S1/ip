@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import task.Deadline;
@@ -14,6 +16,8 @@ import task.Todo;
 
 public class Storage {
     private final String TASK_FILE_PATH = "data/tasks.txt";
+    private final String DIRECTORY_PATH = "data";
+
     public void loadTaskList(TaskList taskList) throws FileNotFoundException {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
@@ -31,6 +35,18 @@ public class Storage {
             case "E" -> new Event(args[1], Boolean.parseBoolean(args[2]), args[3], args[4]);
             default -> null;
         };
+    }
+
+    public void initFile() {
+        try {
+            File dir = new File(DIRECTORY_PATH);
+            dir.mkdir();
+            File f = new File(TASK_FILE_PATH);
+            f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error initialising file, BotManager will now exit");
+            System.exit(0);
+        }
     }
 
     public void saveTaskList(TaskList taskList) throws IOException {

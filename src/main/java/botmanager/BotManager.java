@@ -32,25 +32,31 @@ public class BotManager {
        try {
            storage.loadTaskList(taskList);
        } catch (FileNotFoundException e) {
-           throw new RuntimeException(e);
+           ui.showLoadError();
+           storage.initFile();
        }
 
        while (true) {
+           // read user input
            String input = ui.readUserInput();
            if (input.strip().equals("bye")) {
                break;
            }
+
+           // parse and execute command
            try {
                Action action = parser.parseInput(input);
                String output = action.execute(taskList);
-               try {
-                   storage.saveTaskList(taskList);
-               } catch (IOException e) {
-                   throw new RuntimeException(e);
-               }
                ui.printMessage(output);
            } catch (BotException e) {
                 ui.printMessage(e.getMessage());
+           }
+
+           // save task list to file
+           try {
+               storage.saveTaskList(taskList);
+           } catch (IOException e) {
+               ui.showSaveError();
            }
        }
 
