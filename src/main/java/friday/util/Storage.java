@@ -11,8 +11,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "data/friday.txt";
+
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws IOException If an error occurs while reading the file.
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
@@ -40,6 +50,17 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a string array representing task data and creates a corresponding {@link Task} object.
+     * The array should be in the format where the first element indicates the type of task
+     * ("T" for Todo, "D" for Deadline, "E" for Event) and subsequent elements provide
+     * the necessary details for constructing the task.
+     *
+     * @param taskData A string array containing task data, where the first element specifies
+     *                 the task type and the remaining elements provide the task's details.
+     * @return The {@link Task} object created from the given data, or {@code null} if the data
+     *         does not match any recognized task type.
+     */
     private Task parseTask(String[] taskData) {
         Task task = null;
         switch (taskData[0]) {
@@ -58,6 +79,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves the list of tasks to the storage file.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         File currentDir = new File(System.getProperty("user.dir"));
         FileWriter writer;
