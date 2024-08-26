@@ -99,10 +99,37 @@ public class Patrick {
     private static void readTasks() throws FileNotFoundException {
         file = new File(FILE_PATH);
         Scanner s = new Scanner(file);
+        Task currTask;
         while (s.hasNext()) {
             String taskString = s.nextLine();
-            Task task = new Task(taskString);
-            list.add(task);
+            if (taskString.startsWith("T")) {
+                String taskDescription = taskString.substring(7);
+                currTask = new ToDo(taskDescription);
+                list.add(currTask);
+                if (taskString.substring(4).startsWith("X")) {
+                    currTask.markAsDone();
+                }
+            } else if (taskString.startsWith("D")) {
+                String taskDescription = taskString.substring(7);
+                taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
+                String deadline = taskString.substring(7).replace(taskDescription, "").replace("| ", "");
+                currTask = new Deadline(taskDescription, deadline);
+                list.add(currTask);
+                if (taskString.substring(4).startsWith("X")) {
+                    currTask.markAsDone();
+                }
+            } else if (taskString.startsWith("E")) {
+                String taskDescription = taskString.substring(7);
+                taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
+                String tempFrom = taskString.substring(7).replace(taskDescription, "").substring(2);
+                String to = tempFrom.substring(tempFrom.indexOf("-") + 1);
+                String from = tempFrom.replace("-" + to, "");
+                currTask = new Event(taskDescription, from, to);
+                list.add(currTask);
+                if (taskString.substring(4).startsWith("X")) {
+                    currTask.markAsDone();
+                }
+            }
         }
     }
 
@@ -309,7 +336,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "D | " + super.toString() + " (by:" + this.by + ")";
+            return "D | " + super.toString() + " |" + this.by;
         }
     }
 
@@ -335,7 +362,7 @@ public class Patrick {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from:" + this.from + " to:" + this.to + ")";
+            return "E | " + super.toString() + " |" + this.from + "-" + this.to;
         }
     }
 
@@ -350,7 +377,7 @@ public class Patrick {
         System.out.println(HORIZONTAL_LINE + "Here are the tasks in your list:");
         for (int i = 1; i <= list.size(); i++) {
             Task curr = (Task) list.get(i - 1);
-            System.out.println(i + ". " + curr.description);
+            System.out.println(i + ". " + curr.toString());
         }
         System.out.println(HORIZONTAL_LINE);
     }
