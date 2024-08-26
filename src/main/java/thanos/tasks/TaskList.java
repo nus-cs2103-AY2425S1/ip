@@ -106,7 +106,13 @@ public class TaskList {
         this.storage.save(this.tasks);
         return task;
     }
-    
+
+    /**
+     * Finds and returns a list of tasks that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword used to search for matching tasks in the task list.
+     * @return An {@code ArrayList} of tasks that contain the keyword in their description.
+     */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task: this.tasks) {
