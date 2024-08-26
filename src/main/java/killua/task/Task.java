@@ -25,6 +25,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isMatched(String keyword) {
+        return description.contains(keyword);
+    }
+
     public String toSave() {
         return " | " + (isDone ? 1 : 0) + " | " + description;
     }
