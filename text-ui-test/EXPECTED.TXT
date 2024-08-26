@@ -1,3 +1,5 @@
+Task file not found, creating task file.
+Unable to create task file.
 ____________________________________
 Hello, I'm Rasputin!
 What can I do for you?
@@ -86,6 +88,7 @@ Done, removed that task for you.
 [D][ ] submit quiz (by: friday 10pm)
 ____________________________________
 
+ERROR! Could not write to file.
 ____________________________________
 Bye. See you later!
 ____________________________________
