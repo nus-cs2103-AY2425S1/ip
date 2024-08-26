@@ -1,3 +1,5 @@
+package joe;
+
 public class Joe {
     public static final String CHATBOT_NAME = "Joe";
 
