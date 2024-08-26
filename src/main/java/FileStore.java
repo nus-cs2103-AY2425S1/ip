@@ -34,6 +34,7 @@ public class FileStore {
         ArrayList<TodoItem> todoList = new ArrayList<>();
         if (savefile.exists()) {
             int errorEntriesCount = 0; //Counter to count the number of error entries
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
             try {
                 Scanner s = new Scanner(savefile);
                 while (s.hasNext()) {
@@ -90,7 +91,6 @@ public class FileStore {
                             continue;
                         }
 
-                        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
                         LocalDateTime deadlineDue = null;
                         try {
                             deadlineDue = LocalDateTime.parse(entryDeadlineDueString, formatter);
@@ -121,7 +121,22 @@ public class FileStore {
                             continue;
                         }
 
-                        EventItem event = new EventItem(entryEventString, entryEventFromString, entryEventToString);
+                        LocalDateTime eventFrom;
+                        LocalDateTime eventTo;
+                        try {
+                            eventFrom = LocalDateTime.parse(entryEventFromString, formatter);
+                            eventTo = LocalDateTime.parse(entryEventFromString, formatter);
+                        } catch (DateTimeParseException e) {
+                            errorEntriesCount++;
+                            continue;
+                        }
+
+                        if (eventFrom.isAfter(eventTo)) {
+                            errorEntriesCount++;
+                            continue;
+                        }
+
+                        EventItem event = new EventItem(entryEventString, eventFrom, eventTo);
                         todoList.add(event);
                         break;
                     default:
