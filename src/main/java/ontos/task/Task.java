@@ -62,7 +62,11 @@ public abstract class Task {
         return "[" + statusIcon + "] " + this.description;
     }
 
-   abstract public String storeData();
+    public boolean containsString(String searchCriteria) {
+        return this.description.indexOf(searchCriteria) != -1;
+    } 
+
+    abstract public String storeData();
 
     protected static class ToDo extends Task {
         public ToDo(String description) {

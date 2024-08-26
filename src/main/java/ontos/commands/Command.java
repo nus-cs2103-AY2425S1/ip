@@ -135,4 +135,17 @@ public abstract class Command {
         }
 
     }
+
+    public static class FindCommand extends Command {
+        private String searchCriteria;
+
+        public FindCommand(String searchCriteria) {
+            this.searchCriteria = searchCriteria;
+        }
+
+        public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            String filteredList = tasks.containsString(searchCriteria);
+            ui.findOutput(filteredList);
+        }
+    }
 }

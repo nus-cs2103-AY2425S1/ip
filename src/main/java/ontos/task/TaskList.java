@@ -59,4 +59,21 @@ public class TaskList {
         }
         return output;
     }
+
+    public String containsString(String searchCriteria) {
+        int index = 1;
+        String output = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).containsString(searchCriteria)) {
+                if (i + 1 < taskList.size()) {
+                    output += " " + index + ". " + taskList.get(i).toString() + "\n";
+                    index++;
+                } else {
+                    output += " " + index + ". " + taskList.get(i).toString();
+                    index++;
+                }
+            }
+        }
+        return output;
+    }
 }   
