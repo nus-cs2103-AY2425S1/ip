@@ -1,18 +1,29 @@
 package killua.util;
 
-import killua.command.UnmarkCommand;
 import killua.command.*;
-import killua.task.Deadline;
-import killua.task.Event;
-import killua.task.Task;
-import killua.task.Todo;
+import killua.task.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class that provides methods for parsing commands, tasks, and dates.
+ * It converts user input into command objects and task objects for the Killua application.
+ */
 public class Parser {
+
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    /**
+     * Parses a command string and returns the corresponding Command object.
+     *
+     * @param commandStr The command string to be parsed.
+     * @return The Command object corresponding to the parsed command string.
+     * @throws KilluaException If the command string is invalid or unknown.
+     */
     public static Command parseCommand(String commandStr) throws KilluaException {
         String[] parts = commandStr.split(" ", 2);
         String commandWord = parts[0];
@@ -26,11 +37,11 @@ public class Parser {
         case "event":
             return new AddCommand(parseEvent(arguments));
         case "delete":
-            return new DeleteCommand(Parser.parseIndex(arguments));
+            return new DeleteCommand(parseIndex(arguments));
         case "mark":
-            return new MarkCommand(Parser.parseIndex(arguments));
+            return new MarkCommand(parseIndex(arguments));
         case "unmark":
-            return new UnmarkCommand(Parser.parseIndex(arguments));
+            return new UnmarkCommand(parseIndex(arguments));
         case "list":
             return new ListCommand();
         case "bye":
@@ -45,6 +56,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a "todo" command argument and returns a Todo object.
+     *
+     * @param arguments The arguments of the "todo" command.
+     * @return The Todo object created from the arguments.
+     * @throws KilluaException If the arguments are empty.
+     */
     public static Todo parseTodo(String arguments) throws KilluaException {
         if (arguments.isEmpty()) {
             throw new KilluaException("Arguments cannot be empty!");
@@ -52,6 +70,13 @@ public class Parser {
         return new Todo(arguments);
     }
 
+    /**
+     * Parses a "deadline" command argument and returns a Deadline object.
+     *
+     * @param arguments The arguments of the "deadline" command.
+     * @return The Deadline object created from the arguments.
+     * @throws KilluaException If the arguments are empty or in an incorrect format.
+     */
     public static Deadline parseDeadline(String arguments) throws KilluaException {
         if (arguments.isEmpty()) {
             throw new KilluaException("Arguments cannot be empty!");
@@ -62,14 +87,11 @@ public class Parser {
             String description = parts[0].strip();
             String dateTimeString = parts[1].strip();
 
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
             try {
-                LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, dateTimeFormatter);
+                LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
                 return new Deadline(description, dateTime);
             } catch (DateTimeParseException e) {
-                LocalDate date = LocalDate.parse(dateTimeString, dateFormatter);
+                LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
                 return new Deadline(description, date);
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
@@ -77,6 +99,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an "event" command argument and returns an Event object.
+     *
+     * @param arguments The arguments of the "event" command.
+     * @return The Event object created from the arguments.
+     * @throws KilluaException If the arguments are empty or in an incorrect format.
+     */
     public static Event parseEvent(String arguments) throws KilluaException {
         if (arguments.isEmpty()) {
             throw new KilluaException("Arguments cannot be empty!");
@@ -90,16 +119,13 @@ public class Parser {
             String fromDateTimeString = dateStrings[0].strip();
             String toDateTimeString = dateStrings[1].strip();
 
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
             try {
-                LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeString, dateTimeFormatter);
-                LocalDateTime toDateTime = LocalDateTime.parse(toDateTimeString, dateTimeFormatter);
+                LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeString, DATE_TIME_FORMATTER);
+                LocalDateTime toDateTime = LocalDateTime.parse(toDateTimeString, DATE_TIME_FORMATTER);
                 return new Event(description, fromDateTime, toDateTime);
             } catch (DateTimeParseException e) {
-                LocalDate fromDate = LocalDate.parse(fromDateTimeString, dateFormatter);
-                LocalDate toDate = LocalDate.parse(toDateTimeString, dateFormatter);
+                LocalDate fromDate = LocalDate.parse(fromDateTimeString, DATE_FORMATTER);
+                LocalDate toDate = LocalDate.parse(toDateTimeString, DATE_FORMATTER);
                 return new Event(description, fromDate, toDate);
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
@@ -107,6 +133,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an index argument and returns the corresponding integer index.
+     *
+     * @param arguments The index argument.
+     * @return The integer index parsed from the arguments.
+     * @throws KilluaException If the arguments are empty or not a valid integer.
+     */
     public static int parseIndex(String arguments) throws KilluaException {
         if (arguments.isEmpty()) {
             throw new KilluaException("Arguments cannot be empty!");
@@ -116,12 +149,18 @@ public class Parser {
             return Integer.parseInt(arguments.trim()) - 1;
         } catch (NumberFormatException e) {
             throw new KilluaException("Please provide a valid task number!");
-        } catch (IndexOutOfBoundsException e) {
-            throw new KilluaException("killua.task.Task " + arguments + " not found!");
+        }  catch (IndexOutOfBoundsException e1) {
+            throw new KilluaException("Task " + arguments + " not found!");
         }
     }
 
-
+    /**
+     * Parses a task string from the storage format and returns the corresponding Task object.
+     *
+     * @param line The task string from the storage.
+     * @return The Task object parsed from the string.
+     * @throws IllegalArgumentException If the task type is unknown.
+     */
     public static Task parseTask(String line) {
         char taskType = line.charAt(0);
         boolean isDone = line.charAt(4) == '1';
@@ -148,46 +187,50 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Creates a Deadline task from the description and date string.
+     *
+     * @param description The description of the deadline.
+     * @param dateTimeString The date string for the deadline.
+     * @return The Deadline task created from the given description and date string.
+     * @throws IllegalArgumentException If the date format is invalid.
+     */
     private static Task getDeadline(String description, String dateTimeString) {
-        Task deadline;
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, dateTimeFormatter);
-            deadline = new Deadline(description, dateTime);
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
+            return new Deadline(description, dateTime);
         } catch (DateTimeParseException e1) {
             try {
-                LocalDate date = LocalDate.parse(dateTimeString, dateFormatter);
-                deadline = new Deadline(description, date);
+                LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
+                return new Deadline(description, date);
             } catch (DateTimeParseException e2) {
                 throw new IllegalArgumentException("Invalid date format: " + dateTimeString);
             }
         }
-
-        return deadline;
     }
 
+    /**
+     * Creates an Event task from the description and date strings.
+     *
+     * @param description The description of the event.
+     * @param dateTimeStringFrom The start date string of the event.
+     * @param dateTimeStringTo The end date string of the event.
+     * @return The Event task created from the given description and date strings.
+     * @throws IllegalArgumentException If the date format is invalid.
+     */
     private static Task getEvent(String description, String dateTimeStringFrom, String dateTimeStringTo) {
-        Task event;
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-
         try {
-            LocalDateTime fromDateTime = LocalDateTime.parse(dateTimeStringFrom, dateTimeFormatter);
-            LocalDateTime toDateTime = LocalDateTime.parse(dateTimeStringTo, dateTimeFormatter);
-            event = new Event(description, fromDateTime, toDateTime);
+            LocalDateTime fromDateTime = LocalDateTime.parse(dateTimeStringFrom, DATE_TIME_FORMATTER);
+            LocalDateTime toDateTime = LocalDateTime.parse(dateTimeStringTo, DATE_TIME_FORMATTER);
+            return new Event(description, fromDateTime, toDateTime);
         } catch (DateTimeParseException e1) {
             try {
-                LocalDate fromDate = LocalDate.parse(dateTimeStringFrom, dateFormatter);
-                LocalDate toDate = LocalDate.parse(dateTimeStringTo, dateFormatter);
-                event = new Event(description, fromDate, toDate);
+                LocalDate fromDate = LocalDate.parse(dateTimeStringFrom, DATE_FORMATTER);
+                LocalDate toDate = LocalDate.parse(dateTimeStringTo, DATE_FORMATTER);
+                return new Event(description, fromDate, toDate);
             } catch (DateTimeParseException e2) {
                 throw new IllegalArgumentException("Invalid date format: from '" + dateTimeStringFrom + "' to '" + dateTimeStringTo + "'");
             }
         }
-
-        return event;
     }
 }
-
