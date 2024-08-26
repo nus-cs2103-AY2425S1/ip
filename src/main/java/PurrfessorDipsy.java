@@ -9,7 +9,8 @@ import Task.Deadline;
 import Task.Event;
 import Task.Task;
 import Task.ToDo;
-import Exception.PurrfessorDipsyException;
+import Exception.InvalidCommandException;
+import Exception.UnknownCommandException;
 import Utilities.DateTimeParser;
 
 public class PurrfessorDipsy {
@@ -34,7 +35,7 @@ public class PurrfessorDipsy {
             try {
                 String userInput = inputScanner.nextLine().trim();
                 processCommand(userInput);
-            } catch (PurrfessorDipsyException e) {
+            } catch (InvalidCommandException | UnknownCommandException e) {
                 printErrorMessage(e.getMessage());
             }
         }
@@ -53,7 +54,7 @@ public class PurrfessorDipsy {
         return Command.UNKNOWN;
     }
 
-    private static void processCommand(String userInput) throws PurrfessorDipsyException {
+    private static void processCommand(String userInput) throws UnknownCommandException, InvalidCommandException {
         Command command = parseCommand(userInput);
         switch (command) {
             case MARK:
@@ -76,7 +77,7 @@ public class PurrfessorDipsy {
                 break;
             case UNKNOWN:
             default:
-                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.UNKNOWN_COMMAND);
+                throw new UnknownCommandException();
         }
     }
 
@@ -104,7 +105,7 @@ public class PurrfessorDipsy {
     }
 
     // HANDLE COMMANDS
-    private static void handleMarkCommand(String userInput) throws PurrfessorDipsyException {
+    private static void handleMarkCommand(String userInput) throws InvalidCommandException {
         Matcher markMatcher = MARK_PATTERN.matcher(userInput);
         if (markMatcher.matches()) {
             String action = markMatcher.group(1);
@@ -116,14 +117,14 @@ public class PurrfessorDipsy {
                     markTaskAsUndone(index);
                 }
             } else {
-                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_MARK_INDEX);
+                throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_INDEX);
             }
         } else {
-            throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_MARK_COMMAND);
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_COMMAND);
         }
     }
 
-    private static void handleTaskCreation(String userInput, Command command) throws PurrfessorDipsyException {
+    private static void handleTaskCreation(String userInput, Command command) throws InvalidCommandException, UnknownCommandException {
         Matcher matcher;
         String description, by, start, end;
 
@@ -134,7 +135,7 @@ public class PurrfessorDipsy {
                     description = matcher.group(1);
                     saveToMemory(new ToDo(description));
                 } else {
-                    throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_TODO);
+                    throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_TODO);
                 }
                 break;
 
@@ -151,7 +152,7 @@ public class PurrfessorDipsy {
                         printDateParseErrorMessage(by);
                     }
                 } else {
-                    throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DEADLINE);
+                    throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DEADLINE);
                 }
                 break;
 
@@ -174,12 +175,12 @@ public class PurrfessorDipsy {
                         printDateParseErrorMessage(start);
                     }
                 } else {
-                    throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_EVENT);
+                    throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_EVENT);
                 }
                 break;
 
             default:
-                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.UNKNOWN_COMMAND);
+                throw new UnknownCommandException();
         }
     }
 
@@ -209,7 +210,7 @@ public class PurrfessorDipsy {
         Storage.saveTasksToLocalDisk(taskTable);
     }
 
-    private static void deleteFromMemory(String userInput) throws PurrfessorDipsyException {
+    private static void deleteFromMemory(String userInput) throws InvalidCommandException {
         Matcher matcher = DELETE_PATTERN.matcher(userInput);
         if (matcher.matches()) {
             int index = Integer.parseInt(matcher.group(1));
@@ -219,10 +220,10 @@ public class PurrfessorDipsy {
                         "\nYou now have " + taskTable.size() + " tasks in your list.");
                 Storage.saveTasksToLocalDisk(taskTable);
             } else {
-                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DELETE_INDEX);
+                throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_INDEX);
             }
         } else {
-            throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DELETE_COMMAND);
+            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_COMMAND);
         }
     }
 
@@ -263,7 +264,7 @@ public class PurrfessorDipsy {
     }
 
     private static void printDateParseErrorMessage(String date) {
-        System.out.println("Invalid date formsdat: " + date +
+        System.out.println("Invalid date format: " + date +
                            " Please enter the date in the format yyyy-MM-dd (e.g., 2024-08-25).");
     }
 
