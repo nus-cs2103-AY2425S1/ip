@@ -3,12 +3,20 @@ package papadom.Storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import papadom.tasks.Task;
 /**
  * Manages the storage of tasks in a file.
  */
 public class Storage {
     private final String filePath;
+
+    private final ArrayList<Task> TASKS = new ArrayList<>();
+    public ArrayList<Task> getTasks() {
+        return this.TASKS;
+    }
+
     /**
      * Constructs a Storage object with the specified file path.
      *
@@ -46,5 +54,17 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
         }
+    }
+    public String findTaskBySearching (String searchText) {
+        String searchResult = " Here are the matching tasks in your list:";
+        int count = 1;
+        for (Task task : this.TASKS) {
+            // Perform operations with each task
+            String description = task.getDescription();
+            if (description.contains(searchText)) {
+                searchResult += "\n  " + count++ + ". " + task.toString();
+            }
+        }
+        return searchResult;
     }
 }

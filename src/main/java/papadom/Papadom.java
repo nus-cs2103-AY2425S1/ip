@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Papadom {
     enum CommandType {
-        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN;
         public static CommandType fromString(String command) {
             return switch (command.toLowerCase()) {
                 case "list" -> LIST;
@@ -20,6 +20,7 @@ public class Papadom {
                 case "deadline" -> DEADLINE;
                 case "event" -> EVENT;
                 case "delete" -> DELETE;
+                case "find" -> FIND;
                 default -> UNKNOWN;
             };
         }
@@ -63,6 +64,9 @@ public class Papadom {
                         break;
                     case DELETE:
                         command = new DeleteEventCommand(text);
+                        break;
+                    case FIND:
+                        command = new FindEventCommand(text);
                         break;
                     default:
                         throw new UnknownCommandException();

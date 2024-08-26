@@ -11,21 +11,27 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final Storage storage;
-    private final ArrayList<Task> tasks = new ArrayList<>();
+
     /**
      * Constructs a TaskList with the specified storage.
      *
      * @param storage The storage instance for saving tasks.
      */
+
+    private final ArrayList<Task> tasks;
+
     public TaskList(Storage storage) {
         this.storage = storage;
+        this.tasks = storage.getTasks();
     }
+
     /**
      * Returns the list of tasks.
      *
      * @return The ArrayList of tasks.
      */
-    public ArrayList<Task> getTasks () {
+
+    public ArrayList<Task> getTasks() {
         return this.tasks;
     }
     /**
