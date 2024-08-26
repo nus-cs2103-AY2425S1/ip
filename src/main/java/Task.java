@@ -66,7 +66,12 @@ public abstract class Task {
      * The format includes the task type, status icon, description, and deadline.
      *
      * @return A string in the format depending on the type of task.
+     * @see Event#toFileString() For the string format used when saving events.
+     * @see Deadline#toFileString() For the string format used when saving events.
+     * @see Todo#toFileString() For the string format used when saving events.
      */
     public abstract String toFileString();
+
+
 
 }

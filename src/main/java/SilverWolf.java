@@ -8,9 +8,14 @@ import java.util.Scanner;
 public class SilverWolf {
 
     // List to store the tasks
-    private static ArrayList<Task> list = new ArrayList<>();
+    private static ArrayList<Task> lists = new ArrayList<>();
 
+    // To read or write to a file
+    private static Storage storage;
 
+    // constants for directory and file paths
+    public static final String DIRECTORY_PATH = "./data";
+    public static final String FILE_PATH = DIRECTORY_PATH + "/silverWolf.txt";
     /**
      * Prints a divider line to the console for visual separation.
      */
@@ -24,7 +29,7 @@ public class SilverWolf {
      */
     private static void outputList(){
         int index = 1;
-        for(Task t : list){
+        for(Task t : lists){
             System.out.println(index + t.toString());
             index++;
         }
@@ -38,7 +43,7 @@ public class SilverWolf {
     private static void showConfirmation(){
         printDivider();
         System.out.println("Got it. I've added this task:");
-        System.out.println(list.get(list.size()-1));
+        System.out.println(lists.get(lists.size()-1));
         showTotalTask();
         printDivider();
         System.out.print("\n");
@@ -48,7 +53,66 @@ public class SilverWolf {
      * Displays the total number of tasks currently in the list.
      */
     private static void showTotalTask(){
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println("Now you have " + lists.size() + " tasks in the list.");
+    }
+
+    /**
+     * Parses a line from the file and converts it into a Task object.
+     *
+     */
+    private static void parseTask(){
+        String[] data = storage.readFile().split(System.getProperty("line.separator"));
+        for(String task : data){
+            String[] parts = task.split(" \\| ");
+            TaskType type = TaskType.fromString(parts[0]);
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+
+            switch(type){
+            case TODO:
+                Todo todo = new Todo(description);
+                if(isDone) {
+                    todo.markAsDone();
+                }
+                lists.add(todo);
+                break;
+            case DEADLINE:
+                String by = parts[3];
+                Deadline deadline = new Deadline(description, by);
+                if (isDone) {
+                    deadline.markAsDone();
+                }
+                lists.add(deadline);
+                break;
+            case EVENT:
+                String[] eventTimes = parts[3].split("-");
+                String from = eventTimes[0];
+                String to = eventTimes[1];
+                Event event = new Event(description, from, to);
+                if (isDone) {
+                    event.markAsDone();
+                }
+                lists.add(event);
+                break;
+            default:
+                System.out.println("Invalid task type: " + type);
+            }
+        }
+    }
+
+    /**
+     * Saves the current list of tasks to a file.
+     * Each task is converted to a string using its {@code toFileString()} method
+     * and then written to the file by the {@code storage} object.
+     *
+     * @see Task#toFileString() For the string format used when saving tasks.
+     */
+    private static void handleSaveToFile(){
+        StringBuilder data = new StringBuilder();
+        for (Task task : lists){
+            data.append(task.toFileString()).append(System.lineSeparator());
+        }
+        storage.writeFile(data.toString());
     }
 
     /**
@@ -95,7 +159,11 @@ public class SilverWolf {
                 " What can I help you with?\n" +
                 "____________________________________________________________\n");
         Scanner scanner = new Scanner(System.in);
-        
+
+        // Read directory if any, else create directory. read file if any, else create file
+        storage = new Storage(DIRECTORY_PATH, FILE_PATH);
+        storage.setUp();
+        parseTask();
 
         while(true) {
             try {
@@ -123,6 +191,8 @@ public class SilverWolf {
                 }else {
                     handleWrongInput();
                 }
+                // auto save after end of command processing
+                handleSaveToFile();
             } catch(SilverWolfException e){
                 printDivider();
                 System.out.println(e.getMessage());
@@ -172,7 +242,7 @@ public class SilverWolf {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             // retrieve the specific task from the arraylist
-            Task specificTask = list.get(index);
+            Task specificTask = lists.get(index);
             // mark the task as done
             specificTask.markAsDone();
             printDivider();
@@ -198,7 +268,7 @@ public class SilverWolf {
         try {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         // retrieve the specific task from the arraylist
-            Task specificTask = list.get(index);
+            Task specificTask = lists.get(index);
         // mark the task as undone
         specificTask.unmarkTask();
         printDivider();
@@ -228,7 +298,7 @@ public class SilverWolf {
                 throw new SilverWolfException("Hey! your todo cannot be empty you know");
             }
             Todo newTodo = new Todo(descrption);
-            list.add(newTodo);
+            lists.add(newTodo);
             showConfirmation();
         } catch (StringIndexOutOfBoundsException e){
             throw new SilverWolfException("Hey! your todo cannot be empty you know");
@@ -249,7 +319,7 @@ public class SilverWolf {
         try {
             String[] parts = input.substring(9).split(" /by ");
             Task newDeadline = new Deadline(parts[0], parts[1]);
-            list.add(newDeadline);
+            lists.add(newDeadline);
             showConfirmation();
         } catch (StringIndexOutOfBoundsException e){
             throw new SilverWolfException("Hey! your deadline cannot be empty you know");
@@ -273,7 +343,7 @@ public class SilverWolf {
         String[] parts = input.substring(6).split(" /from ");
         String[] to = parts[1].split(" /to ");
             Task newEvent = new Event(parts[0],to[0],to[1]);
-        list.add(newEvent);
+        lists.add(newEvent);
         showConfirmation();
     } catch (StringIndexOutOfBoundsException e){
         throw new SilverWolfException("Hey! your event cannot be empty you know");
@@ -303,7 +373,7 @@ public class SilverWolf {
     private static void handleDeleteCommand(String input) throws SilverWolfException{
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            Task removedTask = list.remove(index);
+            Task removedTask = lists.remove(index);
             printDivider();
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask);

@@ -35,7 +35,7 @@ class Todo extends Task {
     }
 
     /**
-     * Returns a string representation of the task for file storage.
+     * Returns a string representation of the todo for file storage.
      * The format includes the task type, status icon, description, and deadline.
      *
      * @return A string in the format "TaskType | StatusIcon | Description".

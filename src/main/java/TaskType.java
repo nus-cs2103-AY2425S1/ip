@@ -29,5 +29,20 @@ public enum TaskType {
         return this.shortForm;
     }
 
+    /**
+     * Converts a short form string to the corresponding TaskType enum.
+     *
+     * @param shortForm The string representation of the task type (e.g., "T" for TODO).
+     * @return The corresponding TaskType enum.
+     * @throws IllegalArgumentException if no matching TaskType is found.
+     */
+    public static TaskType fromString(String shortForm) {
+        for (TaskType type : TaskType.values()) {
+            if (type.shortForm.equals(shortForm)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("Hey, this is a uncommon task type: " + shortForm);
+    }
 
 }

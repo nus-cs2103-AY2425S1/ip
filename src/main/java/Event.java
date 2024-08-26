@@ -59,7 +59,7 @@ public class Event extends Task{
     }
 
     /**
-     * Returns a string representation of the task for file storage.
+     * Returns a string representation of the event for file storage.
      * The format includes the task type, status icon, description, and the time range (from and to).
      *
      * @return A string in the format "TaskType | StatusIcon | Description | From-To".
