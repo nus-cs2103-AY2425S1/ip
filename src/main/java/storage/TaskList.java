@@ -38,7 +38,7 @@ public class TaskList {
     }
 
     public Task markTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > TASKS.size()) {
+        if (taskNumber > TASKS.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
         }
         Task markTask = TASKS.get(taskNumber - 1);
@@ -47,7 +47,7 @@ public class TaskList {
     }
 
     public Task unmarkTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > TASKS.size()) {
+        if (taskNumber > TASKS.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
         }
         Task unmarkTask = TASKS.get(taskNumber - 1);
@@ -56,7 +56,7 @@ public class TaskList {
     }
 
     public Task deleteTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > TASKS.size()) {
+        if (taskNumber > TASKS.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
         }
         return TASKS.remove(taskNumber - 1);
