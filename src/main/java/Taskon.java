@@ -10,6 +10,8 @@ public class Taskon {
      */
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
+        tasks = FileManager.loadTasks();
+
         greet();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
@@ -31,6 +33,7 @@ public class Taskon {
                         int index = description.charAt(5) - '0';
                         tasks.get(index - 1).markAsDone();
                         completed(tasks.get(index - 1));
+                        FileManager.saveTasks(tasks);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("You only have " + tasks.size() + " tasks!\n");
                     } catch (TaskonException e) {
@@ -43,6 +46,7 @@ public class Taskon {
                         int index = Integer.parseInt(description.substring(7));
                         tasks.get(index - 1).markAsUndone();
                         uncompleted(tasks.get(index - 1));
+                        FileManager.saveTasks(tasks);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("You only have " + tasks.size() + " tasks!\n");
                     } catch (TaskonException e) {
@@ -56,6 +60,7 @@ public class Taskon {
                         Task task = tasks.get(index-1);
                         tasks.remove(index-1);
                         System.out.println("Alright, I've removed this task:\n    " + task + "\nNow you have " + tasks.size() + " tasks.\n");
+                        FileManager.saveTasks(tasks);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("You only have " + tasks.size() + " tasks!\n");
                     } catch (NumberFormatException e) {
@@ -69,6 +74,7 @@ public class Taskon {
                         tasks.add(t);
                         System.out.println("Got it! I've added this task:\n    " + t + "\nNow you have " +
                                 tasks.size() + " tasks in your list.\n");
+                        FileManager.saveTasks(tasks);
                     } catch (TaskonException e) {
                         System.out.println(e.getMessage());
                     }

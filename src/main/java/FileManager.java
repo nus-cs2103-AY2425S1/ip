@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class FileManager {
     private static final String FILE_PATH = "./data/taskon.txt";
-    public static final String SEPARATOR = " | ";
+    public static final String SEPARATOR = "|";
 
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
@@ -25,6 +25,15 @@ public class FileManager {
         ArrayList<Task> tasks = new ArrayList<>();
          try {
              File file = new File(FILE_PATH);
+
+             // check if directory or file do not exist
+             if (!file.getParentFile().exists()) {
+                 file.getParentFile().mkdirs();
+             }
+             if (!file.exists()) {
+                 file.createNewFile();
+             }
+
              Scanner scanner = new Scanner(file);
              while (scanner.hasNextLine()) {
                  String line = scanner.nextLine();
@@ -34,13 +43,15 @@ public class FileManager {
 
          } catch (FileNotFoundException | TaskonException e) {
              System.out.println("File not found!");
+         } catch (IOException e) {
+             System.out.println("Error: " + e.getMessage());
          }
-         return tasks;
+        return tasks;
     }
 
     private static Task parseTask(String line) throws TaskonException {
         Task task = null;
-        String[] taskDescription = line.split(SEPARATOR);
+        String[] taskDescription = line.trim().split("\\s*\\" + SEPARATOR + "\\s*");
         String taskType = taskDescription[0];
 
         switch (taskType) {
