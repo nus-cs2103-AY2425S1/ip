@@ -9,13 +9,23 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** A class to store the Task data */
 public class Storage {
     private final String storagePath;
 
+    /**
+     * Creates an instance of a Storage object.
+     * @param storagePath Where data is stored.
+     */
     public Storage(String storagePath) {
         this.storagePath = storagePath;
     }
 
+    /**
+     * Saves a list of tasks to local hard disk.
+     * @param tasks Is tasks to be saved.
+     * @throws IOException When save fails.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         File saveFile = new File(storagePath);
         if (!saveFile.exists()) {
@@ -32,6 +42,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads saved tasks from local hard disk.
+     * @return A list of tasks.
+     * @throws IOException When load fails.
+     */
     public ArrayList<Task> load() throws IOException {
         File saveFile = new File(storagePath);
         ArrayList<Task> tasks = new ArrayList<>();
