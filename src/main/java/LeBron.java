@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -109,7 +110,8 @@ public class LeBron {
                 } else if (parts[0].equals("deadline")) {
                     if (parts.length > 1) {
                         String[] splStr = parts[1].split("/by ", 2);
-                        Deadlines deadline = new Deadlines(splStr[0].trim(), splStr[1]);
+                        LocalDate date = LocalDate.parse(splStr[1]);
+                        Deadlines deadline = new Deadlines(splStr[0].trim(), date);
                         taskList.add(deadline);
                         taskCount++;
                         System.out.println("Gotchu, I added the task: ");
@@ -124,12 +126,12 @@ public class LeBron {
                         if (parts[1].contains("/from")) {
                             String[] splStrings = parts[1].split("/from", 2);
                             String taskDescription = splStrings[0].trim();
-                            String start = "";
-                            String end = "";
+                            LocalDate start = LocalDate.now();
+                            LocalDate end = LocalDate.now();
                             if (splStrings[1].contains("/to")) {
                                 String[] timeParts = splStrings[1].split("/to", 2);
-                                start = timeParts[0].trim();
-                                end = timeParts[1].trim();
+                                start = LocalDate.parse(timeParts[0].trim());
+                                end = LocalDate.parse(timeParts[1].trim());
                             } else {
                                 throw new LeBronException("Your event has to end bro!");
                             }
@@ -206,10 +208,13 @@ public class LeBron {
             if (type.equals("T")) {
                 task = new ToDos(parts[2].trim());
             } else if (type.equals("D")) {
-                task = new Deadlines(parts[2].trim(), parts[3].trim());
+                LocalDate date = LocalDate.parse(parts[3].trim());
+                task = new Deadlines(parts[2].trim(), date);
             } else if (type.equals("E")) {
                 String[] startEnd = parts[3].split("-");
-                task = new Event(parts[2].trim(), startEnd[0].trim(), startEnd[1].trim());
+                LocalDate start = LocalDate.parse(startEnd[0].trim());
+                LocalDate end = LocalDate.parse(startEnd[1].trim()); 
+                task = new Event(parts[2].trim(), start, end);
             } else {
                 continue;
             }

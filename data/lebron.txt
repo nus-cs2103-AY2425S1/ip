@@ -1,1 +1,2 @@
-T | 0 | buy bread
+T | 0 | buy beer
+D | 0 | return book | 2024-12-10
