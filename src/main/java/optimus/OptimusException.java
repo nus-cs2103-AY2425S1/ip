@@ -1,3 +1,5 @@
+package optimus;
+
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
 /**
  * Custom exception class for handling errors specific to the Optimus task management system.

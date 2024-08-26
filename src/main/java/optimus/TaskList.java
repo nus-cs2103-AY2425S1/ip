@@ -1,3 +1,5 @@
+package optimus;
+
 import java.util.ArrayList;
 
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
@@ -73,7 +75,7 @@ public class TaskList {
 
     /**
      * Adds a task to the taskList based on user input.
-     * Task can be of type Todo, Deadline, or Event.
+     * optimus.Task can be of type Todo, Deadline, or Event.
      *
      * @param userInput The input string containing task details.
      * @throws OptimusException If the input format is invalid.

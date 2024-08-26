@@ -1,3 +1,5 @@
+package optimus;
+
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
