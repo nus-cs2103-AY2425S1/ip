@@ -1,3 +1,5 @@
+package rizzler;
+
 class Todo extends Task {
     Todo(String name) {
         super(name);

@@ -1,3 +1,5 @@
+package rizzler;
+
 class DeleteCommand implements Command {
     private final int deleteIndex;
 

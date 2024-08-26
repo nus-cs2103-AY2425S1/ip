@@ -1,3 +1,5 @@
+package rizzler;
+
 class Task {
     protected final String name;
     protected boolean isDone;

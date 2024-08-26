@@ -1,3 +1,5 @@
+package rizzler;
+
 class ExitCommand implements Command {
     ExitCommand() {}
 

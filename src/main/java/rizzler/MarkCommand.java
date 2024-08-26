@@ -1,3 +1,5 @@
+package rizzler;
+
 class MarkCommand implements Command {
     private final int markIndex;
 

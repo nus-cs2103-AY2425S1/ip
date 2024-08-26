@@ -1,3 +1,5 @@
+package rizzler;
+
 class Parser {
     Command parse(String fullCommand) throws RizzlerException {
         String[] parsedCommand = fullCommand.split(" ");

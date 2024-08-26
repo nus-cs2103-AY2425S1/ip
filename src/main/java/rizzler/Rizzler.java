@@ -1,7 +1,4 @@
-import java.time.DateTimeException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.time.LocalDate;
+package rizzler;
 
 public class Rizzler {
     private Ui ui;

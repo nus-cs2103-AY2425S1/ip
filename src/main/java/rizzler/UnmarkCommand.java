@@ -1,3 +1,5 @@
+package rizzler;
+
 class UnmarkCommand implements Command {
     private final int unmarkIndex;
 
