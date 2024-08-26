@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.Map;
 
-public class Listing {
+public class Listing extends Command{
     private List<Task> lst = new LinkedList<>();
     private String tag;
 

@@ -1,6 +1,6 @@
 # SigmaBot project template
 
-This is a project template for a greenfield Java project. It's named so to embody the Sigmaness of the author Wxy2003-xy. Given below are instructions on how to use it.
+This is a project template for a greenfield Java project. It's named so to embody the basedness of the author Wxy2003-xy. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
