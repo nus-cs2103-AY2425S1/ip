@@ -46,16 +46,24 @@ public class Rizzler {
                     ToDo newTodo = new ToDo(todoDesc);
                     taskLog.addTask(newTodo);
                     rizzlerSpeech.say();
-                    rizzlerSpeech.say("added: " + newTodo);
+                    rizzlerSpeech.say("certainly, i'll keep track of this todo for you ;)");
+                    rizzlerSpeech.say("\t" + newTodo);
                     rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
                     rizzlerSpeech.say();
                     continue;
                 case "deadline":
                     String[] deadlineInfoArr = Arrays.copyOfRange(userInputArr, 1, userInputLen);
                     String deadlineInfo = String.join(" ", deadlineInfoArr);
-                    String deadlineDesc = deadlineInfo.split("/")[0];
-                    String deadlineTime = deadlineInfo.split("/")[1];
-
+                    String deadlineDesc = deadlineInfo.split("/by")[0];
+                    String deadlineTime = deadlineInfo.split("/by")[1];
+                    Deadline newDeadline = new Deadline(deadlineDesc, deadlineTime);
+                    taskLog.addTask(newDeadline);
+                    rizzlerSpeech.say();
+                    rizzlerSpeech.say("certainly, i'll keep track of this deadline for you ;)");
+                    rizzlerSpeech.say("\t" + newDeadline);
+                    rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
+                    rizzlerSpeech.say();
+                    continue;
                 default:
                     Task newTask = new Task(userInput);
                     rizzlerSpeech.say();
