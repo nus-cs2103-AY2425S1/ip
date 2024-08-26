@@ -14,6 +14,7 @@ import Exception.UnknownCommandException;
 import Utilities.DateTimeParser;
 
 public class PurrfessorDipsy {
+    private static Ui ui;
     private static ArrayList<Task> taskTable = new ArrayList<>();
     private static boolean isRunning = true; // to allow for a more graceful exit
 
@@ -28,15 +29,16 @@ public class PurrfessorDipsy {
     }
 
     public static void main(String[] args) {
+        ui = new Ui();
         Scanner inputScanner = new Scanner(System.in);
         taskTable = Storage.loadTasksFromFile();
-        printWelcomeMessage();
+        ui.printWelcomeMessage();
         while (isRunning) {
             try {
                 String userInput = inputScanner.nextLine().trim();
                 processCommand(userInput);
             } catch (InvalidCommandException | UnknownCommandException e) {
-                printErrorMessage(e.getMessage());
+                ui.printErrorMessage(e.getMessage());
             }
         }
         inputScanner.close();
@@ -64,29 +66,6 @@ public class PurrfessorDipsy {
             case BYE -> exitProgram();
             default -> throw new UnknownCommandException();
         }
-    }
-
-    // GENERIC PRINT STATEMENTS (Can be reused)
-    private static void printWithTerminalLines(String message) {
-        String TERMINAL_LINE = "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――";
-        System.out.println(TERMINAL_LINE);
-        System.out.println(message);
-        System.out.println(TERMINAL_LINE);
-    }
-
-    private static void printWelcomeMessage() {
-        String introduction = "Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam " +
-                              "and Purrtector of the Realm of Naps.\n" +
-                              "How can I purrvide assistance? Purrhaps I could lend a paw!";
-        printWithTerminalLines(introduction);
-    }
-
-    private static void printExitMessage() {
-        printWithTerminalLines("Fur-well friend, stay paw-sitive!");
-    }
-
-    private static void printErrorMessage(String message) {
-        printWithTerminalLines("Error: " + message);
     }
 
     // HANDLE COMMANDS
@@ -165,12 +144,12 @@ public class PurrfessorDipsy {
         String[] parts = userInput.trim().split("\\s+");
         if (parts.length == 1) {
             // Case where input is 'list'
-            printTasks(taskTable);
+            ui.printListOfTasks(taskTable);
         } else if (parts.length == 2) {
             // Case where input is 'list <date>'
             try {
                 LocalDate date = LocalDate.parse(parts[1]);
-                printTasks(filterTasksByDate(date));
+                ui.printListOfTasks(filterTasksByDate(date));
             } catch (DateTimeParseException e) {
                 printDateParseErrorMessage(parts[1]);
             }
@@ -182,7 +161,7 @@ public class PurrfessorDipsy {
 
         if (matcher.matches()) {
             int index = Integer.parseInt(matcher.group(1));
-            deleteTaskAtIndex(index);  // Delegate deletion logic
+            deleteTaskAtIndex(index);
         } else {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_COMMAND);
         }
@@ -191,8 +170,7 @@ public class PurrfessorDipsy {
     private static void deleteTaskAtIndex(int index) throws InvalidCommandException {
         if (index >= 1 && index <= taskTable.size()) {
             Task removedTask = taskTable.remove(index - 1); // Adjust for zero-based index
-            printWithTerminalLines("Purrr, I've swatted this task away:\n" + removedTask +
-                    "\nYou now have " + taskTable.size() + " tasks in your list.");
+
             Storage.saveTasksToLocalDisk(taskTable);
         } else {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_DELETE_INDEX);
@@ -202,44 +180,23 @@ public class PurrfessorDipsy {
     // Other util methods used for performing commands.
     private static void saveToMemory(Task task) {
         taskTable.add(task);
-        printWithTerminalLines("(=ↀωↀ=)ノ Task added!\n" + task +
-                "\nYou now have " + taskTable.size() + " tasks in your list.");
-        Storage.saveTasksToLocalDisk(taskTable);
-    }
 
-    private static void printTasks(ArrayList<Task> tasks) {
-        int taskCount = tasks.size();
-        if (taskCount == 0) {
-            printWithTerminalLines("Your task list is as empty as a well-sunned nap spot.");
-        } else {
-            StringBuilder result = new StringBuilder("Time to stretch those paws and tackle your tasks!\n");
-            for (int i = 0; i < taskCount; i++) {
-                int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
-                result.append(printedIndex).append(".").append(tasks.get(i));
-                if (i < taskCount - 1) { // Don't append a newline after the last task
-                    result.append("\n");
-                }
-            }
-            printWithTerminalLines(result.toString());
-        }
+        Storage.saveTasksToLocalDisk(taskTable);
     }
 
     private static void markTaskAsDone(int index) {
         Task task = taskTable.get(index - 1);
         task.markAsDone();
-        printWithTerminalLines("Meow! I’ve scratched this task off the list!\n" + task);
         Storage.saveTasksToLocalDisk(taskTable);
     }
 
     private static void markTaskAsUndone(int index) {
         Task task = taskTable.get(index - 1);
         task.markAsUndone();
-        printWithTerminalLines("Mrrreow! I’ve batted this task back onto the list.\n" + task);
         Storage.saveTasksToLocalDisk(taskTable);
     }
 
     private static void exitProgram() {
-        printExitMessage();
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
     }
 
