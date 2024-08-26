@@ -6,5 +6,19 @@ mark 1
 unmark 1
 delete 2
 list
+unknown command
+todo
+deadline
+event
+deadline Bake Cookies by
+deadline /by 2023-12-24 1800
+event /from 2023-12-25 1800 /to 2023-12-25 2300
+event Snow Blast
+mark 100
+unmark 100
+delete 100
+mark
+unmark
+delete
 bye
 

@@ -6,7 +6,7 @@
  *  |   |    |   |  * \ \____| |___/ /  *
     |*  |    |   |     \____________/       *
 Hello, I am Rudolf, Santa's trusty red-nose reindeer
-Christmas is nearing, and I am here to help you with your christmas preparations.
+Christmas is nearing, and I am here to help you with your Christmas preparations.
 Here's how you can chat with me:
 1. Add a ToDo: todo <description>
 2. Add a Deadline: deadline <description> /by <date/time>
@@ -20,23 +20,27 @@ ____________________________________________________________
 ____________________________________________________________
 Gotcha. I've added this task:
   [T][ ] Buy Christmas gifts
-Now you have 1 tasks in the list. Jingle bells!
+Now you have 5 tasks in the list. Feliz Navidad!
 ____________________________________________________________
 ____________________________________________________________
 Gotcha. I've added this task:
-  [D][ ] Finish wrapping (by: Dec 24)
-Now you have 2 tasks in the list. Let it snow!
+  [D][ ] Finish wrapping (by: Dec 24 2023, 6:00 PM)
+Now you have 6 tasks in the list. Feliz Navidad!
 ____________________________________________________________
 ____________________________________________________________
 Gotcha. I've added this task:
-  [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
-Now you have 3 tasks in the list. Feliz Navidad!
+  [E][ ] Christmas party (from: Dec 25 2023, 6:00 PM to: Dec 25 2023, 11:00 PM)
+Now you have 7 tasks in the list. Feliz Navidad!
 ____________________________________________________________
 ____________________________________________________________
 Ho Ho Ho! Here are the tasks in your Christmas list:
 1. [T][ ] Buy Christmas gifts
-2. [D][ ] Finish wrapping (by: Dec 24)
-3. [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
+2. [T][ ] Buy Christmas gifts
+3. [D][ ] Finish wrapping (by: Dec 24 2023, 6:00 PM)
+4. [E][ ] Christmas party (from: Dec 25 2023, 6:00 PM to: Dec 25 2023, 11:00 PM)
+5. [T][ ] Buy Christmas gifts
+6. [D][ ] Finish wrapping (by: Dec 24 2023, 6:00 PM)
+7. [E][ ] Christmas party (from: Dec 25 2023, 6:00 PM to: Dec 25 2023, 11:00 PM)
 ____________________________________________________________
 ____________________________________________________________
 Sleigh! I've marked this task as done:
@@ -48,20 +52,57 @@ Alright-o, I've marked this task as not done yet:
 ____________________________________________________________
 ____________________________________________________________
 Aww okay. I've removed this task:
-  [D][ ] Finish wrapping (by: Dec 24)
-Now you have 2 tasks in the list.
+  [T][ ] Buy Christmas gifts
+Now you have 6 tasks in the list. Let it snow!
 ____________________________________________________________
 ____________________________________________________________
 Ho Ho Ho! Here are the tasks in your Christmas list:
 1. [T][ ] Buy Christmas gifts
-2. [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
+2. [D][ ] Finish wrapping (by: Dec 24 2023, 6:00 PM)
+3. [E][ ] Christmas party (from: Dec 25 2023, 6:00 PM to: Dec 25 2023, 11:00 PM)
+4. [T][ ] Buy Christmas gifts
+5. [D][ ] Finish wrapping (by: Dec 24 2023, 6:00 PM)
+6. [E][ ] Christmas party (from: Dec 25 2023, 6:00 PM to: Dec 25 2023, 11:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-Bye~ Hope to see you again!
-Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •
-•。★Christmas★ 。* 。
-° 。 ° ˛˚˛ * Π__。˚
-˚ ˛ •˛•˚ */__/~＼。˚ ˚ ˛
-˚ ˛ •˛• ˚ ｜ 田田 ｜門｜ ˚
-And a happy new year!
+OOPS!!! I'm sorry, but I don't know what that means :-(
+____________________________________________________________
+____________________________________________________________
+Oops! The description of a todo cannot be empty.
+____________________________________________________________
+____________________________________________________________
+Sorry, I don't understand. Did you mean: deadline <description> /by <date/time>
+____________________________________________________________
+____________________________________________________________
+Sorry, I don't understand. Did you mean: event <description> /from <start date/time> /to <end date/time>
+____________________________________________________________
+____________________________________________________________
+Sorry, I don't understand. Did you mean: deadline <description> /by <date/time>
+____________________________________________________________
+____________________________________________________________
+Oops! The description of a deadline cannot be empty.
+____________________________________________________________
+____________________________________________________________
+Oops! The description of an event cannot be empty.
+____________________________________________________________
+____________________________________________________________
+Sorry, I don't understand. Did you mean: event <description> /from <start date/time> /to <end date/time>
+____________________________________________________________
+____________________________________________________________
+Oops! That task number doesn't exist. Please try again.
+____________________________________________________________
+____________________________________________________________
+Oops! That task number doesn't exist. Please try again.
+____________________________________________________________
+____________________________________________________________
+Oops! That task number doesn't exist. Please try again.
+____________________________________________________________
+____________________________________________________________
+Sorry, I don't understand. Did you mean: mark <task number>
+____________________________________________________________
+____________________________________________________________
+Sorry, I don't understand. Did you mean: unmark <task number>
+____________________________________________________________
+____________________________________________________________
+Sorry, I don't understand. Did you mean: delete <task number>
 ____________________________________________________________
