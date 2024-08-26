@@ -12,5 +12,6 @@ public enum CommandName {
     DELETE,
     LIST,
     EXIT,
+    FIND,
     UNKNOWN
 }

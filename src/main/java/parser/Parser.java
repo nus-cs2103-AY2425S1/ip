@@ -160,6 +160,10 @@ public class Parser {
                 ui.showTaskAdded(task.toString());
                 ui.showTaskCount(taskList.getTaskCount());
                 break;
+            case FIND:
+                String keyword = command.substring(4).trim();
+                ui.showTaskList(taskList.findTasks(keyword));
+                break;
 
             default:
                 throw new JarException("Unknown command: " + command + ". Please enter a valid command.");
@@ -191,6 +195,8 @@ public class Parser {
             return CommandName.LIST;
         } else if (command.equalsIgnoreCase("bye")) {
             return CommandName.EXIT;
+        } else if (command.startsWith("find")) {
+            return CommandName.FIND;
         } else {
             return CommandName.UNKNOWN;
         }

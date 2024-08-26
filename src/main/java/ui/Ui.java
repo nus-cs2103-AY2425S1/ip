@@ -2,6 +2,7 @@ package ui;
 
 import tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -69,10 +70,28 @@ public class Ui {
     }
 
     /**
+<<<<<<< HEAD
      * Displays a message indicating that a task has been marked as completed.
      *
      * @param task The task that was marked as completed.
      */
+=======
+     * Displays the list of tasks that match a given keyword.
+     *
+     * @param matchingTasks The list of tasks that match the search keyword.
+     */
+    public void showTaskList(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
+    }
+
+>>>>>>> branch-Level-9
     public void showTaskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done:\n" + task);
     }
