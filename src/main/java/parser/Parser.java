@@ -9,8 +9,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for interpreting user commands and
+ * converting them into actionable tasks or operations within the Jar Bot application.
+ */
 public class Parser {
 
+    /**
+     * Extracts the task number from a given command string.
+     *
+     * @param command The command string containing the task number.
+     * @return The task number as an integer.
+     * @throws JarException If the task number is invalid or incorrectly formatted.
+     */
     public int getTaskNumber(String command) throws JarException {
         String[] parts = command.split(" ");
         if (parts.length == 2) {
@@ -28,6 +39,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a command string and converts it into a Task object.
+     *
+     * @param command The command string to be parsed.
+     * @return The corresponding Task object.
+     * @throws JarException If the command is unknown or incorrectly formatted.
+     */
     public Task parseTask(String command) throws JarException {
         CommandName commandType = parseCommandType(command);
 
@@ -67,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date and time string into a LocalDateTime object.
+     *
+     * @param dateTimeStr The date and time string to be parsed.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws JarException If the date and time format is invalid.
+     */
     private LocalDateTime parseDateTime(String dateTimeStr) throws JarException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -76,6 +101,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles a user command by interpreting it and performing the corresponding action.
+     *
+     * @param command  The user command string.
+     * @param taskList The list of tasks in the Jar Bot application.
+     * @param ui       The user interface used to interact with the user.
+     * @return A boolean indicating whether the application should continue running.
+     * @throws JarException If the command is unknown or if an error occurs during command handling.
+     */
     public boolean handleCommand(String command, TaskList taskList, Ui ui) throws JarException {
         CommandName commandType = parseCommandType(command);
 
@@ -134,6 +168,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Determines the type of command based on the command string.
+     *
+     * @param command The command string to be interpreted.
+     * @return The corresponding CommandName enum value.
+     */
     public CommandName parseCommandType(String command) {
         if (command.startsWith("todo")) {
             return CommandName.TODO;
