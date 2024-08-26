@@ -3,9 +3,7 @@ package command;
 import java.util.List;
 
 import tasklist.TaskList;
-
 import tasks.Task;
-
 import ui.CommandLineUI;
 
 public class ListCommand extends Command {

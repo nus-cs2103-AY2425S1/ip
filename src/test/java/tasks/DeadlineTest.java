@@ -1,14 +1,14 @@
 package tasks;
 
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
 
@@ -50,11 +50,11 @@ public class DeadlineTest {
     void testUnmarkDeadline() {
         try {
             Deadline deadline = new Deadline("Submit assignment", "2024-09-20");
-            deadline.mark();  // Mark as done
-            deadline.unmark();  // Then unmark
+            deadline.mark(); // Mark as done
+            deadline.unmark(); // Then unmark
             assertFalse(deadline.isDone);
             assertEquals("[D][ ] Submit assignment (by: 20 Sep 2024)", deadline.toString());
-            
+
         } catch (DeadlineException e) {
             fail("DeadlineException should not be thrown for a valid date.");
         }
@@ -98,5 +98,5 @@ public class DeadlineTest {
 
         }
     }
-    
+
 }

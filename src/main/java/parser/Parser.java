@@ -1,7 +1,5 @@
 package parser;
 
-import ouiouibaguette.OuiOuiBaguetteException;
-
 import command.AddDeadlineCommand;
 import command.AddEventCommand;
 import command.AddToDoCommand;
@@ -11,7 +9,7 @@ import command.DeleteCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
-
+import ouiouibaguette.OuiOuiBaguetteException;
 import tasks.DeadlineException;
 import tasks.EventException;
 import tasks.ToDoException;
@@ -27,13 +25,11 @@ public class Parser {
         } else if (cmd.startsWith("mark")) {
             // Parse command to get index of task
             int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
-            
             return new MarkCommand(index);
 
         } else if (cmd.startsWith("unmark")) {
             // Parse command to get index of task
             int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
-            
             return new UnmarkCommand(index);
 
         } else if (cmd.startsWith("todo")) {
@@ -65,12 +61,12 @@ public class Parser {
             // Check if there is a valid description
             if (desc.length() == 0) {
                 throw new DeadlineException("The description of a deadline cannot be empty.");
-            } 
+            }
 
             // Check if there is a valid due date
             if (descAndDate.split(" /by ").length < 2) {
                 throw new DeadlineException("The due date of a deadline cannot be empty.");
-            } 
+            }
             String date = descAndDate.split(" /by ")[1];
 
             return new AddDeadlineCommand(desc, date);
@@ -82,7 +78,6 @@ public class Parser {
             }
 
             String descAndStartEnd = cmd.substring(("event ").length());
-            
             // Check if format is correct
             if (!descAndStartEnd.contains(" /from ") || !descAndStartEnd.contains(" /to ")) {
                 throw new EventException("""
@@ -94,13 +89,13 @@ public class Parser {
             // Check if there is a valid description
             if (desc.length() == 0) {
                 throw new EventException("The description of an event cannot be empty.");
-            } 
+            }
 
             // Check if there is a valid start
             if (descAndStartEnd.indexOf("/from ") + ("/from ").length()
                     >= descAndStartEnd.indexOf(" /to")) {
                 throw new EventException("The start of an event cannot be empty.");
-                    }
+            }
             String start = descAndStartEnd.substring(
                     descAndStartEnd.indexOf("/from ") + ("/from ").length(),
                     descAndStartEnd.indexOf(" /to"));

@@ -32,7 +32,7 @@ public abstract class Task {
      * @return data format
      */
     public String toDataFormat() {
-        return (isDone ? "1" : "0") + " | " +  description;
+        return (isDone ? "1" : "0") + " | " + description;
     }
 
     /**

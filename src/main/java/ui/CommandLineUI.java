@@ -8,7 +8,7 @@ public class CommandLineUI {
 
     public CommandLineUI() {
         // Initialize scanner
-        sc = new Scanner(System.in); 
+        sc = new Scanner(System.in);
     }
 
     public void showDivider() {
@@ -23,7 +23,6 @@ public class CommandLineUI {
 
         showDivider();
     }
-    
 
     public void farewell() {
         showDivider();
@@ -33,7 +32,6 @@ public class CommandLineUI {
         showDivider();
     }
 
-    
     public String readCommand() {
         String input = sc.nextLine();
 

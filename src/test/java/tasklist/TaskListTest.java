@@ -1,24 +1,25 @@
 package tasklist;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import storage.Storage;
 import storage.FileStorage;
-
+import storage.Storage;
 import tasks.Deadline;
 import tasks.DeadlineException;
 import tasks.Event;
 import tasks.EventException;
 import tasks.ToDo;
 
-import java.util.List;
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class TaskListTest {
 
@@ -51,7 +52,7 @@ class TaskListTest {
         mockData.add("deadline | 0 | Submit report | 2024-10-15");
 
         storage.update(mockData);
-        
+
         // Reinitialize TaskList to load the mock data
         taskList = new TaskList(storage);
 
@@ -97,7 +98,7 @@ class TaskListTest {
         taskList.addTask(new ToDo("Read a book"));
         taskList.mark(0);
         assertEquals(
-                taskList.getTask(0).toDataFormat().split(" \\| ")[1], 
+                taskList.getTask(0).toDataFormat().split(" \\| ")[1],
                 "1");
     }
 
@@ -107,7 +108,7 @@ class TaskListTest {
         taskList.mark(0);
         taskList.unmark(0);
         assertEquals(
-                taskList.getTask(0).toDataFormat().split(" \\| ")[1], 
+                taskList.getTask(0).toDataFormat().split(" \\| ")[1],
                 "0");
     }
 
@@ -117,6 +118,6 @@ class TaskListTest {
         taskList.addTask(new ToDo("Read a magazine"));
 
         assertEquals(taskList.size(), 2);
-        
+
     }
 }

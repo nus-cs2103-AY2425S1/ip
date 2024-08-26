@@ -1,15 +1,14 @@
 package storage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class FileStorage extends Storage {
     protected String dirPath;
@@ -35,7 +34,7 @@ public class FileStorage extends Storage {
             file.createNewFile();
 
         } catch (IOException ioException) {
-            System.out.println("Unable to create task save file at path " + file.getAbsolutePath() 
+            System.out.println("Unable to create task save file at path " + file.getAbsolutePath()
                     + "\n" + ioException.getMessage());
 
         }
