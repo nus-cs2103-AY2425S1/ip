@@ -1,6 +1,7 @@
 package tasks;
 
 import dateAndTime.ReginaDateAndTime;
+import exception.ReginaException;
 
 /**
  * Represents a task with a description and status (done or not done).

@@ -10,7 +10,7 @@ import tasks.Task;
 import tasks.ToDosTask;
 import tasks.DeadlinesTask;
 import tasks.EventsTask;
-import tasks.ReginaException;
+import exception.ReginaException;
 import tasks.TaskList;
 
 /**

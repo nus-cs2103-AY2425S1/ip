@@ -1,4 +1,4 @@
-package tasks;
+package exception;
 
 /**
  * Custom exception class for handling exceptions specific to the Regina chatbot application.
@@ -7,7 +7,7 @@ package tasks;
 public class ReginaException extends Exception {
 
     /**
-     * Constructs a new tasks.ReginaException with the specified detail message.
+     * Constructs a new Exception.ReginaException with the specified detail message.
      *
      * @param message The detail message which is saved for later retrieval by the getMessage() method.
      */

@@ -1,6 +1,6 @@
 package dateAndTime;
 
-import tasks.ReginaException;
+import exception.ReginaException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
