@@ -18,13 +18,9 @@ public class Parser {
         String commandWord = parts[0];
         String arguments = parts.length > 1 ? parts[1] : "";
 
-        if (arguments.isEmpty() && !commandWord.equals("list") && !commandWord.equals("bye")) {
-            throw new KilluaException("Arguments cannot be empty for command: " + commandWord);
-        }
-
         switch (commandWord) {
         case "todo":
-            return new AddCommand(new Todo(arguments));
+            return new AddCommand(parseTodo(arguments));
         case "deadline":
             return new AddCommand(parseDeadline(arguments));
         case "event":
@@ -40,13 +36,27 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         case "on":
+            if (arguments.isEmpty()) {
+                throw new KilluaException("Arguments cannot be empty!");
+            }
             return new OnCommand(arguments);
         default:
             throw new KilluaException("Unknown command: " + commandWord);
         }
     }
 
+    public static Todo parseTodo(String arguments) throws KilluaException {
+        if (arguments.isEmpty()) {
+            throw new KilluaException("Arguments cannot be empty!");
+        }
+        return new Todo(arguments);
+    }
+
     public static Deadline parseDeadline(String arguments) throws KilluaException {
+        if (arguments.isEmpty()) {
+            throw new KilluaException("Arguments cannot be empty!");
+        }
+
         try {
             String[] parts = arguments.split(" /by ");
             String description = parts[0].strip();
@@ -68,6 +78,10 @@ public class Parser {
     }
 
     public static Event parseEvent(String arguments) throws KilluaException {
+        if (arguments.isEmpty()) {
+            throw new KilluaException("Arguments cannot be empty!");
+        }
+
         try {
             String[] parts = arguments.split(" /from ");
             String description = parts[0].strip();
@@ -93,13 +107,17 @@ public class Parser {
         }
     }
 
-    public static int parseIndex(String argument) throws KilluaException {
+    public static int parseIndex(String arguments) throws KilluaException {
+        if (arguments.isEmpty()) {
+            throw new KilluaException("Arguments cannot be empty!");
+        }
+
         try {
-            return Integer.parseInt(argument.trim()) - 1;
+            return Integer.parseInt(arguments.trim()) - 1;
         } catch (NumberFormatException e) {
             throw new KilluaException("Please provide a valid task number!");
         } catch (IndexOutOfBoundsException e) {
-            throw new KilluaException("killua.task.Task " + argument + " not found!");
+            throw new KilluaException("killua.task.Task " + arguments + " not found!");
         }
     }
 
