@@ -1,6 +1,8 @@
 package neko;
 import neko.task.Task;
 import neko.task.TaskList;
+import neko.ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.IOException;

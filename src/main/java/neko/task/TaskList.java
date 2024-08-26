@@ -1,7 +1,7 @@
 package neko.task;
 import neko.NekoException;
 import neko.Storage;
-import neko.Ui;
+import neko.ui.Ui;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -71,7 +71,8 @@ public class TaskList {
         return task;
     }
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws NekoException {
+        checkValidIndex(index);
         return tasks.get(index);
     }
 
@@ -108,13 +109,10 @@ public class TaskList {
         }
     }
 
-    private void checkValidIndex(int index) throws NekoException {
-        if (index >= tasks.size()) {
-            throw new NekoException("You only have " + tasks.size() + " tasks now meow!");
-        }
-        if (index < 0 || index >= 100) {
-            throw new NekoException("Invalid task number meow! Please enter a number between 1 and " + tasks.size() + ".");
-        }
+    protected void checkValidIndex(int index) throws NekoException {
+        if (index <= 0)  throw new NekoException("Invalid task number meow!");
+        if (tasks.isEmpty())  throw new NekoException("You don't have any tasks yet meow!");
+        if (index >= tasks.size()) throw new NekoException("You only have " + tasks.size() + " tasks now meow!");
     }
 
     public void deleteTask(int index) throws NekoException {
