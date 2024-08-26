@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,6 +34,7 @@ public class FileStore {
         ArrayList<TodoItem> todoList = new ArrayList<>();
         if (savefile.exists()) {
             int errorEntriesCount = 0; //Counter to count the number of error entries
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
             try {
                 Scanner s = new Scanner(savefile);
                 while (s.hasNext()) {
@@ -87,7 +91,15 @@ public class FileStore {
                             continue;
                         }
 
-                        DeadlineItem deadline = new DeadlineItem(entryDeadlineString, entryDeadlineDueString);
+                        LocalDateTime deadlineDue = null;
+                        try {
+                            deadlineDue = LocalDateTime.parse(entryDeadlineDueString, formatter);
+                        } catch (DateTimeParseException e) {
+                            errorEntriesCount++;
+                            continue;
+                        }
+
+                        DeadlineItem deadline = new DeadlineItem(entryDeadlineString, deadlineDue);
                         deadline.setCompleted(status);
                         todoList.add(deadline);
                         break;
@@ -109,7 +121,22 @@ public class FileStore {
                             continue;
                         }
 
-                        EventItem event = new EventItem(entryEventString, entryEventFromString, entryEventToString);
+                        LocalDateTime eventFrom;
+                        LocalDateTime eventTo;
+                        try {
+                            eventFrom = LocalDateTime.parse(entryEventFromString, formatter);
+                            eventTo = LocalDateTime.parse(entryEventFromString, formatter);
+                        } catch (DateTimeParseException e) {
+                            errorEntriesCount++;
+                            continue;
+                        }
+
+                        if (eventFrom.isAfter(eventTo)) {
+                            errorEntriesCount++;
+                            continue;
+                        }
+
+                        EventItem event = new EventItem(entryEventString, eventFrom, eventTo);
                         todoList.add(event);
                         break;
                     default:

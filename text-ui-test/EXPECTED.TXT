@@ -9,19 +9,19 @@ There are now 1 total entries
 ____________________________________________________________
 ____________________________________________________________
 Added deadline entry: Add a deadline task
-[D] [ ] Add a deadline task (by: Sunday)
+[D] [ ] Add a deadline task (by: Sat 01 Feb 2025 1300)
 There are now 2 total entries
 ____________________________________________________________
 ____________________________________________________________
 Added event entry: Add a event task
-[E] [ ] Add a event task (from: Sunday 12pm to 3pm)
+[E] [ ] Add a event task (from: Sat 01 Feb 2025 1300 to Sat 01 Feb 2025 1500)
 There are now 3 total entries
 ____________________________________________________________
 ____________________________________________________________
 These are 3 entries on your todo:
 1. [T] [ ] Add a todo task
-2. [D] [ ] Add a deadline task (by: Sunday)
-3. [E] [ ] Add a event task (from: Sunday 12pm to 3pm)
+2. [D] [ ] Add a deadline task (by: Sat 01 Feb 2025 1300)
+3. [E] [ ] Add a event task (from: Sat 01 Feb 2025 1300 to Sat 01 Feb 2025 1500)
 ____________________________________________________________
 ____________________________________________________________
 Alright! I have set this task as done:
@@ -29,17 +29,17 @@ Alright! I have set this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Alright! I have set this task as done:
-[D] [X] Add a deadline task (by: Sunday)
+[D] [X] Add a deadline task (by: Sat 01 Feb 2025 1300)
 ____________________________________________________________
 ____________________________________________________________
 Alright! I have set this task as done:
-[E] [X] Add a event task (from: Sunday 12pm to 3pm)
+[E] [X] Add a event task (from: Sat 01 Feb 2025 1300 to Sat 01 Feb 2025 1500)
 ____________________________________________________________
 ____________________________________________________________
 These are 3 entries on your todo:
 1. [T] [X] Add a todo task
-2. [D] [X] Add a deadline task (by: Sunday)
-3. [E] [X] Add a event task (from: Sunday 12pm to 3pm)
+2. [D] [X] Add a deadline task (by: Sat 01 Feb 2025 1300)
+3. [E] [X] Add a event task (from: Sat 01 Feb 2025 1300 to Sat 01 Feb 2025 1500)
 ____________________________________________________________
 ____________________________________________________________
 Alright! I have set this task as not done:
@@ -47,17 +47,17 @@ Alright! I have set this task as not done:
 ____________________________________________________________
 ____________________________________________________________
 Alright! I have set this task as not done:
-[D] [ ] Add a deadline task (by: Sunday)
+[D] [ ] Add a deadline task (by: Sat 01 Feb 2025 1300)
 ____________________________________________________________
 ____________________________________________________________
 Alright! I have set this task as not done:
-[E] [ ] Add a event task (from: Sunday 12pm to 3pm)
+[E] [ ] Add a event task (from: Sat 01 Feb 2025 1300 to Sat 01 Feb 2025 1500)
 ____________________________________________________________
 ____________________________________________________________
 These are 3 entries on your todo:
 1. [T] [ ] Add a todo task
-2. [D] [ ] Add a deadline task (by: Sunday)
-3. [E] [ ] Add a event task (from: Sunday 12pm to 3pm)
+2. [D] [ ] Add a deadline task (by: Sat 01 Feb 2025 1300)
+3. [E] [ ] Add a event task (from: Sat 01 Feb 2025 1300 to Sat 01 Feb 2025 1500)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
