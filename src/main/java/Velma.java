@@ -49,6 +49,10 @@ public class Velma {
     }
 
     public static void saveTasks(ArrayList<Task> list) {
+
+        File file = new File("/Users/zeonchew04/ip/data/velma.txt");
+        file.getParentFile().mkdirs();
+
         try (FileWriter writer = new FileWriter("/Users/zeonchew04/ip/data/velma.txt")) {
             for (Task task : list) {
                 writer.write(task.toFileFormat() + System.lineSeparator());
