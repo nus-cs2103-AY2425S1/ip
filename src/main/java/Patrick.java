@@ -21,7 +21,7 @@ public class Patrick {
     }
     static Type inputType;
     static File file;
-    static String FILE_PATH = "data/tasks.txt";
+    static String FILE_PATH = "data/bob.txt";
 
     public static void main(String[] args) {
         Scanner inputMsg = new Scanner(System.in);
@@ -415,7 +415,13 @@ public class Patrick {
         try {
             readTasks();
         } catch (FileNotFoundException e) {
-            System.out.println(HORIZONTAL_LINE + "File not found!" + "\n" + HORIZONTAL_LINE);
+            File newFile = new File(FILE_PATH);
+            try {
+                newFile.createNewFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.out.println("File created!");
         }
     }
 
