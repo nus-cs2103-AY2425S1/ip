@@ -122,7 +122,7 @@ public class Blitz {
             fw.write(task.getType().equals("Empty") ? "" : task.taskToString());
             fw.close();
         } catch (IOException e) {
-            throw new BlitzIOException();
+            throw new BlitzIOException("Failed to write to database");
         }
     }
 
@@ -132,7 +132,7 @@ public class Blitz {
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            throw new BlitzIOException();
+            throw new BlitzIOException("Failed to write to database");
         }
 
         if (!db.isEmpty()) {
@@ -165,18 +165,27 @@ public class Blitz {
     }
 
     private static Task stringToTask(String str) throws BlitzException {
-        String[] params = str.split(",");
+        String[] params = str.split("::");
         String type = params[0];
 
         switch (type) {
         case "T":
+            if (params.length != 3) {
+                throw new BlitzIOException("Failed to read from database");
+            }
             return new Todo(params[2], "T", Boolean.parseBoolean(params[1]));
         case "D":
+            if (params.length != 4) {
+                throw new BlitzIOException("Failed to read from database");
+            }
             return new Deadline(params[2], "D", params[3], Boolean.parseBoolean(params[1]));
         case "E":
+            if (params.length != 5) {
+                throw new BlitzIOException("Failed to read from database");
+            }
             return new Event(params[2], "E", params[3], params[4], Boolean.parseBoolean(params[1]));
         default:
-            throw new BlitzIOException();
+            throw new BlitzIOException("Failed to read from database");
         }
     }
 

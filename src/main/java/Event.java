@@ -10,7 +10,7 @@ public class Event extends Task {
 
     @Override
     public String taskToString() {
-        return this.type + "," + super.getStatus() + "," + super.getDesc() + "," + startDateTime + "," + endDateTime + "\n";
+        return this.type + "::" + super.getStatus() + "::" + super.getDesc() + "::" + startDateTime + "::" + endDateTime + "\n";
     }
 
     @Override
