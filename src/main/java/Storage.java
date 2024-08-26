@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +11,9 @@ import Task.Task;
 import Task.ToDo;
 import Task.Deadline;
 import Task.Event;
+import Utilities.DateTimeParser;
+
+import static Utilities.DateTimeParser.parseDate;
 
 public class Storage {
     private static final String TASK_FILE_DIRECTORY = "./data/taskTable.csv";
@@ -110,7 +114,8 @@ public class Storage {
                     return null;
                 }
                 String by = parts.get(3);
-                return new Deadline(description, isDone, by);
+                LocalDate parsedBy = DateTimeParser.parseDate(by);
+                return new Deadline(description, isDone, parsedBy);
             case "Event":
                 if (parts.size() < 5) {
                     System.out.println("Invalid Event task format: " + line);
@@ -118,7 +123,9 @@ public class Storage {
                 }
                 String start = parts.get(3);
                 String end = parts.get(4);
-                return new Event(description, isDone, start, end);
+                LocalDate parsedStart = DateTimeParser.parseDate(start);
+                LocalDate parsedEnd = DateTimeParser.parseDate(end);
+                return new Event(description, isDone, parsedStart, parsedEnd);
             default:
                 System.out.println("Unknown task type: " + taskType);
                 return null; // Unknown task type, do not add to list

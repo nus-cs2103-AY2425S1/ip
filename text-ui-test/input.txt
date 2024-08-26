@@ -1,16 +1,62 @@
+# Test listing when there are no tasks
 list
+
+# Test adding a ToDo task
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+
+# Test adding a Deadline task
+deadline return book /by 2024-08-26
+
+# Test adding an Event task
+event project meeting /from 2024-08-25 /to 2024-08-26
+
+# Test listing all tasks
 list
+
+# Test marking the second task (deadline)
 mark 2
+
+# Test listing all tasks again to check mark status
 list
+
+# Test unmarking the second task (deadline)
 unmark 2
+
+# Test listing all tasks again to check unmark status
 list
+
+# Test deleting the second task (deadline)
 delete 2
+
+# Test listing all tasks after deletion
 list
+
+# Test adding a ToDo task with an empty description (invalid)
 todo
-deadline
-event
+
+# Test adding a Deadline task without a date (invalid)
+deadline return book
+
+# Test adding a Deadline task with an invalid date format (invalid)
+deadline return book /by 26-08-2024
+
+# Test adding an Event task with missing dates (invalid)
+event project meeting /from 2024-08-25
+
+# Test adding an Event task with incorrect date format (invalid)
+event project meeting /from 08-25-2024 /to 26-08-2024
+
+# Test invalid command
 the world is run by lizards
+
+# Test deleting a task with an invalid index (out of bounds)
+delete 10
+
+# Test marking a task with an invalid index (out of bounds)
+mark 5
+
+# Test unmarking a task with an invalid index (out of bounds)
+unmark 5
+
+# Test exiting the program
 bye
