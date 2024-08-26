@@ -63,21 +63,21 @@ public class Maxine {
         StringBuilder desc = new StringBuilder();
         StringBuilder ddl = new StringBuilder();
         desc.append(arr[1]);
-        boolean check = false;
+        boolean isChecked = false;
         for (int i = 1; i < (arr.length - 1); i++) {
             if (arr[i].equals("/by")) {
-                check = true;
+                isChecked = true;
             }
         }
-        if (!check || arr[1].equals("/by")) {
+        if (!isChecked || arr[1].equals("/by")) {
             throw new MaxineException("Please follow this format: deadline [enter task] /by [enter deadline]");
         }
-        boolean by = false;
+        boolean hasBy = false;
         for (int i = 2; i < arr.length; i++) {
             if (arr[i].equals("/by")) {
-                by = true;
+                hasBy = true;
             }
-            else if (by) {
+            else if (hasBy) {
                 String word = " " + arr[i];
                 ddl.append(word);
             } else {
@@ -94,33 +94,33 @@ public class Maxine {
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
         desc.append(arr[1]);
-        boolean check1 = false;
-        boolean check2 = false;
+        boolean hasFrom = false;
+        boolean hasTo = false;
         for (int i = 2; i < (arr.length - 1); i++) {
             if (arr[i].equals("/from")) {
-                check1 = true;
+                hasFrom = true;
             }
             if (arr[i].equals("/to")) {
-                check2 = true;
+                hasTo = true;
             }
         }
 
-        if (!check1 || !check2 || arr[1].equals("/from")) {
+        if (!hasFrom|| !hasTo || arr[1].equals("/from")) {
             throw new MaxineException("Please follow this format: event [enter event] /from [start date] /to [end date]");
         }
-        boolean from = false;
-        boolean to = false;
+        boolean isAfterFrom = false;
+        boolean isAfterTo = false;
         for (int i = 2; i < arr.length; i++) {
             if (arr[i].equals("/from")) {
-                from = true;
+                isAfterFrom = true;
             }
             else if (arr[i].equals("/to")) {
-                from = false;
-                to = true;
-            } else if (from) {
+                isAfterFrom = false;
+                isAfterTo = true;
+            } else if (isAfterFrom) {
                 String word = " " + arr[i];
                 start.append(word);
-            } else if (to) {
+            } else if (isAfterTo) {
                 String word = " " + arr[i];
                 end.append(word);
             } else {
