@@ -1,12 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
 
 public class Alice {
     private static final String name = "Alice";
     private static final String line =
             "____________________________________________________________";
-    private static TaskList list = new TaskList();
+    private TaskList list;
+    private final Storage storage;
+    private static final String path = "./data/alice.txt";
+
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE,
         TODO, EVENT, DEADLINE, INVALID
@@ -26,8 +30,18 @@ public class Alice {
         }
     }
 
+    public Alice(String path) {
+        this.storage = new Storage(path);
+        this.list = new TaskList();
+        ArrayList<Task> loadedTasks = storage.load();
+        for (Task task : loadedTasks) {
+            list.addToList(task);
+        }
+    }
+
     public static void main(String[] args) {
-        greet();
+        Alice alice = new Alice(path);
+        alice.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine().trim();
@@ -37,77 +51,82 @@ public class Alice {
 
             switch (command) {
                 case BYE:
-                    exit(scanner);
+                    alice.exit(scanner);
                     return;
                 case LIST:
-                    listTasks();
+                    alice.listTasks();
                     break;
                 case MARK:
-                    handleMark(input);
+                    alice.handleMark(input);
                     break;
                 case UNMARK:
-                    handleUnmark(input);
+                   alice.handleUnmark(input);
                     break;
                 case DELETE:
-                    handleDelete(input);
+                    alice.handleDelete(input);
                     break;
                 case TODO:
-                    handleTodo(input);
+                    alice.handleTodo(input);
                     break;
                 case EVENT:
-                    handleEvent(input);
+                    alice.handleEvent(input);
                     break;
                 case DEADLINE:
-                    handleDeadline(input);
+                    alice.handleDeadline(input);
                     break;
                 case INVALID:
-                    handleInvalid(input);
+                    alice.handleInvalid(input);
                     break;
             }
         }
     }
 
-    public static void listTasks() {
+    public void listTasks() {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
         System.out.println(list.toString());
         System.out.println(line);
     }
 
-    private static void greet() {
+    private void greet() {
         System.out.println(line);
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
         System.out.println(line);
     }
 
-    private static void exit(Scanner scanner) {
+    private void exit(Scanner scanner) {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
+        storage.save(list);
         scanner.close();
     }
 
-    private static void handleMark(String input) {
+    private void handleMark(String input) {
         int num = Integer.parseInt(input.split(" ")[1]);
         list.markTask(num);
+        storage.save(list);
     }
 
-    private static void handleUnmark(String input) {
+    private void handleUnmark(String input) {
         int num = Integer.parseInt(input.split(" ")[1]);
         list.unmarkTask(num);
+        storage.save(list);
     }
 
-    private static void handleDelete(String input) {
+    private void handleDelete(String input) {
         int num = Integer.parseInt(input.split(" ")[1]);
         list.delete(num);
+        storage.save(list);
     }
 
-    private static void handleTodo(String input) {
+    private void handleTodo(String input) {
         try {
             String description = input.split(" ", 2)[1];
             Todo todo = new Todo(description);
             list.addToList(todo);
+            storage.save(list);
         } catch (Exception e) {
             System.out.println(line);
             System.out.println("Command Format: todo [description]");
@@ -115,7 +134,7 @@ public class Alice {
         }
     }
 
-    private static void handleEvent(String input) {
+    private void handleEvent(String input) {
         try {
             String[] detail = input.split(" ", 2)[1].split("/from");
             String description = detail[0].trim();
@@ -124,6 +143,7 @@ public class Alice {
             String end = time[1].trim();
             Event event = new Event(description, start, end);
             list.addToList(event);
+            storage.save(list);
         } catch (Exception e) {
             System.out.println(line);
             System.out.println("Command Format: event [description] /from [time] /to [time]");
@@ -131,13 +151,14 @@ public class Alice {
         }
     }
 
-    private static void handleDeadline(String input) {
+    private void handleDeadline(String input) {
         try {
             String[] detail = input.split(" ", 2)[1].split("/by");
             String description = detail[0].trim();
             String time = detail[1].trim();
             Deadline deadline = new Deadline(description, time);
             list.addToList(deadline);
+            storage.save(list);
         } catch (Exception e) {
             System.out.println(line);
             System.out.println("Command Format: deadline [description] /by [time]");
@@ -145,7 +166,7 @@ public class Alice {
         }
     }
 
-    private static void handleInvalid(String input) {
+    private void handleInvalid(String input) {
         System.out.println(line);
         System.out.println("Invalid command, use command words: list, todo, deadline, event, mark, unmark & delete");
         System.out.println(line);
