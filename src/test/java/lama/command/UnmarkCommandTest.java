@@ -18,8 +18,7 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MarkCommandTest {
-
+public class UnmarkCommandTest {
     private static final String BAR = "____________________________________________________________";
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -40,27 +39,28 @@ public class MarkCommandTest {
 
         Task todo = new Todo("Read Book");
         TaskList taskList = new TaskList();
+        todo.markAsDone();
         taskList.add(todo);
         Ui ui = new Ui();
         Storage storage = new Storage("./testAdd.txt");
 
-        Command markCommand = new MarkCommand(0);
-
         assertEquals(1, taskList.size());
-        assertEquals("[T][ ] Read Book", taskList.get(0).toString());
+        assertEquals("[T][X] Read Book", taskList.get(0).toString());
 
-        markCommand.run(taskList, storage, ui);
+        Command unmarkCommand = new UnmarkCommand(0);
 
-        String output = BAR + "\r\nNice! I've marked this task as done:\r\n  " + taskList.get(0) + "\r\n"
+        unmarkCommand.run(taskList, storage, ui);
+
+        String output = BAR + "\r\nOK, I've marked this task as not done yet:\r\n  " + taskList.get(0) + "\r\n"
                 + BAR + "\n\r\n";
         assertEquals(output, outputStream.toString());
 
         TaskList storageTaskList = new TaskList(storage.loadTask());
         assertEquals(1, taskList.size());
-        assertEquals("[T][X] Read Book", taskList.get(0).toString());
+        assertEquals("[T][ ] Read Book", taskList.get(0).toString());
 
         assertEquals(1, storageTaskList.size());
-        assertEquals("[T][X] Read Book", storageTaskList.get(0).toString());
+        assertEquals("[T][ ] Read Book", storageTaskList.get(0).toString());
     }
 
     @AfterEach
@@ -71,5 +71,4 @@ public class MarkCommandTest {
             System.out.println(e.getMessage());
         }
     }
-
 }
