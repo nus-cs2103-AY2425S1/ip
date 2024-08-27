@@ -9,8 +9,9 @@ public class Task {
 
     public String setCompleted(boolean completed) {
         this.completed = completed;
-        String output = completed ? "\t Nice! I've marked this task as done: \n\t[X] " + task
-                : "\t OK, I've marked this task as not done yet: \n\t [ ] " + task;
+        String output = completed ?
+                "\t Nice! I've marked this task as done: \n\t  " + this.toString()
+                : "\t OK, I've marked this task as not done yet: \n\t " + this.toString();
         return output;
     }
 
