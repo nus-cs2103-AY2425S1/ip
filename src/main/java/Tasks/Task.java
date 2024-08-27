@@ -1,6 +1,6 @@
 package tasks;
 
-public class Task {
+public abstract class Task {
     protected String name;
     protected Boolean isDone;
 
@@ -22,10 +22,7 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getWriteTaskInfo() {
-        // for polymorphism
-        return "";
-    }
+    public abstract String getWriteTaskInfo();
 
     @Override
     public String toString() {

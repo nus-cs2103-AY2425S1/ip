@@ -6,6 +6,11 @@ public class ToDos extends Task {
     }
 
     @Override
+    public String getWriteTaskInfo() {
+        return "";
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
