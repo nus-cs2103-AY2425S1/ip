@@ -32,4 +32,8 @@ public class Ui {
         System.out.println("  " + task);
         System.out.println();
     }
+
+    public void printLoadingError() {
+        System.out.println("No saved data found. Starting with an empty task list...\n");
+    }
 }

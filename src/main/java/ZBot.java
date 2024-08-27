@@ -13,6 +13,7 @@ public class ZBot {
         try {
             tasks = new TaskList(storage.load());
         } catch (ZBotException e) {
+            ui.printLoadingError();
             tasks = new TaskList();
         }
     }
