@@ -31,7 +31,7 @@ public class Ui {
     }
 
     public void showLoadError() {
-        String loadErrorMessage  = "File data/tasks.txt not found!. Initialising empty file...";
+        String loadErrorMessage  = "File data/tasks.txt not found! Initialising empty file...";
         printMessageWithDividers(loadErrorMessage);
     }
 
