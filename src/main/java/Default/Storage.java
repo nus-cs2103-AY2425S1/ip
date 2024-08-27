@@ -37,13 +37,12 @@ public class Storage {
         return newListOfTasks;
     };
 
-    public void save(ArrayList<Task> listOfTasks) throws NedException{
-        int sizeOfList = listOfTasks.size();
+    public void save(TaskList listOfTasks) throws NedException{
+        int sizeOfList = listOfTasks.getSize();
         try {
             FileWriter fw = new FileWriter(this.cacheFilePath);
             for (int i = 0; i < sizeOfList; i++) {
-                Task currentTask = listOfTasks.get(i);
-                fw.write(currentTask.toTextForm() + "\n");
+                fw.write(listOfTasks.getTaskTextForm(i) + "\n");
             }
             fw.close();
         } catch (FileNotFoundException e) {

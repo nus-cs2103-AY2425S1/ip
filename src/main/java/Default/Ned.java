@@ -20,6 +20,7 @@ public class Ned {
             this.listOfText = this.storage.load();
         } catch (NedException e){
             ui.showLoadingError();
+            this.listOfText = new ArrayList<>();
         }
     }
 

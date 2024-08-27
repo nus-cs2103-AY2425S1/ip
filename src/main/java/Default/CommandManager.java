@@ -14,11 +14,11 @@ import java.io.IOException;
 
 public class CommandManager {
     private static final String FLAG_BYE = "bye";
-    private final ArrayList<Task> listOfTasks;
+    private final TaskList taskList;
 
 
-    public CommandManager(ArrayList<Task> listOfTasks) {
-        this.listOfTasks = listOfTasks;
+    public CommandManager(TaskList taskList) {
+        this.taskList = taskList;
     }
     public void processCommand(String userInput, FlagWrapper flag) throws NedException{
             CommandTypes command = CommandTypes.findMatchingCommand(userInput);
@@ -30,8 +30,8 @@ public class CommandManager {
                 throw new NedException("M'lord, you seem to have given me a nonsensical command." +
                         " Input a correct command, for we have little time! Winter is coming....");
             default:
-                command.getCommand().execute(userInput, this.listOfTasks);
-                rewriteTaskListIntoCache(Ned.cachedTasksPath);
+                command.getCommand().execute(userInput, this.taskList);
+                (Ned.cachedTasksPath);
                 break;
             }
     }
@@ -59,24 +59,6 @@ public class CommandManager {
                     savedLine));
         }
         return null;
-    }
-
-    private void rewriteTaskListIntoCache(String cacheFilePath) {
-        //will rewrite the whole file
-        int sizeOfList = this.listOfTasks.size();
-        try {
-            FileWriter fw = new FileWriter(cacheFilePath);
-            for (int i = 0; i < sizeOfList; i++) {
-                 Task currentTask = this.listOfTasks.get(i);
-                 fw.write(currentTask.toTextForm() + "\n");
-            }
-            fw.close();
-        } catch (FileNotFoundException e) {
-            Ui.print(e.getMessage());
-        } catch (IOException e) {
-            Ui.print("M'lord, it appears there was an error accessing the cached file, please check that I am able " +
-                    "to access it");
-        }
     }
 
 }

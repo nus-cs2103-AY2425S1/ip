@@ -1,5 +1,6 @@
 package Commands;
 
+import Default.TaskList;
 import Default.Ui;
 import Exceptions.NedException;
 import Tasks.Task;
@@ -12,7 +13,7 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException {
+    public void execute(String userInput, TaskList taskList) throws NedException {
         String[] words = userInput.split(" ");
         try {
             if (words.length != 2) {
@@ -20,11 +21,8 @@ public class DeleteCommand implements Command {
             } else {
                 String possibleIndex = words[1];
                 int index = Integer.parseInt(possibleIndex) - 1;
-                Task selectedTask = listOfTasks.get(index); //removes the index specified
-                listOfTasks.remove(index);
-                Ui.print("Noted m'lord. The following task has been removed:");
-                Ui.print(Ui.INDENTATIONS + selectedTask);
-                Ui.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfTasks.size()));
+                taskList.removeTask(index);
+
             }
         } catch (NumberFormatException e) {
             throw new NedException("Sorry m'lord, your command must specify a valid number");
