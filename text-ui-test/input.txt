@@ -23,4 +23,28 @@ list
 unmark 2
 list
 cool
+todo
+todo read book
+deadline
+deadline hi
+deadline /by
+deadline hi /by
+deadline hi/by
+deadlinehi/by
+deadline hi/byerr
+deadline hi/by errea
+deadline hi /by errear
+event
+event hello
+event hello /from
+event hello /helloFor
+event meeting /from 6pm /to 8pm
+list
+mark 2
+mark -4
+mark 554
+mark 8
+unmark 3
+unmark 9
+list
 bye
