@@ -1,6 +1,5 @@
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Astra {
     public enum TaskType {
@@ -8,12 +7,12 @@ public class Astra {
         DEADLINE,
         EVENT,
     }
-    private static final TaskList tasks = new TaskList();
 
-    private static String formatMsg(String msg) {
-        return "____________________________________________________________\n" +
-                msg +
-                "____________________________________________________________\n";
+    private final Ui ui;
+    private final TaskList tasks = new TaskList();
+
+    public Astra() {
+        this.ui = new Ui();
     }
 
     /**
@@ -57,21 +56,8 @@ public class Astra {
         return args;
     }
 
-    public static void greet() {
-        String msg = """
-                 Hello! I'm Astra.
-                 What can I do for you?
-                """;
-        System.out.println(formatMsg(msg));
-    }
-
-    public static void goodbye() {
-        String msg = " Bye. Hope to see you again soon!\n";
-        System.out.println(formatMsg(msg));
-    }
-
-    public static void listItems() {
-        System.out.println(formatMsg(tasks.toString()));
+    public void listItems() {
+        ui.display(tasks.toString());
     }
 
     /**
@@ -81,7 +67,7 @@ public class Astra {
      * @param text Command text with its arguments.
      * @throws AstraException If task description is empty.
      */
-    public static void add(TaskType type, String text) throws AstraException {
+    public void add(TaskType type, String text) throws AstraException {
         String argText;
 
         // validate args length
@@ -116,62 +102,63 @@ public class Astra {
                     t + "\n" +
                     "Now you have " + tasks.length() + " tasks in the list. \n";
 
-        System.out.println(formatMsg(msg));
+        ui.display(msg);
     }
 
-    public static void delete(int index) throws AstraException {
+    public void delete(int index) throws AstraException {
         Task t = tasks.delete(index);
         String msg = " Noted. I've removed this task: \n  " + t + "\n";
-        System.out.println(formatMsg(msg));
+        ui.display(msg);
     }
 
-    public static void mark(int index) throws AstraException {
+    public void mark(int index) throws AstraException {
         Task t = tasks.markAsDone(index, true);
         String msg = " Nice! I've marked this task as done: \n  " + t + "\n";
-        System.out.println(formatMsg(msg));
+        ui.display(msg);
     }
 
-    public static void unmark(int index) throws AstraException {
+    public void unmark(int index) throws AstraException {
         Task t = tasks.markAsDone(index, false);
         String msg = " OK, I've marked this task as not done yet: \n  " + t + "\n";
-        System.out.println(formatMsg(msg));
+        ui.display(msg);
     }
 
-    public static void main(String[] args) {
-        Scanner inp = new Scanner(System.in);
-        String text;
+    public void run() {
         boolean loop = true;
-
-        greet();
+        ui.greet();
         while (loop) {
-            text = inp.nextLine();
-            String command = text.split(" ")[0];
+            String fullCommand = ui.readCommand();
+            String command = fullCommand.split(" ")[0];
             try {
                 if (command.equals("list")) {
                     listItems();
                 } else if (command.equals("bye")) {
                     loop = false;
                 } else if (command.equals("delete")) {
-                    delete(getIndex(text));
+                    delete(getIndex(fullCommand));
                 } else if (command.equals("mark")) {
-                    mark(getIndex(text));
+                    mark(getIndex(fullCommand));
                 } else if (command.equals("unmark")) {
-                    unmark(getIndex(text));
+                    unmark(getIndex(fullCommand));
                 } else if (command.equals("todo")) {
-                    add(TaskType.TODO, text);
+                    add(TaskType.TODO, fullCommand);
                 } else if (command.equals("deadline")) {
-                    add(TaskType.DEADLINE, text);
+                    add(TaskType.DEADLINE, fullCommand);
                 } else if (command.equals("event")) {
-                    add(TaskType.EVENT, text);
+                    add(TaskType.EVENT, fullCommand);
                 } else {
                     throw new AstraException("Unknown command.");
                 }
             } catch (AstraException e) {
-                System.out.println(formatMsg(e.getMessage() + "\n"));
+                ui.showError(e);
             }
         }
 
-        inp.close();
-        goodbye();
+        ui.goodbye();
+        ui.stop();
+    }
+
+    public static void main(String[] args) {
+        new Astra().run();
     }
 }
