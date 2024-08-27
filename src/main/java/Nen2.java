@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -17,9 +21,13 @@ public class Nen2 {
 
     private static final ArrayList<Task> listOfTasks = new ArrayList<>();
 
+    private static final String DATA_ADDRESS = "data/nen2.txt";
+
     public static void main(String[] args) {
+        loadSavedData();
         greet();
         parseInput(messageReader.nextLine());
+        saveData();
         exit();
     }
 
@@ -67,6 +75,33 @@ public class Nen2 {
 
         System.out.println(separator);
         parseInput(messageReader.nextLine());
+    }
+
+    private static void loadSavedData() {
+        try {
+            File f = new File(DATA_ADDRESS); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                listOfTasks.add(Todo.parseData(s.nextLine()));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found ");
+        } catch (FailToParseDataException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void saveData() {
+        try {
+            FileWriter fw = new FileWriter(DATA_ADDRESS);
+
+            for (Task t : listOfTasks) {
+                fw.write(t.toData() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Fail to save data");
+        }
     }
 
     private static int getIndex(String text) throws ArgumentMissingException, InvalidInputException{
