@@ -1,14 +1,15 @@
 package seedu.avo.tasks;
 
 import seedu.avo.storage.FileStorage;
+import seedu.avo.storage.Storage;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class TaskManager {
     private final List<Task> tasks;
-    private final FileStorage<Task> storage;
-    public TaskManager(FileStorage<Task> storage) {
+    private final Storage<Task, String> storage;
+    public TaskManager(Storage<Task, String> storage) {
         tasks = storage.fetchAll();
         this.storage = storage;
     }

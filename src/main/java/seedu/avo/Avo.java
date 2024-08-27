@@ -5,6 +5,11 @@ import seedu.avo.commands.CommandManager;
 import seedu.avo.exceptions.AvoException;
 
 import seedu.avo.parser.CommandParser;
+import seedu.avo.storage.FileStorage;
+import seedu.avo.storage.Storage;
+import seedu.avo.storage.TaskParser;
+import seedu.avo.tasks.Task;
+import seedu.avo.tasks.TaskManager;
 import seedu.avo.ui.UI;
 
 public class Avo {
@@ -38,7 +43,9 @@ public class Avo {
         }
     }
     public static void main(String[] args) {
-        CommandParser parser = new CommandParser(new CommandManager());
+        Storage<Task, String> storage = new FileStorage<Task>("data", new TaskParser());
+        TaskManager taskManager = new TaskManager(storage);
+        CommandParser parser = new CommandParser(new CommandManager(taskManager));
         Avo chatBot = new Avo(new UI(), parser);
         chatBot.start();
         chatBot.run();

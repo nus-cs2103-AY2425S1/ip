@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileStorage<T> {
+public class FileStorage<T> extends Storage<T, String> {
     private final String filePath;
     private final FileParser<T> parser;
     public FileStorage(String dirPath, FileParser<T> parser) {
@@ -24,6 +24,7 @@ public class FileStorage<T> {
             System.out.println(e.getMessage());
         }
     }
+    @Override
     public void write(String data) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -33,6 +34,7 @@ public class FileStorage<T> {
             System.out.println(e.getMessage());
         }
     }
+    @Override
     public List<T> fetchAll() {
         List<T> result = new ArrayList<>();
         File f = new File(filePath);// create a File for the given file path

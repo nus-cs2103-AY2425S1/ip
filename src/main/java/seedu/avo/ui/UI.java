@@ -8,7 +8,7 @@ public class UI {
         scanner = new Scanner(System.in);
     }
     public void showWelcome() {
-        String greetingMessage = "Hello, I am seedu.avo.Avo.\nWhat can I do for you?";
+        String greetingMessage = "Hello, I am Avo.\nWhat can I do for you?";
         System.out.println(greetingMessage);
     }
     public void showExit() {

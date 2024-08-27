@@ -10,19 +10,19 @@ import java.util.HashMap;
 public class CommandManager {
     private final Map<String, Command> commandMap;
     private final Command unknownCommand;
-    public CommandManager() {
-        TaskManager manager = new TaskManager(new FileStorage<Task>("data", new TaskParser()));
+
+    public CommandManager(TaskManager taskManager) {
         commandMap = new HashMap<String, Command>();
-        commandMap.put(CommandName.LIST.getName(), new ListCommand(manager));
-        commandMap.put(CommandName.MARK.getName(), new MarkCommand(manager));
-        commandMap.put(CommandName.UNMARK.getName(), new UnmarkCommand(manager));
-        commandMap.put(CommandName.TODO.getName(), new TodoCommand(manager));
-        commandMap.put(CommandName.DEADLINE.getName(), new DeadlineCommand(manager));
-        commandMap.put(CommandName.EVENT.getName(), new EventCommand(manager));
-        commandMap.put(CommandName.DELETE.getName(), new DeleteCommand(manager));
-        commandMap.put(CommandName.SEARCH_DATE.getName(), new SearchDateCommand(manager));
-        commandMap.put(CommandName.EXIT.getName(), new ExitCommand());
-        unknownCommand = new UnknownCommand();
+        commandMap.put(CommandName.LIST.getName(), new ListCommand(taskManager));
+        commandMap.put(CommandName.MARK.getName(), new MarkCommand(taskManager));
+        commandMap.put(CommandName.UNMARK.getName(), new UnmarkCommand(taskManager));
+        commandMap.put(CommandName.TODO.getName(), new TodoCommand(taskManager));
+        commandMap.put(CommandName.DEADLINE.getName(), new DeadlineCommand(taskManager));
+        commandMap.put(CommandName.EVENT.getName(), new EventCommand(taskManager));
+        commandMap.put(CommandName.DELETE.getName(), new DeleteCommand(taskManager));
+        commandMap.put(CommandName.SEARCH_DATE.getName(), new SearchDateCommand(taskManager));
+        commandMap.put(CommandName.EXIT.getName(), ExitCommand.of());
+        unknownCommand = UnknownCommand.of();
     }
     public Command getCommand(String identifier) {
         return commandMap.getOrDefault(identifier, unknownCommand);
