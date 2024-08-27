@@ -1,7 +1,7 @@
-import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.File;
 import java.util.Scanner;
 
 public class Tick {
@@ -47,16 +47,27 @@ public class Tick {
                 throw new TickException("Please specify the deadline task in this format:" +
                         " <description> /by <deadline>.");
             }
-            Deadline task = new Deadline(parts[0], parts[1]);
-            this.checklist.add(task);
+            try {
+                LocalDate by = LocalDate.parse(parts[1]);
+                Deadline task = new Deadline(parts[0], by);
+                this.checklist.add(task);
+            } catch (DateTimeException e) {
+                throw new TickException("Please specify the deadline in this format: yyyy-mm-dd.");
+            }
         } else if (taskType.equalsIgnoreCase("event")) {
             String[] parts = details.split(" /from | /to ");
             if (parts.length < 3) {
                 throw new TickException("Please specify the event task in this format:" +
                         " <description> /from <start> /to <end>.");
             }
-            Event task = new Event(parts[0], parts[1], parts[2]);
-            this.checklist.add(task);
+            try {
+                LocalDate from = LocalDate.parse(parts[1]);
+                LocalDate to = LocalDate.parse(parts[2]);
+                Event task = new Event(parts[0], from, to);
+                this.checklist.add(task);
+            } catch (DateTimeException e) {
+                throw new TickException("Please specify the dates in this format: yyyy-mm-dd.");
+            }
         }
         System.out.println("Got it. I've added this task:");
         System.out.println(this.checklist.get(this.checklist.size() - 1));

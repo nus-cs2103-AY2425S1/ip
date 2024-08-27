@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,10 +47,13 @@ public class Storage {
                 task = new ToDo(description);
                 break;
             case "D":
-                task = new Deadline(description, parts[3]);
+                LocalDate by = LocalDate.parse(parts[3]);
+                task = new Deadline(description, by);
                 break;
             case "E":
-                task = new Event(description, parts[3], parts[4]);
+                LocalDate from = LocalDate.parse(parts[3]);
+                LocalDate to = LocalDate.parse(parts[4]);
+                task = new Event(description, from, to);
                 break;
             default:
                 continue;
