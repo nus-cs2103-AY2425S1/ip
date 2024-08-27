@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import megamind.task.Task;
 
 public class Storage {
+
     /**
      * Saves tasks to the file.
      * If the file doesn't exist, it is created.
