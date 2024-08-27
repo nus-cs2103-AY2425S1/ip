@@ -1,18 +1,24 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
-    private String time;
-    public Deadline(String body, String time) {
+    private LocalDate time;
+    public Deadline(String body, LocalDate time) {
         super(body);
         this.time = time;
     }
 
-    public Deadline(String body, boolean isDone, String time) {
+    public Deadline(String body, boolean isDone, LocalDate time) {
         super(body, isDone);
         this.time = time;
     }
 
+    private String getTimeString() {
+        return this.time.getDayOfMonth() + "/" + this.time.getMonthValue() + "/" + this.time.getYear();
+    }
+
     @Override
     public String toString() {
-        return String.format("[D]%s (due by: %s)", super.toString(), this.time);
+        return String.format("[D]%s (due by: %s)", super.toString(), getTimeString());
     }
 
     @Override

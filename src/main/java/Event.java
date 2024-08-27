@@ -1,21 +1,27 @@
+import java.time.LocalDate;
+
 public class Event extends Task {
-    private String start;
-    private String end;
-    public Event(String body, String start, String end) {
+    private LocalDate start;
+    private LocalDate end;
+    public Event(String body, LocalDate start, LocalDate end) {
         super(body);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String body, boolean isDone, String start, String end) {
+    public Event(String body, boolean isDone, LocalDate start, LocalDate end) {
         super(body, isDone);
         this.start = start;
         this.end = end;
     }
 
+    private String getTimeString(LocalDate date) {
+        return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+    }
+
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s, to: %s)", super.toString(), this.start, this.end);
+        return String.format("[E]%s (from: %s, to: %s)", super.toString(), getTimeString(this.start), getTimeString(this.end));
     }
 
     @Override

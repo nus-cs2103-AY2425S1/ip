@@ -1,11 +1,12 @@
 import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.io.File;
-import java.util.Date;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.io.FileNotFoundException;
@@ -56,7 +57,8 @@ public class Orion {
                             throw new OrionTaskDataException("Unrecognised deadline task format");
                         } else {
                             boolean done = parsed[1].equals("T");
-                            Task deadline = new Deadline(parsed[2], done, parsed[3]);
+                            LocalDate time = LocalDate.parse(parsed[3]);
+                            Task deadline = new Deadline(parsed[2], done, time);
                             Orion.tasks.add(deadline);
                             Orion.noTasks++;
                             break;
@@ -67,7 +69,9 @@ public class Orion {
                             throw new OrionTaskDataException("Unrecognised event task format");
                         } else {
                             boolean done = parsed[1].equals("T");
-                            Task event = new Event(parsed[2], done, parsed[3], parsed[4]);
+                            LocalDate start = LocalDate.parse(parsed[3]);
+                            LocalDate end = LocalDate.parse(parsed[4]);
+                            Task event = new Event(parsed[2], done, start, end);
                             Orion.tasks.add(event);
                             Orion.noTasks++;
                             break;
@@ -103,7 +107,7 @@ public class Orion {
                 Orion.printIndent("Unfortunately... an error has occurred when creating a new task list...");
                 Orion.printBar();
             }
-        } catch (OrionTaskDataException e) {
+        } catch (OrionTaskDataException | DateTimeException e) {
             try {
                 Orion.printIndent("Looks like your existing task list has been corrupted...");
                 Files.delete(path);
@@ -177,14 +181,30 @@ public class Orion {
         Orion.addTask(task);
     }
 
-    private static void addDeadline(String name, String deadline) {
-        Task task = new Deadline(name, deadline);
-        Orion.addTask(task);
+    private static void addDeadline(String name, String deadline) throws IllegalArgumentException {
+        try {
+            LocalDate time = LocalDate.parse(deadline);
+            Task task = new Deadline(name, time);
+            Orion.addTask(task);
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException("Correct syntax: deadline <task> /by <yyyy-mm-dd>." +
+                    "Please input a valid date in the correct format!");
+        }
     }
 
-    private static void addEvent(String name, String from, String to) {
-        Task task = new Event(name, from, to);
-        Orion.addTask(task);
+    private static void addEvent(String name, String from, String to) throws IllegalArgumentException {
+        try {
+            LocalDate start = LocalDate.parse(from);
+            LocalDate end = LocalDate.parse(to);
+            if (start.isAfter(end)) {
+                throw new IllegalArgumentException("Your start date must be later than your end date!");
+            }
+            Task task = new Event(name, start, end);
+            Orion.addTask(task);
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>. " +
+                    "Please input valid dates in the correct format!");
+        }
     }
 
     // taskNo is 0 indexed
@@ -273,7 +293,7 @@ public class Orion {
                     }
                 case "deadline":
                     if (parsed.length != 2 || !parsed[1].matches("^by.*$")) {
-                        throw new IllegalArgumentException("Correct syntax: deadline <task> /by <deadline>");
+                        throw new IllegalArgumentException("Correct syntax: deadline <task> /by <yyyy-mm-dd>");
                     } else {
                         // Removes "deadline" and "by" keywords from input
                         String[] mapped = Arrays.stream(parsed)
@@ -284,7 +304,7 @@ public class Orion {
                     }
                 case "event":
                     if (parsed.length != 3 || !parsed[1].matches("^from.*$") || !parsed[2].matches("^to.*$")) {
-                        throw new IllegalArgumentException("Correct syntax: event <task> /from <start> /to <end>");
+                        throw new IllegalArgumentException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>");
                     } else {
                         // Removes "event", "from" and "to" keywords from input
                         String[] mapped = Arrays.stream(parsed)
