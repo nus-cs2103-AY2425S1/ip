@@ -1,10 +1,16 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ShoAI {
+    // Updated file path for data storage
+    private static final String FILE_PATH = "src/main/data/ShoAI.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        // Load tasks from the file
+        loadTasks();
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm ShoAI");
@@ -58,6 +64,7 @@ public class ShoAI {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(tasks.get(markIndex));
                 System.out.println("____________________________________________________________");
+                saveTasks(); // Save the updated tasks
                 break;
             case "unmark":
                 if (words.length < 2) {
@@ -72,6 +79,7 @@ public class ShoAI {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks.get(unmarkIndex));
                 System.out.println("____________________________________________________________");
+                saveTasks(); // Save the updated tasks
                 break;
             case "todo":
                 if (words.length < 2 || words[1].trim().isEmpty()) {
@@ -83,6 +91,7 @@ public class ShoAI {
                 System.out.println(tasks.get(tasks.size() - 1));
                 System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() > 1 ? "s" : "") + " in the list.");
                 System.out.println("____________________________________________________________");
+                saveTasks(); // Save the updated tasks
                 break;
             case "deadline":
                 if (words.length < 2) {
@@ -98,6 +107,7 @@ public class ShoAI {
                 System.out.println(tasks.get(tasks.size() - 1));
                 System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() > 1 ? "s" : "") + " in the list.");
                 System.out.println("____________________________________________________________");
+                saveTasks(); // Save the updated tasks
                 break;
             case "event":
                 if (words.length < 2) {
@@ -117,6 +127,7 @@ public class ShoAI {
                 System.out.println(tasks.get(tasks.size() - 1));
                 System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() > 1 ? "s" : "") + " in the list.");
                 System.out.println("____________________________________________________________");
+                saveTasks(); // Save the updated tasks
                 break;
             case "delete":
                 if (words.length < 2) {
@@ -132,11 +143,105 @@ public class ShoAI {
                 System.out.println("  " + removedTask);
                 System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() > 1 ? "s" : "") + " in the list.");
                 System.out.println("____________________________________________________________");
+                saveTasks(); // Save the updated tasks
                 break;
             default:
                 throw new ShoAIException("Sorry, I don't understand that command.");
         }
 
         return false; // Continue the loop for other commands
+    }
+
+    private static void saveTasks() {
+        File file = new File(FILE_PATH);
+        file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+            for (Task task : tasks) {
+                writer.write(taskToFileString(task));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    private static void loadTasks() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return; // No file to load
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                tasks.add(fileStringToTask(line));
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading from file: " + e.getMessage());
+        } catch (ShoAIException e) {
+            System.out.println("Error in file format: " + e.getMessage());
+        }
+    }
+
+    private static String taskToFileString(Task task) {
+        StringBuilder sb = new StringBuilder();
+        if (task instanceof Todo) {
+            sb.append("T | ");
+            sb.append(task.isDone ? "1" : "0");
+            sb.append(" | ");
+            sb.append(task.description);
+        } else if (task instanceof Deadline) {
+            sb.append("D | ");
+            Deadline deadline = (Deadline) task;
+            sb.append(deadline.isDone ? "1" : "0");
+            sb.append(" | ");
+            sb.append(deadline.description).append(" | ").append(deadline.by);
+        } else if (task instanceof Event) {
+            sb.append("E | ");
+            Event event = (Event) task;
+            sb.append(event.isDone ? "1" : "0");
+            sb.append(" | ");
+            sb.append(event.description).append(" /from ").append(event.from).append(" /to ").append(event.to);
+        }
+        return sb.toString();
+    }
+
+    private static Task fileStringToTask(String line) throws ShoAIException {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            throw new ShoAIException("Invalid task format in file.");
+        }
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (type) {
+            case "T":
+                Todo todo = new Todo(description);
+                todo.isDone = isDone;
+                return todo;
+            case "D":
+                if (parts.length < 4) {
+                    throw new ShoAIException("Invalid deadline format in file.");
+                }
+                Deadline deadline = new Deadline(description, parts[3]);
+                deadline.isDone = isDone;
+                return deadline;
+            case "E":
+                String[] eventParts = description.split(" /from ");
+                if (eventParts.length < 2) {
+                    throw new ShoAIException("Invalid event format in file.");
+                }
+                String[] timeParts = eventParts[1].split(" /to ");
+                if (timeParts.length < 2) {
+                    throw new ShoAIException("Invalid event time format in file.");
+                }
+                Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
+                event.isDone = isDone;
+                return event;
+            default:
+                throw new ShoAIException("Unknown task type in file.");
+        }
     }
 }
