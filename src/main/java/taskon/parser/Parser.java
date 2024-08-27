@@ -1,15 +1,15 @@
-package parser;
+package taskon.parser;
 
-import commands.*;
-import commands.Command;
-import commands.IncorrectCommand;
-import exception.TaskonException;
+import taskon.commands.*;
+import taskon.commands.Command;
+import taskon.commands.IncorrectCommand;
+import taskon.exception.TaskonException;
 
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static common.Messages.*;
+import static taskon.common.Messages.*;
 
 public class Parser {
 

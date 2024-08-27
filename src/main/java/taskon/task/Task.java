@@ -1,6 +1,6 @@
-package task;
+package taskon.task;
 
-import exception.TaskonException;
+import taskon.exception.TaskonException;
 
 import java.time.LocalDate;
 

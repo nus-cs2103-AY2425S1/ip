@@ -1,7 +1,7 @@
-package storage;
+package taskon.storage;
 
-import exception.TaskonException;
-import task.*;
+import taskon.exception.TaskonException;
+import taskon.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,10 +1,10 @@
-package commands;
+package taskon.commands;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import task.Todo;
-import ui.Ui;
+import taskon.storage.Storage;
+import taskon.task.Task;
+import taskon.task.TaskList;
+import taskon.task.Todo;
+import taskon.ui.Ui;
 
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";

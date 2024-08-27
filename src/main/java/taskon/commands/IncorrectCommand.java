@@ -1,8 +1,8 @@
-package commands;
+package taskon.commands;
 
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+import taskon.storage.Storage;
+import taskon.task.TaskList;
+import taskon.ui.Ui;
 
 public class IncorrectCommand extends Command {
 

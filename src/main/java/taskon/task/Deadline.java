@@ -1,6 +1,6 @@
-package task;
+package taskon.task;
 
-import task.Task;
+import taskon.task.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

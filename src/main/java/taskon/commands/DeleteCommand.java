@@ -1,9 +1,9 @@
-package commands;
+package taskon.commands;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import ui.Ui;
+import taskon.storage.Storage;
+import taskon.task.Task;
+import taskon.task.TaskList;
+import taskon.ui.Ui;
 
 public class DeleteCommand extends Command {
 

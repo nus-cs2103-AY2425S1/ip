@@ -1,7 +1,7 @@
-package ui;
+package taskon.ui;
 
-import task.Task;
-import task.TaskList;
+import taskon.task.Task;
+import taskon.task.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static common.Messages.*;
+import static taskon.common.Messages.*;
 
 
 public class Ui {

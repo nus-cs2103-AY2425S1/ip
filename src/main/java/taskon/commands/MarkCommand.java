@@ -1,9 +1,9 @@
-package commands;
+package taskon.commands;
 
-import exception.TaskonException;
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+import taskon.exception.TaskonException;
+import taskon.storage.Storage;
+import taskon.task.TaskList;
+import taskon.ui.Ui;
 
 public class MarkCommand extends Command {
 

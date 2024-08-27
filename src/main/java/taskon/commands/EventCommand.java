@@ -1,10 +1,10 @@
-package commands;
+package taskon.commands;
 
-import storage.Storage;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import ui.Ui;
+import taskon.storage.Storage;
+import taskon.task.Event;
+import taskon.task.Task;
+import taskon.task.TaskList;
+import taskon.ui.Ui;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";

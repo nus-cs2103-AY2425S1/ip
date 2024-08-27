@@ -1,6 +1,6 @@
-package task;
+package taskon.task;
 
-import task.Task;
+import taskon.task.Task;
 
 /**
  * The class represents a simple task that does not have any specific

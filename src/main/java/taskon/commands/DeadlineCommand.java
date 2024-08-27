@@ -1,10 +1,10 @@
-package commands;
+package taskon.commands;
 
-import storage.Storage;
-import task.Deadline;
-import task.Task;
-import task.TaskList;
-import ui.Ui;
+import taskon.storage.Storage;
+import taskon.task.Deadline;
+import taskon.task.Task;
+import taskon.task.TaskList;
+import taskon.ui.Ui;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";

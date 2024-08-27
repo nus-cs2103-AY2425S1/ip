@@ -1,4 +1,4 @@
-package common;
+package taskon.common;
 
 public class Messages {
     public static final String MESSAGE_GREETING = "Hello! I'm Taskon\nWhat can I do for you?\n";
