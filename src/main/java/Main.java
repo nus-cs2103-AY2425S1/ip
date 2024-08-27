@@ -124,14 +124,14 @@ public class Main {
                         ui.showSuccessfulTaskAddition(todo, taskList.getNumberOfTasks());
                     }
                     case DEADLINE -> {
-                        // get the details of the deadline task and create a new Deadline object
-                        Task deadline = Parser.createDeadlineCommand(command);
+                        // create a Deadline object directly from what the user typed into command line
+                        Task deadline = new Deadline(command);
                         taskList.addTaskToList(deadline);
                         ui.showSuccessfulTaskAddition(deadline, taskList.getNumberOfTasks());
                     }
                     case EVENT -> {
-                        // get the details of the event task and create a new Event object
-                        Task event = Parser.createEventCommand(command);
+                        // create an Event object directly from what the user typed into command line
+                        Task event = new Event(command);
                         taskList.addTaskToList(event);
                         ui.showSuccessfulTaskAddition(event, taskList.getNumberOfTasks());
                     }
@@ -139,7 +139,7 @@ public class Main {
             }
         }
 
-        // once the program exits (user types in 'bye'), save the elements in janet.listOfTasks to the text file
+        // once the program exits (user types in 'bye'), save the elements in listOfTasks to the text file
         storage.saveToJanetTextFile(taskList.getListOfTasks());
     }
 }
