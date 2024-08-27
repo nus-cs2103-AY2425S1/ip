@@ -90,7 +90,6 @@ public class Tako {
                 command = input.nextLine();
             }
         }
-
         //bye command
         System.out.println("Bye. Hope to see you again soon!");
     }
