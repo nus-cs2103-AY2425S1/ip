@@ -15,14 +15,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represent the storage where the data being saved.
+ * Handles loading and saving tasks to and from a file.
+ */
 public class Storage {
 
     private final String PATH;
 
+    /**
+     * Construct a Storage object with the specified file path given.
+     *
+     * @param path String of file path where tasks will be saved and loaded from.
+     */
     public Storage(String path) {
         this.PATH = path;
     }
 
+    /**
+     * Load tasks from the file specified by the file path.
+     * Create a new file if it doesn't exist.
+     * Convert the data in the file to task list.
+     *
+     * @return ArrayList of task representing the tasks loaded from the list of tasks being saved.
+     * @throws LamaException Thrown if an error occurs while reading the file or the file contains invalid data.
+     */
     public ArrayList<Task> loadTask() throws LamaException {
         try {
 
@@ -86,6 +103,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current task list into the file specified by file path.
+     * Overwrites the existing file content.
+     *
+     * @param taskList Task list containing tasks to be saved.
+     * @throws LamaException Thrown if an error occurs while writing the file.
+     */
     public void saveTasks(TaskList taskList) throws LamaException {
 
         try {
@@ -102,6 +126,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Append a new task to the file specified by file path.
+     *
+     * @param task Task to be added to the file.
+     * @throws LamaException Thrown if an error occurs while writing the file.
+     */
     public void addTask(Task task) throws LamaException {
         try {
             FileWriter fileWriter = new FileWriter(PATH, true);
