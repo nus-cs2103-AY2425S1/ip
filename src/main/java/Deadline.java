@@ -1,10 +1,13 @@
 public class Deadline extends Task {
     private final String by;
     private static final String formatString = "[D][%s] %s (by: %s)";
-
     public Deadline(String description, boolean isComplete, String by){
         super(description,isComplete);
         this.by = by;
+    }
+
+    public Deadline(){
+        this("",true,"");
     }
 
     @Override
@@ -21,5 +24,6 @@ public class Deadline extends Task {
     public Deadline unmark() {
         return new Deadline(this.description, false,this.by);
     }
+
 
 }

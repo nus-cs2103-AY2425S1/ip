@@ -1,7 +1,9 @@
-public abstract class Task {
+public abstract class Task implements java.io.Serializable {
+    private static final long serialisableUid = 1L;
     //instance fields
     protected final String description;
     protected boolean isComplete;
+
 
     public Task(String description){
         this.description = description;
@@ -10,6 +12,10 @@ public abstract class Task {
     public Task(String description, boolean isComplete){
         this.description = description;
         this.isComplete = isComplete;
+    }
+
+    public Task() {
+        this("");
     }
 
     protected abstract Task mark();

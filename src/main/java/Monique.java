@@ -1,5 +1,8 @@
 //imports for user input
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
@@ -9,15 +12,18 @@ public class Monique {
     //Create array to store tasks
 
     private static ArrayList<Task> taskList = new ArrayList<Task>();
-    //Create counter to store the number of items in taskList;
-    private static int numItems =0;
     private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
 
-    public static void main(String[] args) throws IOException, MarkException, ParseException, UnknownCommandException {
+    public static void main(String[] args) throws IOException, MarkException, ParseException, UnknownCommandException, FileNotFoundException {
         String HORIZONTAL_LINE = "_____________________________________________";
         System.out.println(HORIZONTAL_LINE + "\n");
-        System.out.println("Hello, I am Monique,\nWhat can I do for you today?");
+        System.out.println("Hello, I am Monique,\nI am your personal assistant :)\n ");
+
+        //to open database
+        taskList = DataLoading.loadData();
+        //Create counter to store the number of items in taskList;
+        int numItems = taskList.size();
         System.out.println(HORIZONTAL_LINE + "\n");
         boolean active = true;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -42,6 +48,7 @@ public class Monique {
                 switch(firstWord) {
                     case "bye": {
                         active = false;
+                        DataLoading.save(taskList);
                         System.out.println("Monique: Goodbye! Have a great day!");
                         break;
                     }
@@ -83,7 +90,7 @@ public class Monique {
                                 throw new ParseException();
                             }
                             int itemNum = (Integer.parseInt(userInput.split(" ")[1])) - 1;
-                            if (itemNum > numItems-1 || itemNum<0){
+                            if (itemNum > numItems -1 || itemNum<0){
                                 throw new MarkException();
                             }
                             taskList.set(itemNum, taskList.get(itemNum).unmark());
@@ -107,7 +114,7 @@ public class Monique {
                                 throw new ParseException();
                             }
                             int itemNum = (Integer.parseInt(userInput.split(" ")[1])) - 1;
-                            if (itemNum > numItems-1 || itemNum<0){
+                            if (itemNum > numItems -1 || itemNum<0){
                                 throw new DeleteException();
                             }
                             System.out.println("ok... I've deleted:");

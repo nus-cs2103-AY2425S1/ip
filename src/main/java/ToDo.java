@@ -8,6 +8,10 @@ public class ToDo extends Task {
         super(description,isComplete);
     }
 
+    public ToDo(){
+        this("",true);
+    }
+
     @Override
     public String toString() {
         return String.format(formatString,this.isComplete?"X":" ",this.description);
@@ -22,6 +26,7 @@ public class ToDo extends Task {
     public ToDo unmark() {
         return new ToDo(this.description, false);
     }
+
 
 
 }
