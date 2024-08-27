@@ -6,7 +6,6 @@ public class Lutchat {
     ArrayList<Task> taskList = new ArrayList<>();
     String userInput;
 
-    //We are on a different branch
 
     void greet() {
         System.out.print("______________________________________________\n");
