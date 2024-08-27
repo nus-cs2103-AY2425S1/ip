@@ -44,6 +44,18 @@
     5.[T][ ] borrow book
     ____________________________________________________________
     ____________________________________________________________
+    OK, I've marked this task as not done yet:
+      [T][ ] read book
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1.[T][ ] read book
+    2.[D][ ] return book (by: Jun 24 2024)
+    3.[E][ ] project meeting (from: Aug 26 2024 to: Aug 26 2024)
+    4.[T][X] join sports club
+    5.[T][ ] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
     Got it. I've added this task:
       [D][ ] return book (by: Aug 25 2024)
     Now you have 6 tasks in the list.
@@ -52,6 +64,24 @@
     Got it. I've added this task:
       [E][ ] project meeting (from: Aug 23 2024 to: Aug 25 2024)
     Now you have 7 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the matching tasks in your list:
+    1.[T][ ] read book
+    2.[D][ ] return book (by: Jun 24 2024)
+    3.[T][ ] borrow book
+    4.[D][ ] return book (by: Aug 25 2024)
+    ____________________________________________________________
+    ____________________________________________________________
+    Noted. I've removed this task:
+      [T][ ] read book
+    Now you have 6 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the matching tasks in your list:
+    1.[D][ ] return book (by: Jun 24 2024)
+    2.[T][ ] borrow book
+    3.[D][ ] return book (by: Aug 25 2024)
     ____________________________________________________________
     ____________________________________________________________
     Bye. Hope to see you again soon!
