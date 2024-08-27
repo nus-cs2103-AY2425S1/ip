@@ -50,6 +50,7 @@ public class TodoList {
      * Mark an item with the specified index as complete
      *
      * @param index The index of the item
+     * @throws TohruException When the index is out of bound for the to-do list
      */
     public void markComplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
@@ -62,6 +63,7 @@ public class TodoList {
      * Mark an item with the specified index as incomplete
      *
      * @param index The index of the item
+     * @throws TohruException When the index is out of bound for the to-do list
      */
     public void markIncomplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
@@ -74,6 +76,7 @@ public class TodoList {
      * Delete the specified entry at the provided index
      *
      * @param index Index of the entry to be deleted
+     * @throws TohruException When the index is out of bound for the to-do list
      */
     public void deleteItem(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
