@@ -13,6 +13,7 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TodoList list, Ui ui, FileStore store) {
         ui.showText("Bye. Hope to see you again soon!");
+        ui.closeInput();
     }
 
     @Override
