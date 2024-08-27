@@ -1,20 +1,22 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class WenJigglyBot {
     private TaskList tasks;
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private Parser parser;
 
     public WenJigglyBot() {
         tasks = new TaskList();
         ui = new Ui();
         try {
-            storage = new Storage("./data/data.txt", tasks);
+            Storage storage = new Storage("./data/data.txt");
+            storage.load(tasks);
         } catch (WenJigglyBotException e) {
             System.out.println(e);
             tasks = new TaskList();
@@ -36,7 +38,7 @@ public class WenJigglyBot {
             task = task.trim();
             Command command = null;
             try {
-                command = parseCommand(task);
+                command = Parser.parseCommand(task);
             } catch (InvalidCommandException e) {
                 System.out.println(e);
                 continue;
@@ -69,7 +71,7 @@ public class WenJigglyBot {
                 break;
             case DEADLINE:
                 try {
-                    String[] parts = processDeadlineTask(task);
+                    String[] parts = Parser.processDeadlineTask(task);
                     taskName = parts[0].trim();
                     String deadline = parts[1].trim();
                     LocalDate date;
@@ -86,7 +88,7 @@ public class WenJigglyBot {
             case EVENT:
                 // Split the string by "/from" and "/to"
                 try {
-                    String[] processedEvent = processEventTask(task);
+                    String[] processedEvent = Parser.processEventTask(task);
                     addTask(new EventTask(processedEvent[0], processedEvent[1], processedEvent[2]));
                 } catch (EventException eventException) {
                     System.out.println(eventException);
@@ -106,43 +108,6 @@ public class WenJigglyBot {
         System.out.println("Goodbye!");
     }
 
-
-    private static Command parseCommand(String command) throws InvalidCommandException {
-        for (Command cmd : Command.values()) {
-            if (command.startsWith(cmd.name().toLowerCase())) {
-                return cmd;
-            }
-        }
-        throw new InvalidCommandException();
-    }
-
-    private static String[] processEventTask(String task) throws EventException {
-        String[] fromParts = task.split("/from");
-        if (fromParts.length != 2) {
-            throw new EventException();
-        }
-        String[] toParts = fromParts[1].split("/to");
-        if (toParts.length != 2) {
-            throw new EventException();
-        }
-        // Extract the event description, start time, and end time
-        String event = fromParts[0].replaceFirst("event", "").trim();
-        String startTime = toParts[0].trim();
-        String endTime = toParts[1].trim();
-        return new String[]{event, startTime, endTime};
-    }
-
-    private static String[] processDeadlineTask(String task) throws DeadlineException {
-        // remove deadline tag
-        String taskNameAndDeadline = task.replaceFirst("deadline", "").trim();
-
-        // split the title and deadline
-        String[] parts = taskNameAndDeadline.split("/by");
-        if (parts.length != 2) {
-            throw new DeadlineException();
-        }
-        return parts;
-    }
 
     private void deleteTask(int idx) {
         if (idx < 0 || idx > tasks.size() - 1) {
@@ -201,7 +166,10 @@ public class WenJigglyBot {
 
         // If the directory doesn't exist, create it
         if (!directory.exists()) {
-            directory.mkdirs(); // This will create the directory and any necessary but nonexistent parent directories
+            boolean mkdirs = directory.mkdirs();// This will create the directory and any necessary but nonexistent parent directories
+            if (!mkdirs) {
+                System.out.println("Failed to make directory!");
+            }
         }
         try (FileWriter writer = new FileWriter("./data/data.txt")) {
             writer.write(tasksString);
