@@ -1,4 +1,4 @@
-package Storage;
+package PurrfessorDipsy.Storage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,13 +9,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Task.Task;
-import Task.ToDo;
-import Task.Deadline;
-import Task.Event;
-import Utilities.DateTimeParser;
 
-import static Utilities.DateTimeParser.parseDate;
+import PurrfessorDipsy.Parser.*;
+import PurrfessorDipsy.Task.*;
+import PurrfessorDipsy.TaskList.TaskList;
 
 public class Storage {
     private static final String TASK_FILE_DIRECTORY = "./data/taskTable.csv";
@@ -29,11 +26,12 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> load() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public static TaskList load() {
         if (!TASK_FILE.isFile()) {
-            return tasks;
+            return new TaskList();
         }
+
+        ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(TASK_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -45,7 +43,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks from file.");
         }
-        return tasks;
+        return new TaskList(tasks);
     }
 
 
@@ -62,7 +60,7 @@ public class Storage {
         try {
             File parentDir = TASK_FILE.getParentFile();
             if (!parentDir.exists()) {
-                parentDir.mkdirs();
+                boolean success = parentDir.mkdirs();
             }
             if (TASK_FILE.createNewFile()) {
                 System.out.println("A task file has been created locally.");

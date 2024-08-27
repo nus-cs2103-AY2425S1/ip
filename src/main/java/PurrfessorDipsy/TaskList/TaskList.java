@@ -1,13 +1,23 @@
-import Storage.Storage;
-import Task.Task;
+package PurrfessorDipsy.TaskList;
+
+import PurrfessorDipsy.Storage.Storage;
+import PurrfessorDipsy.Task.Task;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     public int getSize() {
@@ -31,10 +41,5 @@ public class TaskList {
 
     public void saveToLocalDisk() {
         Storage.save(tasks);
-    }
-
-    @Override
-    public String toString() {
-        return null;
     }
 }

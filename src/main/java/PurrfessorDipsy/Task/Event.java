@@ -1,8 +1,8 @@
-package Task;
+package PurrfessorDipsy.Task;
 
 import java.time.LocalDate;
-import static Utilities.DateTimeParser.formatDateForDisplay;
-import static Utilities.DateTimeParser.formatDateForStorage;
+
+import static PurrfessorDipsy.Parser.DateTimeParser.*;
 
 public class Event extends Task {
     LocalDate start;

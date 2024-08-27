@@ -1,15 +1,35 @@
-import Task.Task;
+package PurrfessorDipsy.Ui;
 
+import PurrfessorDipsy.Task.Task;
+
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
+    private final Scanner in;
+    private final PrintStream out;
 
-    // GENERIC PRINT STATEMENTS (Can be reused)
-    private static void printWithTerminalLines(String message) {
+    public Ui() {
+        this(System.in, System.out);
+    }
+
+    public Ui(InputStream in, PrintStream out) {
+        this.in = new Scanner(in);
+        this.out = out;
+    }
+
+    public String getInput() {
+        out.print("Enter command: ");
+        return in.nextLine().trim();
+    }
+
+    private void printWithTerminalLines(String message) {
         String TERMINAL_LINE = "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――";
-        System.out.println(TERMINAL_LINE);
-        System.out.println(message);
-        System.out.println(TERMINAL_LINE);
+        out.println(TERMINAL_LINE);
+        out.println(message);
+        out.println(TERMINAL_LINE);
     }
 
     public void printWelcomeMessage() {
