@@ -1,12 +1,12 @@
 /**
- * UnmarkCommand represents the command to unmark a completed task as incomplete in the to-do list
+ * DeleteCommand represents the command to delete an entry in the to-do list
  */
-public class UnmarkCommand extends Command {
+public class DeleteCommand extends Command {
 
-    /** Prefix used to invoke the mark command **/
-    public static final String COMMAND_PREFIX = "unmark";
+    /** Prefix used to invoke the delete command **/
+    public static final String COMMAND_PREFIX = "delete";
 
-    public UnmarkCommand(String arguments) {
+    public DeleteCommand(String arguments) {
         super(arguments);
     }
 
@@ -14,7 +14,7 @@ public class UnmarkCommand extends Command {
     public void execute(TodoList list, Ui ui, FileStore store) throws TohruException {
         // Check if no arguments are provided
         if (super.arguments == null) {
-            throw new TohruException("Missing argument: Specify index to unmark");
+            throw new TohruException("Missing argument: Specify index to delete");
         }
 
         int itemIndex = -1;
@@ -26,13 +26,14 @@ public class UnmarkCommand extends Command {
             throw new TohruException(String.format("%s is not valid index", arguments));
         }
 
-        list.markIncomplete(itemIndex);
+        String storedItemStatus = list.getItemStatus(itemIndex);
 
-        ui.showText("Alright! I have set this task as not done:");
-        ui.showText(list.getItemStatus(itemIndex));
+        list.deleteItem(itemIndex);
+
+        ui.showText("Alright! I have removed this task from list:");
+        ui.showText(storedItemStatus);
 
         store.saveTodoList(list.getTodoList());
 
     }
-
 }

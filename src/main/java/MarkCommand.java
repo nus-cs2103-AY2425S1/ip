@@ -31,5 +31,7 @@ public class MarkCommand extends Command {
         ui.showText("Alright! I have set this task as done:");
         ui.showText(list.getItemStatus(itemIndex));
 
+        store.saveTodoList(list.getTodoList());
+
     }
 }
