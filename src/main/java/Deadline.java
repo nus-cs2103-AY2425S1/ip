@@ -1,12 +1,19 @@
 public class Deadline extends Task {
     protected String deadline;
-    public Deadline(String taskName, String deadline) {
-        super(taskName);
+    public Deadline(String taskName, String deadline, boolean isDone) {
+        super(taskName, isDone);
         this.deadline = deadline;
     }
 
     @Override
     public String taskDescription() {
         return "[D]" + showMark() + " " + this.name + " (by: " + deadline + ")";
+    }
+
+    @Override
+    public String taskInSaveData() {
+        return (isDone ? "X" : "-")
+                + " | deadline | "
+                + name + " by " + deadline + "\n";
     }
 }

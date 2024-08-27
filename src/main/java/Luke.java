@@ -9,12 +9,18 @@ public class Luke {
 
         System.out.println("""
                 ____________________________________________________________
-                i'm luke, your chatbot.
-                say something and i will echo it (unless...you wanna say bye to me)
+                i'm luke, your glorified task manager.
+                i can keep a list of your todos, events, and deadlines.
+                tell me what you need to keep track of. i'll help you out :)
                 ____________________________________________________________
                 """);
 
         Bot bot = new Bot();
-        bot.acceptCommand();
+        boolean isDataLoaded = bot.loadData();
+        // System.out.println("Data is loaded: " + isDataLoaded);
+        if (isDataLoaded) {
+            // System.out.println("Accepting commands...");
+            bot.acceptCommand();
+        }
     }
 }
