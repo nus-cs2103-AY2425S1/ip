@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Ui {
 
     public void greet() {
@@ -14,4 +16,20 @@ public class Ui {
         System.out.println("Error: " + message);
     }
 
+    public void addTaskMessage(TaskList tasks) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public void markTaskMessage(TaskList tasks, int i) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + tasks.get(i).toString());
+    }
+
+    public void deleteTaskMessage(TaskList tasks, int taskNum) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + tasks.get(taskNum));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
 }

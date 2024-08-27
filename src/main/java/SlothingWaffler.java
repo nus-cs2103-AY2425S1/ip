@@ -19,27 +19,12 @@ public class SlothingWaffler {
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
+        boolean isTerminate = false;
 
-        while (true) {
-
+        while (!isTerminate) {
             try {
                 String input = scanner.nextLine();
-                String[] split = input.split(" ", 2);
-
-                if (split[0].strip().equals("bye")) {
-                    ui.exit();
-                    this.storage.save(tasks.getTasks());
-                    break;
-                }
-                switch (split[0].strip()) {
-                case "list" -> tasks.displayTaskList();
-                case "mark" -> tasks.markTask(Integer.parseInt(split[1]) - 1);
-                case "delete" -> tasks.deleteTask(Integer.parseInt(split[1]) - 1);
-                case "todo" -> tasks.addTodoTask(split);
-                case "deadline" -> tasks.addDeadlineTask(split);
-                case "event" -> tasks.addEventTask(split);
-                default -> throw new SlothingWafflerException("Please give instructions that the Slothing Waffler can understand :(");
-                }
+                isTerminate = Parser.parse(input, tasks, ui, storage);
             } catch (SlothingWafflerException e) {
                 System.out.println(e.getMessage());
             } finally {

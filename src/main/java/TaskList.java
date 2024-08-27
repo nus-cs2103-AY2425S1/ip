@@ -11,18 +11,11 @@ public class TaskList {
         return this.tasks;
     }
 
-    public void addTaskMessage(ArrayList<Task> tasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
     public void addTodoTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of a Todo Task cannot be empty!");
         }
         tasks.add(new Todo(split[1]));
-        addTaskMessage(tasks);
     }
 
     public void addEventTask(String[] split) throws SlothingWafflerException {
@@ -34,7 +27,6 @@ public class TaskList {
             throw new SlothingWafflerException("HEY!! An event must have a description, start time, and end time.");
         }
         tasks.add(new Event(desc[0], desc[1], desc[2]));
-        addTaskMessage(tasks);
     }
 
     public void addDeadlineTask(String[] split) throws SlothingWafflerException {
@@ -46,7 +38,6 @@ public class TaskList {
             throw new SlothingWafflerException("HEY!! The Deadline Task must have a description AND a due date.");
         }
         tasks.add(new Deadline(desc[0], desc[1]));
-        addTaskMessage(tasks);
     }
 
     public void displayTaskList() {
@@ -58,14 +49,17 @@ public class TaskList {
 
     public void markTask(int taskNum) {
         tasks.get(taskNum).markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + tasks.get(taskNum).toString());
     }
 
     public void deleteTask(int taskNum) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + tasks.get(taskNum));
         tasks.remove(taskNum);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public int size() {
+        return tasks.size();
+    }
+
+    public Task get(int i) {
+        return tasks.get(i);
     }
 }
