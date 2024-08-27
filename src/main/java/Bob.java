@@ -142,7 +142,6 @@ public class Bob {
                 newTask = new Event(taskDescription, startDateTime, endDateTime);
                 break;
             default:
-//                newTask = new Task(taskDescription);
                 throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return newTask;
