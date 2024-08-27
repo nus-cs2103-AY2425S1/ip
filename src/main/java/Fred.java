@@ -1,11 +1,19 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Fred {
     static String line = "____________________________________________________________";
     static String name = "Fred";
     static ArrayList<Task> taskList = new ArrayList<>();
+    static File dataFile;
+
     public static void main(String[] args) {
+        dataFile = getDataFile();
+        loadFromDataFile();
         greet();
         getInput();
     }
@@ -101,22 +109,29 @@ public class Fred {
                     message = String.format("Noted. I've removed this task:\n" +
                             "   %s", task);
                 }
+                rewriteDataFile();
                 say(message);
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
-                addToTaskList(inputParts[0], inputParts[1]);
+                if (inputParts[1].isEmpty()) {
+                    throw new EmptyTaskDescriptionException();
+                }
+                Task task = createTask(inputParts[0], inputParts[1]);
+                addToTaskList(task);
+                message = String.format("Got it. I've added this task:\n" +
+                        "   %s\n" +
+                        "Now you have %d tasks in the list.", task, taskList.size());
+                appendToDataFile(task);
+                say(message);
             } else {
                 throw new UnknownCommandException();
             }
         }
     }
 
-    private static void addToTaskList(String taskType, String taskDetails) throws FredException {
+    private static Task createTask(String taskType, String taskDetails) {
         Task task;
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
-        if (description.isEmpty()) {
-            throw new EmptyTaskDescriptionException();
-        }
         if (taskType.equals("todo")) {
             task = new Todo(description);
         } else if (taskType.equals("deadline")) {
@@ -127,12 +142,11 @@ public class Fred {
             String to = taskDetailsArr[2].substring(3);
             task = new Event(description, from, to);
         }
+        return task;
+    }
+
+    private static void addToTaskList(Task task) {
         taskList.add(task);
-        System.out.println(line);
-        System.out.println(String.format("Got it. I've added this task:\n" +
-                "   %s\n" +
-                "Now you have %d tasks in the list.", task, taskList.size()));
-        System.out.println(line);
     }
 
     private static void printTaskList() {
@@ -154,5 +168,75 @@ public class Fred {
 
     private static void deleteFromTaskList(Task task) {
         taskList.remove(task);
+    }
+
+    private static File getDataFile() {
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists() || !dataDirectory.isDirectory()) {
+            dataDirectory.mkdir();
+        }
+        File dataFile = new File("./data/fred.txt");
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return dataFile;
+    }
+
+    private static void loadFromDataFile() {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(dataFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] lineParts = line.split(" \\| ");
+            Task task = null;
+            switch (lineParts[0]) {
+            case "T":
+                task = createTask("todo", lineParts[2]);
+                break;
+            case "D":
+                task = createTask("deadline", lineParts[2] + " /by " + lineParts[3]);
+                break;
+            case "E":
+                String[] fromTo = lineParts[3].split("-");
+                task = createTask("event", lineParts[2] + " /from " + fromTo[0] + " /to " + fromTo[1]);
+                break;
+            }
+            addToTaskList(task);
+            if (lineParts[1].equals("1")) {
+                task.markAsDone();
+            } else if (lineParts[1].equals("0")) {
+                task.markAsNotDone();
+            }
+        }
+    }
+
+    private static void rewriteDataFile() {
+        try {
+            FileWriter writer = new FileWriter(dataFile);
+            for (Task task : taskList) {
+                writer.write(task.getDataFormat() + System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void appendToDataFile(Task task) {
+        try {
+            FileWriter writer = new FileWriter(dataFile, true);
+            writer.write(task.getDataFormat() + System.lineSeparator());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
