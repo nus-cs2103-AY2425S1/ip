@@ -20,4 +20,8 @@ public class Deadline extends Task {
     public String toFileString() {
         return "D" + " " + super.toFileString() + " | " + this.by;
     }
+
+    public boolean isOnDate(LocalDate date) {
+        return by.equals(date);
+    }
 }

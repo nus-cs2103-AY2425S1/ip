@@ -21,4 +21,8 @@ public class Event extends Task {
     public String toFileString() {
         return "E" + " " + super.toFileString() + " | " + this.from + " | " + this.to;
     }
+
+    public boolean isOnDate(LocalDate date) {
+        return (from.equals(date) || to.equals(date));
+    }
 }

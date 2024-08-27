@@ -11,7 +11,7 @@ public class Bobby {
 
     private static final String FILE_PATH = "./src/main/data/Bobby.txt";
     enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND;
 
         public static Command fromString(String input) {
             String command = input.split(" ")[0].toLowerCase();
@@ -32,6 +32,8 @@ public class Bobby {
                     return DEADLINE;
                 case "event":
                     return EVENT;
+                case "find":
+                    return FIND;
                 default:
                     return UNKNOWN;
             }
@@ -235,6 +237,40 @@ public class Bobby {
         }
     }
 
+    private static void findTasksByDate(String userInput) {
+        String[] parts = userInput.split(" ");
+        if (parts.length < 2) {
+            System.out.println("Please provide a date in the format yyyy-MM-dd.");
+            return;
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            System.out.println("Tasks on " + date + ":");
+            boolean found = false;
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask.isOnDate(date)) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                } else if (task instanceof Event) {
+                    Event eventTask = (Event) task;
+                    if (eventTask.isOnDate(date)) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                System.out.println("No tasks found for the given date.");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+        }
+    }
+
     public static void main(String[] args) {
         loadTasksFromFile();  // Load tasks from file at the start
         Scanner scanner = new Scanner(System.in);
@@ -265,6 +301,9 @@ public class Bobby {
                     case DEADLINE:
                     case EVENT:
                         handleTask(userInput);
+                        break;
+                    case FIND:
+                        findTasksByDate(userInput);
                         break;
                     default:
                         throw new InvalidInputException();
