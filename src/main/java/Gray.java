@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringJoiner;
@@ -5,9 +6,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Gray {
+
+    public static final File SAVE_FILE = new File("./data/save");
+
     public static void main(String[] args) {
+        ArrayList<Task> taskList = loadTasks();
+
         Scanner reader = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
 
         say("""
                 Hello! I'm Gray.
@@ -138,6 +143,8 @@ public class Gray {
         }
         say("Bye. Hope to see you again soon!");
         reader.close();
+
+        saveTasks(taskList);
     }
 
     private static void say(String text) {
@@ -146,5 +153,26 @@ public class Gray {
         System.out.println(text.replace("\n", "\n\t"));
         System.out.println("\t____________________________________________________________");
         System.out.println();
+    }
+
+    public static void saveTasks(ArrayList<Task> taskList) {
+        SAVE_FILE.getParentFile().mkdirs();
+        try {
+            Utility.serialise(SAVE_FILE, taskList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ArrayList<Task> loadTasks() {
+        SAVE_FILE.getParentFile().mkdirs();
+        if (!SAVE_FILE.exists()) return new ArrayList<>();
+        try {
+            return (ArrayList<Task>) Utility.deserialise(SAVE_FILE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
