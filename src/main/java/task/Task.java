@@ -1,5 +1,8 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private String name;
     private boolean done = false;
@@ -23,6 +26,10 @@ public abstract class Task {
     public String toCsv() {
         String check = this.isDone() ? "1" : "0";
         return this.getSymbol() + "," + check + "," + this.getName();
+    }
+    public String formatDate(LocalDateTime date) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return date.format(dateFormatter);
     }
     public String getTaskInfo() {
         String check = this.isDone() ? "X" : " ";

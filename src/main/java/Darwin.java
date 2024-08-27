@@ -3,6 +3,7 @@ import exception.IllegalTaskTypeException;
 import task.Task;
 import task.TaskManager;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Darwin {
@@ -41,6 +42,8 @@ public class Darwin {
             Darwin.reply("Wrong task description, ensure that it follows the different task types");
         } catch (IllegalTaskTypeException e) {
             Darwin.reply("Wrong command, valid commands are todo, deadline, event");
+        } catch (DateTimeParseException e) {
+            Darwin.reply("Wrong datetime format, valid format is 2024-08-26 10:30");
         }
     }
     private void deleteTask(String cmd, String taskIdxStr) {

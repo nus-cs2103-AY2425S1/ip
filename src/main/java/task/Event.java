@@ -1,9 +1,11 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     private String symbol = "E";
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Initialises a task.Event task.Task with name, start and end.
@@ -11,7 +13,7 @@ public class Event extends Task {
      * @param start A string indicating the task.Task's start date / time.
      * @param end A string indicating the task.Task's end date / time.
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
@@ -23,7 +25,7 @@ public class Event extends Task {
 
     @Override
     public String getTaskInfo() {
-        return super.getTaskInfo() + String.format(" (from: %s to: %s)", this.start, this.end);
+        return super.getTaskInfo() + String.format(" (from: %s to: %s)", super.formatDate(this.start), super.formatDate(this.end));
     }
     @Override
     public String toCsv() {
