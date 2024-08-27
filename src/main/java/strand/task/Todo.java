@@ -3,7 +3,7 @@ package strand.task;
 import strand.exception.StrandException;
 
 /**
- * The strand.Tasks.Todo class represents a simple task without any specific time constraints.
+ * The strand.task.Todo class represents a simple task without any specific time constraints.
  */
 public class Todo extends Task {
 

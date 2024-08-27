@@ -2,12 +2,15 @@ package strand.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 
 import strand.exception.StrandException;
 
-import java.util.Date;
-
+/**
+ * The strand.task.DeadlineTest class is a JUnit test for the class strand.task.Deadline
+ */
 public class DeadlineTest {
     @Test
     public void testValidDeadlineToString() throws StrandException {

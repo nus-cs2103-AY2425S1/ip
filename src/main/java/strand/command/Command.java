@@ -4,8 +4,7 @@ import strand.exception.StrandException;
 
 /**
  * The {@code Command} class serves as an abstract base class for all commands
- * in the Strand application. It defines the common interface that all command
- * types must implement.
+ * in the Strand application.
  */
 public abstract class Command {
 
