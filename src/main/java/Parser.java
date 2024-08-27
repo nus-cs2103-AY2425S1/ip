@@ -39,6 +39,9 @@ public class Parser {
             case "bye":
                 return new ExitCommand();
             case "list":
+                if (tasks.size() == 0) {
+                    throw new FishmanException.EmptyListException();
+                }
                 return new ListCommand();
             case "mark":
                 if (inputs.length < 2) {
@@ -68,19 +71,19 @@ public class Parser {
                 if (inputs.length < 2) {
                     throw new FishmanException.MissingArgumentException("todo");
                 }
-                return new AddCommand(new ToDo(inputs[1]));
+                return new AddCommand(new ToDo(inputs[1], false));
             case "deadline":
                 if (inputs.length < 2 || !inputs[1].contains("/by")) {
                     throw new FishmanException.MissingArgumentException("deadline");
                 }
                 String[] deadlineString = inputs[1].split("/by");
-                return new AddCommand(new Deadline(deadlineString[0].trim(), deadlineString[1].trim()));
+                return new AddCommand(new Deadline(deadlineString[0].trim(), false, deadlineString[1].trim()));
             case "event":
                 if (inputs.length < 2 || !inputs[1].contains("/from") || !inputs[1].contains("/to")) {
                     throw new FishmanException.MissingArgumentException("event");
                 }
                 String[] eventString = inputs[1].split("/from|/to");
-                return new AddCommand(new Event(eventString[0].trim(), eventString[1].trim(), eventString[2].trim()));
+                return new AddCommand(new Event(eventString[0].trim(), false, eventString[1].trim(), eventString[2].trim()));
             case "delete":
                 if (inputs.length < 2) {
                     throw new FishmanException.MissingArgumentException("delete");

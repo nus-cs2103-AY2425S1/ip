@@ -13,18 +13,27 @@ abstract class Task {
      *
      * @param detail The details of the task.
      */
-    public Task(String detail) {
+    public Task(String detail, boolean isDone) {
         this.description = detail;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /**
-     * Display and mark the task done.
+     * Determines the completion status of the task.
      *
-     * @return "X" if the task is done.
+     * @return true or false depending on the task completion .
      */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public boolean getStatus() {
+        return isDone;
+    }
+
+    /**
+     * Retrieves the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -44,6 +53,7 @@ abstract class Task {
     }
 
     public abstract String getTaskType();
+
 
     @Override
     public String toString() {

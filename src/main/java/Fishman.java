@@ -7,9 +7,12 @@ public class Fishman {
     /** The user interface object for handling input and output operations. */
     private final Ui ui;
     /** The task list object to store and manage tasks. */
-    private final TaskList tasks;
+    private TaskList tasks;
     /** The parser object to interpret user inputs. */
     private final Parser parser;
+
+    /** The storage object used to handle file operations. */
+    private final Storage storage;
 
     /**
      * Constructs a new instance of Fishman
@@ -19,6 +22,7 @@ public class Fishman {
         ui = new Ui();
         tasks = new TaskList();
         parser = new Parser();
+        storage = new Storage("./data/fishman.csv");
     }
 
     /**
@@ -28,11 +32,15 @@ public class Fishman {
      * The method will handle exceptions that may occur during execution.
      * Any unchecked exception is caught and reported as well.
      */
-    public void start() {
+    public void start() throws FishmanException {
         ui.displayLogo();
         ui.displayWelcome();
         boolean isExit = false;
-
+        try {
+            tasks = storage.load();
+        } catch (FishmanException e) {
+            ui.displayError(e.getMessage());
+        }
         while (!isExit) {
             try {
                 String userInput = ui.readCommands();
@@ -45,6 +53,7 @@ public class Fishman {
                 ui.displayError("Uh oh, an unexpected error has occured: " + e.getMessage());
             }
         }
+        storage.save(tasks);
     }
 
     /**
@@ -53,7 +62,7 @@ public class Fishman {
      *
      * @param args The command line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FishmanException {
         new Fishman().start();
     }
 }
