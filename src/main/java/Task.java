@@ -14,6 +14,14 @@ public class Task {
     return id;
   }
 
+  public boolean isMarked() {
+    return marked;
+  }
+
+  public String getTask() {
+    return task;
+  }
+
   public void mark() throws HamyoException {
     if (!marked) {
       marked = true;
@@ -39,5 +47,9 @@ public class Task {
   @Override
   public String toString() {
     return (marked ? "[X]" : "[ ]") + " " + task;
+  }
+
+  public String toFileFormat() {
+    return (this.marked ? "1" : "0") + " | " + this.task;
   }
 }

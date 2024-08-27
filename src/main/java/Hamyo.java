@@ -1,8 +1,10 @@
-import java.security.spec.ECField;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Collection;
 
 public class Hamyo {
 
@@ -15,48 +17,53 @@ public class Hamyo {
     }
 
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        greet();
-
-        while (active) {
-            try {
-                String command = scanner.nextLine();
-                String commandType = command.split(" ")[0];
-                String commandFields = command.substring(commandType.length());
-                switch (commandType) {
-                case "todo":
-                    add(TaskType.TODO, commandFields);
-                    break;
-                case "deadline":
-                    add(TaskType.DEADLINE, commandFields);
-                    break;
-                case "event":
-                    add(TaskType.EVENT, commandFields);
-                    break;
-                case "list":
-                    listTasks();
-                    break;
-                case "mark":
-                    mark(commandFields);
-                    break;
-                case "unmark":
-                    unmark(commandFields);
-                    break;
-                case "delete":
-                    delete(commandFields);
-                    break;
-                case "bye":
-                    terminate();
-                    break;
-                default:
-                    throw new HamyoException("Invalid command.");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            greet();
+            loadData();
+            while (active) {
+                try {
+                    String command = scanner.nextLine();
+                    String commandType = command.split(" ")[0];
+                    String commandFields = command.substring(commandType.length());
+                    switch (commandType) {
+                    case "todo":
+                        add(TaskType.TODO, commandFields);
+                        break;
+                    case "deadline":
+                        add(TaskType.DEADLINE, commandFields);
+                        break;
+                    case "event":
+                        add(TaskType.EVENT, commandFields);
+                        break;
+                    case "list":
+                        listTasks();
+                        break;
+                    case "mark":
+                        mark(commandFields);
+                        break;
+                    case "unmark":
+                        unmark(commandFields);
+                        break;
+                    case "delete":
+                        delete(commandFields);
+                        break;
+                    case "bye":
+                        terminate();
+                        break;
+                    default:
+                        throw new HamyoException("Invalid Command!");
+                    }
+                    saveData();
+                } catch (HamyoException e) {
+                    System.out.println(e.toString());
+                    printLine();
+                }
             }
-            } catch (HamyoException e) {
-                System.out.println(e.toString());
-                printLine();
-            }
+            scanner.close();
+        } catch (HamyoException e) {
+            System.out.println(e.toString());
+            printLine();
         }
     }
 
@@ -128,7 +135,7 @@ public class Hamyo {
     public static void mark(String str) throws HamyoException {
         try {
             if (str.length() <= 1) {
-                throw new HamyoException("Usage: unmark [index]");
+                throw new HamyoException("Usage: mark [index]");
             }
             int index = Integer.parseInt(str.substring(1)) - 1;
             if (index < 0 || index >= tasks.size()) {
@@ -171,6 +178,62 @@ public class Hamyo {
             printLine();
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: delete [index]");
+        }
+    }
+
+    public static void loadData() throws HamyoException {
+        try {
+            File savedTasks = new File("./savedTasks.txt");
+            if (!savedTasks.exists()) {
+                savedTasks.createNewFile();
+            }
+            Scanner scannedTasks = new Scanner(savedTasks);
+            int currTask = 0;
+            while (scannedTasks.hasNext()) {
+                currTask++;
+                String[] task = scannedTasks.nextLine().split(" \\| ");
+                switch (task[0]) {
+                case "T":
+                    tasks.add(new ToDo(new String[]{task[2]}));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(new String[]{task[2], task[3]}));
+                    break;
+                case "E":
+                    tasks.add(new Event(new String[]{task[2], task[3], task[4]}));
+                    break;
+                default:
+                    throw new HamyoException("Invalid case " + task[0] + ".");
+                }
+                switch (task[1]) {
+                case "1":
+                    mark(" " + currTask);
+                    break;
+                case "0":
+                    break;
+                default:
+                    throw new HamyoException("Invalid boolean " + task[1] + ".");
+            }
+            }
+        } catch (HamyoException e) {
+            throw new HamyoException("Possible File Corruption. " + e.getMessage());
+        } catch (IOException e) {
+            throw new HamyoException(e.getMessage());
+        }
+    }
+
+    public static void saveData() throws HamyoException {
+        try {
+            FileWriter fw = new FileWriter("./savedTasks.txt");
+            StringBuilder newData = new StringBuilder();
+            for (Task task : tasks) {
+                newData.append(task.toFileFormat()).append(System.lineSeparator());
+            }
+            //System.out.println(newData.toString());
+            fw.write(newData.toString());
+            fw.close();
+        } catch (IOException e) {
+            throw new HamyoException(e.getMessage());
         }
     }
 }
