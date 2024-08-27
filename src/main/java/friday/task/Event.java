@@ -19,11 +19,11 @@ public class Event extends Task {
     }
 
     public LocalDate getFrom() {
-        return this.from.toLocalDate();
+        return from.toLocalDate();
     }
 
     public LocalDate getTo() {
-        return this.to.toLocalDate();
+        return to.toLocalDate();
     }
 
     @Override

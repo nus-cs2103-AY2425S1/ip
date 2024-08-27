@@ -48,18 +48,18 @@ public class TaskList {
     }
 
     public ArrayList<Task> getTasks() {
-        return this.tasks;
+        return tasks;
     }
 
     public int getSize() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     public boolean isTaskListEmpty() {
-        return this.tasks.isEmpty();
+        return tasks.isEmpty();
     }
 
     public Task getTask(int i) {
-        return this.tasks.get(i);
+        return tasks.get(i);
     }
 }

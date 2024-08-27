@@ -10,19 +10,19 @@ public abstract class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void unmarkAsDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public boolean getIsDone() {
-        return this.isDone;
+        return isDone;
     }
 
     public abstract String toFileFormat();
