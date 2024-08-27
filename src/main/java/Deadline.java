@@ -1,17 +1,12 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     protected LocalDateTime deadline;
 
-    public Deadline(String description, String by) throws MajimaException {
+    public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
-        try {
-            this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
-        } catch (DateTimeParseException e) {
-            throw new MajimaException("Kiryu-chan! Follow the standard format of 'dd-mm-yyyy HHmm'!");
-        }
+        this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
     @Override
