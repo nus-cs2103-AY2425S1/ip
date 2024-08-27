@@ -10,6 +10,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class EchoBot {
@@ -141,16 +144,33 @@ public class EchoBot {
                     break;
                 }
                 case "deadline": {
-                    handleDeadlineCommand(inputParts);
+                    try {
+                        handleDeadlineCommand(inputParts);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" " + e.getMessage());
+                        System.out.println(" Please enter date in the format dd/MM/yyyy?");
+                        System.out.println("____________________________________________________________");
+                    }
                     break;
                 }
                 case "event": {
-                    handleEventCommand(inputParts);
+                    try {
+                        handleEventCommand(inputParts);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" " + e.getMessage());
+                        System.out.println(" Please enter date in the format dd/MM/yyyy?");
+                        System.out.println("____________________________________________________________");
+                    }
                     break;
                 }
-                case "delete":
+                case "delete": {
                     handleDeleteCommand(inputParts);
                     break;
+                }
+                case "findbydate":
+                    handleFindByDateCommand(inputParts);
                 default:
                     System.out.println("____________________________________________________________");
                     System.out.println(" I'm sorry, I don't recognize that command.");
@@ -289,6 +309,33 @@ public class EchoBot {
                 System.out.println(" Oops! That task number doesn't exist.");
                 System.out.println("____________________________________________________________");
             }
+        }
+    }
+    private static void handleFindByDateCommand(String[] inputParts) {
+        if (inputParts.length < 2) {
+            System.out.println("Please specify a date in the format yyyy-mm-dd.");
+            return;
+        }
+
+        String dateString = inputParts[1];  // Assuming the date is the second element
+        try {
+            LocalDate queryDate = LocalDate.parse(dateString);
+            System.out.println("Tasks occurring on " + queryDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            boolean hasTasks = false;
+            for (Task task : tasks) {
+                if (task instanceof Deadline && ((Deadline) task).by.equals(queryDate)) {
+                    System.out.println(task);
+                    hasTasks = true;
+                } else if (task instanceof Event && (((Event) task).from.equals(queryDate) || ((Event) task).to.equals(queryDate))) {
+                    System.out.println(task);
+                    hasTasks = true;
+                }
+            }
+            if (!hasTasks) {
+                System.out.println("No tasks found on this date.");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use yyyy-mm-dd.");
         }
     }
 }
