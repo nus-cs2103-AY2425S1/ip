@@ -10,6 +10,7 @@ public class Lutchat {
 
     //Start and End of conversation
 
+
     void greet() {
         System.out.print("______________________________________________\n");
         System.out.print("Hello! I'm Lutchat!\n");
