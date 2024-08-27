@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -134,19 +137,30 @@ public class Bobby {
                 throw new EmptyDeadlineException();
             }
             String description = parts[0];
-            String by = parts[1];
-            Task task = new Deadline(description, by);
-            addTask(task);
+            String byString = parts[1];
+            try {
+                LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                Task task = new Deadline(description, by);
+                addTask(task);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use yyyy-MM-dd");
+            }
         } else if (userInput.startsWith("event ")) {
             String[] parts = userInput.substring(6).split(" /from | /to ");
             if (parts.length < 3) {
                 throw new EmptyEventException();
             }
             String description = parts[0];
-            String from = parts[1];
-            String to = parts[2];
-            Task task = new Event(description, from, to);
-            addTask(task);
+            String fromString = parts[1];
+            String toString = parts[2];
+            try {
+                LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                Task task = new Event(description, from, to);
+                addTask(task);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use yyyy-MM-dd");
+            }
         } else {
             throw new InvalidInputException();
         }
@@ -193,12 +207,15 @@ public class Bobby {
                         task = new Todo(description);
                         break;
                     case "D":
-                        String by = parts[3];
+                        String byString = parts[3];
+                        LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         task = new Deadline(description, by);
                         break;
                     case "E":
-                        String from = parts[3];
-                        String to = parts[4];
+                        String fromString = parts[3];
+                        String toString = parts[4];
+                        LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         task = new Event(description, from, to);
                         break;
                     default:
