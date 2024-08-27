@@ -1,9 +1,5 @@
 package friday;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import friday.command.AddCommand;
 import friday.command.Command;
 import friday.command.DeleteCommand;
@@ -16,6 +12,10 @@ import friday.command.UnmarkCommand;
 import friday.task.Deadline;
 import friday.task.Event;
 import friday.task.Todo;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 public class Parser {
     public static Command parse(String fullCommand) {
