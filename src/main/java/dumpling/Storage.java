@@ -15,18 +15,19 @@ public class Storage {
 
     private String filePath;
 
-    public Storage(String filePath) {
+    public Storage(String filePath) throws DumplingException {
         this.filePath = filePath;
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new DumplingException("There was an issue creating a new data file!");
+        }
     }
 
     public List<Task> load() throws DumplingException {
-        String projectRootDir = System.getProperty("user.dir");
-        String dataDirPath = Paths.get(projectRootDir, "data").toString();
-        File dataDirFile = new File(dataDirPath);
-        if (!dataDirFile.exists()) {
-            dataDirFile.mkdir();
-        }
-        this.filePath = Paths.get(dataDirPath, "dumplingData.txt").toString();
         return Parser.loadData(this.filePath);
     }
 

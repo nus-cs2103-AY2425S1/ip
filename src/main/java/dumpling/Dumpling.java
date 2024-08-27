@@ -10,6 +10,11 @@ public class Dumpling {
     private Ui ui;
     private String saveDataPath;
 
+    public Dumpling() {
+        // create default data folder
+        this("data/dumplingData.txt");
+    }
+
     public Dumpling(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
