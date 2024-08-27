@@ -11,6 +11,19 @@ public class Event extends Task{
     }
 
     @Override
+    public String toSaveFormat() {
+        String storeCompleted = "";
+
+        if (this.isDone) {
+            storeCompleted = "1";
+        } else {
+            storeCompleted = "0";
+        }
+        // store format: E | 0 | book event | 2pm | 5pm
+        return "E | " + storeCompleted + " | " + this.description + " | " + this.start + " | " + this.end;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
