@@ -3,105 +3,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 
-/**
- * The class Task represents the different tasks that can be done.
- * It is the parent class of Todo, Deadline, Event classes.
- * Adapted from the partial solution in the question
- */
-class Task {
-    protected String taskDescription;
-    protected boolean isDone;
-
-    public Task(String taskDescription) {
-        this.taskDescription = taskDescription;
-        this.isDone = false;
-    }
-
-    public String finalString() {
-        return isDone
-                ? "[X] " + taskDescription
-                : "[ ] " + taskDescription;
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsUndone() {
-        this.isDone = false;
-    }
-
-    public String toFileFormat() {
-        return " ";
-    }
-
-}
-
-/**
- * Adapted from the partial solution in the question
- */
-class Deadline extends Task {
-
-    protected String by;
-
-    public Deadline (String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String finalString() {
-        return "[D]" + super.finalString() + " (by: " + by + ")";
-    }
-
-    @Override
-    public String toFileFormat() {
-        return "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + by + "|" + " ";
-    }
-}
-
-class ToDos extends Task {
-
-    public ToDos (String description) {
-        super(description);
-    }
-
-    @Override
-    public String finalString() {
-        return "[T]" + super.finalString();
-    }
-
-    @Override
-    public String toFileFormat() {
-        return "T|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + "NIL" + "|" + " NIL";
-    }
-}
-
-class Events extends Task {
-
-    protected String from, to;
-
-    public Events (String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    @Override
-    public String finalString() {
-        return "[E]" + super.finalString() + " (from: " + from + " to: " + to + ")";
-    }
-
-    @Override
-    public String toFileFormat() {
-        return "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + from + "|" + to;
-    }
-}
-
 public class BitBot {
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
 
     private static final String PATH_TO_FILE = "./data/Bitbot.txt";
@@ -155,16 +68,55 @@ public class BitBot {
 
                 // trims the trailing whitespace
                 switch (partsOfLineFromFile[0].trim()) {
-                    case "D":
-                    task = handleDeadlineFromFile(partsOfLineFromFile[2], partsOfLineFromFile[3]);;
+                case "D":
+
+                    String descriptionOfDeadline = partsOfLineFromFile[2].trim();
+                    String deadlineBy = partsOfLineFromFile[3].trim();
+                    try {
+                        LocalDateTime localDateTime = LocalDateTime.parse(deadlineBy, dateTimeFormatter);
+                        task = new Deadline(descriptionOfDeadline, localDateTime);
+                    } catch (DateTimeParseException e) {
+                        try {
+                            LocalDate localDate = LocalDate.parse(deadlineBy, dateFormatter);
+                            task = new Deadline(descriptionOfDeadline, localDate);
+                        } catch (DateTimeParseException err) {
+                            try {
+                                LocalTime localTime = LocalTime.parse(deadlineBy, timeFormatter);
+                                task = new Deadline(descriptionOfDeadline, localTime);
+                            } catch (DateTimeParseException error) {
+                                task = new Deadline(descriptionOfDeadline, deadlineBy);
+                            }
+                        }
+                    }
                     break;
 
-                    case "T":
-                    task = handleTodoFromFile(partsOfLineFromFile[2]);;
+                case "T":
+                    task = handleTodoFromFile(partsOfLineFromFile[2]);
                     break;
 
-                    case "E":
-                    task = handleEventFromFile(partsOfLineFromFile[2], partsOfLineFromFile[3], partsOfLineFromFile[4]);;
+                case "E":
+                    String descriptionOfEvent = partsOfLineFromFile[2].trim();
+                    String eventFrom = partsOfLineFromFile[3].trim();
+                    String eventTo = partsOfLineFromFile[4].trim();
+                    try {
+                        LocalDateTime localDateTime = LocalDateTime.parse(eventFrom, dateTimeFormatter);
+                        LocalDateTime localDateTime1 = LocalDateTime.parse(eventTo, dateTimeFormatter);
+                        task = new Events(descriptionOfEvent, localDateTime, localDateTime1);
+                    } catch (DateTimeParseException e) {
+                        try {
+                            LocalDate localDate = LocalDate.parse(eventFrom, dateFormatter);
+                            LocalDate localDate1 = LocalDate.parse(eventTo, dateFormatter);
+                            task = new Events(descriptionOfEvent, localDate, localDate1);
+                        } catch (DateTimeParseException err) {
+                            try {
+                                LocalTime localTime = LocalTime.parse(eventFrom, timeFormatter);
+                                LocalTime localTime1 = LocalTime.parse(eventTo, timeFormatter);
+                                task = new Events(descriptionOfEvent, localTime, localTime1);
+                            } catch (DateTimeParseException error) {
+                                task = new Events(descriptionOfEvent, eventFrom, eventTo);
+                            }
+                        }
+                    }
                     break;
                 }
 
@@ -214,7 +166,8 @@ public class BitBot {
     private static void handleEvent (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, int indexFrom, StringBuilder from, StringBuilder to, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! The description and timings of an event should not be empty.\n          Please add a description to the event you wish to add to the list.\n" +
-                    "          For example: \"event return book /from Mon 4pm /to 6pm\"");
+                "          For example: \"event return book /from Mon 4pm /to 6pm\"\n" +
+                "          Or \"event return book /from 29-04-2021 18:00 /to 29-04-2021 18:30\"");
 
         }
         for (int i = 0; i < partsOfInput.length; i++) {
@@ -252,12 +205,53 @@ public class BitBot {
         }
         textPart = sb.toString().trim();
 
-        Task event = new Events(textPart, from.toString().trim(), to.toString().trim());
+        // this is if the user keys in a time after the date.
+        LocalDateTime eventDateAndTime = null, eventDateAndTime1 = null;
+        // this is if the user only keys in the date.
+        LocalDate eventDate = null, eventDate1 = null;
+        // this is if the user only keys in the time.
+        LocalTime eventTime = null, eventTime1 = null;
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        Task event;
+
+        try {
+            eventDateAndTime = LocalDateTime.parse(from.toString().trim(), dateTimeFormatter);
+            eventDateAndTime1 = LocalDateTime.parse(to.toString().trim(), dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            try {
+                eventTime = LocalTime.parse(from.toString().trim(), timeFormatter);
+                eventTime1 = LocalTime.parse(to.toString(), timeFormatter);
+            } catch (DateTimeParseException error) {
+                try {
+                    eventDate = LocalDate.parse(from.toString().trim(), dateFormatter);
+                    eventDate1 = LocalDate.parse(to.toString().trim(), dateFormatter);
+                } catch (DateTimeParseException dateTimeParseException) {
+                    // do nothing
+                }
+            }
+        }
+
+
+        if (eventDateAndTime != null) {
+            event = new Events(textPart, eventDateAndTime, eventDateAndTime1);
+        } else if (eventTime != null) {
+            event = new Events(textPart, eventTime, eventTime1);
+        } else if (eventDate != null){
+            event = new Events(textPart, eventDate, eventDate1);
+        } else {
+            // this is if the user does not key in a specific date / time and only
+            // keys in values such as "today" or "tomorrow"
+            event = new Events(textPart, from.toString().trim(), to.toString().trim());
+        }
         arrayList.add(event);
         System.out.println("          ____________________________________\n          Got it. I've added this task:\n"
-                + "             " + event.finalString() + "\n"
-                + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
-                + "          ____________________________________");
+            + "             " + event.finalString() + "\n"
+            + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
+            + "          ____________________________________");
     }
 
     private static Task handleEventFromFile (String description, String from, String to) {
@@ -291,18 +285,57 @@ public class BitBot {
                     by.append(partsOfInput[j]);
                 }
             }
+
         }
         for (int i = 1; i < indexBy; i++) {
             sb.append(partsOfInput[i]).append(" ");
         }
         textPart = sb.toString().trim();
 
-        Task deadline = new Deadline(textPart, by.toString().trim());
+        // this is if the user keys in a time after the date.
+        LocalDateTime deadlineDateAndTime = null;
+        // this is if the user only keys in the date.
+        LocalDate deadlineDate = null;
+        // this is if the user only keys in the time.
+        LocalTime deadlineTime = null;
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        Task deadline;
+
+        try {
+            deadlineDateAndTime = LocalDateTime.parse(by.toString().trim(), dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            try {
+                deadlineTime = LocalTime.parse(by.toString().trim(), timeFormatter);
+            } catch (DateTimeParseException error) {
+                try {
+                    deadlineDate = LocalDate.parse(by.toString().trim(), dateFormatter);
+                } catch (DateTimeParseException dateTimeParseException) {
+                    // do nothing
+                }
+            }
+        }
+
+
+        if (deadlineDateAndTime != null) {
+            deadline = new Deadline(textPart, deadlineDateAndTime);
+        } else if (deadlineTime != null) {
+            deadline = new Deadline(textPart, deadlineTime);
+        } else if (deadlineDate != null){
+            deadline = new Deadline(textPart, deadlineDate);
+        } else {
+            // this is if the user does not key in a specific date / time and only
+            // keys in values such as "today" or "tomorrow"
+            deadline = new Deadline(textPart, by.toString().trim());
+        }
         arrayList.add(deadline);
         System.out.println("          ____________________________________\n          Got it. I've added this task:\n"
-                + "             " + deadline.finalString() + "\n"
-                + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
-                + "          ____________________________________");
+            + "             " + deadline.finalString() + "\n"
+            + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
+            + "          ____________________________________");
     }
 
     private static Task handleDeadlineFromFile (String description, String by) {
@@ -357,7 +390,25 @@ public class BitBot {
         ArrayList<Task> arrayList = readTasksFromFile(PATH_TO_FILE);
 
         String inputData;
-        String intro = "          ____________________________________\n          Hello! I'm BitBot\n          What can I do for you?\n          ____________________________________";
+        String intro = "          ____________________________________\n          Hello! I'm BitBot\n          What can I do for you?\n          ____________________________________\n" +
+            "          Please key in only one of these keywords:\n          " +
+            "\n          " +
+            "mark \n          " +
+            "unmark \n          " +
+            "todo \n          " +
+            "deadline \n          " +
+            "event\n          " +
+            "list\n          " +
+            "delete\n          " +
+            "bye\n          " +
+            "\n          " +
+            "Please key any one of the keywords above in this format:\n          " +
+            "todo ... / deadline ...\n          " +
+            "\n          " +
+            "When keying in the date / time, do so in one of these formats:\n          " +
+            "dd-MM-yyyy HH:mm or just dd-MM-yyyy or just HH:mm\n          " +
+            "____________________________________";
+
         String conclusion = "          ____________________________________\n          Bye. Hope to see you again soon!\n          ____________________________________\n";
 
         //printing out the intro
