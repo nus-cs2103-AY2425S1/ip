@@ -29,23 +29,21 @@ public class DateParser {
 
     public static String parseBy(String eventString) throws ParseException {
         return parseDateTimeGeneral(
-                "/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*",
-                eventString);
+                "/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
     public static String parseFrom(String eventString) throws ParseException {
-        return parseDateTimeGeneral("/from\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*",
-                eventString);
+        return parseDateTimeGeneral(
+                "/from\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
     public static String parseTo(String eventString) throws ParseException {
-        return parseDateTimeGeneral("/to\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*",
-                eventString);
+        return parseDateTimeGeneral(
+                "/to\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
     public static String parseRecordedDate(String dateString) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy")
-                .withLocale(Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH);
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         return dateTime.toString();
     }

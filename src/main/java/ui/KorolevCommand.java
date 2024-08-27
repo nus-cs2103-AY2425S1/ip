@@ -3,6 +3,9 @@ package ui;
 import exception.DukeException;
 import task.KorolevList;
 
+/**
+ * Represents a command entity input by users
+ */
 public class KorolevCommand {
     private String[] target;
     private String input;
@@ -14,6 +17,11 @@ public class KorolevCommand {
         this.target = command.split("\\s");
     }
 
+    /**
+     * Executes the respective command based on input string.
+     *
+     * @return whether the execution is successful or not
+     */
     public boolean executeCommand() {
 
         if (input.equals("bye")) {
