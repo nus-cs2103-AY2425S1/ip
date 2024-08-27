@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Justbot {
+    private Ui ui;
+    private TaskList taskList;
     public static void main(String[] args) throws JustbotException {
         final String chatbotName = "JustBot";
         final String filePath = "/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt";
@@ -13,32 +15,27 @@ public class Justbot {
         String input = "";
         Parser parser = new Parser();
         TaskList taskList = new TaskList();
-        ArrayList<Task> tasks = taskList.getArrListTask();
+        Ui ui = new Ui();
 
         TaskFileHandler taskFileHandler = new TaskFileHandler(filePath);
         taskFileHandler.createFileIfDoesNotExist();
         taskFileHandler.loadTasks(taskList);
-        Commands.botIntro(chatbotName);
+        ui.botIntro(chatbotName);
 
         while (!input.equals("bye")) {
             input = scanner.nextLine();
             CommandType command = parser.commandTypeParser(input);
             switch(command) {
                 case BYE:
-                    System.out.println("------------------------------------------");
-                    Commands.bye();
+                    ui.byeMessage();
                     scanner.close();
                     return;
                 case LIST:
                     try {
-                        if (tasks.isEmpty()) {
-                            throw new JustbotException("Hey man you have no tasks in your list!");
-                        }
-                        Commands.returnTaskList(tasks);
+                        taskList.validateNotEmpty();
+                        ui.listMessage(taskList);
                     } catch (JustbotException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
+                        ui.getJustBotExceptionMessage(e);
                     }
                     break;
                 case MARK:
@@ -46,11 +43,10 @@ public class Justbot {
                         int markNumber = parser.extractTaskNumber(input);
                         taskList.validateMarkTaskNumber(markNumber);
                         Commands.markTask(taskList, markNumber);
+                        ui.markMessage(taskList, markNumber);
                         taskFileHandler.saveTasks(taskList);
-                    } catch (JustbotException | IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
+                    } catch (JustbotException e) {
+                        ui.getJustBotExceptionMessage(e);
                     }
                     break;
                 case UNMARK:
@@ -58,63 +54,51 @@ public class Justbot {
                         int unmarkNumber = parser.extractTaskNumber(input);
                         taskList.validateUnmarkTaskNumber(unmarkNumber);
                         Commands.unmarkTask(taskList, unmarkNumber);
+                        ui.unmarkMessage(taskList, unmarkNumber);
                         taskFileHandler.saveTasks(taskList);
-                    } catch (JustbotException | IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
+                    } catch (JustbotException e) {
+                        ui.getJustBotExceptionMessage(e);
                     }
                     break;
                 case DEADLINE:
                     try {
-                        String deadlineDescription = parser.extractDeadlineDescription(input);
-                        LocalDateTime deadlineDateTime = parser.extractDeadlineDateTime(input);
-                        Commands.addTask(tasks, new Deadline(deadlineDescription, deadlineDateTime));
+                        Task deadlineTask = parser.parseDeadlineTask(input);
+                        Commands.addTask(taskList, deadlineTask);
+                        ui.addTaskMessage(taskList, deadlineTask);
                         taskFileHandler.saveTasks(taskList);
                     } catch (JustbotException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
+                        ui.getJustBotExceptionMessage(e);
                     }
                     break;
                 case EVENT:
                     try {
-                        String eventDescription = parser.extractEventDescription(input);
-                        String[] eventTimings = parser.extractEventTimings(input);
-                        LocalDateTime startDateTime = parser.parseEventDateTime(eventTimings[0]);
-                        LocalDateTime endDateTime = parser.parseEventDateTime(eventTimings[1]);
-
-                        parser.validateEventTimings(startDateTime, endDateTime);
-
-                        Commands.addTask(tasks, new Event(eventDescription, startDateTime, endDateTime));
+                        Task eventTask = parser.parseEventTask(input);
+                        Commands.addTask(taskList, eventTask);
+                        ui.addTaskMessage(taskList, eventTask);
                         taskFileHandler.saveTasks(taskList);
                     } catch (JustbotException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
+                        ui.getJustBotExceptionMessage(e);
                     }
                     break;
                 case TODO:
                     try {
-                        String description = parser.extractTodoDescription(input);
-                        Commands.addTask(tasks, new Todo(description));
+                        Task todoTask = parser.parseTodoTask(input);
+                        Commands.addTask(taskList, todoTask);
                         taskFileHandler.saveTasks(taskList);
+                        ui.addTaskMessage(taskList, todoTask);
                     } catch (JustbotException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
+                        ui.getJustBotExceptionMessage(e);
                     }
                     break;
                 case DELETE:
                     try {
                         int deleteNumber = parser.extractDeleteTaskNumber(input);
                         taskList.validateDeleteTaskNumber(deleteNumber);
-                        Commands.deleteTask(tasks, deleteNumber);
+                        ui.deleteTaskMessage(taskList, deleteNumber);
+                        Commands.deleteTask(taskList, deleteNumber);
                         taskFileHandler.saveTasks(taskList);
-                    } catch (JustbotException | IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
+                    } catch (JustbotException e) {
+                        ui.getJustBotExceptionMessage(e);
                     }
                     break;
                 default:

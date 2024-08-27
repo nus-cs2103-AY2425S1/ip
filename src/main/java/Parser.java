@@ -25,6 +25,12 @@ public class Parser {
         }
     }
 
+    public Deadline parseDeadlineTask(String input) throws JustbotException {
+        String deadlineDescription = extractDeadlineDescription(input);
+        LocalDateTime deadlineDateTime = extractDeadlineDateTime(input);
+        return new Deadline(deadlineDescription, deadlineDateTime);
+    }
+
     public String extractDeadlineDescription(String input) throws JustbotException {
         String[] splitPartsDeadline = input.split("/by");
 
@@ -73,6 +79,19 @@ public class Parser {
                     "  deadline run /by 26/09/2024 1800");
         }
     }
+
+    public Event parseEventTask(String input) throws JustbotException {
+        String[] eventParts = extractEventParts(input);
+        String eventDescription = extractEventDescription(eventParts);
+        String[] eventTimings = extractEventTimings(eventParts[1]);
+        LocalDateTime startDateTime = parseEventDateTime(eventTimings[0]);
+        LocalDateTime endDateTime = parseEventDateTime(eventTimings[1]);
+
+        validateEventTimings(startDateTime, endDateTime);
+
+        return new Event(eventDescription, startDateTime, endDateTime);
+    }
+
     public String[] extractEventParts(String input) throws JustbotException {
         String[] splitPartsEvent = input.split("/from");
 
@@ -87,22 +106,18 @@ public class Parser {
         return splitPartsEvent;
     }
 
-    public String extractEventDescription(String input) throws JustbotException {
-        String[] splitPartsEvent = extractEventParts(input);
-        String commandAndDescriptionEvent = splitPartsEvent[0].trim();
+    public String extractEventDescription(String[] eventParts) throws JustbotException {
+        String commandAndDescriptionEvent = eventParts[0].trim();
         String eventDescription = commandAndDescriptionEvent.substring(5).trim();
 
         if (eventDescription.isBlank()) {
-            throw new JustbotException("Hey man the description cannot be blank!");
+            throw new JustbotException("Hey man, the description cannot be blank!");
         }
 
         return eventDescription;
     }
 
-    public String[] extractEventTimings(String input) throws JustbotException {
-        String[] splitPartsEvent = extractEventParts(input);
-        String startAndEnd = splitPartsEvent[1].trim();
-
+    public String[] extractEventTimings(String startAndEnd) throws JustbotException {
         String[] splitStartEnd = startAndEnd.split("/to");
 
         if (splitStartEnd.length < 2) {
@@ -117,11 +132,11 @@ public class Parser {
         String eventEnd = splitStartEnd[1].trim();
 
         if (eventStart.isBlank()) {
-            throw new JustbotException("Hey man the start of the event cannot be blank!");
+            throw new JustbotException("Hey man, the start of the event cannot be blank!");
         }
 
         if (eventEnd.isBlank()) {
-            throw new JustbotException("Hey man the end of the event cannot be blank!");
+            throw new JustbotException("Hey man, the end of the event cannot be blank!");
         }
 
         return new String[]{eventStart, eventEnd};
@@ -131,11 +146,11 @@ public class Parser {
         if (!dateTimeString.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}")) {
             throw new JustbotException("Event date and time must be in the format: dd/MM/yyyy HHmm");
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         try {
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (DateTimeParseException e) {
-            throw new JustbotException("Hey man please enter the date and time in the correct format: dd/MM/yyyy HHmm");
+            throw new JustbotException("Hey man, please enter the date and time in the correct format: dd/MM/yyyy HHmm");
         }
     }
 
@@ -145,21 +160,20 @@ public class Parser {
         }
     }
 
+    public Todo parseTodoTask(String input) throws JustbotException {
+        String description = extractTodoDescription(input);
+        return new Todo(description);
+    }
+
     public String extractTodoDescription(String input) throws JustbotException {
         String[] splitPartsTodo = input.split(" ", 2);
 
-        if (splitPartsTodo.length < 2) {
-            throw new JustbotException("Hey man you have provided me an invalid format for todo.\n" +
+        if (splitPartsTodo.length < 2 || splitPartsTodo[1].trim().isEmpty()) {
+            throw new JustbotException("Hey man, the description for a todo cannot be blank!\n" +
                     "Use the format: todo [description]");
         }
 
-        String description = splitPartsTodo[1].trim();
-
-        if (description.isBlank()) {
-            throw new JustbotException("Hey man the description cannot be blank!");
-        }
-
-        return description;
+        return splitPartsTodo[1].trim();
     }
 
     public int extractDeleteTaskNumber(String input) throws JustbotException {
@@ -176,4 +190,5 @@ public class Parser {
             throw new JustbotException("Hey man please input a valid number for the task number!");
         }
     }
+
 }

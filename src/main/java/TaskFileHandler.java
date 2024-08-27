@@ -42,8 +42,7 @@ public class TaskFileHandler {
     public void saveTasks(TaskList taskList) {
         try {
             writeToFile(filePath, "", false);
-            ArrayList<Task> tasks = taskList.getArrListTask();
-            for (Task task : tasks) {
+            for (Task task : taskList) {
                 String taskString;
                 // String format will be Type | isDone | Description | Time Constraint
                 if (task instanceof Deadline) {
@@ -67,8 +66,7 @@ public class TaskFileHandler {
         }
     }
 
-    public ArrayList<Task> loadTasks(TaskList taskList) {
-        ArrayList<Task> tasks = taskList.getArrListTask();
+    public TaskList loadTasks(TaskList taskList) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
         try {
@@ -117,7 +115,7 @@ public class TaskFileHandler {
                         task.setIsDone(true);
                     }
 
-                    tasks.add(task);
+                    taskList.add(task);
                 } catch (DateTimeParseException | IllegalArgumentException e) {
                     System.out.println("Skipping malformed task due to error: " + e.getMessage());
                 }
@@ -132,7 +130,7 @@ public class TaskFileHandler {
             System.out.println("An unexpected error occurred while loading tasks: " + e.getMessage());
         }
 
-        return tasks;
+        return taskList;
     }
 
 }
