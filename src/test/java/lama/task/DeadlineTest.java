@@ -12,7 +12,7 @@ public class DeadlineTest {
     public void ConstructorTest() {
         String description = "Return Book";
         LocalDate by = LocalDate.of(2025, 12, 12);
-        Deadline deadline = new Deadline(description, by);
+        Task deadline = new Deadline(description, by);
 
         String output = "[D][ ] Return Book (by: Dec 12 2025)";
 
@@ -23,7 +23,7 @@ public class DeadlineTest {
     public void toFileTest() {
         String description = "Return Book";
         LocalDate by = LocalDate.of(2025, 12, 12);
-        Deadline deadline = new Deadline(description, by);
+        Task deadline = new Deadline(description, by);
 
         String output = "D | 0 | Return Book | 2025-12-12";
 
