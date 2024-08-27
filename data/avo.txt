@@ -2,3 +2,4 @@ T : 0 : read a novel
 T : 1 : finish math assignment
 D : 0 : return book  : Dec 27 2024
 E : 0 : visit library  : Dec 27 2024 : Dec 28 2024
+T : 0 : read Harry Potter
