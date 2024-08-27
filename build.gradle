@@ -39,9 +39,13 @@ shadowJar {
 
 run{
     standardInput = System.in
-//    enableAssertions = true
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
+shadowJar {
+    archiveFileName = 'strand.jar'
+}
+
+mainClassName = 'strand.Strand'
