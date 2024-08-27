@@ -7,10 +7,8 @@ import ned.tasks.Deadline;
 import ned.tasks.Event;
 import ned.tasks.Task;
 
-public class CommandManager {
-    private static final String FLAG_BYE = "bye";
-
-    public CommandManager(TaskList taskList) {}
+public class Parser {
+    public Parser() {}
     public static Command parse(String userInput) throws NedException{
             CommandTypes command = CommandTypes.findMatchingCommand(userInput);
             switch (command) {
