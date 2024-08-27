@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String name;
     protected boolean marked;
@@ -32,26 +35,29 @@ class ToDo extends Task {
     }
 }
 class Deadline extends Task {
-    protected String by;
-    public Deadline(String name, String by) {
+    protected LocalDateTime by;
+    public Deadline(String name, LocalDateTime by) {
         super(name);
         this.by = by;
     }
     @Override
     public String toString() {
-        return "Deadline: " + super.toString() + " (by: " + this.by + ")";
+        String formattedBy = this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return "Deadline: " + super.toString() + " (by: " + formattedBy + ")";
     }
 }
 class Event extends Task {
-    protected String from;
-    protected String to;
-    public Event(String name, String from, String to) {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+    public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
         this.from = from;
         this.to = to;
     }
     @Override
     public String toString() {
-        return "Event: " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        String formattedTo = this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return "Event: " + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 }
