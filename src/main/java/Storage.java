@@ -1,6 +1,6 @@
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,16 +10,21 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class FileUtils {
+public class Storage {
+
     private static final String folderName = "data";
     private static final String fileName = "tasks.txt";
-    private static final String relativePath = "data/tasks.txt";
-    public static ArrayList<Task> readFile() {
+    private final String filePath;
 
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> retrieveTasks() {
+        File tasks = new File(folderName, fileName);
         ArrayList<Task> taskList = new ArrayList<>();
         int taskCount = 0;
 
-        File tasks = new File(folderName, fileName);
         try {
             Scanner sc = new Scanner(tasks);
             while (sc.hasNextLine()) {
@@ -64,45 +69,9 @@ public class FileUtils {
         return taskList;
     }
 
-
-
-    public static void writeDeadlineToFile(Deadline t) {
+    public void markComplete(Task t) {
         try {
-            File dataFolder = new File("data");
-            if (!dataFolder.exists()) {
-                dataFolder.mkdirs(); // Create the folder if it doesn't exist
-            }
-            try (FileWriter writer = new FileWriter(relativePath, true)) {
-                writer.write("D | 0 | " + t.getName() + " | " + t.getTime() + System.lineSeparator());
-            }
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file.");
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeEventToFile(Event t) {
-        try {
-            File dataFolder = new File("data");
-            if (!dataFolder.exists()) {
-                dataFolder.mkdirs(); // Create the folder if it doesn't exist
-            }
-
-            try (FileWriter writer = new FileWriter(relativePath, true)) {
-                writer.write("E | 0 | " + t.getName() + " | " + t.getStartTime() + " | " + t.getEndTime()
-                             + System.lineSeparator());
-            }
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file.");
-            e.printStackTrace();
-        }
-    }
-
-    public static void markComplete(Task t) {
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(relativePath));
+            List<String> lines = Files.readAllLines(Paths.get(this.filePath));
             List<String> updatedLines = lines.stream().map(line -> {
                 String[] parts = line.split("\\|");
                 if (parts.length > 2 && parts[2].trim().equals(t.getName())) {
@@ -113,7 +82,7 @@ public class FileUtils {
             }).toList();
 
             // Write the updated lines back to the file
-            try (FileWriter writer = new FileWriter(relativePath, false)) {
+            try (FileWriter writer = new FileWriter(this.filePath, false)) {
                 for (String updatedLine : updatedLines) {
                     writer.write(updatedLine + System.lineSeparator());
                 }
@@ -125,9 +94,9 @@ public class FileUtils {
         }
     }
 
-    public static void markIncomplete(Task t) {
+    public void markIncomplete(Task t) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(relativePath));
+            List<String> lines = Files.readAllLines(Paths.get(this.filePath));
             List<String> updatedLines = lines.stream().map(line -> {
                 String[] parts = line.split("\\|");
                 if (parts.length > 2 && parts[2].trim().equals(t.getName())) {
@@ -138,7 +107,7 @@ public class FileUtils {
             }).toList();
 
             // Write the updated lines back to the file
-            try (FileWriter writer = new FileWriter(relativePath, false)) {
+            try (FileWriter writer = new FileWriter(this.filePath, false)) {
                 for (String updatedLine : updatedLines) {
                     writer.write(updatedLine + System.lineSeparator());
                 }
@@ -150,10 +119,10 @@ public class FileUtils {
         }
     }
 
-    public static void deleteTask(Task t) {
+    public void deleteTask(Task t) {
         try {
             // Read all lines from the file
-            List<String> lines = Files.readAllLines(Paths.get(relativePath));
+            List<String> lines = Files.readAllLines(Paths.get(this.filePath));
 
             // Filter out the line corresponding to the task to be deleted
             List<String> updatedLines = lines.stream()
@@ -164,7 +133,7 @@ public class FileUtils {
                     .collect(Collectors.toList());
 
             // Write the remaining lines back to the file
-            try (FileWriter writer = new FileWriter(relativePath, false)) {
+            try (FileWriter writer = new FileWriter(this.filePath, false)) {
                 for (String updatedLine : updatedLines) {
                     writer.write(updatedLine + System.lineSeparator());
                 }
@@ -175,4 +144,55 @@ public class FileUtils {
             e.printStackTrace();
         }
     }
+
+    public void writeTodoToFile(Todo t) {
+        try {
+            File dataFolder = new File("data");
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs(); // Create the folder if it doesn't exist
+            }
+            try (FileWriter writer = new FileWriter(this.filePath, true)) {
+                writer.write("T | 0 | " + t.getName() + System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+    public void writeDeadlineToFile(Deadline t) {
+        try {
+            File dataFolder = new File("data");
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs(); // Create the folder if it doesn't exist
+            }
+            try (FileWriter writer = new FileWriter(this.filePath, true)) {
+                writer.write("D | 0 | " + t.getName() + " | " + t.getTime() + System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+    public void writeEventToFile(Event t) {
+        try {
+            File dataFolder = new File("data");
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs(); // Create the folder if it doesn't exist
+            }
+
+            try (FileWriter writer = new FileWriter(this.filePath, true)) {
+                writer.write("E | 0 | " + t.getName() + " | " + t.getStartTime() + " | " + t.getEndTime()
+                        + System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
 }

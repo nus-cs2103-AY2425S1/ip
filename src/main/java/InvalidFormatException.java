@@ -1,4 +1,4 @@
-public class InvalidFormatException extends Exception {
+public class InvalidFormatException extends DownyException {
     public InvalidFormatException(String message) {
         super(message);
     }
