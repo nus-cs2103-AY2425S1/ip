@@ -60,10 +60,10 @@ public class Storage {
             return taskList;
         } catch (FileNotFoundException e) {
             System.out.println("No saved tasks found. Starting fresh...");
-            return null;
+            return new ArrayList<>();
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
     }
 }
