@@ -1,5 +1,9 @@
 package exceptions;
 
+/**
+ * Represents exceptions thrown by the chatbot.
+ * Occurs when user tries to input a task in the wrong format.
+ */
 public class MissingArgumentException extends AliceException {
     protected String taskType;
     protected String[] items;
@@ -9,6 +13,10 @@ public class MissingArgumentException extends AliceException {
         this.items = items;
     }
 
+    /**
+     * Returns string representation of the exception.
+     * @return message informing users of the specific arguments to that command.
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();

@@ -3,6 +3,11 @@ import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
+/**
+ * The entry point to the application.
+ * Encapsulates a TaskList for storing tasks, a Storage for storing and loading
+ * input data, and a Ui for handling user interaction.
+ */
 public class Alice {
     private final TaskList tasks;
     private final Storage storage;
@@ -17,13 +22,15 @@ public class Alice {
         // initialise UI with the loaded tasks
         ui = new Ui(tasks);
     }
-
+    
     public static void main(String[] args) {
         // create instance of Alice with loaded tasks
         new Alice("data.txt").run();
     }
 
-    // starts the program
+    /**
+     * Starts the program.
+     */
     public void run() {
         ui.showWelcome();
         ui.getInput();

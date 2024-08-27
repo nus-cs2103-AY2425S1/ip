@@ -1,8 +1,17 @@
 package commands;
 
+/**
+ * Represents the commands that the chatbot may receive.
+ * Commands not recognised by the chatbot are labelled INVALID.
+ */
 public enum Command {
     MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, INVALID, LIST, BYE;
 
+    /**
+     * Returns the Command associated to the specified string.
+     * @param s the string to be translated into the Command.
+     * @return Command.
+     */
     public static Command stringToCommand(String s) {
         switch (s) {
             case "mark":
