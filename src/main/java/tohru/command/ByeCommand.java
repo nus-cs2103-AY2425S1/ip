@@ -1,3 +1,9 @@
+package tohru.command;
+
+import tohru.storage.FileStore;
+import tohru.task.TodoList;
+import tohru.ui.Ui;
+
 /**
  * ByeCommand represents the command to exit the chatbot
  */

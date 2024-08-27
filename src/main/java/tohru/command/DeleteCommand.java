@@ -1,3 +1,10 @@
+package tohru.command;
+
+import tohru.exception.TohruException;
+import tohru.storage.FileStore;
+import tohru.task.TodoList;
+import tohru.ui.Ui;
+
 /**
  * DeleteCommand represents the command to delete an entry in the to-do list
  */

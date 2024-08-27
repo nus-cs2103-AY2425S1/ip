@@ -1,10 +1,12 @@
+package tohru.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * TodoItem represents a to-do entry with a specified deadline
  */
-public class DeadlineItem extends TodoItem{
+public class DeadlineItem extends TodoItem {
     /** Deadline that specifies when the to-do is due **/
     private final LocalDateTime deadline;
 

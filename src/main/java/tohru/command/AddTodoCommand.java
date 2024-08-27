@@ -1,3 +1,11 @@
+package tohru.command;
+
+import tohru.exception.TohruException;
+import tohru.storage.FileStore;
+import tohru.task.TodoItem;
+import tohru.task.TodoList;
+import tohru.ui.Ui;
+
 /**
  * AddTodoCommand represents the command to add a to-do task to the to-do list
  */
