@@ -1,16 +1,17 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Stream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner reader = new Scanner(System.in);
 
@@ -25,8 +26,6 @@ public class Duke {
         String completed = "Nice! I've marked this task as done:";
         String notCompleted = "OK, I've marked this task as not done yet:";
         String input = "";
-
-        System.out.println(greet);
 
         while (reader.hasNextLine()) {
             input = reader.nextLine();
@@ -162,6 +161,12 @@ public class Duke {
         }
 
         return new ToDo(todoItems[1]);
+    }
+
+    private static LocalDateTime parseDate(String dateString) throws ParseException {
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy HHmm", Locale.ENGLISH);
+        Date date = format.parse(dateString);
+        return new java.sql.Timestamp(date.getTime()).toLocalDateTime();
     }
 
     private static Task getDeadLine(String input) throws DukeException{
