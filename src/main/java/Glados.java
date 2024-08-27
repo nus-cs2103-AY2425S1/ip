@@ -1,4 +1,12 @@
 import java.util.Scanner;
+import enums.TaskType;
+import exceptions.CommandNotFoundException;
+import exceptions.GladosException;
+import exceptions.TaskNotFoundException;
+import tasks.Task;
+import tasks.TaskList;
+import utils.Ui;
+
 import java.util.ArrayList;
 
 public class Glados {
@@ -62,7 +70,7 @@ public class Glados {
         Ui.add(res[0], res[1]);
     }
 
-    private void delete(int index) throws TaskNotFoundException{
+    private void delete(int index) throws TaskNotFoundException {
         String[] res = taskList.delete(index);  
         Ui.delete(res[0], res[1]);
     }
@@ -72,12 +80,12 @@ public class Glados {
         Ui.list(res);
     }
 
-    private void mark(int index) {
+    private void mark(int index) throws TaskNotFoundException {
         String res = taskList.mark(index);
         Ui.mark(res);
     }
 
-    private void unmark(int index) {
+    private void unmark(int index) throws TaskNotFoundException {
         String res = taskList.unmark(index);
         Ui.unmark(res);
     }

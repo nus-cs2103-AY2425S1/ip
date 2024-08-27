@@ -1,4 +1,10 @@
+package tasks;
 import java.util.ArrayList;
+import enums.TaskType;
+import exceptions.GladosException;
+import exceptions.TaskNotFoundException;
+import utils.Parser;
+import utils.Storage;
 
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();  
@@ -31,7 +37,7 @@ public class TaskList {
         return new String[]{taskList.get(listIndex - 1).toString(), String.valueOf(listIndex)};
     }
 
-    public String[] delete(int index) throws TaskNotFoundException{
+    public String[] delete(int index) throws TaskNotFoundException {
         if (index - 1 < 0 || index - 1 >= listIndex) {
             throw new TaskNotFoundException();
         }
@@ -45,14 +51,20 @@ public class TaskList {
         return this.taskList;
     }
 
-    public String mark(int index) {
+    public String mark(int index) throws TaskNotFoundException {
+        if (index < 0 || index - 1 >= listIndex) {
+            throw new TaskNotFoundException();
+        }
         Task task = taskList.get(index - 1);
         task.mark();
         Storage.saveTasks(taskList);
         return task.toString();
     }
 
-    public String unmark(int index) {
+    public String unmark(int index) throws TaskNotFoundException {
+        if (index < 0 || index - 1>= listIndex) {
+            throw new TaskNotFoundException();
+        }
         Task task = taskList.get(index - 1);
         task.unmark();
         Storage.saveTasks(taskList);

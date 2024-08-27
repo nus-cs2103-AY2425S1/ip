@@ -1,3 +1,12 @@
+package utils;
+
+import enums.TaskType;
+import exceptions.DateNotFoundException;
+import exceptions.DateRangeNotFoundException;
+import exceptions.DescriptionNotFoundException;
+import exceptions.GladosException;
+import exceptions.TaskNotFoundException;
+
 public class Parser {
     
     public static String[] parseTask(TaskType taskType, String input) throws GladosException {

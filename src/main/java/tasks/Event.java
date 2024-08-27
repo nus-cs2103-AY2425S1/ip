@@ -1,3 +1,7 @@
+package tasks;
+
+import enums.TaskType;
+
 public class Event extends Task {
     private String startDate;
     private String endDate;

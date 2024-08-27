@@ -1,3 +1,5 @@
+package utils;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,6 +8,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class Storage {
     private static final String FILE_PATH = "./data/tasks.txt";
@@ -20,7 +27,7 @@ public class Storage {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : taskList) {
                 writer.write(task.getTaskTypeIcon() + " | " 
-                            + (task.isDone ? "1" : "0") + " | " 
+                            + (task.getIsDone() ? "1" : "0") + " | " 
                             + task.getSaveFormat() + "\n");
             }
         } catch (IOException e) {

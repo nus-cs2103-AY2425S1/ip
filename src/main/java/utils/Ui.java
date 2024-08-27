@@ -1,4 +1,7 @@
+package utils;
 import java.util.ArrayList;
+
+import tasks.Task;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "\n" 

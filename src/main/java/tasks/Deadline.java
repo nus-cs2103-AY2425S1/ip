@@ -1,3 +1,7 @@
+package tasks;
+
+import enums.TaskType;
+
 public class Deadline extends Task{
     private String deadline;
 

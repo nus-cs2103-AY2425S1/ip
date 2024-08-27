@@ -1,3 +1,6 @@
+package tasks;
+import enums.TaskType;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +12,10 @@ public abstract class Task {
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); 
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public abstract String getTaskTypeIcon();
