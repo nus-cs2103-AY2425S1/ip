@@ -1,4 +1,4 @@
-enum PXCommand {
+enum PixelCommand {
     BYE,
     LIST,
     MARK,
