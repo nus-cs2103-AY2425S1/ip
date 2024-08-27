@@ -7,6 +7,7 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     public String readCommand() {
         return this.scanner.nextLine();
     }
@@ -24,10 +25,8 @@ public class Ui {
     }
 
     public void showGoodbye() {
-        System.out.println(Ui.separator);
         System.out.println("System shutting down...");
         System.out.println("Bye bye, see you next time!");
-        System.out.println(Ui.separator);
     }
 
     public void showLoadingError() {
@@ -58,6 +57,17 @@ public class Ui {
     public void showTaskUnmarked(Task task) {
         System.out.println("OK, I've marked this task as undone:");
         System.out.println(task);
+    }
+
+    public void showList(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("You have no tasks in your list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.getSize(); i++) {
+                System.out.printf("%d.%s\n", i + 1, tasks.getTask(i));
+            }
+        }
     }
 
     public void showError(String message) {
