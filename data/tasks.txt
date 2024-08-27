@@ -1,2 +1,4 @@
-[T][X] list
-[T][ ] more
+[D][ ] something (by: 2 Feb 2025 12.00am)
+[D][X] more (by: 22 Feb 2025 6.20pm)
+[T][ ] even more
+[E][X] event much more (from: 9 Sep 2024 6.00pm to: 9 Sep 2024 7.30pm)

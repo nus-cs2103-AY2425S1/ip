@@ -13,51 +13,64 @@ Mel is confused... Mel doesn't understand you :((
 ____________________________________
 ____________________________________
 Mel remembers...
-  [D][ ] something (by: sometime)
+  [D][ ] something (by: 2 Feb 2025 12.00am)
 Mel counts 1 stuffs memorized XD
 ____________________________________
 ____________________________________
-Mel remembers all your stuff~
-1.[D][ ] something (by: sometime)
-____________________________________
-____________________________________
 Mel remembers...
-  [T][ ] maybe some
+  [D][ ] more (by: 22 Feb 2025 6.20pm)
 Mel counts 2 stuffs memorized XD
 ____________________________________
 ____________________________________
+Mel remembers all your stuff~
+1.[D][ ] something (by: 2 Feb 2025 12.00am)
+2.[D][ ] more (by: 22 Feb 2025 6.20pm)
+____________________________________
+____________________________________
 Mel remembers...
-  [E][ ] even more (from: before  to: some after)
+  [T][ ] even more
 Mel counts 3 stuffs memorized XD
 ____________________________________
 ____________________________________
 Mel remembers...
+  [E][ ] event much more (from: 9 Sep 2024 6.00pm to: 9 Sep 2024 7.30pm)
+Mel counts 4 stuffs memorized XD
+____________________________________
+____________________________________
+Mel remembers...
 Mel sees something missing? Mel expected:
-  event <task> /from <time> /to <time> :((
+  event <task> /from <date> <time> /to <date> <time> :((
+____________________________________
+____________________________________
+Mel remembers...
+Mel sees something missing? Mel expected:
+  Mel wonders if you control time..? :((
 ____________________________________
 ____________________________________
 Mel remembers all your stuff~
-1.[D][ ] something (by: sometime)
-2.[T][ ] maybe some
-3.[E][ ] even more (from: before  to: some after)
+1.[D][ ] something (by: 2 Feb 2025 12.00am)
+2.[D][ ] more (by: 22 Feb 2025 6.20pm)
+3.[T][ ] even more
+4.[E][ ] event much more (from: 9 Sep 2024 6.00pm to: 9 Sep 2024 7.30pm)
 ____________________________________
 ____________________________________
 Mel sees you completed your task!
-  [D][X] something (by: sometime)
+  [D][X] more (by: 22 Feb 2025 6.20pm)
 ____________________________________
 ____________________________________
 Mel sees you completed your task!
-Mel's brain explodes in anger?! Mel recalls only 3 things
+  [E][X] event much more (from: 9 Sep 2024 6.00pm to: 9 Sep 2024 7.30pm)
 ____________________________________
 ____________________________________
 Mel wonders how you undid your task...
-  [D][ ] something (by: sometime)
+Mel's brain explodes in anger?! Mel recalls only 4 things
 ____________________________________
 ____________________________________
 Mel remembers all your stuff~
-1.[D][ ] something (by: sometime)
-2.[T][ ] maybe some
-3.[E][ ] even more (from: before  to: some after)
+1.[D][ ] something (by: 2 Feb 2025 12.00am)
+2.[D][X] more (by: 22 Feb 2025 6.20pm)
+3.[T][ ] even more
+4.[E][X] event much more (from: 9 Sep 2024 6.00pm to: 9 Sep 2024 7.30pm)
 ____________________________________
 ____________________________________
 Buh-bye :)

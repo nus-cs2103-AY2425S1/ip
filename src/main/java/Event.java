@@ -15,6 +15,9 @@ public class Event extends Task {
             String[] s = temp[1].split(" /to ");
             from = super.parseDateTime(s[0]);
             to = super.parseDateTime(s[1]);
+            if (from.isAfter(to)) {
+                throw new TaskException("Mel wonders if you control time..?");
+            }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new TaskException("event <task> "
                     + "/from <date> <time> /to <date> <time>");
