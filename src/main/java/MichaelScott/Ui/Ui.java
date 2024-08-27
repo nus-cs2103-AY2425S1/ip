@@ -1,9 +1,11 @@
+package MichaelScott.Ui;
+
 import java.util.Scanner;
 
 public class Ui {
     Scanner sc;
 
-    Ui () {
+    public Ui () {
         this.sc = new Scanner(System.in);
     }
 

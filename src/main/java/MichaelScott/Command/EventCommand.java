@@ -1,7 +1,13 @@
+package MichaelScott.Command;
+
+import MichaelScott.Task.Event;
+import MichaelScott.Exception.MichaelScottException;
+import MichaelScott.Task.TaskList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class EventCommand implements Command{
+public class EventCommand implements Command {
     private final String description;
     private final LocalDateTime toDate;
     private final LocalDateTime fromDate;
@@ -9,7 +15,7 @@ public class EventCommand implements Command{
     public EventCommand(String args) throws MichaelScottException {
         String[] eventParts = args.split(" /from | /to ");
         if (eventParts.length != 3) {
-            throw new MichaelScottException("Please provide the event description, start time (/from), and end time(/to). Example: Event Career fair /from 2024-02-02 12:00 /to 2024-02-02 17:00.");
+            throw new MichaelScottException("Please provide the event description, start time (/from), and end time(/to). Example: MichaelScott.task.Event Career fair /from 2024-02-02 12:00 /to 2024-02-02 17:00.");
         }
         description = eventParts[0];
         try {

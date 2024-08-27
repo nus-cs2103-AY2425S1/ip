@@ -1,3 +1,7 @@
+package MichaelScott.Task;
+
+import MichaelScott.Exception.MichaelScottException;
+
 import java.util.ArrayList;
 
 public class TaskList {

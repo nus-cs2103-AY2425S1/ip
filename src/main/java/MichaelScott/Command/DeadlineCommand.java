@@ -1,11 +1,17 @@
+package MichaelScott.Command;
+
+import MichaelScott.Task.Deadline;
+import MichaelScott.Exception.MichaelScottException;
+import MichaelScott.Task.TaskList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DeadlineCommand implements Command{
+public class DeadlineCommand implements Command {
     private final String description;
     private final LocalDateTime deadlineDate;
 
-    DeadlineCommand(String args) throws MichaelScottException {
+    public DeadlineCommand(String args) throws MichaelScottException {
         String[] deadlineParts = args.split(" /by ");
         if (deadlineParts.length != 2) {
             throw new MichaelScottException("Please provide both the task description and deadline (Here is an example: deadline homework /by 2024-03-02 12:00).");

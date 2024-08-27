@@ -1,4 +1,10 @@
-public class UnmarkCommand implements Command{
+package MichaelScott.Command;
+
+import MichaelScott.Exception.MichaelScottException;
+import MichaelScott.Task.Task;
+import MichaelScott.Task.TaskList;
+
+public class UnmarkCommand implements Command {
     private final int TaskIndex;
 
     public UnmarkCommand(String args) throws MichaelScottException {
@@ -10,7 +16,7 @@ public class UnmarkCommand implements Command{
     }
 
     @Override
-    public String execute(TaskList tasks) throws MichaelScottException{
+    public String execute(TaskList tasks) throws MichaelScottException {
         Task task  = tasks.getTask(this.TaskIndex);
         task.undoTask();
         return "OK, I've marked this task as not done yet: \n" + task.toString();

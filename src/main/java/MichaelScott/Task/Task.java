@@ -1,4 +1,6 @@
-abstract class Task {
+package MichaelScott.Task;
+
+public abstract class Task {
     protected Boolean isDone;
     protected String desc;
 

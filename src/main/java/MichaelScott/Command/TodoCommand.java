@@ -1,4 +1,11 @@
-public class TodoCommand implements Command{
+package MichaelScott.Command;
+
+import MichaelScott.Exception.MichaelScottException;
+import MichaelScott.Task.Task;
+import MichaelScott.Task.TaskList;
+import MichaelScott.Task.Todo;
+
+public class TodoCommand implements Command {
     private final String description;
 
     public TodoCommand(String args) throws MichaelScottException {

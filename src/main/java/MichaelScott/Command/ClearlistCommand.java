@@ -1,4 +1,8 @@
-public class ClearlistCommand implements Command{
+package MichaelScott.Command;
+
+import MichaelScott.Task.TaskList;
+
+public class ClearlistCommand implements Command {
 
     @Override
     public String execute(TaskList tasks) {

@@ -1,4 +1,10 @@
-public class DeleteCommand implements Command{
+package MichaelScott.Command;
+
+import MichaelScott.Exception.MichaelScottException;
+import MichaelScott.Task.Task;
+import MichaelScott.Task.TaskList;
+
+public class DeleteCommand implements Command {
     private final int TaskIndex;
 
     public DeleteCommand(String args) throws MichaelScottException {

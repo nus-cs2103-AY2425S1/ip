@@ -1,4 +1,8 @@
-import java.io.FileNotFoundException;
+package MichaelScott.Storage;
+
+import MichaelScott.Exception.MichaelScottException;
+import MichaelScott.Task.Task;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -14,7 +18,7 @@ public class Storage {
         this.filePath = "./";
     }
 
-    // Todo: Can add loadTask functionality later
+    // MichaelScott.task.Todo: Can add loadTask functionality later
 
     public void saveTasks(ArrayList<Task> todo) throws MichaelScottException {
         try {
