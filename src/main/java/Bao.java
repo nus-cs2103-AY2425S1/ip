@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatterBuilder;
 public class Bao {
+    private Ui ui;
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String file_Path = "./data/bao.txt";
     private static DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder()
@@ -46,14 +47,6 @@ public class Bao {
     private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static DateTimeFormatter dateOnlyFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
 
-    private static String baoHappy =
-              "     ___\n"
-            + "   /     \\\n"
-            + "  /       \\\n"
-            + " |  ^   ^  |\n"
-            + " |    3    |\n"
-            + " \\________/\n";
-
     private static String baoSad =
               "     ___\n"
             + "   /     \\\n"
@@ -61,16 +54,13 @@ public class Bao {
             + " |  T   T  |\n"
             + " |    ^    |\n"
             + " \\________/\n";
+
+    public Bao (String file_Path) {
+        ui = new Ui();
+    }
     public static void main(String[] args) {
         loadFile();
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("____________________________________________________________");
-        System.out.println(baoHappy);
-        System.out.println("Bao says hello! Bao's name is Bao but you can call me Bao");
-        System.out.println("Bao is ready for instructions");
-        System.out.println("____________________________________________________________");
-
         while (true) {
             String input = scanner.nextLine();
             try {
