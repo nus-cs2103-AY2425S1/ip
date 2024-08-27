@@ -4,7 +4,7 @@ import lama.*;
 import lama.task.Task;
 
 /**
- * Represent a command to delete a task from the task list.\
+ * Represent a command to delete a task from the task list.
  * Subclass of command class.
  */
 public class DeleteCommand extends Command {
@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
         this.indexOfDeleteCommand = indexOfDeleteCommand;
     }
 
-    /**\
+    /**
      * Run the command by deleting the index of task from the task list given.
      * @param taskList Task list which the task will be deleted.
      * @param storage Storage used to save the new task list after deletion.
