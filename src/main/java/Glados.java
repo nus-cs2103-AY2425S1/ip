@@ -13,7 +13,7 @@ public class Glados {
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
             + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
             + "\n";
-    private static TaskManager taskManager = new TaskManager();
+    private static TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
         greet();
@@ -91,7 +91,7 @@ public class Glados {
     }
 
     public static void add(TaskType taskType, String input) throws GladosException {
-        String[] res = taskManager.add(taskType, input);
+        String[] res = taskList.add(taskType, input);
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I have added the following task to the list...\n"
@@ -102,7 +102,7 @@ public class Glados {
     }
 
     public static void delete(int index) throws TaskNotFoundException{
-        String[] res = taskManager.delete(index);
+        String[] res = taskList.delete(index);
 
         System.out.println(
             HORIZONTAL_LINE
@@ -114,7 +114,7 @@ public class Glados {
     }
 
     public static void list() {
-        ArrayList<Task> res = taskManager.list();
+        ArrayList<Task> res = taskList.list();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("GLaDOS: Here is the list...\n");
         for (int i = 0; i < res.size(); i++) {
@@ -124,7 +124,7 @@ public class Glados {
     }
 
     public static void mark(int index) {
-        String res = taskManager.mark(index);
+        String res = taskList.mark(index);
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I've marked this task as done...\n"
@@ -133,7 +133,7 @@ public class Glados {
     }
 
     public static void unmark(int index) {
-        String res = taskManager.unmark(index);
+        String res = taskList.unmark(index);
 
         System.out.println(
             HORIZONTAL_LINE
