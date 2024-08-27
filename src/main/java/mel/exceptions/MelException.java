@@ -1,3 +1,5 @@
+package mel.exceptions;
+
 public class MelException extends Exception {
     public MelException(String str) {
         super(str);

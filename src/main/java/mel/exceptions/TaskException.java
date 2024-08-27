@@ -1,3 +1,5 @@
+package mel.exceptions;
+
 public class TaskException extends Exception {
     public TaskException(String str) {
         super(str);

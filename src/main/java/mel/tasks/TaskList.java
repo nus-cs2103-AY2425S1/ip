@@ -1,3 +1,10 @@
+package mel.tasks;
+
+import mel.exceptions.MelException;
+import mel.exceptions.TaskException;
+import mel.main.Mel;
+import mel.utils.Storage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;

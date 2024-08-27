@@ -1,3 +1,7 @@
+package mel.utils;
+
+import mel.main.Mel;
+
 import java.util.Objects;
 
 public class UI {

@@ -1,3 +1,7 @@
+package mel.tasks;
+
+import mel.exceptions.TaskException;
+
 public class ToDo extends Task {
     private final String task;
     public ToDo(String str) throws TaskException {

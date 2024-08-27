@@ -1,5 +1,12 @@
-import java.util.Scanner;
+package mel.main;
 
+import mel.exceptions.MelException;
+import mel.exceptions.TaskException;
+import mel.tasks.TaskList;
+import mel.utils.Storage;
+import mel.utils.UI;
+
+import java.util.Scanner;
 public class Mel {
     private final TaskList taskList;
     private final UI ui;
