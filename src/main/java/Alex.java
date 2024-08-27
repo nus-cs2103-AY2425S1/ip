@@ -1,6 +1,10 @@
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 
 public class Alex {
     private static String line = "____________________________________________________________"; //create separation line
@@ -8,8 +12,18 @@ public class Alex {
     private static ArrayList<Task> list = new ArrayList<>(); //Create an arrayList to store all the Task objects
 
     private static int size = 0; //keeps track of the size of the arrayList
+
+    private static String filePath = "./data/Alex.txt";
     public static void main(String[] args) {
         boolean sayHi = true;
+
+        try {
+            readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
         while (true) {
             try {
                 run(sayHi);
@@ -17,11 +31,45 @@ public class Alex {
             } catch (AlexException e) {
                 System.out.println(line + "\n" + e.getMessage() + "\n" + line);
                 sayHi = false;
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                break;
             }
         }
     }
 
-    private static void run(boolean sayHi) throws AlexException {
+    //Create the tasks arrayList from the contents of the file
+    private static void readFile() throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+
+        while (s.hasNext()) {
+            Scanner lineScanner  = new Scanner(s.nextLine());
+            String category = lineScanner.next();
+            System.out.println(category);
+
+            ArrayList<String> arrOfStr = new ArrayList<>();
+            Task task = new Task(0, " ", false);
+            if (category.equals("[T][")) {
+                while (lineScanner.hasNext()) {
+                    arrOfStr.add(lineScanner.next());
+                }
+                task = new Todo(size + 1, String.join(" ", arrOfStr), false);
+            }
+            list.add(task);
+            size++;
+        }
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < size - 1; i++) {
+            fw.write(list.get(i).toString() + System.lineSeparator());
+        }
+        fw.write(list.get(size - 1).toString());
+        fw.close();
+    }
+    private static void run(boolean sayHi) throws AlexException, IOException {
         //Create a Scanner object
         Scanner inputScanner = new Scanner(System.in);
 
@@ -81,9 +129,11 @@ public class Alex {
                 Task task = list.get(taskNumber - 1);
                 if (response.equals("mark")) {
                     task.markAsDone();
+                    writeToFile();
                     System.out.println(line + "\nNice! I've marked this task as done: \n" + task + "\n" + line);
                 } else {
                     task.markAsUndone();
+                    writeToFile();
                     System.out.println(line + "\nOK, I've marked this task as not done yet: \n" + task + "\n" + line);
                 }
             } else if (response.equals("delete")) {
@@ -111,10 +161,11 @@ public class Alex {
                 Task task = list.get(taskNumber - 1);
                 list.remove(taskNumber - 1);
                 size--;
+                writeToFile();
                 message(line, "Noted. I've removed this task: ", task, size);
             } else {
                 ArrayList<String> arrOfStr = new ArrayList<>();
-                Task task = new Task(0, "", false);
+                Task task;
 
                 if (response.equals("todo")) {
                     while (lineScanner.hasNext()) {
@@ -187,6 +238,7 @@ public class Alex {
                 }
                 list.add(task);
                 size++;
+                writeToFile();
                 message(line, "Got it. I've added this task: ", task, size);
             }
         }
@@ -199,6 +251,16 @@ public class Alex {
                         ____________________________________________________________""";
 
         System.out.println(farewell);
+    }
+
+    private Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws AlexException {
+        while (lineScanner.hasNext()) {
+            arrOfStr.add(lineScanner.next());
+        }
+        if (arrOfStr.isEmpty()) {
+            throw new AlexException("Oh no! Alex doesn't like that the todo task is blank :( You have to provide a task!");
+        }
+        return new Todo(size + 1, String.join(" ", arrOfStr), isDone);
     }
 
     private static void message(String line, String str, Task task, int size) {
