@@ -28,6 +28,10 @@ public class Storage {
      * @param taskList The list of tasks to be written to the file.
      */
     public void writeTasksToFile(ArrayList<Task> taskList) throws IOException, TaskException {
+        File file = new File(this.filePath);
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+
         FileWriter fw = new FileWriter(this.filePath);
         String textToWrite = "";
 
@@ -72,8 +76,12 @@ public class Storage {
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String taskString = s.nextLine();
+            if (taskString.isEmpty()) {
+                continue;
+            }
+
             Task.TASK_TYPE taskType;
-            switch (taskString.split("/ | ")[0]) {
+            switch (taskString.split(" \\| ", 0)[0]) {
             case "T":
                 taskType = Task.TASK_TYPE.TODO;
                 break;
@@ -87,9 +95,9 @@ public class Storage {
                 throw new TaskWithoutTypeException();
             }
 
-            boolean taskIsDone = taskString.split("/ | ")[1].equals("1");
+            boolean taskIsDone = taskString.split(" \\| ", 0)[1].equals("1");
 
-            String taskName = taskString.split("/ | ")[2];
+            String taskName = taskString.split(" \\| ", 0)[2];
 
             switch (taskType) {
             case TODO:
@@ -102,7 +110,7 @@ public class Storage {
                 taskList.add(toDoTask);
                 break;
             case DEADLINE:
-                String by = taskString.split("/ | ")[3];
+                String by = taskString.split(" \\| ")[3];
                 Deadline deadlineTask = new Deadline(taskName, by);
                 if (taskIsDone) {
                     deadlineTask.mark();
@@ -112,7 +120,7 @@ public class Storage {
                 taskList.add(deadlineTask);
                 break;
             case EVENT:
-                String dates = taskString.split("/ | ")[3];
+                String dates = taskString.split(" \\| ")[3];
                 String from = dates.split("-")[0];
                 String to = dates.split("-")[1];
                 Event eventTask = new Event(taskName, from, to);

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 /** This class encapsulates chatbot parsing and logic.
@@ -23,13 +24,20 @@ public class ChatLogic {
     }
 
     private final String name;
+    private final String filePath;
+    private final Storage storage;
     private ArrayList<Task> taskList = new ArrayList<Task>();
 
-    /** Constructor for a ChatLogic class.
+    /** Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
      * @param name The name used by the chatbot.
+     * @param filePath The file path used for data storage.
      */
-    public ChatLogic(String name) {
+    public ChatLogic(String name, String filePath) throws IOException {
         this.name = name;
+        this.filePath = filePath;
+        this.storage = new Storage(this.filePath);
+
+        this.taskList = storage.readTasksFromFile();
     }
 
     /** Processes text strings inputted by the user, and calls other functions
@@ -37,8 +45,9 @@ public class ChatLogic {
      * @param input The text string entered by the user.
      * @throws StelleException Throws certain exceptions related to the chatbot.
      */
-    public void processInput(String input) throws StelleException {
+    public void processInput(String input) throws StelleException, IOException {
         if (input.equals(BYE_COMMAND)) {
+            storage.writeTasksToFile(taskList);
             printBye();
             System.exit(0);
         } else if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
@@ -54,7 +63,7 @@ public class ChatLogic {
         }
     }
 
-    private void processDeleteTaskInput(String input) throws TaskException {
+    private void processDeleteTaskInput(String input) throws TaskException, IOException {
         String possibleTaskNumString = input.replaceAll("[^\\d.]", "");
         if (possibleTaskNumString.isEmpty()) {
             throw new DeletionNotSpecifiedException();
@@ -70,9 +79,11 @@ public class ChatLogic {
         System.out.println(this.taskList.get(possibleTaskNum - 1));
         System.out.println(HORIZONTAL_LINE);
         this.taskList.remove(possibleTaskNum - 1);
+
+        storage.writeTasksToFile(taskList);
     }
 
-    private void processMarkUnmarkInput(String input) throws TaskException {
+    private void processMarkUnmarkInput(String input) throws TaskException, IOException {
         String possibleTaskNumString = input.replaceAll("[^\\d.]", "");
         if (possibleTaskNumString.isEmpty()) {
             throw new MarkNotSpecifiedException();
@@ -86,7 +97,7 @@ public class ChatLogic {
         }
     }
 
-    private void processAddTaskInput(String input) {
+    private void processAddTaskInput(String input) throws IOException {
         if (input.isEmpty()) {
             System.out.println(HORIZONTAL_LINE);
             System.out.println("Please specify a task name!");
@@ -126,7 +137,7 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private void addToDo(String input) throws TaskException {
+    private void addToDo(String input) throws TaskException, IOException {
         String taskName = input.replace(TODO_COMMAND, "").strip();
 
         if (taskName.isEmpty()) {
@@ -134,9 +145,11 @@ public class ChatLogic {
         }
 
         taskList.add(new ToDo(taskName));
+
+        storage.writeTasksToFile(taskList);
     }
 
-    private void addDeadline(String input) throws TaskException {
+    private void addDeadline(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(DEADLINE_COMMAND, "").strip();
         String taskName = noCommandInput.split("/by")[0].strip();
         if (taskName.isEmpty()) {
@@ -145,9 +158,11 @@ public class ChatLogic {
         String date = noCommandInput.split("/by")[1].strip();
 
         taskList.add(new Deadline(taskName, date));
+
+        storage.writeTasksToFile(taskList);
     }
 
-    private void addEvent(String input) throws TaskException {
+    private void addEvent(String input) throws TaskException, IOException {
         String noCommandInput = input.replace(EVENT_COMMAND, "").strip();
         String taskName = noCommandInput.split("/from")[0].strip();
         if (taskName.isEmpty()) {
@@ -158,19 +173,24 @@ public class ChatLogic {
         String toDate = fromAndTo.split("/to")[1].strip();
 
         taskList.add(new Event(taskName, fromDate, toDate));
+
+        storage.writeTasksToFile(taskList);
     }
 
     /** Marks a certain task (makes it done).
      * @param taskNum The number of the task (ArrayList index + 1) to be marked as done.
      * @throws TaskException Throws exceptions related to tasks.
      */
-    private void markTask(int taskNum) throws TaskException {
+    private void markTask(int taskNum) throws TaskException, IOException {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
         }
 
         Task task = this.taskList.get(taskNum - 1);
         task.mark();
+
+        storage.writeTasksToFile(taskList);
+
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
@@ -181,22 +201,28 @@ public class ChatLogic {
      * @param taskNum The number of the task (ArrayList index + 1) to be marked as not done.
      * @throws TaskException Throws exceptions related to tasks.
      */
-    private void unmarkTask(int taskNum) throws TaskException {
+    private void unmarkTask(int taskNum) throws TaskException, IOException {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
         }
 
         Task task = this.taskList.get(taskNum - 1);
         task.unmark();
+
+        storage.writeTasksToFile(taskList);
+
         System.out.println(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString());
         System.out.println(HORIZONTAL_LINE);
     }
 
-    /** Lists all Tasks currently stored, with added list numbers.
+    /**
+     * Reads tasks from local file and lists all Tasks currently stored, with added list numbers.
      */
-    private void listTasks() {
+    private void listTasks() throws IOException {
+        this.taskList = this.storage.readTasksFromFile();
+
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
@@ -206,7 +232,8 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    /** Prints a greeting message for the chatbot.
+    /**
+     * Prints a greeting message for the chatbot.
      */
     public void printGreeting() {
         System.out.println(HORIZONTAL_LINE);
@@ -215,7 +242,8 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    /** Prints a goodbye / ending message for the chatbot.
+    /**
+     * Prints a goodbye / ending message for the chatbot.
      */
     private void printBye() {
         System.out.println(HORIZONTAL_LINE);
