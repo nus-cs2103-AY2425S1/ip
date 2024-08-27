@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
 
 /** This class encapsulates chatbot parsing and logic.
  * @author Lee Ze Hao (A0276123J)
@@ -26,7 +25,7 @@ public class ChatLogic {
     private final String name;
     private final String filePath;
     private final Storage storage;
-    private ArrayList<Task> taskList = new ArrayList<Task>();
+    private TaskList taskList;
 
     /** Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
      * @param name The name used by the chatbot.
@@ -36,12 +35,7 @@ public class ChatLogic {
         this.name = name;
         this.filePath = filePath;
         this.storage = new Storage(this.filePath);
-
-        try {
-            this.taskList = storage.readTasksFromFile();
-        } catch (IOException e) {
-            storage.writeTasksToFile(taskList);
-        }
+        this.taskList = new TaskList(this.filePath);
     }
 
     /** Processes text strings inputted by the user, and calls other functions
@@ -51,7 +45,7 @@ public class ChatLogic {
      */
     public void processInput(String input) throws StelleException, IOException {
         if (input.equals(BYE_COMMAND)) {
-            storage.writeTasksToFile(taskList);
+            taskList.writeToFile();
             printBye();
             System.exit(0);
         } else if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
@@ -82,9 +76,9 @@ public class ChatLogic {
         System.out.println("Alright. Removed the task:");
         System.out.println(this.taskList.get(possibleTaskNum - 1));
         System.out.println(HORIZONTAL_LINE);
-        this.taskList.remove(possibleTaskNum - 1);
 
-        storage.writeTasksToFile(taskList);
+        this.taskList.remove(possibleTaskNum - 1);
+        this.taskList.writeToFile();
     }
 
     private void processMarkUnmarkInput(String input) throws TaskException, IOException {
@@ -148,9 +142,8 @@ public class ChatLogic {
             throw new ToDoNoDescriptionException();
         }
 
-        taskList.add(new ToDo(taskName));
-
-        storage.writeTasksToFile(taskList);
+        this.taskList.add(new ToDo(taskName));
+        this.taskList.writeToFile();
     }
 
     private void addDeadline(String input) throws TaskException, IOException {
@@ -161,9 +154,8 @@ public class ChatLogic {
         }
         String date = noCommandInput.split("/by")[1].strip();
 
-        taskList.add(new Deadline(taskName, date));
-
-        storage.writeTasksToFile(taskList);
+        this.taskList.add(new Deadline(taskName, date));
+        this.taskList.writeToFile();
     }
 
     private void addEvent(String input) throws TaskException, IOException {
@@ -176,9 +168,8 @@ public class ChatLogic {
         String fromDate = fromAndTo.split("/to")[0].strip();
         String toDate = fromAndTo.split("/to")[1].strip();
 
-        taskList.add(new Event(taskName, fromDate, toDate));
-
-        storage.writeTasksToFile(taskList);
+        this.taskList.add(new Event(taskName, fromDate, toDate));
+        this.taskList.writeToFile();
     }
 
     /** Marks a certain task (makes it done).
@@ -193,7 +184,7 @@ public class ChatLogic {
         Task task = this.taskList.get(taskNum - 1);
         task.mark();
 
-        storage.writeTasksToFile(taskList);
+        this.taskList.writeToFile();
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Nice! I've marked this task as done:");
@@ -213,7 +204,7 @@ public class ChatLogic {
         Task task = this.taskList.get(taskNum - 1);
         task.unmark();
 
-        storage.writeTasksToFile(taskList);
+        this.taskList.writeToFile();
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:");
@@ -225,7 +216,7 @@ public class ChatLogic {
      * Reads tasks from local file and lists all Tasks currently stored, with added list numbers.
      */
     private void listTasks() throws IOException {
-        this.taskList = this.storage.readTasksFromFile();
+        this.taskList.readFromFile();
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");

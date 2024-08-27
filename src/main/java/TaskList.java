@@ -28,6 +28,14 @@ public class TaskList {
     }
 
     /**
+     * Returns the size of the task list.
+     * @return int Size of task list.
+     */
+    public int size() {
+        return taskList.size();
+    }
+
+    /**
      * Gets the task at the specified index in the list.
      * @param index The list number of the task.
      * @return Task the task at the specific index
@@ -41,10 +49,31 @@ public class TaskList {
 
     /**
      * Adds the task to the end of the task list.
-     * @param task
+     * @param task The task to be added.
      */
     public void add(Task task) {
         taskList.add(task);
+    }
+
+    /**
+     * Deletes the task at the specified list number.
+     * @param index The list number of the task to be deleted.
+     */
+    public void remove(int index) {
+        if (index >= taskList.size() || index < 0) {
+            throw new NoSuchTaskException();
+        }
+        taskList.remove(index);
+    }
+
+    /**
+     * Gets the last task in the list.
+     */
+    public Task getLastTask() {
+        if (taskList.size() <= 0) {
+            throw new NoSuchTaskException();
+        }
+        return taskList.get(taskList.size() - 1);
     }
 
     /**
