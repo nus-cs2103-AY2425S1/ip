@@ -15,8 +15,8 @@ public class Parser {
             tasks.displayTaskList();
             break;
         case "mark":
-            ui.markTaskMessage(tasks, Integer.parseInt(split[1]) - 1);
             tasks.markTask(Integer.parseInt(split[1]) - 1);
+            ui.markTaskMessage(tasks, Integer.parseInt(split[1]) - 1);
             break;
         case "delete":
             ui.deleteTaskMessage(tasks, Integer.parseInt(split[1]) - 1);
@@ -33,6 +33,9 @@ public class Parser {
         case "event":
             tasks.addEventTask(split);
             ui.addTaskMessage(tasks);
+            break;
+        case "find":
+            tasks.findMatchingTasks(split);
             break;
         default:
             throw new SlothingWafflerException("Please give instructions that the Slothing Waffler can understand :(");

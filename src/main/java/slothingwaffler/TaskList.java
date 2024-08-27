@@ -24,6 +24,10 @@ public class TaskList {
         this.tasks = storage.load();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
@@ -85,4 +89,18 @@ public class TaskList {
     public Task get(int i) {
         return tasks.get(i);
     }
+
+    public void findMatchingTasks(String[] split) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(split[1])) {
+                matchingTasks.add(task);
+            }
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+        }
+    }
+
 }
