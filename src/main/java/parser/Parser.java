@@ -14,7 +14,17 @@ import tasks.DeadlineException;
 import tasks.EventException;
 import tasks.ToDoException;
 
+/**
+ * Parses user input into executable commands.
+ */
 public class Parser {
+    /**
+     * Parses the user input string and returns the corresponding Command object.
+     *
+     * @param cmd The user input string representing the command.
+     * @return The corresponding Command object to be executed.
+     * @throws OuiOuiBaguetteException If the command is invalid or any part of the parsing process fails.
+     */
     public Command parseCommand(String cmd) throws OuiOuiBaguetteException {
         if (cmd.equals("bye")) {
             return new ByeCommand();
