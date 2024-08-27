@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -156,13 +159,14 @@ public class YourHelperBuddy {
                     String[] parts = taskDescription.split(" /by ");
                     String deadlineDescription = parts[0].substring(9).trim();
                     String deadlineBy = parts[1].trim();
-                    if (deadlineDescription.isEmpty() || deadlineBy.isEmpty()) {
+                    LocalDateTime deadlineDateTime = parseDateTime(deadlineBy);
+                    if (deadlineDescription.isEmpty() || deadlineDateTime == null) {
                         System.out.println("________________________________________________");
                         System.out.println("Sorry! The description or the deadline cannot be empty.");
                         System.out.println("________________________________________________");
                     }
                     else {
-                        Task newTask = new Deadline(deadlineDescription, deadlineBy);
+                        Task newTask = new Deadline(deadlineDescription, deadlineDateTime);
                         taskList.add(newTask);
                         System.out.println("________________________________________________");
                         System.out.println("Got it. I've added this task:");
@@ -185,13 +189,15 @@ public class YourHelperBuddy {
                     String eventDescription = parts[0].substring(6).trim();
                     String eventFrom = subParts[0].trim();
                     String eventTo = subParts[1].trim();
-                    if (eventDescription.isEmpty() || eventFrom.isEmpty() || eventTo.isEmpty()) {
+                    LocalDateTime eventFromDateTime = parseDateTime(eventFrom);
+                    LocalDateTime eventToDateTime = parseDateTime(eventTo);
+                    if (eventDescription.isEmpty() || eventFromDateTime == null || eventToDateTime == null) {
                         System.out.println("________________________________________________");
                         System.out.println("Sorry! The description or the timing cannot be empty.");
                         System.out.println("________________________________________________");
                     }
                     else {
-                        Task newTask = new Event(eventDescription, eventFrom, eventTo);
+                        Task newTask = new Event(eventDescription, eventFromDateTime, eventToDateTime);
                         taskList.add(newTask);
                         System.out.println("________________________________________________");
                         System.out.println("Got it. I've added this task:");
@@ -262,6 +268,17 @@ public class YourHelperBuddy {
             System.out.println("An error occurred while saving tasks to file.");
             System.out.println("________________________________________________");
             e.printStackTrace();
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        try {
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        }
+        catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use dd/MM/yyyy HHmm.");
+            return null;
         }
     }
 }
