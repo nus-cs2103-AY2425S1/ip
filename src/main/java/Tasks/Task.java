@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-import Applemazer.*;
+import applemazer.*;
 import java.io.Serializable;
 
 public class Task implements Serializable {

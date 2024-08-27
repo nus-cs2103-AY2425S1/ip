@@ -1,6 +1,8 @@
-package Applemazer;
+package applemazer;
 
-import Commands.*;
+import commands.*;
+
+import java.util.Arrays;
 
 public class Parser {
 
@@ -87,10 +89,11 @@ public class Parser {
         return desc;
     }
 
-    private static String[] parseDeadlineCommand() throws Exception {
-        String[] split = Applemazer.sc.nextLine().split("/by", 2);
+    private static String[] parseDeadlineCommand() throws IndexOutOfBoundsException {
+        String[] split;
         try {
-            for (int i = 0; i < split.length; ++i) {
+            split = Applemazer.sc.nextLine().split("/by", 2);
+            for (int i = 0; i < 2; ++i) {
                 split[i] = split[i].trim();
             }
         } catch (IndexOutOfBoundsException e) {
@@ -100,17 +103,22 @@ public class Parser {
                                       'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
                                   It is not necessary to input the time!
                                   """;
-            throw new Exception(errorMessage);
+            throw new IndexOutOfBoundsException(errorMessage);
         }
         return split;
     }
 
     private static String[] parseEventCommand() throws Exception {
-        String[] split = Applemazer.sc.nextLine().split("/from | /to ");
+        String[] split;
         try {
-            for (int i = 0; i < split.length; ++i) {
-                split[i] = split[i].trim();
-            }
+            String command = Applemazer.sc.nextLine();
+            int fromIdx = command.indexOf("/from");
+            int toIdx = command.indexOf("/to");
+
+            String desc = command.substring(0, fromIdx).trim();
+            String from = command.substring(fromIdx + "/from".length(), toIdx).trim();
+            String to = command.substring(toIdx + "/to".length()).trim();
+            split = new String[]{desc, from, to};
         } catch (IndexOutOfBoundsException e) {
             String errorMessage = """
                                   OOPS!!! The description of event is wrong.

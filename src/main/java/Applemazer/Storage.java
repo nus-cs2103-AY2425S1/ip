@@ -1,6 +1,6 @@
-package Applemazer;
+package applemazer;
 
-import Tasks.*;
+import tasks.*;
 import java.io.*;
 import java.util.ArrayList;
 

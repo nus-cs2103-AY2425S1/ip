@@ -1,6 +1,6 @@
-package Applemazer;
+package applemazer;
 
-import Commands.*;
+import commands.*;
 import java.util.Scanner;
 
 public class Applemazer {
@@ -26,7 +26,7 @@ public class Applemazer {
                 c.execute(tasks.getList(), storage);
                 processing = c.continueProcessing();
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                System.err.println(e.getMessage() + "\n");
             }
         }
         sc.close();

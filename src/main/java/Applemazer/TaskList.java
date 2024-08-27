@@ -1,6 +1,6 @@
-package Applemazer;
+package applemazer;
 
-import Tasks.*;
+import tasks.*;
 import java.util.ArrayList;
 
 public class TaskList {

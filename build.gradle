@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Applemazer.Applemazer")
+    mainClass.set("applemazer.Applemazer")
 }
 
 shadowJar {

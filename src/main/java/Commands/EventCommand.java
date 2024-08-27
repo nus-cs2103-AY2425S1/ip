@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Applemazer.*;
-import Tasks.*;
+import applemazer.*;
+import tasks.*;
 import java.time.DateTimeException;
 import java.util.ArrayList;
 

@@ -1,8 +1,8 @@
-package Commands;
+package commands;
 
 import java.util.ArrayList;
-import Applemazer.*;
-import Tasks.*;
+import applemazer.*;
+import tasks.*;
 
 public abstract class Command {
     public abstract void execute(ArrayList<Task> tasks, Storage storage);

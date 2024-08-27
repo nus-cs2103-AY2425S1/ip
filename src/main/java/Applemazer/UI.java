@@ -1,4 +1,4 @@
-package Applemazer;
+package applemazer;
 
 public class UI {
 
