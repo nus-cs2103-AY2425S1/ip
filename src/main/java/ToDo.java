@@ -6,7 +6,7 @@ public class ToDo extends Task{
      * @param name Name of ToDo object.
      */
     public ToDo(String name) {
-        super(name);
+        super(name, TASK_TYPE.TODO);
     }
 
     /** Returns string representation of the ToDo.

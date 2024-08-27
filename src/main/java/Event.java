@@ -12,9 +12,25 @@ public class Event extends Task{
      * @param to End time of event.
      */
     public Event(String name, String from, String to) {
-        super(name);
+        super(name, TASK_TYPE.EVENT);
         this.from = from;
         this.to = to;
+    }
+
+    /**
+     * Returns a string containing time the event starts.
+     * @return String A string containing time the event starts.
+     */
+    public String getFromTime() {
+        return this.from;
+    }
+
+    /**
+     * Returns a string containing time the event ends.
+     * @return String A string containing time the event ends.
+     */
+    public String getToTime() {
+        return this.to;
     }
 
     /** Returns string representation of the Event.
