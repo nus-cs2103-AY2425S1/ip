@@ -10,7 +10,7 @@ public class Deadline extends Task {
     Deadline(String inputLine) {
         // inside the program this will be called
         super(createDeadlineCommand(inputLine).getDescription(), createDeadlineCommand(inputLine).getSymbol());
-        this.dueDate = createDeadlineCommand(inputLine).getDueDateAndTime();
+        this.dueDate = createDeadlineCommand(inputLine).dueDate;
     }
 
     Deadline(String description, String symbol, LocalDateTime dueDate) {
