@@ -1,19 +1,37 @@
 package command;
 
-import ouiouibaguette.OuiOuiBaguetteException;
 import tasklist.TaskList;
 import tasks.Deadline;
+import tasks.DeadlineException;
 import tasks.Task;
 import ui.CommandLineUI;
 
+/**
+ * Represents a command to add a deadline task to the task list.
+ */
 public class AddDeadlineCommand extends Command {
+    /** The task to be added to the task list. */
     protected Task task;
 
-    public AddDeadlineCommand(String desc, String date) throws OuiOuiBaguetteException {
+    /**
+     * Constructs an AddDeadlineCommand with the specified description and date.
+     *
+     * @param desc The description of the deadline task.
+     * @param date The due date of the deadline task in the format "yyyy-mm-dd".
+     * @throws DeadlineException If the date format is invalid.
+     */
+    public AddDeadlineCommand(String desc, String date) throws DeadlineException {
         task = new Deadline(desc, date);
 
     }
 
+    /**
+     * Executes the command by adding the deadline task to the task list and
+     * displaying the appropriate messages in the command line interface.
+     *
+     * @param tasklist The TaskList where the task will be added.
+     * @param ui       The CommandLineUI used to interact with the user.
+     */
     public void execute(TaskList tasklist, CommandLineUI ui) {
         tasklist.addTask(task);
 
@@ -23,6 +41,11 @@ public class AddDeadlineCommand extends Command {
 
     }
 
+    /**
+     * Indicates whether this command causes the application to exit.
+     *
+     * @return false, as this command does not cause the application to exit.
+     */
     public boolean isExit() {
         return false;
     }
