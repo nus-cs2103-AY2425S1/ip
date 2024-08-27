@@ -43,4 +43,14 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Returns a string representation of a ToDo when saving to file.
+     *
+     * @return a string representation of the ToDo.
+     */
+    @Override
+    public String encode() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }

@@ -57,6 +57,55 @@ public abstract class Task {
     }
 
     /**
+     * Creates a Task object from a string representation.
+     * This is an abstract method to be implemented by subclasses.
+     *
+     * @param details an array of string details parsed from the file.
+     * @return the created Task object.
+     */
+    public static Task parse(String[] details) {
+        String type = details[0];
+        boolean isDone = details[1].equals("1");
+        String description = details[2];
+
+        Task task = null;
+
+        switch (type) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            if (details.length < 4) {
+                return null;
+            }
+            String by = details[3];
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            if (details.length < 5) {
+                return null;
+            }
+            String from = details[3];
+            String to = details[4];
+            task = new Event(description, from, to);
+            break;
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Returns a string representation of a task when saving to file.
+     *
+     * @return a string representation of the task.
+     */
+    public abstract String encode();
+
+    /**
      * Returns a string representation of the task.
      * The string includes the status icon and the task description.
      *

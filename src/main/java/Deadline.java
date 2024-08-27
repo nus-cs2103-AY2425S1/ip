@@ -54,4 +54,14 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * Returns a string representation of a Deadline when saving to file.
+     *
+     * @return a string representation of the Deadline.
+     */
+    @Override
+    public String encode() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+    }
 }

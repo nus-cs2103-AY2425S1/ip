@@ -193,39 +193,7 @@ public class PandaBot {
         if (details.length < 3) {
             return null;
         }
-
-        String type = details[0];
-        boolean isDone = details[1].equals("1");
-        String description = details[2];
-
-        Task task = null;
-
-        switch (type) {
-        case "T":
-            task = new ToDo(description);
-            break;
-        case "D":
-            if (details.length < 4) {
-                return null;
-            }
-            String by = details[3];
-            task = new Deadline(description, by);
-            break;
-        case "E":
-            if (details.length < 5) {
-                return null;
-            }
-            String from = details[3];
-            String to = details[4];
-            task = new Event(description, from, to);
-            break;
-        }
-
-        if (task != null && isDone) {
-            task.markAsDone();
-        }
-
-        return task;
+        return Task.parse(details);
     }
 
     /**
@@ -243,26 +211,11 @@ public class PandaBot {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
                 for (Task task : taskList) {
-                    String taskString = getString(task);
-
-                    writer.write(taskString + System.lineSeparator());
+                    writer.write(task.encode() + System.lineSeparator());
                 }
             }
         } catch (IOException e) {
             System.out.println("Error occurred while saving tasks: " + e.getMessage());
         }
-    }
-
-    private static String getString(Task task) {
-        String type = task instanceof ToDo ? "T" :
-                task instanceof Deadline ? "D" : "E";
-        String taskString = type + " | " + (task.isDone ? "1" : "0") + " | " + task.description;
-
-        if (task instanceof Deadline) {
-            taskString += " | " + ((Deadline) task).by;
-        } else if (task instanceof Event) {
-            taskString += " | " + ((Event) task).from + " | " + ((Event) task).to;
-        }
-        return taskString;
     }
 }
