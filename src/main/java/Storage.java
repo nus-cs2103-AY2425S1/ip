@@ -23,10 +23,22 @@ public class Storage {
     }
 
     /**
-     * Saves the list of tasks to the file.
+     * Appends a single task to the storage file.
      *
-     * @param tasks The list of tasks to save.
-     * @throws IOException If an I/O error occurs during saving.
+     * @param task The task to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
+    public void saveTask(Task task) throws IOException {
+        try (FileWriter writer = new FileWriter(filePath, true)) { // Append mode
+            writer.write(task.toFileString() + System.lineSeparator());
+        }
+    }
+
+    /**
+     * Saves a list of tasks to the storage file, overwriting any existing content.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
@@ -41,8 +53,10 @@ public class Storage {
      *
      * @return A list of tasks loaded from the file.
      * @throws IOException If an I/O error occurs during loading.
+     * @throws SecurityException If a permission error occurs during loading.
+     * @throws IllegalArgumentException If file content corrupts during loading.
      */
-    public ArrayList<Task> loadTasks() throws IOException, SecurityException {
+    public ArrayList<Task> loadTasks() throws IOException, SecurityException, MiraException {
         ArrayList<Task> tasks = new ArrayList<>();
         Path path = Paths.get(filePath);
         if (Files.exists(path)) {
@@ -66,7 +80,7 @@ public class Storage {
      * @param parts The parts of the string split by " | ".
      * @return The corresponding Task object.
      */
-    private Task createTaskFromFile(String[] parts) throws IllegalArgumentException {
+    private Task createTaskFromFile(String[] parts) throws MiraException {
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -79,7 +93,7 @@ public class Storage {
             case "E":
                 return new Event(description, parts[3], parts[4], isDone);
             default:
-                throw new IllegalArgumentException("Invalid task type in file");
+                throw new MiraException("Invalid task type in file");
         }
     }
 }
