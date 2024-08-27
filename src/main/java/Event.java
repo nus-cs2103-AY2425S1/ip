@@ -2,9 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private static DateTimeFormatter outputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
-    private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
     private LocalDateTime from;
     private LocalDateTime to;
     public Event(String description, LocalDateTime from, LocalDateTime to) {
@@ -19,12 +16,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format(String.format("E | " + super.toString() + " | " + from.format(outputDateFormat) + "-"
-                + to.format(outputDateFormat)));
+        return "E | " + super.toString() + " | "
+                + from.format(Bao.outputDateFormat) + "-" + to.format(Bao.outputDateFormat);
     }
     @Override
     public String toFileString() {
-        return String.format(String.format("E | " + super.toFileString() + " | " + from.format(fileDateFormat) + "-"
-                + to.format(fileDateFormat)));
+        return "E | " + (isDone ? "1" : "0") + " | " + description
+                + " | " + from.format(Bao.fileDateFormat) + " - " + to.format(Bao.fileDateFormat);
     }
 }
