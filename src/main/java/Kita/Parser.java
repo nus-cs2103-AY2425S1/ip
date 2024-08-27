@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class Parser {
     private final static Pattern toDoPattern = Pattern.compile("^todo (.+)$");
     private final static Pattern deadlinePattern = Pattern.compile("^deadline (.+) /by (.+)$");
-    private final static Pattern eventPattern = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
+    private final static Pattern eventPattern = Pattern.compile("^event (?<name>.+) (?:(?:/from (?<from>.+) /to (?<to>.+))|(?:/to (?<to2>.+) /from (?<from2>.+)))$");
 
     public static void parse(String command, Commands commandsExecutor) throws KitaError, IOException {
         if (command.equals("bye")) {
@@ -36,7 +36,7 @@ public class Parser {
                     }
                     throw new KitaMissingDescription();
                 }
-                commandsExecutor.createEvent(command, eventMatcher);
+                commandsExecutor.createEvent(eventMatcher);
 
             } else if (command.startsWith("deadline")) {
                 if (!deadlineMatcher.matches()) {
@@ -45,15 +45,14 @@ public class Parser {
                     }
                     throw new KitaMissingDescription();
                 }
-                commandsExecutor.createDeadline(command, deadlineMatcher);
+                commandsExecutor.createDeadline(deadlineMatcher);
 
             } else if (command.startsWith("todo")) {
                 if (!todoMatcher.matches()) {
                     throw new KitaMissingDescription();
                 }
-                ;
 
-                commandsExecutor.createToDo(command, todoMatcher);
+                commandsExecutor.createToDo(todoMatcher);
             } else {
                 // No valid command found :c
                 throw new KitaNotFound();

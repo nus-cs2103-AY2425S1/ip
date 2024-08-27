@@ -48,5 +48,3 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
   - ```
     .\gradlew clean
     ```
-  
-  - 

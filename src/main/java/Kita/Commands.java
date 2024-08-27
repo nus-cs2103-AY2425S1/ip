@@ -27,17 +27,23 @@ public class Commands {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
-    public void createEvent(String command, Matcher eventMatcher) throws IOException {
-        Task newTask = new Event(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3));
+    public void createEvent(Matcher eventMatcher) throws IOException {
+        String from = eventMatcher.group("from");
+        String to = eventMatcher.group("to");
+        if (from == null) {
+            from = eventMatcher.group("from2");
+            to = eventMatcher.group("to2");
+        }
+        Task newTask = new Event(eventMatcher.group("name"), from, to);
         this.addTask(newTask);
     }
 
-    public void createDeadline(String command, Matcher deadlineMatcher) throws IOException {
-        Task newTask = newTask = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
+    public void createDeadline(Matcher deadlineMatcher) throws IOException {
+        Task newTask = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
         this.addTask(newTask);
     }
 
-    public void createToDo(String command, Matcher todoMatcher) throws IOException {
+    public void createToDo(Matcher todoMatcher) throws IOException {
         Task newTask = new ToDo(todoMatcher.group(1));
         this.addTask(newTask);
     }
