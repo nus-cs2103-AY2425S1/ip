@@ -55,7 +55,7 @@ Here are the tasks in your list:
 ________________________________________
 
 ________________________________________
-InvalidCommandException: Invalid command entered
+exceptions.InvalidCommandException: Invalid command entered
 Here are a list of valid commands:
  - list
  - mark <taskNumber>
