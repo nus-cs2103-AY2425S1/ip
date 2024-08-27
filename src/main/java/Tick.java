@@ -1,10 +1,23 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
 import java.util.Scanner;
 
 public class Tick {
     private static final String separator = "____________________________________________________________";
     private ArrayList<Task> checklist = new ArrayList<>();
+    private Storage storage;
+
+    public Tick(String filePath) {
+        this.storage = new Storage(filePath);
+        try {
+            this.checklist = this.storage.loadData();
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading data from file.");
+            this.checklist = new ArrayList<>();
+        }
+    }
 
     public void greet() {
         System.out.println(Tick.separator);
@@ -48,6 +61,7 @@ public class Tick {
         System.out.println("Got it. I've added this task:");
         System.out.println(this.checklist.get(this.checklist.size() - 1));
         System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
+        storage.saveData(this.checklist);
     }
 
     public void removeTaskFromList(String input) throws TickException {
@@ -57,6 +71,7 @@ public class Tick {
             System.out.println("Noted. I've removed this task:");
             System.out.println(task);
             System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
+            storage.saveData(this.checklist);
         } catch (NumberFormatException e) {
             throw new TickException("Please specify the task number you want to delete!");
         } catch (IndexOutOfBoundsException e) {
@@ -82,6 +97,7 @@ public class Tick {
             task.markAsDone();
             System.out.println("Ding ding! I've marked this task as done:");
             System.out.println(task);
+            storage.saveData(this.checklist);
         } catch (NumberFormatException e) {
             throw new TickException("Please specify the task number you want to mark as done!");
         } catch (IndexOutOfBoundsException e) {
@@ -96,6 +112,7 @@ public class Tick {
             task.markAsUndone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(task);
+            storage.saveData(this.checklist);
         } catch (NumberFormatException e) {
             throw new TickException("Please specify the task number you want to mark as incomplete!");
         } catch (IndexOutOfBoundsException e) {
@@ -136,7 +153,7 @@ public class Tick {
     }
 
     public static void main(String[] args) {
-        Tick bot = new Tick();
+        Tick bot = new Tick("data/tasks.txt");
         bot.greet();
         Scanner scn = new Scanner(System.in);
         String command = scn.nextLine();
