@@ -109,6 +109,9 @@ public class Parser {
             }
             addedTask = LIST.addTask(Command.EVENT, eventInfo);
             break;
+        case FIND:
+            UI.printFilteredTasks(LIST.findTasks(result[1]));
+            break;
         default:
             throw new AliceException(input);
         }
