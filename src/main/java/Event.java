@@ -16,6 +16,7 @@ public class Event extends Task {
     }
 
     Event(String description, String symbol, LocalDateTime startDate, LocalDateTime endDate) {
+        // this is used inside the static method: createEventCommand
         super(description, symbol);
         this.startDate = startDate;
         this.endDate = endDate;
