@@ -1,10 +1,18 @@
 package strand;
 
-import strand.Exceptions.*;
-import strand.Tasks.Task;
-
 import java.util.ArrayList;
 
+import strand.exception.StrandException;
+import strand.exception.StrandWrongIndexException;
+import strand.task.Task;
+
+/**
+ * The {@code TaskList} class interacts keeps track of the list of tasks and
+ * edits it according to the commands.
+ * <p>
+ * This class may throw exceptions if the index of the task is invalid.
+ * </p>
+ */
 public class TaskList {
     private final ArrayList<Task> strandList;
 
@@ -63,11 +71,9 @@ public class TaskList {
 
     @Override
     public String toString() {
-        return (
-                this.strandList.stream()
-                        .map((x) -> (this.strandList.indexOf(x) + 1) + "." + x.toString() + "\n")
-                        .reduce((a, b) -> a + b).orElse("")
-        );
+        return this.strandList.stream()
+                .map((x) -> (this.strandList.indexOf(x) + 1) + "." + x.toString() + "\n")
+                .reduce((a, b) -> a + b).orElse("");
     }
 
     public String toFile() {

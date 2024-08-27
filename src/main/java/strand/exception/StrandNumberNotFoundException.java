@@ -1,5 +1,8 @@
-package strand.Exceptions;
+package strand.exception;
 
+/**
+ * Thrown when a required number is missing in a command that requires it.
+ */
 public class StrandNumberNotFoundException extends StrandException {
     protected String command;
 
@@ -8,8 +11,8 @@ public class StrandNumberNotFoundException extends StrandException {
     }
 
     @Override
-    public String toString() {
-        return "Index for task not found " + super.toString()
+    public String getMessage() {
+        return "Index for task not found " + super.getMessage()
                 + "Please input a number after " + this.command
                 + ". (e.g. " + this.command + " 1)";
     }

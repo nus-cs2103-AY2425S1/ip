@@ -1,20 +1,25 @@
 package strand;
 
-import strand.Commands.*;
-import strand.Exceptions.*;
+import strand.command.AddCommand;
+import strand.command.ByeCommand;
+import strand.command.Command;
+import strand.command.DeleteCommand;
+import strand.command.ListCommand;
+import strand.command.MarkCommand;
+import strand.exception.StrandDescNotFoundException;
+import strand.exception.StrandException;
+import strand.exception.StrandNumberNotFoundException;
+import strand.exception.StrandWrongCommandException;
+
+/**
+ * The {@code Parser} class interprets user input and converts it into
+ * corresponding commands within the Strand application.
+ * <p>
+ * This class may throw exceptions if the input is invalid or unrecognized.
+ * </p>
+ */
 
 public class Parser {
-
-    enum Commands {
-        TODO,
-        DEADLINE,
-        EVENT,
-        DELETE,
-        MARK,
-        UNMARK,
-        BYE,
-        LIST
-    }
 
     /**
      * Parses the user input and returns the corresponding command.
@@ -28,14 +33,25 @@ public class Parser {
         if (split.length == 0) {
             throw new StrandWrongCommandException();
         }
-        Commands command = getCommand(split[0].toUpperCase());
+        CommandEnums command = getCommand(split[0].toUpperCase());
 
-        return switch (command) {
-            case DELETE, MARK, UNMARK -> parseIndexCommand(command, split);
-            case BYE -> new ByeCommand();
-            case LIST -> new ListCommand();
-            case TODO, DEADLINE, EVENT -> parseTaskCommand(command, split);
-        };
+        switch (command) {
+        case DELETE, MARK, UNMARK: {
+            return parseIndexCommand(command, split);
+        }
+        case BYE: {
+            return new ByeCommand();
+        }
+        case LIST: {
+            return new ListCommand();
+        }
+        case TODO, DEADLINE, EVENT: {
+            return parseTaskCommand(command, split);
+        }
+        default: {
+            throw new StrandWrongCommandException();
+        }
+        }
     }
 
     /**
@@ -45,9 +61,9 @@ public class Parser {
      * @return The corresponding command enum.
      * @throws StrandWrongCommandException If the command is not recognized.
      */
-    private static Commands getCommand(String input) throws StrandWrongCommandException {
+    private static CommandEnums getCommand(String input) throws StrandWrongCommandException {
         try {
-            return Commands.valueOf(input);
+            return CommandEnums.valueOf(input);
         } catch (IllegalArgumentException e) {
             throw new StrandWrongCommandException();
         }
@@ -61,16 +77,17 @@ public class Parser {
      * @return The command object based on the index.
      * @throws StrandNumberNotFoundException If the index is missing or invalid.
      */
-    private static Command parseIndexCommand(Commands command, String[] split) throws StrandNumberNotFoundException {
+    private static Command parseIndexCommand(
+            CommandEnums command, String[] split) throws StrandNumberNotFoundException {
         if (split.length < 2) {
             throw new StrandNumberNotFoundException(split[0]);
         }
         try {
             int index = Integer.parseInt(split[1]);
-            if (command.equals(Commands.DELETE)) {
+            if (command.equals(CommandEnums.DELETE)) {
                 return new DeleteCommand(index);
             } else {
-                return new MarkCommand(index, command.equals(Commands.MARK));
+                return new MarkCommand(index, command.equals(CommandEnums.MARK));
             }
         } catch (NumberFormatException e) {
             throw new StrandNumberNotFoundException(split[0]);
@@ -85,17 +102,24 @@ public class Parser {
      * @return The command object based on the task details.
      * @throws StrandDescNotFoundException If the description or other task details are missing.
      */
-    private static Command parseTaskCommand(Commands command, String[] split) throws StrandException {
+    private static Command parseTaskCommand(CommandEnums command, String[] split) throws StrandException {
         if (split.length < 2 || split[1].trim().isEmpty()) {
             throw new StrandDescNotFoundException("Description");
         }
         String desc = split[1].trim();
-        return switch (command) {
-            case TODO -> new AddCommand(desc);
-            case DEADLINE -> parseDeadlineCommand(desc);
-            case EVENT -> parseEventCommand(desc);
-            default -> throw new StrandDescNotFoundException("Description");
-        };
+        switch (command) {
+        case TODO: {
+            return new AddCommand(desc);
+        }
+        case DEADLINE: {
+            return parseDeadlineCommand(desc);
+        }
+        case EVENT: {
+            return parseEventCommand(desc);
+        }
+        default:
+            throw new StrandDescNotFoundException("Description");
+        }
     }
 
     /**
@@ -129,5 +153,16 @@ public class Parser {
         String start = desc.substring(desc.indexOf(" /from ") + 7, desc.indexOf(" /to ")).trim();
         String end = desc.substring(desc.indexOf(" /to ") + 5).trim();
         return new AddCommand(description, start, end);
+    }
+
+    enum CommandEnums {
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        MARK,
+        UNMARK,
+        BYE,
+        LIST
     }
 }
