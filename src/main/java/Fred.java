@@ -8,9 +8,11 @@ public class Fred {
     static String line = "____________________________________________________________";
     static String name = "Fred";
     static ArrayList<Task> taskList = new ArrayList<>();
+    static File dataFile;
+
     public static void main(String[] args) {
-        File dataFile = getDataFile();
-        loadFromDataFile(dataFile);
+        dataFile = getDataFile();
+        loadFromDataFile();
         greet();
         getInput();
     }
@@ -111,14 +113,19 @@ public class Fred {
                 if (inputParts[1].isEmpty()) {
                     throw new EmptyTaskDescriptionException();
                 }
-                addToTaskList(inputParts[0], inputParts[1]);
+                Task task = createTask(inputParts[0], inputParts[1]);
+                addToTaskList(task);
+                message = String.format("Got it. I've added this task:\n" +
+                        "   %s\n" +
+                        "Now you have %d tasks in the list.", task, taskList.size());
+                say(message);
             } else {
                 throw new UnknownCommandException();
             }
         }
     }
 
-    private static Task addToTaskList(String taskType, String taskDetails) {
+    private static Task createTask(String taskType, String taskDetails) {
         Task task;
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
@@ -132,13 +139,11 @@ public class Fred {
             String to = taskDetailsArr[2].substring(3);
             task = new Event(description, from, to);
         }
-        taskList.add(task);
-        System.out.println(line);
-        System.out.println(String.format("Got it. I've added this task:\n" +
-                "   %s\n" +
-                "Now you have %d tasks in the list.", task, taskList.size()));
-        System.out.println(line);
         return task;
+    }
+
+    private static void addToTaskList(Task task) {
+        taskList.add(task);
     }
 
     private static void printTaskList() {
@@ -178,7 +183,7 @@ public class Fred {
         return dataFile;
     }
 
-    private static void loadFromDataFile(File dataFile) {
+    private static void loadFromDataFile() {
         Scanner scanner = null;
         try {
             scanner = new Scanner(dataFile);
@@ -191,17 +196,17 @@ public class Fred {
             Task task = null;
             switch (lineParts[0]) {
             case "T":
-                task = addToTaskList("todo", lineParts[2]);
+                task = createTask("todo", lineParts[2]);
                 break;
             case "D":
-                task = addToTaskList("deadline", lineParts[2] + " /by " + lineParts[3]);
+                task = createTask("deadline", lineParts[2] + " /by " + lineParts[3]);
                 break;
             case "E":
                 String[] fromTo = lineParts[3].split("-");
-                task = addToTaskList("event", lineParts[2] + " /from " + fromTo[0] + " /to " + fromTo[1]);
+                task = createTask("event", lineParts[2] + " /from " + fromTo[0] + " /to " + fromTo[1]);
                 break;
             }
-            System.out.println(task);
+            addToTaskList(task);
             if (lineParts[1].equals("1")) {
                 task.markAsDone();
             } else if (lineParts[1].equals("0")) {
