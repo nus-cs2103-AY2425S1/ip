@@ -6,6 +6,7 @@ package exceptions;
  */
 public class InvalidTaskException extends AliceException {
     protected int taskNumber;
+
     public InvalidTaskException(String message, int taskNumber) {
         super(message);
         this.taskNumber = taskNumber;

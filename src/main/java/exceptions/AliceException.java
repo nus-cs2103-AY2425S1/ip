@@ -4,8 +4,9 @@ package exceptions;
  * Represents exceptions by the chatbot.
  * Can branch off into InvalidTaskException and MissingArgumentException.
  */
-public class AliceException extends Exception{
+public class AliceException extends Exception {
     protected String message;
+
     public AliceException(String message) {
         this.message = message;
     }

@@ -13,12 +13,12 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String DIVIDER = "------------------------------------------";
-    private final Parser parser;
-    private final Scanner scanner;
+    private final Parser PARSER;
+    private final Scanner SCANNER;
 
     public Ui(TaskList list) {
-        parser = new Parser(list, this);
-        scanner = new Scanner(System.in);
+        PARSER = new Parser(list, this);
+        SCANNER = new Scanner(System.in);
     }
 
     /**
@@ -36,19 +36,19 @@ public class Ui {
     public void exitMessage() {
         showDivider();
         System.out.println("Bye. Hope to see you again soon!");
-        scanner.close();
+        SCANNER.close();
     }
 
     /**
      * Gets user inputs from the terminal.
      */
     public void getInput() {
-        while (!parser.isBye()) {
-            if (!scanner.hasNext()) {
+        while (!PARSER.isBye()) {
+            if (!SCANNER.hasNext()) {
                 continue;
             }
             try {
-                parser.parse(scanner.nextLine());
+                PARSER.parse(SCANNER.nextLine());
             } catch (AliceException e) {
                 System.out.println(e);
                 showDivider();

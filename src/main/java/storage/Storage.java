@@ -1,6 +1,9 @@
 package storage;
 
-import tasks.*;
+import tasks.Task;
+import tasks.Todo;
+import tasks.Event;
+import tasks.Deadline;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -78,17 +81,17 @@ public class Storage {
         boolean isDone = Integer.parseInt(info[1]) == 1;
         Task newTask;
         switch (taskType) {
-            case "todo":
-                newTask = new Todo(info[2]);
-                break;
-            case "deadline":
-                newTask = new Deadline(info[2], info[3]);
-                break;
-            case "event":
-                newTask = new Event(info[2], info[3], info[4]);
-                break;
-            default:
-                newTask = new Task(info[2]);
+        case "todo":
+            newTask = new Todo(info[2]);
+            break;
+        case "deadline":
+            newTask = new Deadline(info[2], info[3]);
+            break;
+        case "event":
+            newTask = new Event(info[2], info[3], info[4]);
+            break;
+        default:
+            newTask = new Task(info[2]);
         }
         if (isDone) {
             newTask.markAsDone();
