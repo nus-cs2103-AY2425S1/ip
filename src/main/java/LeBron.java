@@ -1,8 +1,4 @@
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,37 +6,40 @@ import java.util.Scanner;
 
 public class LeBron {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        TaskList taskList;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
+    public LeBron(String filePath) {
+        this.storage = new Storage(filePath);
+        this.ui = new Ui();
         try {
-            taskList = new TaskList(loadTasks());
+            taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
+            ui.showLoadingError();
             taskList = new TaskList(new ArrayList<>());
         }
-        int taskCount = taskList.size();
-        
+    }
 
-        String name = "LeBron";
-        System.out.println("------------------------");
-        System.out.println(String.format("Hello! I'm %s", name));
-        System.out.println("What can I do for you?");
-        System.out.println("------------------------");
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        
+        int taskCount = taskList.size();
+        ui.showWelcomeMessage();
+        boolean isExit = false;
 
         while (scanner.hasNextLine()) {
             try {
-                input = scanner.nextLine();
-                input = input.trim();
+                input = ui.getUserCommand().trim();
 
                 String[] parts = input.split(" ", 2);
 
                 if (input.equals("bye")) {
-                    System.out.println(String.format("%s: Bye! I'm leaving now.", name));
+                    ui.showGoodbyeMessage();
                     System.out.println("------------------------");
                     try {
-                        saveTasks(taskList);
+                        storage.saveTasks(taskList);
                     } catch (IOException e) {
                     }
                     scanner.close();
@@ -163,6 +162,10 @@ public class LeBron {
         scanner.close();
     }
 
+    public static void main(String[] args) {
+        new LeBron("./data/lebron.txt").run();
+    }
+
     private static boolean isNumeric(String str) {
         if (str == null || str.isEmpty()) {
             return false;
@@ -173,61 +176,5 @@ public class LeBron {
             }
         }
         return true;
-    }
-
-    public static void saveTasks(TaskList taskList) throws IOException {
-        File directory = new File("./data");
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-        FileWriter fw = new FileWriter("./data/lebron.txt");
-
-        ArrayList<Task> tasks = taskList.getTasks();
-
-        for (Task task : tasks) {
-            String taskString = task.toFileString();
-            fw.write(taskString + "\n");
-        }
-
-        fw.close();
-    }
-
-    public static ArrayList<Task> loadTasks() throws IOException {
-        ArrayList<Task> taskList = new ArrayList<>();
-        File file = new File("./data/lebron.txt");
-        if (!file.exists()) {
-            return taskList;
-        }
-
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String line;
-
-        while ((line = br.readLine()) != null) {
-            String[] parts = line.split("\\|");
-            String type = parts[0].trim();
-            boolean isDone = parts[1].trim().equals("1");
-
-            Task task;
-            if (type.equals("T")) {
-                task = new ToDos(parts[2].trim());
-            } else if (type.equals("D")) {
-                LocalDate date = LocalDate.parse(parts[3].trim());
-                task = new Deadlines(parts[2].trim(), date);
-            } else if (type.equals("E")) {
-                String[] startEnd = parts[3].split("-");
-                LocalDate start = LocalDate.parse(startEnd[0].trim());
-                LocalDate end = LocalDate.parse(startEnd[1].trim()); 
-                task = new Event(parts[2].trim(), start, end);
-            } else {
-                continue;
-            }
-
-            if (isDone) {
-                task.markAsDone();
-            }
-            taskList.add(task);
-        }
-        return taskList;
     }
 }
