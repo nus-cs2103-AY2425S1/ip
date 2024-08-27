@@ -73,11 +73,11 @@ public class Storage {
         return tasks;
     }
 
-    public void writeFile(ArrayList<Task> tasks) {
+    public void writeFile(TaskList tasks) {
                 try {
             FileWriter fileWriter = new FileWriter(this.file);
             fileWriter.write("");
-            for (Task item : tasks) {
+            for (Task item : tasks.tasks) {
                 String type;
                 String isDone;
                 String description = item.getDescription();

@@ -1,8 +1,11 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.time.LocalDateTime;
 import java.time.DateTimeException;
+
+import java.io.FileNotFoundException;
 
 
 
@@ -14,9 +17,12 @@ public class Rasputin {
         System.out.println(lineBreak + "\n");
     }
     private Storage storage;
+    private TaskList tasks;
 
     public Rasputin(String filePath) {
         this.storage = new Storage(filePath);
+        this.tasks = new TaskList(this.storage.readFile());
+
     }
 
 
@@ -27,8 +33,6 @@ public class Rasputin {
         Rasputin rasputin = new Rasputin("src/main/data/rasputin.txt");
         boolean isTerminated = false;
         // initialize task list
-        ArrayList<Task> ls = new ArrayList<>();
-        ls = rasputin.storage.readFile();
 
 
         // scanner to read user input
@@ -46,28 +50,19 @@ public class Rasputin {
                     isTerminated = true;
                     break;
                 case "list":
-                    if (ls.isEmpty()) {
-                        printText("No tasks in list!");
-                        break;
-                    }
-                    int index = 1;
-                    System.out.println(lineBreak);
-                    for (Task item : ls) {
-                        System.out.println(index + "." + item.toString());
-                        index++;
-                    }
-                    System.out.println(lineBreak + "\n");
+                    printText(rasputin.tasks.toString());
                     break;
                 case "mark":
-                    if (ls.isEmpty()) {
+                    if (rasputin.tasks.isEmpty()) {
                         printText("No tasks in list!");
                         break;
                     }
+
                     try {
-                        index = (input.charAt(5) - '0' - 1);
-                        ls.get(index).markAsDone();
+                        int index = Character.getNumericValue(input.charAt(5)) - 1;
+                        rasputin.tasks.mark(index);
                         String output = "Marked that as done for you.\n" +
-                                ls.get(index).toString();
+                                rasputin.tasks.get(index).toString();
                         printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
                         printText("ERROR! Task to be marked not specified.");
@@ -77,15 +72,15 @@ public class Rasputin {
                     break;
 
                 case "unmark":
-                    if (ls.isEmpty()) {
+                    if (rasputin.tasks.isEmpty()) {
                         printText("No tasks in list!");
                         break;
                     }
                     try {
-                        index = (input.charAt(7) - '0' - 1);
-                        ls.get(index).markAsNotDone();
+                        int index = Character.getNumericValue(input.charAt(7)) - 1;
+                        rasputin.tasks.unmark(index);
                         String output = "Task has been unmarked.\n" +
-                                ls.get(index).toString();
+                                rasputin.tasks.get(index).toString();
                         printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
                         printText("ERROR! Task to be unmarked not specified.");
@@ -98,9 +93,9 @@ public class Rasputin {
                     try {
                         String desc = input.substring(5);
                         Todo task = new Todo(desc);
-                        ls.add(task);
+                        rasputin.tasks.add(task);
                         String output = "Added Todo task:\n" + task.toString();
-                        output += "\nYou currently have " + ls.size() + " task/s in your list.";
+                        output += "\nYou currently have " + rasputin.tasks.size() + " task/s in your list.";
                         printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
                         printText("ERROR! The description of a todo cannot be empty.");
@@ -113,9 +108,9 @@ public class Rasputin {
                         String desc = str.split(" /by ")[0];
                         String deadline = str.split(" /by ")[1];
                         Deadline task = new Deadline(desc, deadline);
-                        ls.add(task);
+                        rasputin.tasks.add(task);
                         String output = "Added Deadline task:\n" + task.toString();
-                        output += "\nYou currently have " + ls.size() + " task/s in your list.";
+                        output += "\nYou currently have " + rasputin.tasks.size() + " task/s in your list.";
                         printText(output);
 
                     } catch (StringIndexOutOfBoundsException e) {
@@ -139,9 +134,9 @@ public class Rasputin {
                         String to = duration.split(" /to ")[1];
 
                         Event task = new Event(desc, from, to);
-                        ls.add(task);
+                        rasputin.tasks.add(task);
                         String output = "Added Event task:\n" + task.toString();
-                        output += "\nYou currently have " + ls.size() + " task/s in your list.";
+                        output += "\nYou currently have " + rasputin.tasks.size() + " task/s in your list.";
                         printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
                         printText("ERROR! The description of an event cannot be empty.");
@@ -156,10 +151,10 @@ public class Rasputin {
                     }
                 case "delete":
                     try {
-                        index = (input.charAt(7) - '0' - 1);
+                        int index = (input.charAt(7) - '0' - 1);
                         String output = "Done, removed that task for you.\n" +
-                                ls.get(index).toString();
-                        ls.remove(index);
+                                rasputin.tasks.get(index).toString();
+                        rasputin.tasks.remove(index);
                         printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
                         printText("ERROR! Task to be deleted not specified.");
@@ -175,7 +170,7 @@ public class Rasputin {
 
         }
 
-        rasputin.storage.writeFile(ls);
+        rasputin.storage.writeFile(rasputin.tasks);
         printText("Bye. See you later!");
     }
 }
