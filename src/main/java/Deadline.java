@@ -1,18 +1,20 @@
 // import libraries necessary for bestie to understand the dates
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
     protected String by;
+    protected LocalDateTime deadline;
     private String formattedDeadline;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
-
-        LocalDate deadline = LocalDate.parse(by);
-        formattedDeadline = deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.deadline = LocalDateTime.parse(by, inputFormat);
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
+        this.formattedDeadline = this.deadline.format(outputFormat);
     }
 
 
@@ -26,11 +28,11 @@ public class Deadline extends Task {
             storeCompleted = "0";
         }
         // store format: " D | 0 | read book | by Sunday
-        return "D | " + storeCompleted + " | " + this.description + " | " + this.by;
+        return "D | " + storeCompleted + " | " + this.description + " | " + this.formattedDeadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formattedDeadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.formattedDeadline + ")";
     }
 }

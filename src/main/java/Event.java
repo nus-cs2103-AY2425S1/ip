@@ -4,19 +4,20 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
 
-    protected String start;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
     private String formattedStartTime;
     private String formattedEndTime;
 
-    protected String end;
     public Event(String description, String start, String end){
         super(description);
-        this.start = start;
-        LocalDate startTime = LocalDate.parse(start);
-        formattedStartTime = startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        this.end = end;
-        LocalDate endTime = LocalDate.parse(end);
-        formattedEndTime = endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.start = LocalDateTime.parse(start, inputFormat);
+        this.end = LocalDateTime.parse(end, inputFormat);
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
+        this.formattedStartTime = this.start.format(outputFormat);
+        this.formattedEndTime = this.end.format(outputFormat);
 
     }
 
