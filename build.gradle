@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainCl ass.set("Avo")
+    mainClass.set("seedu.avo.Avo")
 }
 
 shadowJar {

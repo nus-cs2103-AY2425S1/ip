@@ -1,2 +1,0 @@
-T | false | borrow book
-D | false | project meeting  | Dec 5 2024 | Dec 27 2024

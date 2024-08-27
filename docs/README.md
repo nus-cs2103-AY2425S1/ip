@@ -1,4 +1,4 @@
-# Avo User Guide
+# seedu.avo.Avo User Guide
 
 // Update the title above to match the actual product name
 
