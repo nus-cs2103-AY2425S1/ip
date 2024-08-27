@@ -2,17 +2,22 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class WenJigglyBot {
-    static List<Task> tasks = new ArrayList<>(100);
+    TaskList tasks;
+
+    public WenJigglyBot() {
+        tasks = new TaskList();
+    }
 
     public static void main(String[] args) {
+        new WenJigglyBot().run();
+    }
+
+    public void run() {
         loadTasksFromStorage();
-        System.out.println(tasks);
         Scanner scanner = new Scanner(System.in);
         String name = "WenJigglyBot";
         System.out.println("Sup im " + name);
@@ -94,7 +99,7 @@ public class WenJigglyBot {
         System.out.println("Goodbye!");
     }
 
-    private static void loadTasksFromStorage() {
+    private void loadTasksFromStorage() {
         File file = new File("./data/data.txt");
 
         // Check if the file exists
@@ -108,7 +113,7 @@ public class WenJigglyBot {
             while ((line = reader.readLine()) != null) {
                 Task task = parseTask(line);
                 if (task != null) {
-                    tasks.add(task);
+                    tasks.addTask(task);
                 }
             }
             System.out.println("Tasks loaded from " + file.getPath());
@@ -130,7 +135,7 @@ public class WenJigglyBot {
 
         switch (taskType) {
         case "T": // ToDo task
-            ToDoTask todo = new ToDoTask(description);
+            ToDoTask todo = new ToDoTask(description.split(" ")[1]);
             if (isDone) {
                 todo.markTask();
             }
@@ -140,7 +145,13 @@ public class WenJigglyBot {
             String[] deadlineParts = description.split("\\(by: ");
             if (deadlineParts.length == 2) {
                 String unprocessedTaskDescription = deadlineParts[0].trim();
-                String taskDescription = unprocessedTaskDescription.split(" ")[1];
+                String[] splitted = unprocessedTaskDescription.split(" ");
+                String taskDescription;
+                if (splitted.length != 1) {
+                    taskDescription = splitted[1];
+                } else {
+                    taskDescription = splitted[0];
+                }
                 String deadline = deadlineParts[1].replace(")", "").trim();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy");
                 DeadlineTask deadlineTask = new DeadlineTask(taskDescription, LocalDate.parse(deadline, formatter));
@@ -209,7 +220,7 @@ public class WenJigglyBot {
         return parts;
     }
 
-    private static void deleteTask(int idx) {
+    private void deleteTask(int idx) {
         if (idx < 0 || idx > tasks.size() - 1) {
             System.out.println("You entered an invalid index you fool!");
             return;
@@ -222,7 +233,7 @@ public class WenJigglyBot {
         System.out.println("____________________________________________________________");
     }
 
-    private static void toggleTask(String action, int idx) {
+    private void toggleTask(String action, int idx) {
         // handle invalid index
         if (idx < 0 || idx > tasks.size() - 1) {
             System.out.println("You entered an invalid index you fool!");
@@ -244,8 +255,8 @@ public class WenJigglyBot {
         }
     }
 
-    private static void addTask(Task task) {
-        tasks.add(task);
+    private void addTask(Task task) {
+        tasks.addTask(task);
         saveTasksToFile();
         System.out.println("____________________________________________________________");
         System.out.printf("\tAdding %s\n", task.taskType());
@@ -254,7 +265,7 @@ public class WenJigglyBot {
         System.out.println("____________________________________________________________");
     }
 
-    private static void displayTasks() {
+    private void displayTasks() {
         System.out.println("____________________________________________________________");
         System.out.println("Here are your tasks :)");
         for (int i = 0; i < tasks.size(); i++) {
@@ -263,7 +274,7 @@ public class WenJigglyBot {
         System.out.println("____________________________________________________________");
     }
 
-    private static String tasksToString() {
+    private String tasksToString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
@@ -271,7 +282,7 @@ public class WenJigglyBot {
         return sb.toString();
     }
 
-    private static void saveTasksToFile() {
+    private void saveTasksToFile() {
         String tasksString = tasksToString();
         // Create a File object for the directory
         File directory = new File("./data");
