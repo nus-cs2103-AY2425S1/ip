@@ -13,7 +13,11 @@ public class Bruno {
 
     public static void main(String[] args) {
         String userResponse;
-        String filePath = "src/data/bruno.txt";
+        String directoryPath = "src/data/";
+        String filePath = directoryPath + "bruno.txt";
+
+        ensureDirectoryExists(directoryPath);
+        ensureFileExists(filePath);
 
         loadFromFile(filePath);
 
@@ -206,6 +210,28 @@ public class Bruno {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void ensureDirectoryExists(String directoryPath) {
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created to store data file");
+            }
+        }
+    }
+
+    public static void ensureFileExists(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("Data file created");
+                }
+            } catch (IOException e) {
+                System.out.println("Something went wrong when creating the data file");
+            }
         }
     }
 }
