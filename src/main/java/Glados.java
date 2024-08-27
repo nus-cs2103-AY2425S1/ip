@@ -2,14 +2,18 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Glados {
-    private static TaskList taskList = new TaskList();
+    private TaskList taskList;
 
-    public static void main(String[] args) {
+    public Glados() {
+        this.taskList = new TaskList();
+    }
+
+    private void run() {
         Ui.greet();
 
         Scanner sc = new Scanner(System.in);
         while(true) {
-            String input = sc.nextLine();
+            String input = sc.nextLine().toLowerCase();
             if (input.equals("bye")) {
                 Ui.exit();
                 break;
@@ -53,28 +57,32 @@ public class Glados {
         sc.close();
     }
 
-    public static void add(TaskType taskType, String input) throws GladosException {
+    private void add(TaskType taskType, String input) throws GladosException {
         String[] res = taskList.add(taskType, input);
         Ui.add(res[0], res[1]);
     }
 
-    public static void delete(int index) throws TaskNotFoundException{
+    private void delete(int index) throws TaskNotFoundException{
         String[] res = taskList.delete(index);  
         Ui.delete(res[0], res[1]);
     }
 
-    public static void list() {
+    private void list() {
         ArrayList<Task> res = taskList.list();
         Ui.list(res);
     }
 
-    public static void mark(int index) {
+    private void mark(int index) {
         String res = taskList.mark(index);
         Ui.mark(res);
     }
 
-    public static void unmark(int index) {
+    private void unmark(int index) {
         String res = taskList.unmark(index);
         Ui.unmark(res);
+    }
+
+    public static void main(String[] args) {
+        new Glados().run();
     }
 }
