@@ -1,4 +1,4 @@
-package Exceptions;
+package Nah.Exceptions;
 
 public class LackDescriptionException extends NahException{
     public LackDescriptionException(String mess) {

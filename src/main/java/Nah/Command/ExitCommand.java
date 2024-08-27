@@ -1,8 +1,8 @@
-package Command;
+package Nah.Command;
 
-import Storage.Storage;
-import TaskList.TaskList;
-import UI.UI;
+import Nah.Storage.Storage;
+import Nah.TaskList.TaskList;
+import Nah.UI.UI;
 
 public class ExitCommand extends Command{
     @Override

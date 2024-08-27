@@ -1,4 +1,4 @@
-package UI;
+package Nah.UI;
 
 import java.util.Scanner;
 

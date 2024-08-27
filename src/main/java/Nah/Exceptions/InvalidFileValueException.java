@@ -1,4 +1,4 @@
-package Exceptions;
+package Nah.Exceptions;
 
 public class InvalidFileValueException extends NahException{
     public InvalidFileValueException() {

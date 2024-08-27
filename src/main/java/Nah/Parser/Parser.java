@@ -1,9 +1,9 @@
-package Parser;
-import Command.*;
-import Data.Deadlines;
-import Data.Events;
-import Data.ToDos;
-import Exceptions.*;
+package Nah.Parser;
+import Nah.Command.*;
+import Nah.Data.Deadlines;
+import Nah.Data.Events;
+import Nah.Data.ToDos;
+import Nah.Exceptions.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,7 @@ public class Parser {
             try {
                 i = parseInt(cmd[1]);
             } catch (NumberFormatException e) {
-                throw new NahException(" Nah!!! Please give me a valid ordinal number for the task\n");
+                throw new NahException(" Nah.Nah!!! Please give me a valid ordinal number for the task\n");
             }
             return new MarkCommand(i);
         }
@@ -36,7 +36,7 @@ public class Parser {
             try {
                 i = parseInt(cmd[1]);
             } catch (NumberFormatException e) {
-                throw new NahException(" Nah!!! Please give me a valid ordinal number for the task\n");
+                throw new NahException(" Nah.Nah!!! Please give me a valid ordinal number for the task\n");
             }
             return new UnmarkCommand(i);
         }
@@ -45,7 +45,7 @@ public class Parser {
             try {
                 i = parseInt(cmd[1]);
             } catch (NumberFormatException e) {
-                throw new NahException(" Nah!!! Please give me a valid ordinal number for the task\n");
+                throw new NahException(" Nah.Nah!!! Please give me a valid ordinal number for the task\n");
             }
             return new DeleteCommand(i);
         }

@@ -1,12 +1,12 @@
-package TaskList;
+package Nah.TaskList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
-import Data.Deadlines;
-import Data.Events;
-import Exceptions.InvalidTaskNumberException;
-import Data.Task;
+import Nah.Data.Deadlines;
+import Nah.Data.Events;
+import Nah.Exceptions.InvalidTaskNumberException;
+import Nah.Data.Task;
 public class TaskList {
     LinkedList<Task> tasks;
     int taskCount = 0;
@@ -19,14 +19,14 @@ public class TaskList {
     }
 
     /**
-     * return number of tasks in TaskList
+     * return number of tasks in Nah.TaskList
      * @return
      */
     public int taskCount() {
         return this.taskCount;
     }
     /**
-     * Add new Data.Task to the TaskList.TaskList
+     * Add new Nah.Data.Task to the Nah.TaskList.Nah.TaskList
      * @param newTask
      * @return
      */

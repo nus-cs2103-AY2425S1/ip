@@ -1,10 +1,11 @@
-import Command.*;
-import Data.*;
-import Exceptions.*;
-import Storage.Storage;
-import TaskList.TaskList;
-import UI.UI;
-import Parser.Parser;
+package Nah;
+
+import Nah.Command.*;
+import Nah.Exceptions.*;
+import Nah.Storage.Storage;
+import Nah.TaskList.TaskList;
+import Nah.UI.UI;
+import Nah.Parser.Parser;
 
 import java.nio.file.Paths;
 
@@ -13,7 +14,7 @@ public class Nah {
     private UI ui;
     private TaskList tasks;
 
-    private static final String hardDisk = Paths.get("D:","cs2103T_week_2", "Data", "Nah.txt").toString();
+    private static final String hardDisk = Paths.get("D:","cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
     public Nah(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
