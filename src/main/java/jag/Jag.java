@@ -29,7 +29,7 @@ public class Jag {
 
     /**
      * Method to run the application
-     * Starts the chat bot with a welcome message
+     * Starts the chatbot with a welcome message
      * Continues until the "bye" command is given
      */
     public void run() {
