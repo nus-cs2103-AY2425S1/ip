@@ -1,57 +1,61 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.time.format.DateTimeParseException;
 
 public class ZBot {
     private static final String SAVE_PATH = "../../../data/tasks.txt";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        Storage storage = new Storage(SAVE_PATH);
+    public ZBot(String filepath) {
+        ui = new Ui();
+        storage = new Storage(SAVE_PATH);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (ZBotException e) {
+            ui.printLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.intro();
         storage.createFileIfNotExists();
-        tasks = storage.loadTasks();
-        greet();
-
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            processInput(input);
+            processInput(input, ui);
             input = sc.nextLine();
         }
 
-        storage.saveTasks(tasks);
+        storage.save(tasks);
         sc.close();
-        exit();
+        ui.outro();
     }
 
-    public static void greet() {
-        System.out.println("Hello! I'm ZBot!");
-        System.out.println("What can I do for you?\n");
+    public static void main(String[] args) {
+        new ZBot(SAVE_PATH).run();
     }
 
-    public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    public static void processInput(String input) {
+    public void processInput(String input, Ui ui) {
         if (input.equals("list")) {
             listTasks();
         } else if (input.startsWith("mark")) {
-            markTask(input);
+            markTask(input, ui);
         } else if (input.startsWith("unmark")) {
-            unmarkTask(input);
+            unmarkTask(input, ui);
         } else if (input.startsWith("todo") ||
                 input.startsWith("deadline") ||
                 input.startsWith("event")) {
-            addTask(input);
+            addTask(input, ui);
         } else if (input.startsWith("delete")) {
-            deleteTask(input);
+            deleteTask(input, ui);
         } else {
             System.out.println("Invalid command.\n");
         }
     }
 
-    public static void addTask(String input) {
+    public void addTask(String input, Ui ui) {
         Task task;
         String[] inputParts = input.split(" ", 2);
 
@@ -70,11 +74,7 @@ public class ZBot {
             }
 
             tasks.add(task);
-
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
-            System.out.println(String.format("Now you have %d tasks in the list.\n",
-                    tasks.size()));
+            ui.printAddTaskMsg(task, tasks.size());
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task format!\n");
         } catch (DateTimeParseException e) {
@@ -83,7 +83,7 @@ public class ZBot {
         }
     }
 
-    public static void listTasks() {
+    public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
@@ -91,38 +91,31 @@ public class ZBot {
         System.out.println();
     }
 
-    public static void markTask(String input) {
+    public void markTask(String input, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             tasks.get(taskNumber - 1).markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks.get(taskNumber - 1));
-            System.out.println();
+            ui.printMarkTaskMsg(tasks.get(taskNumber - 1));
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task number!\n");
         }
     }
 
-    public static void unmarkTask(String input) {
+    public void unmarkTask(String input, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             tasks.get(taskNumber - 1).markAsUndone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(tasks.get(taskNumber - 1));
-            System.out.println();
+            ui.printUnmarkTaskMsg(tasks.get(taskNumber - 1));
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task number!\n");
         }
     }
 
-    public static void deleteTask(String input) {
+    public void deleteTask(String input, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(tasks.get(taskNumber - 1));
-            tasks.remove(taskNumber - 1);
-            System.out.println(String.format("Now you have %d tasks in the list.\n",
-                    tasks.size()));
+            Task task = tasks.remove(taskNumber - 1);
+            ui.printDeleteTaskMsg(task, tasks.size());
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task number!\n");
         }
