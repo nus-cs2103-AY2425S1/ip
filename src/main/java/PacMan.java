@@ -100,6 +100,9 @@ public class PacMan {
             } else if (type.equals("deadline")) {
                 String task = input.split(" ", 2)[1];
                 addDeadline(task);
+            } else if (type.equals("event")) {
+                String task = input.split(" ", 2)[1];
+                addEvent(task);
             } else if (type.equals("delete")) {
                 try {
                     deleteTask(Integer.parseInt(input.split(" ")[1]));
