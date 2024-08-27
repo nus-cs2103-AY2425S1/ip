@@ -3,12 +3,14 @@ import java.util.ArrayList;
 public class TaskList {
 
     private final ArrayList<Task> tasks;
+
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
      * Add a task to the end of the list
+     *
      * @param task Task object to be added
      */
     public void add(Task task) {
@@ -21,6 +23,7 @@ public class TaskList {
 
     /**
      * Mark a task as done
+     *
      * @param taskId Index of the task to be marked
      */
     public void mark(int taskId) {
@@ -29,6 +32,7 @@ public class TaskList {
 
     /**
      * Mark a task as not done
+     *
      * @param taskId Index of the task to be unmarked
      */
     public void unmark(int taskId) {
@@ -36,7 +40,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param taskId
      * @return
      */
@@ -46,6 +49,7 @@ public class TaskList {
 
     /**
      * Get the status of the last added task
+     *
      * @return String representation of the task
      */
     public String getLatestTask() {
@@ -57,10 +61,21 @@ public class TaskList {
 
     /**
      * Get the total number of tasks
+     *
      * @return Count of all marked and unmarked tasks
      */
     public int getTaskCount() {
         return tasks.size();
+    }
+
+    /**
+     * Get task in the list
+     *
+     * @param index
+     * @return
+     */
+    public Task getTask(int index) {
+        return this.tasks.get(index);
     }
 
     @Override
