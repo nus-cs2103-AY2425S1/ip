@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
@@ -160,10 +159,6 @@ public class Velma {
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     Task newDeadline = new Deadline(description, deadline);
-
-
-
-
                     list.add(newDeadline);
                     System.out.println("  " + newDeadline.toString());
                     System.out.println("Now you have " + list.size() + " tasks in the list");
