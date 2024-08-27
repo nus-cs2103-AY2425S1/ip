@@ -14,9 +14,6 @@ public class Yapper {
     private static String name = "Yapper";
     private static String relativePath = "./YappingData/YappingSession.txt";
 
-    // Use of enum class to detect specific errors
-    private enum Type {DESC, DEADLINE, FROM, TO};
-
     public static void main(String[] args) {
 
         System.out.println(divider);
@@ -132,7 +129,7 @@ public class Yapper {
                     }
                 } else if (command.equals("todo")) {
                     try {
-                        String desc = join(split, 1, split.length, Type.DESC);
+                        String desc = StringJoiner.join(split, 1, split.length, YapperConcern.DESC);
                         Task task = new ToDo(desc);
                         addTask(taskList, task);
                     } catch (YapperException e) {
@@ -149,8 +146,8 @@ public class Yapper {
                         if (byIndex == -1) {
                             throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE])");
                         }
-                        String desc = join(split, 1, byIndex, Type.DESC);
-                        String deadline = join(split, byIndex + 1, split.length, Type.DEADLINE);
+                        String desc = StringJoiner.join(split, 1, byIndex, YapperConcern.DESC);
+                        String deadline = StringJoiner.join(split, byIndex + 1, split.length, YapperConcern.DEADLINE);
                         Task task = new Deadline(desc, deadline);
                         addTask(taskList, task);
                     } catch (YapperException e) {
@@ -170,9 +167,9 @@ public class Yapper {
                         if (fromIndex == -1 || toIndex == -1) {
                             throw new YapperFormatException("(Format: event [DESC] /from [FROM] /to [TO])");
                         }
-                        String desc = join(split, 1, fromIndex, Type.DESC);
-                        String from = join(split, fromIndex + 1, toIndex, Type.FROM);
-                        String to = join(split, toIndex + 1, split.length, Type.TO);
+                        String desc = StringJoiner.join(split, 1, fromIndex, YapperConcern.DESC);
+                        String from = StringJoiner.join(split, fromIndex + 1, toIndex, YapperConcern.FROM);
+                        String to = StringJoiner.join(split, toIndex + 1, split.length, YapperConcern.TO);
                         Task task = new Event(desc, from, to);
                         addTask(taskList, task);
                     } catch (YapperException e) {
@@ -262,31 +259,4 @@ public class Yapper {
         return taskMessage;
     }
 
-    public static String join(String[] s, int start, int end, Type timeType) throws YapperException {
-        StringBuilder sb = new StringBuilder();
-        for (int i = start; i < end; i++) {
-            sb.append(s[i]);
-            if (i != end - 1) {
-                sb.append(' ');
-            }
-        }
-        if (sb.isEmpty()) {
-            String message = null;
-            switch (timeType) {
-            case DESC:
-                throw new EmptyDescException("(E.g. todo [DESC], deadline [DESC] /by [DEADLINE], etc)");
-            case DEADLINE:
-                throw new EndingTimeException("(Format: deadline [DESC] /by [DEADLINE])");
-            case FROM:
-                throw new StartingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
-            case TO:
-                throw new EndingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
-            default:
-                message = "(Something went wrong)";
-                break;
-            }
-            throw new YapperFormatException(message);
-        }
-        return sb.toString();
-    }
 }
