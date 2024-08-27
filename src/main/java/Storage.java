@@ -28,7 +28,9 @@ public class Storage {
      * @param taskList The list of tasks to be written to the file.
      */
     public void writeTasksToFile(ArrayList<Task> taskList) {
-        
+        for (int i = 0; i < taskList.size(); i++) {
+            
+        }
     }
 
     /**
@@ -36,6 +38,8 @@ public class Storage {
      * @return ArrayList<Task> List of tasks stored in the text file.
      */
     public ArrayList<Task> readTasksFromFile() {
-        return new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<Task>();
+
+        return taskList;
     }
 }

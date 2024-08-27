@@ -10,8 +10,16 @@ public class Deadline extends Task {
      * @param by Date the deadline must be accomplished by.
      */
     public Deadline(String name, String by) {
-        super(name);
+        super(name, TASK_TYPE.DEADLINE);
         this.by = by;
+    }
+
+    /**
+     * Returns a string containing the time the deadline must be completed by.
+     * @return String A string containing the time the deadline must be completed by.
+     */
+    public String getByTime() {
+        return this.by;
     }
 
     /** Returns string representation of the Deadline.
