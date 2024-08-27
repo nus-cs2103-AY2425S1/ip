@@ -3,30 +3,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileWriting {
-    protected static void writeToFile(String filePath, ArrayList<Task> updatedList) throws IOException {
+    private static final String SEPARATOR = " | ";
+    protected static void saveTasks(String filePath, ArrayList<Task> updatedList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task t : updatedList) {
-            fw.write(t + "\n");
+            fw.write(formatTasks(t) + "\n");
         }
         fw.close();
     }
 
-    protected static String listToStringFormatted(String filePath, Task t) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    protected static String formatTasks(Task t) {
         String type = t.getType();
-        String status = t.getStatusIcon();
+        int status = t.isDone? 1 : 0;
         String description = t.getDescription();
-        if (type == "E") {
+        String formatted = type + SEPARATOR + status + SEPARATOR + description;
+
+        if (type.equals("D")) {
             String by = t.getBy();
-        }
-        if (type == "D") {
-            String from = t.getFrom();
-            String to = t.getTo();
+            formatted = formatted + SEPARATOR + by;
         }
 
-        String formatted = type + "|" + status + "|" + description;
-        fw.write(formatted);
-        fw.close();
+        if (type.equals("E")) {
+            String from = t.getFrom();
+            String to = t.getTo();
+            formatted = formatted + SEPARATOR + from + SEPARATOR + to;
+        }
         return formatted;
     }
 }

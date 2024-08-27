@@ -1,18 +1,23 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Bob {
     enum Command {
         LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, INVALID
     }
 
+    private static final String DIR_PATH = "./data";
+    private static final String FILE_PATH = DIR_PATH + "/bob.txt";
+
     public static void main(String[] args) throws IOException {
         String logo = "Bob";
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
-        ArrayList<Task> list = new ArrayList<>();
-        // add function to add tasks to list from file
+
+        FileReading.createDirectory(DIR_PATH);
+        FileReading.createFile(FILE_PATH);
+        ArrayList<Task> list = FileReading.loadTasks(FILE_PATH);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
@@ -51,7 +56,7 @@ public class Bob {
             }
             input = scanner.nextLine();
         }
-        FileWriting.writeToFile("data/bob.txt", list);
+        FileWriting.saveTasks(FILE_PATH, list);
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -64,10 +69,16 @@ public class Bob {
         return Command.INVALID;
     }
 
-    private static void listTasks(ArrayList<Task> list) throws FileNotFoundException {
+    private static void listTasks(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            System.out.println("There are no tasks in your list.");
+            return;
+        }
         System.out.println("Here are the tasks in your list:");
 
-        FileReading.printFileContents("data/bob.txt");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ". " + list.get(i));
+        }
     }
 
     private static void markTask(ArrayList<Task> list, String input) throws BobException {
@@ -133,7 +144,7 @@ public class Bob {
             throw new BobException("The start and end date/time of an event cannot be empty. Please enter in the format: description /from <start> /to <end>");
         }
         String description = parts[0].substring("event".length()).trim();
-        String from = parts[1];
+        String from = parts[1].trim();
         String to = parts[2].trim();
         if (description.isEmpty()) {
             throw new BobException("The description of an event cannot be empty.");
