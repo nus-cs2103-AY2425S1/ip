@@ -1,123 +1,29 @@
 import java.io.*;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
 
 public class Talkie {
 
-    public enum MessageType {
-        HORIZONTAL_LINE("-------------------------------------------------------------------"),
-        WELCOME_MESSAGE(HORIZONTAL_LINE.message + "\n"
-                + "Hello! I'm Talkie, your friendly ChatBot.\n"
-                + "What can I do for you?\n"
-                + HORIZONTAL_LINE.message + "\n"),
-        BYE_MESSAGE(HORIZONTAL_LINE.message + "\n"
-                + "Bye. Hope to see you again soon!\n"
-                + HORIZONTAL_LINE.message + "\n");
+    private Ui ui;
+    private TaskList tasks;
+    private Storage storage;
 
-        private final String message;
+    public Talkie(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
 
-        MessageType(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return this.message;
-        }
-    }
-
-    private static String directory = "./data";
-    private static String fileName = "Talkie.txt";
-    private static String dataPath = String.valueOf(Paths.get(Talkie.directory, Talkie.fileName));
-
-    protected static List<Task> taskList = new ArrayList<>();
-    protected static Scanner scanner = new Scanner(System.in);
-
-
-    private static void loadData() {
-
-        File database = new File(Talkie.dataPath);
         try {
-
-            Scanner fileReader = new Scanner(database);
-            while (fileReader.hasNextLine()) {
-                String entry = fileReader.nextLine();
-                readEntry(entry);
-            }
-        } catch (FileNotFoundException e) {
-            Talkie.createDatabase();
-
+            tasks = new TaskList(this.storage.loadData());
         } catch (TalkieException e) {
-            System.out.println("OH NO! Error when reading data entry!");
+            ui.showTalkieException(e);
+            tasks = new TaskList();
         }
     }
-
-    private static void readEntry(String entry) throws TalkieNoTaskFoundException {
-        String[] fields = entry.split(" \\| ");
-        Task taskToBeAdded;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        switch(fields[0]) {
-            case "T":
-                taskToBeAdded = new ToDo(fields[2]);
-                break;
-
-            case "E":
-                taskToBeAdded = new Event(fields[2],
-                        LocalDateTime.parse(fields[3], formatter),
-                        LocalDateTime.parse(fields[4], formatter));
-                break;
-
-            case "D":
-                taskToBeAdded = new Deadline(fields[2],
-                        LocalDateTime.parse(fields[3], formatter));
-                break;
-
-            default:
-                throw new TalkieNoTaskFoundException();
-        }
-
-        if (Integer.parseInt(fields[1]) == 1) {
-            taskToBeAdded.markAsDone();
-        }
-
-        Talkie.taskList.add(taskToBeAdded);
-    }
-
-    private static void createDatabase() {
-        File db = new File(Talkie.dataPath);
-        File dir = new File(Talkie.directory);
-
-        dir.mkdir();
-
-        try {
-            db.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Oops! Something went wrong when creating the database!");
-        }
-    }
-
-    private static void saveData() throws IOException {
-        FileWriter writer = new FileWriter(Talkie.dataPath, false);
-        BufferedWriter bufferedWriter = new BufferedWriter(writer);
-
-        for (Task task : Talkie.taskList) {
-            bufferedWriter.write(task.stringifyTask());
-            bufferedWriter.newLine();
-        }
-
-        bufferedWriter.close();
-        writer.close();
-    }
-
-
 
     // Creates Deadline Task
-    public static void createDeadline(String input) throws TalkieMissingArgumentException {
+    public void createDeadline(String input) throws TalkieMissingArgumentException {
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
 
         try {
@@ -132,22 +38,19 @@ public class Talkie {
                 LocalDateTime time = LocalDateTime.parse(by, formatter);
 
                 Task newDeadline = new Deadline(description, time);
-                taskList.add(newDeadline);
-                String message = Talkie.addMessage(newDeadline);
-                System.out.println(message);
+                this.tasks.addTask(newDeadline);
+                ui.addMessage(newDeadline, this.tasks.size());
             } else {
                 throw new TalkieMissingArgumentException(parts[0],
                         "The 'description' and 'by' of deadline cannot be empty.");
             }
         } catch (DateTimeParseException e) {
-            System.out.println(MessageType.HORIZONTAL_LINE.message + "\n"
-                    + "Please enter the time in the format of <yyyy-MM-dd HHmm>!\n"
-                    + MessageType.HORIZONTAL_LINE.message + "\n");
+            ui.wrongDateTimeFormatMessage();
         }
     }
 
     // Creates Event Task
-    public static void createEvent(String input) throws TalkieMissingArgumentException {
+    public void createEvent(String input) throws TalkieMissingArgumentException {
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
 
         try {
@@ -169,48 +72,34 @@ public class Talkie {
                 }
 
                 Task newEvent = new Event(description, startTime, endTime);
-                taskList.add(newEvent);
-                String message = Talkie.addMessage(newEvent);
-                System.out.println(message);
+                this.tasks.addTask(newEvent);
+                ui.addMessage(newEvent, this.tasks.size());
             } else {
                 throw new TalkieMissingArgumentException(parts[0],
                         "The 'description', 'from' and 'to' of event cannot be empty.");
             }
         } catch (DateTimeParseException e) {
-            System.out.println(MessageType.HORIZONTAL_LINE + "\n"
-                    + "Please enter the time in the format of <yyyy-MM-dd HHmm>!\n"
-                    + MessageType.HORIZONTAL_LINE.message + "\n");
+           ui.wrongDateTimeFormatMessage();
         }
 
     }
 
     // Creates ToDo Task
-    public static void createToDo(String input) throws TalkieMissingArgumentException{
+    public void createToDo(String input) throws TalkieMissingArgumentException{
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
 
         if (parts.length == 2) {
             String details = parts[1]; // rest of the input (eg. from, to details)
             Task newToDo = new ToDo(details.trim());
-            taskList.add(newToDo);
-            String message = Talkie.addMessage(newToDo);
-            System.out.println(message);
+            this.tasks.addTask(newToDo);
+            ui.addMessage(newToDo, this.tasks.size());
         } else {
             throw new TalkieMissingArgumentException(parts[0], "The 'description' of todo cannot be empty.");
         }
     }
 
-    // The message displayed whenever a task is created
-    public static String addMessage(Task t) {
-        String taskWord = (taskList.size() > 1) ? "tasks" : "task";
-        return MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Got it. I've added this task:\n"
-                + "  " + t + "\n"
-                + "Now you have " + taskList.size() + " " + taskWord + " in the list.\n"
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-    }
-
     // Deletes a task
-    public static void deleteTask(String input)
+    public void deleteTask(String input)
             throws TalkieMissingArgumentException, TalkieNoTaskFoundException, TalkieInvalidArgumentException{
         String[] temp = input.split(" ");
 
@@ -220,18 +109,12 @@ public class Talkie {
 
         // Check if user included the correct int argument
         } else if (Talkie.isInteger(temp[1])) {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            int index = Integer.parseInt(input.split(" ")[1]);
 
             // Check if the task is in the list
-            if (index <= taskList.size() - 1) {
-                Task task = taskList.remove(index);
-                String taskWord = (taskList.size() > 1) ? "tasks" : "task";
-                String doneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                        + "Noted! I've removed this task:\n"
-                        + "  " + task + "\n"
-                        + "Now you have " + taskList.size() + " " + taskWord + " in the list.\n"
-                        + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-                System.out.println(doneMessage);
+            if (index <= this.tasks.size()) {
+                Task task = this.tasks.deleteTask(index);
+                ui.deleteMessage(task, tasks.size());
             } else {
                 throw new TalkieNoTaskFoundException();
             }
@@ -240,24 +123,9 @@ public class Talkie {
         }
     }
 
-    // Display the list of tasks
-    public static void listTasks() {
-        String listMessage = "";
-        for (int i=0; i<taskList.size(); i++) {
-            Task currTask = taskList.get(i);
-            String description = (i + 1) + ". " + currTask + "\n";
-            listMessage += description;
-        }
-
-        String finalListMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Here are the tasks in your list:\n"
-                +  listMessage
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-        System.out.println(finalListMessage);
-    }
 
     // Marks a task
-    public static void markTask(String input)
+    public void markTask(String input)
             throws TalkieInvalidArgumentException, TalkieMissingArgumentException, TalkieNoTaskFoundException {
         String[] temp = input.split(" ");
 
@@ -267,17 +135,13 @@ public class Talkie {
 
         // Check if user included the correct int argument
         } else if (Talkie.isInteger(temp[1])) {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            int index = Integer.parseInt(input.split(" ")[1]);
 
             // Check if the task is in the list
-            if (index <= taskList.size() - 1) {
-                Task task = taskList.get(index);
+            if (index <= this.tasks.size()) {
+                Task task = this.tasks.getTask(index);
                 task.markAsDone();
-                String doneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                        + "Nice! I've marked this task as done:\n"
-                        + " " + task + "\n"
-                        + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-                System.out.println(doneMessage);
+                ui.markMessage(task);
             } else {
                 throw new TalkieNoTaskFoundException();
             }
@@ -288,7 +152,7 @@ public class Talkie {
     }
 
     // Unmarks a Task
-    public static void unmarkTask(String input)
+    public void unmarkTask(String input)
             throws TalkieInvalidArgumentException, TalkieMissingArgumentException, TalkieNoTaskFoundException {
         String[] temp = input.split(" ");
 
@@ -298,17 +162,13 @@ public class Talkie {
 
         // Check if the user included the correct int argument
         } else if (Talkie.isInteger(temp[1])) {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            int index = Integer.parseInt(input.split(" ")[1]);
 
             // Check if the task index is valid in the task list
-            if (index <= taskList.size() - 1) {
-                Task task = taskList.get(index);
+            if (index <= this.tasks.size()) {
+                Task task = this.tasks.getTask(index);
                 task.markAsNotDone();
-                String undoneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                        + "OK, I've marked this task as not done yet:\n"
-                        + " " + task + "\n"
-                        + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-                System.out.println(undoneMessage);
+                ui.unMarkMessage(task);
             } else {
                 throw new TalkieNoTaskFoundException();
             }
@@ -329,48 +189,49 @@ public class Talkie {
     }
 
     // Exits the program
-    public static void exit() {
+    public void exit() {
         try {
-            Talkie.saveData();
-            System.out.println(MessageType.BYE_MESSAGE.getMessage());
+            this.storage.saveData(this.tasks);
+            ui.byeMessage();
         } catch (IOException e) {
             System.out.println("Oops! Something went wrong when saving the data!");
         }
     }
 
     // Runs the main program
-    public static void runTalkie() {
-        System.out.println(MessageType.WELCOME_MESSAGE.getMessage());
+    public void runTalkie() {
+
+        ui.welcomeMessage();
 
         boolean isFinished = false;
         while (!isFinished) {
-            String input = scanner.nextLine();
 
             try {
+                String input = this.ui.readCommand();
                 if (input.equalsIgnoreCase("bye")) {
-                    Talkie.exit();
+                    this.exit();
                     isFinished = true;
 
                 } else if (input.equalsIgnoreCase("list")) {
-                    Talkie.listTasks();
+                    ui.listTasks(this.tasks);
 
                 } else if (input.startsWith("delete")) {
-                    Talkie.deleteTask(input);
+                    this.deleteTask(input);
 
                 } else if (input.startsWith("mark")) {
-                    Talkie.markTask(input);
+                    this.markTask(input);
 
                 } else if (input.startsWith("unmark")) {
-                    Talkie.unmarkTask(input);
+                    this.unmarkTask(input);
 
                 } else if (input.startsWith("todo")) {
-                    Talkie.createToDo(input);
+                    this.createToDo(input);
 
                 } else if (input.startsWith("deadline")) {
-                    Talkie.createDeadline(input);
+                    this.createDeadline(input);
 
                 } else if (input.startsWith("event")) {
-                    Talkie.createEvent(input);
+                    this.createEvent(input);
 
                 } else {
                     throw new TalkieUnknownCommandException(input);
@@ -378,14 +239,11 @@ public class Talkie {
             } catch (TalkieException e) {
                 System.out.println(e);
             }
-
         }
     }
 
     public static void main(String[] args) {
-        // Load data
-        Talkie.loadData();
         // Start of Talkie
-        Talkie.runTalkie();
+        new Talkie("./data/Talkie.txt").runTalkie();
     }
 }
