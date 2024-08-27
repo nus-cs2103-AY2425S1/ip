@@ -24,6 +24,10 @@ public class Molly {
 
     }
 
+    /**
+     * This method loads tasks from the Molly.txt file, creating new tasks for each line and adding them to the botMemory ArrayList.
+     * @return
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> botMemory = new ArrayList<>();
         File file = new File(FILE_PATH);
@@ -48,6 +52,10 @@ public class Molly {
     }
 
 
+    /**
+     * This method saves all the tasks from the botMemory ArrayList into the Molly.txt file
+     * @param botMemory
+     */
     public static void saveTasks(ArrayList<Task> botMemory) {
         try {
             File file = new File(FILE_PATH);
@@ -65,22 +73,29 @@ public class Molly {
         }
     }
 
+    /**
+     * This method parses tasks when reading the Molly.txt file, returning the tasks so that they
+     * can be added to the botMemory ArrayList.
+     * @param taskData
+     * @return
+     */
+
     public static Task parseTask(String taskData) {
         if (taskData.startsWith("[T]")) {
-            String description = taskData.substring(7);  // Extract description after "[T][X] " or "[T][ ] "
+            String description = taskData.substring(7);
             Task task = new Task(description);
-            if (taskData.charAt(4) == 'X') {  // Check if the task is marked as done
-                task.toggleTaskDone();
+            if (taskData.charAt(4) == 'X') {
+                task.markDone();
             }
             return task;
         } else if (taskData.startsWith("[D]")) {
             int byIndex = taskData.indexOf("(by:");
             if (byIndex != -1) {
-                String description = taskData.substring(7, byIndex - 1); // Extract description
-                String by = taskData.substring(byIndex + 5, taskData.length() - 1); // Extract deadline date
+                String description = taskData.substring(7, byIndex - 1);
+                String by = taskData.substring(byIndex + 5, taskData.length() - 1);
                 Deadline deadline = new Deadline(description, by);
-                if (taskData.charAt(4) == 'X') {  // Check if the deadline is marked as done
-                    deadline.toggleTaskDone();
+                if (taskData.charAt(4) == 'X') {
+                    deadline.markDone();
                 }
                 return deadline;
             }
@@ -88,18 +103,18 @@ public class Molly {
             int fromIndex = taskData.indexOf("(from:");
             int toIndex = taskData.indexOf("to:");
             if (fromIndex != -1 && toIndex != -1) {
-                String description = taskData.substring(7, fromIndex - 1); // Extract description
-                String from = taskData.substring(fromIndex + 6, toIndex - 1); // Extract start time
-                String to = taskData.substring(toIndex + 3, taskData.length() - 1); // Extract end time
+                String description = taskData.substring(7, fromIndex - 1);
+                String from = taskData.substring(fromIndex + 6, toIndex - 1);
+                String to = taskData.substring(toIndex + 3, taskData.length() - 1);
                 Event event = new Event(description, from, to);
-                if (taskData.charAt(4) == 'X') {  // Check if the event is marked as done
-                    event.toggleTaskDone();
+                if (taskData.charAt(4) == 'X') {
+                    event.markDone();
                 }
                 return event;
             }
         }
 
-        return null; // Return null if taskData doesn't match any known format
+        return null;
     }
 
     /**
