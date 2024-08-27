@@ -1,9 +1,6 @@
 package task;
 
-import exception.IllegalTaskArgumentException;
 import exception.IllegalTaskNumberException;
-import exception.IllegalTaskTypeException;
-import parser.TaskFactory;
 import storage.DbManager;
 
 import java.util.ArrayList;
@@ -20,38 +17,35 @@ public class TaskManager {
         return this.taskList.size();
     }
 
-    public Task addTask(String taskTypeStr, String taskArgs) throws IllegalTaskTypeException, IllegalTaskArgumentException {
-        Task task = TaskFactory.userInputToTask(taskTypeStr, taskArgs);
-        this.taskList.add(task);
-        this.db.writeTasks(this.taskList);
-        return task;
-    }
-
     public Task addTask(Task task) {
         this.taskList.add(task);
-        this.db.writeTasks(this.taskList);
+        this.save();
         return task;
     }
 
     public Task deleteTask(int taskIdx) throws IllegalTaskNumberException {
         Task task = this.getTask(taskIdx);
         this.taskList.remove(taskIdx);
-        this.db.writeTasks(this.taskList);
+        this.save();
         return task;
     }
 
     public Task markTask(int taskIdx) throws IllegalTaskNumberException {
         Task task = this.getTask(taskIdx);
         task.markDone();
-        this.db.writeTasks(this.taskList);
+        this.save();
         return task;
     }
 
     public Task unmarkTask(int taskIdx) throws IllegalTaskNumberException {
         Task task = this.getTask(taskIdx);
         task.unmarkDone();
-        this.db.writeTasks(this.taskList);
+        this.save();
         return task;
+    }
+
+    private void save() {
+        this.db.writeTasks(this.taskList);
     }
 
     private Task getTask(int taskIdx) throws IllegalTaskNumberException {
