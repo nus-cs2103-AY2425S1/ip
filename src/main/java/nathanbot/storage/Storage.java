@@ -10,6 +10,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import nathanbot.tasks.Task;
 
+/**
+ * Cleaned up using Copilot to follow Google's Java Style Guide,
+ * while keeping indentations to be 4 spaces.
+ */
 public class Storage {
     private final String txtFileName;
     private final String datFileName;

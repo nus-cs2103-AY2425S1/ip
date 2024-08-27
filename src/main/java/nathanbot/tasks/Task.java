@@ -1,6 +1,11 @@
 package nathanbot.tasks;
+
 import java.io.Serializable;
 
+/**
+ * Cleaned up using Copilot to follow Google's Java Style Guide,
+ * while keeping indentations to be 4 spaces.
+ */
 public class Task implements Serializable {
     private final String description;
     private boolean isDone;

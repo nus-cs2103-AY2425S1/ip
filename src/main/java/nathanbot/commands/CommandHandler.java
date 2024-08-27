@@ -3,12 +3,17 @@ package nathanbot.commands;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import nathanbot.tasks.Deadline;
 import nathanbot.tasks.Event;
 import nathanbot.tasks.Task;
 import nathanbot.tasks.TaskList;
 import nathanbot.tasks.ToDo;
 
+/**
+ * Cleaned up using Copilot to follow Google's Java Style Guide,
+ * while keeping indentations to be 4 spaces.
+ */
 public abstract class CommandHandler {
     private static final String LINE = "____________________________________________________________\n";
     private static final String EXIT = "Bye. Hope to see you again soon!\n";

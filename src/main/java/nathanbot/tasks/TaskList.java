@@ -1,7 +1,12 @@
 package nathanbot.tasks;
+
 import java.util.ArrayList;
 import nathanbot.storage.Storage;
 
+/**
+ * Cleaned up using Copilot to follow Google's Java Style Guide,
+ * while keeping indentations to be 4 spaces.
+ */
 public class TaskList {
     private final ArrayList<Task> taskList;
     private final Storage storage;
@@ -41,7 +46,6 @@ public class TaskList {
 
     @Override
     public String toString() {
-        // suggested by Copilot
         if (taskList.isEmpty()) {
             return "You have no tasks in the list.\n";
         }
@@ -51,6 +55,4 @@ public class TaskList {
         }
         return sb.toString();
     }
-
-    
 }

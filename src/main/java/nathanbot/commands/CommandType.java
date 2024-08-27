@@ -1,5 +1,9 @@
 package nathanbot.commands;
 
+/**
+ * Cleaned up using Copilot to follow Google's Java Style Guide,
+ * while keeping indentations to be 4 spaces.
+ */
 public enum CommandType {
     BREAK("bye"),
     DISPLAY_LIST("list"),
@@ -29,5 +33,4 @@ public enum CommandType {
         }
         return UNKNOWN;
     }
-
 }

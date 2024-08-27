@@ -1,13 +1,15 @@
 package nathanbot.ui;
 
 import java.util.Scanner;
-
 import nathanbot.commands.CommandHandler;
 import nathanbot.commands.CommandType;
 import nathanbot.tasks.TaskList;
 
+/**
+ * Cleaned up using Copilot to follow Google's Java Style Guide,
+ * while keeping indentations to be 4 spaces.
+ */
 public class UserInterface {
-    // cleaned up using Copilot
     private final TaskList taskList;
 
     public UserInterface(TaskList taskList) {
@@ -23,20 +25,35 @@ public class UserInterface {
                 CommandType commandType = CommandType.fromInput(input);
 
                 switch (commandType) {
-                    case BREAK -> {
+                    case BREAK:
                         CommandHandler.handleExit();
                         return;
-                    }
-                    case DISPLAY_LIST -> CommandHandler.handleDisplayList(taskList);
-                    case MARK_DONE -> CommandHandler.handleMarkCommand(input, "mark ", taskList, true);
-                    case MARK_UNDONE -> CommandHandler.handleMarkCommand(input, "unmark ", taskList, false);
-                    case TODO -> CommandHandler.handleTodoCommand(input, taskList);
-                    case DEADLINE -> CommandHandler.handleDeadlineCommand(input, taskList);
-                    case EVENT -> CommandHandler.handleEventCommand(input, taskList);
-                    case DELETE -> CommandHandler.handleDeleteCommand(input, taskList);
-                    default -> CommandHandler.handleUnknownCommand();
+                    case DISPLAY_LIST:
+                        CommandHandler.handleDisplayList(taskList);
+                        break;
+                    case MARK_DONE:
+                        CommandHandler.handleMarkCommand(input, "mark ", taskList, true);
+                        break;
+                    case MARK_UNDONE:
+                        CommandHandler.handleMarkCommand(input, "unmark ", taskList, false);
+                        break;
+                    case TODO:
+                        CommandHandler.handleTodoCommand(input, taskList);
+                        break;
+                    case DEADLINE:
+                        CommandHandler.handleDeadlineCommand(input, taskList);
+                        break;
+                    case EVENT:
+                        CommandHandler.handleEventCommand(input, taskList);
+                        break;
+                    case DELETE:
+                        CommandHandler.handleDeleteCommand(input, taskList);
+                        break;
+                    default:
+                        CommandHandler.handleUnknownCommand();
+                        break;
                 }
             }
         }
-    }    
+    }
 }
