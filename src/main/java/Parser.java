@@ -21,6 +21,8 @@ public class Parser {
         switch (command) {
         case ByeCommand.COMMAND_PREFIX:
             return new ByeCommand(arguments);
+        case ListCommand.COMMAND_PREFIX:
+            return new ListCommand(arguments);
         }
 
         return null;
