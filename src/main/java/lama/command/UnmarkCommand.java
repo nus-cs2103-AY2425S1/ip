@@ -15,6 +15,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Construct UnmarkCommand with specified index.
+     *
      * @param indexOfUnmark Integer index of element in the task list that wanted to be unmarked.
      */
     public UnmarkCommand(int indexOfUnmark) {
@@ -23,6 +24,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Run the command by making the index of task in the task list as not done.
+     *
      * @param taskList Task list which the task will be unmarked.
      * @param storage Storage used to save latest task list.
      * @param ui User interface that interacts with user.

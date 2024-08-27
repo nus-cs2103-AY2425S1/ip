@@ -9,10 +9,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    /** Date and time for the event start*/
+    /** Date and time for the event start */
     protected LocalDateTime from;
 
-    /** Date and time for the event end*/
+    /** Date and time for the event end */
     protected LocalDateTime to;
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
@@ -20,6 +20,7 @@ public class Event extends Task {
 
     /**
      * Construct an event task with specified description, starting time and ending time.
+     *
      * @param description Description of the event.
      * @param from Start time of the event.
      * @param to End time of the event.
@@ -40,6 +41,7 @@ public class Event extends Task {
      * H represents the hours.
      * m represents the minute.
      * Status will show "X" if done, else " ".
+     *
      * @return String representation of event task.
      */
     @Override
@@ -58,6 +60,7 @@ public class Event extends Task {
      * H represents the hours.
      * m represents the minute.
      * If the status is done, it will show "1", else "0".
+     *
      * @return String representation of event task in file.
      */
     @Override

@@ -12,6 +12,7 @@ public class ExitCommand extends Command {
 
     /**
      * Run the command to exit the application.
+     *
      * @param taskList Task list, although not used in this command.
      * @param storage Storage used to save or load tasks, although not used in this command.
      * @param ui User interface that interacts with user.
@@ -23,6 +24,7 @@ public class ExitCommand extends Command {
 
     /**
      * Indicates that this command will exit the application.
+     *
      * @return true, as this command will exit the application.
      */
     @Override

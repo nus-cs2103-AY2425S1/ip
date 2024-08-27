@@ -15,6 +15,7 @@ public class MarkCommand extends Command {
 
     /**
      * Construct a MarkCommand with specified index.
+     *
      * @param indexOfMark Integer index of element in the task list that wanted to mark.
      */
     public MarkCommand(int indexOfMark) {
@@ -23,6 +24,7 @@ public class MarkCommand extends Command {
 
     /**
      * Run the command by marking the index of task in the task list as done.
+     *
      * @param taskList Task list which the task will be marked.
      * @param storage Storage used to save the marked task.
      * @param ui User interface that interacts with user.

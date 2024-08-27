@@ -12,6 +12,7 @@ public abstract class Command {
     /**
      * Run the command with the given task list, storage and UI.
      * Implement by subclass.
+     *
      * @param taskList Task list (Arraylist) on which the command operates.
      * @param storage Storage used to save or load task.
      * @param ui User interface that interacts with user.
@@ -21,6 +22,7 @@ public abstract class Command {
 
     /**
      * Indicates whether the command should exit.
+     *
      * @return false by default.However, if command given should exit the loop, it will return true.
      */
     public boolean isExit() {

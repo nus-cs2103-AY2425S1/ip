@@ -8,6 +8,7 @@ public class Todo extends Task {
 
     /**
      * Construct a to-do task with specified description.
+     *
      * @param description Description of a to-do task.
      */
     public Todo(String description) {
@@ -17,6 +18,7 @@ public class Todo extends Task {
     /**
      * Return a string representation of a to-do task.
      * The format of the string is "[T]" task.toString().
+     *
      * @return String representation of to-do task.
      */
     @Override
@@ -28,6 +30,7 @@ public class Todo extends Task {
      * Convert the to-do task to a string format that is suitable to save in file.
      * The format of string is "T | status | description".
      * If the status is done, it will show "1", else "0".
+     *
      * @return String representation of to-do task in file.
      */
     @Override

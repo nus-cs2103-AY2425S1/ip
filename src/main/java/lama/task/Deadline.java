@@ -8,11 +8,12 @@ import java.time.format.DateTimeFormatter;
  * Subclass of Task, that is represented by [D].
  */
 public class Deadline extends Task {
-    /** Date for the deadline*/
+    /** Date for the deadline */
     protected LocalDate by;
 
     /**
      * Construct a deadline task with specified description and date of deadline
+     *
      * @param description Description of the deadline task
      * @param by Date of the deadline
      */
@@ -29,6 +30,7 @@ public class Deadline extends Task {
      * d represents the date.
      * y represents the year.
      * Status will show "X" if done, else " ".
+     *
      * @return String representation of the deadline task.
      */
     @Override
@@ -44,6 +46,7 @@ public class Deadline extends Task {
      * d represents the date.
      * y represents the year.
      * Status will show "1" if done, else "0".
+     *
      * @return String representation of deadline task in file.
      */
     @Override

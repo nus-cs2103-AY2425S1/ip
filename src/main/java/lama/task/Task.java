@@ -12,6 +12,7 @@ public abstract class Task {
 
     /**
      * Construct a Task with specified description.
+     *
      * @param description Description of a task.
      */
     public Task(String description) {
@@ -22,6 +23,7 @@ public abstract class Task {
     /**
      * Returns the status icon of the task.
      * The status icon is "X" if the task is done, otherwise it is a space string.
+     *
      * @return Status icon as a string.
      */
     public String getStatusIcon() {
@@ -45,6 +47,7 @@ public abstract class Task {
     /**
      * Returns a string representation of the task.
      * The format of the string is "[status] description".
+     *
      * @return String representation of a task.
      */
     @Override
@@ -55,6 +58,7 @@ public abstract class Task {
     /**
      * Abstract method to convert the task to a string format that is suitable to save in file.
      * Implemented by subclass.
+     *
      * @return String representation of the task suitable to save in the file.
      */
     public abstract String toFile();
