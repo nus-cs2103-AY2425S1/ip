@@ -266,7 +266,6 @@ public class Bob {
                     + "Now you have "
                     + (String.valueOf(counter - 1))
                     + " tasks in the list.";
-
             Bob.printLines(immediateAdd);
             this.records.remove(Integer.parseInt((separateKeyword[1]).trim()) - 1);
             this.setCounter(this.counter - 1);
