@@ -5,6 +5,14 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+    @Override
+    public String getBy() {
+        return by;
+    }
+    @Override
+    public String getType() {
+        return "D";
+    }
 
     @Override
     public String toString() {
