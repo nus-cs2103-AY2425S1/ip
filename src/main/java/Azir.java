@@ -20,12 +20,32 @@ public class Azir {
         }
     }
 
+    public static void readFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        System.out.println("This is your current list:");
+        Scanner s = new Scanner(f);
+        while (s.hasNextLine()) {
+            System.out.printf("%s\n", s.nextLine());
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         String input;
         ArrayList<Task> taskList = new ArrayList<Task>();
         System.out.println("----------------------------------");
         System.out.println("Hello! I'm Azir");
         System.out.println("What can I do for you?");
+        // Read from Azir.txt file
+        try {
+            readFileContents("./data/Azir.txt");
+        } catch (FileNotFoundException e) {
+            File newFile = new File("./data/Azir.txt");
+            if (!Files.exists(Paths.get("./data"))) {
+                Files.createDirectory(Paths.get("./data"));
+            }
+            newFile.createNewFile();
+            System.out.println("Your current list does not have any tasks");
+        }
         System.out.println("----------------------------------");
         Scanner obj = new Scanner(System.in);
 
