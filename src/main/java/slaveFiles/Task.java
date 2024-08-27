@@ -10,8 +10,8 @@ public abstract class Task {
     }
 
     protected Task(boolean completed, String task) {
-        this.completed = completed;
         this.task = task;
+        this.completed = completed;
     }
 
     /**

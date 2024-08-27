@@ -3,6 +3,7 @@ package slaveFiles;
 import java.io.*;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Slave {
@@ -57,46 +58,54 @@ public class Slave {
      * Slave will echo the user's input, and respond accordingly
      */
     private static void getUserInput() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        echo(input);
-        Scanner inputScanner = new Scanner(input);
-        String command = inputScanner.next();
-        String body = "";
-        if (inputScanner.hasNextLine()) {
-            body = inputScanner.nextLine().substring(1);
+        try {
+            Scanner sc = new Scanner(System.in);
+            String input = sc.nextLine();
+            echo(input);
+            Scanner inputScanner = new Scanner(input);
+            String command = inputScanner.next();
+            String body = "";
+            if (inputScanner.hasNextLine()) {
+                body = inputScanner.nextLine().substring(1);
+            }
+            inputScanner.close();
+            switch (command) {
+                case "bye":
+                    hasMoreInputs = false;
+                    break;
+                case "list":
+                    listItems();
+                    break;
+                case "mark":
+                    markAsDone(body);
+                    break;
+                case "unmark":
+                    markAsIncomplete(body);
+                    break;
+                case "todo":
+                    addToList(0, body);
+                    break;
+                case "deadline":
+                    addToList(1, body);
+                    break;
+                case "event":
+                    addToList(2, body);
+                    break;
+                case "delete":
+                    deleteTask(body);
+                    break;
+                case "clear":
+                    clear();
+                    break;
+                default:
+                    System.out.println("You're spouting gibberish...");
+                    break;
+            }
+            pageBreakLine();
+        } catch (NoSuchElementException e) {
+            // handle empty inputs / only spaces (" ")
+            // do nothing
         }
-        inputScanner.close();
-        switch (command) {
-        case "bye":
-            hasMoreInputs = false;
-            break;
-        case "list":
-            listItems();
-            break;
-        case "mark":
-            markAsDone(body);
-            break;
-        case "unmark":
-            markAsIncomplete(body);
-            break;
-        case "todo":
-            addToList(0, body);
-            break;
-        case "deadline":
-            addToList(1, body);
-            break;
-        case "event":
-            addToList(2, body);
-            break;
-        case "delete":
-            deleteTask(body);
-            break;
-        default:
-            System.out.println("You're spouting gibberish...");
-            break;
-        }
-        pageBreakLine();
     }
 
     private static void deleteTask(String s) {
@@ -249,6 +258,15 @@ public class Slave {
     }
 
     /**
+     * deletes all tasks from the list
+     */
+    private static void clear() {
+        list.clear();
+        System.out.println("Starting off on a clean slate now are we, " +
+                "guess your previous tasks were too much for you to handle");
+    }
+
+    /**
      * Clears the user's saved name from username.txt
      * user's name will now revert to the default "slave driver"
      */
@@ -361,36 +379,43 @@ public class Slave {
             while (sc.hasNextLine()) {
                 try {
                     String task = sc.nextLine();
-                    String[] arr = task.split(" ");
-                    // printArr(arr); // for testing purposes
-                    String taskName = arr[1];
+                    char taskType = task.charAt(1);
+                    char taskCompleted = task.charAt(4);
+                    int firstSpacePos = task.indexOf(" ");
                     boolean completed = false;
-                    if (arr[0].charAt(4) == ']') {
+                    if (taskCompleted == ']') {
                         // do nothing
-                    } else if (arr[0].charAt(4) == 'X') {
+                    } else if (taskCompleted == 'X') {
                         completed = true;
                     } else {
                         throw new InvalidSaveFileFormatException("invalid completed status");
                     }
                     // identify the type of task:
-                    switch (arr[0].charAt(1)) {
-                    case 'T':
-                        list.add(new Todo(completed, taskName));
-                        success++;
-                        break;
-                    case 'D':
-                        String by = arr[3].substring(0, arr[3].length() - 1);
-                        list.add(new Deadline(completed, taskName, by));
-                        success++;
-                        break;
-                    case 'E':
-                        String from = arr[3];
-                        String to = arr[5].substring(0, arr[5].length() - 1);
-                        list.add(new Event(completed, taskName, from, to));
-                        success++;
-                        break;
-                    default:
-                        throw new InvalidSaveFileFormatException("invalid Task type");
+                    switch (taskType) {
+                        case 'T':
+                            list.add(new Todo(completed, task.substring(firstSpacePos + 1)));
+                            success++;
+                            break;
+                        case 'D':
+                            // not sure how to get rid of error here for string formatting
+                            String[] deadlineArray = task.split(" \\(by: ");
+                            String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
+                            String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
+                            list.add(new Deadline(completed, deadlineName, by));
+                            success++;
+                            break;
+                        case 'E':
+                            // not sure how to get rid of error here for string formatting
+                            String[] eventArray = task.split(" \\(from: ");
+                            String eventName = eventArray[0].substring(firstSpacePos + 1);
+                            String[] eventDetails = eventArray[1].split(" to: ");
+                            String from = eventDetails[0];
+                            String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
+                            list.add(new Event(completed, eventName, from, to));
+                            success++;
+                            break;
+                        default:
+                            throw new InvalidSaveFileFormatException("invalid Task type");
                     }
                 } catch (InvalidSaveFileFormatException | IndexOutOfBoundsException e) {
                     failed++;

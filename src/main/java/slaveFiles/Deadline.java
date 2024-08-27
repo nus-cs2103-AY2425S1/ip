@@ -2,12 +2,12 @@ package slaveFiles;
 
 public class Deadline extends Task {
     String deadline;
-    public Deadline(String task, String deadline) {
+    public Deadline (String task, String deadline) {
         super(task);
         this.deadline = deadline;
     }
 
-    public Deadline(boolean completed, String task, String deadline) {
+    protected Deadline(boolean completed, String task, String deadline) {
         super(completed, task);
         this.deadline = deadline;
     }
