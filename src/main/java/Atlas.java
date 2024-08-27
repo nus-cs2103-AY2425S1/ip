@@ -5,6 +5,8 @@ import tasks.Event;
 
 import command.Command;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -91,6 +93,7 @@ public class Atlas {
 
         Task taskToBeMarked = taskList.get(markIndex);
         taskToBeMarked.setIsDone();
+        Atlas.save(taskList);
         Atlas.print(String.format("Nice! I've marked this task as done:\n \t%s", taskToBeMarked));
     }
 
@@ -112,11 +115,13 @@ public class Atlas {
         Task taskToBeUnmarked = taskList.get(unmarkIndex);
         taskToBeUnmarked.setIsDone();
         taskList.get(unmarkIndex).setIsNotDone();
+        Atlas.save(taskList);
         Atlas.print(String.format("OK, I've marked this task as not done yet:\n \t%s", taskToBeUnmarked));
     }
 
     public static void addTask(ArrayList<Task> taskList, Task task) {
         taskList.add(task);
+        Atlas.save(taskList);
         String addMessage = String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
         Atlas.print(addMessage);
     }
@@ -138,6 +143,7 @@ public class Atlas {
 
         Task task = taskList.get(deleteIndex);
         taskList.remove(deleteIndex);
+        Atlas.save(taskList);
         String addMessage = String.format("Noted. I've removed this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
         Atlas.print(addMessage);
     }
@@ -174,6 +180,25 @@ public class Atlas {
 
         Event event = new Event(commandsArray[1], commandsArray[2], commandsArray[3]);
         Atlas.addTask(taskList, event);
+    }
+
+    public static void save(ArrayList<Task> taskList) {
+        try {
+            FileWriter fw = new FileWriter("./data/atlas.txt", true);
+            fw.write(Atlas.formatTasks(taskList));
+            fw.close();
+        } catch (IOException e) {
+            Atlas.print("Failed to save.");
+        }
+    }
+
+    public static String formatTasks(ArrayList<Task> taskList) {
+        StringBuilder listOutput = new StringBuilder();
+        for (Task task : taskList) {
+            listOutput.append(task.toFileString()).append('\n');
+        }
+
+        return listOutput.toString();
     }
 
     public static void greet() {

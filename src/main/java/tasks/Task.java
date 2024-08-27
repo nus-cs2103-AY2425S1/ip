@@ -16,6 +16,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String toFileString() {
+        String marked = this.isDone ? "1" : "0";
+        return String.format("| %s | %s", marked, this.name);
+    }
+
     @Override
     public String toString() {
         String marked = this.isDone ? "X" : " ";
