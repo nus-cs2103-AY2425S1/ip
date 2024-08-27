@@ -8,9 +8,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the saving and loading function of Rizzler.
+ * It allows Rizzler to save its tasklist and
+ * load a tasklist from memory.
+ */
 class FileStorage {
     private final File file;
 
+    /**
+     * Constructs the <code>FileStorage</code> with a String
+     * that represents the file path of the intended file to
+     * save to and load from.
+     * If the save file or its parent directories do not exist,
+     * they are also created.
+     * If an error occurs during the object creation, outputs a
+     * loading error.
+     *
+     * @param filePath String that represents relative file path of file.
+     */
     FileStorage(String filePath) {
         this.file = new File(filePath);
         String[] parsedFilePath = filePath.split("/");
@@ -31,6 +47,13 @@ class FileStorage {
         }
     }
 
+    /**
+     * Loads the text from the save file and converts the data
+     * into an <code>ArrayList<Task></code> to be input to Rizzler's
+     * tasklist.
+     *
+     * @return ArrayList of <code>Task</code>.
+     */
     ArrayList<Task> load() {
         try {
             Scanner sc = new Scanner(this.file);
@@ -66,6 +89,15 @@ class FileStorage {
         }
     }
 
+    /**
+     * Saves the ArrayList sent by Rizzler's tasklist
+     * to the save file specified during the object's
+     * creation.
+     * If an error occurs during the object creation, outputs a
+     * loading error.
+     *
+     * @param taskList ArrayList of <code>Task</code> sent from Rizzler.
+     */
     void save(ArrayList<Task> taskList) {
         try {
             String saveData = "";
@@ -76,7 +108,7 @@ class FileStorage {
             fileWriter.write(saveData);
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("An error has occurred");
+            new Ui().showLoadingError();
         }
     }
 }
