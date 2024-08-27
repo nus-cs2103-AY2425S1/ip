@@ -1,6 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.File;
 
@@ -140,7 +143,15 @@ public class Chatterbox {
     }
 
     public static void readFromSave() {
-        File saveFile = new File("chatterbox_save.txt");
+        String currentDirectory = System.getProperty("user.dir");
+        Path saveDirectoryPath = Paths.get(currentDirectory, "data");
+        Path saveFilePath = Paths.get(saveDirectoryPath.toString(), "chatterbox_save.txt");
+        try {
+            Files.createDirectories(saveDirectoryPath);
+        } catch (IOException e) {
+            System.out.println("Could not create directory: " + saveDirectoryPath);
+        }
+        File saveFile = new File(saveFilePath.toString());
         try {
             Scanner fileReader = new Scanner(saveFile);
             int taskCount = 0;
@@ -170,7 +181,14 @@ public class Chatterbox {
         } catch (FileNotFoundException e) {
             try {
                 saveFile.createNewFile();
-                readFromSave();
+                System.out.println("No save file found");
+                String welcomeMessage = """
+                ____________________________________________________________
+                Hello! I'm Chatterbox
+                Below is your current list!
+                What can I do for you?
+                ____________________________________________________________""";
+                System.out.println(welcomeMessage);
             } catch (IOException e1) {
                 System.out.println("Error Reading Chatterbox save file");
             }
@@ -180,8 +198,11 @@ public class Chatterbox {
     }
 
     public static void writeToSave() {
+        String currentDirectory = System.getProperty("user.dir");
+        Path saveDirectoryPath = Paths.get(currentDirectory, "data");
+        Path saveFilePath = Paths.get(saveDirectoryPath.toString(), "chatterbox_save.txt");
         try {
-            FileWriter fileWriter = new FileWriter("chatterbox_save.txt");
+            FileWriter fileWriter = new FileWriter(saveFilePath.toString());
             for (int i = 0; i < Chatterbox.taskList.getSize(); i++) {
                 fileWriter.write(Chatterbox.taskList.getItem(i).storeTask());
             }
