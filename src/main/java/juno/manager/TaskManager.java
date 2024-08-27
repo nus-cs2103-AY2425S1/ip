@@ -1,12 +1,22 @@
 package juno.manager;
 
 import juno.task.Task;
-
 import java.util.ArrayList;
 
+/**
+ * Class to manage tasks and providing access to the task list.
+ * Stores the list of tasks as an ArrayList.
+ */
 public class TaskManager {
     private ArrayList<Task> tasks;
 
+    /**
+     * TaskManager constructor that takes in a specified list of tasks.
+     * If the provided list is null, such as when the user just started the chat bot for the first time,
+     * a new empty ArrayList is initialised.
+     *
+     * @param tasks the list of tasks that the user has.
+     */
     public TaskManager(ArrayList<Task> tasks) {
         if (tasks == null) {
             this.tasks = new ArrayList<>();
@@ -15,10 +25,21 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return an ArrayList containing the tasks
+     */
     public ArrayList<Task> getTasksArray() {
         return this.tasks;
     }
 
+    /**
+     * Checks if a task with the specified description already exists in the task list.
+     *
+     * @param taskDescription the description of the task to check for duplicates with the current task list.
+     * @return true if a task with the same description exists, else, return false.
+     */
     public boolean checkDuplicateTask(String taskDescription) {
         for (Task task : this.tasks) {
             if (task.getDescription().equalsIgnoreCase(taskDescription)) {

@@ -70,6 +70,5 @@ public class Juno {
     public static void main(String[] args) {
         Juno junoChatBot = new Juno();
         junoChatBot.startBot();
-
     }
 }

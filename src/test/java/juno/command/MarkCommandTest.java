@@ -1,7 +1,6 @@
 package juno.command;
 
 import juno.manager.FileManager;
-import juno.task.Deadline;
 import juno.task.Todo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
 import juno.task.Task;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class MarkCommandTest {

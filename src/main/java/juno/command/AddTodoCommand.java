@@ -6,14 +6,37 @@ import juno.manager.exception.TaskManagerException;
 import juno.task.Task;
 import juno.task.Todo;
 
+/**
+ * A class to add a new Todo task to the task list.
+ * Handles the creation and addition of a Todo task based on user input.
+ */
 public class AddTodoCommand extends AddCommand {
 
     private final String TASK_TYPE = "todo";
 
+    /**
+     * AddTodoCommand constructor that takes in a specified user input, TaskManager instance, and FileManager instance.
+     * Initialises an AddTodoCommand instance with the provided parameters below
+     *
+     * @param userInput The input provided by the user to specify the task to add.
+     * @param taskManager The TaskManager instance to handle all task specific operations.
+     * @param fileManager The FileManager to handle file operations related to tasks.
+     */
     public AddTodoCommand(String userInput, TaskManager taskManager, FileManager fileManager) {
         super(userInput, taskManager, fileManager);
     }
 
+    /**
+     * Executes the command to add a new Todo task.
+     * Based on the user input, extract the task description, checks for duplicates, and then
+     * create a new Todo task, adds it to the task list, and updates the file.
+     *
+     * <p>Handle cases such as missing task description and duplicate tasks by throwing TaskManagerException.
+     * Writes the updated task list to the file after addition.</p>
+     *
+     * @throws TaskManagerException If an error occurs during task addition, such as missing task description
+     * or a duplicate task.
+     */
     @Override
     public void runCommand() throws TaskManagerException {
         String taskInfo;

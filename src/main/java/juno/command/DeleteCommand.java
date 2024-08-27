@@ -7,17 +7,42 @@ import juno.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A class to execute the delete functionality for the tasks in Juno chat bot
+ * Subclass of Command class
+ */
 public class DeleteCommand extends Command {
     TaskManager taskManager;
     FileManager fileManager;
     String userInput;
     ArrayList<Task> tasks;
+
+    /**
+     * Constructor for DeleteCommand class with the specified user input, TaskManager, and FileManager.
+     * Initialises the task list from the TaskManager.
+     *
+     * @param userInput The input provided by the user which specify the task to delete.
+     * @param taskManager  TaskManager to handle task specific operations.
+     * @param fileManager  FileManager to handle file operations related to tasks.
+     */
     public DeleteCommand(String userInput, TaskManager taskManager, FileManager fileManager) {
         this.userInput = userInput;
         this.taskManager = taskManager;
         this.fileManager = fileManager;
         this.tasks = taskManager.getTasksArray();
     }
+
+    /**
+     * Executes the command to delete a task based on the user input.
+     * The user input should specify the task number to delete. (e.g. delete 2, which deletes the second task in
+     * the task list.
+     *
+     * <p>Handles errors such as out-of-range task numbers and incorrect input format.
+     * Writes the updated task list to the file task.json after deletion.</p>
+     *
+     * @throws TaskManagerException If an error occurs during task deletion, such as an invalid task number or
+     * formatting issue.
+     */
     @Override
     public void runCommand() throws TaskManagerException {
 
