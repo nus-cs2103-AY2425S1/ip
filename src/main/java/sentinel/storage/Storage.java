@@ -19,6 +19,8 @@ import java.io.IOException;
 public class Storage {
         /**
          * Loads the task list that was saved.
+         *
+         * @return List of tasks.
          */
         public static TaskList load() throws IOException {
             File f = null;
@@ -56,6 +58,8 @@ public class Storage {
 
         /**
          * Saves the current task list to a file.
+         *
+         * @param content Content to be saved to a file.
          */
         public static void save(String content) throws IOException {
             FileWriter fw = new FileWriter("src/main/data/data.txt");
