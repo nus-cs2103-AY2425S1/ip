@@ -19,6 +19,8 @@ public class Duke {
             tasks = getData("./data/duke.txt");
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
+        } catch (ParseException e) {
+            System.out.println("Date in invalid format!");
         }
 
         String greet = "Hello! I'm Bob\nWhat can I do for you?\n";
@@ -27,6 +29,7 @@ public class Duke {
         String notCompleted = "OK, I've marked this task as not done yet:";
         String input = "";
 
+        System.out.println(greet);
         while (reader.hasNextLine()) {
             input = reader.nextLine();
             if (input.contains("bye")) {
@@ -98,7 +101,7 @@ public class Duke {
         }
     }
 
-    private static ArrayList<Task> getData(String path) throws FileNotFoundException {
+    private static ArrayList<Task> getData(String path) throws FileNotFoundException, ParseException {
         ArrayList<Task> data = new ArrayList<>();
 
         File f = new File(path);
@@ -110,7 +113,7 @@ public class Duke {
 
             switch (type) {
                 case "T" -> data.add(new ToDo(split[2]));
-                case "D" -> data.add(new DeadLine(split[2], split[3]));
+                case "D" -> data.add(new DeadLine(split[2], parseDate(split[3])));
                 case "E" -> data.add(new Event(split[2], split[3], split[4]));
             }
 
@@ -169,7 +172,7 @@ public class Duke {
         return new java.sql.Timestamp(date.getTime()).toLocalDateTime();
     }
 
-    private static Task getDeadLine(String input) throws DukeException{
+    private static Task getDeadLine(String input) throws DukeException, ParseException {
         ArrayList<String> commands = new ArrayList<>();
         commands.add("deadline");
         commands.add("/by");
@@ -184,7 +187,7 @@ public class Duke {
             throw new DukeException("DeadLine must be specified!");
         }
 
-        return new DeadLine(deadLineItems[1], deadLineItems[2]);
+        return new DeadLine(deadLineItems[1], parseDate(deadLineItems[2]));
     }
 
     private static Task getEvent(String input) throws DukeException{

@@ -1,22 +1,27 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class DeadLine extends Task{
 
-    private final String to;
-    public DeadLine(String _description, String _to) {
+    private final LocalDateTime date;
+
+    public DeadLine(String _description, LocalDateTime date) {
         super(_description);
-        this.to = _to;
+        this.date = date;
     }
 
-    public String getTo() {
-        return to;
+    public String getDate() {
+        return this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + "(by: " + this.to + ")";
+        return "[D] " + super.toString() + "(by: " +  this.getDate() + ")";
     }
 
     @Override
     public String saveFormat() {
-        return "D | " + super.saveFormat() + " | " +  this.to + "\n";
+        return "D | " + super.saveFormat() + " | " +  this.getDate() + "\n";
     }
 }
