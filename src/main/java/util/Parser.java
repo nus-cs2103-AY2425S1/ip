@@ -1,5 +1,7 @@
 package util;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,9 +43,13 @@ public class Parser {
           String description = details.substring(0, byIdx);
           System.out.println(details.length());
           String by = details.substring(byIdx + 6, details.length() - 1);
-
-          t = new Deadline(description, by);
-          result.add(t);
+          try {
+            LocalDate byDate = LocalDate.parse(by);
+            t = new Deadline(description, byDate);
+            result.add(t);
+          } catch (DateTimeParseException e) {
+            throw new MizzException("Invalid date time format: " + e.getMessage());
+          }
           break;
         }
         case 'E': {
@@ -52,9 +58,14 @@ public class Parser {
           String description = details.substring(0, fromIdx);
           String from = details.substring(fromIdx + 8, toIdx);
           String to = details.substring(toIdx + 5, details.length() - 1);
-
-          t = new Event(description, from, to);
-          result.add(t);
+          try {
+            LocalDate fromDate = LocalDate.parse(from);
+            LocalDate toDate = LocalDate.parse(to);
+            t = new Event(description, fromDate, toDate);
+            result.add(t);
+          } catch (DateTimeParseException e) {
+            throw new MizzException("Invalid date time format: " + e.getMessage());
+          }
           break;
         }
         default:

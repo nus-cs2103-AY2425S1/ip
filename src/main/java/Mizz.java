@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import util.*;
 import MizzExceptions.*;
@@ -6,6 +8,7 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+// TODO: add standard messages and more exceptions
 public class Mizz {
   /** Name of the chat bot */
   private static final String NAME = "Mizz";
@@ -171,10 +174,21 @@ public class Mizz {
         newTask = new ToDo(taskInfo[1]);
         break;
       case "deadline":
-        newTask = new Deadline(taskInfo[1], taskInfo[2]);
+        try {
+          LocalDate date = LocalDate.parse(taskInfo[2]);
+          newTask = new Deadline(taskInfo[1], date);
+        } catch (DateTimeParseException e) {
+          throw new MizzException("Invalid date time format: " + e.getMessage());
+        }
         break;
       case "event":
-        newTask = new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
+        try {
+          LocalDate fromDate = LocalDate.parse(taskInfo[2]);
+          LocalDate toDate = LocalDate.parse(taskInfo[3]);
+          newTask = new Event(taskInfo[1], fromDate, toDate);
+        } catch (DateTimeParseException e) {
+          throw new MizzException("Invalid date time format: " + e.getMessage());
+        }
         break;
       default:
         throw new MizzException("Invalid task type!");
