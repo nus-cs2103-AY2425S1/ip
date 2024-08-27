@@ -30,14 +30,16 @@ public class TaskLog {
         this.log = newLog;
     }
 
-    protected Task getTask(int pos) {
-        if (pos < 0 || pos > (this.numTasks - 1)) {
-            return new Task();
+    protected Task getTask(int pos) throws RizzlerException {
+        if (pos > this.numTasks) {
+            throw new RizzlerException("there ain't no task " + (pos + 1) + " darlin'");
+        } else if (pos <= 0) {
+            throw new RizzlerException("pumpkin, why you tryna give me problems?");
         }
         return this.log[pos];
     }
 
-    public Task lastTask() {
+    public Task lastTask() throws RizzlerException {
         return this.getTask(this.numTasks - 1);
     }
 
@@ -49,13 +51,13 @@ public class TaskLog {
         return truncLog;
     }
 
-    protected Task doTask(int task_num) {
+    protected Task doTask(int task_num) throws RizzlerException {
         Task doneTask = this.getTask(task_num - 1);
         doneTask.done();
         return doneTask;
     }
 
-    protected Task undoTask(int task_num) {
+    protected Task undoTask(int task_num) throws RizzlerException {
         Task undoneTask = this.getTask(task_num - 1);
         undoneTask.undone();
         return undoneTask;
