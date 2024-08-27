@@ -39,24 +39,24 @@ class FileStorage {
                 String input = sc.nextLine();
                 String[] parsedInput = input.split("/");
                 switch (parsedInput[0]) {
-                    case "T":
-                        Todo todo = new Todo(parsedInput[2],
-                                parsedInput[1].equals("1"));
-                        taskList.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(parsedInput[2],
-                                LocalDate.parse(parsedInput[3]),
-                                parsedInput[1].equals("1"));
-                        taskList.add(deadline);
-                        break;
-                    case "E":
-                        Event event = new Event(parsedInput[2],
-                                LocalDate.parse(parsedInput[3]),
-                                LocalDate.parse(parsedInput[4]),
-                                parsedInput[1].equals("1"));
-                        taskList.add(event);
-                        break;
+                case "T":
+                    Todo todo = new Todo(parsedInput[2],
+                            parsedInput[1].equals("1"));
+                    taskList.add(todo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(parsedInput[2],
+                            LocalDate.parse(parsedInput[3]),
+                            parsedInput[1].equals("1"));
+                    taskList.add(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(parsedInput[2],
+                            LocalDate.parse(parsedInput[3]),
+                            LocalDate.parse(parsedInput[4]),
+                            parsedInput[1].equals("1"));
+                    taskList.add(event);
+                    break;
                 }
             }
             sc.close();

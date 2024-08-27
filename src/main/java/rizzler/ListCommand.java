@@ -1,7 +1,9 @@
 package rizzler;
 
 class ListCommand implements Command {
-    public void execute(TaskList tasks, Ui ui, FileStorage fileStorage) {
+    public void execute(TaskList tasks,
+                        Ui ui,
+                        FileStorage fileStorage) {
         tasks.list();
     }
     public boolean isExit() {

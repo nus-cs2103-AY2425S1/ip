@@ -12,11 +12,14 @@ public class AddCommand implements Command {
         this.fullCommand = fullCommand;
     }
 
-    public void execute(TaskList tasks,  Ui ui, FileStorage fileStorage) throws RizzlerException {
+    public void execute(TaskList tasks,
+                        Ui ui,
+                        FileStorage fileStorage) throws RizzlerException {
         switch (this.taskType) {
         case "todo":
             if (this.fullCommand.length == 1) {
-                throw new RizzlerException("Please add in the task description\n"
+                throw new RizzlerException(
+                        "Please add in the task description\n"
                         + "Format:\n"
                         + "todo [task name]");
             } else {
@@ -40,7 +43,8 @@ public class AddCommand implements Command {
             }
             if (indexOfBy == 1 || !byInInput ||
                     (indexOfBy == this.fullCommand.length - 1)) {
-                throw new RizzlerException("This command was entered incorrectly\n"
+                throw new RizzlerException(
+                        "This command was entered incorrectly\n"
                         + "Format:\n"
                         + "deadline [task name] /by [yyyy-mm-dd]");
             }
@@ -54,7 +58,8 @@ public class AddCommand implements Command {
                 fileStorage.save(tasks.getListToSave());
                 break;
             } catch (DateTimeException e) {
-                throw new RizzlerException("Please put a valid date-time format\n"
+                throw new RizzlerException(
+                        "Please put a valid date-time format\n"
                         + "Format:\n"
                         + "deadline [task name] /by [yyyy-mm-dd]");
             }
@@ -73,11 +78,13 @@ public class AddCommand implements Command {
                     hasTo = true;
                 }
             }
-            if (!hasFrom || !hasTo ||
+            if (!hasFrom ||
+                    !hasTo ||
                     (indexOfFrom == 1) ||
                     (indexOfTo - indexOfFrom == 1) ||
                     (indexOfTo == this.fullCommand.length - 1)) {
-                throw new RizzlerException("This command was entered incorrectly\n"
+                throw new RizzlerException(
+                        "This command was entered incorrectly\n"
                         + "Format:\n"
                         + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
             }
@@ -94,7 +101,8 @@ public class AddCommand implements Command {
                 fileStorage.save(tasks.getListToSave());
                 break;
             } catch (DateTimeException e) {
-                throw new RizzlerException("Please put a valid date-time format\n"
+                throw new RizzlerException(
+                        "Please put a valid date-time format\n"
                         + "Format:\n"
                         + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
             }

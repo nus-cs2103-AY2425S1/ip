@@ -24,7 +24,8 @@ class TaskList {
             Task removedTask = this.tasks.remove(index);
             this.ui.showRemovalFromList(removedTask, this.tasks.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new RizzlerException("Please put task number that is actually in the list");
+            throw new RizzlerException(
+                    "Please put task number that is actually in the list");
         }
     }
 
@@ -44,7 +45,8 @@ class TaskList {
             this.tasks.get(index).markAsDone();
             this.ui.showMarking(this.tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new RizzlerException("Please put task number that is actually in the list");
+            throw new RizzlerException(
+                    "Please put task number that is actually in the list");
         }
     }
 
@@ -56,7 +58,8 @@ class TaskList {
             this.tasks.get(index).unmark();
             this.ui.showUnmarking(this.tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new RizzlerException("Please put task number that is actually in the list");
+            throw new RizzlerException(
+                    "Please put task number that is actually in the list");
         }
     }
 }
