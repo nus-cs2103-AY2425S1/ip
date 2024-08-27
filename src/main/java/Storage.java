@@ -16,16 +16,36 @@ import Utilities.DateTimeParser;
 import static Utilities.DateTimeParser.parseDate;
 
 public class Storage {
-    private static final String TASK_FILE_DIRECTORY = "./data/taskTable.csv";
-    private static final File TASK_FILE = new File(TASK_FILE_DIRECTORY);
+    private final String TASK_FILE_DIRECTORY = "./data/taskTable.csv";
+    private final File TASK_FILE = new File(TASK_FILE_DIRECTORY);
 
-    public static void saveTasksToLocalDisk(ArrayList<Task> tasks) {
+    public void save(ArrayList<Task> tasks) {
         try {
             writeToTaskFile(formatTasks(tasks));
         } catch (IOException e) {
             System.out.println("Failed to save the list of tasks to local disk.");
         }
     }
+
+    public ArrayList<Task> load() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        if (!TASK_FILE.isFile()) {
+            return tasks;
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(TASK_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from file.");
+        }
+        return tasks;
+    }
+
 
     private static String formatTasks(ArrayList<Task> tasks) {
         StringBuilder res = new StringBuilder();
@@ -36,7 +56,7 @@ public class Storage {
         return res.toString();
     }
 
-    private static void createTaskFile() {
+    private void createTaskFile() {
         try {
             File parentDir = TASK_FILE.getParentFile();
             if (!parentDir.exists()) {
@@ -50,7 +70,7 @@ public class Storage {
         }
     }
 
-    private static void writeToTaskFile(String formattedTasks) throws IOException {
+    private void writeToTaskFile(String formattedTasks) throws IOException {
         if (TASK_FILE.isFile()) {
             try (FileWriter writer = new FileWriter(TASK_FILE_DIRECTORY)) {
                 writer.write(formattedTasks);
@@ -63,28 +83,7 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> loadTasksFromFile() {
-        ArrayList<Task> tasks = new ArrayList<>();
-        if (!TASK_FILE.isFile()) {
-            return tasks;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(TASK_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = parseTask(line);
-                if (task != null) {
-                    tasks.add(task);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks from file.");
-        }
-
-        return tasks;
-    }
-
-    private static Task parseTask(String line) {
+    private Task parseTask(String line) {
         // Regex to match quoted strings and handle | as a delimiter outside of quotes
         Pattern pattern = Pattern.compile("\"([^\"]*)\"\\s*\\|?");
         Matcher matcher = pattern.matcher(line);
@@ -131,5 +130,4 @@ public class Storage {
                 return null; // Unknown task type, do not add to list
         }
     }
-
 }
