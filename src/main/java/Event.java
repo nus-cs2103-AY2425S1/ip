@@ -13,7 +13,7 @@ public class Event extends Task {
     }
 
     public String stringifyTask() {
-        return String.format("E | %d | %s | %s %s", super.getStatus() ? 1 : 0,
+        return String.format("E | %d | %s | %s | %s", super.getStatus() ? 1 : 0,
                 super.getDesc(),
                 this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")),
                 this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
