@@ -55,12 +55,17 @@ public class TaskListUI {
 
     // Display all tasks in the list
     public void displayTasks() throws IllegalCommandException {
-        if (this.taskList.size() == 0) {
-            throw new IllegalCommandException("You have no tasks in your list.");
+        displayTasks(this.taskList);
+    }
+
+    // Display all tasks in the list that match the keyword
+    public void displayTasks(TaskList tasks) throws IllegalCommandException {
+        if (tasks.size() == 0) {
+            throw new IllegalCommandException("No matching tasks found.");
         }
 
-        for (int i = 0; i < this.taskList.size(); i++) {
-            Task task = this.taskList.get(i);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             System.out.println("  " + (i + 1) + ". " + task.toString());
         }
     }

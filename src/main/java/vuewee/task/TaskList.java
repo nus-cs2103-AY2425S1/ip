@@ -111,4 +111,21 @@ public class TaskList {
             return success;
         }
     }
+
+    /**
+     * Finds tasks that contain the specified search keyword in their description.
+     *
+     * @param keyword the keyword to search for (case-insensitive)
+     * @return ArrayList<Task> containing tasks that match the keyword
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        keyword = keyword.toLowerCase();
+        for (Task task : this.tasks) {
+            if (task.description.toLowerCase().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -4,7 +4,9 @@ package vuewee.task;
  * Enum representing the type of a task.
  */
 public enum TaskType {
-    TODO('T', TodoTask.class), DEADLINE('D', DeadlineTask.class), EVENT('E', EventTask.class);
+    TODO('T', TodoTask.class),
+    DEADLINE('D', DeadlineTask.class),
+    EVENT('E', EventTask.class);
 
     private final char taskTypeChar;
     private final Class<? extends Task> taskClass;

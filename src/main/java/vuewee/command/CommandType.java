@@ -6,8 +6,15 @@ import vuewee.parser.IllegalCommandException;
  * Represents the types of commands available in the application.
  */
 public enum CommandType {
-    BYE(ByeCommand.class), LIST(ListCommand.class), MARK(MarkCommand.class), UNMARK(UnmarkCommand.class),
-    DELETE(DeleteCommand.class), TODO(TodoCommand.class), DEADLINE(DeadlineCommand.class), EVENT(EventCommand.class);
+    BYE(ByeCommand.class),
+    LIST(ListCommand.class),
+    MARK(MarkCommand.class),
+    UNMARK(UnmarkCommand.class),
+    FIND(FindCommand.class),
+    DELETE(DeleteCommand.class),
+    TODO(TodoCommand.class),
+    DEADLINE(DeadlineCommand.class),
+    EVENT(EventCommand.class);
 
     private final Class<? extends Command> commandClass;
 
