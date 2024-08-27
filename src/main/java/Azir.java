@@ -1,15 +1,32 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import java.util.Scanner;
 
 public class Azir {
-    public static void main(String[] args) {
+
+    public static void writeToFile(String filePath, ArrayList<String> lines) {
+        try {
+            Files.write(Paths.get(filePath), lines);
+        } catch (IOException e) {
+            System.out.println("Something went wrong!");
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
         String input;
         ArrayList<Task> taskList = new ArrayList<Task>();
         System.out.println("----------------------------------");
         System.out.println("Hello! I'm Azir");
         System.out.println("What can I do for you?");
         System.out.println("----------------------------------");
-
         Scanner obj = new Scanner(System.in);
 
         while (!(input = obj.nextLine()).equals("bye")) {
@@ -127,6 +144,17 @@ public class Azir {
                 System.out.println("----------------------------------");
             } catch (AzirException e) {
                 System.out.println(e.getMessage());
+            } finally {
+                ArrayList<String> lines = new ArrayList<>();
+                // Write tasks to Azir.txt
+                for (int i = 0; i < taskList.size(); i++) {
+                    lines.add(taskList.get(i).toString());
+                }
+                System.out.println("written");
+                if (!Files.exists(Paths.get("./data"))) {
+                    Files.createDirectory(Paths.get("./data"));
+                }
+                writeToFile("./data/Azir.txt", lines);
             }
         }
         System.out.println("----------------------------------");
