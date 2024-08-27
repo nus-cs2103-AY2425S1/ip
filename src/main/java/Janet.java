@@ -1,162 +1,85 @@
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Janet {
-    private static final String horizontalLine = "____________________________________________________________";
-    private final ArrayList<Task> listOfTasks;
-    private int taskIndex;
+    private TaskList tasks;
+    private final Ui ui;
+    private final Storage storage;
 
-    Janet() {
-        this.listOfTasks = new ArrayList<Task>();
-        this.taskIndex = 0;
-    }
-
-    Janet(ArrayList<Task> listOfTasks) {
-        this.listOfTasks = listOfTasks;
-        this.taskIndex = listOfTasks.size();
-    }
-
-    /**
-     * Level 0 - greets the user
-     * @return a String message to greet the user.
-     */
-    public String greet() {
-        return horizontalLine + "\nHello! I'm Janet\n" + "What can I do for you?\n" + horizontalLine;
-    }
-
-
-    /**
-     * Level 0 - say bye to user
-     * @return a String message to say bye to the user and exit the program.
-     */
-    public String exit() {
-        return "Bye. Hope to see you again soon!\n" + horizontalLine;
-    }
-
-
-    /**
-     * Level 1 - echoes the message
-     * @param message a String message to capture what the user typed into the command line.
-     * @return the exact same String provided by the user
-     */
-    public String echo(String message) {
-        return horizontalLine + "\n" + message + "\n" + horizontalLine;
-    }
-
-
-    /**
-     * @return the latest value of taskIndex
-     */
-    public int getTaskIndex() {
-        return taskIndex;
-    }
-
-
-    /**
-     * @return the listOfTasks ArrayList
-     */
-    public ArrayList<Task> getListOfTasks() {
-        return this.listOfTasks;
-    }
-
-    /**
-     * Level 2 - Add, list
-     * @param task a String representation of the task that is to be added into the listOfTasks.
-     * @param taskSymbol a String representation of the task's symbol (T, D, E).
-     * @return a String message to indicate successful addition of task into listOfTasks.
-     */
-    public String addTaskToList(String task, String taskSymbol) {
-        Task newTask = new Task(task, taskSymbol);
-        this.listOfTasks.add(newTask);
-        this.taskIndex++;
-        return horizontalLine + "\n" + String.format("added: %s\n", task) + horizontalLine;
-    }
-
-
-    /**
-     * @param task a Task object that is to be added into the listOfTasks
-     * @return a String message to indicate successful addition of task into listOfTasks.
-     */
-    public String addTaskToList(Task task) {
-        this.listOfTasks.add(task);
-        this.taskIndex++;
-        return horizontalLine + "\nGot it. I've added this task:\n" + "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", taskIndex) + horizontalLine;
-    }
-
-
-    /**
-     * Level 2 - Add, list
-     * @return a String representation (in numbered list format) of the current tasks inside the listOfTasks
-     */
-    public String showList() {
-        String currentList = horizontalLine + "\nHere are the tasks in your list:\n";
-        if (taskIndex == 0) {
-            // empty listOfTasks
-            return currentList + "*** Current list is empty ***\n" + horizontalLine;
+    Janet(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.textFileToArrayList());
+        } catch (JanetException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
-        for (int i = 0; i < taskIndex; i++) {
-            if (i == taskIndex - 1) {
-                currentList += (i+1) + ". " + listOfTasks.get(i) + "\n" + horizontalLine;
-                break;
+    }
+
+    public void run() throws IOException {
+        ui.showWelcome();
+        Scanner input = new Scanner(System.in);
+        boolean hasTypedBye = false;
+
+        while (input.hasNext()) {
+            String userCommand = input.nextLine();
+            String[] commandDetails = Parser.getCommandDetails(userCommand);
+            try {
+                // validateCommand and checkInaccurateCommand will throw out a JanetException
+                Parser.validateCommand(commandDetails, tasks.getNumberOfTasks());
+                Parser.checkInaccurateCommand(commandDetails);
+
+                CommandType commandType = Parser.getCommand(commandDetails);
+                switch (commandType) {
+                case BYE:
+                    ui.exitMessage();
+                    hasTypedBye = true;
+                    break;
+                case LIST:
+                    ui.showTasks(tasks);
+                    break;
+                case MARK:
+                    String markedResult = tasks.markAsDone(Integer.parseInt(commandDetails[1]));
+                    ui.showMarkedMessage(markedResult, tasks.getTask(Integer.parseInt(commandDetails[1]) - 1));
+                    break;
+                case UNMARK:
+                    String unmarkResult = tasks.unmark(Integer.parseInt(commandDetails[1]));
+                    ui.showUnmarkedMessage(unmarkResult, tasks.getTask(Integer.parseInt(commandDetails[1]) - 1));
+                    break;
+                case DELETE:
+                    ui.showDeleteTaskMessage(tasks.getTask(Integer.parseInt(commandDetails[1]) - 1),
+                            tasks.getNumberOfTasks() - 1);
+                    tasks.deleteTask(Integer.parseInt(commandDetails[1]));
+                    break;
+                case TODO:
+                    Task todo = new ToDo(userCommand);
+                    tasks.addTaskToList(todo);
+                    ui.showSuccessfulTaskAddition(todo, tasks.getNumberOfTasks());
+                    break;
+                case DEADLINE:
+                    Task deadline = new Deadline(userCommand);
+                    tasks.addTaskToList(deadline);
+                    ui.showSuccessfulTaskAddition(deadline, tasks.getNumberOfTasks());
+                    break;
+                case EVENT:
+                    Task event = new Event(userCommand);
+                    tasks.addTaskToList(event);
+                    ui.showSuccessfulTaskAddition(event, tasks.getNumberOfTasks());
+                    break;
+                }
+                if (hasTypedBye) {
+                    break;
+                }
+            } catch (JanetException e) {
+                System.out.println(e.getMessage());
             }
-            currentList += (i+1) + ". " + listOfTasks.get(i) + "\n";
         }
-        return currentList;
+        storage.saveToJanetTextFile(tasks.getListOfTasks());
     }
 
-
-    /**
-     * Level 3 - mark as done
-     * marks the desired task as done, by setting the boolean value of Task.done = true.
-     * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
-     * @return a String message to indicate successful marking of desired task as done (done = true).
-     */
-    public String markAsDone(int desiredTaskNum) {
-        // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be marked as done
-        Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
-        if (desiredTask.isDone()) {
-            // the desired task is already marked as done
-            return horizontalLine + "\nThis task is already done!\n" + horizontalLine;
-        }
-        desiredTask.setDone(true);
-        return horizontalLine + "\nNice! I've marked this task as done:\n" + String.format("  %s", desiredTask) + "\n" + horizontalLine;
+    public static void main(String[] args) throws IOException {
+        new Janet("janet.txt").run();
     }
 
-
-    /**
-     * Level 3 - mark as done (unmark)
-     * marks the desired task as NOT done, by setting the boolean value of Task.done = false.
-     * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
-     * @return a String message to indicate successful unmarking of desired task (done = false).
-     */
-    public String unmark(int desiredTaskNum) {
-        // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be unmarked
-        Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
-        if (!desiredTask.isDone()) {
-            // desired task is already marked as NOT done (unmarked)
-            return horizontalLine + "\nThis task is not already done!\n" + horizontalLine;
-        }
-        desiredTask.setDone(false);
-        return horizontalLine + "\nOK, I've marked this task as not done yet:\n" + String.format("  %s", desiredTask) + "\n" + horizontalLine;
-    }
-
-
-    /**
-     * Level 6 - delete task
-     * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
-     * @return a String message to indicate successful deletion of the desired task from listOfTasks.
-     */
-    public String deleteTask(int desiredTaskNum) {
-        taskIndex--;
-        Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
-        listOfTasks.remove(desiredTask);
-        return horizontalLine + "\nNoted. I've removed this task:\n" + String.format("    %s\nNow you have %d tasks in your list\n", desiredTask, taskIndex) + horizontalLine;
-    }
-
-
-    /**
-     * @return true if the list has no elements
-     */
-    public boolean listIsEmpty() {
-        return listOfTasks.isEmpty();
-    }
 }
