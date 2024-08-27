@@ -32,8 +32,10 @@ application {
 }
 
 shadowJar {
+    mainClassName = "barney.Barney"
     archiveBaseName = "Barney"
     archiveClassifier = null
+    archiveFileName = "Barney.jar"
 }
 
 run{
