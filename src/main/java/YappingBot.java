@@ -1,11 +1,15 @@
-import java.io.StringBufferInputStream;
 import java.util.*;
 
 
 public class YappingBot {
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
     private static final HashMap<String, Commands> COMMANDS_HASH_MAP;
+    private static final Scanner userInputScanner;
+    private static final ArrayList<Task> userList;
     static {
+        // initialization
+        userInputScanner = new Scanner(System.in);
+        userList = new ArrayList<>();
         COMMANDS_HASH_MAP = new HashMap<>();
         COMMANDS_HASH_MAP.put("list", Commands.LIST);
         COMMANDS_HASH_MAP.put("mark", Commands.MARK);
@@ -16,57 +20,6 @@ public class YappingBot {
         COMMANDS_HASH_MAP.put("deadline", Commands.DEADLINE);
         COMMANDS_HASH_MAP.put("bye", Commands.EXIT);
     }
-
-    // Text strings
-    private static final String BOT_NAME = "YappingBot";
-    private static final String GREETING_TEXT = String.format(
-            "Hello! I'm %s\nWhat can I do for you?",
-            BOT_NAME
-    );
-    // TODO: turn error messages into exceptions
-    private static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, deadline.";
-    private static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n" + HELP_TEXT;
-    private static final String LIST_TEXT = "Here are the tasks in your list:";
-    private static final String ADDED_TEXT = "Got it. I've added this task:";
-    private static final String DELETED_TEXT = "Noted. I've deleted this task:";
-    private static final String DELETE_USAGE =
-            "Here is the usage for the instruction 'delete':\n" +
-                    "\n    delete TASK_NUMBER\n\n" +
-                    "where TASK_NUMBER is the task number in the task list to delete";
-    private static final String TODO_USAGE =
-            "Here is the usage for the instruction 'todo':\n" +
-                    "\n    todo TASK_NAME\n\n" +
-                    "where TASK_NAME is the name of this todo task to add";
-    private static final String DEADLINE_USAGE =
-            "Here is the usage for the instruction 'deadline':\n" +
-                    "\n    deadline TASK_NAME /by DEADLINE\n\n" +
-                    "where TASK_NAME is the name of this deadline task to add\n" +
-                    "      DEADLINE  is the deadline for this task";
-    private static final String EVENT_USAGE =
-            "Here is the usage for the instruction 'event':\n" +
-                    "\n    event TASK_NAME /from START_DATE /to END_DATE\n\n" +
-                    "where TASK_NAME  is the name of this event task to add\n" +
-                    "      START_DATE is the start time/date for this event\n" +
-                    "      END_DATE   is the end time/date for this event";
-    private static final String TASK_PRINT_TEXT_3s = "[%s][%s] %s";
-    private static final String LIST_SUMMARY_TEXT_1d = "Now you have %d tasks in the list.";
-    private static final String SELECT_TASK_NOT_INT_TEXT_1s = "I'm sorry, I do not understand which item '%s' refers to!";
-    private static final String SELECT_TASK_MISSING_TEXT_1d = "I'm sorry, but task number %d does not exist!";
-    private static final String MARKED_TASK_AS_DONE_TEXT = "Nice! I've marked this task as done:";
-    private static final String MARK_INSTRUCTION_USAGE =
-            "Here is the usage for the instruction 'unmark':\n" +
-                    "\n    mark TASK_NUMBER\n\n" +
-                    "where TASK_NUMBER is the task number in the task list";
-    private static final String UNMARKED_TASK_AS_DONE_TEXT = "OK, I've marked this task as not done:";
-    private static final String UNMARK_INSTRUCTION_USAGE =
-            "Here is the usage for the instruction 'unmark':\n" +
-                    "\n    unmark TASK_NUMBER\n\n" +
-                    "where TASK_NUMBER is the task number in the task list";
-    private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
-    // End of text strings
-
-    // class properties
-    private static ArrayList<Task> userList;
     // end of class properties
 
     // class methods
@@ -102,7 +55,7 @@ public class YappingBot {
         }
 
         StringBuilder sb = new StringBuilder();
-        quoteSinglelineText(LIST_TEXT, sb);
+        quoteSinglelineText(ReplyTextMessages.LIST_TEXT, sb);
         for (int i = 0; i < userList.size(); i++) {
             Task t = userList.get(i);
             quoteSinglelineText(
@@ -110,7 +63,7 @@ public class YappingBot {
                             "%2d.%s",
                             i+1,
                             String.format(
-                                    TASK_PRINT_TEXT_3s,
+                                    ReplyTextMessages.TASK_PRINT_TEXT_3s,
                                     t.getTaskTypeSymbol(),
                                     t.getTaskDoneCheckmark(),
                                     t
@@ -127,13 +80,13 @@ public class YappingBot {
         try {
             i = Integer.parseInt(userInputSlice) - 1;
         } catch (NumberFormatException ex) {
-            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_NOT_INT_TEXT_1s, userInputSlice)));
+            System.out.println(quoteSinglelineText(String.format(ReplyTextMessages.SELECT_TASK_NOT_INT_TEXT_1s, userInputSlice)));
             return i;
         }
 
         // OOB
         if (i < 0 || i >= userList.size()) {
-            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_MISSING_TEXT_1d, i+1)));
+            System.out.println(quoteSinglelineText(String.format(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, i+1)));
             i = -1;
         }
 
@@ -144,13 +97,13 @@ public class YappingBot {
         t.setTaskDone(isTaskDone);
         StringBuilder sb = new StringBuilder();
         if (isTaskDone) {
-            quoteSinglelineText(MARKED_TASK_AS_DONE_TEXT, sb);
+            quoteSinglelineText(ReplyTextMessages.MARKED_TASK_AS_DONE_TEXT, sb);
         } else {
-            quoteSinglelineText(UNMARKED_TASK_AS_DONE_TEXT, sb);
+            quoteSinglelineText(ReplyTextMessages.UNMARKED_TASK_AS_DONE_TEXT, sb);
         }
         quoteSinglelineText(
                 String.format(
-                        TASK_PRINT_TEXT_3s,
+                        ReplyTextMessages.TASK_PRINT_TEXT_3s,
                         t.getTaskTypeSymbol(),
                         t.getTaskDoneCheckmark(),
                         t
@@ -164,18 +117,17 @@ public class YappingBot {
         Task t = userList.get(i);
         userList.remove(i);
         StringBuilder sb = new StringBuilder();
-        quoteSinglelineText(DELETED_TEXT, sb);
+        quoteSinglelineText(ReplyTextMessages.DELETED_TEXT, sb);
         quoteSinglelineText(
-                String.format(TASK_PRINT_TEXT_3s,
+                String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
                         t.getTaskTypeSymbol(),
                         t.getTaskDoneCheckmark(),
                         t),
                 sb
         );
-        quoteSinglelineText(String.format(LIST_SUMMARY_TEXT_1d, userList.size()), sb);
+        quoteSinglelineText(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()), sb);
         System.out.println(sb);
     }
-
     // returns true on success, false on failure
     @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "ConstantValue"}) //inversion -> confusion
     private static boolean addTaskToList(String[] userInputSpliced, TaskTypes taskTypes) {
@@ -263,19 +215,18 @@ public class YappingBot {
         }
         userList.add(newTask);
         sb = new StringBuilder();
-        quoteSinglelineText(ADDED_TEXT, sb);
+        quoteSinglelineText(ReplyTextMessages.ADDED_TEXT, sb);
         quoteSinglelineText(
-                String.format(TASK_PRINT_TEXT_3s,
+                String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
                         newTask.getTaskTypeSymbol(),
                         newTask.getTaskDoneCheckmark(),
                         newTask),
                 sb
         );
-        quoteSinglelineText(String.format(LIST_SUMMARY_TEXT_1d, userList.size()), sb);
+        quoteSinglelineText(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()), sb);
         System.out.println(sb);
         return true;
     }
-
     private static Commands parseCommand(String commandString) throws Exception {
         if (commandString.toLowerCase().trim().isEmpty()) {
             return Commands.UNKNOWN;
@@ -290,12 +241,8 @@ public class YappingBot {
     // end of class methods
 
     public static void main(String[] args) {
-        // initialization
-        Scanner userInputScanner = new Scanner(System.in);
-        userList = new ArrayList<>();
-
         // start
-        System.out.println(quoteMultilineText(GREETING_TEXT));
+        System.out.println(quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
 
         programmeLoop: // to break out of loop
         while (userInputScanner.hasNextLine()) {
@@ -312,7 +259,7 @@ public class YappingBot {
                     case MARK:
                         taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
                         if (taskListIndexPtr < 0) {
-                            System.out.println(quoteMultilineText(MARK_INSTRUCTION_USAGE));
+                            System.out.println(quoteMultilineText(ReplyTextMessages.MARK_INSTRUCTION_USAGE));
                         } else {
                             changeTaskListStatus(taskListIndexPtr, true);
                         }
@@ -320,7 +267,7 @@ public class YappingBot {
                     case UNMARK:
                         taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
                         if (taskListIndexPtr < 0) {
-                            System.out.println(quoteMultilineText(UNMARK_INSTRUCTION_USAGE));
+                            System.out.println(quoteMultilineText(ReplyTextMessages.UNMARK_INSTRUCTION_USAGE));
                         } else {
                             changeTaskListStatus(taskListIndexPtr, false);
                         }
@@ -328,37 +275,37 @@ public class YappingBot {
                     case DELETE:
                         taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
                         if (taskListIndexPtr < 0) {
-                            System.out.println(quoteMultilineText(DELETE_USAGE));
+                            System.out.println(quoteMultilineText(ReplyTextMessages.DELETE_USAGE));
                         } else {
                             deleteTask(taskListIndexPtr);
                         }
                         break;
                     case TODO:
                         if (!addTaskToList(userInputSlices, TaskTypes.TODO)) {
-                            System.out.println(quoteMultilineText(TODO_USAGE));
+                            System.out.println(quoteMultilineText(ReplyTextMessages.TODO_USAGE));
                         }
                         break;
                     case EVENT:
                         if (!addTaskToList(userInputSlices, TaskTypes.EVENT)) {
-                            System.out.println(quoteMultilineText(EVENT_USAGE));
+                            System.out.println(quoteMultilineText(ReplyTextMessages.EVENT_USAGE));
                         }
                         break;
                     case DEADLINE:
                         if (!addTaskToList(userInputSlices, TaskTypes.DEADLINE)) {
-                            System.out.println(quoteMultilineText(DEADLINE_USAGE));
+                            System.out.println(quoteMultilineText(ReplyTextMessages.DEADLINE_USAGE));
                         }
                         break;
                     default:
-                        System.out.println(quoteSinglelineText(HELP_TEXT));
+                        System.out.println(quoteSinglelineText(ReplyTextMessages.HELP_TEXT));
                         break; // sanity break
                 }
             } catch(Exception e){
                 System.out.println(quoteMultilineText(
-                        String.format(UNKNOWN_COMMAND_TEXT_1s, userInput)
+                        String.format(ReplyTextMessages.UNKNOWN_COMMAND_TEXT_1s, userInput)
                 ));
             }
         }
         // exit
-        System.out.println(quoteMultilineText(EXIT_TEXT));
+        System.out.println(quoteMultilineText(ReplyTextMessages.EXIT_TEXT));
     }
 }
