@@ -1,3 +1,5 @@
+package exceptions;
+
 public class PrinceException extends Exception {
     public PrinceException(String msg) {
         super(msg);
