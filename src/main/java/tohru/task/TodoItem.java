@@ -4,9 +4,9 @@ package tohru.task;
  * Represents a to-do entry.
  */
 public class TodoItem {
-    /** Content that the entry stores **/
+    /** Content that the entry stores. */
     private final String content;
-    /** Status of the to-do item **/
+    /** Status of the to-do item. */
     private boolean completed;
 
     /**
@@ -20,12 +20,13 @@ public class TodoItem {
     }
 
     /**
-     * Gets the status of the to-do item.
+     * Searches the description for provided keyword.
      *
-     * @return Status of the to-do item.
+     * @param keyword Search term to filter by.
+     * @return Boolean to check if keyword is in description.
      */
-    public boolean isCompleted() {
-        return completed;
+    public boolean contains(String keyword) {
+        return this.content.contains(keyword);
     }
 
     /**

@@ -3,6 +3,7 @@ package tohru.task;
 import tohru.exception.TohruException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a list containing to-do entries.
@@ -106,4 +107,15 @@ public class TodoList {
         return this.todoList.get(index).toString();
     }
 
+    /**
+     * Searches the to-do list for provided keyword.
+     *
+     * @param keyword Keyword used for filtering.
+     * @return An ArrayList with entries that matches the keyword.
+     */
+    public ArrayList<TodoItem> filter(String keyword) {
+        ArrayList<TodoItem> clone = new ArrayList<>(todoList);
+        List<TodoItem> filteredList = clone.stream().filter((item) -> item.contains(keyword)).toList();
+        return new ArrayList<>(filteredList);
+    }
 }

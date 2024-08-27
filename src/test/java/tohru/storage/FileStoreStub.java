@@ -20,7 +20,6 @@ public class FileStoreStub extends FileStore {
     }
 
     @Override
-    public boolean saveTodoList(ArrayList<TodoItem> todoList) {
-        return true;
+    public void saveTodoList(ArrayList<TodoItem> todoList) {
     }
 }
