@@ -25,27 +25,27 @@ public class MarkCommandTest {
         // Test edge case marking (1-index)
         assertThrows(IllegalCommandException.class,
                 () -> markCommand.execute(taskListUI, taskList, new CommandParser("mark 0")));
-        assertEquals(taskList.serialize(), "T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n");
+        assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
         assertThrows(IllegalCommandException.class,
                 () -> markCommand.execute(taskListUI, taskList, new CommandParser("mark 4")));
-        assertEquals(taskList.serialize(), "T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n");
+        assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
 
         // Test edge case unmarking (1-index)
         assertThrows(IllegalCommandException.class,
                 () -> unmarkCommand.execute(taskListUI, taskList, new CommandParser("unmark 0")));
-        assertEquals(taskList.serialize(), "T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n");
+        assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
         assertThrows(IllegalCommandException.class,
                 () -> unmarkCommand.execute(taskListUI, taskList, new CommandParser("unmark 4")));
-        assertEquals(taskList.serialize(), "T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n");
+        assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
 
         // Test already unmarked
         assertThrows(IllegalCommandException.class,
                 () -> unmarkCommand.execute(taskListUI, taskList, new CommandParser("unmark 3")));
-        assertEquals(taskList.serialize(), "T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n");
+        assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
 
         // Test mark
         markCommand.execute(taskListUI, taskList, new CommandParser("mark 3"));
-        assertEquals(taskList.serialize(), "T | 0 | task1\nT | 0 | task2\nT | 1 | task3\n");
+        assertEquals("T | 0 | task1\nT | 0 | task2\nT | 1 | task3\n", taskList.serialize());
 
         // Test already marked
         assertThrows(IllegalCommandException.class,
@@ -53,7 +53,7 @@ public class MarkCommandTest {
 
         // Test unmark
         unmarkCommand.execute(taskListUI, taskList, new CommandParser("unmark 3"));
-        assertEquals(taskList.serialize(), "T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n");
+        assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
 
     }
 }

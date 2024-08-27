@@ -41,6 +41,9 @@ public class CommandTypeTest {
             case EVENT:
                 assertTrue(command instanceof EventCommand);
                 break;
+            case FIND:
+                assertTrue(command instanceof FindCommand);
+                break;
             default:
                 fail("Unknown command type");
             }

@@ -61,7 +61,7 @@ public class TaskListUI {
     // Display all tasks in the list that match the keyword
     public void displayTasks(TaskList tasks) throws IllegalCommandException {
         if (tasks.size() == 0) {
-            throw new IllegalCommandException("No matching tasks found.");
+            throw new IllegalCommandException("No tasks found.");
         }
 
         for (int i = 0; i < tasks.size(); i++) {

@@ -20,8 +20,8 @@ public class AddCommandTest {
                 () -> command.execute(taskListUI, taskList, new CommandParser("todo")));
 
         command.execute(taskListUI, taskList, new CommandParser("todo task"));
-        assertEquals(taskList.size(), 1);
-        assertEquals(taskList.serialize(), "T | 0 | task\n");
+        assertEquals(1, taskList.size());
+        assertEquals("T | 0 | task\n", taskList.serialize());
     }
 
     @Test
@@ -43,8 +43,8 @@ public class AddCommandTest {
                 () -> command.execute(taskListUI, taskList, new CommandParser("deadline a /by 2021-01-32")));
 
         command.execute(taskListUI, taskList, new CommandParser("deadline a /by 2020-08-01"));
-        assertEquals(taskList.size(), 1);
-        assertEquals(taskList.serialize(), "D | 0 | a | 2020-08-01\n");
+        assertEquals(1, taskList.size());
+        assertEquals("D | 0 | a | 2020-08-01\n", taskList.serialize());
     }
 
     @Test
@@ -70,8 +70,8 @@ public class AddCommandTest {
         // Test 2 valid events with inverted from and to
         command.execute(taskListUI, taskList, new CommandParser("event a /from 2020-08-01 /to 2020-09-01"));
         command.execute(taskListUI, taskList, new CommandParser("event b /to 2020-09-01 /from 2020-08-01"));
-        assertEquals(taskList.size(), 2);
-        assertEquals(taskList.serialize(),
-                "E | 0 | a | 2020-08-01 | 2020-09-01\nE | 0 | b | 2020-08-01 | 2020-09-01\n");
+        assertEquals(2, taskList.size());
+        assertEquals("E | 0 | a | 2020-08-01 | 2020-09-01\nE | 0 | b | 2020-08-01 | 2020-09-01\n",
+                taskList.serialize());
     }
 }
