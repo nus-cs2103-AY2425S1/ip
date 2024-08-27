@@ -59,18 +59,18 @@ public class Storage {
                 boolean isDone = (done.equals("1"));
 
                 switch (taskSymbol) {
-                    case 'T' -> {
-                        // todo object
-                        task = createToDoFromJanetTextFile(line, isDone);
-                    }
-                    case 'D' -> {
-                        // deadline object
-                        task = createDeadlineFromJanetTextFile(line, isDone);
-                    }
-                    case 'E' -> {
-                        // event object
-                        task = createEventFromJanetTextFile(line, isDone);
-                    }
+                case 'T' :
+                    // todo object
+                    task = createToDoFromJanetTextFile(line, isDone);
+                    break;
+                case 'D' :
+                    // deadline object
+                    task = createDeadlineFromJanetTextFile(line, isDone);
+                    break;
+                case 'E' :
+                    // event object
+                    task = createEventFromJanetTextFile(line, isDone);
+                    break;
                 }
                 listOfTasks.add(task);
             }
