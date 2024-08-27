@@ -39,15 +39,15 @@ public class TaskListTest {
     public void testAddEvent() throws GladosException{
         TaskList taskList = new TaskList(false);
         assertArrayEquals( 
-                new String[]{"[E][ ] test event (from: today to: tomorrow)", "1"},
-                taskList.add(TaskType.EVENT, "test event /from today /to tomorrow"));
+                new String[]{"[E][ ] test event (from: 2025-08-19 to: 2025-08-19)", "1"},
+                taskList.add(TaskType.EVENT, "test event /from 2025-08-19 /to 2025-08-19"));
     }
 
     @Test
     public void testAddEventWithNoFromDate() throws GladosException {
         TaskList taskList = new TaskList(false);
         try {
-            taskList.add(TaskType.EVENT, "test event /to tomorrow");
+            taskList.add(TaskType.EVENT, "test event /to 2025-08-19");
             fail();
         } catch (Exception e) {
             assertEquals("Date range between '/from' and '/to' not specified or invalid", e.getMessage());
@@ -69,15 +69,15 @@ public class TaskListTest {
     public void testAddDeadline() throws GladosException{
         TaskList taskList = new TaskList(false);
         assertArrayEquals(
-                new String[]{"[D][ ] test deadline (by: today)", "1"},
-                taskList.add(TaskType.DEADLINE, "test deadline /by today"));
+                new String[]{"[D][ ] test deadline (by: 2025-08-19)", "1"},
+                taskList.add(TaskType.DEADLINE, "test deadline /by 2025-08-19"));
     }
     
     @Test
     public void testAddEventWithNoDescription() throws GladosException {
         TaskList taskList = new TaskList(false);
         try {
-            taskList.add(TaskType.EVENT, "/from today /to tomorrow");
+            taskList.add(TaskType.EVENT, "/from 2025-08-19 /to 2025-08-19");
             fail();
         } catch (Exception e) {
             assertEquals("Description for a task cannot be empty.", e.getMessage());
@@ -88,7 +88,7 @@ public class TaskListTest {
     public void testAddDeadlineWithNoDescription() throws GladosException {
         TaskList taskList = new TaskList(false);
         try {
-            taskList.add(TaskType.DEADLINE, "/by tomorrow");
+            taskList.add(TaskType.DEADLINE, "/by 2025-08-19");
             fail();
         } catch (Exception e) {
             assertEquals("Description for a task cannot be empty.", e.getMessage());

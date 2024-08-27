@@ -1,8 +1,11 @@
 package tasks;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import enums.TaskType;
 import exceptions.GladosException;
 import exceptions.TaskNotFoundException;
+import utils.ParsedInfo;
 import utils.Parser;
 import utils.Storage;
 
@@ -23,16 +26,22 @@ public class TaskList {
     public String[] add(TaskType taskType, String input) throws GladosException {
         switch (taskType) {
         case TODO:
-            String[] parsedTodoInputs = Parser.parseTask(taskType, input);
-            taskList.add(new Todo(parsedTodoInputs[0]));
+            ParsedInfo parsedTodoInputs = Parser.parseTask(taskType, input);
+            taskList.add(new Todo(parsedTodoInputs.getDescription()));
             break;
         case EVENT:
-            String[] parsedEventInputs = Parser.parseTask(taskType, input);
-            taskList.add(new Event(parsedEventInputs[0], parsedEventInputs[1], parsedEventInputs[2]));
+            ParsedInfo parsedEventInputs = Parser.parseTask(taskType, input);
+            LocalDate[] eventDates = parsedEventInputs.getDates();
+            taskList.add(new Event(
+                    parsedEventInputs.getDescription(), 
+                    eventDates[0], 
+                    eventDates[1]));
             break;
         case DEADLINE:
-            String[] parsedDeadlineInputs = Parser.parseTask(taskType, input);
-            taskList.add(new Deadline(parsedDeadlineInputs[0], parsedDeadlineInputs[1]));
+            ParsedInfo parsedDeadlineInputs = Parser.parseTask(taskType, input);
+            taskList.add(new Deadline(
+                    parsedDeadlineInputs.getDescription(), 
+                    parsedDeadlineInputs.getDates()[0]));
             break;
         default:
             break;

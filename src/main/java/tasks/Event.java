@@ -1,12 +1,13 @@
 package tasks;
 
 import enums.TaskType;
+import java.time.LocalDate;
 
 public class Event extends Task {
-    private String startDate;
-    private String endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Event(String description, String startDate, String endDate) {
+    public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -24,11 +25,11 @@ public class Event extends Task {
 
     @Override
     public String getDescription() {
-        return this.description + " (from: " + this.startDate + " to: " + this.endDate + ")";
+        return this.description + " (from: " + this.startDate.toString() + " to: " + this.endDate.toString() + ")";
     }
 
     @Override
     public String getSaveFormat() {
-        return this.description + " | " + this.startDate + " | " + this.endDate; 
+        return this.description + " | " + this.startDate.toString() + " | " + this.endDate.toString(); 
     }
 }

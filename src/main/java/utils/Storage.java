@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import tasks.Deadline;
@@ -40,20 +42,20 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                String taskType = parts[0];
-                boolean isDone = parts[1].equals("1");
+                String[] inputs = line.split(" \\| ");
+                String taskType = inputs[0];
+                boolean isDone = inputs[1].equals("1");
                 Task task = null;
 
                 switch (taskType) {
                     case "[T]":
-                        task = new Todo(parts[2]);
+                        task = new Todo(inputs[2]);
                         break;
                     case "[D]":
-                        task = new Deadline(parts[2], parts[3]);
+                        task = new Deadline(inputs[2], LocalDate.parse(inputs[3]));
                         break;
                     case "[E]":
-                        task = new Event(parts[2], parts[3], parts[4]);
+                        task = new Event(inputs[2], LocalDate.parse(inputs[3]), LocalDate.parse(inputs[4]));
                         break;
                 }
 
@@ -65,6 +67,9 @@ public class Storage {
                 }
             }
             return taskList;
+        } catch (DateTimeParseException e) {
+            Ui.initialise("File corrupted. Starting fresh...");
+            return new ArrayList<>();
         } catch (FileNotFoundException e) {
             Ui.initialise("No saved tasks found. Starting fresh...");
             return new ArrayList<>();

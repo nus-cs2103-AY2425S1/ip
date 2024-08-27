@@ -1,11 +1,12 @@
 package tasks;
 
 import enums.TaskType;
+import java.time.LocalDate;
 
 public class Deadline extends Task{
-    private String deadline;
+    private LocalDate deadline;
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
@@ -22,11 +23,11 @@ public class Deadline extends Task{
 
     @Override
     public String getDescription() {
-        return this.description + " (by: " + this.deadline + ")"; 
+        return this.description + " (by: " + this.deadline.toString() + ")"; 
     }
 
     @Override
     public String getSaveFormat() {
-        return this.description + " | " + this.deadline; 
+        return this.description + " | " + this.deadline.toString(); 
     }
 }

@@ -1,7 +1,11 @@
 package utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import enums.TaskType;
 import exceptions.DateNotFoundException;
+import exceptions.DateNotParsedException;
 import exceptions.DateRangeNotFoundException;
 import exceptions.DescriptionNotFoundException;
 import exceptions.GladosException;
@@ -9,12 +13,12 @@ import exceptions.TaskNotFoundException;
 
 public class Parser {
     
-    public static String[] parseTask(TaskType taskType, String input) throws GladosException {
+    public static ParsedInfo parseTask(TaskType taskType, String input) throws GladosException {
         switch (taskType) {
         case TODO:
             String todoDescription = input.trim();
             checkDescription(todoDescription);
-            return new String[]{todoDescription};
+            return new ParsedInfo(todoDescription, new LocalDate[0]);
         case DEADLINE:
             checkDescription(input.trim());
             String[] deadlineInputs = input.split("/by");
@@ -23,7 +27,9 @@ public class Parser {
             if (deadlineInputs.length != 2 || deadlineInputs[1].trim().equals("")) {
                 throw new DateNotFoundException();
             }
-            return new String[]{deadlineInputs[0].trim(), deadlineInputs[1].trim()};
+            return new ParsedInfo(
+                    deadlineInputs[0].trim(), 
+                    new LocalDate[]{parseDate(deadlineInputs[1].trim())});
         case EVENT:
             checkDescription(input.trim());
             String[] eventInputs = input.split("/from");
@@ -36,9 +42,21 @@ public class Parser {
             if (dateRange.length != 2 || dateRange[0].trim().equals("") || dateRange[1].trim().equals("")) {
                 throw new DateRangeNotFoundException();
             }
-            return new String[]{eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()};
+            return new ParsedInfo(
+                    eventInputs[0].trim(), 
+                    new LocalDate[]{
+                            parseDate(dateRange[0].trim()), 
+                            parseDate(dateRange[1].trim())});
         default:
             throw new TaskNotFoundException();
+        }
+    }
+
+    public static LocalDate parseDate(String input) throws DateNotParsedException {
+        try {
+            return LocalDate.parse(input);
+        } catch (DateTimeParseException e) {
+            throw new DateNotParsedException();
         }
     }
 
