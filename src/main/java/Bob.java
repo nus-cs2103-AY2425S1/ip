@@ -252,6 +252,11 @@ public class Bob {
     }
 
 
+    /**
+     * Remove the task from records, based on the task's index in records.
+     * @param input Input given by the user.
+     */
+
     public void delete(String input) {
         try {
             String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
