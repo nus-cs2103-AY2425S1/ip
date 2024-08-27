@@ -8,22 +8,43 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * The Parser class is responsible for interpreting and executing user commands.
+ * It processes the input from the user, interacts with the TaskList, and handles
+ * task-related operations like adding, deleting, and marking tasks.
+ */
 public class Parser {
 
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructs a Parser object with the given TaskList, Ui, and Storage components.
+     *
+     * @param taskList The list of tasks to be managed.
+     * @param ui The UI component used for interacting with the user.
+     * @param storage The storage component for saving and loading tasks.
+     */
     public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Default constructor for the Parser class.
+     */
     public Parser() {
 
     }
 
+    /**
+     * Reads user input and processes commands in a loop until the "bye" command is issued.
+     *
+     * @param scanner The Scanner object used to read user input.
+     * @throws MaxException If an invalid command is given or an error occurs during execution.
+     */
     public void parseText(Scanner scanner) throws MaxException {
         boolean isRunning = true;
 
@@ -68,6 +89,12 @@ public class Parser {
 
     }
 
+    /**
+     * Handles the creation of a new Deadline task.
+     *
+     * @param text The user input text containing the task description and due date.
+     * @throws MaxException If the task description or date format is invalid.
+     */
     private void handleDeadline(String text) throws MaxException {
         String[] temp = text.replace("deadline ", "").split(" /by ");
         if (temp.length != 2) {
@@ -82,6 +109,12 @@ public class Parser {
         ui.printTaskTypeAdded(deadline, taskList.getSize());
     }
 
+    /**
+     * Handles the creation of a new Event task.
+     *
+     * @param text The user input text containing the task description and event period.
+     * @throws MaxException If the task description or event period is invalid.
+     */
     private void handleEvent(String text) throws MaxException {
         String[] temp = text.replace("event ", "").split(" /from ");
         if (temp.length != 2) {
@@ -95,6 +128,12 @@ public class Parser {
         ui.printTaskTypeAdded(event, taskList.getSize());
     }
 
+    /**
+     * Handles the creation of a new Todo task.
+     *
+     * @param text The user input text containing the task description.
+     * @throws MaxException If the task description is empty.
+     */
     private void handleTodo(String text) throws MaxException {
         String temp = text.replace("todo", "").trim();
         checkTask(temp);
@@ -104,6 +143,13 @@ public class Parser {
         ui.printTaskTypeAdded(todo, taskList.getSize());
     }
 
+    /**
+     * Parses a date string into a LocalDateTime object.
+     *
+     * @param date The date string to be parsed.
+     * @return A LocalDateTime object representing the parsed date.
+     * @throws MaxException If the date format is invalid.
+     */
     public LocalDateTime parseDate(String date) throws MaxException {
         DateTimeFormatter converter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
@@ -115,6 +161,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the given task description is empty.
+     *
+     * @param todo The task description to be checked.
+     * @throws MaxException If the task description is empty.
+     */
     public void checkTask(String todo) throws MaxException {
         if (todo.isEmpty()) {
             throw new MaxException("Oh no!! The description of the task cannot be empty. :(");

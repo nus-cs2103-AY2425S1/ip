@@ -11,11 +11,28 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * The Storage class is responsible for reading from and writing to the file system.
+ * It loads the task list from a file and saves the current task list back to the file.
+ */
 public class Storage {
     private String path;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param path The file path where tasks are stored.
+     */
     public Storage(String path) {
         this.path = path;
     }
+
+    /**
+     * Loads the task list from the file specified in the path.
+     * If the file does not exist, it creates a new file and returns an empty task list.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public ArrayList<Task> loadList() {
         ArrayList<Task> tempList = new ArrayList<>();
         try {
@@ -65,6 +82,12 @@ public class Storage {
 
     }
 
+    /**
+     * Saves the current list of tasks to the file specified in the path.
+     *
+     * @param storedTasks The list of tasks to be saved to the file.
+     * @throws MaxException If an IOException occurs during the save process.
+     */
     public void saveTasks(ArrayList<Task> storedTasks) throws MaxException {
         try {
             File file = new File(path);
