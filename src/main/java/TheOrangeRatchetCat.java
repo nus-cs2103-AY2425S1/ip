@@ -109,9 +109,6 @@ public class TheOrangeRatchetCat {
                     input = scanner.nextLine();
                     continue;
                 }
-                /*LocalDate localDate = LocalDate.parse(input.substring(2).trim());
-                input = TaskList.activitiesOnThisDate(localDate, items, scanner);
-                continue;*/
             }
             System.out.print("Inappropriate Command try again with adding either a Deadline/Todo/Event: ");
             input = scanner.nextLine(); // Reads the next line of input text again
