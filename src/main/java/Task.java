@@ -10,6 +10,7 @@ public abstract class Task {
     public void changeMark() {
         this.isDone = !isDone;
     }
+
     public String showMark() {
         return isDone
                 ? "[X]"
@@ -17,4 +18,5 @@ public abstract class Task {
     }
 
     public abstract String taskDescription();
+    public abstract String taskInSaveData();
 }

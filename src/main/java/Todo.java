@@ -7,4 +7,11 @@ public class Todo extends Task {
     public String taskDescription() {
         return "[T]" + showMark() + " " + this.name;
     }
+
+    @Override
+    public String taskInSaveData() {
+        return (isDone ? "X" : "-")
+                + " | todo | "
+                + name + "\n";
+    }
 }

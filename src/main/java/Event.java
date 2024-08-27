@@ -13,4 +13,11 @@ public class Event extends Task {
         return "[E]" + showMark() + " " + this.name
                 + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String taskInSaveData() {
+        return (isDone ? "X" : "-")
+                + " | event | "
+                + name + " from " + from + " to " + to + "\n";
+    }
 }

@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;
@@ -65,6 +66,7 @@ public class Bot {
                     try {
                         Files.createFile(saveDataPath);
                         System.out.println("save file created! ok, i'm all ears now. tell me what you need.");
+                        System.out.println(DIVIDER);
                         // Don't close scanner here as doing so would close the underlying input stream (System.in).
                         // Once it's closed, it can't be reopened later even if we call acceptCommand().
                         return true;
@@ -90,6 +92,19 @@ public class Bot {
     }
 
     public void rewriteData() {
+        // clear file
+        try {
+            FileWriter fw = new FileWriter("./data/Luke.txt", false);
+            // add all tasks in the current list into the file
+            for (Task task : taskList) {
+                fw.write(task.taskInSaveData());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("woops! i ran into an issue saving your list. your last saved list can be found "
+                    + "at Luke.txt. try launching me again to continue.");
+            System.exit(0);
+        }
     }
 
     public void taskNotFound(int taskNumber) {
@@ -248,6 +263,7 @@ public class Bot {
                     + INDENT + task.taskDescription() + "\n"
                     + DIVIDER);
         }
+        rewriteData();
     }
 
     public void deleteTask(int taskToDelete) throws IndexOutOfBoundsException{

@@ -9,4 +9,11 @@ public class Deadline extends Task {
     public String taskDescription() {
         return "[D]" + showMark() + " " + this.name + " (by: " + deadline + ")";
     }
+
+    @Override
+    public String taskInSaveData() {
+        return (isDone ? "X" : "-")
+                + " | deadline | "
+                + name + " by " + deadline + "\n";
+    }
 }
