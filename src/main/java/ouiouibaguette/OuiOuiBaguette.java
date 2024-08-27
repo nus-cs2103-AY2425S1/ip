@@ -7,14 +7,30 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.CommandLineUI;
 
-
+/**
+ * The main class for the OuiOuiBaguette application.
+ * It initializes the necessary components and handles the main application loop.
+ */
 public class OuiOuiBaguette {
 
+    /** The storage system used to persist tasks. */
     private Storage storage;
+
+    /** The task list that manages the user's tasks. */
     private TaskList tasks;
+
+    /** The command-line interface for interacting with the user. */
     private CommandLineUI ui;
+
+    /** The parser that interprets user input and converts it into commands. */
     private Parser parser;
 
+    /**
+     * Constructs the OuiOuiBaguette application with the specified directory path for storage.
+     * Initializes the user interface, storage, task list, and parser.
+     *
+     * @param dirPath The directory path where task data will be stored.
+     */
     public OuiOuiBaguette(String dirPath) {
         ui = new CommandLineUI();
         storage = new FileStorage(dirPath);
@@ -22,6 +38,10 @@ public class OuiOuiBaguette {
         parser = new Parser();
     }
 
+    /**
+     * Runs the main loop of the OuiOuiBaguette application.
+     * Greets the user, processes commands in a loop, and exits when the user issues an exit command.
+     */
     public void run() {
         ui.greet();
         System.out.println();
@@ -30,8 +50,6 @@ public class OuiOuiBaguette {
 
         while (!isExit) {
             String cmd = ui.readCommand();
-
-            // ui.showDivider();
 
             try {
                 Command c = parser.parseCommand(cmd);
@@ -52,7 +70,6 @@ public class OuiOuiBaguette {
             }
 
             System.out.println();
-
         }
 
         ui.farewell();
