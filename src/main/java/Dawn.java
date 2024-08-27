@@ -42,28 +42,28 @@ public class Dawn {
 
             String input = scanner.nextLine().trim();
             switch (cmd) {
-                case BYE:
-                    System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
-                    return;
-                case LIST:
-                    System.out.println("listing all tasks...");
-                    if (counter <= 1) {
-                        System.out.println("There are no tasks in the list... \nPlease feed me some tasks!");
-                    } else {
-                        for (int i = 0; i < counter; i++) {
-                            System.out.printf("%d. %s  \n", i + 1, tasks.get(i).getDesc());
-                        }
+            case BYE:
+                System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
+                return;
+            case LIST:
+                System.out.println("listing all tasks...");
+                if (counter <= 1) {
+                    System.out.println("There are no tasks in the list... \nPlease feed me some tasks!");
+                } else {
+                    for (int i = 0; i < counter; i++) {
+                        System.out.printf("%d. %s  \n", i + 1, tasks.get(i).getDesc());
                     }
-                    break;
-                case MARK: case UNMARK:
-                    mark(command, input);
-                    break;
-                case DELETE:
-                    delete(input);
-                    break;
-                case TODO: case DEADLINE: case EVENT:
-                    addTask(cmd, input);
-                    break;
+                }
+                break;
+            case MARK: case UNMARK:
+                mark(command, input);
+                break;
+            case DELETE:
+                delete(input);
+                break;
+            case TODO: case DEADLINE: case EVENT:
+                addTask(cmd, input);
+                break;
             }
         }
     }
@@ -93,22 +93,22 @@ public class Dawn {
         String[] s = input.split("/");
 
         switch (cmd) {
-            case TODO:
-                t = new ToDo(s[0]);
-                break;
-            case DEADLINE:
-                if (s.length < 2) {
-                    throw new DawnException("Make sure you include both the task description and the deadline!\n");
-                }
-                t = new Deadline(s[0], s[1]);
-                break;
-            case EVENT:
-                if (s.length < 3) {
-                    throw new DawnException("Make sure you include the task description, start, and end times for " +
-                            "your event!\n");
-                }
-                t = new Event(s[0], s[1], s[2]);
-                break;
+        case TODO:
+            t = new ToDo(s[0]);
+            break;
+        case DEADLINE:
+            if (s.length < 2) {
+                throw new DawnException("Make sure you include both the task description and the deadline!\n");
+            }
+            t = new Deadline(s[0], s[1]);
+            break;
+        case EVENT:
+            if (s.length < 3) {
+                throw new DawnException("Make sure you include the task description, start, and end times for " +
+                        "your event!\n");
+            }
+            t = new Event(s[0], s[1], s[2]);
+            break;
         }
 
         tasks.add(t);
