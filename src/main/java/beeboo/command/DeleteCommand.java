@@ -1,3 +1,11 @@
+package beeboo.command;
+
+import beeboo.components.Storage;
+import beeboo.components.TaskList;
+import beeboo.task.Tasks;
+import beeboo.components.Ui;
+import beeboo.exception.InvalidIndexException;
+
 public class DeleteCommand extends Command{
     private String command;
     public DeleteCommand(String command) {
@@ -5,7 +13,7 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    protected void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
         int index = Integer.parseInt(command);
         if(index <0 || index > tasks.getSize()) {
             throw new InvalidIndexException("Invalid index");
@@ -16,7 +24,7 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    protected boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

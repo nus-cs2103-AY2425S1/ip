@@ -1,3 +1,5 @@
+package beeboo.exception;
+
 public class InvalidDateException extends BeeBooExceptions{
 
     public InvalidDateException(String error) {

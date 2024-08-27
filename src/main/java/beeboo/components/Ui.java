@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package beeboo.components;
+
+import beeboo.exception.BeeBooExceptions;
+import beeboo.task.Tasks;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -7,26 +11,26 @@ public class Ui {
     public Ui() {
         input = new Scanner(System.in);
     }
-    protected void markdoneMessage(Tasks task) {
+    public void markdoneMessage(Tasks task) {
         chatBox("Nice! I've marked this task as done:\n" + task);
     }
 
-    protected void unmarkDoneMessage(Tasks task) {
+    public void unmarkDoneMessage(Tasks task) {
         chatBox("OK, I've marked this task as not done yet:\n" + task);
     }
 
-    protected void deleteItemMessage(Tasks task,int size) {
+    public void deleteItemMessage(Tasks task,int size) {
         chatBox("Ok i have removed the following item\n" + task + "\n" + "You have " + size + " tasks left");
     }
 
-    protected void loadingError() {
+    public void loadingError() {
         chatBox("You don't have any data right now.Let me create a new TaskList");
     }
-    protected void produceList(String list) {
+    public void produceList(String list) {
         chatBox(list);
     }
 
-    protected void chatBox(String str) {
+    public void chatBox(String str) {
         for (int i = 0; i < 60; i++) {
             System.out.print("-");
         }
@@ -39,30 +43,30 @@ public class Ui {
         System.out.println();
     }
 
-    protected void addList(Tasks task, int size) {
+    public void addList(Tasks task, int size) {
         chatBox("added: " + task + "\n" + "You have " + size + " tasks in the list");
     }
 
-    protected void showWelcomeMessage() {
+    public void showWelcomeMessage() {
         chatBox("Hello! I'm BeeBoo\nWhat can i do for you?");
     }
 
-    protected void byeMessageMessage() {
+    public void byeMessageMessage() {
         chatBox("Bye.Hope to see you again soon!");
     }
 
-    protected void showError(BeeBooExceptions e) {
+    public void showError(BeeBooExceptions e) {
         chatBox(e.toString());
     }
 
-    protected String handleCommand() {
+    public String handleCommand() {
         if (input == null) {  // Ensure Scanner is initialized
             input = new Scanner(System.in);
         }
         return input.nextLine().trim().toLowerCase();
     }
 
-    protected void close() {
+    public void close() {
         input.close();
     }
 }

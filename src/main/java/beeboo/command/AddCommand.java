@@ -1,3 +1,14 @@
+package beeboo.command;
+
+import beeboo.components.Storage;
+import beeboo.components.TaskList;
+import beeboo.components.Ui;
+import beeboo.exception.InvalidDateException;
+import beeboo.exception.NoDescriptionException;
+import beeboo.task.Deadlines;
+import beeboo.task.Events;
+import beeboo.task.ToDos;
+
 public class AddCommand extends Command{
     String type;
     String command;
@@ -8,7 +19,7 @@ public class AddCommand extends Command{
     }
 
     @Override
-    protected void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
         switch(type) {
         case "e":
             Events event = Events.CreateEvent(command);
@@ -33,7 +44,7 @@ public class AddCommand extends Command{
     }
 
     @Override
-    protected boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }
