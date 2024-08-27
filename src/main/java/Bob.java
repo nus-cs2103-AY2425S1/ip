@@ -1,12 +1,45 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Bob {
+    static final String FILE_PATH = "data/bob.txt";
+
     private ArrayList<Task> TaskList = new ArrayList<>();
 
     public Bob() {
         sendMessage("Hello! I'm Bob!");
         sendMessage("What can I do for you?");
+    }
+
+    public void loadTask(String t) {
+        String[] task_list = t.trim().split(" \\| ");
+        Task x;
+        switch (task_list[0]) {
+        case ("T"):
+            x = new ToDo(task_list[2]);
+            this.TaskList.add(x);
+            break;
+        case ("D"):
+            x = new Deadline(task_list[2], task_list[3]);
+            this.TaskList.add(x);
+            break;
+        case ("E"):
+            x = new Event(task_list[2], task_list[3], task_list[4]);
+            this.TaskList.add(x);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + task_list[0]);
+        }
+        if (task_list[1].equals("1")) {
+            x.markAsDone();
+        }
     }
 
     public void sendMessage(String message) {
@@ -55,40 +88,30 @@ public class Bob {
         sendMessage("Now you have " + this.TaskList.size() + " tasks in the list.");
     }
 
-    public void addToDo(String message) throws BobException {
-        String x = message.replaceFirst("todo", "");
-        if (x.isEmpty()) {
-            throw new BobException("OOPS!!! The description of a todo cannot be empty.");
-        }
-        Task t = new ToDo(x.trim());
+    public Task addToDo(String description) {
+        Task t = new ToDo(description);
         this.addTask(t);
+        return t;
     }
 
-    public void addDeadline(String message) throws BobException {
-        String x = message.replaceFirst("deadline", "");
-        String[] parts = x.split(" /");
-        if (parts.length != 2) {
-            throw new BobException("OOPS!!! The description/start time of a deadline cannot be empty.");
-        }
-        Task t = new Deadline(parts[0].trim(), parts[1].trim());
+    public Task addDeadline(String description, String start) {
+        Task t = new Deadline(description, start);
         this.addTask(t);
+        return t;
     }
 
-    public void addEvent(String message) throws BobException {
-        String x = message.replaceFirst("event", "");
-        String[] parts = x.split(" /");
-         if (parts.length != 3) {
-            throw new BobException("OOPS!!! The description/start time/end time of an event cannot be empty.");
-        }
-        Task t = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+    public Task addEvent(String description, String start, String end) {
+        Task t = new Event(description, start, end);
         this.addTask(t);
+        return t;
     }
 
     public boolean receiveMessage(String message) {
+        boolean result = true;
         try {
             if (message.equalsIgnoreCase("bye")) {
-                sendMessage("Bye. Hope to see you again soon!");
-                return false;
+                exit();
+                result = false;
             } else if (message.equalsIgnoreCase("list")) {
                 listTasks();
             } else if (message.matches("^mark \\d+$")) {
@@ -98,31 +121,69 @@ public class Bob {
             } else if (message.matches("^delete \\d+$")) {
                 deleteTask(message);
             } else if (message.matches("^todo.*")) {
-                addToDo(message);
+                String x = message.replaceFirst("todo", "");
+                if (x.isEmpty()) {
+                    throw new BobException("OOPS!!! The description of a todo cannot be empty.");
+                }
+                addToDo(x.trim());
             } else if (message.matches("^deadline.*")) {
-                addDeadline(message);
+                String x = message.replaceFirst("deadline", "");
+                String[] parts = x.split(" /");
+                if (parts.length != 2) {
+                    throw new BobException("OOPS!!! The description/start time of a deadline cannot be empty.");
+                }
+                addDeadline(parts[0].trim(), parts[1].trim());
             } else if (message.matches("^event.*")) {
-                addEvent(message);
+                String x = message.replaceFirst("event", "");
+                String[] parts = x.split(" /");
+                if (parts.length != 3) {
+                    throw new BobException("OOPS!!! The description/start time/end time of an event cannot be empty.");
+                }
+                addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
             } else {
                 throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (BobException e) {
             sendMessage(e.getMessage());
         } finally {
-            return true;
+            return result;
         }
     }
 
+    public void exit() {
+        sendMessage("Bye. Hope to see you again soon!");
+        try {
+            Files.createDirectories(Path.of("data")); // Hard-coded
+            FileWriter fw = new FileWriter(FILE_PATH);
+            for (Task t: this.TaskList) {
+                fw.write(t.toSave() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException ignored) {
+            sendMessage("An error has occurred when trying to save.");
+        }
+    }
     public void start() {
-        Scanner scanner = new Scanner(System.in);
+        File f = new File(FILE_PATH);
+        try {
+            // For file
+            Scanner s1 = new Scanner(f);
+            while (s1.hasNext()) {
+                loadTask(s1.nextLine());
+            }
+        } catch (FileNotFoundException ignored) {
+        }
+
+        // For others
+        Scanner s2 = new Scanner(System.in);
         String message = "";
         do {
-            message = scanner.nextLine().trim();
+            message = s2.nextLine().trim();
         } while (receiveMessage(message));
     }
 
     public static void main(String[] args) {
-        Bob em = new Bob();
-        em.start();
+        Bob b = new Bob();
+        b.start();
     }
 }
