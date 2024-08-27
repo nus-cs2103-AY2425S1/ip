@@ -28,14 +28,20 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Barney")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Barney"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+}
+
+task testing {
+    doLast {
+        println "Testing"
+    }
 }
