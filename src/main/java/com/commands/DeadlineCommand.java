@@ -14,7 +14,8 @@ public class DeadlineCommand extends Command {
 
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws InvalidArgumentException {
+    public void execute(Ui ui, Storage storage, TaskList tasks)
+            throws InvalidArgumentException {
         Task task = new Deadline(getDescription(argument),
                 readOption(argument, "by"));
         storage.writeTaskToFile(task);

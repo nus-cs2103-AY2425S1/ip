@@ -58,8 +58,9 @@ public class Storage {
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 Task task = getTaskFromSavedCommand(sc.nextLine());
-                if (task != null)
+                if (task != null) {
                     ans.add(task);
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("Can't find saved data file");
@@ -96,8 +97,9 @@ public class Storage {
             ArrayList<String> arr = new ArrayList<String>();
             for (int i = 0; i < size && sc.hasNext(); ++i) {
                 String nxt = sc.nextLine();
-                if (i == index)
+                if (i == index) {
                     continue;
+                }
                 arr.add(nxt);
             }
             sc.close();

@@ -13,7 +13,8 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws InvalidArgumentException {
+    public void execute(Ui ui, Storage storage, TaskList tasks)
+            throws InvalidArgumentException {
         Event task = new Event(getDescription(argument),
                 readOption(argument, "from"),
                 readOption(argument, "to"));
