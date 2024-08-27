@@ -1,41 +1,51 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Stobberi {
     private static final String NAME_OF_CHATBOT = "Stobberi";
     private static final String HELLO_GREETING =
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
-            + "What can I do for you?";
+                    + "What can I do for you?";
     private static final String GOODBYE_GREETING = "Bye. Hope to see you again soon! :)\n";
-    private static ArrayList<Task> listOfTasks= new ArrayList<>();
 
-    private static String displayForm(String phrase) {
+    private ArrayList<Task> listOfTasks;
+
+    public Stobberi() {
+        listOfTasks = new ArrayList<>();
+    }
+
+    private String displayForm(String phrase) {
         return
                 "_______________________________________________\n"
-                + phrase
-                + "\n_______________________________________________\n";
+                        + phrase
+                        + "\n_______________________________________________\n";
     }
-    private static void displayList() {
+
+    private void displayList() {
         String list = "Here are the tasks in your list:\n";
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             list += i + ". " + listOfTasks.get(i - 1) + "\n";
         }
         System.out.println(displayForm(list));
     }
-    private static void markTask(int number) {
+
+    private void markTask(int number) {
         listOfTasks.get(number - 1).setDone();
         String done = "Nice! I've marked this task as done:\n" +
                 "  ";
         done += listOfTasks.get(number - 1).toString();
         System.out.println(displayForm(done));
     }
-    private static void unmarkTask(int number) {
+
+    private void unmarkTask(int number) {
         listOfTasks.get(number - 1).setNotDone();
         String done = "OK, I've marked this task as not done yet:\n" +
                 "  ";
         done += listOfTasks.get(number - 1).toString();
         System.out.println(displayForm(done));
     }
-    private static void delete(int number) { // Make tasks singular and plural in the future
+
+    private void delete(int number) {
         Task temp = listOfTasks.get(number - 1);
         listOfTasks.remove(number - 1);
         String done = "Noted. I've removed this task:\n" +
@@ -43,13 +53,15 @@ public class Stobberi {
                 + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
         System.out.println(displayForm(done));
     }
-    private static void displayLastAdded() {
+
+    private void displayLastAdded() {
         System.out.println(displayForm(
                 "Got it. I've added this task:\n    "
-                + listOfTasks.get(listOfTasks.size() - 1))
+                        + listOfTasks.get(listOfTasks.size() - 1))
                 + "Now you have " + listOfTasks.size() + " in the list.");
     }
-    private static void addTask(String firstWord, String task) throws StobberiException {
+
+    private void addTask(String firstWord, String task) throws StobberiException {
         if (task.isEmpty()) {
             throw new EmptyStobberiException(displayForm("That's not a task?! Try again. "));
         }
@@ -63,14 +75,15 @@ public class Stobberi {
         } else if (firstWord.equals("deadline")) {
             String[] parts = task.split("/by ");
             listOfTasks.add(new Deadlines(parts[0], parts[1]));
-        } else if (firstWord.equals("event")) { // can be removed
+        } else if (firstWord.equals("event")) {
             String[] parts = task.split("/from ");
             String[] secondParts = parts[1].split("/to ");
             listOfTasks.add(new Events(parts[0], secondParts[0], secondParts[1]));
         }
         displayLastAdded();
     }
-    private static void createList() {
+
+    private void createList() {
         Scanner scanner = new Scanner(System.in);
         String temp = scanner.nextLine();
 
@@ -107,9 +120,14 @@ public class Stobberi {
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         System.out.println(displayForm(HELLO_GREETING));
         createList();
         System.out.println(displayForm(GOODBYE_GREETING));
+    }
+
+    public static void main(String[] args) {
+        Stobberi stobberi = new Stobberi();
+        stobberi.run();
     }
 }
