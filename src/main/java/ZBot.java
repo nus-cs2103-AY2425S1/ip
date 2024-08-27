@@ -10,13 +10,16 @@ public class ZBot {
     public ZBot(String filepath) {
         ui = new Ui();
         storage = new Storage(SAVE_PATH);
-        tasks = new TaskList();
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (ZBotException e) {
+            tasks = new TaskList();
+        }
     }
 
     public void run() {
         ui.intro();
         storage.createFileIfNotExists();
-        tasks = new TaskList(storage.load());
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
