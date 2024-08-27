@@ -1,3 +1,5 @@
+package mahesh;
+
 import java.util.Scanner;
 
 import mahesh.command.Command;
@@ -9,19 +11,16 @@ import mahesh.util.Ui;
 
 public class Mahesh {
 
-    private final static String PATH = "../../../data/mahesh.txt";
+    private String path ;
 
-    /**
-     * List to store tasks.
-     */
-    private static TaskList list;
+    public Mahesh(String path) {
+        this.path = path;
+    }
 
-    public static void main(String[] args) {
-        Storage store = new Storage(Mahesh.PATH);
-        Mahesh.list = store.retrieveData();
+    public void run() {
         Ui.printStartupMessage();
-
-        
+        Storage store = new Storage(this.path);
+        TaskList list = store.retrieveData();
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
         
@@ -37,9 +36,13 @@ public class Mahesh {
             } catch (MaheshException err) {
                 Ui.printErr(err);
             }
-            store.updateData(Mahesh.list);
+            store.updateData(list);
         }
-
         scan.close();
+    }
+
+    public static void main(String[] args) {
+        Mahesh app = new Mahesh("../../../../data/mahesh.txt");
+        app.run();
     }
 }
