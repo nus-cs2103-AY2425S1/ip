@@ -1,11 +1,14 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Fred {
     static String line = "____________________________________________________________";
     static String name = "Fred";
     static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
+        getDataFile();
         greet();
         getInput();
     }
@@ -154,5 +157,21 @@ public class Fred {
 
     private static void deleteFromTaskList(Task task) {
         taskList.remove(task);
+    }
+
+    private static File getDataFile() {
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+        File dataFile = new File("./data/fred.txt");
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return dataFile;
     }
 }
