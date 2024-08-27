@@ -6,7 +6,11 @@ public class Deadline extends Item {
         super(newname);
         this.by = by;
     }
-    
+    @Override
+    public String toData() {
+        String str = String.format("D | %s | %s\n", super.toData(), this.by);
+        return str;
+    }
     @Override
     public String toString() {
         String str = String.format("[D] %s (by: %s)", super.toString(), this.by);

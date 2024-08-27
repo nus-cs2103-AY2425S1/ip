@@ -22,6 +22,12 @@ public class Item {
         return (done ? "X" : " "); // mark done task with X
     }
 
+    public String toData() {
+        String str;
+        str = String.format("%s | %s", this.done ? "1" : "0", this.name);
+        return str;
+    }
+
     @Override
     public String toString() {
         String str;

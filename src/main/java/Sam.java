@@ -14,6 +14,9 @@ public class Sam {
                 if (input.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println(getHorizontalLine());
+                    if (items.getSize() > 0){
+                        items.updateData();
+                    }
                     break;
                 } else if (input.equals("list")){
                     System.out.println("Here are the tasks in your list:");
@@ -40,7 +43,6 @@ public class Sam {
                         }
                         String[] Dparts = input.split(" /by ");
                         items.addItem(new Deadline(Dparts[0].substring(9), Dparts[1]));
-
                     } else if ("event".equals(itemType)){
                         if (parts.length==1 || "".equals(input.substring(6))) {
                             throw new SamException("Please include name of Event task");

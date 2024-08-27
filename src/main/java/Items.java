@@ -1,14 +1,23 @@
 import java.util.ArrayList;
 
 public class Items {
-    ArrayList<Item> items;
+
+    private DataHandler dataHandler;
+    private ArrayList<Item> items;
 
     public Items() {
         this.items = new ArrayList<>();
+        this.dataHandler = new DataHandler();
+        this.dataHandler.loadData(this.items);
     }
+
 
     public void addItem(Item item) {
         this.items.add(item);
+    }
+
+    public void updateData() {
+        this.dataHandler.updateData(this.items);
     }
 
     public void  markItemDone(String input) throws SamException {
