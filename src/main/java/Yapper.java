@@ -104,7 +104,7 @@ public class Yapper {
                         message = "This task has been reopened:";
                         task.unmark();
                     }
-                    updateReferenceFile(taskList);
+                    writeToFile(taskList);
 
                     System.out.println(divider);
                     System.out.println(message);
@@ -117,7 +117,7 @@ public class Yapper {
                         taskList.remove(taskNumber - 1);
                         Task.setTotalTasks(Task.getTotalTasks() - 1);
 
-                        updateReferenceFile(taskList);
+                        writeToFile(taskList);
 
                         System.out.println(divider);
                         System.out.println("The following task has been removed form the lise:");
@@ -227,6 +227,15 @@ public class Yapper {
         }
     }
 
+    public static void writeToFile(ArrayList<Task> taskList) {
+        try (FileWriter fileWriter = new FileWriter(relativePath)) {
+            for (Task t : taskList) {
+                fileWriter.write(t.getDesc() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void errorCaught(String errorMessage) {
         System.out.println(divider);
@@ -236,7 +245,7 @@ public class Yapper {
 
     public static void addTask(ArrayList<Task> taskList, Task task) {
         taskList.add(task);
-        updateReferenceFile(taskList);
+        writeToFile(taskList);
 
         System.out.println(divider);
         System.out.println("Task has been added:");
@@ -264,30 +273,20 @@ public class Yapper {
         if (sb.isEmpty()) {
             String message = null;
             switch (timeType) {
-                case DESC:
-                    throw new EmptyDescException("(E.g. todo [DESC], deadline [DESC] /by [DEADLINE], etc)");
-                case DEADLINE:
-                    throw new EndingTimeException("(Format: deadline [DESC] /by [DEADLINE])");
-                case FROM:
-                    throw new StartingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
-                case TO:
-                    throw new EndingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
-                default:
-                    message = "(Something went wrong)";
-                    break;
+            case DESC:
+                throw new EmptyDescException("(E.g. todo [DESC], deadline [DESC] /by [DEADLINE], etc)");
+            case DEADLINE:
+                throw new EndingTimeException("(Format: deadline [DESC] /by [DEADLINE])");
+            case FROM:
+                throw new StartingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
+            case TO:
+                throw new EndingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
+            default:
+                message = "(Something went wrong)";
+                break;
             }
             throw new YapperFormatException(message);
         }
         return sb.toString();
-    }
-
-    public static void updateReferenceFile(ArrayList<Task> taskList) {
-        try (FileWriter fileWriter = new FileWriter(relativePath)) {
-            for (Task t : taskList) {
-                fileWriter.write(t.getDesc() + System.lineSeparator());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
