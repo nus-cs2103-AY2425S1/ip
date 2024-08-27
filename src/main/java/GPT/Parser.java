@@ -4,7 +4,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for interpreting user input and converting it
+ * into executable commands or parsing date and time strings into LocalDateTime objects.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     * This method identifies the type of command based on the input and creates the appropriate Command subclass.
+     *
+     * @param input The user input string to be parsed.
+     * @return The corresponding Command object based on the input.
+     * @throws GPTException If the input cannot be parsed into a valid command.
+     */
 
     public static Command parseCommand(String input) throws GPTException {
         if (input.equalsIgnoreCase("bye")) {
@@ -28,6 +40,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date and time string into a LocalDateTime object.
+     * This method attempts to parse the input string using several predefined date and time formats.
+     * If the input matches one of the formats, a corresponding LocalDateTime object is returned.
+     *
+     * @param dateTimeStr The date and time string to be parsed.
+     * @return A LocalDateTime object representing the parsed date and time, or null if the input is invalid.
+     */
     public static LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
