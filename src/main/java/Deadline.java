@@ -17,6 +17,10 @@ public class Deadline extends Task {
         this.due = LocalDateTime.parse(due.strip().substring(3), parseFormatter);
     }
 
+    /**
+     * Getter for the due field
+     * @return the LocalDateTime object representing the due date/time
+     */
     public LocalDateTime getDue() {
         return due;
     }

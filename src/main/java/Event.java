@@ -19,10 +19,18 @@ public class Event extends Task {
         this.end = LocalDateTime.parse(end.strip().substring(3), parseFormatter);
     }
 
+    /**
+     * Getter for the start field
+     * @return the LocalDateTime object representing the start date/time
+     */
     public LocalDateTime getStart() {
         return start;
     }
 
+    /**
+     * Getter for the end field
+     * @return the LocalDateTime object representing the end date/time
+     */
     public LocalDateTime getEnd() {
         return end;
     }
