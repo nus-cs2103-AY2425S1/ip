@@ -19,9 +19,9 @@ public class Spike {
     private static ArrayList<Task> toDoList = new ArrayList<>();
 
     public static void helloMessage() {
-        System.out.println("_________________________________________________________");
-        System.out.println("Hello! I'm Spike\nWhat can I do for you?");
-        System.out.println("_________________________________________________________");
+        System.out.println("     _________________________________________________________");
+        System.out.println("     Hello! I'm Spike\n     What can I do for you?");
+        System.out.println("     _________________________________________________________");
         return;
     }
 
