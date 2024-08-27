@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The {@code Event} class represents a task that occurs at a specific time
  * with a defined start and end time. It is a subclass of {@link Task}.
@@ -22,6 +24,10 @@ public class Event extends Task {
         super(description, TaskType.EVENT);
         this.start = start;
         this.end = end;
+    }
+
+    public String[] getStartAndEnd() {
+        return new String[] {this.start, this.end};
     }
 
     /**

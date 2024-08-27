@@ -20,6 +20,10 @@ public class Deadline extends Task {
 
     }
 
+    public String getDeadline() {
+        return this.deadline;
+    }
+
     /**
      * Returns a string representation of the deadline task,
      * including its type indicator, description, and deadline.
