@@ -34,7 +34,7 @@ public class SecondMind {
     }
 
     private static void appendToFile(String data) throws IOException {
-        FileWriter fw = new FileWriter(DATA_FILE_PATH);
+        FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
         fw.write(data);
         fw.close();
     }
