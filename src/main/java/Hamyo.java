@@ -22,26 +22,37 @@ public class Hamyo {
 
         while (active) {
             try {
-                String str = scanner.nextLine();
-                if (str.startsWith("todo")) {
-                    add(TaskType.TODO, str.substring(4));
-                } else if (str.startsWith("deadline")) {
-                    add(TaskType.DEADLINE, str.substring(8));
-                } else if (str.startsWith("event")) {
-                    add(TaskType.EVENT, str.substring(5));
-                } else if (str.equals("list")) {
+                String command = scanner.nextLine();
+                String commandType = command.split(" ")[0];
+                String commandFields = command.substring(commandType.length());
+                switch (commandType) {
+                case "todo":
+                    add(TaskType.TODO, commandFields);
+                    break;
+                case "deadline":
+                    add(TaskType.DEADLINE, commandFields);
+                    break;
+                case "event":
+                    add(TaskType.EVENT, commandFields);
+                    break;
+                case "list":
                     listTasks();
-                } else if (str.startsWith("mark")) {
-                    mark(str.substring(4));
-                } else if (str.startsWith("unmark")) {
-                    unmark(str.substring(6));
-                } else if (str.startsWith("delete")) {
-                    delete(str.substring(6));
-                } else if (str.startsWith("bye")) {
+                    break;
+                case "mark":
+                    mark(commandFields);
+                    break;
+                case "unmark":
+                    unmark(commandFields);
+                    break;
+                case "delete":
+                    delete(commandFields);
+                    break;
+                case "bye":
                     terminate();
-                } else {
+                    break;
+                default:
                     throw new HamyoException("Invalid command.");
-                }
+            }
             } catch (HamyoException e) {
                 System.out.println(e.toString());
                 printLine();
