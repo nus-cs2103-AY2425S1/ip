@@ -12,8 +12,9 @@ public class Parser {
      *
      * @param prompt The input from the user
      * @return A command object representing the operation requested by the user
+     * @throws TohruException When an invalid command is passed in
      */
-    public static Command parse(String prompt) {
+    public static Command parse(String prompt) throws TohruException {
 
         String[] dissectedPrompt = prompt.trim().split(" ", 2);
         String command = dissectedPrompt[0];
@@ -37,9 +38,12 @@ public class Parser {
             return new AddTodoCommand(arguments);
         case AddDeadlineCommand.COMMAND_PREFIX:
             return new AddDeadlineCommand(arguments);
+        case AddEventCommand.COMMAND_PREFIX:
+            return new AddEventCommand(arguments);
+        default:
+            throw new TohruException("You have entered an invalid option! Please try again.");
         }
 
-        return null;
     }
 
     /**

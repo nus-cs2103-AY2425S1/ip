@@ -36,7 +36,7 @@ public class AddDeadlineCommand extends Command{
             throw new TohruException("Missing argument: Please specify deadline");
         }
 
-        LocalDateTime deadline = Parser.parseDateTimeString(deadlineStr, Command.DATE_TIME_FORMATTER);
+        LocalDateTime deadline = Parser.parseDateTimeString(deadlineStr.trim(), Command.DATE_TIME_FORMATTER);
 
         DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
         list.addItem(newDeadline);
