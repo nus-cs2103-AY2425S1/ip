@@ -82,7 +82,7 @@
  |  [D][ ] many trailing spaces in previous task (by: today)
  |  Now you have 3 tasks in the list.
 
- |  I'm sorry, I do not understand what 'Input: deadline' is!
+ |  I'm sorry, I do not understand what 'deadline this has no by-date' is!
  |  Here is the usage for the instruction 'deadline':
  |
  |      deadline TASK_NAME /by DEADLINE
@@ -91,7 +91,7 @@
  |        DEADLINE  is the deadline for this task
 
 
- |  I'm sorry, I do not understand what 'Input: deadline' is!
+ |  I'm sorry, I do not understand what 'deadline wrong tag /from alskjdadkj /to ksasdklj' is!
  |  Here is the usage for the instruction 'deadline':
  |
  |      deadline TASK_NAME /by DEADLINE
@@ -130,40 +130,44 @@
  |  [E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
  |  Now you have 4 tasks in the list.
 
- |  I'm sorry, I do not understand what 'Input: event' is!
- |  Here is the usage for the instruction 'deadline':
+ |  I'm sorry, I do not understand what 'event this has no tags' is!
+ |  Here is the usage for the instruction 'event':
  |
- |      deadline TASK_NAME /by DEADLINE
+ |      event TASK_NAME /from START_DATE /to END_DATE
  |
- |  where TASK_NAME is the name of this deadline task to add
- |        DEADLINE  is the deadline for this task
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
 
 
- |  I'm sorry, I do not understand what 'Input: event' is!
- |  Here is the usage for the instruction 'deadline':
+ |  I'm sorry, I do not understand what 'event wrong tag /by asldkjdska' is!
+ |  Here is the usage for the instruction 'event':
  |
- |      deadline TASK_NAME /by DEADLINE
+ |      event TASK_NAME /from START_DATE /to END_DATE
  |
- |  where TASK_NAME is the name of this deadline task to add
- |        DEADLINE  is the deadline for this task
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
 
 
- |  I'm sorry, I do not understand what 'Input: event' is!
- |  Here is the usage for the instruction 'deadline':
+ |  I'm sorry, I do not understand what 'event no from tag /to today' is!
+ |  Here is the usage for the instruction 'event':
  |
- |      deadline TASK_NAME /by DEADLINE
+ |      event TASK_NAME /from START_DATE /to END_DATE
  |
- |  where TASK_NAME is the name of this deadline task to add
- |        DEADLINE  is the deadline for this task
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
 
 
- |  I'm sorry, I do not understand what 'Input: event' is!
- |  Here is the usage for the instruction 'deadline':
+ |  I'm sorry, I do not understand what 'event no to tag /from tomorrow' is!
+ |  Here is the usage for the instruction 'event':
  |
- |      deadline TASK_NAME /by DEADLINE
+ |      event TASK_NAME /from START_DATE /to END_DATE
  |
- |  where TASK_NAME is the name of this deadline task to add
- |        DEADLINE  is the deadline for this task
+ |  where TASK_NAME  is the name of this event task to add
+ |        START_DATE is the start time/date for this event
+ |        END_DATE   is the end time/date for this event
 
 
  |  Here are the tasks in your list:
