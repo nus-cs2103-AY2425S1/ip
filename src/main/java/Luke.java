@@ -9,12 +9,13 @@ public class Luke {
 
         System.out.println("""
                 ____________________________________________________________
-                i'm luke, your chatbot.
-                say something and i will echo it (unless...you wanna say bye to me)
+                i'm luke, your glorified task manager.
                 ____________________________________________________________
                 """);
 
         Bot bot = new Bot();
-        bot.acceptCommand();
+        if (bot.loadData()) {
+            bot.acceptCommand();
+        }
     }
 }
