@@ -60,7 +60,15 @@ public class SecondMind {
         taskInfo = String.join(" ", taskInfo).split(" by ");
         //Prefix of taskInfo[0] is "deadline "
         String taskDescription = taskInfo[0].substring(9);
+        //Strip whitespace at the end of taskDescription
+        taskDescription = taskDescription.trim();
         String taskDeadline = taskInfo[1];
+        String data = "\nD|0|" + taskDescription + "|" + taskDeadline;
+        try {
+            appendToFile(data);
+        } catch (IOException e) {
+            printErrorMessage(e);
+        }
         return new DeadlineTask(taskDescription, taskDeadline);
     }
 
