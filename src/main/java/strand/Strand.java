@@ -30,7 +30,15 @@ public class Strand {
         }
     }
 
-
+    /**
+     * The main method to run the Strand application. Creates an instance of the
+     * {@code Strand} class and starts the application loop.
+     *
+     * @param args Command-line arguments.
+     */
+    public static void main(String[] args) {
+        new Strand(FILENAME).run();
+    }
 
     /**
      * Starts the main application loop.
@@ -52,15 +60,5 @@ public class Strand {
                 ui.showLine();
             }
         }
-    }
-
-    /**
-     * The main method to run the Strand application. Creates an instance of the
-     * {@code Strand} class and starts the application loop.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Strand(FILENAME).run();
     }
 }

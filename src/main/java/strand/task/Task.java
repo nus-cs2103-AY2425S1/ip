@@ -11,7 +11,6 @@ import strand.exception.StrandException;
 
 /**
  * The {@code Task} class is an abstract representation of a task.
- *
  */
 public abstract class Task {
     protected String description;
