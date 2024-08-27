@@ -10,7 +10,7 @@ public class Prince {
             return "Bye! Hope to see you again soon!";
         } else if(command.equals("list")) {
             return listDisplay(list);
-        } else if(command.startsWith("mark") || command.startsWith("unmark")) {
+        } else if(command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
             // used the library function .startsWith() to match the prefix to mark/unmark
             // use.split("") to split up the words
             // use.parseInt(num) to extract integer from the string
@@ -28,8 +28,10 @@ public class Prince {
 
             if(stringList[0].equals("mark")) {
                 return t.markDone();
-            } else {
+            } else if(stringList[0].equals("unmark")){
                 return t.markIncomplete();
+            } else {
+                return taskDelDescription(taskNum, t);
             }
 
         } else if(checkCommandLength(command)) {
@@ -52,7 +54,7 @@ public class Prince {
             if(type.equals("todo")) {
                 ToDoTask tsk = new ToDoTask(stringTask);
                 addTask(tsk);
-                return taskDescription(tsk);
+                return taskAddDescription(tsk);
 
             } else if (type.equals("deadline")) {
                 // split again after by
@@ -62,7 +64,7 @@ public class Prince {
 
                 DeadlinesTask tsk = new DeadlinesTask(taskDes, deadline);
                 addTask(tsk);
-                return taskDescription(tsk);
+                return taskAddDescription(tsk);
 
             } else {
                 // split again after from
@@ -77,7 +79,7 @@ public class Prince {
 
                 EventTask tsk = new EventTask(taskDes, from, to);
                 addTask(tsk);
-                return taskDescription(tsk);
+                return taskAddDescription(tsk);
             }
         }
     }
@@ -106,8 +108,14 @@ public class Prince {
         //return "added: " + task.getDescription();
     }
 
-    public static String taskDescription(Task task) {
+    public static String taskAddDescription(Task task) {
         return "Got it. I've added this task:\n" + "  " + task.printTask() + "\n" +
+                "Now you have " + list.size() + " tasks in the list";
+    }
+
+    public static String taskDelDescription(int num, Task task){
+        list.remove(num - 1);
+        return "Noted. I've removed this task:\n" + "  " + task.printTask() + "\n" +
                 "Now you have " + list.size() + " tasks in the list";
     }
 
