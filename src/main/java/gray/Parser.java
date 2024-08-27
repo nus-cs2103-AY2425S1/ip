@@ -14,7 +14,8 @@ public class Parser {
             new AddDeadlineCommandFactory(),
             new AddEventCommandFactory(),
             new MarkCommandFactory(),
-            new DeleteCommandFactory()
+            new DeleteCommandFactory(),
+            new FindCommandFactory()
     );
 
     /**
