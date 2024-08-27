@@ -54,7 +54,7 @@ public class Storage {
                 // Note: taskType only set to EVENT when Event class is created, and is final, so this is safe
                 Event event = (Event) task;
                 textToWrite = textToWrite + "E | " + isDoneMark + " | " + event.getTaskName() +
-                        " | " + event.getFromTime() + "-" + event.getToTime() + "\n";
+                        " | " + event.getFromTime() + "to" + event.getToTime() + "\n";
                 break;
             default:
                 throw new TaskWithoutTypeException();
@@ -121,8 +121,8 @@ public class Storage {
                 break;
             case EVENT:
                 String dates = taskString.split(" \\| ")[3];
-                String from = dates.split("-")[0];
-                String to = dates.split("-")[1];
+                String from = dates.split("to")[0];
+                String to = dates.split("to")[1];
                 Event eventTask = new Event(taskName, from, to);
                 if (taskIsDone) {
                     eventTask.mark();
