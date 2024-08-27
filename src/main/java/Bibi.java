@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,6 +43,13 @@ public class Bibi {
                 printHorizontalLine();
                 System.out.println("See you soon :3");
                 printHorizontalLine();
+
+                try {
+                    writeToFile("data/list.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 return;
             case "list":
                 printHorizontalLine();
@@ -61,6 +69,13 @@ public class Bibi {
                     System.out.println(t);
                 }
                 printHorizontalLine();
+
+                try {
+                    writeToFile("data/list.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 break;
             case "unmark":
                 printHorizontalLine();
@@ -75,6 +90,13 @@ public class Bibi {
                     System.out.println(t);
                 }
                 printHorizontalLine();
+
+                try {
+                    writeToFile("data/list.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 break;
             case "todo":
                 printHorizontalLine();
@@ -89,6 +111,13 @@ public class Bibi {
                     System.out.printf("You now have %d task(s) to do%n", tasks.size());
                 }
                 printHorizontalLine();
+
+                try {
+                    writeToFile("data/list.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 break;
             case "deadline":
                 printHorizontalLine();
@@ -104,6 +133,13 @@ public class Bibi {
                     System.out.printf("You now have %d task(s) to do%n", tasks.size());
                 }
                 printHorizontalLine();
+
+                try {
+                    writeToFile("data/list.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 break;
             case "event":
                 printHorizontalLine();
@@ -120,6 +156,13 @@ public class Bibi {
                     System.out.printf("You now have %d task(s) to do%n", tasks.size());
                 }
                 printHorizontalLine();
+
+                try {
+                    writeToFile("data/list.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 break;
             case "remove":
                 printHorizontalLine();
@@ -133,6 +176,13 @@ public class Bibi {
                     System.out.printf("You now have %d task(s) to do%n", tasks.size());
                 }
                 printHorizontalLine();
+
+                try {
+                    writeToFile("data/list.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 break;
             default:
                 // Console
@@ -186,6 +236,15 @@ public class Bibi {
                 break;
             }
         }
+    }
+    private static void writeToFile(String pathName, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(pathName);
+
+        for (Task t : tasks) {
+            fw.write(String.format("%s\n", t.toString()));
+        }
+
+        fw.close();
     }
 
     private static void initializeDataDirectory() {
