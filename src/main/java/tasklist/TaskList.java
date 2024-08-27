@@ -23,11 +23,9 @@ public class TaskList {
             int taskIndex = Integer.parseInt(input) - 1;
             Task markingTask = items.get(taskIndex);
             markingTask.setDone(true);
-            //markingTask.isDone = true;
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
-            //System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
             System.out.println("____________________________________________________________");
             return scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
@@ -44,11 +42,9 @@ public class TaskList {
             int taskIndex = Integer.parseInt(input) - 1;
             Task markingTask = items.get(taskIndex);
             markingTask.setDone(false);
-            //markingTask.isDone = false;
             System.out.println("____________________________________________________________");
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
-            //System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
             System.out.println("____________________________________________________________");
             return scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
@@ -164,7 +160,45 @@ public class TaskList {
     }
 
     // Suppose to print out all activities associated with this date. To be implemented
-    public static void activitiesOnThisDate(LocalDate date) {
+    public static String activitiesOnThisDate(LocalDate date, List<Task> items, Scanner scanner) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the tasks that occur at this date: " + date.toString());
+        int index = 1;
+        for (Task task : items) {
+            if (task instanceof Deadline) {
+                LocalDate byDate = ((Deadline) task).getDeadlineDate();
+                if (byDate.isAfter(date)) {
+                    System.out.println(index + "." + task);
+                    index++;
+                }
+            } else if (task instanceof Event) {
+                LocalDate fromDate = ((Event) task).getFromDur();
+                LocalDate toDate = ((Event) task).getToDur();
+                if (fromDate.isBefore(date) && toDate.isAfter(date)) {
+                    System.out.println(index + "." + task);
+                    index++;
+                }
+            }
+        }
+        System.out.println("____________________________________________________________");
+        return scanner.nextLine();
+    }
 
+    public static String find(String input, List<Task> items, Scanner scanner) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        for (Task task : items) {
+            if (task.getDes().contains(input)) {
+                System.out.println(index + "." + task);
+                index++;
+            }
+        }
+        if (index == 1) {
+            System.out.println("Looks Like there's no task with taskDescription that contains " + "'" + input + "'");
+            System.out.println("Try Looking for something else!");
+        }
+        System.out.println("____________________________________________________________");
+        return scanner.nextLine();
     }
 }

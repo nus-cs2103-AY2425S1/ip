@@ -26,4 +26,12 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.fromDuration + " to: " + this.toDuration + ")";
     }
+
+    public LocalDate getFromDur() {
+        return this.fromDuration;
+    }
+
+    public LocalDate getToDur() {
+        return this.toDuration;
+    }
 }

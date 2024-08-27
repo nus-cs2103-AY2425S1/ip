@@ -14,6 +14,7 @@ public class Deadline extends Task {
         Task.taskCount++;
     }
 
+
     @Override
     public String toDataString() {
         return "D | " + super.toDataString() + " | " + by;
@@ -22,5 +23,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
+    }
+
+    public LocalDate getDeadlineDate() {
+        return this.by;
     }
 }

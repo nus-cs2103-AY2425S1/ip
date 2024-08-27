@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.Objects;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -8,6 +10,19 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(this.description, task.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.description);
     }
 
     public String getStatusIcon() {

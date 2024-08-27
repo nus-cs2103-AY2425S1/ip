@@ -94,6 +94,25 @@ public class TheOrangeRatchetCat {
                 input = TaskList.deleteTask(indexToDelete, items, scanner);
                 continue;
             }
+            if (input.startsWith("find")) {
+                String findWord = input.substring(4).trim();
+                input = TaskList.find(findWord, items, scanner);
+                continue;
+            }
+            if (input.startsWith("on")) {
+                try {
+                    LocalDate localDate = LocalDate.parse(input.substring(2).trim());
+                    input = TaskList.activitiesOnThisDate(localDate, items, scanner);
+                    continue;
+                } catch (DateTimeParseException e) {
+                    System.out.println("The date follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
+                    input = scanner.nextLine();
+                    continue;
+                }
+                /*LocalDate localDate = LocalDate.parse(input.substring(2).trim());
+                input = TaskList.activitiesOnThisDate(localDate, items, scanner);
+                continue;*/
+            }
             System.out.print("Inappropriate Command try again with adding either a Deadline/Todo/Event: ");
             input = scanner.nextLine(); // Reads the next line of input text again
         }
