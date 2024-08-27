@@ -9,8 +9,7 @@ public class PacMan {
     }
 
     private static void greet() {
-        echo("Hello! I'm PacMan");
-        echo("How can I help you?");
+        echo("Hello! I'm PacMan. How can I help you?");
     }
 
     private static void exit() {
@@ -32,13 +31,13 @@ public class PacMan {
     }
 
     private static void markTask(int index) {
-        echo("Nice! I've marked this task done");
+        echo("Got it. I've marked this task done:");
         list.get(index - 1).setMarkDone(true);
         echo("  " + list.get(index - 1));
     }
 
     private static void unmarkTask(int index) {
-        echo("Ok! I've marked this task as not done yet");
+        echo("Got it. I've marked this task as not done yet:");
         list.get(index - 1).setMarkDone(false);
         echo("  " + list.get(index - 1));
     }
@@ -72,62 +71,45 @@ public class PacMan {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greet();
-        label:
         while (true) {
             String input = scanner.nextLine();
             String type = input.split(" ", 2)[0];
-            switch (type) {
-                case "bye":
-                    break label;
-                case "list":
-                    printList();
-                    break;
-                case "mark":
-                    try {
-                        markTask(Integer.parseInt(input.split(" ")[1]));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        echo("I'm sorry, but I can't find the index number :(");
-                    } catch (NumberFormatException e) {
-                        echo("I'm sorry, but it's invalid index :(");
-                    }
-                    break;
-                case "unmark":
-                    try {
-                        unmarkTask(Integer.parseInt(input.split(" ")[1]));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        echo("I'm sorry, but I can't find the index number :(");
-                    } catch (NumberFormatException e) {
-                        echo("I'm sorry, but it's invalid index :(");
-                    }
-                    break;
-                case "todo": {
-                    String task = input.split(" ", 2)[1];
-                    addTodo(task);
-                    break;
+            if (type.equals("bye")) {
+                break;
+            } else if (type.equals("list")) {
+                printList();
+            } else if (type.equals("mark")) {
+                try {
+                    markTask(Integer.parseInt(input.split(" ")[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    echo("I'm sorry, but I can't find the index number :(");
+                } catch (NumberFormatException e) {
+                    echo("I'm sorry, but it's invalid index :(");
                 }
-                case "deadline": {
-                    String task = input.split(" ", 2)[1];
-                    addDeadline(task);
-                    break;
+            } else if (type.equals("unmark")) {
+                try {
+                    unmarkTask(Integer.parseInt(input.split(" ")[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    echo("I'm sorry, but I can't find the index number :(");
+                } catch (NumberFormatException e) {
+                    echo("I'm sorry, but it's invalid index :(");
                 }
-                case "event": {
-                    String task = input.split(" ", 2)[1];
-                    addEvent(task);
-                    break;
+            } else if (type.equals("todo")) {
+                String task = input.split(" ", 2)[1];
+                addTodo(task);
+            } else if (type.equals("deadline")) {
+                String task = input.split(" ", 2)[1];
+                addDeadline(task);
+            } else if (type.equals("delete")) {
+                try {
+                    deleteTask(Integer.parseInt(input.split(" ")[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    echo("I'm sorry, but I can't find the index number :(");
+                } catch (NumberFormatException e) {
+                    echo("I'm sorry, but it's invalid index :(");
                 }
-                case "delete": {
-                    try {
-                        deleteTask(Integer.parseInt(input.split(" ")[1]));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        echo("I'm sorry, but I can't find the index number :(");
-                    } catch (NumberFormatException e) {
-                        echo("I'm sorry, but it's invalid index :(");
-                    }
-                    break;
-                }
-                default:
-                    echo("I'm sorry, but I can't understand what you ask :(");
-                    break;
+            } else {
+                echo("I'm sorry, but I can't understand what you ask :(");
             }
         }
         exit();
