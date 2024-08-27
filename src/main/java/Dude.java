@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -156,6 +157,41 @@ public class Dude {
         }
     }
 
+    private static void initTasks(String data) {
+        String[] lines = data.split("\n");
+        for (String line : lines) {
+            String[] arr = line.split("]");
+            String type = arr[0].substring(1);
+            boolean markedDone = arr[1].substring(1).equals("X");
+            switch(type) {
+            case "T":
+                taskList.add(new Todo(arr[2].substring(1)));
+                if (markedDone) {
+                    taskList.get(taskList.size() - 1).markAsDone();
+                }
+                break;
+            case "D":
+                String[] deadlineArr = arr[2].split(" \\(by: ");
+                taskList.add(new Deadline(deadlineArr[0].substring(1),
+                            deadlineArr[1].substring(0, deadlineArr[1].length() - 1)));
+                if (markedDone) {
+                    taskList.get(taskList.size() - 1).markAsDone();
+                }
+                break;
+            case "E":
+                String[] eventArr = arr[2].split(" \\(from: ");
+                String[] eventArrDetails = eventArr[1].split(" to: ");
+                taskList.add(new Event(eventArr[0].substring(1), eventArrDetails[0],
+                            eventArrDetails[1].substring(0, eventArrDetails[1].length() - 1)));
+                if (markedDone) {
+                    taskList.get(taskList.size() - 1).markAsDone();
+                }
+                break;
+            }
+        }
+
+    }
+
     /**
      * The action method performs an action based on the user's input.
      * Supported actions include adding a task,
@@ -193,6 +229,19 @@ public class Dude {
     }
 
     public static void main(String[] args) {
+        try {
+            File file = new File("data.txt");
+            Scanner reader = new Scanner(file);
+            StringBuilder data = new StringBuilder();
+            while (reader.hasNextLine()) {
+                data.append(reader.nextLine()).append("\n");
+            }
+            reader.close();
+            initTasks(data.toString());
+        } catch (IOException e) {
+            System.out.println("Since you have no save files, you are starting with an empty list!");
+        }
+
         String line = "____________________________________________________________";
         System.out.println(line);
         System.out.println("Hello! I'm Dude!\nWhat can I do for you?");
