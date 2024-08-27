@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SecondMind {
     private static final String line = "____________________________________________________________";
@@ -29,6 +31,12 @@ public class SecondMind {
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
         printLineSeparator();
+    }
+
+    private static void appendToFile(String data) throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE_PATH);
+        fw.write(data);
+        fw.close();
     }
 
     private static Task createToDo(String[] taskInfo) throws EmptyToDoException {
