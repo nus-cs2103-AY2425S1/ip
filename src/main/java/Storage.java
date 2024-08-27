@@ -55,6 +55,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs during loading.
      * @throws SecurityException If a permission error occurs during loading.
      * @throws IllegalArgumentException If file content corrupts during loading.
+     * @throws MiraException If unsupported task type founds during loading.
      */
     public ArrayList<Task> loadTasks() throws IOException, SecurityException, MiraException {
         ArrayList<Task> tasks = new ArrayList<>();

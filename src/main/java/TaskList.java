@@ -7,7 +7,16 @@ public class TaskList {
     private final ArrayList<Task> tasks; // Array to store tasks
 
     /**
-     * Constructs a new TaskList with a fixed size to store up to 100 tasks.
+     * Constructs a new TaskList with empty list.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a TaskList with the given list of tasks.
+     *
+     * @param tasks The list of tasks to be managed by this TaskList.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -63,14 +72,31 @@ public class TaskList {
         this.tasks.get(index - 1).setStatus(false);
     }
 
+    /**
+     * Retrieves the task at the specified index.
+     *
+     * @param index The index of the task to retrieve (1-based index).
+     * @return The task at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of range (index < 1 || index > size()).
+     */
     public Task getTask(int index) {
         return this.tasks.get(index - 1);
     }
 
+    /**
+     * Returns the list of tasks managed by this TaskList.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return tasks.size();
     }

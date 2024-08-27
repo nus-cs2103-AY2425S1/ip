@@ -8,12 +8,23 @@ import java.time.format.DateTimeParseException;
 public class Mira {
     private final Ui ui; // handle user interface
     private final Storage storage; // storage for saving, loading tasks
-    private final TaskList tasks; // Manages tasks
+    private TaskList tasks; // Manages tasks
 
-    public Mira(Ui ui) throws IOException, SecurityException, MiraException {
-        this.ui = ui;
-        this.storage = new Storage("./data/mira.txt");
-        this.tasks = new TaskList(storage.loadTasks());
+    public Mira(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.tasks = new TaskList(storage.loadTasks());
+        } catch (MiraException e) {
+            ui.showMessage(e.getMessage());
+            this.tasks = new TaskList();
+        } catch (SecurityException e) {
+            ui.showMessage("Please make sure the directory has read and write permissions.");
+            this.tasks = new TaskList();
+        } catch (IOException e) {
+            ui.showMessage("File path for storing of tasks is unusable.");
+            this.tasks = new TaskList();
+        }
     }
 
     /**
@@ -55,16 +66,6 @@ public class Mira {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        Ui ui = new Ui();
-        try {
-            Mira mira = new Mira(ui);
-            mira.run();
-        } catch (MiraException e) {
-            ui.showMessage(e.getMessage());
-        } catch (SecurityException e) {
-            ui.showMessage("Please make sure the directory has read and write permissions.");
-        } catch (IOException e) {
-            ui.showMessage("File path for storing of tasks is unusable.");
-        }
+        new Mira("./data/mira.txt").run();
     }
 }
