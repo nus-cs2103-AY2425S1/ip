@@ -7,6 +7,11 @@ public class ToDos extends Task {
         super(description);
     }
 
+    public ToDos(String description, boolean isDone) {
+        super(description);
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
@@ -23,5 +28,10 @@ public class ToDos extends Task {
         } else {
             throw new AlfredException("That is the wrong todo format Sir. It goes todo <task>");
         }
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "T | " + getStatusIcon() + " | " + description;
     }
 }

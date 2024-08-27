@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,16 +12,23 @@ import java.util.regex.Pattern;
 
 public class Alfred {
     private static List<Task> lis;
+    private static Path filePath;
 
     public static void main(String[] args) {
-        // Create a Scanner Object
-        Scanner in = new Scanner(System.in);
+        // Greet user
+        greet();
+
+        // Path
+        filePath = Paths.get("data", "Alfred.txt");
 
         // List to store tasks
         lis = new ArrayList<>();
 
-        // Greet user
-        greet();
+        // load tasks
+        loadTasks();
+
+        // Create a Scanner Object
+        Scanner in = new Scanner(System.in);
 
         String input = in.nextLine();
         while (!input.equals("bye")) {
@@ -45,13 +58,17 @@ public class Alfred {
 
             input = in.nextLine();
         }
+
+        // save tasks
+        saveTasks();
+
         farewell();
     }
 
     public static void greet() {
         System.out.println("____________________________________________________________");
         System.out.println("Good day Sir. I am Alfred, your English butler.");
-        System.out.println("Might I offer you some tea, or perhaps something stronger to suit the occasion?");
+        System.out.println("How can I help you today?");
         System.out.println("____________________________________________________________");
     }
 
@@ -158,5 +175,52 @@ public class Alfred {
             return false;
         }
         return true;
+    }
+
+    private static void loadTasks() {
+        if (!Files.exists(filePath)) {
+            return; // Start with an empty list if file does not exist
+        }
+        try {
+            BufferedReader reader = Files.newBufferedReader(filePath);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromFileFormat(line);
+                lis.add(task);
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        } catch (AlfredException e) {
+            handleAlfredCorruptedSave(e.getMessage());
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            Files.createDirectories(filePath.getParent()); // Ensure the folder exists
+            BufferedWriter writer = Files.newBufferedWriter(filePath);
+            for (Task task : lis) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    private static void handleAlfredCorruptedSave(String errorMessage) {
+        System.out.println("Terribly sorry sir, I have misplaced your list of tasks.");
+        System.out.println("To be more exact, the situation is as follows - ");
+        System.out.println(errorMessage);
+        System.out.println("Please create your list again.");
+        System.out.println("____________________________________________________________");
+
+        try {
+            Files.delete(filePath);
+        } catch (IOException e) {
+            System.out.println("Error deleting tasks: " + e.getMessage());
+        }
     }
 }
