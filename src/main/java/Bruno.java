@@ -10,7 +10,6 @@ public class Bruno {
 
     public static void main(String[] args) {
         String userResponse;
-
         printGreetingMessage();
 
         boolean running = true;
