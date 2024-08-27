@@ -8,6 +8,7 @@ import exceptions.event.EventInvalidArgsException;
 import exceptions.todo.TodoEmptyNameException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
@@ -94,6 +95,10 @@ public abstract class Task {
   public abstract String getSymbol();
 
   public abstract String getExtraInformation();
+
+  protected String formatDate(LocalDateTime date) {
+    return date.format(DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm:ss"));
+  }
 
   @Override
   public String toString() {
