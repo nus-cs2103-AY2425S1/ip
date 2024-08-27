@@ -3,6 +3,10 @@ package main;
 import exception.DukeException;
 import task.Task;
 
+/**
+ * The parser is used to breakdown user input and does different actions depending
+ * on the input.
+ */
 public class Parser {
     TaskList taskList;
     Ui ui;
@@ -14,6 +18,12 @@ public class Parser {
         this.storage = storage;
     };
 
+    /**
+     * Takes in response from user and runs different functions based on the input
+     * If it is a terminating command, returns false to break the loop
+     * @param response user input
+     * @return whether the program continues to run
+     */
     public boolean parse(String response) {
         String[] splited = response.split(" ",2);
         if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
@@ -38,6 +48,11 @@ public class Parser {
         }
         return true;
     }
+
+    /**
+     * Handles addition of task into tasklist depending on the input
+     * @param splits details of the task
+     */
     public void handleAdd(String[] splits) {
         Task current = null;
         try {
@@ -61,6 +76,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the logic of marking a task as done
+     * @param description index of task in list
+     */
     public void handleMark(String description) {
         int index = Integer.parseInt(description) - 1;
         Task marked = taskList.mark(index);
@@ -69,14 +88,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the logic of unmarking a task as done
+     * @param description index of task in list
+     */
     public void handleUnmark(String description) {
         int index = Integer.parseInt(description) - 1;
         Task unmarked = taskList.unmark(index);
         if (unmarked != null) {
-            ui.markedMessage(unmarked);
+            ui.unmarkedMessage(unmarked);
         }
     }
-
+    /**
+     * Handles the logic of deleting a task from task list
+     * @param description index of task in list
+     */
     public void handleDelete(String description) {
         int index = Integer.parseInt(description) - 1;
         Task deleted = taskList.delete(index);
@@ -85,6 +111,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the logic when program terminating input is given
+     * @return whether the program should continue to run
+     */
     public boolean handleBye() {
         this.storage.writeStorage(taskList.getTaskList());
         ui.byeMessage();
