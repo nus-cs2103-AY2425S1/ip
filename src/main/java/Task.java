@@ -82,8 +82,9 @@ public class Task {
                 yield new Deadline(description, deadline);
             }
             case "E" -> {
-                String[] eventTimes = parts[3].split(" ");
-                yield new Event(description, eventTimes[0], eventTimes[1]);
+                String startDateTime = parts[3];
+                String endDateTime = parts[4];
+                yield new Event(description, startDateTime, endDateTime);
             }
             default -> throw new IllegalArgumentException("Unknown task type: " + type);
         };

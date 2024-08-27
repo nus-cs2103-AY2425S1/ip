@@ -19,15 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) throws DateTimeParseException {
         super(TaskType.DEADLINE, description);
-        LocalDateTime parsedDeadline;
-        try {
-            parsedDeadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format! Please use yyyy-MM-dd HHmm format.");
-            System.out.println("Example: 2021-09-30 1800");
-            throw e;
-        }
-        this.deadline = parsedDeadline;
+        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
     /**

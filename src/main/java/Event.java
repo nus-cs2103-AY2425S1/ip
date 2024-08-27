@@ -18,18 +18,8 @@ public class Event extends Task {
      */
     public Event(String description, String startDateTime, String endDateTime) throws DateTimeParseException {
         super(TaskType.EVENT, description);
-        LocalDateTime parsedStartDateTime;
-        LocalDateTime parsedEndDateTime;
-        try {
-            parsedStartDateTime = LocalDateTime.parse(startDateTime, INPUT_FORMATTER);
-            parsedEndDateTime = LocalDateTime.parse(endDateTime, INPUT_FORMATTER);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format! Please use yyyy-MM-dd HHmm format.");
-            System.out.println("Example: 2021-09-30 1800");
-            throw e;
-        }
-        this.startDateTime = parsedStartDateTime;
-        this.endDateTime = parsedEndDateTime;
+        this.startDateTime = LocalDateTime.parse(startDateTime, INPUT_FORMATTER);
+        this.endDateTime = LocalDateTime.parse(endDateTime, INPUT_FORMATTER);
     }
 
     /**

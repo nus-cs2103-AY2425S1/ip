@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskStorage {
+public class Storage {
     private final String filePath;
 
     /**
@@ -10,7 +10,7 @@ public class TaskStorage {
      *
      * @param filePath The file path to store the tasks.
      */
-    public TaskStorage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -46,10 +46,10 @@ public class TaskStorage {
      * @param tasks List of tasks to save.
      * @throws IOException If an I/O error occurs.
      */
-    public void save(List<Task> tasks) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-        for (Task task : tasks) {
-            writer.write(task.serialize());
+        for (int i = 0; i < tasks.size(); i++) {
+            writer.write(tasks.get(i).serialize());
             writer.newLine();
         }
         writer.close();
