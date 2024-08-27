@@ -1,9 +1,11 @@
-import Exceptions.StrandException;
+package strand.Tasks;
+
+import strand.Exceptions.StrandException;
 
 import java.time.LocalDateTime;
 
 /**
- * The Event class represents a task that occurs within a specific time range.
+ * The strand.Tasks.Event class represents a task that occurs within a specific time range.
  */
 public class Event extends Task {
 
@@ -11,7 +13,7 @@ public class Event extends Task {
     protected LocalDateTime endDate;
 
     /**
-     * Constructs a new Event task with the specified description, start date, and end date.
+     * Constructs a new strand.Tasks.Event task with the specified description, start date, and end date.
      *
      * @param description The description of the event.
      * @param start       The start date and time of the event.
@@ -29,9 +31,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the string representation of the Event task
+     * Returns the string representation of the strand.Tasks.Event task
      *
-     * @return A string representing the Event task
+     * @return A string representing the strand.Tasks.Event task
      */
     @Override
     public String toString() {
@@ -40,5 +42,13 @@ public class Event extends Task {
                 super.toString(),
                 this.parseOutputDate(this.startDate),
                 this.parseOutputDate(this.endDate));
+    }
+
+    @Override
+    public String getFile() {
+        return String.format("E | %s | %s | %s",
+                super.getFile(),
+                this.startDate,
+                this.endDate);
     }
 }

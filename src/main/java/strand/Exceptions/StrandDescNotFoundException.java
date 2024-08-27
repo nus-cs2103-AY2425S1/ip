@@ -1,4 +1,4 @@
-package Exceptions;
+package strand.Exceptions;
 
 public class StrandDescNotFoundException extends StrandException {
     protected String part;

@@ -1,4 +1,4 @@
-package Exceptions;
+package strand.Exceptions;
 
 public class StrandNumberNotFoundException extends StrandException {
     protected String command;

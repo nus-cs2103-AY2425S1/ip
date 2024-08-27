@@ -1,4 +1,4 @@
-package Exceptions;
+package strand.Exceptions;
 
 public class StrandWrongIndexException extends StrandException {
     protected int size;

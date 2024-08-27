@@ -116,6 +116,30 @@
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
+    (☞ﾟ∀ﾟ)☞ Task removed:
+    [T][ ] read book
+    Now you have 2 tasks in the list.
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    (☞ﾟ∀ﾟ)☞ Task removed:
+    [D][ ] return book (by: Dec 02 2019, 18:00)
+    Now you have 1 tasks in the list.
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    (☞ﾟ∀ﾟ)☞ Task removed:
+    [D][ ] do homework (by: Sept 09 9090, 00:00)
+    Now you have 0 tasks in the list.
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
     Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>

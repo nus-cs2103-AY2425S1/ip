@@ -1,4 +1,4 @@
-package Exceptions;
+package strand.Exceptions;
 
 public class StandInvalidDateException extends StrandException {
     protected String date;
