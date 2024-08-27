@@ -35,29 +35,29 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_OUTPUT_PATTERN);
 
             switch (taskType) {
-                case "T":
-                    Todo newTodo = new Todo(taskName);
-                    if (isDone) {
-                        newTodo.markAsDone();
-                    }
-                    return newTodo;
-                case "D":
-                    LocalDate formattedTime = LocalDate.parse(byTime, formatter);
+            case "T":
+                Todo newTodo = new Todo(taskName);
+                if (isDone) {
+                    newTodo.markAsDone();
+                }
+                return newTodo;
+            case "D":
+                LocalDate formattedTime = LocalDate.parse(byTime, formatter);
 
-                    Deadline newDeadline = new Deadline(taskName, formattedTime);
-                    if (isDone) {
-                        newDeadline.markAsDone();
-                    }
-                    return newDeadline;
-                case "E":
-                    LocalDate formattedStartTime = LocalDate.parse(fromTime, formatter);
-                    LocalDate formattedEndTime = LocalDate.parse(toTime, formatter);
+                Deadline newDeadline = new Deadline(taskName, formattedTime);
+                if (isDone) {
+                    newDeadline.markAsDone();
+                }
+                return newDeadline;
+            case "E":
+                LocalDate formattedStartTime = LocalDate.parse(fromTime, formatter);
+                LocalDate formattedEndTime = LocalDate.parse(toTime, formatter);
 
-                    Event newEvent = new Event(taskName, formattedStartTime, formattedEndTime);
-                    if (isDone) {
-                        newEvent.markAsDone();
-                    }
-                    return newEvent;
+                Event newEvent = new Event(taskName, formattedStartTime, formattedEndTime);
+                if (isDone) {
+                    newEvent.markAsDone();
+                }
+                return newEvent;
             }
 
         }
