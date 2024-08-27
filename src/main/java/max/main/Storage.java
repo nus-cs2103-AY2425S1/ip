@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Storage {
-    String path;
+    private String path;
     public Storage(String path) {
         this.path = path;
     }
