@@ -15,6 +15,12 @@ public class EventTask extends Task {
         this.end = end;
     }
 
+    public EventTask(String description, String start, String end, boolean isDone) {
+        super(description, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
     /**
      * String representation of the task
      *
@@ -22,6 +28,11 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | " + super.toFileString() + " | " + this.start + " | " + this.end;
     }
 }

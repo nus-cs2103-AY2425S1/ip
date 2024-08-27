@@ -12,6 +12,11 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    public DeadlineTask(String description, String deadline, boolean isDone) {
+        super(description, isDone);
+        this.deadline = deadline;
+    }
+
     /**
      * String representation of the task
      *
@@ -19,6 +24,11 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + super.toFileString() + " | " + this.deadline;
     }
 }

@@ -12,6 +12,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task (String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Gets the string representation of whether the task is done or not
      *
@@ -52,5 +57,13 @@ public class Task {
      */
     public boolean isDone() {
         return this.isDone;
+    }
+
+    public String toFileString() {
+        if (this.isDone) {
+            return "1 | " + this.description;
+        } else {
+            return "0 | " + this.description;
+        }
     }
 }
