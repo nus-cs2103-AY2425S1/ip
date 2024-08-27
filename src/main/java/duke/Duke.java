@@ -10,10 +10,10 @@ import java.util.Scanner;
 
 
 public class Duke {
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
     private TaskList tasks;
-    private Parser parser;
+    private final Parser parser;
 
     public Duke(String filePath) {
         ui = new Ui();
