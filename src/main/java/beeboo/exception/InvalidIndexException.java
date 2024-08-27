@@ -1,3 +1,5 @@
+package beeboo.exception;
+
 public class InvalidIndexException extends BeeBooExceptions{
     public InvalidIndexException(String error) {
         super(error);

@@ -1,3 +1,7 @@
+package beeboo.task;
+
+import beeboo.exception.NoDescriptionException;
+
 public class ToDos extends Tasks {
     public ToDos(String description) {
         super(description);
@@ -14,7 +18,7 @@ public class ToDos extends Tasks {
         return typeIcon() + super.toString();
     }
 
-    protected static ToDos createToDo(String text) throws NoDescriptionException {
+    public static ToDos createToDo(String text) throws NoDescriptionException {
         if (text.isEmpty()) {
             throw new NoDescriptionException("No description");
         }
@@ -22,7 +26,7 @@ public class ToDos extends Tasks {
     }
 
     @Override
-    protected String saveFormat() {
+    public String saveFormat() {
         return "T | " + (super.isDone ? "1 | " : "0 | ") +  description;
     }
 }

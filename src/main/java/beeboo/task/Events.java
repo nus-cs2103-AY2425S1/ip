@@ -1,6 +1,10 @@
-import java.time.LocalDate;
+package beeboo.task;
+
+import beeboo.components.TimeConverter;
+import beeboo.exception.InvalidDateException;
+import beeboo.exception.NoDescriptionException;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Events extends Tasks {
@@ -24,7 +28,7 @@ public class Events extends Tasks {
         return typeIcon() + super.toString() + "(from: " + FORMATTER.format(startDate) + " to: " + FORMATTER.format(endDate)+ ")";
     }
 
-    public static Events CreateEvent(String text) throws InvalidDateException ,NoDescriptionException {
+    public static Events CreateEvent(String text) throws InvalidDateException, NoDescriptionException {
         int descriptionEnd = text.indexOf('/');
         String description = text.substring(0, descriptionEnd).trim();
 
@@ -56,7 +60,7 @@ public class Events extends Tasks {
     }
 
     @Override
-    protected String saveFormat() {
+    public String saveFormat() {
         return "E | " + (super.isDone ? "1 | " : "0 | ") + description + " | " + startDate + " | " + endDate;
     }
 }

@@ -1,3 +1,5 @@
+package beeboo.exception;
+
 public class NoFileException extends BeeBooExceptions{
     public NoFileException(String error) {
         super(error);

@@ -1,9 +1,11 @@
+package beeboo.components;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class TimeConverter {
-    protected static LocalDateTime timeConverter(String date) {
+    public static LocalDateTime timeConverter(String date) {
         String[] arr = date.split(" ");
         LocalDate res = LocalDate.parse(arr[0]);
         LocalTime time;

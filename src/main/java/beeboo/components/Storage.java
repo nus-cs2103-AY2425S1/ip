@@ -1,7 +1,14 @@
+package beeboo.components;
+
+import beeboo.exception.NoFileException;
+import beeboo.task.Deadlines;
+import beeboo.task.Events;
+import beeboo.task.Tasks;
+import beeboo.task.ToDos;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +23,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filepath = filePath;
     }
-    protected ArrayList<Tasks> load() throws NoFileException{
+    public ArrayList<Tasks> load() throws NoFileException {
         File file = new File(filepath);
         ArrayList<Tasks> list = new ArrayList<>();
         if (!file.exists()) {
@@ -71,7 +78,7 @@ public class Storage {
         return list;
     }
 
-    protected void saveItem(ArrayList<Tasks> list) {
+    public void saveItem(ArrayList<Tasks> list) {
         try (FileWriter writer = new FileWriter("./data/beeboo.txt")) {
             for (Tasks task : list) {
                 writer.write(task.saveFormat() + System.lineSeparator());

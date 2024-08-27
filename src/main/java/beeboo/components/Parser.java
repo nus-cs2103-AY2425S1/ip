@@ -1,6 +1,11 @@
+package beeboo.components;
+
+import beeboo.command.*;
+import beeboo.exception.InvalidCommandException;
+
 public class Parser {
 
-    protected static Command parseCommand(String command) throws InvalidCommandException {
+    public static Command parseCommand(String command) throws InvalidCommandException {
         command = command.trim();
             if (command.equals("list")) {
                 return new ListCommand();

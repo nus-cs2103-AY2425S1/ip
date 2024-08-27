@@ -1,3 +1,5 @@
+package beeboo.task;
+
 public abstract class Tasks {
 
     //Description of task
@@ -22,18 +24,18 @@ public abstract class Tasks {
     }
 
     //Marks completion status as done
-    protected void markDone() {
+    public void markDone() {
         isDone = true;
     }
 
     //Marks completion status as not done
-    protected void unmarkDone() {
+    public void unmarkDone() {
         isDone = false;
     }
 
     //Type icon for tasks implemented by the different type of tasks
     protected abstract String typeIcon();
 
-    protected abstract String saveFormat();
+    public abstract String saveFormat();
 
 }

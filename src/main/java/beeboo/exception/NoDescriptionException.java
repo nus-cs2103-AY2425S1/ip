@@ -1,3 +1,5 @@
+package beeboo.exception;
+
 public class NoDescriptionException extends BeeBooExceptions{
     public NoDescriptionException(String message) {
         super(message);

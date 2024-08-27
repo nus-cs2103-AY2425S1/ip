@@ -1,4 +1,7 @@
-import java.nio.file.Files;
+package beeboo.components;
+
+import beeboo.task.Tasks;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -12,30 +15,30 @@ public class TaskList {
         Storage.createFile();
     }
 
-    protected void addList(Tasks task) {
+    public void addList(Tasks task) {
         list.add(task);
     }
 
-    protected Tasks deleteItem(int index) {
+    public Tasks deleteItem(int index) {
         Tasks item = list.get(index);
         list.remove(item);
         return item;
     }
 
 
-    protected Tasks unmarkDone(int index) {
+    public Tasks unmarkDone(int index) {
         Tasks task = list.get(index);
         task.unmarkDone();
         return task;
     }
 
-    protected Tasks markDone(int index) {
+    public Tasks markDone(int index) {
         Tasks task = list.get(index);
         task.markDone();
         return task;
     }
 
-    protected String produceList() {
+    public String produceList() {
         String result = "";
         for (Tasks task : list) {
             result = result + (list.indexOf(task) + 1) + ". " + " " + task + "\n";
@@ -43,11 +46,11 @@ public class TaskList {
         return result;
     }
 
-    protected int getSize() {
+    public int getSize() {
         return list.size();
     }
 
-    protected ArrayList<Tasks> getList() {
+    public ArrayList<Tasks> getList() {
         return list;
     }
 
