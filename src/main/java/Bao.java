@@ -1,3 +1,5 @@
+import com.sun.source.util.TaskListener;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -9,9 +11,10 @@ import java.time.format.DateTimeFormatterBuilder;
 public class Bao {
     private Ui ui;
     private Storage storage;
+    private TaskList tasks;
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String file_Path = "./data/bao.txt";
-    private static DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder()
+    public static DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
             .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
             .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"))
@@ -45,8 +48,8 @@ public class Bao {
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/dc"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/d"))
             .toFormatter();
-    private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static DateTimeFormatter dateOnlyFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+    public static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static DateTimeFormatter dateOnlyFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     private static String baoSad =
               "     ___\n"
@@ -59,6 +62,12 @@ public class Bao {
     public Bao (String file_Path) {
         ui = new Ui();
         storage = new Storage(file_Path);
+        try {
+            tasks = new TaskList(storage.loadFile());
+        } catch (IOException e) {
+            ui.showMessage("Bao was fed a corrupted file, starting new one!");
+            tasks = new TaskList();
+        }
     }
     public static void main(String[] args) {
         loadFile();
