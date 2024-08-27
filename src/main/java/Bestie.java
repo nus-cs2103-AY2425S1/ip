@@ -66,7 +66,14 @@ public class Bestie {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 tasks.remove(index);
                 System.out.println("Noted! The task has been removed.");
-                System.out.println("You now have " + tasks.size() + " tasks in the list.");
+
+                if (tasks.size() == 1) {
+                    System.out.println("You now have 1 task in your list.");
+                } else {
+                    System.out.println("You now have " + tasks.size() + " tasks in your list.");
+
+                }
+
             } else {
                 Task newTask;
                 if (userInput.startsWith("todo")) {
