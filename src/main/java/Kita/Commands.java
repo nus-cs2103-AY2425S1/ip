@@ -100,7 +100,7 @@ public class Commands {
 
     public void hello() {
         this.printLine();
-        System.out.println(" Hello! I'm Kita.Kita!");
+        System.out.println(" Hello! I'm Kita!");
         System.out.println(" What can I do for you?");
         this.printLine();
     }
