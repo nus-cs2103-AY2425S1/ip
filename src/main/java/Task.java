@@ -13,12 +13,18 @@ public abstract class Task {
         this.status = TaskStatus.DONE;
     }
 
-    public void markAsNotDone() {
-        this.status = TaskStatus.NOT_DONE;
+    public void setCompleted(boolean completed) {
+        this.status = completed ? TaskStatus.DONE : TaskStatus.NOT_DONE;
+    }
+
+    public boolean isCompleted() {
+        return this.status == TaskStatus.DONE;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
-    public String toString() {
-        return String.format("[%s][%s] %s", type.getSymbol(), status.getSymbol(), description);
-    }
+    public abstract String toString();
 }
