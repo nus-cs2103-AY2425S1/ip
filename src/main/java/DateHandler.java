@@ -5,14 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 public class DateHandler {
     private static final DateTimeFormatter[] formatters = {
-        DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm"),
+        DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
         DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
-        DateTimeFormatter.ofPattern("MM/dd/yyyy"),
+        DateTimeFormatter.ofPattern("dd/MM/yyyy"),
         DateTimeFormatter.ofPattern("yyyy-MM-dd")
     };
 
-    public static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
-    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    public static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma");
+    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     public static LocalDateTime parseLocalDateTime(String date) {
         LocalDateTime localDateTime = null;
