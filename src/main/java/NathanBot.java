@@ -3,8 +3,6 @@ import nathanbot.tasks.TaskList;
 import nathanbot.ui.UserInterface;
 
 public class NathanBot {
-    // cleaned up using Copilot
-
     public static void main(String[] args) {
         Storage storage = new Storage("./data", "./data/TaskList.txt", "./data/TaskList.dat");
         TaskList taskList = new TaskList(storage);

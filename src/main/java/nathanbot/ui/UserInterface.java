@@ -1,11 +1,13 @@
 package nathanbot.ui;
 
 import java.util.Scanner;
+
 import nathanbot.commands.CommandHandler;
 import nathanbot.commands.CommandType;
 import nathanbot.tasks.TaskList;
 
 public class UserInterface {
+    // cleaned up using Copilot
     private final TaskList taskList;
 
     public UserInterface(TaskList taskList) {
