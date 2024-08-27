@@ -15,7 +15,7 @@ public class Storage {
     private String pathString;
 
     public Storage(String pathString) {
-        this.pathString = pathString;
+        this.pathString = "../" + pathString;
     }
 
     public TaskList retrieveData() {
@@ -63,7 +63,7 @@ public class Storage {
 
     public void updateData(TaskList list) {
         try {
-            File dataFile = new File("../../../data/mahesh.txt");
+            File dataFile = new File(pathString);
             if (!dataFile.exists()) {
                 dataFile.getParentFile().mkdirs();
                 dataFile.createNewFile();
