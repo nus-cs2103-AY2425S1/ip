@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.io.File;
@@ -9,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import java.util.Scanner;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Azir {
 
@@ -37,7 +39,7 @@ public class Azir {
                 taskList.add(currTask);
                 System.out.println(currTask);
             } else if (arr[0].equals("D")) {
-                Task currTask = new Deadline(arr[2], arr[3]);
+                Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3]));
                 if (arr[1].equals("Complete")) {
                     currTask.setDone();
                 } else {
@@ -123,7 +125,8 @@ public class Azir {
                     System.out.println("Noted. I've removed this task:");
                     Task chosenTask = taskList.remove(Integer.valueOf(result[1]) - 1);
                     System.out.println(chosenTask);
-                    System.out.printf("Now you have %d %s in the list\n", taskList.size(), taskList.size() == 1 ? "task" : "tasks");
+                    System.out.printf("Now you have %d %s in the list\n", taskList.size(),
+                            taskList.size() == 1 ? "task" : "tasks");
                 }
                 else {
                     if (input.startsWith("todo")) {
@@ -154,7 +157,7 @@ public class Azir {
                         String day = input.substring(byIndex + 4);
                         System.out.println("Got it. I've added this task:");
 
-                        Task currTask = new Deadline(description, day);
+                        Task currTask = new Deadline(description, LocalDate.parse(day));
                         taskList.add(currTask);
                         System.out.println(currTask);
                     } else if (input.startsWith("event")) {
@@ -190,7 +193,8 @@ public class Azir {
                     } else {
                         throw new AzirException("Azir does not take in this input");
                     }
-                    System.out.printf("Now you have %d %s in the list\n", taskList.size(), taskList.size() == 1 ? "task" : "tasks");
+                    System.out.printf("Now you have %d %s in the list\n", taskList.size(),
+                            taskList.size() == 1 ? "task" : "tasks");
                 }
                 System.out.println("----------------------------------");
             } catch (AzirException e) {
