@@ -11,24 +11,6 @@ import java.util.Scanner;
 public class Atlas {
     public static final String LINE = "____________________________________________________________";
     public static void main(String[] args) {
-        // @@author patorjk.com
-        // Reused from https://patorjk.com/software/taag/#p=display&f=Isometric1&t=Atlas
-        // with minor modifications
-        String logo = """
-                     ___           ___           ___       ___           ___
-                    /\\  \\         /\\  \\         /\\__\\     /\\  \\         /\\  \\
-                   /::\\  \\        \\:\\  \\       /:/  /    /::\\  \\       /::\\  \\
-                  /:/\\:\\  \\        \\:\\  \\     /:/  /    /:/\\:\\  \\     /:/\\ \\  \\
-                 /::\\~\\:\\  \\       /::\\  \\   /:/  /    /::\\~\\:\\  \\   _\\:\\~\\ \\  \\
-                /:/\\:\\ \\:\\__\\     /:/\\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\ /\\ \\:\\ \\ \\__\\
-                \\/__\\:\\/:/  /    /:/  \\/__/ \\:\\  \\    \\/__\\:\\/:/  / \\:\\ \\:\\ \\/__/
-                     \\::/  /    /:/  /       \\:\\  \\        \\::/  /   \\:\\ \\:\\__\\
-                     /:/  /     \\/__/         \\:\\  \\       /:/  /     \\:\\/:/  /
-                    /:/  /                     \\:\\__\\     /:/  /       \\::/  /
-                    \\/__/                       \\/__/     \\/__/         \\/__/
-                """;
-
-        System.out.println("Hello from\n" + logo);
         Atlas.greet();
 
         ArrayList<Task> taskList = new ArrayList<>();
@@ -69,30 +51,6 @@ public class Atlas {
             } catch (AtlasException e) {
                 Atlas.print(e.getMessage());
             }
-        }
-    }
-
-    // Prints messages with lines underneath them
-    public static void print(String message) {
-        System.out.println('\n' + Atlas.LINE);
-        System.out.println(message);
-        System.out.println(Atlas.LINE + '\n');
-    }
-
-    public static void greet() {
-        Atlas.print("Hello! I'm Atlas\n" + "What can I do for you?");
-    }
-
-    public static void exit() {
-        Atlas.print("Bye. Hope to see you again soon!");
-    }
-
-    public static boolean isNotNumber(String s) {
-        try {
-            Integer.parseInt(s);
-            return false;
-        } catch (NumberFormatException e) {
-            return true;
         }
     }
 
@@ -216,5 +174,46 @@ public class Atlas {
 
         Event event = new Event(commandsArray[1], commandsArray[2], commandsArray[3]);
         Atlas.addTask(taskList, event);
+    }
+
+    public static void greet() {
+        // @@author patorjk.com
+        // Reused from https://patorjk.com/software/taag/#p=display&f=Isometric1&t=Atlas
+        // with minor modifications
+        String logo = """
+                     ___           ___           ___       ___           ___
+                    /\\  \\         /\\  \\         /\\__\\     /\\  \\         /\\  \\
+                   /::\\  \\        \\:\\  \\       /:/  /    /::\\  \\       /::\\  \\
+                  /:/\\:\\  \\        \\:\\  \\     /:/  /    /:/\\:\\  \\     /:/\\ \\  \\
+                 /::\\~\\:\\  \\       /::\\  \\   /:/  /    /::\\~\\:\\  \\   _\\:\\~\\ \\  \\
+                /:/\\:\\ \\:\\__\\     /:/\\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\ /\\ \\:\\ \\ \\__\\
+                \\/__\\:\\/:/  /    /:/  \\/__/ \\:\\  \\    \\/__\\:\\/:/  / \\:\\ \\:\\ \\/__/
+                     \\::/  /    /:/  /       \\:\\  \\        \\::/  /   \\:\\ \\:\\__\\
+                     /:/  /     \\/__/         \\:\\  \\       /:/  /     \\:\\/:/  /
+                    /:/  /                     \\:\\__\\     /:/  /       \\::/  /
+                    \\/__/                       \\/__/     \\/__/         \\/__/
+                """;
+
+        System.out.println("Hello from\n" + logo);
+        Atlas.print("Hello! I'm Atlas\n" + "What can I do for you?");
+    }
+
+    public static void print(String message) {
+        System.out.println('\n' + Atlas.LINE);
+        System.out.println(message);
+        System.out.println(Atlas.LINE + '\n');
+    }
+
+    public static void exit() {
+        Atlas.print("Bye. Hope to see you again soon!");
+    }
+
+    public static boolean isNotNumber(String s) {
+        try {
+            Integer.parseInt(s);
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
+        }
     }
 }
