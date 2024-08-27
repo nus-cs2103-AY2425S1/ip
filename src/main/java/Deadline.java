@@ -3,8 +3,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Deadline class includes the name of the task and a deadline for the task to be completed by.
  * Subclass of Task class.
+ * Includes the name of the task and a deadline for the task to be completed by.
  */
 public class Deadline extends Task {
     protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy ha");
@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline instance.
-     * Only used by loadTasks method in Delta.java main method.
+     * Only used by load method in Storage class to load up saved tasks.
      *
      * @param description Name of deadline task.
      * @param by Deadline for task.
@@ -33,7 +33,6 @@ public class Deadline extends Task {
 
     /**
      * Overloaded constructor for Deadline instance.
-     *
      *
      * @param description Name of deadline task.
      * @param by Deadline for task stored as a LocalDateTime object.

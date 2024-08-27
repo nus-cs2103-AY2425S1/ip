@@ -1,6 +1,6 @@
 /**
- * Todo class includes the name of the task.
  * Subclass of Task class.
+ * Includes the name of the task.
  */
 public class Todo extends Task {
     /**
