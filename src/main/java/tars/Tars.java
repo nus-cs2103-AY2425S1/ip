@@ -1,3 +1,5 @@
+package tars;
+
 public class Tars {
     private final TaskList tasks;
     private final UI ui;
