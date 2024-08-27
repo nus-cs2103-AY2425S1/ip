@@ -79,51 +79,12 @@ public class Justbot {
                     break;
                 case EVENT:
                     try {
-                        String[] splitPartsEvent = input.split("/from");
+                        String eventDescription = parser.extractEventDescription(input);
+                        String[] eventTimings = parser.extractEventTimings(input);
+                        LocalDateTime startDateTime = parser.parseEventDateTime(eventTimings[0]);
+                        LocalDateTime endDateTime = parser.parseEventDateTime(eventTimings[1]);
 
-                        if (splitPartsEvent.length < 2) {
-                            throw new JustbotException("Hey man, you have provided me an invalid format for an event.\n" +
-                                    "Please enter the event in the following format:\n" +
-                                    "  event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n\n" +
-                                    "For example:\n" +
-                                    "  event meeting /from 26/09/2024 1400 /to 26/09/2024 1600");
-                        }
-                        String commandAndDescriptionEvent = splitPartsEvent[0].trim();
-                        String startAndEnd = splitPartsEvent[1].trim();
-                        String eventDescription = commandAndDescriptionEvent.substring(5).trim();
-
-                        String[] splitStartEnd = startAndEnd.split("/to");
-                        if (splitStartEnd.length < 2) {
-                            throw new JustbotException("Hey man, you have provided me an invalid format for event timing.\n" +
-                                    "Please enter the event in the following format:\n" +
-                                    "  event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n\n" +
-                                    "For example:\n" +
-                                    "  event meeting /from 26/09/2024 1400 /to 26/09/2024 1600");
-                        }
-                        String eventStart = splitStartEnd[0].trim();
-                        String eventEnd = splitStartEnd[1].trim();
-
-                        if (eventDescription.isBlank() && eventStart.isBlank() && eventEnd.isBlank()) {
-                            throw new JustbotException("Hey man the event and start/end cannot be blank!");
-                        } else if (eventDescription.isBlank()) {
-                            throw new JustbotException("Hey man the description cannot be blank!");
-                        } else if (eventStart.isBlank()) {
-                            throw new JustbotException("Hey man the start of the event cannot be blank!");
-                        } else if (eventEnd.isBlank()) {
-                            throw new JustbotException("Hey man the end of the event cannot be blank!");
-                        }
-
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
-                        if (!eventStart.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}") || !eventEnd.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}")) {
-                            throw new JustbotException("Event date and time must be in the format: dd/MM/yyyy HHmm");
-                        }
-                        LocalDateTime startDateTime = LocalDateTime.parse(eventStart, formatter);
-                        LocalDateTime endDateTime = LocalDateTime.parse(eventEnd, formatter);
-
-                        if (startDateTime.isAfter(endDateTime)) {
-                            throw new JustbotException("Hey man, why is the event start time after the event end time?");
-                        }
+                        parser.validateEventTimings(startDateTime, endDateTime);
 
                         Commands.addTask(tasks, new Event(eventDescription, startDateTime, endDateTime));
                         taskFileHandler.saveTasks(taskList);
@@ -131,65 +92,26 @@ public class Justbot {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
                         System.out.println("------------------------------------------");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man, you have provided me an invalid format for event timing.\n" +
-                                "Please enter the event in the following format:\n" +
-                                "  event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n\n" +
-                                "For example:\n" +
-                                "  event meeting /from 26/09/2024 1400 /to 26/09/2024 1600");
-                        System.out.println("------------------------------------------");
                     }
                     break;
                 case TODO:
                     try {
-                        String[] splitPartsTodo = input.split(" ", 2);
-
-                        if (splitPartsTodo.length < 2) {
-                            throw new JustbotException("Hey man you have provided me an invalid format for todo.\n" +
-                                    "Use the format: todo [description]");
-                        }
-
-                        String description = splitPartsTodo[1];
-                        if (description.isBlank()) {
-                            throw new JustbotException("Hey man the description cannot be blank!");
-                        }
+                        String description = parser.extractTodoDescription(input);
                         Commands.addTask(tasks, new Todo(description));
                         taskFileHandler.saveTasks(taskList);
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
                         System.out.println("------------------------------------------");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
-                                + "todo [description]");
-                        System.out.println("------------------------------------------");
                     }
                     break;
                 case DELETE:
                     try {
-                        String[] splitInputDelete = input.split(" ");
-
-                        if (splitInputDelete.length < 2) {
-                            throw new JustbotException("Hey man you have provided me an invalid format for delete.\n" +
-                                    "Use the format: delete [task number]");
-                        }
-                        int deleteNumber = Integer.parseInt(splitInputDelete[1]);
-                        if (deleteNumber < 1 || deleteNumber > tasks.size()) {
-                            throw new IndexOutOfBoundsException("Hey man there is no such task");
-                        }
+                        int deleteNumber = parser.extractDeleteTaskNumber(input);
+                        taskList.validateDeleteTaskNumber(deleteNumber);
                         Commands.deleteTask(tasks, deleteNumber);
                         taskFileHandler.saveTasks(taskList);
-                    } catch (NumberFormatException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man please input a number for the task number!");
-                        System.out.println("------------------------------------------");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man there is no such task!");
-                        System.out.println("------------------------------------------");
-                    } catch (JustbotException e) {
+                    } catch (JustbotException | IndexOutOfBoundsException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
                         System.out.println("------------------------------------------");

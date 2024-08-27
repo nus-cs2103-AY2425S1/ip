@@ -29,4 +29,10 @@ public class TaskList {
         }
     }
 
+    public void validateDeleteTaskNumber(int taskNumber) throws IndexOutOfBoundsException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new IndexOutOfBoundsException("Hey man there is no such task!");
+        }
+    }
+
 }
