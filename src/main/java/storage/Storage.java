@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a storage for tasks.
+ */
 public class Storage {
     private final String filePath;
 

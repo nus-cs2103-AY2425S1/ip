@@ -1,7 +1,7 @@
 package task;
 
 /**
- * task.Task class represents a task with a description and a boolean to indicate if it is done.
+ * Represents a task with a description and a boolean to indicate if it is done.
  */
 public class Task {
     private final TaskType taskType;
@@ -53,13 +53,6 @@ public class Task {
 
     /**
      * Serializes the task to a string.
-     * The string is in the format of "T | 1 | description".
-     * T is the task type, 1 is 1 if the task is done, description is the description of the task.
-     * The task type is represented by the first character of the task type.
-     * For example, if the task type is task.ToDo, the task type is T.
-     * If the task is done, the second character is 1, otherwise it is 0.
-     * The description is the description of the task.
-     * The task type, is done status and description are separated by " | ".
      *
      * @return Serialized task.
      */
@@ -69,13 +62,6 @@ public class Task {
 
     /**
      * Deserializes the task from a string.
-     * The string is in the format of "T | 1 | description".
-     * T is the task type, 1 is 1 if the task is done, description is the description of the task.
-     * The task type is represented by the first character of the task type.
-     * For example, if the task type is task.ToDo, the task type is T.
-     * If the task is done, the second character is 1, otherwise it is 0.
-     * The description is the description of the task.
-     * The task type, is done status and description are separated by " | ".
      *
      * @param line The string to deserialize.
      * @return The deserialized task.
