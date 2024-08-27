@@ -85,7 +85,18 @@ public class Orion {
             try {
                 Orion.printIndent("Your existing task list is somewhere amongst the stars...");
                 Orion.printIndent("We can't seem to find it!");
-                Files.createFile(path);
+                File dataDirectory = new File("./data");
+                Path dir = Paths.get("./data");
+                if (dataDirectory.exists() && dataDirectory.isDirectory()) {
+                    Files.createFile(path);
+                } else if (dataDirectory.exists()) {
+                    Files.delete(dir);
+                    Files.createDirectory(dir);
+                    Files.createFile(path);
+                } else {
+                    Files.createDirectory(dir);
+                    Files.createFile(path);
+                }
                 Orion.printIndent("We've created a new task list for you.");
                 Orion.printBar();
             } catch (IOException err) {
