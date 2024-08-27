@@ -7,6 +7,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    protected Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public void setDone() {
         isDone = true;
     }
@@ -23,6 +28,7 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public abstract String toFileFormat();
     public abstract String getTypeIcon();
 
     @Override

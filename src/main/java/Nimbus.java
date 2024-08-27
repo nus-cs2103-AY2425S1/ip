@@ -1,10 +1,15 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Nimbus {
     final private static String name = "Nimbus";
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static final ArrayList<Task> tasks = new ArrayList<Task>();
     private static boolean isRunning = true;
+    final private static String DATA_FILE_PATH = "./data/data.txt";
 
     public enum Command {
         Remove,
@@ -34,13 +39,47 @@ public class Nimbus {
         printDash();
     }
 
-    public static void addTask(Task task) {
+    public static void addTask(Task task, boolean showMsg, boolean writeToFile) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:\n" + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        if (showMsg) {
+            System.out.println("Got it. I've added this task:\n" + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        }
+
+        if (!writeToFile)
+            return;
+
+        try (FileWriter file = new FileWriter(DATA_FILE_PATH, true)){
+            file.write(task.toFileFormat());
+            file.write(System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + e.getMessage());
+        }
     }
 
     public static void removeTask(int index) {
+        try {
+            File file = new File(DATA_FILE_PATH);
+            Scanner sc = new Scanner(file);
+            ArrayList<String> arr = new ArrayList<String>();
+            for (int i = 0; i < tasks.size() && sc.hasNext(); ++i) {
+                String nxt = sc.nextLine();
+                if (i == index)
+                    continue;
+                arr.add(nxt);
+            }
+            sc.close();
+            FileWriter fw = new FileWriter(DATA_FILE_PATH);
+            for (String s : arr) {
+                fw.write(s);
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + e.getMessage());
+        }
+
         System.out.println("Noted. I've removed this task: " + tasks.remove(index));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -49,12 +88,58 @@ public class Nimbus {
         System.out.println("Nice! I've marked this task as done:");
         tasks.get(index).setDone();
         System.out.println(tasks.get(index));
+
+        try {
+            File file = new File(DATA_FILE_PATH);
+            Scanner sc = new Scanner(file);
+            ArrayList<String> arr = new ArrayList<String>();
+            for (int i = 0; i < tasks.size() && sc.hasNext(); ++i) {
+                arr.add(sc.nextLine());
+            }
+            sc.close();
+
+            FileWriter fw = new FileWriter(DATA_FILE_PATH);
+            for (int i = 0; i < tasks.size(); ++i) {
+                if (i != index)
+                    fw.write(arr.get(i));
+                else
+                    fw.write(tasks.get(index).toFileFormat());
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + e.getMessage());
+        }
     }
 
     public static void setNotDone(int index) {
         System.out.println("OK, I've marked this task as not done yet:");
         tasks.get(index).setNotDone();
         System.out.println(tasks.get(index));
+
+        try {
+            File file = new File(DATA_FILE_PATH);
+            Scanner sc = new Scanner(file);
+            ArrayList<String> arr = new ArrayList<String>();
+            for (int i = 0; i < tasks.size() && sc.hasNext(); ++i) {
+                arr.add(sc.nextLine());
+            }
+            sc.close();
+
+            FileWriter fw = new FileWriter(DATA_FILE_PATH);
+            for (int i = 0; i < tasks.size(); ++i) {
+                if (i != index)
+                    fw.write(arr.get(i));
+                else
+                    fw.write(tasks.get(index).toFileFormat());
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + e.getMessage());
+        }
     }
 
     public static void printAllTask() {
@@ -131,17 +216,17 @@ public class Nimbus {
         case Unmark:
             setNotDone(Integer.parseInt(getArgument(line)) - 1);
             break;
-        case Todo: {
-            addTask(new Todo(getArgument(line)));
+        case Todo:
+            addTask(new Todo(getArgument(line)), true, true);
             break;
-        }
         case Deadline:
-            addTask(new Deadline(getDescription(getArgument(line)), readOption(getArgument(line), "by")));
+            addTask(new Deadline(getDescription(getArgument(line)),
+                    readOption(getArgument(line), "by")), true, true);
             break;
         case Event:
             addTask(new Event(getDescription(getArgument(line)),
                     readOption(getArgument(line), "from"),
-                    readOption(getArgument(line), "to")));
+                    readOption(getArgument(line), "to")), true, true);
             break;
         case Bye:
             isRunning = false;
@@ -151,8 +236,52 @@ public class Nimbus {
         }
     }
 
+    // create all the necessary directory and file if the file doesn't exists
+    public static void checkSavedFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error occur when creating file.");
+            }
+        }
+    }
+
+    public static void readSavedFile(String filePath) {
+        checkSavedFile(filePath);
+        File file = new File(filePath);
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                Task task = getTaskFromSavedCommand(sc.nextLine());
+                if (task != null) {
+                    addTask(task, false, false);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Can't find saved data file");
+        }
+    }
+
+    public static Task getTaskFromSavedCommand(String command) {
+        String[] arr = command.split("\\|");
+        boolean isDone = arr[1].equals("1");
+        return switch (arr[0]) {
+            case "T" -> new Todo(arr[2], isDone);
+            case "D" -> new Deadline(arr[2], isDone, arr[3]);
+            case "E" -> new Event(arr[2], isDone, arr[3], arr[4]);
+            default -> null;
+        };
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
+
+        readSavedFile(DATA_FILE_PATH);
 
         Scanner scanner = new Scanner(System.in);
         String line;
@@ -161,9 +290,7 @@ public class Nimbus {
             line = scanner.nextLine();
             try {
                 processCommand(line);
-            } catch (InvalidCommandException e) {
-                System.out.println(e.getMessage());
-            } catch (InvalidArgumentException e) {
+            } catch (InvalidCommandException | InvalidArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
