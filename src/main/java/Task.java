@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     abstract String getSymbol();
     abstract String getTaskLine();
+    abstract boolean isRelevant(LocalDate date);
 
     public Task(String description, boolean isDone) {
         this.description = description;
