@@ -1,11 +1,8 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a Storage object that handles writing and reading tasks from a local file.
@@ -27,10 +24,38 @@ public class Storage {
      * Takes a list of tasks and writes them to a text file at the filePath given during object creation.
      * @param taskList The list of tasks to be written to the file.
      */
-    public void writeTasksToFile(ArrayList<Task> taskList) {
+    public void writeTasksToFile(ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter(this.filePath);
+        String textToWrite = "";
+
         for (int i = 0; i < taskList.size(); i++) {
-            
+            Task task = taskList.get(i);
+            Task.TASK_TYPE taskType = task.getTaskType();
+            String isDoneMark = task.getIsDone() ? "1" : "0";
+
+            switch (taskType) {
+            case TODO:
+                textToWrite = textToWrite + "T | " + isDoneMark + " | " + task.getTaskName() + "\n";
+                break;
+            case DEADLINE:
+                // Note: taskType only set to DEADLINE when Deadline class is created, and is final, so this is safe
+                Deadline deadline = (Deadline) task;
+                textToWrite = textToWrite + "D | " + isDoneMark + " | " + deadline.getTaskName() +
+                        " | " + deadline.getByTime() + "\n";
+                break;
+            case EVENT:
+                // Note: taskType only set to EVENT when Event class is created, and is final, so this is safe
+                Event event = (Event) task;
+                textToWrite = textToWrite + "E | " + isDoneMark + " | " + event.getTaskName() +
+                        " | " + event.getFromTime() + "-" + event.getToTime() + "\n";
+                break;
+            default:
+                break;
+            }
         }
+
+        fw.write(textToWrite);
+        fw.close();
     }
 
     /**

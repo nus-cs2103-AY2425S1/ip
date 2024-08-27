@@ -11,12 +11,13 @@ public class Task {
     }
 
     private final String name;
+    private final TASK_TYPE taskType;
     private boolean isDone;
-    private TASK_TYPE taskType;
 
     /**
      * Constructor for a task object. Sets task name upon creation.
      * @param name Name of task object.
+     * @param taskType Type of task object.
      */
     public Task(String name, TASK_TYPE taskType) {
         this.name = name;
@@ -35,6 +36,14 @@ public class Task {
      */
     public void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns the name of the task.
+     * @return String The name of the task.
+     */
+    public String getTaskName() {
+        return this.name;
     }
 
     /**
