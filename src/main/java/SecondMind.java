@@ -174,6 +174,34 @@ public class SecondMind {
         } else if (taskNumber > taskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
         }
+        //Remove line "taskNumber" from data file
+        int lineNumber = 1;
+        try {
+            File oldFile = new File(DATA_FILE_PATH);
+            File newFile = new File("../../../tempDataFile.txt");
+            FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
+            Scanner s = new Scanner(oldFile);
+            while (s.hasNext()) {
+                String currentLine = s.nextLine();
+                if (lineNumber == taskNumber) {
+                    lineNumber++;
+                    continue;
+                }
+                if (lineNumber < taskCount()) {
+                    fw.write(currentLine + "\n");
+                } else {
+                    fw.write(currentLine);
+                }
+                lineNumber++;
+            }
+            s.close();
+            fw.close();
+            newFile.renameTo(oldFile);
+        } catch (FileNotFoundException e) {
+            printErrorMessage(e);
+        } catch (IOException e) {
+            printErrorMessage(e);
+        }
         Task curr = taskList.get(taskNumber-1);
         taskList.remove(taskNumber-1);
         printLineSeparator();
