@@ -257,7 +257,7 @@ public class SecondMind {
         } else {
             curr = new EventTask(taskInfo[2], taskInfo[3], taskInfo[4]);
         }
-        if (taskInfo[1] == "1") {
+        if (taskInfo[1].equals("1")) {
             curr.markAsDone();
         }
         return curr;
