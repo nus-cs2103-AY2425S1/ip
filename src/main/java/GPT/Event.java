@@ -1,5 +1,5 @@
 package GPT;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -37,4 +37,4 @@ class Event extends Task {
                     description);
         }
     }
-    }
+}

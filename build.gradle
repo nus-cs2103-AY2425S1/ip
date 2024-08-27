@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -15,27 +16,18 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
-    testLogging {
-        events "passed", "skipped", "failed"
-
-        showExceptions true
-        exceptionFormat "full"
-        showCauses true
-        showStackTraces true
-        showStandardStreams = false
-    }
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("GPT.GPT")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "GPT"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
