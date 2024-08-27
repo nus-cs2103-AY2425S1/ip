@@ -1,10 +1,12 @@
+package bibi.task;
+
 import java.time.LocalDate;
 
 public class Deadline extends Task {
     private final String deadline;
 
     public Deadline(String task, String deadline) {
-        // Call Task constructor
+        // Call bibi.task.Task constructor
         super(task);
 
         // Parse the deadline appropriately

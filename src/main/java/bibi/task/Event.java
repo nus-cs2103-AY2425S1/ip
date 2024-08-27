@@ -1,9 +1,11 @@
+package bibi.task;
+
 public class Event extends Task {
     private String from;
     private String to;
 
     public Event(String task, String deadline, String to) {
-        // Call Task constructor
+        // Call bibi.task.Task constructor
         super(task);
 
         this.from = deadline;

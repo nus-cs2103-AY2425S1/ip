@@ -1,3 +1,6 @@
+package bibi;
+
+import bibi.task.*;
 import java.io.IOException;
 
 public class Command {
