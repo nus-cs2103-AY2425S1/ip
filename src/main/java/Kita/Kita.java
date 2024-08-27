@@ -1,5 +1,6 @@
+package Kita;
+
 import java.util.Scanner;
-import java.util.regex.Matcher;
 
 public class Kita {
 
@@ -13,7 +14,7 @@ public class Kita {
             tasks = new TaskList(saveSystem.readTasksFromFile());
         }
         catch (Exception e) {
-            System.out.println("Oh no, Kita failed to create/read from the save file successfully :c");
+            System.out.println("Oh no, Kita.Kita failed to create/read from the save file successfully :c");
             System.out.println(e);
             return;
         }

@@ -1,3 +1,5 @@
+package Kita.Exceptions;
+
 public class KitaMissingTo extends KitaError {
     @Override
     public String toString() {

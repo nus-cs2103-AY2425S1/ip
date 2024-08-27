@@ -1,6 +1,8 @@
+package Kita.Exceptions;
+
 public class KitaError extends RuntimeException {
     @Override
     public String toString() {
-        return "Kita Error";
+        return "Kita.Kita Error";
     }
 }
