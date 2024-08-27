@@ -1,13 +1,11 @@
 - Already mark items shouldn’t be marked again. Give warning message
-- if list is size 7, shouldnt mark or unmark index 9
-- add name of user
 - check for duplicate items
 - implement setters and getters
 - enum for tasktype
 - public, private etc settings
 
 exceptions:
-- when mark, unmark doesn' come with an integer;
+- event /from /to (empty description)
 
 /*String logo = " ,-----.              ,--.          \n"
                 + "'  .--./,--,--.,--.--.|  |,--. ,--. \n"

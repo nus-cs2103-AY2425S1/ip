@@ -1,8 +1,8 @@
+package carly.tasks;
+
 import java.text.MessageFormat;
 
 public class Deadline extends Task{
-    private String description;
-    private boolean isDone;
     private static final String TASKTYPE = "D";
     private String duedate;
 
@@ -16,6 +16,7 @@ public class Deadline extends Task{
         return this.duedate;
     }
 
+    @Override
     public String toString(){
         return MessageFormat.format("[{0}]{1} (by: {2})",
                 TASKTYPE,

@@ -1,8 +1,8 @@
+package carly.tasks;
+
 import java.text.MessageFormat;
 
 public class Event extends Task{
-    private String description;
-    private boolean isDone;
     private static final String TASKTYPE = "E";
     private String startTime;
     private String endTime;
@@ -22,6 +22,7 @@ public class Event extends Task{
         return this.endTime;
     }
 
+    @Override
     public String toString(){
         return MessageFormat.format("[{0}]{1} (from: {2} to: {3})",
                 TASKTYPE,

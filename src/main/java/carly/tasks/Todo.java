@@ -1,8 +1,8 @@
+package carly.tasks;
+
 import java.text.MessageFormat;
 
 public class Todo extends Task{
-    private String description;
-    private boolean isDone;
     private static final String TASKTYPE = "T";
 
     public Todo(String description) {
@@ -10,6 +10,7 @@ public class Todo extends Task{
         this.isDone = false;
     }
 
+    @Override
     public String toString(){
         return MessageFormat.format("[{0}]{1}", TASKTYPE, super.toString());
     }
