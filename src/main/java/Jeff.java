@@ -287,6 +287,38 @@ public class Jeff {
         }
     }
 
+    private static void handleTaskPeriod(String input) throws JeffException {
+        String[] taskParts  = input.split(" ", 2);
+        String taskPeriod = taskParts.length > 1 ? taskParts[1] : "";
+        try {
+            LocalDate taskDate = LocalDate.parse(taskPeriod);
+            List<Task> filteredTasks = taskList.stream().filter(task -> task.isOnThisDate(taskDate)).toList();
+            // Check if the list is empty
+            if (filteredTasks.isEmpty()) {
+                throw new JeffException("No deadlines/events on " + taskPeriod + "!");
+            }
+
+            // Initialise a StringBuilder
+            StringBuilder listString = new StringBuilder();
+
+            // Loop through the inputList and add it to the StringBuilder
+            for (int i = 0; i < filteredTasks.size(); i++) {
+                listString.append(Integer.toString(i + 1)).append(".").append(filteredTasks.get(i).toString());
+
+                // Only add a new line when it is not the last task in the list
+                if (i != filteredTasks.size() - 1) {
+                    listString.append("\n ");
+                }
+
+            }
+
+            // Print the text
+            printText(listString.toString());
+        } catch (DateTimeParseException e) {
+            throw new JeffException("The format is wrong! " + "It should be \"task yyyy-mm-dd\"!");
+        }
+    }
+
     /**
      * Gets the user input from the command line interface and figure out the action to take based on the input.
      * This is continuously repeated until the user says "bye"
@@ -318,6 +350,8 @@ public class Jeff {
                     deleteTask(input);
                 } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                     handleTask(input);
+                } else if (input.startsWith("task")) {
+                    handleTaskPeriod(input);
                 } else {
                     throw new JeffException();
                 }

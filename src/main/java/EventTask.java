@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class EventTask extends Task {
@@ -40,5 +41,10 @@ public class EventTask extends Task {
     public String toFileString() {
         return "E | " + super.toFileString() + " | " + this.getDateString(this.start, "yyyy-MM-dd HH:mm")
                 + " | " + this.getDateString(this.end, "yyyy-MM-dd HH:mm");
+    }
+
+    @Override
+    public boolean isOnThisDate(LocalDate date) {
+        return !date.isBefore(this.start.toLocalDate()) && !date.isAfter(this.end.toLocalDate());
     }
 }

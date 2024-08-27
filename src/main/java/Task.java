@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -72,5 +73,9 @@ public class Task {
 
     public String getDateString(LocalDateTime date, String format) {
         return date.format(DateTimeFormatter.ofPattern(format));
+    }
+
+    public boolean isOnThisDate(LocalDate date) {
+        return false;
     }
 }

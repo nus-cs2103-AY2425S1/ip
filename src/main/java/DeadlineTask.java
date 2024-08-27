@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DeadlineTask extends Task {
@@ -34,5 +35,10 @@ public class DeadlineTask extends Task {
     public String toFileString() {
         return "D | " + super.toFileString() + " | "
                 + this.getDateString(this.deadline, "yyyy-MM-dd HH:mm");
+    }
+
+    @Override
+    public boolean isOnThisDate(LocalDate date) {
+        return date.equals(this.deadline.toLocalDate());
     }
 }
