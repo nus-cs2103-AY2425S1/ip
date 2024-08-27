@@ -16,6 +16,10 @@ public class KorolevTask {
         this.status = false;
     }
 
+    public boolean match(String keyword) {
+        return this.name.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return (this.status ? "[X]" : "[ ]") + " " + this.name;

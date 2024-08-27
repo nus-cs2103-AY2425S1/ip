@@ -39,6 +39,12 @@ public class KorolevCommand {
             } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("Error:" + e.getMessage());
             }
+        } else if (target[0].equals("find")) {
+            String key = "";
+            for (String s : this.target) {
+                key = (s + " ");
+            }
+            KorolevList.displayFilteredList(repo.findItem(key.strip()));
         } else {
             try {
                 repo.addEvent(input);
