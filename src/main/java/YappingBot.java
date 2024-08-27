@@ -1,9 +1,22 @@
 import java.io.StringBufferInputStream;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class YappingBot {
+    // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
+    private static final HashMap<String, Commands> COMMANDS_HASH_MAP;
+    static {
+        COMMANDS_HASH_MAP = new HashMap<>();
+        COMMANDS_HASH_MAP.put("list", Commands.LIST);
+        COMMANDS_HASH_MAP.put("mark", Commands.MARK);
+        COMMANDS_HASH_MAP.put("unmark", Commands.UNMARK);
+        COMMANDS_HASH_MAP.put("delete", Commands.DELETE);
+        COMMANDS_HASH_MAP.put("todo", Commands.TODO);
+        COMMANDS_HASH_MAP.put("event", Commands.EVENT);
+        COMMANDS_HASH_MAP.put("deadline", Commands.DEADLINE);
+        COMMANDS_HASH_MAP.put("bye", Commands.EXIT);
+    }
+
     // Text strings
     private static final String BOT_NAME = "YappingBot";
     private static final String GREETING_TEXT = String.format(
@@ -22,19 +35,19 @@ public class YappingBot {
                     "where TASK_NUMBER is the task number in the task list to delete";
     private static final String TODO_USAGE =
             "Here is the usage for the instruction 'todo':\n" +
-            "\n    todo TASK_NAME\n\n" +
-            "where TASK_NAME is the name of this todo task to add";
+                    "\n    todo TASK_NAME\n\n" +
+                    "where TASK_NAME is the name of this todo task to add";
     private static final String DEADLINE_USAGE =
             "Here is the usage for the instruction 'deadline':\n" +
-            "\n    deadline TASK_NAME /by DEADLINE\n\n" +
-            "where TASK_NAME is the name of this deadline task to add\n" +
-            "      DEADLINE  is the deadline for this task";
+                    "\n    deadline TASK_NAME /by DEADLINE\n\n" +
+                    "where TASK_NAME is the name of this deadline task to add\n" +
+                    "      DEADLINE  is the deadline for this task";
     private static final String EVENT_USAGE =
             "Here is the usage for the instruction 'event':\n" +
-            "\n    event TASK_NAME /from START_DATE /to END_DATE\n\n" +
-            "where TASK_NAME  is the name of this event task to add\n" +
-            "      START_DATE is the start time/date for this event\n" +
-            "      END_DATE   is the end time/date for this event";
+                    "\n    event TASK_NAME /from START_DATE /to END_DATE\n\n" +
+                    "where TASK_NAME  is the name of this event task to add\n" +
+                    "      START_DATE is the start time/date for this event\n" +
+                    "      END_DATE   is the end time/date for this event";
     private static final String TASK_PRINT_TEXT_3s = "[%s][%s] %s";
     private static final String LIST_SUMMARY_TEXT_1d = "Now you have %d tasks in the list.";
     private static final String SELECT_TASK_NOT_INT_TEXT_1s = "I'm sorry, I do not understand which item '%s' refers to!";
@@ -42,13 +55,13 @@ public class YappingBot {
     private static final String MARKED_TASK_AS_DONE_TEXT = "Nice! I've marked this task as done:";
     private static final String MARK_INSTRUCTION_USAGE =
             "Here is the usage for the instruction 'unmark':\n" +
-            "\n    mark TASK_NUMBER\n\n" +
-            "where TASK_NUMBER is the task number in the task list";
+                    "\n    mark TASK_NUMBER\n\n" +
+                    "where TASK_NUMBER is the task number in the task list";
     private static final String UNMARKED_TASK_AS_DONE_TEXT = "OK, I've marked this task as not done:";
     private static final String UNMARK_INSTRUCTION_USAGE =
             "Here is the usage for the instruction 'unmark':\n" +
-            "\n    unmark TASK_NUMBER\n\n" +
-            "where TASK_NUMBER is the task number in the task list";
+                    "\n    unmark TASK_NUMBER\n\n" +
+                    "where TASK_NUMBER is the task number in the task list";
     private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
     // End of text strings
 
@@ -252,7 +265,7 @@ public class YappingBot {
         sb = new StringBuilder();
         quoteSinglelineText(ADDED_TEXT, sb);
         quoteSinglelineText(
-                String.format(TASK_PRINT_TEXT_3s, 
+                String.format(TASK_PRINT_TEXT_3s,
                         newTask.getTaskTypeSymbol(),
                         newTask.getTaskDoneCheckmark(),
                         newTask),
@@ -261,6 +274,18 @@ public class YappingBot {
         quoteSinglelineText(String.format(LIST_SUMMARY_TEXT_1d, userList.size()), sb);
         System.out.println(sb);
         return true;
+    }
+
+    private static Commands parseCommand(String commandString) throws Exception {
+        if (commandString.toLowerCase().trim().isEmpty()) {
+            return Commands.UNKNOWN;
+        } else {
+            if (COMMANDS_HASH_MAP.containsKey(commandString)) {
+                return COMMANDS_HASH_MAP.get(commandString);
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
     }
     // end of class methods
 
@@ -274,65 +299,65 @@ public class YappingBot {
 
         programmeLoop: // to break out of loop
         while (userInputScanner.hasNextLine()) {
-           String userInput = userInputScanner.nextLine();
-           String[] userInputSlices = userInput.split(" ");
-            int taskListIndexPtr; // task list pointer
-            switch (userInputSlices[0].toLowerCase().trim()) {
-               case "bye":
-                   break programmeLoop;
-               case "list":
-                   printUserList();
-                   break;
-               case "mark":
-                   taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
-                   if (taskListIndexPtr < 0) {
-                       System.out.println(quoteMultilineText(MARK_INSTRUCTION_USAGE));
-                   } else {
-                       changeTaskListStatus(taskListIndexPtr, true);
-                   }
-                   break;
-               case "unmark":
-                   taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
-                   if (taskListIndexPtr < 0) {
-                       System.out.println(quoteMultilineText(UNMARK_INSTRUCTION_USAGE));
-                   } else {
-                       changeTaskListStatus(taskListIndexPtr, false);
-                   }
-                   break;
-                case "delete":
-                    taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
-                    if (taskListIndexPtr < 0) {
-                        System.out.println(quoteMultilineText(DELETE_USAGE));
-                    } else {
-                        deleteTask(taskListIndexPtr);
-                    }
-                    break;
-                case "todo":
-                    if (!addTaskToList(userInputSlices, TaskTypes.TODO)) {
-                        System.out.println(quoteMultilineText(TODO_USAGE));
-                    }
-                    break;
-                case "event":
-                    if(!addTaskToList(userInputSlices, TaskTypes.EVENT)) {
-                        System.out.println(quoteMultilineText(EVENT_USAGE));
-                    }
-                    break;
-                case "deadline":
-                    if(!addTaskToList(userInputSlices, TaskTypes.DEADLINE)) {
-                        System.out.println(quoteMultilineText(DEADLINE_USAGE));
-                    }
-                    break;
-                case "":
-                    System.out.println(quoteSinglelineText(HELP_TEXT));
-                    break; // sanity break
-                default:
-                    System.out.println(quoteMultilineText(
-                            String.format(UNKNOWN_COMMAND_TEXT_1s, userInput)
-                    ));
-                    break; // sanity break
-           }
+            String userInput = userInputScanner.nextLine();
+            String[] userInputSlices = userInput.split(" ");
+            try {
+                int taskListIndexPtr; // task list pointer
+                switch (parseCommand(userInputSlices[0])) {
+                    case EXIT:
+                        break programmeLoop;
+                    case LIST:
+                        printUserList();
+                        break;
+                    case MARK:
+                        taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
+                        if (taskListIndexPtr < 0) {
+                            System.out.println(quoteMultilineText(MARK_INSTRUCTION_USAGE));
+                        } else {
+                            changeTaskListStatus(taskListIndexPtr, true);
+                        }
+                        break;
+                    case UNMARK:
+                        taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
+                        if (taskListIndexPtr < 0) {
+                            System.out.println(quoteMultilineText(UNMARK_INSTRUCTION_USAGE));
+                        } else {
+                            changeTaskListStatus(taskListIndexPtr, false);
+                        }
+                        break;
+                    case DELETE:
+                        taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
+                        if (taskListIndexPtr < 0) {
+                            System.out.println(quoteMultilineText(DELETE_USAGE));
+                        } else {
+                            deleteTask(taskListIndexPtr);
+                        }
+                        break;
+                    case TODO:
+                        if (!addTaskToList(userInputSlices, TaskTypes.TODO)) {
+                            System.out.println(quoteMultilineText(TODO_USAGE));
+                        }
+                        break;
+                    case EVENT:
+                        if (!addTaskToList(userInputSlices, TaskTypes.EVENT)) {
+                            System.out.println(quoteMultilineText(EVENT_USAGE));
+                        }
+                        break;
+                    case DEADLINE:
+                        if (!addTaskToList(userInputSlices, TaskTypes.DEADLINE)) {
+                            System.out.println(quoteMultilineText(DEADLINE_USAGE));
+                        }
+                        break;
+                    default:
+                        System.out.println(quoteSinglelineText(HELP_TEXT));
+                        break; // sanity break
+                }
+            } catch(Exception e){
+                System.out.println(quoteMultilineText(
+                        String.format(UNKNOWN_COMMAND_TEXT_1s, userInput)
+                ));
+            }
         }
-
         // exit
         System.out.println(quoteMultilineText(EXIT_TEXT));
     }
