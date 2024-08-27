@@ -2,6 +2,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents a command that the user inputs.
+ */
 public class Command {
     /**
      * The command name.
@@ -40,26 +43,18 @@ public class Command {
         }
     }
 
-    /**
-     * Gets the command name.
-     *
-     * @return The command name.
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Gets the parameter string.
-     *
-     * @return The parameter string.
-     */
+
     public String getParam() {
         return param;
     }
 
     /**
      * Gets the keyword parameter value associated with key.
+     *
      * @param key The key to the required keyword parameter.
      * @return The value of the required keyword parameter.
      */

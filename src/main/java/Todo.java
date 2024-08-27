@@ -1,9 +1,13 @@
+/**
+ * Represents a todo task.
+ */
 public class Todo extends Task {
 
     /**
      * The constructor.
      *
      * @param description Todo description.
+     * @throws BocchiException If the description is empty.
      */
     public Todo(String description) throws BocchiException {
         super(description);
