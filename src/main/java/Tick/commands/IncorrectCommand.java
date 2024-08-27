@@ -1,3 +1,10 @@
+package Tick.commands;
+
+import Tick.exceptions.TickException;
+import Tick.storage.Storage;
+import Tick.tasks.TaskList;
+import Tick.ui.Ui;
+
 public class IncorrectCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TickException {

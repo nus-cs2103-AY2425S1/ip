@@ -1,3 +1,11 @@
+package Tick.parser;
+
+import Tick.commands.*;
+import Tick.exceptions.TickException;
+import Tick.tasks.Deadline;
+import Tick.tasks.Event;
+import Tick.tasks.ToDo;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 

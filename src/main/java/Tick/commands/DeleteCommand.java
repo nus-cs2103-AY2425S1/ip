@@ -1,3 +1,11 @@
+package Tick.commands;
+
+import Tick.exceptions.TickException;
+import Tick.storage.Storage;
+import Tick.tasks.Task;
+import Tick.tasks.TaskList;
+import Tick.ui.Ui;
+
 public class DeleteCommand extends Command {
     private int toDelete;
 

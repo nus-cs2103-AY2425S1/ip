@@ -1,3 +1,5 @@
+package Tick.commands;
+
 public enum CommandType {
     BYE,
     LIST,
