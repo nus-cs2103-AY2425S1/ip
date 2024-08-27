@@ -9,6 +9,16 @@ public class Event extends Task{
     }
 
     @Override
+    public String getTaskType() {
+        return "E";
+    }
+
+    @Override
+    public String additionalDescDetailsToFileFormat() {
+        return " | " + from + " | " + to;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString()
                 + " (from: " + from

@@ -1,12 +1,14 @@
 import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Lutchat {
     ArrayList<Task> taskList = new ArrayList<>();
     String userInput;
+    private static final String FILE_PATH = "./data/lutchat.txt";
 
-    //This comment should be in branch-Level-7
+
+    //Start and End of conversation
 
     void greet() {
         System.out.print("______________________________________________\n");
@@ -19,6 +21,83 @@ public class Lutchat {
         System.out.print("Bye! Hope to see you again soon!\n");
         System.out.print("______________________________________________\n");
     }
+
+    //Save and Load Functions
+
+    void saveTasks() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (Task task : taskList) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Oh no! An error occurred while saving tasks...");
+        }
+    }
+
+    void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
+            if (!file.exists()) {
+                file.createNewFile();
+                return;
+            }
+
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String data = sc.nextLine();
+                String[] parts = data.split(" \\| ");
+                if (parts.length < 3) {
+                    System.out.println("SKipping corrupted data: " + data);
+                    continue;
+                }
+
+                String taskType = parts[0];
+                boolean done = parts[1].equals("1");
+                String desc = parts[2];
+
+                //For markAsDone() code block
+                Task task = null;
+
+                switch (taskType) {
+                    case "T":
+                        task = new Todo(desc);
+                        break;
+                    case "D":
+                        if (parts.length < 4) {
+                            System.out.println("Skipping corrupted line: " + data);
+                            continue;
+                        }
+                        task = new Deadline(desc, parts[3]);
+                        break;
+                    case "E":
+                        if (parts.length < 5) {
+                            System.out.println("Skipping corrupted line: " + data);
+                            continue;
+                        }
+                        task = new Event(desc, parts[3], parts[4]);
+                        break;
+                    default:
+                        System.out.println("Skipping unknown task type: " + taskType);
+                        continue;
+                }
+
+                if (task != null) {
+                    if (done) {
+                        task.markAsDone();
+                    }
+                    taskList.add(task);
+                }
+            }
+            sc.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks.");
+        }
+    }
+
+    //Helper Functions
 
     boolean invalidInputResponse(String message) {
         System.out.print("OOPS!!! " + message +"\n");
@@ -190,11 +269,13 @@ public class Lutchat {
         Lutchat lutchat = new Lutchat();
         Scanner sc = new Scanner(System.in);
 
+        lutchat.loadTasks();
         lutchat.greet();
 
         lutchat.userInput = sc.nextLine();
 
         while (lutchat.conversation(lutchat.userInput)) {
+            lutchat.saveTasks();
             lutchat.userInput = sc.nextLine();
         }
 

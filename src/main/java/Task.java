@@ -1,10 +1,9 @@
-public class Task {
+public abstract class Task {
     boolean done;
     String desc;
 
     public Task(String d) {
-        this.desc = d;
-        this.done = false;
+        desc = d;
     }
 
     public void markAsDone() {
@@ -14,6 +13,16 @@ public class Task {
     public void markAsUndone() {
         this.done = false;
     }
+
+    public String toFileFormat() {
+        return getTaskType() + " | "
+                + (done ? "1" : "0") + " | "
+                + desc
+                + additionalDescDetailsToFileFormat();
+    }
+
+    public abstract String getTaskType();
+    public abstract String additionalDescDetailsToFileFormat();
 
     @Override
     public String toString() {
