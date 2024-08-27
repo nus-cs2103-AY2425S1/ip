@@ -1,4 +1,4 @@
-package exception;
+package errorhandling;
 
 /**
  * Custom exception class for handling exceptions specific to the Regina chatbot application.

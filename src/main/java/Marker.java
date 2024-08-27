@@ -1,4 +1,4 @@
-import exception.ReginaException;
+import errorhandling.ReginaException;
 import tasks.Task;
 import tasks.TaskList;
 

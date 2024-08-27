@@ -1,7 +1,7 @@
 package tasks;
 
-import dateAndTime.ReginaDateAndTime;
-import exception.ReginaException;
+import dateandtime.ReginaDateAndTime;
+import errorhandling.ReginaException;
 
 /**
  * Represents a deadline task with a description and a specific deadline.

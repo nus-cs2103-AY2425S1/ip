@@ -1,7 +1,7 @@
 package tasks;
 
-import dateAndTime.ReginaDateAndTime;
-import exception.ReginaException;
+import dateandtime.ReginaDateAndTime;
+import errorhandling.ReginaException;
 
 /**
  * Represents an event task with a description, start time, and end time.

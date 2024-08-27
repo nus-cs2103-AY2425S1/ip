@@ -2,16 +2,16 @@ package file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
-import tasks.Task;
-import tasks.ToDosTask;
+import errorhandling.ReginaException;
 import tasks.DeadlinesTask;
 import tasks.EventsTask;
-import exception.ReginaException;
+import tasks.Task;
 import tasks.TaskList;
+import tasks.ToDosTask;
 
 /**
  * The FileSaver class manages the saving and loading of tasks to and from a persistent storage file.
@@ -21,9 +21,9 @@ public class Storage {
     /**
      * The file path where tasks are saved.
      */
-    private final static String FILE_PATH = "./data/savedData.txt";
+    private static final String FILE_PATH = "./data/savedData.txt";
 
-    /** 
+    /**
      * Reads the saved task data from the specified file and creates a TaskList populated with those tasks.
      *
      * @return A TaskList containing the tasks read from the saved data file.
@@ -43,7 +43,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Creating a new file: " + FILE_PATH);
             try {
-                f.createNewFile();  // Create a new file
+                f.createNewFile(); // Create a new file
             } catch (IOException ioe) {
                 System.out.println("Unable to create file. Please check permissions and restart me.");
             }
@@ -85,8 +85,8 @@ public class Storage {
         if (taskType.equals("T")) {
             task = new ToDosTask(taskDescription);
         } else if (taskType.equals("D")) {
-            String taskDeadline =  taskParts[3];
-            task =  new DeadlinesTask(taskDescription, taskDeadline);
+            String taskDeadline = taskParts[3];
+            task = new DeadlinesTask(taskDescription, taskDeadline);
         } else { // taskType is "E"
             String taskStartTime = taskParts[3];
             String taskEndTime = taskParts[4];

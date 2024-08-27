@@ -1,12 +1,11 @@
-package dateAndTime;
-
-import exception.ReginaException;
+package dateandtime;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import errorhandling.ReginaException;
 
 /**
  * The ReginaDateAndTime class represents a date and/or time,
@@ -50,7 +49,7 @@ public class ReginaDateAndTime {
      * The date is formatted according to the DATE_PATTERN, and the time
      * is formatted according to the TIME_PATTERN.
      *
-     * @return A string in the format: "It is <formatted_date>, <formatted_time> currently".
+     * @return A string indicating day, date and time of this instant.
      */
     public static String now() {
         String nowDate = LocalDate.now().format(DateTimeFormatter.ofPattern(OUTPUT_DATE_PATTERN));
@@ -75,43 +74,6 @@ public class ReginaDateAndTime {
      */
     public LocalTime getTime() {
         return this.time;
-    }
-
-    /**
-     * Returns the day of the week for the stored date.
-     *
-     * @return The day of the week as a string.
-     */
-    public String getDayOfWeek() {
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
-        return dayOfWeek.toString(); // Returns in uppercase (e.g., MONDAY)
-    }
-
-    /**
-     * Returns the month of the stored date.
-     *
-     * @return The month as an integer (1-12).
-     */
-    public int getMonth() {
-        return date.getMonthValue(); // Returns month as an integer (1-12)
-    }
-
-    /**
-     * Returns the year of the stored date.
-     *
-     * @return The year as an integer.
-     */
-    public int getYear() {
-        return date.getYear(); // Returns year as an integer
-    }
-
-    /**
-     * Returns the day of the month for the stored date.
-     *
-     * @return The day of the month as an integer (1-31).
-     */
-    public int getDayOfMonth() {
-        return date.getDayOfMonth(); // Returns day of the month as an integer (1-31)
     }
 
     public boolean isBefore(ReginaDateAndTime dateAndTime) {
@@ -167,6 +129,7 @@ public class ReginaDateAndTime {
      */
     @Override
     public String toString() {
-        return formattedDate() + "," +  (this.time != null ? " " + formattedTime() : ""); // Combine formatted date and time
+        // Combine formatted date and time
+        return formattedDate() + "," + (this.time != null ? " " + formattedTime() : "");
     }
 }

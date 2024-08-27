@@ -1,22 +1,25 @@
-import tasks.*;
-
-import file.Storage;
-import dateAndTime.ReginaDateAndTime;
-import exception.ReginaException;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+
+import dateandtime.ReginaDateAndTime;
+import errorhandling.ReginaException;
+import file.Storage;
+import tasks.DeadlinesTask;
+import tasks.EventsTask;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.ToDosTask;
 
 /**
  * The Regina class represents a chatbot designed to help users track their tasks and activities.
  * It provides functionalities to add, mark, unmark, delete, and list tasks.
  */
 public class Regina {
-    private final static String NAME = "Regina";
+    private static final String NAME = "Regina";
 
-    private final Parser PARSER;
-    private final Marker MARKER;
+    private final Parser parser;
+    private final Marker marker;
     private final Ui ui;
     private TaskList listOfTasks;
 
@@ -27,13 +30,11 @@ public class Regina {
         this.ui = new Ui();
         try {
             listOfTasks = Storage.readSavedData();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ReginaException e) {
             ui.printMessage("Saved data file is missing....");
-        } catch (ReginaException e) {
-            ui.printMessage("Saved data file is corrupted.....");
         }
-        this.MARKER = new Marker(listOfTasks);
-        this.PARSER = new Parser();
+        this.marker = new Marker(listOfTasks);
+        this.parser = new Parser();
     }
 
     /**
@@ -87,6 +88,17 @@ public class Regina {
         return true;
     }
 
+    /**
+     * Lists all tasks occurring at the specified date and time.
+     * <p>
+     * This method takes a date and time input, creates an instance of ReginaDateAndTime,
+     * and retrieves all tasks from the task list that occur on that specific date and time.
+     * The resulting list of tasks is then displayed to the user via the Ui class.
+     *
+     * @param dateAndTime A string representing the date and time to check for occurring tasks.
+     * @throws ReginaException If the dateAndTime format is invalid or if an error occurs while
+     *                         retrieving tasks.
+     */
     public void occurringOn(String dateAndTime) throws ReginaException {
         ReginaDateAndTime occurringInstance = new ReginaDateAndTime(dateAndTime);
         TaskList tempList = this.listOfTasks.tasksOccurringOn(occurringInstance);
@@ -116,9 +128,10 @@ public class Regina {
             String[] deadlineParts = input.substring(9).trim().split(" /by ");
             // check if deadline was added for this task
             if (deadlineParts.length < 2) {
-                throw new ReginaException("So....when's the deadline for this task?\n"
-                        + "Follow this format for the date and time please\n"
-                        + "(e.g. 01/10/2024 1700)");
+                throw new ReginaException("""
+                        So....when's the deadline for this task?
+                        Follow this format for the date and time please
+                        (e.g. 01/10/2024 1700)""");
             }
             String deadlineDescription = deadlineParts[0];
             String deadline = deadlineParts[1];
@@ -152,8 +165,9 @@ public class Regina {
         listOfTasks.add(task);
         saveFile();
         int noOfTasks = listOfTasks.size();
-        ui.printMessage(String.format("Got it. I've added this task: \n  %s\nNow you have %d task%s in the list.\nJiayous!\n",
-                task.toString(),
+        ui.printMessage(String.format(
+                "Got it. I've added this task: \n  %s\nNow you have %d task%s in the list.\nJiayous!\n",
+                task,
                 noOfTasks,
                 noOfTasks > 1 ? "s" : ""));
     }
@@ -216,7 +230,7 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public void mark(int index) throws ReginaException {
-        this.MARKER.mark(index);
+        this.marker.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
         ui.printMessage(String.format("YAY! This task finish liao!\n%s\n", task.toString()));
@@ -229,7 +243,7 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public void unmark(int index) throws ReginaException {
-        this.MARKER.unmark(index);
+        this.marker.unmark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
         ui.printMessage(String.format("Hais! Need to do this task again!:\n%s\n", task.toString()));
@@ -252,65 +266,67 @@ public class Regina {
      * Exits the program.
      */
     public static void main(String[] args) {
-        final Regina REGINA = new Regina(); // Create an instance of the Regina chatbot
-        REGINA.greet(); // Greet the user
+        Regina regina = new Regina(); // Create an instance of the Regina chatbot
+        regina.greet(); // Greet the user
         String userInput;
 
         while (true) {
             try {
-                userInput = REGINA.ui.readInput(); // Use the ui to read user input
+                userInput = regina.ui.readInput(); // Use the ui to read user input
                 if (userInput.equals("bye")) {
-                    REGINA.ui.exit(); // Exit the program
+                    regina.ui.exit(); // Exit the program
                     break;
                 }
 
-                Optional<CommandData> commandData = REGINA.PARSER.parse(userInput); // Call the parser
+                Optional<CommandData> commandData = regina.parser.parse(userInput); // Call the parser
                 if (commandData.isPresent()) {
                     // Extract command data
                     CommandData data = commandData.get();
 
                     switch (data.getCommandType()) {
                     case "help":
-                        REGINA.ui.help(); // Provide help information
+                        regina.ui.help(); // Provide help information
                         break;
                     case "now":
-                        REGINA.ui.printMessage(ReginaDateAndTime.now().toString());
+                        regina.ui.printMessage(ReginaDateAndTime.now());
                         break;
                     case "clear":
-                        REGINA.clearTaskList(); // Clear all tasks
+                        regina.clearTaskList(); // Clear all tasks
                         break;
                     case "list":
-                        REGINA.list(); // List current tasks
+                        regina.list(); // List current tasks
                         break;
                     case "occurring":
-                        REGINA.occurringOn(data.getRawInput().substring(10)); // Get tasks occurring at a specific date
+                        regina.occurringOn(data.getRawInput().substring(10)); // Get tasks occurring at a specific date
                         break;
                     case "mark":
                     case "unmark":
                     case "delete":
                         String[] parts = data.getRawInput().split(" "); // Split raw input to get parts
-                        if (REGINA.haveNumber(parts)) { // Validate that there's a task number
+                        if (regina.haveNumber(parts)) { // Validate that there's a task number
                             int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
                             switch (data.getCommandType()) {
                             case "mark":
-                                REGINA.mark(index);
+                                regina.mark(index);
                                 break;
                             case "unmark":
-                                REGINA.unmark(index);
+                                regina.unmark(index);
                                 break;
                             case "delete":
-                                REGINA.delete(index);
+                                regina.delete(index);
                                 break;
+                            default:
+                                regina.ui.printMessage("Give a proper command lah!");
                             }
                         }
                         break;
                     default:
-                        REGINA.add(data.getRawInput()); // Handle adding tasks
+                        regina.add(data.getRawInput()); // Handle adding tasks
                     }
                 }
             } catch (ReginaException e) {
                 // Display error messages to users
-                REGINA.ui.printError(e.getMessage());
+                regina.ui.printError(e.getMessage());
             }
         }
     }

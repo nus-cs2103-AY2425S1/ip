@@ -1,6 +1,6 @@
 package tasks;
 
-import dateAndTime.ReginaDateAndTime;
+import dateandtime.ReginaDateAndTime;
 
 /**
  * Represents a to-do task with a description.

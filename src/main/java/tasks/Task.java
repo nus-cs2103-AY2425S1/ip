@@ -1,7 +1,7 @@
 package tasks;
 
-import dateAndTime.ReginaDateAndTime;
-import exception.ReginaException;
+import dateandtime.ReginaDateAndTime;
+import errorhandling.ReginaException;
 
 /**
  * Represents a task with a description and status (done or not done).
@@ -13,16 +13,6 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Returns a string representation of the task in a format suitable for saving to the saved data file.
-     * The exact format will be defined by the specific task subclasses that implement this method.
-     *
-     * @return A string representing the task in the saved format.
-     */
-    abstract public String toSavedFormatting();
-
-    abstract public boolean isOccurringOn(ReginaDateAndTime dateAndTime);
-
-    /**
      * Constructs a Task.Task with the specified description.
      *
      * @param description The description of the task.
@@ -31,6 +21,16 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    /**
+     * Returns a string representation of the task in a format suitable for saving to the saved data file.
+     * The exact format will be defined by the specific task subclasses that implement this method.
+     *
+     * @return A string representing the task in the saved format.
+     */
+    public abstract String toSavedFormatting();
+
+    public abstract boolean isOccurringOn(ReginaDateAndTime dateAndTime);
 
     /**
      * Marks the task as done.

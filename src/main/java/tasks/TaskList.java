@@ -1,6 +1,6 @@
 package tasks;
 
-import dateAndTime.ReginaDateAndTime;
+import dateandtime.ReginaDateAndTime;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class TaskList extends ArrayList<Task> {
                     .append("\n"); // New line for each task.
         }
 
-        return tasksRepresentation.toString();  // Returns the final string representation.
+        return tasksRepresentation.toString(); // Returns the final string representation.
     }
 
     @Override
