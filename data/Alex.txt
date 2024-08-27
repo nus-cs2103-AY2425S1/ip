@@ -1,2 +1,7 @@
-[T][ ] stuff
-[T][ ] yolo
+[T][ ] borrow book from the Jurong East Regional library
+[T][X] sing a song
+[E][X] go for night run /from tues 3pm /to 5pm
+[E][ ] make a cake /from now /to later
+[D][X] dinner today /by 10pm
+[D][ ] test the system /by 3pm
+[T][ ] work
