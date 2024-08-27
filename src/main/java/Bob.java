@@ -106,9 +106,9 @@ public class Bob {
             } else {
                 throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            return true;
         } catch (BobException e) {
             sendMessage(e.getMessage());
+        } finally {
             return true;
         }
     }
