@@ -1,2 +1,3 @@
 T/false/meet jo
-D/false/2103/Sunday
+D/false/2103/2024-12-12/13:00
+E/false/spashdown/2024-08-29/18:00

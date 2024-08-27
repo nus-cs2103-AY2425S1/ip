@@ -9,6 +9,6 @@ public class Event extends DatedTask {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + getDate() + ")";
+        return "[E]" + super.toString() + " (from: " + getDate().toString() + " " + this.getTime() + ")";
     }
 }

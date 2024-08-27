@@ -1,21 +1,41 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class DatedTask extends Task {
-    private String date;
+
+    private LocalDate date;
+    private LocalTime time;
 
     public DatedTask(String task, String date) {
         super(task);
-        this.date = date;
+        this.date = LocalDate.parse(date);
     }
 
     public DatedTask() {
         super();
-        this.date = null;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 
-    public void setDate(String date) {
+    public LocalTime getTime() {
+        return this.time;
+    }
+
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public void setDate(String date) {
+        this.date = LocalDate.parse(date);
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public void setTime(String time) {
+        this.time = LocalTime.parse(time);
     }
 }

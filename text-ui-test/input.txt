@@ -1,6 +1,5 @@
 todo return book
-event meet friends /Sunday 2pm to 4pm
-deadline CS2103T assignment /Friday 3pm
+deadline CS2103T assignment /by 2024-08-30 14:00:00
 list
 mark 2
 unmark 2
@@ -10,11 +9,13 @@ mark 1
 todo
 todo buy groceries
 event
-event meet friends Sunday 2pm
+event meet friends 2024-08-30 14:00:00
 event meet friends /
+event meet friends /from 2024-08-30 14:00:00
 deadline
-deadline 2103 assignment Friday 12pm
-deadline 2103 assignment /
+deadline 2103 assignment 2024-08-30 14:00:00
+deadline 2103 assignment /by 2024-08-30 14:00:00
+list
 delete 1
 delete 0
 delete 3

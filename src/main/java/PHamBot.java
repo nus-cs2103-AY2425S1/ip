@@ -1,4 +1,6 @@
 import javax.lang.model.type.ErrorType;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -6,9 +8,7 @@ import java.util.Scanner;
 public class PHamBot {
     private static final String line = "____________________________________________________________\n";
     private static TaskList tasks = new TaskList();
-
     private static final String[] UserGreetings = {"Hello", "Hi", "What's up"};
-    private static final String[] Days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     public static void main(String[] args) {
         Greet();
@@ -166,30 +166,37 @@ public class PHamBot {
 
     public static DatedTask checkDatedTaskInput(String input, DatedTask task)
             throws MissingTaskException, MissingDateException, MissingDividerException {
+        //Split the input on the slash
         String[] temp = input.split("/", 2);
-        System.out.println(Arrays.toString(temp) + "1");
+
         if (temp.length < 2) {
-            if (input.trim().isEmpty() || input.trim().split(" ").length < 2) {
-                throw new MissingTaskException("Missing a task to add!");
-            }
-            for (int i = 0; i < Days.length; i++) {
-                if (input.contains(Days[i])) {
-                    throw new MissingDividerException("You're missing a slash between your task and date!");
-                }
-            }
-            throw new MissingDateException("Missing a date for your task!");
+            throw new MissingDividerException("You're missing a slash between your task and date!");
         }
-        if (temp[1].trim().isEmpty()) {
-            throw new MissingDateException("Missing a date for your task!");
-        }
+
+        String[] dateTime = getDateTime(temp[1]);
+        //remove the task type
         String[] temp2 = temp[0].trim().split(" ", 2);
-        System.out.println(Arrays.toString(temp2) + "2");
-        if (temp2.length < 2 || temp2[1].trim().isEmpty()) {
+
+        if (temp2.length < 2) {
             throw new MissingTaskException("Missing a task to add!");
         }
+
         task.setTaskName(temp2[1].trim());
-        task.setDate(temp[1].trim());
+        task.setDate(LocalDate.parse(dateTime[1].trim()));
+        if (dateTime.length > 2) {
+            task.setTime(LocalTime.parse(dateTime[2]));
+        }
         return task;
+    }
+
+    private static String[] getDateTime(String input) throws MissingTaskException, MissingDividerException, MissingDateException {
+        String[] dateTime = input.trim().split(" ", 3);
+
+        if (dateTime.length < 2) {
+            throw new MissingDateException("Missing a date for your task!");
+        }
+
+        return dateTime;
     }
 
     public static int checkIndexInput(String input) throws MissingIndexException, IndexOutOfBoundsException {

@@ -46,10 +46,16 @@ public class TaskList {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFileDirectory))) {
             for (Task task : tasks) {
                 if (task instanceof Deadline) {
-                    writer.write("D" + '/' + task.getTaskStatus() + "/" + task.getTaskName() + "/" + ((Deadline) task).getDate());
+                    writer.write("D" + '/' + task.getTaskStatus() + "/" + task.getTaskName() + "/" + ((Deadline) task).getDate().toString());
+                    if (((Deadline) task).getTime() != null) {
+                        writer.write("/" + ((Deadline) task).getTime().toString());
+                    }
                 }
                 else if (task instanceof Event) {
                     writer.write("E" +"/" + task.getTaskStatus() + "/" +task.getTaskName() + "/" + ((Event) task).getDate());
+                    if (((Event) task).getTime() != null) {
+                        writer.write("/" + ((Event) task).getTime().toString());
+                    }
                 }
                 else {
                     writer.write("T" + "/" + task.getTaskStatus() + "/" + task.getTaskName());
@@ -78,6 +84,9 @@ public class TaskList {
                     newDeadline.setTaskStatus(Boolean.parseBoolean(splitTask[1]));
                     newDeadline.setTaskName(splitTask[2]);
                     newDeadline.setDate(splitTask[3]);
+                    if (splitTask.length > 4) {
+                        newDeadline.setTime(splitTask[4]);
+                    }
                     tasks.add(newDeadline);
                 }
                 if (splitTask[0].equals("E")) {
@@ -85,6 +94,9 @@ public class TaskList {
                     newEvent.setTaskStatus(Boolean.parseBoolean(splitTask[1]));
                     newEvent.setTaskName(splitTask[2]);
                     newEvent.setDate(splitTask[3]);
+                    if (splitTask.length > 4) {
+                        newEvent.setTime(splitTask[4]);
+                    }
                     tasks.add(newEvent);
                 }
             }
