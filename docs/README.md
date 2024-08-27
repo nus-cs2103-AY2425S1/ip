@@ -10,7 +10,7 @@
 
 // Describe the action and its outcome.
 
-// Give examples of usage
+// Give examples of usage.
 
 Example: `keyword (optional arguments)`
 
