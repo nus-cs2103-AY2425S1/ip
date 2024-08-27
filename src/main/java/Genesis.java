@@ -1,8 +1,12 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 class Task {
     protected String description;
     protected boolean isComplete;
@@ -50,29 +54,30 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    protected String deadline;
-    public Deadline (String description, String deadline, String input) {
+    protected LocalDate deadline;
+    public Deadline (String description, LocalDate deadline, String input) {
         super(description, input);
         this.deadline = deadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
 
 class Event extends Task {
-    protected String startTime;
-    protected String endTime;
-    public Event (String description, String startTime, String endTime, String input) {
+    protected LocalDate startTime;
+    protected LocalDate endTime;
+    public Event (String description, LocalDate startTime, LocalDate endTime, String input) {
         super(description, input);
         this.startTime = startTime;
         this.endTime = endTime;
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[E]" + super.toString() + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
 
@@ -92,7 +97,8 @@ class TaskManager {
     public void addTask(Task task, boolean silent) {
         tasks.add(task);
         if (!silent) {
-            System.out.println("Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size()
+                    + " tasks in the list.");
         }
     }
 
@@ -238,7 +244,8 @@ class CommandParser {
             System.out.println("You need a task description!");
             return;
         }
-        String deadline = parts[1].trim();
+        String initial = parts[1].trim();
+        LocalDate deadline = LocalDate.parse(initial);
         Deadline deadlineTask = new Deadline(taskName, deadline, input);
         taskManager.addTask(deadlineTask, silent);
         writeTasks();
@@ -267,8 +274,10 @@ class CommandParser {
             System.out.println("You need a task description!");
             return;
         }
-        String startDate = dateParts[0].trim();
-        String endDate = dateParts[1].trim();
+        String initialStartDate = dateParts[0].trim();
+        String initialEndDate = dateParts[1].trim();
+        LocalDate startDate = LocalDate.parse(initialStartDate);
+        LocalDate endDate = LocalDate.parse(initialEndDate);
         Event eventTask = new Event(taskName, startDate, endDate, input);
         taskManager.addTask(eventTask, silent);
         writeTasks();
