@@ -20,4 +20,8 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public String getState() {
+        return String.format("%d | %s", this.isDone ? 1 : 0, this.description);
+    }
 }
