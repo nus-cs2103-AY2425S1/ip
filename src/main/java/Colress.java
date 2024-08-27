@@ -257,17 +257,26 @@ public class Colress {
             while (reader.hasNextLine()) {
                 currLine = reader.nextLine();
                 strings = currLine.split(" \\| ");
+                boolean isChecked;
+                if (Objects.equals(strings[0], "[X]")) {
+                    isChecked = true;
+                } else if (Objects.equals(strings[0], "[ ]")) {
+                    isChecked = false;
+                } else {
+                    Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+                    continue;
+                }
+
                 switch (strings[1]) {
                 case "To-Do":
-                    Colress.TASKS.add(new ToDo(strings[2], Objects.equals(strings[0], "[X]")));
+                    Colress.TASKS.add(new ToDo(strings[2], isChecked));
                     break;
                 case "Deadline":
-                    Colress.TASKS.add(new Deadline(strings[2], strings[3], Objects.equals(strings[0], "[X]")));
+                    Colress.TASKS.add(new Deadline(strings[2], strings[3], isChecked));
                     break;
                 case "Event":
                     String[] times = strings[4].split(" to ");
-                    Colress.TASKS.add(new Event(strings[2], strings[3], times[0], times[1],
-                            Objects.equals(strings[0], "[X]")));
+                    Colress.TASKS.add(new Event(strings[2], strings[3], times[0], times[1], isChecked));
                     break;
                 default:
                     Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
