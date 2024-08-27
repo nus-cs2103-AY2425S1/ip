@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatGPT {
     private static String NAME = "ChatGPT";
     private static String LINE = "________________________________________________";
-    private static Task[] list = new Task[100];
-    private static int listSize = 0;
+    private static ArrayList<Task> list = new ArrayList<Task>();
+    private static int taskAmt = 0;
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
 
@@ -21,9 +22,8 @@ public class ChatGPT {
                     String input = userInput.nextLine();
 
                     Task newTask = new ToDos(input);
-
-                    list[listSize] = newTask;
-                    listSize++;
+                    list.add(newTask);
+                    taskAmt++;
                     sendAddTaskMsg(newTask);
                 } else if (command.equals("deadline")) {
                     String input = userInput.nextLine();
@@ -32,8 +32,8 @@ public class ChatGPT {
                     String deadline = input.split("/by")[1];
                     Task newTask = new Deadlines(task, deadline);
 
-                    list[listSize] = newTask;
-                    listSize++;
+                    list.add(newTask);
+                    taskAmt++;
                     sendAddTaskMsg(newTask);
                 } else if (command.equals("event")) {
                     String input = userInput.nextLine();
@@ -44,17 +44,25 @@ public class ChatGPT {
                     String endDate = date.split("/to")[1];
                     Task newTask = new Events(task, startDate, endDate);
 
-                    list[listSize] = newTask;
-                    listSize++;
+                    list.add(newTask);
+                    taskAmt++;
                     sendAddTaskMsg(newTask);
                 } else if (command.equals("mark")) {
                     int index = userInput.nextInt();
-                    System.out.println(list[index - 1].setCompleted(true));
+                    System.out.println("\t" + LINE);
+                    System.out.println(list.get(index-1).setCompleted(true));
                     System.out.println("\t" + LINE);
                 } else if (command.equals("unmark")) {
                     int index = userInput.nextInt();
-                    System.out.println(list[index - 1].setCompleted(false));
                     System.out.println("\t" + LINE);
+                    System.out.println(list.get(index-1).setCompleted(false));
+                    System.out.println("\t" + LINE);
+                } else if (command.equals("delete")) {
+                   int index = userInput.nextInt();
+                   Task task = list.get(index-1);
+                   list.remove(index-1);
+                   taskAmt--;
+                   sendDeleteMsg(task);
                 } else {
                     throw new NoSuchMethodException("\t Oops!! I don't understand what that means :((");
                 }
@@ -89,19 +97,27 @@ public class ChatGPT {
         System.out.println("\t"+LINE);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  "+ task.toString());
-        System.out.println("\tNow you have " + listSize + " tasks in your list.");
+        System.out.println("\tNow you have " + taskAmt + " tasks in your list.");
+        System.out.println("\t"+LINE);
+    }
+
+    private static void sendDeleteMsg(Task task) {
+        System.out.println("\t"+LINE);
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  "+ task.toString());
+        System.out.println("\tNow you have " + taskAmt + " tasks in your list.");
         System.out.println("\t"+LINE);
     }
 
     private static void printList() {
         System.out.println("\t"+LINE);
-        if (listSize == 0) {
+        if (taskAmt == 0) {
             System.out.println("\tNothing has been added");
         } else {
             System.out.println("\tHere are the tasks in your list:");
         }
-        for (int i = 0; i < listSize; i++){
-            System.out.println("\t" + (i+1) + ". " + list[i]);
+        for (int i = 0; i < taskAmt; i++){
+            System.out.println("\t" + (i+1) + ". " + list.get(i).toString());
         }
         System.out.println("\t"+LINE);
     }
