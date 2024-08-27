@@ -1,7 +1,8 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,9 @@ import java.util.Scanner;
 public class Dude {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter initFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
 
     /**
      * The TaskType enum controls the different types of tasks that the user can add.
@@ -61,7 +65,11 @@ public class Dude {
             } else if (arr.length < 2) {
                 throw new DudeException("The deadline of a deadline cannot be empty!");
             }
-            taskList.add(new Deadline(arr[0], arr[1]));
+            try {
+                taskList.add(new Deadline(arr[0], LocalDateTime.parse(arr[1], formatter)));
+            } catch (Exception e) {
+                throw new DudeException("The format of the deadline is wrong! Try using the format: yyyy-mm-dd HH:mm");
+            }
         } else if (input.startsWith(TaskType.EVENT.getType() + " ")) {
             String[] arr = input.substring(6).split(" /");
             if (arr[0].isEmpty()) {
@@ -69,7 +77,12 @@ public class Dude {
             } else if (arr.length < 3 || !arr[1].startsWith("from ") || !arr[2].startsWith("to ")) {
                 throw new DudeException("The format of timings of the event is wrong!");
             }
-            taskList.add(new Event(arr[0], arr[1].substring(5), arr[2].substring(3)));
+            try {
+                taskList.add(new Event(arr[0], LocalDateTime.parse(arr[1].substring(5), formatter),
+                            LocalDateTime.parse(arr[2].substring(3), formatter)));
+            } catch (Exception e) {
+                throw new DudeException("The format of the timings is wrong! Try using the format: yyyy-mm-dd HH:mm");
+            }
         }
         System.out.println("Got it. I've added this task:");
         System.out.println(taskList.get(taskList.size() - 1));
@@ -173,7 +186,7 @@ public class Dude {
             case "D":
                 String[] deadlineArr = arr[2].split(" \\(by: ");
                 taskList.add(new Deadline(deadlineArr[0].substring(1),
-                            deadlineArr[1].substring(0, deadlineArr[1].length() - 1)));
+                            LocalDateTime.parse(deadlineArr[1].substring(0, deadlineArr[1].length() - 1), initFormatter)));
                 if (markedDone) {
                     taskList.get(taskList.size() - 1).markAsDone();
                 }
@@ -181,8 +194,10 @@ public class Dude {
             case "E":
                 String[] eventArr = arr[2].split(" \\(from: ");
                 String[] eventArrDetails = eventArr[1].split(" to: ");
-                taskList.add(new Event(eventArr[0].substring(1), eventArrDetails[0],
-                            eventArrDetails[1].substring(0, eventArrDetails[1].length() - 1)));
+                taskList.add(new Event(eventArr[0].substring(1),
+                        LocalDateTime.parse(eventArrDetails[0], initFormatter),
+                        LocalDateTime.parse(eventArrDetails[1].substring(0, eventArrDetails[1].length() - 1),
+                                    initFormatter)));
                 if (markedDone) {
                     taskList.get(taskList.size() - 1).markAsDone();
                 }
@@ -237,6 +252,9 @@ public class Dude {
                 data.append(reader.nextLine()).append("\n");
             }
             reader.close();
+            if (data.isEmpty()) {
+                throw new IOException();
+            }
             initTasks(data.toString());
         } catch (IOException e) {
             System.out.println("Since you have no save files, you are starting with an empty list!");
