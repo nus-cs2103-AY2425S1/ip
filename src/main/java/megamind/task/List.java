@@ -22,9 +22,9 @@ public class List {
     }
 
     /**
-     *  Returns the String representation of the list.
+     * Returns the String representation of the list.
      *
-     *  @return String representation of the list.
+     * @return String representation of the list.
      */
     @Override
     public String toString() {
@@ -54,7 +54,8 @@ public class List {
         }
     }
 
-    /** Marks a task as not done.
+    /**
+     * Marks a task as not done.
      *
      * @param index Index of the task to be marked as not done.
      * @return True if the task is successfully marked as not done, false otherwise.

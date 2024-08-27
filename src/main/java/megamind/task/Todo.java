@@ -2,7 +2,7 @@ package megamind.task;
 
 import java.io.Serial;
 
-public class Todo extends Task{
+public class Todo extends Task {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -11,7 +11,7 @@ public class Todo extends Task{
      *
      * @param description Description of the task.
      */
-    public Todo (String description) {
+    public Todo(String description) {
         super(description);
     }
 
