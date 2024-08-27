@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,4 +66,30 @@ public class TaskList {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
+
+    public void listTasksOnDate(LocalDate date) {
+        List<Task> tasksOnDate = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().toLocalDate().equals(date)) {
+                    tasksOnDate.add(task);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getFrom().toLocalDate().equals(date) || event.getTo().toLocalDate().equals(date)) {
+                    tasksOnDate.add(task);
+                }
+            }
+        }
+
+        if (tasksOnDate.isEmpty()) {
+            System.out.println("There are no tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        } else {
+            System.out.println("Here are the tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+            for (int i = 0; i < tasksOnDate.size(); i++) {
+                System.out.printf("%d.%s%n", i + 1, tasksOnDate.get(i));
+            }
+        }
+    }    
 }

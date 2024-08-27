@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Appleaster {
@@ -69,8 +72,11 @@ public class Appleaster {
             case DELETE:
                 handleDelete(parts);
                 break;
+            case DATE:
+                handleDate(parts);
+                break;
             default:
-                throw new AppleasterException("I don't recognize that command. Here are the commands I know: todo, deadline, event, list, mark, unmark, delete.");
+                throw new AppleasterException("I don't recognize that command. Here are the commands I know: todo, deadline, event, list, mark, unmark, delete, date.");
         }
     }
 
@@ -122,11 +128,11 @@ public class Appleaster {
 
     private static void handleDeadline(String[] parts) throws AppleasterException {
         if (parts.length < 2) {
-            throw new AppleasterException("Please provide a deadline in the format: deadline <description> /by <deadline>");
+            throw new AppleasterException("Please provide a deadline in the format: deadline <description> /by yyyy-MM-dd HHmm");
         }
         String[] deadlineParts = parts[1].split(" /by ");
         if (deadlineParts.length != 2) {
-            throw new AppleasterException("Invalid deadline format. Please use: deadline <description> /by <deadline>");
+            throw new AppleasterException("Invalid deadline format. Please use: deadline <description> /by yyyy-MM-dd HHmm");
         }
         if (deadlineParts[0].trim().isEmpty()) {
             throw new AppleasterException("The description of a deadline cannot be empty.");
@@ -139,11 +145,11 @@ public class Appleaster {
 
     private static void handleEvent(String[] parts) throws AppleasterException {
         if (parts.length < 2) {
-            throw new AppleasterException("Please provide an event in the format: event <description> /from <start> /to <end>");
+            throw new AppleasterException("Please provide an event in the format: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
         }
         String[] eventParts = parts[1].split(" /from | /to ");
         if (eventParts.length != 3) {
-            throw new AppleasterException("Invalid event format. Please use: event <description> /from <start> /to <end>");
+            throw new AppleasterException("Invalid event format. Please use: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
         }
         if (eventParts[0].trim().isEmpty()) {
             throw new AppleasterException("The description of an event cannot be empty.");
@@ -153,4 +159,16 @@ public class Appleaster {
         }
         taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
     }
+
+    private static void handleDate(String[] parts) throws AppleasterException {
+        if (parts.length < 2) {
+            throw new AppleasterException("Please provide a date in the format: date yyyy-MM-dd");
+        }
+        try {
+            LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ISO_LOCAL_DATE);
+            taskList.listTasksOnDate(date);
+        } catch (DateTimeParseException e) {
+            throw new AppleasterException("Invalid date format. Please use: yyyy-MM-dd");
+        }
+    }    
 }
