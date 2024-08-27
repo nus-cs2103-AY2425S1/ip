@@ -38,6 +38,9 @@ public class Parser {
                     ui.breakLine();
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Command!");
+                } catch (IndexOutOfBoundsException e) {
+                    int taskNum = Integer.parseInt(arr[i + 1]);
+                    System.out.println(String.format("There is no task at task number '%d'", taskNum));
                 }
                 break;
 
@@ -50,6 +53,11 @@ public class Parser {
                     ui.breakLine();
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Command!");
+                    ui.breakLine();
+                } catch (IndexOutOfBoundsException e) {
+                    int taskNum = Integer.parseInt(arr[i + 1]);
+                    System.out.println(String.format("There is no task at task number '%d'", taskNum));
+                    ui.breakLine();
                 }
                 break;
 
@@ -63,6 +71,11 @@ public class Parser {
                     ui.breakLine();
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Command!");
+                    ui.breakLine();
+                } catch (IndexOutOfBoundsException e) {
+                    int taskNum = Integer.parseInt(arr[i + 1]);
+                    System.out.println(String.format("There is no task at task number '%d'", taskNum));
+                    ui.breakLine();
                 }
                 break;
 

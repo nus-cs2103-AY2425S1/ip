@@ -3,7 +3,7 @@ package blob;
 import java.io.IOException;
 
 public class Blob {
-    private Storage storage;
+    private blob.Storage storage;
     private TaskList tasklist;
     private Ui ui;
 

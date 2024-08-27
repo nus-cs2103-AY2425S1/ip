@@ -70,7 +70,6 @@ public class Storage {
                 allData.append(data);
             }
         }
-        System.out.println("CHECK");
         fw.write(allData.toString());
         fw.close();
     }
