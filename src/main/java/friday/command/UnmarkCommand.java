@@ -1,9 +1,9 @@
 package friday.command;
 
-import friday.Storage;
 import friday.task.Task;
-import friday.TaskList;
-import friday.Ui;
+import friday.util.Storage;
+import friday.util.TaskList;
+import friday.util.Ui;
 
 import java.io.IOException;
 

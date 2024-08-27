@@ -1,8 +1,8 @@
 package friday.command;
 
-import friday.Storage;
-import friday.TaskList;
-import friday.Ui;
+import friday.util.Storage;
+import friday.util.TaskList;
+import friday.util.Ui;
 
 import java.time.LocalDate;
 

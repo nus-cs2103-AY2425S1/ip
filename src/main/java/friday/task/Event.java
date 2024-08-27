@@ -1,8 +1,8 @@
 package friday.task;
 
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an Event task. An Event is a task that occurs over a specified time period.
@@ -38,11 +38,11 @@ public class Event extends Task {
     }
 
     public LocalDate getFrom() {
-        return this.from.toLocalDate();
+        return from.toLocalDate();
     }
 
     public LocalDate getTo() {
-        return this.to.toLocalDate();
+        return to.toLocalDate();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E | " + (super.isTaskDone() ? "1" : "0") + " | " + super.getDescription() + " | " +
-                from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " +
-                to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "E | " + (super.isTaskDone() ? "1" : "0") + " | " + super.getDescription() + " | "
+                + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
+                + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

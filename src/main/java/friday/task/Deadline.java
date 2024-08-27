@@ -1,8 +1,8 @@
 package friday.task;
 
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Deadline task. A Deadline is a task with a due date and time.
@@ -34,16 +34,18 @@ public class Deadline extends Task {
     }
 
     public LocalDate getBy() {
-        return this.by.toLocalDate();
+        return by.toLocalDate();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
 
     @Override
     public String toFileFormat() {
-        return "D | " + (super.isTaskDone() ? "1" : "0") + " | " + super.getDescription() + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + (super.isTaskDone() ? "1" : "0") + " | " + super.getDescription() + " | "
+                + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

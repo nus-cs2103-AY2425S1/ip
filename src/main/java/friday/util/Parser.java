@@ -1,8 +1,4 @@
-package friday;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package friday.util;
 
 import friday.command.AddCommand;
 import friday.command.Command;
@@ -17,11 +13,18 @@ import friday.task.Deadline;
 import friday.task.Event;
 import friday.task.Todo;
 
+<<<<<<< HEAD:src/main/java/friday/Parser.java
 /**
  * The Parser class handles parsing user input and converting it into commands that
  * the application can execute. It supports various command types such as adding tasks,
  * marking tasks, and listing tasks.
  */
+=======
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+
+>>>>>>> branch-A-CodingStandard:src/main/java/friday/util/Parser.java
 public class Parser {
 
     /**

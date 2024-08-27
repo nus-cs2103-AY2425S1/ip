@@ -23,18 +23,18 @@ public abstract class Task {
      * Marks the Task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Unmarks the Task, marking it as not done.
      */
     public void unmarkAsDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -43,7 +43,7 @@ public abstract class Task {
      * @return True if the Task is done, false otherwise.
      */
     public boolean isTaskDone() {
-        return this.isDone;
+        return isDone;
     }
 
     /**

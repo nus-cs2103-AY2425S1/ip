@@ -1,4 +1,4 @@
-package friday;
+package friday.util;
 
 import friday.task.Task;
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class TaskList {
      * @return An ArrayList of tasks.
      */
     public ArrayList<Task> getTasks() {
-        return this.tasks;
+        return tasks;
     }
 
     /**
@@ -97,7 +97,7 @@ public class TaskList {
      * @return The size of the TaskList.
      */
     public int getSize() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
@@ -106,7 +106,7 @@ public class TaskList {
      * @return True if the TaskList is empty, false otherwise.
      */
     public boolean isTaskListEmpty() {
-        return this.tasks.isEmpty();
+        return tasks.isEmpty();
     }
 
     /**
@@ -116,6 +116,6 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int i) {
-        return this.tasks.get(i);
+        return tasks.get(i);
     }
 }

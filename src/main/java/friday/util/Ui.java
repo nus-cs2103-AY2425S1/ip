@@ -1,12 +1,12 @@
-package friday;
+package friday.util;
 
 import friday.task.Deadline;
 import friday.task.Event;
 import friday.task.Task;
 
-import java.util.Scanner;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.util.Scanner;
 
 /**
  * The Ui class handles all interactions with the user.
