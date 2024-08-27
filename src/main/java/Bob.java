@@ -88,20 +88,35 @@ public class Bob {
         sendMessage("Now you have " + this.TaskList.size() + " tasks in the list.");
     }
 
-    public Task addToDo(String description) {
-        Task t = new ToDo(description);
+    public Task addToDo(String message) throws BobException{
+        String x = message.replaceFirst("todo", "");
+        if (x.isEmpty()) {
+            throw new BobException("OOPS!!! The description of a todo cannot be empty.");
+        }
+        Task t = new ToDo(x);
         this.addTask(t);
         return t;
     }
 
-    public Task addDeadline(String description, String start) {
-        Task t = new Deadline(description, start);
+    public Task addDeadline(String message) throws BobException {
+        String x = message.replaceFirst("deadline", "");
+        String[] parts = x.split(" /by ");
+        if (parts.length != 2) {
+            throw new BobException("OOPS!!! The description/start time of a deadline cannot be empty.");
+        }
+        System.out.println(parts[1].trim());
+        Task t = new Deadline(parts[0].trim(), parts[1].trim());
         this.addTask(t);
         return t;
     }
 
-    public Task addEvent(String description, String start, String end) {
-        Task t = new Event(description, start, end);
+    public Task addEvent(String message) throws BobException {
+        String x = message.replaceFirst("event", "");
+        String[] parts = x.split(" /from | /to");
+        if (parts.length != 3) {
+            throw new BobException("OOPS!!! The description/start time/end time of an event cannot be empty.");
+        }
+        Task t = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
         this.addTask(t);
         return t;
     }
@@ -121,25 +136,11 @@ public class Bob {
             } else if (message.matches("^delete \\d+$")) {
                 deleteTask(message);
             } else if (message.matches("^todo.*")) {
-                String x = message.replaceFirst("todo", "");
-                if (x.isEmpty()) {
-                    throw new BobException("OOPS!!! The description of a todo cannot be empty.");
-                }
-                addToDo(x.trim());
-            } else if (message.matches("^deadline.*")) {
-                String x = message.replaceFirst("deadline", "");
-                String[] parts = x.split(" /");
-                if (parts.length != 2) {
-                    throw new BobException("OOPS!!! The description/start time of a deadline cannot be empty.");
-                }
-                addDeadline(parts[0].trim(), parts[1].trim());
-            } else if (message.matches("^event.*")) {
-                String x = message.replaceFirst("event", "");
-                String[] parts = x.split(" /");
-                if (parts.length != 3) {
-                    throw new BobException("OOPS!!! The description/start time/end time of an event cannot be empty.");
-                }
-                addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                addToDo(message);
+            } else if (message.matches("^deadline .* \\/by \\d{4}-\\d{2}-\\d{2}$")) {
+                addDeadline(message);
+            } else if (message.matches("^event .* \\/from \\d{4}-\\d{2}-\\d{2} \\/to \\d{4}-\\d{2}-\\d{2}$")) {
+                addEvent(message);
             } else {
                 throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
