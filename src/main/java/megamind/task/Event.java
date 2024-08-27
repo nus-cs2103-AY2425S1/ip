@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
     @Serial
     private static final long serialVersionUID = 1L;
     private final LocalDateTime start;
@@ -14,9 +14,9 @@ public class Event extends Task{
      * Constructor for the Event class.
      *
      * @param description Description of the task.
-     * @param start Start time of the event.
-     * @param end End time of the event.
-     * @exception DateTimeParseException If the deadline is not in the correct format.
+     * @param start       Start time of the event.
+     * @param end         End time of the event.
+     * @throws DateTimeParseException If the deadline is not in the correct format.
      */
     public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
@@ -32,6 +32,6 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (FROM: " + this.start.format(OUTPUT_FORMATTER)
-                + " TO: " + this.end.format(OUTPUT_FORMATTER) + ")";
+               + " TO: " + this.end.format(OUTPUT_FORMATTER) + ")";
     }
 }
