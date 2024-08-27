@@ -77,7 +77,8 @@ public class Storage {
             fileReader.close();
             bufferedReader.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // throw new RuntimeException(e);
+            System.out.println("Error reading file");
         }
         return listOfTasks;
     }
