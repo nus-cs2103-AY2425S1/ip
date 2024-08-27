@@ -80,14 +80,12 @@ public class YappingBot {
         try {
             i = Integer.parseInt(userInputSlice) - 1;
         } catch (NumberFormatException ex) {
-            System.out.println(quoteSinglelineText(String.format(ReplyTextMessages.SELECT_TASK_NOT_INT_TEXT_1s, userInputSlice)));
-            return i;
+            throw new YappingBotInvalidTaskException(userInputSlice);
         }
 
         // OOB
         if (i < 0 || i >= userList.size()) {
-            System.out.println(quoteSinglelineText(String.format(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, i+1)));
-            i = -1;
+            throw new YappingBotOOBException(i);
         }
 
         return i;
@@ -227,14 +225,14 @@ public class YappingBot {
         System.out.println(sb);
         return true;
     }
-    private static Commands parseCommand(String commandString) throws Exception {
+    private static Commands parseCommand(String commandString) throws YappingBotUnknownCommandException {
         if (commandString.toLowerCase().trim().isEmpty()) {
-            return Commands.UNKNOWN;
+            throw new YappingBotUnknownCommandException();
         } else {
             if (COMMANDS_HASH_MAP.containsKey(commandString)) {
                 return COMMANDS_HASH_MAP.get(commandString);
             } else {
-                throw new NoSuchElementException();
+                throw new YappingBotUnknownCommandException(commandString);
             }
         }
     }
@@ -258,51 +256,30 @@ public class YappingBot {
                         break;
                     case MARK:
                         taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
-                        if (taskListIndexPtr < 0) {
-                            System.out.println(quoteMultilineText(ReplyTextMessages.MARK_INSTRUCTION_USAGE));
-                        } else {
-                            changeTaskListStatus(taskListIndexPtr, true);
-                        }
+                        changeTaskListStatus(taskListIndexPtr, true);
                         break;
                     case UNMARK:
                         taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
-                        if (taskListIndexPtr < 0) {
-                            System.out.println(quoteMultilineText(ReplyTextMessages.UNMARK_INSTRUCTION_USAGE));
-                        } else {
-                            changeTaskListStatus(taskListIndexPtr, false);
-                        }
+                        changeTaskListStatus(taskListIndexPtr, false);
                         break;
                     case DELETE:
                         taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
-                        if (taskListIndexPtr < 0) {
-                            System.out.println(quoteMultilineText(ReplyTextMessages.DELETE_USAGE));
-                        } else {
-                            deleteTask(taskListIndexPtr);
-                        }
+                        deleteTask(taskListIndexPtr);
                         break;
                     case TODO:
-                        if (!addTaskToList(userInputSlices, TaskTypes.TODO)) {
-                            System.out.println(quoteMultilineText(ReplyTextMessages.TODO_USAGE));
-                        }
+                        addTaskToList(userInputSlices, TaskTypes.TODO);
                         break;
                     case EVENT:
-                        if (!addTaskToList(userInputSlices, TaskTypes.EVENT)) {
-                            System.out.println(quoteMultilineText(ReplyTextMessages.EVENT_USAGE));
-                        }
+                        addTaskToList(userInputSlices, TaskTypes.EVENT);
                         break;
                     case DEADLINE:
-                        if (!addTaskToList(userInputSlices, TaskTypes.DEADLINE)) {
-                            System.out.println(quoteMultilineText(ReplyTextMessages.DEADLINE_USAGE));
-                        }
+                        addTaskToList(userInputSlices, TaskTypes.DEADLINE);
                         break;
                     default:
-                        System.out.println(quoteSinglelineText(ReplyTextMessages.HELP_TEXT));
-                        break; // sanity break
+                        throw new YappingBotUnknownCommandException();
                 }
-            } catch(Exception e){
-                System.out.println(quoteMultilineText(
-                        String.format(ReplyTextMessages.UNKNOWN_COMMAND_TEXT_1s, userInput)
-                ));
+            } catch (YappingBotException e){
+                System.out.println(quoteMultilineText(e.getMessage()));
             }
         }
         // exit
