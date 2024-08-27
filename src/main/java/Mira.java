@@ -3,14 +3,14 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Mira is a simple chatbot that echoes user commands and exits when the user types "bye".
- * It interacts with the user via the UI class, which handles input and output operations.
+ * It interacts with the user via the Ui class, which handles input and output operations.
  */
 public class Mira {
-    private final UI ui; // handle user interface
+    private final Ui ui; // handle user interface
     private final TaskList tasks; // Manages tasks
     private boolean isRunning; // default is true
 
-    public Mira(UI ui) throws IOException, SecurityException, MiraException {
+    public Mira(Ui ui) throws IOException, SecurityException, MiraException {
         this.ui = ui;
         this.tasks = new TaskList(this.ui, new Storage("./data/mira.txt"));
         this.isRunning = true;
@@ -90,7 +90,7 @@ public class Mira {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        UI ui = new UI();
+        Ui ui = new Ui();
         try {
             Mira mira = new Mira(ui);
             mira.run();

@@ -1,16 +1,16 @@
 import java.util.Scanner;
 
 /**
- * UI handles all user interface interactions for the Mira chatbot,
+ * Ui handles all user interface interactions for the Mira chatbot,
  * including reading commands, echoing user inputs, and displaying messages.
  */
-public class UI {
+public class Ui {
     /**
      * Scanner object to read user input from the console.
      */
     private final Scanner scanner;
 
-    public UI() {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -46,7 +46,7 @@ public class UI {
     }
 
     /**
-     * Prints a separator line used for formatting the UI output.
+     * Prints a separator line used for formatting the Ui output.
      */
     private void printLine() {
         System.out.println("____________________________________________________________");

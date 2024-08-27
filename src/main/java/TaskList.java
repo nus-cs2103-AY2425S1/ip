@@ -6,15 +6,15 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final ArrayList<Task> tasks; // Array to store tasks
-    private final UI ui;                 // UI for handling user interface interactions
+    private final Ui ui;                 // Ui for handling user interface interactions
     private final Storage storage;       // Storage for saving, loading of tasks
 
     /**
      * Constructs a new TaskList with a fixed size to store up to 100 tasks.
      *
-     * @param ui UI class object needed for user interface interactions.
+     * @param ui Ui class object needed for user interface interactions.
      */
-    public TaskList(UI ui, Storage storage) throws IOException, SecurityException, MiraException {
+    public TaskList(Ui ui, Storage storage) throws IOException, SecurityException, MiraException {
         this.ui = ui;
         this.storage = storage;
         this.tasks = this.storage.loadTasks();
