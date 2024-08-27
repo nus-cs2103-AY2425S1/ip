@@ -15,7 +15,6 @@ public class Bruno {
         String userResponse;
         String directoryPath = "src/data/";
         String filePath = directoryPath + "bruno.txt";
-
         ensureDirectoryExists(directoryPath);
         ensureFileExists(filePath);
 
