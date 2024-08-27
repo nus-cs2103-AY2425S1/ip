@@ -22,8 +22,6 @@ enum CommandType {
 
 public class TheOrangeRatchetCat {
 
-    private static final String FILE_PATH = "./data/OrangeCat.txt";
-
     public static void main(String[] args) {
         // The ChatBot named OrangeRatchetCat
         List<Task> items = new ArrayList<>();
@@ -41,7 +39,7 @@ public class TheOrangeRatchetCat {
         String input = scanner.nextLine(); // Reads a line of text
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                input = TaskList.checkList(input, items, scanner);
+                input = TaskList.checkList(items, scanner);
                 continue;
             }
             if (input.startsWith("mark")) {

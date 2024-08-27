@@ -8,7 +8,15 @@ import tasks.*;
 import exceptions.*;
 
 public class TaskList {
-    public static String checkList(String input, List<Task> items, Scanner scanner) {
+
+    /**
+     * Prints out all tasks currently in the list
+     *
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
+    public static String checkList(List<Task> items, Scanner scanner) {
         int index = 1;
         System.out.println("Here are the tasks in your list:");
         for (Task item : items) {
@@ -18,6 +26,14 @@ public class TaskList {
         return scanner.nextLine();
     }
 
+    /**
+     * Marks a particular task with that specific index as done
+     *
+     * @param input represents the index of the task to mark
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String markingTask(String input, List<Task> items, Scanner scanner) {
         try {
             int taskIndex = Integer.parseInt(input) - 1;
@@ -37,6 +53,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a particular task with that specific index as done
+     *
+     * @param input represents the index of the task to unmark
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String unmarkingTask(String input, List<Task> items, Scanner scanner) {
         try {
             int taskIndex = Integer.parseInt(input) - 1;
@@ -56,6 +80,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a particular task with that specific index as done
+     *
+     * @param index represents the index of the task to delete
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String deleteTask(int index, List<Task> items, Scanner scanner) {
         try {
             Task taskToDelete = items.get(index - 1);
@@ -73,6 +105,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new task of type ToDo
+     *
+     * @param input represents the taskDescription of task
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String addingToDo(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
         if (input.isEmpty()) {
             throw new TheOrangeRatchetCatException("You can't do Nothing!");
@@ -87,6 +127,14 @@ public class TaskList {
         return scanner.nextLine();
     }
 
+    /**
+     * Adds a new task of type Deadline
+     *
+     * @param input represents the taskDescription of Deadline
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String addingDeadline(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
         // Split the input string by "/by"
         String[] parts = input.split("/by");
@@ -121,6 +169,14 @@ public class TaskList {
         return scanner.nextLine();
     }
 
+    /**
+     * Adds a new task of type Event
+     *
+     * @param input represents the taskDescription of Event
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String addingEvent(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
         // Split the input string by "/from"
         String[] parts = input.split("/from");
@@ -159,7 +215,14 @@ public class TaskList {
         return scanner.nextLine();
     }
 
-    // Suppose to print out all activities associated with this date. To be implemented
+    /**
+     * Prints out all activities that are still relevant in regard to the input date
+     *
+     * @param date represents the date of interest
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String activitiesOnThisDate(LocalDate date, List<Task> items, Scanner scanner) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks that occur at this date: " + date.toString());
@@ -184,6 +247,14 @@ public class TaskList {
         return scanner.nextLine();
     }
 
+    /**
+     * Prints out all tasks related to the input that is present in the list of tasks
+     *
+     * @param input represents the taskDescription of Deadline
+     * @param items represents the list of task
+     * @param scanner the scanner object to read next line of input
+     * @return returns the next input command by user
+     */
     public static String find(String input, List<Task> items, Scanner scanner) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
