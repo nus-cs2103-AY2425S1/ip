@@ -67,50 +67,13 @@ public class Justbot {
                     break;
                 case DEADLINE:
                     try {
-                        String[] splitPartsDeadline = input.split("/by");
-
-                        if (splitPartsDeadline.length < 2) {
-                            throw new JustbotException("Hey man please enter the deadline in the following format:\n" +
-                                    "  deadline [description] /by DD/MM/YYYY HHmm\n\n" +
-                                    "For example:\n" +
-                                    "  deadline run /by 26/09/2024 1800");
-                        }
-
-                        String commandAndDescriptionDeadline = splitPartsDeadline[0].trim();
-                        String deadlineDateTimeString = splitPartsDeadline[1].trim();
-                        String deadlineDescription = commandAndDescriptionDeadline.substring(8).trim();
-
-                        if (deadlineDescription.isBlank() && deadlineDateTimeString.isBlank()) {
-                            throw new JustbotException("Hey man the description and deadline date cannot be blank!");
-                        } else if (deadlineDescription.isBlank()) {
-                            throw new JustbotException("Hey man the description cannot be blank!");
-                        } else if (deadlineDateTimeString.isBlank()) {
-                            throw new JustbotException("Hey man the deadline date cannot be blank!");
-                        }
-
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                        if (!deadlineDateTimeString.matches("\\d{2}/\\d{2}/\\d{4} \\d{4}")) {
-                            throw new JustbotException("Deadline date and time must be in the format: dd/MM/yyyy HHmm");
-                        }
-                        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
-
+                        String deadlineDescription = parser.extractDeadlineDescription(input);
+                        LocalDateTime deadlineDateTime = parser.extractDeadlineDateTime(input);
                         Commands.addTask(tasks, new Deadline(deadlineDescription, deadlineDateTime));
                         taskFileHandler.saveTasks(taskList);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Hey man please enter the deadline in the following format:\n" +
-                                "  deadline [description] /by DD/MM/YYYY HHmm\n\n" +
-                                "For example:\n" +
-                                "  deadline run /by 26/09/2024 1800");
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
-                        System.out.println("------------------------------------------");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man please enter the deadline in the following format:\n" +
-                                "  deadline [description] /by DD/MM/YYYY HHmm\n\n" +
-                                "For example:\n" +
-                                "  deadline run /by 26/09/2024 1800");
                         System.out.println("------------------------------------------");
                     }
                     break;
