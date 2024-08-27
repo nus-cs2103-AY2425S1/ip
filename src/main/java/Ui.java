@@ -1,4 +1,12 @@
+import java.util.Scanner;
+
 public class Ui {
+    Scanner s;
+
+    public Ui() {
+        s = new Scanner(System.in);
+    }
+
     public void printWelcomeMessage() {
         String logo = """
                         ########   #######   ########   #######\s
@@ -11,6 +19,10 @@ public class Ui {
 
         System.out.println("Hello from\n" + logo + "\n"
                 + "How can I help you?");
+    }
+
+    public String readInput() {
+        return s.nextLine();
     }
 
     public void printExitMessage() {
@@ -36,7 +48,7 @@ public class Ui {
     }
 
     public void printTaskAddedMessage(Task t, int size) {
-        System.out.printf("added: \"%s\" to task list%n", t);
+        System.out.printf("Added: \"%s\" to task list%n", t);
         System.out.printf("You now have %d task(s) to do%n", size);
     }
 
@@ -53,7 +65,8 @@ public class Ui {
     public void printUnknownCommandMessage(String cmd) {
         printHorizontalLine();
         System.out.printf("%s is an unknown command%n", cmd);
-        printHorizontalLine();    }
+        printHorizontalLine();
+    }
 
     public void printHorizontalLine() {
         System.out.println("------------------------------------------------------------");

@@ -18,6 +18,7 @@ public class Storage {
         if (!file.exists()) {
             throw new FileNotFoundException("Save file not found");
         }
+
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String taskLine = s.next();
