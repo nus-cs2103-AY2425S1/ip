@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,8 +12,11 @@ public class Majima {
     //Deprecated due to swap to ArrayList
     //private static int task_count = 0;
     private static final String LINEGAP = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/Majima.txt";
 
     public static void main(String[] args) {
+        firstBootCheck();
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(LINEGAP);
@@ -188,4 +195,34 @@ public class Majima {
         }
         return true;
     }
+
+    private static void firstBootCheck() {
+        File data = new File("./data/");
+        if (!data.exists()) {
+            data.mkdir();
+        }
+        File file = new File(FILE_PATH);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("Majima.txt has successfully been created. Nice ta meet 'cha!");
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+
 }
