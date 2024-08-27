@@ -1,22 +1,28 @@
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents an Event task that starts and ends at specific date/times.
  */
 public class Event extends Task {
-    private final String from; // The start date/time of the event
-    private final String to;   // The end date/time of the event
+    private final LocalDateTime from; // The start datetime of the event
+    private final LocalDateTime to;   // The end datetime of the event
+    private final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Constructs a new Event task with the specified description,
      * start date/time, and end date/time.
      *
      * @param description The description of the Event task.
-     * @param from        The start date/time of the event.
-     * @param to          The end date/time of the event.
+     * @param from        The start datetime of the event.
+     * @param to          The end datetime of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DEFAULT_FORMAT);
+        this.to = LocalDateTime.parse(to, DEFAULT_FORMAT);
     }
 
     /**
@@ -28,10 +34,10 @@ public class Event extends Task {
      * @param to          The end date/time of the event.
      * @param isDone      The status of the event.
      */
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, String from, String to, boolean isDone) throws DateTimeParseException {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DEFAULT_FORMAT);
+        this.to = LocalDateTime.parse(to, DEFAULT_FORMAT);
     }
 
     /**
@@ -41,7 +47,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + this.from + " | " + this.to;
+        return "E | " + super.toFileString() + " | " + this.from.format(DEFAULT_FORMAT) +
+                " | " + this.to.format(DEFAULT_FORMAT);
     }
 
     /**
@@ -52,6 +59,14 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, h:mma");
+        boolean isSameDay = this.from.toLocalDate().isEqual(this.to.toLocalDate());
+        String endDateTime = isSameDay ?
+                this.to.format(DateTimeFormatter.ofPattern("h:mma")) // only show time
+                : this.to.format(dateTimeFormatter);
+        String outputDateTime = isSameDay ?
+                " (" + this.from.format(dateTimeFormatter) + "-" + endDateTime + ")"
+                : " (from: " + this.from.format(dateTimeFormatter) + " to: " + endDateTime + ")";
+        return "[E]" + super.toString() + outputDateTime;
     }
 }
