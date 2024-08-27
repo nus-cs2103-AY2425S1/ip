@@ -11,13 +11,13 @@
 
 	____________________________________________________________
 	Got it. I've added this task:
-	    [D][ ] return book (by: June 6th)
+	    [D][ ] return book (by: Jun 06 2024 0000)
 	Now you have 2 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	    [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	    [E][ ] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 
@@ -35,54 +35,54 @@
 
 	____________________________________________________________
 	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	2. [D][ ] return book (by: Jun 06 2024 0000)
+	3. [E][ ] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
 	4. [T][ ] join sports club
 	5. [T][ ] borrow book
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	    [D][ ] return book (by: Sunday)
+	    [D][ ] return book (by: May 05 2024 1200)
 	Now you have 6 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	    [E][ ] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
 	Now you have 7 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	    [D][ ] do homework (by: no idea :-p)
+	    [D][ ] do homework (by: Jun 06 2024 0000)
 	Now you have 8 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Nice! I've marked this task as done
-		[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+		[E][X] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
 	____________________________________________________________
 
 	____________________________________________________________
 	Nice! I've marked this task as done
-		[D][X] do homework (by: no idea :-p)
+		[D][X] do homework (by: Jun 06 2024 0000)
 	____________________________________________________________
 
 	____________________________________________________________
 	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+	2. [D][ ] return book (by: Jun 06 2024 0000)
+	3. [E][X] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
 	4. [T][ ] join sports club
 	5. [T][ ] borrow book
-	6. [D][ ] return book (by: Sunday)
-	7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-	8. [D][X] do homework (by: no idea :-p)
+	6. [D][ ] return book (by: May 05 2024 1200)
+	7. [E][ ] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
+	8. [D][X] do homework (by: Jun 06 2024 0000)
 	____________________________________________________________
 
 	____________________________________________________________
 	Noted. I've removed this task:
-	    [D][X] do homework (by: no idea :-p)
+	    [D][X] do homework (by: Jun 06 2024 0000)
 	Now you have 7 tasks in the list.
 	____________________________________________________________
 
@@ -94,11 +94,11 @@
 
 	____________________________________________________________
 	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+	2. [D][ ] return book (by: Jun 06 2024 0000)
+	3. [E][X] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
 	4. [T][ ] borrow book
-	5. [D][ ] return book (by: Sunday)
-	6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	5. [D][ ] return book (by: May 05 2024 1200)
+	6. [E][ ] project meeting (from: Jun 06 2024 0000 to: Jun 06 2024 0000)
 	____________________________________________________________
 
 	____________________________________________________________

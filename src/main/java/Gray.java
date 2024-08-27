@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringJoiner;
@@ -65,7 +68,9 @@ public class Gray {
                         say("OOPS!!! The description and deadline cannot be empty.");
                         continue;
                     }
-                    DeadlineTask task = new DeadlineTask(description, deadline);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime deadlineDate = LocalDateTime.parse(deadline, formatter);
+                    DeadlineTask task = new DeadlineTask(description, deadlineDate);
                     taskList.add(task);
                     say(String.format("""
                             Got it. I've added this task:
@@ -87,7 +92,10 @@ public class Gray {
                         say("OOPS!!! The description, start and end cannot be empty.");
                         continue;
                     }
-                    EventTask task = new EventTask(description, start, end);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime startDate = LocalDateTime.parse(start, formatter);
+                    LocalDateTime endDate = LocalDateTime.parse(end, formatter);
+                    EventTask task = new EventTask(description, startDate, endDate);
                     taskList.add(task);
                     say(String.format("""
                             Got it. I've added this task:
