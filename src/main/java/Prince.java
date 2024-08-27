@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Prince {
 
@@ -53,12 +54,9 @@ public class Prince {
                     printList(tasksArray);
                 } else if (input.contains("unmark")) {
                     unmark(input, tasksArray);
-                    updateFile("U", input, tasksArray);
                 } else if (input.contains("mark")) {
                     mark(input, tasksArray);
-                    updateFile("M", input, tasksArray);
                 } else if (input.contains("delete")) {
-                    deleteFromFile(input, tasksArray);
                     delete(input, tasksArray);
                 } else if (input.equals("todo") || input.equals("deadline") ||
                         input.equals("event")) {
@@ -67,16 +65,13 @@ public class Prince {
                 } else if (input.contains("todo") || input.contains("deadline") ||
                         input.contains("event")) {
                     if (input.contains("todo")) {
-                        Task task = handleTodo(input, tasksArray);
-                        saveToFile(task, tasksArray);
+                        handleTodo(input, tasksArray);
                     }
                     if (input.contains("deadline")) {
-                        Task task = handleDeadline(input, tasksArray);
-                        saveToFile(task, tasksArray);
+                        handleDeadline(input, tasksArray);
                     }
                     if (input.contains("event")) {
-                        Task task = handleEvent(input, tasksArray);
-                        saveToFile(task, tasksArray);
+                        handleEvent(input, tasksArray);
                     }
                     printline();
                 } else {
@@ -132,7 +127,7 @@ public class Prince {
         return todo;
     }
 
-    private static Task handleTodo(String input, ArrayList<Task> tasksArray) {
+    private static void handleTodo(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getTodo(input);
         Todo todo = new Todo(desc);
@@ -140,7 +135,8 @@ public class Prince {
         System.out.println("      " + todo.toString());
         System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
-        return todo;
+
+        saveToFile(todo, tasksArray);
     }
 
     /*
@@ -161,7 +157,7 @@ public class Prince {
         return by;
     }
 
-    private static Task handleDeadline(String input, ArrayList<Task> tasksArray) {
+    private static void handleDeadline(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getDeadline(input);
         String by = getBy(input);
@@ -170,7 +166,7 @@ public class Prince {
         System.out.println("      " + deadlineTask.toString());
         System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
-        return deadlineTask;
+        saveToFile(deadlineTask, tasksArray);
     }
 
     /*
@@ -198,7 +194,7 @@ public class Prince {
         return to;
     }
 
-    private static Task handleEvent(String input, ArrayList<Task> tasksArray) {
+    private static void handleEvent(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getEvent(input);
         String from = getFrom(input);
@@ -208,7 +204,7 @@ public class Prince {
         System.out.println("      " + event.toString());
         System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
-        return event;
+        saveToFile(event, tasksArray);
     }
 
     /*
@@ -245,6 +241,7 @@ public class Prince {
         // extra check to make sure the start of input is "unmark"
         String checkUnmark = input.substring(0, 6);
         if (checkUnmark.equals("unmark")) {
+            updateFile("U", input, tasksArray);
             int index = getIndex(input);
             Task task = tasksArray.get(index);
             task.markAsNotDone();
@@ -257,6 +254,7 @@ public class Prince {
         // extra check to make sure the start of input is "mark"
         String checkMark = input.substring(0, 4);
         if (checkMark.equals("mark")) {
+            updateFile("M", input, tasksArray);
             int index = getIndex(input);
             Task task = tasksArray.get(index);
             task.markAsDone();
@@ -266,9 +264,12 @@ public class Prince {
     }
 
     private static void delete(String input, ArrayList<Task> tasksArray) {
+
         // extra check to make sure the start of input is "delete"
         String checkDelete = input.substring(0, 6);
         if (checkDelete.equals("delete")) {
+            // remove the task from storage.txt
+            deleteFromFile(input, tasksArray);
             int index = getIndex(input);
             Task task = tasksArray.get(index);
             task.delete(); // prints "the noted i removed this task" string
@@ -474,3 +475,9 @@ public class Prince {
         }
     }
 }
+
+// date time
+// accept only yyyy-mm-dd with 24h clock timing if timing exists
+// extension dd-mm-yyyy and dd/mm/yyyy
+// deadline return book /by 2/12/2019 1800,
+// the chatbot should convert to and print out 2nd December 2019, 6pm,
