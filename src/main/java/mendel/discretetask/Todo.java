@@ -4,7 +4,7 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 public class Todo extends Task {
-    private String description;
+    private final String description;
 
     private Todo(String description) {
         super(description);
