@@ -113,7 +113,7 @@ public class Bibi {
                     String[] input = cmd.split(" /from ");
                     String[] interval = input[1].split(" /to ");
                     Event e = new Event(input[0].stripIndent(), interval[0], interval[1]);
-                    tasks.add(e);
+                    addToTaskList(tasks, e);
 
                     // Console
                     System.out.printf("added: \"%s\" to task list%n", e);
@@ -150,13 +150,40 @@ public class Bibi {
         }
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
-            String taskLine = s.nextLine();
+            String taskLine = s.next();
+            String input = s.nextLine();
+            boolean isDone = input.strip().startsWith("[X]");
             switch (taskLine.charAt(1)) {
             case 'T':
+                Task t = new ToDo(input.substring(4).strip());
+                addToTaskList(tasks, t);
 
+                if (isDone) {
+                    t.markAsDone();
+                }
+
+                break;
             case 'D':
+                String[] deadlineName = input.substring(4).strip().split(" \\(by: ");
+                Task dl = new Deadline(deadlineName[0].stripIndent(), deadlineName[1].substring(0, deadlineName[1].length() - 1));
+                addToTaskList(tasks, dl);
+
+                if (isDone) {
+                    dl.markAsDone();
+                }
+
+                break;
             case 'E':
-            default:
+                String[] eventName = input.substring(4).strip().split("\\(");
+                String[] interval = eventName[1].split(" - ");
+                Event e = new Event(eventName[0].stripIndent(), interval[0], interval[1].substring(0, interval[1].length()- 1));
+                addToTaskList(tasks, e);
+
+                if (isDone) {
+                    e.markAsDone();
+                }
+
+                break;
             }
         }
     }
