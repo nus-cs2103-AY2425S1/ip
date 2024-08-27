@@ -14,10 +14,12 @@ public class DateTimeManager {
             this.formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
             boolean hasValidFormat = false;
-            String[] possibleFormatsTimed = new String[] {"dd-MMM-yyyy HH:mm:ss", "dd/MMM/yyyy HH:mm:ss", "dd MMM yyyy HH:mm:ss",
-                    "dd-MM-yyyy HH:mm:ss", "dd/MM/yyyy HH:mm:ss", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
+            String[] possibleFormatsTimed = new String[] {"dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm",
+                    "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
+                    "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
                     "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
-                    "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm"};
+                    "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm", "d/MMM/yyyy HHmm",
+                    "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm"};
             for (int i = 0; i < possibleFormatsTimed.length; i++) {
                 if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(possibleFormatsTimed[i]))) {
                     LocalDateTime date = LocalDateTime.parse(rawDate, DateTimeFormatter.ofPattern(possibleFormatsTimed[i]));
