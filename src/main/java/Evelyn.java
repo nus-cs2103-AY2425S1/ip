@@ -37,7 +37,7 @@ public class Evelyn {
                 BufferedReader br = new BufferedReader(new FileReader(dataFilePath));
                 String line;
                 while ((line = br.readLine()) != null) {
-                    lst.add(line);
+                    fileDataToList(line);
                 }
             }
         } catch (IOException e) {
@@ -110,7 +110,7 @@ public class Evelyn {
                 throw new InvalidInputException("invalid input for todo");
             }
             String description = text.substring(5);
-            Todo newTodo = new Todo(description);
+            Todo newTodo = new Todo(description, false);
             lst.add(newTodo);
             writeToFile(dataFilePath, newTodo.toString() + System.lineSeparator());
             System.out.println(horizontalLine);
@@ -127,7 +127,7 @@ public class Evelyn {
             String[] parts = input.split(" /by ");
             String description = parts[0];
             String deadline = parts[1];
-            Deadline newDeadline = new Deadline(description, deadline);
+            Deadline newDeadline = new Deadline(description, deadline, false);
             lst.add(newDeadline);
             writeToFile(dataFilePath, newDeadline.toString() + System.lineSeparator());
             System.out.println(horizontalLine);
@@ -146,7 +146,7 @@ public class Evelyn {
             String[] partB = partA[1].split(" /to ");
             String start = partB[0];
             String end = partB[1];
-            Event newEvent = new Event(description, start, end);
+            Event newEvent = new Event(description, start, end, false);
             lst.add(newEvent);
             writeToFile(dataFilePath, newEvent.toString() + System.lineSeparator());
             System.out.println(horizontalLine);
@@ -165,4 +165,51 @@ public class Evelyn {
         fw.write(textToAdd);
         fw.close();
     }
+
+    private static void fileDataToList(String data) throws IOException {
+        boolean isMarked;
+        if (data.startsWith("[T]")) {
+            if (data.charAt(5) == 'X') {
+                isMarked = true;
+            } else {
+                isMarked = false;
+            }
+            String description = data.substring(7);
+            Todo newTodo = new Todo(description, isMarked);
+            lst.add(newTodo);
+        } else if (data.startsWith("[D]")) {
+            if (data.charAt(5) == 'X') {
+                isMarked = true;
+            } else {
+                isMarked = false;
+            }
+            String descAndDate = data.substring(7);
+            String[] parts = descAndDate.split(" \\(by: ");
+            String description = parts[0];
+            String deadline = parts[1].substring(0, parts[1].length() - 1);
+            Deadline newDeadline = new Deadline(description, deadline, isMarked);
+            lst.add(newDeadline);
+        } else if (data.startsWith("[E]")) {
+            if (data.charAt(5) == 'X') {
+                isMarked = true;
+            } else {
+                isMarked = false;
+            }
+            String descAndDate = data.substring(7);
+            String[] parts1 = descAndDate.split(" \\(from: ");
+            String description = parts1[0];
+            String[] parts2 = parts1[1].split(" to: ");
+            String start = parts2[0];
+            String end = parts2[1].substring(0, parts2[1].length() - 1);
+
+            System.out.println(description);
+            System.out.println(start);
+            System.out.println(end);
+            Event newEvent = new Event(description, start, end, isMarked);
+            lst.add(newEvent);
+        } else {
+            throw new IOException();
+        }
+    }
+
 }

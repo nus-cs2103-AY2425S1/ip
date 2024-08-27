@@ -1,9 +1,9 @@
 public class Task {
     private String description;
     private boolean isMarked;
-    public Task (String desctiption) {
+    public Task (String desctiption, boolean isMarked) {
         this.description = desctiption;
-        this.isMarked = false;
+        this.isMarked = isMarked;
     }
     public void mark() {
         this.isMarked = true;
