@@ -7,10 +7,18 @@ import java.util.ArrayList;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for the Storage object.
+     * @param filePath The file where the task list is saved to or loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves task list information to the stored filepath.
+     * A new filepath will be created if the stored filepath does not exist.
+     */
     public void save() {
         System.out.println ("Saving data...");
         String directoryPath = "./data";
@@ -46,6 +54,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task list information from the stored filepath.
+     * If the stored filepath does not exist, a new task list will be returned.
+     */
     @SuppressWarnings("unchecked")
     public ArrayList<Task> load() {
         String directoryPath = "./data";

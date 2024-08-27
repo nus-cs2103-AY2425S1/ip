@@ -16,6 +16,13 @@ public class DateHandler {
     public static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma");
     public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
+
+    /**
+     * Parses an input string into a LocalDateTime if possible.
+     * Else, returns a null LocalDateTime.
+     * @param date The input string to parse.
+     * @return LocalDateTime object.
+     */
     public static LocalDateTime parseLocalDateTime(String date) {
         LocalDateTime localDateTime = null;
 
@@ -28,6 +35,12 @@ public class DateHandler {
         return localDateTime;
     }
 
+    /**
+     * Parses an input string into a LocalDate if possible.
+     * Else, returns a null LocalDate.
+     * @param date The input string to parse.
+     * @return LocalDateTime object.
+     */
     public static LocalDate parseLocalDate(String date) {
         LocalDate localDate = null;
 

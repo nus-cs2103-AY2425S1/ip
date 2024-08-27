@@ -2,10 +2,14 @@ package applemazer;
 
 import commands.*;
 
-import java.util.Arrays;
-
 public class Parser {
 
+    /**
+     * Parses additional information from the user input based on the given command.
+     * @param command Command that the user inputs.
+     * @return Command object that is ready to execute the user command.
+     * @throws Exception Thrown when parsing fails due to incorrect user input format.
+     */
     public static Command parse(String command) throws Exception {
         String[] split;
         int taskNumber;

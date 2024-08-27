@@ -10,6 +10,13 @@ public class Event extends Task {
     private final LocalDateTime localDateTimeTo;
     private final LocalDate localDateTo;
 
+    /**
+     * Constructor for an Event task.
+     * Note that setting the time is optional.
+     * @param description Description of the event.
+     * @param from The start date (and time) of the event, as a String.
+     * @param to The end date (and time) of the event, as a String.
+     */
     public Event(String description, String from, String to) {
         super(description);
 
@@ -24,11 +31,18 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * @return Returns the task icon, followed by its done/undone status.
+     */
     @Override
     public String getStatusIcon() {
         return "[E]" + super.getStatusIcon();
     }
 
+    /**
+     * @return Returns the task description, followed by its start date and end date.
+     *         Time will be added if it had been previously set.
+     */
     @Override
     public String toString() {
         String from, to;

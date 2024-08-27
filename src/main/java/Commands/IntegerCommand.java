@@ -2,19 +2,29 @@ package commands;
 
 import applemazer.*;
 import tasks.*;
-import java.util.ArrayList;
 
 public class IntegerCommand extends Command {
     private final IntegerCommands command;
     private final int taskNumber;
 
+    /**
+     * Constructor for an IntegerCommand object.
+     * Integer commands include "mark", "unmark", and "delete".
+     * @param command The type of integer command (mark, unmark, delete).
+     * @param taskNumber The task number to use.
+     */
     public IntegerCommand(IntegerCommands command, int taskNumber) {
         this.command = command;
         this.taskNumber = taskNumber;
     }
 
+    /**
+     * Executes the integer command (mark, unmark, delete).
+     * @param tasks   The task list to use if necessary.
+     * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     */
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         try {
             Task task = tasks.get(taskNumber);
             switch (command) {
@@ -49,6 +59,9 @@ public class IntegerCommand extends Command {
         }
     }
 
+    /**
+     * @return Returns true as the chatbot should continue running after executing an integer command.
+     */
     @Override
     public boolean continueProcessing() {
         return true;
