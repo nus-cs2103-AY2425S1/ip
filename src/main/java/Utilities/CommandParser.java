@@ -2,14 +2,16 @@ package utilities;
 
 import java.time.format.DateTimeParseException;
 
-import Tasks.Task;
-import Tasks.Deadlines;
-import Tasks.Event;
+import tasks.Task;
 import tasks.Deadlines;
 import tasks.Event;
-import tasks.Task;
 import tasks.TaskTypes;
 import tasks.ToDos;
+
+import exceptions.BadDescriptionException;
+import exceptions.DateTimeException;
+import exceptions.UnknownCommandException;
+
 public class CommandParser {
     public static boolean parseCommand(String input, TaskList tl, Storage s) {
         if (input.startsWith("bye")) {
