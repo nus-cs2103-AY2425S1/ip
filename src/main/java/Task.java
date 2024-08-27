@@ -28,4 +28,8 @@ public class Task {
 
         return String.format("%s %s", box, this.taskName);
     }
+
+    public String storageString() {
+        return "";
+    }
 }
