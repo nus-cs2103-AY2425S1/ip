@@ -1,4 +1,4 @@
-package Exception;
+package PurrfessorDipsy.Exception;
 
 public class UnknownCommandException extends Exception {
 

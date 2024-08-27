@@ -2,9 +2,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.ArrayList;
 
+import Storage.Storage;
 import Task.Deadline;
 import Task.Event;
 import Task.Task;
@@ -17,15 +17,6 @@ public class PurrfessorDipsy {
     private static Ui ui;
     private static boolean isRunning = true; // to allow for a more graceful exit
 
-    private static final Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
-    private static final Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
-    private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
-    private static final Pattern EVENT_PATTERN = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
-    private static final Pattern DELETE_PATTERN = Pattern.compile("^delete (\\d+)");
-
-    private enum Command {
-        MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, LIST, BYE, UNKNOWN,
-    }
 
     public static void main(String[] args) {
         ui = new Ui();
@@ -43,49 +34,9 @@ public class PurrfessorDipsy {
         inputScanner.close();
     }
 
-    private static Command parseCommand(String userInput) {
-        if (userInput.startsWith("mark")) return Command.MARK;
-        if (userInput.startsWith("unmark")) return Command.UNMARK;
-        if (userInput.startsWith("todo")) return Command.TODO;
-        if (userInput.startsWith("deadline")) return Command.DEADLINE;
-        if (userInput.startsWith("event")) return Command.EVENT;
-        if (userInput.startsWith("delete")) return Command.DELETE;
-        if (userInput.startsWith("list")) return Command.LIST;
-        if (userInput.equals("bye")) return Command.BYE;
-        return Command.UNKNOWN;
-    }
 
-    private static void processCommand(String userInput) throws UnknownCommandException, InvalidCommandException {
-        Command command = parseCommand(userInput);
-        switch (command) {
-            case MARK, UNMARK -> handleMarkCommand(userInput);
-            case TODO, DEADLINE, EVENT -> handleTaskCreation(userInput, command);
-            case DELETE -> handleDeleteCommand(userInput);
-            case LIST -> handleListCommand(userInput); // More specific naming
-            case BYE -> exitProgram();
-            default -> throw new UnknownCommandException();
-        }
-    }
 
     // HANDLE COMMANDS
-    private static void handleMarkCommand(String userInput) throws InvalidCommandException {
-        Matcher markMatcher = MARK_PATTERN.matcher(userInput);
-        if (markMatcher.matches()) {
-            String action = markMatcher.group(1);
-            int index = Integer.parseInt(markMatcher.group(2));
-            if (index >= 1 && index < taskTable.size()) {
-                if (action.equals("mark")) {
-                    markTaskAsDone(index);
-                } else {
-                    markTaskAsUndone(index);
-                }
-            } else {
-                throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_INDEX);
-            }
-        } else {
-            throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_MARK_COMMAND);
-        }
-    }
 
     private static void handleTaskCreation(String userInput, Command command) throws InvalidCommandException {
         switch (command) {
@@ -167,18 +118,6 @@ public class PurrfessorDipsy {
     }
 
     // Other util methods used for performing commands.
-    private static void markTaskAsDone(int index) {
-        Task task = taskTable.get(index - 1);
-        task.markAsDone();
-        Storage.saveTasksToLocalDisk(taskTable);
-    }
-
-    private static void markTaskAsUndone(int index) {
-        Task task = taskTable.get(index - 1);
-        task.markAsUndone();
-        Storage.saveTasksToLocalDisk(taskTable);
-    }
-
     private static void exitProgram() {
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
     }

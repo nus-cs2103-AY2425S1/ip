@@ -1,3 +1,4 @@
+import Storage.Storage;
 import Task.Task;
 
 import java.util.ArrayList;
@@ -15,13 +16,21 @@ public class TaskList {
 
     public void addTask(Task task) {
         tasks.add(task);
-        Storage.saveTasksToLocalDisk(tasks);
+        Storage.save(tasks);
     }
 
-    public Task deleteTask(int index){
+    public Task deleteTask(int index) {
         Task removedTask = tasks.remove(index);
-        Storage.saveTasksToLocalDisk(tasks);
+        Storage.save(tasks);
         return removedTask;
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public void saveToLocalDisk() {
+        Storage.save(tasks);
     }
 
     @Override

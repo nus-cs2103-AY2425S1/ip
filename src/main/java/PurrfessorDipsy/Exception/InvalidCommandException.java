@@ -1,4 +1,4 @@
-package Exception;
+package PurrfessorDipsy.Exception;
 
 public class InvalidCommandException extends Exception {
     private final ErrorType errorType;
