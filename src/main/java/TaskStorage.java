@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.Buffer;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,9 +26,12 @@ public class TaskStorage {
             if (arr[0].equals("T")) {
                 currentLoadedTask = new Todo(arr[2], isDone);
             } else if (arr[0].equals("D")) {
-                currentLoadedTask = new Deadline(arr[2], arr[3], isDone);
+                LocalDate endTime = LocalDate.parse((arr[3]));
+                currentLoadedTask = new Deadline(arr[2], endTime, isDone);
             } else if (arr[0].equals("E")) {
-                currentLoadedTask = new Event(arr[2], arr[3], arr[4], isDone);
+                LocalDate startTime = LocalDate.parse(arr[3]);
+                LocalDate endTime = LocalDate.parse(arr[4]);
+                currentLoadedTask = new Event(arr[2], startTime, endTime, isDone);
             }
 
             if (currentLoadedTask != null) {

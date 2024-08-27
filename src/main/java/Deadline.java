@@ -1,7 +1,10 @@
-public class Deadline extends Task {
-    private String endTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String desc, String endTime, boolean isDone) {
+public class Deadline extends Task {
+    private LocalDate endTime;
+
+    public Deadline(String desc, LocalDate endTime, boolean isDone) {
         super(desc, isDone);
         this.endTime = endTime;
     }
