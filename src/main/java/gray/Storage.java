@@ -7,10 +7,21 @@ public class Storage {
 
     private final File saveFile;
 
+    /**
+     * Constructor to initialise Storage.
+     * Takes in a file path to indicate where to save the tasks to.
+     *
+     * @param saveFilePath
+     */
     public Storage(String saveFilePath) {
         this.saveFile = new File(saveFilePath);
     }
 
+    /**
+     * Serialises a list of tasks to its associated save filepath.
+     *
+     * @param taskList
+     */
     public void saveTasks(TaskList taskList) {
         saveFile.getParentFile().mkdirs();
         try {
@@ -20,6 +31,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deserialise the list of tasks that has been serialised from its associated save filepath.
+     *
+     * @return the task list parsed
+     */
     public TaskList loadTasks() {
         saveFile.getParentFile().mkdirs();
         if (!saveFile.exists()) return new TaskList();

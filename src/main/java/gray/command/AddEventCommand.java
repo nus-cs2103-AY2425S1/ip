@@ -12,12 +12,25 @@ public class AddEventCommand extends Command {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
 
+    /**
+     * Constructs a command to add event task.
+     *
+     * @param description
+     * @param startDate
+     * @param endDate
+     */
     public AddEventCommand(String description, LocalDateTime startDate, LocalDateTime endDate) {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
+    /**
+     * Executes the add event task.
+     *
+     * @param ui
+     * @param tasks
+     */
     @Override
     public void execute(Ui ui, TaskList tasks) {
         EventTask task = new EventTask(description, startDate, endDate);

@@ -8,6 +8,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddTodoCommandFactory extends CommandFactory {
+
+    /**
+     * Returns the add to-do command parsed from the text.
+     *
+     * @param text
+     * @return Add to-do task command
+     * @throws GrayException
+     */
     @Override
     public Command parse(String text) throws GrayException {
         Pattern pattern = Pattern.compile("todo (.*)");

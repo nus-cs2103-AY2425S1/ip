@@ -8,6 +8,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkCommandFactory extends CommandFactory {
+
+    /**
+     * Returns the mark command parsed from the text.
+     *
+     * @param text
+     * @return Mark Task Command
+     * @throws GrayException
+     */
     @Override
     public Command parse(String text) throws GrayException {
         Pattern pattern = Pattern.compile("(mark|unmark) (-?\\d+)");

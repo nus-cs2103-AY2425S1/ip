@@ -10,6 +10,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddEventCommandFactory extends CommandFactory {
+
+    /**
+     * Returns the add event command parsed from the text.
+     *
+     * @param text
+     * @return Add event task command
+     * @throws GrayException
+     */
     @Override
     public Command parse(String text) throws GrayException {
         Pattern pattern = Pattern.compile("event (.*) /from (.*) /to (.*)");

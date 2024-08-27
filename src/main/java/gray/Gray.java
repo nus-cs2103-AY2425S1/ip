@@ -10,6 +10,11 @@ public class Gray {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor to initialise Gray chatbot.
+     * Takes in an argument to initialise the file save for tasks.
+     * @param saveTasksFilepath
+     */
     public Gray(String saveTasksFilepath) {
         ui = new Ui();
         storage = new Storage(saveTasksFilepath);
@@ -21,6 +26,9 @@ public class Gray {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         while (true) {

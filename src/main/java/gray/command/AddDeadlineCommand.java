@@ -11,11 +11,23 @@ public class AddDeadlineCommand extends Command {
     private final String description;
     private final LocalDateTime deadline;
 
+    /**
+     * Constructs a command to add deadline task.
+     *
+     * @param description
+     * @param deadline
+     */
     public AddDeadlineCommand(String description, LocalDateTime deadline) {
         this.description = description;
         this.deadline = deadline;
     }
 
+    /**
+     * Executes the add deadline task.
+     *
+     * @param ui
+     * @param tasks
+     */
     @Override
     public void execute(Ui ui, TaskList tasks) {
         DeadlineTask task = new DeadlineTask(description, deadline);

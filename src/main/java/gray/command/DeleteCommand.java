@@ -8,10 +8,22 @@ import gray.TaskList;
 public class DeleteCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs a command to delete task.
+     *
+     * @param index
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes the deletion of task.
+     *
+     * @param ui
+     * @param tasks
+     * @throws GrayException
+     */
     @Override
     public void execute(Ui ui, TaskList tasks) throws GrayException {
         if (index <= 0 || index > tasks.size()) {
