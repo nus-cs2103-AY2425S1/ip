@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -111,7 +112,11 @@ public class Buddy {
                     return;
                 }
 
-                tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                try {
+                    tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                } catch (DateTimeParseException e) {
+                    return;
+                }
                 break;
             case EVENT:
                 String[] eventParts = description.split(" /from | /to ");
@@ -121,7 +126,11 @@ public class Buddy {
                     return;
                 }
 
-                tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                try {
+                    tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                } catch (DateTimeParseException e) {
+                    return;
+                }
                 break;
         }
 

@@ -1,18 +1,42 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    private final String deadline;
+    private final LocalDateTime deadline;
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
      * Constructor for Deadline class.
      *
      * @param description Description of the task.
      * @param deadline    Deadline of the task.
+     * @throws DateTimeParseException If the date and time format is invalid.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws DateTimeParseException {
         super(TaskType.DEADLINE, description);
-        this.deadline = deadline;
+        LocalDateTime parsedDeadline;
+        try {
+            parsedDeadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format! Please use yyyy-MM-dd HHmm format.");
+            System.out.println("Example: 2021-09-30 1800");
+            throw e;
+        }
+        this.deadline = parsedDeadline;
+    }
+
+    /**
+     * Returns the deadline of the task.
+     *
+     * @return Deadline of the task.
+     */
+    public String getDeadline() {
+        return deadline.format(OUTPUT_FORMATTER);
     }
 
     /**
@@ -32,7 +56,7 @@ public class Deadline extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + " | " + deadline;
+        return super.serialize() + " | " + deadline.format(INPUT_FORMATTER);
     }
 
     /**
@@ -42,6 +66,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (by: " + deadline + ")";
+        return super.toString() + " (by: " + getDeadline() + ")";
     }
 }
