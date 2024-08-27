@@ -95,6 +95,16 @@ public class Parser {
 
     }
 
+    /**
+     * Handles the "find" command to search for tasks containing the specified keyword.
+     * <p>
+     * Filters the tasks in the list based on the provided keyword and displays the matching tasks.
+     * If the provided keyword is empty, a {@link MaxException} is thrown.
+     * </p>
+     *
+     * @param text The keyword used to search for tasks. The search is case-sensitive and matches tasks containing this keyword.
+     * @throws MaxException If the {@code text} is empty, indicating that no search keyword was provided.
+     */
     private void handleFind(String text) throws MaxException {
         if (text.isEmpty()) {
             throw new MaxException("The provided filter for find cannot be empty.");

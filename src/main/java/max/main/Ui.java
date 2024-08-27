@@ -72,6 +72,18 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints the list of tasks to the console.
+     * <p>
+     * Displays a different message based on whether the tasks are filtered or not.
+     * If {@code isFilter} is {@code true}, the message will indicate that only matching tasks are shown.
+     * If {@code isFilter} is {@code false}, the message will indicate that all tasks are displayed.
+     * </p>
+     *
+     * @param isFilter A boolean indicating whether the tasks are filtered.
+     *                 {@code true} if only matching tasks are displayed,
+     *                 {@code false} if all tasks are displayed.
+     */
     public void printList(boolean isFilter) {
         printLine();
         if (isFilter) {
