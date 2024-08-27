@@ -1,16 +1,19 @@
 package Command;
+import Storage.Storage;
 import TaskList.TaskList;
 import TaskList.IncorrectStateException;
 
 import static Ui.Ui.printMessage;
 
 public class UnmarkCommand extends Command{
+    private Storage storage;
     private TaskList list;
     private int index;
 
-    public UnmarkCommand (TaskList list, int index) {
+    public UnmarkCommand (Storage storage, TaskList list, int index) {
         this.list = list;
         this.index = index;
+        this.storage = storage;
     }
 
     @Override
@@ -22,6 +25,7 @@ public class UnmarkCommand extends Command{
                 list.unmark(index - 1);
                 printMessage(String.format("Alright, Job %s has been marked as not done!\n    %s",
                         index, list.get(index - 1)));
+                this.storage.updateFile(list);
             } catch (IncorrectStateException e) {
                 printMessage(e.getMessage());
             }

@@ -17,23 +17,23 @@ public class Parser {
 
     public Command parse(String input) {
         if (input.equals("bye")) {
-            return new ExitCommand(storage, list);
+            return new ExitCommand(list);
         } else if (input.equals("list")) {
             return new PrintListCommand(list);
         } else if (input.startsWith("mark ")) {
             int index = Integer.parseInt(input.split(" ")[1]);
-            return new MarkCommand(list, index);
+            return new MarkCommand(storage, list, index);
         } else if (input.startsWith("unmark ")) {
             int index = Integer.parseInt(input.split(" ")[1]);
-            return new UnmarkCommand(list, index);
+            return new UnmarkCommand(storage, list, index);
         } else if (input.startsWith("delete ")) {
             int index = Integer.parseInt(input.split(" ")[1]);
-            return new DeleteCommand(list, index);
+            return new DeleteCommand(storage, list, index);
 
         } else if (input.startsWith("find ")) {
             return new FindCommand(list,input.substring(5));
         } else {
-            return new AddCommand(list, input);
+            return new AddCommand(storage, list, input);
             }
         }
 }

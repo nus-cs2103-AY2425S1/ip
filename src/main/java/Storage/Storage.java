@@ -15,7 +15,7 @@ public class Storage {
     private File file;
 
     public Storage () {
-        this.file = makeFile("date", "Kotori.txt");
+        this.file = makeFile("data", "Kotori.txt");
     }
 
     public TaskList load() {
