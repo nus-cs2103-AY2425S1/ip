@@ -1,12 +1,6 @@
 package dumpling;
 
-import dumpling.command.Command;
-import dumpling.command.CommandEnum;
-import dumpling.command.AddCommand;
-import dumpling.command.DeleteCommand;
-import dumpling.command.ByeCommand;
-import dumpling.command.MarkCommand;
-import dumpling.command.ListCommand;
+import dumpling.command.*;
 import dumpling.task.Deadline;
 import dumpling.task.Event;
 import dumpling.task.Task;
@@ -76,6 +70,9 @@ public class Parser {
                 throw new DumplingException(
                         "There was an issue with indexing! Try listing the items first!");
             }
+        case FIND:
+            Pair<String, Integer> pair = Parser.formSubSection(stringCommand.split(" "), 1, "");
+            return new FindCommand(pair.getFirst());
         default:
             throw new DumplingException("An invalid command was given! Try again.");
         }

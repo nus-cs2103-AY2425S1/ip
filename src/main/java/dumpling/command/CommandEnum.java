@@ -8,5 +8,6 @@ public enum CommandEnum {
     DELETE,
     MARK,
     UNMARK,
-    BYE;
+    BYE,
+    FIND;
 }

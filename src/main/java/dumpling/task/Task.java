@@ -13,6 +13,15 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    public boolean hasSubstring(String substring) {
+        for (int i = 0; i <= description.length() - substring.length(); i++) {
+            if (this.description.substring(i, i + substring.length()).equals(substring)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
