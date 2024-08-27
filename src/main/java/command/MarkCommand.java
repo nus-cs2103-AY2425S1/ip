@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasklist, CommandLineUI ui) {
         try {
             tasklist.mark(index);
-    
+
             ui.speakLine("Nice! I've marked this task as done: ");
             ui.speakLine("  " + tasklist.getTask(index));
 

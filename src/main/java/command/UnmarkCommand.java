@@ -16,7 +16,7 @@ public class UnmarkCommand extends Command {
 
         try {
             tasklist.unmark(index);
-    
+
             ui.speakLine("OK, I've marked this task as not done yet: ");
             ui.speakLine("  " + tasklist.getTask(index));
 

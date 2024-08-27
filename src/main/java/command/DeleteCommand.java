@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
 
         try {
             Task task = tasklist.delete(index);
-    
+
             ui.speakLine("Noted. I've removed this task:");
             ui.speakLine("  " + task);
             ui.speakLine("Now you have " + tasklist.size() + " tasks in the list.");
