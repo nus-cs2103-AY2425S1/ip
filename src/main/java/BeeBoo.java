@@ -14,243 +14,48 @@ import java.io.*;
 public class BeeBoo {
 
     //Arraylist for the tasklist
-    ArrayList<Tasks> list;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
     //Initialise tasklist when beeboo is created
-    public BeeBoo() {
-        list = new ArrayList<>();
-        loadFile();
-    }
-
-    //Adding to the tasklist
-    private String addList(Tasks task) {
-        list.add(task);
-        return ("added: " + task + "\n" + "You have " + list.size() + " tasks in the list");
-    }
-
-    //Marks item at specified index as done
-    private void markDone(int index) {
-        Tasks task = list.get(index);
-        task.markDone();
-        chatBox("Nice! I've marked this task as done:\n" + task);
-        saveItem();
-    }
-
-    //Unchecks item and mark as not done
-    private void unmarkDone(int index) {
-        Tasks task = list.get(index);
-        task.unmarkDone();
-        chatBox("OK, I've marked this task as not done yet:\n" + task);
-        saveItem();
-    }
-
-    //Deletes item
-    private void deleteItem(int index) {
-        Tasks item = list.get(index);
-        list.remove(item);
-        chatBox("Ok i have removed the following item\n" + item + "\n" + "You have " + list.size() + " tasks left");
-        saveItem();
-    }
-
-    //Returns list when prompted
-    private String produceList() {
-        String result = "";
-        for (Tasks task : list) {
-            result = result + (list.indexOf(task) + 1) + ". " + " " + task + "\n";
-        }
-        return result;
-    }
-
-    //Create chatbox
-    private void chatBox(String str) {
-        for (int i = 0; i < 60; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-        System.out.println(str);
-        System.out.println();
-        for (int i = 0; i < 60; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-    }
-
-    //To create ToDos
-    private void createToDo(String text) throws NoDescriptionException {
-        ToDos todo = ToDos.createToDo(text);
-        chatBox(addList(todo));
-        saveItem();
-    }
-
-    //To create Deadlines
-    private void createDeadlines(String text) throws NoDescriptionException, InvalidDateException {
-        Deadlines deadline = Deadlines.createDeadline(text);
-        chatBox(addList(deadline));
-        saveItem();
-    }
-
-    //Creates events
-    private void createEvent(String text) throws NoDescriptionException, InvalidDateException {
-        Events event = Events.CreateEvent(text);
-        chatBox(addList(event));
-        saveItem();
-    }
-
-    //Checks the command the user uses and returns a number for chatbot to check against
-    private int checkCommand(String text) {
-        if (text.startsWith("mark")) {
-            return 1;
-        } else if (text.startsWith("unmark")) {
-            return 2;
-        } else if (text.equals("list")) {
-            return 3;
-        } else if (text.startsWith("delete")) {
-            return 4;
-        } else if (text.startsWith("deadline") || text.startsWith("event") || text.startsWith("todo")) {
-            return 5;
-        } else {
-            return -1;
+    public BeeBoo(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (BeeBooExceptions e) {
+            ui.loadingError();
+            tasks = new TaskList();
         }
     }
 
-    //Creates the tasks
-    private void createTasks(String text) throws NoDescriptionException, InvalidDateException {
-        if (text.startsWith("deadline")) {
-            createDeadlines(text);
-        } else if (text.startsWith("event")) {
-            createEvent(text);
-        } else {
-            createToDo(text);
-        }
-    }
 
-    private void saveItem() {
-        Path path = Paths.get("./data");
-        if(Files.notExists(path)) {
-            try {
-                Files.createDirectories(path);
-            } catch (IOException e) {
-                System.out.println("Unable to create directory");
-            }
-        }
-        try (FileWriter writer = new FileWriter("./data/beeboo.txt")){
-            for (Tasks task: list) {
-                writer.write(task.saveFormat() + System.lineSeparator());
-            }
-        } catch(IOException e) {
-            System.out.println("Unable to create file");
-        }
-    }
+    public void run() {
+        Ui ui = new Ui();
 
-    private void loadFile() {
-        File file = new File("./data/beeboo.txt");
-        if (!file.exists()) {
-            return;
-        } else {
-            try {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String task = scanner.nextLine();
-                    String[] splitted = task.split("\\|");
-                    if(splitted.length < 3 || splitted.length > 6) {
-                        continue;
-                    }
-                    boolean isDone = splitted[1].trim().equals("1");
-                    Tasks newTask = null;
-                    switch (splitted[0].trim()) {
-                        case "T":
-                            newTask = new ToDos(splitted[2].trim());
-                            if(isDone) {
-                                newTask.markDone();
-                            }
-                            break;
-                        case "D":
-                            String[]dateTime = splitted[3].split("T");
-                            LocalDateTime dates = LocalDateTime.of(LocalDate.parse(dateTime[0]), LocalTime.parse(dateTime[1]));
-                            newTask = new Deadlines(splitted[2].trim(), dates);
-                            if(isDone) {
-                                newTask.markDone();
-                            }
-                            break;
-                        case "E":
-                            String[] startDateTime = splitted[3].split("T");
-                            String[] endDateTime = splitted[4].split("T");
-                            LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(startDateTime[0].trim()), LocalTime.parse(startDateTime[1].trim()));
-                            LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(endDateTime[0].trim()), LocalTime.parse(endDateTime[1].trim()));
-
-                            newTask = new Events(splitted[2].trim(), startDate,
-                                    endDate);
-                            if(isDone) {
-                                newTask.markDone();
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    list.add(newTask);
-                }
-            } catch (IOException e) {
-                System.out.println("Error has occurred while reading the file");
-            }
-        }
-    }
-
-    //Handles the command the user uses
-    private void handleCommands(String text) throws InvalidCommandException, BeeBooExceptions{
-        int commandCheck = checkCommand(text);
-        if (commandCheck == 1 || commandCheck == 2 || commandCheck == 4) {
-            //Command is mark so chatbot marks the indexed item
-            String []splitted = text.split(" ");
-            if (splitted.length > 2) {
-                throw new InvalidCommandException(text);
-            }
-            int index = Integer.parseInt(splitted[1]);
-            if (index < 0 || index > list.size()) {
-                throw new InvalidIndexException(text);
-            } else if (commandCheck == 1) {
-                markDone(index - 1);
-            } else if (commandCheck == 2){
-                unmarkDone(index - 1);
-            } else {
-                deleteItem(index - 1);
-            }
-        } else if (commandCheck == 3) {
-            //Command is list so the chatbot lists out the items
-            chatBox(produceList());
-        } else if (commandCheck == 5) {
-            //Command is task creation so the chatbot creates tasks
-            createTasks(text);
-        } else {
-            //Unknown command so the chatbot throws invalid command exception
-            throw new InvalidCommandException("Invalid Command");
-        }
-    }
-
-    public static void main(String[] args) {
-
-        //Initialise the chatbot
-        BeeBoo beeBoo = new BeeBoo();
-        Scanner input = new Scanner(System.in);
-        String text;
-
-        beeBoo.chatBox("Hello! I'm BeeBoo\nWhat can i do for you?");
-        text = input.nextLine().trim().toLowerCase();
-
+        ui.showWelcomeMessage();
+        boolean isExit = false;
 
         //Prompts user while user doesn't enter bye
-        while (!text.equals("bye")) {
+        while (!isExit) {
             try {
-                beeBoo.handleCommands(text);
+                String fullCommand = ui.handleCommand();
+                Command c = Parser.parseCommand(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (InvalidCommandException e) {
-                beeBoo.chatBox("Invalid Command!Me no understand");
+                ui.chatBox("Invalid Command!Me no understand");
             } catch (BeeBooExceptions e) {
-                beeBoo.chatBox(e.toString());
+                ui.chatBox(e.toString());
             }
 
-            text = input.nextLine().trim().toLowerCase();
         }
-        beeBoo.chatBox("Bye. Hope to see you again soon!");
-        input.close();
 
+    }
+
+
+    public static void main(String[] args) {
+        new BeeBoo("./data/beeboo.txt").run();
     }
 }

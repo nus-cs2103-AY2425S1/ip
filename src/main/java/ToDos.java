@@ -15,11 +15,10 @@ public class ToDos extends Tasks {
     }
 
     protected static ToDos createToDo(String text) throws NoDescriptionException {
-        String description = text.substring(4).trim();
-        if (description.isEmpty()) {
+        if (text.isEmpty()) {
             throw new NoDescriptionException("No description");
         }
-        return new ToDos(description);
+        return new ToDos(text);
     }
 
     @Override
