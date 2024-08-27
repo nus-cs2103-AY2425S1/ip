@@ -24,51 +24,51 @@ public class Bot {
             String command = inputList.get(0).strip();
             String args = String.join(" ", inputList.subList(1, inputList.size())).strip();
             switch (command) {
-                case "bye" -> {
-                    System.out.println("""
-                            ____________________________________________________________
-                            yeah bye bye to you too human being
-                            ____________________________________________________________
-                            """);
-                    return;
+            case "bye" -> {
+                System.out.println("""
+                        ____________________________________________________________
+                        yeah bye bye to you too human being
+                        ____________________________________________________________
+                        """);
+                return;
+            }
+            case "list" -> {
+                showList();
+            }
+            case "mark", "unmark" -> {
+                int taskToMark = Integer.parseInt(args);
+                // also need to handle the case where a non-integer is passed to mark (NumberFormatException)
+                try {
+                    markTask(taskToMark, command);
+                } catch (IndexOutOfBoundsException e) {
+                    taskNotFound(taskToMark);
                 }
-                case "list" -> {
-                    showList();
+            }
+            case "delete" -> {
+                int taskToDelete = Integer.parseInt(args);
+                try {
+                    deleteTask(taskToDelete);
+                } catch (IndexOutOfBoundsException e) {
+                    taskNotFound(taskToDelete);
                 }
-                case "mark", "unmark" -> {
-                    int taskToMark = Integer.parseInt(args);
-                    // also need to handle the case where a non-integer is passed to mark (NumberFormatException)
-                    try {
-                        markTask(taskToMark, command);
-                    } catch (IndexOutOfBoundsException e) {
-                        taskNotFound(taskToMark);
-                    }
+            }
+            default -> {
+                try {
+                    addToList(command, args);
+                } catch (UnknownCommandException e) {
+                    System.out.println(DIVIDER
+                            + "hmmm i didn't quite understand what you said. try again?\n"
+                            + DIVIDER);
+                } catch (NoDescriptionException e) {
+                    String aOrAn = (Objects.equals(command, "event"))
+                            ? " an "
+                            : " a ";
+                    System.out.println(DIVIDER
+                            + "uhhh the description of" + aOrAn
+                            + command + " can't be empty :( try again?\n"
+                            + DIVIDER);
                 }
-                case "delete" -> {
-                    int taskToDelete = Integer.parseInt(args);
-                    try {
-                        deleteTask(taskToDelete);
-                    } catch (IndexOutOfBoundsException e) {
-                        taskNotFound(taskToDelete);
-                    }
-                }
-                default -> {
-                    try {
-                        addToList(command, args);
-                    } catch (UnknownCommandException e) {
-                        System.out.println(DIVIDER
-                                + "hmmm i didn't quite understand what you said. try again?\n"
-                                + DIVIDER);
-                    } catch (NoDescriptionException e) {
-                        String aOrAn = (Objects.equals(command, "event"))
-                                ? " an "
-                                : " a ";
-                        System.out.println(DIVIDER
-                                + "uhhh the description of" + aOrAn
-                                + command + " can't be empty :( try again?\n"
-                                + DIVIDER);
-                    }
-                }
+            }
             }
         }
         scanner.close();
@@ -90,45 +90,44 @@ public class Bot {
             throw new NoDescriptionException();
         }
         switch (command) {
-            case "todo" -> {
-                Todo todo = new Todo(args);
-                taskList.add(todo);
-                System.out.println(DIVIDER
-                        + "i've thrown this to-do into your task list:\n"
-                        + INDENT + todo.taskDescription() + "\n"
-                        + listSizeUpdateMessage()
-                        + DIVIDER);
-            }
-            case "deadline" -> {
-                String[] taskAndDeadline = args.split(" /by ");
-                String taskName = taskAndDeadline[0];
-                String deadline = taskAndDeadline[1];
-                Deadline dl = new Deadline(taskName, deadline);
-                taskList.add(dl);
-                System.out.println(DIVIDER
-                        + "the new deadline's been added to your task list:\n"
-                        + INDENT + dl.taskDescription() + "\n"
-                        + listSizeUpdateMessage()
-                        + DIVIDER);
-            } case "event" -> {
-                String[] taskAndTimings = args.split(" /from | /to ");
-                String taskName = taskAndTimings[0];
-                String from = taskAndTimings[1];
-                String to = taskAndTimings[2];
-                Event event = new Event(taskName, from, to);
-                taskList.add(event);
-                System.out.println(DIVIDER
-                        + "aaaaand this event is now in your task list:\n"
-                        + INDENT + event.taskDescription() + "\n"
-                        + listSizeUpdateMessage()
-                        + DIVIDER);
-            }
+        case "todo" -> {
+            Todo todo = new Todo(args);
+            taskList.add(todo);
+            System.out.println(DIVIDER
+                    + "i've thrown this to-do into your task list:\n"
+                    + INDENT + todo.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + DIVIDER);
+        }
+        case "deadline" -> {
+            String[] taskAndDeadline = args.split(" /by ");
+            String taskName = taskAndDeadline[0];
+            String deadline = taskAndDeadline[1];
+            Deadline dl = new Deadline(taskName, deadline);
+            taskList.add(dl);
+            System.out.println(DIVIDER
+                    + "the new deadline's been added to your task list:\n"
+                    + INDENT + dl.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + DIVIDER);
+        } case "event" -> {
+            String[] taskAndTimings = args.split(" /from | /to ");
+            String taskName = taskAndTimings[0];
+            String from = taskAndTimings[1];
+            String to = taskAndTimings[2];
+            Event event = new Event(taskName, from, to);
+            taskList.add(event);
+            System.out.println(DIVIDER
+                    + "aaaaand this event is now in your task list:\n"
+                    + INDENT + event.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + DIVIDER);
+        }
         }
     }
 
     public void showList() {
-        System.out.println(DIVIDER
-            + "here's everything that's in your list:");
+        System.out.println(DIVIDER + "here's everything that's in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             System.out.println((i+1) + ". " + task.taskDescription());
