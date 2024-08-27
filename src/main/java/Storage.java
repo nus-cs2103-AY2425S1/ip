@@ -3,10 +3,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Storage {
     private final Path filePath;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
@@ -40,9 +44,9 @@ public class Storage {
         if(task instanceof ToDo) {
             sb.append("T").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription());
         } else if(task instanceof Deadline) {
-            sb.append("D").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|").append(((Deadline) task).getBy());
+            sb.append("D").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|").append(((Deadline) task).getBy().format(DATE_TIME_FORMATTER));
         } else if(task instanceof Event) {
-            sb.append("E").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|").append(((Event) task).getFrom()).append("|").append(((Event) task).getTo());
+            sb.append("E").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|").append(((Event) task).getFrom().format(DATE_TIME_FORMATTER)).append("|").append(((Event) task).getTo().format(DATE_TIME_FORMATTER));
         }
         return sb.toString();
     }
@@ -70,7 +74,8 @@ public class Storage {
                             throw new FishmanException.InvalidArgumentsException(line);
                         }
                         String deadline = arguments[3];
-                        tasks.addTask(new Deadline(description, isDone, deadline));
+                        LocalDateTime deadlineDate = parseDateTime(deadline);
+                        tasks.addTask(new Deadline(description, isDone, deadlineDate));
                         break;
                     case "E":
                         if (arguments.length != 5) {
@@ -78,7 +83,9 @@ public class Storage {
                         }
                         String from = arguments[3];
                         String to = arguments[4];
-                        tasks.addTask(new Event(description, isDone, from, to));
+                        LocalDateTime fromDate = parseDateTime(from);
+                        LocalDateTime toDate = parseDateTime(to);
+                        tasks.addTask(new Event(description, isDone, fromDate, toDate));
                         break;
                     default:
                         throw new FishmanException.InvalidArgumentsException("Empty line or unknown task type in line: " + "<" + line + ">");
@@ -92,6 +99,14 @@ public class Storage {
             throw new RuntimeException("Error reading file: " + e.getMessage(), e);
         }
         return tasks;
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeStr) throws FishmanException {
+        try {
+            return LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new FishmanException.InvalidDateFormatException(dateTimeStr);
+        }
     }
 
 }

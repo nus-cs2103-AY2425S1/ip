@@ -127,5 +127,13 @@ public class FishmanException extends Exception {
         }
     }
 
+    public static class InvalidDateFormatException extends FishmanException {
+        private static final String MESSAGE = "Invalid Date format: ";
+
+        public InvalidDateFormatException(String dateTimeStr) {
+            super(MESSAGE + dateTimeStr);
+        }
+    }
+
 }
 
