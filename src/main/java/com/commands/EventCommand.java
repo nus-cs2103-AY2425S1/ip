@@ -1,11 +1,9 @@
-package com.Commands;
+package com.commands;
 
-import com.Nimbus.*;
+import com.nimbus.*;
 
-import java.util.ArrayList;
-
-import static com.Nimbus.Parser.getDescription;
-import static com.Nimbus.Parser.readOption;
+import static com.nimbus.Parser.getDescription;
+import static com.nimbus.Parser.readOption;
 
 public class EventCommand extends Command {
     private final String argument;
@@ -23,6 +21,5 @@ public class EventCommand extends Command {
         storage.writeTaskToFile(task);
         tasks.add(task);
         ui.showAddedTask(task, tasks.size());
-
     }
 }

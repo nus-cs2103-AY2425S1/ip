@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 public abstract class Task {
     protected String description;
@@ -32,6 +32,13 @@ public abstract class Task {
 
     public abstract String toFileFormat();
     public abstract String getTypeIcon();
+
+    /**
+     * Check if the current Task contains the keyword
+     * @param keyword the keyword to search for
+     * @return true if it contains the keyword
+     */
+    public abstract boolean contains(String keyword);
 
     @Override
     public String toString() {

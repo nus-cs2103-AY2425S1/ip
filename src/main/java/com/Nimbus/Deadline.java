@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,5 +40,10 @@ public class Deadline extends Task {
     @Override
     public String getTypeIcon() {
         return "[D]";
+    }
+
+    @Override
+    public boolean contains(String keyword) {
+        return getDescription().contains(keyword) || getDeadline().contains(keyword);
     }
 }

@@ -1,5 +1,7 @@
-package com.Nimbus;
+package com.nimbus;
 
+import com.nimbus.InvalidArgumentException;
+import com.nimbus.Parser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 public class Todo extends Task{
 
@@ -24,5 +24,10 @@ public class Todo extends Task{
     @Override
     public String getTypeIcon() {
         return "[T]";
+    }
+
+    @Override
+    public boolean contains(String keyword) {
+        return getDescription().contains(keyword);
     }
 }

@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 import java.util.ArrayList;
 
@@ -49,6 +49,13 @@ public class Ui {
 
     public void showNotDoneTask(Task task) {
         System.out.println("OK, I've marked this task as not done yet: " + task);
+    }
+
+    public void showFoundTask(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); ++i) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
     }
 
     public void notifyInvalidCommand(Task task) {

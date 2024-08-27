@@ -1,10 +1,9 @@
-package com.Nimbus;
+package com.nimbus;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.Commands.ByeCommand;
-import com.Commands.Command;
+import com.commands.ByeCommand;
+import com.commands.Command;
 
 public class Nimbus {
     final private static String name = "Nimbus";
