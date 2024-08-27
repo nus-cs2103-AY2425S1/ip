@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -42,11 +44,11 @@ public class Colress {
             = "You did not seem to have entered a valid number. Try Again.";
     private static final String MESSAGE_UNCHECK_CONFIRMATION
             = "Right. I have marked this task on your list as not done:";
-    private static final String PROMPT_DEADLINE = "Enter the deadline.";
-    private static final String PROMPT_EVENT_DATE = "Enter the date of the event.";
+    private static final String PROMPT_DEADLINE = "Enter the deadline (in the form yyyy-mm-dd).";
+    private static final String PROMPT_EVENT_DATE = "Enter the date of the event (in the form yyyy-mm-dd).";
     private static final String PROMPT_EVENT_DESCRIPTION = "Enter the description of the event.";
-    private static final String PROMPT_EVENT_END_TIME = "Enter the ending time of the event.";
-    private static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event.";
+    private static final String PROMPT_EVENT_END_TIME = "Enter the ending time of the event (in the form hh:mm).";
+    private static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event (in the form hh:mm).";
     private static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
     private static final String PROMPT_TASK_NUMBER = "Enter the task number.";
     private static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
@@ -119,9 +121,9 @@ public class Colress {
     public static void addToTasks() {
         Task currTask = null;
         String description;
-        String date;
-        String from;
-        String to;
+        LocalDate date;
+        LocalTime from;
+        LocalTime to;
 
         while (currTask == null) {
             try {
@@ -146,7 +148,7 @@ public class Colress {
                     description = Colress.SCANNER.nextLine();
 
                     Colress.print(Colress.PROMPT_DEADLINE);
-                    date = Colress.SCANNER.nextLine();
+                    date = LocalDate.parse(Colress.SCANNER.nextLine());
 
                     currTask = new Deadline(description, date);
                     Colress.TASKS.add(currTask);
@@ -161,13 +163,13 @@ public class Colress {
                     description = Colress.SCANNER.nextLine();
 
                     Colress.print(Colress.PROMPT_EVENT_DATE);
-                    date = Colress.SCANNER.nextLine();
+                    date = LocalDate.parse(Colress.SCANNER.nextLine());
 
                     Colress.print(Colress.PROMPT_EVENT_START_TIME);
-                    from = Colress.SCANNER.nextLine();
+                    from = LocalTime.parse(Colress.SCANNER.nextLine());
 
                     Colress.print(Colress.PROMPT_EVENT_END_TIME);
-                    to = Colress.SCANNER.nextLine();
+                    to = LocalTime.parse(Colress.SCANNER.nextLine());
 
                     currTask = new Event(description, date, from, to);
                     Colress.TASKS.add(currTask);
@@ -238,7 +240,7 @@ public class Colress {
         try {
             String result = "";
             for(int i = 0; i < Colress.TASKS.size(); i++) {
-                result += String.format(Colress.TASKS.get(i) + "\n", i + 1);
+                result += String.format(Colress.TASKS.get(i).toTextFile() + "\n", i + 1);
             }
             initialiseFileWriter();
             Colress.writer.write(result);
@@ -272,11 +274,12 @@ public class Colress {
                     Colress.TASKS.add(new ToDo(strings[2], isChecked));
                     break;
                 case "Deadline":
-                    Colress.TASKS.add(new Deadline(strings[2], strings[3], isChecked));
+                    Colress.TASKS.add(new Deadline(strings[2], LocalDate.parse(strings[3]), isChecked));
                     break;
                 case "Event":
                     String[] times = strings[4].split(" to ");
-                    Colress.TASKS.add(new Event(strings[2], strings[3], times[0], times[1], isChecked));
+                    Colress.TASKS.add(new Event(strings[2], LocalDate.parse(strings[3]),
+                           LocalTime.parse(times[0]), LocalTime.parse(times[1]), isChecked));
                     break;
                 default:
                     Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);

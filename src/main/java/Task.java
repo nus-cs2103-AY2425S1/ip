@@ -32,4 +32,6 @@ public abstract class Task {
     public void uncheck() {
         this.isDone = false;
     }
+
+    public abstract String toTextFile();
 }
