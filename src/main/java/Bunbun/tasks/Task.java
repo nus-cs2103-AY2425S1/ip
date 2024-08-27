@@ -10,7 +10,7 @@ abstract public class Task {
     private boolean complete;
 
     /**
-     * Constructor for a task. Initializes completion of task as false.
+     * Instantiates a task. Initializes completion of task as false.
      *
      * @param task String description of task.
      */
@@ -20,7 +20,7 @@ abstract public class Task {
     }
 
     /**
-     * Method to update the task as complete.
+     * Updates the task as complete.
      */
     public void complete() {
         this.complete = true;
@@ -34,9 +34,9 @@ abstract public class Task {
     }
 
     /**
-     * Return the String description of task.
+     * Returns the String description of task.
      *
-     * @return String description of task.
+     * @return String description of task, marking X for complete.
      */
     @Override
     public String toString() {
@@ -48,7 +48,7 @@ abstract public class Task {
     }
 
     /**
-     * Method to check if a task is complete.
+     * Checks if a task is complete.
      *
      * @return Boolean indicating if the task is complete.
      */
@@ -56,5 +56,10 @@ abstract public class Task {
         return this.complete;
     }
 
+    /**
+     * Generates a string description of the task for storage in flat file.
+     *
+     * @return String description of task in the correct format for storage.
+     */
     abstract public String genFileString();
 }

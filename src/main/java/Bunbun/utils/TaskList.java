@@ -17,7 +17,11 @@ public class TaskList {
 
 
     /**
-     * Constructor for a TaskList. Initializes number of Bunbun.tasks to 0.
+     * Instantiates a task list, keeping track of the Storage
+     * for the task list and the UI to print out results.
+     *
+     * @param s Storage to store persistent data from task list.
+     * @param ui UI to print out results of methods.
      */
     public TaskList(Storage s, UI ui) {
         this.taskList = s.toArrayList();
@@ -25,18 +29,29 @@ public class TaskList {
         this.numOfTasks = this.taskList.size();
     }
 
+    /**
+     * Returns number of tasks in task list.
+     *
+     * @return int of number of tasks in task list.
+     */
     public int getNumOfTasks() {
         return this.numOfTasks;
     }
 
+    /**
+     * Returns the task at index i in the task list ArrayList.
+     *
+     * @param i int index of task to be returned.
+     * @return Task at index i of TaskList ArrayList.
+     */
     public Task getTaskByIndex(int i) {
         return this.taskList.get(i);
     }
 
     /**
-     * Method to add task to the task list.
+     * Adds task to the task list.
      *
-     * @param task
+     * @param task task to be added.
      */
     public void addTask(Task task) {
         this.taskList.add(task);
@@ -47,9 +62,11 @@ public class TaskList {
     }
 
     /**
-     * Method to add To Do task to the task list from an array list of tokens specifying the task.
+     * Adds To Do task to the task list from an array list of tokens specifying the task.
      *
      * @param tokens ArrayList with Strings specifying the task.
+     * @throws MissingTaskException if the command specifying the task is invalid due to
+     * no task specified.
      */
     public void addToDo(ArrayList<String> tokens) throws MissingTaskException {
         if (tokens.size() == 1) {
@@ -66,9 +83,10 @@ public class TaskList {
     }
 
     /**
-     * Method to add Deadline task to the task list from an array list of tokens specifying the task.
+     * Adds Deadline task to the task list from an array list of tokens specifying the task.
      *
      * @param tokens ArrayList with Strings specifying the task.
+     * @throws BunbunException if the command specifying the task is invalid.
      */
     public void addDeadline(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/by")) {
@@ -102,9 +120,10 @@ public class TaskList {
     }
 
     /**
-     * Method to add Event task to the task list from an array list of tokens specifying the task.
+     * Adds Event task to the task list from an array list of tokens specifying the task.
      *
      * @param tokens ArrayList with Strings specifying the task.
+     * @throws BunbunException if the command specifying the task is invalid.
      */
     public void addEvent(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/from") || tokens.get(1).equals("/to")) {
@@ -149,7 +168,7 @@ public class TaskList {
 
 
     /**
-     * Method to display task list for user.
+     * Displays task list for user.
      */
     public void displayList() {
         this.ui.response("These are your tasks!");
@@ -167,7 +186,7 @@ public class TaskList {
     }
 
     /**
-     * Signal that a task is complete and mark the description with an X.
+     * Signals that a task is complete and marks the description with an X.
      *
      * @param taskNum int to indicate which task to mark as complete.
      */

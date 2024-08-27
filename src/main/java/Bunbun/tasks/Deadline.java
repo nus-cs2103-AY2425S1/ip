@@ -12,11 +12,22 @@ public class Deadline extends Task {
 
     private LocalDate deadline;
 
+    /**
+     * Instantiates a Deadline task, which keeps track of the deadline.
+     *
+     * @param task String description of task.
+     * @param deadline LocalDate object to store deadline in yyyy-MM-dd format.
+     */
     public Deadline(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
     }
 
+    /**
+     * Generates a string description of the task for storage in flat file.
+     *
+     * @return String description of task in the correct format for storage.
+     */
     @Override
     public String genFileString() {
         String isComplete = (this.isComplete()) ? "true" : "false";

@@ -9,16 +9,32 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;
 
+/**
+ * This class handles flat file Storage for data persistence of Bunbun.
+ *
+ * @author Eda Yeo
+ * @version CS2103T AY24/25 Semester 1
+ */
 public class Storage {
 
     private String filePathParent;
     private String filePath;
 
+    /**
+     * Instantiates a Storage object, storing the desired file path
+     * to create the flat file storage.
+     *
+     * @param filePathParent String representing file path.
+     */
     public Storage(String filePathParent) {
         this.filePathParent = filePathParent;
         this.filePath = filePathParent + "/Bunbun.txt";
     }
 
+    /**
+     * Creates data directory at desired file path and
+     * Bunbun.txt file if they don't exist.
+     */
     public void initializeTaskFile() {
         File newDir = new File(this.filePathParent);
         newDir.mkdir();
@@ -30,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a Task object based on provided task description string.
+     *
+     * @param taskDescription String describing the task in the correct format.
+     * @return Task based on provided task description string.
+     */
     public Task parseTask(String taskDescription) {
         ArrayList<String> info = new ArrayList<>(Arrays.asList(taskDescription.split(";")));
         String type = info.get(0);
@@ -51,6 +73,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Returns an ArrayList of Tasks based on the information
+     * within the storage file.
+     *
+     * @return ArrayList<Task> of tasks stored in the storage file.
+     */
     public ArrayList<Task> toArrayList() {
         File taskFile = new File(this.filePath);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -66,6 +94,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Writes the task description of a Task in the desired format
+     * to the storage file.
+     *
+     * @param task Task to be written in.
+     */
     public void writeTask(Task task) {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
@@ -77,6 +111,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the task description of all the Tasks in the provided
+     * TaskList to the storage file.
+     *
+     * @param taskList TaskList containing Tasks to be written in.
+     */
     public void writeAllFromList(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
@@ -92,6 +132,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Clears the storage file, deleting old data.
+     *
+     */
     public void clearAll() {
         try {
             FileWriter fw = new FileWriter(this.filePath);

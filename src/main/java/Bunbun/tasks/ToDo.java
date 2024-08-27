@@ -7,6 +7,12 @@ package Bunbun.tasks;
  * @version CS2103T AY24/25 Semester 1
  */
 public class ToDo extends Task {
+
+    /**
+     * Instantiates a To Do task.
+     *
+     * @param task String description of task.
+     */
     public ToDo(String task) {
         super(task);
     }

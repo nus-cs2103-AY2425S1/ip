@@ -1,18 +1,37 @@
 package Bunbun.utils;
-import Bunbun.exceptions.BunbunException;
 
+import Bunbun.exceptions.BunbunException;
 import java.util.ArrayList;
+
+/**
+ * This class implements Commands that can be executed by Bunbun.
+ *
+ * @author Eda Yeo
+ * @version CS2103T AY24/25 Semester 1
+ */
 
 public class Command {
 
     private TaskList taskList;
     private UI ui;
 
+    /**
+     * Instantiates a Command object.
+     *
+     * @param taskList TaskList to execute the commands on.
+     * @param ui UI to print out result of executed commands.
+     */
     public Command(TaskList taskList, UI ui) {
         this.taskList = taskList;
         this.ui = ui;
     }
 
+    /**
+     * Calls different methods based on the command provided,
+     * checking for validity of the command.
+     *
+     * @param tokens ArrayList<String> of commands input by user to be executed.
+     */
     public void execute(ArrayList<String> tokens) {
         try {
             String firstWord = tokens.get(0);

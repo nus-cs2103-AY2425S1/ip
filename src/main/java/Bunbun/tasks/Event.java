@@ -12,6 +12,13 @@ public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
+    /**
+     * Instantiates an Event task that keep tracks of start and end date of task.
+     *
+     * @param task String description of task.
+     * @param start LocalDate object to store start date in yyyy-MM-dd format.
+     * @param end LocalDate object to store end date in yyyy-MM-dd format.
+     */
     public Event(String task, LocalDate start, LocalDate end) {
         super(task);
         this.start = start;

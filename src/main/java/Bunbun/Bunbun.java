@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import Bunbun.utils.*;
 
 /**
- * This class implements a chatbot by the name of Bunbun.Bunbun.
+ * This class implements a chatbot by the name of Bunbun.
  *
  * @author Eda Yeo
  * @version CS2103T AY24/25 Semester 1
