@@ -18,6 +18,8 @@ bin/
 
 # Data
 /src/main/data/tasks.txt
+tasks.txt
+text-ui-test/tasks.txt
 
 # Class Files
 /src/main/java/*.class
