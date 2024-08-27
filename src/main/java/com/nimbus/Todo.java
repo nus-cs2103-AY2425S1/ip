@@ -25,4 +25,9 @@ public class Todo extends Task {
     public String getTypeIcon() {
         return "[T]";
     }
+
+    @Override
+    public boolean contains(String keyword) {
+        return getDescription().contains(keyword);
+    }
 }

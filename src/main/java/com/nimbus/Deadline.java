@@ -41,4 +41,9 @@ public class Deadline extends Task {
     public String getTypeIcon() {
         return "[D]";
     }
+
+    @Override
+    public boolean contains(String keyword) {
+        return getDescription().contains(keyword) || getDeadline().contains(keyword);
+    }
 }

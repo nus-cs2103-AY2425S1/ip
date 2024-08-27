@@ -1,5 +1,6 @@
 package com.nimbus;
 
+import com.nimbus.Event;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -87,7 +87,8 @@ final public class Parser {
             case "deadline" -> new DeadlineCommand(getArgument(line));
             case "event" -> new EventCommand(getArgument(line));
             case "bye" -> new ByeCommand();
-            default -> throw new InvalidCommandException(getCommandType(line));
+            case "find" -> new FindCommand(getArgument(line));
+            default -> throw new InvalidCommandException(getCommand(line));
         };
     }
 }

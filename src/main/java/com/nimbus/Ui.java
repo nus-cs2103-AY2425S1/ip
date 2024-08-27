@@ -79,7 +79,13 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet: " + task);
     }
 
-    /*
+    public void showFoundTask(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); ++i) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
+
     public void notifyInvalidCommand(Task task) {
         System.out.println("Invalid Command");
     }

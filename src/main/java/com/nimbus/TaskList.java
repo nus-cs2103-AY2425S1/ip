@@ -59,4 +59,19 @@ public class TaskList {
     public Task get(int index) {
         return arr.get(index);
     }
+
+    /**
+     * Return all task that contains the keyword
+     * @param keyword keyword to check for
+     * @return All task that contains the keyword
+     */
+    public TaskList findAll(String keyword) {
+        TaskList ans = new TaskList();
+        for (int i = 0; i < this.size(); ++i) {
+            if (this.get(i).contains(keyword)) {
+                ans.add(this.get(i));
+            }
+        }
+        return ans;
+    }
 }

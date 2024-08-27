@@ -22,6 +22,5 @@ public class EventCommand extends Command {
         storage.writeTaskToFile(task);
         tasks.add(task);
         ui.showAddedTask(task, tasks.size());
-
     }
 }

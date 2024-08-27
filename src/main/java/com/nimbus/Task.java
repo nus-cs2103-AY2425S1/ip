@@ -57,6 +57,13 @@ public abstract class Task {
      */
     public abstract String getTypeIcon();
 
+    /**
+     * Check if the current Task contains the keyword
+     * @param keyword the keyword to search for
+     * @return true if it contains the keyword
+     */
+    public abstract boolean contains(String keyword);
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

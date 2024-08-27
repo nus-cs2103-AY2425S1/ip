@@ -54,4 +54,12 @@ public class Event extends Task{
     public String getTypeIcon() {
         return "[E]";
     }
+
+    @Override
+    public boolean contains(String keyword) {
+        return getDescription().contains(keyword)
+                || getToDate().contains(keyword)
+                || getFromDate().contains(keyword);
+
+    }
 }
