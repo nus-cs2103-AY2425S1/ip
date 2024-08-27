@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -119,8 +120,8 @@ public class PandaBot {
                 printLine();
                 System.out.println("PandaBot Commands:");
                 System.out.println("1. todo <description> : Adds a new Todo task.");
-                System.out.println("2. deadline <description> /by <date/time> : Adds a new Deadline task.");
-                System.out.println("3. event <description> /from <start time> /to <end time> : Adds a new Event task.");
+                System.out.println("2. deadline <description> /by <DD/MM/YYYY HHmm> : Adds a new Deadline task.");
+                System.out.println("3. event <task description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm> : Adds a new Event task.");
                 System.out.println("4. list : Lists all tasks.");
                 System.out.println("5. mark <task number> : Marks the specified task as done.");
                 System.out.println("6. unmark <task number> : Unmarks the specified task.");
@@ -136,9 +137,9 @@ public class PandaBot {
                     if (input.startsWith("todo")) {
                         task = new ToDo("").createTask(input);
                     } else if (input.startsWith("deadline")) {
-                        task = new Deadline("", "").createTask(input);
+                        task = new Deadline("", LocalDateTime.now()).createTask(input);
                     } else if (input.startsWith("event")) {
-                        task = new Event("", "", "").createTask(input);
+                        task = new Event("", LocalDateTime.now(), LocalDateTime.now()).createTask(input);
                     } else {
                         System.out.println("Invalid command. Type 'help' for assistance.");
                         continue;
