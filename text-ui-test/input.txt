@@ -1,5 +1,4 @@
 todo Read a book
-todo
 deadline Finish project
 deadline Finish project /by
 event Team meeting /from 2023-12-15 /to
@@ -11,8 +10,11 @@ mark 3
 mark 0
 unmark 2
 unmark 100
+unmark 1
 list
-todo   // empty description
-event Meet /from 2023-12-15 // incomplete format, missing to date
-deadline  /by 2024-01-10 // missing description
+todo
+event
+deadline
+event Meet /from 2023-12-15
+deadline  /by 2024-01-10
 bye

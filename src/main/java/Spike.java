@@ -38,9 +38,6 @@ public class Spike {
             try {
                 String input = scanner.nextLine().trim();
                 String[] inputSplit = input.split(" ", 2);
-                if (inputSplit.length == 1) {
-                    throw new SpikeException("Please enter a valid command");
-                }
                 InputType inputType = parseInput(inputSplit[0]);
 
                 switch (inputType) {
@@ -57,12 +54,15 @@ public class Spike {
                         unmarkTask(inputSplit[1]);
                         break;
                     case TODO:
+                        checkDescription(inputSplit, "todo");
                         addToDo(inputSplit[1]);
                         break;
                     case DEADLINE:
+                        checkDescription(inputSplit, "deadline");
                         addDeadline(inputSplit[1]);
                         break;
                     case EVENT:
+                        checkDescription(inputSplit, "event");
                         addEvent(inputSplit[1]);
                         break;
                     case ERROR:
@@ -101,6 +101,12 @@ public class Spike {
         }
     }
 
+    public static void checkDescription (String[] inputArray, String inputType) throws SpikeException {
+        if ((inputArray.length == 1) || (inputArray[1].isEmpty())) {
+            throw new SpikeException("The description of a " + inputType + " cannot be empty.");
+        }
+    }
+
     private static void listTasks() {
         System.out.println("     _________________________________________________________");
         System.out.println("      Here are the tasks in your list:");
@@ -134,43 +140,48 @@ public class Spike {
         }
     }
 
-    public static void checkDescription (String input) throws SpikeException {
-        if (input.isEmpty() || !input.matches("\\S*?")) {
-            throw new SpikeException("The description of a todo cannot be empty.");
-        }
-    }
-
     public static void addToDo(String input) throws SpikeException {
-        checkDescription(input);
         ToDo toDo = new ToDo(input);
         toDoList.add(toDo);
         addTaskString(toDo.toString());
     }
 
     public static void addEvent(String input) throws SpikeException {
-        checkDescription(input);
-        String[] split = input.split(" /from | /to ");
-        if (split.length == 3) {
-            Event formattedEvent = new Event(split[0], split[1], split[2]);
-            toDoList.add(formattedEvent);
-            addTaskString(formattedEvent.toString());
-        } else {
-            throw new SpikeException("Please enter a valid event in the right format: " +
-                    "event description /from start time /to end time");
+        String[] parts = input.split(" /from | /to ");
+
+        if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+            if (parts[0].trim().isEmpty()) {
+                throw new SpikeException("Please enter a valid event description followed by " +
+                        "/from start time and /to end time");
+            }
+            if (parts.length != 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+                throw new SpikeException("Please enter a valid event in the right format: event description " +
+                        "/from start time /to end time");
+            }
         }
+
+        Event formattedEvent = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        toDoList.add(formattedEvent);
+        addTaskString(formattedEvent.toString());
     }
 
+
     public static void addDeadline(String input) throws SpikeException {
-        checkDescription(input);
-        String[] split = input.split(" /by ");
-        if (split.length == 2) {
-            Deadline formattedDeadline = new Deadline(split[0], split[1]);
-            toDoList.add(formattedDeadline);
-            addTaskString(formattedDeadline.toString());
-        } else {
-            throw new SpikeException("Please enter a valid deadline in the right format: " +
-                    "deadline description /by due date");
+        String[] split = input.split(" /by ", 2);
+
+        if (split.length != 2 || split[0].trim().isEmpty() || split[1].trim().isEmpty()) {
+            if (split.length != 2 || split[1].trim().isEmpty()) {
+                throw new SpikeException("Please enter a valid deadline in the right format: " +
+                        "deadline description /by due date");
+            }
+            if (split[0].trim().isEmpty()) {
+                throw new SpikeException("Please enter a valid deadline description followed by /by due date");
+            }
         }
+
+        Deadline formattedDeadline = new Deadline(split[0].trim(), split[1].trim());
+        toDoList.add(formattedDeadline);
+        addTaskString(formattedDeadline.toString());
     }
 
     public static void addTaskString(String taskToString) {
