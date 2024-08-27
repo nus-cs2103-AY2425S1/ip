@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
-    Storage(String path) {
+    public Storage(String path) {
         this.filePath = path;
         checkSavedFile();
     }
@@ -30,6 +30,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Read a command and its file format and return its Command object
+     * @param command, a command in its file format
+     * @return a Command object that identifies command
+     */
     public static Task getTaskFromSavedCommand(String command) {
         String[] arr = command.split("\\|");
         boolean isDone = arr[1].equals("1");
@@ -41,6 +46,10 @@ public class Storage {
         };
     }
 
+    /**
+     * Load all command in filePath
+     * @return TaskList contains all the Command in filePath
+     */
     public TaskList load() {
         TaskList ans = new TaskList();
         checkSavedFile();
@@ -58,6 +67,11 @@ public class Storage {
         return ans;
     }
 
+    /**
+     * Save a task to filePath
+     * @param task to be saved
+     * @return true iff saved successfully
+     */
     public boolean writeTaskToFile(Task task) {
         try (FileWriter file = new FileWriter(filePath, true)){
             file.write(task.toFileFormat());
@@ -69,6 +83,12 @@ public class Storage {
         return false;
     }
 
+    /**
+     * Remove index-th task in filePath (0-indexed)
+     * @param index index of the task to remove
+     * @param size  number of task in the file
+     * @return true iff removed successfully
+     */
     public boolean removeTaskFromFileByIndex(int index, int size) {
         try {
             File file = new File(filePath);
@@ -95,6 +115,10 @@ public class Storage {
         return false;
     }
 
+    /**
+     * Save all task in tasks in filePath (Overwrite)
+     * @param tasks tasks to be saved
+     */
     public void writeTasksToFile(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);

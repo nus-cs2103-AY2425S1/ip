@@ -25,6 +25,9 @@ public class Nimbus {
         new Nimbus("./data/data.txt").run();
     }
 
+    /**
+     * Run the Nimbus Chatbot
+     */
     public void run() {
         tasks.add(storage.load());
         ui.showWelcomeMessage();

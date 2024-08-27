@@ -12,7 +12,7 @@ public class Event extends Task{
         this(description, false, from, to);
     }
 
-    public Event(String description, boolean isDone , String from, String to) {
+    public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
         try {
             LocalDate date = LocalDate.parse(from);
