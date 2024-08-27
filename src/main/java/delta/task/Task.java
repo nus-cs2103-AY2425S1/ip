@@ -1,3 +1,5 @@
+package delta.task;
+
 /**
  * Includes a description of the task and a completion status.
  * Serves as a parent class for subclasses Todo, Deadline and Event.

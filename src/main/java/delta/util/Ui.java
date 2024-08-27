@@ -1,3 +1,5 @@
+package delta.util;
+
 import java.util.Scanner;
 
 /**
