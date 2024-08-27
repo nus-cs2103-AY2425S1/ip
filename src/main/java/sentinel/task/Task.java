@@ -7,12 +7,12 @@ public class Task {
     /**
      * The description of the task.
      */
-    protected String description;
+    private String description;
 
     /**
      * The status of the task; true if the task is done, false otherwise.
      */
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructs a new sentinel.task.Task with the specified description.
@@ -32,7 +32,25 @@ public class Task {
      * @return The status icon of the task.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the status of the task
+     *
+     * @return The status of the task.
+     */
+    public boolean getStatus() {
+        return isDone;
     }
 
     /**

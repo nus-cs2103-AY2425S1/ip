@@ -110,6 +110,24 @@ public class TaskList {
     }
 
     /**
+     * Returns a new list of tasks that matches the task name.
+     *
+     * @param taskName Tasks with this name to be included.
+     * @return New task list with tasks matching the task name.
+     */
+    public TaskList getMatching(String taskName) {
+        TaskList newTaskList = new TaskList();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(taskName)) {
+                newTaskList.addTask(task);
+            }
+        }
+
+        return newTaskList;
+    }
+
+    /**
      * Deletes the task on the list.
      *
      * @param taskNumber Number of the task.

@@ -18,7 +18,10 @@ import java.time.LocalDate;
  */
 public class Sentinel {
     private TaskList taskList;
+    private TaskList searchTaskList;
     private final Ui ui;
+
+    private boolean isSearch;
 
     /**
      * Constructs a new Sentinel and initializes it with commands and
@@ -27,6 +30,7 @@ public class Sentinel {
      */
     public Sentinel() {
         this.ui = new Ui();
+        this.isSearch = false;
 
         // Load save file
         try {
@@ -35,9 +39,6 @@ public class Sentinel {
             ui.showError("OOPS NO FILE???");
             this.taskList = new TaskList();
         }
-
-        // Initialize sentinel.commands.Commands
-
     }
 
     ////////////// COMMANDS FOR SENTINEL START //////////////
@@ -45,8 +46,22 @@ public class Sentinel {
      * Makes Sentinel output the list of tasks.
      */
     public void outputTaskList() {
+        isSearch = false;
+
         say("Here are the list of your tasks \n" + this.taskList.toString() +
             String.format("\n You have %d tasks in total.", this.taskList.getTotal()));
+    }
+
+    /**
+     * Makes Sentinel output the list of tasks that match the search string.
+     */
+    public void outputMatchingTaskList(String searchTerm) {
+        searchTaskList = this.taskList.getMatching(searchTerm);
+        isSearch = true;
+
+        say("Here are the list of your matching tasks \n" + this.searchTaskList.toString()
+                + String.format("\n You have %d tasks matching that name.", this.searchTaskList.getTotal())
+                + "\n\n You are now indexing the search list.\n Type list to back to indexing the original list.");
     }
 
     /**
@@ -55,7 +70,13 @@ public class Sentinel {
      * @param taskNumber sentinel.task.Task number to be marked.
      */
     public void markDone(int taskNumber) throws SentinelException {
-        say("Marked the following task as done: \n " + taskList.markAsDone(taskNumber));
+        TaskList selectedTaskList = this.taskList;
+
+        if (this.isSearch) {
+            selectedTaskList = this.searchTaskList;
+        }
+
+        say("Marked the following task as done: \n " + selectedTaskList.markAsDone(taskNumber));
     }
 
     /**
@@ -64,7 +85,13 @@ public class Sentinel {
      * @param taskNumber sentinel.task.Task number to be unmarked.
      */
     public void markUndone(int taskNumber) throws SentinelException {
-        say("Unmarked the following task: \n " + taskList.markAsUndone(taskNumber));
+        TaskList selectedTaskList = this.taskList;
+
+        if (this.isSearch) {
+            selectedTaskList = this.searchTaskList;
+        }
+
+        say("Unmarked the following task: \n " + selectedTaskList.markAsUndone(taskNumber));
     }
 
     /**
