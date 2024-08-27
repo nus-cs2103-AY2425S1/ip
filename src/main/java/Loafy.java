@@ -12,38 +12,70 @@ public class Loafy {
             String command = input.nextLine();
             String[] arr = command.split(" ");
 
-            if (command.equals("bye")) {
+            if (arr.length == 0) {
+                reply(LoafyException.emptyInput());
+            } else if (command.equals("bye")) {
                 break;
             } else if (command.equals("list")) {
                 reply(tl.view());
             } else if (arr[0].equals("mark")
                     || arr[0].equals("unmark")) {
-                // set isDone to true if "mark", false if "unmark"
-                boolean isDone = arr[0].equals("mark");
-                int taskId = Integer.parseInt(arr[1]);
-                String msg = tl.markTask(isDone, taskId);
-                reply(msg);
+                if (arr.length != 2) {
+                    reply(LoafyException.invalidMark());
+                } else {
+                    try {
+                        int taskId = Integer.parseInt(arr[1]);
+                        boolean isDone = arr[0].equals("mark");
+                        // set isDone to true if "mark", false if "unmark"
+                        String msg = tl.markTask(isDone, taskId);
+                        reply(msg);
+                    } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+                        reply(LoafyException.invalidMark());
+                    }
+                }
             } else if (arr[0].equals("todo")) {
-                String name = joinRange(arr, 1, arr.length);
-                Task task = new Todo(name);
-                String msg = tl.add(task);
-                reply(msg);
+                if (arr.length == 1) {
+                    reply(LoafyException.emptyTodo());
+                } else {
+                    String name = joinRange(arr, 1, arr.length);
+                    Task task = new Todo(name);
+                    String msg = tl.add(task);
+                    reply(msg);
+                }
             } else if (arr[0].equals("deadline")) {
                 int i = Arrays.asList(arr).indexOf("/by");
-                String name = joinRange(arr, 1, i);
-                String date = joinRange(arr, i + 1, arr.length);
-                Task task = new Deadline(name, date);
-                String msg = tl.add(task);
-                reply(msg);
+                if (i == -1) {
+                    reply(LoafyException.noDeadline());
+                } else {
+                    String name = joinRange(arr, 1, i);
+                    String date = joinRange(arr, i + 1, arr.length);
+                    if (name.isEmpty() || date.isEmpty()) {
+                        reply(LoafyException.noDeadline());
+                    } else {
+                        Task task = new Deadline(name, date);
+                        String msg = tl.add(task);
+                        reply(msg);
+                    }
+                }
             } else if (arr[0].equals("event")) {
                 int fromIndex = Arrays.asList(arr).indexOf("/from");
                 int toIndex = Arrays.asList(arr).indexOf("/to");
-                String name = joinRange(arr, 1, fromIndex);
-                String from = joinRange(arr, fromIndex + 1, toIndex);
-                String to = joinRange(arr, toIndex + 1, arr.length);
-                Task task = new Event(name, from, to);
-                String msg = tl.add(task);
-                reply(msg);
+                if (fromIndex == -1 || toIndex == -1) {
+                    reply(LoafyException.noEventDates());
+                } else {
+                    String name = joinRange(arr, 1, fromIndex);
+                    String from = joinRange(arr, fromIndex + 1, toIndex);
+                    String to = joinRange(arr, toIndex + 1, arr.length);
+                    if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        reply(LoafyException.noEventDates());
+                    } else {
+                        Task task = new Event(name, from, to);
+                        String msg = tl.add(task);
+                        reply(msg);
+                    }
+                }
+            } else {
+                reply(LoafyException.invalidCommand());
             }
         }
 
