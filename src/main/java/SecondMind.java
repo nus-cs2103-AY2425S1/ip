@@ -44,7 +44,15 @@ public class SecondMind {
             throw new EmptyToDoException();
         }
         taskInfo[0] = "";
-        return new ToDoTask(String.join(" ", taskInfo));
+        String taskDescription = String.join(" ", taskInfo);
+        taskDescription = taskDescription.substring(1);
+        String data = "\nT|0|" + taskDescription;
+        try {
+            appendToFile(data);
+        } catch (IOException e) {
+            printErrorMessage(e);
+        }
+        return new ToDoTask(taskDescription);
     }
 
     private static Task createDeadline(String task) {
