@@ -1,3 +1,5 @@
+package Talky;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -22,12 +24,12 @@ public class SaveData {
             while(sc.hasNext()) {
                 String[] taskDetails = sc.nextLine().split(" ");
                 switch (taskDetails[0]) {
-                case "ToDo":
+                case "Talky.ToDo":
                     ToDo newTodo = new ToDo(taskDetails[1]);
                     newTodo.setMark(Boolean.parseBoolean(taskDetails[2]));
                     userTasks.add(newTodo);
                     break;
-                case "Deadline":
+                case "Talky.Deadline":
                     String saveBy = String.join(" ", taskDetails[2], taskDetails[3]);
                     ArrayList<LocalDateTime> deadlineDate = parser.parseDate(saveBy);
                     LocalDateTime by = deadlineDate.get(0);
@@ -35,7 +37,7 @@ public class SaveData {
                     newDeadline.setMark(Boolean.parseBoolean(taskDetails[3]));
                     userTasks.add(newDeadline);
                     break;
-                case "Event":
+                case "Talky.Event":
                     String saveFrom = String.join(" ", taskDetails[2], taskDetails[3]);
                     String saveTo = String.join(" ", taskDetails[4], taskDetails[5]);
                     ArrayList<LocalDateTime> eventDates = parser.parseDate(saveFrom, saveTo);

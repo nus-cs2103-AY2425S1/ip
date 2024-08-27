@@ -1,3 +1,5 @@
+package Talky;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +21,7 @@ public class Task {
     }
 
     public String toSaveFormat() {
-        return "Task";
+        return "Talky.Task";
     }
 
     @Override
@@ -36,12 +38,12 @@ class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "ToDo: " + super.toString();
+        return "Talky.ToDo: " + super.toString();
     }
 
     @Override
     public String toSaveFormat() {
-        String formatted = String.format("ToDo %s %b", this.name, this.marked);
+        String formatted = String.format("Talky.ToDo %s %b", this.name, this.marked);
         return formatted;
     }
 }
@@ -54,13 +56,13 @@ class Deadline extends Task {
     @Override
     public String toString() {
         String formattedBy = this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-        return "Deadline: " + super.toString() + " (by: " + formattedBy + ")";
+        return "Talky.Deadline: " + super.toString() + " (by: " + formattedBy + ")";
     }
 
     @Override
     public String toSaveFormat() {
         String by = this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyy HHmm"));
-        String formatted = String.format("Deadline %s %s %b", this.name, by, this.marked);
+        String formatted = String.format("Talky.Deadline %s %s %b", this.name, by, this.marked);
         return formatted;
     }
 }
@@ -76,14 +78,14 @@ class Event extends Task {
     public String toString() {
         String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         String formattedTo = this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-        return "Event: " + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
+        return "Talky.Event: " + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 
     @Override
     public String toSaveFormat() {
         String from = this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyy HHmm"));
         String to = this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyy HHmm"));
-        String formatted = String.format("Event %s %s %s %b", this.name, from, to, this.marked);
+        String formatted = String.format("Talky.Event %s %s %s %b", this.name, from, to, this.marked);
         return formatted;
     }
 }

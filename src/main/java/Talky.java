@@ -1,7 +1,11 @@
 import java.time.LocalDateTime;
-
+import Talky.Ui;
+import Talky.TaskList;
+import Talky.SaveData;
+import Talky.Parser;
+import Talky.TalkyException;
 public class Talky {
-    //private static ArrayList<Task> userTasks = new ArrayList<>();
+    //private static ArrayList<Talky.Task> userTasks = new ArrayList<>();
     private final static String SAVE_PATH = "./data/talky.txt";
     private boolean isRunning;
     private Ui ui;
@@ -72,7 +76,7 @@ public class Talky {
         try {
             int indexToChange = Integer.parseInt(commandArgs[0]) - 1;
             String changedTask = userTasks.markTask(indexToChange, true);
-            ui.printSeperator("Task Marked Done: " + changedTask);
+            ui.printSeperator("Talky.Task Marked Done: " + changedTask);
         } catch (IndexOutOfBoundsException err) {
             throw new TalkyException("Given index out of bounds");
         } catch (NumberFormatException err) {
@@ -84,7 +88,7 @@ public class Talky {
         try {
             int indexToChange = Integer.parseInt(commandArgs[0]) - 1;
             String changedTask = userTasks.markTask(indexToChange, false);
-            ui.printSeperator("Task Marked Done: " + changedTask);
+            ui.printSeperator("Talky.Task Marked Done: " + changedTask);
         } catch (IndexOutOfBoundsException err) {
             throw new TalkyException("Given index out of bounds");
         } catch (NumberFormatException err) {
@@ -95,7 +99,7 @@ public class Talky {
     private void addTodo(String[] commandArgs) throws TalkyException {
         String name = commandArgs[0];
         userTasks.addToDo(name);
-        ui.printSeperator("Added ToDo: " + name);
+        ui.printSeperator("Added Talky.ToDo: " + name);
     }
 
     private void addDeadline(String[] commandArgs) throws TalkyException {
@@ -103,7 +107,7 @@ public class Talky {
         String by = commandArgs[1];
         LocalDateTime formattedBy = Parser.parseDate(by).get(0);
         userTasks.addDeadline(name, formattedBy);
-        ui.printSeperator("Added Deadline: " + name);
+        ui.printSeperator("Added Talky.Deadline: " + name);
     }
 
     private void addEvent(String[] commandArgs) throws TalkyException {
@@ -113,14 +117,14 @@ public class Talky {
         LocalDateTime formattedFrom = Parser.parseDate(from).get(0);
         LocalDateTime formattedTo = Parser.parseDate(to).get(0);
         userTasks.addEvent(name, formattedFrom, formattedTo);
-        ui.printSeperator("Added Event: " + name);
+        ui.printSeperator("Added Talky.Event: " + name);
     }
 
     private void delete(String[] commandArgs) throws TalkyException {
         try {
             int indexToChange = Integer.parseInt(commandArgs[0]) - 1;
             String changedTask = userTasks.deleteTask(indexToChange);
-            ui.printSeperator("Deleted Task: " + changedTask);
+            ui.printSeperator("Deleted Talky.Task: " + changedTask);
         } catch (IndexOutOfBoundsException err) {
             throw new TalkyException("Given index out of bounds");
         } catch (NumberFormatException err) {
