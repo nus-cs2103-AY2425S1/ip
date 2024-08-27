@@ -16,5 +16,5 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-data/save
-text-ui-test/data/save
+data/*
+text-ui-test/data/*
