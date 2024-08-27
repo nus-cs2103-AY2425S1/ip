@@ -22,18 +22,4 @@ public class Storage {
         reader.close();
         return tasks;
     }
-
-    public void save(ArrayList<Task> tasks) throws IOException {
-        File file = new File(filePath);
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        }
-
-        PrintWriter writer = new PrintWriter(file);
-        for (Task task : tasks) {
-            writer.println(task.toFileString());
-        }
-        writer.close();
-    }
 }

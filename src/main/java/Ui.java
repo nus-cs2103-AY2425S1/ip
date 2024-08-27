@@ -32,14 +32,4 @@ public class Ui {
         System.out.println("Bao is ready for instructions");
         System.out.println("____________________________________________________________");
     }
-
-    public void showExitMessage() {
-        System.out.println(baoSad);
-        System.out.println("Bye :( Come back soon!");
-        System.out.println("____________________________________________________________");
-    }
-
-    public void showMessage(String message) {
-        System.out.println(message);
-    }
 }
