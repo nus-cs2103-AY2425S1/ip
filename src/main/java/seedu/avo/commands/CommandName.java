@@ -9,6 +9,7 @@ public enum CommandName {
     UNMARK("unmark"),
     DELETE("delete"),
     SEARCH_DATE("on"),
+    SEARCH_NAME("find"),
     EXIT("exit");
     private final String commandName;
     CommandName(String commandName) {

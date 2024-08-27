@@ -18,7 +18,10 @@ public abstract class Task {
      public boolean isOccurringOnDate(LocalDate date) { return false; }
      public String formatData() {
           return String.format("%d : %s", isCompleted ? 1 : 0, name);
-     };
+     }
+     public boolean matchName(String name) {
+          return this.name.contains(name);
+     }
      @Override
      public String toString() {
           String checkBox = isCompleted ? "[X]" : "[ ]";

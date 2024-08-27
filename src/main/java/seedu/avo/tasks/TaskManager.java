@@ -76,4 +76,12 @@ public class TaskManager {
         }
         return str.toString();
     }
+    public void getTasksByName(String name) {
+        print("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).matchName(name)) {
+                print(getItem(i));
+            }
+        }
+    }
 }
