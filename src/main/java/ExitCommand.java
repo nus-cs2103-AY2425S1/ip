@@ -3,6 +3,9 @@
  * Exits Delta ChatBot.
  */
 public class ExitCommand extends Command {
+    public ExitCommand() {
+        super(CommandType.Exit);
+    }
     /**
      * Returns that ExitCommand is the exit command.
      */

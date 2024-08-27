@@ -3,6 +3,9 @@
  * Prints all tasks from stored list.
  */
 public class PrintCommand extends Command {
+    public PrintCommand() {
+        super(CommandType.Print);
+    }
     /**
      * Returns that MarkCommand is not the exit command.
      */

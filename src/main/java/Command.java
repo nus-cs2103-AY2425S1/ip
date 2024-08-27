@@ -5,6 +5,8 @@
  * UnmarkCommand, DeleteCommand, PrintCommand and ExitCommand.
  */
 public abstract class Command {
+    public Command(CommandType type) {}
+
     // Determines if command is exit command.
     public abstract boolean isExit();
 

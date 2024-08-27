@@ -6,6 +6,7 @@ public class UnmarkCommand extends Command {
     private int index;
 
     public UnmarkCommand(int index) {
+        super(CommandType.Unmark);
         this.index = index;
     }
 

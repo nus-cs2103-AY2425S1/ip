@@ -5,7 +5,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected TaskType type;
 
     /**
      * Constructor for Task instance.
@@ -14,7 +13,6 @@ public class Task {
      */
     public Task(String description, TaskType type) {
         this.description = description;
-        this.type = type;
         this.isDone = false;
     }
 

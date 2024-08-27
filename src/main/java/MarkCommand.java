@@ -6,6 +6,7 @@ public class MarkCommand extends Command {
     private int index;
 
     public MarkCommand(int index) {
+        super(CommandType.Mark);
         this.index = index;
     }
 
