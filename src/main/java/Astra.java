@@ -15,6 +15,13 @@ public class Astra {
                 "____________________________________________________________\n";
     }
 
+    /**
+     * Returns the index argument of a command.
+     *
+     * @param text Command text with its arguments.
+     * @return Index specified in the command.
+     * @throws AstraException If index is invalid.
+     */
     private static int getIndex(String text) throws AstraException {
         int index;
         try {
@@ -25,6 +32,12 @@ public class Astra {
         return index;
     }
 
+    /**
+     * Returns the key word arguments of a command.
+     *
+     * @param text Command text with its arguments.
+     * @return Map of each key word to its string value.
+     */
     private static HashMap<String, String> getArgs(String text) {
         String[] words = text.split(" ");
         HashMap<String, String> args = new HashMap<>();
@@ -60,6 +73,13 @@ public class Astra {
         System.out.println(formatMsg(tasks.toString()));
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param type Type of the task.
+     * @param text Command text with its arguments.
+     * @throws AstraException If task description is empty.
+     */
     public static void add(TaskType type, String text) throws AstraException {
         String argText;
 
@@ -95,22 +115,19 @@ public class Astra {
     }
 
     public static void delete(int index) throws AstraException {
-        Task t = tasks.get(index);
-        tasks.delete(index);
+        Task t = tasks.delete(index);
         String msg = " Noted. I've removed this task: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
 
     public static void mark(int index) throws AstraException {
-        Task t = tasks.get(index);
-        t.setDone(true);
+        Task t = tasks.markAsDone(index, true);
         String msg = " Nice! I've marked this task as done: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
 
     public static void unmark(int index) throws AstraException {
-        Task t = tasks.get(index);
-        t.setDone(false);
+        Task t = tasks.markAsDone(index, false);
         String msg = " OK, I've marked this task as not done yet: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
@@ -148,6 +165,8 @@ public class Astra {
                 System.out.println(formatMsg(e.getMessage() + "\n"));
             }
         }
+
+        inp.close();
         goodbye();
     }
 }
