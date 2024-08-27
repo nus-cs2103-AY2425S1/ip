@@ -8,42 +8,42 @@ import java.util.function.Function;
 import vuewee.parser.IllegalCommandException;
 
 public class TaskLocalDate {
-  private LocalDate date;
+    private LocalDate date;
 
-  private TaskLocalDate(LocalDate date) {
-    this.date = date;
-  }
-
-  public static TaskLocalDate parse(String dateString) {
-    try {
-      LocalDate date = LocalDate.parse(dateString);
-      return new TaskLocalDate(date);
-    } catch (DateTimeParseException e) {
-      throw new IllegalArgumentException(e);
+    private TaskLocalDate(LocalDate date) {
+        this.date = date;
     }
-  }
 
-  public static Function<String, TaskLocalDate> createParserWithFrom(Function<?, TaskLocalDate> fromGenerator) {
-    return (String dateString) -> {
-      TaskLocalDate taskDate = TaskLocalDate.parse(dateString);
-      TaskLocalDate from = fromGenerator.apply(null);
-      if (taskDate.date.isBefore(from.date)) {
-        throw new IllegalCommandException("Invalid date. End date " + taskDate + " is before " + from);
-      }
-      return taskDate;
-    };
-  }
+    public static TaskLocalDate parse(String dateString) {
+        try {
+            LocalDate date = LocalDate.parse(dateString);
+            return new TaskLocalDate(date);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
-  public String serialize() {
-    return date.toString();
-  }
+    public static Function<String, TaskLocalDate> createParserWithFrom(Function<?, TaskLocalDate> fromGenerator) {
+        return (String dateString) -> {
+            TaskLocalDate taskDate = TaskLocalDate.parse(dateString);
+            TaskLocalDate from = fromGenerator.apply(null);
+            if (taskDate.date.isBefore(from.date)) {
+                throw new IllegalCommandException("Invalid date. End date " + taskDate + " is before " + from);
+            }
+            return taskDate;
+        };
+    }
 
-  public static TaskLocalDate deserialize(String text) {
-    return TaskLocalDate.parse(text);
-  }
+    public String serialize() {
+        return date.toString();
+    }
 
-  @Override
-  public String toString() {
-    return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-  }
+    public static TaskLocalDate deserialize(String text) {
+        return TaskLocalDate.parse(text);
+    }
+
+    @Override
+    public String toString() {
+        return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+    }
 }
