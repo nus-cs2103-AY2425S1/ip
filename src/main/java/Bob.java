@@ -251,7 +251,7 @@ public class Bob {
         this.counter = x;
     }
 
-    
+
     public void delete(String input) {
         try {
             String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
