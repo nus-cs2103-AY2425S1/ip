@@ -1,9 +1,17 @@
 // use Scanner class to get user inputs
-import java.lang.reflect.Array;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+// import this class to represent a File object
+import java.io.File;
+// import this to write to a file (to save tasks to the file)
+import java.io.FileWriter;
+
 
 public class Bestie {
+    // load the bestie.txt file in the same directory
+    private static final String FILE_PATH = "bestie.txt";
     public static void main(String[] args){
 
         // create Scanner object to read user input
@@ -16,6 +24,8 @@ public class Bestie {
 
         String userInput;
         ArrayList<Task> tasks = new ArrayList<>();
+        loadTasksFromFile(tasks); // will modify the arraylist of tasks directly
+
         // echoes commands entered by the user, and exits when the user types the command "bye"
         while (true) {
             userInput = sc.nextLine();
@@ -41,6 +51,8 @@ public class Bestie {
                     tasks.get(index).markTaskDone();
                     System.out.println("Awesome work! I've marked this task as done.");
                     System.out.println("  " + tasks.get(index).toString());
+                } else {
+                    Bestie.indexOutOfBoundsMessage(tasks.size());
                 }
 
 
@@ -48,15 +60,30 @@ public class Bestie {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     tasks.get(index).markUndone();
-                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("Noted! I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(index).toString());
+                } else {
+                    Bestie.indexOutOfBoundsMessage(tasks.size());
+
                 }
+
             } else if (userInput.startsWith("delete")) {
                 // get index of task to be deleted
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks.remove(index);
-                System.out.println("Noted! The task has been removed.");
-                System.out.println("You now have " + tasks.size() + " tasks in the list.");
+                if (index >= 0 && index < tasks.size()) {
+                    tasks.remove(index);
+                    System.out.println("Noted! The task has been removed.");
+
+                    if (tasks.size() == 1) {
+                        System.out.println("You now have 1 task in your list.");
+                    } else {
+                        System.out.println("You now have " + tasks.size() + " tasks in your list.");
+                    }
+                } else {
+                    Bestie.indexOutOfBoundsMessage(tasks.size());
+                }
+
+
             } else {
                 Task newTask;
                 if (userInput.startsWith("todo")) {
@@ -111,8 +138,91 @@ public class Bestie {
             }
 
         }
+        // save the tasks still in the list right before exiting
+        saveTasksToFile(tasks);
+        System.out.println("Bye. Hope to see you again soon! :)");
 
-        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static void indexOutOfBoundsMessage(int taskSize) {
+        if (taskSize == 1) {
+            System.out.println("That task does not exist. There is only 1 task in your list!");
+        } else {
+            System.out.println("That task does not exist. There are only " + taskSize
+                    + " tasks in your list!");
+        }
+        System.out.println("Please key in a valid index.");
+    }
+
+    // Saves all tasks currently in the arraylist to the txt file
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        // want to save tasks to bestie.txt file
+        try {
+            File f = new File(FILE_PATH);
+            FileWriter fw = new FileWriter(f); // f or file path?
+
+            for (Task task: tasks) {
+                // store each task in the save format
+                fw.write(task.toSaveFormat() + System.lineSeparator());
+            }
+            // must call close() method of filewriter object for writing operation to be completed
+            fw.close();
+        } catch (IOException e) {
+            // must handle the checked exception from creating a new FileWriter instance, IOException
+            System.out.println("An error occurred while attempting to save tasks to file.");
+        }
+
+    }
+
+    private static void loadTasksFromFile(ArrayList<Task> tasks) {
+
+        File f = new File(FILE_PATH);
+        try {
+            // creates new file if and only if file does not yet exist
+            f.createNewFile();
+            Scanner sc = new Scanner(f); // create scanner using file as source
+
+
+            while (sc.hasNextLine()) {
+                // load the next task in the file in its stored format
+                String nextTask = sc.nextLine();
+                String[] parts = nextTask.split(" \\| ");
+                String taskType = parts[0]; // either T, D, or E, depending on task
+                // check if task is completed
+                boolean isCompleted = parts[1].equals("1");
+                String description = parts[2]; // description of task
+                Task newTask = null;
+                switch (taskType) {
+
+                case ("T"): // next task is a todo
+                    newTask = new Todo(description);
+                    tasks.add(newTask);
+                    break;
+
+                case ("D"):
+
+                    String deadline = parts[3];
+                    newTask = new Deadline(description, deadline);
+                    tasks.add(newTask);
+                    break;
+
+                case ("E"):
+                    String start = parts[3];
+                    String end = parts[4];
+                    newTask = new Event(description, start, end);
+                    tasks.add(newTask);
+                    break;
+                }
+
+                if (newTask != null) {
+                    if (isCompleted) {
+                        newTask.markTaskDone();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occured.");
+        }
 
     }
 }
