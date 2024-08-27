@@ -217,6 +217,23 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static Task textToTask(String text) {
+        String[] taskInfo = text.split("\\|");
+        String taskType = taskInfo[0];
+        Task curr;
+        if (taskType.equals("T")) {
+            curr = new ToDoTask(taskInfo[2]);
+        } else if (taskType.equals("D")) {
+            curr = new DeadlineTask(taskInfo[2], taskInfo[3]);
+        } else {
+            curr = new EventTask(taskInfo[2], taskInfo[3], taskInfo[4]);
+        }
+        if (taskInfo[1] == "1") {
+            curr.markAsDone();
+        }
+        return curr;
+    }
+
     public static void main(String[] args) {
         greetUser();
         getInput();
