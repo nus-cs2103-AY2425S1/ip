@@ -1,6 +1,10 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
     public Event(String description, String from, String to) throws MurphyException{
         super(description);
         String fromTrimmed = from.trim();
@@ -11,8 +15,12 @@ public class Event extends Task {
         if (toTrimmed.isEmpty()) {
             throw new MurphyException("Event to date cannot be empty!");
         }
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(fromTrimmed);
+            this.to = LocalDate.parse(toTrimmed);
+        } catch (DateTimeParseException e) {
+            throw new MurphyException("Dates should be in the format yyyy-mm-dd.");
+        }
     }
 
     public Event(String description, boolean isDone, String from, String to) throws MurphyException{
@@ -25,13 +33,19 @@ public class Event extends Task {
         if (toTrimmed.isEmpty()) {
             throw new MurphyException("Event to date cannot be empty!");
         }
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(fromTrimmed);
+            this.to = LocalDate.parse(toTrimmed);
+        } catch (DateTimeParseException e) {
+            throw new MurphyException("Dates should be in the format yyyy-mm-dd.");
+        }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        return "[E]" + super.toString() + " (from: " + this.from.format(formatter)
+                + " to: " + this.to.format(formatter) + ")";
     }
 
     @Override
