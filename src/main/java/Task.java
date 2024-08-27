@@ -18,6 +18,10 @@ public class Task {
         this.marked = marked;
     }
 
+    public String toSaveFormat() {
+        return "Task";
+    }
+
     @Override
     public String toString() {
         String marked = this.marked ? "[X]" : "[ ]";
@@ -29,9 +33,16 @@ class ToDo extends Task {
     public ToDo(String name) {
         super(name);
     }
+
     @Override
     public String toString() {
         return "ToDo: " + super.toString();
+    }
+
+    @Override
+    public String toSaveFormat() {
+        String formatted = String.format("ToDo %s %b", this.name, this.marked);
+        return formatted;
     }
 }
 class Deadline extends Task {
@@ -44,6 +55,13 @@ class Deadline extends Task {
     public String toString() {
         String formattedBy = this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         return "Deadline: " + super.toString() + " (by: " + formattedBy + ")";
+    }
+
+    @Override
+    public String toSaveFormat() {
+        String by = this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyy HHmm"));
+        String formatted = String.format("Deadline %s %s %b", this.name, by, this.marked);
+        return formatted;
     }
 }
 class Event extends Task {
@@ -59,5 +77,13 @@ class Event extends Task {
         String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         String formattedTo = this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         return "Event: " + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
+    }
+
+    @Override
+    public String toSaveFormat() {
+        String from = this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyy HHmm"));
+        String to = this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyy HHmm"));
+        String formatted = String.format("Event %s %s %s %b", this.name, from, to, this.marked);
+        return formatted;
     }
 }
