@@ -347,7 +347,13 @@ public class SecondMind {
                 taskList.add(curr);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            try {
+                File newFile = new File(DATA_FILE_PATH);
+                newFile.createNewFile();
+            } catch (IOException error2) {
+                printErrorMessage(error2);
+            }
+            loadTaskList();
         }
     }
 
