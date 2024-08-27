@@ -8,12 +8,10 @@ import java.time.format.DateTimeParseException;
 public class Mira {
     private final Ui ui; // handle user interface
     private final TaskList tasks; // Manages tasks
-    private boolean isRunning; // default is true
 
     public Mira(Ui ui) throws IOException, SecurityException, MiraException {
         this.ui = ui;
         this.tasks = new TaskList(this.ui, new Storage("./data/mira.txt"));
-        this.isRunning = true;
     }
 
     /**
@@ -22,66 +20,28 @@ public class Mira {
      */
     public void run() {
         // show welcome message with multiline text
-        this.ui.showMessage("Hello! I'm Mira\nWhat can I do for you?");
-        while (this.isRunning) {
-            // read user input until a newline is entered
-            String userInput = ui.readCommand();
-            String[] commandParts = userInput.split(" ", 2); // cam only split one time
-            String command = commandParts[0];
-            String arguments = commandParts.length > 1 ? commandParts[1] : "";
+        ui.showMessage("Hello! I'm Mira\nWhat can I do for you?");
+        Command command = null;
+        do {
             try {
-                switch (command) {
-                    case "bye" -> {
-                        this.ui.showMessage("Bye. Hope to see you again soon!");
-                        this.isRunning = false;
-                    }
-                    case "list" -> this.tasks.listTasks();
-                    case "mark" -> {
-                        int index = Integer.parseInt(arguments);
-                        this.tasks.markTask(index);
-                    }
-                    case "unmark" -> {
-                        int index = Integer.parseInt(arguments);
-                        this.tasks.unmarkTask(index);
-                    }
-                    case "delete" -> {
-                        int index = Integer.parseInt(arguments);
-                        this.tasks.deleteTask(index);
-                    }
-                    case "todo" -> this.tasks.addTask(new Todo(arguments));
-                    case "deadline" -> {
-                        String[] deadlineParts = arguments.split("/by", 2);
-                        if (deadlineParts.length != 2) {
-                            throw new MiraException("Invalid format. Use: deadline <description> /by <deadline>");
-                        }
-                        String description = deadlineParts[0].trim();
-                        String by = deadlineParts[1].trim();
-                        this.tasks.addTask(new Deadline(description, by));
-                    }
-                    case "event" -> {
-                        String[] eventParts = arguments.split("/from|/to");
-                        if (eventParts.length != 3) {
-                            throw new MiraException("Invalid format. Use: event <description> /from <start> /to <end>");
-                        }
-                        String description = eventParts[0].trim();
-                        String from = eventParts[1].trim();
-                        String to = eventParts[2].trim();
-                        this.tasks.addTask(new Event(description, from, to));
-                    }
-                    default -> throw new MiraException("I'm sorry, I don't understand that command.");
-                }
+                // read user input until a newline is entered
+                String userInput = ui.readCommand();
+                command = Parser.parse(userInput);
+                command.setTaskList(tasks);
+                String commandResult = command.execute();
+                ui.showMessage(commandResult);
             } catch (MiraException e) {
                 this.ui.showMessage(e.getMessage());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 this.ui.showMessage("Please provide a valid task number.");
             } catch (DateTimeParseException e) {
                 this.ui.showMessage("Please input a valid date: 'd/M/yyyy HHmm'.");
-            } catch (IOException e) {
-                this.ui.showMessage("File path for storing of tasks is unusable.");
+//            } catch (IOException e) {
+//                this.ui.showMessage("File path for storing of tasks is unusable.");
             } catch (Exception e) {
                 this.ui.showMessage("Error: " + e.getMessage());
             }
-        }
+        } while (!ExitCommand.isExit(command));
     }
 
     /**

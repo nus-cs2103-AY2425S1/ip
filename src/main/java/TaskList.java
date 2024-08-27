@@ -47,7 +47,7 @@ public class TaskList {
     /**
      * Lists all the tasks currently stored in the task list.
      */
-    public void listTasks() {
+    public String listTasks() {
         StringBuilder tasksList = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             tasksList.append((i + 1)).append(". ").append(tasks.get(i));
@@ -55,7 +55,7 @@ public class TaskList {
                 tasksList.append("\n"); // Add newline only if it is not the last task
             }
         }
-        this.ui.showMessage(tasksList.toString());
+        return tasksList.toString();
     }
 
     /**
