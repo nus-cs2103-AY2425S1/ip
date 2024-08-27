@@ -35,7 +35,8 @@ public class Ui {
      *
      * @return Boolean value representing the run state of the chatbot
      */
-    public boolean runStatus() {
+
+    public boolean isRunning() {
         return this.isRunning;
     }
 

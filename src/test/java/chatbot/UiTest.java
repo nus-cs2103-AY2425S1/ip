@@ -10,14 +10,14 @@ public class UiTest {
     @Test
     public void runStatus() {
         Ui ui = new Ui();
-        assertEquals(ui.runStatus(), true);
+        assertEquals(ui.isRunning(), true);
     }
 
     @Test
     public void endRun() {
         Ui ui = new Ui();
         ui.endRun();
-        assertEquals(ui.runStatus(), false);
+        assertEquals(ui.isRunning(), false);
     }
 
     @Test
