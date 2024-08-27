@@ -6,17 +6,25 @@ import tohru.task.TodoList;
 import tohru.ui.Ui;
 
 /**
- * UnmarkCommand represents the command to unmark a completed task as incomplete in the to-do list
+ * Represents the command to unmark a completed task as incomplete in the to-do list.
  */
 public class UnmarkCommand extends Command {
 
     /** Prefix used to invoke the mark command **/
     public static final String COMMAND_PREFIX = "unmark";
 
+    /**
+     * Initialises the command object.
+     *
+     * @param arguments Arguments passed to the command.
+     */
     public UnmarkCommand(String arguments) {
         super(arguments);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(TodoList list, Ui ui, FileStore store) throws TohruException {
         // Check if no arguments are provided

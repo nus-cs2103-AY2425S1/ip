@@ -5,56 +5,61 @@ import tohru.exception.TohruException;
 import java.util.ArrayList;
 
 /**
- * TodoList represents a list containing to-do entries
+ * Represents a list containing to-do entries.
  */
 public class TodoList {
 
-    /** Array to hold the to-do items **/
+    /** Array to hold the to-do items. **/
     private final ArrayList<TodoItem> todoList;
 
     /**
-     * Constructor method that initialise the FileStore and attempt to load to-do from local storage
+     * Initialises with a provided list.
+     *
+     * @param todoList List to be used as the to-do list.
      */
-    public TodoList() {
-        this(new ArrayList<>());
-    }
-
     public TodoList(ArrayList<TodoItem> todoList) {
         this.todoList = todoList;
     }
 
     /**
-     * Add an entry to the to-do list with provided to-do item
+     * Initialises with an empty list.
+     */
+    public TodoList() {
+        this(new ArrayList<>());
+    }
+
+    /**
+     * Adds an entry to the to-do list with provided to-do item.
      *
-     * @param item The to-dp item to add to the to-do list.
+     * @param item The to-do item to add to the to-do list.
      */
     public void addItem(TodoItem item) {
         todoList.add(item);
     }
 
     /**
-     * Retrieve a cloned copy of the current to-do list
+     * Retrieves a cloned copy of the current to-do list.
      *
-     * @return a cloned copy of the current to-do list
+     * @return A cloned copy of the current to-do list.
      */
     public ArrayList<TodoItem> getTodoList() {
         return new ArrayList<>(todoList);
     }
 
     /**
-     * Get the total number of to-do entries in the list
+     * Gets the total number of to-do entries in the list.
      *
-     * @return The number of entries in the list
+     * @return The number of entries in the list.
      */
     public int getTotal() {
         return this.todoList.size();
     }
 
     /**
-     * Mark an item with the specified index as complete
+     * Marks an item with the specified index as complete.
      *
-     * @param index The index of the item
-     * @throws TohruException When the index is out of bound for the to-do list
+     * @param index The index of the item.
+     * @throws TohruException When the index is out of bound for the to-do list.
      */
     public void markComplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
@@ -64,10 +69,10 @@ public class TodoList {
     }
 
     /**
-     * Mark an item with the specified index as incomplete
+     * Marks an item with the specified index as incomplete.
      *
-     * @param index The index of the item
-     * @throws TohruException When the index is out of bound for the to-do list
+     * @param index The index of the item.
+     * @throws TohruException When the index is out of bound for the to-do list.
      */
     public void markIncomplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
@@ -77,10 +82,10 @@ public class TodoList {
     }
 
     /**
-     * Delete the specified entry at the provided index
+     * Deletes the specified entry at the provided index.
      *
-     * @param index Index of the entry to be deleted
-     * @throws TohruException When the index is out of bound for the to-do list
+     * @param index Index of the entry to be deleted.
+     * @throws TohruException When the index is out of bound for the to-do list.
      */
     public void deleteItem(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
@@ -90,9 +95,9 @@ public class TodoList {
     }
 
     /**
-     * Retrieve the status of an item in the list
+     * Retrieves the status of an item in the list.
      *
-     * @return String representation of the item
+     * @return String representation of the item.
      */
     public String getItemStatus(int index) {
         if (index < 0 || index >= this.todoList.size()) {

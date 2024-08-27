@@ -3,22 +3,25 @@ package tohru.ui;
 import java.util.Scanner;
 
 /**
- * Ui represents the user interface that the user interacts with the chatbot
+ * Represents the user interface that the user interacts with the chatbot.
  */
 public class Ui {
 
-    /** Scanner for receiving user input **/
+    /** Scanner for receiving user input. **/
     private final Scanner userInput;
 
+    /**
+     * Initialises the Ui object.
+     */
     public Ui() {
         // Setup scanner to receive user input
         userInput = new Scanner(System.in);
     }
 
     /**
-     * Retrieve user input
+     * Retrieves user input.
      *
-     * @return command entered by user
+     * @return command entered by user.
      */
     public String readCommand() {
         String prompt = "";
@@ -36,28 +39,28 @@ public class Ui {
     }
 
     /**
-     * Helper function to print dividers
+     * Prints dividers.
      */
     public void showDivider() {
         System.out.println("____________________________________________________________");
     }
 
     /**
-     * Helper function to print text output from commands
+     * Prints text output from commands.
      */
     public void showText(String text) {
         System.out.println(text);
     }
 
     /**
-     * Helper function to print errors from commands
+     * Prints errors from commands.
      */
     public void showError(String error) {
         System.out.printf("Error | %s%n", error);
     }
 
     /**
-     * Helper function to print welcome message
+     * Prints welcome message.
      */
     public void showWelcome() {
         showDivider();

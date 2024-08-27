@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * TodoItem represents a to-do entry with a specified time period
+ * Represents a to-do entry with a specified time period.
  */
 public class EventItem extends TodoItem {
     /** Start datetime of the event **/
@@ -13,11 +13,11 @@ public class EventItem extends TodoItem {
     private final LocalDateTime to;
 
     /**
-     * Creates a new to-do item with the specified content and time period set for the to-do
+     * Creates a new to-do item with the specified content and time period set for the to-do.
      *
-     * @param content The task description of the to-do item
-     * @param from The starting datetime of the event
-     * @param to The ending datetime of the event
+     * @param content The task description of the to-do item.
+     * @param from The starting datetime of the event.
+     * @param to The ending datetime of the event.
      */
     public EventItem(String content, LocalDateTime from, LocalDateTime to) {
         super(content);
@@ -25,6 +25,9 @@ public class EventItem extends TodoItem {
         this.to = to;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         String baseString = super.toString();
@@ -35,6 +38,9 @@ public class EventItem extends TodoItem {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSaveString() {
         String baseString = super.getSaveString();

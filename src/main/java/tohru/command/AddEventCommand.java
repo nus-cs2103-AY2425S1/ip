@@ -9,17 +9,25 @@ import tohru.ui.Ui;
 import java.time.LocalDateTime;
 
 /**
- * AddEventCommand represents the command to add an event task to the to-do list
+ * Represents the command to add an event task to the to-do list.
  */
 public class AddEventCommand extends Command {
 
     /** Prefix used to invoke the add deadline command **/
     public static final String COMMAND_PREFIX = "event";
 
+    /**
+     * Initialises the command object.
+     *
+     * @param arguments Arguments passed to the command.
+     */
     public AddEventCommand(String arguments) {
         super(arguments);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(TodoList list, Ui ui, FileStore store) throws TohruException {
         // Check if no arguments are provided

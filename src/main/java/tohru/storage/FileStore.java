@@ -15,26 +15,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * FileStore represents the file storage medium used to enable persistent of data across sessions
+ * Represents the file storage medium used to enable persistent of data across sessions.
  */
 public class FileStore {
 
-    /** Represent the savefile on local storage **/
+    /** Represents the savefile on local storage **/
     private File savefile;
 
     /**
-     * Creates a new FileStore object with the provided filepath
+     * Creates a new FileStore object with the provided filepath.
      *
-     * @param filepath File path of save file
+     * @param filepath File path of save file.
      */
     public FileStore(String filepath) {
         this.savefile = new File(filepath);
     }
 
     /**
-     * Attempts to retrieve parse and retrieve the to-do entries from the save file
+     * Retrieves and parse the to-do entries from the save file.
      *
-     * @return An arraylist consisting of the to-do entries
+     * @return An arraylist consisting of the to-do entries.
      */
     public ArrayList<TodoItem> retrieveTodoList() {
         ArrayList<TodoItem> todoList = new ArrayList<>();
@@ -163,10 +163,10 @@ public class FileStore {
     }
 
     /**
-     * Attempts to save the current todolist to local storage
+     * Saves the current todolist to local storage.
      *
-     * @param todoList The to-do list to be saved
-     * @return Status of the save operation
+     * @param todoList The to-do list to be saved.
+     * @return Status of the save operation.
      */
     public boolean saveTodoList(ArrayList<TodoItem> todoList) {
         String[] items = new String[todoList.size()];

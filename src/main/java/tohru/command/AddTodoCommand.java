@@ -7,17 +7,25 @@ import tohru.task.TodoList;
 import tohru.ui.Ui;
 
 /**
- * AddTodoCommand represents the command to add a to-do task to the to-do list
+ * Represents the command to add a to-do task to the to-do list.
  */
 public class AddTodoCommand extends Command {
 
     /** Prefix used to invoke the add to-do command **/
     public static final String COMMAND_PREFIX = "todo";
 
+    /**
+     * Initialises the command object.
+     *
+     * @param arguments Arguments passed to the command.
+     */
     public AddTodoCommand(String arguments) {
         super(arguments);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(TodoList list, Ui ui, FileStore store) throws TohruException {
         // Check if no arguments are provided
