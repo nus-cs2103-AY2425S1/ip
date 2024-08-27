@@ -1,5 +1,4 @@
 import java.io.*;
-import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -15,7 +14,8 @@ public class Ekud {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
-    public static final String TASK_SAVE = "data/tasks.txt";
+    public static final String DATA_FOLDER_PATH = "data/";
+    public static final String TASK_DATA_PATH = "data/tasks.txt";
 
     private final TaskList tasks = new TaskList();
     private boolean isRunning = true;
@@ -33,26 +33,55 @@ public class Ekud {
     }
 
     public void loadTasks() {
+        // checks if data folder and tasks.txt file doesnt exists and creates them
+        // else read data from tasks.txt and add to list, remove invalid data from tasks.txt
         try {
             FormatPrinter.printIndent("Give a sec, I'm trying to find your tasks...", OUTPUT_PREFIX);
-            File save = new File("data/tasks.txt");
-            if (save.isFile()) {
+            File dataFolder = new File(DATA_FOLDER_PATH);
+            File dataFile = new File(TASK_DATA_PATH);
+            File copy = new File(DATA_FOLDER_PATH + "/temp.txt");
+            if (dataFolder.exists() && dataFile.isFile()) {
                 FormatPrinter.printIndent("Great! I've found your tasks!!", OUTPUT_PREFIX);
-                try (BufferedReader reader = new BufferedReader(new FileReader(save))) {
-                    String currLine = reader.readLine();
-                    while (currLine != null) {
-                        String taskSave = currLine.trim();
-                        Task task = Task.getTaskFromSave(taskSave);
-                        if (task != null) {
-                            tasks.addTask(task);
+
+                BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(copy, true));
+                String currLine = reader.readLine();
+                boolean isFirstLine = true;
+
+                // read tasks and add to list
+                while (currLine != null) {
+                    String taskSave = currLine.trim();
+                    Task task = Task.getTaskFromSave(taskSave);
+                    if (task != null) {
+                        // preserve tasks
+                        if (isFirstLine) {
+                            isFirstLine = false;
+                        } else { // add new line to subsequent valid tasks
+                            writer.newLine();
                         }
-                        currLine = reader.readLine();
+                        writer.write(taskSave);
+
+                        // add valid task to list
+                        tasks.addTask(task);
                     }
+
+                    currLine = reader.readLine();
                 }
+                reader.close();
+                writer.close();
+
+                boolean deletedOriginal = dataFile.delete();
+                boolean renamed = copy.renameTo(dataFile);
+                boolean deleted = copy.delete();
             } else {
-                save.createNewFile();
+                // create folder if it does not exist
+                if (!dataFolder.exists()) {
+                    boolean createdFolder = dataFolder.mkdir();
+                }
+                // create new data file
+                boolean createdFile = dataFile.createNewFile();
                 FormatPrinter.printIndent(
-                        "Looks like your save doesn't exists... I've created a new one just for you!!",
+                        "Looks like your save doesn't exist... I've created a new one just for you!!",
                         OUTPUT_PREFIX);
             }
         } catch (IOException e) {

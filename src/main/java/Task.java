@@ -35,7 +35,7 @@ public abstract class Task {
         } catch (IndexOutOfBoundsException | TaskArgumentMissingException e) {
             FormatPrinter.printIndent(
                     String.format(
-                            "Warning: <%s> is missing required arguments, ignoring task.",
+                            "Warning: Task entry { %s } is missing required arguments\n  Removing task entry...",
                             taskSaveString),
                     Ekud.OUTPUT_PREFIX);
             return null;
