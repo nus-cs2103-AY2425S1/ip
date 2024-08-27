@@ -30,15 +30,15 @@ public abstract class Task {
   }
 
   public boolean markAsDone() {
-    boolean success = !this.isDone;
+    boolean isSuccessful = !this.isDone;
     this.isDone = true;
-    return success;
+    return isSuccessful;
   }
 
   public boolean markAsUndone() {
-    boolean success = this.isDone;
+    boolean isSuccessful = this.isDone;
     this.isDone = false;
-    return success;
+    return isSuccessful;
   }
 
   @Override

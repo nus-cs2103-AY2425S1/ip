@@ -53,14 +53,14 @@ public class TaskList {
   }
 
   // Mark a task as done or not done
-  public boolean markTask(int taskNumber, boolean done)
+  public boolean markTask(int taskNumber, boolean isDone)
       throws IndexOutOfBoundsException {
     if (taskNumber >= this.tasks.size() || taskNumber < 0) {
       throw new IndexOutOfBoundsException();
     }
 
     Task task = this.tasks.get(taskNumber);
-    if (done) {
+    if (isDone) {
       boolean success = task.markAsDone();
       return success;
     } else {

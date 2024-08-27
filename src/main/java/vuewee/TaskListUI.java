@@ -66,16 +66,16 @@ public class TaskListUI {
   }
 
   // Mark a task as done or not done
-  public void markTask(int taskNumber, boolean done)
+  public void markTask(int taskNumber, boolean isDone)
       throws IllegalCommandException {
     taskNumber--; // Adjust task number to match array index
 
     try {
-      boolean success = this.taskList.markTask(taskNumber, done);
-      if (!success) {
-        throw new IllegalCommandException(this.taskList.get(taskNumber), done);
+      boolean isSuccessful = this.taskList.markTask(taskNumber, isDone);
+      if (!isSuccessful) {
+        throw new IllegalCommandException(this.taskList.get(taskNumber), isDone);
       }
-      if (done) {
+      if (isDone) {
         System.out.println("Nice! I've marked this task as done:");
       } else {
         System.out.println("OK, I've marked this task as not done yet:");
