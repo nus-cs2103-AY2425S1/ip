@@ -21,9 +21,9 @@ public class UnmarkCommand implements Command {
             storage.markIncomplete(t);
             ui.displayIncompleteTask(t);
         } catch (NumberFormatException e) {
-            throw new InvalidFormatException("tasks.Task number has to be a positive integer.");
+            throw new InvalidFormatException("Task number has to be a positive integer.");
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("tasks.Task number does not exist.");
+            throw new InvalidFormatException("Task number does not exist.");
         }
     }
     public boolean isExit() {

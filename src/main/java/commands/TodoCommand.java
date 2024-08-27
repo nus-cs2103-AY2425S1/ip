@@ -17,15 +17,9 @@ public class TodoCommand implements Command {
     }
 
     public void execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
-        try {
-            Todo t = tasks.addTodo(taskDescription);
-            storage.writeTodoToFile(t);
-            ui.displayTaskAdded(t, tasks.getSize());
-        } catch (NumberFormatException e) {
-            throw new InvalidFormatException("tasks.Task number has to be a positive integer.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("tasks.Task number does not exist.");
-        }
+        Todo t = tasks.addTodo(taskDescription);
+        storage.writeTodoToFile(t);
+        ui.displayTaskAdded(t, tasks.getSize());
     }
     public boolean isExit() {
         return false;

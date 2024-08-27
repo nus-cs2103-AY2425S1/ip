@@ -49,7 +49,7 @@ public class Parser {
             }
             case "todo" -> {
                 if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new MissingArgumentException("tasks.Todo command requires a task description.\n" +
+                    throw new MissingArgumentException("Todo command requires a task description.\n" +
                             "   todo <taskDescription>");
                 }
                 return new TodoCommand(parts[1]);
@@ -57,14 +57,14 @@ public class Parser {
             }
             case "deadline" -> {
                 if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new MissingArgumentException("tasks.Deadline command requires a task description " +
+                    throw new MissingArgumentException("Deadline command requires a task description " +
                             "and a due date.\n" +
                             "   deadline <taskDescription> /by <dueDate>");
                 }
                 String remainder = parts[1];
                 String[] splitParts = remainder.split("/by", 2);
                 if (splitParts.length < 2) {
-                    throw new InvalidFormatException("tasks.Deadline command must follow the format: " +
+                    throw new InvalidFormatException("Deadline command must follow the format: " +
                             "<task> /by <dueDate>.");
                 }
                 String name = splitParts[0].trim();
@@ -80,7 +80,7 @@ public class Parser {
             }
             case "event" -> {
                 if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new MissingArgumentException("tasks.Event command requires a task description, " +
+                    throw new MissingArgumentException("Event command requires a task description, " +
                             "start time, and end time.\n   " +
                             "event <taskDescription> " +
                             "/from <startTime> /to <endTime>");
@@ -88,7 +88,7 @@ public class Parser {
                 String remainder = parts[1];
                 String[] splitParts = remainder.split("/from", 2);
                 if (splitParts.length < 2 || !splitParts[1].contains("/to")) {
-                    throw new InvalidFormatException("tasks.Event command must follow the format: " +
+                    throw new InvalidFormatException("Event command must follow the format: " +
                             "<task> /from <startTime> /to <endTime>.");
                 }
                 String name = splitParts[0].trim();
