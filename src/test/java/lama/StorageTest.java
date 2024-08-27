@@ -23,6 +23,11 @@ public class StorageTest {
     @BeforeEach
     public void setUp() {
         this.storage = new Storage(PATH);
+        try {
+            Files.deleteIfExists(new File(PATH).toPath());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
