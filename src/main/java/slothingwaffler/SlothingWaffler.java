@@ -1,3 +1,5 @@
+package slothingwaffler;
+
 import javafx.scene.control.skin.TextAreaSkin;
 import java.util.Scanner;
 

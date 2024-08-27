@@ -1,3 +1,5 @@
+package slothingwaffler;
+
 import java.util.ArrayList;
 
 public class TaskList {

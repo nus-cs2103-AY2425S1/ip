@@ -1,3 +1,5 @@
+package slothingwaffler;
+
 public class Parser {
 
     public static boolean parse(String input, TaskList tasks, Ui ui, Storage storage) throws SlothingWafflerException {
