@@ -1,5 +1,6 @@
 ____________________________________________________________
-Hello! I'm Tick!
+System starting up...
+Brrt brrt! I'm Tick!
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
@@ -24,7 +25,7 @@ Here are the tasks in your list:
 3.[E][ ] project meeting (from: 26 August 2pm to: 8pm)
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
+Ding ding! I've marked this task as done:
 [T][X] borrow book
 ____________________________________________________________
 ____________________________________________________________
@@ -34,7 +35,7 @@ Here are the tasks in your list:
 3.[E][ ] project meeting (from: 26 August 2pm to: 8pm)
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
+Ding ding! I've marked this task as done:
 [D][X] return book (by: Tuesday)
 ____________________________________________________________
 ____________________________________________________________
@@ -48,5 +49,6 @@ Here are the tasks in your list:
 3.[E][ ] project meeting (from: 26 August 2pm to: 8pm)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon!
+System shutting down...
+Bye bye, see you next time!
 ____________________________________________________________
