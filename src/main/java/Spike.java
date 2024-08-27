@@ -11,6 +11,7 @@ enum InputType {
     DEADLINE,
     EVENT,
     TASK,
+    DELETE,
     ERROR
 }
 
@@ -53,6 +54,9 @@ public class Spike {
                     case UNMARK:
                         unmarkTask(inputSplit[1]);
                         break;
+                    case DELETE:
+                        deleteTask(inputSplit[1]);
+                        break;
                     case TODO:
                         checkDescription(inputSplit, "todo");
                         addToDo(inputSplit[1]);
@@ -90,6 +94,8 @@ public class Spike {
             return InputType.MARK;
         } else if (input.equalsIgnoreCase("unmark")) {
             return InputType.UNMARK;
+        } else if (input.equalsIgnoreCase("delete")) {
+            return InputType.DELETE;
         } else if (input.equalsIgnoreCase("todo")) {
             return InputType.TODO;
         } else if (input.equalsIgnoreCase("deadline")) {
@@ -133,6 +139,22 @@ public class Spike {
         try {
             int index = Integer.parseInt(input) - 1;
             toDoList.get(index).unmark();
+        } catch (NumberFormatException e) {
+            throw new SpikeException("Please enter a valid number");
+        } catch (IndexOutOfBoundsException e) {
+            throw new SpikeException("Please enter a valid task number");
+        }
+    }
+
+    public static void deleteTask(String input) throws SpikeException {
+        try {
+            int index = Integer.parseInt(input) - 1;
+            Task deletedTask = toDoList.remove(index);
+            System.out.println("     _________________________________________________________");
+            System.out.println("     " + "Noted. I've removed this task:");
+            System.out.println("       " + deletedTask.toString());
+            System.out.println("     " + "Now you have " + toDoList.size() + " tasks in the list.");
+            System.out.println("     _________________________________________________________");
         } catch (NumberFormatException e) {
             throw new SpikeException("Please enter a valid number");
         } catch (IndexOutOfBoundsException e) {
