@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * A JUnit test for TaskList.
+ */
 public class TaskListTest {
     /**
      * Tests adding a Task to the TaskList.

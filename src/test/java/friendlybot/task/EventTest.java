@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * A JUnit test for Event.
+ */
 public class EventTest {
     /**
      * Tests String representation of a complete Event Task.

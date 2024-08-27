@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * A JUnit test for ToDo.
+ */
 public class ToDoTest {
     /**
      * Tests the String representation of a complete ToDo task.

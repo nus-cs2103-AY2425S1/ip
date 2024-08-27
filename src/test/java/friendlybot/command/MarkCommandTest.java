@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * A JUnit test for MarkCommand.
+ */
 public class MarkCommandTest {
     /**
      * Tests marking and unmarking a Task.

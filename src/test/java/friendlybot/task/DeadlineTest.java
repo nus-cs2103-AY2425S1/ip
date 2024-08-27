@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * A JUnit test for Deadline.
+ */
 public class DeadlineTest {
     /**
      * Tests String representation of a completed Deadline Task.
