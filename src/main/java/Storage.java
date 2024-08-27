@@ -14,19 +14,17 @@ public class Storage {
         this.filePath = "./";
     }
 
-    public ArrayList<Task> loadTasks(String filePath) {
-        return new ArrayList<Task>();
-    }
+    // Todo: Can add loadTask functionality later
 
-    public void saveTasks(String fileName, ArrayList<Task> todo) throws IOException {
+    public void saveTasks(ArrayList<Task> todo) throws MichaelScottException {
         try {
-            FileWriter fw = new FileWriter(this.filePath + "/" + fileName);
+            FileWriter fw = new FileWriter(this.filePath);
             for (int i = 0; i < todo.toArray().length; i++) {
                 fw.write(todo.get(i).toFile() + "\n");
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error saving data: " + e.getMessage());
+            throw new MichaelScottException("Error saving data: " + e.getMessage());
         }
     }
 }

@@ -15,7 +15,7 @@ public class TaskList {
         return this.tasks;
     }
 
-    public void addTasks(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
@@ -35,5 +35,9 @@ public class TaskList {
 
     public int size() {
         return tasks.size();
+    }
+
+    public void clearList() {
+        this.tasks = new ArrayList<Task>();
     }
 }
