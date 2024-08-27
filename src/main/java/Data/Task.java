@@ -1,3 +1,5 @@
+package Data;
+
 import java.time.LocalDateTime;
 
 public abstract class Task {
@@ -12,7 +14,7 @@ public abstract class Task {
      * Mark the task as done by setting the {@code isDone} flag to {@code true}.
      */
 
-    void mark() {
+    public void mark() {
         isDone = true;
     }
 
@@ -20,11 +22,22 @@ public abstract class Task {
      * Unmark the task by setting the {@code isDone} flag to {@code false}.
      */
 
-    void unMark() {
+    public void unMark() {
         isDone = false;
     }
+    public int getStatus() {
+        return isDone ? 1 : 0;
+    }
+    public String getTask() {
+        return this.description;
+    }
 
-    private String getStatus() {
+    /**
+     * Return a brief description of task
+     * @return
+     */
+    public abstract String brief();
+    private String getStatusMark() {
         return isDone ? "[X]" : "[ ]";
     }
     public abstract LocalDateTime endTime();
@@ -32,7 +45,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return getStatus() + " " + this.description;
+        return getStatusMark() + " " + this.description;
     }
 
 }
