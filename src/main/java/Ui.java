@@ -5,6 +5,13 @@ public class Ui {
         System.out.println(e.getMessage());
         System.out.println("------------------------------------------");
     }
+
+    public void invalidCommandMessage() {
+        System.out.println("------------------------------------------");
+        System.out.println("Hey man please use one of these valid commands\n" + "list\n" + "delete [task number]\n" + "mark [task number]\n" + "unmark [task number]\n" + "todo [description]\n" + "deadline [description] /by DD/MM/YYYY HHmm\n" + "event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n");
+        System.out.println("------------------------------------------");
+    }
+
     public void botIntro(String botName) {
         System.out.println("------------------------------------------");
         System.out.println("Hello I'm " + botName);
@@ -54,7 +61,6 @@ public class Ui {
         System.out.println( "Noted. I've removed this task:\n" + currTask.toString() + "\n" + "Now you have " + numberOfTasks + " tasks in your list.");
         System.out.println("------------------------------------------");
     }
-
     public void byeMessage() {
         System.out.println("------------------------------------------");
         System.out.println("Bye. Hope to see you again soon!");
