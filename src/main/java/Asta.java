@@ -1,11 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Asta {
+    private static final String FILE_PATH = "./data/asta.txt";
+    private static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
+        loadTasksFromFile();
+
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("""
                 Hello! I'm Asta
@@ -42,6 +50,53 @@ public class Asta {
         }
     }
 
+    private static void loadTasksFromFile() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            System.out.println("No existing data file found. Starting with an empty task list.");
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (type) {
+                case "T" -> tasks.add(new ToDo(description, isDone));
+                case "D" -> {
+                    String by = parts[3];
+                    tasks.add(new Deadline(description, by, isDone));
+                }
+                case "E" -> {
+                    String from = parts[3];
+                    String to = parts[4];
+                    tasks.add(new Event(description, from, to, isDone));
+                }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    private static void saveTasksToFile() {
+        File file = new File(FILE_PATH);
+        file.getParentFile().mkdirs();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
     private static Command parseCommand(String input) {
         if (input.equalsIgnoreCase("bye")) {
             return Command.BYE;
@@ -69,6 +124,7 @@ public class Asta {
             int taskNumber = Integer.parseInt(input.substring(5)) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
                 tasks.get(taskNumber).markAsDone();
+                saveTasksToFile();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(tasks.get(taskNumber));
             } else {
@@ -84,6 +140,7 @@ public class Asta {
             int taskNumber = Integer.parseInt(input.substring(7)) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
                 tasks.get(taskNumber).markAsNotDone();
+                saveTasksToFile();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks.get(taskNumber));
             } else {
@@ -100,6 +157,7 @@ public class Asta {
             AstaException.handleEmptyTodoDescription();
         }
         tasks.add(new ToDo(description));
+        saveTasksToFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("[T][ ] " + description);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -111,6 +169,7 @@ public class Asta {
             AstaException.handleInvalidDeadlineInput();
         }
         tasks.add(new Deadline(parts[0], parts[1]));
+        saveTasksToFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("[D][ ] " + parts[0] + " (by: " + parts[1] + ")");
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -122,6 +181,7 @@ public class Asta {
             AstaException.handleInvalidEventInput();
         }
         tasks.add(new Event(parts[0], parts[1], parts[2]));
+        saveTasksToFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("[E][ ] " + parts[0] + " (from: " + parts[1] + " to: " + parts[2] + ")");
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -132,6 +192,7 @@ public class Asta {
             int taskNumber = Integer.parseInt(input.substring(7)) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
                 Task removedTask = tasks.remove(taskNumber);
+                saveTasksToFile();
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(removedTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
