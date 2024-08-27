@@ -5,16 +5,23 @@ import tasks.Event;
 
 import command.Command;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Atlas {
     public static final String LINE = "____________________________________________________________";
+    public static final String FILEPATH = "./data/atlas.txt";
     public static void main(String[] args) {
         Atlas.greet();
-
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = loadTaskList();
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
             String nextCommandLine = scanner.nextLine();
             String command = nextCommandLine.split(" ")[0].toUpperCase();
@@ -45,13 +52,42 @@ public class Atlas {
                 case DELETE:
                     deleteTask(taskList, nextCommandLine);
                     break;
-                default:
-                    throw new AtlasException("Unknown command.");
                 }
             } catch (AtlasException e) {
                 Atlas.print(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                Atlas.print("Unknown command.");
             }
         }
+    }
+
+    public static ArrayList<Task> loadTaskList() {
+        ArrayList<Task> taskList = new ArrayList<>();
+        try {
+            File file = new File(FILEPATH);
+            File directory = file.getParentFile();
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String regex = Pattern.quote(" | ");
+                String[] sections = scanner.nextLine().split(regex);
+                Atlas.addTaskFromFile(taskList, sections);
+            }
+
+        } catch (FileNotFoundException e) {
+            Atlas.print("No saved file.");
+        } catch (IOException e) {
+            Atlas.print(e.getMessage());
+        }
+
+        return taskList;
     }
 
     public static void listTaskItems(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
@@ -91,6 +127,7 @@ public class Atlas {
 
         Task taskToBeMarked = taskList.get(markIndex);
         taskToBeMarked.setIsDone();
+        Atlas.save(taskList);
         Atlas.print(String.format("Nice! I've marked this task as done:\n \t%s", taskToBeMarked));
     }
 
@@ -112,11 +149,31 @@ public class Atlas {
         Task taskToBeUnmarked = taskList.get(unmarkIndex);
         taskToBeUnmarked.setIsDone();
         taskList.get(unmarkIndex).setIsNotDone();
+        Atlas.save(taskList);
         Atlas.print(String.format("OK, I've marked this task as not done yet:\n \t%s", taskToBeUnmarked));
+    }
+
+    public static void addTaskFromFile(ArrayList<Task> taskList, String[] sections) {
+        Task task;
+        if (sections[0].equals("T")) {
+            task = new ToDo(sections[2]);
+        } else if (sections[0].equals("D")) {
+            task = new Deadline(sections[2], sections[3]);
+        } else {
+            String[] times = sections[3].split("-");
+            task = new Event(sections[2], times[0], times[1]);
+        }
+
+        if (sections[1].equals("1")) {
+            task.setIsDone();
+        }
+
+        taskList.add(task);
     }
 
     public static void addTask(ArrayList<Task> taskList, Task task) {
         taskList.add(task);
+        Atlas.save(taskList);
         String addMessage = String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
         Atlas.print(addMessage);
     }
@@ -138,6 +195,7 @@ public class Atlas {
 
         Task task = taskList.get(deleteIndex);
         taskList.remove(deleteIndex);
+        Atlas.save(taskList);
         String addMessage = String.format("Noted. I've removed this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
         Atlas.print(addMessage);
     }
@@ -174,6 +232,25 @@ public class Atlas {
 
         Event event = new Event(commandsArray[1], commandsArray[2], commandsArray[3]);
         Atlas.addTask(taskList, event);
+    }
+
+    public static void save(ArrayList<Task> taskList) {
+        try {
+            FileWriter fw = new FileWriter(FILEPATH);
+            fw.write(Atlas.formatTasks(taskList));
+            fw.close();
+        } catch (IOException e) {
+            Atlas.print("Failed to save. " + e.getMessage());
+        }
+    }
+
+    public static String formatTasks(ArrayList<Task> taskList) {
+        StringBuilder listOutput = new StringBuilder();
+        for (Task task : taskList) {
+            listOutput.append(task.toFileString()).append('\n');
+        }
+
+        return listOutput.toString();
     }
 
     public static void greet() {
