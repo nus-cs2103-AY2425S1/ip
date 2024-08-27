@@ -16,6 +16,10 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!\n" + horizontalLine);
     }
 
+    public void showLoadingError() {
+        System.out.println("janet.txt not found! Creating janet.txt for you...");
+    }
+
     public void showSuccessfulTaskAddition(Task task, int numberOfTasks) {
         // when TaskList.addTaskToList is called (addition of task into listOfTasks)
         // task = newly added Task object
