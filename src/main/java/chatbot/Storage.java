@@ -9,14 +9,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage functionality of the chatbot
+ * Contains methods that either read from or write to the file
+ */
 public class Storage {
     private String dirPath;
     private String fileName;
+
+    /**
+     * Constructor for the Storage object, takes in 2 arguments
+     * @param dirPath String representing the desired directory path for the file to be in
+     * @param fileName String representing the file name of the file
+     */
     public Storage(String dirPath, String fileName) {
         this.dirPath = dirPath;
         this.fileName = fileName;
     }
 
+    /**
+     * Processes the file into a suitable ArrayList of tasks
+     * @return an ArrayList of tasks that represents what the file stores
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> existingTasks = new ArrayList<>();
         try {
@@ -37,6 +51,12 @@ public class Storage {
         return existingTasks;
     }
 
+    /**
+     * Searches for the file as specified by the dirPath and fileName
+     * If the file or directory does not exist, the method creates one
+     * @return a Scanner object that contains the file contents
+     * @throws FileNotFoundException Exception thrown if the file source is somehow not found (should not happen)
+     */
     private Scanner getFile() throws FileNotFoundException {
         File directory = new File(this.dirPath);
         if (!directory.exists()) {
@@ -51,6 +71,11 @@ public class Storage {
         return new Scanner(taskListFile);
     }
 
+    /**
+     * Processes and encodes the given TaskList object and writes it to the file
+     * Overrides all existing content in the file
+     * @param taskList TaskList object that represents the current state of the list of tasks
+     */
     public void writeToFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.dirPath + this.fileName);

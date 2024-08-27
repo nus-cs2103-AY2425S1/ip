@@ -11,7 +11,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the parser, converting strings into chatbot instructions
+ * Either processes the user's inputs, or processes file inputs into instructions for the chatbot
+ */
 public class Parser {
+    /**
+     * Reads the encoded strings present in the data file, and processes it into a suitable Task
+     * @param taskString The encode string read from the file
+     * @return A Task object that represents the encoded string
+     * @throws IOException Exception thrown if string format is unknown
+     */
     public static Task parseFileLine(String taskString) throws IOException {
         // TODO error handling for if data file is corrupted
         String[] tokens = taskString.split("\\|");
@@ -25,6 +35,14 @@ public class Parser {
         };
     }
 
+    /**
+     * Method that takes in user instructions, parses it into suitable instructions, and executes them
+     * @param s User's instruction string
+     * @param taskList TaskList object as encapsulated by the Bobby class
+     * @param storage Storage object as encapsulated by the Bobby class
+     * @param ui Ui object as encapsulated by the Bobby class
+     * @throws InputException Exception thrown if instruction is not of the correct format
+     */
     public static void processInput(String s, TaskList taskList, Storage storage, Ui ui) throws InputException {
         String[] inputArr = s.split(" ", 2);
         String command = inputArr[0];
