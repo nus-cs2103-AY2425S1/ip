@@ -15,9 +15,13 @@ public class Event extends Task {
         this.end = end;
     }
 
+    private String getTimeString(LocalDate date) {
+        return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+    }
+
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s, to: %s)", super.toString(), this.start, this.end);
+        return String.format("[E]%s (from: %s, to: %s)", super.toString(), getTimeString(this.start), getTimeString(this.end));
     }
 
     @Override
