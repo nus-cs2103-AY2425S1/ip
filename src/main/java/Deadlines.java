@@ -3,6 +3,10 @@ public class Deadlines extends Task {
 
     public Deadlines(String task, String deadline) {
         super(task);
+        if (deadline.equals(" ")){
+            throw new IllegalArgumentException("\t Oh no!![@.@] Deadline cannot be empty" +
+                    "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
+        }
         this.deadline = deadline;
     }
 

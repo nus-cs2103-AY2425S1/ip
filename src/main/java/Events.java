@@ -4,6 +4,11 @@ public class Events extends Task {
 
     public Events(String task, String startDate, String endDate) {
         super(task);
+        if (startDate.equals(" ") || endDate.equals(" ")){
+            throw new IllegalArgumentException("\t Oh no!!(;-;) Event period cannot be empty" +
+                    "\n\t Enter the event in the format: event <Task> " +
+                    "/from <Start Date/Time> /to <End Date/Time>");
+        }
         this.startDate = startDate;
         this.endDate = endDate;
     }
