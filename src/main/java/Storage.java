@@ -58,9 +58,12 @@ public class Storage {
                     System.out.print("File corrupted");
                     return null;
                 }
-                String start = parts[3];
-                String end = parts[4];
-                return new EventTask(description, isDone, start, end);
+                String startStr = parts[3];
+                String endStr = parts[4];
+                // Parse the string in the current inputFormat
+                LocalDateTime start = LocalDateTime.parse(startStr, inputFormat);
+                LocalDateTime end = LocalDateTime.parse(endStr, inputFormat);
+                return new EventTask(description, isDone, start.format(outputFormat).trim(), end.format(outputFormat).trim());
             default:
                 return null;
         }
