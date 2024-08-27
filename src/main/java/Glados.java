@@ -2,34 +2,23 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Glados {
-    private static final String HORIZONTAL_LINE = "\n" 
-        + "-----------------------------------------------------------------------------\n";
-    private static final String LOGO = "\n"
-            + " ░▒▓██████▓▒░░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░ \n"
-            + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n"
-            + "░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n"
-            + "░▒▓█▓▒▒▓███▓▒░▒▓█▓▒░      ░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n"
-            + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
-            + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
-            + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
-            + "\n";
     private static TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
-        greet();
+        Ui.greet();
 
         Scanner sc = new Scanner(System.in);
         while(true) {
             String input = sc.nextLine();
             if (input.equals("bye")) {
-                exit();
+                Ui.exit();
                 break;
             } else {
                 try {
                     String query = input.split(" ")[0];
                     switch (query) {
                     case "echo":
-                        echo(input.substring(4, input.length()));
+                        Ui.echo(input.substring(4, input.length()));
                         break;
                     case "todo":
                         add(TaskType.TODO, input.substring(4, input.length()));
@@ -57,97 +46,35 @@ public class Glados {
                     
                     }
                 } catch (GladosException e) {
-                    error(e);
+                    Ui.error(e);
                 }
             }
         }
         sc.close();
     }
 
-    public static void greet() {
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\nHello, welcome to the Aperture Science computer-aided enrichment center! My name is:\n"
-            + LOGO
-            + "What task would you like me to perform today?\n"
-            + HORIZONTAL_LINE
-        );
-    }
-
-    public static void echo(String input) {
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\nGLaDOS: " + input.trim() + "\n"
-            + HORIZONTAL_LINE
-        );
-    }
-
-    public static void error(GladosException e) {
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\n" + e.getMessage() + "\n"
-            + HORIZONTAL_LINE
-        );
-    }
-
     public static void add(TaskType taskType, String input) throws GladosException {
         String[] res = taskList.add(taskType, input);
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\nGLaDOS: I have added the following task to the list...\n"
-            + "\n" + res[0] + "\n"
-            + "\nNow you have " + res[1] + (Integer.parseInt(res[1]) == 1 ? " task.\n" : " tasks.\n")
-            + HORIZONTAL_LINE
-        );
+        Ui.add(res[0], res[1]);
     }
 
     public static void delete(int index) throws TaskNotFoundException{
-        String[] res = taskList.delete(index);
-
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\nGLaDOS: I have removed the following task from the list...\n"
-            + "\n" + res[0] + "\n"
-            + "\nNow you have " + res[1] + (Integer.parseInt(res[1]) == 1 ? " task.\n" : " tasks.\n")
-            + HORIZONTAL_LINE
-        );
+        String[] res = taskList.delete(index);  
+        Ui.delete(res[0], res[1]);
     }
 
     public static void list() {
         ArrayList<Task> res = taskList.list();
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("GLaDOS: Here is the list...\n");
-        for (int i = 0; i < res.size(); i++) {
-            System.out.println(i + 1 + ". " + res.get(i).toString()); 
-        }
-        System.out.println(HORIZONTAL_LINE);
+        Ui.list(res);
     }
 
     public static void mark(int index) {
         String res = taskList.mark(index);
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\nGLaDOS: I've marked this task as done...\n"
-            + "\n" + res + "\n"
-            + HORIZONTAL_LINE);
+        Ui.mark(res);
     }
 
     public static void unmark(int index) {
         String res = taskList.unmark(index);
-
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\nGLaDOS: Oops, looks like this task is no longer done...\n"
-            + "\n" + res + "\n"
-            + HORIZONTAL_LINE);
+        Ui.unmark(res);
     }
-
-    public static void exit() {
-        System.out.println(
-            HORIZONTAL_LINE
-            + "\nGLaDOS: Goodbye, user.\n"
-            + HORIZONTAL_LINE
-        );
-    }
-
 }
