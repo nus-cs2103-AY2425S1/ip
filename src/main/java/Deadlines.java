@@ -20,7 +20,7 @@ public class Deadlines extends Tasks {
 
     protected static Deadlines createDeadline(String text) throws NoDescriptionException, InvalidDateException{
         int descriptionEnd = text.indexOf('/');
-        String description = text.substring(9, descriptionEnd).trim();
+        String description = text.substring(0, descriptionEnd).trim();
 
         if (descriptionEnd == -1 || description.isEmpty()) {
             throw new NoDescriptionException("No description");

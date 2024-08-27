@@ -26,7 +26,7 @@ public class Events extends Tasks {
 
     public static Events CreateEvent(String text) throws InvalidDateException ,NoDescriptionException {
         int descriptionEnd = text.indexOf('/');
-        String description = text.substring(6, descriptionEnd).trim();
+        String description = text.substring(0, descriptionEnd).trim();
 
         if (descriptionEnd == -1 || description.isEmpty()) {
             throw new NoDescriptionException("No description");
@@ -47,7 +47,10 @@ public class Events extends Tasks {
         }
 
         String endDate = endDateCommand.substring(2).trim();
-        LocalDateTime endDateTime = TimeConverter.timeConverter(endDate);
+        String []endDates = endDate.split(" ");
+        LocalDateTime endDateTime = (endDates.length == 1)
+        ? TimeConverter.timeConverter(startDateTime.toLocalDate().toString() + " " + endDate)
+        : TimeConverter.timeConverter(endDate);
 
         return new Events(description, startDateTime, endDateTime);
     }
