@@ -1,3 +1,5 @@
+package demurebot;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,7 +10,7 @@ public abstract class Parser {
      *
      * @param command User command.
      * @param list List of tasks the user has.
-     * @param ui Ui object to interact with user.
+     * @param ui demure.Ui object to interact with user.
      * @throws DemureBotException If the user command is invalid.
      */
     public static void parse(String command, TaskList list, Ui ui) throws DemureBotException {
@@ -107,10 +109,10 @@ public abstract class Parser {
     }
 
     /**
-     * Returns an Event created from the user command.
+     * Returns an demure.Event created from the user command.
      *
      * @param command User command.
-     * @return Event created from the user command.
+     * @return demure.Event created from the user command.
      * @throws DemureBotException If the user command is invalid.
      */
     private static Event getEvent(String command) throws DemureBotException {

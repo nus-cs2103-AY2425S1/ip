@@ -1,3 +1,5 @@
+package demurebot;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -67,10 +69,10 @@ public class Storage {
     }
 
     /**
-     * Returns a Task created from saved data.
+     * Returns a demure.Task created from saved data.
      *
      * @param line Line of text read from saved data.
-     * @return Task created from saved data.
+     * @return demure.Task created from saved data.
      * @throws DemureBotException If the saved task has invalid format.
      */
     private Task getTask(String line) throws DemureBotException {
@@ -146,7 +148,7 @@ public class Storage {
     /**
      * Returns a formatted string of the task to be saved.
      *
-     * @param task Task to be saved.
+     * @param task demure.Task to be saved.
      * @return Formatted string of the task to be saved
      */
     private String formatTask(Task task) {

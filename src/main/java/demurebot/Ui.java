@@ -1,3 +1,5 @@
+package demurebot;
+
 public class Ui {
     public void displayEnd() {
         System.out.println("""
