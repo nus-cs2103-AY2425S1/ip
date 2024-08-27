@@ -57,10 +57,10 @@ public class Ui {
     /**
      * Returns the description of the task from user input
      *
-     * @param type Type represents T, D, E, which helps to indicate
+     * @param type Type represents T, D, E, F, which helps to indicate
      *             the type of Task to be processed.
      * @return description of the task from the user input on a case
-     *          by case basis, of T, D, E
+     *          by case basis, of T, D, E, F
      */
     public String getDescription(char type) {
         String description = "";
@@ -263,7 +263,6 @@ public class Ui {
      * Displays the response for exiting the chatbot
      * and to close the instance of the scanner to end the application
      */
-
     public void exitResponse() {
         System.out.println(bye);
         scanner.close();

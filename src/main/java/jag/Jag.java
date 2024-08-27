@@ -3,7 +3,7 @@ package jag;
 import java.io.FileNotFoundException;
 
 /**
- * Represents an instance of the chat bot named Jag
+ * Represents an instance of the chatbot named Jag
  */
 public class Jag {
     private Storage storage;
