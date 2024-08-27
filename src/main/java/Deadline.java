@@ -72,9 +72,6 @@ public class Deadline extends Task {
         return date + " " + time;
     }
 
-    public LocalDateTime getDueDateAndTime() {
-        return this.dueDate;
-    }
 
     @Override
     public String toString() {
