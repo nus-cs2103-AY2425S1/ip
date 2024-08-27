@@ -7,6 +7,7 @@ package chatbot.task;
 public class Todo extends Task {
     /**
      * Overloaded constructor for the Todo class, taking in 1 argument
+     *
      * @param name Name of Todo
      */
     public Todo(String name) {
@@ -15,6 +16,7 @@ public class Todo extends Task {
 
     /**
      * Overloaded constructor for the Todo class, taking in 2 arguments
+     *
      * @param name Name of Todo
      * @param isDone Boolean value representing whether the task has been marked as completed
      */
@@ -24,6 +26,7 @@ public class Todo extends Task {
 
     /**
      * Overridden toString method, displaying the type of the task along with other details
+     *
      * @return String representation of the Todo task
      */
     @Override
@@ -33,6 +36,7 @@ public class Todo extends Task {
 
     /**
      * Encodes the Todo task into a string, to be written to a text file
+     *
      * @return String encoding of the Todo task
      */
     @Override

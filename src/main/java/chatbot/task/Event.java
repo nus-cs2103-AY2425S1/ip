@@ -8,11 +8,14 @@ import java.time.format.DateTimeFormatter;
  * The Event class extends the abstract class of Task
  */
 public class Event extends Task {
+    /** Date time that the event starts */
     LocalDateTime from;
+    /** Date time that the event ends */
     LocalDateTime to;
 
     /**
      * Overloaded constructor for the Event class, taking in 4 arguments
+     *
      * @param name Name of Event
      * @param from Date and time that the event starts
      * @param to Date and time that the event ends
@@ -26,6 +29,7 @@ public class Event extends Task {
 
     /**
      * Overloaded constructor for the Event class, taking in 3 arguments
+     *
      * @param name Name of Event
      * @param from Date and time that the event starts
      * @param to Date and time that the event ends
@@ -36,6 +40,7 @@ public class Event extends Task {
 
     /**
      * Overridden toString method, displaying the type of the task along with other details
+     *
      * @return String representation of the Event task
      */
     @Override
@@ -48,6 +53,7 @@ public class Event extends Task {
 
     /**
      * Encodes the Event task into a string, to be written to a text file
+     *
      * @return String encoding of the Event task
      */
     @Override

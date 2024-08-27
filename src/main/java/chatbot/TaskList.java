@@ -10,10 +10,12 @@ import java.util.ArrayList;
  * Contains an ArrayList of tasks
  */
 public class TaskList {
+    /** ArrayList of tasks encapsulated by TaskList */
     private ArrayList<Task> tasks;
 
     /**
      * Constructor for the TaskList object
+     *
      * @param tasks ArrayList of tasks
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -21,7 +23,8 @@ public class TaskList {
     }
 
     /**
-     * Getter method to get the ArrayList of tasks encapsulated by TaskList
+     * Gets the ArrayList of tasks encapsulated by TaskList
+     *
      * @return the ArrayList of tasks
      */
     public ArrayList<Task> getList() {
@@ -29,7 +32,8 @@ public class TaskList {
     }
 
     /**
-     * Getter method that gets a task from the list
+     * Gets a task from the list
+     *
      * @param idx The index of the task to be returned
      * @return the Task at the index specified
      * @throws InvalidIndexException Exception thrown if the index specified is invalid
@@ -53,6 +57,7 @@ public class TaskList {
 
     /**
      * Modifies a task in the task list to be either completed or incomplete
+     *
      * @param idx Index of the task to be modified
      * @param state Boolean value representing whether the task is complete
      * @throws InvalidIndexException Exception thrown if the index specified is invalid
@@ -69,6 +74,7 @@ public class TaskList {
 
     /**
      * Removes a task from the task list
+     *
      * @param idx Index of the task to be removed
      * @throws InvalidIndexException Exception thrown if the index specified is invalid
      */
@@ -84,6 +90,7 @@ public class TaskList {
 
     /**
      * Adds a task to back of the task list
+     *
      * @param newTask Task to be added to the task list
      */
     public void add(Task newTask) {

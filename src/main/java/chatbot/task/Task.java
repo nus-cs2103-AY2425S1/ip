@@ -5,11 +5,14 @@ package chatbot.task;
  * task is implemented as an abstract class to prevent instantiation
  */
 public abstract class Task {
+    /** Name of task */
     private String name;
+    /** Boolean variable that represents if the task is completed */
     private boolean isDone;
 
     /**
      * Constructor for the Task abstract class
+     *
      * @param name Name of the task
      * @param isDone Boolean value representing whether the task has been marked as done
      */
@@ -19,7 +22,8 @@ public abstract class Task {
     }
 
     /**
-     * Method to set the state of the task, representing whether the task is marked as done
+     * Sets the state of the task, representing whether the task is marked as done
+     *
      * @param isDone Boolean value representing whether the task has been marked as done
      */
     public void setIsDone(boolean isDone) {
@@ -28,6 +32,7 @@ public abstract class Task {
 
     /**
      * Overridden toString method, displaying the status and name of the task
+     *
      * @return String representation of the abstract task
      */
     @Override
@@ -39,6 +44,7 @@ public abstract class Task {
 
     /**
      * Encodes the task into a string, to be written to a text file
+     *
      * @return String encoding of the task
      */
     public String encode() {

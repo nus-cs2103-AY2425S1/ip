@@ -7,12 +7,15 @@ import chatbot.exception.InputException;
  * This class contains the main method that serves as the entry point to the program
  */
 public class Bobby {
-//    private final Scanner input;
+    /** Ui class encapsulated by Bobby */
     private Ui ui;
-//    private ArrayList<Bobby.Task> tasks;
+    /** TaskList class encapsulated by Bobby */
     private TaskList taskList;
+    /** Storage class encapsulated by Bobby */
     private Storage storage;
+    /** String constant representing the directory path of the file */
     private static final String DIR_PATH = "./data/";
+    /** String constant representing the name of the file */
     private static final String FILE_NAME = "tasks.txt";
 
     /**
@@ -41,6 +44,7 @@ public class Bobby {
 
     /**
      * Main method that serves as the entry point to the program
+     *
      * @param args Currently serves no use
      */
     public static void main(String[] args) {

@@ -14,11 +14,14 @@ import java.util.Scanner;
  * Contains methods that either read from or write to the file
  */
 public class Storage {
+    /** String representing the directory path of the file */
     private String dirPath;
+    /** String representing the file name of the file */
     private String fileName;
 
     /**
      * Constructor for the Storage object, takes in 2 arguments
+     *
      * @param dirPath String representing the desired directory path for the file to be in
      * @param fileName String representing the file name of the file
      */
@@ -29,6 +32,7 @@ public class Storage {
 
     /**
      * Processes the file into a suitable ArrayList of tasks
+     *
      * @return an ArrayList of tasks that represents what the file stores
      */
     public ArrayList<Task> load() {
@@ -54,6 +58,7 @@ public class Storage {
     /**
      * Searches for the file as specified by the dirPath and fileName
      * If the file or directory does not exist, the method creates one
+     *
      * @return a Scanner object that contains the file contents
      * @throws FileNotFoundException Exception thrown if the file source is somehow not found (should not happen)
      */
@@ -74,6 +79,7 @@ public class Storage {
     /**
      * Processes and encodes the given TaskList object and writes it to the file
      * Overrides all existing content in the file
+     *
      * @param taskList TaskList object that represents the current state of the list of tasks
      */
     public void writeToFile(TaskList taskList) {

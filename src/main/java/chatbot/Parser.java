@@ -18,6 +18,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     /**
      * Reads the encoded strings present in the data file, and processes it into a suitable Task
+     *
      * @param taskString The encode string read from the file
      * @return A Task object that represents the encoded string
      * @throws IOException Exception thrown if string format is unknown
@@ -36,7 +37,8 @@ public class Parser {
     }
 
     /**
-     * Method that takes in user instructions, parses it into suitable instructions, and executes them
+     * Takes in user instructions, parses it into suitable instructions, and executes them
+     *
      * @param s User's instruction string
      * @param taskList TaskList object as encapsulated by the Bobby class
      * @param storage Storage object as encapsulated by the Bobby class

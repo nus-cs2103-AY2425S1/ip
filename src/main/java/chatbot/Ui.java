@@ -7,7 +7,9 @@ import java.util.Scanner;
  * Contains functionalities that interact with the user
  */
 public class Ui {
+    /** Scanner object that scans user inputs */
     private final Scanner input;
+    /** Boolean variable that represents if the chatbot is still running */
     private boolean isRunning;
 
     /**
@@ -30,6 +32,7 @@ public class Ui {
 
     /**
      * Checks if the chatbot is still supposed to be running
+     *
      * @return Boolean value representing the run state of the chatbot
      */
     public boolean runStatus() {
@@ -45,6 +48,7 @@ public class Ui {
 
     /**
      * Gets the next line of user input
+     *
      * @return The string representation of the user's input
      */
     public String getInput() {
