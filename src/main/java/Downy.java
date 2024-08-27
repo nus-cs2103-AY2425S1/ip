@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Downy {
@@ -119,7 +121,7 @@ public class Downy {
                             FileUtils.writeTodoToFile(t);
                             taskCount++;
                             System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
-                                    + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
+                                    + "\nNow you have " + tasks.size() + " tasks in this list\n" + divider);
                             continue;
                         }
                         // Add a deadline task
@@ -137,12 +139,19 @@ public class Downy {
                             }
                             String name = splitParts[0].trim();
                             String time = splitParts[1].trim();
-                            Deadline d = new Deadline(name, time);
+                            LocalDateTime formattedTime;
+                            try {
+                                formattedTime = DateTimeHandler.convertToDateTime(time);
+                            } catch (NumberFormatException | DateTimeException e) {
+                                throw new InvalidFormatException("dueDate must follow the format: " +
+                                                                 "YYYY/MM/DD HHMM");
+                            }
+                            Deadline d = new Deadline(name, formattedTime);
                             tasks.add(taskCount, d);
                             FileUtils.writeDeadlineToFile(d);
                             taskCount++;
                             System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
-                                    + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
+                                    + "\nNow you have " + tasks.size() + " tasks in this list\n" + divider);
                             continue;
                         }
                         // Add a event task
@@ -163,12 +172,21 @@ public class Downy {
                             String[] time = splitParts[1].split("/to", 2);
                             String startTime = time[0].trim();
                             String endTime = time[1].trim();
-                            Event e = new Event(name, startTime, endTime);
+                            LocalDateTime formattedStartTime;
+                            LocalDateTime formattedEndTime;
+                            try {
+                                formattedStartTime = DateTimeHandler.convertToDateTime(startTime);
+                                formattedEndTime = DateTimeHandler.convertToDateTime(endTime);
+                            } catch (NumberFormatException | DateTimeException e) {
+                                throw new InvalidFormatException("startTime and endTime must follow the format: " +
+                                                                 "YYYY/MM/DD HHMM");
+                            }
+                            Event e = new Event(name, formattedStartTime, formattedEndTime);
                             tasks.add(taskCount, e);
                             FileUtils.writeEventToFile(e);
                             taskCount++;
-                            System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
-                                    + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
+                            System.out.println(divider + "Okay! Addedlist this task:\n  " + tasks.get(taskCount - 1)
+                                    + "\nNow you have " + tasks.size() + " tasks in this list\n" + divider);
                             continue;
                         }
                     }

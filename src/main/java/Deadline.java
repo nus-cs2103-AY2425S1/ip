@@ -1,18 +1,22 @@
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Deadline extends Task{
-    private final String time;
-    public Deadline(String name, String time) {
+    private final LocalDateTime time;
+    public Deadline(String name, LocalDateTime time) {
         super(name);
         this.time = time;
     }
 
-    public String getTime() {
+    public LocalDateTime getTime() {
         return this.time;
     }
     @Override
     public String toString() {
+        String dueDate = DateTimeHandler.formatDateTime(this.time);
         if (super.isComplete()) {
-            return ("[D] " + super.toString() + " (by: " + this.time + ")");
+            return ("[D] " + super.toString() + " (by: " + dueDate + ")");
         }
-        return ("[D] " + super.toString() + " (by: " + this.time + ")");
+        return ("[D] " + super.toString() + " (by: " + dueDate + ")");
     }
 }
