@@ -8,6 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -106,7 +110,8 @@ public class Dude {
                 throw new DudeNullDateTimeException("deadline");
             }
 
-            Task newTask = new Deadline(splitDes[0].strip(), splitBy[1].strip());
+            LocalDateTime by = stringToDateTime(splitBy[1].strip());
+            Task newTask = new Deadline(splitDes[0].strip(), by);
             this.tasks.add(newTask);
             tasksSize++;
 
@@ -141,7 +146,9 @@ public class Dude {
                 throw new DudeNullDateTimeException("event");
             }
 
-            Task newTask = new Event(splitDes[0].strip(), splitFrom[1].strip(), splitTo[1].strip());
+            LocalDateTime from = stringToDateTime(splitFrom[1].strip());
+            LocalDateTime to = stringToDateTime(splitTo[1].strip());
+            Task newTask = new Event(splitDes[0].strip(), from, to);
             this.tasks.add(newTask);
             tasksSize++;
 
@@ -151,6 +158,19 @@ public class Dude {
             System.out.println("Now you have " + tasksSize + " tasks in the list.");
             System.out.println(LINE);
         }
+    }
+
+    public LocalDateTime stringToDateTime(String dateString) throws DudeDateTimeFormatException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime;
+
+        try {
+            dateTime = LocalDateTime.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DudeDateTimeFormatException();
+        }
+
+        return dateTime;
     }
 
     public void list() {
@@ -283,10 +303,21 @@ public class Dude {
             task = new ToDo(taskComponent[2]);
             break;
         case "D":
-            task = new Deadline(taskComponent[2], taskComponent[3]);
+            try {
+                LocalDateTime by = stringToDateTime(taskComponent[3]);
+                task = new Deadline(taskComponent[2], by);
+            } catch (DudeDateTimeFormatException e) {
+                throw  new DudeCorruptedDataException();
+            }
             break;
         case "E":
-            task = new Event(taskComponent[2], taskComponent[3], taskComponent[4]);
+            try {
+                LocalDateTime from = stringToDateTime(taskComponent[3]);
+                LocalDateTime to = stringToDateTime(taskComponent[4]);
+                task = new Event(taskComponent[2], from, to);
+            } catch (DudeDateTimeFormatException e) {
+                throw  new DudeCorruptedDataException();
+            }
             break;
         default:
             throw new DudeCorruptedDataException();
