@@ -12,15 +12,32 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private String filePath;
     private String filePathWithoutFile;
 
+    /**
+     * A constructor for Storage.
+     *
+     * @param filePath Path of the TaskList file stored locally.
+     * @param filePathWithoutFile Path of the TaskList file stored locally, excluding the file.
+     *                            (Used to create relevant directories if they do not exist.)
+     */
     public Storage(String filePath, String filePathWithoutFile) {
         this.filePath = filePath;
         this.filePathWithoutFile = filePathWithoutFile;
     }
 
+    /**
+     * Loads the text file from the file path, and returns an ArrayList of Task corresponding to the text file.
+     * If the path is not recognised, create the relevant directories along the path.
+     * If the file does not exist, create the file and return an empty ArrayList.
+     *
+     * @return An ArrayList of Tasks in the specified file path.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -50,6 +67,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates and returns a Task that corresponds from the String input in the text file.
+     *
+     * @param task String representation of the Task saved in the text file.
+     * @return Task object that corresponds to the given String representation.
+     */
     private static Task getTask(String task) {
         String[] taskItems = task.split(" \\| ");
         String taskType = taskItems[0];
@@ -69,6 +92,12 @@ public class Storage {
         return newTask;
     }
 
+    /**
+     * Writes to the text file on the given file path.
+     * Updates the text file with the new task list upon exit.
+     *
+     * @param formattedTasks A formatted String representation of the Tasks to be saved locally.
+     */
     public void writeToFile(String formattedTasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);

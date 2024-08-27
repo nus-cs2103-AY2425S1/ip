@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeleteCommandTest {
+    /**
+     * Tests deleting a Task.
+     */
     @Test
     public void testDeleteCommand() {
         Command deleteCommand = new DeleteCommand(1);

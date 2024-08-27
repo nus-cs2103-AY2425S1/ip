@@ -16,6 +16,13 @@ public class FriendlyBot {
     private static final String taskListFilePath = "./data/task_list.txt";
     private static final String taskListFilePathWithoutFile = "./data";
 
+    /**
+     * A constructor for FriendlyBot.
+     *
+     * @param filePath Path of the TaskList file stored locally.
+     * @param filePathWithoutFile Path of the TaskList file stored locally, excluding the file.
+     *                            (Used to create relevant directories if they do not exist.)
+     */
     public FriendlyBot(String filePath, String filePathWithoutFile) {
         this.ui = new Ui();
         this.storage = new Storage(filePath, filePathWithoutFile);

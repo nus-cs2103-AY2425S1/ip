@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
+    /**
+     * Tests String representation of a completed Deadline Task.
+     */
     @Test
     public void createDeadline_markAsCompleted_correctStringOutput() {
         LocalDate dummyDate = LocalDate.now();
@@ -17,6 +20,9 @@ public class DeadlineTest {
         assertEquals("[D][X] test task (by: " + formattedDate + ")", task.toString());
     }
 
+    /**
+     * Tests String representation of an incomplete Deadline Task.
+     */
     @Test
     public void createDeadline_incomplete_correctStringOutput() {
         LocalDate dummyDate = LocalDate.now();
