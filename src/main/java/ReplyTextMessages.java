@@ -7,7 +7,7 @@ public final class ReplyTextMessages {
     );
     // TODO: turn error messages into exceptions
     static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, deadline.";
-    static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n" + HELP_TEXT;
+    static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n";
     static final String LIST_TEXT = "Here are the tasks in your list:";
     static final String ADDED_TEXT = "Got it. I've added this task:";
     static final String DELETED_TEXT = "Noted. I've deleted this task:";

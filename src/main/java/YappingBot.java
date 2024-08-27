@@ -24,7 +24,7 @@ public class YappingBot {
 
     // class methods
     private static String quoteSinglelineText(String line) {
-        if (line.trim().isEmpty()) {
+        if (line == null || line.trim().isEmpty()) {
             return "\n |";
         } else {
             return String.format("\n |  %s\n", line);
@@ -75,12 +75,12 @@ public class YappingBot {
         sb.append("\n");
         System.out.println(sb);
     }
-    private static int parseTaskNumberSelected(String userInputSlice) {
+    private static int parseTaskNumberSelected(String userInputSlice) throws YappingBotOOBException, YappingBotInvalidTaskNumberException {
         int i = -1;
         try {
             i = Integer.parseInt(userInputSlice) - 1;
         } catch (NumberFormatException ex) {
-            throw new YappingBotInvalidTaskException(userInputSlice);
+            throw new YappingBotInvalidTaskNumberException(userInputSlice);
         }
 
         // OOB
@@ -126,18 +126,16 @@ public class YappingBot {
         quoteSinglelineText(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()), sb);
         System.out.println(sb);
     }
-    // returns true on success, false on failure
-    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "ConstantValue"}) //inversion -> confusion
-    private static boolean addTaskToList(String[] userInputSpliced, TaskTypes taskTypes) {
-        if (userInputSpliced.length <= 1) {
-            return false;
-        }
+    private static void addTaskToList(String[] userInputSpliced, TaskTypes taskTypes) throws YappingBotIncorrectCommandException {
         Task newTask;
         String taskName = null;
         String command = null;
         StringBuilder sb = new StringBuilder();
         switch (taskTypes) {
             case TODO:
+                if (userInputSpliced.length <= 1) {
+                    throw new YappingBotIncorrectCommandException(ReplyTextMessages.TODO_USAGE, userInputSpliced[0]);
+                }
                 // pattern: ^[COMMAND] ( titles )$
                 for (String s : userInputSpliced) {
                     if (command == null) {
@@ -151,6 +149,9 @@ public class YappingBot {
                 newTask = new Todo(taskName.trim(), false);
                 break;
             case DEADLINE:
+                if (userInputSpliced.length <= 1) {
+                    throw new YappingBotIncorrectCommandException(ReplyTextMessages.DEADLINE_USAGE, userInputSpliced[0]);
+                }
                 // pattern: ^[COMMAND] (titles) /by (date)$
                 String deadline;
                 for (String s : userInputSpliced) {
@@ -167,11 +168,14 @@ public class YappingBot {
                 }
                 deadline = sb.toString();
                 if (deadline.isEmpty() || taskName == null) {
-                    return false;
+                    throw new YappingBotIncorrectCommandException(ReplyTextMessages.DEADLINE_USAGE, String.format("Input: %s", userInputSpliced));
                 }
                 newTask = new Deadline(taskName.trim(), false, deadline.trim());
                 break;
             case EVENT:
+                if (userInputSpliced.length <= 1) {
+                    throw new YappingBotIncorrectCommandException(ReplyTextMessages.EVENT_USAGE, userInputSpliced[0]);
+                }
                 // pattern: ^[COMMAND] (titles) /from (date) /to ([date])$
                 String fromTime = null;
                 String toTime = null;
@@ -203,13 +207,14 @@ public class YappingBot {
                 } else if (fromTime == null) {
                     fromTime = sb.toString();
                 }
+                //noinspection ReassignedVariable
                 if (fromTime == null || toTime == null || taskName == null) {
-                    return false;
+                    throw new YappingBotIncorrectCommandException(ReplyTextMessages.DEADLINE_USAGE, String.format("Input: %s", userInputSpliced));
                 }
                 newTask = new Event(taskName.trim(), false, fromTime.trim(), toTime.trim());
                 break;
             default:
-                return false;
+                throw new YappingBotIncorrectCommandException(ReplyTextMessages.DEADLINE_USAGE, String.format("Input: %s", userInputSpliced));
         }
         userList.add(newTask);
         sb = new StringBuilder();
@@ -223,7 +228,6 @@ public class YappingBot {
         );
         quoteSinglelineText(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()), sb);
         System.out.println(sb);
-        return true;
     }
     private static Commands parseCommand(String commandString) throws YappingBotUnknownCommandException {
         if (commandString.toLowerCase().trim().isEmpty()) {
@@ -275,6 +279,7 @@ public class YappingBot {
                     case DEADLINE:
                         addTaskToList(userInputSlices, TaskTypes.DEADLINE);
                         break;
+                    case UNKNOWN:
                     default:
                         throw new YappingBotUnknownCommandException();
                 }
