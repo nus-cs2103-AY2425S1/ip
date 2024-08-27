@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tick {
@@ -20,24 +21,26 @@ public class Tick {
         System.out.println(Tick.separator);
     }
 
-    public void addTaskToList(String command) throws TickException {
-        if (command.startsWith("todo")) {
-            if (command.substring(5).isEmpty()) {
+    public void addTaskToList(String taskType, String details) throws TickException {
+        if (taskType.equalsIgnoreCase("todo")) {
+            if (details.isEmpty()) {
                 throw new TickException("The description of a todo cannot be empty.");
             }
-            ToDo task = new ToDo(command.substring(5));
+            ToDo task = new ToDo(details);
             this.checklist.add(task);
-        } else if (command.startsWith("deadline")) {
-            String[] parts = command.substring(9).split(" /by ");
+        } else if (taskType.equalsIgnoreCase("deadline")) {
+            String[] parts = details.split(" /by ");
             if (parts.length < 2) {
-                throw new TickException("Please specify BOTH the description and deadline of a deadline.");
+                throw new TickException("Please specify the deadline task in this format:" +
+                        " <description> /by <deadline>.");
             }
             Deadline task = new Deadline(parts[0], parts[1]);
             this.checklist.add(task);
-        } else if (command.startsWith("event")) {
-            String[] parts = command.substring(6).split(" /from | /to ");
+        } else if (taskType.equalsIgnoreCase("event")) {
+            String[] parts = details.split(" /from | /to ");
             if (parts.length < 3) {
-                throw new TickException("Please specify the description, start time and end time of an event.");
+                throw new TickException("Please specify the event task in this format:" +
+                        " <description> /from <start> /to <end>.");
             }
             Event task = new Event(parts[0], parts[1], parts[2]);
             this.checklist.add(task);
@@ -47,14 +50,18 @@ public class Tick {
         System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
     }
 
-    public void removeTaskFromList(int index) throws TickException {
-        if (index < 1 || index > this.checklist.size()) {
-            throw new TickException("The task number is out of range.");
+    public void removeTaskFromList(String input) throws TickException {
+        try {
+            int index = Integer.parseInt(input);
+            Task task = this.checklist.remove(index - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task);
+            System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
+        } catch (NumberFormatException e) {
+            throw new TickException("Please specify the task number you want to delete!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new TickException("The task number is out of range!");
         }
-        Task task = this.checklist.remove(index - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
     }
 
     public void displayList() {
@@ -68,72 +75,63 @@ public class Tick {
         }
     }
 
-    public void markTaskAsDone(int index) throws TickException {
-        if (index < 1 || index > this.checklist.size()) {
+    public void markTaskAsDone(String input) throws TickException {
+        try {
+            int index = Integer.parseInt(input);
+            Task task = this.checklist.get(index - 1);
+            task.markAsDone();
+            System.out.println("Ding ding! I've marked this task as done:");
+            System.out.println(task);
+        } catch (NumberFormatException e) {
+            throw new TickException("Please specify the task number you want to mark as done!");
+        } catch (IndexOutOfBoundsException e) {
             throw new TickException("The task number is out of range!");
         }
-        Task task = this.checklist.get(index - 1);
-        task.markAsDone();
-        System.out.println("Ding ding! I've marked this task as done:");
-        System.out.println(task);
     }
 
-    public void markTaskAsUndone(int index) throws TickException {
-        if (index < 1 || index > this.checklist.size()) {
+    public void markTaskAsUndone(String input) throws TickException {
+        try {
+            int index = Integer.parseInt(input);
+            Task task = this.checklist.get(index - 1);
+            task.markAsUndone();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(task);
+        } catch (NumberFormatException e) {
+            throw new TickException("Please specify the task number you want to mark as incomplete!");
+        } catch (IndexOutOfBoundsException e) {
             throw new TickException("The task number is out of range!");
         }
-        Task task = this.checklist.get(index - 1);
-        task.markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
     }
 
-    public void runCommand(String command) throws TickException {
-        String[] commandParts = command.split(" ");
-        switch (commandParts[0]) {
-            case "list":
+    public void runCommand(String input) throws TickException {
+        String[] inputParts = input.split(" ", 2);
+        try {
+            CommandType command = CommandType.valueOf(inputParts[0].toUpperCase());
+            switch (command) {
+            case LIST:
                 this.displayList();
                 break;
-            case "mark":
-                try {
-                    if (commandParts.length < 2) {
-                        throw new TickException("Please specify the task number to mark as done.");
-                    }
-                    this.markTaskAsDone(Integer.parseInt(commandParts[1]));
-                    break;
-                } catch (NumberFormatException e) {
-                    throw new TickException("Please specify a valid number!");
-                }
-            case "unmark":
-                try {
-                    if (commandParts.length < 2) {
-                        throw new TickException("Please specify the task number to mark as not done yet.");
-                    }
-                    this.markTaskAsUndone(Integer.parseInt(commandParts[1]));
-                    break;
-                } catch (NumberFormatException e) {
-                    throw new TickException("Please specify a valid number!");
-                }
-            case "delete":
-                try {
-                    if (commandParts.length < 2) {
-                        throw new TickException("Please specify the task number to delete.");
-                    }
-                    this.removeTaskFromList(Integer.parseInt(commandParts[1]));
-                    break;
-                } catch (NumberFormatException e) {
-                    throw new TickException("Please specify a valid number!");
-                }
-            case "todo":
-            case "deadline":
-            case "event":
-                if (commandParts.length < 2) {
-                    throw new TickException("Please specify task arguments.");
-                }
-                this.addTaskToList(command);
+            case MARK:
+                this.markTaskAsDone(inputParts[1]);
                 break;
-            default:
-                throw new TickException("I don't know what that means!");
+            case UNMARK:
+                this.markTaskAsUndone(inputParts[1]);
+                break;
+            case DELETE:
+                this.removeTaskFromList(inputParts[1]);
+                break;
+            case TODO:
+                // Fallthrough
+            case DEADLINE:
+                // Fallthrough
+            case EVENT:
+                this.addTaskToList(inputParts[0], inputParts[1]);
+                break;
+            }
+        } catch (IllegalArgumentException e) {
+            throw new TickException("I don't know what that means!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new TickException("Please specify an argument!");
         }
     }
 
@@ -141,11 +139,8 @@ public class Tick {
         Tick bot = new Tick();
         bot.greet();
         Scanner scn = new Scanner(System.in);
-        while (true) {
-            String command = scn.nextLine();
-            if (command.equals("bye")) {
-                break;
-            }
+        String command = scn.nextLine();
+        while (!command.equals("bye")) {
             System.out.println(Tick.separator);
             try {
                 bot.runCommand(command);
@@ -153,6 +148,7 @@ public class Tick {
                 System.out.println(e.getMessage());
             }
             System.out.println(Tick.separator);
+            command = scn.nextLine();
         }
         bot.exit();
     }
