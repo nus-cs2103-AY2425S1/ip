@@ -28,8 +28,8 @@ class ToDoTest {
     @Test
     void testUnmarkToDo() {
         ToDo todo = new ToDo("Complete assignment");
-        todo.mark();  // Mark as done
-        todo.unmark();  // Then unmark
+        todo.mark(); // Mark as done
+        todo.unmark(); // Then unmark
         assertFalse(todo.isDone);
         assertEquals("[T][ ] Complete assignment", todo.toString());
 
