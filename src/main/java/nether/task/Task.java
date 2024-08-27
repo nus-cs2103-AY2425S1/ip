@@ -1,3 +1,5 @@
+package nether.task;
+
 /**
  * Task object model
  */

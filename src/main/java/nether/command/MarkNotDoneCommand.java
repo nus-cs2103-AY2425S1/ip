@@ -1,3 +1,7 @@
+package nether.command;
+
+import nether.task.Task;
+
 public class MarkNotDoneCommand extends MarkCommand {
 
     public MarkNotDoneCommand(int taskNumber) {

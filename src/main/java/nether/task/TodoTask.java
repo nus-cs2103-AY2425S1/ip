@@ -1,3 +1,5 @@
+package nether.task;
+
 /**
  * Represents a TodoTask, a type of Task that only has a description and status. No timestamps.
  * The TodoTask class inherits the Task class

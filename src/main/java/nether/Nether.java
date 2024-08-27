@@ -1,3 +1,10 @@
+package nether;
+
+import nether.command.Command;
+import nether.parser.Parser;
+import nether.storage.Storage;
+import nether.task.TaskList;
+
 /**
  * Produces greetings for users and initializes chatbot.
  */
