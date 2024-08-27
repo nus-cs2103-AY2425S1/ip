@@ -7,14 +7,17 @@ import java.io.IOException;
 
 public class Storage {
     private final String filePath = "./data/Cloud.txt";
-    private final File file;
 
-    public Storage() throws IOException {
-        this.file = new File(this.filePath);
-        // create directories if they do not exist yet
-        this.file.getParentFile().mkdirs();
-        // create file if it does not exist yet
-        this.file.createNewFile();
+    public Storage() {
+        try {
+            File f = new File(this.filePath);
+            // create directories if they do not exist yet
+            f.getParentFile().mkdirs();
+            // create file if it does not exist yet
+            f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error initialising storage!");
+        }
     }
 
     public void saveData(TaskList taskList) {
