@@ -1,10 +1,26 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
+    private final String PATH = "./data";
 
     public TaskList() {
         tasks = new ArrayList<>();
+        loadTasks();
+    }
+
+    public String toText() {
+        int len = tasks.size();
+        StringBuilder text = new StringBuilder();
+        for (Task task : tasks) {
+            text.append(task.toText()).append('\n');
+        }
+        return text.toString();
     }
 
     @Override
@@ -19,11 +35,13 @@ public class TaskList {
 
     public void add(Task task) {
         tasks.add(task);
+        saveTasks();
     }
 
     public void delete(int index) throws AstraException {
         try {
             tasks.remove(index - 1);
+            saveTasks();
         } catch (IndexOutOfBoundsException e) {
             throw new AstraException("Invalid index.");
         }
@@ -39,5 +57,21 @@ public class TaskList {
 
     public int length() {
         return tasks.size();
+    }
+
+    private void loadTasks() {
+
+    }
+
+    private void saveTasks() {
+        try {
+            File dir = new File(PATH);
+            dir.mkdirs();
+            FileWriter fw = new FileWriter(PATH + "/tasks.txt");
+            fw.write(this.toText());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
     }
 }
