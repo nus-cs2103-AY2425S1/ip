@@ -44,30 +44,43 @@ public class TaskList {
      * <p>
      * If the index input is out of bounds it will throw a invalid index exception.
      * 
-     * @param index Index of the task inside the task list.
+     * @param idx Index of the task inside the task list.
      * @param command To state weather to mark or unmark the task.
-     * @throws InvalidIndexException If the index is < 0 or if it is >= the size of the task list.
+     * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
-    public void updateTask(String index, String command) throws InvalidIndexException{
+    public Task updateTask(int idx, String command) throws IndexOutOfBoundsException, FailedUpdateException{
 
-        try {
-            int idx = Integer.parseInt(index) - 1;
-            // Check if the index if out of bounds
-            if (idx < 0 || idx >= toDoList.size()) {
-                throw new InvalidIndexException(index);
-            }
+        // Minus 1 because of 0 indexing
+        idx = idx - 1;
 
-            // Run the correct function base on the command given by the user
-            if (command.equals("mark")) {
-                this.toDoList.get(idx).mark();
-            } else {
-                this.toDoList.get(idx).unmark();
-            }
-        } catch (NumberFormatException numError) {
-            throw new InvalidIndexException(index);
+        // Check if the index if out of bounds
+        if (idx < 0 || idx >= toDoList.size()) {
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + idx + " entered is out of bounds!");
         }
+
+        Task task = toDoList.get(idx);
+
+        // Run the correct function base on the command given by the user
+        if (command.equals("mark")) {
+            boolean result = task.mark();
+            if (!result) {
+                throw new FailedUpdateException(task, command);
+            }
+        } else {
+            boolean result = task.unmark();
+            if (!result) {
+                throw new FailedUpdateException(task, command);
+            }
+        }
+
+        return task;
+        
     }
 
+    /**
+     * Adds the task into the list.
+     * @param task Task to be added into the list
+     */
     public void addTask(Task task) {
         this.toDoList.add(task);
         length = this.toDoList.size();
@@ -78,28 +91,24 @@ public class TaskList {
      * <p>
      * If the index input is out of bounds it will throw a invalid index exception.
      * 
-     * @param index Index of the task inside the task list.
-     * @throws InvalidIndexException If the index is < 0 or if it is >= the size of the task list.
+     * @param idx Index of the task inside the task list.
+     * @return The task that has been removed from the list
+     * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
-    public void deleteTask(String index) throws InvalidIndexException{
+    public Task deleteTask(int idx) throws IndexOutOfBoundsException{
 
-        try {
-            int idx = Integer.parseInt(index) - 1;
-            // Check if the index if out of bounds
-            if (idx < 0 || idx >= toDoList.size()) {
-                throw new InvalidIndexException(index);
-            }
-    
-            // Remove the task from the list
-            Task removedTask = this.toDoList.remove(idx);
-            length = this.toDoList.size();
-    
-            // Print a fomrifmation message for the user
-            System.out.println("Alright I have removed this task into the list: \n" + removedTask.toString()
-                            + "\nYou now have " + this.toDoList.size() + " tasks in your list right now!");
-        } catch (NumberFormatException numError) {
-            throw new InvalidIndexException(index);
+        // Minus 1 because of 0 indexing
+        idx = idx - 1;
+        // Check if the index if out of bounds
+        if (idx < 0 || idx >= toDoList.size()) {
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + idx + " entered is out of bounds!");
         }
+
+        // Remove the task from the list
+        Task removedTask = this.toDoList.remove(idx);
+        length = this.toDoList.size();
+
+        return removedTask;
     }
 
     @Override

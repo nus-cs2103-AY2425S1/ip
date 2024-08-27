@@ -8,8 +8,8 @@ public class InvalidIndexException extends Exception{
      * Creates an InvalidIndexException exception object.
      * @param message The index keyed in by the user.
      */
-    InvalidIndexException (String index) {
+    public InvalidIndexException(String index) {
         
-        super("The given index: " + index + ", is invalid or is out of bounds!!");
+        super("The given index: " + index + ", is invalid!");
     }
 }

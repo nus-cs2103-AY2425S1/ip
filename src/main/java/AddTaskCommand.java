@@ -6,12 +6,6 @@ import java.time.format.DateTimeParseException;
  */
 public class AddTaskCommand extends Command{
     
-    /** A list of all possible task types */
-    private enum TaskTypes {
-        TODO,
-        DEADLINE,
-        EVENT
-    }
 
     /**
      * Creates a AddTaskCommand object.
@@ -21,32 +15,14 @@ public class AddTaskCommand extends Command{
     }
 
     @Override
-    public void execute(Quack quack, TaskList taskList, Storage storage){
-        // Get task type from user
-        System.out.println("What type of task do you want to add");
-        String taskType = quack.sc.nextLine();
+    public void execute(Quack quack, TaskList taskList, Storage storage, Ui ui){
+
         try {
-            checkTaskType(taskType);
-            this.getTaskDetails(quack, taskList, taskType.toUpperCase());
+            String taskType = ui.requestTaskType();
+            this.getTaskDetails(quack, taskList, taskType.toUpperCase(), ui);
         } catch (InvalidTaskTypeException taskTypeError) {
-            System.out.println(taskTypeError.getMessage());
+            ui.printExceptionMessage(taskTypeError);
         }
-
-    }
-
-    /**
-     * Checks if the task type given by the user is a valid one.
-     * @param taskType The type of tasks to be created.
-     * @throws InvalidTaskTypeException If the user inputs a invalid task type.
-     */
-    private void checkTaskType(String taskType) throws InvalidTaskTypeException{
-        String upperCasedTaskType = taskType.toUpperCase();
-        for (TaskTypes tasktypes : TaskTypes.values()) {
-            if (tasktypes.name().equals(upperCasedTaskType)) {
-                return;
-            }
-        }
-        throw new InvalidTaskTypeException(taskType);
     }
 
     /**
@@ -58,36 +34,19 @@ public class AddTaskCommand extends Command{
      * @param taskList A list that stores all the tasks tracked by Quack. 
      * @param taskType The type of tasks to be created. 
      */
-    private void getTaskDetails(Quack quack, TaskList taskList, String taskType) {
+    private void getTaskDetails(Quack quack, TaskList taskList, String taskType, Ui ui) {
         
-        String taskDescription = null;
+        String taskDescription = ui.requestTaskDescription(taskType);
         String startDate = null;
         String endDate = null;
 
-        // Retrieve task details based on the task type
         switch (taskType) {
-        case "TODO":
-            System.out.println("What is the TODO task description?");
-            taskDescription = quack.sc.nextLine();
-            break;
-            
-        case "DEADLINE":
-            System.out.println("What is the deadline task description?");
-            taskDescription = quack.sc.nextLine();
-
-            System.out.println("When is the deadline due?");
-            startDate = quack.sc.nextLine();
-            break;
-
         case "EVENT":
-            System.out.println("What is the event task description?");
-            taskDescription = quack.sc.nextLine();
-
-            System.out.println("When does the event start?");
-            startDate = quack.sc.nextLine();
-
-            System.out.println("When does the event end?");
-            endDate = quack.sc.nextLine();
+            startDate = ui.requestStartDate(taskType);
+            endDate = ui.requestEndDate(taskType);
+            break;
+        case "DEADLINE":
+            startDate = ui.requestEndDate(taskType);
             break;
         }
 
@@ -96,12 +55,12 @@ public class AddTaskCommand extends Command{
         try {
             Task newTask = Task.createTask(information);
             taskList.addTask(newTask);
-            System.out.println(newTask.toString());
+            ui.printUpdateSuccessfulMessage(newTask, "add", taskList);
 
         } catch (DateTimeParseException dateParseError) {
-            System.out.println("Im sorry but the date input is invalid try DD/MM/YYYY HH:MM:SS");
+            ui.printExceptionMessage(new InvalidDateTimeException("Im sorry but the date input is invalid ensure that it is in this format: DD/MM/YYYY HH:MM:SS"));
         } catch (InvalidDateTimeException dateTimeError) {
-            System.out.println(dateTimeError.getMessage());
+           ui.printExceptionMessage(dateTimeError);
         } 
     }
 }

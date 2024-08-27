@@ -15,9 +15,10 @@ public class Paser {
      * @param sc A scanner object used to get the user input.
      * @throws InvalidCommandException Signals that the command given is invalid.
      */
-    public Command getUserInput(Quack quack) throws InvalidCommandException{
+    public Command getUserInput(Ui ui) throws InvalidCommandException{
         try {
-            return this.processCommand(quack.sc.nextLine());
+            String userCommand = ui.requestUserCommand();
+            return this.processCommand(userCommand.toLowerCase());
         } catch (InvalidCommandException commandError) {
             throw commandError;
         }
@@ -28,10 +29,9 @@ public class Paser {
      * @param input The command in string form which the user inputed.
      * @throws InvalidCommandException Signals that the command given is invalid.
      */
-    private Command processCommand(String input) throws InvalidCommandException {
-        input = input.toLowerCase();
+    private Command processCommand(String userCommand) throws InvalidCommandException {
         Command command;
-        switch (input) {
+        switch (userCommand) {
         case "list":
             command = new ListCommand();
             return command;
@@ -47,7 +47,7 @@ public class Paser {
 
         case "mark":
         case "unmark":
-            command = new UpdateTaskCommand(input);
+            command = new UpdateTaskCommand(userCommand);
             return command;
         
         case "delete":
@@ -55,7 +55,7 @@ public class Paser {
             return command;
         
         default:
-            throw new InvalidCommandException(input);
+            throw new InvalidCommandException(userCommand);
         }
     }
 }

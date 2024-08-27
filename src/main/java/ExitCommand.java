@@ -13,7 +13,7 @@ public class ExitCommand extends Command{
     }
 
     @Override
-    public void execute (Quack quack, TaskList taskList, Storage storage) {
+    public void execute (Quack quack, TaskList taskList, Storage storage, Ui ui) {
         
         try {
             storage.saveData(taskList);

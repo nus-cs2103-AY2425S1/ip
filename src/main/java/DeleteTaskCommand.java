@@ -1,3 +1,6 @@
+/**
+ * This class is responsible for deleting tasks in the task list.
+ */
 public class DeleteTaskCommand extends Command{
 
     /**
@@ -8,19 +11,20 @@ public class DeleteTaskCommand extends Command{
     }
 
     @Override
-    public void execute(Quack quack, TaskList taskList, Storage storage) {
+    public void execute(Quack quack, TaskList taskList, Storage storage, Ui ui) {
         
         Command listCommand = new ListCommand();
-        listCommand.execute(quack, taskList, storage);
+        listCommand.execute(quack, taskList, storage, ui);
 
         if (taskList.getLength() != 0) {
-            System.out.println("Which task do you want to delete? (Input the index of the task)");
-            String index = quack.sc.nextLine();
-    
             try {
-                taskList.deleteTask(index);
-            } catch (InvalidIndexException indexError) {
-                System.out.println(indexError.getMessage());
+                int index = ui.requestIndexFromUser("delete");
+                Task removedTask = taskList.deleteTask(index);
+                ui.printUpdateSuccessfulMessage(removedTask, "delete", taskList);
+            } catch (InvalidIndexException invalidIdxError) {
+                ui.printExceptionMessage(invalidIdxError);
+            } catch (IndexOutOfBoundsException indexError) {
+               ui.printExceptionMessage(indexError);;
             }
         }
     }

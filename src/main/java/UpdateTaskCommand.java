@@ -15,29 +15,22 @@ public class UpdateTaskCommand extends Command{
     }
 
     @Override
-    public void execute(Quack quack, TaskList taskList, Storage storage) {
-
-        String index = null;
+    public void execute(Quack quack, TaskList taskList, Storage storage, Ui ui) {
 
         Command listCommand = new ListCommand();
-        listCommand.execute(quack, taskList, storage);
+        listCommand.execute(quack, taskList, storage, ui);
 
         if (taskList.getLength() != 0) {
-            switch (this.command) {
-            case "mark":
-                System.out.println("Which task do you want to mark? (Input the index of the task)");
-                index = quack.sc.nextLine();
-                
-                break;
-            case "unmark":
-                System.out.println("Which task do you want to unmark? (Input the index of the task)");
-                index = quack.sc.nextLine();
-            }
-    
             try {
-                taskList.updateTask(index, this.command);
-            } catch (InvalidIndexException indexError) {
-                System.out.println(indexError.getMessage());
+                int index = ui.requestIndexFromUser(this.command);
+                Task task = taskList.updateTask(index, this.command);
+                ui.printUpdateSuccessfulMessage(task, command, taskList);
+            } catch (InvalidIndexException invalidIdxError) {
+                ui.printExceptionMessage(invalidIdxError);
+            } catch (IndexOutOfBoundsException indexError) {
+               ui.printExceptionMessage(indexError);;
+            } catch (FailedUpdateException failUpdateError) {
+                ui.printExceptionMessage(failUpdateError);
             }
         }
     }

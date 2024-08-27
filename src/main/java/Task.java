@@ -11,7 +11,7 @@ public abstract class Task {
     /** Determine if the task is marked or not */
     protected boolean isChecked;
     /** Date time format for printing LocalDateTime objects */
-    public static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    protected static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
      * Creates a Task object with the given description.
@@ -28,6 +28,7 @@ public abstract class Task {
      * on its corrosponding given task type.
      * @param taskDetails A list of task information used to create the task object.
      * @return A task object of its given task type.
+     * @throws InvalidDateTimeException If the date time string is invalid.
      */
     public static Task createTask(String[] taskDetails) throws InvalidDateTimeException{
         Task task = null;
@@ -63,43 +64,33 @@ public abstract class Task {
     /**
      * Updates the task status to be marked.
      * <p>
-     * The function checks if the task is already marked. If it is, 
-     * it will print a message notifying the user that the task has already marked.
+     * The function checks if the task is already marked.
      */
-    public void mark() {
+    public boolean mark() {
 
         // Check if the task is already marked or not
         if (!isChecked) {
             this.isChecked = true;
-            System.out.println("Nice! I've marked this task as done:");
-            
-        } else {
-            System.out.println("This task is already marked as done!");
+            return true;
         }
 
-        // Print the task
-        System.out.println(this.toString());
+        return false;
     }
 
     /**
      * Updates the task to be unmarked.
      * <p>
-     * The function checks if the task is already unmarked. If it is, 
-     * it will print a message notifying the user that the task has already unmarked.
+     * The function checks if the task is already unmarked.
      */
-    public void unmark() {
+    public boolean unmark() {
 
         // Check if the task is already unmarked
         if (isChecked) {
             this.isChecked = false;
-            System.out.println("OK, I've marked this task as not done yet:");
-            
-        } else {
-            System.out.println("This task is already unmarked!");
+            return true;
         }
 
-        // Print the task
-        System.out.println(this.toString());
+        return false;
     }
 
     /**

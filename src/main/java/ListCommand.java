@@ -11,7 +11,7 @@ public class ListCommand extends Command{
     }
 
     @Override
-    public void execute(Quack chatBot, TaskList taskList, Storage storage) {
-        System.out.println(taskList.toString());
+    public void execute(Quack chatBot, TaskList taskList, Storage storage, Ui ui) {
+        ui.printObject(taskList);
     }
 }
