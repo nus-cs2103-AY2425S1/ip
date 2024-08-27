@@ -205,6 +205,7 @@ public class SecondMind {
         }
         Task curr = taskList.get(taskNumber-1);
         curr.markAsUndone();
+        updateTaskInDataFile(taskNumber, false);
         printLineSeparator();
         System.out.println("I've marked the following task as incomplete:");
         System.out.println(curr);
