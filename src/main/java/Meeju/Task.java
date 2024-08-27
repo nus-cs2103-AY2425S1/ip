@@ -1,3 +1,5 @@
+package Meeju;
+
 public class Task {
     private String taskDescription;
     private Boolean isDone;

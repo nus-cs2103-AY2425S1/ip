@@ -1,3 +1,5 @@
+package Meeju;
+
 public class MeejuException extends Exception{
 
     private String message;

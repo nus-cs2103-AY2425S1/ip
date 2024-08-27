@@ -1,9 +1,5 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+package Meeju;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 public class TaskList {
     private ArrayList<Task> taskList;
 

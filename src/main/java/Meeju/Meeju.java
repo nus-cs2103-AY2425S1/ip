@@ -1,3 +1,4 @@
+package Meeju;
 
 public class Meeju {
 
