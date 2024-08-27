@@ -28,7 +28,7 @@ public class ToDos extends Task {
      */
     @Override
     public String toFancyString() {
-        return "ToDo | " + super.getStatus() + " | " +
-                super.getDescription();
+        return "ToDo | " + super.getStatus() + " | "
+                + super.getDescription();
     }
 }

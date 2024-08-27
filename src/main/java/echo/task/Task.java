@@ -29,7 +29,7 @@ public abstract class Task {
      *
      * @return Fancier string of the Task
      */
-    abstract public String toFancyString();
+    public abstract String toFancyString();
 
     /**
      * Returns the Task as a string with its status and description

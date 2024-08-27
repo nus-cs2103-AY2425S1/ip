@@ -1,8 +1,8 @@
 package echo.storage;
 
-import echo.tasklist.TaskList;
 import echo.parser.Parser;
 import echo.task.Task;
+import echo.tasklist.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +32,7 @@ public class Storage {
      */
     public void saveTaskList(TaskList taskList) throws IOException {
         FileWriter writer = new FileWriter(this.filePath);
-        for(int i = 0; i < taskList.sizeOfTaskList(); i ++) {
+        for (int i = 0; i < taskList.sizeOfTaskList(); i++) {
             writer.write(taskList.getTask(i).toFancyString() + System.lineSeparator());
         }
         writer.close();

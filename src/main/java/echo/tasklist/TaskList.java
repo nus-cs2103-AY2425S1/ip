@@ -1,7 +1,7 @@
 package echo.tasklist;
 
-import echo.task.Task;
 import echo.exception.EchoException;
+import echo.task.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +12,7 @@ public class TaskList {
     /**
      * Constructor for TaskList
      */
-    public TaskList(){
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
@@ -25,15 +25,27 @@ public class TaskList {
         return this.taskList.size();
     }
 
-    public Task markAndGetTask(String taskDescription) {
-        int index = Integer.parseInt(taskDescription) - 1;
+    /**
+     * Marks task with given value and returns the task that is marked
+     *
+     * @param value index of the task to be marked in the taskList.
+     * @return the task being marked.
+     */
+    public Task markAndGetTask(String value) {
+        int index = Integer.parseInt(value) - 1;
         Task task = this.getTask(index);
         task.mark();
         return task;
     }
 
-    public Task unmarkAndGetTask(String taskDescription) {
-        int index = Integer.parseInt(taskDescription) - 1;
+    /**
+     * Unmarks task with given value and returns the task that is unmarked
+     *
+     * @param value index of the task to be unmarked in the taskList.
+     * @return the task being unmarked.
+     */
+    public Task unmarkAndGetTask(String value) {
+        int index = Integer.parseInt(value) - 1;
         Task task = this.getTask(index);
         task.unmark();
         return task;
@@ -49,8 +61,8 @@ public class TaskList {
     public Task getTask(int index) {
         int largestIndex = this.sizeOfTaskList() - 1;
         if (index > largestIndex) {
-            throw new EchoException("There is not enough task. " +
-                    "\nPlease add more task or change another index.");
+            throw new EchoException("There is not enough task. "
+                    + "\nPlease add more task or change another index.");
         }
         return this.taskList.get(index);
     }
@@ -66,8 +78,8 @@ public class TaskList {
         int largestIndex = this.sizeOfTaskList() - 1;
 
         if (index > largestIndex) {
-            throw new EchoException("There is not enough task. " +
-                    "\nPlease add more task or change another index.");
+            throw new EchoException("There is not enough task. "
+                    + "\nPlease add more task or change another index.");
         }
 
         Task task = this.taskList.get(index);
