@@ -1,5 +1,9 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+
 
 import src.main.java.*;
 
@@ -9,8 +13,19 @@ public class Bonnie {
     private static String username;
     private static ArrayList<Task> tasklist = new ArrayList<>();
 
-    public static void main(String[] args) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException {
+    public static void main(String[] args) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException, IOException {
         System.out.println("Hello I'm Bonnie, what is your name?");
+
+        File f = new File("ip/src/main/java/Files/conversation.txt");
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred when creating file..");
+            e.printStackTrace();
+        }
+
         Scanner scannerObj = new Scanner(System.in);
         String my_username = scannerObj.nextLine();
         System.out.println(String.format(
@@ -58,6 +73,9 @@ public class Bonnie {
                 // Want to parse and add task into task list
                 parseAndAddTask(input);
             }
+
+            // Want to update file of tasks after every new command (which could possibly change the tasks involved)
+            updateFile();
         }
     }
 
@@ -133,4 +151,20 @@ public class Bonnie {
                                          "You now have %d tasks to complete!\n", username, name, tasklist.size()));
     }
 
+    /**
+     * Updates the task list file after every new command by updating the task list from the ArrayList of tasks
+     *
+     */
+    public static void updateFile() {
+        try {
+            FileWriter writer = new FileWriter("ip/src/main/java/Files/conversation.txt");
+            for (int i = 0; i < tasklist.size(); i++) {
+                writer.write(String.format("%s\n", tasklist.get(i).toString()));
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error updating tasks file!");
+            e.printStackTrace();
+        }
+    }
 }
