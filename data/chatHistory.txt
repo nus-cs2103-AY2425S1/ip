@@ -1,0 +1,4 @@
+T | 0 | return book
+T | 1 | hug meeks
+E | 1 | birthday party  |  Aug 2pm  |  4pm
+D | 0 | assignment  |  tonight 2359
