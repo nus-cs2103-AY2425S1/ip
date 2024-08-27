@@ -28,4 +28,11 @@ public class Task {
         }
         return "[] " + description;
     }
+
+    public String saveFormat() {
+        if(completed) {
+            return "1 | " + description;
+        }
+        return "0 | " + description;
+    }
 }

@@ -1,14 +1,24 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Stream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
 
 public class Duke {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
-
         Scanner reader = new Scanner(System.in);
+
+        try {
+            tasks = getData("./data/duke.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
 
         String greet = "Hello! I'm Bob\nWhat can I do for you?\n";
         String bye = "Bye. Hope to see you again soon!";
@@ -22,6 +32,11 @@ public class Duke {
             input = reader.nextLine();
             if (input.contains("bye")) {
                 System.out.println(bye);
+                try {
+                    writeData("./data/duke.txt", tasks);
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
                 return;
             } else if (input.contains("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
@@ -84,6 +99,41 @@ public class Duke {
         }
     }
 
+    private static ArrayList<Task> getData(String path) throws FileNotFoundException {
+        ArrayList<Task> data = new ArrayList<>();
+
+        File f = new File(path);
+        Scanner s = new Scanner(f);
+
+        while (s.hasNext()) {
+            String[] split = Arrays.stream(s.nextLine().split("\\|")).map(String::trim).toArray(String[]::new);
+            String type = split[0];
+
+            switch (type) {
+                case "T" -> data.add(new ToDo(split[2]));
+                case "D" -> data.add(new DeadLine(split[2], split[3]));
+                case "E" -> data.add(new Event(split[2], split[3], split[4]));
+            }
+
+            if(Objects.equals(split[1], "1")) {
+                data.get(data.size() -1).mark();
+            }
+
+        }
+
+        return data;
+    }
+
+    private static void writeData(String path, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(path);
+
+        for (Task task : tasks) {
+            fw.write(task.saveFormat());
+        }
+
+        fw.close();
+    }
+
     private static String[] matchTask(String input, ArrayList<String> splitters) {
         String[] split = input.split(splitters.get(0));
         if (split.length == 0) {
@@ -119,7 +169,7 @@ public class Duke {
         commands.add("deadline");
         commands.add("/by");
 
-        String[] deadLineItems = Arrays.stream(matchTask(input, commands)).map(String::trim).toArray(String[]::new);;
+        String[] deadLineItems = Arrays.stream(matchTask(input, commands)).map(String::trim).toArray(String[]::new);
 
         if(deadLineItems.length == 0 || Objects.equals(deadLineItems[1], "")) {
             throw new DukeException("Task must be specified!");

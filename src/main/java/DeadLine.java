@@ -14,4 +14,9 @@ public class DeadLine extends Task{
     public String toString() {
         return "[D] " + super.toString() + "(by: " + this.to + ")";
     }
+
+    @Override
+    public String saveFormat() {
+        return "D | " + super.saveFormat() + " | " +  this.to + "\n";
+    }
 }
