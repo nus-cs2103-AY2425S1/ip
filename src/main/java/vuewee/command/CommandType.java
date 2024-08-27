@@ -56,12 +56,6 @@ public enum CommandType {
     }
   }
 
-  /**
-   * Converts a CommandType to its string representation.
-   *
-   * @param commandType the CommandType to convert
-   * @return the string representation of the CommandType
-   */
   public static String toString(CommandType commandType) {
     return commandType.name().toLowerCase();
   }

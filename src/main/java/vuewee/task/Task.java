@@ -1,5 +1,10 @@
 package vuewee.task;
 
+/**
+ * Represents a task with a description, marked status, and type. It is an
+ * abstract class that has to implement a method to serialize and deserialize
+ * the task from file strings.
+ */
 public abstract class Task {
   protected String description;
   protected boolean isDone;
