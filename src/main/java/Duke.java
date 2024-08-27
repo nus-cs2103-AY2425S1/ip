@@ -114,7 +114,7 @@ public class Duke {
             switch (type) {
                 case "T" -> data.add(new ToDo(split[2]));
                 case "D" -> data.add(new DeadLine(split[2], parseDate(split[3])));
-                case "E" -> data.add(new Event(split[2], split[3], split[4]));
+                case "E" -> data.add(new Event(split[2], parseDate(split[3]), parseDate(split[4])));
             }
 
             if(Objects.equals(split[1], "1")) {
@@ -190,7 +190,7 @@ public class Duke {
         return new DeadLine(deadLineItems[1], parseDate(deadLineItems[2]));
     }
 
-    private static Task getEvent(String input) throws DukeException{
+    private static Task getEvent(String input) throws DukeException, ParseException {
         ArrayList<String> commands = new ArrayList<>();
         commands.add("event");
         commands.add("/from");
@@ -210,7 +210,14 @@ public class Duke {
             throw new DukeException("to must be specified!");
         }
 
-        return new Event(eventItems[1], eventItems[2], eventItems[3]);
+        LocalDateTime from = parseDate(eventItems[2]);
+        LocalDateTime to = parseDate(eventItems[3]);
+
+        if (to.isBefore(from)) {
+            throw new DukeException("[to] date is before [from] date!");
+        }
+
+        return new Event(eventItems[1], from, to);
     }
 
     private static Task getTaskForMark(String input, ArrayList<Task> tasks) throws DukeException{

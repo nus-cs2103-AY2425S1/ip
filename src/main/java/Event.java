@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
 
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
-    public Event(String _description, String _from, String _to) {
+    public Event(String _description, LocalDateTime _from, LocalDateTime _to) {
         super(_description);
         this.from = _from;
         this.to = _to;
@@ -11,20 +14,28 @@ public class Event extends Task{
     }
 
     public String getTo() {
-        return to;
+        return this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
     public String getFrom() {
-        return from;
+        return this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    }
+
+    public String saveTo() {
+        return this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+    }
+
+    public String saveFrom() {
+        return this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E] " + super.toString() + " (from: " + this.getFrom() + " to: " + this.getTo() + ")";
     }
 
     @Override
     public String saveFormat() {
-        return "E | " + super.saveFormat() + " | " +  this.from +  " | " + this.to + "\n";
+        return "E | " + super.saveFormat() + " | " +  this.saveFrom() +  " | " + this.saveTo() + "\n";
     }
 }

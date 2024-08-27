@@ -12,16 +12,16 @@ public class DeadLine extends Task{
     }
 
     public String getDate() {
-        return this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        return this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + "(by: " +  this.getDate() + ")";
+        return "[D] " + super.toString() + " (by: " +  this.getDate() + ")";
     }
 
     @Override
     public String saveFormat() {
-        return "D | " + super.saveFormat() + " | " +  this.getDate() + "\n";
+        return "D | " + super.saveFormat() + " | " +  this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + "\n";
     }
 }
