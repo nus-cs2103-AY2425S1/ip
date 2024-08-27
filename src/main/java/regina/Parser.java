@@ -2,6 +2,11 @@ package regina;
 
 import java.util.Optional;
 
+/**
+ * The Parser class is responsible for interpreting user commands input into the Regina chatbot.
+ * It validates command types and extracts relevant information from user input, facilitating
+ * the command execution process.
+ */
 public class Parser {
     private static final String TODO_TYPE = "todo";
     private static final String DEADLINE_TYPE = "deadline";
