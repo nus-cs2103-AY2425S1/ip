@@ -54,6 +54,10 @@ public class Parser {
         String[] inputs = userInput.split(" ", 2);
         String commandPhrase = inputs[0].toLowerCase();
 
+        if (inputs.length == 1 && !(commandPhrase.equals("list") || commandPhrase.equals("bye"))) {
+            throw new FishmanException.MissingArgumentException(commandPhrase);
+        }
+
         try {
             switch (commandPhrase) {
             case "bye":
@@ -64,9 +68,6 @@ public class Parser {
                 }
                 return new ListCommand();
             case "mark":
-                if (inputs.length < 2) {
-                    throw new FishmanException.MissingArgumentException("mark");
-                }
                 if (tasks.size() == 0) {
                     throw new FishmanException.EmptyListException();
                 }
@@ -76,9 +77,6 @@ public class Parser {
                 }
                 return new MarkCommand(markIndex, true);
             case "unmark":
-                if (inputs.length < 2) {
-                    throw new FishmanException.MissingArgumentException("unmark");
-                }
                 if (tasks.size() == 0) {
                     throw new FishmanException.EmptyListException();
                 }
@@ -88,19 +86,16 @@ public class Parser {
                 }
                 return new MarkCommand(unmarkIndex, false);
             case "todo":
-                if (inputs.length < 2) {
-                    throw new FishmanException.MissingArgumentException("todo");
-                }
                 return new AddCommand(new ToDo(inputs[1], false));
             case "deadline":
-                if (inputs.length < 2 || !inputs[1].contains("/by")) {
+                if (!inputs[1].contains("/by")) {
                     throw new FishmanException.MissingArgumentException("deadline");
                 }
                 String[] deadlineString = inputs[1].split("/by");
                 LocalDateTime deadlineDate = parseDateTime(deadlineString[1].trim());
                 return new AddCommand(new Deadline(deadlineString[0].trim(), false, deadlineDate));
             case "event":
-                if (inputs.length < 2 || !inputs[1].contains("/from") || !inputs[1].contains("/to")) {
+                if (!inputs[1].contains("/from") || !inputs[1].contains("/to")) {
                     throw new FishmanException.MissingArgumentException("event");
                 }
                 String[] eventString = inputs[1].split("/from|/to");
@@ -108,9 +103,6 @@ public class Parser {
                 LocalDateTime toDate = parseDateTime(eventString[2].trim());
                 return new AddCommand(new Event(eventString[0].trim(), false, fromDate, toDate));
             case "delete":
-                if (inputs.length < 2) {
-                    throw new FishmanException.MissingArgumentException("delete");
-                }
                 int deleteIndex = Integer.parseInt(inputs[1]) - 1;
                 if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
                     throw new FishmanException.IndexOutOfBoundsException(deleteIndex + 1);
