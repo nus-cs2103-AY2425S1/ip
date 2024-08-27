@@ -8,31 +8,34 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+
 import java.util.ArrayList;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 import parser.EventParser;
 
 public class KorolevStorage {
     private static final String home = System.getProperty("user.dir");
 
-    private static final java.nio.file.Path dir = java.nio.file.Paths.get(
+    private static final Path dir = Paths.get(
             home, "src", "main", "java", "data");
 
-    private static final java.nio.file.Path path = java.nio.file.Paths.get(
+    private static final Path path = Paths.get(
             home, "src", "main", "java", "data", "korolev.txt");
 
     private void createNewFile() {
         if (!java.nio.file.Files.exists(path)) {
             try {
-                java.nio.file.Files.createDirectories(KorolevStorage.dir);
-                java.nio.file.Files.createFile(path);
+                Files.createDirectories(KorolevStorage.dir);
+                Files.createFile(path);
                 File record = new File(String.valueOf(path));
                 boolean test = record.createNewFile();
             } catch (IOException e) {
                 System.out.println("IOException: " + e.getMessage());
             }
-        } else {
-            return;
         }
     }
 
