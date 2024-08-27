@@ -1,6 +1,7 @@
 package qwerty.command;
 
 import java.util.HashMap;
+
 import qwerty.Storage;
 import qwerty.TaskList;
 import qwerty.Ui;
@@ -20,8 +21,11 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
+            // Get the task from the task list
             int index = Integer.parseInt(getArgs().get("main"));
             Task task = tasks.getTask(index);
+
+            // Delete the task and print message
             tasks.deleteTask(index);
             if (task.getIsDone()) {
                 ui.showMessage("\nRemoved this completed task:\n" + task

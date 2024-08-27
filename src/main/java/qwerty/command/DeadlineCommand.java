@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
@@ -24,6 +25,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws QwertyException {
+        // Check whether arguments exist
         String description = getArgs().get("main");
         String strBy = getArgs().get("by");
         if (description == null) {
@@ -32,11 +34,16 @@ public class DeadlineCommand extends Command {
         if (strBy == null) {
             throw new QwertyException("You didn't tell me when your deadline is.");
         }
+
         try {
+            // Parse arguments into a LocalDateTime object
             LocalDateTime by = LocalDateTime.parse(
                     strBy, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
             Task deadline = new Deadline(description, by);
+
+            // Add the task to the task list
             tasks.addTask(deadline);
+
             ui.showMessage("\nAdded this task:\n" + deadline
                     + "\nNow you have " + tasks.getSize() + (tasks.getSize() == 1 ? " task " : " tasks ")
                     + "in the list.\nBetter get to it.");

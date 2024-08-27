@@ -1,6 +1,7 @@
 package qwerty;
 
 import java.util.Scanner;
+
 import qwerty.command.Command;
 
 /**
@@ -27,11 +28,13 @@ public class Qwerty {
      * Starts the chatbot and run the main chat loop.
      */
     public void start() {
+        // Initialise the chatbot
         Scanner scanner = new Scanner(System.in);
         isChatting = true;
         storage.loadTasks(tasks);
         ui.showGreeting();
 
+        // Main chat loop
         while (isChatting) {
             System.out.println(); // blank line before user input
             String rawInput = scanner.nextLine();

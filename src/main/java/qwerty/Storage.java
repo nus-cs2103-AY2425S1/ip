@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 import qwerty.task.Deadline;
 import qwerty.task.Event;
 import qwerty.task.Task;
@@ -25,7 +26,9 @@ public class Storage {
      */
     public void saveTasks(TaskList taskList) {
         File file = new File(savePath);
+
         if (file.exists()) {
+            // Write the generated save string to the file
             try {
                 FileWriter writer = new FileWriter(savePath);
                 writer.write(taskList.generateSaveString());
@@ -34,6 +37,7 @@ public class Storage {
                 System.out.println("Could not write to save file: " + e.getMessage());
             }
         } else {
+            // Create a new file and retry saving
             try {
                 file.createNewFile();
                 saveTasks(taskList);
@@ -49,25 +53,35 @@ public class Storage {
      */
     public void loadTasks(TaskList taskList) {
         File file = new File(savePath);
+
         if (file.exists()) {
             try {
+                // Initialise scanner and line number counter
                 Scanner scanner = new Scanner(file);
                 int lineNumber = 0;
+
+                // Create a new task from parsing the details in each line and add it to the task list
                 while (scanner.hasNextLine()) {
                     lineNumber++;
                     try {
+                        // Parse the string in each line and match it to a task type
                         String[] args = scanner.nextLine().split("\\|");
                         switch (args[0]) {
                         case "":
                             break; // skip empty lines
                         case "T":
+                            // Check if arguments exist
                             if (args.length < 3) {
                                 throw new QwertyException("Missing arguments for qwerty.task.Todo qwerty.task");
                             }
+
+                            // Create task with the given arguments and mark as done if needed
                             Task todo = new Todo(args[2]);
                             if (args[1].equals("X")) {
                                 todo.markAsDone();
                             }
+
+                            // Add the task to the task list
                             taskList.addTask(todo);
                             break;
                         case "D":

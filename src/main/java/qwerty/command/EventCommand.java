@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
@@ -24,6 +25,7 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws QwertyException {
+        // Check whether arguments exist
         String description = getArgs().get("main");
         String strFrom = getArgs().get("from");
         String strTo = getArgs().get("to");
@@ -36,13 +38,18 @@ public class EventCommand extends Command {
         if (strTo == null) {
             throw new QwertyException("Your didn't tell me when your event ends.");
         }
+
         try {
+            // Parse arguments into LocalDateTime objects
             LocalDateTime from = LocalDateTime.parse(
                     strFrom, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
             LocalDateTime to = LocalDateTime.parse(
                     strTo, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+
+            // Create a new event task and add it to the task list
             Task event = new Event(description, from, to);
             tasks.addTask(event);
+
             ui.showMessage("\nAdded this task:\n" + event
                     + "\nNow you have " + tasks.getSize() + (tasks.getSize() == 1 ? " task " : " tasks ")
                     + "in the list.\nBetter get to it.");
