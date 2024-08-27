@@ -61,8 +61,8 @@ class EventTest {
     void testUnmarkEvent() {
         try {
             Event event = new Event("Annual review", "2024-12-01", "2024-12-02");
-            event.mark();  // Mark as done
-            event.unmark();  // Then unmark
+            event.mark(); // Mark as done
+            event.unmark(); // Then unmark
             assertFalse(event.isDone);
             assertEquals("[E][ ] Annual review (from: 1 Dec 2024 to: 2 Dec 2024)", event.toString());
 
@@ -78,7 +78,7 @@ class EventTest {
             Event event = new Event("Team building", "2024-09-15", "2024-09-16");
             String expected = "event | 0 | Team building | 2024-09-15 | 2024-09-16";
             assertEquals(expected, event.toDataFormat());
-            
+
         } catch (EventException e) {
             fail("EventException should not be thrown for valid dates.");
 

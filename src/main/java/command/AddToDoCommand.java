@@ -1,10 +1,8 @@
 package command;
 
 import tasklist.TaskList;
-
 import tasks.Task;
 import tasks.ToDo;
-
 import ui.CommandLineUI;
 
 public class AddToDoCommand extends Command {
@@ -12,7 +10,6 @@ public class AddToDoCommand extends Command {
 
     public AddToDoCommand(String desc) {
         task = new ToDo(desc);
-        
     }
 
     public void execute(TaskList tasklist, CommandLineUI ui) {

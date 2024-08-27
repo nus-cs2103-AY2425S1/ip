@@ -1,10 +1,10 @@
 package tasks;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 class ToDoTest {
 
@@ -28,8 +28,8 @@ class ToDoTest {
     @Test
     void testUnmarkToDo() {
         ToDo todo = new ToDo("Complete assignment");
-        todo.mark();  // Mark as done
-        todo.unmark();  // Then unmark
+        todo.mark(); // Mark as done
+        todo.unmark(); // Then unmark
         assertFalse(todo.isDone);
         assertEquals("[T][ ] Complete assignment", todo.toString());
 

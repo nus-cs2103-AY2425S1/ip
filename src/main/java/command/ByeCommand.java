@@ -1,7 +1,6 @@
 package command;
 
 import tasklist.TaskList;
-
 import ui.CommandLineUI;
 
 public class ByeCommand extends Command {

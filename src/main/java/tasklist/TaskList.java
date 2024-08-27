@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import command.CommandNotFoundException;
-
 import ouiouibaguette.OuiOuiBaguetteException;
 import storage.Storage;
-
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -18,7 +16,6 @@ public class TaskList {
     protected Storage storage;
 
     protected List<Task> tasklist;
-    
 
     public TaskList(Storage storage) {
         this.storage = storage;
@@ -33,39 +30,29 @@ public class TaskList {
             try {
                 // Escape |
                 String[] taskParts = line.split(" \\| ");
-    
                 Task task = null;
-    
                 if (taskParts[0].equals("todo")) {
                     task = new ToDo(taskParts[2]);
-    
                     if (Integer.parseInt(taskParts[1]) == 1) {
                         task.mark();
                     }
-    
                 } else if (taskParts[0].equals("deadline")) {
                     task = new Deadline(taskParts[2], taskParts[3]);
-    
                     if (Integer.parseInt(taskParts[1]) == 1) {
                         task.mark();
                     }
-    
                 } else if (taskParts[0].equals("event")) {
                     task = new Event(taskParts[2], taskParts[3], taskParts[4]);
-    
                     if (Integer.parseInt(taskParts[1]) == 1) {
                         task.mark();
                     }
-    
                 } else {
                     throw new CommandNotFoundException("Command not found: " + taskParts[0]);
                 }
-    
                 // Add task to return result
                 if (task != null) {
                     tasklist.add(task);
                 }
-
             } catch (OuiOuiBaguetteException e) {
                 // Do nth
             }
