@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class FileHandler {
     private static final String DATA_DIRECTORY = "data";
     private static final String FILE_NAME = "appleaster.txt";
     private static final Path FILE_PATH = Paths.get(DATA_DIRECTORY, FILE_NAME);
+    private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public static void saveTaskList(List<Task> tasks) throws IOException {
         createDataDirectoryIfNotExists();
@@ -43,10 +46,11 @@ public class FileHandler {
             return String.format("T | %d | %s", task.isCompleted() ? 1 : 0, task.getDescription());
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return String.format("D | %d | %s | %s", task.isCompleted() ? 1 : 0, task.getDescription(), deadline.by);
+            return String.format("D | %d | %s | %s", task.isCompleted() ? 1 : 0, task.getDescription(), deadline.getBy().format(FILE_DATE_FORMAT));
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return String.format("E | %d | %s | %s | %s", task.isCompleted() ? 1 : 0, task.getDescription(), event.from, event.to);
+            return String.format("E | %d | %s | %s | %s", task.isCompleted() ? 1 : 0, task.getDescription(), 
+                                 event.getFrom().format(FILE_DATE_FORMAT), event.getTo().format(FILE_DATE_FORMAT));
         }
         throw new IllegalArgumentException("Unknown task type");
     }

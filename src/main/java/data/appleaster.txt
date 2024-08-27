@@ -1,6 +1,7 @@
-T | 1 | Read a book
-E | 1 | Team meeting | 2023-08-30 14:00 | 2023-08-30 15:30
+T | 0 | Read a book
+D | 1 | Complete project report | 2023-09-15 1800
+E | 0 | Team meeting | 2023-08-30 1400 | 2023-08-30 1530
+D | 1 | Submit expense report | 2023-09-01 0900
+E | 0 | Conference call | 2023-09-15 1000 | 2023-09-15 1100
 T | 0 | Exercise for 30 minutes
-T | 0 | Buy groceries
-T | 0 | Clean the house
-D | 0 | Pay bills | 2023-09-01
+E | 0 | Weekend getaway | 2023-09-22 1700 | 2023-09-24 2000
