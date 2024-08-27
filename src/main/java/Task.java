@@ -14,6 +14,17 @@ public class Task {
         return getStatusIcon() + " " + this.description;
     }
 
+    /*
+    This method should not be called upon and only exists to be overridden by the subclasses of Task.
+     */
+    public String toFileString() {
+        return "";
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getStatusIcon() {
         return status.getIcon();
     }
