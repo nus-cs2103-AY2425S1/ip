@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeadlinesTest {
     @Test
@@ -20,8 +20,6 @@ public class DeadlinesTest {
         assertEquals("D | 0 | Work | 2024-08-27", t.getSaveFormat());
     }
 
-    
-
     @Test
     public void testLoadedCreationOfTask(){
         LocalDate due = LocalDate.parse("2024-08-27");
@@ -32,5 +30,17 @@ public class DeadlinesTest {
 
         // test 2: the save string is in the right format
         assertEquals("D | 1 | Work | 2024-08-27", t.getSaveFormat());
+    }
+
+    @Test
+    public void testInvalidCreationOfTask(){
+        try{
+            Task t = new Deadlines("Work", null);
+            t.toString();
+            fail();
+        } catch (Exception e){
+            //test 1: no due date
+            assertEquals("Due date cannot be null", e.getMessage());
+        }
     }
 }
