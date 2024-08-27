@@ -1,10 +1,21 @@
 package GPT;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command to add a new deadline task in the GPT application.
+ * This command parses the user input to extract the task description and deadline,
+ * and adds the task to the task list if the input is valid.
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private String by;
 
+    /**
+     * Constructs a DeadlineCommand by parsing the user input to extract the task description
+     * and deadline. If the input format is invalid, the description and deadline will be set to null.
+     *
+     * @param input The user input string containing the command to add a deadline task.
+     */
     public DeadlineCommand(String input) {
         String[] parts = input.substring(8).trim().split("/by");
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
@@ -16,6 +27,15 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to add a new deadline task to the task list. If the command format
+     * is invalid, an error message is displayed. Otherwise, the task is added, saved, and a
+     * confirmation message is shown.
+     *
+     * @param taskList The list of tasks to which the new task will be added.
+     * @param ui       The user interface that displays messages to the user.
+     * @param storage  The storage handler that manages task persistence.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (description == null || by == null) {

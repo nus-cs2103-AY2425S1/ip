@@ -1,11 +1,23 @@
 package GPT;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command to add a new event task in the GPT application.
+ * This command parses the user input to extract the task description, start time, and end time,
+ * and adds the task to the task list if the input is valid.
+ */
 public class EventCommand extends Command {
     private String description;
     private String from;
     private String to;
 
+    /**
+     * Constructs an EventCommand by parsing the user input to extract the task description,
+     * start time, and end time. If the input format is invalid, the description, start time,
+     * and end time will be set to null.
+     *
+     * @param input The user input string containing the command to add an event task.
+     */
     public EventCommand(String input) {
         String[] parts = input.substring(5).trim().split("/from|/to");
         if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
@@ -19,6 +31,15 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to add a new event task to the task list. If the command format
+     * is invalid, an error message is displayed. Otherwise, the task is added, saved, and a
+     * confirmation message is shown.
+     *
+     * @param taskList The list of tasks to which the new task will be added.
+     * @param ui       The user interface that displays messages to the user.
+     * @param storage  The storage handler that manages task persistence.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (description == null || from == null || to == null) {

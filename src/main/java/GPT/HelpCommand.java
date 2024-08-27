@@ -1,6 +1,16 @@
 package GPT;
+/**
+ * Represents a command that provides help information to the user in the GPT application.
+ * This command displays a list of available commands and their usage when executed.
+ */
 public class HelpCommand extends Command {
-
+    /**
+     * Executes the help command by displaying a list of available commands and their usage.
+     *
+     * @param taskList The list of tasks (not used in this command).
+     * @param ui       The user interface that displays messages to the user.
+     * @param storage  The storage handler that manages task persistence (not used in this command).
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.showLine();
