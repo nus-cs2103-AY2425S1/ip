@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.File;
 
@@ -99,7 +103,12 @@ public class Chatterbox {
                     if (command.length == 2) {
                         try {
                             String[] details = command[1].split("/by ");
-                            message = Chatterbox.taskList.addItem(new Deadline(details[0], details[1]));
+                            try {
+                                message = Chatterbox.taskList.addItem(
+                                        new Deadline(details[0], processDateTime(details[1])));
+                            } catch (ChatterBoxInvalidDateError | ChatterBoxInvalidDateTimeError e) {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         } catch (ArrayIndexOutOfBoundsException e) {
                             throw new ChatterBoxDeadlineError();
@@ -112,7 +121,12 @@ public class Chatterbox {
                         try {
                             String[] details = command[1].split("/from ");
                             String[] times = details[1].split("/to ");
-                            message = Chatterbox.taskList.addItem(new Event(details[0], times[0], times[1]));
+                            try {
+                                message = Chatterbox.taskList.addItem(
+                                        new Event(details[0], processDateTime(times[0]), processDateTime(times[1])));
+                            } catch (ChatterBoxInvalidDateError | ChatterBoxInvalidDateTimeError e) {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         } catch (ArrayIndexOutOfBoundsException e) {
                             throw new ChatterBoxEventError();
@@ -209,6 +223,31 @@ public class Chatterbox {
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("Error Writing Chatterbox save file");
+        }
+    }
+
+    public static LocalDateTime processDateTime(String dateString) throws ChatterBoxInvalidDateError, ChatterBoxInvalidDateTimeError {
+        DateTimeFormatter dateTimeFormatter;
+        boolean containsTime;
+        if (dateString.trim().contains(" ")) { // Contains time
+            dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            containsTime = true;
+        } else {
+            dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            containsTime = false;
+        }
+        try {
+            if (containsTime) {
+                return LocalDateTime.parse(dateString.trim(), dateTimeFormatter);
+            } else {
+                return LocalDate.parse(dateString.trim(), dateTimeFormatter).atStartOfDay();
+            }
+        } catch (IllegalArgumentException | DateTimeParseException e) {
+            if (containsTime) {
+                throw new ChatterBoxInvalidDateTimeError();
+            } else {
+                throw new ChatterBoxInvalidDateError();
+            }
         }
     }
 }
