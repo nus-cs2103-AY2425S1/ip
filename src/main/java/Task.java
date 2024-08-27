@@ -2,8 +2,8 @@ public class Task {
     private boolean isComplete;
     private String description;
 
-    public Task(String description) {
-        this.isComplete = false;
+    public Task(String description, int type) {
+        this.isComplete = type > 0 ? true : false;
         this.description = description;
     }
 

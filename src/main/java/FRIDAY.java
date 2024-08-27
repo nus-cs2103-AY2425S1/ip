@@ -41,11 +41,44 @@ public class FRIDAY {
             String fileName = "../storage/FRIDAY.txt";
             Scanner fileScanner = new Scanner(new File(fileName));
             while(fileScanner.hasNextLine()) {
-                String[] taskDetails = fileScanner.nextLine().split(" \\| ");
+                //data is saved as a string in the format type | completion | desc | deadline/duration
+                String[] retrievedTaskDetails = fileScanner.nextLine().split(" \\| ");
+                String taskType = retrievedTaskDetails[0];
+                Integer taskStatus = Integer.parseInt(retrievedTaskDetails[1]);
+                String taskDescription = retrievedTaskDetails[2];
+                Task retrievedTask;
+                switch(taskType) {
+                    case("T"):
+                        //todo
+                        retrievedTask = new ToDo(taskDescription, taskStatus);
+                        storage.add(retrievedTask);
+                        break;
+                    case("D"):
+                        //deadline
+                        String retrievedDeadline = retrievedTaskDetails[3];
+                        retrievedTask = new Deadline(taskDescription, retrievedDeadline, taskStatus);
+                        storage.add(retrievedTask);
+                        break;
+                    case("E"):
+                        //event
+                        String[] retrievedDuration = String.join(" ", retrievedTaskDetails[3].split("-")).split(" ");
+                        String date = retrievedDuration[0] + " " + retrievedDuration[1];
+                        String start = retrievedDuration[2];
+                        String end = retrievedDuration[3];
+                        retrievedTask = new Event(taskDescription, start, end, taskStatus);
+                        storage.add(retrievedTask);
+                        break;
+                    default:
+                        //throw error
+                        System.out.println("heehe");
+                        break;
+                }
             }
         } catch(FileNotFoundException f) {
             System.out.println("file not found");
         }
+
+        storage.forEach(item -> System.out.println(item));
         //start the bot
         isActive = true;
 
@@ -78,7 +111,7 @@ public class FRIDAY {
                             throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
                         }
                         //create new to do task
-                        Task newToDo = new ToDo(taskDetails);
+                        Task newToDo = new ToDo(taskDetails, 0);
                         add(newToDo);
                         break;
                     case ("deadline"):
@@ -89,7 +122,7 @@ public class FRIDAY {
                         String[] deadlineDetails = taskDetails.split("/");
                         String deadlineDescription = deadlineDetails[0];
                         String deadlineDeadline = deadlineDetails[1];
-                        Task newDeadline = new Deadline(deadlineDescription, deadlineDeadline);
+                        Task newDeadline = new Deadline(deadlineDescription, deadlineDeadline, 0);
                         add(newDeadline);
                         break;
                     case ("event"):
@@ -101,7 +134,7 @@ public class FRIDAY {
                         String eventDescription = eventDetails[0];
                         String eventStart = eventDetails[1];
                         String eventEnd = eventDetails[2];
-                        Task newEvent = new Event(eventDescription, eventStart, eventEnd);
+                        Task newEvent = new Event(eventDescription, eventStart, eventEnd, 0);
                         add(newEvent);
                         break;
                     case("delete"):
