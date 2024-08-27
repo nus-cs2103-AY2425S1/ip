@@ -10,4 +10,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by: " + deadline + ")";
     }
+
+    @Override
+    public String toStorageString() {
+        if (this.isDone()) {
+            return "D | 1 | " + this.getTitle() + " | " + deadline;
+        } else {
+            return "D | 0 | " + this.getTitle() + " | " + deadline;
+        }
+    }
 }
