@@ -33,7 +33,7 @@ public class TaskLog {
     protected Task getTask(int pos) throws RizzlerException {
         if (pos > this.numTasks) {
             throw new RizzlerException("there ain't no task " + (pos + 1) + " darlin'");
-        } else if (pos <= 0) {
+        } else if (pos < 0) {
             throw new RizzlerException("pumpkin, why you tryna give me problems?");
         }
         return this.log[pos];
