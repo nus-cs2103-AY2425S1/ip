@@ -1,5 +1,4 @@
 package ned.tasks;
-import ned.Ned;
 import ned.exceptions.NedException;
 import org.junit.jupiter.api.Test;
 

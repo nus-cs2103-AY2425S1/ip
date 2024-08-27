@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     public LocalDate deadlineTiming;
 
-    private Deadline(String taskDescription, String deadlineTiming, boolean isDone) throws NedException {
+    protected Deadline(String taskDescription, String deadlineTiming, boolean isDone) throws NedException {
         super(taskDescription, isDone);
         try {
             this.deadlineTiming = LocalDate.parse(deadlineTiming);
@@ -46,5 +46,17 @@ public class Deadline extends Task {
     public String toTextForm() {
         int status = this.isDone ? 1 : 0;
         return String.format("deadline|%d|%s|%s", status, this.taskDescription, this.deadlineTiming);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Deadline) {
+            Deadline typeCastedObj = (Deadline) obj;
+            return (this.taskDescription.equals(typeCastedObj.taskDescription)
+                    && this.deadlineTiming.equals(typeCastedObj.deadlineTiming) && (this.isDone == typeCastedObj.isDone));
+        }
+        return false;
     }
 }
