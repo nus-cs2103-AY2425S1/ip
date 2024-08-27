@@ -1,7 +1,9 @@
+package bibi.task;
+
 public class ToDo extends Task {
 
     public ToDo(String task) {
-        // Call Task constructor
+        // Call bibi.task.Task constructor
         super(task);
     }
 

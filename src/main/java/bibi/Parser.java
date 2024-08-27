@@ -1,3 +1,5 @@
+package bibi;
+
 public class Parser {
     public static Command parseCommand(String input) {
         String cmd = input.split(" ")[0];

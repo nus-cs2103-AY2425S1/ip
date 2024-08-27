@@ -1,4 +1,4 @@
-# Bibi User Guide
+# bibi.Bibi User Guide
 
 // Update the title above to match the actual product name
 
