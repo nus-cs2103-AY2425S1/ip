@@ -1,3 +1,7 @@
+package mahesh.util;
+
+import mahesh.task.Task;
+
 public class Ui {
     /**
      * The logo to be displayed when the application starts.
@@ -53,6 +57,11 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    public static void printErr(MaheshException err) {
+        System.out.println(err.getMessage());
+        System.out.println(DIVIDER);
+    }
+
     public static void printNoSuchTaskErr(int taskCount) {
         System.out.println("There is no such task. You currently have " + taskCount + " task(s).");
         System.out.println("Use the \"list\" command to view all your tasks.");
@@ -72,11 +81,6 @@ public class Ui {
 
     public static void printCorruptedDataErr() {
         System.out.println("Some tasks may not have loaded correctly due to corrupted data file.");
-        System.out.println(DIVIDER);
-    }
-
-    public static void printInvalidCommandErr() {
-        System.out.println("That is not a valid command. Use the \"bye\" command if you wish to exit the bot.");
         System.out.println(DIVIDER);
     }
 

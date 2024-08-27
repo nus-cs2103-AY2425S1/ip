@@ -1,3 +1,5 @@
+package mahesh.util;
+
 /**
  * Custom exception class for handling specific errors in the Mahesh application.
  */

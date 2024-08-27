@@ -1,5 +1,12 @@
 import java.util.Scanner;
 
+import mahesh.command.Command;
+import mahesh.util.MaheshException;
+import mahesh.util.Parser;
+import mahesh.util.Storage;
+import mahesh.util.TaskList;
+import mahesh.util.Ui;
+
 public class Mahesh {
 
     private final static String PATH = "../../../data/mahesh.txt";
@@ -28,7 +35,7 @@ public class Mahesh {
                     exit = command.isExit();
                 }
             } catch (MaheshException err) {
-                System.out.println(err.getMessage());
+                Ui.printErr(err);
             }
             store.updateData(Mahesh.list);
         }
