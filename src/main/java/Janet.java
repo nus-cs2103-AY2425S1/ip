@@ -20,6 +20,7 @@ public class Janet {
     public void run() throws IOException {
         ui.showWelcome();
         Scanner input = new Scanner(System.in);
+        boolean hasTypedBye = false;
 
         while (input.hasNext()) {
             String userCommand = input.nextLine();
@@ -33,6 +34,7 @@ public class Janet {
                 switch (commandType) {
                 case BYE:
                     ui.exitMessage();
+                    hasTypedBye = true;
                     break;
                 case LIST:
                     ui.showTasks(tasks);
@@ -40,6 +42,7 @@ public class Janet {
                 case MARK:
                     String markedResult = tasks.markAsDone(Integer.parseInt(commandDetails[1]));
                     ui.showMarkedMessage(markedResult, tasks.getTask(Integer.parseInt(commandDetails[1]) - 1));
+                    break;
                 case UNMARK:
                     String unmarkResult = tasks.unmark(Integer.parseInt(commandDetails[1]));
                     ui.showUnmarkedMessage(unmarkResult, tasks.getTask(Integer.parseInt(commandDetails[1]) - 1));
@@ -65,6 +68,9 @@ public class Janet {
                     ui.showSuccessfulTaskAddition(event, tasks.getNumberOfTasks());
                     break;
                 }
+                if (hasTypedBye) {
+                    break;
+                }
             } catch (JanetException e) {
                 System.out.println(e.getMessage());
             }
@@ -73,7 +79,7 @@ public class Janet {
     }
 
     public static void main(String[] args) throws IOException {
-        new Janet("./data/janet.txt").run();
+        new Janet("janet.txt").run();
     }
 
 }
