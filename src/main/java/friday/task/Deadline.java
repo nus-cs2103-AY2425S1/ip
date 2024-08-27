@@ -22,11 +22,13 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
 
     @Override
     public String toFileFormat() {
-        return "D | " + (super.getIsDone() ? "1" : "0") + " | " + super.getDescription() + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + (super.getIsDone() ? "1" : "0") + " | " + super.getDescription() + " | "
+                + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
