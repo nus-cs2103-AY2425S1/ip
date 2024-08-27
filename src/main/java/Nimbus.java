@@ -1,17 +1,17 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
-import java.time.LocalDate;
 
 public class Nimbus {
     final private static String name = "Nimbus";
     private static final ArrayList<Task> tasks = new ArrayList<Task>();
     private static boolean isRunning = true;
     final private static String DATA_FILE_PATH = "./data/data.txt";
+
+    static Ui ui;
 
     public enum Command {
         Remove,
@@ -24,28 +24,10 @@ public class Nimbus {
         Bye
     }
 
-    private static void printDash() {
-        System.out.println("____________________________________________________________");
-    }
-
-    public static void printWelcomeMessage() {
-        printDash();
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        printDash();
-    }
-
-    public static void printGoodbyeMessage() {
-        printDash();
-        System.out.println("Bye. Hope to see you again soon!");
-        printDash();
-    }
-
     public static void addTask(Task task, boolean showMsg, boolean writeToFile) {
         tasks.add(task);
         if (showMsg) {
-            System.out.println("Got it. I've added this task:\n" + task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            ui.showAddedTask(task, tasks.size());
         }
 
         if (!writeToFile)
@@ -82,14 +64,13 @@ public class Nimbus {
             System.out.println("Unable to write to file: " + e.getMessage());
         }
 
-        System.out.println("Noted. I've removed this task: " + tasks.remove(index));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        ui.showRemovedTask(tasks.remove(index), tasks.size());
+
     }
 
     public static void setDone(int index) {
-        System.out.println("Nice! I've marked this task as done:");
         tasks.get(index).setDone();
-        System.out.println(tasks.get(index));
+        ui.showDoneTask(tasks.get(index));
 
         try {
             File file = new File(DATA_FILE_PATH);
@@ -116,9 +97,8 @@ public class Nimbus {
     }
 
     public static void setNotDone(int index) {
-        System.out.println("OK, I've marked this task as not done yet:");
         tasks.get(index).setNotDone();
-        System.out.println(tasks.get(index));
+        ui.showNotDoneTask(tasks.get(index));
 
         try {
             File file = new File(DATA_FILE_PATH);
@@ -142,17 +122,6 @@ public class Nimbus {
         } catch (IOException e) {
             System.out.println("Unable to write to file: " + e.getMessage());
         }
-    }
-
-    public static void printAllTask() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); ++i) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
-        }
-    }
-
-    public static void invalidCommand() {
-        System.out.println("Invalid Command");
     }
 
     public static Command getCommandType(String line) throws InvalidCommandException {
@@ -199,15 +168,15 @@ public class Nimbus {
     public static String getDescription(String argument) {
         int index = argument.indexOf("/");
         if (index == -1)
-            return argument;
+            return argument.trim();
         else
-            return argument.substring(0, index);
+            return argument.substring(0, index).trim();
     }
 
     public static void processCommand(String line) throws InvalidCommandException, InvalidArgumentException{
         switch (getCommandType(line)) {
         case List:
-            printAllTask();
+            Nimbus.ui.showAllTasks(tasks);
             break;
         case Remove:
             removeTask(Integer.parseInt(getArgument(line)) - 1);
@@ -281,7 +250,8 @@ public class Nimbus {
     }
 
     public static void main(String[] args) {
-        printWelcomeMessage();
+        Nimbus.ui = new Ui(name);
+        ui.showWelcomeMessage();
 
         readSavedFile(DATA_FILE_PATH);
 
@@ -297,6 +267,6 @@ public class Nimbus {
             }
         }
 
-        printGoodbyeMessage();
+        ui.showGoodbyeMessage();
     }
 }
