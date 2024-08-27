@@ -2,8 +2,8 @@ package parser;
 
 import command.*;
 import task.Deadline;
-import task.ToDo;
 import task.Event;
+import task.ToDo;
 
 import java.time.format.DateTimeParseException;
 

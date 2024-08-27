@@ -1,8 +1,8 @@
 package command;
 
-import ui.Ui;
 import storage.Storage;
 import task.TaskList;
+import ui.Ui;
 
 public class ExitCommand extends Command {
     @Override
