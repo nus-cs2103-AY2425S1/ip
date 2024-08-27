@@ -5,14 +5,16 @@ public class ZBot {
     private static final String SAVE_PATH = "../../../data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
+    private Ui ui;
 
     public ZBot(String filepath) {
+        ui = new Ui();
         storage = new Storage(SAVE_PATH);
         tasks = new TaskList();
     }
 
     public void run() {
-        greet();
+        ui.intro();
         storage.createFileIfNotExists();
         tasks = new TaskList(storage.loadTasks());
         Scanner sc = new Scanner(System.in);
@@ -24,20 +26,11 @@ public class ZBot {
 
         storage.saveTasks(tasks);
         sc.close();
-        exit();
+        ui.outro();
     }
 
     public static void main(String[] args) {
         new ZBot(SAVE_PATH).run();
-    }
-
-    public static void greet() {
-        System.out.println("Hello! I'm ZBot!");
-        System.out.println("What can I do for you?\n");
-    }
-
-    public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
     }
 
     public void processInput(String input) {
