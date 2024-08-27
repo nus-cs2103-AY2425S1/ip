@@ -1,15 +1,11 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
-
 import dateandtime.ReginaDateAndTime;
 import errorhandling.ReginaException;
 import file.Storage;
-import tasks.DeadlinesTask;
-import tasks.EventsTask;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDosTask;
+import tasks.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * The Regina class represents a chatbot designed to help users track their tasks and activities.
@@ -35,6 +31,10 @@ public class Regina {
         }
         this.marker = new Marker(listOfTasks);
         this.parser = new Parser();
+    }
+
+    public TaskList getListOfTasks() {
+        return this.listOfTasks;
     }
 
     /**
@@ -99,10 +99,11 @@ public class Regina {
      * @throws ReginaException If the dateAndTime format is invalid or if an error occurs while
      *                         retrieving tasks.
      */
-    public void occurringOn(String dateAndTime) throws ReginaException {
+    public TaskList occurringOn(String dateAndTime) throws ReginaException {
         ReginaDateAndTime occurringInstance = new ReginaDateAndTime(dateAndTime);
         TaskList tempList = this.listOfTasks.tasksOccurringOn(occurringInstance);
         ui.printMessage(tempList.toString());
+        return tempList;
     }
 
     /**
@@ -262,9 +263,6 @@ public class Regina {
         }
     }
 
-    /**
-     * Exits the program.
-     */
     public static void main(String[] args) {
         Regina regina = new Regina(); // Create an instance of the Regina chatbot
         regina.greet(); // Greet the user
