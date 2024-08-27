@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatterBuilder;
 public class Bao {
     private Ui ui;
+    private Storage storage;
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String file_Path = "./data/bao.txt";
     private static DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder()
@@ -57,6 +58,7 @@ public class Bao {
 
     public Bao (String file_Path) {
         ui = new Ui();
+        storage = new Storage(file_Path);
     }
     public static void main(String[] args) {
         loadFile();
