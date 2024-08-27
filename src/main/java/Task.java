@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
@@ -30,6 +32,7 @@ public class Task {
     }
 
     public static Task fromString(String taskString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] parser = taskString.split(" \\| ");
         String type = parser[0];
         String description = parser[1];
@@ -39,11 +42,11 @@ public class Task {
             return new ToDo(description, isDone);
         } else if (Objects.equals(type, "D")) {
             String deadline = parser[3];
-            return new Deadline(description, isDone, deadline);
+            return new Deadline(description, isDone, LocalDateTime.parse(deadline, formatter));
         } else {
             String from = parser[3];
             String to = parser[4];
-            return new Event(description, isDone, from, to);
+            return new Event(description, isDone, LocalDateTime.parse(from, formatter), LocalDateTime.parse(to, formatter));
         }
 
     }
