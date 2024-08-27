@@ -39,30 +39,23 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
+Hey! None of the date formats matched. Please check your input.
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
- [D][ ] return book (by: Sunday)
+ [E][ ] project meeting (from: Aug 29 2024, 6:00 pm to: Aug 31 2024, 7:40 pm)
 Now you have 2 tasks in the list.
-____________________________________________________________
-
-____________________________________________________________
-Got it. I've added this task:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
 1 [T][ ] read book
-2 [D][ ] return book (by: Sunday)
-3 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2 [E][ ] project meeting (from: Aug 29 2024, 6:00 pm to: Aug 31 2024, 7:40 pm)
 ____________________________________________________________
 
 ____________________________________________________________
-Got it. I've added this task:
- [D][ ] do homework (by: no idea :-p)
-Now you have 4 tasks in the list.
+Hey! None of the date formats matched. Please check your input.
 ____________________________________________________________
-
 ____________________________________________________________
 Nice! I've marked this task as done:
  [T][X] read book
@@ -70,51 +63,45 @@ ____________________________________________________________
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
- [D][ ] return book (by: Sunday)
+ [E][ ] project meeting (from: Aug 29 2024, 6:00 pm to: Aug 31 2024, 7:40 pm)
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
 1 [T][X] read book
-2 [D][ ] return book (by: Sunday)
-3 [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4 [D][ ] do homework (by: no idea :-p)
+2 [E][ ] project meeting (from: Aug 29 2024, 6:00 pm to: Aug 31 2024, 7:40 pm)
 ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
- [D][ ] do leetcode problem 2 sums (by: Monday)
-Now you have 5 tasks in the list.
+ [D][ ] do leetcode problem 2 sums (by: Dec 02 2024, 6:00 pm)
+Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
- [E][ ] RC4 Directors meeting (from: Thursday 10pm to: 11pm)
-Now you have 6 tasks in the list.
+ [E][ ] RC4 Directors meeting (from: Dec 29 2024, 6:00 pm to: Dec 29 2024, 6:30 pm)
+Now you have 4 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
 1 [T][X] read book
-2 [D][ ] return book (by: Sunday)
-3 [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4 [D][ ] do homework (by: no idea :-p)
-5 [D][ ] do leetcode problem 2 sums (by: Monday)
-6 [E][ ] RC4 Directors meeting (from: Thursday 10pm to: 11pm)
+2 [E][ ] project meeting (from: Aug 29 2024, 6:00 pm to: Aug 31 2024, 7:40 pm)
+3 [D][ ] do leetcode problem 2 sums (by: Dec 02 2024, 6:00 pm)
+4 [E][ ] RC4 Directors meeting (from: Dec 29 2024, 6:00 pm to: Dec 29 2024, 6:30 pm)
 ____________________________________________________________
 
 ____________________________________________________________
 Noted. I've removed this task:
-   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 5 tasks in the list.
+   [D][ ] do leetcode problem 2 sums (by: Dec 02 2024, 6:00 pm)
+Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1 [T][X] read book
-2 [D][ ] return book (by: Sunday)
-3 [D][ ] do homework (by: no idea :-p)
-4 [D][ ] do leetcode problem 2 sums (by: Monday)
-5 [E][ ] RC4 Directors meeting (from: Thursday 10pm to: 11pm)
+2 [E][ ] project meeting (from: Aug 29 2024, 6:00 pm to: Aug 31 2024, 7:40 pm)
+3 [E][ ] RC4 Directors meeting (from: Dec 29 2024, 6:00 pm to: Dec 29 2024, 6:30 pm)
 ____________________________________________________________
 
 ____________________________________________________________

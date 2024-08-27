@@ -1,11 +1,34 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalTime;
 
 /**
  * The SilverWolf class represents a chat bot application.
  * It allows users to add tasks, display the list of tasks, and show task statistics.
  */
 public class SilverWolf {
+
+    // List of possible date formats
+    private static final DateTimeFormatter[] formatters = {
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("d/M/yyyy ha"),
+            DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
+            DateTimeFormatter.ofPattern("d-M-yyyy ha"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd ha"),
+            DateTimeFormatter.ofPattern("d/M/yyyy"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+            DateTimeFormatter.ofPattern("HHmm"),
+            DateTimeFormatter.ofPattern("h:mma"),
+            DateTimeFormatter.ofPattern("ha"),
+            DateTimeFormatter.ofPattern("HHmm")
+    };
+
+    // Formatter for output string format
+    private static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     // List to store the tasks
     private static ArrayList<Task> lists = new ArrayList<>();
@@ -323,13 +346,19 @@ public class SilverWolf {
         //taking in the input
         try {
             String[] parts = input.substring(9).split(" /by ");
-            Task newDeadline = new Deadline(parts[0], parts[1]);
+            LocalDateTime deadlineDateTime = parseDateTime(parts[1]);
+
+            // Convert LocalDateTime to a formatted string
+            String formattedDeadline = deadlineDateTime.format(dateTimeOutputFormatter);;
+
+            Task newDeadline = new Deadline(parts[0], formattedDeadline);
             lists.add(newDeadline);
             showConfirmation();
         } catch (StringIndexOutOfBoundsException e){
             throw new SilverWolfException("Hey! your deadline cannot be empty you know");
         } catch (ArrayIndexOutOfBoundsException e){
-            throw new SilverWolfException("Wrong usage. Correct usage: deadline [task in String] /by [date/time] e.g deadline submit report /by 11/10/2019 ");
+            throw new SilverWolfException("Wrong usage. Correct usage: deadline [task in String] /by [date/time] " +
+                    "e.g deadline submit report /by 11/10/2019 ");
         }
     }
 
@@ -347,13 +376,20 @@ public class SilverWolf {
         //taking in the input
         String[] parts = input.substring(6).split(" /from ");
         String[] to = parts[1].split(" /to ");
-            Task newEvent = new Event(parts[0],to[0],to[1]);
+        LocalDateTime deadlineDateTimeFrom = parseDateTime(to[0]);
+        LocalDateTime deadlineDateTimeTo = parseDateTime(to[1]);
+        // Convert LocalDateTime to a formatted string
+            String formattedDeadlineFrom = deadlineDateTimeFrom.format(dateTimeOutputFormatter);
+            String formattedDeadlineTo = deadlineDateTimeTo.format(dateTimeOutputFormatter);
+
+            Task newEvent = new Event(parts[0],formattedDeadlineFrom,formattedDeadlineTo);
         lists.add(newEvent);
         showConfirmation();
     } catch (StringIndexOutOfBoundsException e){
         throw new SilverWolfException("Hey! your event cannot be empty you know");
     } catch (ArrayIndexOutOfBoundsException e){
-        throw new SilverWolfException("Wrong usage. Correct usage: event [task in String] /from [date/time] /to [date/time] e.g event project meeting /from Mon 2pm /to 4pm ");
+        throw new SilverWolfException("Wrong usage. Correct usage: event [task in String] " +
+                "/from [date/time] /to [date/time] e.g event project meeting /from Mon 2pm /to 4pm ");
     }
     }
 
@@ -390,4 +426,29 @@ public class SilverWolf {
             throw new SilverWolfException("Yo, please provide a valid index");
         }
     }
+
+    /**
+     * Parses a date/time string into a LocalDateTime object using a list of date/time formatters.
+     *
+     * This method iterates through a list of predefined DateTimeFormatter objects to attempt to parse
+     * the provided dateTimeString. If a formatter successfully parses the string, it returns the
+     * corresponding LocalDateTime object. If none of the formatters match, an exception is thrown.
+     *
+     * @param dateTimeString The date/time string to be parsed.
+     * @return The parsed LocalDateTime object.
+     * @throws SilverWolfException If none of the date formats match the input string.
+     */
+
+    private static LocalDateTime parseDateTime(String dateTimeString) throws SilverWolfException {
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(dateTimeString, formatter);
+            } catch (DateTimeParseException e) {
+                // Try the next pattern
+            }
+        }
+        throw new SilverWolfException("Hey! None of the date formats matched. Please check your input.");
+    }
+
+
 }
