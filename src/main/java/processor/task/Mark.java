@@ -17,7 +17,7 @@ public class Mark {
     try {
       final int idx = Integer.parseInt(prompts.get(1)) - 1;
       TaskList.mark(idx);
-      return new Response(List.of(TaskList.getSpecificTask(idx)));
+      return new Response(List.of(TaskList.getSpecificTask(idx)), false, true);
     } catch (NumberFormatException e) {
       throw new MarkInvalidNumberException(prompts.get(1));
     } catch (IndexOutOfBoundsException e) {
