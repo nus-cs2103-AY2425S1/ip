@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class FileHandler {
@@ -26,15 +22,20 @@ public class FileHandler {
     }
 
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
+        BufferedWriter bufferedWriter = null;
         try {
             FileWriter fileWriter = new FileWriter(file, false);
-            for(Task tak : tasks) {
-                fileWriter.write(tasks.toString() + "\n");
+            bufferedWriter = new BufferedWriter(fileWriter);
+            for (Task task : tasks) {
+                bufferedWriter.write(task.toWriteFormat());
+                bufferedWriter.newLine();
             }
         } catch (IOException e) {
             System.out.println("Error when writing to file: " + e.getMessage());
         } finally {
-            fileWriter.close();
+            if(bufferedWriter != null) {
+                bufferedWriter.close();
+            }
         }
     }
 
@@ -44,7 +45,8 @@ public class FileHandler {
             bufferedReader = new BufferedReader(new FileReader(file));
             String line = bufferedReader.readLine();
             while (line != null) {
-                tasks.add(new Task(line));
+                Task task = Task.parseTask(line);
+                tasks.add(task);
                 line = bufferedReader.readLine();
             }
         } catch (IOException e) {

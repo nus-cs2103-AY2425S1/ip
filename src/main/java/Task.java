@@ -57,6 +57,27 @@ public class Task {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    public String toWriteFormat() {
+        return String.format("%s | %d | %s",
+                this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E",
+                isDone ? 1 : 0,
+                this.toString()
+        );
+    }
+
+    public static Task parseTask(String data) {
+        String[] split = data.split(" \\| ");
+        Task task = split[0].equals("T")
+                ? new ToDo(split[2])
+                : split[0].equals("D")
+                ? new Deadline(split[2], split[3]) //2 is description, 3 is by
+                : new Event(split[2], split[3], split[4]);//2 is description, 3 is from, 4 is to
+        if (split[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
     @Override
     public String toString() {
         return getStatus() + " " + getDescription();
