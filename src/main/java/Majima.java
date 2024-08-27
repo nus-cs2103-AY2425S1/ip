@@ -5,6 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 
 public class Majima {
     private static final int MAX_TASKS = 100;
@@ -304,7 +308,12 @@ public class Majima {
                     System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
                     System.out.println("to generate a new one from scratch");
                 }
-                task = new Deadline(description, parts[3]);
+                try {
+                    task = new Deadline(description, parts[3]);
+                } catch (MajimaException e) {
+                    System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
+                    System.out.println("to generate a new one from scratch");
+                }
                 break;
             case "[E]":
                 if (parts.length < 5) {
@@ -338,6 +347,5 @@ public class Majima {
         fw.write(textToAppend);
         fw.close();
     }
-
 
 }
