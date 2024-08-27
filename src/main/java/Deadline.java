@@ -1,16 +1,23 @@
-import java.time.LocalDateTime;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
     protected String deadline;
 
     Deadline(String description, String deadline) {
-        super(description);
-        this.deadline = deadline;
+        this(description, false, deadline);
     }
 
     Deadline(String description, boolean isDone, String deadline) {
         super(description, isDone);
-        this.deadline = deadline;
+        try {
+            LocalDate date = LocalDate.parse(deadline);
+            this.deadline = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException e){
+            this.deadline = deadline;
+        }
     }
 
     public String getDeadline() {
