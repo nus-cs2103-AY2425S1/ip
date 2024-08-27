@@ -1,6 +1,4 @@
-package com.Nimbus;
-
-import java.util.ArrayList;
+package com.nimbus;
 
 public class Ui {
     static private String name;

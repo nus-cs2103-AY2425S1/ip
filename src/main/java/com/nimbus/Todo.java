@@ -1,6 +1,6 @@
-package com.Nimbus;
+package com.nimbus;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
     public Todo(String description) {
         this(description, false);

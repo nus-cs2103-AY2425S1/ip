@@ -1,6 +1,6 @@
-package com.Nimbus;
+package com.nimbus;
 
-import com.Commands.*;
+import com.commands.*;
 
 final public class Parser {
 
@@ -15,17 +15,19 @@ final public class Parser {
 
     public static String getDescription(String argument) {
         int index = argument.indexOf("/");
-        if (index == -1)
+        if (index == -1) {
             return argument.trim();
-        else
+        } else {
             return argument.substring(0, index).trim();
+        }
     }
 
     public static String getArgument(String command) throws InvalidArgumentException {
         command = command.trim();
         int index = command.indexOf(" ");
-        if (index == -1)
+        if (index == -1) {
             throw new InvalidArgumentException("Error: Empty Argument!");
+        }
         return command.substring(index + 1);
     }
 
@@ -36,11 +38,12 @@ final public class Parser {
         }
         String substringAfterOption = argument.substring(startIndex + target.length() + 1);
         int endIndex = substringAfterOption.indexOf("/");
-        if (endIndex == -1)
+        if (endIndex == -1) {
             return substringAfterOption.trim();
-        else
+        } else {
             return argument.substring(startIndex + target.length() + 1,
                     endIndex + startIndex + target.length() + 1).trim();
+        }
     }
 
     public static Command parse(String line) throws InvalidCommandException, InvalidArgumentException {

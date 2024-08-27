@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 public class InvalidCommandException extends Exception{
     public InvalidCommandException(String msg) {

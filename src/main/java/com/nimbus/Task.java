@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 public abstract class Task {
     protected String description;

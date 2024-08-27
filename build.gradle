@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("com.Nimbus.Nimbus")
+    mainClass.set("com.nimbus.nimbus")
 }
 
 shadowJar {
-    archiveBaseName = "Nimbus"
+    archiveBaseName = "nimbus"
     archiveClassifier = null
 }
 
