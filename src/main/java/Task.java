@@ -11,6 +11,10 @@ public class Task {
         this.taskIsDone = false;
     }
 
+    public void markDone() {
+        this.taskIsDone = true;
+    }
+
 
     /**
      * Override toString method for printing of todo tasks
