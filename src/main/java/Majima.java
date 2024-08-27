@@ -212,6 +212,10 @@ public class Majima {
         }
     }
 
+    private static void loadTasks() {
+        
+    }
+
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
