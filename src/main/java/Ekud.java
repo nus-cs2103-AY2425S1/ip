@@ -1,3 +1,5 @@
+import java.io.*;
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,6 +15,7 @@ public class Ekud {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
+    public static final String TASK_SAVE = "data/tasks.txt";
 
     private final TaskList tasks = new TaskList();
     private boolean isRunning = true;
@@ -27,6 +30,44 @@ public class Ekud {
 
     public static void printLineSeparator() {
         System.out.println(LINE_SEPARATOR);
+    }
+
+    public void loadTasks() {
+        try {
+            FormatPrinter.printIndent("Give a sec, I'm trying to find your tasks...", OUTPUT_PREFIX);
+            File save = new File("data/tasks.txt");
+            if (save.isFile()) {
+                FormatPrinter.printIndent("Great! I've found your tasks!!", OUTPUT_PREFIX);
+                try (BufferedReader reader = new BufferedReader(new FileReader(save))) {
+                    String currLine = reader.readLine();
+                    while (currLine != null) {
+                        String taskSave = currLine.trim();
+                        Task task = Task.getTaskFromSave(taskSave);
+                        if (task != null) {
+                            tasks.addTask(task);
+                        }
+                        currLine = reader.readLine();
+                    }
+                }
+            } else {
+                save.createNewFile();
+                FormatPrinter.printIndent(
+                        "Looks like your save doesn't exists... I've created a new one just for you!!",
+                        OUTPUT_PREFIX);
+            }
+        } catch (IOException e) {
+            // print error message and end program
+            setRunning(false);
+            FormatPrinter.printIndent(
+                    String.format("""
+                            Something went wrong when trying to load your save!
+                            ERROR: %s
+                            Proceeding with System shutdown!!!""",
+                            e),
+                    OUTPUT_PREFIX);
+        } finally {
+            printLineSeparator();
+        }
     }
 
     public void greet() {
@@ -173,6 +214,7 @@ public class Ekud {
         Scanner sc = new Scanner(System.in);
 
         ekud.greet();
+        ekud.loadTasks();
         while (ekud.isRunning()) {
             // get user command
             // assumes user puts correct format
