@@ -1,18 +1,16 @@
 package regina;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import errorhandling.ReginaException;
 import tasks.TaskList;
 
-import java.io.ByteArrayOutputStream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReginaTest {
     private Regina regina;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {
@@ -40,9 +38,11 @@ public class ReginaTest {
         TaskList testList = regina.occurringOn("27/8/2024 1930");
 
         // Prepare the expected output based on the interaction you provided
-        String expectedOutput = "1. [T][ ] Finish homework\n"
-                + "2. [D][ ] Submit homework (by: Aug 27 2024, 11.59 pm)\n"
-                + "3. [E][ ] project meeting (from: Aug 27 2024, 6.00 pm to: Aug 27 2024, 8.00 pm)\n";
+        String expectedOutput = """
+                1. [T][ ] Finish homework
+                2. [D][ ] Submit homework (by: Aug 27 2024, 11.59 pm)
+                3. [E][ ] project meeting (from: Aug 27 2024, 6.00 pm to: Aug 27 2024, 8.00 pm)
+                """;
 
         // Compare the output with the expected string from the chatbot interaction
         assertEquals(expectedOutput, testList.toString());
