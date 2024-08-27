@@ -1,3 +1,8 @@
+package gray;
+
+import gray.command.Command;
+import gray.task.TaskList;
+
 public class Gray {
 
     private static final String SAVE_TASKS_FILEPATH = "./data/saveTasks";

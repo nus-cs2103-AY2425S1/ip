@@ -1,3 +1,5 @@
+package gray;
+
 import java.io.*;
 
 public class Utility {

@@ -1,3 +1,5 @@
+package gray;
+
 import java.util.Scanner;
 
 public class Ui {

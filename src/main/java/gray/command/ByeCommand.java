@@ -1,3 +1,9 @@
+package gray.command;
+
+import gray.GrayException;
+import gray.Ui;
+import gray.task.TaskList;
+
 public class ByeCommand extends Command {
     @Override
     public void execute(Ui ui, TaskList tasks) throws GrayException {

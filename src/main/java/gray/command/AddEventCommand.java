@@ -1,3 +1,9 @@
+package gray.command;
+
+import gray.Ui;
+import gray.task.EventTask;
+import gray.task.TaskList;
+
 import java.time.LocalDateTime;
 
 public class AddEventCommand extends Command {

@@ -1,3 +1,10 @@
+package gray.command;
+
+import gray.GrayException;
+import gray.Ui;
+import gray.task.Task;
+import gray.task.TaskList;
+
 public class DeleteCommand extends Command {
     private final int index;
 

@@ -1,3 +1,10 @@
+package gray.command;
+
+import gray.GrayException;
+import gray.Ui;
+import gray.task.Task;
+import gray.task.TaskList;
+
 public class MarkCommand extends Command {
 
     private final String command;
