@@ -1,3 +1,8 @@
+package echo.ui;
+
+import echo.tasklist.TaskList;
+import echo.task.Task;
+
 public class Ui {
     private static final String LINE_BREAK = "-------------------------------------";
 
@@ -127,10 +132,5 @@ public class Ui {
             System.out.println(LINE_BREAK);
             break;
         }
-
-
-
-
-
     }
 }

@@ -1,3 +1,11 @@
+package echo.parser;
+
+import echo.exception.EchoException;
+import echo.task.Task;
+import echo.task.ToDos;
+import echo.task.Deadlines;
+import echo.task.Events;
+
 public class Parser {
     /**
      * Splits the input string into and array of 2 Strings containing command and description
