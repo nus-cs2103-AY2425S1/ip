@@ -17,7 +17,7 @@ ____________________________________
 
 ____________________________________
 Added Deadline task:
-[D][ ] submit quiz (by: 29 AUG 2024 2200)
+[D][ ] submit quiz (by: 29 Aug 2024 2200)
 You currently have 2 task/s in your list.
 ____________________________________
 
@@ -31,7 +31,7 @@ ____________________________________
 
 ____________________________________
 Added Deadline task:
-[D][ ] return book (by: 30 AUG 2024)
+[D][ ] return book (by: 30 Aug 2024)
 You currently have 3 task/s in your list.
 ____________________________________
 
@@ -43,8 +43,8 @@ ____________________________________
 
 ____________________________________
 1.[T][ ] buy milk
-2.[D][ ] submit quiz (by: 29 AUG 2024 2200)
-3.[D][ ] return book (by: 30 AUG 2024)
+2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
+3.[D][ ] return book (by: 30 Aug 2024)
 4.[E][ ] math lecture (from: 2pm to: 4pm)
 ____________________________________
 
@@ -55,8 +55,8 @@ ____________________________________
 
 ____________________________________
 1.[T][X] buy milk
-2.[D][ ] submit quiz (by: 29 AUG 2024 2200)
-3.[D][ ] return book (by: 30 AUG 2024)
+2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
+3.[D][ ] return book (by: 30 Aug 2024)
 4.[E][ ] math lecture (from: 2pm to: 4pm)
 ____________________________________
 
@@ -67,8 +67,8 @@ ____________________________________
 
 ____________________________________
 1.[T][ ] buy milk
-2.[D][ ] submit quiz (by: 29 AUG 2024 2200)
-3.[D][ ] return book (by: 30 AUG 2024)
+2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
+3.[D][ ] return book (by: 30 Aug 2024)
 4.[E][ ] math lecture (from: 2pm to: 4pm)
 ____________________________________
 
@@ -102,7 +102,7 @@ ____________________________________
 
 ____________________________________
 Done, removed that task for you.
-[D][ ] submit quiz (by: 29 AUG 2024 2200)
+[D][ ] submit quiz (by: 29 Aug 2024 2200)
 ____________________________________
 
 ____________________________________

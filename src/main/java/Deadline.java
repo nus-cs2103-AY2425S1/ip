@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 
 
 public class Deadline extends Task {
@@ -34,9 +34,7 @@ public class Deadline extends Task {
     public String toString() {
         String deadline;
         if (hasTime) {
-            String year = String.valueOf(dateTime.getYear());
-            String month = String.valueOf(dateTime.getMonth()).substring(0,3);
-            String day = String.valueOf(dateTime.getDayOfMonth());
+            String date = dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
             String minute;
             if (dateTime.getMinute() < 10) {
                 minute = "0" + String.valueOf(dateTime.getMinute());
@@ -44,12 +42,9 @@ public class Deadline extends Task {
                 minute = String.valueOf(dateTime.getMinute());
             }
             String time = String.valueOf(dateTime.getHour()) + minute;
-            deadline = day + " " + month + " " + year + " " + time;
+            deadline = date + " " + time;
         } else {
-            String year = String.valueOf(date.getYear());
-            String month = String.valueOf(date.getMonth()).substring(0,3);
-            String day = String.valueOf(date.getDayOfMonth());
-            deadline = day + " " + month + " " + year;
+            deadline = date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         }
         return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
