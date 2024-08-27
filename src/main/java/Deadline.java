@@ -8,11 +8,13 @@ public class Deadline extends Task {
     private final LocalDateTime dueDate;
 
     Deadline(String inputLine) {
+        // inside the program this will be called
         super(createDeadlineCommand(inputLine).getDescription(), createDeadlineCommand(inputLine).getSymbol());
         this.dueDate = createDeadlineCommand(inputLine).getDueDateAndTime();
     }
 
     Deadline(String description, String symbol, LocalDateTime dueDate) {
+        // this is used inside the static method: createDeadlineCommand
         super(description, symbol);
         this.dueDate = dueDate;
     }
