@@ -2,6 +2,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
@@ -11,10 +12,14 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
+        this.by = by;
+
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.deadline = LocalDateTime.parse(by, inputFormat);
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
         this.formattedDeadline = this.deadline.format(outputFormat);
+
+
     }
 
 
@@ -28,7 +33,7 @@ public class Deadline extends Task {
             storeCompleted = "0";
         }
         // store format: " D | 0 | read book | by Sunday
-        return "D | " + storeCompleted + " | " + this.description + " | " + this.formattedDeadline;
+        return "D | " + storeCompleted + " | " + this.description + " | " + this.by;
     }
 
     @Override

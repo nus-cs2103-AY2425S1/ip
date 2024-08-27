@@ -1,23 +1,31 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
 
-    protected LocalDateTime start;
-    protected LocalDateTime end;
+    protected String start;
+    protected String end;
     private String formattedStartTime;
     private String formattedEndTime;
 
+    private LocalDateTime parsedStart;
+    private LocalDateTime parsedEnd;
+
     public Event(String description, String start, String end){
         super(description);
+        this.start = start;
+        this.end = end;
 
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        this.start = LocalDateTime.parse(start, inputFormat);
-        this.end = LocalDateTime.parse(end, inputFormat);
+        this.parsedStart = LocalDateTime.parse(start, inputFormat);
+        this.parsedEnd = LocalDateTime.parse(end, inputFormat);
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
-        this.formattedStartTime = this.start.format(outputFormat);
-        this.formattedEndTime = this.end.format(outputFormat);
+        this.formattedStartTime = this.parsedStart.format(outputFormat);
+        this.formattedEndTime = this.parsedEnd.format(outputFormat);
+
+
 
     }
 
@@ -31,7 +39,7 @@ public class Event extends Task{
             storeCompleted = "0";
         }
         // store format: E | 0 | book event | 2pm | 5pm
-        return "E | " + storeCompleted + " | " + this.description + " | " + formattedStartTime + " | " + formattedEndTime;
+        return "E | " + storeCompleted + " | " + this.description + " | " + this.start + " | " + this.end;
     }
 
     @Override

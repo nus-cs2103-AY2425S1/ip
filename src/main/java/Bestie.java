@@ -1,6 +1,7 @@
 // use Scanner class to get user inputs
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 // import this class to represent a File object
@@ -35,7 +36,7 @@ public class Bestie {
 
             if (userInput.equals("list")) {
                 // display the list of all items entered by the user
-                System.out.println("Here are the tasks in your list:");
+                System.out.println("Sure! Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++){
                     int index = i + 1;
                     System.out.println(index +"." + tasks.get(i).toString());
@@ -109,6 +110,10 @@ public class Bestie {
                     } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                         System.out.println("You did not input the deadline in a valid format.");
                         System.out.println("Please follow the format \"deadline (name of task) /by (deadline)\"");
+
+                    } catch (DateTimeParseException e) {
+                        System.out.println("You did not input the date and time in the correct format.");
+                        System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
                     }
 
                 } else if (userInput.startsWith("event")) {
@@ -126,7 +131,11 @@ public class Bestie {
                         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                             System.out.println("You did not input the event in a valid format.");
                             System.out.println("Please follow the format \"event (name of event) /from (start time) /to (end time)\"");
+                        } catch (DateTimeParseException e) {
+                            System.out.println("You did not input the date and time in the correct format.");
+                            System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
                         }
+
 
 
 
