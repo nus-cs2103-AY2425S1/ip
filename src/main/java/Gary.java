@@ -22,7 +22,7 @@ public class Gary {
                         Task task = taskList.get(i);
                         System.out.println("\t" + (i + 1) + ". " + task.toString());
                     }
-                } else if (userInput.startsWith("mark ")) {
+                } else if (userInput.startsWith("mark")) {
                     int index = Integer.parseInt(userInput.substring(4).trim());
                     if (index > taskList.size() || index <= 0) {
                         throw new Exception("Index needs to be within your task list size!!\nPlease try again!");
@@ -31,7 +31,7 @@ public class Gary {
                     task.editStatus();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("\t" + task.toString());
-                } else if (userInput.startsWith("unmark ")) {
+                } else if (userInput.startsWith("unmark")) {
                     int index = Integer.parseInt(userInput.substring(6).trim());
                     if (index > taskList.size() || index <= 0) {
                         throw new Exception("Index needs to be within your task list size!!\nPlease try again!");
@@ -50,10 +50,9 @@ public class Gary {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + toDo.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                } else if (userInput.startsWith("deadline ")) {
-                    String[] division = userInput.substring(9).trim().split("/by");
-                    Task deadline = new Deadline(division[0].trim(), division[1].trim());
-                    if (deadline.description.length() == 0) {
+                } else if (userInput.startsWith("deadline")) {
+                    String[] division = userInput.substring(8).trim().split("/by");
+                    if (division[0].length() == 0) {
                         throw new Exception("There is no description for this deadline task.\nPlease " +
                                 "input a new deadline task with a description!!");
                     }
@@ -61,22 +60,23 @@ public class Gary {
                         throw new Exception("There is no deadline provided for this task.\nPlease " +
                                 "include your deadline!!");
                     }
+                    Task deadline = new Deadline(division[0].trim(), division[1].trim());
                     taskList.add(deadline);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + deadline.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                } else if (userInput.startsWith("event ")) {
-                    String[] division = userInput.substring(6).trim().split("/from");
-                    String[] timeDivision = division[1].trim().split("/to");
-                    Task event = new Event(division[0].trim(), timeDivision[0].trim(), timeDivision[1].trim());
-                    if (event.description.length() == 0) {
+                } else if (userInput.startsWith("event")) {
+                    String[] division = userInput.substring(5).trim().split("/from");
+                    if (division[0].length() == 0) {
                         throw new Exception("There is no description for this event task.\nPlease " +
                                 "input a new event task with a description!!");
                     }
-                    if (division.length == 1 || timeDivision.length != 2) {
+                    if (division.length == 1 || division[1].trim().split("/to").length != 2) {
                         throw new Exception("There is no start and end date/time for your event task.\nPlease " +
                                 "include them for your event too!!");
                     }
+                    String[] timeDivision = division[1].trim().split("/to");
+                    Task event = new Event(division[0].trim(), timeDivision[0].trim(), timeDivision[1].trim());
                     taskList.add(event);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + event.toString());
