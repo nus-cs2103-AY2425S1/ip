@@ -1,33 +1,32 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 public class Event extends Task {
-    private final LocalDateTime eventFrom;
-    private final LocalDateTime eventTo;
+    private String start;
+    private String end;
 
-    public Event(String description, LocalDateTime eventFrom, LocalDateTime eventTo) {
+    public Event(String description, String start, String end) {
         super(description);
-        this.eventFrom = eventFrom;
-        this.eventTo = eventTo;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public String toString() {
+        return "[E][" + this.getStatusIcon() + "] " + this.getDescription()
+                + " (from: " + this.start + " to: "+ this.end + ")";
+    }
+
+    public String toFileFormat() {
+        return "E | " + (this.getDone() ? "1" : "0") + " | " + this.getDescription() +
+                " | " + this.start + " to " + this.end;
     }
 
     public static Event parseTask(String taskData) {
         if (taskData.startsWith("E |")) {
             String[] parts = taskData.split(" \\| ");
-            String description = parts[2];
-            LocalDateTime from = null;
-            LocalDateTime to = null;
-            if (parts.length > 3) {
-                try {
-                    from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                    if (parts.length > 4) {
-                        to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Warning: There is no date format provided.");
-                }
-            }
+            String description = parts[2].trim();
+            String fromTo = parts[3].trim();
+            String[] fromToParts = fromTo.split(" to ");
+            String from = fromToParts[0].trim();
+            String to = fromToParts[1].trim();
             Event event = new Event(description, from, to);
             if (parts[1].trim().equals("1")) {
                 event.markDone();
@@ -35,19 +34,5 @@ public class Event extends Task {
             return event;
         }
         throw new IllegalArgumentException("Invalid Event format");
-    }
-
-    @Override
-    public String toFileFormat() {
-        return "E | " + (this.getDone() ? "1" : "0") + " | " + this.getDescription() +
-                (eventFrom != null ? " | " + eventFrom.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "") +
-                (eventTo != null ? " | " + eventTo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "");
-    }
-
-    @Override
-    public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + this.getDescription() +
-                (eventFrom != null ? " (from: " + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) : "") +
-                (eventTo != null ? " to: " + eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
     }
 }

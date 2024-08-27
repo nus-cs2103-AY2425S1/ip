@@ -1,5 +1,5 @@
 abstract class Task {
-    private final String description;
+    private String description;
     private boolean isDone;
 
     public Task(String description) {
