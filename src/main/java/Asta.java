@@ -15,35 +15,53 @@ public class Asta {
         while (true) {
             String input = scanner.nextLine();
             try {
-                if (input.equalsIgnoreCase("bye")) {
+                Command command = parseCommand(input);
+                switch (command) {
+                case BYE -> {
                     System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
+                    scanner.close();
+                    return;
+                }
+                case LIST -> {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + ". " + tasks.get(i));
                     }
-                } else if (input.startsWith("mark ")) {
-                    handleMarkCommand(input, tasks);
-                } else if (input.startsWith("unmark ")) {
-                    handleUnmarkCommand(input, tasks);
-                } else if (input.startsWith("todo ")) {
-                    handleTodoCommand(input, tasks);
-                } else if (input.startsWith("deadline ")) {
-                    handleDeadlineCommand(input, tasks);
-                } else if (input.startsWith("event ")) {
-                    handleEventCommand(input, tasks);
-                } else if (input.startsWith("delete ")) {
-                    handleDeleteCommand(input, tasks);
-                } else {
-                    AstaException.handleInvalidCommand();
+                }
+                case MARK -> handleMarkCommand(input, tasks);
+                case UNMARK -> handleUnmarkCommand(input, tasks);
+                case TODO -> handleTodoCommand(input, tasks);
+                case DEADLINE -> handleDeadlineCommand(input, tasks);
+                case EVENT -> handleEventCommand(input, tasks);
+                case DELETE -> handleDeleteCommand(input, tasks);
+                case UNKNOWN -> AstaException.handleInvalidCommand();
                 }
             } catch (AstaException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
 
-        scanner.close();
+    private static Command parseCommand(String input) {
+        if (input.equalsIgnoreCase("bye")) {
+            return Command.BYE;
+        } else if (input.equalsIgnoreCase("list")) {
+            return Command.LIST;
+        } else if (input.startsWith("mark ")) {
+            return Command.MARK;
+        } else if (input.startsWith("unmark ")) {
+            return Command.UNMARK;
+        } else if (input.startsWith("todo ")) {
+            return Command.TODO;
+        } else if (input.startsWith("deadline ")) {
+            return Command.DEADLINE;
+        } else if (input.startsWith("event ")) {
+            return Command.EVENT;
+        } else if (input.startsWith("delete ")) {
+            return Command.DELETE;
+        } else {
+            return Command.UNKNOWN;
+        }
     }
 
     private static void handleMarkCommand(String input, ArrayList<Task> tasks) throws AstaException {
