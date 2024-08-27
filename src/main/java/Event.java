@@ -27,6 +27,7 @@ public class Event extends Task {
      *
      * @return task summary
      */
+    @Override
     public String summary() {
         return "E " + super.summary() + " | " + this.startTime
                 + "-" + this.endTime;
