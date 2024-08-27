@@ -3,44 +3,25 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();  
     private int listIndex = 0;
-    
 
     public TaskList() {
         this.taskList = Storage.loadTasks();
         this.listIndex = this.taskList.size();
     }
 
-
     public String[] add(TaskType taskType, String input) throws GladosException {
         switch (taskType) {
         case TODO:
-            String todoDescription = input.trim();
-            checkDescription(todoDescription);
-            taskList.add(new Todo(todoDescription));
+            String[] parsedTodoInputs = Parser.parseTask(taskType, input);
+            taskList.add(new Todo(parsedTodoInputs[0]));
             break;
         case EVENT:
-            checkDescription(input.trim());
-            String[] eventInputs = input.split(" /from ");
-            String eventDescription = eventInputs[0].trim();
-            checkDescription(eventDescription);
-            if (eventInputs.length != 2) {
-                throw new DateRangeNotFoundException();
-            }
-            String[] dateRange = eventInputs[1].split(" /to ");
-            if (dateRange.length != 2 || dateRange[0].trim().equals("") || dateRange[1].trim().equals("")) {
-                throw new DateRangeNotFoundException();
-            }
-            taskList.add(new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()));
+            String[] parsedEventInputs = Parser.parseTask(taskType, input);
+            taskList.add(new Event(parsedEventInputs[0], parsedEventInputs[1], parsedEventInputs[2]));
             break;
         case DEADLINE:
-            checkDescription(input.trim());
-            String[] deadlineInputs = input.split(" /by ");
-            String deadlineDescription = deadlineInputs[0].trim();
-            checkDescription(deadlineDescription);
-            if (deadlineInputs.length != 2 || deadlineInputs[1].trim().equals("")) {
-                throw new DateNotFoundException();
-            }
-            taskList.add(new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim()));
+            String[] parsedDeadlineInputs = Parser.parseTask(taskType, input);
+            taskList.add(new Deadline(parsedDeadlineInputs[0], parsedDeadlineInputs[1]));
             break;
         default:
             break;
@@ -77,10 +58,4 @@ public class TaskList {
         Storage.saveTasks(taskList);
         return task.toString();
     }
-
-    private static void checkDescription(String description) throws DescriptionNotFoundException {
-        if (description.equals("")) {
-           throw new DescriptionNotFoundException();
-        }
-   }
 }
