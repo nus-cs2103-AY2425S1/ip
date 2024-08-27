@@ -142,20 +142,20 @@ class TaskManager {
         return true;
     }
 }
-
-class CommandParser {
+class Storage {
     protected TaskManager taskManager;
+    protected CommandParser commandParser;
 
-    public CommandParser(TaskManager taskManager) {
+    public Storage(TaskManager taskManager) {
         this.taskManager = taskManager;
-        loadTasks();
     }
-    public void loadTasks() {
+
+    public void loadTasks(CommandParser commandParser, Ui ui) {
         File f = new File("data/tasks.txt");
         if (f.exists()) {
             try (Scanner s = new Scanner(f)) {
                 while (s.hasNext()) {
-                    parseCommand(s.nextLine(), true);
+                    ui.parseCommand(s.nextLine(), true);
                 }
 
             } catch (IOException e) {
@@ -179,6 +179,16 @@ class CommandParser {
         }
 
     }
+}
+
+class Ui {
+    protected TaskManager taskManager;
+    protected CommandParser parser;
+
+    public Ui (TaskManager taskManager, CommandParser commandParser) {
+        this.taskManager = taskManager;
+        this.parser = commandParser;
+    }
 
     public void parseCommand(String input, boolean silent) {
         if (input.equalsIgnoreCase("bye")) {
@@ -187,53 +197,67 @@ class CommandParser {
         } else if (input.equalsIgnoreCase("list")) {
             taskManager.listTasks();
         } else if (input.startsWith("mark ")) {
-            handleMark(input);
+            this.parser.handleMark(input);
         } else if (input.startsWith("unmark ")) {
-            handleUnmark(input);
+            this.parser.handleUnmark(input);
         } else if (input.startsWith("delete ")) {
-            handleDelete(input);
+            this.parser.handleDelete(input);
         } else if (input.startsWith("deadline ")) {
-            handleDeadline(input, silent);
+            this.parser.handleDeadline(input, silent);
         } else if (input.startsWith("todo ")) {
-            handleTodo(input, silent);
+            this.parser.handleTodo(input, silent);
         } else if (input.startsWith("event ")) {
-            handleEvent(input, silent);
+            this.parser.handleEvent(input, silent);
         } else {
             System.out.println("Sorry, I am not sure what task this is! Please enter a valid task.");
         }
     }
 
-    private void handleMark(String input) {
+
+
+}
+class CommandParser {
+    protected TaskManager taskManager;
+    protected Storage storage;
+    public CommandParser(TaskManager taskManager, Storage storage) {
+        this.taskManager = taskManager;
+        this.storage = storage;
+    }
+
+
+
+
+    public void handleMark(String input) {
         try {
             int index = Integer.parseInt(input.substring(5)) - 1;
             taskManager.markTask(index);
-            writeTasks();
+            this.storage.writeTasks();
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         }
     }
 
-    private void handleUnmark(String input) {
+    public void handleUnmark(String input) {
         try {
             int index = Integer.parseInt(input.substring(7)) - 1;
             taskManager.unmarkTask(index);
-            writeTasks();
+            this.storage.writeTasks();
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         }
     }
 
-    private void handleDelete(String input) {
+    public void handleDelete(String input) {
         try {
             int index = Integer.parseInt(input.substring(7)) - 1;
             taskManager.deleteTask(index);
-            writeTasks();
+            this.storage.writeTasks();
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         }
     }
 
-    private void handleDeadline(String input, boolean silent) {
+    public void handleDeadline(String input, boolean silent) {
         if (!input.contains("/by ")) {
             System.out.println("You need a deadline to add this task!");
             return;
@@ -248,10 +272,10 @@ class CommandParser {
         LocalDate deadline = LocalDate.parse(initial);
         Deadline deadlineTask = new Deadline(taskName, deadline, input);
         taskManager.addTask(deadlineTask, silent);
-        writeTasks();
+        this.storage.writeTasks();
     }
 
-    private void handleTodo(String input, boolean silent) {
+    public void handleTodo(String input, boolean silent) {
         String taskName = input.replaceFirst("todo ", "").trim();
         if (taskName.isEmpty()) {
             System.out.println("You need a task description!");
@@ -259,10 +283,10 @@ class CommandParser {
         }
         Todo todoTask = new Todo(taskName, input);
         taskManager.addTask(todoTask, silent);
-        writeTasks();
+        this.storage.writeTasks();
     }
 
-    private void handleEvent(String input, boolean silent) {
+    public void handleEvent(String input, boolean silent) {
         if (!input.contains("/from ") || !input.contains("/to ")) {
             System.out.println("You need a starting and ending date to add this task!");
             return;
@@ -280,7 +304,7 @@ class CommandParser {
         LocalDate endDate = LocalDate.parse(initialEndDate);
         Event eventTask = new Event(taskName, startDate, endDate, input);
         taskManager.addTask(eventTask, silent);
-        writeTasks();
+        this.storage.writeTasks();
     }
 }
 
@@ -290,12 +314,16 @@ public class Genesis {
         System.out.println("Hello! I'm Genesis!\nWhat can I do for you?\n");
 
         TaskManager taskManager = new TaskManager();
-        CommandParser parser = new CommandParser(taskManager);
+        Storage storage = new Storage(taskManager);
+        CommandParser parser = new CommandParser(taskManager, storage);
+        Ui ui = new Ui(taskManager, parser);
+        storage.loadTasks(parser, ui);
+
 
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
-            parser.parseCommand(input, false);
+            ui.parseCommand(input, false);
         }
     }
 }
