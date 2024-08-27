@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
@@ -24,10 +23,10 @@ public class DeadlineTask extends Task {
         try {
             this.deadline = LocalDateTime.parse(deadline, READ_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new EkudWrongInputFormatException("""
+            throw new EkudWrongInputFormatException(
+                    """
                             Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
-                            I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
-                    """);
+                            I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...""");
         }
     }
 
