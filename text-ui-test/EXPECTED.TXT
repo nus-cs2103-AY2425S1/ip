@@ -1,6 +1,8 @@
 ----------------------------------
 Hello! I'm Azir
 What can I do for you?
+This is your current list:
+Your current list does not have any tasks
 ----------------------------------
 ----------------------------------
 Got it. I've added this task:
