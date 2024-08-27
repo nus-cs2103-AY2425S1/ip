@@ -1,4 +1,6 @@
-// Ui.java
+package ui;
+import task.Task;
+import task.TaskList;
 import java.util.Scanner;
 
 public class Ui {

@@ -1,3 +1,8 @@
+package task;
+
+import task.Task;
+import task.TaskType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,10 +16,10 @@ public class Deadline extends Task {
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
-     * Constructor for Deadline class.
+     * Constructor for task.Deadline class.
      *
      * @param description Description of the task.
-     * @param deadline    Deadline of the task.
+     * @param deadline    task.Deadline of the task.
      * @throws DateTimeParseException If the date and time format is invalid.
      */
     public Deadline(String description, String deadline) throws DateTimeParseException {
@@ -25,7 +30,7 @@ public class Deadline extends Task {
     /**
      * Returns the deadline of the task.
      *
-     * @return Deadline of the task.
+     * @return task.Deadline of the task.
      */
     public String getDeadline() {
         return deadline.format(OUTPUT_FORMATTER);
@@ -38,7 +43,7 @@ public class Deadline extends Task {
      * deadline is the deadline of the task.
      * The task type, is done status, description and deadline are separated by " | ".
      * The task type is represented by the first character of the task type.
-     * For example, if the task type is Deadline, the task type is D.
+     * For example, if the task type is task.Deadline, the task type is D.
      * If the task is done, the second character is 1, otherwise it is 0.
      * The description and deadline are the description and deadline of the task respectively.
      * The task type, is done status, description and deadline are separated by " | ".

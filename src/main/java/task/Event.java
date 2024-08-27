@@ -1,3 +1,8 @@
+package task;
+
+import task.Task;
+import task.TaskType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,7 +14,7 @@ public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
-     * Constructor for Event class.
+     * Constructor for task.Event class.
      *
      * @param description   Description of the task.
      * @param startDateTime Start date and time of the event.
@@ -47,7 +52,7 @@ public class Event extends Task {
      * startDateTime is the start date and time of the event, endDateTime is the end date and time of the event.
      * The task type, is done status, description, start date and time and end date and time are separated by " | ".
      * The task type is represented by the first character of the task type.
-     * For example, if the task type is Event, the task type is E.
+     * For example, if the task type is task.Event, the task type is E.
      * If the task is done, the second character is 1, otherwise it is 0.
      * The description, start date and time and end date and time are the description, start date and time and end date and time of the task respectively.
      * The task type, is done status, description, start date and time and end date and time are separated by " | ".

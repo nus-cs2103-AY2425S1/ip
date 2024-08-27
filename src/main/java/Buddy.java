@@ -1,4 +1,10 @@
 // Buddy.java
+import command.Command;
+import parser.Parser;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 import java.io.IOException;
 
 public class Buddy {
