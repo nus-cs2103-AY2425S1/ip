@@ -27,7 +27,7 @@ public class Storage {
         try {
             Scanner s = new Scanner(this.cacheFile);
             while (s.hasNext()){
-                Task newTask = CommandManager.parseSavedTask(s.nextLine());
+                Task newTask = Parser.parseSavedTask(s.nextLine());
                 newListOfTasks.add(newTask);
             }
         } catch (FileNotFoundException  e) {
