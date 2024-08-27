@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Llama {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static void displayString(String str) {
         System.out.println("\t" + str);
@@ -29,7 +29,7 @@ public class Llama {
 
         String[] substringArr = remaining.split("/by ");
         try {
-            LocalDateTime deadline = LocalDateTime.parse(substringArr[1].trim(), formatter);
+            LocalDateTime deadline = LocalDateTime.parse(substringArr[1].trim(), FORMATTER);
             tasks.addTask(new Deadline(substringArr[0], deadline, false));
         } catch (DateTimeParseException e) {
             throw new LlamaException("Invalid date given, please give in the format " +
@@ -47,8 +47,8 @@ public class Llama {
         String startTimeStr = substringArr[1].substring(substringArr[1].indexOf(" ") + 1).trim();
         String endTimeStr = substringArr[2].substring(substringArr[2].indexOf(" ") + 1).trim();
         try {
-            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, formatter);
-            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, formatter);
+            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, FORMATTER);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, FORMATTER);
             tasks.addTask(new Event(desc, startTime, endTime, false));
         } catch (DateTimeParseException e) {
             throw new LlamaException("Invalid date given, please give in the format " +

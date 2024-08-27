@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime endTime;
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Deadline(String desc, LocalDateTime endTime, boolean isDone) {
         super(desc, isDone);
@@ -13,11 +13,11 @@ public class Deadline extends Task {
 
     @Override
     public String getSaveTaskString() {
-        return "D" + super.getSaveTaskString() + "|" + this.endTime.format(formatter);
+        return "D" + super.getSaveTaskString() + "|" + this.endTime.format(FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + this.endTime.format(formatter) + ")";
+        return "[D]" + super.toString() + "(by: " + this.endTime.format(FORMATTER) + ")";
     }
 }

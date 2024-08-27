@@ -5,7 +5,7 @@ public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Event(String desc, LocalDateTime startTime, LocalDateTime endTime, boolean isDone) {
         super(desc, isDone);
@@ -16,12 +16,12 @@ public class Event extends Task {
     @Override
     public String getSaveTaskString() {
         return "E" + super.getSaveTaskString() + "|" +
-                this.startTime.format(formatter) + "|" + this.endTime.format(formatter);
+                this.startTime.format(FORMATTER) + "|" + this.endTime.format(FORMATTER);
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                "(from: " + this.startTime.format(formatter) + "|to: " + this.endTime.format(formatter) + ")";
+                "(from: " + this.startTime.format(FORMATTER) + "|to: " + this.endTime.format(FORMATTER) + ")";
     }
 }
