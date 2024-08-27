@@ -51,6 +51,8 @@ public class Bestie {
                     tasks.get(index).markTaskDone();
                     System.out.println("Awesome work! I've marked this task as done.");
                     System.out.println("  " + tasks.get(index).toString());
+                } else {
+                    Bestie.indexOutOfBoundsMessage(tasks.size());
                 }
 
 
@@ -60,18 +62,27 @@ public class Bestie {
                     tasks.get(index).markUndone();
                     System.out.println("Noted! I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(index).toString());
+                } else {
+                    Bestie.indexOutOfBoundsMessage(tasks.size());
+
                 }
+
             } else if (userInput.startsWith("delete")) {
                 // get index of task to be deleted
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks.remove(index);
-                System.out.println("Noted! The task has been removed.");
+                if (index >= 0 && index < tasks.size()) {
+                    tasks.remove(index);
+                    System.out.println("Noted! The task has been removed.");
 
-                if (tasks.size() == 1) {
-                    System.out.println("You now have 1 task in your list.");
+                    if (tasks.size() == 1) {
+                        System.out.println("You now have 1 task in your list.");
+                    } else {
+                        System.out.println("You now have " + tasks.size() + " tasks in your list.");
+                    }
                 } else {
-                    System.out.println("You now have " + tasks.size() + " tasks in your list.");
+                    Bestie.indexOutOfBoundsMessage(tasks.size());
                 }
+
 
             } else {
                 Task newTask;
@@ -131,6 +142,16 @@ public class Bestie {
         saveTasksToFile(tasks);
         System.out.println("Bye. Hope to see you again soon! :)");
 
+    }
+
+    private static void indexOutOfBoundsMessage(int taskSize) {
+        if (taskSize == 1) {
+            System.out.println("That task does not exist. There is only 1 task in your list!");
+        } else {
+            System.out.println("That task does not exist. There are only " + taskSize
+                    + " tasks in your list!");
+        }
+        System.out.println("Please key in a valid index.");
     }
 
     // Saves all tasks currently in the arraylist to the txt file
