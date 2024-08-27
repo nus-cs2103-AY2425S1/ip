@@ -1,4 +1,10 @@
+package waterfall.command;
+
 import java.io.IOException;
+
+import waterfall.Storage;
+import waterfall.Ui;
+import waterfall.task.*;
 
 public class DeleteCommand extends Command {
     int index;

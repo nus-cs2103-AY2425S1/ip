@@ -1,3 +1,5 @@
+package waterfall.task;
+
 public abstract class Task {
     private boolean isDone;
     private String title;

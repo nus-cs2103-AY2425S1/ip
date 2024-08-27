@@ -1,4 +1,11 @@
+package waterfall.command;
+
 import java.io.IOException;
+
+import waterfall.Storage;
+import waterfall.Ui;
+import waterfall.task.*;
+
 
 public class AddCommand extends Command {
     private Task task;

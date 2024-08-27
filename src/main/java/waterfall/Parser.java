@@ -1,3 +1,7 @@
+package waterfall;
+
+import waterfall.command.*;
+
 public class Parser {
     public static Command parse(String input) throws WaterfallException {
         if (input.equals("bye")) {

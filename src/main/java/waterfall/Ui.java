@@ -1,7 +1,12 @@
+package waterfall;
+
+import waterfall.task.Task;
+import waterfall.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
-    String chatBotName = "Waterfall";
+    String chatBotName = "waterfall.Waterfall";
     int indentSpace = 4;
 
     public void showWelcomeMessage() {
@@ -33,23 +38,23 @@ public class Ui {
     }
 
     public void showAddMessage(Task task) {
-        System.out.println(" ".repeat(indentSpace + 1) + "Successfully added a task to the waterfallll:");
+        System.out.println(" ".repeat(indentSpace + 1) + "Successfully added a waterfall.task to the waterfallll:");
         System.out.println(" ".repeat(indentSpace + 1) + task.toString());
     }
 
     public void showMarkMessage(Task task) {
-        System.out.println(" ".repeat(indentSpace + 1) + "Huluhuluhulu, I've marked this task as done: ");
+        System.out.println(" ".repeat(indentSpace + 1) + "Huluhuluhulu, I've marked this waterfall.task as done: ");
         System.out.println(" ".repeat(indentSpace + 1) + task.toString());
     }
 
     public void showUnmarkMessage(Task task) {
-        System.out.println(" ".repeat(indentSpace + 1) + "Hohohohohoho, I've marked this task as not done: ");
+        System.out.println(" ".repeat(indentSpace + 1) + "Hohohohohoho, I've marked this waterfall.task as not done: ");
         System.out.println(" ".repeat(indentSpace + 1) + task.toString());
     }
 
     public void showDeleteMessage(Task task) {
         System.out.println(" ".repeat(indentSpace + 1)
-                + "Hehehehehehe, I've removed this task from the waterfall: ");
+                + "Hehehehehehe, I've removed this waterfall.task from the waterfall: ");
         System.out.println(" ".repeat(indentSpace + 1) + task.toString());
     }
 

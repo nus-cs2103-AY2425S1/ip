@@ -1,3 +1,8 @@
+package waterfall;
+
+import waterfall.command.Command;
+import waterfall.task.TaskList;
+
 import java.io.IOException;
 
 public class Waterfall {

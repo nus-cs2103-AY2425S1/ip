@@ -1,22 +1,22 @@
     ____________________________________________________________
-    Hualalalalala I'm Waterfall
+    Hualalalalala I'm waterfall.Waterfall
     What can I do for you?
     ____________________________________________________________
 
     ____________________________________________________________
-    Nice man, I have added the following task:
+    Nice man, I have added the following waterfall.task:
     [T][ ] sleep
     Now the waterfall has 1 tasks flowing!
     ____________________________________________________________
 
     ____________________________________________________________
-    Nice man, I have added the following task:
+    Nice man, I have added the following waterfall.task:
     [E][ ] conference  (from: Monday 4pm  to: 5pm)
     Now the waterfall has 2 tasks flowing!
     ____________________________________________________________
 
     ____________________________________________________________
-    Nice man, I have added the following task:
+    Nice man, I have added the following waterfall.task:
     [D][ ] math assignment (by: Tuesday 2pm)
     Now the waterfall has 3 tasks flowing!
     ____________________________________________________________
@@ -29,19 +29,19 @@
     ____________________________________________________________
 
      ____________________________________________________________
-     Huluhuluhulu, I've marked this task as done:
+     Huluhuluhulu, I've marked this waterfall.task as done:
        [E][X] conference  (from: Monday 4pm  to: 5pm)
      ____________________________________________________________
 
-Oops, this task does not exist
+Oops, this waterfall.task does not exist
 Only range from 1 to 100 is possible!
      ____________________________________________________________
-     Huluhuluhulu, I've marked this task as done:
+     Huluhuluhulu, I've marked this waterfall.task as done:
        [T][X] sleep
      ____________________________________________________________
 
      ____________________________________________________________
-     Hohohohohoho, I've marked this task as not done yet:
+     Hohohohohoho, I've marked this waterfall.task as not done yet:
        [T][ ] sleep
      ____________________________________________________________
 

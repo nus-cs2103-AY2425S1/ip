@@ -1,3 +1,5 @@
+package waterfall;
+
 public class WaterfallException extends Exception {
     public WaterfallException(String message) {
         super(message);

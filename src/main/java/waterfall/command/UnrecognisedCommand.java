@@ -1,3 +1,9 @@
+package waterfall.command;
+
+import waterfall.Storage;
+import waterfall.Ui;
+import waterfall.task.*;
+
 public class UnrecognisedCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

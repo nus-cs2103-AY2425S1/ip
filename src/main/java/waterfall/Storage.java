@@ -1,3 +1,10 @@
+package waterfall;
+
+import waterfall.task.Deadline;
+import waterfall.task.Event;
+import waterfall.task.Task;
+import waterfall.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -53,7 +60,7 @@ public class Storage {
                     task = new Event(strings[2], strings[3], strings[4]);
                     break;
                 default:
-                    System.out.println("Unknown task type in database: " + line);
+                    System.out.println("Unknown waterfall.task type in database: " + line);
                     return null;
                 }
                 if (Objects.equals(strings[1], "1")) {
