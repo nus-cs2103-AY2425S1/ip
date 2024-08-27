@@ -1,10 +1,17 @@
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public abstract class Task {
     private boolean isCompleted;
     private final String LINE_BREAK = "-------------------------------------";
     private String description;
+
+    /** Input formatter for when users type in the deadlines*/
+    protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+    /** Output formatter when the ChatBot prints the deadline of the tasks*/
+    protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 
     /**
      * Constructor for Task
@@ -76,5 +83,15 @@ public abstract class Task {
         this.isCompleted = false;
         System.out.println(LINE_BREAK + "\nOK, I've marked this task as not done yet:\n" +
                 this.toString() + "\n" + LINE_BREAK);
+    }
+
+    /**
+     *  Converts the LocalDateTime object back to a String that is provided by users
+     *  Converts from 1234-12-11T12:56 to 11-12-1234 1256
+     *
+     * @return String that is provided by users
+     */
+    public String reverseLocalDateTimeParse(LocalDateTime dateTime) {
+        return dateTime.format(INPUT_FORMATTER);
     }
 }

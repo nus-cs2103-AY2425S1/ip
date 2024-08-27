@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 public class Deadlines extends Task{
+    private LocalDateTime deadline;
 
-    String deadline;
-    public Deadlines(String description, String deadline) {
+    public Deadlines(String description, String deadline) throws DateTimeParseException {
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
     /**
@@ -13,7 +15,8 @@ public class Deadlines extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " +
+                this.deadline.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -25,6 +28,6 @@ public class Deadlines extends Task{
     @Override
     public String toFancyString() {
         return "Deadline | " + super.getStatus() + " | " +
-                super.getDescription() + " | "  + this.deadline;
+                super.getDescription() + " | "  + super.reverseLocalDateTimeParse(this.deadline);
     }
 }
