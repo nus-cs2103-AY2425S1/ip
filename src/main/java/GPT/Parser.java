@@ -23,6 +23,8 @@ public class Parser {
             return new DeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return new EventCommand(input);
+        } else if (input.startsWith("find")) {  // Added "find" command
+            return new FindCommand(input);
         } else {
             return new HelpCommand(); // Return a HelpCommand when an unrecognized input is entered
         }

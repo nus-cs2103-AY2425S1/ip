@@ -26,6 +26,14 @@ abstract class Task {
         return type;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getDescription() {
+        return description;
+    }
     public String toFileFormat() {
         return String.format("%s | %d | %s",
                 this.getClass().getSimpleName().charAt(0),
