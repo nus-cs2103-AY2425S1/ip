@@ -10,12 +10,12 @@ import vuewee.TaskListUI;
  * behavior of the command.
  */
 public abstract class Command {
-  /**
-   * Executes the command.
-   *
-   * @param ui       The user interface for displaying messages to the user.
-   * @param taskList The task list that the command operates on.
-   * @param parser   The command parser for parsing user input.
-   */
-  public abstract void execute(TaskListUI ui, TaskList taskList, CommandParser parser);
+    /**
+     * Executes the command.
+     *
+     * @param ui       The user interface for displaying messages to the user.
+     * @param taskList The task list that the command operates on.
+     * @param parser   The command parser for parsing user input.
+     */
+    public abstract void execute(TaskListUI ui, TaskList taskList, CommandParser parser);
 }
