@@ -67,14 +67,21 @@ public class Ui {
 
     public static void printEmptyListErr() {
         System.out.println("You have no tasks! Add a few tasks (todo, deadline or event)");
+        System.out.println(DIVIDER);
     }
 
     public static void printCorruptedDataErr() {
         System.out.println("Some tasks may not have loaded correctly due to corrupted data file.");
+        System.out.println(DIVIDER);
     }
 
     public static void printInvalidCommandErr() {
         System.out.println("That is not a valid command. Use the \"bye\" command if you wish to exit the bot.");
+        System.out.println(DIVIDER);
+    }
+
+    public static void printDivider() {
+        System.out.println(DIVIDER);
     }
 
 }

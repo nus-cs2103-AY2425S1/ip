@@ -71,6 +71,7 @@ public class TaskList {
             if (task == null) break;
             System.out.println(count++ + "." + task);
         }
+        Ui.printDivider();
     }
 
     public String toFileData() {
