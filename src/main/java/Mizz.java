@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import util.*;
 import MizzExceptions.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
 public class Mizz {
   /** Name of the chat bot */
@@ -17,6 +21,8 @@ public class Mizz {
 
   private final Storage storage;
 
+  private final Ui ui;
+
   /**
    * Constructor for Mizz class. Initialises the Mizz object with defualt values
    * 
@@ -28,6 +34,7 @@ public class Mizz {
     this.exitMsg = exitMsg;
     this.usrTasks = new TaskList();
     this.cmd = "";
+    this.ui = new Ui();
     this.storage = new Storage(filePath);
     try {
       Parser.parseFromStorage(this.storage).forEach((t) -> {
@@ -48,7 +55,8 @@ public class Mizz {
     bot.greet();
 
     while (!bot.isExited()) {
-      bot.commandHandler(scanner.nextLine());
+      String cmd = bot.ui.getNextLine();
+      bot.commandHandler(cmd);
     }
     bot.exit();
 
@@ -101,14 +109,14 @@ public class Mizz {
    * Static method to print greeting.
    */
   private void greet() {
-    Utility.prettyPrint(String.format("%s%s", Utility.INDENT, this.greeting));
+    this.ui.printResponse(this.greeting);
   }
 
   /**
    * Static method to exit from the chatbot, prints a default exit message.
    */
   private void exit() {
-    Utility.prettyPrint(String.format("%s%s", Utility.INDENT, this.exitMsg));
+    this.ui.printResponse(this.exitMsg);
   }
 
   /**
@@ -129,14 +137,24 @@ public class Mizz {
   private void handleMark(String mark, int idx) {
     // if invalid return after printing help text
     if (!this.usrTasks.isValidIdx(idx)) {
-      Utility.prettyPrint(String.format(
+      this.ui.printResponse(String.format(
           "%sSomeones tryna be funny, idx: %d is out of range!", Utility.INDENT, idx));
       return;
     }
     if (mark.equals("mark")) {
-      this.usrTasks.markAsDone(idx, this.storage);
+      Task t = this.usrTasks.markAsDone(idx, this.storage);
+      if (t != null) {
+        this.ui.printResponse("Nice! I've marked this task as done:", Utility.INDENT + t);
+      } else {
+        this.ui.printResponse("Task has already been completed!", Utility.INDENT + t);
+      }
     } else {
-      this.usrTasks.markAsUndone(idx, this.storage);
+      Task t = this.usrTasks.markAsUndone(idx, this.storage);
+      if (t != null) {
+        this.ui.printResponse("Ok, I've marked this task as not done yet:", Utility.INDENT + t);
+      } else {
+        this.ui.printResponse("Task is already unmarked!", Utility.INDENT + t);
+      }
     }
   }
 
@@ -146,8 +164,24 @@ public class Mizz {
    * @param taskType One of todo | deadline | event
    * @param taskInfo Array containing the description & by or from to depending.
    */
-  private void handleCreate(String taskType, String[] taskInfo) {
-    this.usrTasks.addTask(taskType, taskInfo, this.storage);
+  private void handleCreate(String taskType, String[] taskInfo) throws MizzException {
+    Task newTask;
+    switch (taskType) {
+      case "todo":
+        newTask = new ToDo(taskInfo[1]);
+        break;
+      case "deadline":
+        newTask = new Deadline(taskInfo[1], taskInfo[2]);
+        break;
+      case "event":
+        newTask = new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
+        break;
+      default:
+        throw new MizzException("Invalid task type!");
+    }
+    this.usrTasks.addTask(newTask, this.storage);
+    this.ui.printResponse("Got it I've added this task:", Utility.INDENT + newTask.toString(),
+        String.format("You now have %d tasks in your list.", this.usrTasks.size()));
   }
 
   /**
@@ -157,10 +191,12 @@ public class Mizz {
    */
   private void handleDelete(int idx) {
     if (!this.usrTasks.isValidIdx(idx)) {
-      Utility.prettyPrint(String.format(
+      this.ui.printResponse(String.format(
           "%sSomeones tryna be funny, idx: %d is out of range!", Utility.INDENT, idx));
       return;
     }
-    this.usrTasks.deleteTask(idx, this.storage);
+    Task t = this.usrTasks.deleteTask(idx, this.storage);
+    this.ui.printResponse("Ok! I've removed this task:", Utility.INDENT + t.toString(),
+        String.format("You now have %d tasks in your list.", this.usrTasks.size()));
   }
 }
