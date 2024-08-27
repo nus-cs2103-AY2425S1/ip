@@ -3,7 +3,6 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalTime;
 
 /**
  * The SilverWolf class represents a chat bot application.
