@@ -1,6 +1,8 @@
-package task;
+package parser;
 
 import exception.IllegalTaskArgumentException;
+import task.Event;
+import task.Task;
 
 import java.time.LocalDateTime;
 
@@ -8,7 +10,7 @@ public class EventParser implements TaskParser {
     @Override
     public Task parse(String taskArgs) throws IllegalTaskArgumentException {
         if (!taskArgs.contains(" /from ") || !taskArgs.contains(" /to ")) {
-            throw new IllegalTaskArgumentException();
+            throwIllegalTaskArgumentException();
         }
         String[] args = taskArgs.split(" /from | /to ", 3);
         LocalDateTime from = stringToDateTime(args[1].trim());
@@ -19,7 +21,7 @@ public class EventParser implements TaskParser {
     public Task parseFromDb(String taskStr) throws IllegalTaskArgumentException {
         String[] args = taskStr.split(",");
         if (args.length != 5) {
-            throw new IllegalTaskArgumentException();
+            throwIllegalTaskArgumentException();
         }
         LocalDateTime from = dbStringToDateTime(args[3].trim());
         LocalDateTime to = dbStringToDateTime(args[4].trim());

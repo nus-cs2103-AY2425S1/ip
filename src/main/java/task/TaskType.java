@@ -22,7 +22,7 @@ public enum TaskType {
                 return type;
             }
         }
-        throw new IllegalTaskTypeException();
+        throw new IllegalTaskTypeException(String.format("%s is not a valid task type", name));
     }
     public static TaskType fromSymbol(String symbol) throws IllegalTaskTypeException {
         for (TaskType type : TaskType.values()) {
@@ -30,6 +30,6 @@ public enum TaskType {
                 return type;
             }
         }
-        throw new IllegalTaskTypeException();
+        throw new IllegalTaskTypeException(String.format("%s is not a valid task type", symbol));
     }
 }

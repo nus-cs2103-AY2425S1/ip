@@ -1,15 +1,15 @@
-package task;
+package parser;
 
 import exception.IllegalTaskArgumentException;
-import exception.IllegalTaskTypeException;
-
-import java.time.LocalDateTime;
+import parser.TaskParser;
+import task.Task;
+import task.ToDo;
 
 public class ToDoParser implements TaskParser {
     @Override
     public Task parse(String taskArgs) throws IllegalTaskArgumentException {
         if (taskArgs.isEmpty()) {
-            throw new IllegalTaskArgumentException();
+            throwIllegalTaskArgumentException();
         }
         return new ToDo(taskArgs);
     }
@@ -17,7 +17,7 @@ public class ToDoParser implements TaskParser {
     public Task parseFromDb(String taskStr) throws IllegalTaskArgumentException {
         String[] args = taskStr.split(",");
         if (args.length != 3) {
-            throw new IllegalTaskArgumentException();
+            throwIllegalTaskArgumentException();
         }
         Task task = new ToDo(args[2]);
         handleTaskStatus(task, args[1]);

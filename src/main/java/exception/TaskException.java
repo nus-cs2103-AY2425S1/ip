@@ -1,4 +1,7 @@
 package exception;
 
-public class TaskException extends Exception {
+public class TaskException extends DarwinException {
+    public TaskException(String msg) {
+        super(msg);
+    }
 }

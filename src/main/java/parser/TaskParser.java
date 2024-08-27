@@ -1,7 +1,8 @@
-package task;
+package parser;
 
 import exception.IllegalTaskArgumentException;
 import exception.IllegalTaskTypeException;
+import task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,9 +15,14 @@ public interface TaskParser {
         switch (taskStatus) {
             case "1" -> task.markDone();
             case "0" -> task.unmarkDone();
-            default -> throw new IllegalTaskArgumentException();
+            default -> throw new IllegalTaskArgumentException("");
         }
     }
+
+    default void throwIllegalTaskArgumentException() throws IllegalTaskArgumentException {
+        throw new IllegalTaskArgumentException("Wrong task description, ensure that it follows the different task types");
+    }
+
     default LocalDateTime stringToDateTime(String dateTimeStr) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(dateTimeStr, formatter);
