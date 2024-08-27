@@ -9,6 +9,9 @@ import parser.DateParser;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of KorolevTask
+ */
 public class KorolevList {
     private static String outOfIndexError = "The index is out of bound!";
     private static String listNotice = "Here are the tasks in your list:\n";
@@ -32,6 +35,12 @@ public class KorolevList {
         return msg.toString();
     }
 
+    /**
+     * Adds new task to the array list of tasks.
+     *
+     * @param event description of the event
+     * @throws DukeException when failing to add event
+     */
     public void addEvent(String event) throws DukeException {
         KorolevTask e;
         String name, date, from, to;
@@ -79,10 +88,21 @@ public class KorolevList {
         System.out.println("Now you have " + events.size() + " tasks in the list");
     }
 
+    /**
+     * Displays the whole list of tasks
+     *
+     * @return the string representation of task lists
+     */
     public String displayList() {
         return listNotice + this.toString();
     }
 
+    /**
+     * Marks the specific task to be done
+     *
+     * @param index index of the event.
+     * @throws DukeException the index is out of bound
+     */
     public void markEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
@@ -93,6 +113,12 @@ public class KorolevList {
         System.out.println(t);
     }
 
+    /**
+     * Removes a specific task
+     *
+     * @param index index of the task
+     * @throws DukeException when the index is out of the range of the array list
+     */
     public void removeEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
@@ -102,6 +128,13 @@ public class KorolevList {
         System.out.println(deleteNotice);
         System.out.println("Now you have " + this.events.size() + " tasks in the list.");
     }
+
+    /**
+     * Unmarks a specific task to a state of incomplete
+     *
+     * @param index index of the task
+     * @throws DukeException when the index is out of the range of the array list
+     */
 
     public void unmarkEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
@@ -113,6 +146,11 @@ public class KorolevList {
         System.out.println(t);
     }
 
+    /**
+     * Generate the message that will be written into local file
+     *
+     * @return message to be recorded
+     */
     private String createSaveInfo() {
         StringBuilder msg = new StringBuilder();
         for (KorolevTask event : this.events) {
@@ -121,12 +159,18 @@ public class KorolevList {
         return msg.toString();
     }
 
+    /**
+     * Save the information of task list to the
+     */
     public void saveEvent() {
         String msg = this.createSaveInfo();
         storage.writeToFile(msg);
     }
 
 
+    /**
+     * Load records about events from hard disk
+     */
     public void loadEvent() {
         storage.readLines(this.events);
     }
