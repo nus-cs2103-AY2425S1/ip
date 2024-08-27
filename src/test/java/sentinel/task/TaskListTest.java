@@ -15,7 +15,7 @@ public class TaskListTest {
         newTaskList.addTask(new Todo("Test"));
 
         try {
-            assertTrue(newTaskList.markAsDone(1).isDone);
+            assertTrue(newTaskList.markAsDone(1).getStatus());
         } catch (SentinelException e) {
             fail();
         }
@@ -28,7 +28,7 @@ public class TaskListTest {
 
         try {
             newTaskList.markAsDone(1);
-            assertFalse(newTaskList.markAsUndone(1).isDone);
+            assertFalse(newTaskList.markAsUndone(1).getStatus());
         } catch (SentinelException e) {
             fail();
         }
@@ -42,7 +42,7 @@ public class TaskListTest {
         try {
             newTaskList.markAsDone(2);
             newTaskList.markAsUndone(2);
-            assertFalse(newTaskList.markAsDone(2).isDone);
+            assertFalse(newTaskList.markAsDone(2).getStatus());
             fail();
         } catch (SentinelException e) {
             assertEquals("That task number does not exist!", e.getMessage());
@@ -57,7 +57,7 @@ public class TaskListTest {
         try {
             newTaskList.markAsDone(2);
             newTaskList.markAsUndone(2);
-            assertFalse(newTaskList.markAsDone(2).isDone);
+            assertFalse(newTaskList.markAsDone(2).getStatus());
             fail();
         } catch (SentinelException e) {
             assertEquals("That task number does not exist!", e.getMessage());

@@ -14,6 +14,8 @@ import java.time.LocalDate;
 public enum Commands {
     LIST_TASKS {
         /**
+         * @inheritDoc
+         *
          * Command for listing all tasks.
          */
         @Override
@@ -23,6 +25,8 @@ public enum Commands {
     },
     MARK_DONE {
         /**
+         * @inheritDoc
+         *
          * Command for marking tasks as done.
          */
         @Override
@@ -43,6 +47,8 @@ public enum Commands {
     },
     MARK_UNDONE {
         /**
+         * @inheritDoc
+         *
          * Command for marking tasks as undone.
          */
         @Override
@@ -63,6 +69,8 @@ public enum Commands {
     },
     ADD_TODO {
         /**
+         * @inheritDoc
+         *
          * Command for adding todos.
          */
         @Override
@@ -78,6 +86,8 @@ public enum Commands {
     },
     ADD_EVENT {
         /**
+         * @inheritDoc
+         *
          * Command for adding events.
          */
         @Override
@@ -103,6 +113,8 @@ public enum Commands {
     },
     ADD_DEADLINE {
         /**
+         * @inheritDoc
+         *
          * Command for adding deadlines.
          */
         @Override
@@ -146,6 +158,24 @@ public enum Commands {
                 throw new SentinelException("Invalid number!");
             }
         }
+    },
+    FIND_TASK {
+        /**
+         * @inheritDoc
+         *
+         * Command for finding tasks.
+         */
+        @Override
+        public void run(Sentinel sentinel, String args) throws SentinelException {
+            String[] parsedArgs = args.split("\\s+", 2);
+
+            if (parsedArgs.length < 2) {
+                throw new SentinelException("You didn't put in a search string!");
+            }
+
+            String searchTerm = parsedArgs[1].trim();
+            sentinel.outputMatchingTaskList(searchTerm);
+        }
     };
 
     /**
@@ -171,6 +201,7 @@ public enum Commands {
         case "deadline" -> ADD_DEADLINE;
         case "event" -> ADD_EVENT;
         case "delete" -> DELETE_TASK;
+        case "find" -> FIND_TASK;
         default -> null;
         };
     }
