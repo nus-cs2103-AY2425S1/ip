@@ -8,24 +8,132 @@ public class Trackie {
         tasks = new ArrayList<>();
     }
 
-    public void addTodoTask(String description) {
-        Task instance = new Todo(description);
+    public void addTodoTask(String[] arguments) throws DukeException {
+        if (arguments.length == 1) {
+            throw new DukeException("Incorrect usage!");
+        }
+        StringBuilder sb = new StringBuilder();
+        int ptr = 1;
+        while (ptr < arguments.length) {
+            sb.append(arguments[ptr]).append(" ");
+            ptr++;
+        }
+        String desc = sb.substring(0, sb.length() - 1);
+        Task instance = new Todo(desc);
         tasks.add(instance);
         System.out.println(String.format("Added: [%s][%s] %s",
                 instance.getTaskType(), instance.getStatusIcon(), instance.getTaskInfo()));
         System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
-    public void addDeadlineTask(String description, String deadline) {
-        Task instance = new Deadline(description, deadline);
+    public void addDeadlineTask(String[] arguments) throws DukeException {
+        if (arguments.length == 1) {
+            throw new DukeException("Incorrect usage!");
+        }
+
+        String desc = "";
+        String deadline = "";
+
+        //retrieve the description
+        int ptr = 1;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+
+        while (!arguments[ptr].equals("/by")) {
+            if (ptr == arguments.length - 1) {
+                throw new DukeException("Incorrect usage!");
+            }
+            sb.append(arguments[ptr]).append(' ');
+            ptr++;
+        }
+        if (sb.isEmpty()) {
+            throw new DukeException("Description cannot be empty!");
+        } else {
+            desc = sb.substring(0, sb.length() - 1);
+        }
+
+        //retrieve the deadline
+        ptr++;
+        while (ptr < arguments.length) {
+            sb2.append(arguments[ptr]).append(' ');
+            ptr++;
+        }
+
+        if (sb2.isEmpty()) {
+            throw new DukeException("Deadline cannot be empty!");
+        } else {
+            deadline = sb2.substring(0, sb2.length() - 1);
+        }
+
+        Task instance = new Deadline(desc, deadline);
         tasks.add(instance);
         System.out.println(String.format("Added: [%s][%s] %s",
                 instance.getTaskType(), instance.getStatusIcon(), instance.getTaskInfo()));
         System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
-    public void addEventTask(String description, String start, String end) {
-        Task instance = new Event(description, start, end);
+    public void addEventTask(String[] arguments) throws DukeException {
+        if (arguments.length == 1) {
+            throw new DukeException("Incorrect usage!");
+        }
+
+        String desc = "";
+        String start = "";
+        String end = "";
+
+
+
+
+
+        //retrieve the description
+        int ptr = 1;
+        StringBuilder sb = new StringBuilder();
+        while (!arguments[ptr].equals("/from")) {
+            if (ptr == arguments.length - 1) {
+                throw new DukeException("Incorrect usage!");
+            }
+            sb.append(arguments[ptr]).append(' ');
+            ptr++;
+        }
+        if (sb.isEmpty()) {
+            throw new DukeException("Description cannot be empty!");
+        } else {
+            desc = sb.substring(0, sb.length() - 1);
+        }
+
+        ptr++;
+        if (ptr >= arguments.length) {
+            throw new DukeException("Incorrect usage!");
+        }
+        //retrieve the start time
+        StringBuilder sb2 = new StringBuilder();
+        while (!arguments[ptr].equals("/to")) {
+            if (ptr == arguments.length - 1) {
+                throw new DukeException("Incorrect usage!");
+            }
+            sb2.append(arguments[ptr]).append(" ");
+            ptr++;
+        }
+        if (sb2.isEmpty()) {
+            throw new DukeException("Start timing cannot be empty!");
+        } else {
+            start = sb2.substring(0, sb2.length() - 1);
+        }
+
+        ptr++;
+        //retrieve the end time
+        StringBuilder sb3 = new StringBuilder();
+        while (ptr < arguments.length) {
+            sb3.append(arguments[ptr]).append(" ");
+            ptr++;
+        }
+        if (sb3.isEmpty()) {
+            throw new DukeException("End timing cannot be empty!");
+        } else {
+            end = sb3.substring(0, sb3.length() - 1);
+        }
+
+        Task instance = new Event(desc, start, end);
         tasks.add(instance);
         System.out.println(String.format("Added: [%s][%s] %s",
                 instance.getTaskType(), instance.getStatusIcon(), instance.getTaskInfo()));
@@ -41,17 +149,23 @@ public class Trackie {
         }
     }
 
-    public void markTask(int index) {
+    public void markTask(int index) throws DukeException {
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException("Invalid index.");
+        }
         Task t = tasks.get(index - 1);
         t.markDone();
         System.out.println("Amazing! The specified task is now marked as complete:");
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
     }
 
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws DukeException {
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException("Invalid index.");
+        }
         Task t = tasks.get(index - 1);
         t.markUndone();
-        System.out.println("Alright, the specified task has been marked undone.");
+        System.out.println("Alright, the specified task has been marked undone:");
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
     }
 
@@ -89,81 +203,49 @@ public class Trackie {
             }
 
             if (arguments[0].equals("list")) {
-                bot.listTasks();
-            } else if (arguments[0].equals("mark")) {
-                int index = Integer.parseInt(arguments[1]);
-                bot.markTask(index);
-            } else if (arguments[0].equals("unmark")) {
-                int index = Integer.parseInt(arguments[1]);
-                bot.unmarkTask(index);
-            } else if (arguments[0].equals("todo")) {
-                bot.addTodoTask(userInput.substring(5));
-            } else if (arguments[0].equals("deadline")) {
-                int ptr = 1;
-                StringBuilder sb = new StringBuilder();
-
-                //retrieve description of deadline task
-                while (!arguments[ptr].equals("/by")) {
-                    sb.append(arguments[ptr]).append(" ");
-                    ptr++;
-                }
-                String desc = sb.substring(0, sb.length() - 1);
-                ptr++;
-                StringBuilder sb2 = new StringBuilder();
-
-                //retrieve deadline
-                while (ptr < arguments.length) {
-                    sb2.append(arguments[ptr]).append(" ");
-                    ptr++;
-                }
-                if (sb2.isEmpty()) {
-                    System.out.println("Please enter a deadline!");
+                if (bot.tasks.isEmpty()) {
+                    System.out.println("You currently have no tasks added.");
                 } else {
-                    String deadline = sb2.substring(0, sb2.length() - 1);
-                    bot.addDeadlineTask(desc, deadline);
+                    bot.listTasks();
+                }
+            } else if (arguments[0].equals("mark")) {
+                try {
+                    int index = Integer.parseInt(arguments[1]);
+                    bot.markTask(index);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                } catch (NumberFormatException e2) {
+                    System.out.println("Invalid index.");
+                }
+            } else if (arguments[0].equals("unmark")) {
+                try {
+                    int index = Integer.parseInt(arguments[1]);
+                    bot.unmarkTask(index);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                } catch (NumberFormatException e2) {
+                    System.out.println("Invalid index.");
+                }
+            } else if (arguments[0].equals("todo")) {
+                try {
+                    bot.addTodoTask(arguments);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (arguments[0].equals("deadline")) {
+                try {
+                    bot.addDeadlineTask(arguments);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (arguments[0].equals("event")) {
-                int ptr1 = 1;
-                String desc = "";
-                String start = "";
-                String end = "";
-                StringBuilder sb = new StringBuilder();
-
-                //retrieve description of event task
-                while (!arguments[ptr1].equals("/from")) {
-                    sb.append(arguments[ptr1]).append(" ");
-                    ptr1++;
+                try {
+                    bot.addEventTask(arguments);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
                 }
-                desc = sb.substring(0, sb.length() - 1);
-
-                //retrieve start time of event task
-                ptr1++;
-                StringBuilder sb2 = new StringBuilder();
-                while (!arguments[ptr1].equals("/to")) {
-                    sb2.append(arguments[ptr1]).append(" ");
-                    ptr1++;
-                }
-                if (sb2.isEmpty()) {
-                    System.out.println("Please enter a start timing!");
-                } else {
-                    start = sb2.substring(0, sb2.length() - 1);
-                }
-
-                //retrieve end time of events task
-                ptr1++;
-                StringBuilder sb3 = new StringBuilder();
-                while (ptr1 < arguments.length) {
-                    sb3.append(arguments[ptr1]).append(" ");
-                    ptr1++;
-                }
-                if (sb3.isEmpty()) {
-                    System.out.println("Please enter an end timing!");
-                } else {
-                    end = sb3.substring(0, sb3.length() - 1);
-                }
-                if (!desc.isEmpty() && !start.isEmpty() && !end.isEmpty()) {
-                    bot.addEventTask(desc, start, end);
-                }
+            } else {
+                System.out.println("Invalid command.");
             }
         }
 
