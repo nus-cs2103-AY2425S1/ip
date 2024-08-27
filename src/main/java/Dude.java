@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -140,6 +143,19 @@ public class Dude {
         }
     }
 
+    private static void saveTasks() {
+        try {
+            File file = new File("data.txt");
+            FileWriter writer = new FileWriter(file);
+            for (Task task : taskList) {
+                writer.write(task.toString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+        }
+    }
+
     /**
      * The action method performs an action based on the user's input.
      * Supported actions include adding a task,
@@ -196,5 +212,6 @@ public class Dude {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again!");
         System.out.println(line);
+        saveTasks();
     }
 }
