@@ -38,10 +38,10 @@ public class Storage {
                     tasks.add(new Event(splits[2], splits[3].strip(), splits[4].strip()));
                     break;
                 }
-                if (splits[1].strip() == "0") {
+                if (splits[1].strip().equals("0")) {
                     tasks.get(tasks.size() - 1).markAsNotDone();
                 } else {
-                    tasks.get(tasks.size() - 1).markAsNotDone();
+                    tasks.get(tasks.size() - 1).markAsDone();
                 }
             }
             fileScanner.close();
