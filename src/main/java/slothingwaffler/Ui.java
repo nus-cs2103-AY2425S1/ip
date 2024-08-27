@@ -30,6 +30,7 @@ public class Ui {
     public void deleteTaskMessage(TaskList tasks, int taskNum) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + tasks.get(taskNum));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        int size = tasks.size() - 1;
+        System.out.println("Now you have " + size + " tasks in the list.");
     }
 }
