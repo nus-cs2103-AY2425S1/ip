@@ -1,32 +1,46 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    private String by;
+    private final LocalDateTime deadlineBy;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime deadlineBy) {
         super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " + this.getDescription()
-                + " (by: " + this.by + ")";
-    }
-
-    public String toFileFormat() {
-        return "D | " + (this.getDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.by;
+        this.deadlineBy = deadlineBy;
     }
 
     public static Deadline parseTask(String taskData) {
         if (taskData.startsWith("D |")) {
             String[] parts = taskData.split(" \\| ");
             String description = parts[2].trim();
-            String by = parts[3].trim();
-            Deadline deadline = new Deadline(description, by);
+            LocalDateTime dateTime = null;
+            if (parts.length > 3) {
+                try {
+                    dateTime = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                }
+                catch (DateTimeParseException e) {
+                    System.out.println("Warning: There is no date format provided");
+                }
+            }
+            Deadline deadline = new Deadline(description, dateTime);
             if (parts[1].trim().equals("1")) {
                 deadline.markDone();
             }
             return deadline;
         }
         throw new IllegalArgumentException("Invalid Deadline format");
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + (this.getDone() ? "1" : "0") + " | " + this.getDescription() +
+                (deadlineBy != null ? " | " + deadlineBy.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "");
+    }
+
+    @Override
+    public String toString() {
+        return "[D][" + this.getStatusIcon() + "] " + this.getDescription() +
+                (deadlineBy != null ? " (by: " + deadlineBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
     }
 }
