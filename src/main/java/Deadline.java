@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class Deadline extends Task {
     private final LocalDateTime due;
-    private static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-    private static final DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM/d/yyyy HH:mm");
 
     /**
      * Constructor for Deadline.
@@ -14,7 +12,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String due) {
         super(description.strip());
-        this.due = LocalDateTime.parse(due.strip().substring(3), parseFormatter);
+        this.due = Formatter.parseDateTimeString(due.strip().substring(3));
     }
 
     /**
@@ -32,6 +30,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)",
-                super.toString(), due.format(printFormatter));
+                super.toString(), Formatter.printDateTime(due));
     }
 }

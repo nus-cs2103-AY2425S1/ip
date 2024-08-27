@@ -15,7 +15,7 @@ public class InvalidCommandException extends RuntimeException {
      * @return a String message to help users
      */
     @Override
-    public String toString() {
+    public String getMessage() {
         return String.format("\"%s\" is not a valid command.\n" +
                 "Type /help to see the list of available commands.", userCmd);
     }

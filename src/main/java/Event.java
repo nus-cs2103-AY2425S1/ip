@@ -2,10 +2,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private LocalDateTime start;
-    private LocalDateTime end;
-    private static final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-    private static final DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM/d/yyyy HH:mm");
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     /**
      * Constructor for Event class.
@@ -15,8 +13,8 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description.strip());
-        this.start = LocalDateTime.parse(start.strip().substring(5), parseFormatter);
-        this.end = LocalDateTime.parse(end.strip().substring(3), parseFormatter);
+        this.start = Formatter.parseDateTimeString(start.strip().substring(5));
+        this.end = Formatter.parseDateTimeString(end.strip().substring(3));
     }
 
     /**
@@ -42,6 +40,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), start.format(printFormatter), end.format(printFormatter));
+                super.toString(), Formatter.printDateTime(start), Formatter.printDateTime(end));
     }
 }
