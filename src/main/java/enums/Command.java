@@ -5,7 +5,7 @@ import exception.InvalidCommandException;
 public enum Command {
     LIST("list", "list", "list all tasks"),
     TODO("todo", "todo <name>", "Add a todo with name"),
-    DEADLINE("deadline", "deadline <name> /by <end date>", "Add a deadline with name and end date " ),
+    DEADLINE("deadline", "deadline <name> /by <end date>", "Add a deadline with name and end date "),
     EVENT("event", "event <name> /from <start date> /end <end date>",
             "Add an event with name, start date and end date"),
     MARK("mark", "mark <task index>", "mark task with corresponding task index as done"),

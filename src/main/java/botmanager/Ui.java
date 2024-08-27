@@ -1,4 +1,4 @@
-package util;
+package botmanager;
 
 import java.util.Scanner;
 
