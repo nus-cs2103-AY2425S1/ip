@@ -9,20 +9,21 @@ Type "mark" or "unmark" followed by the task number to mark said task as done or
 Type "bye" to exit.
 Type something: Added: [T][ ] something
 You now have 1 task(s) in total.
-Type something: Added: [D][ ] finish some project (by: tomorrow 12pm)
+Type something: Added: [D][ ] another thing (by: tonight)
 You now have 2 task(s) in total.
-Type something: Added: [E][ ] badminton sparring, (from: 1pm to: 3pm)
+Type something: Added: [E][ ] some other thing, (from: 11am to: 12pm)
 You now have 3 task(s) in total.
 Type something: 1. [T][ ] something
-2. [D][ ] finish some project (by: tomorrow 12pm)
-3. [E][ ] badminton sparring, (from: 1pm to: 3pm)
+2. [D][ ] another thing (by: tonight)
+3. [E][ ] some other thing, (from: 11am to: 12pm)
 Type something: Amazing! The specified task is now marked as complete:
-[X] finish some project (by: tomorrow 12pm)
-Type something: Amazing! The specified task is now marked as complete:
-[X] something
-Type something: Alright, the specified task has been marked undone.
-[ ] finish some project (by: tomorrow 12pm)
-Type something: 1. [T][X] something
-2. [D][ ] finish some project (by: tomorrow 12pm)
-3. [E][ ] badminton sparring, (from: 1pm to: 3pm)
+[X] another thing (by: tonight)
+Type something: Invalid index.
+Type something: Alright, the specified task has been marked undone:
+[ ] something
+Type something: Invalid index.
+Type something: Yes boss, I have removed the following task:
+[ ] something
+Type something: 1. [D][X] another thing (by: tonight)
+2. [E][ ] some other thing, (from: 11am to: 12pm)
 Type something: Seeya!

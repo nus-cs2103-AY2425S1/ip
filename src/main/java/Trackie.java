@@ -81,10 +81,6 @@ public class Trackie {
         String start = "";
         String end = "";
 
-
-
-
-
         //retrieve the description
         int ptr = 1;
         StringBuilder sb = new StringBuilder();
@@ -169,6 +165,16 @@ public class Trackie {
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
     }
 
+    public void deleteTask(int index) throws DukeException {
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException("Invalid index.");
+        }
+        Task t = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        System.out.println("Yes boss, I have removed the following task:");
+        System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
+    }
+
     public void greet() {
         System.out.println(
                 "Hello, I'm Trackie. Nice to meet you =)\n"
@@ -243,6 +249,15 @@ public class Trackie {
                     bot.addEventTask(arguments);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
+                }
+            } else if (arguments[0].equals("delete")) {
+                try {
+                    int index = Integer.parseInt(arguments[1]);
+                    bot.deleteTask(index);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                } catch (NumberFormatException e2) {
+                    System.out.println("Invalid index");
                 }
             } else {
                 System.out.println("Invalid command.");
