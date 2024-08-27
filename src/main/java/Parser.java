@@ -1,8 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * The Parser class is used to interpret user input and create the appropriate
  * Command objects.
  */
 public class Parser {
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     /**
      * Parses the user input and returns the appropriate Command object.
      * This method interprets the user input, splitting the input to determine the command
@@ -77,13 +83,16 @@ public class Parser {
                     throw new FishmanException.MissingArgumentException("deadline");
                 }
                 String[] deadlineString = inputs[1].split("/by");
-                return new AddCommand(new Deadline(deadlineString[0].trim(), false, deadlineString[1].trim()));
+                LocalDateTime deadlineDate = parseDateTime(deadlineString[1].trim());
+                return new AddCommand(new Deadline(deadlineString[0].trim(), false, deadlineDate));
             case "event":
                 if (inputs.length < 2 || !inputs[1].contains("/from") || !inputs[1].contains("/to")) {
                     throw new FishmanException.MissingArgumentException("event");
                 }
                 String[] eventString = inputs[1].split("/from|/to");
-                return new AddCommand(new Event(eventString[0].trim(), false, eventString[1].trim(), eventString[2].trim()));
+                LocalDateTime fromDate = parseDateTime(eventString[1].trim());
+                LocalDateTime toDate = parseDateTime(eventString[2].trim());
+                return new AddCommand(new Event(eventString[0].trim(), false, fromDate, toDate));
             case "delete":
                 if (inputs.length < 2) {
                     throw new FishmanException.MissingArgumentException("delete");
@@ -98,6 +107,14 @@ public class Parser {
             }
         } catch (NumberFormatException e) {
             throw new FishmanException.NumberFormatException(e.getMessage());
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeStr) throws FishmanException {
+        try {
+            return LocalDateTime.parse(dateTimeStr, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new FishmanException.InvalidDateFormatException(dateTimeStr);
         }
     }
 }
