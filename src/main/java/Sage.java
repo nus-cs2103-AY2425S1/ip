@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Jia {
+public class Sage {
     public static void main(String[] args) {
         //Create a scanner object to read user input
         Scanner scanner = new Scanner(System.in);
