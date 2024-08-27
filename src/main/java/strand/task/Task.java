@@ -127,4 +127,8 @@ public abstract class Task {
     public String getFile() {
         return String.format("%s | %s", this.isDone ? "1" : "0", this.description);
     }
+
+    public Boolean containsSegment(String segment) {
+        return this.description.toLowerCase().contains(segment.toLowerCase());
+    }
 }
