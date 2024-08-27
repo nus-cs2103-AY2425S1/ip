@@ -8,12 +8,18 @@ public class Events extends Task{
     private final LocalDate  toDate;
     public Events(String description,LocalDate fromDate, LocalDate toDate){
         super(description);
+        if (fromDate == null || toDate == null) {
+            throw new IllegalArgumentException("Dates cannot be null");
+        }
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
 
     public Events(String description, boolean status, LocalDate fromDate, LocalDate toDate){
         super(description,status);
+        if (fromDate == null || toDate == null) {
+            throw new IllegalArgumentException("Dates cannot be null");
+        }
         this.fromDate = fromDate;
         this.toDate = toDate;
     }

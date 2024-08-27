@@ -7,10 +7,16 @@ public class Deadlines extends Task{
     private final LocalDate dueDate;
     public Deadlines(String description,LocalDate dueDate){
         super(description);
+        if (dueDate == null) {
+            throw new IllegalArgumentException("Due date cannot be null");
+        }
         this.dueDate = dueDate;
     }
     public Deadlines(String description,boolean status,LocalDate dueDate){
         super(description,status);
+        if (dueDate == null) {
+            throw new IllegalArgumentException("Due date cannot be null");
+        }
         this.dueDate = dueDate;
     }
     private String dateToString(LocalDate date,boolean save){
