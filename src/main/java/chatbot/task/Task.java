@@ -20,6 +20,14 @@ public abstract class Task {
         return str;
     }
 
+    /**
+     * Gets the name of the Task
+     * @return A string of the task's name
+     */
+    public String getName() {
+        return this.name;
+    }
+
     public String encode() {
         return (this.isDone ? "1" : "0") + "|" + this.name;
     }

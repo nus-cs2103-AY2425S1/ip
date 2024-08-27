@@ -56,4 +56,20 @@ public class TaskList {
         System.out.println(newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
+
+    /**
+     * Finds any tasks containing the query string in the task name
+     * Query is not strict, so it does not consider capitalisation
+     *
+     * @param query String containing the user's query
+     */
+    public void find(String query) {
+        System.out.println("Here are the tasks matching your query:");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
+            if (task.getName().toLowerCase().contains(query.toLowerCase())) {
+                System.out.println(i + 1 + ". " + task);
+            }
+        }
+    }
 }

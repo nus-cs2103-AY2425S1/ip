@@ -52,6 +52,13 @@ public class Parser {
             taskList.mark(idx, false);
             storage.writeToFile(taskList);
         }
+        case "find" -> {
+            if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
+                throw new EmptyArgsException();
+            }
+            String query = inputArr[1];
+            taskList.find(query);
+        }
         case "delete" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
