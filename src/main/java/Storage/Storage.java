@@ -1,8 +1,16 @@
+package Storage;
+
+import Tasks.Task;
+import Tasks.ToDo;
+import Tasks.Deadline;
+import Tasks.Event;
+import Main.Parser;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Storage {
     private String filepath;
@@ -43,7 +51,7 @@ public class Storage {
                         break;
                     case "D":
                         if (parts.length < 4) {
-                            System.out.println("Skipping invalid Deadline line: " + line);
+                            System.out.println("Skipping invalid Tasks.Deadline line: " + line);
                             continue;
                         }
                         try {
@@ -54,12 +62,12 @@ public class Storage {
                             }
                             taskList.add(newDeadline);
                         } catch (DateTimeParseException e) {
-                            System.out.println("Skipping invalid date format in Deadline: " + line);
+                            System.out.println("Skipping invalid date format in Tasks.Deadline: " + line);
                         }
                         break;
                     case "E":
                         if (parts.length < 5) {
-                            System.out.println("Skipping invalid Event line: " + line);
+                            System.out.println("Skipping invalid Tasks.Event line: " + line);
                             continue;
                         }
                         try {
@@ -71,7 +79,7 @@ public class Storage {
                             }
                             taskList.add(newEvent);
                         } catch (DateTimeParseException e) {
-                            System.out.println("Skipping invalid date format in Event: " + line);
+                            System.out.println("Skipping invalid date format in Tasks.Event: " + line);
                         }
                         break;
                     default:

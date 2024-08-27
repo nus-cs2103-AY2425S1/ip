@@ -1,3 +1,13 @@
+package Main;
+
+import Commands.Command;
+import Commands.ExitCommand;
+import Storage.Storage;
+import UI.Ui;
+import Tasks.Task;
+
+import java.util.List;
+
 public class ProYapper {
     private Ui ui;
     private Storage storage;
@@ -8,7 +18,8 @@ public class ProYapper {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.parser = new Parser();
-        this.taskList = new TaskList(storage.loadTasks());
+        List<Task> tasks = storage.loadTasks();
+        this.taskList = new TaskList(tasks);
     }
 
     public static void main(String[] args) {
@@ -21,7 +32,7 @@ public class ProYapper {
         boolean isExit = false;
         while (!isExit) {
             String userInput = ui.readCommand();  // Read user input
-            Command command = parser.parseCommand(userInput);  // Parse input to get command
+            Command command = this.parser.parseCommand(userInput);  // Parse input to get command
             command.execute(taskList, ui, storage);  // Execute the command
             isExit = (command instanceof ExitCommand);  // Check if the command is to exit
         }

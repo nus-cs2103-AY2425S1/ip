@@ -1,4 +1,11 @@
-public class MarkCommand extends Command{
+package Commands;
+
+import Main.TaskList;
+import UI.Ui;
+import Tasks.Task;
+import Storage.Storage;
+
+public class MarkCommand extends Command {
     private final int taskNumber;
 
     public MarkCommand(int taskNumber) {

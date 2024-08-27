@@ -1,7 +1,11 @@
+package Tasks;
+
+import Tasks.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDateTime dueWhen;
 
     public Deadline(String description, LocalDateTime dueWhen) {

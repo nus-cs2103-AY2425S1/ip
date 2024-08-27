@@ -1,24 +1,27 @@
-import java.time.LocalDateTime;
+package Commands;
 
-public class DeadlineCommand extends Command{
+import Main.TaskList;
+import UI.Ui;
+import Tasks.Task;
+import Tasks.ToDo;
+import Storage.Storage;
+
+public class ToDoCommand extends Command {
     private final String taskDescription;
-    private final LocalDateTime dueWhen;
 
-    public DeadlineCommand(String taskDescription, LocalDateTime dueWhen) {
+    public ToDoCommand(String taskDescription) {
         this.taskDescription = taskDescription;
-        this.dueWhen = dueWhen;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (this.taskDescription == null || this.taskDescription.trim().isEmpty()) {
-            ui.showError("deadline WHAT???");
-        } else if (this.dueWhen == null) {
-            ui.showError("WHEN IS THE DEADLINE???\nPlease use yyyy-MM-dd HHmm format.");
+            ui.showError("todo WHAT????");
         } else {
-            Task newTask = new Deadline(this.taskDescription, this.dueWhen);
+            Task newTask = new ToDo(this.taskDescription);
             taskList.addTask(newTask);
             int numTasks = taskList.size();
+
             ui.showMessage("Got it. I've added this task:");
             ui.showMessage("  " + newTask.toString());
             ui.showMessage("Now you have " + numTasks + " tasks in the list");
