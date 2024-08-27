@@ -1,3 +1,7 @@
+/**
+ * Added MollyException class
+ */
+
 public class MollyException extends Exception {
 
     public String errorMessage;
