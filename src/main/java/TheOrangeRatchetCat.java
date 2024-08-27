@@ -23,7 +23,6 @@ enum CommandType {
 public class TheOrangeRatchetCat {
 
     public static void main(String[] args) {
-        // The ChatBot named OrangeRatchetCat
         List<Task> items = new ArrayList<>();
         Storage.loadTasks(items); // Load tasks from file at startup
         ratchetCatBot(items); // Pass the list of tasks to the chatbot
