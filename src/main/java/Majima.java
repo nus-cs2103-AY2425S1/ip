@@ -308,7 +308,12 @@ public class Majima {
                     System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
                     System.out.println("to generate a new one from scratch");
                 }
-                task = new Deadline(description, parts[3]);
+                try {
+                    task = new Deadline(description, parts[3]);
+                } catch (MajimaException e) {
+                    System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
+                    System.out.println("to generate a new one from scratch");
+                }
                 break;
             case "[E]":
                 if (parts.length < 5) {
