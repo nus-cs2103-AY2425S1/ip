@@ -1,0 +1,14 @@
+
+todo cooking
+todo Do cs2103 homework
+deadline CS2103T homework /by tonight
+mark 3
+unmark 3
+mark 2
+mark 3
+event Dinner date /from Tuesday 2pm /to 5pm
+todo sleep
+mark 4
+unmark 1
+delete 3
+delete 2

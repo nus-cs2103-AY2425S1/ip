@@ -17,7 +17,7 @@ public class Unmark {
     try {
       final int idx = Integer.parseInt(prompts.get(1)) - 1;
       TaskList.unmark(idx);
-      return new Response(java.util.List.of(TaskList.getSpecificTask(idx)));
+      return new Response(java.util.List.of(TaskList.getSpecificTask(idx)), false, true);
     } catch (NumberFormatException e) {
       throw new UnmarkInvalidNumberException(prompts.get(1));
     } catch (IndexOutOfBoundsException e) {

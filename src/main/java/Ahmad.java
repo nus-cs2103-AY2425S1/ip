@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Ahmad {
-  private static final String FILE_PATH = "../../../data/tasks.txt";
+  private static final String FILE_PATH = "./data/tasks.txt";
 
   private static void loadFile() {
     try {
@@ -26,7 +26,7 @@ public class Ahmad {
         }
       }
 
-      IO.print("File read, ready to accept new messages.");
+      IO.print("File read, you now have: " + processor.task.TaskList.getStringList().get(0));
     } catch (FileNotFoundException e) {
       IO.print("File not found, skipping file reading...");
     }
@@ -45,8 +45,8 @@ public class Ahmad {
         }
       }
 
-      FileWriter writer = new FileWriter(FILE_PATH);
-      writer.write(prompt);
+      FileWriter writer = new FileWriter(FILE_PATH, true);
+      writer.write("\n" + prompt);
       writer.close();
     } catch (IOException e) {
       IO.print("File write error: " + e.getMessage());
