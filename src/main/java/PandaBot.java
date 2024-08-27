@@ -131,7 +131,7 @@ public class PandaBot {
             }
             // Add a new task (ToDo. Deadline, or Event)
             else {
-                Task task = null;
+                Task task;
                 try {
                     if (input.startsWith("todo")) {
                         task = new ToDo("").createTask(input);
@@ -243,15 +243,7 @@ public class PandaBot {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
                 for (Task task : taskList) {
-                    String type = task instanceof ToDo ? "T" :
-                            task instanceof Deadline ? "D" : "E";
-                    String taskString = type + " | " + (task.isDone ? "1" : "0") + " | " + task.description;
-
-                    if (task instanceof Deadline) {
-                        taskString += " | " + ((Deadline) task).by;
-                    } else if (task instanceof Event) {
-                        taskString += " | " + ((Event) task).from + " | " + ((Event) task).to;
-                    }
+                    String taskString = getString(task);
 
                     writer.write(taskString + System.lineSeparator());
                 }
@@ -259,5 +251,18 @@ public class PandaBot {
         } catch (IOException e) {
             System.out.println("Error occurred while saving tasks: " + e.getMessage());
         }
+    }
+
+    private static String getString(Task task) {
+        String type = task instanceof ToDo ? "T" :
+                task instanceof Deadline ? "D" : "E";
+        String taskString = type + " | " + (task.isDone ? "1" : "0") + " | " + task.description;
+
+        if (task instanceof Deadline) {
+            taskString += " | " + ((Deadline) task).by;
+        } else if (task instanceof Event) {
+            taskString += " | " + ((Event) task).from + " | " + ((Event) task).to;
+        }
+        return taskString;
     }
 }
