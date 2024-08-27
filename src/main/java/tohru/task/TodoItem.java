@@ -19,8 +19,14 @@ public class TodoItem {
         this.completed = false;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    /**
+     * Searches the description for provided keyword.
+     *
+     * @param keyword Search term to filter by.
+     * @return Boolean to check if keyword is in description.
+     */
+    public boolean contains(String keyword) {
+        return this.content.contains(keyword);
     }
 
     public void setCompleted(boolean completed) {

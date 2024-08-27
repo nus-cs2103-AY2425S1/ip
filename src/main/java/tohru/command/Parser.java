@@ -44,6 +44,8 @@ public class Parser {
             return new AddDeadlineCommand(arguments);
         case AddEventCommand.COMMAND_PREFIX:
             return new AddEventCommand(arguments);
+        case FindCommand.COMMAND_PREFIX:
+            return new FindCommand(arguments);
         default:
             throw new TohruException("You have entered an invalid option! Please try again.");
         }
