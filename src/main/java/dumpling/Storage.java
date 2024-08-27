@@ -27,10 +27,21 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data from harddisk
+     * @return List of Task objects
+     * @throws DumplingException Thrown when there are issues with loading the harddisk data
+     */
     public List<Task> load() throws DumplingException {
         return Parser.loadData(this.filePath);
     }
 
+    /**
+     * Saves the information in TaskList to harddisk
+     *
+     * @param tasks TaskList of current state of Dumpling
+     * @throws DumplingException Thrown when there is an issue writing or creating the file
+     */
     public void save(TaskList tasks) throws DumplingException {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);

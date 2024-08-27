@@ -9,18 +9,33 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets the status of the task.
+     *
+     * @return 'X' if marked, ' ' otherwise.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Mark item as done
+     */
     public void markAsDone() {
         this.isDone = true;
     }
-
+    /**
+     * Unmark item as done
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Get the string representation of the task in the format for saving
+     *
+     * @return String representation of task in saving format
+     */
     public abstract String getTaskForSaving();
 
     @Override
