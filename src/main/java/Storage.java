@@ -45,7 +45,7 @@ public class Storage {
      * reads the content in janet.txt and loads them into an ArrayList<Task>, returns this ArrayList<Task>
      * @return an ArrayList<Task> listOfTasks, that contains Task objects
      */
-    public ArrayList<Task> textFileToArrayList() {
+    public ArrayList<Task> textFileToArrayList() throws JanetException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(this.filePath);
@@ -77,8 +77,8 @@ public class Storage {
             fileReader.close();
             bufferedReader.close();
         } catch (IOException e) {
-            // throw new RuntimeException(e);
-            System.out.println("Error reading file");
+            throw new JanetException("");
+            // System.out.println("Error reading file");
         }
         return listOfTasks;
     }
