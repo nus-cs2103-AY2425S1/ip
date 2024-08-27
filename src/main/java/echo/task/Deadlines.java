@@ -2,6 +2,12 @@ package echo.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a task with deadlines
+ *
+ * @author Ernest Lim
+ */
 public class Deadlines extends Task {
     private LocalDateTime deadline;
 

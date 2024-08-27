@@ -13,6 +13,12 @@ import echo.ui.Ui;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+/**
+ * Represents the Chat Bot called Echo
+ *
+ * @author Ernest Lim
+ */
 public class Echo {
     private Storage storage;
     private Ui ui;

@@ -2,6 +2,12 @@ package echo.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents an event that is a task with start and end date
+ *
+ * @author Ernest Lim
+ */
 public class Events extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
