@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +13,14 @@ public class Bruno {
 
     public static void main(String[] args) {
         String userResponse;
+        String directoryPath = "src/data/";
+        String filePath = directoryPath + "bruno.txt";
+
+        ensureDirectoryExists(directoryPath);
+        ensureFileExists(filePath);
+
+        loadFromFile(filePath);
+
         printGreetingMessage();
 
         boolean running = true;
@@ -32,17 +43,17 @@ public class Bruno {
                 } else if (userResponse.equals("list")) {
                     printList();
                 } else if (firstWord.equals("mark")) {
-                    markTask(restOfString);
+                    markTask(filePath, restOfString);
                 } else if (firstWord.equals("unmark")) {
-                    unmarkTask(restOfString);
+                    unmarkTask(filePath, restOfString);
                 } else if (firstWord.equals("delete")) {
-                    deleteTask(restOfString);
+                    deleteTask(filePath, restOfString);
                 } else if (firstWord.equals("todo")) {
-                    addTask(restOfString, TaskType.TODO);
+                    addTask(filePath, restOfString, TaskType.TODO);
                 } else if (firstWord.equals("deadline")) {
-                    addTask(restOfString, TaskType.DEADLINE);
+                    addTask(filePath, restOfString, TaskType.DEADLINE);
                 } else if (firstWord.equals("event")) {
-                    addTask(restOfString, TaskType.EVENT);
+                    addTask(filePath, restOfString, TaskType.EVENT);
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -66,7 +77,7 @@ public class Bruno {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTask(String str, TaskType type) throws BrunoException {
+    public static void addTask(String filePath, String str, TaskType type) throws BrunoException {
         if (str.trim().isEmpty()) {
             throw new EmptyTaskException();
         }
@@ -96,6 +107,7 @@ public class Bruno {
 
         if (recognized) {
             taskList.add(task);
+            updateFile(filePath);
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:\n" + task);
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -115,10 +127,11 @@ public class Bruno {
         System.out.println("____________________________________________________________");
     }
 
-    public static void markTask(String num) throws BrunoException {
+    public static void markTask(String filePath, String num) throws BrunoException {
         try {
             Task task = taskList.get(Integer.parseInt(num) - 1);
             task.complete();
+            updateFile(filePath);
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've marked this task as done:\n" + task);
             System.out.println("____________________________________________________________");
@@ -127,10 +140,11 @@ public class Bruno {
         }
     }
 
-    public static void unmarkTask(String num) throws BrunoException {
+    public static void unmarkTask(String filePath, String num) throws BrunoException {
         try {
             Task task = taskList.get(Integer.parseInt(num) - 1);
             task.uncomplete();
+            updateFile(filePath);
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've unmarked this task as done:\n" + task);
             System.out.println("____________________________________________________________");
@@ -139,15 +153,85 @@ public class Bruno {
         }
     }
 
-    public static void deleteTask(String num) throws BrunoException {
+    public static void deleteTask(String filePath, String num) throws BrunoException {
         try {
             Task task = taskList.remove(Integer.parseInt(num) - 1);
+            updateFile(filePath);
             System.out.println("____________________________________________________________");
             System.out.println("Noted! I've removed this task:\n" + task);
             System.out.println("Now you have " + taskList.size() + " tasks in the list");
             System.out.println("____________________________________________________________");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
+        }
+    }
+
+    public static void updateFile(String filePath) {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            String listAsString = "";
+            for (Task task : taskList) {
+                listAsString += task.toString() + "\n";
+            }
+            fw.write(listAsString);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadFromFile(String filePath) {
+        try {
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            while(s.hasNext()) {
+                String line = s.nextLine();
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                String[] lineParts = line.split("\\|");
+
+                String type = lineParts[0].trim();
+                boolean done = lineParts[1].trim().charAt(1) == 'X';
+                String description = lineParts[2].trim();
+
+                if (type.equals("T")) {
+                    taskList.add(new ToDo(description, done));
+                } else if (type.equals("D")) {
+                    String by = lineParts[3].substring(lineParts[3].indexOf("by:") + 3).trim();
+                    taskList.add(new Deadline(description, by, done));
+                } else if (type.equals("E")) {
+                    String from = lineParts[3].substring(6, lineParts[3].indexOf("to")).trim();
+                    String to = lineParts[3].substring(lineParts[3].indexOf("to") + 3).trim();
+                    taskList.add(new Event(description, from, to, done));
+                } else {
+                    System.out.println("There was a problem when loading some task");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void ensureDirectoryExists(String directoryPath) {
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created to store data file");
+            }
+        }
+    }
+
+    public static void ensureFileExists(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("Data file created");
+                }
+            } catch (IOException e) {
+                System.out.println("Something went wrong when creating the data file");
+            }
         }
     }
 }

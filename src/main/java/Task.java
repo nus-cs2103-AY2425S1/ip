@@ -7,6 +7,11 @@ public class Task {
         this.done = false;
     }
 
+    public Task(String description, boolean done) {
+        this.description = description;
+        this.done = done;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -29,6 +34,6 @@ public class Task {
         if (this.done) {
             complete = "X";
         }
-        return "[" + complete + "] " + this.description;
+        return "[" + complete + "] | " + this.description;
     }
 }
