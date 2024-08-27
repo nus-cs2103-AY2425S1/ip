@@ -46,6 +46,20 @@ public class ParserTest {
         assertTrue((actual instanceof DeleteCommand), "Expected an instance of ListCommand");
     }
 
+    /**
+     * Test to check whether with the user input of "find", will the Parser
+     * Class return a FindCommand instance.
+     *
+     *
+     * @throws AExceptions In the event that the input received is not in any of the
+     * matching switch cases mentioned
+     */
+    @Test
+    public void parse_find_test() throws AExceptions {
+        Command actual = Parser.parse("find ");
+        assertTrue((actual instanceof FindCommand), "Expected an instance of FindCommand");
+    }
+
     @Test
     public void parse_bye_test() throws AExceptions {
         Command actual = Parser.parse("bye ");

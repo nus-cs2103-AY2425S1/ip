@@ -44,6 +44,10 @@ public class Parser {
                 cmd =  new ExitCommand();
                 break;
 
+            case FIND:
+                cmd =  new FindCommand();
+                break;
+
             default:
                 throw new AExceptions("I'm sorry, but I don't know what that means :-(");
             }
