@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 
 public class GreetBot {
     public static void main(String[] args) {
@@ -10,6 +12,22 @@ public class GreetBot {
     https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/duke/Duke.java
     */
     private void run() {
+
+        String filePath = "data/greetbot.txt";
+
+        try {
+            File storage = new File(filePath);
+            Scanner fileScanner = new Scanner(storage);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No such file");
+            e.printStackTrace();
+            System.exit(0);
+        }
+
         System.out.println("Hello! I'm GreetBot");
         System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
