@@ -1,13 +1,23 @@
+import java.io.File;
+import java.io.IOException;
+
 public class Agave {
 
     private UserInterface ui;
     private boolean isRunning;
     private Task taskManager;
+    private FileHandler fileHandler;
 
     public Agave() {
         this.ui = new UserInterface();
         this.isRunning = true;
         this.taskManager = new Task();
+        this.fileHandler = new FileHandler("./data/agave.txt");
+        try {
+            this.taskManager.setTasks(fileHandler.loadTasks());
+        } catch (IOException e) {
+            System.out.println("Error loading the tasks: " + e.getMessage());
+        }
     }
 
     public void run() {
@@ -36,8 +46,11 @@ public class Agave {
                 } else {
                     throw new AgaveException("I'm sorry, but I don't understand the command: " + userInput);
                 }
+                fileHandler.saveTasks(taskManager.getTasks());
             } catch (AgaveException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 ui.showError(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Error while saving tasks: " + e.getMessage());;
             }
         }
     }

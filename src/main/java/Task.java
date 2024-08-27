@@ -7,6 +7,11 @@ public class Task {
     private int taskCount;
     private boolean isDone;
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+    //TODO fix out of bounds error, getCorrectFormat() method
     public Task() {
         this.tasks = new ArrayList<Task>();
     }
@@ -17,6 +22,10 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public String getStatus() {
@@ -61,7 +70,7 @@ public class Task {
         return String.format("%s | %d | %s",
                 this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E",
                 isDone ? 1 : 0,
-                this.toString()
+                getCorrectFormat()
         );
     }
 
