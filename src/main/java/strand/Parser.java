@@ -29,7 +29,7 @@ public class Parser {
      * @throws StrandException If the input is invalid or the command is not recognized.
      */
     static Command parse(String input) throws StrandException {
-        String[] split = input.split("\\s+", 2);
+        String[] split = input.trim().split("\\s+", 2);
         if (split.length == 0) {
             throw new StrandWrongCommandException();
         }
