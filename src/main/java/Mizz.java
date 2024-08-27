@@ -44,7 +44,7 @@ public class Mizz {
         this.usrTasks.addTask(t);
       });
     } catch (MizzException e) {
-      System.err.println("Error adding task from file: " + e.getMessage());
+      System.err.println("Error adding task from file:\n" + e.toString());
     }
   }
 
@@ -178,7 +178,7 @@ public class Mizz {
           LocalDate date = LocalDate.parse(taskInfo[2]);
           newTask = new Deadline(taskInfo[1], date);
         } catch (DateTimeParseException e) {
-          throw new MizzException("Invalid date time format: " + e.getMessage());
+          throw new InvalidDateException(e.getMessage());
         }
         break;
       case "event":
@@ -187,7 +187,7 @@ public class Mizz {
           LocalDate toDate = LocalDate.parse(taskInfo[3]);
           newTask = new Event(taskInfo[1], fromDate, toDate);
         } catch (DateTimeParseException e) {
-          throw new MizzException("Invalid date time format: " + e.getMessage());
+          throw new InvalidDateException(e.getMessage());
         }
         break;
       default:
