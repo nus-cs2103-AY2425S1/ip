@@ -1,6 +1,6 @@
-package strand.Tasks;
+package strand.task;
 
-import strand.Exceptions.StrandException;
+import strand.exception.StrandException;
 
 /**
  * The strand.Tasks.Todo class represents a simple task without any specific time constraints.

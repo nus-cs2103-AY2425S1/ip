@@ -1,8 +1,8 @@
-package strand.Tasks;
-
-import strand.Exceptions.StrandException;
+package strand.task;
 
 import java.time.LocalDateTime;
+
+import strand.exception.StrandException;
 
 /**
  * The strand.Tasks.Deadline class represents a task with a specific deadline.

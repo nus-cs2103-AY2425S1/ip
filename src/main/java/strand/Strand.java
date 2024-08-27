@@ -1,17 +1,24 @@
 package strand;
 
-import strand.Commands.Command;
-import strand.Exceptions.*;
-
 import java.util.Scanner;
 
+import strand.command.Command;
+import strand.exception.StrandException;
+
+/**
+ * The {@code Strand} class represents the main entry point for the Strand application.
+ */
 public class Strand {
     private static final String FILENAME = "./data/strand.txt";
     private final Storage storage;
-    private TaskList tasks;
     private final Ui ui;
+    private TaskList tasks;
 
-
+    /**
+     * Constructs a new {@code Strand} instance with the specified file path for storage.
+     *
+     * @param filePath The file path to load tasks from.
+     */
     public Strand(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +30,11 @@ public class Strand {
         }
     }
 
+
+
+    /**
+     * Starts the main application loop.
+     */
     public void run() {
         ui.welcome();
         boolean isRunning = true;
@@ -42,6 +54,12 @@ public class Strand {
         }
     }
 
+    /**
+     * The main method to run the Strand application. Creates an instance of the
+     * {@code Strand} class and starts the application loop.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Strand(FILENAME).run();
     }
