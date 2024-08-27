@@ -6,9 +6,9 @@ import ned.exceptions.NedException;
 
 import ned.Ui;
 
-import tasks.Task;
+import ned.tasks.Task;
 
-import tasks.Deadline;
+import ned.tasks.Deadline;
 
 public class AddDeadlineCommand implements Command {
     private final String REGEX = "^deadline.*";

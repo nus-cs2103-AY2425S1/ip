@@ -1,10 +1,10 @@
-package tasks;
+package ned.tasks;
 
 import ned.exceptions.NedException;
 
 public class ToDo extends Task {
 
-    private ToDo(String taskDescription, boolean isDone) {
+    protected ToDo(String taskDescription, boolean isDone) {
         super(taskDescription, isDone);
         this.taskType = "T";
     }
@@ -20,5 +20,16 @@ public class ToDo extends Task {
     public String toTextForm() {
         int status = this.isDone ? 1 : 0;
         return String.format("todo|%d|%s", status, this.taskDescription);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof ToDo) {
+            ToDo typeCastedObj = (ToDo)obj;
+            return (typeCastedObj.taskDescription.equals(this.taskDescription));
+        }
+        return false;
     }
 }

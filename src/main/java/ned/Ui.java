@@ -14,7 +14,7 @@ public class Ui {
             + Ui.INDENTATIONS + "|_____|\\____|'.__.' '.__.;__]";
     public final static String COMMAND_MESSAGE = "\n"
             + Ui.INDENTATIONS + "Usage: \n"
-            + Ui.INDENTATIONS + "list                             - Shows the list of all tasks\n"
+            + Ui.INDENTATIONS + "list                             - Shows the list of all ned.tasks\n"
             + Ui.INDENTATIONS + "<item-index>                - Marks the item at the specified index as done\n"
             + Ui.INDENTATIONS + "unmark <item-index>              - Marks the item at the specified index as undone\n"
             + Ui.INDENTATIONS + "delete <item-index>              - Removes the item at the specified index from the " +

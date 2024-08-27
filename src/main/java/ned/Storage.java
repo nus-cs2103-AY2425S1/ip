@@ -1,7 +1,7 @@
 package ned;
 
 import ned.exceptions.NedException;
-import tasks.Task;
+import ned.tasks.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;

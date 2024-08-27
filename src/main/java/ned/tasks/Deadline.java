@@ -1,4 +1,4 @@
-package tasks;
+package ned.tasks;
 
 import ned.Ui;
 import ned.exceptions.NedException;

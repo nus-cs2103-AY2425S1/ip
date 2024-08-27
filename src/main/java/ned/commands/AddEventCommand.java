@@ -4,8 +4,8 @@ import ned.Storage;
 import ned.TaskList;
 import ned.exceptions.NedException;
 
-import tasks.Task;
-import tasks.Event;
+import ned.tasks.Task;
+import ned.tasks.Event;
 
 import ned.Ui;
 
