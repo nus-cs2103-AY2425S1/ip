@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Random;
 
 public class Appleaster {
     private static final String LOGO = "   _____                .__                          __                \n"
@@ -9,7 +8,7 @@ public class Appleaster {
                                      + "\\____|__  /   __/|   __/|____/\\___  >____  /____  > |__|  \\___  >__|   \n"
                                      + "        \\/|__|   |__|             \\/     \\/     \\/            \\/       \n";
 
-    private static TaskList taskList = new TaskList();
+    private static TaskList taskList;
 
     public static void main(String[] args) {
         System.out.println("------------------------------------");
@@ -17,17 +16,19 @@ public class Appleaster {
         System.out.println("Greetings, human! Ready for some apple-solutely amazing conversation?");
         System.out.println("What can I do for you?");
         System.out.println("------------------------------------");
-        
+
+        taskList = new TaskList();
+
         Scanner scanner = new Scanner(System.in);
         String input;
-        
+
         while (true) {
             input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("bye")) {
                 break;
             }
-            
+
             System.out.println("------------------------------------");
             try {
                 processInput(input);
@@ -40,7 +41,7 @@ public class Appleaster {
         System.out.println("------------------------------------");
         System.out.println("Goodbye! Remember, an apple a day keeps the doctor away, but I hope to see you sooner!");
         System.out.println("------------------------------------");
-        
+
         scanner.close();
     }
 

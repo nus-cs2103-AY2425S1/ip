@@ -1,0 +1,6 @@
+T | 1 | Read a book
+E | 1 | Team meeting | 2023-08-30 14:00 | 2023-08-30 15:30
+T | 0 | Exercise for 30 minutes
+T | 0 | Buy groceries
+T | 0 | Clean the house
+D | 0 | Pay bills | 2023-09-01
