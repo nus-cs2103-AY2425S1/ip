@@ -1,18 +1,13 @@
-import java.util.Scanner;
-
 public class Ui {
 
-    public void displayWelcomeMessage() {
-        System.out.println("Welcome to the chatbot!");
+    public void greet() {
+        System.out.println("""
+                Hello! I'm the Slothing Waffler!
+                Let's stop slothing and get cracking!""");
     }
 
-    public void displayGoodbyeMessage() {
-        System.out.println("Goodbye! Have a great day!");
-    }
-
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+    public void exit() {
+        System.out.println("See you next time! Remember to get a waffle!");
     }
 
     public void printError(String message) {
