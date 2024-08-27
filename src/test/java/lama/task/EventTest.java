@@ -39,7 +39,7 @@ public class EventTest {
         String description = "Return Book";
         LocalDateTime from = LocalDateTime.of(2025, 12, 12, 20, 10);
         LocalDateTime to = LocalDateTime.of(2026, 12, 12, 20, 10);
-        Task event = new Event(description, from ,to);
+        Task event = new Event(description, from, to);
 
         String output = "E | 0 | Return Book | 2025-12-12 2010 | 2026-12-12 2010";
 

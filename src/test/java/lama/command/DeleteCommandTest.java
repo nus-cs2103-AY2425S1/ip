@@ -45,6 +45,7 @@ public class DeleteCommandTest {
      * Test the run method.
      * Verifies that the task is correctly deleted in the task list, output
      * as expected, save the new task list properly to the storage.
+     *
      * @throws LamaException Thrown if there is an error in running command.
      */
     @Test
@@ -71,7 +72,7 @@ public class DeleteCommandTest {
         assertEquals(1, taskList.size());
 
         String output = BAR + "\r\nNoted. I've removed this task:\r\n  " + todo2.toString()
-                +"\r\nNow you have 1 tasks in the list.\r\n" + BAR + "\n\r\n";
+                + "\r\nNow you have 1 tasks in the list.\r\n" + BAR + "\n\r\n";
         assertEquals(output, outputStream.toString());
 
         TaskList storageTaskList = new TaskList(storage.loadTask());

@@ -26,6 +26,7 @@ public class ExitCommandTest {
     /**
      * Test the run method.
      * Verifies that the loop is exited and output as expected.
+     *
      * @throws LamaException Thrown if there is an error in running command.
      */
     @Test

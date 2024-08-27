@@ -45,6 +45,7 @@ public class AddCommandTest {
      * Test the run method.
      * Verifies that the task is correctly added into task list, output
      * as expected, save properly to the storage.
+     *
      * @throws LamaException Thrown if there is an error in running command.
      */
     @Test

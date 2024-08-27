@@ -25,6 +25,7 @@ public class ListCommandTest {
     /**
      * Test the run method.
      * Verifies that the task is being listed.
+     *
      * @throws LamaException Thrown if there is an error in running command.
      */
     @Test

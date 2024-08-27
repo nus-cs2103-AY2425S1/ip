@@ -44,6 +44,7 @@ public class UnmarkCommandTest {
      * Test the run method.
      * Verifies that the task is correctly unmarked, output
      * as expected, save properly to the storage.
+     *
      * @throws LamaException Thrown if there is an error in running command.
      */
     @Test
