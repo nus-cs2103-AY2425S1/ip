@@ -9,6 +9,7 @@ public class Friday {
         String line = "______________________________________";
         System.out.println(greeting + farewell);
         System.out.println(line);
+        String[] tasks = new String[100];
 
         while (true) {
             String inputString = scanner.nextLine();
@@ -17,8 +18,21 @@ public class Friday {
                 System.out.println(farewell);
                 System.out.println(line);
                 break;
+            } else if (inputString.equals("list")) {
+                for (int i = 0; i < tasks.length; i++) {
+                    if (tasks[i] != null) {
+                        System.out.println(i + 1 + ". " + tasks[i]);
+                    }
+                }
+                System.out.println(line);
             } else {
-                System.out.println(inputString);
+                System.out.println("added: " + inputString);
+                for (int i = 0; i < tasks.length; i++) {
+                    if (tasks[i] == null) {
+                        tasks[i] = inputString;
+                        break;
+                    }
+                }
                 System.out.println(line);
             }
         }
