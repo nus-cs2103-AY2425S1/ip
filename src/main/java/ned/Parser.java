@@ -1,11 +1,11 @@
 package ned;
 
 import ned.commands.Command;
-import tasks.ToDo;
+import ned.tasks.ToDo;
 import ned.exceptions.NedException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
+import ned.tasks.Deadline;
+import ned.tasks.Event;
+import ned.tasks.Task;
 
 public class Parser {
     public Parser() {}

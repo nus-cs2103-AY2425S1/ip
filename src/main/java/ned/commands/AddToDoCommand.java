@@ -3,8 +3,8 @@ package ned.commands;
 import ned.Storage;
 import ned.TaskList;
 import ned.exceptions.NedException;
-import tasks.Task;
-import tasks.ToDo;
+import ned.tasks.Task;
+import ned.tasks.ToDo;
 import ned.Ui;
 
 public class AddToDoCommand implements Command{

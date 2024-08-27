@@ -1,4 +1,4 @@
-package tasks;
+package ned.tasks;
 
 public abstract class Task {
 

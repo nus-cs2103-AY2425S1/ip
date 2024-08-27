@@ -12,15 +12,17 @@ public class Ui {
             + Ui.INDENTATIONS + "  | |\\ \\| | / /__\\\\/ /'`\\' |  \n"
             + Ui.INDENTATIONS + " _| |_\\   |_| \\__.,| \\__/  |  \n"
             + Ui.INDENTATIONS + "|_____|\\____|'.__.' '.__.;__]";
-    public final static String COMMAND_MESSAGE = "\n" + Ui.INDENTATIONS + """
-            Usage: 
-                list                             - Shows the list of all tasks 
-                mark <item-index>                - Marks the item at the specified index as done
-                unmark <item-index>              - Marks the item at the specified index as undone 
-                delete <item-index>              - Removes the item at the specified index from the list            
-                todo <description>               - Creates a new todo task and adds it to the list
-                deadline <description> /by <date> - Creates a new deadline task and adds it to the list
-                event <description> /from <date> /to <date> - Creates a new event task and adds it to the list""";
+    public final static String COMMAND_MESSAGE = "\n"
+            + Ui.INDENTATIONS + "Usage: \n"
+            + Ui.INDENTATIONS + "list                             - Shows the list of all ned.tasks\n"
+            + Ui.INDENTATIONS + "<item-index>                - Marks the item at the specified index as done\n"
+            + Ui.INDENTATIONS + "unmark <item-index>              - Marks the item at the specified index as undone\n"
+            + Ui.INDENTATIONS + "delete <item-index>              - Removes the item at the specified index from the " +
+            "list\n"
+            + Ui.INDENTATIONS + "todo <description>               - Creates a new todo task and adds it to the list\n"
+            + Ui.INDENTATIONS + "<description> /by <date> - Creates a new deadline task and adds it to the list"
+            + Ui.INDENTATIONS + "<description> /from <date> /to <date> - Creates a new event task and adds it to the " +
+            "list";
 
     public Ui() {
         this.scannerInstance = new Scanner(System.in);

@@ -3,7 +3,7 @@ package ned;
 import java.util.ArrayList;
 
 import ned.exceptions.NedException;
-import tasks.Task;
+import ned.tasks.Task;
 public class TaskList {
     private ArrayList<Task> listOfTasks;
 
@@ -17,7 +17,7 @@ public class TaskList {
             this.listOfTasks.remove(index);
             uiInstance.print("Noted m'lord. The following task has been removed:");
             uiInstance.print(Ui.INDENTATIONS + selectedTask);
-            uiInstance.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfTasks.size()));
+            uiInstance.print(String.format("Now you've %d ned.tasks in the list. Get to it then.", listOfTasks.size()));
         } catch (IndexOutOfBoundsException e) {
             throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
                     "size");
@@ -36,7 +36,7 @@ public class TaskList {
         this.listOfTasks.add(newTask);
         uiInstance.print("Aye, I've added this task m'lord:");
         uiInstance.print(Ui.INDENTATIONS + newTask);
-        uiInstance.print("Now you've " + this.listOfTasks.size() + " tasks left. Get to it then!");
+        uiInstance.print("Now you've " + this.listOfTasks.size() + " ned.tasks left. Get to it then!");
     }
 
     public void listTasks(Ui uiInstance) {
