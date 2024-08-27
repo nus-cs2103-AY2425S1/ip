@@ -6,6 +6,7 @@ import command.AddToDoCommand;
 import command.ByeCommand;
 import command.Command;
 import command.DeleteCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
@@ -113,6 +114,12 @@ public class Parser {
             int index = Integer.parseInt(cmd.split(" ")[1]) - 1;
 
             return new DeleteCommand(index);
+
+        } else if (cmd.startsWith("find")) {
+            // Parse command to get keyword
+            String keyword = cmd.substring(("find ").length());
+
+            return new FindCommand(keyword);
 
         } else {
             // Unknown command
