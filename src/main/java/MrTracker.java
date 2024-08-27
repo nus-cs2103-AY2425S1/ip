@@ -1,12 +1,15 @@
 package main.java;
-import main.java.Task;
-import main.java.ToDo;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MrTracker {
-
+    public static final String FILEPATH = "./data/tasks.txt";
+    public static final String DIRPATH = "./data";
     public enum PrefixString {
         BYE("bye"),
         LIST("list"),
@@ -161,16 +164,88 @@ public class MrTracker {
         } catch (NumberFormatException ex) {
             System.out.println("Please provide a valid number");
         }
-        
-        
-
     }
 
 
+    public static void loadData (ArrayList<Task> taskList)  {
+        try {
+            File dir = new File(MrTracker.DIRPATH);
+            if (!dir.exists()) {
+                boolean isDirExists = dir.mkdir();
+                if (!isDirExists) {
+                    System.out.println("Error: Directory " + MrTracker.DIRPATH + " could not be created" +
+                            " to store your tasks!");
+                    return;
+                }
+            }
+
+            File file = new File(MrTracker.FILEPATH);
+            if (!file.exists()) {
+                boolean isFileExists = file.createNewFile();
+                if (isFileExists) {
+                    System.out.println("File created to store your tasks!");
+                } else {
+                    System.out.println("Error: The file " + MrTracker.FILEPATH + " could not be " +
+                            "created to store your tasks!");
+                }
+
+                return;
+            }
+
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                // each line of text file is as follows:
+                // 'task type (T, D, E), done/not done (1,0), description,
+                // /from, /to'. Each field is separated by a |
+                String input = sc.nextLine();
+                String type = input.substring(0, 1);
+                String[] args = input.substring(1).split("|");
+                Task newTask = null;
+                switch (type){
+                case "T":
+                    newTask = new ToDo(args);
+                    break;
+
+                case "D":
+                    newTask = new DeadLine(args);
+                    break;
+
+                case "E":
+                    newTask = new Event(args);
+                    break;
+                }
+                taskList.add(newTask);
+            }
+            sc.close();
+        } catch (IOException ex) {
+            System.out.println("The file " + MrTracker.FILEPATH + " could not be read from");
+        } catch (SecurityException ex) {
+            System.out.println("The directory name " + MrTracker.DIRPATH + " could not be created due " +
+                    "to the security manager");
+        }
+    }
+
+    public static void save(ArrayList<Task> taskList) {
+        try {
+            FileWriter file = new FileWriter(MrTracker.FILEPATH);
+            for (Task item: taskList) {
+                file.write(item.toSave());
+            }
+            file.close();
+        } catch (IOException ex) {
+            System.out.println("Sorry, your tasks could not be saved");
+        }
+
+    }
+
     public static void main(String[] args) {
+
+        ArrayList<Task> taskList = new ArrayList<Task>();
+
+        MrTracker.loadData(taskList);
+
         String name = "Mr Tracker";
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<Task>();
         MrTracker.printLine();
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you? \n");
@@ -236,6 +311,7 @@ public class MrTracker {
             }
 
             MrTracker.printLine();
+            MrTracker.save(taskList);
             
         }
         System.out.println("Bye. Hope to see you again soon! \n");
