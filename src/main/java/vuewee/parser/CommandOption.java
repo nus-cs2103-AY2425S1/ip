@@ -5,8 +5,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Represents a command line option with its associated description and parser.
- * 
+ * Represents a command option with its associated description and parser.
+ * Options are passed as strings in the format "/option value" where "option" is
+ * the option string and "value" is the option value. The option value is parsed
+ * using the specified parser function and saved in the parsedValue field.
+ *
  * @param <T> the type of the parsed value
  */
 public class CommandOption<T> {
@@ -17,8 +20,9 @@ public class CommandOption<T> {
 
   /**
    * Constructs a CommandOption object with the specified option, description, and
-   * parser.
-   * 
+   * parser. The parser function is used to convert the option value to the
+   * desired type and perform validation checks as appropriate.
+   *
    * @param option      the option string
    * @param description the description of the option
    * @param parser      the parser function to convert the option value to the
@@ -33,7 +37,7 @@ public class CommandOption<T> {
   /**
    * Creates a CommandOption object for a string option with the specified option
    * and description.
-   * 
+   *
    * @param option      the option string
    * @param description the description of the option
    * @return a CommandOption object for a string option
@@ -44,7 +48,7 @@ public class CommandOption<T> {
 
   /**
    * Returns the option string.
-   * 
+   *
    * @return the option string
    */
   public String getOption() {
@@ -53,7 +57,7 @@ public class CommandOption<T> {
 
   /**
    * Returns the description of the option.
-   * 
+   *
    * @return the description of the option
    */
   public String getDescription() {
@@ -62,7 +66,7 @@ public class CommandOption<T> {
 
   /**
    * Returns the parsed value of the option.
-   * 
+   *
    * @return the parsed value of the option
    */
   public T getParsedValue() {
@@ -71,16 +75,15 @@ public class CommandOption<T> {
 
   /**
    * Parses the input string for the option value and saves the parsed value.
-   * Returns the index of the start of the match.
-   * If the option is not found, an IllegalArgumentException is thrown.
-   * 
+   *
    * @param input        the input string to parse
-   * @param endDelimeter the end delimiter of the option value
+   * @param endDelimiter the delimiter marking the end of the option value
    * @return the index of the start of the match
-   * @throws IllegalArgumentException if the option is not found
+   * @throws IllegalArgumentException if the option is not found in the input
+   *                                  string
    */
-  public int parse(String input, String endDelimeter) throws IllegalArgumentException {
-    Pattern pattern = Pattern.compile("/" + this.option + " (.+?)" + endDelimeter);
+  public int parse(String input, String endDelimiter) throws IllegalArgumentException {
+    Pattern pattern = Pattern.compile("/" + this.option + " (.+?)" + endDelimiter);
     Matcher matcher = pattern.matcher(input);
     if (!matcher.find()) {
       throw new IllegalArgumentException();

@@ -8,7 +8,10 @@ import vuewee.task.TaskList;
 import java.io.IOException;
 import java.nio.file.Files;
 
-// Singleton class to manage reading and writing tasks to a file
+/**
+ * The TasksStorage class represents a storage for tasks. Only once instance of
+ * TasksStorage is created, and it reads and writes tasks to a file.
+ */
 class TasksStorage {
   private static final Path DATA_DIRECTORY = Paths.get("data");
   private final Path TASKS_FILE_PATH = Paths.get(DATA_DIRECTORY.toString(), "tasks.txt");
@@ -25,7 +28,13 @@ class TasksStorage {
     }
   }
 
+  /**
+   * Returns an instance of TasksStorage.
+   *
+   * @return an instance of TasksStorage
+   */
   public static TasksStorage getInstance() {
+    // Singleton pattern
     if (instance == null) {
       instance = new TasksStorage();
     }
