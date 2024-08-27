@@ -136,7 +136,16 @@ public class Majima {
         }
         String by = parts[1].trim();
         if (canAddTask()) {
-            tasks.add(new Deadline(description, by));
+            Deadline newDeadline = new Deadline(description, by);
+            tasks.add(newDeadline);
+            try {
+                appendToFile(FILE_PATH, newDeadline.toFileString()
+                        + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println(LINEGAP);
+                System.out.println("Eh? Something went wrong while savin' the task!");
+                System.out.println(LINEGAP);
+            }
             System.out.println(LINEGAP);
             System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
             System.out.println(" " + tasks.get(tasks.size() - 1).toString());
@@ -151,7 +160,16 @@ public class Majima {
             throw new MajimaException("Kiryu-chan, you gotta describe what the task is!");
         }
         if (canAddTask()) {
-            tasks.add(new Todo(description));
+            Todo newTodo = new Todo(description);
+            tasks.add(newTodo);
+            try {
+                appendToFile(FILE_PATH, newTodo.toFileString()
+                        + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println(LINEGAP);
+                System.out.println("Eh? Something went wrong while savin' the task!");
+                System.out.println(LINEGAP);
+            }
             System.out.println(LINEGAP);
             System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
             System.out.println(" " + tasks.get(tasks.size() - 1).toString());
@@ -176,7 +194,16 @@ public class Majima {
         String from = dateParts[0].trim();
         String to = dateParts[1].trim();
         if (canAddTask()) {
-            tasks.add(new Event(description, from, to));
+            Event newEvent = new Event(description, from, to);
+            tasks.add(newEvent);
+            try {
+                appendToFile(FILE_PATH, newEvent.toFileString()
+                        + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println(LINEGAP);
+                System.out.println("Eh? Something went wrong while savin' the task!");
+                System.out.println(LINEGAP);
+            }
             System.out.println(LINEGAP);
             System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
             System.out.println(" " + tasks.get(tasks.size() - 1).toString());
@@ -205,16 +232,30 @@ public class Majima {
         try {
             if (!file.exists()) {
                 file.createNewFile();
+                System.out.println(LINEGAP);
                 System.out.println("Majima.txt has successfully been created. Nice ta meet 'cha!");
+                System.out.println(LINEGAP);
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
-    private static void loadTasks() {
-        
-    }
+    /*private static void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                System.out.println("Majima.txt not found. Let's start anew, yeah?");
+                firstBootCheck();
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                String[] parts = line
+            }
+        }
+    }*/
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
