@@ -1,7 +1,7 @@
 package errorhandling;
 
 /**
- * Custom exception class for handling exceptions specific to the Regina chatbot application.
+ * Custom exception class for handling exceptions specific to the regina.Regina chatbot application.
  * This class extends the built-in Exception class in Java.
  */
 public class ReginaException extends Exception {

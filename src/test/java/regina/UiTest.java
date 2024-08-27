@@ -1,3 +1,5 @@
+package regina;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UiTest {
 
-    private Ui ui; // The Ui instance we are testing
+    private Ui ui; // The regina.Ui instance we are testing
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -21,10 +23,10 @@ public class UiTest {
 
     @Test
     public void testGreet() {
-        ui.greet("Regina");
+        ui.greet("regina.Regina");
         String expectedOutput = String.format(
                 "    ********************************************************************\n"
-                        + "    Hey there! I'm Regina\n"
+                        + "    Hey there! I'm regina.Regina\n"
                         + "    I am a chatbot designed to help you track your activities.\n"
                         + "    You can add tasks using the following formats:\n"
                         + "    1. To add a To-Do task: todo <task_description>\n"
@@ -43,7 +45,8 @@ public class UiTest {
                         + "    4. List tasks: type 'list' to see all your tasks\n"
                         + "    5. Delete all current tasks: type 'clear'\n"
                         + "    6. Find out current date and time: type 'now'\n"
-                        + "    7. List out all tasks occurring at a specified date and time: occurring <date_and_time>\n"
+                        + "    7. List out all tasks occurring at a specified date and time:"
+                        + " occurring <date_and_time>\n"
                         + "       Example: occurring 2/12/2024 1800\n"
                         + "    8. For help: type 'help'\n"
                         + "    What can I do for you?\n"

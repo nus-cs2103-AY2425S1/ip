@@ -1,5 +1,5 @@
     -------------------------------
-    Hey there! I'm Regina
+    Hey there! I'm regina.Regina
     I am a chatbot designed to help you track your activities.
     You can add tasks using the following formats:
     1. To add a To-Do task: todo <task_description>

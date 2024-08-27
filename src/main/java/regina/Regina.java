@@ -1,18 +1,24 @@
+package regina;
+
 import dateandtime.ReginaDateAndTime;
 import errorhandling.ReginaException;
 import file.Storage;
-import tasks.*;
+import tasks.DeadlinesTask;
+import tasks.EventsTask;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.ToDosTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
 /**
- * The Regina class represents a chatbot designed to help users track their tasks and activities.
+ * The regina.Regina class represents a chatbot designed to help users track their tasks and activities.
  * It provides functionalities to add, mark, unmark, delete, and list tasks.
  */
 public class Regina {
-    private static final String NAME = "Regina";
+    private static final String NAME = "regina.Regina";
 
     private final Parser parser;
     private final Marker marker;
@@ -20,7 +26,7 @@ public class Regina {
     private TaskList listOfTasks;
 
     /**
-     * Constructs a Regina instance containing an empty task list and initializes the marker.
+     * Constructs a regina.Regina instance containing an empty task list and initializes the marker.
      */
     public Regina() {
         this.ui = new Ui();
@@ -93,7 +99,7 @@ public class Regina {
      * <p>
      * This method takes a date and time input, creates an instance of ReginaDateAndTime,
      * and retrieves all tasks from the task list that occur on that specific date and time.
-     * The resulting list of tasks is then displayed to the user via the Ui class.
+     * The resulting list of tasks is then displayed to the user via the regina.Ui class.
      *
      * @param dateAndTime A string representing the date and time to check for occurring tasks.
      * @throws ReginaException If the dateAndTime format is invalid or if an error occurs while
@@ -264,7 +270,7 @@ public class Regina {
     }
 
     public static void main(String[] args) {
-        Regina regina = new Regina(); // Create an instance of the Regina chatbot
+        Regina regina = new Regina(); // Create an instance of the regina.Regina chatbot
         regina.greet(); // Greet the user
         String userInput;
 

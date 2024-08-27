@@ -1,3 +1,5 @@
+package regina;
+
 import java.util.Optional;
 
 public class Parser {
@@ -9,7 +11,7 @@ public class Parser {
      * Parses the user input and returns the command type and relevant data.
      *
      * @param input The user input string.
-     * @return An Optional of CommandData containing command details (command type, task details).
+     * @return An Optional of regina.CommandData containing command details (command type, task details).
      */
     public Optional<CommandData> parse(String input) {
         // Check for command types
