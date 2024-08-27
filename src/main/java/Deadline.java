@@ -1,8 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a Deadline task that needs to be completed by a specific date/time.
  */
 public class Deadline extends Task {
-    private final String by; // The deadline for the task
+    private final LocalDateTime by; // The deadline for the task
+    private final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.
@@ -10,9 +15,9 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param by          The deadline by which the task must be completed.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        this.by = by;
+        this.by = LocalDateTime.parse(by, DEFAULT_FORMAT);
     }
 
     /**
@@ -22,9 +27,9 @@ public class Deadline extends Task {
      * @param by          The deadline by which the task must be completed.
      * @param isDone      The status of the deadline.
      */
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) throws DateTimeParseException {
         super(description, isDone);
-        this.by = by;
+        this.by = LocalDateTime.parse(by, DEFAULT_FORMAT);
     }
 
     /**
@@ -34,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString() + " | " + this.by;
+        return "D | " + super.toFileString() + " | " + this.by.format(DEFAULT_FORMAT);
     }
 
     /**
@@ -45,6 +50,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy, h:mma"))
+                + ")";
     }
 }

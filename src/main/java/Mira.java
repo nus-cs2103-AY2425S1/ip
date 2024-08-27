@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * Mira is a simple chatbot that echoes user commands and exits when the user types "bye".
@@ -73,6 +74,8 @@ public class Mira {
                 this.ui.showMessage(e.getMessage());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 this.ui.showMessage("Please provide a valid task number.");
+            } catch (DateTimeParseException e) {
+                this.ui.showMessage("Please input a valid date: 'd/M/yyyy HHmm'.");
             } catch (IOException e) {
                 this.ui.showMessage("File path for storing of tasks is unusable.");
             } catch (Exception e) {
