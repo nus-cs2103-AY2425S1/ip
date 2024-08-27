@@ -56,12 +56,9 @@ public class SecondMind {
     }
 
     private static Task createDeadline(String task) {
-        String[] taskInfo = task.split("/");
-        taskInfo = String.join(" ", taskInfo).split(" by ");
+        String[] taskInfo = task.split(" /by ");
         //Prefix of taskInfo[0] is "deadline "
         String taskDescription = taskInfo[0].substring(9);
-        //Strip whitespace at the end of taskDescription
-        taskDescription = taskDescription.trim();
         String taskDeadline = taskInfo[1];
         String data = "\nD|0|" + taskDescription + "|" + taskDeadline;
         try {
