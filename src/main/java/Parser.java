@@ -19,7 +19,8 @@ public class Parser {
         }
 
         switch (command) {
-
+        case ByeCommand.COMMAND_PREFIX:
+            return new ByeCommand(arguments);
         }
 
         return null;
