@@ -10,37 +10,40 @@ public class Void {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         */
         String logo =
-                "### ###   ## ##     ####   ### ##   \n" +
-                " ##  ##  ##   ##     ##     ##  ##  \n" +
-                " ##  ##  ##   ##     ##     ##  ##  \n" +
-                " ##  ##  ##   ##     ##     ##  ##  \n" +
-                " ### ##  ##   ##     ##     ##  ##  \n" +
-                "  ###    ##   ##     ##     ##  ##  \n" +
-                "   ##     ## ##     ####   ### ## \n";
+                "### ###   ## ##     ####   ### ##\n" +
+                " ##  ##  ##   ##     ##     ##  ##\n" +
+                " ##  ##  ##   ##     ##     ##  ##\n" +
+                " ##  ##  ##   ##     ##     ##  ##\n" +
+                " ### ##  ##   ##     ##     ##  ##\n" +
+                "  ###    ##   ##     ##     ##  ##\n" +
+                "   ##     ## ##     ####   ### ##\n";
 
         String[] greetings = {
-                "Hello! I'm your friendly void cat, \n",
-                "Purr... Hello, wanderer. I am \n",
-                "Mew! Welcome human! I'm \n",
-                "Greetings from the abyss, friend, for I am \n",
-                "Meow! Happy to help, they call me \n"
+//                "Hello! I'm your friendly void cat, \n",
+//                "Purr... Hello, wanderer. I am \n",
+//                "Mew! Welcome human! I'm \n",
+                "Greetings from the abyss, friend, for I am\n"
+//                ,
+//                "Meow! Happy to help, they call me \n"
         };
 
         String[] assistGreeting = {
-                "How can this void assist you today?",
-                "At your service, human.",
-                "What help does human need today?",
-                "Need any help?",
-                "What can I do for you?"
+//                "How can this void assist you today?",
+                "At your service, human."
+//                ,
+//                "What help does human need today?",
+//                "Need any help?",
+//                "What can I do for you?"
         };
 
         // Example of exits
         String[] exits = {
-                "Purr... Until next time, friend.",
-                "Meow! I shall vanish into the shadows now.",
-                "Farewell! May your path be clear.",
-                "Mew! See you in the void again soon.",
-                "The void calls, but I'll return. Goodbye!"
+//                "Purr... Until next time, friend.",
+                "Meow! I shall vanish into the shadows now."
+//                ,
+//                "Farewell! May your path be clear.",
+//                "Mew! See you in the void again soon.",
+//                "The void calls, but I'll return. Goodbye!"
         };
 
         Scanner scanner = new Scanner(System.in);
@@ -78,7 +81,7 @@ public class Void {
 
                 } else {
                     System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Here are the tasks in your list: ");
+                    System.out.printf(format, "Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.printf(format, (i + 1) + ". " + tasks.get(i));  // Lists all task objects
                     }
