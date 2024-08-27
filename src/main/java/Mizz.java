@@ -8,7 +8,7 @@ public class Mizz {
   private static final String NAME = "Mizz";
 
   /** Stores the past commands entered */
-  private final TaskHist usrTasks;
+  private final TaskList usrTasks;
   /** Greeting to be printed */
   private final String greeting;
   /** ByeBye to be printed */
@@ -25,7 +25,7 @@ public class Mizz {
   public Mizz(String greeting, String exitMsg) {
     this.greeting = greeting;
     this.exitMsg = exitMsg;
-    this.usrTasks = new TaskHist();
+    this.usrTasks = new TaskList();
     this.cmd = "";
   }
 

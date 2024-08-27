@@ -9,10 +9,10 @@ import tasks.ToDo;
 
 import java.util.ArrayList;
 
-public class TaskHist {
+public class TaskList {
   private List<Task> tasks;
 
-  public TaskHist() {
+  public TaskList() {
     this.tasks = new ArrayList<>(100);
   }
 
