@@ -1,4 +1,8 @@
-import java.util.Scanner;
+package shoai;
+import shoai.TaskList; // Imports TaskList for managing and displaying tasks
+import shoai.Task; // Imports Task for displaying task information
+import java.util.Scanner; // Imports Scanner for reading user input
+
 
 public class Ui {
     private Scanner scanner;

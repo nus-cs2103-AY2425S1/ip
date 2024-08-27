@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package shoai;
+import shoai.Task; // Imports the Task class for task management
+import shoai.ShoAIException; // Imports the ShoAIException class for handling exceptions
+import java.util.ArrayList; // Imports ArrayList for task storage
 
 public class TaskList {
     private ArrayList<Task> tasks;

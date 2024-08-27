@@ -1,5 +1,9 @@
-import java.io.*;
-import java.util.ArrayList;
+package shoai;
+import shoai.Task; // Imports the Task class for task handling
+import shoai.Parser; // Imports the Parser class for converting tasks to and from file strings
+import shoai.ShoAIException; // Imports the ShoAIException class for handling exceptions
+import java.io.*; // Imports classes for file handling (BufferedReader, BufferedWriter, File, FileReader, FileWriter, IOException)
+import java.util.ArrayList; // Imports ArrayList to store and manipulate the task list
 
 public class Storage {
     private String filePath;
