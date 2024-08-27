@@ -13,9 +13,9 @@ then
 fi
 
 # delete save file
-if [ -e "./data/save" ]
+if [ -e "./data/saveTasks" ]
 then
-    rm ./data/save
+    rm ./data/saveTasks
 fi
 
 # compile the code into the bin folder, terminates if error occurred
