@@ -1,12 +1,15 @@
 public class Task {
-    boolean isDone;
-    String taskDesc;
+    private boolean isDone;
+    private String taskDesc;
 
     public Task(String desc) {
         this.isDone = false;
         this.taskDesc = desc;
     }
 
+    public String getTaskDesc() {
+        return taskDesc;
+    }
     public void markAsComplete() {
         this.isDone = true;
     }
@@ -15,8 +18,14 @@ public class Task {
         this.isDone = false;
     }
 
-    @Override
-    public String toString() {
-        return this.isDone ? "[X] " : "[ ] ";
+    public String getStatusString() {
+        return this.isDone ? "X" : " ";
+    }
+    public int getStatusInt() {
+        return this.isDone ? 1 : 0;
+    }
+
+    public String getStorageString() {
+        return "";
     }
 }
