@@ -21,12 +21,15 @@ public class Parser {
         String[] description = input.strip().split(" ", 2);
         String task = description[0];
 
+        // Bye
         if (task.equalsIgnoreCase("bye")) {
             return new ExitCommand();
 
+        // Print List
         } else if (task.equalsIgnoreCase("list")) {
             return new PrintCommand();
 
+        // Add Todo
         } else if (task.equalsIgnoreCase("todo")) {
             if (description.length == 2) {
                 String taskName = description[1].strip();
@@ -35,9 +38,10 @@ public class Parser {
                 throw new DeltaException("""
                         OOPS!!! Description of todo cannot be left blank!
                         \t Please follow the proper format:
-                        \t * unmark [index of task]""");
+                        \t * todo [description]""");
             }
 
+        // Add Deadline
         } else if (task.equalsIgnoreCase("deadline")) {
             if (description.length == 2) {
                 String[] details = description[1].strip().split(" /by ");
@@ -65,6 +69,7 @@ public class Parser {
                         \t * deadline [description] /by [date/time]""");
             }
 
+        // Add Event
         } else if (task.equalsIgnoreCase("event")) {
             if (description.length == 2) {
                 String[] details = description[1].strip().split(" /from ");
@@ -107,39 +112,64 @@ public class Parser {
                         \t * event [description] /from [start] /to [end]""");
             }
 
+        // Mark Task
         } else if (task.equalsIgnoreCase("mark")) {
-            if (description.length == 2) {
-                int taskIdx = Integer.parseInt(description[1].strip());
-                return new MarkCommand(taskIdx);
-            } else {
+            if (description.length != 2) {
                 throw new DeltaException("""
                         OOPS!!! The format to mark tasks is wrong!
                         \t Please follow the proper format:
                         \t * mark [index of task]""");
             }
-
-        } else if (task.equalsIgnoreCase("unmark")) {
-            if (description.length == 2) {
+            try {
                 int taskIdx = Integer.parseInt(description[1].strip());
-                return new UnmarkCommand(taskIdx);
-            } else {
+                return new MarkCommand(taskIdx);
+            }
+            catch (NumberFormatException e) {
+                throw new DeltaException("""
+                        OOPS!!! The index of task to mark must be an integer!
+                        \t Please follow the proper format:
+                        \t * mark [index of task]""");
+            }
+
+        // Unmark Task
+        } else if (task.equalsIgnoreCase("unmark")) {
+            if (description.length != 2) {
                 throw new DeltaException("""
                         OOPS!!! The format to unmark tasks is wrong!
                         \t Please follow the proper format:
                         \t * unmark [index of task]""");
             }
-
-        } else if (task.equalsIgnoreCase("delete")) {
-            if (description.length == 2) {
+            try {
                 int taskIdx = Integer.parseInt(description[1].strip());
-                return new DeleteCommand(taskIdx);
-            } else {
+                return new UnmarkCommand(taskIdx);
+            }
+            catch (NumberFormatException e) {
+                throw new DeltaException("""
+                        OOPS!!! The index of task to unmark must be an integer!
+                        \t Please follow the proper format:
+                        \t * unmark [index of task]""");
+            }
+
+        // Delete Task
+        } else if (task.equalsIgnoreCase("delete")) {
+            if (description.length != 2) {
                 throw new DeltaException("""
                         OOPS!!! The format to delete tasks is wrong!
                         \t Please follow the proper format:
                         \t * delete [index of task]""");
             }
+            try {
+                int taskIdx = Integer.parseInt(description[1].strip());
+                return new DeleteCommand(taskIdx);
+            }
+            catch (NumberFormatException e) {
+                throw new DeltaException("""
+                        OOPS!!! The index of task to delete must be an integer!
+                        \t Please follow the proper format:
+                        \t * delete [index of task]""");
+            }
 
+        // Unknown Action
         } else {
             throw new DeltaException("""
                     OOPS!!! I'm sorry, but I don't know what that means :-(

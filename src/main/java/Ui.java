@@ -1,9 +1,10 @@
 import java.util.Scanner;
 
 public class Ui {
+    private Scanner scanner = new Scanner(System.in);
+
     public String readCommand() {
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
+        return scanner.nextLine();
     }
 
     public void showLine() {
@@ -19,7 +20,7 @@ public class Ui {
     }
 
     public void showCommand(String command) {
-        System.out.println(command);
+        System.out.println("\t " + command);
     }
 
     public void showError(String message) {

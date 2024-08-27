@@ -22,15 +22,19 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String[] details = sc.nextLine().replace("\n", "").split(" \\| ");
                 Task task;
-                if (details[0].equals("T")) {
+                if (details[0].equals("T") && details.length == 3) {
                     task = new Todo(details[2]);
-                } else if (details[0].equals("D")) {
+                } else if (details[0].equals("D") && details.length == 4) {
                     task = new Deadline(details[2], details[3]);
-                } else {
+                } else if (details[0].equals("E") && details.length == 5) {
                     task = new Event(details[2], details[3], details[4]);
+                } else {
+                    throw new DeltaException("OOPS!!! Save File has been corrupted!");
                 }
                 if (details[1].equals("1")) {
                     task.markAsDone();
+                } else if (!details[1].equals("0")) {
+                    throw new DeltaException("OOPS!!! Save File has been corrupted!");
                 }
                 tasks.add(task);
             }

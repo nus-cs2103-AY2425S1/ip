@@ -10,12 +10,9 @@ public class UnmarkCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
-        Task task = tasks.getTask(index);
-        tasks.unmarkTask(index);
-        ui.showCommand("\t____________________________________________________________\n" +
-                "\t Nice! I've marked this task as not done yet:\n" +
-                "\t   " + task + "\n" +
-                "\t____________________________________________________________");
+        Task task = tasks.unmarkTask(index);
+        ui.showCommand("Nice! I've marked this task as not done yet:\n" +
+                "\t   " + task);
         storage.save(tasks);
     }
 }

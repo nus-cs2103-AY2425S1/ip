@@ -27,7 +27,7 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void markTask(int index) throws DeltaException {
+    public Task markTask(int index) throws DeltaException {
         if (tasks.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to mark.");
         } else if (index < 1 || index > tasks.size()) {
@@ -41,9 +41,10 @@ public class TaskList {
         }
         task.markAsDone();
         tasks.set(index - 1, task);
+        return task;
     }
 
-    public void unmarkTask(int index) throws DeltaException {
+    public Task unmarkTask(int index) throws DeltaException {
         if (tasks.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to unmark.");
         } else if (index < 1 || index > tasks.size()) {
@@ -57,9 +58,10 @@ public class TaskList {
         }
         task.markAsNotDone();
         tasks.set(index - 1, task);
+        return task;
     }
 
-    public void deleteTask(int index) throws DeltaException {
+    public Task deleteTask(int index) throws DeltaException {
         if (tasks.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to delete.");
         } else if (index < 1 || index > tasks.size()) {
@@ -67,6 +69,8 @@ public class TaskList {
                     OOPS!!! Task not found in list.
                     \t Please provide a valid Task to delete.""");
         }
+        Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
+        return task;
     }
 }
