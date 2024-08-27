@@ -10,7 +10,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parses user input and returns the corresponding command.
+ */
 public class Parser {
+
+    /**
+     * Parses the given user input and returns the corresponding command.
+     *
+     * @param command String input by user.
+     * @return A command representing the user's input.
+     * @throws LamaException Thrown if input command is invalid or improperly formatted.
+     */
     public static Command parse(String command) throws LamaException {
         String[] words = command.split(" ", 2);
 
@@ -111,4 +122,5 @@ public class Parser {
 
 
     }
+
 }
