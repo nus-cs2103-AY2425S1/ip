@@ -29,7 +29,7 @@ public class Ned {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = CommandManager.parse(fullCommand);
+                Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage, fullCommand);
                 isExit = c.isExit();
             } catch (NedException e) {
