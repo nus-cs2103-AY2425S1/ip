@@ -28,10 +28,12 @@ public class Hamyo {
     }
 
     public static void main(String[] args) {
-        Hamyo hamyo = new Hamyo();
-        Scanner scanner = new Scanner(System.in);
         try {
-            loadData(hamyo);
+            Hamyo hamyo = new Hamyo();
+            Storage storage = new Storage("./savedTasks.txt");
+            Scanner scanner = new Scanner(System.in);
+
+            storage.loadData(hamyo, hamyo.tasks);
             while (hamyo.active) {
                 try {
                     String command = scanner.nextLine();
@@ -69,7 +71,7 @@ public class Hamyo {
                     default:
                         throw new HamyoException("Invalid Command!");
                     }
-                    saveData(hamyo);
+                    storage.saveData(hamyo, hamyo.tasks);
                 } catch (HamyoException e) {
                     System.out.println(e.toString());
                     UI.printLine();
@@ -184,62 +186,6 @@ public class Hamyo {
             UI.printLine();
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: delete [index]");
-        }
-    }
-
-    public static void loadData(Hamyo hamyo) throws HamyoException {
-        try {
-            File savedTasks = new File("./savedTasks.txt");
-            if (!savedTasks.exists()) {
-                savedTasks.createNewFile();
-            }
-            Scanner scannedTasks = new Scanner(savedTasks);
-            int currTask = 0;
-            while (scannedTasks.hasNext()) {
-                currTask++;
-                String[] task = scannedTasks.nextLine().split(" \\| ");
-                switch (task[0]) {
-                case "T":
-                    hamyo.tasks.add(new ToDo(new String[]{task[2]}));
-                    break;
-                case "D":
-                    hamyo.tasks.add(new Deadline(new String[]{task[2], task[3]}));
-                    break;
-                case "E":
-                    hamyo.tasks.add(new Event(new String[]{task[2], task[3], task[4]}));
-                    break;
-                default:
-                    throw new HamyoException("Invalid case " + task[0] + ".");
-                }
-                switch (task[1]) {
-                case "1":
-                    mark(hamyo, " " + currTask);
-                    break;
-                case "0":
-                    break;
-                default:
-                    throw new HamyoException("Invalid boolean " + task[1] + ".");
-            }
-            }
-        } catch (HamyoException e) {
-            throw new HamyoException("Possible File Corruption. " + e.getMessage());
-        } catch (IOException e) {
-            throw new HamyoException(e.getMessage());
-        }
-    }
-
-    public static void saveData(Hamyo hamyo) throws HamyoException {
-        try {
-            FileWriter fw = new FileWriter("./savedTasks.txt");
-            StringBuilder newData = new StringBuilder();
-            for (Task task : hamyo.tasks) {
-                newData.append(task.toFileFormat()).append(System.lineSeparator());
-            }
-            //System.out.println(newData.toString());
-            fw.write(newData.toString());
-            fw.close();
-        } catch (IOException e) {
-            throw new HamyoException(e.getMessage());
         }
     }
 }

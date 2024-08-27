@@ -1,3 +1,6 @@
+/**
+ * Ui - deals with interactions with the user.
+ */
 public class UI {
 
   public void greet() {

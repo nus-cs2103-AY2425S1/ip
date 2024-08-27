@@ -1,0 +1,78 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Storage - deals with loading tasks from the file and saving tasks in the file.
+ */
+public class Storage {
+
+  private final String path;
+  private File file;
+
+  public Storage(String path) throws HamyoException {
+    try {
+      this.path = path;
+      File tempFile = new File("./savedTasks.txt");
+      if (!tempFile.exists()) {
+        tempFile.createNewFile();
+      }
+      this.file = tempFile;
+    } catch (IOException e) {
+      throw new HamyoException(e.getMessage());
+    }
+  }
+
+  public void loadData(Hamyo hamyo, ArrayList<Task> tasks) throws HamyoException {
+    try {
+      Scanner scannedTasks = new Scanner(this.file);
+      int currTask = 0;
+      while (scannedTasks.hasNext()) {
+        currTask++;
+        String[] task = scannedTasks.nextLine().split(" \\| ");
+        switch (task[0]) {
+        case "T":
+          tasks.add(new ToDo(new String[]{task[2]}));
+          break;
+        case "D":
+          tasks.add(new Deadline(new String[]{task[2], task[3]}));
+          break;
+        case "E":
+          tasks.add(new Event(new String[]{task[2], task[3], task[4]}));
+          break;
+        default:
+          throw new HamyoException("Invalid case " + task[0] + ".");
+        }
+        switch (task[1]) {
+        case "1":
+          Hamyo.mark(hamyo, " " + currTask);
+          break;
+        case "0":
+          break;
+        default:
+          throw new HamyoException("Invalid boolean " + task[1] + ".");
+        }
+      }
+    } catch (HamyoException e) {
+      throw new HamyoException("Possible File Corruption. " + e.getMessage());
+    } catch (IOException e) {
+      throw new HamyoException(e.getMessage());
+    }
+  }
+
+  public void saveData(Hamyo hamyo, ArrayList<Task> tasks) throws HamyoException {
+    try {
+      FileWriter fileWriter = new FileWriter(this.path);
+      StringBuilder newData = new StringBuilder();
+      for (Task task : tasks) {
+        newData.append(task.toFileFormat()).append(System.lineSeparator());
+      }
+      fileWriter.write(newData.toString());
+      fileWriter.close();
+    } catch (IOException e) {
+      throw new HamyoException(e.getMessage());
+    }
+  }
+}
