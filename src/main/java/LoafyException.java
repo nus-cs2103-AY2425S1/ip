@@ -18,8 +18,8 @@ public class LoafyException extends Exception {
         return "Hmm, did you want to say something?";
     }
 
-    static String invalidMark() {
-        return "Hmm, commands 'mark' or 'unmark' must be followed by a valid task number\n" +
+    static String invalidAction() {
+        return "Hmm, commands 'mark', 'unmark', and 'delete' must be followed by a valid task number\n" +
                 "   eg. mark 1";
     }
 

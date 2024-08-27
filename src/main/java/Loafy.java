@@ -19,18 +19,24 @@ public class Loafy {
             } else if (command.equals("list")) {
                 reply(tl.view());
             } else if (arr[0].equals("mark")
-                    || arr[0].equals("unmark")) {
+                    || arr[0].equals("unmark")
+                    || arr[0].equals("delete")) {
                 if (arr.length != 2) {
-                    reply(LoafyException.invalidMark());
+                    reply(LoafyException.invalidAction());
                 } else {
                     try {
                         int taskId = Integer.parseInt(arr[1]);
-                        boolean isDone = arr[0].equals("mark");
-                        // set isDone to true if "mark", false if "unmark"
-                        String msg = tl.markTask(isDone, taskId);
+                        String msg;
+                        if (arr[0].equals("delete")) {
+                            msg = tl.delete(taskId);
+                        } else {
+                            // set isDone to true if "mark", false if "unmark";
+                            boolean isDone = arr[0].equals("mark");
+                            msg = tl.markTask(isDone, taskId);
+                        }
                         reply(msg);
                     } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-                        reply(LoafyException.invalidMark());
+                        reply(LoafyException.invalidAction());
                     }
                 }
             } else if (arr[0].equals("todo")) {

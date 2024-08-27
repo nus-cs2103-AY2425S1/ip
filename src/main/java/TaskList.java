@@ -7,16 +7,16 @@ public class TaskList {
     }
 
     String add(Task task) {
-        lst.add(task);
+        this.lst.add(task);
         return "Got it. I've added this task:\n" +
                 "   " + task + "\n" +
-                "Now you have " + lst.size() + " tasks in the list.";
+                "Now you have " + this.lst.size() + " tasks in the list.";
     }
 
     String view() {
         int i = 1;
         String s = "Here are the tasks in your list:";
-        for (Task task : lst) {
+        for (Task task : this.lst) {
             s += "\n" + i + ". " + task;
             i++;
         }
@@ -24,8 +24,16 @@ public class TaskList {
     }
 
     String markTask(boolean isDone, int taskId) {
-        Task task = lst.get(taskId - 1);
+        Task task = this.lst.get(taskId - 1);
         task.changeStatus(isDone);
         return task.toString();
+    }
+
+    String delete(int taskId) {
+        Task task = this.lst.get(taskId - 1);
+        this.lst.remove(taskId - 1);
+        return "Got it. I've removed this task:\n" +
+                "   " + task + "\n" +
+                "Now you have " + this.lst.size() + " tasks in the list.";
     }
 }
