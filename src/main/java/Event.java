@@ -8,6 +8,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(boolean done, String name, String from, String to) {
+        super(done, name);
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String toText() {
         return String.format("E | %s | %s | %s", super.toText(), from, to);

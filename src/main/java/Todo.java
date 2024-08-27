@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(name);
     }
 
+    public Todo(boolean done, String name) {
+        super(done, name);
+    }
+
     @Override
     public String toText() {
         return "T | " + super.toText();

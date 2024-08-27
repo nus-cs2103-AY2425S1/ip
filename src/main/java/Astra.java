@@ -115,22 +115,19 @@ public class Astra {
     }
 
     public static void delete(int index) throws AstraException {
-        Task t = tasks.get(index);
-        tasks.delete(index);
+        Task t = tasks.delete(index);
         String msg = " Noted. I've removed this task: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
 
     public static void mark(int index) throws AstraException {
-        Task t = tasks.get(index);
-        t.setDone(true);
+        Task t = tasks.markAsDone(index, true);
         String msg = " Nice! I've marked this task as done: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
 
     public static void unmark(int index) throws AstraException {
-        Task t = tasks.get(index);
-        t.setDone(false);
+        Task t = tasks.markAsDone(index, false);
         String msg = " OK, I've marked this task as not done yet: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
@@ -168,6 +165,8 @@ public class Astra {
                 System.out.println(formatMsg(e.getMessage() + "\n"));
             }
         }
+
+        inp.close();
         goodbye();
     }
 }

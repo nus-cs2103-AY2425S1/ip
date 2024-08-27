@@ -38,18 +38,31 @@ public class TaskList {
         saveTasks();
     }
 
-    public void delete(int index) throws AstraException {
+    public Task get(int index) throws AstraException {
         try {
-            tasks.remove(index - 1);
-            saveTasks();
+            return tasks.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new AstraException("Invalid index.");
         }
     }
 
-    public Task get(int index) throws AstraException {
+    public Task delete(int index) throws AstraException {
         try {
-            return tasks.get(index - 1);
+            Task t = this.get(index);
+            tasks.remove(index - 1);
+            saveTasks();
+            return t;
+        } catch (IndexOutOfBoundsException e) {
+            throw new AstraException("Invalid index.");
+        }
+    }
+
+    public Task markAsDone(int index, boolean done) throws AstraException {
+        try {
+            Task t = this.get(index);
+            t.setDone(done);
+            saveTasks();
+            return t;
         } catch (IndexOutOfBoundsException e) {
             throw new AstraException("Invalid index.");
         }
@@ -60,7 +73,18 @@ public class TaskList {
     }
 
     private void loadTasks() {
-
+        File f = new File(PATH + "/tasks.txt");
+        try {
+            Scanner inp = new Scanner(f);
+            while (inp.hasNextLine()) {
+                String line = inp.nextLine();
+                this.add(Task.fromText(line));
+            }
+            inp.close();
+        } catch (FileNotFoundException ignored) {
+        } catch (Exception e) {
+            System.out.println("Data file corrupted, failed to read all tasks.");
+        }
     }
 
     private void saveTasks() {
@@ -71,7 +95,7 @@ public class TaskList {
             fw.write(this.toText());
             fw.close();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 }

@@ -6,6 +6,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(boolean done, String name, String by) {
+        super(done, name);
+        this.by = by;
+    }
+
     @Override
     public String toText() {
         return "D | " + super.toText() + " | " + by;
