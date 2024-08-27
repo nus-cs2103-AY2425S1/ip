@@ -11,6 +11,9 @@ import qwerty.Ui;
 import qwerty.task.Event;
 import qwerty.task.Task;
 
+/**
+ * This class encapsulates an 'event' command.
+ */
 public class EventCommand extends Command {
 
     public EventCommand(HashMap<String, String> args) {
@@ -22,6 +25,14 @@ public class EventCommand extends Command {
         return false;
     }
 
+    /**
+     * Creates a new Event task and adds it to the TaskList.
+     *
+     * @param tasks The TaskList component handling storage of Task objects.
+     * @param ui The Ui component handling user interaction.
+     * @param storage The Storage component handling read/write to hard disk.
+     * @throws QwertyException If arguments are missing or date arguments are not formatted correctly.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws QwertyException {
         String description = getArgs().get("main");

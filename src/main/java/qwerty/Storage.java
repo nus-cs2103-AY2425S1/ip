@@ -21,7 +21,11 @@ public class Storage {
     }
 
     /**
-     * Saves the current list of tasks to the hard disk.
+     * Saves the current list of tasks in the given TaskList to the hard drive.
+     * Writes into a file at the specified path in savePath.
+     * If the file does not exist, create it.
+     *
+     * @param taskList The TaskList object.
      */
     public void saveTasks(TaskList taskList) {
         File file = new File(savePath);
@@ -44,8 +48,12 @@ public class Storage {
     }
 
     /**
-     * Loads the task list from the file located at the specified savepath in
-     * the hard disk.
+     * Loads tasks into the given TaskList.
+     * Parses the string contents of the file located at the specified savepath.
+     * If the file does not exist, do nothing.
+     * If certain arguments are missing, prints an error statement.
+     *
+     * @param taskList The TaskList object to load into.
      */
     public void loadTasks(TaskList taskList) {
         File file = new File(savePath);
@@ -62,7 +70,7 @@ public class Storage {
                             break; // skip empty lines
                         case "T":
                             if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for qwerty.task.Todo qwerty.task");
+                                throw new QwertyException("Missing arguments for Todo task");
                             }
                             Task todo = new Todo(args[2]);
                             if (args[1].equals("X")) {
@@ -72,7 +80,7 @@ public class Storage {
                             break;
                         case "D":
                             if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for qwerty.task.Deadline qwerty.task");
+                                throw new QwertyException("Missing arguments for Deadline task");
                             }
                             Task deadline = new Deadline(
                                     args[2],
@@ -85,7 +93,7 @@ public class Storage {
                             break;
                         case "E":
                             if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for qwerty.task.Event qwerty.task");
+                                throw new QwertyException("Missing arguments for Event task");
                             }
                             Task event = new Event(args[2],
                                     LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
@@ -97,7 +105,7 @@ public class Storage {
                             taskList.addTask(event);
                             break;
                         default:
-                            System.out.println("Unrecognised qwerty.task identifier: " + args[0]);
+                            System.out.println("Unrecognised task identifier: " + args[0]);
                             break;
                         }
                     } catch (QwertyException e) {

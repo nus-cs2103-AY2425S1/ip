@@ -3,7 +3,7 @@ package qwerty.task;
 import java.util.List;
 
 /**
- * Class encapsulating a Task.
+ * This class encapsulates a Task.
  */
 public abstract class Task {
     /** String description of the task */
@@ -25,12 +25,18 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * Returns a boolean, true if the task is done and false otherwise.
+     *
+     * @return Boolean representing if task is done.
+     */
     public boolean getIsDone() {
         return this.isDone;
     }
 
     /**
      * Returns an icon marking the task's completion status.
+     * If the task is done, returns "X", else returns " ".
      *
      * @return Status icon.
      */

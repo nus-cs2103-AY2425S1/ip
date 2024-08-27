@@ -6,6 +6,9 @@ import qwerty.TaskList;
 import qwerty.Ui;
 import qwerty.task.Task;
 
+/**
+ * This class encapsulates a 'delete' command.
+ */
 public class DeleteCommand extends Command {
 
     public DeleteCommand(HashMap<String, String> args) {
@@ -17,6 +20,14 @@ public class DeleteCommand extends Command {
         return false;
     }
 
+    /**
+     * Deletes the task in the TaskList at the given index.
+     * The index starts counting from 1.
+     *
+     * @param tasks The TaskList component handling storage of Task objects.
+     * @param ui The Ui component handling user interaction.
+     * @param storage The Storage component handling read/write to hard disk.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

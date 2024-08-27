@@ -6,6 +6,9 @@ import qwerty.TaskList;
 import qwerty.Ui;
 import qwerty.task.Task;
 
+/**
+ * This class encapsulates a 'mark' command.
+ */
 public class MarkCommand extends Command {
 
     public MarkCommand(HashMap<String, String> args) {
@@ -17,6 +20,13 @@ public class MarkCommand extends Command {
         return false;
     }
 
+    /**
+     * Marks the task at the given index in the TaskList as done.
+     *
+     * @param tasks The TaskList component handling storage of Task objects.
+     * @param ui The Ui component handling user interaction.
+     * @param storage The Storage component handling read/write to hard disk.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

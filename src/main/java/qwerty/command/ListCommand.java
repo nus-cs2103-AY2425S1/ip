@@ -5,6 +5,9 @@ import qwerty.Storage;
 import qwerty.TaskList;
 import qwerty.Ui;
 
+/**
+ * This class encapsulates a 'list' command.
+ */
 public class ListCommand extends Command {
 
     public ListCommand(HashMap<String, String> args) {
@@ -16,6 +19,13 @@ public class ListCommand extends Command {
         return false;
     }
 
+    /**
+     * Displays the list of tasks in the TaskList to the user.
+     *
+     * @param tasks The TaskList component handling storage of Task objects.
+     * @param ui The Ui component handling user interaction.
+     * @param storage The Storage component handling read/write to hard disk.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showMessage("\nHere are the tasks in your list:"

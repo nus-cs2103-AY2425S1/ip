@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class encapsulates an Event type qwerty.task.
+ * This class encapsulates an Event type task.
  * An Event starts at a specific time and ends at a specific time.
  */
 public class Event extends Task {
@@ -24,6 +24,7 @@ public class Event extends Task {
 
     /**
      * Returns the event start time as a formatted string.
+     * The format is "MMM dd yyyy HHmm", e.g. "Aug 26 2024 1450".
      *
      * @return Formatted string representing the event start time.
      */
@@ -33,6 +34,7 @@ public class Event extends Task {
 
     /**
      * Returns the event end time as a formatted string.
+     * The format is "MMM dd yyyy HHmm", e.g. "Aug 26 2024 1450".
      *
      * @return Formatted string representing the event end time.
      */

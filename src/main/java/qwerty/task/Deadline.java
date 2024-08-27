@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * This class encapsulates a Deadline type task.
- * A Deadline needs to be done before a specific time.
+ * A Deadline contains a time by which it is due.
  */
 public class Deadline extends Task {
 
@@ -21,6 +21,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the deadline as a formatted string.
+     * The format is "MMM dd yyyy HHmm", e.g. "Aug 26 2024 1450".
      *
      * @return Formatted string representing the deadline.
      */

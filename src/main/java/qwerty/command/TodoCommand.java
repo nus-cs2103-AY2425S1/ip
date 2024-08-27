@@ -8,6 +8,9 @@ import qwerty.Ui;
 import qwerty.task.Task;
 import qwerty.task.Todo;
 
+/**
+ * This class encapsulates a 'todo' command.
+ */
 public class TodoCommand extends Command {
     public TodoCommand(HashMap<String, String> args) {
         super(args);
@@ -18,6 +21,14 @@ public class TodoCommand extends Command {
         return false;
     }
 
+    /**
+     * Creates a new Todo task and adds it to the TaskList.
+     *
+     * @param tasks The TaskList component handling storage of Task objects.
+     * @param ui The Ui component handling user interaction.
+     * @param storage The Storage component handling read/write to hard disk.
+     * @throws QwertyException If the description parameter is missing its argument.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws QwertyException {
         String description = getArgs().get("main");

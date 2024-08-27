@@ -3,8 +3,13 @@ package qwerty;
 import java.util.ArrayList;
 import qwerty.task.Task;
 
+/**
+ * This class encapsulates a TaskList object.
+ * A TaskList handles operations such as the addition, deletion and marking of tasks.
+ */
 public class TaskList {
 
+    /** List containing the Task objects */
     private final ArrayList<Task> tasks;
 
     public TaskList() {
@@ -15,10 +20,22 @@ public class TaskList {
         tasks = list;
     }
 
+    /**
+     * Returns the number of tasks currently in the TaskList.
+     *
+     * @return Current size of the TaskList.
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Returns the task at the given index in the TaskList.
+     *
+     * @param index The index of the task.
+     * @return The task at the given index.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public Task getTask(int index) throws IndexOutOfBoundsException {
         return tasks.get(index - 1);
     }
@@ -38,13 +55,16 @@ public class TaskList {
      * Deletes the task at the given index.
      *
      * @param index The index of the task to be deleted.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public void deleteTask(int index) throws IndexOutOfBoundsException {
         tasks.remove(index - 1);
     }
 
     /**
-     * Returns the list of tasks.
+     * Returns a string enumerating the tasks in the TaskList.
+     *
+     * @return String representing the tasks in the TaskList.
      */
     public String listTasks() {
         int taskNumber = 1;
@@ -60,6 +80,7 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param index The index of the task to be marked, starting from 1.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public void markTaskAsDone(int index) throws IndexOutOfBoundsException {
         tasks.get(index - 1).markAsDone();
@@ -69,13 +90,16 @@ public class TaskList {
      * Marks a task as not done.
      *
      * @param index The index of the task to be marked, starting from 1.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public void markTaskAsNotDone(int index) {
+    public void markTaskAsNotDone(int index) throws IndexOutOfBoundsException {
         tasks.get(index - 1).markAsNotDone();
     }
 
     /**
      * Returns a string generated from the tasks currently in the task list.
+     * The string contains all the details needed to reconstruct each task,
+     * making it suitable to be used in a save file.
      *
      * @return String containing task details.
      */
