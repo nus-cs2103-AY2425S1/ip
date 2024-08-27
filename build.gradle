@@ -18,12 +18,14 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("blob.Blob")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "blob"
     archiveClassifier = null
+    archiveVersion = "v0.1"
+    archiveFileName = "blob.jar"
 }
 
 run{
