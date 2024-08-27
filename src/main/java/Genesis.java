@@ -1,15 +1,23 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.*;
+import java.io.File;
 class Task {
     protected String description;
     protected boolean isComplete;
 
-    public Task (String description) {
+    protected String input;
+
+    public Task (String description, String input) {
         this.description = description;
         this.isComplete = false;
+        this.input = input;
     }
 
+    public String getInput() {
+        return this.input;
+    }
 
     @Override
     public String toString() {
@@ -31,8 +39,8 @@ class Task {
 }
 
 class Todo extends Task {
-    public Todo (String description) {
-        super(description);
+    public Todo (String description, String input) {
+        super(description, input);
     }
 
     @Override
@@ -43,8 +51,8 @@ class Todo extends Task {
 
 class Deadline extends Task {
     protected String deadline;
-    public Deadline (String description, String deadline) {
-        super(description);
+    public Deadline (String description, String deadline, String input) {
+        super(description, input);
         this.deadline = deadline;
     }
 
@@ -57,8 +65,8 @@ class Deadline extends Task {
 class Event extends Task {
     protected String startTime;
     protected String endTime;
-    public Event (String description, String startTime, String endTime) {
-        super(description);
+    public Event (String description, String startTime, String endTime, String input) {
+        super(description, input);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -69,15 +77,23 @@ class Event extends Task {
 }
 
 class TaskManager {
-    private ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+
+
+    public void addTask(Task task, boolean silent) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
+        if (!silent) {
+            System.out.println("Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
+        }
     }
 
     public void listTasks() {
@@ -122,13 +138,43 @@ class TaskManager {
 }
 
 class CommandParser {
-    private TaskManager taskManager;
+    protected TaskManager taskManager;
 
     public CommandParser(TaskManager taskManager) {
         this.taskManager = taskManager;
+        loadTasks();
+    }
+    public void loadTasks() {
+        File f = new File("data/tasks.txt");
+        if (f.exists()) {
+            try (Scanner s = new Scanner(f)) {
+                while (s.hasNext()) {
+                    parseCommand(s.nextLine(), true);
+                }
+
+            } catch (IOException e) {
+                System.out.println("Error loading tasks from file: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Error. Data file does not exist!");
+        }
     }
 
-    public void parseCommand(String input) {
+    public void writeTasks() {
+        try (FileWriter fw = new FileWriter("data/tasks.txt")) {
+            ArrayList<Task> tasks = this.taskManager.tasks;
+            for (Task task: tasks) {
+                fw.write(task.getInput() + System.lineSeparator());
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("File does not exist!");
+        }
+
+    }
+
+    public void parseCommand(String input, boolean silent) {
         if (input.equalsIgnoreCase("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
             System.exit(0);
@@ -141,11 +187,11 @@ class CommandParser {
         } else if (input.startsWith("delete ")) {
             handleDelete(input);
         } else if (input.startsWith("deadline ")) {
-            handleDeadline(input);
+            handleDeadline(input, silent);
         } else if (input.startsWith("todo ")) {
-            handleTodo(input);
+            handleTodo(input, silent);
         } else if (input.startsWith("event ")) {
-            handleEvent(input);
+            handleEvent(input, silent);
         } else {
             System.out.println("Sorry, I am not sure what task this is! Please enter a valid task.");
         }
@@ -155,6 +201,7 @@ class CommandParser {
         try {
             int index = Integer.parseInt(input.substring(5)) - 1;
             taskManager.markTask(index);
+            writeTasks();
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         }
@@ -164,6 +211,7 @@ class CommandParser {
         try {
             int index = Integer.parseInt(input.substring(7)) - 1;
             taskManager.unmarkTask(index);
+            writeTasks();
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         }
@@ -173,12 +221,13 @@ class CommandParser {
         try {
             int index = Integer.parseInt(input.substring(7)) - 1;
             taskManager.deleteTask(index);
+            writeTasks();
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
         }
     }
 
-    private void handleDeadline(String input) {
+    private void handleDeadline(String input, boolean silent) {
         if (!input.contains("/by ")) {
             System.out.println("You need a deadline to add this task!");
             return;
@@ -190,21 +239,23 @@ class CommandParser {
             return;
         }
         String deadline = parts[1].trim();
-        Deadline deadlineTask = new Deadline(taskName, deadline);
-        taskManager.addTask(deadlineTask);
+        Deadline deadlineTask = new Deadline(taskName, deadline, input);
+        taskManager.addTask(deadlineTask, silent);
+        writeTasks();
     }
 
-    private void handleTodo(String input) {
+    private void handleTodo(String input, boolean silent) {
         String taskName = input.replaceFirst("todo ", "").trim();
         if (taskName.isEmpty()) {
             System.out.println("You need a task description!");
             return;
         }
-        Todo todoTask = new Todo(taskName);
-        taskManager.addTask(todoTask);
+        Todo todoTask = new Todo(taskName, input);
+        taskManager.addTask(todoTask, silent);
+        writeTasks();
     }
 
-    private void handleEvent(String input) {
+    private void handleEvent(String input, boolean silent) {
         if (!input.contains("/from ") || !input.contains("/to ")) {
             System.out.println("You need a starting and ending date to add this task!");
             return;
@@ -218,8 +269,9 @@ class CommandParser {
         }
         String startDate = dateParts[0].trim();
         String endDate = dateParts[1].trim();
-        Event eventTask = new Event(taskName, startDate, endDate);
-        taskManager.addTask(eventTask);
+        Event eventTask = new Event(taskName, startDate, endDate, input);
+        taskManager.addTask(eventTask, silent);
+        writeTasks();
     }
 }
 
@@ -234,7 +286,7 @@ public class Genesis {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
-            parser.parseCommand(input);
+            parser.parseCommand(input, false);
         }
     }
 }
