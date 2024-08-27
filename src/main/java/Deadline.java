@@ -10,26 +10,10 @@ public class Deadline extends Task {
         this.deadlineBy = deadlineBy;
     }
 
-    public static Deadline parseTask(String taskData) {
-        if (taskData.startsWith("D |")) {
-            String[] parts = taskData.split(" \\| ");
-            String description = parts[2].trim();
-            LocalDateTime dateTime = null;
-            if (parts.length > 3) {
-                try {
-                    dateTime = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                }
-                catch (DateTimeParseException e) {
-                    System.out.println("Warning: There is no date format provided");
-                }
-            }
-            Deadline deadline = new Deadline(description, dateTime);
-            if (parts[1].trim().equals("1")) {
-                deadline.markDone();
-            }
-            return deadline;
-        }
-        throw new IllegalArgumentException("Invalid Deadline format");
+    @Override
+    public String toString() {
+        return "[D][" + (this.getDone() ? "X" : " ") + "] " + this.getDescription() +
+                (deadlineBy != null ? " (by: " + deadlineBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
     }
 
     @Override
@@ -38,9 +22,21 @@ public class Deadline extends Task {
                 (deadlineBy != null ? " | " + deadlineBy.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "");
     }
 
-    @Override
-    public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " + this.getDescription() +
-                (deadlineBy != null ? " (by: " + deadlineBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
+    public static Deadline parseTask(String taskData) {
+        String[] parts = taskData.split(" \\| ");
+        String description = parts[2].trim();
+        LocalDateTime deadlineBy = null;
+        if (parts.length > 3) {
+            try {
+                deadlineBy = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            } catch (DateTimeParseException e) {
+                System.out.println("Warning: There is no date format provided");
+            }
+        }
+        Deadline deadline = new Deadline(description, deadlineBy);
+        if (parts[1].trim().equals("1")) {
+            deadline.markDone();
+        }
+        return deadline;
     }
 }

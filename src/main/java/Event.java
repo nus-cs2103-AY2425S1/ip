@@ -12,29 +12,11 @@ public class Event extends Task {
         this.eventTo = eventTo;
     }
 
-    public static Event parseTask(String taskData) {
-        if (taskData.startsWith("E |")) {
-            String[] parts = taskData.split(" \\| ");
-            String description = parts[2];
-            LocalDateTime from = null;
-            LocalDateTime to = null;
-            if (parts.length > 3) {
-                try {
-                    from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                    if (parts.length > 4) {
-                        to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Warning: There is no date format provided.");
-                }
-            }
-            Event event = new Event(description, from, to);
-            if (parts[1].trim().equals("1")) {
-                event.markDone();
-            }
-            return event;
-        }
-        throw new IllegalArgumentException("Invalid Event format");
+    @Override
+    public String toString() {
+        return "[E][" + (this.getDone() ? "X" : " ") + "] " + this.getDescription() +
+                (eventFrom != null ? " (from: " + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) : "") +
+                (eventTo != null ? " to: " + eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
     }
 
     @Override
@@ -44,10 +26,25 @@ public class Event extends Task {
                 (eventTo != null ? " | " + eventTo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) : "");
     }
 
-    @Override
-    public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + this.getDescription() +
-                (eventFrom != null ? " (from: " + eventFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) : "") +
-                (eventTo != null ? " to: " + eventTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" : "");
+    public static Event parseTask(String taskData) {
+        String[] parts = taskData.split(" \\| ");
+        String description = parts[2];
+        LocalDateTime from = null;
+        LocalDateTime to = null;
+        if (parts.length > 3) {
+            try {
+                from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                if (parts.length > 4) {
+                    to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Warning: There is no date format provided.");
+            }
+        }
+        Event event = new Event(description, from, to);
+        if (parts[1].trim().equals("1")) {
+            event.markDone();
+        }
+        return event;
     }
 }
