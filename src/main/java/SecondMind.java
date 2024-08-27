@@ -131,6 +131,51 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static void updateTaskInDataFile(int taskNumber, boolean done) {
+        int lineNumber = 1;
+        try {
+            File oldFile = new File(DATA_FILE_PATH);
+            File newFile = new File("../../../tempDataFile.txt");
+            FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
+            Scanner s = new Scanner(oldFile);
+            while (s.hasNext()) {
+                String currentLine = s.nextLine();
+                if (lineNumber == taskNumber) {
+                    StringBuilder sb = new StringBuilder();
+                    //Add task type and "|" to stringbuilder
+                    sb.append(currentLine.substring(0,2));
+                    if (done) {
+                        sb.append("1");
+                    } else {
+                        sb.append("0");
+                    }
+                    //Add rest of line
+                    sb.append(currentLine.substring(3));
+                    if (lineNumber < taskCount()) {
+                        fw.write(sb.toString() + "\n");
+                    } else {
+                        fw.write(sb.toString());
+                    }
+                    lineNumber++;
+                    continue;
+                }
+                if (lineNumber < taskCount()) {
+                    fw.write(currentLine + "\n");
+                } else {
+                    fw.write(currentLine);
+                }
+                lineNumber++;
+            }
+            s.close();
+            fw.close();
+            newFile.renameTo(oldFile);
+        } catch (FileNotFoundException e) {
+            printErrorMessage(e);
+        } catch (IOException e) {
+            printErrorMessage(e);
+        }
+    }
+
     private static void markAsDone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0) {
             printLineSeparator();
