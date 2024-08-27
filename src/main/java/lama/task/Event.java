@@ -31,14 +31,15 @@ public class Event extends Task {
     }
 
     /**
-     * Return a string representation of a event task.
-     * The format of the string is "[E][status] description (from: start-time to: end-time)
+     * Return a string representation of an event task.
+     * The format of the string is "[E][status] description (from: start-time to: end-time)"
      * The start time and end time will follow the format of MMM dd yyyy HH:mm.
      * M represents the month.
      * d represents the date.
      * y represents the year.
      * H represents the hours.
      * m represents the minute.
+     * Status will show "X" if done, else " ".
      * @return String representation of event task.
      */
     @Override
