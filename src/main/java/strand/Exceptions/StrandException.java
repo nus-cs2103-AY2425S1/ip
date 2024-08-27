@@ -1,4 +1,4 @@
-package Exceptions;
+package strand.Exceptions;
 
 public abstract class StrandException extends Exception {
     @Override

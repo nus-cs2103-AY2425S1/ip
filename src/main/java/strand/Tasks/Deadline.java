@@ -1,15 +1,17 @@
-import Exceptions.StrandException;
+package strand.Tasks;
+
+import strand.Exceptions.StrandException;
 
 import java.time.LocalDateTime;
 
 /**
- * The Deadline class represents a task with a specific deadline.
+ * The strand.Tasks.Deadline class represents a task with a specific deadline.
  */
 public class Deadline extends Task {
     protected LocalDateTime deadline;
 
     /**
-     * Constructs a new Deadline task with the specified description and deadline.
+     * Constructs a new strand.Tasks.Deadline task with the specified description and deadline.
      *
      * @param description The description of the task.
      * @param date        The deadline by which the task needs to be completed.
@@ -26,9 +28,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the string representation of the Deadline task
+     * Returns the string representation of the strand.Tasks.Deadline task
      *
-     * @return A string representing the Deadline task
+     * @return A string representing the strand.Tasks.Deadline task
      */
     @Override
     public String toString() {
@@ -36,5 +38,10 @@ public class Deadline extends Task {
                 this.getType(),
                 super.toString(),
                 this.parseOutputDate(this.deadline));
+    }
+
+    @Override
+    public String getFile() {
+        return String.format("D | %s | %s", super.getFile(), this.deadline);
     }
 }

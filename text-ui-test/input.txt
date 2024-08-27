@@ -13,4 +13,7 @@ list
 delete 3
 delete 100
 deadline finish homework /by tomorrow
+delete 1
+delete 1
+delete 1
 bye
