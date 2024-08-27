@@ -30,7 +30,7 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[" + (isDone ? "✔️" : "❌") + "] " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 
     /**
@@ -45,5 +45,12 @@ public class Task implements Serializable {
      */
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns the description of the task.
+     */
+    public String getDescription() {
+        return description;
     }
 }

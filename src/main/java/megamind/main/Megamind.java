@@ -69,6 +69,9 @@ public class Megamind {
                 case "delete":
                     deleteTask(command);
                     break;
+                case "find":
+                    findTask(command);
+                    break;
                 default:
                     throw new InvalidCommandException("Unknown command. Use " +
                                                       "'help' for a list of " +
@@ -87,6 +90,16 @@ public class Megamind {
         }
     }
 
+    /**
+     * Finds tasks that contain the keyword.
+     *
+     * @param command Command entered by the user.
+     * @throws InvalidCommandException If the command is invalid.
+     */
+    public static void findTask(String command) throws InvalidCommandException {
+        String keyword = parser.parseDescription(command, "find");
+        ui.showMessage(taskList.findTasks(keyword));
+    }
 
     /**
      * Exits the program.
@@ -100,7 +113,6 @@ public class Megamind {
             ui.showExit();
         }
     }
-
 
     /**
      * Marks a task as not done.

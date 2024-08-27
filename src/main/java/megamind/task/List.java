@@ -104,6 +104,25 @@ public class List {
     }
 
     /**
+     * Finds tasks that contain the keyword.
+     *
+     * @param keyword Keyword to be searched for in the tasks.
+     * @return List of tasks that contain the keyword.
+     */
+    public String findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+
+        return foundTasks.isEmpty()
+                ? "No tasks found."
+                : "Here are the found tasks\n" + new List(foundTasks);
+    }
+
+    /**
      * Returns the list of tasks.
      * Method is only used for the saving of tasks.
      *

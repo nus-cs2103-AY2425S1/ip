@@ -6,21 +6,21 @@ import megamind.exception.MissingParameterException;
 public class Parser {
 
     /**
-     * Parses the command and returns the first word of the command.
+     * Parses the command and returns the action
      *
-     * @param command The command to be parsed.
-     * @return The first word of the command.
+     * @param command the command to be parsed
+     * @return the action of the command
      */
     public String parseCommand(String command) {
         return command.split(" ")[0].toLowerCase();
     }
 
     /**
-     * Parses the task index from the command.
+     * Parses the task index from the command
      *
-     * @param command The command to be parsed.
-     * @return The index of the task.
-     * @throws InvalidCommandException If the task number is missing or invalid.
+     * @param command the command to be parsed
+     * @return the index of the task
+     * @throws InvalidCommandException if the task number is missing or invalid
      */
     public int parseTaskIndex(String command) throws InvalidCommandException {
         String[] words = command.split(" ");
@@ -38,12 +38,12 @@ public class Parser {
     }
 
     /**
-     * Parses the description of the task from the command.
+     * Parses the description of the task from the command
      *
-     * @param command The command to be parsed.
-     * @param keyword The keyword to be removed from the command.
-     * @return The description of the task.
-     * @throws InvalidCommandException If the description is missing.
+     * @param command The command to be parsed
+     * @param keyword The keyword to be removed from the command
+     * @return The description of the task
+     * @throws InvalidCommandException If the description is missing
      */
     public String parseDescription(String command, String keyword) throws InvalidCommandException {
         if (command.length() <= keyword.length() + 1) {
@@ -53,12 +53,12 @@ public class Parser {
     }
 
     /**
-     * Parses the date and time of the task from the command.
+     * Parses the date and time of the task from the command
      *
-     * @param command The command to be parsed.
-     * @return The date and time of the task.
-     * @throws MissingParameterException If the date and time is missing.
-     * @throws InvalidCommandException If the description is missing.
+     * @param command The command to be parsed
+     * @return the description and deadline of the task
+     * @throws MissingParameterException if command does not contain keyword "/by"
+     * @throws InvalidCommandException if the description or deadline is empty
      */
     public String[] parseDeadline(String command) throws MissingParameterException, InvalidCommandException {
         if (!command.contains(" /by ")) {
@@ -81,12 +81,12 @@ public class Parser {
     }
 
     /**
-     * Parses the date and time of the event from the command.
+     * Parses the description, date, and time of the event from the command.
      *
-     * @param command The command to be parsed.
-     * @return The date and time of the event.
-     * @throws MissingParameterException If the date and time is missing.
-     * @throws InvalidCommandException If the description is missing.
+     * @param command The command to be parsed
+     * @return The description, date, and time of the event
+     * @throws MissingParameterException If the keywords "/from" or "/to" are missing
+     * @throws InvalidCommandException If the description, date, and time is missing.
      */
     public String[] parseEvent(String command) throws MissingParameterException, InvalidCommandException {
         if (!command.contains(" /from ") || !command.contains(" /to ")) {
