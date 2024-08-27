@@ -1,3 +1,12 @@
+import commands.Command;
+import exception.TaskonException;
+import storage.FileManager;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+import ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -5,27 +14,63 @@ import java.util.Scanner;
 
 public class Taskon {
 
+//    private Storage storage;
+//    private TaskList tasks;
+//    private Ui ui;
+
+//    public Duke(String filePath) {
+//        ui = new Ui();
+//        storage = new Storage(filePath);
+//        try {
+//            tasks = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
+//    }
+//
+//    public void run() {
+//        ui.showWelcome();
+//        boolean isExit = false;
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                ui.showLine(); // show the divider line ("_______")
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(tasks, ui, storage);
+//                isExit = c.isExit();
+//            } catch (DukeException e) {
+//                ui.showError(e.getMessage());
+//            } finally {
+//                ui.showLine();
+//            }
+//        }
+//    }
     /**
      * The main method runs the Taskon application.
      *
      * @param args Command-line arguments (not used).
      */
+
+    // Todo: refactor main class
     public static void main(String[] args) {
         ArrayList<Task> tasks = FileManager.loadTasks();
 
-        greet();
+        Ui ui = new Ui();
+
+        ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
-            String description = scanner.nextLine();
+            String description = ui.readCommand();
             Command command = Command.fromString(description);
 
             switch (command) {
                 case BYE:
-                    exit();
+                    ui.exit();
                     return;
 
                 case LIST:
-                    listItems(tasks);
+                    ui.listItems(tasks);
                     System.out.println("\n");
                     break;
 
@@ -33,7 +78,7 @@ public class Taskon {
                     try {
                         int index = description.charAt(5) - '0';
                         tasks.get(index - 1).markAsDone();
-                        completed(tasks.get(index - 1));
+                        ui.mark(tasks.get(index - 1));
                         FileManager.saveTasks(tasks);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("You only have " + tasks.size() + " tasks!\n");
@@ -46,7 +91,7 @@ public class Taskon {
                     try {
                         int index = Integer.parseInt(description.substring(7));
                         tasks.get(index - 1).markAsUndone();
-                        uncompleted(tasks.get(index - 1));
+                        ui.unmark(tasks.get(index - 1));
                         FileManager.saveTasks(tasks);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("You only have " + tasks.size() + " tasks!\n");
@@ -84,7 +129,7 @@ public class Taskon {
                 case ON:
                     try {
                         String date = description.substring(3);
-                        getTasksOnDate(date, tasks);
+                        ui.showTasksOnDate(date, tasks);
                     } catch (DateTimeParseException e) {
                         System.out.println("Please input date in correct format.\n");
                     }
@@ -125,10 +170,10 @@ public class Taskon {
     }
 
     /**
-     * Parses a task creation command and returns the corresponding Task object.
+     * Parses a task creation command and returns the corresponding task.Task object.
      *
      * @param description The task creation command.
-     * @return The created Task object.
+     * @return The created task.Task object.
      * @throws TaskonException If the command is invalid or incomplete.
      */
     private static Task getTask(String description) throws TaskonException {
@@ -182,68 +227,68 @@ public class Taskon {
         }
         return t;
     }
-
-    /**
-     * Prints a greeting message when the application starts.
-     */
-    public static void greet() {
-        String greeting = "Hello! I'm Taskon\nWhat can I do for you?\n";
-        System.out.println(greeting);
-    }
-
-    /**
-     * Prints an exit message when the application terminates.
-     */
-    public static void exit() {
-        String exiting = "Bye. Hope to see you again soon!\n";
-        System.out.println(exiting);
-    }
-
-    /**
-     * Prints a message indicating that a task has been marked as completed.
-     *
-     * @param task The completed task.
-     */
-    public static void completed(Task task) {
-        String complete = "Woohoo! Task complete! \nI've marked this as done:\n";
-        System.out.println(complete + task.toString() + "\n");
-    }
-
-    /**
-     * Prints a message indicating that a task has been marked as not completed.
-     *
-     * @param task The task marked as not done.
-     */
-    public static void uncompleted(Task task) {
-        String uncompleted = "Got it! No rush, I've marked it as not done yet:\n";
-        System.out.println(uncompleted + task.toString() + "\n");
-    }
-
-    /**
-     * Prints the list of tasks.
-     *
-     * @param tasks The list of tasks to be printed.
-     */
-    public static void listItems(ArrayList<Task> tasks) {
-        System.out.println("Here's what we've got on your to-do list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task t = tasks.get(i);
-            System.out.println(i+1 + "." + t.toString());
-        }
-    }
-
-    public static void getTasksOnDate(String date, ArrayList<Task> tasks) {
-        LocalDate localDate = LocalDate.parse(date);
-        boolean isFound = false;
-        System.out.println("Tasks on " + localDate + " :");
-        for (Task task : tasks) {
-            if (task.occursOn(localDate)) {
-                System.out.println(task);
-                isFound = true;
-            }
-        }
-        if (!isFound) {
-            System.out.println("Hmm, it looks like you've got a free day!\n");
-        }
-    }
+//
+//    /**
+//     * Prints a greeting message when the application starts.
+//     */
+//    public static void greet() {
+//        String greeting = "Hello! I'm Taskon\nWhat can I do for you?\n";
+//        System.out.println(greeting);
+//    }
+//
+//    /**
+//     * Prints an exit message when the application terminates.
+//     */
+//    public static void exit() {
+//        String exiting = "Bye. Hope to see you again soon!\n";
+//        System.out.println(exiting);
+//    }
+//
+//    /**
+//     * Prints a message indicating that a task has been marked as completed.
+//     *
+//     * @param task The completed task.
+//     */
+//    public static void completed(Task task) {
+//        String complete = "Woohoo! task.Task complete! \nI've marked this as done:\n";
+//        System.out.println(complete + task.toString() + "\n");
+//    }
+//
+//    /**
+//     * Prints a message indicating that a task has been marked as not completed.
+//     *
+//     * @param task The task marked as not done.
+//     */
+//    public static void uncompleted(Task task) {
+//        String uncompleted = "Got it! No rush, I've marked it as not done yet:\n";
+//        System.out.println(uncompleted + task.toString() + "\n");
+//    }
+//
+//    /**
+//     * Prints the list of tasks.
+//     *
+//     * @param tasks The list of tasks to be printed.
+//     */
+//    public static void listItems(ArrayList<Task> tasks) {
+//        System.out.println("Here's what we've got on your to-do list:");
+//        for (int i = 0; i < tasks.size(); i++) {
+//            Task t = tasks.get(i);
+//            System.out.println(i+1 + "." + t.toString());
+//        }
+//    }
+//
+//    public static void getTasksOnDate(String date, ArrayList<Task> tasks) {
+//        LocalDate localDate = LocalDate.parse(date);
+//        boolean isFound = false;
+//        System.out.println("Tasks on " + localDate + " :");
+//        for (Task task : tasks) {
+//            if (task.occursOn(localDate)) {
+//                System.out.println(task);
+//                isFound = true;
+//            }
+//        }
+//        if (!isFound) {
+//            System.out.println("Hmm, it looks like you've got a free day!\n");
+//        }
+//    }
 }

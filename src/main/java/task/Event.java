@@ -1,17 +1,22 @@
+package task;
+
+import task.Task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Event class represents a task that occurs during a specific time frame.
- * It extends the Task class by adding a start and end time.
+ * The task.Event class represents a task that occurs during a specific time frame.
+ * It extends the task.Task class by adding a start and end time.
  */
 public class Event extends Task {
-    protected LocalDateTime start, end;
+    public LocalDateTime start;
+    public LocalDateTime end;
 
     /**
-     * Constructs a new Event with the given description, start time, and end time.
+     * Constructs a new task.Event with the given description, start time, and end time.
      *
      * @param description The description of the event.
      * @param start The start time of the event.

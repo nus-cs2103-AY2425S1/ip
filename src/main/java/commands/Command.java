@@ -1,3 +1,4 @@
+package commands;
 public enum Command {
     BYE, LIST, MARK, UNMARK, DELETE, ADD, ON, UNKNOWN;
 
