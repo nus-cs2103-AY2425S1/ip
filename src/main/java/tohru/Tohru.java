@@ -8,7 +8,7 @@ import tohru.task.TodoList;
 import tohru.ui.Ui;
 
 /**
- * Tohru represents the chatbot that keeps track of user's tasks
+ * Represents the chatbot that keeps track of user's tasks.
  */
 public class Tohru {
 
@@ -17,9 +17,9 @@ public class Tohru {
     private Ui ui;
 
     /**
-     * Setup up the chatbot
+     * Setups up the chatbot.
      *
-     * @param filePath The location to store the save file
+     * @param filePath The location to store the save file.
      */
     public Tohru(String filePath) {
         ui = new Ui();
@@ -28,7 +28,7 @@ public class Tohru {
     }
 
     /**
-     * Execute the main functionalities of the chatbot
+     * Executes the main functionalities of the chatbot.
      */
     public void run() {
         // Greetings

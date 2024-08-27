@@ -8,7 +8,7 @@ import tohru.ui.Ui;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Command represents a specific operation that interacts with the to-do list, store and ui
+ * Represents a specific operation that interacts with the to-do list, store and ui
  */
 public abstract class Command {
 
@@ -37,7 +37,7 @@ public abstract class Command {
     public abstract void execute(TodoList list, Ui ui, FileStore store) throws TohruException;
 
     /**
-     * Check if the application should exit after the execution of this command
+     * Checks if the application should exit after the execution of this command
      *
      * @return A boolean representing if the application should exit
      */

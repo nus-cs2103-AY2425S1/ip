@@ -1,13 +1,13 @@
 package tohru.exception;
 
 /**
- * TohruException catches errors that are due to improper prompts
+ * Catches errors that are due to improper prompts.
  */
 public class TohruException extends Exception {
     /**
-     * Raises TohruException
+     * Raises TohruException.
      *
-     * @param message A description of the exception
+     * @param message A description of the exception.
      */
     public TohruException(String message) {
         super(message);

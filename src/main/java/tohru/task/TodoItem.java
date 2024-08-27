@@ -1,7 +1,7 @@
 package tohru.task;
 
 /**
- * TodoItem represents a to-do entry
+ * Represents a to-do entry.
  */
 public class TodoItem {
     /** Content that the entry stores **/
@@ -10,36 +10,46 @@ public class TodoItem {
     private boolean completed;
 
     /**
-     * Creates a new to-do item with the specified content
+     * Creates a new to-do item with the specified content.
      *
-     * @param content The task description of the to-do item
+     * @param content The task description of the to-do item.
      */
     public TodoItem(String content) {
         this.content = content.trim();
         this.completed = false;
     }
 
+    /**
+     * Gets the status of the to-do item.
+     *
+     * @return Status of the to-do item.
+     */
     public boolean isCompleted() {
         return completed;
     }
 
+    /**
+     * Sets the status of the to-do item.
+     *
+     * @param completed Status to be set to the to-do item.
+     */
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
     /**
-     * String representation of the entry
+     * Gets the string representation of the entry.
      *
-     * @return a string representation of the entry
+     * @return A string representation of the entry.
      */
     public String toString() {
         return String.format("[T] [%s] %s", this.completed ? "X" : " ", content);
     }
 
     /**
-     * String representation of the entry in save format
+     * Gets the string representation of the entry in the save format.
      *
-     * @return a save string representation of the entry
+     * @return A save string representation of the entry.
      */
     public String getSaveString() {
         return String.format("T | %s | %s", this.completed ? "true" : "false", content);
