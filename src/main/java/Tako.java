@@ -1,8 +1,34 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Tako {
     public static void main(String[] args) {
+
+        try {
+            File dataFile = new File("data");
+            File textFile = new File("data/Tako.txt");
+            if (!dataFile.exists()) {
+                //created new data path
+                dataFile.mkdirs();
+            } else {
+                //do nothing
+            }
+            if (textFile.createNewFile()) {
+                //created new Tako.txt file
+            } else {
+                //load file
+                Scanner scanner = new Scanner(textFile);
+                while (scanner.hasNext()) {
+                    System.out.println(scanner.nextLine());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error in finding a file");
+        }
+
         String name = "Tako";
         ArrayList<Task> listOfTask = new ArrayList<Task>();
 
@@ -51,6 +77,13 @@ public class Tako {
                 } else {
                     throw new InvalidCommandException(command);
                 }
+                try {
+                    FileWriter fileWriter = new FileWriter("./data/Tako.txt");
+                    fileWriter.write(listStorage(listOfTask));
+                    fileWriter.close();
+                } catch (IOException e) {
+                    System.out.println("File does not exists");
+                }
             } catch (InvalidCommandException e) {
                 System.out.println(e.message());
             } finally {
@@ -62,11 +95,13 @@ public class Tako {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void listStorage(ArrayList<Task> listOfTask) {
-        System.out.println("Here are the tasks in your list:");
+    public static String listStorage(ArrayList<Task> listOfTask) {
+        String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < listOfTask.size(); i++) {
-            System.out.println((i + 1) + "." + listOfTask.get(i).toString());
+            output += (i + 1) + "." + listOfTask.get(i).toString() + "\n";
         }
+        System.out.println(output);
+        return output;
     }
 
     public static void addStorage(ArrayList<Task> listOfTask, Task newTask) {
