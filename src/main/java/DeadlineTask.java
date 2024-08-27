@@ -11,11 +11,10 @@ public class DeadlineTask extends Task {
 
     protected LocalDateTime deadline;
 
-    public DeadlineTask(String description, String deadline)
-            throws TaskArgumentMissingException, EkudWrongInputFormatException {
+    public DeadlineTask(String description, String deadline) throws EkudException {
         super(description);
         if (deadline == null || deadline.isEmpty()) {
-            throw new TaskArgumentMissingException(
+            throw new EkudException(
                     """
                             Whoopsies!! Looks like you forgot your deadline!
                             I'll say this once: next time mark your deadline with '/deadline'.""");
@@ -23,7 +22,7 @@ public class DeadlineTask extends Task {
         try {
             this.deadline = LocalDateTime.parse(deadline, READ_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new EkudWrongInputFormatException(
+            throw new EkudException(
                     """
                             Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
                             I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...""");

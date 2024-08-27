@@ -35,7 +35,7 @@ public class TaskList implements Iterable<Task> {
         return tasks.iterator();
     }
 
-    public void checkTask(int index) throws TaskListIndexOutOfBoundsException {
+    public void checkTask(int index) throws EkudException {
         // checks if there is a task at the given index
         // if not throw TaskListIndexOutOfBoundsException
         if (index < 0 || index >= tasks.size()) {
@@ -47,7 +47,7 @@ public class TaskList implements Iterable<Task> {
                             Your number must be between 1 and %d and clearly %d isn't""",
                     tasks.size(),
                     index + 1);
-            throw new TaskListIndexOutOfBoundsException(message);
+            throw new EkudException(message);
         }
     }
 
@@ -55,22 +55,22 @@ public class TaskList implements Iterable<Task> {
         tasks.add(task);
     }
 
-    public Task removeTask(int index) throws TaskListIndexOutOfBoundsException {
+    public Task removeTask(int index) throws EkudException {
         checkTask(index);
         return tasks.remove(index);
     }
 
-    public Task getTask(int index) throws TaskListIndexOutOfBoundsException {
+    public Task getTask(int index) throws EkudException {
         checkTask(index);
         return tasks.get(index);
     }
 
-    public void markComplete(int index) throws TaskListIndexOutOfBoundsException {
+    public void markComplete(int index) throws EkudException {
         checkTask(index);
         tasks.get(index).markAsDone();
     }
 
-    public void markIncomplete(int index) throws TaskListIndexOutOfBoundsException {
+    public void markIncomplete(int index) throws EkudException {
         checkTask(index);
         tasks.get(index).markAsUndone();
     }

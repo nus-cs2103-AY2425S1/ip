@@ -1,5 +1,5 @@
 public class TodoTask extends Task {
-    public TodoTask(String description) throws TaskArgumentMissingException {
+    public TodoTask(String description) throws EkudException {
         super(description);
     }
 
