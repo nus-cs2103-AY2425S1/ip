@@ -7,7 +7,7 @@ public class Bwead {
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Task> texts = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BweadException {
         System.out.println("Hello from " + name + "!");
 
         while (true) {
@@ -15,19 +15,25 @@ public class Bwead {
 
             boolean oneword = input.indexOf(" ") == -1;
 
-            if (oneword && input.equals("todo")) {
-                //System.out.println("The description of a todo cannot be empty.");
-                throw new DukeException("The description of a todo cannot be empty.");
-            } else if (oneword && input.equals("deadline")) {
-                //System.out.println("The description of a deadline cannot be empty.");
-                throw new DukeException("The description of a deadline cannot be empty.");
-            } else if (oneword && input.equals("event")) {
-                //System.out.println("The description of a event cannot be empty.");
-                throw new DukeException("The description of an event cannot be empty.");
-            } else if (oneword && !input.equals("bye") && !input.equals("list")) {
-                throw new DukeException("I'm sorry, I don't know what that means.");
+            try {
+                if (oneword) {
+                    if (input.equals("todo")) {
+                        throw new BweadException("OOPS!!! The description of a todo cannot be empty.");
+                    } else if (input.equals("deadline")) {
+                        throw new BweadException("OOPS!!! The description of a deadline cannot be empty.");
+                    } else if (input.equals("event")) {
+                        throw new BweadException("OOPS!!! The description of an event cannot be empty.");
+                    } else if (!input.equals("bye") && !input.equals("list")) {
+                        throw new BweadException("i don't know what that means :(");
+                    }
+                } else {
+                    if (!input.startsWith("todo") && !input.startsWith("deadline") && !input.startsWith("event")) {
+                        throw new BweadException("i don't know what that means");
+                    }
+                }
+            } catch (BweadException e) {
+                System.out.println(e.getMessage());
             }
-
 
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
@@ -50,7 +56,7 @@ public class Bwead {
                 texts.add(task);
                 System.out.println("Got it. I've added this task: " + task.toString());
                 System.out.println("Now you have " + texts.size() + " tasks in the list.");
-            } else if (input.startsWith("deadline")) {
+            } else if (input.startsWith("deadline ")) {
                 String input1 = input.replace("deadline ", "");
                 String date = input.split("/")[1];
                 int slash = input1.indexOf("/");
@@ -58,7 +64,7 @@ public class Bwead {
                 texts.add(task);
                 System.out.println("Got it. I've added this task: " + task.toString());
                 System.out.println("Now you have " + texts.size() + " tasks in the list.");
-            } else if (input.startsWith("event")) {
+            } else if (input.startsWith("event ")) {
                 input = input.replace("event ", "");
                 String name = input.split("/from")[0];
                 String start = input.split("/from")[1].split("/to")[0];
