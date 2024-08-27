@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -6,6 +9,8 @@ import java.util.ArrayList;
  */
 public class Molly {
     public static String name = "Molly";
+
+    public static final String FILE_PATH = "./data/Molly.txt";
 
     public static String[] helpCommands = {
             "todo (description) - creates a new todo", "deadline (description) /by (end time or date) - creates a deadline",
@@ -17,6 +22,84 @@ public class Molly {
 
     public Molly() {
 
+    }
+
+    public static ArrayList<Task> loadTasks() {
+        ArrayList<Task> botMemory = new ArrayList<>();
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            try {
+                Scanner fileScanner = new Scanner(file);
+                while (fileScanner.hasNextLine()) {
+                    String taskData = fileScanner.nextLine();
+                    Task task = parseTask(taskData);
+                    if (task != null) {
+                        botMemory.add(task);
+                    }
+                }
+                fileScanner.close();
+            } catch (IOException e) {
+                System.out.println("Error loading tasks: " + e.getMessage());
+            }
+        } else {
+            file.getParentFile().mkdirs();
+        }
+        return botMemory;
+    }
+
+
+    public static void saveTasks(ArrayList<Task> botMemory) {
+        try {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter writer = new FileWriter(file);
+            for (Task task : botMemory) {
+                writer.write(task.toString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    public static Task parseTask(String taskData) {
+        if (taskData.startsWith("[T]")) {
+            String description = taskData.substring(7);  // Extract description after "[T][X] " or "[T][ ] "
+            Task task = new Task(description);
+            if (taskData.charAt(4) == 'X') {  // Check if the task is marked as done
+                task.toggleTaskDone();
+            }
+            return task;
+        } else if (taskData.startsWith("[D]")) {
+            int byIndex = taskData.indexOf("(by:");
+            if (byIndex != -1) {
+                String description = taskData.substring(7, byIndex - 1); // Extract description
+                String by = taskData.substring(byIndex + 5, taskData.length() - 1); // Extract deadline date
+                Deadline deadline = new Deadline(description, by);
+                if (taskData.charAt(4) == 'X') {  // Check if the deadline is marked as done
+                    deadline.toggleTaskDone();
+                }
+                return deadline;
+            }
+        } else if (taskData.startsWith("[E]")) {
+            int fromIndex = taskData.indexOf("(from:");
+            int toIndex = taskData.indexOf("to:");
+            if (fromIndex != -1 && toIndex != -1) {
+                String description = taskData.substring(7, fromIndex - 1); // Extract description
+                String from = taskData.substring(fromIndex + 6, toIndex - 1); // Extract start time
+                String to = taskData.substring(toIndex + 3, taskData.length() - 1); // Extract end time
+                Event event = new Event(description, from, to);
+                if (taskData.charAt(4) == 'X') {  // Check if the event is marked as done
+                    event.toggleTaskDone();
+                }
+                return event;
+            }
+        }
+
+        return null; // Return null if taskData doesn't match any known format
     }
 
     /**
@@ -76,7 +159,8 @@ public class Molly {
      * This is a static method for the Molly bot that processes user inputs and manipulates the task array accordingly.
      */
     public static void assistUser() throws MollyException {
-        ArrayList<Task> botMemory = new ArrayList<>();
+        //ArrayList<Task> botMemory = new ArrayList<>();
+        ArrayList<Task> botMemory = Molly.loadTasks();
         Scanner botScanner = new Scanner(System.in);
         String userInput = "";
         Molly.printLine();
@@ -95,6 +179,7 @@ public class Molly {
                             int taskToMark = Integer.parseInt(markParts[1]) - 1;
                             botMemory.get(taskToMark).toggleTaskDone();
                             Molly.printLine();
+                            Molly.saveTasks(botMemory);
 
                         } catch (NumberFormatException e) {
                             Molly.printLine();
@@ -114,6 +199,7 @@ public class Molly {
                             System.out.println("Noted. I've removed this task: ");
                             System.out.println(" " + botMemory.get(taskToDelete).toString());
                             botMemory.remove(taskToDelete);
+                            Molly.saveTasks(botMemory);
                             System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
                             Molly.printLine();
                         } catch (NumberFormatException e) {
@@ -136,6 +222,7 @@ public class Molly {
                             Molly.printLine();
                             System.out.println("Got it. I've added this task: ");
                             System.out.println(" " + newToDo.toString());
+                            Molly.saveTasks(botMemory);
                             System.out.println("Now you have " + botMemory.size() + " task(s) in the list.");
                             System.out.println();
                             Molly.listToString(botMemory);
@@ -153,6 +240,7 @@ public class Molly {
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");
                                 System.out.println(" " + newDeadline.toString());
+                                Molly.saveTasks(botMemory);
                                 System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
                                 System.out.println();
                                 Molly.listToString(botMemory);
@@ -177,6 +265,7 @@ public class Molly {
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");
                                 System.out.println(" " + newEvent.toString());
+                                Molly.saveTasks(botMemory);
                                 System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
                                 System.out.println();
                                 Molly.listToString(botMemory);
