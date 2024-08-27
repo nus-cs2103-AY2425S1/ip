@@ -4,44 +4,58 @@
      _________________________________________________________
      _________________________________________________________
      Got it. I've added this task:
-       [T][ ] Read a book
+       Read a book
      Now you have 1 tasks in the list.
      _________________________________________________________
      _________________________________________________________
-      Here are the tasks in your list:
-      1. [T][ ] Read a book
+     Please enter a valid command
      _________________________________________________________
      _________________________________________________________
-      Nice! I've marked this task as done:
-           [T][X] Read a book
+     Please enter a valid deadline in the right format: deadline description /by due date
      _________________________________________________________
      _________________________________________________________
-      Here are the tasks in your list:
-      1. [T][X] Read a book
+     Please enter a valid deadline in the right format: deadline description /by due date
      _________________________________________________________
      _________________________________________________________
-      I've marked this task as not done yet:
-           [T][ ] Read a book
+     Please enter a valid event in the right format: event description /from start time /to end time
      _________________________________________________________
      _________________________________________________________
-      Here are the tasks in your list:
-      1. [T][ ] Read a book
+     Please enter a valid event in the right format: event description /from start time /to end time
      _________________________________________________________
      _________________________________________________________
-     Got it. I've added this task:
-       [D][ ] Submit assignment (by: 2023-09-30)
-     Now you have 2 tasks in the list.
+     The description of a todo cannot be empty.
+     _________________________________________________________
+     _________________________________________________________
+     Here are the tasks in your list:
+      1. Read a book
      _________________________________________________________
      _________________________________________________________
      Got it. I've added this task:
-       [E][ ] Project meeting (from: 2023-09-15 to: 2023-09-16)
-     Now you have 3 tasks in the list.
      _________________________________________________________
      _________________________________________________________
-      Here are the tasks in your list:
-      1. [T][ ] Read a book
-      2. [D][ ] Submit assignment (by: 2023-09-30)
-      3. [E][ ] Project meeting (from: 2023-09-15 to: 2023-09-16)
+     Please enter a valid task number
+     _________________________________________________________
+     _________________________________________________________
+     Please enter a valid task number
+     _________________________________________________________
+     _________________________________________________________
+     Please enter a valid task number
+     _________________________________________________________
+     _________________________________________________________
+     Please enter a valid task number
+     _________________________________________________________
+     _________________________________________________________
+     Here are the tasks in your list:
+      1. Read a book
+     _________________________________________________________
+     _________________________________________________________
+     The description of a todo cannot be empty.
+     _________________________________________________________
+     _________________________________________________________
+     Please enter a valid event in the right format: event description /from start time /to end time
+     _________________________________________________________
+     _________________________________________________________
+     Please enter a valid deadline in the right format: deadline description /by due date
      _________________________________________________________
      _________________________________________________________
      Bye. Hope to see you again soon!
