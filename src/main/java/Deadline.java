@@ -8,6 +8,17 @@ public class Deadline extends Task{
 
     private final String TASK_ICON = "[D]";
 
+    public String getDeadline() {
+        return this.by;
+    }
+
+    @Override
+    public String serializeDetails() {
+        return "D !- " + this.getIsDone() + "!- "
+                + this.getTaskDescription() + "!- "
+                + this.getDeadline() + "\n";
+    }
+
     @Override
     public String toString() {
         return TASK_ICON + super.toString() + " (by: " + this.by + ")";
