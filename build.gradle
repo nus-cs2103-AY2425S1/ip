@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "avo"
     archiveClassifier = null
+    archiveVersion = "v0.1"
 }
 
 run{
