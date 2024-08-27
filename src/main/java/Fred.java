@@ -8,33 +8,16 @@ import java.util.ArrayList;
 import java.io.File;
 
 public class Fred {
-    static String line = "____________________________________________________________";
-    static String name = "Fred";
     static ArrayList<Task> taskList = new ArrayList<>();
     static File dataFile;
+    static Ui ui;
 
     public static void main(String[] args) {
+        ui = new Ui();
         dataFile = getDataFile();
         loadFromDataFile();
-        greet();
+        ui.greet();
         getInput();
-    }
-
-    public static void say(String message) {
-        System.out.println(line);
-        System.out.println(message);
-        System.out.println(line);
-    }
-
-    private static void greet() {
-        String message = "Hello! I'm " + name + "\n" +
-                "What can I do for you?";
-        say(message);
-    }
-
-    private static void sayFarewell() {
-        String message = "Bye. Hope to see you again soon!";
-        say(message);
     }
 
     private static void exit(){
@@ -49,9 +32,9 @@ public class Fred {
             if (input.equals("bye")) {
                 break;
             }
-            say(input);
+            ui.say(input);
         }
-        sayFarewell();
+        ui.sayFarewell();
         exit();
     }
 
@@ -63,7 +46,7 @@ public class Fred {
             try {
                 determineAction(input);
             } catch (Exception e) {
-                say(e.getMessage());
+                ui.say(e.getMessage());
             }
         }
     }
@@ -75,10 +58,10 @@ public class Fred {
             if (inputParts[0].isEmpty()) {
                 throw new EmptyInputException();
             } else if (inputParts[0].equals("bye")) {
-                sayFarewell();
+                ui.sayFarewell();
                 exit();
             } else if (inputParts[0].equals("list")) {
-                printTaskList();
+                ui.printTaskList(taskList);
             } else if (inputParts[0].equals("mark") || inputParts[0].equals("unmark")) {
                 throw new InvalidTaskNumberException();
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
@@ -112,7 +95,7 @@ public class Fred {
                             "   %s", task);
                 }
                 rewriteDataFile();
-                say(message);
+                ui.say(message);
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
                 if (inputParts[1].isEmpty()) {
                     throw new EmptyTaskDescriptionException();
@@ -123,7 +106,7 @@ public class Fred {
                         "   %s\n" +
                         "Now you have %d tasks in the list.", task, taskList.size());
                 appendToDataFile(task);
-                say(message);
+                ui.say(message);
             } else {
                 throw new UnknownCommandException();
             }
@@ -156,14 +139,7 @@ public class Fred {
         taskList.add(task);
     }
 
-    private static void printTaskList() {
-        int index = 1;
-        System.out.println(line);
-        for (Task task : taskList) {
-            System.out.println(String.format("%s.%s", index++, task));
-        }
-        System.out.println(line);
-    }
+
 
     private static void markTaskAsDone(Task task, int taskNumber) {
         task.markAsDone();
