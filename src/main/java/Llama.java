@@ -1,6 +1,11 @@
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Llama {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     public static void displayString(String str) {
         System.out.println("\t" + str);
     }
@@ -23,7 +28,13 @@ public class Llama {
         }
 
         String[] substringArr = remaining.split("/by ");
-        tasks.addTask(new Deadline(substringArr[0], substringArr[1], false));
+        try {
+            LocalDateTime deadline = LocalDateTime.parse(substringArr[1].trim(), formatter);
+            tasks.addTask(new Deadline(substringArr[0], deadline, false));
+        } catch (DateTimeParseException e) {
+            throw new LlamaException("Invalid date given, please give in the format " +
+                    "`deadline <name>/by yyyy-mm-dd HH:mm'");
+        }
     }
 
     public static void addEvent(String remaining, TaskStorage tasks) {
@@ -33,9 +44,16 @@ public class Llama {
 
         String[] substringArr = remaining.split("/");
         String desc = substringArr[0];
-        String startTime = substringArr[1].substring(substringArr[1].indexOf(" ") + 1);
-        String endTime = substringArr[2].substring(substringArr[2].indexOf(" ") + 1);
-        tasks.addTask(new Event(desc, startTime, endTime, false));
+        String startTimeStr = substringArr[1].substring(substringArr[1].indexOf(" ") + 1).trim();
+        String endTimeStr = substringArr[2].substring(substringArr[2].indexOf(" ") + 1).trim();
+        try {
+            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, formatter);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, formatter);
+            tasks.addTask(new Event(desc, startTime, endTime, false));
+        } catch (DateTimeParseException e) {
+            throw new LlamaException("Invalid date given, please give in the format " +
+                    "`event <name> /from yyyy-MM-dd HH:mm /to  yyyy-MM-dd HH:mm'");
+        }
     }
 
     public static void main(String[] args) {

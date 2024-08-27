@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.Buffer;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +10,8 @@ public class TaskStorage {
     private int numberOfTasks;
     private final String filePath = "./data/taskFile.txt";
     private File taskFile;
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private static void readTaskFromFile(File file, ArrayList<Task> taskList) throws FileNotFoundException {
         Scanner s = new Scanner(file);
@@ -25,9 +29,12 @@ public class TaskStorage {
             if (arr[0].equals("T")) {
                 currentLoadedTask = new Todo(arr[2], isDone);
             } else if (arr[0].equals("D")) {
-                currentLoadedTask = new Deadline(arr[2], arr[3], isDone);
+                LocalDateTime endTime = LocalDateTime.parse((arr[3]), formatter);
+                currentLoadedTask = new Deadline(arr[2], endTime, isDone);
             } else if (arr[0].equals("E")) {
-                currentLoadedTask = new Event(arr[2], arr[3], arr[4], isDone);
+                LocalDateTime startTime = LocalDateTime.parse(arr[3], formatter);
+                LocalDateTime endTime = LocalDateTime.parse(arr[4], formatter);
+                currentLoadedTask = new Event(arr[2], startTime, endTime, isDone);
             }
 
             if (currentLoadedTask != null) {
