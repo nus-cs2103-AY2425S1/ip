@@ -1,3 +1,4 @@
+package echo.exception;
 public class EchoException extends RuntimeException {
 
     /**

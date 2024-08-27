@@ -1,3 +1,9 @@
+package echo.storage;
+
+import echo.tasklist.TaskList;
+import echo.parser.Parser;
+import echo.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
