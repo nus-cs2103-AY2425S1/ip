@@ -7,10 +7,6 @@ Successfully added this task:
 Now you have 1 tasks in the list.
 ````````````````````````````````````````````````````````````
 ````````````````````````````````````````````````````````````
-List:
-1. [T][ ] borrow book
-````````````````````````````````````````````````````````````
-````````````````````````````````````````````````````````````
 Successfully added this task:
   [D][ ] return book (by: Sunday)
 Now you have 2 tasks in the list.
@@ -61,6 +57,41 @@ List:
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 4. [D][ ] do homework (by: no idea :-p)
+````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````
+Successfully added this task:
+  [D][ ] return book (by: Dec 29 2024)
+Now you have 5 tasks in the list.
+````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````
+Successfully added this task:
+  [E][ ] project zoom (from: Dec 2 2024 to: Dec 3 2024)
+Now you have 6 tasks in the list.
+````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````
+Successfully added this task:
+  [D][ ] return book (by: Nov 29 2026 20:20)
+Now you have 7 tasks in the list.
+````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````
+Successfully added this task:
+  [E][ ] project zoom (from: Dec 2 2024 12:12 to: Dec 3 2024 13:30)
+Now you have 8 tasks in the list.
+````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````
+Successfully marked task 7 as done:
+  [D][X] return book (by: Nov 29 2026 20:20)
+````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````
+List:
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] do homework (by: no idea :-p)
+5. [D][ ] return book (by: Dec 29 2024)
+6. [E][ ] project zoom (from: Dec 2 2024 to: Dec 3 2024)
+7. [D][X] return book (by: Nov 29 2026 20:20)
+8. [E][ ] project zoom (from: Dec 2 2024 12:12 to: Dec 3 2024 13:30)
 ````````````````````````````````````````````````````````````
 Bye. Hope to see you again soon!
 ************************************************************
