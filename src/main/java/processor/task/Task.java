@@ -88,7 +88,6 @@ public abstract class Task {
         try {
           fromDate = LocalDateTime.parse(from.replaceAll("\\s+", ""));
         } catch (DateTimeParseException e) {
-          System.out.println(e.getMessage());
           throw new EventInvalidTimeException(from);
         }
 
