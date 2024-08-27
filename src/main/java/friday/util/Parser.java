@@ -172,6 +172,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the arguments for a find command and returns a FindCommand object.
+     *
+     * @param arguments The arguments string containing the keyword to search for.
+     * @return A FindCommand object for finding tasks that match the keyword.
+     */
     private static Command parseFind(String arguments) {
         if (arguments.isEmpty()) {
             return new InvalidCommand("OOPS!!! The keyword for finding tasks cannot be empty.");

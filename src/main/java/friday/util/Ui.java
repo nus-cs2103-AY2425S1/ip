@@ -166,6 +166,11 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays the list of tasks that match the search criteria.
+     *
+     * @param tasks The TaskList containing the matching tasks to be displayed.
+     */
     public void showMatchingTasks(TaskList tasks) {
         System.out.println("    ____________________________________________________________");
         if (tasks.isTaskListEmpty()) {
