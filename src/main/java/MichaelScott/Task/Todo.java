@@ -5,6 +5,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public String getDescription() {
+        return desc;
+    }
+
     @Override
     public String toString() {
         return "[T]" + (isDone ? "[X] " : "[ ] " ) + desc ;

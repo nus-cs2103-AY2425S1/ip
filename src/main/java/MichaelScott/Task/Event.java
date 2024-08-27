@@ -12,6 +12,18 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
+    }
+
+    public String getDescription() {
+        return desc;
+    }
+
     @Override
     public String toString() {
         return "[E]" + (isDone ? "[X] " : "[ ] ") + desc +" (from: " + this.from + " to: " + this.to + ")";

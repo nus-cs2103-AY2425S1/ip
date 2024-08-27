@@ -10,6 +10,14 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDateTime getDeadlineDate() {
+        return by;
+    }
+
+    public String getDescription() {
+        return desc;
+    }
+
     @Override
     public String toString() {
         return "[D]" + (isDone ? "[X] " : "[ ] ") + desc + " (by: " + this.by + ")";
