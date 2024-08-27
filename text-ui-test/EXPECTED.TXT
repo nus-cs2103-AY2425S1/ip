@@ -1,7 +1,13 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello! I'm Gale, your friendly windy assistant.
+I'll keep your deadlines, to-do's and events in my memory. What do you have to do?
+____________________________________________________________
+____________________________________________________________
+Whoosh! Task "[T][ ] borrow book" added to my windy memory.
+Now you have 1 task in the list.
+Anything else?
+____________________________________________________________
+____________________________________________________________
+Aw, it's time for you to go huh?
+Catch you on the next gust!
+____________________________________________________________
