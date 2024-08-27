@@ -1,3 +1,5 @@
+package Asta.command;
+
 public enum Command {
     MARK,
     UNMARK,

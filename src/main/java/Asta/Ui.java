@@ -1,3 +1,5 @@
+package Asta;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -12,7 +14,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Asta\nWhat can I do for you?");
+        System.out.println("Hello! I'm Asta.Asta\nWhat can I do for you?");
     }
 
     public void showLine() {

@@ -1,3 +1,10 @@
+package Asta;
+
+import Asta.command.Command;
+import Asta.command.Parser;
+import Asta.task.Task;
+import Asta.task.TaskList;
+
 public class Asta {
     private static final String FILE_PATH = "./data/asta.txt";
     private final Storage storage;
@@ -78,7 +85,7 @@ public class Asta {
                     storage.save(tasks.getTasks());
                     break;
                 default:
-                    ui.showError("Unfortunately, Asta doesn't know what that means...");
+                    ui.showError("Unfortunately, Asta.Asta doesn't know what that means...");
                 }
             } catch (AstaException e) {
                 ui.showError(e.getMessage());

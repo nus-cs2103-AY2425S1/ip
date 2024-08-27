@@ -1,3 +1,10 @@
+package Asta;
+
+import Asta.task.Deadline;
+import Asta.task.Event;
+import Asta.task.Task;
+import Asta.task.ToDo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

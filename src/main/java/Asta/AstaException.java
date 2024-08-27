@@ -1,3 +1,5 @@
+package Asta;
+
 public class AstaException extends Exception {
     public AstaException(String message) {
         super(message);
