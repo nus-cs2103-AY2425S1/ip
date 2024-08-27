@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task.
  * An Event task is a task that has a specific start and end time, in addition to a description.
@@ -5,10 +8,10 @@
 public class Event extends Task {
 
     /** The start time of the event. */
-    protected String from;
+    protected LocalDateTime from;
 
     /** The end time of the event. */
-    protected String to;
+    protected LocalDateTime to;
 
     /**
      * Constructs a new Event task with the given description, start time, and end time.
@@ -17,7 +20,7 @@ public class Event extends Task {
      * @param from the start time of the event.
      * @param to the end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -35,19 +38,35 @@ public class Event extends Task {
     @Override
     public Task createTask(String input) throws InputException{
         if (input.equalsIgnoreCase("event")) {
-            throw new InputException("To add an Event task, use the following format: event <task description> /from <start time> /to <end time>");
+            throw new InputException("To add an Event, use: event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>");
         }
         String[] details = input.substring(6).split(" /from | /to ");
         if (details.length == 3) {
             String description = details[0].trim();
-            String from = details[1].trim();
-            String to = details[2].trim();
+            LocalDateTime from = parseDateTime(details[1].trim());
+            LocalDateTime to = parseDateTime(details[2].trim());
             if (description.isEmpty()) {
                 throw new InputException("You need to describe your Event!");
             }
             return new Event(description, from, to);
         } else {
-            throw new InputException("Invalid format. Use: event <description> /from <start> /to <end>");
+            throw new InputException("Invalid format. Use: event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>");
+        }
+    }
+
+    /**
+     * Parses a datetime string into a LocalDateTime Object.
+     *
+     * @param dateTimeString the string containing the datetime
+     * @return the LocalDateTime Object.
+     * @throws InputException if the datetime format is invalid
+     */
+    private LocalDateTime parseDateTime(String dateTimeString) throws InputException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(dateTimeString, formatter);
+        } catch (Exception e) {
+            throw new InputException("Invalid date/time format. Use: DD/MM/YYYY HHmm (e.g. '12/11/2002 1800')");
         }
     }
 
@@ -61,7 +80,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
     /**
@@ -71,6 +91,7 @@ public class Event extends Task {
      */
     @Override
     public String encode() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " + to.format(formatter);
     }
 }

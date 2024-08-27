@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Abstract class representing a generic Task.
  * This class provides basic functionalities for a task,
@@ -10,6 +13,9 @@ public abstract class Task {
 
     /** The status of the task: true if done, false otherwise. */
     protected Boolean isDone;
+
+    /** The formatter for parsing and formatting dates in this application. */
+    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Constructs a new Task with the given description.
@@ -78,15 +84,15 @@ public abstract class Task {
             if (details.length < 4) {
                 return null;
             }
-            String by = details[3];
+            LocalDateTime by = LocalDateTime.parse(details[3], formatter);
             task = new Deadline(description, by);
             break;
         case "E":
             if (details.length < 5) {
                 return null;
             }
-            String from = details[3];
-            String to = details[4];
+            LocalDateTime from = LocalDateTime.parse(details[3], formatter);
+            LocalDateTime to = LocalDateTime.parse(details[4], formatter);
             task = new Event(description, from, to);
             break;
         }
