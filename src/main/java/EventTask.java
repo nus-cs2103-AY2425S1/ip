@@ -16,6 +16,10 @@ public class EventTask extends Task {
         return to;
     }
 
+    public String getTaskType() {
+        return "E";
+    }
+
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", getStatusString(), getDesc(), from, to);

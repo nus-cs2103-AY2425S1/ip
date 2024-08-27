@@ -4,6 +4,10 @@ public class ToDoTask extends Task {
         super(desc);
     }
 
+    public String getTaskType() {
+        return "T";
+    }
+
     @Override
     public String toString() {
         return String.format("[T][%s] %s", getStatusString(), getDesc());

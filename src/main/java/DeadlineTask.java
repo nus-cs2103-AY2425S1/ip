@@ -10,6 +10,10 @@ public class DeadlineTask extends Task {
         return date;
     }
 
+    public String getTaskType() {
+        return "D";
+    }
+
     @Override
     public String toString() {
         return String.format("[D][%s] %s (by: %s)", getStatusString(), getDesc(), date);
