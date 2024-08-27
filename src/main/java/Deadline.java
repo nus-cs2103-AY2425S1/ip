@@ -1,7 +1,7 @@
 /**
  * Represents a deadline to be recorded. A <code>Deadline</code> object
  * is represented by two Strings
- * e.g., <code>return book, Sunday</code>
+ * e.g., <code>return book, 2019-12-01 1900</code>
  */
 public class Deadline extends Task {
 
@@ -22,12 +22,13 @@ public class Deadline extends Task {
      *
      * @return task summary
      */
+    @Override
     public String summary() {
         return "D " + super.summary() + " | " + this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 }
