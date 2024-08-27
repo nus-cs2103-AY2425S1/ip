@@ -14,6 +14,10 @@ public class TaskListUI {
   private TaskList taskList = new TaskList();
   private TasksStorage storage = TasksStorage.getInstance();
 
+  public TaskListUI(TaskList taskList) {
+    this.taskList = taskList;
+  }
+
   public TaskListUI(Scanner scanner) {
     this.scanner = scanner;
   }
