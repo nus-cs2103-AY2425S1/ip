@@ -22,6 +22,14 @@ public class Gary {
                         Task task = taskList.get(i);
                         System.out.println("\t" + (i + 1) + ". " + task.toString());
                     }
+                } else if (userInput.startsWith("delete")) {
+                  int index = Integer.parseInt(userInput.substring(6).trim());
+                  if (index > taskList.size() || index <= 0) {
+                        throw new Exception("Index needs to be within your task list size!!\nPlease try again!");
+                    }
+                  Task task = taskList.remove(index - 1);
+                  System.out.println("Noted. I've removed this task from the list:\n " + task.toString() +
+                            "\nNow you have " + taskList.size() + " tasks in the list.\n");
                 } else if (userInput.startsWith("mark")) {
                     int index = Integer.parseInt(userInput.substring(4).trim());
                     if (index > taskList.size() || index <= 0) {
