@@ -31,7 +31,7 @@ public class Sentinel {
         // Load save file
         try {
             this.taskList = Storage.load();
-        } catch(IOException e) {
+        } catch(IOException exception) {
             ui.showError("OOPS NO FILE???");
             this.taskList = new TaskList();
         }
@@ -122,7 +122,7 @@ public class Sentinel {
         say(goodbyeMessage);
         try {
             Storage.save(this.taskList.toString());
-        } catch (IOException e) {
+        } catch (IOException exception) {
             say("Oops I had trouble saving your tasks...");
         }
     }
