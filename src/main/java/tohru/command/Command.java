@@ -8,7 +8,7 @@ import tohru.ui.Ui;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a specific operation that interacts with the to-do list, store and ui
+ * Represents a specific operation that interacts with the to-do list, store and ui.
  */
 public abstract class Command {
 
@@ -19,27 +19,28 @@ public abstract class Command {
     protected String arguments;
 
     /**
-     * Represents a command object that takes in its argument
+     * Represents a command object that takes in its argument.
      *
-     * @param arguments The argument to be passed in for a command
+     * @param arguments The argument to be passed in for a command.
      */
     public Command (String arguments) {
         this.arguments = arguments;
     }
 
     /**
-     * Executes the operation
+     * Executes the operation.
      *
-     * @param list The to-do list to modify
-     * @param ui The ui for interaction
-     * @param store The storage medium to interact
+     * @param list The to-do list to modify.
+     * @param ui The ui for interaction.
+     * @param store The storage medium to interact.
+     * @throws TohruException When invalid arguments are encountered.
      */
     public abstract void execute(TodoList list, Ui ui, FileStore store) throws TohruException;
 
     /**
-     * Checks if the application should exit after the execution of this command
+     * Checks if the application should exit after the execution of this command.
      *
-     * @return A boolean representing if the application should exit
+     * @return A boolean representing if the application should exit.
      */
     public boolean isExit() {
         return false;
