@@ -1,3 +1,7 @@
+package duke.ui;
+
+import duke.task.Task;
+
 import java.util.List;
 
 public class Ui {
@@ -19,9 +23,9 @@ public class Ui {
         System.out.println(greeting + "Hello, I am Rudolf, Santa's trusty red-nose reindeer");
         System.out.println("Christmas is nearing, and I am here to help you with your Christmas preparations.");
         System.out.println("Here's how you can chat with me:");
-        System.out.println("1. Add a ToDo: todo <description>");
-        System.out.println("2. Add a Deadline: deadline <description> /by <date/time>");
-        System.out.println("3. Add an Event: event <description> /from <start date/time> /to <end date/time>");
+        System.out.println("1. Add a duke.task.ToDo: todo <description>");
+        System.out.println("2. Add a duke.task.Deadline: deadline <description> /by <date/time>");
+        System.out.println("3. Add an duke.task.Event: event <description> /from <start date/time> /to <end date/time>");
         System.out.println("4. List all tasks: list");
         System.out.println("5. Mark a task as done: mark <task number>");
         System.out.println("6. Unmark a task: unmark <task number>");
