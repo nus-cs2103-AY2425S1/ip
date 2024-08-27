@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.lang.StringBuilder;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Garfield {
 
@@ -63,13 +65,14 @@ public class Garfield {
                 }
             }
         } catch (FileNotFoundException e) {
-            Garfield.speak("Something went wrong with your save file!");
+            // You don't have a save file
         }
 
         // Loop to get user input
         Scanner inputScanner = new Scanner(System.in);
         String userInput;
         while (true) {
+            Garfield.saveToHardDisk();
             userInput = inputScanner.nextLine().strip();
 
             if (userInput.equalsIgnoreCase("bye")) {
@@ -215,5 +218,20 @@ public class Garfield {
             System.out.print("_");
         }
         System.out.print("\n");
+    }
+
+    private static void saveToHardDisk() {
+        try (FileWriter fw = new FileWriter("./data/save.txt")) {
+            String prefix = "";
+            StringBuilder textToWrite = new StringBuilder();
+            for (Task t : taskList) {
+                textToWrite.append(prefix);
+                prefix = System.lineSeparator();
+                textToWrite.append(t.toSaveRepresentation());
+            }
+            fw.write(textToWrite.toString());
+        } catch (IOException e) {
+            Garfield.speak("Something went wrong when saving your task list.");
+        }
     }
 }
