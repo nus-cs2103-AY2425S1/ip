@@ -24,5 +24,8 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-
+    public String formatData() {
+        int i = this.isDone ? 1 : 0;
+        return i + " | " + this.description;
+    }
 }
