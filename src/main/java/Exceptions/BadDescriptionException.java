@@ -1,6 +1,6 @@
-package Exceptions;
+package exceptions;
 
-import Tasks.TaskTypes;
+import tasks.TaskTypes;
 
 public class BadDescriptionException extends Exception{
     public BadDescriptionException(TaskTypes type) {

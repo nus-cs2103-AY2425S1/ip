@@ -1,8 +1,8 @@
-package Utilities;
+package utilities;
 
 import java.util.ArrayList;
 
-import Tasks.Task;
+import tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> taskList;

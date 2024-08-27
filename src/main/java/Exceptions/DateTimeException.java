@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class DateTimeException extends Exception {    
     public DateTimeException(String name) {

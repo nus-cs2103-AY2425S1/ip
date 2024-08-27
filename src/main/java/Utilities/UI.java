@@ -1,6 +1,6 @@
-package Utilities;
+package utilities;
 
-import Tasks.Task;
+import tasks.Task;
 
 public class UI {
     // Handles System Interactions

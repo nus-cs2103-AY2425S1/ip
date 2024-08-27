@@ -1,4 +1,4 @@
-package Utilities;
+package utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Tasks.Task;
-import Tasks.Deadlines;
-import Tasks.Event;
-import Tasks.ToDos;
+import tasks.Deadlines;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDos;
 
 public class Storage {
     private File file;
