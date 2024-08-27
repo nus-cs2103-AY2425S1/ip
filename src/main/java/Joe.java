@@ -23,7 +23,7 @@ public class Joe {
     }
 
     public static void main(String[] args) {
-        new Joe("../src/main/data/joe.txt").run(); // Remove the ../ if you are running from the root directory
+        new Joe("../src/main/data/joe.txt").run(); // remove ../ if running from the root directory
     }
 
 }

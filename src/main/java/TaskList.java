@@ -116,15 +116,7 @@ public class TaskList {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < taskCount; i++) {
                 Task t = taskList.get(i);
-                if (t instanceof ToDo) {
-                    sb.append(Formatter.formatToDo(t));
-                } else if (t instanceof Deadline) {
-                    Deadline d = (Deadline) t;
-                    sb.append(Formatter.formatDeadline(d));
-                } else if (t instanceof Event) {
-                    Event e = (Event) t;
-                    sb.append(Formatter.formatEvent(e));
-                }
+                sb.append(t.saveRepr());
                 System.out.println(t + " (saved)");
                 sb.append(System.lineSeparator());
             }
@@ -150,13 +142,13 @@ public class TaskList {
         for (Task t : taskList) {
             if (t instanceof Deadline) {
                 Deadline d = (Deadline) t;
-                long days = ChronoUnit.DAYS.between(targetDate, d.getDue());
+                long days = d.daysTillDeadline(targetDate);
                 if (days == 0L) {
                     System.out.printf("%d.%s\n", ++tasksFound, d);
                 }
             } else if (t instanceof Event) {
                 Event e = (Event) t;
-                long days = ChronoUnit.DAYS.between(targetDate, e.getStart());
+                long days = e.daysTillEvent(targetDate);
                 if (days == 0L) {
                     System.out.printf("%d.%s\n", ++tasksFound, e);
                 }
