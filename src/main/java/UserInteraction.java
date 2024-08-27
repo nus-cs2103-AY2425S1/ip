@@ -2,8 +2,12 @@ import java.util.Scanner;
 public class UserInteraction {
 
 
+
+
     public static void interact() {
         Scanner scannerObject = new Scanner(System.in);
+        Storage storage = new Storage();
+
 
 
         while (true) {
@@ -13,40 +17,40 @@ public class UserInteraction {
             if (instruction.equals("bye")) {
                 break;
             } else if (instruction.equals("list")) {
-                TaskCollection.printList();
+                storage.printList();
             } else if (instruction.startsWith("mark ")) {
                 try {
-                    TaskCollection.markTask(instruction.substring(5));
+                    storage.markTask(instruction.substring(5));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }
             } else if (instruction.startsWith("unmark ")) {
                 try {
-                    TaskCollection.unmarkTask(instruction.substring(7));
+                    storage.unmarkTask(instruction.substring(7));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }
             } else if (instruction.startsWith("delete ")) {
                 try {
-                    TaskCollection.deleteTask(instruction.substring(7));
+                    storage.deleteTask(instruction.substring(7));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }
             } else if (instruction.startsWith("todo ")) {
                 try {
-                    TaskCollection.addTodoTask(instruction.substring(5));
+                    storage.addTodoTask(instruction.substring(5));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }
             }  else if (instruction.startsWith("deadline ")) {
                 try {
-                    TaskCollection.addDeadlineTask(instruction.substring(9));
+                    storage.addDeadlineTask(instruction.substring(9));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }
             }  else if (instruction.startsWith("event ")) {
                 try {
-                    TaskCollection.addEventTask(instruction.substring(6));
+                    storage.addEventTask(instruction.substring(6));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }

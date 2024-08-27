@@ -11,6 +11,10 @@ public class Task {
         return this.taskDescription;
     }
 
+    public String serializeDetails() {
+        return "";
+    }
+
     public Boolean getIsDone() {
         return this.isDone;
     }

@@ -8,6 +8,12 @@ public class Event extends Task{
         this.to = to;
     }
 
+    public String serializeDetails() {
+        return "E !- " + this.getIsDone() + "!- "
+                + this.getTaskDescription() + "!- "
+                + this.from + "!- "
+                + this.to + "\n";
+    }
     private final String TASK_ICON = "[E]";
 
     @Override

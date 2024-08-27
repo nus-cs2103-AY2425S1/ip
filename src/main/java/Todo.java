@@ -5,6 +5,10 @@ public class Todo extends Task{
 
     private final String TASK_ICON = "[T]";
 
+    public String serializeDetails() {
+        return "T !- " + this.getIsDone() + "!- "
+                + this.getTaskDescription() + "\n";
+    }
     @Override
     public String toString() {
         return TASK_ICON + super.toString();
