@@ -20,6 +20,31 @@ public class Event extends Task {
     }
 
     /**
+     * Constructs a new Event task with the specified description,
+     * start date/time, and end date/time.
+     *
+     * @param description The description of the Event task.
+     * @param from        The start date/time of the event.
+     * @param to          The end date/time of the event.
+     * @param isDone      The status of the event.
+     */
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
+     * Return the string format of Event task to be saved for storage.
+     *
+     * @return A specified format string for storage.
+     */
+    @Override
+    public String toFileString() {
+        return "E | " + super.toFileString() + " | " + this.from + " | " + this.to;
+    }
+
+    /**
      * Returns a string representation of the Event task,
      * including its type, status icon, description, start and end date/times.
      *

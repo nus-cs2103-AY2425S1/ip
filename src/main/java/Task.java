@@ -1,7 +1,7 @@
 /**
  * Represents a task with a description and completion status.
  */
-public class Task {
+public abstract class Task {
     private final String description;  // The task's description
     private boolean isDone;            // Indicates if the task is completed
 
@@ -14,6 +14,17 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Constructs a new Task with the specified description and isDone.
+     *
+     * @param description The description of the task.
+     * @param isDone The status of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     /**
@@ -33,6 +44,15 @@ public class Task {
      */
     private String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * Return the string format of task to be saved for storage.
+     *
+     * @return A specified format string for storage.
+     */
+    public String toFileString() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
     }
 
     /**
