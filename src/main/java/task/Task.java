@@ -1,15 +1,19 @@
+package task;
+
+import exception.TaskonException;
+
 import java.time.LocalDate;
 
 /**
- * The Task class represents a task with a description and a completion status.
+ * The task.Task class represents a task with a description and a completion status.
  * It provides methods to mark the task as done or undone, and to retrieve the task's status icon.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
 
     /**
-     * Constructs a new Task with the given description.
+     * Constructs a new task.Task with the given description.
      * The task is initially not completed.
      *
      * @param description The description of the task.

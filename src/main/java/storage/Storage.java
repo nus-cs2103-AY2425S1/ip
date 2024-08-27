@@ -1,20 +1,32 @@
+package storage;
+
+import exception.TaskonException;
+import task.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     private static final String FILE_PATH = "./data/taskon.txt";
+    public final Path path;
     public static final String SEPARATOR = "|";
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public Storage(String filePath) {
+        path = Paths.get(filePath);
+    }
+
+    public void saveTasks(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
-            for (Task task : tasks) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.getTask(i);
                 fw.write(taskToFileString(task) + System.lineSeparator());
             }
             fw.close();
@@ -23,31 +35,31 @@ public class FileManager {
         }
     }
 
-    public static ArrayList<Task> loadTasks() {
+    public static ArrayList<Task> load() throws TaskonException {
         ArrayList<Task> tasks = new ArrayList<>();
-         try {
-             File file = new File(FILE_PATH);
+        try {
+            File file = new File(FILE_PATH);
 
-             // check if directory or file do not exist
-             if (!file.getParentFile().exists()) {
-                 file.getParentFile().mkdirs();
-             }
-             if (!file.exists()) {
-                 file.createNewFile();
-             }
+            // check if directory or file do not exist
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
 
-             Scanner scanner = new Scanner(file);
-             while (scanner.hasNextLine()) {
-                 String line = scanner.nextLine();
-                 tasks.add(parseTask(line));
-             }
-             scanner.close();
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                tasks.add(parseTask(line));
+            }
+            scanner.close();
 
-         } catch (FileNotFoundException | TaskonException e) {
-             System.out.println("File not found!");
-         } catch (IOException e) {
-             System.out.println("Error: " + e.getMessage());
-         }
+        } catch (FileNotFoundException | TaskonException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
         return tasks;
     }
 
@@ -83,7 +95,7 @@ public class FileManager {
             }
 
         }
-        
+
         return task;
     }
 

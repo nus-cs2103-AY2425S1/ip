@@ -1,17 +1,20 @@
+package task;
+
+import task.Task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
- * The Deadline class represents a task that has a specific due date.
- * It extends the Task class by adding a due date.
+ * The task.Deadline class represents a task that has a specific due date.
+ * It extends the task.Task class by adding a due date.
  */
 public class Deadline extends Task {
-    protected LocalDateTime date;
+    public LocalDateTime date;
 
     /**
-     * Constructs a new Deadline with the given description and due date.
+     * Constructs a new task.Deadline with the given description and due date.
      *
      * @param description The description of the task.
      * @param date The due date of the task.
