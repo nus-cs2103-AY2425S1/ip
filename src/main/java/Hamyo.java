@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Hamyo {
 
     private static boolean active = true;
@@ -38,6 +41,9 @@ public class Hamyo {
                         break;
                     case "list":
                         listTasks();
+                        break;
+                    case "listDate":
+                        listTasksByDate(commandFields);
                         break;
                     case "mark":
                         mark(commandFields);
@@ -124,12 +130,29 @@ public class Hamyo {
         printLine();
     }
 
-    public static void listTasks() {
+    public static void listTasks() throws HamyoException {
         System.out.println("These are your tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
         printLine();
+    }
+    public static void listTasksByDate(String str) throws HamyoException {
+        try {
+            LocalDate date = LocalDate.parse(str.substring(1));
+            System.out.println("These are your tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ".");
+            int counter = 1;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i) instanceof Deadline || tasks.get(i) instanceof Event) {
+                    if (tasks.get(i).occursToday(date)) {
+                        System.out.println(counter++ + ". " + tasks.get(i).toString());
+                    }
+                }
+            }
+            printLine();
+        } catch (Exception e) {
+            throw new HamyoException("Usage: listDate yyyy-MM-dd.");
+        }
     }
 
     public static void mark(String str) throws HamyoException {

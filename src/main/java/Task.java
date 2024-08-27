@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
 
   private static int nTasks;
@@ -51,5 +53,9 @@ public class Task {
 
   public String toFileFormat() {
     return (this.marked ? "1" : "0") + " | " + this.task;
+  }
+
+  public boolean occursToday(LocalDate date) {
+    return true;
   }
 }
