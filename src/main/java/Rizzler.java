@@ -23,6 +23,34 @@ public class Rizzler {
                 case "list":
                     rizzlerSpeech.list(taskLog.getLog());
                     continue;
+                case "delete":
+                    rizzlerSpeech.say();
+                    if (userInputArr.length == 1) {
+                        rizzlerSpeech.say("what's the task number you want to delete?");
+                        rizzlerSpeech.say();
+                        continue;
+                    }
+                    try {
+                        Integer.parseInt(userInputArr[1]);
+                    } catch (NumberFormatException e) {
+                        rizzlerSpeech.say("i need a task number, not a description darlin'");
+                        rizzlerSpeech.say();
+                        continue;
+                    }
+                    int taskToDelete = Integer.parseInt(userInputArr[1]);
+                    try {
+                        taskLog.getTask(taskToDelete - 1);
+                    } catch (RizzlerException e) {
+                        rizzlerSpeech.say(e.getMessage());
+                        rizzlerSpeech.say();
+                        continue;
+                    }
+                    Task deletedTask = taskLog.deleteTask(taskToDelete);
+                    rizzlerSpeech.say("sure hon, i'll remove this task from the list.");
+                    rizzlerSpeech.say("\t" + deletedTask);
+                    rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks left to work on.");
+                    rizzlerSpeech.say();
+                    continue;
                 case "mark":
                     rizzlerSpeech.say();
                     if (userInputArr.length == 1) {
