@@ -24,6 +24,13 @@ public class CommandManager {
         commandMap.put(CommandName.EXIT.getName(), ExitCommand.of());
         unknownCommand = UnknownCommand.of();
     }
+
+    /**
+     * Returns a Command that corresponds to the identifier in the key-value pair,
+     * defaults to UnknownCommand
+     * @param identifier A key in the key-value pair
+     * @return A Command with the identifier as a key
+     */
     public Command getCommand(String identifier) {
         return commandMap.getOrDefault(identifier, unknownCommand);
     }
