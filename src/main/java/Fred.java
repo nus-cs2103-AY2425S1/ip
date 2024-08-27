@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -8,7 +9,8 @@ public class Fred {
     static String name = "Fred";
     static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
-        getDataFile();
+        File dataFile = getDataFile();
+        loadFromDataFile(dataFile);
         greet();
         getInput();
     }
@@ -106,6 +108,9 @@ public class Fred {
                 }
                 say(message);
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
+                if (inputParts[1].isEmpty()) {
+                    throw new EmptyTaskDescriptionException();
+                }
                 addToTaskList(inputParts[0], inputParts[1]);
             } else {
                 throw new UnknownCommandException();
@@ -113,13 +118,10 @@ public class Fred {
         }
     }
 
-    private static void addToTaskList(String taskType, String taskDetails) throws FredException {
+    private static Task addToTaskList(String taskType, String taskDetails) {
         Task task;
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
-        if (description.isEmpty()) {
-            throw new EmptyTaskDescriptionException();
-        }
         if (taskType.equals("todo")) {
             task = new ToDo(description);
         } else if (taskType.equals("deadline")) {
@@ -136,6 +138,7 @@ public class Fred {
                 "   %s\n" +
                 "Now you have %d tasks in the list.", task, taskList.size()));
         System.out.println(line);
+        return task;
     }
 
     private static void printTaskList() {
@@ -161,7 +164,7 @@ public class Fred {
 
     private static File getDataFile() {
         File dataDirectory = new File("./data");
-        if (!dataDirectory.exists()) {
+        if (!dataDirectory.exists() || !dataDirectory.isDirectory()) {
             dataDirectory.mkdir();
         }
         File dataFile = new File("./data/fred.txt");
@@ -173,5 +176,37 @@ public class Fred {
             }
         }
         return dataFile;
+    }
+
+    private static void loadFromDataFile(File dataFile) {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(dataFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] lineParts = line.split(" \\| ");
+            Task task = null;
+            switch (lineParts[0]) {
+            case "T":
+                task = addToTaskList("todo", lineParts[2]);
+                break;
+            case "D":
+                task = addToTaskList("deadline", lineParts[2] + " /by " + lineParts[3]);
+                break;
+            case "E":
+                String[] fromTo = lineParts[3].split("-");
+                task = addToTaskList("event", lineParts[2] + " /from " + fromTo[0] + " /to " + fromTo[1]);
+                break;
+            }
+            System.out.println(task);
+            if (lineParts[1].equals("1")) {
+                task.markAsDone();
+            } else if (lineParts[1].equals("0")) {
+                task.markAsNotDone();
+            }
+        }
     }
 }
