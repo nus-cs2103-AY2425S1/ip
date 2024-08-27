@@ -11,6 +11,13 @@ public class Events extends Task {
         this.to = to;
     }
 
+    public Events(String description, String from, String to, boolean isDone) {
+        super(description);
+        this.from = from;
+        this.to = to;
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
@@ -31,5 +38,10 @@ public class Events extends Task {
             throw new AlfredException("That is the wrong events format Sir. It goes event <task> " +
                     "/from <date> /to <date>");
         }
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "E | " + getStatusIcon() + " | " + description + " | " + from + " | " + to;
     }
 }

@@ -9,6 +9,12 @@ public class Deadlines extends Task {
         this.deadline = deadline;
     }
 
+    public Deadlines(String description, String deadline, boolean isDone) {
+        super(description);
+        this.deadline = deadline;
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline + ")";
@@ -28,5 +34,10 @@ public class Deadlines extends Task {
             throw new AlfredException("That is the wrong deadline format Sir. It goes deadline <task> " +
                     "/by date");
         }
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + getStatusIcon() + " | " + description + " | " + deadline;
     }
 }
