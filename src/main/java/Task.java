@@ -23,4 +23,12 @@ public class Task {
             return "[ ] " + taskDescription;
         }
     }
+
+    public String toSaveRepresentation() {
+        if (this.doneStatus) {
+            return "1 | " + taskDescription;
+        } else {
+            return "0 | " + taskDescription;
+        }
+    }
 }

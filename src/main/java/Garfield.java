@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Garfield {
 
@@ -19,10 +23,56 @@ public class Garfield {
                 + "\nLet's get this over with. What do you want?";
         Garfield.speak(initialGreeting);
 
+        // Load harddisk file
+        String filePath = "./data/save.txt";
+        File savedFile = new File(filePath);
+        try {
+            Scanner fileScanner = new Scanner(savedFile);
+            String savedTask;
+            while (fileScanner.hasNext()) {
+                savedTask = fileScanner.nextLine();
+                String[] taskDetails = savedTask.split(" \\| ");
+                String taskType = taskDetails[0];
+
+                switch (taskType) {
+                    case "T":
+                        Todo newTodo = new Todo(taskDetails[2]);
+                        taskList.add(newTodo);
+                        if (taskDetails[1].equals("1")) {
+                            newTodo.markAsDone();
+                        } else {
+                            newTodo.markAsUndone();
+                        }
+                        break;
+                    case "D":
+                        Deadline newDeadline = new Deadline(taskDetails[2], taskDetails[3]);
+                        taskList.add(newDeadline);
+                        if (taskDetails[1].equals("1")) {
+                            newDeadline.markAsDone();
+                        } else {
+                            newDeadline.markAsUndone();
+                        }
+                        break;
+                    case "E":
+                        Event newEvent = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                        taskList.add(newEvent);
+                        if (taskDetails[1].equals("1")) {
+                            newEvent.markAsDone();
+                        } else {
+                            newEvent.markAsUndone();
+                        }
+                        break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // You don't have a save file
+        }
+
         // Loop to get user input
         Scanner inputScanner = new Scanner(System.in);
         String userInput;
         while (true) {
+            Garfield.saveToHardDisk();
             userInput = inputScanner.nextLine().strip();
 
             if (userInput.equalsIgnoreCase("bye")) {
@@ -168,5 +218,20 @@ public class Garfield {
             System.out.print("_");
         }
         System.out.print("\n");
+    }
+
+    private static void saveToHardDisk() {
+        try (FileWriter fw = new FileWriter("./data/save.txt")) {
+            String prefix = "";
+            StringBuilder textToWrite = new StringBuilder();
+            for (Task t : taskList) {
+                textToWrite.append(prefix);
+                prefix = System.lineSeparator();
+                textToWrite.append(t.toSaveRepresentation());
+            }
+            fw.write(textToWrite.toString());
+        } catch (IOException e) {
+            Garfield.speak("Something went wrong when saving your task list.");
+        }
     }
 }
