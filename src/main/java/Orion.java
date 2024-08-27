@@ -44,8 +44,8 @@ public class Orion {
                             // TODO: Create new exception type TaskDataException
                             throw new OrionTaskDataException("Unrecognised todo task format");
                         } else {
-                            boolean done = parsed[2].equals("T");
-                            Task todo = new Todo(parsed[1], done);
+                            boolean done = parsed[1].equals("T");
+                            Task todo = new Todo(parsed[2], done);
                             Orion.tasks.add(todo);
                             Orion.noTasks++;
                             break;
@@ -55,8 +55,8 @@ public class Orion {
                             // TODO: Create new exception type TaskDataException
                             throw new OrionTaskDataException("Unrecognised deadline task format");
                         } else {
-                            boolean done = parsed[2].equals("T");
-                            Task deadline = new Deadline(parsed[1], done, parsed[3]);
+                            boolean done = parsed[1].equals("T");
+                            Task deadline = new Deadline(parsed[2], done, parsed[3]);
                             Orion.tasks.add(deadline);
                             Orion.noTasks++;
                             break;
@@ -66,8 +66,8 @@ public class Orion {
                             // TODO: Create new exception type TaskDataException
                             throw new OrionTaskDataException("Unrecognised event task format");
                         } else {
-                            boolean done = parsed[2].equals("T");
-                            Task event = new Event(parsed[1], done, parsed[3], parsed[4]);
+                            boolean done = parsed[1].equals("T");
+                            Task event = new Event(parsed[2], done, parsed[3], parsed[4]);
                             Orion.tasks.add(event);
                             Orion.noTasks++;
                             break;
@@ -106,14 +106,18 @@ public class Orion {
         }
     }
 
-//    private static void saveTasks() {
-//        try {
-//            FileWriter fw = new FileWriter(DATA_PATHNAME);
-//            for (Task task : Orion.tasks) {
-//                fw.write();
-//            }
-//        }
-//    }
+    private static void saveTasks() {
+        try {
+            FileWriter fw = new FileWriter(DATA_PATHNAME);
+            for (Task task : Orion.tasks) {
+                fw.write(task.saveString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            Orion.printIndent("We had a problem saving your task list... Sorry about that!");
+            Orion.printBar();
+        }
+    }
 
     private static void printBar() {
         System.out.println(Orion.BAR);
@@ -320,6 +324,7 @@ public class Orion {
             Orion.obey(command);
         }
 
+        Orion.saveTasks();
         sc.close();
     }
 }
