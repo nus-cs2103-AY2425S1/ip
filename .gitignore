@@ -5,6 +5,7 @@
 
 # data files
 /data
+/text-ui-test/data
 
 # Gradle build files
 /.gradle/
