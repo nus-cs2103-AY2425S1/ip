@@ -1,23 +1,23 @@
 package megamind.main;
 
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
+import megamind.exception.InvalidCommandException;
+import megamind.exception.MissingParameterException;
+import megamind.exception.TaskNotFoundException;
+import megamind.parser.Parser;
 import megamind.storage.Storage;
 import megamind.task.Deadline;
 import megamind.task.Event;
 import megamind.task.List;
 import megamind.task.Todo;
 import megamind.ui.Ui;
-import megamind.parser.Parser;
-import megamind.exception.InvalidCommandException;
-import megamind.exception.TaskNotFoundException;
-import megamind.exception.MissingParameterException;
-
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Megamind {
+    private static final Parser parser = new Parser();
     private static final Ui ui = new Ui();
     private static final Storage storage = new Storage();
-    private static final Parser parser = new Parser();
     private static List taskList;
 
     public static void main(String[] args) {
@@ -73,16 +73,16 @@ public class Megamind {
                     findTask(command);
                     break;
                 default:
-                    throw new InvalidCommandException("Unknown command. Use " +
-                                                      "'help' for a list of " +
-                                                      "commands.");
+                    throw new InvalidCommandException("Unknown command. Use "
+                                                      + "'help' for a list of "
+                                                      + "commands.");
                 }
-            } catch (InvalidCommandException | TaskNotFoundException |
-                     MissingParameterException |
-                     DateTimeParseException e) {
+            } catch (InvalidCommandException | TaskNotFoundException
+                     | MissingParameterException
+                     | DateTimeParseException e) {
                 if (e instanceof DateTimeParseException) {
-                    ui.showError("Invalid date/time format. Please use the " +
-                                 "format: dd/MM/yyyy HHmm");
+                    ui.showError("Invalid date/time format. Please use the "
+                                 + "format: dd/MM/yyyy HHmm");
                 } else {
                     ui.showError(e.getMessage());
                 }
@@ -126,8 +126,9 @@ public class Megamind {
             TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
         boolean success = taskList.markTaskAsNotDone(index);
-        if (!success)
+        if (!success) {
             throw new TaskNotFoundException("Task number does not exist.");
+        }
         ui.showMarkTask(taskList.get(index), false);
     }
 
@@ -144,8 +145,9 @@ public class Megamind {
             TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
         boolean success = taskList.markTaskAsDone(index);
-        if (!success)
+        if (!success) {
             throw new TaskNotFoundException("Task number does not exist.");
+        }
         ui.showMarkTask(taskList.get(index), true);
     }
 
@@ -201,7 +203,9 @@ public class Megamind {
     public static void deleteTask(String command) throws InvalidCommandException, TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
         boolean success = taskList.delete(index);
-        if (!success) throw new TaskNotFoundException("Task number does not exist.");
+        if (!success) {
+            throw new TaskNotFoundException("Task number does not exist.");
+        }
         ui.showTaskDeleted(taskList.get(index));
     }
 }

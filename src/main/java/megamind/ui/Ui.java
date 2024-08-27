@@ -52,8 +52,8 @@ public class Ui {
      * @param taskCount Number of tasks in the list.
      */
     public void showTaskAdded(String task, int taskCount) {
-        System.out.println("Got it. I've added this task:\n" + task + "\n" +
-                           "Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + task + "\n"
+                           + "Now you have " + taskCount + " tasks in the list.");
     }
 
     /**
@@ -89,8 +89,7 @@ public class Ui {
      */
     public void showHelp() {
         System.out.println("""
-                All dates and times should be in the format: dd/MM/yyyy HHmm
-                
+                All dates and times should be in the format: dd/MM/yyyy HHmm \n
                 Here are the commands you can use:
                 1. list - List all tasks
                 2. todo <description> - Add a to-do task

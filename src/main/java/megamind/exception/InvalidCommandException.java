@@ -1,6 +1,7 @@
 package megamind.exception;
 
 public class InvalidCommandException extends Exception {
+
     /**
      * Constructor for InvalidCommandException
      *
