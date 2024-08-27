@@ -41,7 +41,7 @@ public class AddCommandTest {
         Ui ui = new Ui();
         Storage storage = new Storage("./testAdd.txt");
 
-        AddCommand addCommand = new AddCommand(todo);
+        Command addCommand = new AddCommand(todo);
 
         addCommand.run(taskList, storage, ui);
 

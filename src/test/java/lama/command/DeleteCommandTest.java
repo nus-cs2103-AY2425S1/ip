@@ -46,7 +46,7 @@ public class DeleteCommandTest {
         taskList.add(todo);
         taskList.add(todo2);
 
-        DeleteCommand deleteCommand = new DeleteCommand(1);
+        Command deleteCommand = new DeleteCommand(1);
 
         assertEquals(2, taskList.size());
         assertEquals("[T][ ] Read Book", taskList.get(0).toString());
