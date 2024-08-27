@@ -17,8 +17,10 @@ public class Duke {
     }
 
     public static void addToList(String dialog) {
-        taskList.add(new Task(dialog));
-        String res = addHorizontalLinesAndIndentation("added: " + dialog );
+        Task task = Task.of(dialog);
+        taskList.add(task);
+        String res = addHorizontalLinesAndIndentation("Got it. I've added this task: \n"
+                + "  " + task + "\n" + String.format("Now you have %d tasks in the list.", taskList.size()));
         System.out.println(res);
     }
 
