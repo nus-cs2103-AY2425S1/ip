@@ -1,6 +1,11 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+
 public class FRIDAY {
     private Boolean isActive;
     private String userInput;
@@ -32,7 +37,15 @@ public class FRIDAY {
     public void start() {
         //initialize scanner object
         Scanner scanner = new Scanner(System.in);
-
+        try {
+            String fileName = "../storage/FRIDAY.txt";
+            Scanner fileScanner = new Scanner(new File(fileName));
+            while(fileScanner.hasNextLine()) {
+                String[] taskDetails = fileScanner.nextLine().split(" \\| ");
+            }
+        } catch(FileNotFoundException f) {
+            System.out.println("file not found");
+        }
         //start the bot
         isActive = true;
 
