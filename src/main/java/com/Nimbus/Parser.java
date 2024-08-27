@@ -1,6 +1,6 @@
-package com.Nimbus;
+package com.nimbus;
 
-import com.Commands.*;
+import com.commands.*;
 
 final public class Parser {
 

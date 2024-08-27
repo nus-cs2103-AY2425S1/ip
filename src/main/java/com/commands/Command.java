@@ -1,7 +1,5 @@
-package com.Commands;
-import com.Nimbus.*;
-
-import java.util.ArrayList;
+package com.commands;
+import com.nimbus.*;
 
 abstract public class Command {
     /**

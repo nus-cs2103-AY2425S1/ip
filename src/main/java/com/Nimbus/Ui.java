@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 import java.util.ArrayList;
 
