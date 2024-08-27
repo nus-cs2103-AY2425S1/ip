@@ -1,4 +1,13 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +98,7 @@ public class Bob {
         }
     }
 
-    static Task parseTask(String line) {
+    static Task parseTask(String line) throws BobException {
         String[] details = line.split(",");
         String type = details[0];
         boolean isDone = details[1].equals("1");
@@ -99,16 +108,30 @@ public class Bob {
             case "T":
                 return new ToDo(description, isDone);
             case "D":
-                String by = details[3];
+                String byStr = details[3];
+                LocalDateTime by = parseDateTime(byStr);
                 return new Deadline(description, isDone, by);
             case "E":
-                String from = details[3];
-                String to = details[4];
+                String fromStr = details[3];
+                String toStr = details[4];
+                LocalDateTime from = parseDateTime(fromStr);
+                LocalDateTime to = parseDateTime(toStr);
                 return new Event(description, isDone, from, to);
             default:
                 System.out.println("Unknown task type: " + type);
                 return new ToDo(description, isDone);
         }
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeStr) throws BobException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        } catch (DateTimeParseException e) {
+            throw new BobException("Please provide the correct date and 24-hour time format: yyyy-mm-dd HHmm"
+                    + "\nEg. 2024-08-27 1530 for Aug 27 2024 03.30pm");
+        }
+
     }
 
     static Command getCommand(String userInput) throws BobException {
@@ -218,7 +241,7 @@ public class Bob {
         if (taskDetails.isEmpty()) {
             throw new BobException("Missing details!\n" + format);
         }
-        Task task = new ToDo(taskDetails);
+        ToDo task = new ToDo(taskDetails);
         addTask(task);
         saveTasks();
         return "Adding ToDo task:\n " + task
@@ -235,8 +258,14 @@ public class Bob {
         try {
             String[] params = taskDetails.split(" /");
             String description = params[0];
-            String by = params[1].split(" ", 2)[1];
-            Task task = new Deadline(description, by);
+            String byStr = params[1].split(" ", 2)[1];
+
+            LocalDateTime by = parseDateTime(byStr);
+            if (by.isBefore(LocalDateTime.now())) {
+                throw new BobException("Oops! The date you provided is in the past. "
+                        + "Kindly provide a future date.");
+            }
+            Deadline task = new Deadline(description, by);
             addTask(task);
             saveTasks();
             return "Adding Deadline task:\n " + task
@@ -256,9 +285,20 @@ public class Bob {
         try {
             String[] params = taskDetails.split(" /");
             String description = params[0];
-            String from = params[1].split(" ", 2)[1];
-            String to = params[2].split(" ", 2)[1];
-            Task task = new Event(description, from, to);
+            String fromStr = params[1].split(" ", 2)[1];
+            String toStr = params[2].split(" ", 2)[1];
+
+            LocalDateTime from = parseDateTime(fromStr);
+            LocalDateTime to = parseDateTime(toStr);
+            if (from.isBefore(LocalDateTime.now()) || to.isBefore(LocalDateTime.now())) {
+                throw new BobException("Oops! The date you provided is in the past. "
+                        + "Kindly provide a future date.");
+            }
+            if (to.isBefore(from)) {
+                throw new BobException("The end date cannot be before the start date. " +
+                        "Please try again.");
+            }
+            Event task = new Event(description, from, to);
             addTask(task);
             saveTasks();
             return "Adding Event task:\n " + task

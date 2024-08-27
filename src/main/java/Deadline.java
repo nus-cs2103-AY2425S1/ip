@@ -1,13 +1,16 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     private static final String SYMBOL = "D";
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         this(description, false, by);
     }
 
@@ -15,12 +18,18 @@ public class Deadline extends Task {
         return SYMBOL;
     }
 
+    String getDateTimeStr(LocalDateTime dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return dateTimeStr.format(formatter);
+    }
+
     public String getTaskLine() {
-        return getSymbol() +  "," + isDoneBinary() + "," + description + "," + by;
+        return getSymbol() +  "," + isDoneBinary() + "," + description + "," + getDateTimeStr(by);
     }
 
     @Override
     public String toString() {
-        return "[" + getSymbol() + "]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+        return "[" + getSymbol() + "]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 }
