@@ -41,6 +41,61 @@ public class Task {
     }
 
     /**
+     * Serializes the task to a string.
+     * The string is in the format of "T | 1 | description".
+     * T is the task type, 1 is 1 if the task is done, description is the description of the task.
+     * The task type is represented by the first character of the task type.
+     * For example, if the task type is ToDo, the task type is T.
+     * If the task is done, the second character is 1, otherwise it is 0.
+     * The description is the description of the task.
+     * The task type, is done status and description are separated by " | ".
+     *
+     * @return Serialized task.
+     */
+    public String serialize() {
+        return taskType.toString().charAt(0) + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
+    /**
+     * Deserializes the task from a string.
+     * The string is in the format of "T | 1 | description".
+     * T is the task type, 1 is 1 if the task is done, description is the description of the task.
+     * The task type is represented by the first character of the task type.
+     * For example, if the task type is ToDo, the task type is T.
+     * If the task is done, the second character is 1, otherwise it is 0.
+     * The description is the description of the task.
+     * The task type, is done status and description are separated by " | ".
+     *
+     * @param line The string to deserialize.
+     * @return The deserialized task.
+     */
+    public static Task deserialize(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = switch (type) {
+            case "T" -> new ToDo(description);
+            case "D" -> {
+                String deadline = parts[3];
+                yield new Deadline(description, deadline);
+            }
+            case "E" -> {
+                String[] eventTimes = parts[3].split(" ");
+                yield new Event(description, eventTimes[0], eventTimes[1]);
+            }
+            default -> throw new IllegalArgumentException("Unknown task type: " + type);
+        };
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    /**
      * Returns the string representation of the task.
      *
      * @return String representation of the task.

@@ -1,19 +1,29 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Buddy {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final List<Task> tasks = new ArrayList<>();
     private static final Map<String, TaskType> taskTypeCommandsMap = Map.of(
             "todo", TaskType.TODO,
             "deadline", TaskType.DEADLINE,
             "event", TaskType.EVENT
     );
+    private static final String FILE_PATH = "./data/tasks.txt";
+    private static final TaskStorage taskStorage = new TaskStorage(FILE_PATH);
 
     public static void main(String[] args) {
         // Welcome message
         System.out.println("Hello! I'm Buddy");
         System.out.println("What can I do for you?");
+
+        try {
+            tasks.addAll(taskStorage.load());
+        } catch (IOException e) {
+            System.out.println("Failed to load tasks from file!");
+        }
 
         Scanner scanner = new Scanner(System.in);
 
@@ -29,7 +39,6 @@ public class Buddy {
 
             // Exit if user types "bye"
             if (input.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
 
@@ -40,7 +49,6 @@ public class Buddy {
             } else if (input.startsWith("unmark")) {
                 markTaskAsNotDone(input);
             } else if (taskTypeCommandsMap.containsKey(input.split(" ", 2)[0])) {
-                // Store input text as new task
                 addTask(input);
             } else if (input.startsWith("delete")) {
                 deleteTask(input);
@@ -51,6 +59,7 @@ public class Buddy {
         }
 
         scanner.close();
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -116,6 +125,8 @@ public class Buddy {
                 break;
         }
 
+        saveTasks();
+
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -145,6 +156,8 @@ public class Buddy {
             return;
         }
 
+        saveTasks();
+
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + tasks.get(taskIndex));
     }
@@ -173,6 +186,8 @@ public class Buddy {
             return;
         }
 
+        saveTasks();
+
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + tasks.get(taskIndex));
     }
@@ -197,11 +212,24 @@ public class Buddy {
         try {
             Task task = tasks.remove(taskIndex);
 
+            saveTasks();
+
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + task);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid task number!");
+        }
+    }
+
+    /**
+     * Saves tasks to the file.
+     */
+    private static void saveTasks() {
+        try {
+            taskStorage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Failed to save tasks to file!");
         }
     }
 }
