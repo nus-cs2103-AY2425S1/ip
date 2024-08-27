@@ -152,7 +152,7 @@ public class TaskList {
      * Method to display task list for user.
      */
     public void displayList() {
-        this.ui.response("These are your Bunbun.tasks!");
+        this.ui.response("These are your tasks!");
         for (int i = 0; i < this.numOfTasks; i++) {
             Task currTask = this.taskList.get(i);
             String res;
@@ -163,7 +163,7 @@ public class TaskList {
             }
             this.ui.response(res);
         }
-        this.ui.response("That's all your Bunbun.tasks for now :>>>");
+        this.ui.response("That's all your tasks for now :>>>");
     }
 
     /**
