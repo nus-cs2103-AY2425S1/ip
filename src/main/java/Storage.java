@@ -1,22 +1,20 @@
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class SavingSystem {
+public class Storage {
     private static String LOCATION_DIR = "data";
     private static String LOCATION_FILENAME = "kita.txt";
     private static String LOCATION = LOCATION_DIR + "/" + LOCATION_FILENAME;
     private File saveFile;
     private Path saveFilePath;
 
-    public SavingSystem() throws FileSystemException, IOException{
+    public Storage() throws FileSystemException, IOException{
         this.saveFile = new File(LOCATION);
         if (!this.saveFile.exists() || !this.saveFile.isFile()) {
             System.out.println("Save file does not exist, creating one now at " + LOCATION);
