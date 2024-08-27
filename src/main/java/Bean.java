@@ -28,16 +28,20 @@ public class Bean {
             String[] splited = response.split(" ",2);
             if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
                 Task current = null;
+                String[] taskDetails;
                 try {
                     switch (splited[0]) {
                         case "todo":
                             current = new Todo(splited[1]);
                             break;
                         case "event":
-                            current = new Event(splited[1]);
+                            taskDetails = splited[2].split(" /from ");
+                            String[] taskTimings = taskDetails[1].split(" /to ");
+                            current = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
                             break;
                         case "deadline":
-                            current = new Deadline(splited[1]);
+                            taskDetails = splited[2].split(" /by ");
+                            current = new Deadline(taskDetails[0],taskDetails[1]);
                             break;
                     }
                     taskList.add(current);
@@ -97,16 +101,20 @@ public class Bean {
                 String[] splited = response.split(" ", 3);
                 if (splited[1].equals("todo") || splited[1].equals("event") || splited[1].equals("deadline")) {
                     Task current = null;
+                    String[] taskDetails;
                     try {
                         switch (splited[1]) {
                             case "todo":
                                 current = new Todo(splited[2]);
                                 break;
                             case "event":
-                                current = new Event(splited[2]);
+                                taskDetails = splited[2].split(" /from ");
+                                String[] taskTimings = taskDetails[1].split(" /to ");
+                                current = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
                                 break;
                             case "deadline":
-                                current = new Deadline(splited[2]);
+                                taskDetails = splited[2].split(" /by ");
+                                current = new Deadline(taskDetails[0],taskDetails[1]);
                                 break;
                         }
                         if ("1".equals(splited[0])) {
