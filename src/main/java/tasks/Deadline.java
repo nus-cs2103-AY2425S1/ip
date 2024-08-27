@@ -10,7 +10,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return "D " + super.toFileString();
+        return String.format("D %s | %s", super.toFileString(), deadline);
     }
 
     @Override

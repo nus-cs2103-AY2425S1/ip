@@ -12,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E " + super.toFileString();
+        return String.format("E %s | %s-%s", super.toFileString(), this.startTime, this.endTime);
     }
 
     @Override

@@ -5,18 +5,23 @@ import tasks.Event;
 
 import command.Command;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Atlas {
     public static final String LINE = "____________________________________________________________";
+    public static final String FILEPATH = "./data/atlas.txt";
     public static void main(String[] args) {
         Atlas.greet();
-
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = loadTaskList();
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
             String nextCommandLine = scanner.nextLine();
             String command = nextCommandLine.split(" ")[0].toUpperCase();
@@ -54,6 +59,35 @@ public class Atlas {
                 Atlas.print(e.getMessage());
             }
         }
+    }
+
+    public static ArrayList<Task> loadTaskList() {
+        ArrayList<Task> taskList = new ArrayList<>();
+        try {
+            File file = new File(FILEPATH);
+            File directory = file.getParentFile();
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String regex = Pattern.quote(" | ");
+                String[] sections = scanner.nextLine().split(regex);
+                Atlas.addTaskFromFile(taskList, sections);
+            }
+
+        } catch (FileNotFoundException e) {
+            Atlas.print("No saved file.");
+        } catch (IOException e) {
+            Atlas.print(e.getMessage());
+        }
+
+        return taskList;
     }
 
     public static void listTaskItems(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
@@ -117,6 +151,24 @@ public class Atlas {
         taskList.get(unmarkIndex).setIsNotDone();
         Atlas.save(taskList);
         Atlas.print(String.format("OK, I've marked this task as not done yet:\n \t%s", taskToBeUnmarked));
+    }
+
+    public static void addTaskFromFile(ArrayList<Task> taskList, String[] sections) {
+        Task task;
+        if (sections[0].equals("T")) {
+            task = new ToDo(sections[2]);
+        } else if (sections[0].equals("D")) {
+            task = new Deadline(sections[2], sections[3]);
+        } else {
+            String[] times = sections[3].split("-");
+            task = new Event(sections[2], times[0], times[1]);
+        }
+
+        if (sections[1].equals("1")) {
+            task.setIsDone();
+        }
+
+        taskList.add(task);
     }
 
     public static void addTask(ArrayList<Task> taskList, Task task) {
@@ -184,11 +236,11 @@ public class Atlas {
 
     public static void save(ArrayList<Task> taskList) {
         try {
-            FileWriter fw = new FileWriter("./data/atlas.txt", true);
+            FileWriter fw = new FileWriter(FILEPATH);
             fw.write(Atlas.formatTasks(taskList));
             fw.close();
         } catch (IOException e) {
-            Atlas.print("Failed to save.");
+            Atlas.print("Failed to save. " + e.getMessage());
         }
     }
 
