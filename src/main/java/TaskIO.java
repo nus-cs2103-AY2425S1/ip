@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TaskIO {
@@ -97,6 +99,9 @@ public class TaskIO {
             Scanner fileReader = new Scanner(this.taskFile);
             while (fileReader.hasNext()) {
                 String taskDescription = fileReader.nextLine();
+                if (taskDescription.equals("")) {
+                    continue;
+                }
                 processTask(taskList, taskDescription);
             }
         } catch (IOException e) {
@@ -177,7 +182,9 @@ public class TaskIO {
             break;
         case DEADLINE:
             String deadlineBy = taskComponents[3].trim();
-            incomingTask = new Deadline(taskDescription, taskStatus, deadlineBy);
+            DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(deadlineBy, deadlineFormatter);
+            incomingTask = new Deadline(taskDescription, taskStatus, deadline);
             taskList.addTask(incomingTask);
             break;
         case EVENT:
@@ -187,8 +194,7 @@ public class TaskIO {
             taskList.addTask(incomingTask);
             break;
         default:
-            throw new DenimException("Unknown Formatting or Corrupted data in data/denim.txt. " +
-                    "Delete file to resume. Terminating.\n ");
+            throw new DenimException("Unknown Formatting in data/denim.txt");
         }
     }
 }
