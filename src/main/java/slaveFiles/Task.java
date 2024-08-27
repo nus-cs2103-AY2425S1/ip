@@ -9,6 +9,11 @@ public abstract class Task {
         this.task = task;
     }
 
+    protected Task(boolean completed, String task) {
+        this.completed = completed;
+        this.task = task;
+    }
+
     /**
      *
      * @return the boolean value stored in the task

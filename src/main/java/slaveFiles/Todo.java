@@ -5,6 +5,10 @@ public class Todo extends Task {
         super(task);
     }
 
+    public Todo(boolean completed, String task) {
+        super(completed, task);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

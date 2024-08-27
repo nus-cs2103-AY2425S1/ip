@@ -1,10 +1,6 @@
 package slaveFiles;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -15,6 +11,7 @@ public class Slave {
     private static LinkedList<Task> list = new LinkedList<>();
 
     public static void main(String[] args) {
+        load();
         welcome();
         do {
             getUserInput();
@@ -111,11 +108,11 @@ public class Slave {
             System.out.println("Good to know that I have less things to remember now...");
             System.out.println("I'll forget about " + list.get(i - 1));
             list.remove(i - 1);
+            save();
         } catch (NumberFormatException nfe) {
             System.out.println("That's not a task number");
         } catch (IllegalArgumentException ile) {
             System.out.println(ile.toString());
-
         }
     }
 
@@ -188,11 +185,18 @@ public class Slave {
             if (insert) {
                 System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
                 System.out.println("added: " + list.get(list.size() - 1));
+                save();
             }
         }
 
     }
 
+    /**
+     * marks the task as completed by changing the boolean value to true
+     *
+     * @param s is the task index in String format
+     * @throws IllegalArgumentException in the event that event index is out of the range of the task list
+     */
     private static void markAsDone(String s) throws IllegalArgumentException {
         try {
             int i = Integer.parseInt(s);
@@ -203,6 +207,7 @@ public class Slave {
             }
             Task t = list.get(i - 1);
             t.completed();
+            save();
             System.out.println("Finally doing something useful with your life eh...");
             System.out.println(t);
         } catch (NumberFormatException nfe) {
@@ -210,6 +215,12 @@ public class Slave {
         }
     }
 
+    /**
+     * marks the task as incomplete by changing the boolean value to false
+     *
+     * @param s is the task index in String format
+     * @throws IllegalArgumentException in the event that event index is out of the range of the task list
+     */
     private static void markAsIncomplete(String s) throws IllegalArgumentException {
         try {
             int i = Integer.parseInt(s);
@@ -219,6 +230,7 @@ public class Slave {
             }
             Task t = list.get(i - 1);
             t.incomplete();
+            save();
             System.out.println("Slacking off now, are you?");
             System.out.println(t);
         } catch (NumberFormatException nfe) {
@@ -296,6 +308,111 @@ public class Slave {
                         " Hope to see you never...");
                 System.exit(1);
             }
+        }
+    }
+
+    /**
+     * converts the List<Task> to a string format and writes it to the savefile "./src/main/data/savefile.txt"
+     * every line contains only 1 task
+     * string format is as per the return value of toString() method of the respective task
+     * creates a new file at "./src/main/data" called "savefile.txt" in the event of a missing save file
+     */
+    private static void save() {
+        try {
+            StringBuilder sb = new StringBuilder();
+            for (Task t : list) {
+                sb.append(t);
+                sb.append("\n");
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/data/savefile.txt"));
+            writer.write(sb.toString());
+            writer.close();
+            System.out.println("saved");
+        } catch (IOException ioe) {
+            System.out.println("Save failed");
+            System.out.println(ioe.getMessage());
+        }
+    }
+
+    /**
+     * prints the contents of a string array
+     * used for debugging purposes
+     * @param arr is the array to be printed
+     */
+    private static void printArr(String[] arr) {
+        for (String s : arr) {
+            System.out.print(s + ",");
+        }
+        System.out.println("\n");
+    }
+
+    /**
+     * attempts to load the pre saved tasks from the save file "./src/main/data/savefile.txt"
+     * if file does not exist at the path, does nothing
+     * in the event of corrupted save file, skips the line
+     *
+     * save file format: as per toString() function of each task, with one task per line
+     */
+    private static void load() {
+        try {
+            Scanner sc = new Scanner(new File("./src/main/data/savefile.txt"));
+            int success = 0;
+            int failed = 0;
+            while (sc.hasNextLine()) {
+                try {
+                    String task = sc.nextLine();
+                    String[] arr = task.split(" ");
+                    // printArr(arr); // for testing purposes
+                    String taskName = arr[1];
+                    boolean completed = false;
+                    if (arr[0].charAt(4) == ']') {
+                        // do nothing
+                    } else if (arr[0].charAt(4) == 'X') {
+                        completed = true;
+                    } else {
+                        throw new InvalidSaveFileFormatException("invalid completed status");
+                    }
+                    // identify the type of task:
+                    switch (arr[0].charAt(1)) {
+                    case 'T':
+                        list.add(new Todo(completed, taskName));
+                        success++;
+                        break;
+                    case 'D':
+                        String by = arr[3].substring(0, arr[3].length() - 1);
+                        list.add(new Deadline(completed, taskName, by));
+                        success++;
+                        break;
+                    case 'E':
+                        String from = arr[3];
+                        String to = arr[5].substring(0, arr[5].length() - 1);
+                        list.add(new Event(completed, taskName, from, to));
+                        success++;
+                        break;
+                    default:
+                        throw new InvalidSaveFileFormatException("invalid Task type");
+                    }
+                } catch (InvalidSaveFileFormatException | IndexOutOfBoundsException e) {
+                    failed++;
+                    System.out.println("error in event save file format: " + e.getMessage());
+                }
+            }
+            if (success == 0) {
+                System.out.println("No valid save file found");
+            }
+            if (failed > 0) {
+                System.out.println("Deleting buggy save file");
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/data/savefile.txt"));
+                    writer.write("");
+                    writer.close();
+                    System.out.println("Buggy save file deleted");
+                } catch (IOException e) {
+                    System.out.println("Failed to purge buggy save file");
+                }
+            }
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("no save file found");
         }
     }
 
