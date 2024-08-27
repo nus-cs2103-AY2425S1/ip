@@ -79,4 +79,38 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    /**
+     *
+     * @return a string which will be written into data file
+     */
+    abstract public String toData();
+
+    /**
+     *
+     * @param data read by scanner line by line from file
+     * @return Task base on data
+     * @throws FailToParseDataException when data read is in wrong format
+     */
+    public static Task parseData(String data) throws FailToParseDataException {
+        String[] arr = data.split("/");
+        Task t = null;
+        switch (arr[0]) {
+            case "T":
+                t = new Todo(arr[2]);
+                break;
+            case "D":
+                t = new Deadline(arr[2], arr[3]);
+                break;
+            case "E":
+                t = new Event(arr[3], arr[4], arr[5]);
+                break;
+            default:
+                throw new FailToParseDataException("Fail to parse data");
+        };
+        if (arr[1].equals("true")) {
+            t.markAsDone();
+        }
+        return t;
+    }
 }
