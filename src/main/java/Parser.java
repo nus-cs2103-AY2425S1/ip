@@ -1,8 +1,8 @@
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 public class Parser {
     public static void parse(String command, TaskList tasks, Ui ui, Storage storage) {
@@ -17,6 +17,10 @@ public class Parser {
                 break;
             }
             case "list" -> {
+                if (tasks.getTasks().isEmpty()) {
+                    ui.showMessage("Bao is not tracking anything!");
+                    break;
+                }
                 for (int i = 0; i < tasks.size(); i++) {
                     ui.showMessage((i + 1) + ". " + tasks.getTask(i).toString());
                 }
@@ -50,10 +54,14 @@ public class Parser {
                 if (args.isEmpty()) {
                     ui.showMessage("Bao needs a description of the task!");
                 } else {
-                    tasks.addTask(new ToDo(args));
-                    storage.save(tasks.getTasks());
-                    ui.showMessage("Bao got it! Bao is now tracking:");
-                    ui.showMessage(tasks.getTask(tasks.size() - 1).toString());
+                    try {
+                        tasks.addTask(new ToDo(args));
+                        storage.save(tasks.getTasks());
+                        ui.showMessage("Bao got it! Bao is now tracking:");
+                        ui.showMessage(tasks.getTask(tasks.size() - 1).toString());
+                    } catch (IOException e) {
+                        ui.showMessage("Bao could not save tasks");
+                    }
                 }
                 break;
             }
@@ -70,6 +78,8 @@ public class Parser {
                         ui.showMessage(tasks.getTask(tasks.size() - 1).toString());
                     } catch (DateTimeParseException e) {
                         ui.showMessage("Bao needs a valid date format");
+                    } catch (IOException e) {
+                        ui.showMessage("Bao could not save tasks");
                     }
                 }
                 break;
@@ -88,6 +98,8 @@ public class Parser {
                         ui.showMessage(tasks.getTask(tasks.size() - 1).toString());
                     } catch (DateTimeParseException e) {
                         ui.showMessage("Bao needs a valid date format");
+                    } catch (IOException e) {
+                        ui.showMessage("Bao could not save tasks");
                     }
                 }
                 break;

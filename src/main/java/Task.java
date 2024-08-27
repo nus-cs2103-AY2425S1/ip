@@ -1,11 +1,9 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Task {
-    private String description;
-    private boolean isDone;
-    private static DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -14,16 +12,26 @@ public class Task {
 
     public static Task fromString(String string) {
         String[] parts = string.split(" \\| ");
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid task format: " + string);
+        }
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
 
         switch (type) {
             case "T" -> {
-                return new ToDo(description);
+                ToDo todo = new ToDo (description);
+                if (isDone) {
+                    todo.mark();
+                }
+                return todo;
             }
             case "D" -> {
-                LocalDateTime dateAndTime = LocalDateTime.parse(parts[3], fileDateFormat);
+                if (parts.length < 4) {
+                    throw new IllegalArgumentException("Invalid deadline task format: " + string);
+                }
+                LocalDateTime dateAndTime = LocalDateTime.parse(parts[3].trim(), Bao.fileDateFormat);
                 Deadline deadline = new Deadline(description, dateAndTime);
                 if (isDone) {
                     deadline.mark();
@@ -31,9 +39,15 @@ public class Task {
                 return deadline;
             }
             case "E" -> {
-                String[] duration = parts[3].split("-");
-                LocalDateTime from = LocalDateTime.parse(duration[0], fileDateFormat);
-                LocalDateTime to = LocalDateTime.parse(duration[1], fileDateFormat);
+                if (parts.length < 4) {
+                    throw new IllegalArgumentException("Invalid deadline task format: " + string);
+                }
+                String[] duration = parts[3].split(" - ");
+                if (duration.length < 2) {
+                    throw new IllegalArgumentException("Invalid event duration format: " + string);
+                }
+                LocalDateTime from = LocalDateTime.parse(duration[0].trim(), Bao.fileDateFormat);
+                LocalDateTime to = LocalDateTime.parse(duration[1].trim(), Bao.fileDateFormat);
                 Event event = new Event(description, from, to);
                 if (isDone) {
                     event.mark();
@@ -63,11 +77,5 @@ public class Task {
         }
     }
 
-    public String toFileString() {
-        if (isDone) {
-            return "1 | " + description;
-        } else {
-            return "0 | " + description;
-        }
-    }
+    public abstract String toFileString();
 }
