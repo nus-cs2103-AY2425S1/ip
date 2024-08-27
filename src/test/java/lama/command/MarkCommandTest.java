@@ -18,12 +18,20 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for MarkCommand
+ * Contains unit test case for MarkCommand class
+ */
 public class MarkCommandTest {
 
     private static final String BAR = "____________________________________________________________";
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+    /**
+     * Set up the testing environment after each test.
+     * Deletes any existing file to ensure a clean state.
+     */
     @BeforeEach
     public void setup() {
         try {
@@ -33,6 +41,12 @@ public class MarkCommandTest {
         }
     }
 
+    /**
+     * Test the run method.
+     * Verifies that the task is correctly marked, output
+     * as expected, save properly to the storage.
+     * @throws LamaException Thrown if there is an error in running command.
+     */
     @Test
     public void runTest() throws LamaException {
 
@@ -63,6 +77,10 @@ public class MarkCommandTest {
         assertEquals("[T][X] Read Book", storageTaskList.get(0).toString());
     }
 
+    /**
+     * Set up the testing environment after each test.
+     * Deletes any existing file to ensure a clean state.
+     */
     @AfterEach
     public void reset() {
         try {
