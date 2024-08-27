@@ -1,3 +1,8 @@
+package main;
+
+import exception.DukeException;
+import task.Task;
+
 public class Parser {
     TaskList taskList;
     Ui ui;

@@ -1,4 +1,8 @@
-import java.lang.reflect.Array;
+package main;
+
+import exception.DukeException;
+import task.*;
+
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -44,7 +48,7 @@ public class TaskList {
                 throw new DukeException("Invalid position!");
             }
             Task curr = taskList.get(index);
-            if (curr.isDone) {
+            if (curr.isDone()) {
                 throw new DukeException("It is already marked!");
             }
             curr.mark();
@@ -62,7 +66,7 @@ public class TaskList {
                 throw new DukeException("Invalid position!");
             }
             Task curr = taskList.get(index);
-            if (!curr.isDone) {
+            if (!curr.isDone()) {
                 throw new DukeException("It is already unmarked!");
             }
             curr.mark();

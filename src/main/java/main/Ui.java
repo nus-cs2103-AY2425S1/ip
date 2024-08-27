@@ -1,3 +1,7 @@
+package main;
+
+import task.Task;
+
 public class Ui {
     public Ui() {
 
@@ -5,7 +9,7 @@ public class Ui {
 
     public void greetingMessage() {
         String greeting = "________________________________\n"
-                + "Hello! I'm Bean\n"
+                + "Hello! I'm main.Bean\n"
                 + "What can i do for you?\n"
                 +"________________________________";
         System.out.println(greeting);
@@ -19,7 +23,7 @@ public class Ui {
         System.out.println(byeMsg);
     }
 
-    public void addMessage(Task task,int size) {
+    public void addMessage(Task task, int size) {
         String output = "________________________________\n" + "Got it. I've added this task:";
         System.out.println(output);
         System.out.println(task.getString());
