@@ -1,10 +1,6 @@
 public class ToDo extends Task {
-    public ToDo(String description, boolean isDone) {
-        super(description, isDone);
-    }
-
-    public String saveString() {
-        return String.format("T | %s | %s", description, isDone);
+    public ToDo(String description) {
+        super(description);
     }
 
     @Override

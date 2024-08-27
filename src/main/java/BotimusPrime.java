@@ -1,13 +1,10 @@
-import java.io.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class BotimusPrime {
     private static List<Task> taskList = new ArrayList<>();
-
-    private static final String FILENAME = "todolist.txt";
-    private static final String DIRECTORY = "./data";
 
     private static final String greetingMessage =
             "____________________________________________________________\n" +
@@ -37,14 +34,8 @@ public class BotimusPrime {
 
     private static void handleMark(String input) {
         String[] numFinder = input.split(" ");
-
-        if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
-            System.out.println("eh bro u need to put the index of the item uw to mark");
-        }
-
         int idx = Integer.parseInt(numFinder[1]) - 1;
         taskList.get(idx).markAsDone();
-        saveToDisk();
         System.out.println("____________________________________________________________\n" +
                 "Nice! I've marked this task as done:\n" +
                 taskList.get(idx));
@@ -52,14 +43,8 @@ public class BotimusPrime {
 
     private static void handleUnmark(String input) {
         String[] numFinder = input.split(" ");
-
-        if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
-            System.out.println("eh bro u need to put the index of the item uw to unmark");
-        }
-
         int idx = Integer.parseInt(numFinder[1]) - 1;
         taskList.get(idx).markAsUndone();
-        saveToDisk();
         System.out.println("____________________________________________________________\n" +
                 "OK, I've marked this task as not done yet:\n" +
                 taskList.get(idx));
@@ -67,15 +52,9 @@ public class BotimusPrime {
 
     private static void handleDelete(String input) {
         String[] numFinder = input.split(" ");
-
-        if (numFinder.length != 2 || !(numFinder[1].matches("\\d+"))) {
-            System.out.println("eh bro u need to put the index of the item uw to delete");
-        }
-
         int idx = Integer.parseInt(numFinder[1]) - 1;
         Task task = taskList.get(idx);
         taskList.remove(idx);
-        saveToDisk();
         System.out.println("____________________________________________________________\n" +
                 "Noted. I've removed this task:\n" +
                 task +
@@ -88,10 +67,9 @@ public class BotimusPrime {
             return;
         }
 
-        ToDo task = new ToDo(input.substring(5), false);
+        ToDo task = new ToDo(input.substring(5));
 
         taskList.add(task);
-        saveToDisk();
 
         System.out.println(
                 "____________________________________________________________\n" +
@@ -120,10 +98,9 @@ public class BotimusPrime {
             System.out.println("eh bro ur task no description leh wake up ur idea");
         }
 
-        Deadline task = new Deadline(description, false, deadline);
+        Deadline task = new Deadline(description, deadline);
 
         taskList.add(task);
-        saveToDisk();
 
         System.out.println(
                 "____________________________________________________________\n" +
@@ -161,10 +138,9 @@ public class BotimusPrime {
         String from = fromAndTo[0];
         String to = fromAndTo[1];
 
-        Event task = new Event(description, false, from, to);
+        Event task = new Event(description, from, to);
 
         taskList.add(task);
-        saveToDisk();
 
         System.out.println(
                 "____________________________________________________________\n" +
@@ -173,49 +149,11 @@ public class BotimusPrime {
                         "____________________________________________________________\n");
     }
 
-    private static void saveToDisk() {
-        File dir = new File(DIRECTORY);
-        File file = new File(dir, FILENAME);
-
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        try (FileWriter writer = new FileWriter(file)) {
-            for (Task task : taskList) {
-                writer.write(task.saveString() + System.lineSeparator());
-            }
-            System.out.println("Tasks saved");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void loadFromDisk() {
-        File file = new File(DIRECTORY, FILENAME);
-
-        if (!file.exists()) {
-            return;
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.fromString(line);
-                taskList.add(task);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static void handleUnknown() {
         System.out.println("bro out here speaking nonsense issit");
     }
 
     public static void main(String[] args) {
-
-        loadFromDisk();
-
         Scanner sc = new Scanner(System.in);
         System.out.println(greetingMessage);
 
