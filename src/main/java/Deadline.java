@@ -12,6 +12,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return taskIsDone ? "[D][X] " + this.description + " (by: " + deadline.substring(3) + ")" : "[D][ ] " + this.description + " (by: " + deadline.substring(3) + ")";
+        return taskIsDone ? "[D][X] " + this.description + " (by: " + deadline + ")" : "[D][ ] " + this.description + " (by: " + deadline + ")";
     }
 }

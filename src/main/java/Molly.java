@@ -104,8 +104,8 @@ public class Molly {
             int toIndex = taskData.indexOf("to:");
             if (fromIndex != -1 && toIndex != -1) {
                 String description = taskData.substring(7, fromIndex - 1);
-                String from = taskData.substring(fromIndex + 6, toIndex - 1);
-                String to = taskData.substring(toIndex + 3, taskData.length() - 1);
+                String from = taskData.substring(fromIndex + 7, toIndex - 1);
+                String to = taskData.substring(toIndex + 4, taskData.length() - 1);
                 Event event = new Event(description, from, to);
                 if (taskData.charAt(4) == 'X') {
                     event.markDone();
@@ -250,7 +250,8 @@ public class Molly {
                         } else {
                             String[] deadlineDetails = userInput.substring(9).split( " /by ");
                             if (deadlineDetails.length == 2) {
-                                Deadline newDeadline = new Deadline(userInput.substring(9, userInput.indexOf("/") - 1), userInput.substring(userInput.indexOf("/") + 1));
+                                Deadline newDeadline = new Deadline(userInput.substring(9, userInput.indexOf("/by") - 1), userInput.substring(userInput.indexOf("/by") + 4));
+                                System.out.println(newDeadline.deadline);
                                 botMemory.add(newDeadline);
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");
@@ -274,8 +275,10 @@ public class Molly {
                             String[] eventDetails = userInput.substring(6).split( " /from | /to ");
                             if (eventDetails.length == 3) {
                                 Event newEvent = new Event(userInput.substring(6, userInput.indexOf("/") - 1),
-                                        userInput.substring(userInput.indexOf("/") + 6, userInput.lastIndexOf("/") - 1),
-                                        userInput.substring(userInput.lastIndexOf("/") + 4));
+                                        userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1),
+                                        userInput.substring(userInput.indexOf("/to") + 4));
+                                System.out.println(newEvent.startTime);
+                                System.out.println(newEvent.endTime);
                                 botMemory.add(newEvent);
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");
@@ -308,6 +311,7 @@ public class Molly {
             }
 
         }
+        Molly.saveTasks(botMemory);
         Molly.sayBye();
 
     }
