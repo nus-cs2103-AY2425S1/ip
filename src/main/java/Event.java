@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,6 +29,12 @@ public class Event extends Task {
     public String getTaskLine() {
         return getSymbol() +  "," + isDoneBinary() + "," + description + "," + getDateTimeStr(from)
                 + "," + getDateTimeStr(to);
+    }
+
+    public boolean isRelevant(LocalDate date) {
+        LocalDate fromDate = from.toLocalDate();
+        LocalDate toDate = to.toLocalDate();
+        return !(date.isBefore(fromDate) || date.isAfter(toDate));
     }
 
     @Override

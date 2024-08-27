@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class ToDo extends Task {
     private static final String SYMBOL = "T";
 
@@ -15,6 +17,10 @@ public class ToDo extends Task {
 
     public String getTaskLine() {
         return getSymbol() +  "," + isDoneBinary() + "," + description;
+    }
+
+    public boolean isRelevant(LocalDate date) {
+        return false;
     }
 
     @Override

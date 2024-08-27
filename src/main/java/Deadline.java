@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -25,6 +26,11 @@ public class Deadline extends Task {
 
     public String getTaskLine() {
         return getSymbol() +  "," + isDoneBinary() + "," + description + "," + getDateTimeStr(by);
+    }
+
+    public boolean isRelevant(LocalDate date) {
+        LocalDate byDate = by.toLocalDate();
+        return byDate.equals(date);
     }
 
     @Override

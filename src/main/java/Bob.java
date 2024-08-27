@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,7 +21,7 @@ public class Bob {
     private static int numTasks = 0;
 
     public enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+        BYE, LIST, RELEVANT, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
 
     public static void main(String[] args) throws BobException, IOException {
@@ -42,6 +43,10 @@ public class Bob {
 
                     case LIST:
                         System.out.println(commandList());
+                        break;
+
+                    case RELEVANT:
+                        System.out.println(commandRelevant(taskDetails));
                         break;
 
                     case MARK:
@@ -123,7 +128,7 @@ public class Bob {
         }
     }
 
-    public static LocalDateTime parseDateTime(String dateTimeStr) throws BobException {
+    static LocalDateTime parseDateTime(String dateTimeStr) throws BobException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateTimeStr, formatter);
@@ -131,7 +136,6 @@ public class Bob {
             throw new BobException("Please provide the correct date and 24-hour time format: yyyy-mm-dd HHmm"
                     + "\nEg. 2024-08-27 1530 for Aug 27 2024 03.30pm");
         }
-
     }
 
     static Command getCommand(String userInput) throws BobException {
@@ -177,7 +181,7 @@ public class Bob {
         for (int i = 1; i <= numTasks; i++) {
             Task currTask = taskList.get(i - 1);
             if (i == numTasks) {
-                tasks.append(i).append(". ").append(currTask); // currTask.toString() ?
+                tasks.append(i).append(". ").append(currTask);
                 continue;
             }
             tasks.append(i).append(". ").append(currTask).append("\n");
@@ -198,12 +202,38 @@ public class Bob {
         }
     }
 
+    static String getRelevantTasks(String dateStr) throws BobException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(dateStr, formatter);
+
+            StringBuilder tasks = new StringBuilder();
+            int numRelevantTasks = 0;
+            for (Task currTask : taskList) {
+                if (currTask.isRelevant(date)) {
+                    numRelevantTasks++;
+                    tasks.append(numRelevantTasks).append(". ").append(currTask).append("\n");
+                }
+            }
+            DateTimeFormatter formatterWords = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            tasks.append("Total number of relevant tasks for ").append(date.format(formatterWords))
+                    .append(": ").append(numRelevantTasks);
+            return tasks.toString();
+        } catch (DateTimeParseException e) {
+            throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd");
+        }
+    }
+
     static String commandBye() {
         return "Bye! Hope to see you again :)";
     }
 
     static String commandList() {
         return "Your list of tasks:\n" + getTaskList();
+    }
+
+    static String commandRelevant(String dateStr) throws BobException {
+        return getRelevantTasks(dateStr);
     }
 
     static String commandMark(String taskDetails) throws BobException {
