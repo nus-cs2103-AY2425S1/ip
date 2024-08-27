@@ -131,13 +131,19 @@ public class Stan {
     }
 
     private static void handleDeadlineCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
-        if (words.length < 2 || !words[1].contains("/by")) {
+        if (words.length < 2 || words[1].trim().isEmpty()) {
+            throw new StanMissingArgumentException("The description of a deadline cannot be empty.");
+        }
+
+        if (!words[1].contains("/by")) {
             throw new StanMissingArgumentException("The description of a deadline must include a '/by' clause.");
         }
-        String[] parts = words[1].split(" /by ");
-        if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new StanInvalidArgumentException("The deadline description or time cannot be empty.");
+
+        String[] parts = words[1].split(" /by ", 2);
+        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+            throw new StanInvalidArgumentException("The deadline description and time cannot be empty.");
         }
+
         tasks.add(new Deadline(parts[0], parts[1]));
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + tasks.get(tasks.size() - 1));
@@ -147,21 +153,32 @@ public class Stan {
     }
 
     private static void handleEventCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
-        if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
-            throw new StanMissingArgumentException("The description of an event must include '/from' and '/to' clauses.");
+        if (words.length < 2 || words[1].trim().isEmpty()) {
+            throw new StanMissingArgumentException("The description of an event cannot be empty.");
         }
-        String[] parts = words[1].split(" /from ");
-        String[] times = parts[1].split(" /to ");
-        if (parts[0].trim().isEmpty() || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
-            throw new StanInvalidArgumentException("The event description, start, or end time cannot be empty.");
+
+        if (!words[1].contains("/from") || !words[1].contains("/to")) {
+            throw new StanMissingArgumentException("The description of an event must include both '/from' and '/to' clauses.");
         }
+
+        String[] parts = words[1].split(" /from ", 2);
+        if (parts.length < 2 || parts[0].trim().isEmpty()) {
+            throw new StanInvalidArgumentException("The event description cannot be empty.");
+        }
+
+        String[] times = parts[1].split(" /to ", 2);
+        if (times.length < 2 || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
+            throw new StanInvalidArgumentException("The event start time and end time cannot be empty.");
+        }
+
         tasks.add(new Event(parts[0], times[0], times[1]));
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + tasks.get(tasks.size() - 1));
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
-        saveTasks();  
+        saveTasks();
     }
+
 
     private static void handleDeleteCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
         if (words.length < 2) {

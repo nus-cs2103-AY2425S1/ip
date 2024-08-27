@@ -44,9 +44,13 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String task = sc.nextLine();
                 String[] taskDetails = task.split(" \\| ");
-                Task parsedTask = parseTask(taskDetails);
-                if (parsedTask != null) {
-                    tasks.add(parsedTask);
+                try {
+                    Task parsedTask = parseTask(taskDetails);
+                    if (parsedTask != null) {
+                        tasks.add(parsedTask);
+                    }
+                } catch (StanInvalidDateTimeFormatException e) {
+                    System.out.println("Error loading task: " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
@@ -99,24 +103,24 @@ public class Storage {
      * @param taskDetails The array of task details.
      * @return The task object.
      */
-    private static Task parseTask(String[] taskDetails) {
+    private static Task parseTask(String[] taskDetails) throws StanInvalidDateTimeFormatException {
         Task task = null;
         String taskType = taskDetails[0];
         boolean isDone = taskDetails[1].equals("1");
         String description = taskDetails[2];
 
         switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                task = new Deadline(description, taskDetails[3]);
-                break;
-            case "E":
-                task = new Event(description, taskDetails[3], taskDetails[4]);
-                break;
-            default:
-                System.out.println("Unknown task type: " + taskType);
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            task = new Deadline(description, taskDetails[3]);
+            break;
+        case "E":
+            task = new Event(description, taskDetails[3], taskDetails[4]);
+            break;
+        default:
+            System.out.println("Unknown task type: " + taskType);
         }
 
         if (task != null && isDone) {
