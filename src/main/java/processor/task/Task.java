@@ -5,6 +5,7 @@ import exceptions.deadline.DeadlineInvalidArgsException;
 import exceptions.deadline.DeadlineInvalidTimeException;
 import exceptions.event.EventEmptyNameException;
 import exceptions.event.EventInvalidArgsException;
+import exceptions.event.EventInvalidTimeException;
 import exceptions.todo.TodoEmptyNameException;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public abstract class Task {
     this.state = state;
   }
 
-  public static Task of(TaskType type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException, DeadlineInvalidTimeException {
+  public static Task of(TaskType type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException, DeadlineInvalidTimeException, EventInvalidTimeException {
     switch (type) {
       case Todo:
         if (arg.replaceAll("\\s+", "").isEmpty()) {
@@ -82,7 +83,22 @@ public abstract class Task {
           throw new EventInvalidArgsException();
         }
 
-        return new Event(eventArgs.get(0), from, to);
+        final LocalDateTime fromDate, toDate;
+
+        try {
+          fromDate = LocalDateTime.parse(from.replaceAll("\\s+", ""));
+        } catch (DateTimeParseException e) {
+          System.out.println(e.getMessage());
+          throw new EventInvalidTimeException(from);
+        }
+
+        try {
+          toDate = LocalDateTime.parse(to.replaceAll("\\s+", ""));
+        } catch (DateTimeParseException e) {
+          throw new EventInvalidTimeException(to);
+        }
+
+        return new Event(eventArgs.get(0), fromDate, toDate);
     }
 
     throw new IllegalStateException();
