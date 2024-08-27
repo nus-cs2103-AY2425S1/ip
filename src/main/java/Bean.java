@@ -1,211 +1,32 @@
-import java.io.FileWriter;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.IOException;
 
 public class Bean {
-    private ArrayList<Task> taskList;
-    private String filePath = "src\\main\\java\\data\\tasks.txt";
-    private int pointer = 0;
+    private TaskList taskList;
+
+    private Storage storage;
+    private Ui ui;
+    private Parser parser;
 
     public static void main(String[] args) {
-        Bean bean = new Bean();
+        Bean bean = new Bean("src\\main\\java\\data\\tasks.txt");
         bean.run();
     }
 
-    public Bean() {
-        taskList = new ArrayList<>();
-        readStorage();
+    public Bean(String path) {
+        storage = new Storage(path);
+        taskList = new TaskList(storage.readStorage());
+        ui = new Ui();
+        parser = new Parser(taskList, ui, storage);
     }
 
-    public void run(){
-        greeting();
+    public void run() {
+        ui.greetingMessage();
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        Boolean status = true;
+        while (status) {
             String response = scanner.nextLine();
-            String[] splited = response.split(" ",2);
-            if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
-                Task current = null;
-                String[] taskDetails;
-                try {
-                    switch (splited[0]) {
-                        case "todo":
-                            current = new Todo(splited[1]);
-                            break;
-                        case "event":
-                            taskDetails = splited[2].split(" /from ");
-                            String[] taskTimings = taskDetails[1].split(" /to ");
-                            current = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
-                            break;
-                        case "deadline":
-                            taskDetails = splited[1].split(" /by ");
-                            current = new Deadline(taskDetails[0],taskDetails[1]);
-                            break;
-                    }
-                    taskList.add(current);
-                    pointer++;
-                    String output = "________________________________\n" + "Got it. I've added this task:";
-                    System.out.println(output);
-                    System.out.println(current.getString());
-                    output = "Now you have " + String.valueOf(pointer) + " tasks in the list.\n" + "________________________________";
-                    System.out.println(output);
-                } catch (DukeException e) {
-                    System.out.println("________________________________");
-                    System.out.println(e.getMessage() + "________________________________");
-                }
-            } else if (response.equals("list")) {
-                list();
-            } else if (splited[0].equals("mark")) {
-                int index = Integer.parseInt(splited[1]) - 1;
-                mark(index);
-            } else if (splited[0].equals("unmark")) {
-                int index = Integer.parseInt(splited[1]) - 1;
-                unmark(index);
-            } else if (splited[0].equals("delete")) {
-                int index = Integer.parseInt(splited[1]) - 1;
-                delete(index);
-            } else if (splited[0].equals("bye")){
-                writeStorage();
-                System.out.println("________________________________\nGoodbye!!!!!\n________________________________");
-                break;
-            } else {
-                try {
-                    throw new DukeException("I dont understand what you are trying to say :(");
-                } catch (DukeException e) {
-                    System.out.println("________________________________");
-                    System.out.println(e.getMessage() + "\n________________________________");
-                }
-            }
-        }
-    }
-    public void greeting() {
-        String greeting = "________________________________\n"
-                + "Hello! I'm Bean\n"
-                + "What can i do for you?\n"
-                +"________________________________";
-        String byeMsg =
-                "________________________________\n"
-                        + "Bye. Hope to see you again soon!\n"
-                        + "________________________________";
-        System.out.println(greeting);
-    }
-
-    public void readStorage() {
-        try {
-            File f = new File(filePath); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                String response = s.nextLine();
-                String[] splited = response.split(" ", 3);
-                if (splited[1].equals("todo") || splited[1].equals("event") || splited[1].equals("deadline")) {
-                    Task current = null;
-                    String[] taskDetails;
-                    try {
-                        switch (splited[1]) {
-                            case "todo":
-                                current = new Todo(splited[2]);
-                                break;
-                            case "event":
-                                taskDetails = splited[2].split(" /from ");
-                                String[] taskTimings = taskDetails[1].split(" /to ");
-                                current = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
-                                break;
-                            case "deadline":
-                                taskDetails = splited[2].split(" /by ");
-                                current = new Deadline(taskDetails[0],taskDetails[1]);
-                                break;
-                        }
-                        if ("1".equals(splited[0])) {
-                            current.mark();
-                        }
-                        taskList.add(current);
-                        pointer++;
-                    } catch (DukeException e) {
-                        System.out.println("________________________________");
-                        System.out.println(e.getMessage() + "________________________________");
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public void writeStorage() {
-        try {
-            FileWriter fw = new FileWriter(filePath,false);
-            for (int i = 0; i < pointer; i++) {
-                Task curr = taskList.get(i);
-                fw.write(curr.getStorageFormat());
-            }
-            fw.close();
-        } catch (IOException e){
-            System.out.println(e.getMessage());
+            status = parser.parse(response);
         }
     }
 
-    public void list() {
-        System.out.println("________________________________");
-        for (int i = 0; i < pointer; i++) {
-            String output = String.valueOf(i + 1) + ". " + taskList.get(i).getString();
-            System.out.println(output);
-        }
-        System.out.println("________________________________");
-    }
-
-    public void mark(int index) {
-        try {
-            if (index < 0 || index > pointer) {
-                throw new DukeException("Invalid position!");
-            }
-            Task curr = taskList.get(index);
-            if (curr.isDone) {
-                throw new DukeException("It is already marked!");
-            }
-            String msg = curr.mark();
-            System.out.println("________________________________");
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(msg);
-            System.out.println("________________________________");
-        } catch (DukeException e) {
-            System.out.println("________________________________");
-            System.out.println(e.getMessage() + "\n________________________________");
-        }
-    }
-
-    public void unmark(int index) {
-        try {
-            if (index < 0 || index > pointer) {
-                throw new DukeException("Invalid position!");
-            }
-            Task curr = taskList.get(index);
-            if (!curr.isDone) {
-                throw new DukeException("It is already unmarked!");
-            }
-            String msg = curr.mark();
-            System.out.println("________________________________");
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(msg);
-            System.out.println("________________________________");
-        } catch (DukeException e) {
-            System.out.println("________________________________");
-            System.out.println(e.getMessage() + "\n________________________________");
-        }
-    }
-    public void delete(int index) {
-        try {
-            if (index < 0 || index > pointer) {
-                throw new DukeException("Invalid position!");
-            }
-            System.out.println("________________________________");
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(taskList.remove(index).getString());
-            pointer--;
-            System.out.println( "Now you have " + String.valueOf(pointer) + " tasks in the list.\n" + "________________________________");
-        } catch (DukeException e) {
-            System.out.println("________________________________");
-            System.out.println(e.getMessage() + "\n________________________________");
-        }
-    }
 }
