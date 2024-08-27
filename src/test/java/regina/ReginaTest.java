@@ -1,3 +1,5 @@
+package regina;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,7 @@ public class ReginaTest {
 
     @BeforeEach
     public void setUp() {
-        // Initialize Regina before each test
+        // Initialize regina.Regina before each test
         regina = new Regina();
     }
 

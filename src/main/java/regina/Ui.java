@@ -1,7 +1,9 @@
+package regina;
+
 import java.util.Scanner;
 
 /**
- * The Ui class handles all user interactions for the Regina chatbot.
+ * The regina.Ui class handles all user interactions for the regina.Regina chatbot.
  * It provides methods to display messages, prompts, and help information to the user.
  * The class manages the input and output operations, ensuring a user-friendly command-line interface.
  *

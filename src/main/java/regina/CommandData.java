@@ -1,3 +1,5 @@
+package regina;
+
 public class CommandData {
     private final String commandType;
     private final String rawInput;
