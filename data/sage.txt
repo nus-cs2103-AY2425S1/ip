@@ -1,4 +1,5 @@
 T | 0 | life
 T | 0 | project
-D | 1 | reading | 2019-10-15 1800
+D | 1 | reading | 2019-10-15T18:00
 E | 0 | meeting | now | then
+T | 0 | read

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Memory {
+public class Storage {
     private final String filePath;
 
-    public Memory(String pathName) {
+    public Storage(String pathName) {
         this.filePath = pathName;
     }
 

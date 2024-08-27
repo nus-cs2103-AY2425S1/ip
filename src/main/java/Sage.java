@@ -6,16 +6,16 @@ import java.util.List;
 public class Sage {
     public static final String NAME = "Sage";
     public static List<Task> tasksList = new ArrayList<>();
-    public static Memory memory;
+    public static Storage storage;
 
-    public static void main(String[] args) throws SageException {
+    public static void main(String[] args) {
 
-        memory = new Memory("data/sage.txt");
+        storage = new Storage("data/sage.txt");
         Scanner scanner = new Scanner(System.in);
         textBox(String.format("Hello! I'm %s\nWhat can i do for you?", NAME));
 
         try {
-            tasksList = memory.load();
+            tasksList = storage.load();
         } catch (IOException | SageException e) {
             System.out.println(e.getMessage());
         }
@@ -27,7 +27,7 @@ public class Sage {
                 String command = fullCommand[0];
 
                 if (input.equalsIgnoreCase("bye")) {
-                    memory.save(tasksList);
+                    storage.save(tasksList);
                     textBox("Bye. Hope to see you again soon!");
                     break;
 
