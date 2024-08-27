@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -17,6 +22,11 @@ public class Task {
 
     public void markUndone() {
         this.isDone = false;
+    }
+
+    public String saveString() {
+        String status = isDone ? "1" : "0";
+        return " | " + status + " | " + this.description;
     }
 
     @Override

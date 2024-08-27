@@ -64,6 +64,10 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> getTask() {
+        return this.list;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
