@@ -11,6 +11,10 @@ if [ -e "./ACTUAL.TXT" ]
 then
     rm ACTUAL.TXT
 fi
+if [ -e "./data" ]
+then
+    rm -rf data
+fi
 
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
@@ -30,8 +34,10 @@ diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
+    rm -rf ./data
     exit 0
 else
     echo "Test result: FAILED"
+    rm -rf ./data
     exit 1
 fi

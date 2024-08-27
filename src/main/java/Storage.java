@@ -24,7 +24,7 @@ public class Storage {
                             + task.getSaveFormat() + "\n");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+            Ui.error(e);
         }
     }
 
@@ -59,10 +59,10 @@ public class Storage {
             }
             return taskList;
         } catch (FileNotFoundException e) {
-            System.out.println("No saved tasks found. Starting fresh...");
+            Ui.initialise("No saved tasks found. Starting fresh...");
             return new ArrayList<>();
         } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+            Ui.initialise("Unable to access data. Starting fresh...");
             return new ArrayList<>();
         }
     }

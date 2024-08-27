@@ -76,11 +76,17 @@ public class Ui {
             + HORIZONTAL_LINE);
     }
 
-    public static void error(GladosException e) {
+    public static void error(Exception e) {
         System.out.println(
             HORIZONTAL_LINE
-            + "\n" + e.getMessage() + "\n"
+            + "\nGLaDOS: " + e.getMessage() + "\n"
             + HORIZONTAL_LINE
+        );
+    }
+
+    public static void initialise(String str) {
+        System.out.println(
+            "\n" + str
         );
     }
 
