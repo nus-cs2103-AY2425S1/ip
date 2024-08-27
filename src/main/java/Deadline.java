@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    private String type = "[D]";
+    private String type = "D";
 
     private static String modifyDescription(String des) throws TaskException {
         if (des.length() == 0) {
@@ -21,8 +21,13 @@ public class Deadline extends Task {
         super(modifyDescription(description));
     }
 
+    public Deadline(String description, String done) {
+        super(description, done);
+    }
+
     @Override
     public String getType() {
         return this.type;
     }
+
 }

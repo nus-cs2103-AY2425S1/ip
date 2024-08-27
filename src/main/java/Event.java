@@ -1,5 +1,5 @@
 public class Event extends Task {
-    private String type = "[E]";
+    private String type = "E";
 
     private static String modifyDescription(String des) throws TaskException {
         if (des.length() == 0) {
@@ -21,6 +21,10 @@ public class Event extends Task {
 
     public Event(String description) throws TaskException {
         super(modifyDescription(description));
+    }
+
+    public Event(String description, String done) {
+        super(description, done);
     }
 
     @Override
