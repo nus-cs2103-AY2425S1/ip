@@ -1,11 +1,8 @@
-package com.Commands;
+package com.commands;
 
-import com.Nimbus.Storage;
-import com.Nimbus.Task;
-import com.Nimbus.TaskList;
-import com.Nimbus.Ui;
-
-import java.util.ArrayList;
+import com.nimbus.Storage;
+import com.nimbus.TaskList;
+import com.nimbus.Ui;
 
 public class MarkCommand extends Command {
     private final int index;

@@ -1,4 +1,4 @@
-package com.Nimbus;
+package com.nimbus;
 
 public abstract class Task {
     protected String description;
@@ -14,23 +14,47 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Mark the task as done
+     */
     public void setDone() {
         isDone = true;
     }
 
+    /**
+     * Mark the task as not done
+     */
     public void setNotDone(){
         isDone = false;
     }
 
+    /**
+     * Get the description of the task
+     * @return description of the task
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Get the status icon for whether the task has been done
+     * @return status icon for the task
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Return the task in pure String form
+     * @return file format of the task
+     */
     public abstract String toFileFormat();
+
+
+    /**
+     * Short String to indicate the type of the task
+     * @return Type of the Task
+     */
     public abstract String getTypeIcon();
 
     @Override

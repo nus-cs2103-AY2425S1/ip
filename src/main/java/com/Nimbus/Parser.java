@@ -1,10 +1,16 @@
-package com.Nimbus;
+package com.nimbus;
 
-import com.Commands.*;
+import com.commands.*;
 
 final public class Parser {
 
-    public static String getCommand(String line) {
+
+    /**
+     * Given a command, return it's command type
+     * @param line command
+     * @return Command Type in String Format
+     */
+    public static String getCommandType(String line) {
         int index = line.indexOf(" ");
         String command = line;
         if (index != -1) {
@@ -13,6 +19,11 @@ final public class Parser {
         return command;
     }
 
+    /**
+     * Given an argument, extract it's description
+     * @param argument argument of a command
+     * @return description of the corresponding argument
+     */
     public static String getDescription(String argument) {
         int index = argument.indexOf("/");
         if (index == -1)
@@ -21,6 +32,12 @@ final public class Parser {
             return argument.substring(0, index).trim();
     }
 
+    /**
+     * Given a command, return its argument (Excluding its command type)
+     * @param command Command
+     * @return Argument of a command
+     * @throws InvalidArgumentException if the argument is empty
+     */
     public static String getArgument(String command) throws InvalidArgumentException {
         command = command.trim();
         int index = command.indexOf(" ");
@@ -29,6 +46,13 @@ final public class Parser {
         return command.substring(index + 1);
     }
 
+    /**
+     * Extract the substring after an option
+     * @param argument argument of a command
+     * @param target   which option to extract
+     * @return the substring after the option
+     * @throws InvalidArgumentException if option can't be found
+     */
     public static String readOption(String argument, String target) throws InvalidArgumentException {
         int startIndex = argument.indexOf("/" + target);
         if (startIndex == -1) {
@@ -43,8 +67,15 @@ final public class Parser {
                     endIndex + startIndex + target.length() + 1).trim();
     }
 
+    /**
+     * Takes a command a return corresponding Command object
+     * @param line command
+     * @return A Command object that represent the command
+     * @throws InvalidCommandException if the command is not valid
+     * @throws InvalidArgumentException if the argument of a command does not match its command type
+     */
     public static Command parse(String line) throws InvalidCommandException, InvalidArgumentException {
-        return switch (getCommand(line)) {
+        return switch (getCommandType(line)) {
             case "list" -> new ListCommand();
             case "remove" -> new RemoveCommand(getArgument(line));
             case "mark" -> new MarkCommand(getArgument(line));
@@ -53,7 +84,7 @@ final public class Parser {
             case "deadline" -> new DeadlineCommand(getArgument(line));
             case "event" -> new EventCommand(getArgument(line));
             case "bye" -> new ByeCommand();
-            default -> throw new InvalidCommandException(getCommand(line));
+            default -> throw new InvalidCommandException(getCommandType(line));
         };
     }
 }

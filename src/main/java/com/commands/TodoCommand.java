@@ -1,8 +1,6 @@
-package com.Commands;
+package com.commands;
 
-import com.Nimbus.*;
-
-import java.util.ArrayList;
+import com.nimbus.*;
 
 public class TodoCommand extends Command {
     private final String argument;
