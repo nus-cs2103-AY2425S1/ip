@@ -1,5 +1,5 @@
 /**
- * Task class includes a description of the task and a completion status.
+ * Includes a description of the task and a completion status.
  * Serves as a parent class for subclasses Todo, Deadline and Event.
  */
 public class Task {
@@ -26,10 +26,6 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public TaskType getType() {
-        return type;
-    }
-
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
@@ -52,7 +48,7 @@ public class Task {
     /**
      * Formats Task for saving.
      *
-     * @return String Formatted details of Task.
+     * @return Formatted string containing details of Task.
      */
     public String saveDetails() {
         return (isDone ? "1" : "0") + " | " + getDescription();

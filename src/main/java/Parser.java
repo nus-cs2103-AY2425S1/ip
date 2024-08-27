@@ -2,7 +2,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deals with making sense of user input.
+ */
 public class Parser {
+    /**
+     * Formats a user typed date/time into proper format to be used by system.
+     *
+     * @param input User typed date/time.
+     * @return LocalDateTime object containing date/time obtained from input.
+     * @throws DeltaException If date/time input from user given in the wrong format.
+     */
     private static LocalDateTime formatDateTime(String input) throws DeltaException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -17,6 +27,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into a command understood by the system.
+     *
+     * @param input User typed command.
+     * @return Command to be used by system to execute an action.
+     * @throws DeltaException If format of user input is wrong.
+     */
     public static Command parse(String input) throws DeltaException {
         String[] description = input.strip().split(" ", 2);
         String task = description[0];

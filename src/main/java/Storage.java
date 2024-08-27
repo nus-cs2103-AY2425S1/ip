@@ -6,13 +6,23 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Deals with loading tasks from save file and saving tasks into save file.
+ */
 public class Storage {
+    // Stores relative file path of save file.
     private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads all tasks from save file into list.
+     *
+     * @return ArrayList containing all tasks obtained from save file.
+     * @throws DeltaException If save file has been corrupted or save file not found.
+     */
     public ArrayList<Task> load() throws DeltaException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -31,11 +41,15 @@ public class Storage {
                 } else {
                     throw new DeltaException("OOPS!!! Save File has been corrupted!");
                 }
+
+                // Mark task if needed
                 if (details[1].equals("1")) {
                     task.markAsDone();
+                // Mark/Unmark task corrupted
                 } else if (!details[1].equals("0")) {
                     throw new DeltaException("OOPS!!! Save File has been corrupted!");
                 }
+
                 tasks.add(task);
             }
         }
@@ -45,9 +59,17 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves all tasks from list into save file.
+     *
+     * @param taskList TaskList containing all current tasks.
+     * @throws DeltaException If save directory or save file cannot be created, or file cannot be saved.
+     */
     public void save(TaskList taskList) throws DeltaException {
         File file = new File("./" + filePath);
         File directory = file.getParentFile();
+
+        // Create save directory
         if (!directory.exists()) {
             boolean directoryCreatedSuccessfully = directory.mkdir();
             if (!directoryCreatedSuccessfully) {
@@ -58,6 +80,7 @@ public class Storage {
             }
         }
 
+        // Create save file
         if (!file.exists()) {
             try {
                 boolean fileCreatedSuccessfully = file.createNewFile();
@@ -76,12 +99,14 @@ public class Storage {
             }
         }
 
+        // Convert all tasks into save format
         ArrayList<Task> tasks = taskList.getTasks();
         String fileContents = "";
         for (Task task : tasks) {
             fileContents += task.saveDetails() + "\n";
         }
 
+        // Save all tasks into save file
         try {
             FileWriter fw = new FileWriter(file);
             fw.write(fileContents);

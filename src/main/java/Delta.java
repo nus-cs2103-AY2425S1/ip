@@ -13,6 +13,11 @@ public class Delta {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Delta instance.
+     *
+     * @param filePath Relative file path of save file for Delta ChatBot.
+     */
     public Delta(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +30,9 @@ public class Delta {
         }
     }
 
+    /**
+     * Runs main logic of Delta ChatBot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
