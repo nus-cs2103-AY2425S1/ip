@@ -1,9 +1,9 @@
-package data.task;
+package barney.data.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import data.datetime.BarneyDateTime;
+import barney.data.datetime.BarneyDateTime;
 
 public class EventTask extends Task {
     private String atString;
