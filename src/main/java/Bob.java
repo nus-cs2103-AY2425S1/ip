@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -133,7 +136,13 @@ public class Bob {
         if (description.isEmpty()) {
             throw new BobException("The description of a deadline cannot be empty.");
         }
-        Task t = new Deadline(description, date);
+        Task t = null;
+        try {
+            LocalDateTime by = Deadline.parseDateTime(date);
+            t = new Deadline(description, by);
+        } catch (DateTimeParseException e) {
+            throw new BobException("Invalid date. Please enter in the format: yyyy-MM-dd HH:mm");
+        }
         list.add(t);
         taskAdded(list, t);
     }
@@ -149,7 +158,13 @@ public class Bob {
         if (description.isEmpty()) {
             throw new BobException("The description of an event cannot be empty.");
         }
-        Task t = new Event(description, from, to);
+        Task t = null;
+        try {
+            LocalDateTime fromTime = Event.parseDateTime(from);
+            t = new Event(description, fromTime, to);
+        } catch (DateTimeParseException e) {
+            throw new BobException("Invalid start and end date. Please enter in the format: /from yyyy-MM-dd HH:mm /to: yyyy-MM-dd HH:mm or HH:mm");
+        }
         list.add(t);
         taskAdded(list, t);
     }
