@@ -17,9 +17,9 @@ public class Justbot {
         TaskList taskList = new TaskList();
         Ui ui = new Ui();
 
-        TaskFileHandler taskFileHandler = new TaskFileHandler(filePath);
-        taskFileHandler.createFileIfDoesNotExist();
-        taskFileHandler.loadTasks(taskList);
+        Storage storage = new Storage(filePath);
+        storage.createFileIfDoesNotExist();
+        storage.loadTasks(taskList);
         ui.botIntro(chatbotName);
 
         while (!input.equals("bye")) {
@@ -44,7 +44,7 @@ public class Justbot {
                         taskList.validateMarkTaskNumber(markNumber);
                         Commands.markTask(taskList, markNumber);
                         ui.markMessage(taskList, markNumber);
-                        taskFileHandler.saveTasks(taskList);
+                        storage.saveTasks(taskList);
                     } catch (JustbotException e) {
                         ui.getJustBotExceptionMessage(e);
                     }
@@ -55,7 +55,7 @@ public class Justbot {
                         taskList.validateUnmarkTaskNumber(unmarkNumber);
                         Commands.unmarkTask(taskList, unmarkNumber);
                         ui.unmarkMessage(taskList, unmarkNumber);
-                        taskFileHandler.saveTasks(taskList);
+                        storage.saveTasks(taskList);
                     } catch (JustbotException e) {
                         ui.getJustBotExceptionMessage(e);
                     }
@@ -65,7 +65,7 @@ public class Justbot {
                         Task deadlineTask = parser.parseDeadlineTask(input);
                         Commands.addTask(taskList, deadlineTask);
                         ui.addTaskMessage(taskList, deadlineTask);
-                        taskFileHandler.saveTasks(taskList);
+                        storage.saveTasks(taskList);
                     } catch (JustbotException e) {
                         ui.getJustBotExceptionMessage(e);
                     }
@@ -75,7 +75,7 @@ public class Justbot {
                         Task eventTask = parser.parseEventTask(input);
                         Commands.addTask(taskList, eventTask);
                         ui.addTaskMessage(taskList, eventTask);
-                        taskFileHandler.saveTasks(taskList);
+                        storage.saveTasks(taskList);
                     } catch (JustbotException e) {
                         ui.getJustBotExceptionMessage(e);
                     }
@@ -84,7 +84,7 @@ public class Justbot {
                     try {
                         Task todoTask = parser.parseTodoTask(input);
                         Commands.addTask(taskList, todoTask);
-                        taskFileHandler.saveTasks(taskList);
+                        storage.saveTasks(taskList);
                         ui.addTaskMessage(taskList, todoTask);
                     } catch (JustbotException e) {
                         ui.getJustBotExceptionMessage(e);
@@ -96,7 +96,7 @@ public class Justbot {
                         taskList.validateDeleteTaskNumber(deleteNumber);
                         ui.deleteTaskMessage(taskList, deleteNumber);
                         Commands.deleteTask(taskList, deleteNumber);
-                        taskFileHandler.saveTasks(taskList);
+                        storage.saveTasks(taskList);
                     } catch (JustbotException e) {
                         ui.getJustBotExceptionMessage(e);
                     }
