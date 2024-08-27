@@ -24,9 +24,6 @@ public class Event extends Task{
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
         this.formattedStartTime = this.parsedStart.format(outputFormat);
         this.formattedEndTime = this.parsedEnd.format(outputFormat);
-
-
-
     }
 
     @Override
