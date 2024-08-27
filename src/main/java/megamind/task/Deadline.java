@@ -4,6 +4,11 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The `Deadline` class represents a task with a specific deadline.
+ * It extends the `Task` class and includes additional information about the deadline of the task.
+ * The class provides methods to construct a deadline task and return its string representation.
+ */
 public class Deadline extends Task {
     @Serial
     private static final long serialVersionUID = 1L;

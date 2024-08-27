@@ -4,6 +4,11 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The `Event` class represents an event task.
+ * It extends the `Task` class and includes additional information about the start and end times of the event.
+ * The class provides methods to construct an event task and return its string representation.
+ */
 public class Event extends Task {
     @Serial
     private static final long serialVersionUID = 1L;

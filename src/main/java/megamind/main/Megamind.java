@@ -14,6 +14,11 @@ import megamind.task.List;
 import megamind.task.Todo;
 import megamind.ui.Ui;
 
+/**
+ * The `Megamind` class is the main entry point for the application.
+ * It initializes the necessary components and handles user commands.
+ * The class provides methods to run the program, process commands, and manage tasks.
+ */
 public class Megamind {
     private static final Parser parser = new Parser();
     private static final Ui ui = new Ui();

@@ -1,5 +1,10 @@
 package megamind.ui;
 
+/**
+ * The `Ui` class handles interactions with the user.
+ * It provides methods to display messages, errors, and task-related information.
+ * The class also includes methods to greet the user and show help information.
+ */
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 

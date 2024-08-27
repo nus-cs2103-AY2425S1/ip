@@ -1,5 +1,8 @@
 package megamind.exception;
 
+/**
+ * Exception thrown when a missing parameter is encountered.
+ */
 public class MissingParameterException extends Exception {
 
     /**
