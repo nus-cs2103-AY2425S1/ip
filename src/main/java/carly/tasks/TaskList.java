@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import carly.Carly;
 import carly.exception.CarlyException;
 import carly.exception.CarlyIncorrectIndexFormat;
 import carly.exception.CarlyIndexOutOfBoundsException;
@@ -16,6 +15,7 @@ import carly.exception.CarlyMissingDateTimeException;
 
 public class TaskList {
     private ArrayList<Task> taskList;
+    private final String INDENTATION = "    ";
 
     public TaskList() {
         this.taskList = new ArrayList<Task>();
@@ -25,10 +25,10 @@ public class TaskList {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
-            Task t = this.taskList.get(taskNum - 1);
+            Task t = this.get(taskNum - 1);
             Task updatedT = t.markAsDone();
             this.taskList.set(taskNum - 1, updatedT);
-            String msg = "Okiee! I've marked this task as done:\n    " + t.toString();
+            String msg = "Okiee! I've marked this task as done:\n" + INDENTATION + t;
             System.out.println(msg);
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
@@ -41,10 +41,10 @@ public class TaskList {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
-            Task t = this.taskList.get(taskNum - 1);
+            Task t = this.get(taskNum - 1);
             Task updatedT = t.unmarkAsDone();
             this.taskList.set(taskNum - 1, updatedT);
-            String msg = "Okiee! I've marked this task as not done yet:\n    " + t.toString();
+            String msg = "Okiee! I've marked this task as not done yet:\n" + INDENTATION + t;
             System.out.println(msg);
         } catch (IndexOutOfBoundsException e) {
             throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
@@ -54,7 +54,7 @@ public class TaskList {
     public void addToDo(String taskDescription) throws CarlyException{
         Todo t = new Todo(taskDescription);
         this.taskList.add(t);
-        System.out.println("Got it. I've added this task:\n     " + t.toString());
+        System.out.println("Got it. I've added this task:\n" + INDENTATION + t);
         taskListSize();
     }
 
@@ -67,7 +67,7 @@ public class TaskList {
             Deadline t = new Deadline(task, duedate);
             this.taskList.add(t);
 
-            System.out.println("Got it. I've added this task:\n     " + t.toString());
+            System.out.println("Got it. I've added this task:\n" + INDENTATION + t);
             taskListSize();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("task description or \"/by\" command");
@@ -85,10 +85,25 @@ public class TaskList {
 
             Event t = new Event(task, startTime, endTime);
             this.taskList.add(t);
-            System.out.println("Got it. I've added this task:\n     " + t.toString());
+            System.out.println("Got it. I've added this task:\n" + INDENTATION + t);
             taskListSize();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("\"/from\" or \"/to\" command");
+        }
+    }
+
+    public void delete(String taskNumString) throws CarlyException{
+        Integer taskNum = null;
+        try {
+            taskNum = Integer.parseInt(taskNumString);
+            Task t = this.get(taskNum - 1);
+            this.taskList.remove(taskNum - 1);
+            String msg = "Okay, I've removed this task:\n" + t.toString();
+            System.out.println(msg);
+        } catch (NumberFormatException e) {
+            throw new CarlyIncorrectIndexFormat();
+        } catch (IndexOutOfBoundsException e) {
+            throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
         }
     }
 
@@ -115,7 +130,7 @@ public class TaskList {
             System.out.println("Here are the tasks in your list:");
             IntStream.range(0, this.getSize())
                     .forEach(i -> System.out.println(
-                            MessageFormat.format("{0}.{1}", i + 1, taskList.get(i).toString())));
+                            MessageFormat.format("{0}.{1}", i + 1, this.get(i).toString())));
         }
 
     }

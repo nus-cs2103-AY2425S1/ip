@@ -12,7 +12,7 @@ public class Carly {
     private final TaskList taskList;
     private String username;
     private enum Command {
-        TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, BYE
+        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE
     }
 
     public Carly() {
@@ -129,6 +129,14 @@ public class Carly {
                     try {
                         taskNum = this.getDetailsAfterCommand(input, firstSpaceIndex);
                         this.taskList.unmark(taskNum);
+                        break;
+                    } catch (CarlyException e) {
+                        System.out.println(e.getMessage());
+                    }
+                case DELETE:
+                    try {
+                        taskNum = this.getDetailsAfterCommand(input, firstSpaceIndex);
+                        this.taskList.delete(taskNum);
                         break;
                     } catch (CarlyException e) {
                         System.out.println(e.getMessage());
