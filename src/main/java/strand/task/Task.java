@@ -6,17 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
-import strand.exception.StandInvalidDateException;
 import strand.exception.StrandDescNotFoundException;
 import strand.exception.StrandException;
 
 /**
  * The {@code Task} class is an abstract representation of a task.
- * <p>
- * This class provides common properties and methods for handling tasks, including
- * description management, status tracking (whether the task is done or not),
- * and date parsing/formatting.
- * </p>
+ *
  */
 public abstract class Task {
     protected String description;
@@ -60,19 +55,14 @@ public abstract class Task {
      *
      * @param date The date string to be parsed.
      * @return The parsed {@code LocalDateTime} object.
-     * @throws StrandException if the date cannot be parsed.
+     * @throws DateTimeParseException if the date cannot be parsed.
      */
-    public LocalDateTime parseDate(String date) throws StrandException {
+    public LocalDateTime parseDate(String date) throws DateTimeParseException {
         try {
             return LocalDateTime.parse(date, formatterWithTime);
         } catch (DateTimeParseException e) {
-            try {
-                // If parsing as LocalDateTime fails, try to parse as LocalDate
-                LocalDate localDate = LocalDate.parse(date, formatterWithoutTime);
-                return localDate.atStartOfDay();
-            } catch (DateTimeParseException e2) {
-                throw new StandInvalidDateException(date);
-            }
+            LocalDate localDate = LocalDate.parse(date, formatterWithoutTime);
+            return localDate.atStartOfDay();
         }
     }
 
