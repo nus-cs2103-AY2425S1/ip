@@ -93,6 +93,25 @@ public class TaskList {
         return message;
     }
 
+    public String find(String targetSubstring) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : this.items) {
+            if (task.hasSubstring(targetSubstring)) {
+                matchingTasks.add(task);
+            }
+        }
+        String message;
+        if (matchingTasks.isEmpty()) {
+            message = "     There are no tasks that has the substring provided.";
+        } else {
+            message = "     Here are the matching tasks in your list:";
+            for (int i = 1; i <= matchingTasks.size(); i++) {
+                message += String.format("\n     %d.%s", i, matchingTasks.get(i - 1));
+            }
+        }
+        return message;
+    }
+
     /**
      * Helper function that returns the tasks in the format of loading files
      *
