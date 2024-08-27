@@ -37,6 +37,17 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    public void findTasks(String input) {
+        System.out.println("I found some matching tasks in your list:");
+        int count = 1;
+        for (Task t : this.taskList) {
+            if (t.toString().contains(input)) {
+                System.out.println(String.format("%d.%s", count, t.toString()));
+                count++;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String output = "";
