@@ -147,10 +147,12 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Janet janet;
+
+        // storage checks if the current directory has a janet.txt file
         Storage storage = new Storage("./janet.txt");
-        // janet.txt should be checked and loaded at the start of the program
+
         if (Files.exists(Paths.get("./janet.txt"))) {
-            // current directory already has a janet.txt file, load this into the arraylist listOfTasks
+            // if current directory already has a janet.txt file, storage will load this into the arraylist listOfTasks
             janet = new Janet(storage.textFileToArrayList());
         } else {
             janet = new Janet();
@@ -236,7 +238,6 @@ public class Main {
         }
 
         // once the program exits (user types in 'bye'), save the elements in janet.listOfTasks to the text file
-        // saveToJanetTextFile(janet.getListOfTasks());
         storage.saveToJanetTextFile(janet.getListOfTasks());
     }
 }
