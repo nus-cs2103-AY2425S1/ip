@@ -37,7 +37,7 @@ public class Velma {
             return Command.DEADLINE;
         } else if (input.startsWith("event")) {
             return Command.EVENT;
-        } else if (input.equals("list")) {
+        } else if (input.startsWith("list")) {
             return Command.LIST;
         } else if (input.startsWith("mark")) {
             return Command.MARK;
@@ -87,16 +87,16 @@ public class Velma {
                     String[] deadlineParts = parts[2].split(" \\(by: ", 2);
                     String deadlineDescription = deadlineParts[0];
                     String byString = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");// Remove closing parenthesis
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");// Remove closing parenthesis
                     LocalDateTime by = LocalDateTime.parse(byString, formatter);
                     task = new Deadline(deadlineDescription, by);
                     break;
                 case 'E':
                     String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
                     String eventDescription = eventParts[0];
-                    String startTime = eventParts[1];
-                    String endTime = eventParts[2].substring(0, eventParts[2].length() - 1); // Remove closing parenthesis
-                    task = new Event(eventDescription, startTime, endTime);
+                    String startTimeString = eventParts[1];
+                    String endTimeString = eventParts[2].substring(0, eventParts[2].length() - 1);
+                    task = new Event(eventDescription, startTimeString, endTimeString);
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown task type: " + parts[0]);
@@ -181,14 +181,45 @@ public class Velma {
                     break;
 
                 case LIST:
-                    printLine();
-                    System.out.println("Here are the tasks in your list:");
-                    for (Task task : list) {
-                        System.out.println(count + "." + task.toString());
-                        count++;
+                    parts = request.split(" ");
+                    if (parts.length == 2) {
+                        String dateString = parts[1];
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate date;
+                        try {
+                            date = LocalDate.parse(dateString, dateFormatter);
+                        } catch (DateTimeParseException e) {
+                            throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
+                        }
+
+                        printLine();
+                        System.out.println("Here are the tasks on " + dateString + ":");
+                        boolean found = false;
+                        for (Task task : list) {
+                            if (task instanceof Deadline) {
+                                Deadline deadlineTask = (Deadline) task;
+                                if (deadlineTask.by.toLocalDate().isEqual(date)) {
+                                    System.out.println(count + "." + task.toString());
+                                    count++;
+                                    found = true;
+                                }
+                            }
+                        }
+                        if (!found) {
+                            System.out.println("No tasks found on this date.");
+                        }
+                        printLine();
+                        count = 1;
+                    } else {
+                        printLine();
+                        System.out.println("Here are the tasks in your list:");
+                        for (Task task : list) {
+                            System.out.println(count + "." + task.toString());
+                            count++;
+                        }
+                        printLine();
+                        count = 1;
                     }
-                    printLine();
-                    count = 1;
                     break;
 
                 case MARK:
