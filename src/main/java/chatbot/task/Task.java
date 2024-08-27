@@ -43,6 +43,15 @@ public abstract class Task {
     }
 
     /**
+     * Gets the name of the Task
+     *
+     * @return A string of the task's name
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Encodes the task into a string, to be written to a text file
      *
      * @return String encoding of the task
