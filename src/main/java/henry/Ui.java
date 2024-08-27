@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Deals with interactions with the user
  */
 public class Ui {
-
+    private Scanner scanner = new Scanner(System.in);
     /**
      * Prints greetings
      *
@@ -32,7 +32,6 @@ public class Ui {
      * @return user input
      */
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 

@@ -21,22 +21,6 @@ public class Storage {
     }
 
     /**
-     * Returns file with the specified file path
-     *
-     * @return file if exist in computer, otherwise create new file
-     */
-    public File getFile() throws IOException {
-        File file = new File(this.filePath);
-        //if file does not exist, create new file and directory
-        if (!file.exists()) {
-            file.createNewFile();
-            file.mkdirs();
-        }
-
-        return file;
-    }
-
-    /**
      * Returns the path of the file
      *
      * @return the path of the file
@@ -52,11 +36,26 @@ public class Storage {
      *                 event, deadline and todo
      */
     public ArrayList<Task> load() throws HenryException {
-        // create a Scanner using the File as the source
-        try{
-            Scanner scanner1 = new Scanner(this.getFile());
-
+        try {
             ArrayList<Task> recordedTasks = new ArrayList<>();
+
+            // create a Scanner using the File as the source
+            File file = new File(this.filePath);
+            //if file does not exist, create new file and directory
+            if (!file.getParentFile().exists()) {
+                if (!file.getParentFile().mkdirs()) {
+                    throw new HenryException("Failed to create directory for file path");
+                }
+            }
+
+            if (!file.exists()) {
+                if (!file.createNewFile()) {
+                    throw new HenryException("Failed to create new file");
+                }
+                return recordedTasks; // Return empty list if file just created
+            }
+
+            Scanner scanner1 = new Scanner(file);
 
             while (scanner1.hasNext()) {
                 String input = scanner1.nextLine();
@@ -77,8 +76,7 @@ public class Storage {
             }
             return recordedTasks;
         } catch (IOException e) {
-            throw new HenryException("There is no data saved previously.");
+            throw new HenryException("An error occurred while accessing the file");
         }
-
     }
 }
