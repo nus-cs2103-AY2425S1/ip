@@ -19,6 +19,10 @@ public class TaskList {
         return this.listOfTasks.size();
     }
 
+    public boolean isEmpty() {
+        return this.listOfTasks.isEmpty();
+    }
+
 
     public ArrayList<Task> getListOfTasks() {
         return this.listOfTasks;
@@ -79,10 +83,10 @@ public class TaskList {
      * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
      * @return a String message to indicate successful deletion of the desired task from listOfTasks.
      */
-    public String deleteTask(int desiredTaskNum) {
+    public void deleteTask(int desiredTaskNum) {
         Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
         listOfTasks.remove(desiredTask);
-        return "task deleted";
+        // return "task deleted";
     }
 
 }
