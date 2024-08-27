@@ -4,6 +4,7 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+
 public class Daniel {
     public static void handleList(List<Task> array){
         System.out.println("Here are the tasks in your list");
@@ -11,20 +12,6 @@ public class Daniel {
         for ( Task element : array) {
             System.out.println(i + "." + element.toString());
             i += 1;
-        }
-    }
-    public static void loadTask(String input, List<Task> array) {
-        if (input.startsWith("todo")) {
-            Todo x = new Todo(input.substring(5));
-            array.add(x);
-        } else if (input.startsWith("deadline")) {
-            String[] split = input.substring(9).split(" /by ");
-            Deadline x = new Deadline(split[0], split[1]);
-            array.add(x);
-        } else if (input.startsWith("event")) {
-            String[] split = input.substring(6).split(" /from | /to ");
-            Event x = new Event(split[0], split[1], split[2]);
-            array.add(x);
         }
     }
     public static void handleTask(String input, List<Task> array) throws WrongKeyword, MissingArg{
@@ -137,20 +124,24 @@ public class Daniel {
                 array.get(index - 1).markAsDone();
                 System.out.println("Nice I have marked this task as done:");
                 System.out.println(array.get(index - 1).toString());
+                writeFile(file, array);
             } else if (input.startsWith("unmark")) {
                 int index = input.charAt(input.length() - 1) - '0';
                 array.get(index - 1).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(array.get(index - 1).toString());
+                writeFile(file, array);
             } else if (input.startsWith("delete")) {
                 int index = input.charAt(input.length() - 1) - '0';
                 Task t = array.get(index - 1);
                 array.remove(index - 1);
                 System.out.println("Noted. I've removed this task:\n" + t.toString());
                 System.out.println("Now you have " + array.size() +" tasks in the list.");
+                writeFile(file, array);
             }else {
                 try {
                     handleTask(input, array);
+                    writeFile(file, array);
                 } catch (WrongKeyword | MissingArg e) {
                     System.out.println(e.getMessage());
                 }
