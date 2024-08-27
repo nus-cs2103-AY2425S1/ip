@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -108,6 +109,7 @@ public class Fred {
                     message = String.format("Noted. I've removed this task:\n" +
                             "   %s", task);
                 }
+                rewriteDataFile();
                 say(message);
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
                 if (inputParts[1].isEmpty()) {
@@ -118,6 +120,7 @@ public class Fred {
                 message = String.format("Got it. I've added this task:\n" +
                         "   %s\n" +
                         "Now you have %d tasks in the list.", task, taskList.size());
+                appendToDataFile(task);
                 say(message);
             } else {
                 throw new UnknownCommandException();
@@ -212,6 +215,28 @@ public class Fred {
             } else if (lineParts[1].equals("0")) {
                 task.markAsNotDone();
             }
+        }
+    }
+
+    private static void rewriteDataFile() {
+        try {
+            FileWriter writer = new FileWriter(dataFile);
+            for (Task task : taskList) {
+                writer.write(task.getDataFormat() + System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void appendToDataFile(Task task) {
+        try {
+            FileWriter writer = new FileWriter(dataFile, true);
+            writer.write(task.getDataFormat() + System.lineSeparator());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
