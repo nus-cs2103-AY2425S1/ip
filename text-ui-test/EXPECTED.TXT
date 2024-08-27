@@ -36,8 +36,16 @@ You currently have 3 task/s in your list.
 ____________________________________
 
 ____________________________________
+ERROR! Invalid event duration format.
+____________________________________
+
+____________________________________
+ERROR! Invalid event duration format.
+____________________________________
+
+____________________________________
 Added Event task:
-[E][ ] math lecture (from: 2pm to: 4pm)
+[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
 You currently have 4 task/s in your list.
 ____________________________________
 
@@ -45,7 +53,7 @@ ____________________________________
 1.[T][ ] buy milk
 2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
 3.[D][ ] return book (by: 30 Aug 2024)
-4.[E][ ] math lecture (from: 2pm to: 4pm)
+4.[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
 ____________________________________
 
 ____________________________________
@@ -57,7 +65,7 @@ ____________________________________
 1.[T][X] buy milk
 2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
 3.[D][ ] return book (by: 30 Aug 2024)
-4.[E][ ] math lecture (from: 2pm to: 4pm)
+4.[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
 ____________________________________
 
 ____________________________________
@@ -69,7 +77,7 @@ ____________________________________
 1.[T][ ] buy milk
 2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
 3.[D][ ] return book (by: 30 Aug 2024)
-4.[E][ ] math lecture (from: 2pm to: 4pm)
+4.[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
 ____________________________________
 
 ____________________________________

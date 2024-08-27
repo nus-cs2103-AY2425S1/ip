@@ -34,15 +34,7 @@ public class Deadline extends Task {
     public String toString() {
         String deadline;
         if (hasTime) {
-            String date = dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-            String minute;
-            if (dateTime.getMinute() < 10) {
-                minute = "0" + String.valueOf(dateTime.getMinute());
-            } else {
-                minute = String.valueOf(dateTime.getMinute());
-            }
-            String time = String.valueOf(dateTime.getHour()) + minute;
-            deadline = date + " " + time;
+            deadline = dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
         } else {
             deadline = date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         }

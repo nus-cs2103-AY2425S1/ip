@@ -186,6 +186,7 @@ public class Rasputin {
                     } finally {
                         break;
                     }
+
                 case "event":
                     try {
                         String str = input.substring(6);
@@ -203,7 +204,11 @@ public class Rasputin {
                         printText("ERROR! The description of an event cannot be empty.");
                     } catch (ArrayIndexOutOfBoundsException e) {
                         printText("ERROR! Event tasks require a duration for the event.");
-                    } finally {
+                    } catch (IllegalArgumentException e) {
+                        printText(e.getMessage());
+                    } catch (DateTimeException e) {
+                        printText("ERROR! Invalid deadline format.");
+                    }finally {
                         break;
                     }
                 case "delete":
