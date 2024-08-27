@@ -1,3 +1,4 @@
+package bitbot;
 public class UI {
     public static String intro = "          ____________________________________\n          Hello! I'm BitBot\n          What can I do for you?\n          ____________________________________\n" +
             "          Please key in only one of these keywords:\n          " +
