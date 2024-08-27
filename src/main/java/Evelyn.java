@@ -73,6 +73,12 @@ public class Evelyn {
 
     private static void decipher(String text) throws NoInputException, IOException {
         if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
+            file.delete();
+            file.createNewFile();
+            for (int i = 0; i < lst.size(); i++) {
+                Task task = (Task) lst.get(i);
+                writeToFile(dataFilePath, task.toString() + System.lineSeparator());
+            }
             System.out.println(horizontalLine);
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println(horizontalLine);
@@ -202,9 +208,6 @@ public class Evelyn {
             String start = parts2[0];
             String end = parts2[1].substring(0, parts2[1].length() - 1);
 
-            System.out.println(description);
-            System.out.println(start);
-            System.out.println(end);
             Event newEvent = new Event(description, start, end, isMarked);
             lst.add(newEvent);
         } else {
