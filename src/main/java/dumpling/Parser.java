@@ -37,9 +37,7 @@ public class Parser {
                                     "     To list items, use 'list'.\n" +
                                     "     To mark or unmark an item as done, use '<mark/unmark> <item index>'.\n" +
                                     "     To add a new item, use '<todo/deadline/event> <task name> <args>'.",
-                            stringCommand
-                    )
-            );
+                            stringCommand));
         }
         switch (commandEnum) {
         case TODO:
@@ -91,28 +89,28 @@ public class Parser {
                 String[] line = scanner.nextLine().split(" \\| ");
                 Pair<Task, String> pair;
                 switch (line[0]) {
-                    case "T":
-                        pair = Parser.add(String.format("todo %s", line[2]), CommandEnum.TODO, items.size());
-                        items.add(pair.getFirst());
-                        break;
-                    case "D":
-                        pair = Parser.add(
-                                String.format("deadline %s /by %s", line[2], line[3]),
-                                CommandEnum.DEADLINE,
-                                items.size());
-                        items.add(pair.getFirst());
-                        break;
-                    case "E":
-                        String[] fromAndTo = line[3].split("-");
-                        pair = Parser.add(
-                                String.format("event %s /from %s /to %s", line[2], fromAndTo[0], fromAndTo[1]),
-                                CommandEnum.EVENT,
-                                items.size());
-                        items.add(pair.getFirst());
-                        break;
-                    default:
-                        throw new DumplingException(
-                                String.format("%s is not a valid task type. Data might be corrupted.", line[0]));
+                case "T":
+                    pair = Parser.add(String.format("todo %s", line[2]), CommandEnum.TODO, items.size());
+                    items.add(pair.getFirst());
+                    break;
+                case "D":
+                    pair = Parser.add(
+                            String.format("deadline %s /by %s", line[2], line[3]),
+                            CommandEnum.DEADLINE,
+                            items.size());
+                    items.add(pair.getFirst());
+                    break;
+                case "E":
+                    String[] fromAndTo = line[3].split("-");
+                    pair = Parser.add(
+                            String.format("event %s /from %s /to %s", line[2], fromAndTo[0], fromAndTo[1]),
+                            CommandEnum.EVENT,
+                            items.size());
+                    items.add(pair.getFirst());
+                    break;
+                default:
+                    throw new DumplingException(
+                            String.format("%s is not a valid task type. Data might be corrupted.", line[0]));
                 }
                 if (line[1].equals("1")) {
                     items.get(items.size() - 1).markAsDone();
@@ -132,34 +130,34 @@ public class Parser {
         Task task;
         Pair<String, Integer> taskDescriptionIdxPair;
         switch (command) {
-            case DEADLINE:
-                try {
-                    taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, DEADLINE_DATE_SEPARATOR);
-                    taskDescription = taskDescriptionIdxPair.getFirst();
-                    Pair<String, Integer> deadlineIdxPair = Parser.formSubSection(
-                            splitDescription, taskDescriptionIdxPair.getSecond() + 1, "");
-                    String deadline = deadlineIdxPair.getFirst();
-                    task = new Deadline(taskDescription, deadline);
-                } catch (DateTimeParseException e) {
-                    throw new DumplingException("Please enter the date in the correct format of YYYY-MM-DD.");
-                }
-                break;
-            case EVENT:
-                taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, EVENT_FROM_SEPARATOR);
+        case DEADLINE:
+            try {
+                taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, DEADLINE_DATE_SEPARATOR);
                 taskDescription = taskDescriptionIdxPair.getFirst();
-                Pair<String, Integer> fromIdxPair = Parser.formSubSection(
-                        splitDescription, taskDescriptionIdxPair.getSecond() + 1, EVENT_TO_SEPARATOR);
-                Pair<String, Integer> toIdxPair = Parser.formSubSection(
-                        splitDescription, fromIdxPair.getSecond() + 1, "");
-                String from = fromIdxPair.getFirst();
-                String to = toIdxPair.getFirst();
-                task = new Event(taskDescription, from, to);
-                break;
-            default:
-                taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, "");
-                taskDescription = taskDescriptionIdxPair.getFirst();
-                task = new ToDo(taskDescription);
-                break;
+                Pair<String, Integer> deadlineIdxPair = Parser.formSubSection(
+                        splitDescription, taskDescriptionIdxPair.getSecond() + 1, "");
+                String deadline = deadlineIdxPair.getFirst();
+                task = new Deadline(taskDescription, deadline);
+            } catch (DateTimeParseException e) {
+                throw new DumplingException("Please enter the date in the correct format of YYYY-MM-DD.");
+            }
+            break;
+        case EVENT:
+            taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, EVENT_FROM_SEPARATOR);
+            taskDescription = taskDescriptionIdxPair.getFirst();
+            Pair<String, Integer> fromIdxPair = Parser.formSubSection(
+                    splitDescription, taskDescriptionIdxPair.getSecond() + 1, EVENT_TO_SEPARATOR);
+            Pair<String, Integer> toIdxPair = Parser.formSubSection(
+                    splitDescription, fromIdxPair.getSecond() + 1, "");
+            String from = fromIdxPair.getFirst();
+            String to = toIdxPair.getFirst();
+            task = new Event(taskDescription, from, to);
+            break;
+        default:
+            taskDescriptionIdxPair = Parser.formSubSection(splitDescription, 1, "");
+            taskDescription = taskDescriptionIdxPair.getFirst();
+            task = new ToDo(taskDescription);
+            break;
         }
         if (taskDescription.isEmpty()) {
             throw new DumplingException(
