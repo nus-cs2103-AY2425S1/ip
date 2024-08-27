@@ -16,13 +16,16 @@ Understood. I've added the following task:
   [T][ ] item 1
 You now have 1 task(s) in total.
 ____________________________________________________________
+____________________________________________________________
 Understood. I've added the following task:
   [D][ ] item 2 (by: Jan 1 2024)
 You now have 2 task(s) in total.
 ____________________________________________________________
+____________________________________________________________
 Understood. I've added the following task:
   [E][ ] item 3 (from: Feb 2 2024 to: Mar 3 2024)
 You now have 3 task(s) in total.
+____________________________________________________________
 ____________________________________________________________
 Wow! Congrats on finishing another task!
 I've marked this task as done:
