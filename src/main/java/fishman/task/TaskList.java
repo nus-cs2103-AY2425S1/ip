@@ -1,3 +1,5 @@
+package fishman.task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -6,7 +8,7 @@ import java.util.Iterator;
  * This class provides the methods to add, retrieve, and get the
  * size of the task list.
  */
-class TaskList implements Iterable<Task> {
+public class TaskList implements Iterable<Task> {
     /** The list of tasks stored as an ArrayList. */
     private ArrayList<Task> tasks;
 
@@ -18,7 +20,7 @@ class TaskList implements Iterable<Task> {
     /**
      * Adds a new task to the task list.
      *
-     * @param task The Task object to be added to the list.
+     * @param task The task.Task object to be added to the list.
      */
     public void addTask(Task task) {
         tasks.add(task);

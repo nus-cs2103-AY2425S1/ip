@@ -1,3 +1,12 @@
+package fishman.utils;
+
+import fishman.exception.FishmanException;
+import fishman.task.Deadline;
+import fishman.task.Event;
+import fishman.task.Task;
+import fishman.task.TaskList;
+import fishman.task.ToDo;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,3 +1,9 @@
+package fishman.command;
+
+import fishman.task.Task;
+import fishman.task.TaskList;
+import fishman.utils.Ui;
+
 /**
  * Represent the command to delete a task in the task list.
  * This command implements the Command interface and is for
@@ -9,7 +15,7 @@ public class DeleteCommand implements Command {
     private final int index;
 
     /**
-     * Constructs an DeleteCommand with the specified task to be deleted.
+     * Constructs a DeleteCommand with the specified task to be deleted.
      * @param index The index of the task object in the task list to be deleted.
      */
     public DeleteCommand(int index) {
@@ -27,7 +33,6 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui) {
-        // A temporary task to store the deleted store such that it can be displayed.
         Task tempTask = tasks.getTask(index);
         tasks.delete(index);
         ui.displayDeletedTask(tempTask, tasks.size());

@@ -1,10 +1,12 @@
+package fishman.task;
+
 /**
- * Represents the ToDo task.
+ * Represents the to-do task.
  * This class extends the Task class, without adding any additional attributes.
  */
 public class ToDo extends Task {
     /**
-     * Constructs a new ToDo task.
+     * Constructs a new to-do task.
      *
      * @param description The description of the task.
      */

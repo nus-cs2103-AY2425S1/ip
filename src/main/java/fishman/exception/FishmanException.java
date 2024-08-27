@@ -1,3 +1,5 @@
+package fishman.exception;
+
 /**
  * Base exception class for Fishman bot custom exception
  */

@@ -1,8 +1,10 @@
+package fishman.task;
+
 /**
  * Represents a task for the fishman bot.
  * This class contains the details of a task.
  */
-abstract class Task {
+public abstract class Task {
     /** The details of the task. */
     protected String description;
     /** The indicator for whether the task is completed. */

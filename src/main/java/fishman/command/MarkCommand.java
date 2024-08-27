@@ -1,3 +1,8 @@
+package fishman.command;
+
+import fishman.task.TaskList;
+import fishman.utils.Ui;
+
 /**
  * Represent the command to mark a task in the task list.
  * This command implements the Command interface and is for
@@ -11,7 +16,7 @@ public class MarkCommand implements Command {
     private final boolean isMark;
 
     /**
-     * Constructs an MarkCommand with the specified task and mark operation to be done.
+     * Constructs a MarkCommand with the specified task and mark operation to be done.
      *
      * @param index The index of the task object in the task list to be marked.
      * @param isMark The indicator of the mark operation to be done.

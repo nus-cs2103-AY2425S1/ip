@@ -1,3 +1,8 @@
+package fishman.utils;
+
+import fishman.task.Task;
+import fishman.task.TaskList;
+
 import java.util.Scanner;
 
 /**
@@ -82,7 +87,7 @@ public class Ui {
      * @param task The task object that is marked or unmarked.
      */
     public void displayTaskStatus(Task task) {
-        if (task.isDone) {
+        if (task.getStatus()) {
             System.out.println("Bloop bloop, I've marked this task as done:");
         } else {
             System.out.println("Bloop bloop, I've marked this task as not done yet: ");

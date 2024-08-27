@@ -1,3 +1,9 @@
+package fishman.command;
+
+import fishman.task.TaskList;
+import fishman.task.Task;
+import fishman.utils.Ui;
+
 /**
  * Represent the command to add a new task to the task list.
  * This command implements the Command interface and is for
@@ -11,7 +17,7 @@ public class AddCommand implements Command {
     private final Task task;
 
     /**
-     * Constructs an AddCommand with the specified task.
+     * Constructs a AddCommand with the specified task.
      *
      * @param task The task object to be added to the task list.
      */

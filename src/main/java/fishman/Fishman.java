@@ -1,3 +1,12 @@
+package fishman;
+
+import fishman.command.Command;
+import fishman.exception.FishmanException;
+import fishman.utils.Parser;
+import fishman.utils.Storage;
+import fishman.task.TaskList;
+import fishman.utils.Ui;
+
 /**
  * The main class for the Fishman bot.
  * This class initializes the user interface, task list and parser,
@@ -8,9 +17,6 @@ public class Fishman {
     private final Ui ui;
     /** The task list object to store and manage tasks. */
     private TaskList tasks;
-    /** The parser object to interpret user inputs. */
-    private final Parser parser;
-
     /** The storage object used to handle file operations. */
     private final Storage storage;
 
@@ -21,7 +27,7 @@ public class Fishman {
     public Fishman() {
         ui = new Ui();
         tasks = new TaskList();
-        parser = new Parser();
+
         storage = new Storage("./data/fishman.csv");
     }
 
@@ -32,7 +38,7 @@ public class Fishman {
      * The method will handle exceptions that may occur during execution.
      * Any unchecked exception is caught and reported as well.
      */
-    public void start() throws FishmanException {
+    public void start() {
         ui.displayLogo();
         ui.displayWelcome();
         boolean isExit = false;
