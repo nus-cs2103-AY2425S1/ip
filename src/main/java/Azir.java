@@ -1,15 +1,83 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import java.util.Scanner;
 
 public class Azir {
-    public static void main(String[] args) {
-        String input;
+
+    public static void writeToFile(String filePath, ArrayList<String> lines) {
+        try {
+            Files.write(Paths.get(filePath), lines);
+        } catch (IOException e) {
+            System.out.println("Something went wrong!");
+        }
+    }
+
+    public static ArrayList<Task> readFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        System.out.println("This is your current list:");
+        Scanner s = new Scanner(f);
         ArrayList<Task> taskList = new ArrayList<Task>();
+        while (s.hasNextLine()) {
+            String[] arr = s.nextLine().split(" \\| ");
+            if (arr[0].equals("T")) {
+                Task currTask = new Todo(arr[2]);
+                if (arr[1].equals("Complete")) {
+                    currTask.setDone();
+                } else {
+                    currTask.setNotDone();
+                }
+                taskList.add(currTask);
+                System.out.println(currTask);
+            } else if (arr[0].equals("D")) {
+                Task currTask = new Deadline(arr[2], arr[3]);
+                if (arr[1].equals("Complete")) {
+                    currTask.setDone();
+                } else {
+                    currTask.setNotDone();
+                }
+                taskList.add(currTask);
+                System.out.println(currTask);
+            } else {
+                Task currTask = new Event(arr[2], arr[3], arr[4]);
+                if (arr[1].equals("Complete")) {
+                    currTask.setDone();
+                } else {
+                    currTask.setNotDone();
+                }
+                taskList.add(currTask);
+                System.out.println(currTask);
+            }
+        }
+        return taskList;
+    }
+
+    public static void main(String[] args) throws IOException {
+        String input;
+        ArrayList<Task> taskList;
         System.out.println("----------------------------------");
         System.out.println("Hello! I'm Azir");
         System.out.println("What can I do for you?");
+        // Read from Azir.txt file
+        try {
+            taskList = readFileContents("./data/Azir.txt");
+        } catch (FileNotFoundException e) {
+            File newFile = new File("./data/Azir.txt");
+            if (!Files.exists(Paths.get("./data"))) {
+                Files.createDirectory(Paths.get("./data"));
+            }
+            newFile.createNewFile();
+            taskList = new ArrayList<>();
+            System.out.println("Your current list does not have any tasks");
+        }
         System.out.println("----------------------------------");
-
         Scanner obj = new Scanner(System.in);
 
         while (!(input = obj.nextLine()).equals("bye")) {
@@ -127,6 +195,16 @@ public class Azir {
                 System.out.println("----------------------------------");
             } catch (AzirException e) {
                 System.out.println(e.getMessage());
+            } finally {
+                ArrayList<String> lines = new ArrayList<>();
+                // Write tasks to Azir.txt
+                for (int i = 0; i < taskList.size(); i++) {
+                    lines.add(taskList.get(i).formatText());
+                }
+                if (!Files.exists(Paths.get("./data"))) {
+                    Files.createDirectory(Paths.get("./data"));
+                }
+                writeToFile("./data/Azir.txt", lines);
             }
         }
         System.out.println("----------------------------------");

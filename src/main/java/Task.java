@@ -14,6 +14,18 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String formatText() {
+        return "";
+    }
+
+    public String getDoneString() {
+        return this.isDone ? "Complete" : "Incomplete";
+    }
+
     @Override
     public String toString() {
         if (this.isDone) {
