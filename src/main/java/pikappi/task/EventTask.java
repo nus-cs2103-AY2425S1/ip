@@ -1,8 +1,9 @@
+package pikappi.task;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 public class EventTask extends Task {
     protected String from;

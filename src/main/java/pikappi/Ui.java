@@ -1,3 +1,5 @@
+package pikappi;
+
 import java.util.Scanner;
 
 public class Ui {

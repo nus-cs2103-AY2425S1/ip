@@ -1,3 +1,9 @@
+package pikappi.command;
+
+import pikappi.*;
+import pikappi.exception.PikappiException;
+import pikappi.task.DeadlineTask;
+
 public class DeadlineCommand extends Command {
     private String description;
     private String by;

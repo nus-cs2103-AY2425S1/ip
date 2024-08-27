@@ -1,3 +1,9 @@
+package pikappi.command;
+
+import pikappi.Storage;
+import pikappi.TaskList;
+import pikappi.Ui;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
     }

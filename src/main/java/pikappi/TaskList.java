@@ -1,3 +1,11 @@
+package pikappi;
+
+import pikappi.exception.PikappiException;
+import pikappi.task.DeadlineTask;
+import pikappi.task.EventTask;
+import pikappi.task.Task;
+import pikappi.task.TodoTask;
+
 import java.util.ArrayList;
 
 public class TaskList {

@@ -1,5 +1,7 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package pikappi;
+
+import pikappi.command.Command;
+import pikappi.exception.PikappiException;
 
 public class Pikappi {
     static Ui ui = new Ui();
