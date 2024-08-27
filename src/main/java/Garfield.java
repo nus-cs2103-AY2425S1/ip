@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
@@ -5,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;:
 
 public class Garfield {
 
@@ -45,7 +48,7 @@ public class Garfield {
                         }
                         break;
                     case "D":
-                        Deadline newDeadline = new Deadline(taskDetails[2], taskDetails[3]);
+                        Deadline newDeadline = new Deadline(taskDetails[2], Garfield.parseDateTime(taskDetails[3]));
                         taskList.add(newDeadline);
                         if (taskDetails[1].equals("1")) {
                             newDeadline.markAsDone();
@@ -54,7 +57,7 @@ public class Garfield {
                         }
                         break;
                     case "E":
-                        Event newEvent = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                        Event newEvent = new Event(taskDetails[2], Garfield.parseDateTime(taskDetails[3]), Garfield.parseDateTime(taskDetails[4]));
                         taskList.add(newEvent);
                         if (taskDetails[1].equals("1")) {
                             newEvent.markAsDone();
@@ -165,7 +168,16 @@ public class Garfield {
                 String deadlineDescription = userInput.substring(9);
                 String[] deadlineArgs = deadlineDescription.split("/by");
                 if (!deadlineArgs[0].isBlank() && !deadlineArgs[1].isBlank()) {
-                    Deadline newDeadline= new Deadline(deadlineArgs[0].strip(), deadlineArgs[1].strip());
+
+                    LocalDateTime byDateTime;
+                    try {
+                        byDateTime = Garfield.parseDateTime(deadlineArgs[1].strip());
+                    } catch (DateTimeParseException e) {
+                        Garfield.speak("Ugh. Get your date and time in the right format. It's YYYY-MM-DD HH:MM");
+                        continue;
+                    }
+
+                    Deadline newDeadline= new Deadline(deadlineArgs[0].strip(), byDateTime);
                     taskList.add(newDeadline);
                     Garfield.speak("Fine. I'll add '" + deadlineArgs[0].strip() + "' to the list.\n\n\t"
                             + newDeadline + "\n\nNow your list is up to " + taskList.size() + " task"
@@ -186,10 +198,27 @@ public class Garfield {
                 String eventDescription = userInput.substring(6);
                 String[] eventArgs = eventDescription.split("/from");
                 eventDescription = eventArgs[0];
-                eventArgs = eventArgs[1].split("/to");
+                if (eventArgs.length == 2) {
+                    eventArgs = eventArgs[1].split("/to");
+                } else {
+                    Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+                    continue;
+                }
+
                 if (!eventDescription.isBlank() && !eventArgs[0].isBlank() && !eventArgs[1].isBlank()) {
+
+                    LocalDateTime fromDateTime;
+                    LocalDateTime toDateTime;
+                    try {
+                        fromDateTime = Garfield.parseDateTime(eventArgs[0].strip());
+                        toDateTime = Garfield.parseDateTime(eventArgs[1].strip());
+                    } catch (DateTimeParseException e) {
+                        Garfield.speak("Ugh. Get your date and time in the right format. It's YYYY-MM-DD HH:MM");
+                        continue;
+                    }
+
                     Event newEvent = new Event(eventDescription.strip(),
-                            eventArgs[0].strip(), eventArgs[1].strip());
+                            fromDateTime, toDateTime);
                     taskList.add(newEvent);
                     Garfield.speak("Fine. I'll add '" + eventDescription + "' to the list.\n\n\t"
                             + newEvent + "\n\nYour list is now at " + taskList.size() + " task"
@@ -233,5 +262,10 @@ public class Garfield {
         } catch (IOException e) {
             Garfield.speak("Something went wrong when saving your task list.");
         }
+    }
+
+    private static LocalDateTime parseDateTime(String dateInput) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(dateInput, formatter);
     }
 }
