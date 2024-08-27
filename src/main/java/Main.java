@@ -116,7 +116,7 @@ public class Main {
                         taskList.deleteTask(Integer.parseInt(commandDetails[1]));
                     }
                     case TODO -> {
-                        // get the todo description and create a new Todo object
+                        // create a ToDo object directly from what the user typed into command line
                         Task todo = new ToDo(command);
                         taskList.addTaskToList(todo);
                         ui.showSuccessfulTaskAddition(todo, taskList.getNumberOfTasks());
