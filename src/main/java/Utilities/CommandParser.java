@@ -32,6 +32,9 @@ public class CommandParser {
             int index = Integer.parseInt(intValue) - 1;
             tl.removeFromTaskList(index);
             s.removeFileTask(index);
+        } else if (input.startsWith("find")) {
+            String matchValue = input.replace("find", "").strip();
+            tl.findTasks(matchValue);
         } else {
             try {
                 String name = "";
