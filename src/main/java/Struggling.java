@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -48,7 +49,7 @@ public class Struggling {
             String[] args = s.nextLine().split(" \\| ");
             Task task = switch (args[0]) {
                 case "T" -> new ToDo(args[2]);
-                case "D" -> new Deadline(args[2], args[3]);
+                case "D" -> new Deadline(args[2], LocalDate.parse(args[3]));
                 case "E" -> new Event(args[2], args[3], args[4]);
                 default -> throw new StrugglingException("Save file corrupted");
             };
@@ -102,7 +103,7 @@ public class Struggling {
                 case deadline:
                     int byIndex = cmd.indexOf("/by ");
                     String dDescription = cmd.substring(9, byIndex).trim();
-                    String dBy = cmd.substring(byIndex + 4);
+                    LocalDate dBy = LocalDate.parse(cmd.substring(byIndex + 4));
                     addTask(new Deadline(dDescription, dBy));
                     break;
                 case event:
