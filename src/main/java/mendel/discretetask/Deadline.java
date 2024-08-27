@@ -51,7 +51,7 @@ public class Deadline extends Task {
         String[] mainMessage = slashSegments[0].split(" ");
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(mainMessage.length == 1 && slashSegments.length < 2,
-                        "OOPS! deadline needs more details.\nAdd description.")
+                        "OOPS! deadline needs more details.\nAdd description and due.")
                 .conditionTriggerException(misplacedSegments.length != slashSegments.length,
                         "OOPS! deadline due wrongly formatted\nPlease add spaces around /by")
                 .conditionTriggerException(mainMessage.length == 1,
