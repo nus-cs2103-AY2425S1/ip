@@ -1,7 +1,5 @@
 package seedu.avo.storage;
 
-import seedu.avo.exceptions.AvoException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import seedu.avo.exceptions.AvoException;
 
 public class FileStorage<T> extends Storage<T, String> {
     private final String filePath;

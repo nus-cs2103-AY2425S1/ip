@@ -1,14 +1,14 @@
 package seedu.avo.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.Deadline;
 import seedu.avo.tasks.Event;
 import seedu.avo.tasks.Task;
 import seedu.avo.tasks.ToDo;
 import seedu.avo.utils.DateTime;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class TaskParser extends FileParser<Task> {
     @Override

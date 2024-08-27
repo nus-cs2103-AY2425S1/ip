@@ -1,9 +1,9 @@
 package seedu.avo.mocks;
 
-import seedu.avo.storage.Storage;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.avo.storage.Storage;
 
 public class MockStorage<T, S> extends Storage<T, S> {
     @Override

@@ -1,8 +1,8 @@
 package seedu.avo.tasks;
 
-import seedu.avo.utils.DateTime;
-
 import java.time.LocalDate;
+
+import seedu.avo.utils.DateTime;
 
 public class Deadline extends Task {
     private final LocalDate dueDate;

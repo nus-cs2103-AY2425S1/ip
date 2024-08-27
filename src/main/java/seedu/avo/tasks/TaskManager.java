@@ -1,10 +1,9 @@
 package seedu.avo.tasks;
 
-import seedu.avo.storage.FileStorage;
-import seedu.avo.storage.Storage;
-
 import java.time.LocalDate;
 import java.util.List;
+
+import seedu.avo.storage.Storage;
 
 public class TaskManager {
     private final List<Task> tasks;
