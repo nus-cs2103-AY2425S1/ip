@@ -1,11 +1,12 @@
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Bob {
+    private static final String DATA_DIR = "data";
+    private static final String FILE_PATH = DATA_DIR + File.separator + "Bob.txt";
     private static final List<Task> taskList = new ArrayList<>();
     private static int numTasks = 0;
 
@@ -13,8 +14,8 @@ public class Bob {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
 
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) throws BobException, IOException {
+        System.out.println(loadTasks());
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Hello! I'm Bob the bot!\nHow can I help you?");
 
@@ -70,6 +71,46 @@ public class Bob {
         }
     }
 
+    static String loadTasks() throws BobException {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return "No saved tasks found.";
+            }
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                String taskLine = s.nextLine();
+                Task task = parseTask(taskLine);
+                addTask(task);
+            }
+            return "Saved tasks has been successfully loaded.";
+        } catch (FileNotFoundException e) {
+            throw new BobException("File not found! Please check again.");
+        }
+    }
+
+    static Task parseTask(String line) {
+        String[] details = line.split(",");
+        String type = details[0];
+        boolean isDone = details[1].equals("1");
+        String description = details[2];
+
+        switch (type) {
+            case "T":
+                return new ToDo(description, isDone);
+            case "D":
+                String by = details[3];
+                return new Deadline(description, isDone, by);
+            case "E":
+                String from = details[3];
+                String to = details[4];
+                return new Event(description, isDone, from, to);
+            default:
+                System.out.println("Unknown task type: " + type);
+                return new ToDo(description, isDone);
+        }
+    }
+
     static Command getCommand(String userInput) throws BobException {
         if (userInput.isEmpty() || userInput.equals(" ")) {
             throw new BobException("You did not key in anything...");
@@ -103,6 +144,11 @@ public class Bob {
         numTasks++;
     }
 
+    static void delTask(int taskNum) {
+        taskList.remove(taskNum - 1);
+        numTasks--;
+    }
+
     static String getTaskList() {
         StringBuilder tasks = new StringBuilder();
         for (int i = 1; i <= numTasks; i++) {
@@ -114,6 +160,19 @@ public class Bob {
             tasks.append(i).append(". ").append(currTask).append("\n");
         }
         return tasks.toString();
+    }
+
+    static void saveTasks() throws BobException {
+        try {
+            ensureDataDirectoryExists();
+            FileWriter fw = new FileWriter(FILE_PATH);
+            for (Task task : taskList) {
+                fw.write(task.getTaskLine() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new BobException("Oh no! An error occurred while saving tasks: " + e.getMessage());
+        }
     }
 
     static String commandBye() {
@@ -132,6 +191,7 @@ public class Bob {
             int taskNum = Integer.parseInt(taskDetails);
             Task currTask = getTask(taskNum);
             currTask.markAsDone();
+            saveTasks();
             return "Good Job! Marking this task as done:\n " + currTask;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new BobException("The task number provided is invalid.");
@@ -146,6 +206,7 @@ public class Bob {
             int taskNum = Integer.parseInt(taskDetails);
             Task currTask = getTask(taskNum);
             currTask.markAsUndone();
+            saveTasks();
             return "Okay, marking this task as not done yet:\n " + currTask;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new BobException("The task number provided is invalid.");
@@ -159,6 +220,7 @@ public class Bob {
         }
         Task task = new ToDo(taskDetails);
         addTask(task);
+        saveTasks();
         return "Adding ToDo task:\n " + task
                 + "\nTotal number of tasks in your list: " + numTasks;
     }
@@ -176,6 +238,7 @@ public class Bob {
             String by = params[1].split(" ", 2)[1];
             Task task = new Deadline(description, by);
             addTask(task);
+            saveTasks();
             return "Adding Deadline task:\n " + task
                     + "\nTotal number of tasks in your list: " + numTasks;
         } catch (IndexOutOfBoundsException e) {
@@ -197,16 +260,12 @@ public class Bob {
             String to = params[2].split(" ", 2)[1];
             Task task = new Event(description, from, to);
             addTask(task);
+            saveTasks();
             return "Adding Event task:\n " + task
                     + "\nTotal number of tasks in your list: " + numTasks;
         } catch (IndexOutOfBoundsException e) {
             throw new BobException("You may have missing details or wrong format!\n" + format);
         }
-    }
-
-    static void delTask(int taskNum) {
-        taskList.remove(taskNum - 1);
-        numTasks--;
     }
 
     static String commandDelete(String taskDetails) throws BobException {
@@ -217,10 +276,21 @@ public class Bob {
             int taskNum = Integer.parseInt(taskDetails);
             Task currTask = getTask(taskNum);
             delTask(taskNum);
+            saveTasks();
             return "Noted, removing this task:\n " + currTask
                     + "\nTotal number of tasks in your list: " + numTasks ;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new BobException("The task number provided is invalid.");
+        }
+    }
+
+    // Method to ensure the data directory exists
+    private static void ensureDataDirectoryExists() throws BobException {
+        File dataDir = new File(DATA_DIR);
+        if (!dataDir.exists()) {
+            if (!dataDir.mkdir()) {
+                throw new BobException("Failed to create directory: " + DATA_DIR);
+            }
         }
     }
 }
