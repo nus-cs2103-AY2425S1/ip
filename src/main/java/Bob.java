@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -29,10 +28,10 @@ public class Bob {
                 + "| |_) | (_) | |_) |\n"
                 + "|____/ \\___/|____/\n";
 
-        System.out.println("------------------------------------------");
+        printLine();
         System.out.println("Hello! I'm Bob!\nHow can I help you today?");
         System.out.println(logo);
-        System.out.println("------------------------------------------");
+        printLine();;
 
         while (!input.equals("bye")) {
             input = scanner.nextLine().trim(); // trim to remove any whitespace before input
@@ -65,28 +64,31 @@ public class Bob {
                         break;
                     case "bye":
                         // exit
-                        System.out.println("------------------------------------------");
+                        printLine();
                         System.out.println("Bye, see you again :)");
-                        System.out.println("------------------------------------------");
+                        printLine();
                         scanner.close();
                         return;
                     default:
                         throw new BobException("Bob does not understand that command, sorry :(");
                 }
             } catch (BobException e) {
-                System.out.println("------------------------------------------");
+                printLine();
                 System.out.println(e.getMessage());
-                System.out.println("------------------------------------------");
+                printLine();
             }
         }
     }
+
+    // handle commands
+
     private static void listTasks() {
-        System.out.println("------------------------------------------");
+        printLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
-        System.out.println("------------------------------------------");
+        printLine();
     }
 
     private static void markTask(String taskDescription) throws BobException {
@@ -94,10 +96,10 @@ public class Bob {
         if (taskIndexMark < tasks.size() && taskIndexMark >= 0) {
             tasks.get(taskIndexMark).mark();
             storage.save(tasks);
-            System.out.println("------------------------------------------");
+            printLine();
             System.out.println("Yay! I've marked this task as done:");
             System.out.println("[" + tasks.get(taskIndexMark).getStatusIcon() + "] " + tasks.get(taskIndexMark).getDescription());
-            System.out.println("------------------------------------------");
+            printLine();
         } else {
             throw new BobException("Invalid index :(");
         }
@@ -108,10 +110,10 @@ public class Bob {
         if (taskIndexUnmark < tasks.size() && taskIndexUnmark >= 0) {
             tasks.get(taskIndexUnmark).unmark();
             storage.save(tasks);
-            System.out.println("------------------------------------------");
+            printLine();
             System.out.println("Alright, I've marked this task as not done yet:");
             System.out.println("[" + tasks.get(taskIndexUnmark).getStatusIcon() + "] " + tasks.get(taskIndexUnmark).getDescription());
-            System.out.println("------------------------------------------");
+            printLine();
         } else {
             throw new BobException("Invalid index :(");
         }
@@ -123,11 +125,11 @@ public class Bob {
         }
         tasks.add(new Todo(taskDescription));
         storage.save(tasks);
-        System.out.println("------------------------------------------");
+        printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
-        System.out.println("------------------------------------------");
+        printLine();
     }
 
     private static void addDeadlineTask(String taskDescription) throws BobException {
@@ -140,11 +142,11 @@ public class Bob {
         }
         tasks.add(new Deadline(dlParts[0], dlParts[1]));
         storage.save(tasks);
-        System.out.println("------------------------------------------");
+        printLine();
         System.out.println("Ok! I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
-        System.out.println("------------------------------------------");
+        printLine();
     }
 
     private static void addEventTask(String taskDescription) throws BobException {
@@ -156,11 +158,11 @@ public class Bob {
         String[] eventParts = taskDescription.split(" /from | /to ");
         tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
         storage.save(tasks);
-        System.out.println("------------------------------------------");
+        printLine();
         System.out.println("Ok! I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
-        System.out.println("------------------------------------------");
+        printLine();
     }
 
     private static void deleteTask(String taskDescription) throws BobException {
@@ -168,14 +170,18 @@ public class Bob {
         if (taskIndexDelete < tasks.size() && taskIndexDelete >= 0) {
             Task removedTask = tasks.remove(taskIndexDelete);
             storage.save(tasks);
-            System.out.println("------------------------------------------");
+            printLine();
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask.toString());
             System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
-            System.out.println("------------------------------------------");
+            printLine();
         } else {
             throw new BobException("Invalid index :(");
         }
+    }
+
+    private static void printLine() {
+        System.out.println("------------------------------------------");
     }
 
 }
