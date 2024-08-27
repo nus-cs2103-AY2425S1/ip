@@ -44,4 +44,21 @@ public class DeadlineTask extends Task {
         s += Storage.SPECIAL_CHAR;
         return s;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        DeadlineTask deadlineTask = (DeadlineTask) obj;
+
+        return deadline.toString().equals(deadlineTask.deadline.toString())
+                && Objects.equals(getTaskDesc(), deadlineTask.getTaskDesc());
+    }
 }

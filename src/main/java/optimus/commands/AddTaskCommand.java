@@ -20,4 +20,8 @@ public class AddTaskCommand extends Command {
         ui.printToInterface(task.toString());
         ui.printToInterface(String.format("Now you have %d tasks in the list", tasks.getNumOfTasks()));
     }
+
+    public Task getTask() {
+        return task;
+    }
 }
