@@ -122,28 +122,28 @@ public class Snipe {
     private void handleSpecialInputs(CommandType commandType, String userInput) {
         try {
             switch (commandType) {
-                case LIST:
-                    returnList();
-                    break;
-                case HELP:
-                    displayHelp();
-                    break;
-                case DELETE:
-                    deleteTask(userInput);
-                    break;
-                case MARK:
-                case UNMARK:
-                    markAndUnmarkTask(commandType, userInput);
-                    break;
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    Task newTask = addTask(commandType, userInput);
-                    list.add(newTask);
-                    printWithLines(" Got it. I've added this task:\n  " + newTask + listLength());
-                    break;
-                default:
-                    throw new SnipeException("Unknown command. Type 'help' for a list of commands.");
+            case LIST:
+                returnList();
+                break;
+            case HELP:
+                displayHelp();
+                break;
+            case DELETE:
+                deleteTask(userInput);
+                break;
+            case MARK:
+            case UNMARK:
+                markAndUnmarkTask(commandType, userInput);
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                Task newTask = addTask(commandType, userInput);
+                list.add(newTask);
+                printWithLines(" Got it. I've added this task:\n  " + newTask + listLength());
+                break;
+            default:
+                throw new SnipeException("Unknown command. Type 'help' for a list of commands.");
             }
         } catch (SnipeException e) {
             printWithLines(e.getMessage());
