@@ -1,9 +1,9 @@
-Hello! I'm Optimus
+Hello! I'm optimus.Optimus
 What can I do for you?
 ____________________________
-This Task requires a description
-This Task requires a description
-This Task requires a description
+This optimus.tasks.Task requires a description
+This optimus.tasks.Task requires a description
+This optimus.tasks.Task requires a description
 Got it. I've added this task:
 [T][ ] 2103 iP
 Now you have 1 tasks in the list
@@ -21,7 +21,7 @@ ____________________________
 1. [T][X] 2103 iP
 2. [E][ ] splashdown (from: 28th Aug to: 29th Aug)
 ____________________________
-A Task with this number does not exist.
+A optimus.tasks.Task with this number does not exist.
 Noted. I've removed this task:
 [E][ ] splashdown (from: 28th Aug to: 29th Aug)
 Now you have 1 tasks in the list

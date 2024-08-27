@@ -1,3 +1,10 @@
+package optimus;
+
+import optimus.tasks.DeadlineTask;
+import optimus.tasks.EventTask;
+import optimus.tasks.Task;
+import optimus.tasks.ToDoTask;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

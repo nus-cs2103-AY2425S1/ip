@@ -1,4 +1,11 @@
-public class LeaveCommand extends Command{
+package optimus.commands;
+
+import optimus.commands.Command;
+import optimus.Storage;
+import optimus.TaskList;
+import optimus.Ui;
+
+public class LeaveCommand extends Command {
 
     public LeaveCommand() {
 

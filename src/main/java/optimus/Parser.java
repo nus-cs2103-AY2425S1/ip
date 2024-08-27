@@ -1,3 +1,11 @@
+package optimus;
+
+import optimus.commands.*;
+import optimus.exceptions.*;
+import optimus.tasks.DeadlineTask;
+import optimus.tasks.EventTask;
+import optimus.tasks.ToDoTask;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -6,8 +14,8 @@ import java.util.Optional;
 public class Parser {
 
     private static final String[] FLAGS = {"/from", "/to", "/by"};
-    private static final String TASK_NOT_SPECIFIED_MSG = "The Task number is not specified";
-    private static final String NO_DESCRIPTION_MSG = "This Task requires a description";
+    private static final String TASK_NOT_SPECIFIED_MSG = "The optimus.tasks.Task number is not specified";
+    private static final String NO_DESCRIPTION_MSG = "This optimus.tasks.Task requires a description";
 
     public static Command parse(String input) throws OptimusExceptions {
         String[] commands = input.split(" ");

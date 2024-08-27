@@ -1,4 +1,12 @@
-public class AddTaskCommand extends Command{
+package optimus.commands;
+
+import optimus.Storage;
+import optimus.TaskList;
+import optimus.Ui;
+import optimus.commands.Command;
+import optimus.tasks.Task;
+
+public class AddTaskCommand extends Command {
 
     private final Task task;
     public AddTaskCommand(Task task){

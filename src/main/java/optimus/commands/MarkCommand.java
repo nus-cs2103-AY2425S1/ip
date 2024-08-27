@@ -1,4 +1,13 @@
-public class MarkCommand extends Command{
+package optimus.commands;
+
+import optimus.commands.Command;
+import optimus.Storage;
+import optimus.TaskList;
+import optimus.Ui;
+import optimus.exceptions.InvalidTaskNumberException;
+import optimus.tasks.Task;
+
+public class MarkCommand extends Command {
     private final int taskNum;
 
     public MarkCommand(int taskNum) {

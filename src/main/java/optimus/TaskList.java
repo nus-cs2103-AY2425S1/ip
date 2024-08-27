@@ -1,3 +1,8 @@
+package optimus;
+
+import optimus.exceptions.InvalidTaskNumberException;
+import optimus.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

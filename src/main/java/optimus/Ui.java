@@ -1,3 +1,5 @@
+package optimus;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -13,7 +15,7 @@ public class Ui {
     }
 
     public void greet() {
-        System.out.println("Hello! I'm Optimus\nWhat can I do for you?");
+        System.out.println("Hello! I'm optimus.Optimus\nWhat can I do for you?");
         showLineBreak();
     }
 

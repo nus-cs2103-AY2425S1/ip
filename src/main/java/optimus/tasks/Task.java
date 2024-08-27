@@ -1,3 +1,5 @@
+package optimus.tasks;
+
 public class Task {
     private boolean isDone;
     private final String taskDesc;

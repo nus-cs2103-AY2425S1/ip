@@ -1,3 +1,8 @@
+package optimus;
+
+import optimus.commands.Command;
+import optimus.exceptions.OptimusExceptions;
+
 public class Optimus {
     Storage storage;
     TaskList tasks;
