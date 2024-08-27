@@ -17,11 +17,14 @@ public class GuideText {
     e.g: "todo do homework" adds "do homework" as an todo task.
 
             5. To create a "deadline" item, type "deadline" followed by the item description, and finally followed by a deadline "/by deadline"
-    e.g: "deadline do homework /by tomorrow" adds a deadline for homework, due tomorrow.
+    e.g: "deadline do homework /by deadline" adds a deadline for homework, due the said deadline. Note that the acceptable date format is
+    either: M/d/yyyy HHmm, M/d/yyyy, M-d-yyyy HHmm or M-d-yyyy.
 
             6. To create an "event" item, type "event" followed by the item description, and followed by a start time "/from start time", and finally followed by an end time "/to end time".
-    e.g: "event CS2103 lecture /from tomorrow 12pm /to 4pm" adds an event for CS2103 lecture, from 12pm to 4pm tomorrow.
+    e.g: "event CS2103 lecture /from <from date> /to <to date>" adds an event for CS2103 lecture, from some <from date> to some <to date>. Note that the acceptable date format is
+    either: M/d/yyyy HHmm, M/d/yyyy, M-d-yyyy HHmm or M-d-yyyy.
             
+            7. To delete an item, type "delete" followed by the item number.
 """;
 }
 

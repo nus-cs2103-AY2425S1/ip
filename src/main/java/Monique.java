@@ -107,6 +107,7 @@ public class Monique {
                     }
                     case "/commands": {
                             System.out.println(GuideText.GUIDE);
+                            break;
                     }
                     case "delete" : {
                         try {
@@ -164,6 +165,8 @@ public class Monique {
                             numItems++;
                         } catch (ParseException pe) {
                             pe.advice();
+                        } catch (IllegalDateFormatException idee) {
+                            idee.advice();
                         } finally {
                             break;
                         }
@@ -188,6 +191,8 @@ public class Monique {
                             numItems++;
                         } catch (ParseException pe) {
                             pe.advice();
+                        } catch (IllegalDateFormatException idee) {
+                          idee.advice();
                         } finally {
                             break;
                         }
