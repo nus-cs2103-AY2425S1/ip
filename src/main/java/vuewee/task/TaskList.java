@@ -1,6 +1,7 @@
 package vuewee.task;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class TaskList {
   private ArrayList<Task> tasks = new ArrayList<Task>();
@@ -15,7 +16,9 @@ public class TaskList {
       if (taskString.trim().isEmpty()) {
         continue;
       }
-      Task task = Task.deserialize(taskString);
+      String[] parts = taskString.split(Pattern.quote(Task.DELIMETER_SPACE), 2);
+      TaskType taskType = TaskType.fromChar(parts[0].charAt(0));
+      Task task = taskType.createTask(parts[1]);
       taskList.add(task);
     }
     return taskList;

@@ -1,15 +1,15 @@
 package vuewee.task;
 
-import java.util.regex.Pattern;
+public abstract class Task {
+  protected String description;
+  protected boolean isDone;
+  protected TaskType type;
 
-public class Task {
-  private String description;
-  private boolean isDone;
-  private TaskType type;
+  final static String DELIMETER = "|";
+  final static String DELIMETER_SPACE = " " + DELIMETER + " ";
 
-  private final static String DELIMETER = "|";
-  private final static String DELIMETER_SPACE = " " + DELIMETER + " ";
-  private final static int EXPECTED_DELIMETED_PARAM_COUNT = 3;
+  protected Task() {
+  };
 
   protected Task(String description, TaskType type) {
     this(description, type, false);
@@ -21,21 +21,9 @@ public class Task {
     this.type = type;
   }
 
-  public String serialize() {
-    return this.type.toChar() + DELIMETER_SPACE + (this.isDone ? "1" : "0") + DELIMETER_SPACE
-        + this.description.replace(DELIMETER, "\\" + DELIMETER);
-  }
+  abstract void deserialize(String serializedTask);
 
-  public static Task deserialize(String text) {
-    String[] parts = text.split(Pattern.quote(DELIMETER_SPACE));
-    if (parts.length != EXPECTED_DELIMETED_PARAM_COUNT) {
-      throw new IllegalArgumentException("Invalid task format: " + text);
-    }
-    TaskType type = TaskType.fromChar(parts[0].charAt(0));
-    boolean isDone = parts[1].equals("1");
-    String description = parts[2].replace("\\" + DELIMETER, DELIMETER);
-    return new Task(description, type, isDone);
-  }
+  abstract String serialize();
 
   private String getStatusIcon() {
     return (this.isDone ? "X" : " "); // mark done task with X

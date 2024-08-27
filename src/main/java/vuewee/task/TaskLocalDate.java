@@ -34,6 +34,14 @@ public class TaskLocalDate {
     };
   }
 
+  public String serialize() {
+    return date.toString();
+  }
+
+  public static TaskLocalDate deserialize(String text) {
+    return TaskLocalDate.parse(text);
+  }
+
   @Override
   public String toString() {
     return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
