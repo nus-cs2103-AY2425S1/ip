@@ -1,14 +1,25 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 public class Sage {
     public static final String NAME = "Sage";
     public static List<Task> tasksList = new ArrayList<>();
+    public static Memory memory;
 
     public static void main(String[] args) throws SageException {
+
+        memory = new Memory("data/sage.txt");
         Scanner scanner = new Scanner(System.in);
         textBox(String.format("Hello! I'm %s\nWhat can i do for you?", NAME));
+
+        try {
+            tasksList = memory.load();
+        } catch (IOException | SageException e) {
+            System.out.println(e.getMessage());
+        }
 
         while (true) {
             try {
@@ -17,6 +28,7 @@ public class Sage {
                 String command = fullCommand[0];
 
                 if (input.equalsIgnoreCase("bye")) {
+                    memory.save(tasksList);
                     textBox("Bye. Hope to see you again soon!");
                     break;
 
@@ -103,7 +115,7 @@ public class Sage {
                     throw new SageException("Invalid command.");
                 }
                 
-            } catch (SageException e) {
+            } catch (IOException | SageException e) {
                 textBox(e.getMessage());
             }
         }

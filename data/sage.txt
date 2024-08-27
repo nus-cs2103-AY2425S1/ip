@@ -1,0 +1,4 @@
+T | 0 | life
+T | 0 | project
+D | 1 | reading | tomorrow
+E | 0 | meeting | now | then
