@@ -1,8 +1,8 @@
 package megamind.task;
 
-import java.time.format.DateTimeFormatter;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 public class Task implements Serializable {
     protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
