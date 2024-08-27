@@ -65,7 +65,13 @@ public class Main {
         // storage checks if the current directory has a janet.txt file
         Storage storage = new Storage("./janet.txt");
 
-        TaskList taskList = new TaskList(storage.textFileToArrayList());
+        TaskList taskList;
+        try {
+            taskList = new TaskList(storage.textFileToArrayList());
+        } catch (JanetException e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
 
         ui.showWelcome();
 
