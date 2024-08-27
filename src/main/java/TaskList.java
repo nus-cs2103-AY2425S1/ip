@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -6,15 +5,12 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final ArrayList<Task> tasks; // Array to store tasks
-    private final Storage storage;       // Storage for saving, loading of tasks
 
     /**
      * Constructs a new TaskList with a fixed size to store up to 100 tasks.
-     *
      */
-    public TaskList(Storage storage) throws IOException, SecurityException, MiraException {
-        this.storage = storage;
-        this.tasks = this.storage.loadTasks();
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**

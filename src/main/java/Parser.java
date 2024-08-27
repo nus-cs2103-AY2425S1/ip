@@ -1,5 +1,3 @@
-
-
 public class Parser {
     public static Command parse(String fullCommand) throws MiraException {
         String[] commandParts = fullCommand.split(" ", 2); // can only split one time
@@ -22,25 +20,23 @@ public class Parser {
                 return new DeleteCommand(deleteIdx);
             case "todo":
                 return new TodoCommand(arguments);
-//            case "deadline" -> {
-//                String[] deadlineParts = arguments.split("/by", 2);
-//                if (deadlineParts.length != 2) {
-//                    throw new MiraException("Invalid format. Use: deadline <description> /by <deadline>");
-//                }
-//                String description = deadlineParts[0].trim();
-//                String by = deadlineParts[1].trim();
-//                this.tasks.addTask(new Deadline(description, by));
-//            }
-//            case "event" -> {
-//                String[] eventParts = arguments.split("/from|/to");
-//                if (eventParts.length != 3) {
-//                    throw new MiraException("Invalid format. Use: event <description> /from <start> /to <end>");
-//                }
-//                String description = eventParts[0].trim();
-//                String from = eventParts[1].trim();
-//                String to = eventParts[2].trim();
-//                this.tasks.addTask(new Event(description, from, to));
-//            }
+            case "deadline":
+                String[] deadlineParts = arguments.split("/by", 2);
+                if (deadlineParts.length != 2) {
+                    throw new MiraException("Invalid format. Use: deadline <description> /by <deadline>");
+                }
+                String deadlineDesc = deadlineParts[0].trim();
+                String by = deadlineParts[1].trim();
+                return new DeadlineCommand(deadlineDesc, by);
+            case "event":
+                String[] eventParts = arguments.split("/from|/to");
+                if (eventParts.length != 3) {
+                    throw new MiraException("Invalid format. Use: event <description> /from <start> /to <end>");
+                }
+                String eventDesc = eventParts[0].trim();
+                String from = eventParts[1].trim();
+                String to = eventParts[2].trim();
+                return new EventCommand(eventDesc, from, to);
             default:
                 throw new MiraException("I'm sorry, I don't understand that command.");
         }

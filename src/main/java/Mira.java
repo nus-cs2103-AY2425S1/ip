@@ -13,7 +13,7 @@ public class Mira {
     public Mira(Ui ui) throws IOException, SecurityException, MiraException {
         this.ui = ui;
         this.storage = new Storage("./data/mira.txt");
-        this.tasks = new TaskList(storage);
+        this.tasks = new TaskList(storage.loadTasks());
     }
 
     /**
@@ -36,15 +36,15 @@ public class Mira {
                     ((Savable) command).save(storage);
                 }
             } catch (MiraException e) {
-                this.ui.showMessage(e.getMessage());
+                ui.showMessage(e.getMessage());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                this.ui.showMessage("Please provide a valid task number.");
+                ui.showMessage("Please provide a valid task number.");
             } catch (DateTimeParseException e) {
-                this.ui.showMessage("Please input a valid date: 'd/M/yyyy HHmm'.");
+                ui.showMessage("Please input a valid date: 'd/M/yyyy HHmm'.");
             } catch (IOException e) {
-                this.ui.showMessage("File path for storing of tasks is unusable.");
+                ui.showMessage("File path for storing of tasks is unusable.");
             } catch (Exception e) {
-                this.ui.showMessage("Error: " + e.getMessage());
+                ui.showMessage("Error: " + e.getMessage());
             }
         } while (!ExitCommand.isExit(command));
     }

@@ -24,17 +24,6 @@ public class Ui {
     }
 
     /**
-     * Echoes the user's command by printing it within formatted lines.
-     *
-     * @param command The command to be echoed.
-     */
-    public void echoCommand(String command) {
-        printLine();
-        System.out.println(command);
-        printLine();
-    }
-
-    /**
      * Displays a message to the user within formatted lines.
      *
      * @param message The message to be displayed.
