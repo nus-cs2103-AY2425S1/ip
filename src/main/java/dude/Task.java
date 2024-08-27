@@ -6,23 +6,26 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
+    public String taskToStringData(){
+        return "|" + getStatusIcon() + "|" + description;
+    }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
