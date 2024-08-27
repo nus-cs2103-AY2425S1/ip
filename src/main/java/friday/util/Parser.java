@@ -1,4 +1,4 @@
-package friday;
+package friday.util;
 
 import friday.command.AddCommand;
 import friday.command.Command;

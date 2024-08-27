@@ -1,4 +1,4 @@
-package friday;
+package friday.util;
 
 import friday.task.Deadline;
 import friday.task.Event;

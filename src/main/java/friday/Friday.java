@@ -1,6 +1,10 @@
 package friday;
 
 import friday.command.Command;
+import friday.util.Parser;
+import friday.util.Storage;
+import friday.util.TaskList;
+import friday.util.Ui;
 
 public class Friday {
     private Ui ui;
