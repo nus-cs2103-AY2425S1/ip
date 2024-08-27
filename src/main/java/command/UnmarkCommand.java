@@ -1,6 +1,7 @@
 package command;
 
 import tasklist.TaskList;
+import tasklist.TaskListOutOfBoundsException;
 import ui.CommandLineUI;
 
 public class UnmarkCommand extends Command {
@@ -12,10 +13,16 @@ public class UnmarkCommand extends Command {
     }
 
     public void execute(TaskList tasklist, CommandLineUI ui) {
-        tasklist.unmark(index);
 
-        ui.speakLine("OK, I've marked this task as not done yet: ");
-        ui.speakLine("  " + tasklist.getTask(index));
+        try {
+            tasklist.unmark(index);
+    
+            ui.speakLine("OK, I've marked this task as not done yet: ");
+            ui.speakLine("  " + tasklist.getTask(index));
+
+        } catch (TaskListOutOfBoundsException e) {
+            ui.speakLine(e.getMessage());
+        }
 
     }
 

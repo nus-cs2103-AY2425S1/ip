@@ -95,21 +95,31 @@ class TaskListTest {
 
     @Test
     void testMarkTask() {
-        taskList.addTask(new ToDo("Read a book"));
-        taskList.mark(0);
-        assertEquals(
-                taskList.getTask(0).toDataFormat().split(" \\| ")[1],
-                "1");
+        try {
+            taskList.addTask(new ToDo("Read a book"));
+            taskList.mark(0);
+            assertEquals(
+                    taskList.getTask(0).toDataFormat().split(" \\| ")[1],
+                    "1");
+
+        } catch (TaskListOutOfBoundsException e) {
+            fail();
+        }
     }
 
     @Test
     void testUnmarkTask() {
-        taskList.addTask(new ToDo("Read a book"));
-        taskList.mark(0);
-        taskList.unmark(0);
-        assertEquals(
-                taskList.getTask(0).toDataFormat().split(" \\| ")[1],
-                "0");
+        try {
+            taskList.addTask(new ToDo("Read a book"));
+            taskList.mark(0);
+            taskList.unmark(0);
+            assertEquals(
+                    taskList.getTask(0).toDataFormat().split(" \\| ")[1],
+                    "0");
+
+        } catch (TaskListOutOfBoundsException e) {
+            fail();
+        }
     }
 
     @Test

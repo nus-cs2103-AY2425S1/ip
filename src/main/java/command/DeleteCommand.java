@@ -1,6 +1,7 @@
 package command;
 
 import tasklist.TaskList;
+import tasklist.TaskListOutOfBoundsException;
 import tasks.Task;
 import ui.CommandLineUI;
 
@@ -13,11 +14,17 @@ public class DeleteCommand extends Command {
     }
 
     public void execute(TaskList tasklist, CommandLineUI ui) {
-        Task task = tasklist.delete(index);
 
-        ui.speakLine("Noted. I've removed this task:");
-        ui.speakLine("  " + task);
-        ui.speakLine("Now you have " + tasklist.size() + " tasks in the list.");
+        try {
+            Task task = tasklist.delete(index);
+    
+            ui.speakLine("Noted. I've removed this task:");
+            ui.speakLine("  " + task);
+            ui.speakLine("Now you have " + tasklist.size() + " tasks in the list.");
+
+        } catch (TaskListOutOfBoundsException e) {
+            ui.speakLine(e.getMessage());
+        }
 
     }
 

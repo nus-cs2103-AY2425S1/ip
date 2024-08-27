@@ -73,9 +73,9 @@ public class TaskList {
     }
 
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new IndexOutOfBoundsException();
+            throw new TaskListOutOfBoundsException(index, size());
         }
 
         Task task = tasklist.get(index);
@@ -84,9 +84,9 @@ public class TaskList {
     }
 
 
-    public Task mark(int index) {
+    public Task mark(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new IndexOutOfBoundsException();
+            throw new TaskListOutOfBoundsException(index, size());
         }
 
         Task task = tasklist.get(index);
@@ -100,9 +100,9 @@ public class TaskList {
     }
 
 
-    public Task unmark(int index) {
-        if (index < 0 || index > tasklist.size()) {
-            throw new IndexOutOfBoundsException();
+    public Task unmark(int index) throws TaskListOutOfBoundsException {
+        if (index < 0 || index >= tasklist.size()) {
+            throw new TaskListOutOfBoundsException(index, size());
         }
 
         Task task = tasklist.get(index);
@@ -116,9 +116,9 @@ public class TaskList {
     }
 
 
-    public Task delete(int index) {
+    public Task delete(int index) throws TaskListOutOfBoundsException {
         if (index < 0 || index >= tasklist.size()) {
-            throw new IndexOutOfBoundsException();
+            throw new TaskListOutOfBoundsException(index, size());
         }
 
         Task task = tasklist.remove(index);
@@ -150,11 +150,4 @@ public class TaskList {
         return res;
     }
 
-    // public static void main(String[] args) {
-    //     TaskList taskList = new TaskList(new FileStorage("data"));
-
-    //     taskList.unmark(1);
-
-    //     System.out.println(taskList);
-    // }
 }

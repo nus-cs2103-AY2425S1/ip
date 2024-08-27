@@ -1,6 +1,7 @@
 package command;
 
 import tasklist.TaskList;
+import tasklist.TaskListOutOfBoundsException;
 import ui.CommandLineUI;
 
 public class MarkCommand extends Command {
@@ -12,10 +13,15 @@ public class MarkCommand extends Command {
     }
 
     public void execute(TaskList tasklist, CommandLineUI ui) {
-        tasklist.mark(index);
+        try {
+            tasklist.mark(index);
+    
+            ui.speakLine("Nice! I've marked this task as done: ");
+            ui.speakLine("  " + tasklist.getTask(index));
 
-        ui.speakLine("Nice! I've marked this task as done: ");
-        ui.speakLine("  " + tasklist.getTask(index));
+        } catch (TaskListOutOfBoundsException e) {
+            ui.speakLine(e.getMessage());
+        }
 
     }
 
