@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 import util.*;
 import MizzExceptions.*;
@@ -8,7 +7,7 @@ public class Mizz {
   private static final String NAME = "Mizz";
 
   /** Stores the past commands entered */
-  private final TaskHist usrTasks;
+  private final TaskList usrTasks;
   /** Greeting to be printed */
   private final String greeting;
   /** ByeBye to be printed */
@@ -16,24 +15,36 @@ public class Mizz {
   /** Last command entered by the user */
   private String cmd;
 
+  private final Storage storage;
+  private final Parser parser;
+
   /**
    * Constructor for Mizz class. Initialises the Mizz object with defualt values
    * 
    * @param greeting The greeting msg to be printed.
    * @param exitMsg  The exit msg to be printed.
    */
-  public Mizz(String greeting, String exitMsg) {
+  public Mizz(String greeting, String exitMsg, String filePath) {
     this.greeting = greeting;
     this.exitMsg = exitMsg;
-    this.usrTasks = new TaskHist();
+    this.usrTasks = new TaskList();
     this.cmd = "";
+    this.storage = new Storage(filePath);
+    this.parser = new Parser();
+    try {
+      this.parser.parseFromStorage(this.storage).forEach((t) -> {
+        this.usrTasks.addTask(t);
+      });
+    } catch (MizzException e) {
+      System.err.println("Error adding task from file: " + e.getMessage());
+    }
   }
 
   public static void main(String[] args) {
     String greeting = String.format(
         "Hello! I'm %s\n%sWhat can I do for you?", NAME, Utility.INDENT);
     String exitMsg = "Bye. Hope to see you again soon!";
-    Mizz bot = new Mizz(greeting, exitMsg);
+    Mizz bot = new Mizz(greeting, exitMsg, "./store/storage.txt");
     Scanner scanner = new Scanner(System.in);
 
     bot.greet();
@@ -53,7 +64,7 @@ public class Mizz {
    */
   private void commandHandler(String cmd) {
     try {
-      String[] parsedInput = this.parseInput(cmd);
+      String[] parsedInput = this.parser.parseStringInput(cmd);
       this.cmd = parsedInput[0];
       switch (this.cmd) {
         case "bye":
@@ -125,9 +136,9 @@ public class Mizz {
       return;
     }
     if (mark.equals("mark")) {
-      this.usrTasks.markAsDone(idx);
+      this.usrTasks.markAsDone(idx, this.storage);
     } else {
-      this.usrTasks.markAsUndone(idx);
+      this.usrTasks.markAsUndone(idx, this.storage);
     }
   }
 
@@ -138,7 +149,7 @@ public class Mizz {
    * @param taskInfo Array containing the description & by or from to depending.
    */
   private void handleCreate(String taskType, String[] taskInfo) {
-    this.usrTasks.addTask(taskType, taskInfo);
+    this.usrTasks.addTask(taskType, taskInfo, this.storage);
   }
 
   /**
@@ -152,72 +163,6 @@ public class Mizz {
           "%sSomeones tryna be funny, idx: %d is out of range!", Utility.INDENT, idx));
       return;
     }
-    this.usrTasks.deleteTask(idx);
+    this.usrTasks.deleteTask(idx, this.storage);
   }
-
-  /**
-   * Utility method to parse and clean the user input.
-   * 
-   * @param in The input from the scanner.
-   * @return
-   */
-  private String[] parseInput(String inpuString) throws MizzException {
-    // parts[0] -> command
-    // parts[1] -> description
-    // parts[2] -> "" if todo | by if deadline | from if event
-    // parts[3] -> to if event else ""
-
-    String[] result = new String[4];
-    String[] parts = inpuString.split("\\s+");
-    result[0] = parts[0].toLowerCase();
-
-    if (result[0].equals("mark") || result[0].equals("unmark")) {
-      Validator.verifyMarkUnmark(parts);
-      result[1] = parts[1];
-      return result;
-    }
-
-    if (result[0].equals("delete")) {
-      Validator.verifyDelete(parts);
-      result[1] = parts[1];
-      return result;
-    }
-
-    if (result[0].equals("list") || result[0].equals("bye")) {
-      return result;
-    }
-
-    int byIdx = -1;
-    int fromIdx = -1;
-    int toIdx = -1;
-
-    // only take the first occurence of /by | /from | /to
-    for (int i = 1; i < parts.length; i++) {
-      if (fromIdx == -1 && parts[i].equals("/from")) {
-        fromIdx = i;
-      } else if (toIdx == -1 && parts[i].equals("/to")) {
-        toIdx = i;
-      } else if (byIdx == -1 && parts[i].equals("/by")) {
-        byIdx = i;
-      }
-    }
-    // description
-    if (result[0].equals("todo")) {
-      Validator.verifyTodo(parts);
-      result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-    } else if (result[0].equals("deadline")) {
-      Validator.verifyDeadline(parts, byIdx);
-      result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
-      result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1,
-          parts.length));
-    } else if (result[0].equals("event")) {
-      Validator.verifyEvent(parts, fromIdx, toIdx);
-      result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
-      result[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
-      result[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
-    }
-
-    return result;
-  }
-
 }

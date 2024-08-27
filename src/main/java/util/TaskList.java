@@ -1,18 +1,16 @@
 package util;
 
 import java.util.List;
-
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-
 import java.util.ArrayList;
 
-public class TaskHist {
+public class TaskList {
   private List<Task> tasks;
 
-  public TaskHist() {
+  public TaskList() {
     this.tasks = new ArrayList<>(100);
   }
 
@@ -21,9 +19,10 @@ public class TaskHist {
    * 
    * @param taskType    Can be one of todo | deadline | event
    * @param taskDetails The info for the task
+   * @param s           The storage for the task to be added to.
    * @return
    */
-  public void addTask(String taskType, String[] taskDetails) {
+  public void addTask(String taskType, String[] taskDetails, Storage s) {
     Task newTask;
     switch (taskType) {
       case "todo":
@@ -40,6 +39,8 @@ public class TaskHist {
         break;
     }
     this.tasks.add(newTask);
+    s.addToStorage(newTask.toString());
+
     // create the message to be printed
     StringBuilder sb = new StringBuilder(String.format(
         "%sGot it I've added this task:\n", Utility.INDENT));
@@ -49,13 +50,18 @@ public class TaskHist {
     Utility.prettyPrint(sb.toString());
   }
 
+  public void addTask(Task task) {
+    this.tasks.add(task);
+  }
+
   /**
    * Method to delete a task from the list.
    * 
    * @param idx The idx of the task to be deleted starting from 1.
    */
-  public void deleteTask(int idx) {
+  public void deleteTask(int idx, Storage storage) {
     Task t = this.tasks.remove(--idx);
+    storage.removeFromStorage(idx);
     StringBuilder sb = new StringBuilder(String.format(
         "%sOk! I've removed this task:\n", Utility.INDENT));
     sb.append(String.format("%s%s%s\n", Utility.INDENT, Utility.INDENT, t.toString()));
@@ -82,11 +88,12 @@ public class TaskHist {
    * 
    * @param idx Idx to be edited. Starting from 1.
    */
-  public void markAsDone(int idx) {
+  public void markAsDone(int idx, Storage storage) {
     Task entry = this.tasks.get(--idx);
     StringBuilder sb = new StringBuilder(Utility.INDENT);
     if (!entry.isDone()) {
       entry.markDone();
+      storage.updateStorage(entry.toString(), idx);
       sb.append("Nice! I've marked this task as done:\n");
     } else {
       sb.append("Task has already been completed!\n");
@@ -100,11 +107,12 @@ public class TaskHist {
    * 
    * @param idx Idx to be edited. Starting from 1.
    */
-  public void markAsUndone(int idx) {
+  public void markAsUndone(int idx, Storage storage) {
     Task entry = this.tasks.get(--idx);
     StringBuilder sb = new StringBuilder();
     if (entry.isDone()) {
       entry.markUndone();
+      storage.updateStorage(entry.toString(), idx);
       sb.append(String.format("%sOK, I've marked this task as not done yet:\n", Utility.INDENT));
     } else {
       sb.append(String.format("%sTask is already unmarked!\n", Utility.INDENT));
