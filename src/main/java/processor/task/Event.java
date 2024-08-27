@@ -1,10 +1,12 @@
 package processor.task;
 
-public class Event extends Task {
-  private final String from;
-  private final String to;
+import java.time.LocalDateTime;
 
-  public Event(String name, String from, String to) {
+public class Event extends Task {
+  private final LocalDateTime from;
+  private final LocalDateTime to;
+
+  public Event(String name, LocalDateTime from, LocalDateTime to) {
     super(name);
     this.from = from;
     this.to = to;
@@ -28,7 +30,7 @@ public class Event extends Task {
 
   @Override
   public String getExtraInformation() {
-    return "(from: " + from + ", to: " + to + ")";
+    return "(from: " + super.formatDate(this.from) + ", to: " + super.formatDate(this.to) + ")";
   }
 
   @Override

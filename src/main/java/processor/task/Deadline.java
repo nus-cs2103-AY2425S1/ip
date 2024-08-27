@@ -1,9 +1,11 @@
 package processor.task;
 
-public class Deadline extends Task {
-  private final String deadline;
+import java.time.LocalDateTime;
 
-  public Deadline(String name, String deadline) {
+public class Deadline extends Task {
+  private final LocalDateTime deadline;
+
+  public Deadline(String name, LocalDateTime deadline) {
     super(name);
     this.deadline = deadline;
   }
@@ -25,7 +27,7 @@ public class Deadline extends Task {
 
   @Override
   public String getExtraInformation() {
-    return "(by: " + this.deadline + ")";
+    return "(by: " + super.formatDate(this.deadline) + ")";
   }
 
   @Override
