@@ -29,7 +29,7 @@ public class Parser {
             }
             return new String[]{eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()};
         default:
-            throw new DescriptionNotFoundException();
+            throw new TaskNotFoundException();
         }
     }
 
