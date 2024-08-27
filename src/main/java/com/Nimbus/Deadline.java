@@ -1,16 +1,17 @@
-import java.time.DateTimeException;
+package com.Nimbus;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected String deadline;
 
-    Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) {
         this(description, false, deadline);
     }
 
-    Deadline(String description, boolean isDone, String deadline) {
+    public Deadline(String description, boolean isDone, String deadline) {
         super(description, isDone);
         try {
             LocalDate date = LocalDate.parse(deadline);

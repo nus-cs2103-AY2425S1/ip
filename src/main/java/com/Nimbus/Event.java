@@ -1,5 +1,6 @@
+package com.Nimbus;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -7,11 +8,11 @@ public class Event extends Task{
     protected String from;
     protected String to;
 
-    Event(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         this(description, false, from, to);
     }
 
-    Event(String description, boolean isDone , String from, String to) {
+    public Event(String description, boolean isDone , String from, String to) {
         super(description, isDone);
         try {
             LocalDate date = LocalDate.parse(from);
@@ -24,7 +25,7 @@ public class Event extends Task{
             LocalDate date = LocalDate.parse(to);
             this.to = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } catch (DateTimeParseException e){
-            this.to = from;
+            this.to = to;
         }
     }
 
