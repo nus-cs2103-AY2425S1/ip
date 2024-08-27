@@ -52,9 +52,12 @@ public class Ui {
         } else if (type == 'D') {
             String[] split = command.split("/by");
             description = split[0].replaceFirst("deadline", "").trim();
-        } else {
+        } else if (type == 'E') {
             String[] split = command.split("/from | /to");
             description = split[0].replaceFirst("event", "").trim();
+        } else {
+            String[] split = command.split("find");
+            description = split[1].trim();
         }
         return description;
     }
@@ -149,10 +152,37 @@ public class Ui {
         command = scanner.nextLine();
     }
 
+    /**
+     * Display list of tasks that matches the description of the find
+     * command in the saved list, if size of the list is 0, that means
+     * there are no found tasks and a "sorry" message will be displayed
+     *
+     * @param foundTasks Represents an instance of a TaskList that
+     *                   consists of all the found tasks that was
+     *                   found by the FindCommand instance
+     */
+    public void findResponse(TaskList foundTasks) {
+        if (foundTasks.size() != 0) {
+            System.out.println(this.dashed);
+            System.out.println("Here are the matching tasks in your list: ");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + foundTasks.getTask(i).toString());
+            }
+            System.out.println(this.dashed);
+            command = scanner.nextLine();
+        } else {
+            System.out.println(this.dashed);
+            System.out.println("Sorry we could not find any matching tasks in your list");
+            System.out.println(this.dashed);
+        }
+    }
+
     public void exitResponse() {
         System.out.println(bye);
         scanner.close();
     }
+
+
 
 
 

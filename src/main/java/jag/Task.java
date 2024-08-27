@@ -13,6 +13,15 @@ public class Task {
 
     }
 
+    /**
+     * Return task instance description
+     *
+     * @return String representation of task description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         String status = isDone ? "[X] " : "[ ] ";
