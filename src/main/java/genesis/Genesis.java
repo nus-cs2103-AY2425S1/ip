@@ -1,12 +1,13 @@
+package genesis;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 class Task {
     protected String description;
     protected boolean isComplete;
@@ -155,7 +156,7 @@ class Storage {
         if (f.exists()) {
             try (Scanner s = new Scanner(f)) {
                 while (s.hasNext()) {
-                    ui.parseCommand(s.nextLine(), true);
+                    ui.handleInput(s.nextLine(), true);
                 }
 
             } catch (IOException e) {
@@ -190,7 +191,7 @@ class Ui {
         this.parser = commandParser;
     }
 
-    public void parseCommand(String input, boolean silent) {
+    public void handleInput(String input, boolean silent) {
         if (input.equalsIgnoreCase("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
             System.exit(0);
@@ -323,19 +324,19 @@ public class Genesis {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
-            ui.parseCommand(input, false);
+            ui.handleInput(input, false);
         }
     }
 }
-/*public class Genesis {
+/*public class main.genesis.Genesis {
 
     public static void main(String[] args) {
 
 
-        System.out.println("Hello! I'm Genesis!\n"
+        System.out.println("Hello! I'm main.genesis.Genesis!\n"
                 + "What can I do for you?\n");
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> items = new ArrayList<>();
+        ArrayList<main.genesis.Task> items = new ArrayList<>();
         while (true) {
             String input = sc.nextLine();
             if (input.equalsIgnoreCase("bye")) {
@@ -351,7 +352,7 @@ public class Genesis {
                     System.out.println("No such task exists!");
                     continue;
                 }
-                Task current = items.get(index);
+                main.genesis.Task current = items.get(index);
                 current.mark();
                 System.out.println("Nice! I've marked this as done:\n" +
                                     current.description);
@@ -361,7 +362,7 @@ public class Genesis {
                     System.out.println("No such task exists!");
                     continue;
                 }
-                Task current = items.get(index);
+                main.genesis.Task current = items.get(index);
                 current.unmark();
                 System.out.println("Ok. I've marked this task as not done yet:\n" +
                         current.description);
@@ -371,7 +372,7 @@ public class Genesis {
                     System.out.println("No such task exists!");
                     continue;
                 }
-                Task current = items.get(index);
+                main.genesis.Task current = items.get(index);
                 items.remove(index);
                 System.out.println("Noted. I have removed the following task: \n"
                                    + current.toString()
@@ -388,7 +389,7 @@ public class Genesis {
                     continue;
                 }
                 String deadline = parts[1].trim();
-                Deadline current = new Deadline(taskName, deadline);
+                main.genesis.Deadline current = new main.genesis.Deadline(taskName, deadline);
                 items.add(current);
                 System.out.println("Got it. I've added this task:\n" + current.toString()
                                     + "\nYou now have " + items.size() + " items in the list.");
@@ -398,7 +399,7 @@ public class Genesis {
                     System.out.println("You need a task description!");
                     continue;
                 }
-                Todo current = new Todo(taskName);
+                main.genesis.Todo current = new main.genesis.Todo(taskName);
                 items.add(current);
                 System.out.println("Got it. I've added this task:\n" + current.toString()
                         + "\nYou now have " + items.size() + " items in the list.");
@@ -418,7 +419,7 @@ public class Genesis {
                 }
                 String startDate = parts2[0].trim();
                 String endDate = parts2[1].trim();
-                Event current = new Event(taskName, startDate, endDate);
+                main.genesis.Event current = new main.genesis.Event(taskName, startDate, endDate);
                 items.add(current);
                 System.out.println("Got it. I've added this task:\n" + current.toString()
                         + "\nYou now have " + items.size() + " items in the list.");
