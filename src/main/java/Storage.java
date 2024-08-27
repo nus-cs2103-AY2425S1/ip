@@ -8,13 +8,14 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String DATA_DIR = "data";
-    private static final String FILE_NAME = "assistinator.txt";
-    private static final String FILE_PATH = "./data/assistinator.txt";
+    private final String FILE_PATH;
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public Storage(String filePath) {
+        this.FILE_PATH = filePath;
+    }
+
+    public void saveTasks(ArrayList<Task> tasks) {
         try {
-            Files.createDirectories(Paths.get(DATA_DIR));
             FileWriter writer = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
                 writer.write(task.toFileString() + System.lineSeparator());
@@ -25,20 +26,24 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
-        Scanner s = new Scanner(file);
-        while (s.hasNext()) {
-            String[] parts = s.nextLine().split("\\|");
-            String type = parts[0].trim();
-            Task task = getTask(parts, type);
-            tasks.add(task);
+    public ArrayList<Task> loadTasks() throws AssitinatorExceptions {
+        try {
+            ArrayList<Task> tasks = new ArrayList<>();
+            File file = new File(FILE_PATH);
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split("\\|");
+                String type = parts[0].trim();
+                Task task = getTask(parts, type);
+                tasks.add(task);
+            }
+            return tasks;
+        } catch (FileNotFoundException e) {
+            throw new AssitinatorExceptions("File not found");
         }
-        return tasks;
     }
 
-    private static Task getTask(String[] parts, String type) {
+    private Task getTask(String[] parts, String type) {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
 
