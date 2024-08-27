@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +17,8 @@ import Exception.BobException;
 
 public class Storage {
     private String filePath;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -20,11 +26,14 @@ public class Storage {
 
     public ArrayList<Task> load() throws BobException {
         ArrayList<Task> tasks = new ArrayList<>();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjusted formatter
+
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // Create the folder if it doesn't exist
-                file.createNewFile(); // Create the file if it doesn't exist
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
 
             Scanner scanner = new Scanner(file);
@@ -40,13 +49,27 @@ public class Storage {
                         task = new Todo(parts[2]);
                         break;
                     case "D":
-                        task = new Deadline(parts[2], parts[3]);
+                        String dateString = parts[3];
+                        LocalDateTime deadlineDateTime;
+                        try {
+                            // Try parsing as LocalDateTime first
+                            deadlineDateTime = LocalDateTime.parse(dateString, dateTimeFormatter);
+                        } catch (DateTimeParseException e) {
+                            try {
+                                // If it fails, try parsing as LocalDate and convert to LocalDateTime
+                                LocalDate deadlineDate = LocalDate.parse(dateString, dateFormatter);
+                                deadlineDateTime = deadlineDate.atStartOfDay();
+                            } catch (DateTimeParseException ex) {
+                                throw new BobException("Invalid date format in file!");
+                            }
+                        }
+                        task = new Deadline(parts[2], deadlineDateTime);
                         break;
                     case "E":
                         task = new Event(parts[2], parts[3], parts[4]);
                         break;
                     default:
-                        throw new BobException("Unknown task type in file.");
+                        throw new BobException("Unknown task type");
                 }
 
                 if (isDone) {
@@ -55,10 +78,11 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            throw new BobException("Failed to load tasks from file.");
+            throw new BobException("Failed to load tasks from file");
         }
         return tasks;
     }
+
 
     public void save(ArrayList<Task> tasks) throws BobException {
         try {
@@ -68,7 +92,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new BobException("Failed to save tasks to file.");
+            throw new BobException("Failed to save tasks to file");
         }
     }
 }

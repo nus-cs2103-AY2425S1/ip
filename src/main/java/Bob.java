@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import Tasks.Deadline;
 import Tasks.Event;
@@ -98,8 +101,13 @@ public class Bob {
             storage.save(tasks);
             printLine();
             System.out.println("Yay! I've marked this task as done:");
+<<<<<<< HEAD
             System.out.println("[" + tasks.get(taskIndexMark).getStatusIcon() + "] " + tasks.get(taskIndexMark).getDescription());
             printLine();
+=======
+            System.out.println(tasks.get(taskIndexMark).toString());
+            System.out.println("------------------------------------------");
+>>>>>>> branch-Level-8
         } else {
             throw new BobException("Invalid index :(");
         }
@@ -112,8 +120,13 @@ public class Bob {
             storage.save(tasks);
             printLine();
             System.out.println("Alright, I've marked this task as not done yet:");
+<<<<<<< HEAD
             System.out.println("[" + tasks.get(taskIndexUnmark).getStatusIcon() + "] " + tasks.get(taskIndexUnmark).getDescription());
             printLine();
+=======
+            System.out.println(tasks.get(taskIndexUnmark).toString());
+            System.out.println("------------------------------------------");
+>>>>>>> branch-Level-8
         } else {
             throw new BobException("Invalid index :(");
         }
@@ -138,8 +151,23 @@ public class Bob {
         }
         String[] dlParts = taskDescription.split(" /by ");
         if (dlParts.length < 2) {
-            throw new BobException("Missing details :(\nPlease use this format: 'deadline [description] /by [deadline]' :(");
+            throw new BobException("Missing details :(\nPlease use this format: 'deadline [description] /by [dd/MM/yyyy HHmm]' ");
         }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            LocalDateTime deadlineDateTime = LocalDateTime.parse(dlParts[1], formatter);
+
+            tasks.add(new Deadline(dlParts[0], deadlineDateTime));
+            storage.save(tasks);
+            System.out.println("------------------------------------------");
+            System.out.println("Ok! I've added this task:");
+            System.out.println(tasks.get(tasks.size() - 1).toString());
+            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+            System.out.println("------------------------------------------");
+        } catch (DateTimeParseException e) {
+            throw new BobException("Invalid date format! Please use dd/MM/yyyy HHmm :(");
+        }
+<<<<<<< HEAD
         tasks.add(new Deadline(dlParts[0], dlParts[1]));
         storage.save(tasks);
         printLine();
@@ -147,6 +175,8 @@ public class Bob {
         System.out.println(tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
         printLine();
+=======
+>>>>>>> branch-Level-8
     }
 
     private static void addEventTask(String taskDescription) throws BobException {
