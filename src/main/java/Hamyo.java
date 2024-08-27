@@ -1,8 +1,10 @@
-import java.security.spec.ECField;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Collection;
 
 public class Hamyo {
 
@@ -15,37 +17,42 @@ public class Hamyo {
     }
 
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        greet();
-
-        while (active) {
-            try {
-                String str = scanner.nextLine();
-                if (str.startsWith("todo")) {
-                    add(TaskType.TODO, str.substring(4));
-                } else if (str.startsWith("deadline")) {
-                    add(TaskType.DEADLINE, str.substring(8));
-                } else if (str.startsWith("event")) {
-                    add(TaskType.EVENT, str.substring(5));
-                } else if (str.equals("list")) {
-                    listTasks();
-                } else if (str.startsWith("mark")) {
-                    mark(str.substring(4));
-                } else if (str.startsWith("unmark")) {
-                    unmark(str.substring(6));
-                } else if (str.startsWith("delete")) {
-                    delete(str.substring(6));
-                } else if (str.startsWith("bye")) {
-                    terminate();
-                } else {
-                    throw new HamyoException("Invalid command.");
+        try {
+            loadData();
+            Scanner scanner = new Scanner(System.in);
+            greet();
+            while (active) {
+                try {
+                    String str = scanner.nextLine();
+                    if (str.startsWith("todo")) {
+                        add(TaskType.TODO, str.substring(4));
+                    } else if (str.startsWith("deadline")) {
+                        add(TaskType.DEADLINE, str.substring(8));
+                    } else if (str.startsWith("event")) {
+                        add(TaskType.EVENT, str.substring(5));
+                    } else if (str.equals("list")) {
+                        listTasks();
+                    } else if (str.startsWith("mark")) {
+                        mark(str.substring(4));
+                    } else if (str.startsWith("unmark")) {
+                        unmark(str.substring(6));
+                    } else if (str.startsWith("delete")) {
+                        delete(str.substring(6));
+                    } else if (str.startsWith("bye")) {
+                        terminate();
+                    } else {
+                        throw new HamyoException("Invalid Command!");
+                    }
+                    saveData();
+                } catch (HamyoException e) {
+                    System.out.println(e.toString());
+                    printLine();
                 }
-            } catch (HamyoException e) {
-                System.out.println(e.toString());
-                printLine();
             }
+            scanner.close();
+        } catch (HamyoException e){
+            System.out.println(e.toString());
+            printLine();
         }
     }
 
@@ -117,7 +124,7 @@ public class Hamyo {
     public static void mark(String str) throws HamyoException {
         try {
             if (str.length() <= 1) {
-                throw new HamyoException("Usage: unmark [index]");
+                throw new HamyoException("Usage: mark [index]");
             }
             int index = Integer.parseInt(str.substring(1)) - 1;
             if (index < 0 || index >= tasks.size()) {
@@ -160,6 +167,62 @@ public class Hamyo {
             printLine();
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: delete [index]");
+        }
+    }
+
+    public static void loadData() throws HamyoException {
+        try {
+            File savedTasks = new File("./savedTasks.txt");
+            if (!savedTasks.exists()) {
+                savedTasks.createNewFile();
+            }
+            Scanner scannedTasks = new Scanner(savedTasks);
+            int currTask = 0;
+            while (scannedTasks.hasNext()) {
+                currTask++;
+                String[] task = scannedTasks.nextLine().split(" \\| ");
+                switch (task[0]) {
+                case "T":
+                    tasks.add(new ToDo(new String[]{task[2]}));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(new String[]{task[2], task[3]}));
+                    break;
+                case "E":
+                    tasks.add(new Event(new String[]{task[2], task[3], task[4]}));
+                    break;
+                default:
+                    throw new HamyoException("Invalid case " + task[0] + ".");
+                }
+                switch (task[1]) {
+                case "1":
+                    mark(" " + currTask);
+                    break;
+                case "0":
+                    break;
+                default:
+                    throw new HamyoException("Invalid boolean " + task[1] + ".");
+            }
+            }
+        } catch (HamyoException e) {
+            throw new HamyoException("Possible File Corruption. " + e.getMessage());
+        } catch (IOException e) {
+            throw new HamyoException(e.getMessage());
+        }
+    }
+
+    public static void saveData() throws HamyoException {
+        try {
+            FileWriter fw = new FileWriter("./savedTasks.txt");
+            StringBuilder newData = new StringBuilder();
+            for (Task task : tasks) {
+                newData.append(task.toFileFormat()).append(System.lineSeparator());
+            }
+            //System.out.println(newData.toString());
+            fw.write(newData.toString());
+            fw.close();
+        } catch (IOException e) {
+            throw new HamyoException(e.getMessage());
         }
     }
 }
