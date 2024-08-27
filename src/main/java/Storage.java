@@ -1,9 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private final String path;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     public Storage(String path) {
         this.path = path;
@@ -18,7 +21,16 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Error when saving tasks");
+            System.out.println("Error when saving tasks" + e.getMessage());
+        }
+    }
+
+    public LocalDateTime setTime(String time) {
+        try {
+            return LocalDateTime.parse(time, formatter);
+        } catch (Exception e) {
+            System.out.println("Wrong format for the time: " + e.getMessage());
+            return null;
         }
     }
 
@@ -45,10 +57,10 @@ public class Storage {
                         list.add(new Todo(description, isDone));
                         break;
                     case "D":
-                        list.add(new Deadline(description, parts[3], isDone));
+                        list.add(new Deadline(description, setTime(parts[3]), isDone));
                         break;
                     case "E":
-                        list.add(new Event(description, parts[3], parts[4], isDone));
+                        list.add(new Event(description, setTime(parts[3]), setTime(parts[4]), isDone));
                     default:
                         System.out.println("Unknown task type" + type + line);
                         break;

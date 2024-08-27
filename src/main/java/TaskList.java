@@ -10,12 +10,16 @@ public class TaskList {
     }
 
     public void addToList(Task task) {
-        this.list.add(task);
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(line);
+        try {
+            this.list.add(task);
+            System.out.println(line);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task.toString());
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
+            System.out.println(line);
+        } catch (Exception e) {
+            System.out.println("Fail to add the task: wrong format");
+        }
     }
 
     public void markTask(int num) {

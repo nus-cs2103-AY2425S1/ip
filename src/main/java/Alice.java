@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Alice {
     private static final String name = "Alice";
@@ -10,6 +12,7 @@ public class Alice {
     private TaskList list;
     private final Storage storage;
     private static final String path = "./data/alice.txt";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE,
@@ -81,6 +84,15 @@ public class Alice {
         }
     }
 
+    public LocalDateTime setTime(String time) {
+        try {
+            return LocalDateTime.parse(time, formatter);
+        } catch (Exception e) {
+            System.out.println("Wrong format for the time: " + e.getMessage());
+            return null;
+        }
+    }
+
     public void listTasks() {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
@@ -141,12 +153,12 @@ public class Alice {
             String[] time = detail[1].trim().split("/to");
             String start = time[0].trim();
             String end = time[1].trim();
-            Event event = new Event(description, start, end);
+            Event event = new Event(description, setTime(start), setTime(end));
             list.addToList(event);
             storage.save(list);
         } catch (Exception e) {
             System.out.println(line);
-            System.out.println("Command Format: event [description] /from [time] /to [time]");
+            System.out.println("Command Format: event [description] /from [dd-MM-yyyy HHmm] /to [dd-MM-yyyy HHmm]");
             System.out.println(line);
         }
     }
@@ -156,12 +168,12 @@ public class Alice {
             String[] detail = input.split(" ", 2)[1].split("/by");
             String description = detail[0].trim();
             String time = detail[1].trim();
-            Deadline deadline = new Deadline(description, time);
+            Deadline deadline = new Deadline(description, setTime(time));
             list.addToList(deadline);
             storage.save(list);
         } catch (Exception e) {
             System.out.println(line);
-            System.out.println("Command Format: deadline [description] /by [time]");
+            System.out.println("Command Format: deadline [description] /by [dd-MM-yyyy HHmm]");
             System.out.println(line);
         }
     }

@@ -1,14 +1,17 @@
-public class Event extends Task {
-    private String start;
-    private String end;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String start, String end) {
+public class Event extends Task {
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String description, String start, String end, boolean isDone) {
+    public Event(String description, LocalDateTime start, LocalDateTime end, boolean isDone) {
         super(description, isDone);
         this.start = start;
         this.end = end;
@@ -16,12 +19,20 @@ public class Event extends Task {
 
     @Override
     public String saveString() {
-        return "E" + super.saveString() + " | " + start + " | " + end;
+        DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        String formattedStart = (start != null) ? start.format(saveFormatter) : "N/A";
+        String formattedEnd = (end != null) ? end.format(saveFormatter) : "N/A";
+        return "E" + super.saveString() + " | " + formattedStart + " | " + formattedEnd;
     }
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String formattedStart = (start != null) ? start.format(formatter)
+                : "Fail to set start time, check time format: dd-MM-yyyy HHmm";
+        String formattedEnd = (end != null) ? end.format(formatter)
+                : "Fail to set end time, check time format: dd-MM-yyyy HHmm";
         return "[E]" + super.toString() +
-                " (from: " + start + " to: " + end + ")";
+                " (from: " + formattedStart + " to: " + formattedEnd + ")";
     }
 }
