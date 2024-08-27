@@ -2,4 +2,6 @@ E| |go sentosa|Nov 20 2024|Nov 20 2024
 T| |borrow book|NIL| NIL
 D| |do homework|tomorrow|NIL
 D| |do homework|Nov 20 2024 17:20|NIL
-E| |go out|Jan 11 2024|Jan 12 2024
+T| |borrow book|NIL| NIL
+E| ||Nov 20 2004|Oct 10 2023
+T|X|buy bread|NIL| NIL
