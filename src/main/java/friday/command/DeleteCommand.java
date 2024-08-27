@@ -7,9 +7,18 @@ import friday.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to delete a task from the task list.
+ * Inherits from the Command class and implements the execute method to remove a task by its index.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Creates a DeleteCommand with the specified index.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

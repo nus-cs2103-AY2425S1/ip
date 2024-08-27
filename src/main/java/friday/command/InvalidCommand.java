@@ -4,9 +4,18 @@ import friday.Storage;
 import friday.TaskList;
 import friday.Ui;
 
+/**
+ * Represents a command that indicates an invalid user input or an unrecognized command.
+ * Inherits from the Command class and provides functionality to display an error message.
+ */
 public class InvalidCommand extends Command {
     private String message;
 
+    /**
+     * Constructs an InvalidCommand with a specified error message.
+     *
+     * @param message The error message to be displayed to the user.
+     */
     public InvalidCommand(String message) {
         this.message = message;
     }
@@ -21,4 +30,3 @@ public class InvalidCommand extends Command {
         return false;
     }
 }
-

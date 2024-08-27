@@ -7,9 +7,18 @@ import friday.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to mark a task as done.
+ * Inherits from the Command class and provides functionality to update the status of a specific task.
+ */
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a MarkCommand with the specified index of the task to be marked as done.
+     *
+     * @param index The index of the task in the task list to be marked as done.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
@@ -34,4 +43,3 @@ public class MarkCommand extends Command {
         return false;
     }
 }
-

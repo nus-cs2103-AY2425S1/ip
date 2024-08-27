@@ -7,9 +7,18 @@ import friday.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to add a task to the task list.
+ * Inherits from the Command class and implements the execute method to add a task.
+ */
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Creates an AddCommand with the specified task.
+     *
+     * @param task The task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }
