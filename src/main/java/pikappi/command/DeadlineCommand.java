@@ -5,8 +5,8 @@ import pikappi.exception.PikappiException;
 import pikappi.task.DeadlineTask;
 
 public class DeadlineCommand extends Command {
-    private String description;
-    private String by;
+    protected String description;
+    protected String by;
 
     public DeadlineCommand(String fullCommand) throws PikappiException {
         try {
