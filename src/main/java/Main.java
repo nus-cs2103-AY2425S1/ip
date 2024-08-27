@@ -1,6 +1,8 @@
+import dumpling.Dumpling;
+
 public class Main {
     public static void main(String[] args) {
-        dumpling.Dumpling dumpling = new dumpling.Dumpling("data/dumplingData.txt");
+        Dumpling dumpling = new Dumpling("data/dumplingData.txt");
         dumpling.run();
     }
 }

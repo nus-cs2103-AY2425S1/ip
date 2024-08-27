@@ -6,6 +6,7 @@ import dumpling.task.Task;
 import dumpling.task.TaskList;
 import dumpling.Ui;
 import dumpling.Storage;
+import dumpling.Parser;
 
 public class AddCommand extends Command {
 
@@ -18,7 +19,7 @@ public class AddCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DumplingException {
-        Pair<Task, String> pair = storage.add(this.userInput, this.commandEnum, tasks.getNumItems());
+        Pair<Task, String> pair = Parser.add(this.userInput, this.commandEnum, tasks.getNumItems());
         tasks.add(pair.getFirst());
         ui.echo(pair.getSecond());
     }
