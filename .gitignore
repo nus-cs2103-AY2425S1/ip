@@ -15,3 +15,9 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Ignore all JAR Files
+*.jar
+
+# Ignore JAR files in build/labs directory
+/build/libs/*.jar
