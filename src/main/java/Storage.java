@@ -1,5 +1,3 @@
-import javafx.fxml.LoadListener;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Storage {
 
@@ -18,11 +15,9 @@ public class Storage {
     private static final Path storeFile = dataDir.resolve("store.txt");
 
     public static final String SPECIAL_CHAR = "%%";
-    private final ArrayList<Task> array;
-    private static final String INVALID_TASK_NUMBER_MSG = "A Task with this number does not exist.";
+
     public Storage() {
         validateStorageFile();
-        array = load();
     }
 
     private void validateStorageFile() {
@@ -48,9 +43,9 @@ public class Storage {
         }
     }
 
-    public void rewriteEntireFile() {
+    public void rewriteEntireFile(ArrayList<Task> taskList) {
         try {
-            List<String> lines = array.stream()
+            List<String> lines = taskList.stream()
                     .map(Task::getStorageString)
                     .toList();
             Files.write(storeFile, lines, StandardOpenOption.TRUNCATE_EXISTING);
@@ -81,36 +76,5 @@ public class Storage {
             System.out.println("The data stored in the storage file is outdated and incompatible. Please delete store.txt and try again");
         }
         return data;
-    }
-
-
-    public Task getTask(int taskNum) throws InvalidTaskNumberException {
-        if (isInvalidTaskNum(taskNum)) {
-            throw new InvalidTaskNumberException(INVALID_TASK_NUMBER_MSG);
-        } else {
-            return this.array.get(taskNum);
-        }
-    }
-
-    public int getNumOfTasks() {
-        return this.array.size();
-    }
-
-    public Task removeTask(int taskNum) throws InvalidTaskNumberException {
-        if (isInvalidTaskNum(taskNum)) {
-            throw new InvalidTaskNumberException(INVALID_TASK_NUMBER_MSG);
-        } else {
-            Task removed =  this.array.remove(taskNum);
-            rewriteEntireFile();
-            return removed;
-        }
-    }
-
-    public void addTask(Task task) {
-        this.array.add(task);
-        appendToStorage(task.getStorageString());
-    }
-    private boolean isInvalidTaskNum(int taskNum) {
-        return taskNum < 0 || taskNum >= array.size();
     }
 }

@@ -5,12 +5,11 @@ public class DeleteTaskCommand extends Command{
         this.taskNum = taskNum;
     }
     @Override
-    public void execute(Storage storage) throws InvalidTaskNumberException {
-        Task removed = storage.removeTask(taskNum);
-
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(removed);
-        System.out.printf("Now you have %d tasks in the list%n", storage.getNumOfTasks());
-        System.out.println(Optimus.linebreak);
+    public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
+        Task removed = tasks.removeTask(taskNum);
+        storage.rewriteEntireFile(tasks.getList());
+        ui.printToInterface("Noted. I've removed this task:");
+        ui.printToInterface(removed.toString());
+        ui.printToInterface(String.format("Now you have %d tasks in the list", tasks.getNumOfTasks()));
     }
 }

@@ -5,13 +5,12 @@ public class MarkCommand extends Command{
         this.taskNum = taskNum;
     }
     @Override
-    public void execute(Storage storage) throws InvalidTaskNumberException {
-        Task task = storage.getTask(taskNum);
+    public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
+        Task task = tasks.getTask(taskNum);
 
         task.markAsComplete();
-        storage.rewriteEntireFile();
-        System.out.println("Nice! I've marked this task as complete:");
-        System.out.println(task);
-        System.out.println(Optimus.linebreak);
+        storage.rewriteEntireFile(tasks.getList());
+        ui.printToInterface("Nice! I've marked this task as complete:");
+        ui.printToInterface(task.toString());
     }
 }

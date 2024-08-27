@@ -1,4 +1,4 @@
-public class IncompleteCommandException extends Exception{
+public class IncompleteCommandException extends OptimusExceptions{
     public IncompleteCommandException(String message) {
         super(message);
     }

@@ -6,11 +6,10 @@ import java.util.Optional;
 public class Parser {
 
     private static final String[] FLAGS = {"/from", "/to", "/by"};
-    private static final String INVALID_TASK_NUMBER_MSG = "A Task with this number does not exist.";
     private static final String TASK_NOT_SPECIFIED_MSG = "The Task number is not specified";
     private static final String NO_DESCRIPTION_MSG = "This Task requires a description";
 
-    public static Command parse(String input) throws InvalidCommandException, IncompleteCommandException, InvalidTaskNumberException, InvalidDateFormatException {
+    public static Command parse(String input) throws OptimusExceptions {
         String[] commands = input.split(" ");
         if (commands.length == 0) {
             throw new InvalidCommandException("No command entered.");
@@ -28,14 +27,14 @@ public class Parser {
         };
     }
 
-    private static int parseTaskNumber(String[] commands) throws IncompleteCommandException, InvalidTaskNumberException {
+    private static int parseTaskNumber(String[] commands) throws OptimusExceptions {
         if (commands.length != 2) {
             throw new IncompleteCommandException(TASK_NOT_SPECIFIED_MSG);
         }
         try {
             int taskNum = Integer.parseInt(commands[1]);
             if (taskNum <= 0) {
-                throw new InvalidTaskNumberException(INVALID_TASK_NUMBER_MSG);
+                throw new InvalidTaskNumberException();
             }
             return taskNum - 1;
         } catch (NumberFormatException e) {

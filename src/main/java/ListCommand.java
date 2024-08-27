@@ -4,10 +4,9 @@ public class ListCommand  extends Command{
 
     }
     @Override
-    public void execute(Storage storage) throws InvalidTaskNumberException {
-        for (int i = 0; i < storage.getNumOfTasks(); i++) {
-            System.out.printf("%d. %s%n", i + 1, storage.getTask(i));
+    public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
+        for (int i = 0; i < tasks.getNumOfTasks(); i++) {
+            ui.printToInterface(String.format("%d. %s", i + 1, tasks.getTask(i)));
         }
-        System.out.println(Optimus.linebreak);
     }
 }
