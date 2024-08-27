@@ -1,12 +1,4 @@
-import java.util.ArrayList;
-import java.io.BufferedReader; 
-import java.io.File;
-import java.io.FileReader;  
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -30,7 +22,7 @@ public class Quack {
         "\\_____\\ \\_/____/(____  /\\___  >__|_ \\ \n" +
         "       \\__>          \\/     \\/     \\/\n";
     /** Scanner object to take in user inputs */
-    private Scanner sc = new Scanner(System.in);
+    public Scanner sc = new Scanner(System.in);
     /** To store all of the users tasks */
     private TaskList toDoList;
     /** Determine if the bot should continue or stop running */
@@ -41,7 +33,10 @@ public class Quack {
         DEADLINE,
         EVENT
     }
+    /** Sotrage object to load and save data */
     private Storage storage;
+    /** Paser object to handle user inputs */
+    private Paser paser;
     
     /**
      * Creates a Quack chatbot object.
@@ -51,6 +46,7 @@ public class Quack {
         this.isRunning = true;
         this.toDoList = new TaskList();
         this.storage = new Storage(this.toDoList);
+        this.paser = new Paser();
     }
 
     /**
@@ -79,183 +75,35 @@ public class Quack {
     }
 
     /**
-     * Retrieves the task details from input.
-     * <p>
-     * After retrieveing the task details, create a object and add it into the task list.
-     * <p>
-     * If the input is invalid an exception will be thrown
-     * 
-     * @param inputArr Processed input commands by the user.
-     * @throws InvalidInputException If there is something wrong with the input provided by the user.
-     * @throws InvalidTaskTypeException If the task type given is no supported.
+     * Stops quack from taking more inputs from the user and stops the chatbot.
      */
-    private void getTaskDetails(String[] inputArr) throws InvalidInputException, InvalidTaskTypeException{
-
-        // Get the task description from the input
-        StringBuilder taskDescription = new StringBuilder();
-
-        for (int i = 2; i < inputArr.length; i++) {
-            if (taskDescription.length() > 0) {
-                taskDescription.append(" ");
-            }
-            taskDescription.append(inputArr[i]);
-        }
-
-        // Get the task type from the input
-        String taskType = inputArr[1].toUpperCase();
-        
-        // Check if the task type is supported by the chatbot 
-        boolean correctType = false;
-
-        for (TaskType type : TaskType.values()) {
-            if (taskType.equals(type.name())) {
-                correctType = true;
-                break;
-            }
-        }
-
-        if (!correctType) {
-            throw new InvalidTaskTypeException(taskType);
-        }
-
-        // For event or deadline tasks, prompt the user for the start and end dates
-        LocalDateTime startDate = null;
-        LocalDateTime endDate = null;
-
-        if (taskType.equals(TaskType.EVENT.name())) {
-
-            System.out.println("When does this event start? (Format date as : DD/MM/YYYY HH:MM:SS)");
-            String startDateString = sc.nextLine();
-
-            try {
-                startDate = LocalDateTime.parse(startDateString, this.dateFormat);
-                System.out.println(this.spacer);
-            } catch (DateTimeParseException dateTimeError){
-                System.out.println("Im sorry but the date input is invalid try DD/MM/YYYY HH:MM:SS");
-                return;
-            }
-        }
-
-        if (!taskType.equals(TaskType.TODO.name())) {
-            System.out.println("When is this task due? (Format date as : DD/MM/YYYY HH:MM:SS)");
-            String endDateString = sc.nextLine();
-
-            try {
-                endDate = LocalDateTime.parse(endDateString, this.dateFormat);
-                System.out.println(this.spacer);
-            } catch (DateTimeParseException dateTimeError){
-                System.out.println("Im sorry but the date input is invalid try DD/MM/YYYY HH:MM:SS");
-                return;
-            }
-        }
-        
-        // // Add the task into the list
-        // try {
-        //     this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
-        // } catch (InvalidDateTimeException dateTimeError) {
-        //     System.out.println(dateTimeError.getMessage());
-        // }
-        
+    public void shutDown() {
+        this.isRunning = false;
     }
 
-    /**
-     * Executes the command input by the user.
-     * <p>
-     * Depending on the input given by the user, Quack will execute the command.
-     * <p>
-     * If the command is not supported by Quack an invalid input exception will be thrown.
-     * 
-     * @param input The raw input from the user.
-     * @throws InvalidInputException If there is something wrong with the input provided by the user.
-     */
-    private void act (String input) throws InvalidInputException{
-
-        // Process the input by the user
-        String[] inputArr = input.split(" ");
-
-        // Extract the command from the input
-        String command = inputArr[0].toLowerCase();
-
-        // Depending on the command act accordingly
-        switch (command) {
-        case "list":
-            System.out.println(this.toDoList.toString());
-            break;
-        case "bye":
-            printFarewell();
-            break;
-        case "add":
-            if (inputArr.length < 3) {
-                throw new InvalidInputException("Invalid syntax to add a task, try: add <task type> <task description>!");
-            }
-
-            try {
-                this.getTaskDetails(inputArr);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-            break;
-        case "mark":
-        case "unmark":
-            if (inputArr.length < 2) {
-                throw new InvalidInputException("Invalid syntax to add a task, try: " + command + " <index of the task>!");
-            }
-
-            try {
-                this.toDoList.updateTask(Integer.valueOf(inputArr[1]) - 1, command);
-            } catch (InvalidIndexException indexErr) {
-                System.out.println(indexErr.getMessage());
-            }
-            break;
-        case "delete":
-            if (inputArr.length < 2) {
-                throw new InvalidInputException("Invalid syntax to add a task, try: delete <index of the task>!");
-            }
-
-            try {
-                this.toDoList.deleteTask(Integer.valueOf(inputArr[1]) - 1);
-            } catch (InvalidIndexException indexErr) {
-                System.out.println(indexErr.getMessage());
-            }
-            break;
-        default:
-            throw new InvalidInputException("There is no such function as " + command + ", please try again.");
-        }
-
-        System.out.println(spacer);
-    }
 
     /**
      * Runs the chatbot and start taking inputs from the user.
      */
     private void run() {
 
-        // Chatbot is running for the first time, display the logo and greet the user
+        // Chatbot is running for the first time, display the logo and greet the user.
         this.printLogo();
         this.Printgreeting();
         
         // Keep taking inputs from the user as long as the chatbot is running
         while (isRunning) {
-            String input = sc.nextLine();
-            System.out.println(spacer);
-
             try {
-                act(input);
-            } catch (InvalidInputException inputErr) {
-                System.out.println(inputErr.getMessage());
-                System.out.println(spacer);
+                Command command = paser.getUserInput(this);
+                command.execute(this, toDoList, storage);
+            } catch (InvalidCommandException commandError) {
+                System.out.println(commandError.getMessage());
             }
         }
 
-        try {
-            storage.saveData(this.toDoList);
-        } catch (IOException IOErr){
-            System.out.println("An error has occured " + IOErr.getMessage());
-        }
-
+        this.printFarewell();
         // Close the scanner
-        sc.close();
+        this.sc.close();
     }
 
     public static void main(String[] args) {    

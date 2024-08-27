@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;  
@@ -6,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 /**
  * This class is responsible for handling any
@@ -15,9 +15,20 @@ import java.util.ArrayList;
  */
 public class Storage {
     
-    public static String DEFAULT_PATH = "../data";
+    /** Default file path for the save file */
+    public static String DEFAULT_PATH = "./data";
+    /** Default save file name */
     public static String DEFAULT_FILE_NAME = "./data/savedData.csv";
 
+    /**
+     * Creates a storage object.
+     * <p>
+     * Upon creating a storage object, it will create the directory and save file
+     * if it does not exist.
+     * <p>
+     * Afterwards it will load the data from the save file.
+     * @param taskList A list that stores all the tasks tracked by Quack. 
+     */
     public Storage(TaskList taskList){
         try {
             Path filePath = Paths.get(DEFAULT_PATH);
@@ -33,6 +44,7 @@ public class Storage {
      * Reads task data from the csv save file and add it into the task list.
      * <p>
      * All tasks that were saved will be readded into the task list upon running Quack.
+     * @param taskList A list that stores all the tasks tracked by Quack. 
      */
     private void loadData(TaskList taskList) {
 
@@ -47,7 +59,9 @@ public class Storage {
 
             while (dataLine != null) {
                 Task task = this.parseCSVToTask(dataLine);
-                taskList.addTask(task);
+                if (task != null) {
+                    taskList.addTask(task);
+                }
                 dataLine = br.readLine();
             }
 
@@ -63,7 +77,7 @@ public class Storage {
      * Saves the task list into a .csv folder.
      * <p>
      * All tasks inside the task list will be saved into a .csv folder once Quack stops running.
-     * 
+     * @param taskList A list that stores all the tasks tracked by Quack. 
      * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     public void saveData(TaskList taskList) throws IOException {
@@ -92,11 +106,18 @@ public class Storage {
     private Task parseCSVToTask(String dataLine) {
         
         String[] data = dataLine.split(",");
-        Task task = Task.createTask(data);
-        
-        if (Boolean.parseBoolean(data[2])) {
-            task.mark();
+
+        Task task = null;
+
+        try {
+            task = Task.createTask(data);
+            if (Boolean.parseBoolean(data[data.length - 1])) {
+                task.mark();
+            }
+        } catch (InvalidDateTimeException dateTimeError) {
+            System.out.println(dateTimeError);
         }
+        
         return task;
     }
 

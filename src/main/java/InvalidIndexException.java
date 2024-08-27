@@ -1,6 +1,6 @@
 /**
  * This exception class indicates that the index keyed in by the user 
- * is out of bounds based on the task list.
+ * is out of bounds based on the task list or is invalid.
  */
 public class InvalidIndexException extends Exception{
 
@@ -8,8 +8,8 @@ public class InvalidIndexException extends Exception{
      * Creates an InvalidIndexException exception object.
      * @param message The index keyed in by the user.
      */
-    InvalidIndexException (int index) {
+    InvalidIndexException (String index) {
         
-        super("I cannot access the task at index " + (index + 1) + " is out of bounds!!");
+        super("The given index: " + index + ", is invalid or is out of bounds!!");
     }
 }

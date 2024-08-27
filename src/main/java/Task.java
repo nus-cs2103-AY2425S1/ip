@@ -29,19 +29,32 @@ public abstract class Task {
      * @param taskDetails A list of task information used to create the task object.
      * @return A task object of its given task type.
      */
-    public static Task createTask(String[] taskDetails) {
+    public static Task createTask(String[] taskDetails) throws InvalidDateTimeException{
         Task task = null;
+
+        LocalDateTime startDate;
+        LocalDateTime endDate;
+
         switch (taskDetails[0]) {
         case "TODO":
             task = new ToDoTask(taskDetails[1]);
             break;
             
         case "DEADLINE":
-            task = new DeadlineTask(taskDetails[1], LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT));
+            startDate = LocalDateTime.parse(taskDetails[2], Task.DATE_FORMAT);
+
+            task = new DeadlineTask(taskDetails[1], startDate);
             break;
             
         case "EVENT":
-            task = new EventTask(taskDetails[1], LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT), LocalDateTime.parse(taskDetails[4], Task.DATE_FORMAT));
+            startDate = LocalDateTime.parse(taskDetails[2], Task.DATE_FORMAT);
+            endDate = LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT);
+
+            if (endDate.isBefore(startDate)) {
+                throw new InvalidDateTimeException("End date before start date? Noo way, please enter a start date before the end date!");
+            }
+
+            task = new EventTask(taskDetails[1], startDate, endDate);
             break;
         }
         return task;
@@ -99,7 +112,7 @@ public abstract class Task {
      */
     public String toCSVFormat() {
         
-        return this.description + "," + this.isChecked;
+        return this.description;
     }
 
     @Override
