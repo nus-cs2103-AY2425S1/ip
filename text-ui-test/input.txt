@@ -1,12 +1,10 @@
-borrow book
-read book
 todo buy bread
 deadline finish quiz /by 23-08-2024
 event competition /from 24-08-2024 08:00 /to 13:00
 list
-mark 3
+mark 1
 list
-unmark 3
+unmark 1
 list
 bye
 
