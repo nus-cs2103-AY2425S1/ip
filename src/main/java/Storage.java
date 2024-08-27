@@ -24,7 +24,7 @@ public class Storage {
      * Takes a list of tasks and writes them to a text file at the filePath given during object creation.
      * @param taskList The list of tasks to be written to the file.
      */
-    public void writeTasksToFile(ArrayList<Task> taskList) throws IOException {
+    public void writeTasksToFile(ArrayList<Task> taskList) throws IOException, TaskException {
         FileWriter fw = new FileWriter(this.filePath);
         String textToWrite = "";
 
@@ -50,7 +50,7 @@ public class Storage {
                         " | " + event.getFromTime() + "-" + event.getToTime() + "\n";
                 break;
             default:
-                break;
+                throw new TaskWithoutTypeException();
             }
         }
 
