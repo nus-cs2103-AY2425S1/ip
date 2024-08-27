@@ -1,9 +1,11 @@
 import java.util.Scanner;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Llama {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     public static void displayString(String str) {
         System.out.println("\t" + str);
     }
@@ -27,11 +29,11 @@ public class Llama {
 
         String[] substringArr = remaining.split("/by ");
         try {
-            LocalDate deadline = LocalDate.parse(substringArr[1].trim());
+            LocalDateTime deadline = LocalDateTime.parse(substringArr[1].trim(), formatter);
             tasks.addTask(new Deadline(substringArr[0], deadline, false));
         } catch (DateTimeParseException e) {
             throw new LlamaException("Invalid date given, please give in the format " +
-                    "`deadline <name>/by yyyy-mm-dd'");
+                    "`deadline <name>/by yyyy-mm-dd HH:mm'");
         }
     }
 
@@ -45,12 +47,12 @@ public class Llama {
         String startTimeStr = substringArr[1].substring(substringArr[1].indexOf(" ") + 1).trim();
         String endTimeStr = substringArr[2].substring(substringArr[2].indexOf(" ") + 1).trim();
         try {
-            LocalDate startTime = LocalDate.parse(startTimeStr);
-            LocalDate endTime = LocalDate.parse(endTimeStr);
+            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, formatter);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, formatter);
             tasks.addTask(new Event(desc, startTime, endTime, false));
         } catch (DateTimeParseException e) {
             throw new LlamaException("Invalid date given, please give in the format " +
-                    "`event <name> /from yyyy-mm-dd /to  yyyy-mm-dd'");
+                    "`event <name> /from yyyy-MM-dd HH:mm /to  yyyy-MM-dd HH:mm'");
         }
     }
 
