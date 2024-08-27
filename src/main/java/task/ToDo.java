@@ -1,14 +1,11 @@
 package task;
 
-import task.Task;
-import task.TaskType;
-
 /**
- * Represents a task.ToDo task.
+ * Represents a to-do task.
  */
 public class ToDo extends Task {
     /**
-     * Constructor for task.ToDo class.
+     * Constructor for to-do class.
      *
      * @param description Description of the task.
      */
