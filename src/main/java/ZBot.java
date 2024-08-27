@@ -1,15 +1,14 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.time.format.DateTimeParseException;
 
 public class ZBot {
     private static final String SAVE_PATH = "../../../data/tasks.txt";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static TaskList tasks = new TaskList();
 
     public static void main(String[] args) {
         Storage storage = new Storage(SAVE_PATH);
         storage.createFileIfNotExists();
-        tasks = storage.loadTasks();
+        tasks = new TaskList(storage.loadTasks());
         greet();
 
         Scanner sc = new Scanner(System.in);
