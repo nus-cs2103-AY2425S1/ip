@@ -1,11 +1,10 @@
 package seedu.avo.commands;
+import java.time.LocalDate;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.Deadline;
 import seedu.avo.tasks.TaskManager;
 import seedu.avo.utils.DateTime;
-
-import java.time.LocalDate;
 
 public class DeadlineCommand extends Command {
     private final TaskManager manager;

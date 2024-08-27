@@ -1,11 +1,9 @@
 package seedu.avo.commands;
-import seedu.avo.storage.FileStorage;
-import seedu.avo.storage.TaskParser;
-import seedu.avo.tasks.Task;
-import seedu.avo.tasks.TaskManager;
 
 import java.util.Map;
 import java.util.HashMap;
+
+import seedu.avo.tasks.TaskManager;
 
 public class CommandManager {
     private final Map<String, Command> commandMap;
