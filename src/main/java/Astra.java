@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -98,14 +99,18 @@ public class Astra {
         HashMap<String, String> args = getArgs(argText);
 
         Task t = null;
+        try {
             switch (type) {
-                case TODO -> t = new Todo(args.get("main"));
-                case DEADLINE -> t = new Deadline(args.get("main"), args.get("by"));
-                case EVENT -> t = new Event(args.get("main"), args.get("from"), args.get("to"));
+            case TODO -> t = new Todo(args.get("main"));
+            case DEADLINE -> t = new Deadline(args.get("main"), args.get("by"));
+            case EVENT -> t = new Event(args.get("main"), args.get("from"), args.get("to"));
             }
-        if (t == null) {
-            return;
+        } catch (DateTimeParseException e) {
+            throw new AstraException("Please supply valid dates (yyyy-MM-dd HHmm).");
+        } catch (NullPointerException e) {
+            throw new AstraException("Please supply dates.");
         }
+
         tasks.add(t);
         String msg = "Got it. I've added this task: \n  " +
                     t + "\n" +
