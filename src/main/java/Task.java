@@ -1,11 +1,8 @@
 public abstract class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-    public Task(String description) throws BobException {
-        if (description == "") {
-            throw new BobException("OOPS!!! The description of a todo cannot be empty.");
-        }
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -28,4 +25,6 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    public abstract String toSave();
 }
