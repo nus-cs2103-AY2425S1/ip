@@ -47,6 +47,14 @@ You have 3 tasks in your list, here they are :3
 3. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
 
 > 
+Meow, I deleted the task 'read book' for you :3
+
+> 
+You have 2 tasks in your list, here they are :3
+1. [D][ ] submit assignment (due today 3pm)
+2. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
+
+> 
  /\_/\     _____________
  >^,^<    ( Bye-bye! :3 )
   / \      -------------
