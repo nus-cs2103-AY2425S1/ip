@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class SecondMind {
     private static final String line = "____________________________________________________________";
@@ -232,6 +234,19 @@ public class SecondMind {
             curr.markAsDone();
         }
         return curr;
+    }
+
+    private static void loadTaskList() {
+        try {
+            File f = new File(DATA_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                Task curr = textToTask(s.nextLine());
+                taskList.add(curr);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
     }
 
     public static void main(String[] args) {
