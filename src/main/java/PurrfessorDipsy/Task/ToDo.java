@@ -1,4 +1,4 @@
-package Task;
+package PurrfessorDipsy.Task;
 
 public class ToDo extends Task {
     public ToDo(String description) {

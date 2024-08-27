@@ -16,7 +16,7 @@ IF EXIST ACTUAL.TXT (
 )
 
 REM Compile the code into the bin folder
-javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+javac -cp ..\src\main\java -Xlint:none -d ..\bin ../src/main/java/PurrfessorDipsy/**/*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
@@ -29,7 +29,7 @@ FOR /F "usebackq tokens=* delims= " %%a IN (input.txt) DO (
 )
 
 REM Run the program, feed commands from temp_input.txt file and redirect the output to ACTUAL.TXT
-java -classpath ..\bin PurrfessorDipsy < temp_input.txt > ACTUAL.TXT
+java -classpath ..\bin PurrfessorDipsy.PurrfessorDipsy < temp_input.txt > ACTUAL.TXT
 
 REM Clean up temp_input.txt
 del temp_input.txt

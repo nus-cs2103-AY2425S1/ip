@@ -1,3 +1,5 @@
+package PurrfessorDipsy.Storage;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,25 +9,43 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Task.Task;
-import Task.ToDo;
-import Task.Deadline;
-import Task.Event;
-import Utilities.DateTimeParser;
 
-import static Utilities.DateTimeParser.parseDate;
+import PurrfessorDipsy.Parser.*;
+import PurrfessorDipsy.Task.*;
+import PurrfessorDipsy.TaskList.TaskList;
 
 public class Storage {
     private static final String TASK_FILE_DIRECTORY = "./data/taskTable.csv";
     private static final File TASK_FILE = new File(TASK_FILE_DIRECTORY);
 
-    public static void saveTasksToLocalDisk(ArrayList<Task> tasks) {
+    public static void save(ArrayList<Task> tasks) {
         try {
             writeToTaskFile(formatTasks(tasks));
         } catch (IOException e) {
             System.out.println("Failed to save the list of tasks to local disk.");
         }
     }
+
+    public static TaskList load() {
+        if (!TASK_FILE.isFile()) {
+            return new TaskList();
+        }
+
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(TASK_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from file.");
+        }
+        return new TaskList(tasks);
+    }
+
 
     private static String formatTasks(ArrayList<Task> tasks) {
         StringBuilder res = new StringBuilder();
@@ -40,7 +60,7 @@ public class Storage {
         try {
             File parentDir = TASK_FILE.getParentFile();
             if (!parentDir.exists()) {
-                parentDir.mkdirs();
+                boolean success = parentDir.mkdirs();
             }
             if (TASK_FILE.createNewFile()) {
                 System.out.println("A task file has been created locally.");
@@ -61,27 +81,6 @@ public class Storage {
             createTaskFile();
             writeToTaskFile(formattedTasks);
         }
-    }
-
-    public static ArrayList<Task> loadTasksFromFile() {
-        ArrayList<Task> tasks = new ArrayList<>();
-        if (!TASK_FILE.isFile()) {
-            return tasks;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(TASK_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = parseTask(line);
-                if (task != null) {
-                    tasks.add(task);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks from file.");
-        }
-
-        return tasks;
     }
 
     private static Task parseTask(String line) {
@@ -131,5 +130,4 @@ public class Storage {
                 return null; // Unknown task type, do not add to list
         }
     }
-
 }
