@@ -77,6 +77,12 @@ public class SecondMind {
         String taskStart = taskInfo[1].substring(5);
         //Prefix of taskInfo[2] is "to "
         String taskEnd = taskInfo[2].substring(3);
+        String data = "\nE|0|" + taskDescription + "|" + taskStart + "|" + taskEnd;
+        try {
+            appendToFile(data);
+        } catch (IOException e) {
+            printErrorMessage(e);
+        }
         return new EventTask(taskDescription, taskStart, taskEnd);
     }
 
