@@ -31,10 +31,7 @@ public class TheOrangeRatchetCat {
     }
 
     private static void ratchetCatBot(List<Task> items) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm TheOrangeRatchetCat");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        Ui.sayWelcome();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine(); // Reads a line of text
         while (!input.equals("bye")) {
@@ -111,7 +108,7 @@ public class TheOrangeRatchetCat {
             System.out.print("Inappropriate Command try again with adding either a Deadline/Todo/Event: ");
             input = scanner.nextLine(); // Reads the next line of input text again
         }
-        Ui.bidFarewell();
+        Ui.goodByeCat();
         scanner.close(); // Close the scanner to avoid resource leaks
     }
 }
