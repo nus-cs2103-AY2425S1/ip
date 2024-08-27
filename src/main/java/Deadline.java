@@ -4,17 +4,10 @@ public class Deadline extends Task {
     private static String modifyDescription(String des) throws TaskException {
         if (des.length() == 0) {
             throw new TaskException("OH NO!!! The description of Deadline cannot be empty!");
+        } else if (!des.contains("/by")) {
+            throw new TaskException("Deadline should be the following format: {description} /by {date}");
         }
-        String[] arr = des.split(" ");
-        String result = "";
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equals("/by")) {
-                result += "(by: ";
-            } else {
-                result += arr[i] + " ";
-            }
-        }
-        return result.strip() + ")";
+        return des.replace("/by", "by:");
     }
 
     public Deadline(String description) throws TaskException {

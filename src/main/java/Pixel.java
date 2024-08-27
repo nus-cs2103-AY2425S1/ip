@@ -54,7 +54,7 @@ public class Pixel {
             }
             writer.close();
         } catch (IOException e) {
-            PixelSays("Unable to write to file!");
+            PixelSays(e.getMessage());
         }
     }
 

@@ -4,19 +4,10 @@ public class Event extends Task {
     private static String modifyDescription(String des) throws TaskException {
         if (des.length() == 0) {
             throw new TaskException("OH NO!!! The description of Event cannot be empty!");
+        } else if (!des.contains("/from") || !des.contains("/to")) {
+            throw new TaskException("Event should be of this format: {description} /from {date} /to {date}");
         }
-        String[] arr = des.split(" ");
-        String result = "";
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equals("/from")) {
-                result += "(from: ";
-            } else if (arr[i].equals("/to")) {
-                result += "to: ";
-            } else {
-                result += arr[i] + " ";
-            }
-        }
-        return result.strip() + ")";
+        return des.replaceFirst("/from", "(from:").replaceFirst("/to", "to:") + ")";
     }
 
     public Event(String description) throws TaskException {
