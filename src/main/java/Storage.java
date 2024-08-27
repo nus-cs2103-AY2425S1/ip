@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Creates a new Storage object.
@@ -27,12 +27,18 @@ public class Storage {
      * Takes a list of tasks and writes them to a text file at the filePath given during object creation.
      * @param taskList The list of tasks to be written to the file.
      */
-    public void writeTasksToFile(ArrayList<Task> taskList) throws IOException, TaskException {
+    public void writeTasksToFile(ArrayList<Task> taskList) throws TaskException {
         File file = new File(this.filePath);
         file.getParentFile().mkdirs();
-        file.createNewFile();
 
-        FileWriter fw = new FileWriter(this.filePath);
+        FileWriter fw;
+        try {
+            file.createNewFile();
+            fw = new FileWriter(this.filePath);
+        } catch (IOException e) {
+            throw new StorageWriteException();
+        }
+
         String textToWrite = "";
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -61,8 +67,12 @@ public class Storage {
             }
         }
 
-        fw.write(textToWrite);
-        fw.close();
+        try {
+            fw.write(textToWrite);
+            fw.close();
+        } catch (IOException e) {
+            throw new StorageWriteException();
+        }
     }
 
     /**
