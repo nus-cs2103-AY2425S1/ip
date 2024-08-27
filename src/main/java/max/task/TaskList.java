@@ -78,4 +78,13 @@ public class TaskList {
         return storedTasks;
     }
 
+    public ArrayList<Task> find(String toFind) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task t : storedTasks) {
+            if (t.getDescription().contains(toFind)) {
+                filteredTasks.add(t);
+            }
+        }
+        return filteredTasks;
+    }
 }

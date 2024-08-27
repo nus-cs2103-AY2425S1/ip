@@ -65,13 +65,20 @@ public class Ui {
      * @param tasks The list of tasks to be printed.
      */
     public void list(ArrayList<Task> tasks) {
-        printLine();
-        System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             int count = i + 1;
             System.out.println("\t " + count + "." + tasks.get(i).toString());
         }
         printLine();
+    }
+
+    public void printList(boolean isFilter) {
+        printLine();
+        if (isFilter) {
+            System.out.println("\t Here are the matching tasks in your list:");
+        } else {
+            System.out.println("\t Here are the tasks in your list:");
+        }
     }
 
     /**

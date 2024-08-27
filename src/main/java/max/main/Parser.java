@@ -3,9 +3,11 @@ package max.main;
 import max.exception.MaxException;
 import max.task.*;
 
+import javax.crypto.Mac;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -54,6 +56,7 @@ public class Parser {
                 if (text.equals("bye")) {
                     isRunning = false;
                 } else if (text.equals("list")) {
+                    ui.printList(false);
                     ui.list(taskList.getTasks());
                 } else if (text.startsWith("mark")) {
                     int index = Integer.parseInt(text.replace("mark ", "")) - 1;
@@ -76,6 +79,9 @@ public class Parser {
                     Task task = taskList.getTask(index);
                     taskList.deleteTask(index);
                     ui.printDeleteTask(task, taskList.getSize());
+                } else if (text.startsWith("find")) {
+                    String toFind = text.replaceFirst("find", "").trim();
+                    handleFind(toFind);
                 } else {
                     throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
                 }
@@ -87,6 +93,15 @@ public class Parser {
         }
 
 
+    }
+
+    private void handleFind(String text) throws MaxException {
+        if (text.isEmpty()) {
+            throw new MaxException("The provided filter for find cannot be empty.");
+        }
+        ArrayList<Task> filteredTasks = taskList.find(text);
+        ui.printList(true);
+        ui.list(filteredTasks);
     }
 
     /**
