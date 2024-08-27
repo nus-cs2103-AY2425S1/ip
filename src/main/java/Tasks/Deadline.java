@@ -1,13 +1,17 @@
+package Tasks;
+
+import Default.Ui;
+import Exceptions.NedException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     public LocalDate deadlineTiming;
 
-    private Deadline(String taskDescription, String deadlineTiming, boolean isDone) throws NedException{
+    private Deadline(String taskDescription, String deadlineTiming, boolean isDone) throws NedException {
         super(taskDescription, isDone);
         try {
-            System.out.println(deadlineTiming);
             this.deadlineTiming = LocalDate.parse(deadlineTiming);
         } catch (DateTimeParseException e) {
             throw new NedException("M'lord, the time formatting in /by does not follow ISO 8601 (yyyy-mm-dd). Here " +
@@ -15,7 +19,7 @@ public class Deadline extends Task {
                     "examples of" +
                     " " +
                     "valid " +
-                    "timings:\n" + Ned.INDENTATIONS + "2015-08-04\n" + Ned.INDENTATIONS + "2015-08-04T10:11:30");
+                    "timings:\n" + Ui.INDENTATIONS + "2015-08-04\n" + Ui.INDENTATIONS + "2015-08-04T10:11:30");
         }
         this.taskType = "D";
     }

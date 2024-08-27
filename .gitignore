@@ -13,5 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+#class files
+*.class
+
+#cached task list
+src/data/cachedTasks.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+

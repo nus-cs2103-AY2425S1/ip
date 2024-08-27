@@ -1,3 +1,7 @@
+package Tasks;
+
+import Exceptions.NedException;
+
 public class ToDo extends Task {
 
     private ToDo(String taskDescription, boolean isDone) {

@@ -1,3 +1,5 @@
+package Tasks;
+
 import java.time.format.DateTimeFormatter;
 public abstract class Task {
 
@@ -19,7 +21,7 @@ public abstract class Task {
         this.isDone = false;
     };
 
-    protected static int checkSizeOfInput(String[] strArr) {
+    public static int checkSizeOfInput(String[] strArr) {
         int count = 0;
         for (String s : strArr) {
             if (!s.isBlank())  {
