@@ -1,15 +1,21 @@
 package Tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected LocalDate by;
-    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected LocalDateTime by;
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     public Deadline(String description, String by) {
         super(description);
-        this.by = LocalDate.parse(by, INPUT_FORMATTER);
+        this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
+    }
+
+    public Deadline(String description, LocalDateTime by) {
+        super(description);
+        this.by = by;
     }
 
     @Override
@@ -25,5 +31,4 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(DISPLAY_FORMATTER) + ")";
     }
-    //print in mmm dd yyyy format
 }
