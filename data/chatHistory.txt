@@ -1,4 +1,3 @@
-T | 0 | return book
-T | 1 | hug meeks
-E | 1 | birthday party  |  Aug 2pm  |  4pm
-D | 0 | assignment  |  tonight 2359
+D | 0 | return books  | Feb 03 2019 6:00 PM
+D | 0 | return books  | Oct 02 2039 6:00 PM
+E | 0 | hug meeks  | Jan 01 2020 7:00 PM | Jan 01 2021 7:00 PM

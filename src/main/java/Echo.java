@@ -1,6 +1,10 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class Echo {
     private String word;
@@ -102,7 +106,7 @@ public class Echo {
                 try {
                     int byIndex = parts[1].indexOf("/by");
                     String desc = parts[1].substring(0, byIndex);
-                    String deadline = parts[1].substring(byIndex + 3);
+                    String deadline = parts[1].substring(byIndex + 4);
                     Task deadlineTask = new DeadlineTask(desc, false, deadline);
                     list.add(deadlineTask);
                     System.out.print("Got it. I've added this task: \n" + deadlineTask.getDescription() +
@@ -110,24 +114,32 @@ public class Echo {
                 } catch  (StringIndexOutOfBoundsException e) {
                     System.out.println("Incorrect format of adding deadline tasks. " +
                             "Use '/by to specify the deadline after the task description");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please input the correct deadline format /by yyyy-MM-dd XXXX <- Time");
                 }
 
                 break;
             case "event":
-                int fromIndex = parts[1].indexOf("/from");
-                int toIndex = parts[1].indexOf("/to");
-                if (fromIndex == -1 || toIndex == -1) {
-                    System.out.println("Incorrect format of adding event tasks. " +
-                            "Use '/from to specify the start after the task description " +
-                            "and /to to specify deadline after start time");
-                }
-                String details = parts[1].substring(0, fromIndex);
-                String start = parts[1].substring(fromIndex + 5, toIndex);
-                String end = parts[1].substring(toIndex + 3);
-                Task eventTask = new EventTask(details, false, start, end);
-                list.add(eventTask);
-                System.out.print("Got it. I've added this task: \n" + eventTask.getDescription() +
+                try {
+                    int fromIndex = parts[1].indexOf("/from");
+                    int toIndex = parts[1].indexOf("/to");
+                    if (fromIndex == -1 || toIndex == -1) {
+                        System.out.println("Incorrect format of adding event tasks. " +
+                                "Use '/from to specify the start after the task description " +
+                                "and /to to specify deadline after start time");
+                    }
+                    String details = parts[1].substring(0, fromIndex);
+                    String start = parts[1].substring(fromIndex + 6, toIndex - 1);
+                    String end = parts[1].substring(toIndex + 4);
+                    Task eventTask = new EventTask(details, false, start, end);
+                    list.add(eventTask);
+                    System.out.print("Got it. I've added this task: \n" + eventTask.getDescription() +
                             "\n" + line() + String.format("Now you have %d tasks in the list\n", list.size()));
+                } catch (DateTimeParseException e) {
+                    System.out.println("Incorrect format of adding event tasks timings. /from yyyy-MM-dd XXXX <- Time" +
+                            "and /to yyyy-MM-dd XXXX <- Time\n" + e);
+                }
+
                 break;
             case "delete":
                 int index = Integer.parseInt(parts[1]) - 1;
