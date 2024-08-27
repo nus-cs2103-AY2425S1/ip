@@ -7,20 +7,22 @@ import java.util.Scanner;
 public class Justbot {
     public static void main(String[] args) throws JustbotException {
         final String chatbotName = "JustBot";
-        ArrayList<Task> tasks = new ArrayList<>();
+        final String filePath = "/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt";
+
         Scanner scanner = new Scanner(System.in);
         String input = "";
-        final String filePath = "/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt";
+        Parser parser = new Parser();
+        TaskList taskList = new TaskList();
+        ArrayList<Task> tasks = taskList.getArrListTask();
 
         TaskFileHandler taskFileHandler = new TaskFileHandler(filePath);
         taskFileHandler.createFileIfDoesNotExist();
-        taskFileHandler.loadTasks(tasks);
+        taskFileHandler.loadTasks(taskList);
         Commands.botIntro(chatbotName);
 
         while (!input.equals("bye")) {
             input = scanner.nextLine();
-            String commandString = input.split(" ")[0];
-            CommandType command = CommandType.fromString(commandString);
+            CommandType command = parser.commandTypeParser(input);
             switch(command) {
                 case BYE:
                     System.out.println("------------------------------------------");
@@ -41,31 +43,11 @@ public class Justbot {
                     break;
                 case MARK:
                     try {
-                        String[] splitInputMark = input.split(" ");
-
-                        if (splitInputMark.length < 2) {
-                            throw new JustbotException("Hey man you have provided me an invalid format for delete.\n" +
-                                    "Use the format: mark [task number]");
-                        }
-                        int markNumber = Integer.parseInt(splitInputMark[1]);
-                        if (markNumber < 1 || markNumber > tasks.size()) {
-                            throw new IndexOutOfBoundsException("Hey man there is no such task");
-                        }
-
-                        if (tasks.get(markNumber -1).getIsDone()) {
-                            throw new JustbotException("Hey man this task is already marked!");
-                        }
-                        Commands.markTask(tasks, markNumber);
-                        taskFileHandler.saveTasks(tasks);
-                    } catch (NumberFormatException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man please input a number for the task number!");
-                        System.out.println("------------------------------------------");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man there is no such task!");
-                        System.out.println("------------------------------------------");
-                    } catch (JustbotException e) {
+                        int markNumber = parser.extractTaskNumber(input);
+                        taskList.validateMarkTaskNumber(markNumber);
+                        Commands.markTask(taskList, markNumber);
+                        taskFileHandler.saveTasks(taskList);
+                    } catch (JustbotException | IndexOutOfBoundsException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
                         System.out.println("------------------------------------------");
@@ -73,30 +55,11 @@ public class Justbot {
                     break;
                 case UNMARK:
                     try {
-                        String[] splitInputUnmark = input.split(" ");
-
-                        if (splitInputUnmark.length < 2) {
-                            throw new JustbotException("Hey man you have provided me an invalid format for delete.\n" +
-                                    "Use the format: unmark [task number]");
-                        }
-                        int unmarkNumber = Integer.parseInt(splitInputUnmark[1]);
-                        if (unmarkNumber < 1 || unmarkNumber > tasks.size()) {
-                            throw new IndexOutOfBoundsException("Hey man there is no such task");
-                        }
-                        if (!tasks.get(unmarkNumber -1).getIsDone()) {
-                            throw new JustbotException("Hey man this task is already unmarked!");
-                        }
-                        Commands.unmarkTask(tasks, unmarkNumber);
-                        taskFileHandler.saveTasks(tasks);
-                    } catch (NumberFormatException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man please input a number for the task number!");
-                        System.out.println("------------------------------------------");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("------------------------------------------");
-                        System.out.println("Hey man there is no such task!");
-                        System.out.println("------------------------------------------");
-                    } catch (JustbotException e) {
+                        int unmarkNumber = parser.extractTaskNumber(input);
+                        taskList.validateUnmarkTaskNumber(unmarkNumber);
+                        Commands.unmarkTask(taskList, unmarkNumber);
+                        taskFileHandler.saveTasks(taskList);
+                    } catch (JustbotException | IndexOutOfBoundsException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
                         System.out.println("------------------------------------------");
@@ -132,7 +95,7 @@ public class Justbot {
                         LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
 
                         Commands.addTask(tasks, new Deadline(deadlineDescription, deadlineDateTime));
-                        taskFileHandler.saveTasks(tasks);
+                        taskFileHandler.saveTasks(taskList);
                     } catch (DateTimeParseException e) {
                         System.out.println("Hey man please enter the deadline in the following format:\n" +
                                 "  deadline [description] /by DD/MM/YYYY HHmm\n\n" +
@@ -200,7 +163,7 @@ public class Justbot {
                         }
 
                         Commands.addTask(tasks, new Event(eventDescription, startDateTime, endDateTime));
-                        taskFileHandler.saveTasks(tasks);
+                        taskFileHandler.saveTasks(taskList);
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
@@ -229,7 +192,7 @@ public class Justbot {
                             throw new JustbotException("Hey man the description cannot be blank!");
                         }
                         Commands.addTask(tasks, new Todo(description));
-                        taskFileHandler.saveTasks(tasks);
+                        taskFileHandler.saveTasks(taskList);
                     } catch (JustbotException e) {
                         System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
@@ -254,7 +217,7 @@ public class Justbot {
                             throw new IndexOutOfBoundsException("Hey man there is no such task");
                         }
                         Commands.deleteTask(tasks, deleteNumber);
-                        taskFileHandler.saveTasks(tasks);
+                        taskFileHandler.saveTasks(taskList);
                     } catch (NumberFormatException e) {
                         System.out.println("------------------------------------------");
                         System.out.println("Hey man please input a number for the task number!");

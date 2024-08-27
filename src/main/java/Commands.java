@@ -27,7 +27,8 @@ public class Commands {
         System.out.println( "Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + numberOfTasks + " tasks in your list.");
         System.out.println("------------------------------------------");
     }
-    public static void markTask(ArrayList<Task> tasksArr, int taskNumber) {
+    public static void markTask(TaskList taskList, int taskNumber) {
+        ArrayList<Task> tasksArr = taskList.getArrListTask();
         int taskIndex = taskNumber - 1;
         Task currTask = tasksArr.get(taskIndex);
         currTask.setIsDone(true);
@@ -36,7 +37,8 @@ public class Commands {
         System.out.println("------------------------------------------");
     }
 
-    public static void unmarkTask(ArrayList<Task> tasksArr, int taskNumber) {
+    public static void unmarkTask(TaskList taskList, int taskNumber) {
+        ArrayList<Task> tasksArr = taskList.getArrListTask();
         int taskIndex = taskNumber - 1;
         Task currTask = tasksArr.get(taskIndex);
         currTask.setIsDone(false);

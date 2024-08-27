@@ -39,9 +39,10 @@ public class TaskFileHandler {
         fw.close();
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(TaskList taskList) {
         try {
             writeToFile(filePath, "", false);
+            ArrayList<Task> tasks = taskList.getArrListTask();
             for (Task task : tasks) {
                 String taskString;
                 // String format will be Type | isDone | Description | Time Constraint
@@ -66,7 +67,8 @@ public class TaskFileHandler {
         }
     }
 
-    public ArrayList<Task> loadTasks(ArrayList<Task> tasks) {
+    public ArrayList<Task> loadTasks(TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getArrListTask();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
         try {
