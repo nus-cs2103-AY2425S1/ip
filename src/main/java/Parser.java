@@ -23,6 +23,8 @@ public class Parser {
             return new ByeCommand(arguments);
         case ListCommand.COMMAND_PREFIX:
             return new ListCommand(arguments);
+        case MarkCommand.COMMAND_PREFIX:
+            return new MarkCommand(arguments);
         }
 
         return null;

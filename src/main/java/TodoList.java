@@ -50,14 +50,12 @@ public class TodoList {
     /**
      * Mark an item with the specified index as complete
      * @param index The index of the item
-     * @return Status of the operation
      */
-    public boolean markComplete(int index) {
+    public void markComplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
-            return false;
+            throw new TohruException("The entry you are looking to mark cannot be found");
         }
         this.todoList.get(index).setCompleted(true);
-        return true;
     }
 
     /**

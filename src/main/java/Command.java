@@ -22,7 +22,7 @@ public abstract class Command {
      * @param ui The ui for interaction
      * @param store The storage medium to interact
      */
-    public abstract void execute(TodoList list, Ui ui, FileStore store);
+    public abstract void execute(TodoList list, Ui ui, FileStore store) throws TohruException;
 
     /**
      * Check if the application should exit after the execution of this command
