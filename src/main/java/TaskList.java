@@ -9,11 +9,31 @@ public class TaskList {
   }
 
   public void addTask(String task) {
+    // todo borrow book
+    // deadline return book /by Sunday
+    // event project meeting /from Mon 2pm /to 4pm
+
+    String[] parts = task.split(" ", 2);
+    String type = parts[0];
+    String details = parts[1];
+
+    Task newTask;
+    if (type.equalsIgnoreCase("todo")) {
+      newTask = new ToDo(details);
+    } else if (type.equalsIgnoreCase("deadline")) {
+      String[] deadlineParts = details.split(" /by ");
+      newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+    } else if (type.equalsIgnoreCase("event")) {
+      String[] eventParts = details.split(" /from | /to ");
+      newTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
+    } else {
+      newTask = new Task(task);
+    }
     if (taskCount < 100) {
-      tasks[taskCount] = new Task(task);
+      tasks[taskCount] = newTask;
       taskCount++;
       System.out.println("____________________________________________________________");
-      System.out.println(" added: " + task);
+      System.out.println(" added: " + newTask);
       System.out.println("____________________________________________________________");
 
     } else {
@@ -30,10 +50,11 @@ public class TaskList {
     System.out.println("____________________________________________________________");
   }
 
+
   public void mark(int taskIdx) {
     tasks[taskIdx - 1].changeDoneStatus(true);
     System.out.println("____________________________________________________________");
-    System.out.println(" Nice! I've marked this task as done:");
+    System.out.println(" Great job!");
     System.out.println("   " + tasks[taskIdx - 1]);
     System.out.println("____________________________________________________________");
 
@@ -42,7 +63,7 @@ public class TaskList {
   public void unmark(int taskIdx) {
     tasks[taskIdx - 1].changeDoneStatus(false);
     System.out.println("____________________________________________________________");
-    System.out.println(" OK, I've marked this task as not done yet:");
+    System.out.println(" OK :(");
     System.out.println("   " + tasks[taskIdx - 1]);
     System.out.println("____________________________________________________________");
   }
