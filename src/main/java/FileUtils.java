@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -39,7 +40,7 @@ public class FileUtils {
                         taskCount++;
                     }
                     case 'D' -> {
-                        String taskDeadline = parts[3];
+                        LocalDateTime taskDeadline = LocalDateTime.parse(parts[3]);
                         taskList.add(taskCount, new Deadline(taskDescription, taskDeadline));
                         if (taskNumber.equals("1")) {
                             taskList.get(taskCount).completeTask();
@@ -47,8 +48,8 @@ public class FileUtils {
                         taskCount++;
                     }
                     case 'E' -> {
-                        String taskStartTime = parts[3];
-                        String taskEndTime = parts[4];
+                        LocalDateTime taskStartTime = LocalDateTime.parse(parts[3]);
+                        LocalDateTime taskEndTime = LocalDateTime.parse(parts[4]);
                         taskList.add(taskCount, new Event(taskDescription, taskStartTime, taskEndTime));
                         if (taskNumber.equals("1")) {
                             taskList.get(taskCount).completeTask();
@@ -103,7 +104,8 @@ public class FileUtils {
             }
 
             try (FileWriter writer = new FileWriter(relativePath, true)) {
-                writer.write("E | 0 | " + t.getName() + " | " + t.getStartTime() + " | " + t.getEndTime());
+                writer.write("E | 0 | " + t.getName() + " | " + t.getStartTime() + " | " + t.getEndTime()
+                             + System.lineSeparator());
             }
 
         } catch (IOException e) {
