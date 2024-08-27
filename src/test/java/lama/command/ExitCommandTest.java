@@ -1,0 +1,42 @@
+package lama.command;
+
+import lama.LamaException;
+import lama.Storage;
+import lama.TaskList;
+import lama.Ui;
+import lama.task.Task;
+import lama.task.Todo;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class ExitCommandTest {
+
+    private static final String BAR = "____________________________________________________________";
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+    @Test
+    public void runTest() throws LamaException {
+
+        System.setOut(new PrintStream(outputStream));
+
+        Task todo = new Todo("Read Book");
+        TaskList taskList = new TaskList();
+        Ui ui = new Ui();
+        Storage storage = new Storage("./testAdd.txt");
+
+        taskList.add(todo);
+        Command exitCommand = new ExitCommand();
+
+        exitCommand.run(taskList, storage, ui);
+
+        String output = BAR + "\r\nBye. Hope to see you again soon!\r\n" + BAR + "\r\n";
+        assertEquals(output, outputStream.toString());
+        assertTrue(exitCommand.isExit());
+    }
+
+}
