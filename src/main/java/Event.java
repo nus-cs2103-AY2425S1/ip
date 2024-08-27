@@ -56,4 +56,9 @@ public class Event extends Task {
         this.toDate.toString();
     return "E" + " | " + super.toFileFormat() + " | " + fromString + " | " + toString;
   }
+
+  @Override
+  public boolean occursToday(LocalDate date) {
+    return (date.isAfter(this.fromDate) && date.isBefore(this.toDate)) || date.isEqual(this.fromDate) || date.isEqual(this.toDate);
+  }
 }

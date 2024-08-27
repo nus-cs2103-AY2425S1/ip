@@ -12,7 +12,7 @@ These are your tasks:
 1. [T] [ ] TEST_MEMORY_TODO
 2. [D] [ ] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
 3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
-4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 20:20HRS to: Sep 18 2024 20:20HRS)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
 ________________________________________________________________________________
 Noted. I've removed this task:
 [T] [ ] TEST_MEMORY_TODO
@@ -27,7 +27,7 @@ Noted. I've removed this task:
 There are 1 tasks in the list now.
 ________________________________________________________________________________
 Noted. I've removed this task:
-[E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 20:20HRS to: Sep 18 2024 20:20HRS)
+[E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
 There are 0 tasks in the list now.
 ________________________________________________________________________________
 Oh No! Usage: todo [task description]
@@ -175,8 +175,20 @@ Got it. I've added this task:
 There are 3 tasks in the list now.
 ________________________________________________________________________________
 Got it. I've added this task:
-[E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 20:20HRS to: Sep 18 2024 20:20HRS)
+[E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
 There are 4 tasks in the list now.
+________________________________________________________________________________
+These are your tasks on Sep 18 2002.
+1. [D] [ ] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+2. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+________________________________________________________________________________
+These are your tasks on Sep 18 2024.
+1. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+________________________________________________________________________________
+These are your tasks on Sep 19 2024.
+1. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+________________________________________________________________________________
+Oh No! Usage: listDate yyyy-MM-dd.
 ________________________________________________________________________________
 Annyeong! Till we meet again. <3
 ________________________________________________________________________________

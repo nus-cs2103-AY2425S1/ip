@@ -38,4 +38,8 @@ public class Deadline extends Task {
         this.deadlineDate.toString();
     return "D" + " | " + super.toFileFormat() + " | " + deadlineString;
   }
+
+  @Override public boolean occursToday(LocalDate date) {
+    return date.isEqual(this.deadlineDate);
+  }
 }
