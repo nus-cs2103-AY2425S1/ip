@@ -8,11 +8,11 @@ public class Event extends Task{
     protected String from;
     protected String to;
 
-    Event(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         this(description, false, from, to);
     }
 
-    Event(String description, boolean isDone , String from, String to) {
+    public Event(String description, boolean isDone , String from, String to) {
         super(description, isDone);
         try {
             LocalDate date = LocalDate.parse(from);

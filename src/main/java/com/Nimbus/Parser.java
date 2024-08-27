@@ -1,36 +1,25 @@
 package com.Nimbus;
 
-final public class Parser {
-    public enum Command {
-        Remove,
-        List,
-        Mark,
-        Unmark,
-        Todo,
-        Deadline,
-        Event,
-        Bye
-    }
+import com.Commands.*;
 
-    public static Command getCommandType(String line) throws InvalidCommandException {
+final public class Parser {
+
+    public static String getCommand(String line) {
         int index = line.indexOf(" ");
         String command = line;
         if (index != -1) {
             command = line.substring(0, index);
         }
-        return switch (command) {
-            case "list" -> Command.List;
-            case "bye" -> Command.Bye;
-            case "remove" -> Command.Remove;
-            case "mark" -> Command.Mark;
-            case "unmark" -> Command.Unmark;
-            case "todo" -> Command.Todo;
-            case "deadline" -> Command.Deadline;
-            case "event" -> Command.Event;
-            default -> throw new InvalidCommandException(command);
-        };
+        return command;
     }
 
+    public static String getDescription(String argument) {
+        int index = argument.indexOf("/");
+        if (index == -1)
+            return argument.trim();
+        else
+            return argument.substring(0, index).trim();
+    }
 
     public static String getArgument(String command) throws InvalidArgumentException {
         command = command.trim();
@@ -54,7 +43,17 @@ final public class Parser {
                     endIndex + startIndex + target.length() + 1).trim();
     }
 
-    public Task parse(String line) {
-
+    public static Command parse(String line) throws InvalidCommandException, InvalidArgumentException {
+        return switch (getCommand(line)) {
+            case "list" -> new ListCommand();
+            case "remove" -> new RemoveCommand(getArgument(line));
+            case "mark" -> new MarkCommand(getArgument(line));
+            case "unmark" -> new UnmarkCommand(getArgument(line));
+            case "todo" -> new TodoCommand(getArgument(line));
+            case "deadline" -> new DeadlineCommand(getArgument(line));
+            case "event" -> new EventCommand(getArgument(line));
+            case "bye" -> new ByeCommand();
+            default -> throw new InvalidCommandException(getCommand(line));
+        };
     }
 }
