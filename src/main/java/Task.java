@@ -12,6 +12,11 @@ public abstract class Task {
 
     public abstract String getEmptyDescriptionErrorMessage();
 
+    public String getSaveTaskString() {
+        int statusInt = (isDone ? 1 : 0);
+        return String.format("%d | %s", statusInt, description);
+    }
+
     public boolean isDone() {
         return isDone;
     }
