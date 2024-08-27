@@ -4,6 +4,13 @@ import static java.lang.Integer.parseInt;
 
 
 public class Prince {
+
+    public enum TaskType {
+        todo,
+        deadline,
+        event
+    }
+
     static ArrayList<Task> list = new ArrayList<>(); //static variable
     public static String conversation(String command) throws UnknownWordException, IncompleteDescException{
         if(command.equals("bye")) { //string cannot do ==
@@ -51,12 +58,12 @@ public class Prince {
             String type = split[0];
             String stringTask = split[1];
 
-            if(type.equals("todo")) {
+            if(type.equals(TaskType.todo.toString())) {
                 ToDoTask tsk = new ToDoTask(stringTask);
                 addTask(tsk);
                 return taskAddDescription(tsk);
 
-            } else if (type.equals("deadline")) {
+            } else if (type.equals(TaskType.deadline.toString())) {
                 // split again after by
                 String[] splitAgain = stringTask.split(" /by ", 2);
                 String taskDes = splitAgain[0];
