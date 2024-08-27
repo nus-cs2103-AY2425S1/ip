@@ -10,19 +10,19 @@ Now you have 1 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
 Got it. I've added this task:
-  [D][ ] task 2 (by: monday)
+  [D][ ] task 2 (by: 2025-01-01 00:00:00)
 Now you have 2 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
 Got it. I've added this task:
-  [E][ ] task 3 (from: tuesday to: friday)
+  [E][ ] task 3 (from: 2024-08-12 09:00:00 to: 2024-12-12 12:00:00)
 Now you have 3 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
 Here are the tasks in your list:
 1.[T][ ] task 1
-2.[D][ ] task 2 (by: monday)
-3.[E][ ] task 3 (from: tuesday to: friday)
+2.[D][ ] task 2 (by: 2025-01-01 00:00:00)
+3.[E][ ] task 3 (from: 2024-08-12 09:00:00 to: 2024-12-12 12:00:00)
 --------------------------------------------------
 --------------------------------------------------
 Nice! I've marked this task as done:
@@ -30,7 +30,7 @@ Nice! I've marked this task as done:
 --------------------------------------------------
 --------------------------------------------------
 OK, I've marked this task as not done yet:
-  [D][ ] task 2 (by: monday)
+  [D][ ] task 2 (by: 2025-01-01 00:00:00)
 --------------------------------------------------
 --------------------------------------------------
 OK, I've marked this task as not done yet:
@@ -39,8 +39,8 @@ OK, I've marked this task as not done yet:
 --------------------------------------------------
 Here are the tasks in your list:
 1.[T][ ] task 1
-2.[D][ ] task 2 (by: monday)
-3.[E][ ] task 3 (from: tuesday to: friday)
+2.[D][ ] task 2 (by: 2025-01-01 00:00:00)
+3.[E][ ] task 3 (from: 2024-08-12 09:00:00 to: 2024-12-12 12:00:00)
 --------------------------------------------------
 --------------------------------------------------
 Invalid task number
@@ -50,19 +50,22 @@ Invalid task number
 --------------------------------------------------
 --------------------------------------------------
 Noted. I've removed this task:
-  [E][ ] task 3 (from: tuesday to: friday)
+  [E][ ] task 3 (from: 2024-08-12 09:00:00 to: 2024-12-12 12:00:00)
 Now you have 2 tasks in the list.
 --------------------------------------------------
 --------------------------------------------------
 Here are the tasks in your list:
 1.[T][ ] task 1
-2.[D][ ] task 2 (by: monday)
+2.[D][ ] task 2 (by: 2025-01-01 00:00:00)
 --------------------------------------------------
 --------------------------------------------------
 Wrong command, valid commands are todo, deadline, event
 --------------------------------------------------
 --------------------------------------------------
 Wrong command, valid commands are todo, deadline, event
+--------------------------------------------------
+--------------------------------------------------
+Wrong task description, ensure that it follows the different task types
 --------------------------------------------------
 --------------------------------------------------
 Wrong task description, ensure that it follows the different task types
