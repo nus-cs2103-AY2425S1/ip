@@ -1,4 +1,9 @@
-public abstract class Task {
+import java.io.Serializable;
+
+/**
+ * Represents a base task.
+ */
+public abstract class Task implements Serializable {
     /**
      * The task description.
      */
@@ -13,6 +18,7 @@ public abstract class Task {
      * The constructor.
      *
      * @param description Task description.
+     * @throws BocchiException If the description is empty.
      */
     public Task(String description) throws BocchiException {
         if (description == null) {
@@ -36,20 +42,12 @@ public abstract class Task {
         isDone = false;
     }
 
-    /**
-     * Gets whether this task is done.
-     *
-     * @return Whether this task is done.
-     */
-    public boolean isDone() {
+
+    public boolean getDone() {
         return isDone;
     }
 
-    /**
-     * Gets the task description.
-     *
-     * @return The task description.
-     */
+
     public String getDescription() {
         return description;
     }
@@ -63,5 +61,4 @@ public abstract class Task {
     public String toString() {
         return (isDone ? "[X]" : "[ ]") + " " + description;
     }
-
 }

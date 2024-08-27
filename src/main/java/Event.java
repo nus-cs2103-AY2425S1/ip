@@ -1,3 +1,8 @@
+import java.io.*;
+
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
     /**
      * The start date/time of this Event.
@@ -11,7 +16,10 @@ public class Event extends Task {
     /**
      * The constructor.
      *
-     * @param description Event description.
+     * @param description  Event description.
+     * @param fromDateTime Start date/time of this event.
+     * @param toDateTime   End date/time of this event.
+     * @throws BocchiException If any parameter is empty.
      */
     public Event(String description, String fromDateTime, String toDateTime) throws BocchiException {
         super(description);
@@ -22,18 +30,12 @@ public class Event extends Task {
         this.toDateTime = toDateTime;
     }
 
-    /**
-     * Get the start date/time of this event.
-     * @return The start date/time of this event.
-     */
+
     public String getToDateTime() {
         return toDateTime;
     }
 
-    /**
-     * Get the end date/time of this event.
-     * @return The end date/time of this event.
-     */
+
     public String getFromDateTime() {
         return fromDateTime;
     }

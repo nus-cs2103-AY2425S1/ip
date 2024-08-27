@@ -2,22 +2,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a chatbot that can manage tasks.
+ */
 public class Bocchi {
     /**
-     * The name of this bot.
+     * The name of this chatbot.
      */
-    static private final String name = "Bocchi";
+    static private final String NAME = "Bocchi";
 
     /**
      * The list to store all tasks.
      */
-    private final List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = null;
 
     /**
-     * Constructor.
+     * The loader and saver for the task list.
+     */
+    private TaskListLoaderSaver loaderSaver = new TaskListLoaderSaver();
+
+
+    /**
+     * The constructor.
      */
     public Bocchi() {
-
+        tasks = loaderSaver.load();
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
     }
 
     /**
@@ -50,6 +62,7 @@ public class Bocchi {
         printSeparator();
         System.out.println("Oh no you are leaving.. It was a great time talking to you ::>_<::");
         printSeparator();
+        loaderSaver.save(tasks);  // save the task list for persistence
     }
 
     /**
@@ -57,7 +70,7 @@ public class Bocchi {
      */
     private void greet() {
         printSeparator();
-        System.out.println("Hi! I'm " + name + "! Nice to see you!");
+        System.out.println("Hi! I'm " + NAME + "! Nice to see you!");
         System.out.println("Wha..what can I do for you today? o(*//▽//*)q");
         printSeparator();
     }
@@ -87,8 +100,6 @@ public class Bocchi {
 
     /**
      * Adds a task to the list.
-     *
-     * @param task the task to be added.
      */
     private void task(Task task) {
         printSeparator();
@@ -140,6 +151,7 @@ public class Bocchi {
 
     /**
      * Delete the i-th (1-indexed) task.
+     *
      * @param index The index of the task to be deleted.
      */
     private void delete(int index) throws BocchiException {
