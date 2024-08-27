@@ -7,6 +7,10 @@ import storage.TaskList;
 import tasks.Task;
 import ui.Ui;
 
+/**
+ * Parses user input and triggers the corresponding actions,
+ * by activating TaskList and Ui.
+ */
 public class Parser {
     private boolean isBye;
     private final TaskList list;
@@ -18,6 +22,12 @@ public class Parser {
         this.ui = ui;
     }
 
+    /**
+     * Parses user input, breaking down actions by commands.
+     *
+     * @param input the string to be parsed.
+     * @throws AliceException if command is invalid, or if task number is invalid, or if task is missing arguments.
+     */
     public void parse(String input) throws AliceException {
         String[] result = input.split(" ", 2);
         Command command = Command.stringToCommand(result[0]);
@@ -107,6 +117,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns whether the command is "bye".
+     * @return isBye
+     */
     public boolean isBye() {
         return this.isBye;
     }

@@ -7,6 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Responsible for saving the input data into a file after execution.
+ * Responsible for loading the saved inputs from the file before the program starts.
+ */
 public class Storage {
     protected String filePath;
     protected TaskList tasks;
@@ -16,6 +20,9 @@ public class Storage {
         this.tasks = new TaskList();
     }
 
+    /**
+     * Loads the tasks from the data file into the TaskList.
+     */
     public void loadTasks() {
         File file = new File(this.filePath);
         try {
@@ -33,6 +40,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks into the data file after the program terminates.
+     *
+     * @param tasks the input list to be saved to the data file.
+     */
     public void saveTasks(TaskList tasks) {
         File file = new File(this.filePath);
         try {
@@ -46,10 +58,20 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the TaskList which has been populated with the saved data.
+     *
+     * @return TaskList.
+     */
     public TaskList getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Converts the task string in the data file into a task to be stored in TaskList.
+     *
+     * @param line task string in data file.
+     */
     private void createTask(String line) {
         String[] info = line.split(",");
         String taskType = info[0];
@@ -74,6 +96,12 @@ public class Storage {
         tasks.addTask(newTask);
     }
 
+    /**
+     * Returns string representation of the task to be saved to data file.
+     *
+     * @param t task to be saved.
+     * @return string representation of task.
+     */
     private String writeTask(Task t) {
         StringBuilder s = new StringBuilder();
         if (t instanceof Todo) {

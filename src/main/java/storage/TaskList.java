@@ -5,6 +5,11 @@ import tasks.*;
 import exceptions.*;
 import java.util.ArrayList;
 
+/**
+ * Stores the list of tasks.
+ * Responsible for manipulating tasks, such as adding, marking, unmarking and deleting.
+ * Responsible for printing out all the tasks in the list.
+ */
 public class TaskList {
     private final ArrayList<Task> TASKS;
 
@@ -12,6 +17,13 @@ public class TaskList {
         this.TASKS = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to TASKS.
+     *
+     * @param type type of task to be added.
+     * @param response arguments that the task has.
+     * @return the task that has been added to TASKS.
+     */
     public Task addTask(Command type, String[] response) {
         Task task = new Task(response[0]);
         switch (type) {
@@ -33,10 +45,22 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task the task to be added.
+     */
     public void addTask(Task task) {
         TASKS.add(task);
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param taskNumber the (index + 1) of the task.
+     * @return the task that was marked.
+     * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
+     */
     public Task markTask(int taskNumber) throws InvalidTaskException {
         if (taskNumber > TASKS.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
@@ -46,6 +70,13 @@ public class TaskList {
         return markTask;
     }
 
+    /**
+     * Unmarks a task.
+     *
+     * @param taskNumber the (index + 1) of the task.
+     * @return the task that was unmarked.
+     * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
+     */
     public Task unmarkTask(int taskNumber) throws InvalidTaskException {
         if (taskNumber > TASKS.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
@@ -55,6 +86,13 @@ public class TaskList {
         return unmarkTask;
     }
 
+    /**
+     * Deletes the specified task.
+     *
+     * @param taskNumber the (index + 1) of the task.
+     * @return the task that was deleted.
+     * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
+     */
     public Task deleteTask(int taskNumber) throws InvalidTaskException {
         if (taskNumber > TASKS.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
@@ -62,10 +100,20 @@ public class TaskList {
         return TASKS.remove(taskNumber - 1);
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return number of tasks in the list.
+     */
     public int getSize() {
         return this.TASKS.size();
     }
 
+    /**
+     * Returns the string representation of all the tasks in the list.
+     *
+     * @return string of tasks.
+     */
     public String listTasks() {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < TASKS.size(); i++) {
@@ -75,6 +123,12 @@ public class TaskList {
         return s.toString();
     }
 
+    /**
+     * Returns the task at the specified index.
+     *
+     * @param index index in array.
+     * @return task at the given index.
+     */
     public Task getTask(int index) {
         return TASKS.get(index);
     }
