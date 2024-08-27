@@ -20,6 +20,7 @@ public class Parser {
             case "deadline" -> new DeadlineCommand(args);
             case "event" -> new EventCommand(args);
             case "clear" -> new ClearlistCommand();
+            case "find" -> new FindCommand(args);
             default -> throw new MichaelScottException("I don't understand what you mean to say!");
         };
     }
