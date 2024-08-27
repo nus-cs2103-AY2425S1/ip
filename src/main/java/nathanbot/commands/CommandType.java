@@ -1,4 +1,4 @@
-package commands;
+package nathanbot.commands;
 
 public enum CommandType {
     BREAK("bye"),

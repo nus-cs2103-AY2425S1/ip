@@ -1,6 +1,6 @@
-package tasks;
+package nathanbot.tasks;
 import java.util.ArrayList;
-import storage.Storage;
+import nathanbot.storage.Storage;
 
 public class TaskList {
     private final ArrayList<Task> taskList;

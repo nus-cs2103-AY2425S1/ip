@@ -1,4 +1,4 @@
-package tasks;
+package nathanbot.tasks;
 import java.io.Serializable;
 
 public class Task implements Serializable {

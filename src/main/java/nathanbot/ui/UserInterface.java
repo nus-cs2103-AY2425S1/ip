@@ -1,10 +1,9 @@
-package ui;
+package nathanbot.ui;
 
 import java.util.Scanner;
-
-import commands.CommandHandler;
-import commands.CommandType;
-import tasks.TaskList;
+import nathanbot.commands.CommandHandler;
+import nathanbot.commands.CommandType;
+import nathanbot.tasks.TaskList;
 
 public class UserInterface {
     private final TaskList taskList;

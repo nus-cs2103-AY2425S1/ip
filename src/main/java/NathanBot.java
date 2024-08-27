@@ -1,6 +1,6 @@
-import storage.Storage;
-import tasks.TaskList;
-import ui.UserInterface;
+import nathanbot.storage.Storage;
+import nathanbot.tasks.TaskList;
+import nathanbot.ui.UserInterface;
 
 public class NathanBot {
     // cleaned up using Copilot
