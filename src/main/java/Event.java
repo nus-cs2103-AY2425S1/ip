@@ -17,6 +17,10 @@ public class Event extends Task{
         this.dateEnd = dateEnd;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
     public LocalDateTime getStartDate() {
         return this.dateStart;
     }
