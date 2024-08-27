@@ -24,6 +24,10 @@ public class TaskList {
     }
 
     public void enumerateList() {
+        if (taskList.isEmpty()) {
+            System.out.print("Your Task List is Empty.\n");
+        }
+
         for (int i = 0; i < taskList.size(); i++) {
             String printFormat = String.format("%d %s", i + 1, this.getTask(i));
             System.out.println(printFormat);
