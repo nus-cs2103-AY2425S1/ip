@@ -17,9 +17,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (getIsDone()) {
-            return String.format("[D][X]: %s (%s)", getDescription(), this.deadline);
+            return String.format("[X] | Deadline | %s | %s", getDescription(), this.deadline);
         } else {
-            return String.format("[D][ ]: %s (%s)", getDescription(), this.deadline);
+            return String.format("[ ] | Deadline | %s | %s", getDescription(), this.deadline);
         }
     }
 }
