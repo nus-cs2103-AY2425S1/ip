@@ -1,10 +1,15 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /** This class represents an Event. It is child of the Task class.
  * @author Lee Ze Hao (A0276123J)
  */
 
 public class Event extends Task{
-    private String from;
-    private String to;
+    private static final String DATE_TIME_FORMATTER_PATTERN = "yyyy-MM-dd HH:mm";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /** Constructor for an Event object. Sets name upon creation.
      * @param name Name of Event object.
@@ -13,8 +18,8 @@ public class Event extends Task{
      */
     public Event(String name, String from, String to) {
         super(name, TASK_TYPE.EVENT);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from);
+        this.to = LocalDateTime.parse(to);
     }
 
     /**
@@ -22,7 +27,7 @@ public class Event extends Task{
      * @return String A string containing time the event starts.
      */
     public String getFromTime() {
-        return this.from;
+        return this.from.format(formatter);
     }
 
     /**
@@ -30,7 +35,7 @@ public class Event extends Task{
      * @return String A string containing time the event ends.
      */
     public String getToTime() {
-        return this.to;
+        return this.to.format(formatter);
     }
 
     /** Returns string representation of the Event.
@@ -38,6 +43,9 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " +
+                from.format(DateTimeFormatter.RFC_1123_DATE_TIME).replace(" GMT", "")
+                + " to: " +
+                to.format(DateTimeFormatter.RFC_1123_DATE_TIME).replace(" GMT", "") + ")";
     }
 }
