@@ -12,4 +12,8 @@ public class Deadline extends Task {
         return "[D][" + this.getStatusIcon() + "] " + this.getDescription() + "(by: " + deadline + ")";
     }
 
+    public String getDeadline() {
+        return deadline;
+    }
+
 }

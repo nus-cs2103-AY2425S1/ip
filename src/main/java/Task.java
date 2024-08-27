@@ -29,5 +29,4 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 
-
 }

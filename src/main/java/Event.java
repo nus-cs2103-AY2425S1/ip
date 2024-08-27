@@ -14,4 +14,12 @@ public class Event extends Task {
         return "[E][" + this.getStatusIcon() + "] " + this.getDescription() + "(from: " + this.from
                 + "to: " + this.to + ")";
     }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 }
