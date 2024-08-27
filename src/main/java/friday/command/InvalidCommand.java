@@ -20,24 +20,11 @@ public class InvalidCommand extends Command {
         this.message = message;
     }
 
-    /**
-     * Executes the command to display the error message to the user.
-     * This method does not modify the task list or storage.
-     *
-     * @param tasks  The TaskList is not used in this command.
-     * @param ui     The Ui object for displaying the error message to the user.
-     * @param storage The Storage object is not used in this command.
-     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showError(message);
     }
 
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false as this command does not terminate the application.
-     */
     @Override
     public boolean isExit() {
         return false;

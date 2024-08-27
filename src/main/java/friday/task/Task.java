@@ -33,11 +33,6 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /**
-     * Returns the description of the Task.
-     *
-     * @return The description of the Task.
-     */
     public String getDescription() {
         return this.description;
     }
@@ -58,11 +53,6 @@ public abstract class Task {
      */
     public abstract String toFileFormat();
 
-    /**
-     * Returns a string representation of the Task for displaying to the user.
-     *
-     * @return A string representing the Task.
-     */
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;

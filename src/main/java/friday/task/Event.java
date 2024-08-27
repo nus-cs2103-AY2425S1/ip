@@ -37,40 +37,20 @@ public class Event extends Task {
         this(description, from, to, false);
     }
 
-    /**
-     * Returns the start date of the Event as a LocalDate object.
-     *
-     * @return The start date of the Event.
-     */
     public LocalDate getFrom() {
         return this.from.toLocalDate();
     }
 
-    /**
-     * Returns the end date of the Event as a LocalDate object.
-     *
-     * @return The end date of the Event.
-     */
     public LocalDate getTo() {
         return this.to.toLocalDate();
     }
 
-    /**
-     * Returns a string representation of the Event for displaying to the user.
-     *
-     * @return A string representing the Event.
-     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) +
                 " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
 
-    /**
-     * Returns a string representation of the Event in a format suitable for saving to a file.
-     *
-     * @return A formatted string representing the Event for file storage.
-     */
     @Override
     public String toFileFormat() {
         return "E | " + (super.isTaskDone() ? "1" : "0") + " | " + super.getDescription() + " | " +

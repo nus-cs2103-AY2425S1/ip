@@ -22,24 +22,11 @@ public class OnCommand extends Command {
         this.date = date;
     }
 
-    /**
-     * Executes the command to display tasks occurring on the specified date.
-     * This method retrieves tasks for the given date and displays them using the Ui object.
-     *
-     * @param tasks  The TaskList containing all tasks where tasks matching the date will be filtered.
-     * @param ui     The Ui object for displaying the tasks to the user.
-     * @param storage The Storage object (not used in this command but included for method signature consistency).
-     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showSpecificTasks(tasks, date);
     }
 
-    /**
-     * Indicates whether the command is an exit command.
-     *
-     * @return false as this command does not terminate the application.
-     */
     @Override
     public boolean isExit() {
         return false;

@@ -25,21 +25,11 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
-    /**
-     * Returns a string representation of the Todo for displaying to the user.
-     *
-     * @return A string representing the Todo.
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
-    /**
-     * Returns a string representation of the Todo in a format suitable for saving to a file.
-     *
-     * @return A formatted string representing the Todo for file storage.
-     */
     @Override
     public String toFileFormat() {
         return "T | " + (super.isTaskDone() ? "1" : "0") + " | " + super.getDescription();
