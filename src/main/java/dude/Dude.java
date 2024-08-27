@@ -148,6 +148,10 @@ public class Dude {
 
             LocalDateTime from = stringToDateTime(splitFrom[1].strip());
             LocalDateTime to = stringToDateTime(splitTo[1].strip());
+            if (!from.isBefore(to)) {
+                throw new DudeDateTimeFormatException();
+            }
+
             Task newTask = new Event(splitDes[0].strip(), from, to);
             this.tasks.add(newTask);
             tasksSize++;
