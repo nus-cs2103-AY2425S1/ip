@@ -1,7 +1,12 @@
+import java.time.format.DateTimeFormatter;
+
 /**
  * Command represents a specific operation that interacts with the to-do list, store and ui
  */
 public abstract class Command {
+
+    /** Formatter used to parse datetime strings in arguments **/
+    protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/y HHmm");
 
     /** The argument passed in to a command **/
     protected String arguments;

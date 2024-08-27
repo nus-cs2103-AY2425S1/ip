@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Parser represents the parsing of input prompt and determine which command to execute
  */
@@ -31,9 +35,28 @@ public class Parser {
             return new DeleteCommand(arguments);
         case AddTodoCommand.COMMAND_PREFIX:
             return new AddTodoCommand(arguments);
+        case AddDeadlineCommand.COMMAND_PREFIX:
+            return new AddDeadlineCommand(arguments);
         }
 
         return null;
+    }
+
+    /**
+     * Helper function to parse the datetime string passed in with the provided formatter
+     *
+     * @param datetimeString The datetime string to be parsed
+     * @param formatter The format used to parse the datetime string
+     * @return A LocalDateTime object with the parsed date and time
+     * @throws TohruException When the datetime string does not follow the format specified
+     */
+    public static LocalDateTime parseDateTimeString(String datetimeString, DateTimeFormatter formatter)
+            throws TohruException {
+        try {
+            return LocalDateTime.parse(datetimeString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new TohruException(String.format("Argument '%s' is in an invalid datetime format", datetimeString));
+        }
     }
 
 }
