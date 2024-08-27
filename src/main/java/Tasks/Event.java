@@ -1,10 +1,14 @@
+package Tasks;
+
+import Exceptions.NedException;
+import Default.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private LocalDate fromTiming;
     private LocalDate toTiming;
 
-    private Event(String taskDescription, String fromTiming, String toTiming, boolean isDone) throws NedException{
+    private Event(String taskDescription, String fromTiming, String toTiming, boolean isDone) throws NedException {
         super(taskDescription, isDone);
         try {
             this.fromTiming = LocalDate.parse(fromTiming);
@@ -14,7 +18,7 @@ public class Event extends Task {
                     ". Here are " +
                     "examples" +
                     " of valid " +
-                    "timings:\n" + Ned.INDENTATIONS + "2015-08-04\n" + Ned.INDENTATIONS + "2015-08-04T10:11:30");
+                    "timings:\n" + Ui.INDENTATIONS + "2015-08-04\n" + Ui.INDENTATIONS + "2015-08-04T10:11:30");
         }
         this.taskType = "E";
     }

@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package Default;
+
+import Commands.*;
+
 import java.util.regex.Pattern;
 public enum CommandTypes {
     MARK(new MarkCommand()),

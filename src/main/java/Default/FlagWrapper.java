@@ -1,3 +1,5 @@
+package Default;
+
 public class FlagWrapper {
     private boolean status;
 

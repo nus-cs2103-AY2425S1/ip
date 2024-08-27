@@ -1,3 +1,8 @@
+package Commands;
+
+import Default.Ui;
+import Exceptions.NedException;
+import Tasks.Task;
 import java.util.ArrayList;
 
 public class DeleteCommand implements Command {
@@ -7,7 +12,7 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException{
+    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException {
         String[] words = userInput.split(" ");
         try {
             if (words.length != 2) {
@@ -15,15 +20,17 @@ public class DeleteCommand implements Command {
             } else {
                 String possibleIndex = words[1];
                 int index = Integer.parseInt(possibleIndex) - 1;
-                Ned.print("Noted m'lord. The following task has been removed:");
                 Task selectedTask = listOfTasks.get(index); //removes the index specified
-                Ned.print(Ned.INDENTATIONS + selectedTask);
                 listOfTasks.remove(index);
-                Ned.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfTasks.size()));
+                Ui.print("Noted m'lord. The following task has been removed:");
+                Ui.print(Ui.INDENTATIONS + selectedTask);
+                Ui.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfTasks.size()));
             }
         } catch (NumberFormatException e) {
-            Ned.print("Sorry m'lord, your command must specify a valid number");
-            Ned.print(CommandManager.COMMAND_MESSAGE);
+            throw new NedException("Sorry m'lord, your command must specify a valid number");
+        } catch (IndexOutOfBoundsException e) {
+            throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
+                    "size");
         }
     }
 

@@ -1,4 +1,12 @@
+package Commands;
+
+import Exceptions.NedException;
+
 import java.util.ArrayList;
+
+import Tasks.Task;
+
+import Default.FlagWrapper;
 
 public class ByeCommand implements Command {
     private final String REGEX = "bye\\s*";
@@ -6,7 +14,7 @@ public class ByeCommand implements Command {
     public ByeCommand(){}
 
     @Override
-    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException{
+    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException {
     }
 
     @Override

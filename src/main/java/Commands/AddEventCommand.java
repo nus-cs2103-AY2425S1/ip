@@ -1,4 +1,14 @@
+package Commands;
+
+import Exceptions.NedException;
+
 import java.util.ArrayList;
+
+import Tasks.Task;
+import Tasks.Event;
+
+import Default.Ui;
+
 import java.util.regex.Pattern;
 
 public class AddEventCommand implements Command {
@@ -9,7 +19,7 @@ public class AddEventCommand implements Command {
     private String EventRegexWithEmptyFrom = "^event (.+) /from\\s/to (.+)";
 
     @Override
-    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException{
+    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException {
         String[] parsed_inputs = userInput.split("event|/from|/to", 4);
         int parsed_inputs_len = Task.checkSizeOfInput(parsed_inputs);
         if (parsed_inputs[1].strip().isBlank()) {
@@ -29,9 +39,9 @@ public class AddEventCommand implements Command {
         Task newTask = Event.createEvent(parsed_inputs[1].strip(), parsed_inputs[2].strip(), parsed_inputs[3].strip(),
                 false);
         listOfTasks.add(newTask);
-        Ned.print("Aye, I've added this task m'lord:");
-        Ned.print(Ned.INDENTATIONS + newTask);
-        Ned.print("Now you've " + listOfTasks.size() + " tasks left. Get to it then!");
+        Ui.print("Aye, I've added this task m'lord:");
+        Ui.print(Ui.INDENTATIONS + newTask);
+        Ui.print("Now you've " + listOfTasks.size() + " tasks left. Get to it then!");
     }
     @Override
     public String getRegex() {

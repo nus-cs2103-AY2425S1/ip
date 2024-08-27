@@ -1,10 +1,15 @@
+package Commands;
+
+import Default.Ui;
+import Exceptions.NedException;
 import java.util.ArrayList;
+import Tasks.Task;
 
 public class UnmarkCommand implements Command {
     private final String REGEX = "^unmark.*";
     public UnmarkCommand() {}
     @Override
-    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException{
+    public void execute(String userInput, ArrayList<Task> listOfTasks) throws NedException {
         String[] words = userInput.split(" ");
         if (words.length != 2) {
             throw new NedException("Sorry m'lord, you must give me a list index with the mark command. No more, no " +
@@ -15,14 +20,12 @@ public class UnmarkCommand implements Command {
             int index = Integer.parseInt(possibleIndex) - 1;
             Task selectedTask = listOfTasks.get(index);
             selectedTask.markAsNotDone();
-            Ned.print("Oh no. One back up, more to go!");
-            Ned.print(selectedTask.toString());
+            Ui.print("Oh no. One back up, more to go!");
+            Ui.print(selectedTask.toString());
         } catch (NumberFormatException e) {
-            Ned.print("Sorry m'lord, your command must specify a valid number");
-            Ned.print(CommandManager.COMMAND_MESSAGE);
+            throw new NedException("Sorry m'lord, your command must specify a valid number");
         } catch (IndexOutOfBoundsException e) {
-            Ned.print("Sorry m'lord, seems the item number you specified is not valid");
-            Ned.print(CommandManager.COMMAND_MESSAGE);
+            throw new NedException("Sorry m'lord, seems the item number you specified is not valid");
         }
     }
 

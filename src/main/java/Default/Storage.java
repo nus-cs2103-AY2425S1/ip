@@ -1,3 +1,8 @@
+package Default;
+
+import Exceptions.NedException;
+import Tasks.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,13 +15,13 @@ public class Storage {
     private File cacheFile;
 
     private String cacheFilePath;
-    public Storage(String filePath) throws NedException{
+    public Storage(String filePath) throws NedException {
             this.cacheFilePath = filePath;
             File f = new File(filePath);
             this.cacheFile = f;
     }
 
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws NedException{
         //returns the arraylist which TaskList will save
         ArrayList<Task> newListOfTasks = new ArrayList<>();
         try {
@@ -26,13 +31,13 @@ public class Storage {
                 newListOfTasks.add(newTask);
             }
         } catch (FileNotFoundException  e) {
-            Ned.print("M'lord, do not be alarmed, but it appears that there was no previous saved task file. Not to " +
-                    "worry, we'll sort this out yet...");
+            throw new NedException("M'lord, do not be alarmed, but it appears that there was no previous saved task " +
+                    "file. Not to worry, we'll sort this out yet...");
         }
         return newListOfTasks;
     };
 
-    public void save(ArrayList<Task> listOfTasks) {
+    public void save(ArrayList<Task> listOfTasks) throws NedException{
         int sizeOfList = listOfTasks.size();
         try {
             FileWriter fw = new FileWriter(this.cacheFilePath);
@@ -42,11 +47,12 @@ public class Storage {
             }
             fw.close();
         } catch (FileNotFoundException e) {
-            Ned.print("M'lord, it appears that the cache file cannot be accessed, ensure that it is in a writable " +
+            throw new NedException("M'lord, it appears that the cache file cannot be accessed, ensure that it is in a " +
+                    "writable " +
                     "place");
         } catch (IOException e) {
-            Ned.print("M'lord, it appears there was an error accessing the cached file, please check that I am able " +
-                    "to access it");
+            throw new NedException("M'lord, it appears there was an error accessing the cached file, please check " +
+                    "that I am able to access it");
         }
     }
 }

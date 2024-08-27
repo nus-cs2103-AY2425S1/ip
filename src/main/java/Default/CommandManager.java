@@ -1,3 +1,12 @@
+package Default;
+
+import Commands.ByeCommand;
+import Tasks.ToDo;
+import Exceptions.NedException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -7,21 +16,11 @@ public class CommandManager {
     private static final String FLAG_BYE = "bye";
     private final ArrayList<Task> listOfTasks;
 
-    public final static String COMMAND_MESSAGE = """
-            Usage: 
-                list                             - Shows the list of all tasks 
-                mark <item-index>                - Marks the item at the specified index as done
-                unmark <item-index>              - Marks the item at the specified index as undone 
-                delete <item-index>              - Removes the item at the specified index from the list            
-                todo <description>               - Creates a new todo task and adds it to the list
-                deadline <description> /by <date> - Creates a new deadline task and adds it to the list
-                event <description> /from <date> /to <date> - Creates a new event task and adds it to the list""";
 
     public CommandManager(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
     }
-    public void processCommand(String userInput, FlagWrapper flag) {
-        try {
+    public void processCommand(String userInput, FlagWrapper flag) throws NedException{
             CommandTypes command = CommandTypes.findMatchingCommand(userInput);
             switch (command) {
             case BYE:
@@ -35,10 +34,6 @@ public class CommandManager {
                 rewriteTaskListIntoCache(Ned.cachedTasksPath);
                 break;
             }
-        } catch (NedException e) {
-            Ned.print(e.getMessage());
-            Ned.print(CommandManager.COMMAND_MESSAGE);
-        }
     }
     public static Task parseSavedTask(String savedLine) {
         // uses CSV
@@ -56,11 +51,11 @@ public class CommandManager {
                 return Event.createEvent(splitLine[2], splitLine[3], splitLine[4], isTaskDone);
             }
         } catch (NedException e) {
-            Ned.print(e.getMessage());
+            Ui.print(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            Ned.print(String.format("M'lord, it appears that this line: %s is saved in the wrong format.", savedLine));
+            Ui.print(String.format("M'lord, it appears that this line: %s is saved in the wrong format.", savedLine));
         } catch (NumberFormatException e) {
-            Ned.print(String.format("M'lord, it appears that this line: %s is saved with an invalid status number.",
+            Ui.print(String.format("M'lord, it appears that this line: %s is saved with an invalid status number.",
                     savedLine));
         }
         return null;
@@ -77,9 +72,9 @@ public class CommandManager {
             }
             fw.close();
         } catch (FileNotFoundException e) {
-            Ned.print(e.getMessage());
+            Ui.print(e.getMessage());
         } catch (IOException e) {
-            Ned.print("M'lord, it appears there was an error accessing the cached file, please check that I am able " +
+            Ui.print("M'lord, it appears there was an error accessing the cached file, please check that I am able " +
                     "to access it");
         }
     }
