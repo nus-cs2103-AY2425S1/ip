@@ -86,8 +86,4 @@ public class Ui {
         }
     }
 
-    public void notifyInvalidCommand(Task task) {
-        System.out.println("Invalid Command");
-    }
-    */
 }
