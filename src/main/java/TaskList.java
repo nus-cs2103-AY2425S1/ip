@@ -25,6 +25,11 @@ public class TaskList {
     }
 
 
+    public Task getTask(int index) {
+        return this.listOfTasks.get(index);
+    }
+
+
     /**
      * @param task a Task object that is to be added into the listOfTasks
      */
