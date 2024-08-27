@@ -1,14 +1,21 @@
+package mahesh.util;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import mahesh.task.Deadline;
+import mahesh.task.Event;
+import mahesh.task.Task;
+import mahesh.task.Todo;
+
 public class Storage {
     private String pathString;
 
     public Storage(String pathString) {
-        this.pathString = pathString;
+        this.pathString = "../" + pathString;
     }
 
     public TaskList retrieveData() {
@@ -56,7 +63,7 @@ public class Storage {
 
     public void updateData(TaskList list) {
         try {
-            File dataFile = new File("../../../data/mahesh.txt");
+            File dataFile = new File(pathString);
             if (!dataFile.exists()) {
                 dataFile.getParentFile().mkdirs();
                 dataFile.createNewFile();

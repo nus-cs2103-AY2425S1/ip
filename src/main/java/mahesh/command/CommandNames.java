@@ -1,3 +1,7 @@
+package mahesh.command;
+
+import mahesh.util.MaheshException;
+
 /**
  * Enum representing the various commands that can be issued to the Mahesh bot.
  */
