@@ -121,7 +121,7 @@ public class Ui {
      *
      * @param tasks The TaskList containing all tasks to be displayed.
      */
-    public void showTaskList(TaskList tasks) {
+    public void showTasks(TaskList tasks) {
         System.out.println("    ____________________________________________________________");
         if (tasks.isTaskListEmpty()) {
             System.out.println("     Your task list is empty.");
@@ -163,6 +163,19 @@ public class Ui {
             System.out.println("     No tasks found on this date.");
         }
 
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public void showMatchingTasks(TaskList tasks) {
+        System.out.println("    ____________________________________________________________");
+        if (tasks.isTaskListEmpty()) {
+            System.out.println("     No matching tasks found.");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.getSize(); i++) {
+                System.out.println("     " + (i + 1) + "." + tasks.getTask(i));
+            }
+        }
         System.out.println("    ____________________________________________________________");
     }
 

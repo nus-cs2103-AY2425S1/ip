@@ -4,15 +4,17 @@ import friday.util.Storage;
 import friday.util.TaskList;
 import friday.util.Ui;
 
-/**
- * Represents a command to list all tasks in the task list.
- * Inherits from the Command class and provides functionality to display all tasks.
- */
-public class ListCommand extends Command {
+public class FindCommand extends Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTasks(tasks);
+        TaskList matchingTasks = tasks.findTasks(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
 
     @Override
