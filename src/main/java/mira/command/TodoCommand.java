@@ -1,3 +1,9 @@
+package mira.command;
+
+import mira.Savable;
+import mira.Storage;
+import mira.Todo;
+
 import java.io.IOException;
 
 /**
@@ -7,7 +13,7 @@ public class TodoCommand extends Command implements Savable {
     private final Todo todo;
 
     /**
-     * Constructs a {@code TodoCommand} with the specified description of the todo task.
+     * Constructs a {@code mira.command.TodoCommand} with the specified description of the todo task.
      *
      * @param description The description of the todo task.
      */

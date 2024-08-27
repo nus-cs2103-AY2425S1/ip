@@ -1,3 +1,7 @@
+package mira.command;
+
+import mira.TaskList;
+
 /**
  * Represents an abstract command that can be executed.
  * Subclasses should implement specific command behaviors by overriding the {@code execute} method.
@@ -6,7 +10,7 @@ public abstract class Command {
     protected TaskList taskList;
 
     /**
-     * Sets the {@code TaskList} that this command will operate on.
+     * Sets the {@code mira.TaskList} that this command will operate on.
      *
      * @param taskList The task list to be used by this command.
      */

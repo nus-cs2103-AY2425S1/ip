@@ -1,3 +1,15 @@
+package mira;
+
+import mira.command.Command;
+import mira.command.DeadlineCommand;
+import mira.command.DeleteCommand;
+import mira.command.EventCommand;
+import mira.command.ExitCommand;
+import mira.command.ListCommand;
+import mira.command.MarkCommand;
+import mira.command.TodoCommand;
+import mira.command.UnmarkCommand;
+
 public class Parser {
     public static Command parse(String fullCommand) throws MiraException {
         String[] commandParts = fullCommand.split(" ", 2); // can only split one time

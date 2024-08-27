@@ -1,3 +1,5 @@
+package mira;
+
 /**
  * Represents exceptions specific to the Mira chatbot.
  */

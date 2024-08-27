@@ -1,3 +1,5 @@
+package mira;
+
 import java.util.ArrayList;
 
 /**
@@ -84,7 +86,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of tasks managed by this TaskList.
+     * Returns the list of tasks managed by this mira.TaskList.
      *
      * @return The list of tasks.
      */

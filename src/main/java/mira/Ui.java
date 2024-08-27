@@ -1,8 +1,10 @@
+package mira;
+
 import java.util.Scanner;
 
 /**
  * Ui handles all user interface interactions for the Mira chatbot,
- * including reading commands, echoing user inputs, and displaying messages.
+ * including reading commands, and displaying messages.
  */
 public class Ui {
     /**

@@ -1,3 +1,8 @@
+package mira;
+
+import mira.command.Command;
+import mira.command.ExitCommand;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
