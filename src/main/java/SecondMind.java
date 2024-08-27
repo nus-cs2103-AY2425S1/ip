@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class SecondMind {
     private static final String line = "____________________________________________________________";
     private static final String logo = "SecondMind";
+    private static final String DATA_FILE_PATH = "../../../SecondMind.txt";
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
     private static int taskCount() {
