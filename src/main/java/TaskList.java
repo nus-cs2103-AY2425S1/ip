@@ -1,14 +1,10 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList(Storage storage) {
         this.tasks = storage.load();
-    }
-
-    public void loadTasks(ArrayList<Task> loadedTasks) {
-        tasks = loadedTasks;
     }
 
     public ArrayList<Task> getTasks() {
@@ -40,6 +36,7 @@ public class TaskList {
         tasks.add(new Event(desc[0], desc[1], desc[2]));
         addTaskMessage(tasks);
     }
+
     public void addDeadlineTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of a Deadline Task cannot be empty.");
