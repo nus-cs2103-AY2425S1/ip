@@ -1,4 +1,12 @@
-import java.util.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Winde {
     public static void main(String[] args) {
@@ -12,7 +20,7 @@ public class Winde {
          */
         // System.out.println("Hello from\n" + "Winde");
         greet();
-
+        loadTasks();
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -79,9 +87,58 @@ public class Winde {
 
 
     private final static List<Task> reminder = new ArrayList<Task>();
+    private static final String WINDE_FILE = "./src/main/java/WindeTasks.txt";
 
     enum Commands {
         TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, UNKNOWN
+    }
+
+    private static void loadTasks() {
+        File file = new File(WINDE_FILE);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch(IOException ioe) {
+            System.out.println("Error in creating file" + ioe.getMessage());
+        }
+        try {
+            if (file.exists()) {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line = br.readLine();
+                String complete = "X";
+                Task task;
+                while (line != null) {
+                    if (line.startsWith("T")) {
+                        String[] instr = line.split(" \\| ");
+                        task = new Todos(instr[2], (complete.equals(instr[1]) ? true : false));
+                    } else if (line.startsWith("D")) {
+                        String[] instr = line.split(" \\| ");
+                        task = new Deadline(instr[2], (complete.equals(instr[1]) ? true : false), instr[3]);
+                    } else {
+                        String[] instr = line.split(" \\| ");
+                        String[] when = instr[3].split("-");
+                        task = new Event(instr[2], (complete.equals(instr[1]) ? true : false), when[0], when[1]);
+                    }
+                    reminder.add(task);
+                    line = br.readLine();
+                }
+            }
+        } catch (IOException ioe) {
+            System.out.println("Error Loading Tasks to File: " + ioe.getMessage());
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            FileWriter fw = new FileWriter(WINDE_FILE);
+            for (Task tasks : reminder) {
+                fw.write(tasks.toString() + "\n");
+            }
+            fw.close();
+        } catch(IOException ioe) {
+            System.out.println("Error Saving Tasks to File: " + ioe.getMessage());
+        }
     }
 
     private static Commands getCommandType(String input) {
@@ -238,6 +295,7 @@ public class Winde {
     }
 
     public static void exit() {
+        saveTasks();
         System.out.println("Bye. Hope to see you again soon!");
     }
     static class EmptyDescriptionException extends Exception {
@@ -266,8 +324,13 @@ class Task {
         this.complete = false;
     }
 
+    public Task(String action, boolean complete) {
+        this.action = action;
+        this.complete = complete;
+    }
+
     public String isCompleted() {
-        return (complete ? "[X]" : "[ ]"); // mark done task with X
+        return (complete ? "X" : "O"); // mark done task with X
     }
 
     public void mark() {
@@ -280,7 +343,7 @@ class Task {
 
     @Override
     public String toString() {
-        return (complete ? "[X]" : "[ ]") + " " + action;
+        return (complete ? "X" : "O") + " | " + action;
     }
 }
 
@@ -290,9 +353,13 @@ class Todos extends Task {
         super(action);
     }
 
+    public Todos(String action, boolean complete) {
+        super(action, complete);
+    }
+
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "T | " + super.toString();
     }
 }
 
@@ -305,9 +372,14 @@ class Deadline extends Task {
         this.date = date;
     }
 
+    public Deadline(String action, boolean complete, String date) {
+        super(action, complete);
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
+        return "D | " + super.toString() + " | " + date;
     }
 }
 
@@ -322,8 +394,14 @@ class Event extends Task {
         this.end = end;
     }
 
+    public Event(String action, boolean complete, String start, String end) {
+        super(action, complete);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "E | " + super.toString() + " | " + start + "-" + end;
     }
 }

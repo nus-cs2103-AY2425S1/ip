@@ -1,0 +1,4 @@
+E | X | project meeting | Aug 6th 2pm-4pm
+D | O | return book | June 6th
+T | O | read book
+T | X | borrow book
