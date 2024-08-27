@@ -19,8 +19,8 @@ public class TaskList {
         this.list.add(task);
     }
 
-    public void deleteTask(int i) {
-        this.list.remove(i);
+    public Task deleteTask(int i) {
+        return this.list.remove(i);
     }
 
     public Task getTask(int i) {
