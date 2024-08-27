@@ -150,7 +150,6 @@ public class Azir {
                 for (int i = 0; i < taskList.size(); i++) {
                     lines.add(taskList.get(i).toString());
                 }
-                System.out.println("written");
                 if (!Files.exists(Paths.get("./data"))) {
                     Files.createDirectory(Paths.get("./data"));
                 }
