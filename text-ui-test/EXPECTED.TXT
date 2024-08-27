@@ -15,7 +15,6 @@ Here are the tasks in your list:
 2.[D][ ] complete homework (by: Sunday 2359)
 3.[E][ ] project meeting (from: tuesday 2pm to: 4pm)
 Oops. You forgot to enter a task description. Please reenter your message.
-Oops. You forgot to enter a task description. Please reenter your message.
 Okiee! I've marked this task as done:
     [D][X] complete homework (by: Sunday 2359)
 Okiee! I've marked this task as not done yet:

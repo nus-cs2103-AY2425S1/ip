@@ -11,11 +11,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    protected String getDescription() {
+    private String getDescription() {
         return this.description;
     }
 

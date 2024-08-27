@@ -14,7 +14,7 @@ import carly.exception.CarlyMissingDateTimeException;
  */
 
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
     private final String INDENTATION = "    ";
 
     public TaskList() {
@@ -46,6 +46,21 @@ public class TaskList {
             this.taskList.set(taskNum - 1, updatedT);
             String msg = "Okiee! I've marked this task as not done yet:\n" + INDENTATION + t;
             System.out.println(msg);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
+        }
+    }
+
+    public void delete(String taskNumString) throws CarlyException{
+        Integer taskNum = null;
+        try {
+            taskNum = Integer.parseInt(taskNumString);
+            Task t = this.get(taskNum - 1);
+            this.taskList.remove(taskNum - 1);
+            String msg = "Okay, I've removed this task:\n" + t.toString();
+            System.out.println(msg);
+        } catch (NumberFormatException e) {
+            throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
             throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
         }
@@ -92,19 +107,8 @@ public class TaskList {
         }
     }
 
-    public void delete(String taskNumString) throws CarlyException{
-        Integer taskNum = null;
-        try {
-            taskNum = Integer.parseInt(taskNumString);
-            Task t = this.get(taskNum - 1);
-            this.taskList.remove(taskNum - 1);
-            String msg = "Okay, I've removed this task:\n" + t.toString();
-            System.out.println(msg);
-        } catch (NumberFormatException e) {
-            throw new CarlyIncorrectIndexFormat();
-        } catch (IndexOutOfBoundsException e) {
-            throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
-        }
+    public Task get(Integer index) {
+        return this.taskList.get(index);
     }
 
     public Integer getSize() {
@@ -113,14 +117,6 @@ public class TaskList {
 
     public void taskListSize() {
         System.out.println("Now you have " + this.getSize() + " tasks in the list.");
-    }
-
-    public boolean isEmpty() {
-        return this.taskList.isEmpty();
-    }
-
-    public Task get(Integer index) {
-        return this.taskList.get(index);
     }
 
     public void printTaskList() {

@@ -4,7 +4,6 @@ deadline complete homework /by Sunday 2359
 event project meeting /from tuesday 2pm /to 4pm
 list
 mark
-mark
 mark 2
 unmark 2
 mark 1

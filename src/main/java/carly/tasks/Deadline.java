@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 
 public class Deadline extends Task{
     private static final String TASKTYPE = "D";
-    private String duedate;
+    private final String duedate;
 
     public Deadline(String description, String duedate) {
         super(description);
