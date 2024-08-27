@@ -27,8 +27,8 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDate.format(OUTPUT_FORMATTER) +
-                " to: " + this.endDate.format(OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + this.startDate.format(OUTPUT_FORMATTER)
+                + " to: " + this.endDate.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -39,8 +39,8 @@ public class Events extends Task {
      */
     @Override
     public String toFancyString() {
-        return "Event | " + super.getStatus() + " | " + super.getDescription() +
-                " | /from "  + super.reverseLocalDateTimeParse(this.startDate) +
-                " /to " + super.reverseLocalDateTimeParse(this.endDate);
+        return "Event | " + super.getStatus() + " | " + super.getDescription()
+                + " | /from "  + super.reverseLocalDateTimeParse(this.startDate)
+                + " /to " + super.reverseLocalDateTimeParse(this.endDate);
     }
 }

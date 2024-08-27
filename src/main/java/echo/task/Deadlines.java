@@ -2,7 +2,7 @@ package echo.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     private LocalDateTime deadline;
 
     /**
@@ -24,8 +24,8 @@ public class Deadlines extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +
-                this.deadline.format(OUTPUT_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.deadline.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -36,7 +36,7 @@ public class Deadlines extends Task{
      */
     @Override
     public String toFancyString() {
-        return "Deadline | " + super.getStatus() + " | " +
-                super.getDescription() + " | /by "  + super.reverseLocalDateTimeParse(this.deadline);
+        return "Deadline | " + super.getStatus() + " | " + super.getDescription()
+                + " | /by " + super.reverseLocalDateTimeParse(this.deadline);
     }
 }

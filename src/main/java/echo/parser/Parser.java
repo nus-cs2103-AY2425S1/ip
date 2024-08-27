@@ -1,10 +1,10 @@
 package echo.parser;
 
 import echo.exception.EchoException;
-import echo.task.Task;
-import echo.task.ToDos;
 import echo.task.Deadlines;
 import echo.task.Events;
+import echo.task.Task;
+import echo.task.ToDos;
 
 public class Parser {
     /**
@@ -35,10 +35,10 @@ public class Parser {
      * Returns the String Array of the deadline task containing task description and deadline
      * e.g. [task description, deadline]
      *
-     * @param taskDescription string of description provided after parsing the input
-     * @return string array of deadline task containing task description and deadline
+     * @param taskDescription string of description provided after parsing the input.
+     * @return string array of deadline task containing task description and deadline.
      * @throws EchoException if there is no task description and
-     * if there is no deadline include for the task
+     *                       if there is no deadline include for the task.
      */
     public String[] parseDeadlines(String taskDescription) throws EchoException {
         if (taskDescription.isEmpty()) {
@@ -58,11 +58,11 @@ public class Parser {
      * start time of event and end time of event
      * e.g.[task description, start time, end time]
      *
-     * @param taskDescription string of description provided after parsing the input
+     * @param taskDescription string of description provided after parsing the input.
      * @return string array of event task containing task description,
-     * start time of event and end time of event
+     * start time of event and end time of event.
      * @throws EchoException if there is no task description and
-     * if there is no start or end time included for the task
+     * if there is no start or end time included for the task.
      */
     public String[] parseEvents(String taskDescription) throws EchoException {
         if (taskDescription.isEmpty()) {
@@ -116,7 +116,7 @@ public class Parser {
             String[] deadlineArray = this.parseDeadlines(taskDescription);
             String deadlineDescription = deadlineArray[0];
             String deadlineDate = deadlineArray[1];
-            Deadlines deadlineTask =  new Deadlines(deadlineDescription, deadlineDate);
+            Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
             markTask(taskStatus, deadlineTask);
             return deadlineTask;
         case "event":

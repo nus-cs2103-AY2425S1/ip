@@ -1,7 +1,7 @@
 package echo.ui;
 
-import echo.tasklist.TaskList;
 import echo.task.Task;
+import echo.tasklist.TaskList;
 
 public class Ui {
     private static final String LINE_BREAK = "-------------------------------------";
@@ -32,7 +32,7 @@ public class Ui {
     public void listAllTask(TaskList taskList) {
         System.out.println(LINE_BREAK);
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < taskList.sizeOfTaskList(); i ++) {
+        for (int i = 0; i < taskList.sizeOfTaskList(); i++) {
             System.out.println((i + 1) + "." + taskList.getTask(i).toString());
         }
         System.out.println(LINE_BREAK);

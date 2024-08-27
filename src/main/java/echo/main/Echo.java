@@ -1,20 +1,19 @@
 package echo.main;
 
-import echo.storage.Storage;
-import echo.ui.Ui;
-import echo.tasklist.TaskList;
+import echo.exception.EchoException;
 import echo.parser.Parser;
-import echo.task.Task;
-import echo.task.ToDos;
+import echo.storage.Storage;
 import echo.task.Deadlines;
 import echo.task.Events;
-import echo.exception.EchoException;
+import echo.task.Task;
+import echo.task.ToDos;
+import echo.tasklist.TaskList;
+import echo.ui.Ui;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 public class Echo {
-
     private Storage storage;
     private Ui ui;
     private TaskList taskList;
@@ -84,11 +83,11 @@ public class Echo {
      *
      * @param taskDescription description and deadline of the Deadline task
      */
-    public void handleDeadlineCommand(String taskDescription)  {
+    public void handleDeadlineCommand(String taskDescription) {
         String[] deadlineArray = parser.parseDeadlines(taskDescription);
         String deadlineDescription = deadlineArray[0];
         String deadlineDate = deadlineArray[1];
-        Deadlines deadlineTask =  new Deadlines(deadlineDescription, deadlineDate);
+        Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
         taskList.addTask(deadlineTask);
         ui.printAddTaskMessage(deadlineTask, taskList);
     }
@@ -192,8 +191,8 @@ public class Echo {
     }
 
     public static void main(String[] args) {
-            String filePath = "./src/main/data/echo.txt";
-            Echo echo = new Echo(filePath);
-            echo.run();
+        String filePath = "./src/main/data/echo.txt";
+        Echo echo = new Echo(filePath);
+        echo.run();
     }
 }
