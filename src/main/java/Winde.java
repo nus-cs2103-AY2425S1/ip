@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Winde {
     public static void main(String[] args) {
@@ -166,25 +169,27 @@ public class Winde {
     public static void handleDeleteException (String input) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {
-            delete(Integer.parseInt(command[1]));
+            Task deleted = reminder.remove(Integer.parseInt(command[1]) - 1);
+            System.out.print("Noted. I've removed this task:\n" + "    " + deleted.toString() + "\n");
+            System.out.println("Now you have " + reminder.size() + " tasks in the list.");
         } else if (command.length < 2) {
             throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M DELETING!");
         } else {
             throw new TooManyParametersException("ONE AT A TIME!");
         }
     }
-    public static void delete(int i) {
-        Task deleted = reminder.remove(i - 1);
-        System.out.print("Noted. I've removed this task:\n" + "    " + deleted.toString() + "\n");
-        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
-    }
+
     private static void handleEventCommand(String input) throws EmptyDescriptionException {
         String[] command = input.split(" ", 2);
         if (command.length == 2) {
             String[] order = command[1].split(" /from ");
             if (order.length == 2) {
                 String[] fillerName = order[1].split(" /to ");
-                event(order[0], fillerName[0], fillerName[1]);
+                Event e = new Event(order[0], fillerName[0], fillerName[1]);
+                reminder.add(e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("    " + e.toString());
+                System.out.println("Now you have " + reminder.size() + " tasks in the list.");
             } else {
                 throw new EmptyDescriptionException("WHEN EVENT DATE!");
             }
@@ -197,7 +202,11 @@ public class Winde {
         if (command.length == 2) {
             String[] order = command[1].split(" /by ");
             if (order.length == 2) {
-                deadline(order[0], order[1]);
+                Deadline d = new Deadline(order[0], order[1]);
+                reminder.add(d);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("    " + d.toString());
+                System.out.println("Now you have " + reminder.size() + " tasks in the list.");
             } else {
                 throw new EmptyDescriptionException("WHEN DEADLINE END!");
             }
@@ -208,7 +217,11 @@ public class Winde {
     private static void handleTodoCommand (String input) throws EmptyDescriptionException {
         String[] command = input.split(" ", 2);
         if (command.length == 2) {
-            todo(command[1]);
+            Todos td = new Todos(command[1]);
+            reminder.add(td);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("    " + td.toString());
+            System.out.println("Now you have " + reminder.size() + " tasks in the list.");
         } else {
             throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M TODO-ING!");
         }
@@ -216,7 +229,10 @@ public class Winde {
     private static void handleUnmarkException (String input) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {
-            unmark(Integer.parseInt(command[1]));
+            System.out.print("OK, I've marked this task as not done yet:\n" + "    ");
+            reminder.get(Integer.parseInt(command[1]) - 1).unmark();
+            task(Integer.parseInt(command[1]));
+            System.out.println();
         } else if (command.length < 2) {
             throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M MARKING!");
         } else {
@@ -226,46 +242,15 @@ public class Winde {
     public static void handleMarkException (String input) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {
-            mark(Integer.parseInt(command[1]));
+            System.out.print("Nice! I've marked this task as done:\n" + "    ");
+            reminder.get(Integer.parseInt(command[1]) - 1).mark();
+            task(Integer.parseInt(command[1]));
+            System.out.println();
         } else if (command.length < 2) {
             throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M MARKING!");
         } else {
             throw new TooManyParametersException("ONE AT A TIME!");
         }
-    }
-    public static void todo(String action) {
-        Todos td = new Todos(action);
-        reminder.add(td);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + td.toString());
-        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
-    }
-    public static void deadline(String action, String date) {
-        Deadline d = new Deadline(action, date);
-        reminder.add(d);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + d.toString());
-        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
-    }
-    public static void event(String action, String start, String end) {
-        Event e = new Event(action, start, end);
-        reminder.add(e);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + e.toString());
-        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
-    }
-    public static void mark(int i) {
-        System.out.print("Nice! I've marked this task as done:\n" + "    ");
-        reminder.get(i - 1).mark();
-        task(i);
-        System.out.println();
-    }
-
-    public static void unmark(int i) {
-        System.out.print("OK, I've marked this task as not done yet:\n" + "    ");
-        reminder.get(i - 1).unmark();
-        task(i);
-        System.out.println();
     }
 
     public static void task(int i) {
