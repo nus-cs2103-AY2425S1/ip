@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Responsible for interfacing with the database (.csv file).
+ * Constructor is to be called with a string representation of the desired file path to store the database as its argument.
+ */
 public class Storage {
     private File f;
     private String filePath;
@@ -26,6 +30,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves tasks from the database, skipping the first line in the database (skips data headers).
+     * @return ArrayList containing all existing tasks from the database.
+     * @throws FileNotFoundException if file cannot be found.
+     */
     public ArrayList<Task> getFileContents() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner s = new Scanner(this.f);
@@ -51,6 +60,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Completely rewrites the database file and replaces all data with tasks solely from its argument.
+     * @param database ArrayList containing tasks.
+     * @throws IOException if there exists an error with regards to writing to the database.
+     */
     public void updateFileContents(ArrayList<Task> database) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         StringBuilder allData = new StringBuilder("type,is_checked,task_name,time1,time2\n");

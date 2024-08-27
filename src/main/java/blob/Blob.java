@@ -2,6 +2,12 @@ package blob;
 
 import java.io.IOException;
 
+/**
+ * Represents chatbot Blob. Blob is able to help the user form a "to-do" list
+ * in the form of a csv file.
+ * Blob requires the user to enter the file path to which they desire the csv file to be saved
+ * (preferably "./database.csv")
+ */
 public class Blob {
     private blob.Storage storage;
     private TaskList tasklist;
@@ -13,6 +19,9 @@ public class Blob {
         this.ui = new Ui(this.tasklist);
     }
 
+    /**
+     * Kicks start the chatbot's chatting functionality
+     */
     public void run() {
         this.ui.initialise();
         this.ui.converse();

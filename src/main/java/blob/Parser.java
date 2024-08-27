@@ -2,12 +2,25 @@ package blob;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles the manipulation of input from the user.
+ */
 public class Parser {
 
-    public Parser() {
-
-    }
-
+    /**
+     * @param ui Ui used by the chatbot.
+     * @param tasklist Tasklist containing all exisitng tasks.
+     * @param action String representation of the input from the user.
+     * Existing accepted commands now include:
+     *               'bye' - exits the conversation with the bot
+     *               'list' - lists all existing tasks
+     *               'mark X' - marks X'th task as done
+     *               'unmark X' - marks X'th task as not done
+     *               'delete X' - removes X'th task from the database
+     *               'todo task' - adds a to-do task to database
+     *               'deadline task /by YYYY-MM-DD HH:mm' - adds a deadline task to the database
+     *               'event task /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm' - adds a event task to the database
+     */
     public static void evaluateAction(Ui ui, TaskList tasklist, String action) {
         String[] arr = action.split(" ");
 

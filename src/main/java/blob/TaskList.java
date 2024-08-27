@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles manipulation of tasks by working with 'storage'.
+ * Constructor requires a Storage parameter.
+ */
 public class TaskList {
     private Storage storage;
 
@@ -11,6 +15,11 @@ public class TaskList {
         this.storage = storage;
     }
 
+    /**
+     * Returns task at that particular index.
+     * @param index desired index.
+     * @return Task.
+     */
     public Task getTask(int index) {
         try {
             ArrayList<Task> db = this.storage.getFileContents();
@@ -20,6 +29,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * @return integer number of existing tasks.
+     */
     public int size() {
         try {
             ArrayList<Task> db = this.storage.getFileContents();
@@ -29,6 +41,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task at the index as completed.
+     * @param index index of task.
+     */
     public void markTask(int index) {
         try {
             ArrayList<Task> db = this.storage.getFileContents();
@@ -42,6 +58,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task at the index as uncompleted.
+     * @param index index of task.
+     */
     public void unmarkTask(int index) {
         try {
             ArrayList<Task> db = this.storage.getFileContents();
@@ -55,6 +75,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds new task to the database.
+     * @param task new Task object.
+     */
     public void addTask(Task task) {
         try {
             ArrayList<Task> db = this.storage.getFileContents();
@@ -67,6 +91,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes existing task from the database.
+     * @param index index of task.
+     */
     public Task deleteTask(int index) {
         try {
             ArrayList<Task> db = this.storage.getFileContents();
