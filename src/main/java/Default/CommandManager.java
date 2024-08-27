@@ -1,6 +1,7 @@
 package Default;
 
 import Commands.ByeCommand;
+import Commands.Command;
 import Tasks.ToDo;
 import Exceptions.NedException;
 import Tasks.Deadline;
@@ -14,28 +15,19 @@ import java.io.IOException;
 
 public class CommandManager {
     private static final String FLAG_BYE = "bye";
-    private final TaskList taskList;
 
-
-    public CommandManager(TaskList taskList) {
-        this.taskList = taskList;
-    }
-    public void processCommand(String userInput, FlagWrapper flag) throws NedException{
+    public CommandManager(TaskList taskList) {}
+    public static Command parse(String userInput) throws NedException{
             CommandTypes command = CommandTypes.findMatchingCommand(userInput);
             switch (command) {
-            case BYE:
-                ((ByeCommand)command.getCommand()).execute(flag);
-                break;
             case UNKNOWN:
                 throw new NedException("M'lord, you seem to have given me a nonsensical command." +
                         " Input a correct command, for we have little time! Winter is coming....");
             default:
-                command.getCommand().execute(userInput, this.taskList);
-                (Ned.cachedTasksPath);
-                break;
+                return command.getCommand();
             }
     }
-    public static Task parseSavedTask(String savedLine) {
+    public static Task parseSavedTask(String savedLine) throws NedException{
         // uses CSV
         String[] splitLine = savedLine.split("\\|");
         String taskType = splitLine[0];
@@ -50,12 +42,11 @@ public class CommandManager {
             case "event":
                 return Event.createEvent(splitLine[2], splitLine[3], splitLine[4], isTaskDone);
             }
-        } catch (NedException e) {
-            Ui.print(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            Ui.print(String.format("M'lord, it appears that this line: %s is saved in the wrong format.", savedLine));
+            throw new NedException(String.format("M'lord, it appears that this line: %s is saved in the wrong format.",
+                    savedLine));
         } catch (NumberFormatException e) {
-            Ui.print(String.format("M'lord, it appears that this line: %s is saved with an invalid status number.",
+            throw new NedException(String.format("M'lord, it appears that this line: %s is saved with an invalid status number.",
                     savedLine));
         }
         return null;

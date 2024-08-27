@@ -1,6 +1,8 @@
 package Commands;
 
+import Default.Storage;
 import Default.TaskList;
+import Default.Ui;
 import Exceptions.NedException;
 
 import java.util.ArrayList;
@@ -8,6 +10,9 @@ import java.util.ArrayList;
 import Tasks.Task;
 
 public interface Command {
-    void execute(String userInput, TaskList taskList) throws NedException;
+    void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException;
+    default boolean isExit() {
+        return false;
+    }
     String getRegex();
 }

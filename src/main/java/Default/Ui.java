@@ -1,14 +1,18 @@
 package Default;
 
+import java.util.Scanner;
+
 public class Ui {
     public static final String INDENTATIONS = "    ";
+
+    private Scanner scannerInstance;
     private final String logo = Ui.INDENTATIONS + " ____  _____              __  \n"
             + Ui.INDENTATIONS + "|_   \\|_   _|            |  ] \n"
             + Ui.INDENTATIONS + "  |   \\ | |  .---.   .--.| |  \n"
             + Ui.INDENTATIONS + "  | |\\ \\| | / /__\\\\/ /'`\\' |  \n"
             + Ui.INDENTATIONS + " _| |_\\   |_| \\__.,| \\__/  |  \n"
             + Ui.INDENTATIONS + "|_____|\\____|'.__.' '.__.;__]";
-    public final static String COMMAND_MESSAGE = """
+    public final static String COMMAND_MESSAGE = "\n" + Ui.INDENTATIONS + """
             Usage: 
                 list                             - Shows the list of all tasks 
                 mark <item-index>                - Marks the item at the specified index as done
@@ -18,9 +22,11 @@ public class Ui {
                 deadline <description> /by <date> - Creates a new deadline task and adds it to the list
                 event <description> /from <date> /to <date> - Creates a new event task and adds it to the list""";
 
-    public Ui() {}
+    public Ui() {
+        this.scannerInstance = new Scanner(System.in);
+    }
 
-    public static void print(String line) {
+    public void print(String line) {
         //adds indentation to any printed lines
         System.out.println(Ui.INDENTATIONS + line);
     }
@@ -38,9 +44,14 @@ public class Ui {
                 "worry, we'll sort this out yet...");
     }
 
-    public static void showCommandMessage() {
+    public String getCommandMessage() {
         //refactor this to instance method later
-        print(COMMAND_MESSAGE);
+        return COMMAND_MESSAGE;
     }
+
+    public String readCommand() {
+        return this.scannerInstance.nextLine();
+    }
+
 
 }
