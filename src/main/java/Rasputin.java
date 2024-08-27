@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.time.LocalDateTime;
+import java.time.DateTimeException;
+
 
 
 public class Rasputin {
@@ -61,7 +64,7 @@ public class Rasputin {
         return tasks;
     }
 
-    private static String lineBreak = "____________________________________";
+    private static final String lineBreak = "____________________________________";
 
     public static void main(String[] args) {
         String name = "Rasputin";
@@ -176,6 +179,10 @@ public class Rasputin {
                         printText("ERROR! The description of a deadline cannot be empty.");
                     } catch (ArrayIndexOutOfBoundsException e) {
                         printText("ERROR! Deadline tasks require a deadline to be completed by.");
+                    } catch (IllegalArgumentException e) {
+                        printText(e.getMessage());
+                    } catch (DateTimeException e) {
+                        printText("ERROR! Invalid deadline format.");
                     } finally {
                         break;
                     }
@@ -220,75 +227,73 @@ public class Rasputin {
 
         }
 
-         try {
-             FileWriter fileWriter = new FileWriter(file);
-             fileWriter.write("");
-             for (Task item: ls) {
-                 String type;
-                 String isDone;
-                 String description = item.getDescription();
-                 StringBuilder str = new StringBuilder();
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("");
+            for (Task item : ls) {
+                String type;
+                String isDone;
+                String description = item.getDescription();
+                StringBuilder str = new StringBuilder();
 
-                 if (item.isDone) {
-                     isDone = "1";
-                 } else {
-                     isDone = "0";
-                 }
+                if (item.isDone) {
+                    isDone = "1";
+                } else {
+                    isDone = "0";
+                }
 
-                 if (item instanceof Deadline) {
-                     type = "D";
-                     String by = ((Deadline) item).getBy();
+                if (item instanceof Deadline) {
+                    type = "D";
+                    String by = ((Deadline) item).getBy();
 
-                     str.append(type);
-                     str.append("|");
-                     str.append(isDone);
-                     str.append("|");
-                     str.append(description);
-                     str.append("|");
-                     str.append(by);
-                     str.append("\n");
+                    str.append(type);
+                    str.append("|");
+                    str.append(isDone);
+                    str.append("|");
+                    str.append(description);
+                    str.append("|");
+                    str.append(by);
+                    str.append("\n");
 
-                     fileWriter.append(str.toString());
+                    fileWriter.append(str.toString());
 
-                 } else if (item instanceof Event) {
-                     type = "E";
-                     String from = ((Event) item).getFrom();
-                     String to = ((Event) item).getTo();
+                } else if (item instanceof Event) {
+                    type = "E";
+                    String from = ((Event) item).getFrom();
+                    String to = ((Event) item).getTo();
 
-                     str.append(type);
-                     str.append("|");
-                     str.append(isDone);
-                     str.append("|");
-                     str.append(description);
-                     str.append("|");
-                     str.append(from);
-                     str.append("|");
-                     str.append(to);
-                     str.append("\n");
+                    str.append(type);
+                    str.append("|");
+                    str.append(isDone);
+                    str.append("|");
+                    str.append(description);
+                    str.append("|");
+                    str.append(from);
+                    str.append("|");
+                    str.append(to);
+                    str.append("\n");
 
-                     fileWriter.append(str.toString());
-                 } else if (item instanceof Todo) {
-                     type = "T";
+                    fileWriter.append(str.toString());
+                } else if (item instanceof Todo) {
+                    type = "T";
 
-                     str.append(type);
-                     str.append("|");
-                     str.append(isDone);
-                     str.append("|");
-                     str.append(description);
-                     str.append("\n");
+                    str.append(type);
+                    str.append("|");
+                    str.append(isDone);
+                    str.append("|");
+                    str.append(description);
+                    str.append("\n");
 
-                     fileWriter.append(str.toString());
-                 }
+                    fileWriter.append(str.toString());
+                }
 
 
-             }
-             fileWriter.close();
-             System.out.println("Written to file successfully");
-         } catch (IOException e) {
-             System.out.println("ERROR! Could not write to file.");
-         }
+            }
+            fileWriter.close();
+            System.out.println("Written to file successfully");
+        } catch (IOException e) {
+            System.out.println("ERROR! Could not write to file.");
+        }
         printText("Bye. See you later!");
     }
-
-
 }

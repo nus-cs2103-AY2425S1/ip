@@ -1,3 +1,4 @@
-D|0|return book|30th August 6pm
+D|0|return book|2024-08-24 1800
 E|1|project meeting|28 August 2pm|3pm
 T|1|read book
+D|0|update calendar|2024-08-30

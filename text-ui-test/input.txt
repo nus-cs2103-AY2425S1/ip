@@ -1,6 +1,9 @@
 mark
 todo buy milk
-deadline submit quiz /by friday 10pm
+deadline submit quiz /by 2024-08-29 2200
+deadline return book /by Friday
+deadline return book /by 30/08/24
+deadline return book /by 2024-08-30
 event math lecture /from 2pm /to 4pm
 list
 mark 1
@@ -11,7 +14,7 @@ deadline
 deadline submit essay
 event cs2103T briefing
 mark
-mark 4
+mark 6
 delete
 delete 6
 delete 2
