@@ -27,6 +27,15 @@ public class Task {
         return s.toString();
     }
 
+    /**
+     * Returns description of the task.
+     *
+     * @return description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), this.description);

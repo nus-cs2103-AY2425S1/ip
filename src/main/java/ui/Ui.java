@@ -81,6 +81,18 @@ public class Ui {
         showDivider();
     }
 
+    /**
+     * Prints filtered tasks to the terminal.
+     *
+     * @param tasks String of tasks to be displayed.
+     */
+    public void printFilteredTasks(String tasks) {
+        showDivider();
+        System.out.println("Here are the matching tasks in your list: ");
+        System.out.println(tasks);
+        showDivider();
+    }
+
     public void showDivider() {
         System.out.println(Ui.DIVIDER);
     }

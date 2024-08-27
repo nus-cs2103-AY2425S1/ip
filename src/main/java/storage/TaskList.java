@@ -78,4 +78,23 @@ public class TaskList {
     public Task getTask(int index) {
         return TASKS.get(index);
     }
+
+    /**
+     * Finds tasks whose description matches the keyword.
+     * @param keyword the keyword to check.
+     * @return String of tasks which contains the keyword.
+     */
+    public String findTasks(String keyword) {
+        TaskList filteredTasks = new TaskList();
+        for (Task task : TASKS) {
+            String[] keywords = task.getDescription().split(" ");
+            for (String word : keywords) {
+                if (word.equals(keyword)) {
+                    filteredTasks.addTask(task);
+                    break;
+                }
+            }
+        }
+        return filteredTasks.listTasks();
+    }
 }
