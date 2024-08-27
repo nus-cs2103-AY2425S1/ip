@@ -22,10 +22,10 @@ public class Cook {
         // Solution below inspired by https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html
         ArrayList<Task> taskList = new ArrayList<>();
 
+        // Solution below inspired by https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html
+        Scanner input = new Scanner(System.in);
         while (true) {
 
-            // Solution below inspired by https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html
-            Scanner input = new Scanner(System.in);
             String userInput = input.nextLine();
             String[] commands = userInput.split(" ");
 
