@@ -1,10 +1,36 @@
 import java.util.Scanner;
 
+/**
+ * The Ui class handles all user interactions for the Regina chatbot.
+ * It provides methods to display messages, prompts, and help information to the user.
+ * The class manages the input and output operations, ensuring a user-friendly command-line interface.
+ *
+ * <p>This class includes the following functionalities:
+ * <ul>
+ * <li>Display greeting messages, including instructions on using the chatbot.</li>
+ * <li>Print error messages with formatting to enhance visibility.</li>
+ * <li>Read user input from the console.</li>
+ * <li>Print standard and formatted messages with optional indentations.</li>
+ * <li>Provide help information outlining available commands and their usage.</li>
+ * <li>Exit the application while ensuring resources are properly cleaned up.</li>
+ * </ul>
+ *
+ * <p>Usage of this class is primarily to facilitate communication between the user and the chatbot,
+ * enhancing the overall user experience while managing tasks and commands.
+ *
+ * <p>Note: This class utilizes a {@link Scanner} instance for reading user input from the console,
+ * and it is responsible for closing this scanner when no longer needed to prevent resource leaks.
+ */
 public class Ui {
-    private final static String INDENT = "    ";
-    private final static String LINE = INDENT + "********************************************************************";
-    private final Scanner SCANNER = new Scanner(System.in);
+    private static final String INDENT = "    ";
+    private static final String LINE = INDENT + "********************************************************************";
+    private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Greets the user and provides instructions on how to interact with the chatbot.
+     *
+     * @param name The name of the chatbot, which will be displayed in the greeting message.
+     */
     public void greet(String name) {
         String greetingMessage = String.format(
                 LINE
@@ -39,7 +65,10 @@ public class Ui {
         System.out.println(greetingMessage);
     }
 
-
+    /**
+     * Provides help details about the commands the user can use.
+     * This method displays a list of available commands and their formats in the UI.
+     */
     public void help() {
         String helpMessage = String.format(LINE
                         + "\n%sHere are the commands you can use: \n"
@@ -68,26 +97,46 @@ public class Ui {
         System.out.println(helpMessage);
     }
 
+    /**
+     * Reads a line of input from the user.
+     *
+     * @return The input string entered by the user.
+     */
     public String readInput() {
-        return this.SCANNER.nextLine();
+        return this.scanner.nextLine();
     }
 
+    /**
+     * Prints an error message contained within the provided string.
+     *
+     * @param message The error message to display to the user.
+     */
     public void printError(String message) {
         System.out.printf("%s\n%s%s\n%s\n", LINE, INDENT, message, LINE);
     }
 
+    /**
+     * Prints a formatted message surrounded by decorative lines.
+     *
+     * @param message The message to be printed to the console.
+     */
     public void printMessage(String message) {
         String formattedMessage = formatMessage(message);
         System.out.println(LINE + "\n" + formattedMessage + LINE);
     }
 
+    /**
+     * Exits the program and closes the scanner.
+     * This method displays a goodbye message to the user.
+     */
     public void exit() {
         System.out.println(LINE + "\n" + INDENT + "Bye. Hope to see you again soon!\n" + LINE);
-        this.SCANNER.close();
+        this.scanner.close();
     }
 
     /**
      * Formats the input message by adding indentation to each new line.
+     *
      * @param message The original message string.
      * @return The formatted string with indentation.
      */
