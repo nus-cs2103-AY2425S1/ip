@@ -16,7 +16,8 @@ class Ui {
      * Outputs a greeting to the user.
      */
     void showGreeting() {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + "Hello! I'm the Rizzler.\n"
                 + "What can I do for you today?\n"
                 + separator);
@@ -26,7 +27,8 @@ class Ui {
      * Outputs a goodbye to the user.
      */
     void showGoodbye() {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + "Bye! Rizz you later!\n"
                 + separator);
     }
@@ -49,7 +51,8 @@ class Ui {
      * @param size New size of list.
      */
     void showAdditionToList(Task task, int size) {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + "Gotcha! I've added the new task for you:\n"
                 + task + "\n"
                 + "Now you have " + size + " tasks in the list.\n"
@@ -63,7 +66,8 @@ class Ui {
      * @param size New size of list.
      */
     void showRemovalFromList(Task task, int size) {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + "I have removed this task for you:\n"
                 + task + "\n"
                 + "Now you have " + size + " tasks in the list.\n"
@@ -78,11 +82,13 @@ class Ui {
      */
     void showList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(separator
+            System.out.println(
+                    separator
                     + "No tasks here yet\n"
                     + separator);
         } else {
-            System.out.println(separator
+            System.out.println(
+                    separator
                     + "Here are the tasks in your list");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i));
@@ -97,7 +103,8 @@ class Ui {
      * @param task Task marked as done.
      */
     void showMarking(Task task) {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + "Hell yeah! You finished your task:\n"
                 + task + "\n"
                 + separator);
@@ -109,7 +116,8 @@ class Ui {
      * @param task Task marked as not done.
      */
     void showUnmarking(Task task) {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + "Womp womp. Better do it later:\n"
                 + task + "\n"
                 + separator);
@@ -119,7 +127,8 @@ class Ui {
      * Outputs error message when loading up.
      */
     void showLoadingError() {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + "Oops, something went wrong while loading."
                 + separator);
     }
@@ -131,7 +140,8 @@ class Ui {
      * @param message Error message from <code>RizzlerException</code>.
      */
     void showError(String message) {
-        System.out.println(separator
+        System.out.println(
+                separator
                 + message + "\n"
                 + separator);
     }

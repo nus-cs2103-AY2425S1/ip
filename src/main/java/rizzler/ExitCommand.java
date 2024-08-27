@@ -12,7 +12,9 @@ class ExitCommand implements Command {
      * @param ui Ui supplied by Rizzler.
      * @param fileStorage FileStorage supplied by Rizzler.
      */
-    public void execute(TaskList tasks, Ui ui, FileStorage fileStorage) {}
+    public void execute(TaskList tasks,
+                        Ui ui,
+                        FileStorage fileStorage) throws RizzlerException {}
 
     /**
      * Checks if this command is to exit Rizzler.

@@ -13,7 +13,9 @@ interface Command {
      * @param fileStorage FileStorage supplied by Rizzler.
      * @throws RizzlerException If something goes wrong with command execution.
      */
-    public void execute(TaskList tasks, Ui ui, FileStorage fileStorage) throws RizzlerException;
+    public void execute(TaskList tasks,
+                        Ui ui,
+                        FileStorage fileStorage) throws RizzlerException;
 
     /**
      * Checks if the command is to exit Rizzler.

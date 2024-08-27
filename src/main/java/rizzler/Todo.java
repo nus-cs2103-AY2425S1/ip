@@ -35,7 +35,8 @@ class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T][" + (this.isDone ? "X" : " ") + "] " + this.name;
+        return "[T][" + (this.isDone ? "X" : " ") + "] "
+                + this.name;
     }
 
     /**
@@ -46,6 +47,7 @@ class Todo extends Task {
      */
     @Override
     String toSaveState() {
-        return "T" + "/" + (this.isDone ? "1" : "0") + "/" + this.name + "\n";
+        return "T" + "/" + (this.isDone ? "1" : "0") + "/"
+                + this.name + "\n";
     }
 }

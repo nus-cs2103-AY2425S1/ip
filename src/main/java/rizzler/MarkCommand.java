@@ -16,14 +16,16 @@ class MarkCommand implements Command {
      */
     MarkCommand(String[] fullCommand) throws RizzlerException {
         if (fullCommand.length == 1) {
-            throw new RizzlerException("Please key in the number of the task to mark\n"
+            throw new RizzlerException(
+                    "Please key in the number of the task to mark\n"
                     + "Format:\n"
                     + "mark [number]");
         }
         try {
             this.markIndex = Integer.parseInt(fullCommand[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new RizzlerException("Please ensure that the argument after mark is a number\n"
+            throw new RizzlerException(
+                    "Please ensure that the argument after mark is a number\n"
                     + "Format:\n"
                     + "mark [number]");
         }
@@ -38,7 +40,9 @@ class MarkCommand implements Command {
      * @param fileStorage FileStorage supplied by Rizzler.
      * @throws RizzlerException If <code>TaskList</code> throws a <code>RizzlerException</code>.
      */
-    public void execute(TaskList tasks, Ui ui, FileStorage fileStorage) throws RizzlerException {
+    public void execute(TaskList tasks,
+                        Ui ui,
+                        FileStorage fileStorage) throws RizzlerException {
         try {
             tasks.mark(this.markIndex);
             fileStorage.save(tasks.getListToSave());
