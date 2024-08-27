@@ -16,63 +16,22 @@
  |  I'm sorry, but task number 1 does not exist!
 
 
- |  Here is the usage for the instruction 'unmark':
- |
- |      mark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
-
-
  |  I'm sorry, but task number 2 does not exist!
 
 
- |  Here is the usage for the instruction 'unmark':
- |
- |      unmark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
+ |  I'm sorry, but task number -1 does not exist!
 
 
  |  I'm sorry, but task number -1 does not exist!
 
 
- |  Here is the usage for the instruction 'unmark':
- |
- |      mark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
-
-
- |  I'm sorry, but task number -1 does not exist!
-
-
- |  Here is the usage for the instruction 'unmark':
- |
- |      unmark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
+ |  I'm sorry, I do not understand which item '1.23' refers to!
 
 
  |  I'm sorry, I do not understand which item '1.23' refers to!
 
 
- |  Here is the usage for the instruction 'unmark':
- |
- |      mark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
-
-
- |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
- |  Here is the usage for the instruction 'unmark':
- |
- |      unmark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
-
-
+ |  I'm sorry, I do not understand what 'todo' is!
  |  Here is the usage for the instruction 'todo':
  |
  |      todo TASK_NAME
@@ -80,6 +39,7 @@
  |  where TASK_NAME is the name of this todo task to add
 
 
+ |  I'm sorry, I do not understand what 'todo' is!
  |  Here is the usage for the instruction 'todo':
  |
  |      todo TASK_NAME
@@ -100,6 +60,7 @@
  |   2.[T][ ] trailing spaces
 
 
+ |  I'm sorry, I do not understand what 'deadline' is!
  |  Here is the usage for the instruction 'deadline':
  |
  |      deadline TASK_NAME /by DEADLINE
@@ -108,6 +69,7 @@
  |        DEADLINE  is the deadline for this task
 
 
+ |  I'm sorry, I do not understand what 'deadline' is!
  |  Here is the usage for the instruction 'deadline':
  |
  |      deadline TASK_NAME /by DEADLINE
@@ -120,6 +82,7 @@
  |  [D][ ] many trailing spaces in previous task (by: today)
  |  Now you have 3 tasks in the list.
 
+ |  I'm sorry, I do not understand what 'Input: deadline' is!
  |  Here is the usage for the instruction 'deadline':
  |
  |      deadline TASK_NAME /by DEADLINE
@@ -128,6 +91,7 @@
  |        DEADLINE  is the deadline for this task
 
 
+ |  I'm sorry, I do not understand what 'Input: deadline' is!
  |  Here is the usage for the instruction 'deadline':
  |
  |      deadline TASK_NAME /by DEADLINE
@@ -142,6 +106,7 @@
  |   3.[D][ ] many trailing spaces in previous task (by: today)
 
 
+ |  I'm sorry, I do not understand what 'event' is!
  |  Here is the usage for the instruction 'event':
  |
  |      event TASK_NAME /from START_DATE /to END_DATE
@@ -151,6 +116,7 @@
  |        END_DATE   is the end time/date for this event
 
 
+ |  I'm sorry, I do not understand what 'event' is!
  |  Here is the usage for the instruction 'event':
  |
  |      event TASK_NAME /from START_DATE /to END_DATE
@@ -164,40 +130,40 @@
  |  [E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
  |  Now you have 4 tasks in the list.
 
- |  Here is the usage for the instruction 'event':
+ |  I'm sorry, I do not understand what 'Input: event' is!
+ |  Here is the usage for the instruction 'deadline':
  |
- |      event TASK_NAME /from START_DATE /to END_DATE
+ |      deadline TASK_NAME /by DEADLINE
  |
- |  where TASK_NAME  is the name of this event task to add
- |        START_DATE is the start time/date for this event
- |        END_DATE   is the end time/date for this event
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
 
 
- |  Here is the usage for the instruction 'event':
+ |  I'm sorry, I do not understand what 'Input: event' is!
+ |  Here is the usage for the instruction 'deadline':
  |
- |      event TASK_NAME /from START_DATE /to END_DATE
+ |      deadline TASK_NAME /by DEADLINE
  |
- |  where TASK_NAME  is the name of this event task to add
- |        START_DATE is the start time/date for this event
- |        END_DATE   is the end time/date for this event
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
 
 
- |  Here is the usage for the instruction 'event':
+ |  I'm sorry, I do not understand what 'Input: event' is!
+ |  Here is the usage for the instruction 'deadline':
  |
- |      event TASK_NAME /from START_DATE /to END_DATE
+ |      deadline TASK_NAME /by DEADLINE
  |
- |  where TASK_NAME  is the name of this event task to add
- |        START_DATE is the start time/date for this event
- |        END_DATE   is the end time/date for this event
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
 
 
- |  Here is the usage for the instruction 'event':
+ |  I'm sorry, I do not understand what 'Input: event' is!
+ |  Here is the usage for the instruction 'deadline':
  |
- |      event TASK_NAME /from START_DATE /to END_DATE
+ |      deadline TASK_NAME /by DEADLINE
  |
- |  where TASK_NAME  is the name of this event task to add
- |        START_DATE is the start time/date for this event
- |        END_DATE   is the end time/date for this event
+ |  where TASK_NAME is the name of this deadline task to add
+ |        DEADLINE  is the deadline for this task
 
 
  |  Here are the tasks in your list:
@@ -222,61 +188,19 @@
  |  I'm sorry, but task number -1 does not exist!
 
 
- |  Here is the usage for the instruction 'unmark':
- |
- |      mark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
-
-
  |  I'm sorry, but task number -1 does not exist!
 
 
- |  Here is the usage for the instruction 'unmark':
- |
- |      unmark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
+ |  I'm sorry, I do not understand which item '1.23' refers to!
 
 
  |  I'm sorry, I do not understand which item '1.23' refers to!
 
 
- |  Here is the usage for the instruction 'unmark':
- |
- |      mark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
-
-
  |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
- |  Here is the usage for the instruction 'unmark':
- |
- |      unmark TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list
-
-
- |  I'm sorry, I do not understand which item '1.23' refers to!
-
-
- |  Here is the usage for the instruction 'delete':
- |
- |      delete TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list to delete
 
 
  |  I'm sorry, but task number -1 does not exist!
-
-
- |  Here is the usage for the instruction 'delete':
- |
- |      delete TASK_NUMBER
- |
- |  where TASK_NUMBER is the task number in the task list to delete
 
 
  |  Noted. I've deleted this task:

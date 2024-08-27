@@ -168,7 +168,7 @@ public class YappingBot {
                 }
                 deadline = sb.toString();
                 if (deadline.isEmpty() || taskName == null) {
-                    throw new YappingBotIncorrectCommandException(ReplyTextMessages.DEADLINE_USAGE, String.format("Input: %s", userInputSpliced));
+                    throw YappingBotIncorrectCommandException.withUserInputArray(ReplyTextMessages.DEADLINE_USAGE, userInputSpliced);
                 }
                 newTask = new Deadline(taskName.trim(), false, deadline.trim());
                 break;
@@ -209,12 +209,12 @@ public class YappingBot {
                 }
                 //noinspection ReassignedVariable
                 if (fromTime == null || toTime == null || taskName == null) {
-                    throw new YappingBotIncorrectCommandException(ReplyTextMessages.DEADLINE_USAGE, String.format("Input: %s", userInputSpliced));
+                    throw YappingBotIncorrectCommandException.withUserInputArray(ReplyTextMessages.EVENT_USAGE, userInputSpliced);
                 }
                 newTask = new Event(taskName.trim(), false, fromTime.trim(), toTime.trim());
                 break;
             default:
-                throw new YappingBotIncorrectCommandException(ReplyTextMessages.DEADLINE_USAGE, String.format("Input: %s", userInputSpliced));
+                throw YappingBotIncorrectCommandException.withUserInputArray(ReplyTextMessages.EVENT_USAGE, userInputSpliced);
         }
         userList.add(newTask);
         sb = new StringBuilder();
