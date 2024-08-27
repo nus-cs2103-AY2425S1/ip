@@ -46,7 +46,6 @@ public class Ekud {
                 BufferedReader reader = new BufferedReader(new FileReader(dataFile));
                 BufferedWriter writer = new BufferedWriter(new FileWriter(copy, true));
                 String currLine = reader.readLine();
-                boolean isFirstLine = true;
 
                 // read tasks and add to list
                 while (currLine != null) {
@@ -54,12 +53,8 @@ public class Ekud {
                     Task task = Task.getTaskFromSave(taskSave);
                     if (task != null) {
                         // preserve tasks
-                        if (isFirstLine) {
-                            isFirstLine = false;
-                        } else { // add new line to subsequent valid tasks
-                            writer.newLine();
-                        }
                         writer.write(taskSave);
+                        writer.newLine();
 
                         // add valid task to list
                         tasks.addTask(task);
@@ -119,6 +114,19 @@ public class Ekud {
                 tasks.getIncompleteCount(),
                 tasks.getCount());
         FormatPrinter.printIndent(confirmation, OUTPUT_PREFIX);
+
+        // update data
+        File dataFile = new File(TASK_DATA_PATH);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true))) {
+            writer.append(task.getSaveTaskString());
+            writer.newLine();
+        } catch (IOException e) {
+            String error = String.format("""
+                    Oh no! I've encountered an error while trying to save your task!
+                      ERROR: %s""",
+                    e);
+            FormatPrinter.printIndent(error, OUTPUT_PREFIX);
+        }
     }
 
     public void echoList() {
@@ -147,8 +155,39 @@ public class Ekud {
         }
     }
 
+    private void updateTaskInData(Task task, String previousState) {
+        File dataFile = new File(TASK_DATA_PATH);
+        try (BufferedReader reader = new BufferedReader(new FileReader(dataFile))) {
+            StringBuilder sb = new StringBuilder();
+            String currLine = reader.readLine();
+
+            while (currLine != null) {
+                if (previousState.equals(currLine)) { // replace old state with new state
+                    sb.append(task.getSaveTaskString()).append("\n");
+                } else {
+                    sb.append(currLine).append("\n");
+                }
+                currLine = reader.readLine();
+            }
+
+            // rewrite data to file
+            reader.close();
+            FileWriter writer = new FileWriter(dataFile);
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            String error = String.format("""
+                    Oh no!! I've encountered an error while trying to update the task in your save file!
+                      ERROR: %s""",
+                    e) ;
+            FormatPrinter.printIndent(error, OUTPUT_PREFIX);
+        }
+    }
+
     public void markList(int listIndex) throws TaskListIndexOutOfBoundsException {
-        tasks.markComplete(listIndex);
+        Task task = tasks.getTask(listIndex);
+        String previousSaveState = task.getSaveTaskString();
+        task.markAsDone();
         String listStatus = tasks.isAllComplete()
                             ? String.format("WOOHOO!! YOU DID IT! Everything is complete!! All %d of them",
                                     tasks.getCount())
@@ -160,13 +199,18 @@ public class Ekud {
                         I shall mark it as complete in celebration!
                           %s
                         %s!""",
-                tasks.getTask(listIndex),
+                task,
                 listStatus);
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
+
+        // update data file
+        updateTaskInData(task, previousSaveState);
     }
 
     public void unmarkList(int listIndex) throws TaskListIndexOutOfBoundsException {
-        tasks.markIncomplete(listIndex);
+        Task task = tasks.getTask(listIndex);
+        String previousSaveState = task.getSaveTaskString();
+        task.markAsUndone();
         String message = String.format("""
                         Oh ho ho, did you perhaps forget something?
                         It's OK, I already noted down your incompetence...
@@ -176,6 +220,9 @@ public class Ekud {
                 tasks.getIncompleteCount(),
                 tasks.getCount());
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
+
+        // update data file
+        updateTaskInData(task, previousSaveState);
     }
 
     public void deleteList(int listIndex) throws TaskListIndexOutOfBoundsException {
@@ -205,6 +252,30 @@ public class Ekud {
                 removed,
                 listStatus);
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
+
+        // remove task from data file
+        File dataFile = new File(TASK_DATA_PATH);
+        try (BufferedReader reader = new BufferedReader(new FileReader(dataFile))) {
+            StringBuilder sb = new StringBuilder();
+            String currLine = reader.readLine();
+            while (currLine != null) {
+                // keep non deleted lines
+                if (!removed.getSaveTaskString().equals(currLine)) {
+                    sb.append(currLine).append("\n");
+                }
+                currLine = reader.readLine();
+            }
+            reader.close();
+            FileWriter writer = new FileWriter(TASK_DATA_PATH);
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            String error = String.format("""
+                    Oh no!! I've encountered an error while remove your task from your save file!
+                      ERROR: %s""",
+                    e);
+            FormatPrinter.printIndent(error, OUTPUT_PREFIX);
+        }
     }
 
     public void warnUnknownCommand() {
