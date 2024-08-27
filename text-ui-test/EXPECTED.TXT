@@ -1,5 +1,6 @@
 Task file not found, creating task file.
 Unable to create task file.
+Task file not found.
 ____________________________________
 Hello, I'm Rasputin!
 What can I do for you?
