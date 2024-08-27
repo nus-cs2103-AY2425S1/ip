@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -17,6 +17,12 @@ public class Task {
 
     public void markNotDone() {
         this.isDone = false;
+    }
+
+    public String formatSave() {
+        return (isDone ? "1" : "0")
+                + " | "
+                + this.description;
     }
 
     @Override
