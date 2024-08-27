@@ -1,7 +1,9 @@
+
 public class Meeju {
 
     public static String LINE_BREAK = "____________________________________________________________";
     public static void main(String[] args) {
+        UserInteraction userInteraction = new UserInteraction();
 
 
         String LOGO = " __  __ _____ _____    _ _   _\n" +
@@ -17,7 +19,7 @@ public class Meeju {
         System.out.println(" Hello! I'm Meeju\n" +
                 " What can I do for you?");
         System.out.println(LINE_BREAK);
-        UserInteraction.interact();
+        userInteraction.interact();
         GoodByeMessage.goodByeMessage();
         System.out.println(Meeju.LINE_BREAK);
     }
