@@ -7,6 +7,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String body, boolean isDone) {
+        this.body = body;
+        this.isDone = isDone;
+    }
+
     public void setDone() throws IllegalStateException {
         if (this.isDone) {
             throw new IllegalStateException("Task has already been set as completed!");
@@ -26,5 +31,11 @@ public abstract class Task {
         return this.isDone
                 ? "[X] " + this.body
                 : "[ ] " + this.body;
+    }
+
+    public String saveString() {
+        return this.isDone
+                ? "T," + this.body
+                : "F," + this.body;
     }
 }
