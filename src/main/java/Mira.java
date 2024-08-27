@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * Mira is a simple chatbot that echoes user commands and exits when the user types "bye".
  * It interacts with the user via the UI class, which handles input and output operations.
@@ -7,9 +9,9 @@ public class Mira {
     private final TaskList tasks; // Manages tasks
     private boolean isRunning; // default is true
 
-    public Mira() {
-        this.ui = new UI();
-        this.tasks = new TaskList(this.ui);
+    public Mira(UI ui) throws IOException, SecurityException, MiraException {
+        this.ui = ui;
+        this.tasks = new TaskList(this.ui, new Storage("./data/mira.txt"));
         this.isRunning = true;
     }
 
@@ -71,6 +73,8 @@ public class Mira {
                 this.ui.showMessage(e.getMessage());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 this.ui.showMessage("Please provide a valid task number.");
+            } catch (IOException e) {
+                this.ui.showMessage("File path for storing of tasks is unusable.");
             } catch (Exception e) {
                 this.ui.showMessage("Error: " + e.getMessage());
             }
@@ -83,7 +87,16 @@ public class Mira {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        Mira mira = new Mira();
-        mira.run();
+        UI ui = new UI();
+        try {
+            Mira mira = new Mira(ui);
+            mira.run();
+        } catch (MiraException e) {
+            ui.showMessage(e.getMessage());
+        } catch (SecurityException e) {
+            ui.showMessage("Please make sure the directory has read and write permissions.");
+        } catch (IOException e) {
+            ui.showMessage("File path for storing of tasks is unusable.");
+        }
     }
 }
