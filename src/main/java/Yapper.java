@@ -1,22 +1,31 @@
+import java.io.File;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Yapper {
-    public static ArrayList<Task> listOfTask = new ArrayList<>();
+    public static ArrayList<Task> listOfTask;
+    public static YapperHistory yapperHistory;
     public static void main(String[] args) {
+        String fileName = "./src/main/java/YapperHistoryFile";
+        File file = new File(fileName);
+        yapperHistory = new YapperHistory(file);
+        listOfTask = yapperHistory.loadHistory();
+
         // greeting message
         System.out.println("Hello! I'm Yapper\n" +
                 "What can I do for you?\n");
+        returnList();
 
         while (true) {
             Scanner sc = new Scanner(System.in);
             String text = sc.nextLine();
-            read(text);
+            readCommand(text);
         }
     }
 
     // reads commands
-    public static void read(String command)
+    public static void readCommand(String command)
     {
         try {
             if (command.equals("bye")) {
@@ -63,6 +72,7 @@ public class Yapper {
             System.out.println("Noted. I've removed this task: \n" +
                     task + "\nNow you have " + listOfTask.size() + " tasks in the list");;
         }
+        yapperHistory.writeHistory(listOfTask);
     }
 
     public static void addToDo(String command) throws YapperException
@@ -124,6 +134,7 @@ public class Yapper {
         listOfTask.add(task);
         System.out.println("Got it. I've added this task:\n" +
                 task + "\nNow you have " + listOfTask.size() + " tasks in the list");
+        yapperHistory.writeHistory(listOfTask);
     }
 
     // mark a task as done
@@ -145,6 +156,7 @@ public class Yapper {
             System.out.println("Nice! I've marked this task as done: \n" +
                     taskToMark);
         }
+        yapperHistory.writeHistory(listOfTask);
     }
 
     // umark a task as undone
@@ -166,6 +178,7 @@ public class Yapper {
             System.out.println("OK, I've marked this task as not done yet: \n" +
                     taskToUnmark);
         }
+        yapperHistory.writeHistory(listOfTask);
     }
 
     // return list
