@@ -31,7 +31,7 @@ public class DateParser {
     }
 
     /**
-     * Parse the description for deadline and return the extracted dates and time.
+     * Parses the description for deadline and returns the extracted dates and time.
      *
      * @param eventString input of a description of deadline
      * @return a string represents the date and time of the deadline information
@@ -43,7 +43,7 @@ public class DateParser {
     }
 
     /**
-     * Parse the description of event and return the extracted starting dates and times.
+     * Parses the description of event and returns the extracted starting dates and times.
      *
      * @param eventString a description of event
      * @return a string represents starting date and time of the event information
@@ -55,7 +55,7 @@ public class DateParser {
     }
 
     /**
-     * Parse the description of event and return the extracted ending dates and times.
+     * Parses the description of event and returns the extracted ending dates and times.
      *
      * @param eventString a description of event
      * @return a string represents ending date and time of the event information
@@ -67,12 +67,13 @@ public class DateParser {
     }
 
     /**
+     * Parses the date and time appearing in the hard disk report and returns it in the
+     * HH:mm MMM d yyyy format
      *
-     * @param dateString
-     * @return
-     * @throws ParseException
+     * @param dateString the date and time message recorded in the hard disk
+     * @return date and time in form of HH:mm MMM d yyyy format
      */
-    public static String parseRecordedDate(String dateString) throws ParseException {
+    public static String parseRecordedDate(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy").withLocale(Locale.ENGLISH);
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         return dateTime.toString();

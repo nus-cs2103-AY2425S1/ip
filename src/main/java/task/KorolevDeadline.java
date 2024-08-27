@@ -7,9 +7,10 @@ public class KorolevDeadline extends KorolevTask {
     private LocalDateTime deadline;
 
     /**
+     * Constructs new object of KorolevDeadline.
      *
-     * @param name
-     * @param date
+     * @param name description of the task
+     * @param date deadline
      */
     public KorolevDeadline(String name, String date) {
         super(name);
@@ -17,8 +18,9 @@ public class KorolevDeadline extends KorolevTask {
     }
 
     /**
+     * Overrides toString method in KorolevTask.
      *
-     * @return
+     * @return string representation of KorolevDeadline
      */
     @Override
     public String toString() {

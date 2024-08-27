@@ -33,9 +33,10 @@ public class KorolevList {
     }
 
     /**
+     * Adds new task to the array list of tasks.
      *
-     * @param event
-     * @throws DukeException
+     * @param event description of the event
+     * @throws DukeException when failing to add event
      */
     public void addEvent(String event) throws DukeException {
         KorolevTask e;
@@ -85,17 +86,19 @@ public class KorolevList {
     }
 
     /**
+     * Displays the whole list of tasks
      *
-     * @return
+     * @return the string representation of task lists
      */
     public String displayList() {
         return listNotice + this.toString();
     }
 
     /**
+     * Marks the specific task to be done
      *
-     * @param index
-     * @throws DukeException
+     * @param index index of the event.
+     * @throws DukeException the index is out of bound
      */
     public void markEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
@@ -108,9 +111,10 @@ public class KorolevList {
     }
 
     /**
+     * Removes a specific task
      *
-     * @param index
-     * @throws DukeException
+     * @param index index of the task
+     * @throws DukeException when the index is out of the range of the array list
      */
     public void removeEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
@@ -123,10 +127,12 @@ public class KorolevList {
     }
 
     /**
+     * Unmarks a specific task to a state of incomplete
      *
-     * @param index
-     * @throws DukeException
+     * @param index index of the task
+     * @throws DukeException when the index is out of the range of the array list
      */
+
     public void unmarkEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
@@ -138,8 +144,9 @@ public class KorolevList {
     }
 
     /**
+     * Generate the message that will be written into local file
      *
-     * @return
+     * @return message to be recorded
      */
     private String createSaveInfo() {
         StringBuilder msg = new StringBuilder();
@@ -150,7 +157,7 @@ public class KorolevList {
     }
 
     /**
-     *
+     * Save the information of task list to the
      */
     public void saveEvent() {
         String msg = this.createSaveInfo();
@@ -159,7 +166,7 @@ public class KorolevList {
 
 
     /**
-     *
+     * Load records about events from hard disk
      */
     public void loadEvent() {
         storage.readLines(this.events);

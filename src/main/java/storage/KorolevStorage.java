@@ -37,8 +37,9 @@ public class KorolevStorage {
     }
 
     /**
+     * Writes new information to the specific file in data folder.
      *
-     * @param msg
+     * @param msg the message being written to the file
      */
     public void writeToFile(String msg) {
         createNewFile();
@@ -53,8 +54,9 @@ public class KorolevStorage {
     }
 
     /**
+     * Reads records from data file and parse them into KorolevTask.
      *
-     * @param events
+     * @param events the list of KorolevTask to store the tasks based on stored information
      */
     public void readLines(ArrayList<KorolevTask> events) {
         createNewFile();

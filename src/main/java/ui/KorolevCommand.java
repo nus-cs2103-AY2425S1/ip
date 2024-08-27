@@ -15,8 +15,9 @@ public class KorolevCommand {
     }
 
     /**
+     * Executes the respective command based on input string.
      *
-     * @return
+     * @return whether the execution is successful or not
      */
     public boolean executeCommand() {
 

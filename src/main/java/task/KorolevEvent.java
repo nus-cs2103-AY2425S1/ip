@@ -9,12 +9,25 @@ public class KorolevEvent extends KorolevTask {
     private LocalDateTime start;
     private LocalDateTime end;
 
+    /**
+     * Constructs new object of KorolevEvent.
+     *
+     * @param name description of the task
+     * @param date start and end time
+     */
     public KorolevEvent(String name, String date) {
         super(name);
         this.duration = date;
         this.tag = "E";
     }
 
+    /**
+     * Constructs new object of KorolevEvent.
+     *
+     * @param name description of the task
+     * @param start starting time
+     * @param end ending time
+     */
     public KorolevEvent(String name, String start, String end) throws DateTimeParseException {
         super(name);
         this.start = LocalDateTime.parse(start);
@@ -22,6 +35,11 @@ public class KorolevEvent extends KorolevTask {
         this.tag = "E";
     }
 
+    /**
+     * Overrides toString method in KorolevTask.
+     *
+     * @return string representation of KorolevEvent
+     */
     @Override
     public String toString() {
         String base = super.toString();

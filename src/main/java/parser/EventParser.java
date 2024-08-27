@@ -11,12 +11,14 @@ import java.util.regex.Pattern;
 
 public class EventParser {
     /**
+     * Analyses the input string and extracts any substring appearing between
+     * stop and start.
      *
-     * @param start
-     * @param stop
-     * @param input
-     * @return
-     * @throws ParseException
+     * @param start the start of the expected string
+     * @param stop the end of the expected string
+     * @param input string to be parsed
+     * @return content between start and stop
+     * @throws ParseException when cannot find any content with given start and stop
      */
     public static String parseName(String start, String stop, String input)  throws ParseException {
         Pattern pattern = Pattern.compile(start + "\\s+(.+)\\s*" + stop);
@@ -29,10 +31,11 @@ public class EventParser {
     }
 
     /**
+     * Parses the records read from local data file.
      *
-     * @param record
-     * @return
-     * @throws ParseException
+     * @param record each line of record
+     * @return the KorolevTask object
+     * @throws ParseException when the line of record cannot be parsed
      */
     public static KorolevTask parseLoadedRecord(String record) throws ParseException {
         char type = record.charAt(1);
