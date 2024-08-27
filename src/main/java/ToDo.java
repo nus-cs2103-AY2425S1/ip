@@ -14,9 +14,9 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         if (getIsDone()) {
-            return String.format("[T][X]: %s", getDescription());
+            return String.format("[X] | To-Do | %s", getDescription());
         } else {
-            return String.format("[T][ ]: %s", getDescription());
+            return String.format("[ ] | To-Do | %s", getDescription());
         }
     }
 }

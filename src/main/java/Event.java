@@ -9,8 +9,7 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public Event(String description, boolean isDone,
-                 String date, String from, String to) {
+    public Event(String description, String date, String from, String to, boolean isDone) {
         super(description, isDone);
         this.date = date;
         this.from = from;
@@ -24,9 +23,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (getIsDone()) {
-            return String.format("[E][X]: %s (%s, %s to %s)", getDescription(), this.date, this.from, this.to);
+            return String.format("[X] | Event | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
         } else {
-            return String.format("[E][ ]: %s (%s, %s to %s)", getDescription(), this.date, this.from, this.to);
+            return String.format("[ ] | Event | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
         }
     }
 }
