@@ -3,6 +3,15 @@ import java.time.format.DateTimeParseException;
 public class Events extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
+    /**
+     * Constructor for Events object
+     *
+     * @param description description of event task
+     * @param start start time of the event
+     * @param end end time of the event
+     * @throws DateTimeParseException if the format provided is not the same as INPUT_FORMATTER
+     */
     public Events(String description, String start, String end) throws DateTimeParseException {
         super(description);
         this.startDate = LocalDateTime.parse(start, INPUT_FORMATTER);
