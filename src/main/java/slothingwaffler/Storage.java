@@ -9,16 +9,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * <p>
+ * This class ensures that the file for storing tasks exists and provides methods to read and write tasks.
+ * </p>
+ */
 public class Storage {
 
     private final File file;
 
+    /**
+     * Constructs a Storage instance with the specified file name.
+     *
+     * @param fileName the name of the file to use for storage
+     */
     public Storage(String fileName) {
         String directoryPath = "./data";
         String filePath = directoryPath + "/" + fileName;
         this.file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return an ArrayList of tasks read from the file
+     */
     public ArrayList<Task> load() {
         ensureFileExists();
 
@@ -40,6 +56,11 @@ public class Storage {
         return new ArrayList<>();
     }
 
+    /**
+     * Saves the specified list of tasks to the file.
+     *
+     * @param taskList the list of tasks to save
+     */
     public void save(ArrayList<Task> taskList) {
         ensureFileExists();
 

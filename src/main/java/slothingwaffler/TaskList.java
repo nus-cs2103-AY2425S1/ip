@@ -2,9 +2,20 @@ package slothingwaffler;
 
 import java.util.ArrayList;
 
+/**
+ * Manages a list of tasks.
+ * <p>
+ * This class allows adding, removing, and accessing tasks in a list.
+ * </p>
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList instance with a specified Storage object.
+     *
+     * @param storage the Storage object used for saving and loading tasks
+     */
     public TaskList(Storage storage) {
         this.tasks = storage.load();
     }
