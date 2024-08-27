@@ -6,16 +6,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final ArrayList<Task> tasks; // Array to store tasks
-    private final Ui ui;                 // Ui for handling user interface interactions
     private final Storage storage;       // Storage for saving, loading of tasks
 
     /**
      * Constructs a new TaskList with a fixed size to store up to 100 tasks.
      *
-     * @param ui Ui class object needed for user interface interactions.
      */
-    public TaskList(Ui ui, Storage storage) throws IOException, SecurityException, MiraException {
-        this.ui = ui;
+    public TaskList(Storage storage) throws IOException, SecurityException, MiraException {
         this.storage = storage;
         this.tasks = this.storage.loadTasks();
     }
@@ -25,11 +22,8 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) throws IOException {
+    public void addTask(Task task) {
         this.tasks.add(task);
-        this.storage.saveTask(task);
-        this.ui.showMessage("Got it. I've added this task:\n  " + task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -37,11 +31,8 @@ public class TaskList {
      *
      * @param index The index of the task to delete (1-based).
      */
-    public void deleteTask(int index) throws IOException {
-        Task removedTask = this.tasks.remove(index - 1);
-        this.storage.saveTasks(this.tasks);
-        this.ui.showMessage("Noted. I've removed this task:\n  " + removedTask +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+    public void deleteTask(int index) {
+        this.tasks.remove(index - 1);
     }
 
     /**
@@ -63,10 +54,8 @@ public class TaskList {
      *
      * @param index The index of the task to mark as done (1-based index).
      */
-    public void markTask(int index) throws IOException {
+    public void markTask(int index) {
         this.tasks.get(index - 1).setStatus(true);
-        this.storage.saveTasks(this.tasks);
-        this.ui.showMessage("Nice! I've marked this task as done:\n  " + tasks.get(index - 1));
     }
 
     /**
@@ -74,9 +63,19 @@ public class TaskList {
      *
      * @param index The index of the task to unmark (1-based index).
      */
-    public void unmarkTask(int index) throws IOException {
+    public void unmarkTask(int index) {
         this.tasks.get(index - 1).setStatus(false);
-        this.storage.saveTasks(this.tasks);
-        this.ui.showMessage("OK, I've marked this task as not done yet:\n  " + tasks.get(index - 1));
+    }
+
+    public Task getTask(int index) {
+        return this.tasks.get(index - 1);
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public int size() {
+        return tasks.size();
     }
 }

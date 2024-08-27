@@ -7,11 +7,13 @@ import java.time.format.DateTimeParseException;
  */
 public class Mira {
     private final Ui ui; // handle user interface
+    private final Storage storage; // storage for saving, loading tasks
     private final TaskList tasks; // Manages tasks
 
     public Mira(Ui ui) throws IOException, SecurityException, MiraException {
         this.ui = ui;
-        this.tasks = new TaskList(this.ui, new Storage("./data/mira.txt"));
+        this.storage = new Storage("./data/mira.txt");
+        this.tasks = new TaskList(storage);
     }
 
     /**
@@ -30,14 +32,17 @@ public class Mira {
                 command.setTaskList(tasks);
                 String commandResult = command.execute();
                 ui.showMessage(commandResult);
+                if (command instanceof Savable) { // if command is Savable
+                    ((Savable) command).save(storage);
+                }
             } catch (MiraException e) {
                 this.ui.showMessage(e.getMessage());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 this.ui.showMessage("Please provide a valid task number.");
             } catch (DateTimeParseException e) {
                 this.ui.showMessage("Please input a valid date: 'd/M/yyyy HHmm'.");
-//            } catch (IOException e) {
-//                this.ui.showMessage("File path for storing of tasks is unusable.");
+            } catch (IOException e) {
+                this.ui.showMessage("File path for storing of tasks is unusable.");
             } catch (Exception e) {
                 this.ui.showMessage("Error: " + e.getMessage());
             }

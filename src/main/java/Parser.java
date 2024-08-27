@@ -11,19 +11,17 @@ public class Parser {
                 return new ExitCommand();
             case "list":
                 return new ListCommand();
-//            case "mark" -> {
-//                int index = Integer.parseInt(arguments);
-//                this.tasks.markTask(index);
-//            }
-//            case "unmark" -> {
-//                int index = Integer.parseInt(arguments);
-//                this.tasks.unmarkTask(index);
-//            }
-//            case "delete" -> {
-//                int index = Integer.parseInt(arguments);
-//                this.tasks.deleteTask(index);
-//            }
-//            case "todo" -> this.tasks.addTask(new Todo(arguments));
+            case "mark":
+                int markIdx = Integer.parseInt(arguments);
+                return new MarkCommand(markIdx);
+            case "unmark":
+                int unmarkIdx = Integer.parseInt(arguments);
+                return new UnmarkCommand(unmarkIdx);
+            case "delete":
+                int deleteIdx = Integer.parseInt(arguments);
+                return new DeleteCommand(deleteIdx);
+            case "todo":
+                return new TodoCommand(arguments);
 //            case "deadline" -> {
 //                String[] deadlineParts = arguments.split("/by", 2);
 //                if (deadlineParts.length != 2) {
