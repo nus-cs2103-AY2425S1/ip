@@ -2,3 +2,19 @@
 | T |   | hi
 | T | X | this
 | E |   | here | h-----y
+| D |   | return book | Dec 2 2019
+| D |   | return book | Dec 2 2019
+| D |   | return book | Dec 2 2019
+| D |   | return book | Dec 2 2019
+| D |   | return book | Dec 2 2019
+| D |   | return book | Dec 2 2019
+| D |   | this | May 3 2002
+| D |   | that | May 2 2002
+| D |   | something | 06:00 pm
+| D |   | return book | Dec 2 2019
+| D |   | return book | Dec 2 2019 06:00 pm
+| D |   | return book | 2/12/2019
+| D |   | t | 06:00 pm
+| D |   | s | 2/2/2002
+| D |   | a | 2/2/2002
+| D |   | t | 2/2/2002

@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 public class Event extends Task {
     private String from;
     private String to;
@@ -10,11 +15,11 @@ public class Event extends Task {
 
     @Override
     public String getDesc() {
-        return "| E | " + super.getDesc() + " | " + this.from + "-----" + this.to;
+        return "| E | " + super.getDesc() + " | " + formattedDate(this.from) + "-----" + formattedDate(this.to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + formattedDate(this.from) + " to: " + formattedDate(this.to) + ")";
     }
 }

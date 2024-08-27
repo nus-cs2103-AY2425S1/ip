@@ -229,8 +229,6 @@ public class Yapper {
 
     public static void writeToFile(ArrayList<Task> taskList) {
         try (FileWriter fileWriter = new FileWriter(relativePath)) {
-            fileWriter.write("Task List" + System.lineSeparator());
-            fileWriter.write(divider);
             for (Task t : taskList) {
                 fileWriter.write(t.getDesc() + System.lineSeparator());
             }
