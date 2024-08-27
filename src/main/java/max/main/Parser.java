@@ -25,13 +25,13 @@ public class Parser {
     }
 
     public void parseText(Scanner scanner) throws MaxException {
-        boolean running = true;
+        boolean isRunning = true;
 
-        while (running) {
+        while (isRunning) {
             String text = scanner.nextLine().trim();
             try {
                 if (text.equals("bye")) {
-                    running = false;
+                    isRunning = false;
                 } else if (text.equals("list")) {
                     ui.list(taskList.getTasks());
                 } else if (text.startsWith("mark")) {
@@ -50,7 +50,7 @@ public class Parser {
                     handleTodo(text);
                 } else if (text.startsWith("event")) {
                     handleEvent(text);
-                } else if (text.startsWith("delete")){
+                } else if (text.startsWith("delete")) {
                     int index = Integer.parseInt(text.replace("delete ", "")) - 1;
                     Task task = taskList.getTask(index);
                     taskList.deleteTask(index);
@@ -109,7 +109,7 @@ public class Parser {
         try {
             LocalDateTime LDT = LocalDateTime.parse(date, converter);
             return LDT;
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             throw new MaxException("Invalid date format! Please use d/M/yyyy HHmm. "
                     + "For example, '2/12/2024 1800'");
         }

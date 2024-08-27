@@ -4,8 +4,8 @@ import max.exception.MaxException;
 import max.task.Task;
 
 public class Event extends Task {
-    protected String startTime;
-    protected String endTime;
+    private String startTime;
+    private String endTime;
 
     public Event(String description, String time) throws MaxException {
         super(description);
