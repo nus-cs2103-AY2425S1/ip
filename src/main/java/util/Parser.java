@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import MizzExceptions.DeadlineException;
 import MizzExceptions.EventException;
+import MizzExceptions.InvalidDateException;
 import MizzExceptions.MizzException;
 import MizzExceptions.ToDoException;
 import tasks.Deadline;
@@ -41,14 +42,13 @@ public class Parser {
         case 'D': {
           int byIdx = details.indexOf(" (by: ");
           String description = details.substring(0, byIdx);
-          System.out.println(details.length());
           String by = details.substring(byIdx + 6, details.length() - 1);
           try {
             LocalDate byDate = LocalDate.parse(by);
             t = new Deadline(description, byDate);
             result.add(t);
           } catch (DateTimeParseException e) {
-            throw new MizzException("Invalid date time format: " + e.getMessage());
+            throw new InvalidDateException(e.getMessage());
           }
           break;
         }
@@ -64,7 +64,7 @@ public class Parser {
             t = new Event(description, fromDate, toDate);
             result.add(t);
           } catch (DateTimeParseException e) {
-            throw new MizzException("Invalid date time format: " + e.getMessage());
+            throw new InvalidDateException(e.getMessage());
           }
           break;
         }
