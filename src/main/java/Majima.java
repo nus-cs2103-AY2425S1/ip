@@ -15,7 +15,13 @@ public class Majima {
     private static final String FILE_PATH = "./data/Majima.txt";
 
     public static void main(String[] args) {
-        firstBootCheck();
+        try {
+            loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println(LINEGAP);
+            System.out.println("Majima.txt was not found.");
+            System.out.println(LINEGAP);
+        }
 
         Scanner scanner = new Scanner(System.in);
 
@@ -48,6 +54,10 @@ public class Majima {
                     addEvent(input);
                 } else if (input.startsWith("delete ")) {
                     deleteTask(input);
+                } else if (input.equalsIgnoreCase("vim")) {
+                    System.out.println(LINEGAP);
+                    System.out.println("Kiryu, whadaya think this is? CS2030S? Wake up!");
+                    System.out.println(LINEGAP);
                 } else {
                     throw new MajimaException("Uhh, Kiryu-chan? There ain't no sense in whatever ya just said! Regular tasks start with 'todo', tasks with deadlines start with 'deadline' and gotta have a /by date and time, while 'events' need a /from and /to argument.");
                 }
@@ -77,6 +87,7 @@ public class Majima {
             System.out.println(" " + removedTask.toString());
             System.out.println("Now, you've " + tasks.size() + " tasks need doin'.");
             System.out.println(LINEGAP);
+            deleteAndRebuild();
         } else {
             System.out.println(LINEGAP);
             System.out.println("Kiryu! That number ain't even there!");
@@ -241,22 +252,81 @@ public class Majima {
         }
     }
 
-    /*private static void loadTasks() {
+    private static void deleteAndRebuild() {
+        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                fw.write(task.toFileString() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println(LINEGAP);
+            System.out.println("Eh? Something went wrong while updating the file!");
+            System.out.println(LINEGAP);
+        }
+    }
+
+    private static void loadTasks() throws FileNotFoundException {
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
                 System.out.println("Majima.txt not found. Let's start anew, yeah?");
                 firstBootCheck();
+                return;
             }
 
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                String[] parts = line
+                loadLine(line);
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
+            System.out.println("to generate a new one from scratch");
         }
-    }*/
+    }
 
+    private static void loadLine(String line) {
+        String[] parts = line.split( " \\| ");
+        if (parts.length < 3) {
+            System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
+            System.out.println("to generate a new one from scratch");
+        }
+
+        Task.TaskStatus status = parts[1].equals("[X]") ? Task.TaskStatus.DONE : Task.TaskStatus.UNDONE;
+        String description = parts[2];
+        Task task = null;
+
+        switch (parts[0]) {
+            case "[T]":
+                task = new Todo(description);
+                break;
+            case "[D]":
+                if (parts.length < 4) {
+                    System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
+                    System.out.println("to generate a new one from scratch");
+                }
+                task = new Deadline(description, parts[3]);
+                break;
+            case "[E]":
+                if (parts.length < 5) {
+                    System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
+                    System.out.println("to generate a new one from scratch");
+                }
+                task = new Event(description, parts[3], parts[4]);
+                break;
+            default:
+                System.out.println("Invalid format/possible corrupted data in Majima.txt. Consider deleting the file");
+                System.out.println("to generate a new one from scratch");
+        }
+
+        if (task != null) {
+            task.status = status;
+            tasks.add(task);
+        }
+    }
+
+    /*
+    We may not be using writeToFile(), but we'll just leave this here in case we need it.
+     */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
