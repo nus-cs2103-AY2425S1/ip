@@ -13,10 +13,19 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parser for Sentinel chatbot.
+ */
 public class Parser {
     public static String DATE_OUTPUT_PATTERN = "MMM d yyy";
     public static String DATE_INPUT_PATTERN = "dd/M/yyy";
 
+    /**
+     * Parses a string in a task format into its Task representation.
+     *
+     * @param string String in task format.
+     * @return Task represented by the string.
+     */
     public static Task parseStringToTask(String string) {
         String regex = "\\d+\\. \\[(?<taskType>[A-Z])\\]\\[(?<status>[ X])\\]" +
                 " (?<name>[^\\(]+)(?:\\(by: (?<by>[^\\)]+)\\))?(?:\\(from: (?<from>[^\\)]+) to: (?<to>[^\\)]+)\\))?";
@@ -65,6 +74,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses a string in a date format into its LocalDate representation.
+     *
+     * @param stringDate String in date format.
+     * @return LocalDate represented by the string.
+     */
     public static LocalDate parseStringToDate(String stringDate) throws SentinelException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_INPUT_PATTERN);
