@@ -19,7 +19,7 @@ public class Bobby {
 
     public void run() {
         this.ui.sayHi();
-        while (this.ui.runStatus()) {
+        while (this.ui.isRunning()) {
             try {
                 Parser.processInput(this.ui.getInput(), this.taskList, this.storage, this.ui);
             } catch (InputException e) {
