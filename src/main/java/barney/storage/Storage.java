@@ -1,4 +1,4 @@
-package storage;
+package barney.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import data.TaskList;
-import data.exception.BarneyException;
-import data.exception.InvalidSaveFormatException;
-import data.task.DeadlineTask;
-import data.task.EventTask;
-import data.task.Task;
-import data.task.TodoTask;
+import barney.data.TaskList;
+import barney.data.exception.BarneyException;
+import barney.data.exception.InvalidSaveFormatException;
+import barney.data.task.DeadlineTask;
+import barney.data.task.EventTask;
+import barney.data.task.Task;
+import barney.data.task.TodoTask;
 
 public class Storage {
 

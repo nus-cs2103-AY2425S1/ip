@@ -1,12 +1,12 @@
-package action.commands;
+package barney.action.commands;
 
 import java.util.HashMap;
 
-import action.CommandManager;
-import data.TaskList;
-import data.exception.InvalidArgumentException;
-import data.exception.MissingFlagException;
-import ui.Ui;
+import barney.action.CommandManager;
+import barney.data.TaskList;
+import barney.data.exception.InvalidArgumentException;
+import barney.data.exception.MissingFlagException;
+import barney.ui.Ui;
 
 public abstract class Command {
     private final String name;

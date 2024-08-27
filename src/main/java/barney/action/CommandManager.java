@@ -1,17 +1,17 @@
-package action;
+package barney.action;
 
 import java.util.HashMap;
 
-import action.commands.Command;
-import action.commands.DeadlineCommand;
-import action.commands.DeleteCommand;
-import action.commands.EndCommand;
-import action.commands.EventCommand;
-import action.commands.ListCommand;
-import action.commands.MarkCommand;
-import action.commands.TodoCommand;
-import data.exception.BarneyException;
-import data.exception.InvalidCommandException;
+import barney.action.commands.Command;
+import barney.action.commands.DeadlineCommand;
+import barney.action.commands.DeleteCommand;
+import barney.action.commands.EndCommand;
+import barney.action.commands.EventCommand;
+import barney.action.commands.ListCommand;
+import barney.action.commands.MarkCommand;
+import barney.action.commands.TodoCommand;
+import barney.data.exception.BarneyException;
+import barney.data.exception.InvalidCommandException;
 
 public class CommandManager {
 

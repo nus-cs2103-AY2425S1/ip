@@ -1,8 +1,8 @@
-package data;
+package barney.data;
 
 import java.util.ArrayList;
 
-import data.task.Task;
+import barney.data.task.Task;
 
 public class TaskList {
 

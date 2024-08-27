@@ -1,17 +1,17 @@
-package action.commands;
+package barney.action.commands;
 
 import java.util.HashMap;
 
-import data.TaskList;
-import data.exception.InvalidArgumentException;
-import data.task.Task;
-import ui.Ui;
+import barney.data.TaskList;
+import barney.data.exception.InvalidArgumentException;
+import barney.data.task.Task;
+import barney.ui.Ui;
 
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     HashMap<String, String> argumentMap;
 
-    public MarkCommand(HashMap<String, String> argumentMap) {
-        super("mark");
+    public UnmarkCommand(HashMap<String, String> argumentMap) {
+        super("unmark");
         this.argumentMap = argumentMap;
     }
 
@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
         }
 
         Task task = tasks.get(index);
-        task.mark();
+        task.unmark();
 
         ui.printMarked(task);
 

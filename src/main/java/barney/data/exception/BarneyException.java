@@ -1,4 +1,4 @@
-package data.exception;
+package barney.data.exception;
 
 public class BarneyException extends Exception {
     public BarneyException(String message) {

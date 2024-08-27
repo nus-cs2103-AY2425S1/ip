@@ -1,11 +1,11 @@
-package action.commands;
+package barney.action.commands;
 
 import java.util.HashMap;
 
-import data.TaskList;
-import data.exception.InvalidArgumentException;
-import data.task.EventTask;
-import ui.Ui;
+import barney.data.TaskList;
+import barney.data.exception.InvalidArgumentException;
+import barney.data.task.EventTask;
+import barney.ui.Ui;
 
 public class EventCommand extends Command {
     HashMap<String, String> argumentMap;

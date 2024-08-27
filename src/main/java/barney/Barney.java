@@ -1,11 +1,13 @@
+package barney;
+
 import java.util.Scanner;
 
-import action.CommandManager;
-import action.commands.Command;
-import data.TaskList;
-import data.exception.BarneyException;
-import storage.Storage;
-import ui.Ui;
+import barney.action.CommandManager;
+import barney.action.commands.Command;
+import barney.data.TaskList;
+import barney.data.exception.BarneyException;
+import barney.storage.Storage;
+import barney.ui.Ui;
 
 public class Barney {
 

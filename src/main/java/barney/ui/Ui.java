@@ -1,7 +1,7 @@
-package ui;
+package barney.ui;
 
-import data.TaskList;
-import data.task.Task;
+import barney.data.TaskList;
+import barney.data.task.Task;
 
 public class Ui {
 

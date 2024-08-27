@@ -1,4 +1,4 @@
-package data.exception;
+package barney.data.exception;
 
 public class InvalidArgumentException extends BarneyException {
     public InvalidArgumentException(String message) {

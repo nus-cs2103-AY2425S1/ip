@@ -1,4 +1,4 @@
-package data.exception;
+package barney.data.exception;
 
 public class MissingFlagException extends InvalidArgumentException {
     public MissingFlagException(String message) {

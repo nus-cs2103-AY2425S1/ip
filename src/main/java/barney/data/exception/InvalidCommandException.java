@@ -1,4 +1,4 @@
-package data.exception;
+package barney.data.exception;
 
 public class InvalidCommandException extends BarneyException {
     public InvalidCommandException(String message) {

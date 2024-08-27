@@ -1,4 +1,4 @@
-package data.exception;
+package barney.data.exception;
 
 public class InvalidSaveFormatException extends BarneyException {
     public InvalidSaveFormatException(String message) {
