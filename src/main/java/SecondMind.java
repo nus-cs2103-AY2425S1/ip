@@ -187,6 +187,7 @@ public class SecondMind {
         }
         Task curr = taskList.get(taskNumber-1);
         curr.markAsDone();
+        updateTaskInDataFile(taskNumber, true);
         printLineSeparator();
         System.out.println("Well done! You have completed the following task:");
         System.out.println(curr);
