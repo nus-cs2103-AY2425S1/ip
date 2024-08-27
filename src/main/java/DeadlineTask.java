@@ -1,7 +1,19 @@
-public class DeadlineTask extends Task {
-    protected String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
-    public DeadlineTask(String description, String deadline) throws TaskArgumentMissingException {
+public class DeadlineTask extends Task {
+    public static DateTimeFormatter READ_FORMAT =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
+    public static DateTimeFormatter PRINT_FORMAT =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a", Locale.ENGLISH);
+
+    protected LocalDateTime deadline;
+
+    public DeadlineTask(String description, String deadline)
+            throws TaskArgumentMissingException, EkudWrongInputFormatException {
         super(description);
         if (deadline == null || deadline.isEmpty()) {
             throw new TaskArgumentMissingException(
@@ -9,7 +21,14 @@ public class DeadlineTask extends Task {
                             Whoopsies!! Looks like you forgot your deadline!
                             I'll say this once: next time mark your deadline with '/deadline'.""");
         }
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDateTime.parse(deadline, READ_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new EkudWrongInputFormatException("""
+                            Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
+                            I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
+                    """);
+        }
     }
 
     @Override
@@ -19,11 +38,11 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getSaveTaskString() {
-        return String.format("D | %s | %s", super.getSaveTaskString(), deadline);
+        return String.format("D | %s | %s", super.getSaveTaskString(), deadline.format(READ_FORMAT));
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline);
+        return String.format("[D]%s (by: %s)", super.toString(), deadline.format(PRINT_FORMAT));
     }
 }

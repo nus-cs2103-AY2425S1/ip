@@ -32,10 +32,11 @@ public abstract class Task {
 
             return task;
 
-        } catch (IndexOutOfBoundsException | TaskArgumentMissingException e) {
+        } catch (IndexOutOfBoundsException | TaskArgumentMissingException | EkudWrongInputFormatException e) {
             FormatPrinter.printIndent(
                     String.format(
-                            "Warning: Task entry { %s } is missing required arguments\n  Removing task entry...",
+                            "Warning: Task entry { %s } is missing required arguments or is incorrectly formatted"
+                                    + "\nRemoving task entry...",
                             taskSaveString),
                     Ekud.OUTPUT_PREFIX);
             return null;
