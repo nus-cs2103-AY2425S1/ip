@@ -14,38 +14,38 @@ public class Parser {
             command = Commands.valueOf(com);
 
             switch (command) {
-                case LIST:
-                    cmd =  new ListCommand();
-                    break;
+            case LIST:
+                cmd =  new ListCommand();
+                break;
 
-                case MARK:
-                    cmd =  new MarkCommand(true);
-                    break;
+            case MARK:
+                cmd =  new MarkCommand(true);
+                break;
 
-                case UNMARK:
-                    cmd =  new MarkCommand(false);
-                    break;
+            case UNMARK:
+                cmd =  new MarkCommand(false);
+                break;
 
-                case TODO:
-                    cmd =  new AddCommand('T');
-                    break;
-                case DEADLINE:
-                    cmd =  new AddCommand('D');
-                    break;
-                case EVENT:
-                    cmd =  new AddCommand('E');
-                    break;
+            case TODO:
+                cmd =  new AddCommand('T');
+                break;
+            case DEADLINE:
+                cmd =  new AddCommand('D');
+                break;
+            case EVENT:
+                cmd =  new AddCommand('E');
+                break;
 
-                case DELETE:
-                    cmd =  new DeleteCommand();
-                    break;
+            case DELETE:
+                cmd =  new DeleteCommand();
+                break;
 
-                case BYE:
-                    cmd =  new ExitCommand();
-                    break;
+            case BYE:
+                cmd =  new ExitCommand();
+                break;
 
-                default:
-                    throw new AExceptions("I'm sorry, but I don't know what that means :-(");
+            default:
+                throw new AExceptions("I'm sorry, but I don't know what that means :-(");
             }
         } catch (IllegalArgumentException e) {
             throw new AExceptions("I'm sorry, but I don't know what that means :-(");

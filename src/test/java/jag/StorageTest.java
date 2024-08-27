@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StorageTest {
     // Creation of Task and TaskList objects
@@ -46,7 +47,7 @@ public class StorageTest {
     }
 
     @Test
-    public void write_test() throws IOException {
+    public void write_test_exceptionThrown() throws IOException {
         // Simulating adding todos
         TaskList tasks = new TaskList();
         Storage testStorage = new Storage("./data/jag.txt");
