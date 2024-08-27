@@ -1,4 +1,6 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.File;
 
 public class Delphi {
     public static void main(String[] args) {
@@ -7,6 +9,9 @@ public class Delphi {
 
         System.out.println("Hello! I'm Delphi, the greatest oracle in all of the classical world.");
         System.out.println("To quote a very famous person who will arrive a bit later, ask and ye shall find");
+        File file = new File("ip/src/main/HardDisk.txt");
+        t.loadHardDriveToTasks(file);
+        t.printTasks();
 
         while (true) {
             String input = scanner.nextLine();
@@ -38,6 +43,7 @@ public class Delphi {
                 }
             }
         }
+
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

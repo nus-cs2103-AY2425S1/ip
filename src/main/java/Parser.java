@@ -23,4 +23,18 @@ public class Parser {
         // Compare the prefix with the comparison string
         return prefix.equals(comparison);
     }
+
+    public static String formatStringDeadline(String input) {
+        // Extract the parts using regex
+        String regex = "(.*) \\(by: (.*)\\)";
+        String result = input.replaceAll(regex, "$1 /by $2");
+        return result;
+    }
+
+    public static String formatStringEvent(String input) {
+        // Extract the parts using regex
+        String regex = "(.*) \\(from: (.*) to: (.*)\\)";
+        String result = input.replaceAll(regex, "$1 /from $2 /to $3");
+        return result;
+    }
 }
