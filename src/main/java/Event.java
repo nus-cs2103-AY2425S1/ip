@@ -7,6 +7,10 @@ public class Event extends Task{
         this.end = end;
 
     }
+    @Override
+    public String toFileString() {
+        return "[E][" + (isDone ? "1" : "0") + "]/" + description + "/" + start + "/" + end;
+    }
 
     @Override
     public String toString() {

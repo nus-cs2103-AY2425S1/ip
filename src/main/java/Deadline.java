@@ -7,6 +7,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toFileString() {
+        return "[D][" + (isDone ? "X" : " ") + "]/" + description + "/" + end;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + end + ")";  // Ensure the end time is displayed
     }
