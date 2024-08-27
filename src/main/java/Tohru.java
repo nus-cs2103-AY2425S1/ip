@@ -1,244 +1,48 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
+/**
+ * Tohru represents the chatbot that keeps track of user's tasks
+ */
 public class Tohru {
-    public static void main(String[] args) {
-        // Setup scanner to receive user input and set exit condition.
-        TodoList todoList = new TodoList();
-        Scanner userInput = new Scanner(System.in);
-        boolean toExit = false;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/y HHmm");
 
-        // Greetings
-        printDivider();
-        System.out.println("Hello! I'm Tohru");
-        System.out.println("What can I do for you?");
-        printDivider();
+    private FileStore store;
+    private TodoList todoList;
+    private Ui ui;
 
-        // Process User response
-        while (!toExit && userInput.hasNext()) {
-
-            String prompt = userInput.nextLine();
-
-            String[] dissectedPrompt = prompt.trim().split(" ", 2);
-            String command = dissectedPrompt[0];
-            String argument = null;
-            if (dissectedPrompt.length == 2) {
-                argument = dissectedPrompt[1].trim();
-            }
-
-            try {
-                printDivider();
-                switch (command) {
-                case "bye":
-                    // Check for excess arguments
-                    if (argument != null) {
-                        throw new TohruException(String.format("Invalid argument: %s does not accept %s",
-                                command, argument));
-                    }
-
-                    System.out.println("Bye. Hope to see you again soon!");
-                    toExit = true;
-                    break;
-
-                case "list":
-                    // Check for excess arguments
-                    if (argument != null) {
-                        throw new TohruException(String.format("Invalid argument: %s does not accept %s",
-                                command, argument));
-                    }
-
-                    System.out.println(String.format("These are %s entries on your todo:", todoList.getTotal()));
-                    for (String todoItem : todoList.listItems()) {
-                        System.out.println(todoItem);
-                    }
-                    break;
-
-                case "mark":
-                    // Check if no arguments are provided
-                    if (argument == null) {
-                        throw new TohruException("Missing argument: Specify index to mark");
-                    }
-
-                    int markItemIndex = Integer.parseInt(argument) - 1;
-                    // Check for valid index
-                    if (markItemIndex < 0 || markItemIndex >= todoList.getTotal()) {
-                        throw new TohruException("The entry you are looking to mark cannot be found");
-                    }
-
-                    if (todoList.markComplete(markItemIndex)) {
-                        System.out.println("Alright! I have set this task as done:");
-                    } else {
-                        System.out.println("Unable to set this task as done:");
-                    }
-                    System.out.println(todoList.getItemStatus(markItemIndex));
-                    break;
-
-                case "unmark":
-                    // Check if no arguments are provided
-                    if (argument == null) {
-                        throw new TohruException("Missing argument: Specify index to unmark");
-                    }
-
-                    int unmarkItemIndex = Integer.parseInt(argument) - 1;
-                    // Check for valid index
-                    if (unmarkItemIndex < 0 || unmarkItemIndex >= todoList.getTotal()) {
-                        throw new TohruException("The entry you are looking to unmark cannot be found");
-                    }
-
-                    if (todoList.markIncomplete(unmarkItemIndex)) {
-                        System.out.println("Alright! I have set this task as not done:");
-                    } else {
-                        System.out.println("Unable to set this task as not done:");
-                    }
-                    System.out.println(todoList.getItemStatus(unmarkItemIndex));
-                    break;
-
-                case "delete":
-                    // Check if no arguments are provided
-                    if (argument == null) {
-                        throw new TohruException("Missing argument: Specify index to delete");
-                    }
-
-                    int deletionIndex = Integer.parseInt(argument) - 1;
-                    // Check for valid index
-                    if (deletionIndex < 0 || deletionIndex >= todoList.getTotal()) {
-                        throw new TohruException("The entry you are looking to delete cannot be found");
-                    }
-
-                    String storedItemStatus = todoList.getItemStatus(deletionIndex);
-                    if (todoList.deleteItem(deletionIndex)) {
-                        System.out.println("Alright! I have removed this task from list:");
-                    } else {
-                        System.out.println("Unable to remove this task from list:");
-                    }
-                    System.out.println(storedItemStatus);
-                    break;
-
-                case "todo":
-                    // Check if no arguments are provided
-                    if (argument == null) {
-                        throw new TohruException("Missing argument: Please specify description");
-                    }
-
-                    TodoItem newTodo = new TodoItem(argument);
-
-                    if (todoList.addItem(newTodo)) {
-                        System.out.println(String.format("Added todo entry: %s", argument.trim()));
-                        System.out.println(newTodo);
-                    } else {
-                        System.out.println(String.format("Unable to add todo entry: %s", argument.trim()));
-                    }
-                    System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
-                    break;
-
-                case "deadline":
-                    // Check if no arguments are provided
-                    if (argument == null) {
-                        throw new TohruException("Missing argument: Please specify description");
-                    }
-
-                    String[] dissectedDeadlineArgument = argument.split("/by", 2);
-                    // Check if all arguments are present
-                    if (dissectedDeadlineArgument.length < 2) {
-                        throw new TohruException("Missing argument: Missing either description or deadline");
-                    }
-                    String deadlineContent = dissectedDeadlineArgument[0];
-                    // Check for valid description
-                    if (deadlineContent.isBlank()) {
-                        throw new TohruException("Missing argument: Please specify description");
-                    }
-                    String deadlineStr = dissectedDeadlineArgument[1];
-                    // Check for valid deadline
-                    if (deadlineStr.isBlank()) {
-                        throw new TohruException("Missing argument: Please specify deadline");
-                    }
-                    LocalDateTime deadline = LocalDateTime.parse(deadlineStr.trim(), formatter);
-
-                    DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
-
-                    if (todoList.addItem(newDeadline)) {
-                        System.out.println(String.format("Added deadline entry: %s", deadlineContent.trim()));
-                        System.out.println(newDeadline);
-                    } else {
-                        System.out.println(String.format("Unable to add deadline entry: %s", deadlineContent.trim()));
-                    }
-                    System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
-                    break;
-
-                case "event":
-                    // Check if no arguments are provided
-                    if (argument == null) {
-                        throw new TohruException("Missing argument: Specify description");
-                    }
-
-                    String[] dissectedEventArgument = argument.split("/from|/to", 3);
-                    // Check if all arguments are present
-                    if (dissectedEventArgument.length < 3) {
-                        throw new TohruException("Missing argument: Missing either description, from date or to date");
-                    }
-                    String eventContent = dissectedEventArgument[0];
-                    // Check for valid description
-                    if (eventContent.isBlank()) {
-                        throw new TohruException("Missing argument: Please specify description");
-                    }
-                    String fromStr = dissectedEventArgument[1];
-                    String toStr = dissectedEventArgument[2];
-                    // Check for valid from date
-                    if (fromStr.isBlank()) {
-                        throw new TohruException("Missing argument: Please specify from date");
-                    }
-                    // Check for valid to date
-                    if (toStr.isBlank()) {
-                        throw new TohruException("Missing argument: Please specify to date");
-                    }
-
-                    LocalDateTime eventFromDate = LocalDateTime.parse(fromStr.trim(), formatter);
-
-                    LocalDateTime eventToDate = LocalDateTime.parse(toStr.trim(), formatter);
-
-                    if (eventFromDate.isAfter(eventToDate)) {
-                        throw new TohruException("Invalid argument: To date cannot be earlier than From date");
-                    }
-
-                    EventItem newEvent = new EventItem(eventContent, eventFromDate, eventToDate);
-
-                    if (todoList.addItem(newEvent)) {
-                        System.out.println(String.format("Added event entry: %s", eventContent.trim()));
-                        System.out.println(newEvent);
-                    } else {
-                        System.out.println(String.format("Unable to add event entry: %s", eventContent.trim()));
-                    }
-                    System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
-                    break;
-
-                default:
-                    System.out.println("You have entered an invalid option! Please select again.");
-                    break;
-                }
-                printDivider();
-            } catch (TohruException e) {
-                System.out.println(e.getMessage());
-                printDivider();
-            } catch (NumberFormatException e) {
-                System.out.println(String.format("%s is not valid index for %s operation", argument, command));
-                printDivider();
-            } catch (DateTimeParseException e) {
-                System.out.println(String.format("Argument '%s' contains invalid datetime format", argument));
-                printDivider();
-            }
-        }
-
-        // Close the scanner
-        userInput.close();
+    /**
+     * Setup up the chatbot
+     *
+     * @param filePath The location to store the save file
+     */
+    public Tohru(String filePath) {
+        ui = new Ui();
+        store = new FileStore(filePath);
+        todoList = new TodoList(store.retrieveTodoList());
     }
 
     /**
-     * Helper function to print dividers
+     * Execute the main functionalities of the chatbot
      */
-    private static void printDivider() {
-        System.out.println("____________________________________________________________");
+    public void run() {
+        // Greetings
+        ui.showWelcome();
+
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String prompt = ui.readCommand();
+                ui.showDivider();
+                Command cmd = Parser.parse(prompt);
+                cmd.execute(todoList, ui, store);
+                isExit = cmd.isExit();
+            } catch (TohruException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showDivider();
+            }
+        }
     }
+
+    public static void main(String[] args) {
+        new Tohru("./data/todosData.txt").run();
+    }
+
 }
