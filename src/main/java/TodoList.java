@@ -7,15 +7,16 @@ public class TodoList {
 
     /** Array to hold the to-do items **/
     private final ArrayList<TodoItem> todoList;
-    /** FileStore to represent local storage **/
-    private final FileStore fileStore;
 
     /**
      * Constructor method that initialise the FileStore and attempt to load to-do from local storage
      */
     public TodoList() {
-        fileStore = new FileStore("./data/todosData.txt");
-        todoList = fileStore.retrieveTodoList();
+        this(new ArrayList<>());
+    }
+
+    public TodoList(ArrayList<TodoItem> todoList) {
+        this.todoList = todoList;
     }
 
     /**
@@ -23,23 +24,17 @@ public class TodoList {
      *
      * @param item The to-dp item to add to the to-do list.
      */
-    public boolean addItem(TodoItem item) {
+    public void addItem(TodoItem item) {
         todoList.add(item);
-        saveToStorage();
-        return true;
     }
 
     /**
-     * List out all the items in the to-do list
+     * Retrieve a cloned copy of the current to-do list
      *
-     * @return return an array of stings representing each entry in the to-do list
+     * @return a cloned copy of the current to-do list
      */
-    public String[] listItems() {
-        String[] items = new String[todoList.size()];
-        for (int i = 0; i < todoList.size(); i++) {
-            items[i] = String.format("%d. %s", i + 1, todoList.get(i).toString());
-        }
-        return items;
+    public ArrayList<TodoItem> getTodoList() {
+        return new ArrayList<>(todoList);
     }
 
     /**
@@ -53,45 +48,41 @@ public class TodoList {
 
     /**
      * Mark an item with the specified index as complete
+     *
      * @param index The index of the item
-     * @return Status of the operation
+     * @throws TohruException When the index is out of bound for the to-do list
      */
-    public boolean markComplete(int index) {
+    public void markComplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
-            return false;
+            throw new TohruException("The entry you are looking to mark cannot be found");
         }
         this.todoList.get(index).setCompleted(true);
-        saveToStorage();
-        return true;
     }
 
     /**
      * Mark an item with the specified index as incomplete
+     *
      * @param index The index of the item
-     * @return Status of the operation
+     * @throws TohruException When the index is out of bound for the to-do list
      */
-    public boolean markIncomplete(int index) {
+    public void markIncomplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
-            return false;
+            throw new TohruException("The entry you are looking to unmark cannot be found");
         }
         this.todoList.get(index).setCompleted(false);
-        saveToStorage();
-        return true;
     }
 
     /**
      * Delete the specified entry at the provided index
      *
      * @param index Index of the entry to be deleted
-     * @return Status of the deletion
+     * @throws TohruException When the index is out of bound for the to-do list
      */
-    public boolean deleteItem(int index) {
+    public void deleteItem(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
-            return false;
+            throw new TohruException("The entry you are looking to delete cannot be found");
         }
         this.todoList.remove(index);
-        saveToStorage();
-        return true;
     }
 
     /**
@@ -104,17 +95,6 @@ public class TodoList {
             return null;
         }
         return this.todoList.get(index).toString();
-    }
-
-    /**
-     * Save the current entries in the to-do list to local storage
-     */
-    private void saveToStorage() {
-        String[] items = new String[todoList.size()];
-        for (int i = 0; i < todoList.size(); i++) {
-            items[i] = todoList.get(i).getSaveString();
-        }
-        fileStore.saveTodoList(items);
     }
 
 }

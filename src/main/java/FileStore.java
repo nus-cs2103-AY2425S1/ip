@@ -159,11 +159,17 @@ public class FileStore {
     /**
      * Attempts to save the current todolist to local storage
      *
-     * @param stringsForSaving The string representation of the to-do entries in the save format
+     * @param todoList The to-do list to be saved
      * @return Status of the save operation
      */
-    public boolean saveTodoList(String[] stringsForSaving) {
-        String stringForWriting = String.join(System.lineSeparator(), stringsForSaving);
+    public boolean saveTodoList(ArrayList<TodoItem> todoList) {
+        String[] items = new String[todoList.size()];
+        for (int i = 0; i < todoList.size(); i++) {
+            items[i] = todoList.get(i).getSaveString();
+        }
+
+        String stringForWriting = String.join(System.lineSeparator(), items);
+
         try {
             // Check if parent folder exists, if not create.
             if (!savefile.getParentFile().exists()) {
