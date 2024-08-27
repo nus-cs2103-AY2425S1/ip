@@ -339,7 +339,7 @@ public class Slave {
         try {
             StringBuilder sb = new StringBuilder();
             for (Task t : list) {
-                sb.append(t);
+                sb.append(t); 
                 sb.append("\n");
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/data/savefile.txt"));
