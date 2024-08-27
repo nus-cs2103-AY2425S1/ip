@@ -48,12 +48,12 @@ public class Ui {
     /**
      * Shows the task added message to the user.
      *
-     * @param task Task that has been added.
+     * @param task      Task that has been added.
      * @param taskCount Number of tasks in the list.
      */
     public void showTaskAdded(String task, int taskCount) {
-        System.out.println("Got it. I've added this task:\n" + task + "\n" +
-                "Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + task + "\n"
+                           + "Now you have " + taskCount + " tasks in the list.");
     }
 
     /**
@@ -68,7 +68,7 @@ public class Ui {
     /**
      * Shows the mark/unmark task message to the user.
      *
-     * @param task Task that has been marked.
+     * @param task   Task that has been marked.
      * @param isDone Boolean value indicating if the task is done.
      */
     public void showMarkTask(String task, boolean isDone) {
@@ -78,7 +78,6 @@ public class Ui {
 
     /**
      * Shows the exit message to the user.
-     *
      */
     public void showExit() {
         System.out.println("See you around!");
@@ -87,12 +86,10 @@ public class Ui {
 
     /**
      * Shows the help message to the user.
-     *
      */
     public void showHelp() {
         System.out.println("""
-                All dates and times should be in the format: dd/MM/yyyy HHmm
-
+                All dates and times should be in the format: dd/MM/yyyy HHmm \n
                 Here are the commands you can use:
                 1. list - List all tasks
                 2. todo <description> - Add a to-do task

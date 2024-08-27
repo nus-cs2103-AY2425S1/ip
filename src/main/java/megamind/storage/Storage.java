@@ -1,7 +1,13 @@
 package megamind.storage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
 import megamind.task.Task;
 
 public class Storage {
@@ -14,7 +20,7 @@ public class Storage {
         // Create the directory if it doesn't exist
         File dataDir = new File("data");
         if (!dataDir.exists()) {
-            dataDir.mkdirs();  // Create the directory including any necessary parent directories
+            dataDir.mkdirs(); // Create the directory including any necessary parent directories
         }
 
         // Save the tasks to the file
@@ -37,14 +43,14 @@ public class Storage {
         // Create the directory if it doesn't exist
         File dataDir = new File("data");
         if (!dataDir.exists()) {
-            dataDir.mkdirs();  // Create the directory including any necessary parent directories
+            dataDir.mkdirs(); // Create the directory including any necessary parent directories
         }
 
         // Check if the file exists
         File taskFile = new File(dataDir, "tasks.ser");
         if (!taskFile.exists()) {
             System.out.println("No saved tasks found.");
-            return new ArrayList<>();  // Initialize an empty task list if the file doesn't exist
+            return new ArrayList<>(); // Initialize an empty task list if the file doesn't exist
         }
 
         // Load tasks from the file if it exists
@@ -53,7 +59,7 @@ public class Storage {
             return (ArrayList<Task>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return new ArrayList<>();  // Initialize an empty task list if loading fails
+            return new ArrayList<>(); // Initialize an empty task list if loading fails
         }
     }
 }

@@ -1,15 +1,15 @@
 package megamind.task;
 
-import java.time.format.DateTimeFormatter;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 public class Task implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
     protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter
             .ofLocalizedDateTime(java.time.format.FormatStyle.MEDIUM);
+    @Serial
+    private static final long serialVersionUID = 1L;
     private final String description;
     private boolean isDone;
 
