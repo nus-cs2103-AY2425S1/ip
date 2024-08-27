@@ -7,9 +7,12 @@ public class Fishman {
     /** The user interface object for handling input and output operations. */
     private final Ui ui;
     /** The task list object to store and manage tasks. */
-    private final TaskList tasks;
+    private TaskList tasks;
     /** The parser object to interpret user inputs. */
     private final Parser parser;
+
+    /** The storage object used to handle file operations. */
+    private final Storage storage;
 
     /**
      * Constructs a new instance of Fishman
@@ -19,6 +22,7 @@ public class Fishman {
         ui = new Ui();
         tasks = new TaskList();
         parser = new Parser();
+        storage = new Storage("./data/fishman.csv");
     }
 
     /**
@@ -32,6 +36,7 @@ public class Fishman {
         ui.displayLogo();
         ui.displayWelcome();
         boolean isExit = false;
+        tasks = storage.load();
 
         while (!isExit) {
             try {
@@ -45,6 +50,7 @@ public class Fishman {
                 ui.displayError("Uh oh, an unexpected error has occured: " + e.getMessage());
             }
         }
+        storage.save(tasks);
     }
 
     /**
