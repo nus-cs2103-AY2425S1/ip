@@ -29,8 +29,6 @@ public class GPT {
                 ui.showError("An unexpected error occurred: " + e.getMessage());
             }
         }
-
-        ui.showGoodbyeMessage();
     }
 
     public static void main(String[] args) {
