@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.time.LocalDateTime;
 
 /**
 * This class provides functionality to keep track of tasks.
@@ -7,14 +6,33 @@ import java.time.LocalDateTime;
 */
 public class TaskList {
 
+    /** Track how many tasks are in the list */
+    private int length;
     /** List to store tasks */
-    private ArrayList<Task> toDo;
+    private ArrayList<Task> toDoList;
 
     /**
      * Constructor to create a TaskList object.
      */
     TaskList () {
-        this.toDo = new ArrayList<Task>();
+        this.toDoList = new ArrayList<Task>();
+        length = 0;
+    }
+
+    /**
+     * Retrieves the list of tasks stored by Quack.
+     * @return A list of tasks.
+     */
+    public ArrayList<Task> getToDoList() {
+        return this.toDoList;
+    }
+
+    /**
+     * Retrieves the list of tasks stored by Quack.
+     * @return A list of tasks.
+     */
+    public int getLength() {
+        return this.length;
     }
 
     /**
@@ -28,91 +46,44 @@ public class TaskList {
      * 
      * @param idx Index of the task inside the task list.
      * @param command To state weather to mark or unmark the task.
-     * @throws InvalidIndexException If the index is < 0 or if it is >= the size of the task list.
+     * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
-    public void updateTask(int idx, String command) throws InvalidIndexException{
+    public Task updateTask(int idx, String command) throws IndexOutOfBoundsException, FailedUpdateException{
+
+        // Minus 1 because of 0 indexing
+        idx = idx - 1;
 
         // Check if the index if out of bounds
-        if (idx < 0 || idx >= toDo.size()) {
-            throw new InvalidIndexException(idx);
+        if (idx < 0 || idx >= toDoList.size()) {
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + idx + " entered is out of bounds!");
         }
+
+        Task task = toDoList.get(idx);
 
         // Run the correct function base on the command given by the user
         if (command.equals("mark")) {
-            this.toDo.get(idx).mark();
-        } else {
-            this.toDo.get(idx).unmark();
-        }
-    }
-    
-    /**
-     * Creates a task object and adds it into the list.
-     * <p>
-     * Based on the task type, it will create the corrosponding task object.
-     * 
-     * @param taskName Description of the task.
-     * @param taskType The type of the task.
-     * @param startDate The start date of the task.
-     * @param endDate The end date of the task.
-     * @throws InvalidIndexException If the date is in the past or start date >= end date.
-     */
-    public void addTask(String taskName, String taskType, LocalDateTime startDate, LocalDateTime endDate) throws InvalidDateTimeException{
-
-        // Create a new task object based on he task type
-        Task newTask;
-        if (taskType.equals("TODO")) {
-            newTask = new ToDoTask(taskName);
-        } else if (taskType.equals("DEADLINE")) {
-            if (endDate.isBefore(LocalDateTime.now())){
-                throw new InvalidDateTimeException("Oops I cannot add the task because the due date is in the past!");
+            boolean result = task.mark();
+            if (!result) {
+                throw new FailedUpdateException(task, command);
             }
-            newTask = new DeadlineTask(taskName, endDate);
         } else {
-            if (startDate.isAfter(endDate)) {
-                throw new InvalidDateTimeException("Oops I cannot add the task because the end date entered comes before the start date!");
-            } else if (endDate.isBefore(LocalDateTime.now()) || startDate.isBefore(LocalDateTime.now())){
-                throw new InvalidDateTimeException("Oops I cannot add the task because the start/end date is in the past!");
+            boolean result = task.unmark();
+            if (!result) {
+                throw new FailedUpdateException(task, command);
             }
-            newTask = new EventTask(taskName, startDate, endDate);
         }
 
-        // Add the new task into the list
-        this.toDo.add(newTask);
-
-        // Print a comfirmation message for the user
-        System.out.println("Alright I have added this task into the list: \n" + newTask.toString()
-                        + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
+        return task;
+        
     }
 
     /**
-     * Creates a task object and adds it into the list.
-     * <p>
-     * This function creates tasks based on what is saved inside the csv save file.
-     * 
-     * @param taskName Description of the task.
-     * @param taskType The type of the task.
-     * @param startDate The start date of the task.
-     * @param endDate The end date of the task.
-     * @param isMarked Indicate weather the task is marked or not.
+     * Adds the task into the list.
+     * @param task Task to be added into the list
      */
-    public void addTask(String taskName, String taskType, LocalDateTime startDate, LocalDateTime endDate, boolean isMarked){
-
-        // Create a new task object based on he task type
-        Task newTask;
-        if (taskType.equals("TODO")) {
-            newTask = new ToDoTask(taskName);
-        } else if (taskType.equals("DEADLINE")) {
-            newTask = new DeadlineTask(taskName, endDate);
-        } else {
-            newTask = new EventTask(taskName, startDate, endDate);
-        }
-
-        if (isMarked) {
-            newTask.mark();
-        }
-
-        // Add the new task into the list
-        this.toDo.add(newTask);
+    public void addTask(Task task) {
+        this.toDoList.add(task);
+        length = this.toDoList.size();
     }
 
     /**
@@ -121,52 +92,36 @@ public class TaskList {
      * If the index input is out of bounds it will throw a invalid index exception.
      * 
      * @param idx Index of the task inside the task list.
-     * @throws InvalidIndexException If the index is < 0 or if it is >= the size of the task list.
+     * @return The task that has been removed from the list
+     * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
-    public void deleteTask(int idx) throws InvalidIndexException{
+    public Task deleteTask(int idx) throws IndexOutOfBoundsException{
 
+        // Minus 1 because of 0 indexing
+        idx = idx - 1;
         // Check if the index if out of bounds
-        if (idx < 0 || idx >= toDo.size()) {
-            throw new InvalidIndexException(idx);
+        if (idx < 0 || idx >= toDoList.size()) {
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + idx + " entered is out of bounds!");
         }
 
         // Remove the task from the list
-        Task removedTask = this.toDo.remove(idx);
+        Task removedTask = this.toDoList.remove(idx);
+        length = this.toDoList.size();
 
-        // Print a fomrifmation message for the user
-        System.out.println("Alright I have removed this task into the list: \n" + removedTask.toString()
-                        + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
+        return removedTask;
     }
-
-    /**
-     * Converts tasks to a csv format for saving.
-     * 
-     * @returns An array of tasks in their csv format.
-     */
-    public ArrayList<String> convertTasksToCSVFormat () {
-
-        ArrayList<String> savedData = new ArrayList<String>();
-
-        for (Task t : this.toDo) {
-            String taskInCSVFormat = t.toCSVFormat();
-            savedData.add(taskInCSVFormat);
-        }
-
-        return savedData;
-    }
-
 
     @Override
     public String toString() {
-        if (this.toDo.size() == 0) {
+        if (this.toDoList.size() == 0) {
             return "The list is empty, why not add something!";
         } else {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < this.toDo.size(); i++) {
+            for (int i = 0; i < this.toDoList.size(); i++) {
                 if (i == 0) {
-                    sb.append((i + 1) + ". " + this.toDo.get(i).toString());
+                    sb.append((i + 1) + ". " + this.toDoList.get(i).toString());
                 } else {
-                    sb.append("\n" + (i + 1) + ". " + this.toDo.get(i).toString());
+                    sb.append("\n" + (i + 1) + ". " + this.toDoList.get(i).toString());
                 }
             }
             return sb.toString();

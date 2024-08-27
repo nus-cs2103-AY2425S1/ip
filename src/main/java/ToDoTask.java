@@ -5,7 +5,7 @@ public class ToDoTask extends Task{
     
     /**
      * Creates a ToDo task object based on its description.
-     * @param taskName Description of the task
+     * @param taskName Description of the task.
      */
     ToDoTask (String taskName) {
         super(taskName);
@@ -13,7 +13,7 @@ public class ToDoTask extends Task{
 
     @Override
     public String toCSVFormat() {
-        return "TODO," + super.toCSVFormat();
+        return "TODO," + super.toCSVFormat() + "," + this.isChecked;
     }
 
     @Override
