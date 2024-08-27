@@ -67,19 +67,14 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        Janet janet;
+        Ui ui = new Ui();
 
         // storage checks if the current directory has a janet.txt file
         Storage storage = new Storage("./janet.txt");
 
-        if (Files.exists(Paths.get("./janet.txt"))) {
-            // if current directory already has a janet.txt file, storage will load this into the arraylist listOfTasks
-            janet = new Janet(storage.textFileToArrayList());
-        } else {
-            janet = new Janet();
-        }
+        TaskList taskList = new TaskList(storage.textFileToArrayList());
 
-        System.out.println(janet.greet());
+        ui.showWelcome();
 
         Scanner input = new Scanner(System.in);
 
@@ -87,19 +82,19 @@ public class Main {
             String command = input.nextLine();
             if (command.equals("bye")) {
                 // say bye and exit the program
-                String exitMessage = janet.exit();
-                System.out.println(exitMessage);
+                ui.exitMessage();
                 break;
             } else if (command.equals("list")) {
                 // show all the tasks inside the list of task
-                String currentListOfTasks = janet.showList();
-                System.out.println(currentListOfTasks);
+//                String currentListOfTasks = janet.showList();
+//                System.out.println(currentListOfTasks);
+                ui.showTasks(taskList);
             } else {
                 String[] commandDetails = command.split(" ");   // an array containing each word of the command
                 // handle exceptions
                 try {
                     // validateCommand and checkInaccurateCommand will throw out a JanetException
-                    validateCommand(commandDetails, janet.getTaskIndex());
+                    validateCommand(commandDetails, taskList.getNumberOfTasks());
                     checkInaccurateCommand(commandDetails);
                 } catch (JanetException e) {
                     // print the error message and allow the program to continue (don't exit the program)
@@ -110,44 +105,56 @@ public class Main {
                 switch (commandType) {
                     case MARK -> {
                         // mark the task as done
-                        String markSuccess = janet.markAsDone(Integer.parseInt(commandDetails[1]));
-                        System.out.println(markSuccess);
+//                        String markSuccess = janet.markAsDone(Integer.parseInt(commandDetails[1]));
+//                        System.out.println(markSuccess);
+                        String result = taskList.markAsDone(Integer.parseInt(commandDetails[1]));
+                        ui.showMarkedMessage(result, taskList.getTask(Integer.parseInt(commandDetails[1]) - 1));
                                   }
                     case UNMARK -> {
                         // unmark the task
-                        String unmarkSuccess = janet.unmark(Integer.parseInt(commandDetails[1]));
-                        System.out.println(unmarkSuccess);
+//                        String unmarkSuccess = janet.unmark(Integer.parseInt(commandDetails[1]));
+//                        System.out.println(unmarkSuccess);
+                        String result = taskList.unmark(Integer.parseInt(commandDetails[1]));
+                        ui.showUnmarkedMessage(result, taskList.getTask(Integer.parseInt(commandDetails[1]) - 1));
                     }
                     case DELETE -> {
                         // delete specified task
-                        String deleteSuccess = janet.deleteTask(Integer.parseInt(commandDetails[1]));
-                        System.out.println(deleteSuccess);
+//                        String deleteSuccess = janet.deleteTask(Integer.parseInt(commandDetails[1]));
+//                        System.out.println(deleteSuccess);
+                        ui.showDeleteTaskMessage(taskList.getTask(Integer.parseInt(commandDetails[1]) - 1), taskList.getNumberOfTasks() - 1);
+                        taskList.deleteTask(Integer.parseInt(commandDetails[1]));
                     }
                     case TODO -> {
                         // get the todo description and create a new Todo object
                         String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
                         String todoDescription = String.join(" ", todoItem);
                         Task todo = new ToDo(todoDescription, "T");
-                        String addTaskSuccess = janet.addTaskToList(todo);
-                        System.out.println(addTaskSuccess);
+//                        String addTaskSuccess = janet.addTaskToList(todo);
+//                        System.out.println(addTaskSuccess);
+                        taskList.addTaskToList(todo);
+                        ui.showSuccessfulTaskAddition(todo, taskList.getNumberOfTasks());
                     }
                     case DEADLINE -> {
                         // get the details of the deadline task and create a new Deadline object
                         Task deadline = Parser.createDeadlineCommand(command);
-                        String addTaskSuccess = janet.addTaskToList(deadline);
-                        System.out.println(addTaskSuccess);
+//                        String addTaskSuccess = janet.addTaskToList(deadline);
+//                        System.out.println(addTaskSuccess);
+                        taskList.addTaskToList(deadline);
+                        ui.showSuccessfulTaskAddition(deadline, taskList.getNumberOfTasks());
                     }
                     case EVENT -> {
                         // get the details of the event task and create a new Event object
                         Task event = Parser.createEventCommand(command);
-                        String addTaskSuccess = janet.addTaskToList(event);
-                        System.out.println(addTaskSuccess);
+//                        String addTaskSuccess = janet.addTaskToList(event);
+//                        System.out.println(addTaskSuccess);
+                        taskList.addTaskToList(event);
+                        ui.showSuccessfulTaskAddition(event, taskList.getNumberOfTasks());
                     }
                 }
             }
         }
 
         // once the program exits (user types in 'bye'), save the elements in janet.listOfTasks to the text file
-        storage.saveToJanetTextFile(janet.getListOfTasks());
+        storage.saveToJanetTextFile(taskList.getListOfTasks());
     }
 }
