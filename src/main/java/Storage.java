@@ -1,9 +1,15 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Storage {
     private final String filePath;
+    private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");
+    private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -42,16 +48,22 @@ public class Storage {
                     System.out.print("File corrupted");
                     return null;
                 }
-                String deadline = parts[3];
-                return new DeadlineTask(description, isDone, deadline);
+                String deadlineStr = parts[3];
+                // Parse the string in the current inputFormat
+                LocalDateTime deadline = LocalDateTime.parse(deadlineStr, inputFormat);
+                // Convert the string into the desired format for me to create a new Task.
+                return new DeadlineTask(description, isDone, deadline.format(outputFormat));
             case "E":
                 if (parts.length < 5) {
                     System.out.print("File corrupted");
                     return null;
                 }
-                String start = parts[3];
-                String end = parts[4];
-                return new EventTask(description, isDone, start, end);
+                String startStr = parts[3];
+                String endStr = parts[4];
+                // Parse the string in the current inputFormat
+                LocalDateTime start = LocalDateTime.parse(startStr, inputFormat);
+                LocalDateTime end = LocalDateTime.parse(endStr, inputFormat);
+                return new EventTask(description, isDone, start.format(outputFormat).trim(), end.format(outputFormat).trim());
             default:
                 return null;
         }
