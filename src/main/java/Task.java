@@ -7,6 +7,15 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, String done) {
+        this.description = description;
+        if (done.equals("1")) {
+            this.isDone = true;
+        } else {
+            this.isDone = false;
+        }
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
@@ -17,8 +26,13 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return this.description;
+        return "[" + this.getType() + "]" + this.getStatusIcon() + " " + this.description;
     }
 
     public abstract String getType();
+
+    public String getData() {
+        int isDoneData = this.isDone ? 1 : 0;
+        return this.getType() + "," + isDoneData + "," + this.description;
+    }
 }

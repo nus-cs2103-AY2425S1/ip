@@ -1,5 +1,5 @@
 public class Todo extends Task {
-    private String type = "[T]";
+    private String type = "T";
 
     private static String modifyDescription(String des) throws TaskException {
         if (des.length() == 0) {
@@ -10,6 +10,10 @@ public class Todo extends Task {
 
     public Todo(String description) throws TaskException {
         super(modifyDescription(description));
+    }
+
+    public Todo(String description, String done) {
+        super(description, done);
     }
 
     @Override
