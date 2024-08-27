@@ -1,3 +1,5 @@
+package exception;
+
 public class GuyException extends Exception{
     public GuyException(String e) {
         super(e);
