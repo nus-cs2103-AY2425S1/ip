@@ -4,6 +4,9 @@ import task.KorolevList;
 
 import java.util.Scanner;
 
+/**
+ * Represents the mechanism that interacts with users
+ */
 public class KorolevUI {
     private final Scanner scanner = new Scanner(System.in);
     private final String newLogo = """

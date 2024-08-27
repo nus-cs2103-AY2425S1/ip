@@ -3,6 +3,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+
+/**
+ * Represents a task of event type
+ */
 public class KorolevEvent extends KorolevTask {
     private String duration;
     private String tag;

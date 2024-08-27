@@ -2,6 +2,9 @@ package task;
 
 import task.KorolevTask;
 
+/**
+ * Represents a task of Todo type
+ */
 public class KorolevTodo extends KorolevTask {
     private String tag;
 

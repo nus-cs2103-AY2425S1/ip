@@ -3,6 +3,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Represents a task of deadline type
+ */
 public class KorolevDeadline extends KorolevTask {
     private LocalDateTime deadline;
 

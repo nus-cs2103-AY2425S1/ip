@@ -9,6 +9,9 @@ import parser.DateParser;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of KorolevTask
+ */
 public class KorolevList {
     private static String outOfIndexError = "The index is out of bound!";
     private static String listNotice = "Here are the tasks in your list:\n";

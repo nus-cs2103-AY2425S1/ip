@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 import parser.EventParser;
 
+/**
+ * Represents a manager of interaction between the application and local storage
+ */
 public class KorolevStorage {
     private static final String home = System.getProperty("user.dir");
 
