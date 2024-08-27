@@ -1,3 +1,7 @@
+package Utilities;
+
+import Tasks.Task;
+
 public class UI {
     // Handles System Interactions
     public static void updateUserOnAddition(String name, int size) {

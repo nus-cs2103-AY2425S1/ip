@@ -1,4 +1,11 @@
+package Peter;
+
 import java.util.Scanner;
+
+import Utilities.CommandParser;
+import Utilities.Storage;
+import Utilities.TaskList;
+import Utilities.UI;
 
 public class Peter {
     public static final String FILE_PATH = "tasks/data.txt";

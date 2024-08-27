@@ -1,5 +1,7 @@
+package Tasks;
+
 public class ToDos extends Task {
-    ToDos(String name) {
+    public ToDos(String name) {
         super(name);
     }
 

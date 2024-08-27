@@ -1,4 +1,16 @@
+package Utilities;
+
 import java.time.format.DateTimeParseException;
+
+import Exceptions.BadDescriptionException;
+import Exceptions.DateTimeException;
+import Exceptions.UnknownCommandException;
+
+import Tasks.Task;
+import Tasks.Deadlines;
+import Tasks.Event;
+import Tasks.TaskTypes;
+import Tasks.ToDos;
 
 public class CommandParser {
     public static boolean parseCommand(String input, TaskList tl, Storage s) {
@@ -29,7 +41,7 @@ public class CommandParser {
                         throw new BadDescriptionException(TaskTypes.TODO);
                     }
                     Task t = new ToDos(name);
-                    tl.addToTaskList(t);
+                    tl.addToTaskList(t, name);
                     s.updateFileTasks(String.format("T, %d, %s", 0, name));
                 } else if (input.startsWith("deadline")) {
                     String[] splits = input.split("/");
@@ -41,7 +53,7 @@ public class CommandParser {
                     String details = splits[1].replace("by", "");
                     try {
                         Task t = new Deadlines(name, details.strip());
-                        tl.addToTaskList(t);
+                        tl.addToTaskList(t, name);
                         s.updateFileTasks(String.format("D, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
@@ -57,7 +69,7 @@ public class CommandParser {
                     String endDetails = splits[2].replace("to", "");
                     try {
                         Task t = new Event(name, startDetails.strip(), endDetails.strip());
-                        tl.addToTaskList(t);
+                        tl.addToTaskList(t, name);
                         s.updateFileTasks(String.format("E, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);

@@ -1,4 +1,8 @@
+package Utilities;
+
 import java.util.ArrayList;
+
+import Tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -7,9 +11,9 @@ public class TaskList {
         this.taskList = s.loadTaskListFromFile();
     }
 
-    public void addToTaskList(Task t) {
+    public void addToTaskList(Task t, String name) {
         this.taskList.add(t);
-        UI.updateUserOnAddition(t.name, this.taskList.size());
+        UI.updateUserOnAddition(name, this.taskList.size());
     }
 
     public void removeFromTaskList(int index) {
