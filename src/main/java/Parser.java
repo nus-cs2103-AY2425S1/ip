@@ -29,6 +29,8 @@ public class Parser {
             return new UnmarkCommand(arguments);
         case DeleteCommand.COMMAND_PREFIX:
             return new DeleteCommand(arguments);
+        case AddTodoCommand.COMMAND_PREFIX:
+            return new AddTodoCommand(arguments);
         }
 
         return null;

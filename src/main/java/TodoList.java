@@ -24,9 +24,8 @@ public class TodoList {
      *
      * @param item The to-dp item to add to the to-do list.
      */
-    public boolean addItem(TodoItem item) {
+    public void addItem(TodoItem item) {
         todoList.add(item);
-        return true;
     }
 
     /**
