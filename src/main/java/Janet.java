@@ -147,10 +147,11 @@ public class Janet {
      */
     public String deleteTask(int desiredTaskNum) {
         taskIndex--;
+        Task deletedTask = this.tasks.getTask(desiredTaskNum - 1);
         String result = this.tasks.deleteTask(desiredTaskNum);
         return horizontalLine + "\nNoted. I've removed this task:\n" +
                 String.format("    %s\nNow you have %d tasks in your list\n",
-                        this.tasks.getTask(desiredTaskNum - 1), taskIndex) + horizontalLine;
+                        deletedTask, taskIndex) + horizontalLine;
     }
 
 
