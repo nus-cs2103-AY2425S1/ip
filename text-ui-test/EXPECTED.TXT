@@ -1,5 +1,4 @@
-  Hello! I'm PacMan
-  How can I help you?
+  Hello! I'm PacMan. How can I help you?
   Got it. I've added this task:
     [T][ ] CS2103T iP
   Now you have 1 tasks in the list.
@@ -9,15 +8,15 @@
   Got it. I've added this task:
     [E][ ] CS2103T briefing (from: 23 August 2024 16:00 to: 23 August 2024 18:00)
   Now you have 3 tasks in the list.
-  Nice! I've marked this task done
+  Got it. I've marked this task done:
     [D][X] CS2103T iP (by: 23 August 2024 16:00)
-  Nice! I've marked this task done
+  Got it. I've marked this task done:
     [E][X] CS2103T briefing (from: 23 August 2024 16:00 to: 23 August 2024 18:00)
   Here are the tasks in your list:
   1.[T][ ] CS2103T iP
   2.[D][X] CS2103T iP (by: 23 August 2024 16:00)
   3.[E][X] CS2103T briefing (from: 23 August 2024 16:00 to: 23 August 2024 18:00)
-  Ok! I've marked this task as not done yet
+  Got it. I've marked this task as not done yet:
     [E][ ] CS2103T briefing (from: 23 August 2024 16:00 to: 23 August 2024 18:00)
   Here are the tasks in your list:
   1.[T][ ] CS2103T iP
