@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import java.io.IOException;
 
@@ -62,8 +65,68 @@ public class Storage {
      * Reads a list of tasks from a text file at the filePath given during object creation.
      * @return ArrayList<Task> List of tasks stored in the text file.
      */
-    public ArrayList<Task> readTasksFromFile() {
+    public ArrayList<Task> readTasksFromFile() throws FileNotFoundException, TaskWithoutTypeException {
         ArrayList<Task> taskList = new ArrayList<Task>();
+
+        File f = new File(this.filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String taskString = s.nextLine();
+            Task.TASK_TYPE taskType;
+            switch (taskString.split("/ | ")[0]) {
+            case "T":
+                taskType = Task.TASK_TYPE.TODO;
+                break;
+            case "D":
+                taskType = Task.TASK_TYPE.DEADLINE;
+                break;
+            case "E":
+                taskType = Task.TASK_TYPE.EVENT;
+                break;
+            default:
+                throw new TaskWithoutTypeException();
+            }
+
+            boolean taskIsDone = taskString.split("/ | ")[1].equals("1");
+
+            String taskName = taskString.split("/ | ")[2];
+
+            switch (taskType) {
+            case TODO:
+                ToDo toDoTask = new ToDo(taskName);
+                if (taskIsDone) {
+                    toDoTask.mark();
+                } else {
+                    toDoTask.unmark();
+                }
+                taskList.add(toDoTask);
+                break;
+            case DEADLINE:
+                String by = taskString.split("/ | ")[3];
+                Deadline deadlineTask = new Deadline(taskName, by);
+                if (taskIsDone) {
+                    deadlineTask.mark();
+                } else {
+                    deadlineTask.unmark();
+                }
+                taskList.add(deadlineTask);
+                break;
+            case EVENT:
+                String dates = taskString.split("/ | ")[3];
+                String from = dates.split("-")[0];
+                String to = dates.split("-")[1];
+                Event eventTask = new Event(taskName, from, to);
+                if (taskIsDone) {
+                    eventTask.mark();
+                } else {
+                    eventTask.unmark();
+                }
+                taskList.add(eventTask);
+                break;
+            default:
+                throw new TaskWithoutTypeException();
+            }
+        }
 
         return taskList;
     }
