@@ -1,18 +1,26 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Echo {
     private String word;
     private List<Task> list;
+    private final Storage storage;
 
     public Echo() {
-        this.list = new ArrayList<>();
+        this.storage = new Storage("data/chatHistory.txt");
+
+        try {
+            this.list = storage.load();
+        } catch (IOException e) {
+            this.list = new ArrayList<>();
+        }
     }
 
     public void setWord(String word) {
         this.word = word;
     }
-    //update the todo, deadline and event
+
     public void echoOut() {
 
             String description = word;
@@ -80,7 +88,7 @@ public class Echo {
 
             case "todo":
                 try {
-                    Task toDoTask = new ToDoTask(parts[1]);
+                    Task toDoTask = new ToDoTask(parts[1], false);
                     list.add(toDoTask);
                     System.out.print("Got it. I've added this task: \n" + toDoTask.getDescription() +
                             "\n" + line() +
@@ -95,7 +103,7 @@ public class Echo {
                     int byIndex = parts[1].indexOf("/by");
                     String desc = parts[1].substring(0, byIndex);
                     String deadline = parts[1].substring(byIndex + 3);
-                    Task deadlineTask = new DeadlineTask(desc, deadline);
+                    Task deadlineTask = new DeadlineTask(desc, false, deadline);
                     list.add(deadlineTask);
                     System.out.print("Got it. I've added this task: \n" + deadlineTask.getDescription() +
                                     "\n" + line() + String.format("Now you have %d tasks in the list\n", list.size()));
@@ -103,7 +111,6 @@ public class Echo {
                     System.out.println("Incorrect format of adding deadline tasks. " +
                             "Use '/by to specify the deadline after the task description");
                 }
-
 
                 break;
             case "event":
@@ -117,7 +124,7 @@ public class Echo {
                 String details = parts[1].substring(0, fromIndex);
                 String start = parts[1].substring(fromIndex + 5, toIndex);
                 String end = parts[1].substring(toIndex + 3);
-                Task eventTask = new EventTask(details, start, end);
+                Task eventTask = new EventTask(details, false, start, end);
                 list.add(eventTask);
                 System.out.print("Got it. I've added this task: \n" + eventTask.getDescription() +
                             "\n" + line() + String.format("Now you have %d tasks in the list\n", list.size()));
@@ -137,9 +144,14 @@ public class Echo {
 
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!\n" + line());
+                try {
+                    storage.saveTasksToFile(this.list);
+                } catch (IOException e) {
+                    System.out.print("Unable to save chat data to local disk, %s");
+                }
                 break;
             default:
-                System.out.println("Oh no! You have input an unknown command!" + line());
+                System.out.println("Oh no! You have input an unknown command!\n" + line());
                 break;
         }
     }

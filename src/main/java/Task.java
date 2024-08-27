@@ -2,13 +2,13 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
+        return (isDone ? "1" : "0");
     }
 
     public void markAsDone() {
@@ -20,10 +20,10 @@ public class Task {
     }
 
     public String getDescription() {
-        return this.getStatusIcon() + " " + this.description;
+        return this.getStatusIcon() + " | " + this.description;
     }
 
     public String getTaskType() {
-        return "[ ]";
+        return "";
     }
 }
