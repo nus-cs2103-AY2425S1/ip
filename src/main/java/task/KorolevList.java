@@ -18,6 +18,8 @@ public class KorolevList {
     private static String markNotice = "Nice! I've marked this task as done:";
     private static String unmarkNotice = "OK, I've marked this task as not done yet:";
     private static String deleteNotice = "Noted. I've removed this task:";
+
+    private static String filteredNotice = "Here are the matching tasks in your list:";
     private ArrayList<KorolevTask> events;
 
     private static final KorolevStorage storage = new KorolevStorage();
@@ -173,5 +175,25 @@ public class KorolevList {
      */
     public void loadEvent() {
         storage.readLines(this.events);
+    }
+
+    public ArrayList<KorolevTask> findItem(String keyword) {
+        ArrayList<KorolevTask> out = new ArrayList<>();
+        for (KorolevTask e : this.events) {
+            if (e.match(keyword)) {
+                out.add(e);
+            }
+        }
+
+        return out;
+    }
+
+    public static void displayFilteredList(ArrayList<KorolevTask> tasks) {
+        System.out.println(filteredNotice);
+        StringBuilder msg = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            msg.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        System.out.println(msg.toString());
     }
 }

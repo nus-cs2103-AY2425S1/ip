@@ -28,6 +28,15 @@ public class KorolevTask {
     }
 
     /**
+     *
+     * @param keyword keys input by users
+     * @return tests whether the description contains certain keywords
+     */
+    public boolean match(String keyword) {
+        return this.name.contains(keyword);
+    }
+
+    /**
      * Overrides toString method in KorolevTask.
      *
      * @return string representation of Object
