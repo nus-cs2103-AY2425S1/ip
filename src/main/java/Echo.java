@@ -1,270 +1,189 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 public class Echo {
-    private static final String LINE_BREAK = "-------------------------------------";
 
-    /** List of valid commands for Echo */
-    private final List<String> validCommands = Arrays.asList(
-            "list",
-            "mark",
-            "unmark",
-            "todo",
-            "deadline",
-            "event",
-            "bye",
-            "delete"
-    );
+    private Storage storage;
+    private Ui ui;
+    private TaskList taskList;
+
+    private Parser parser;
 
     /**
-     * Prints a greeting when users first run the program
-     */
-    public void greet() {
-        System.out.println(LINE_BREAK + "\nHello: I'm Echo\nWhat can I do for you?\n" + LINE_BREAK);
-    }
-
-    /**
-     * Prints a goodbye message when users end the program
-     */
-    public void bye() {
-        System.out.println(LINE_BREAK + "\nBye. Hope to see you again soon!\n" + LINE_BREAK);
-    }
-
-    /**
-     * Returns the index provided by user in the description as an integer
+     * Constructor to create Echo Object
      *
-     * @param taskDescription index given by user as a string
-     * @return the index as an integer
-     * @throws EchoException if taskDescription is empty
+     * @param filePath String that contains the file path to store or load the list of task
      */
-    public int getIndexFromInput(String taskDescription) throws EchoException{
-        if (taskDescription.isEmpty()) {
-            throw new EchoException(LINE_BREAK + "\nSorry! Please include a " +
-                    "description of what to do.\n" + LINE_BREAK);
-        }
-        return Integer.parseInt(taskDescription) - 1;
+    public Echo(String filePath) {
+        this.ui = new Ui();
+        this.taskList = new TaskList();
+        this.parser = new Parser();
+        this.storage = new Storage(filePath);
     }
 
     /**
-     * Creates a ToDos object with the given task description
+     * Handles the command when user types in "list"
+     * Prints out the list of tasks in taskList
+     */
+    public void handleListCommand() {
+        this.ui.listAllTask(this.taskList);
+    }
+
+    /**
+     * Handles the command when user types in "mark"
+     * Prints out a display message after marking a task
+     *
+     * @param index the index of the task that is required to be marked in String
+     */
+    public void handleMarkCommand(String index) {
+        Task task = taskList.markAndGetTask(index);
+        ui.printMarkMessage(task);
+    }
+
+    /**
+     * Handles the command when user types in "unmark"
+     * Prints out a display message after unmarking a task
+     *
+     * @param index the index of the task that is required to be unmarked in String
+     */
+    public void handleUnmarkCommand(String index) {
+        Task task = taskList.unmarkAndGetTask(index);
+        ui.printUnmarkMessage(task);
+    }
+
+    /**
+     * Handles the command when users types in "todo".
+     * Creates a ToDos object and is added to the taskList
+     * Prints out a display message after adding the ToDos object
      *
      * @param taskDescription description of the ToDos task
-     * @return ToDos object
-     * @throws EchoException if taskDescription is empty
      */
-    public ToDos createTodoTask(String taskDescription) throws EchoException{
-        if (taskDescription.isEmpty()) {
-            throw new EchoException(LINE_BREAK + "\nSorry! Please include a " +
-                    "description of what to do.\n" + LINE_BREAK);
-        }
-        return new ToDos(taskDescription);
+    public void handleToDoCommand(String taskDescription) {
+        String description = parser.parseToDos(taskDescription);
+        ToDos toDoTask = new ToDos(description);
+        taskList.addTask(toDoTask);
+        ui.printAddTaskMessage(toDoTask, taskList);
     }
 
     /**
-     * Creates a Deadlines object with the given task description
+     * Handles the command when users types in "deadline".
+     * Creates a Deadline object and is added to the taskList
+     * Prints out a display message after adding the Deadline object
      *
-     * @param taskDescription description of the Deadlines task and the deadline date
-     * @return Deadlines object
-     * @throws EchoException if deadline date is not provided by the user and taskDescription is empty
+     * @param taskDescription description and deadline of the Deadline task
      */
-    public Deadlines createDeadlineTask(String taskDescription) throws EchoException {
-        if (taskDescription.isEmpty()) {
-            throw new EchoException(LINE_BREAK + "\nSorry! Please include a " +
-                    "description of what to do.\n" + LINE_BREAK);
-        }
-
-        String[] deadlineArray = taskDescription.split(" /by ");
-        if (deadlineArray.length == 1) {
-            throw new EchoException(LINE_BREAK + "\nSorry! Please include a " +
-                    "deadline for the task.\n" + LINE_BREAK);
-        }
-
+    public void handleDeadlineCommand(String taskDescription)  {
+        String[] deadlineArray = parser.parseDeadlines(taskDescription);
         String deadlineDescription = deadlineArray[0];
         String deadlineDate = deadlineArray[1];
-        return new Deadlines(deadlineDescription, deadlineDate);
+        Deadlines deadlineTask =  new Deadlines(deadlineDescription, deadlineDate);
+        taskList.addTask(deadlineTask);
+        ui.printAddTaskMessage(deadlineTask, taskList);
     }
 
     /**
-     * Creates an Events object with the given task description
+     * Handles the command when users types in "event".
+     * Creates an Event object and is added to the taskList
+     * Prints out a display message after adding the Event object
      *
-     * @param taskDescription description of the Events task, start time and end time
-     * @return an Events object
-     * @throws EchoException if the start time or the end time is not provided by the user and
-     * taskDescription is empty
+     * @param taskDescription description, start time and end time of the Event task
      */
-    public Events createEventTask(String taskDescription) throws EchoException {
-        if (taskDescription.isEmpty()) {
-            throw new EchoException(LINE_BREAK + "\nSorry! Please include a " +
-                    "description of what to do.\n" + LINE_BREAK);
-        }
-
-        String[] eventArray = taskDescription.split(" /from | /to ");
-        if (eventArray.length < 3) {
-            throw new EchoException(LINE_BREAK + "\nSorry! Please include a start and " +
-                    "end time for the event.\n" + LINE_BREAK);
-        }
+    public void handleEventCommand(String taskDescription) {
+        String[] eventArray = parser.parseEvents(taskDescription);
         String eventDescription = eventArray[0];
         String eventStartTime = eventArray[1];
         String eventEndTime = eventArray[2];
-        return new Events(eventDescription, eventStartTime, eventEndTime);
+        Events eventTask = new Events(eventDescription, eventStartTime, eventEndTime);
+        taskList.addTask(eventTask);
+        ui.printAddTaskMessage(eventTask, taskList);
     }
 
     /**
-     * Prints the relevant display message after users enter an input and
-     * executes the commands in the input
+     * Handles the command when user types in "delete"
+     * Remove the task at that index provided from taskList
+     * Prints out a display message after deleting the task
      *
-     * @param input command and description entered by users
-     * @param taskList the arrayList to store all the Task object created when user uses the program
-     * @throws EchoException if the command in the input is not valid,
-     * if there are insufficient details to create a Task object or perform the command
+     * @param index the index of the task that is required to be deleted in String
      */
-    public void checkInput(String input, TaskList taskList) throws EchoException {
+    public void handleDeleteCommand(String index) {
+        Task deletedTask = taskList.getTaskAndDelete(index);
+        ui.printDeleteMessage(deletedTask, taskList);
+
+    }
+
+    /**
+     * Determines which command the user is giving and calls the respective functions to handle the command
+     *
+     * @param input command and description entered by users e.g. deadline work /by 11-12-2024 2345
+     * @throws EchoException if the command in the input is not valid
+     */
+    public void executeInput(String input) throws EchoException {
         try {
-            String[] replyArray = input.split(" ", 2);
+            String[] replyArray = parser.parseInput(input);
             String command = replyArray[0];
-
-            //Throw error if it does not contain the valid commands
-            if (!validCommands.contains(command)) {
-                throw new EchoException(LINE_BREAK + "\nSorry! I don't get what you mean\n" + LINE_BREAK);
-            }
-
-            String taskDescription = (replyArray.length > 1) ? replyArray[1] : "";
+            String description = (replyArray.length > 1) ? replyArray[1] : "";
 
             switch (command) {
             case "list":
-                taskList.listAllTask();
+                handleListCommand();
                 break;
             case "mark":
-                int index = getIndexFromInput(taskDescription);
-                Task currTask1 = taskList.getTask(index);
-                currTask1.mark();
-                currTask1.printMarkMessage();
+                handleMarkCommand(description);
                 break;
             case "unmark":
-                int index1 = getIndexFromInput(taskDescription);
-                Task currTask2 = taskList.getTask(index1);
-                currTask2.unmark();
+                handleUnmarkCommand(description);
                 break;
             case "todo":
-                ToDos toDoTask = this.createTodoTask(taskDescription);
-                taskList.addTask(toDoTask);
-                taskList.printAddTaskMessage(toDoTask);
+                handleToDoCommand(description);
                 break;
             case "deadline":
-                Deadlines deadlineTask = this.createDeadlineTask(taskDescription);
-                taskList.addTask(deadlineTask);
-                taskList.printAddTaskMessage(deadlineTask);
+                handleDeadlineCommand(description);
                 break;
             case "event":
-                Events eventTask = createEventTask(taskDescription);
-                taskList.addTask(eventTask);
-                taskList.printAddTaskMessage(eventTask);
+                handleEventCommand(description);
                 break;
             case "delete":
-                int index2 = getIndexFromInput(taskDescription);
-                taskList.deleteTask(index2);
+                handleDeleteCommand(description);
                 break;
             default:
-                System.out.println(input);
-                break;
+                throw new EchoException("Sorry! I don't get what you mean");
             }
-        } catch (EchoException e) {
-            System.err.println(e.getMessage());
-        } catch (DateTimeParseException e) {
-            System.err.println("Sorry! You have used the wrong date and time format");
+        } catch (EchoException | DateTimeParseException | NumberFormatException e) {
+            ui.printErrorMessage(e);
         }
     }
 
     /**
-     * Marks Task objects if the task status is equal to 1
-     *
-     * @param taskStatus 1 if the task is marked and 0 if the task is unmark
-     * @param taskToMark Task object to be marked or not
+     * Starts the Chat Bot and load data in text file into taskList
+     * Executes input provided by users
+     * Saves data in taskList into text file when user types in "bye"
      */
-    public void markTask(String taskStatus, Task taskToMark) {
-        if (taskStatus.equals("1")) {
-            taskToMark.mark();
-        }
-    }
-
-    /**
-     * Adds all the task in the saved file into the taskList
-     *
-     * @param filePath path from project root to file path
-     * @throws FileNotFoundException if file is not found in file path
-     */
-    public void loadTaskList(String filePath, TaskList taskList) throws FileNotFoundException {
-        File file = new File(filePath);
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            String task = scanner.nextLine();
-            String[] textArray = task.split(" \\| ");
-            String command = textArray[0].toLowerCase();
-            String taskStatus = textArray[1];
-            String taskDescription = textArray[2];
-
-            switch (command) {
-            case "todo":
-                ToDos toDoTask = createTodoTask(taskDescription);
-                markTask(taskStatus, toDoTask);
-                taskList.addTask(toDoTask);
-                break;
-            case "deadline":
-                taskDescription = taskDescription + " /by " + textArray[3];
-                Deadlines deadlineTask = createDeadlineTask(taskDescription);
-                markTask(taskStatus, deadlineTask);
-                taskList.addTask(deadlineTask);
-                break;
-            case "event":
-                taskDescription = taskDescription + " " + textArray[3];
-                Events eventTask = createEventTask(taskDescription);
-                markTask(taskStatus, eventTask);
-                taskList.addTask(eventTask);
-                break;
-            }
-        }
-    }
-
-    /**
-     * Save all the task in task list into a text file
-     *
-     * @param filePath path to the text file
-     * @param taskList TaskList containing all the tasks
-     * @throws IOException if there is an invalid output or input
-     */
-    public void saveTaskList(String filePath, TaskList taskList) throws IOException {
-        FileWriter writer = new FileWriter(filePath);
-        for(int i = 0; i < taskList.sizeOfTaskList(); i ++) {
-            writer.write(taskList.getTask(i).toFancyString() + System.lineSeparator());
-        }
-        writer.close();
-    }
-    public static void main(String[] args) {
+    public void run() {
         try {
-            String filePath = "./src/main/data/echo.txt";
-            Echo echo = new Echo();
-            TaskList taskList = new TaskList();
-            echo.greet();
-            echo.loadTaskList(filePath, taskList);
+            ui.greet();
+            this.storage.loadStorage(this.parser, this.taskList);
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
+
             while (!input.equals("bye")) {
-                echo.checkInput(input, taskList);
+                this.executeInput(input);
                 input = scanner.nextLine();
             }
             scanner.close();
-            echo.bye();
-            echo.saveTaskList(filePath, taskList);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+
+            ui.bye();
+            this.storage.saveTaskList(this.taskList);
+
         } catch (IOException e) {
-            System.out.println("Invalid Input or Output");
+            ui.printErrorMessage(e);
         }
+    }
+
+    public static void main(String[] args) {
+            String filePath = "./src/main/data/echo.txt";
+            Echo echo = new Echo(filePath);
+            echo.run();
     }
 }

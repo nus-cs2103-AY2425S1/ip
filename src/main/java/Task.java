@@ -4,7 +4,6 @@ import java.time.format.FormatStyle;
 
 public abstract class Task {
     private boolean isCompleted;
-    private final String LINE_BREAK = "-------------------------------------";
     private String description;
 
     /** Input formatter for when users type in the deadlines*/
@@ -15,6 +14,7 @@ public abstract class Task {
 
     /**
      * Constructor for Task
+     *
      * @param description what the task is about
      */
     public Task(String description) {
@@ -68,21 +68,12 @@ public abstract class Task {
         this.isCompleted = true;
     }
 
-    /**
-     * Prints display message after marking a task
-     */
-    public void printMarkMessage() {
-        System.out.println(LINE_BREAK + "\nNice! I've marked this task as done:\n" +
-                this.toString() + "\n" + LINE_BREAK);
-    }
 
     /**
      * Sets the isCompleted variable to false and prints out a display message
      */
     public void unmark() {
         this.isCompleted = false;
-        System.out.println(LINE_BREAK + "\nOK, I've marked this task as not done yet:\n" +
-                this.toString() + "\n" + LINE_BREAK);
     }
 
     /**

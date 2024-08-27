@@ -3,6 +3,13 @@ import java.time.format.DateTimeParseException;
 public class Deadlines extends Task{
     private LocalDateTime deadline;
 
+    /**
+     * Constructor for Deadlines object
+     *
+     * @param description description of the deadline task
+     * @param deadline deadline of the task
+     * @throws DateTimeParseException if the format of the deadline is not the same as INPUT_FORMATTER
+     */
     public Deadlines(String description, String deadline) throws DateTimeParseException {
         super(description);
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
@@ -28,6 +35,6 @@ public class Deadlines extends Task{
     @Override
     public String toFancyString() {
         return "Deadline | " + super.getStatus() + " | " +
-                super.getDescription() + " | "  + super.reverseLocalDateTimeParse(this.deadline);
+                super.getDescription() + " | /by "  + super.reverseLocalDateTimeParse(this.deadline);
     }
 }

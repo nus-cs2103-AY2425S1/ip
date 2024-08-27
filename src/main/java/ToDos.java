@@ -1,4 +1,10 @@
 public class ToDos extends Task {
+
+    /**
+     * Constructor for ToDos object
+     *
+     * @param description description of the ToDos task
+     */
     public ToDos(String description) {
         super(description);
     }
