@@ -1,3 +1,17 @@
+package fishman.utils;
+
+import fishman.command.AddCommand;
+import fishman.command.Command;
+import fishman.command.DeleteCommand;
+import fishman.command.ExitCommand;
+import fishman.command.ListCommand;
+import fishman.command.MarkCommand;
+import fishman.exception.FishmanException;
+import fishman.task.Deadline;
+import fishman.task.Event;
+import fishman.task.TaskList;
+import fishman.task.ToDo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,14 +28,14 @@ public class Parser {
      * This method interprets the user input, splitting the input to determine the command
      * and respective index and creates the appropriate
      * Command object. It can identify the following:
-     * - "bye": Creates an ExitCommand which terminates the program.
-     * - "list": Creates an ListCommand to display all tasks in the task list.
-     * - "mark": Creates an MarkCommand flagged as mark to mark the task as done.
-     * - "unmark": Creates an MarkCommand flagged as unmark to mark the task as not done.
-     * - "todo": Creates an AddCommand which creates a new ToDo task with the information provided by the user.
+     * - "bye": Creates a ExitCommand which terminates the program.
+     * - "list": Creates a ListCommand to display all tasks in the task list.
+     * - "mark": Creates a MarkCommand flagged as mark to mark the task as done.
+     * - "unmark": Creates a MarkCommand flagged as unmark to mark the task as not done.
+     * - "to-do": Creates an AddCommand which creates a new To-Do task with the information provided by the user.
      * - "deadline": Creates an AddCommand which creates a new Deadline task with the information provided by the user.
      * - "event": Creates an AddCommand which creates a new Event task with the information provided by the user.
-     * - "delete": Creates an DeleteCommand which deletes the task.
+     * - "delete": Creates a DeleteCommand which deletes the task.
      * - Any other input: Creates a Command which will terminate the program.
      *
      * @param userInput The string input by the user.

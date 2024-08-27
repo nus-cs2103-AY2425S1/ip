@@ -1,9 +1,14 @@
+package fishman.command;
+
+import fishman.task.TaskList;
+import fishman.utils.Ui;
+
 /**
  * The Command interface represents an executable command in the task operations.
  * It defines the methods that all command classes must implement, specifying how
  * they should be executed or whether the program should exit.
  */
-interface Command {
+public interface Command {
     /**
      * Executes the command, performing actions on the tasklist and user interface.
      *

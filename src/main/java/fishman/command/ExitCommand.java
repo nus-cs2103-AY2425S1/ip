@@ -1,3 +1,8 @@
+package fishman.command;
+
+import fishman.task.TaskList;
+import fishman.utils.Ui;
+
 /**
  * Represents a command to exit the program.
  * This command implements the Command interface and exits the program when
