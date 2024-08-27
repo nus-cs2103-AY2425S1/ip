@@ -97,5 +97,18 @@ public class Ui {
     public void showSaveError(String message) {
         System.out.println("Jingling bells! It seems like an error was encountered while saving tasks: " + message);
     }
+
+    // In Ui.java
+    public void showFoundTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("Aww popsicles! No matching tasks found.");
+        } else {
+            System.out.println("Hooray! The elves found these matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
+    }
+
 }
 

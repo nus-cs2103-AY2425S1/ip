@@ -8,6 +8,7 @@ import duke.task.Event;
 import duke.ui.Ui;
 
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Parser {
     private TaskList tasks;
@@ -33,6 +34,8 @@ public class Parser {
             addEvent(input);
         } else if (input.startsWith("delete")) {
             deleteTask(input);
+        } else if (input.startsWith("find")) {
+            handleFind(input);
         } else if (input.equals("bye")) {
             ui.showGoodbyeMessage();
         } else {
@@ -147,6 +150,16 @@ public class Parser {
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             ui.showSuggestion("delete <task number>");
+        }
+    }
+
+    private void handleFind(String input) {
+        try {
+        String keyword = input.split(" ")[1];
+        List<Task> foundTasks = tasks.findTasksByKeyword(keyword);
+        ui.showFoundTasks(foundTasks);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showSuggestion("find <keyword>");
         }
     }
 }
