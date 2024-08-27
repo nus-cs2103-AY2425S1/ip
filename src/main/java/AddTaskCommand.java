@@ -5,11 +5,11 @@ public class AddTaskCommand extends Command{
         this.task = task;
     }
     @Override
-    public void execute(Storage storage) throws InvalidTaskNumberException {
-        storage.addTask(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(storage.getTask(storage.getNumOfTasks() - 1));
-        System.out.printf("Now you have %d tasks in the list%n", storage.getNumOfTasks());
-        System.out.println(Optimus.linebreak);
+    public void execute(Storage storage, TaskList tasks, Ui ui) {
+        tasks.addTask(task);
+        storage.appendToStorage(task.getStorageString());
+        ui.printToInterface("Got it. I've added this task:");
+        ui.printToInterface(task.toString());
+        ui.printToInterface(String.format("Now you have %d tasks in the list", tasks.getNumOfTasks()));
     }
 }

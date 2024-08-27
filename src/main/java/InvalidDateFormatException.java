@@ -1,4 +1,4 @@
-public class InvalidDateFormatException extends Exception{
+public class InvalidDateFormatException extends OptimusExceptions{
     public InvalidDateFormatException(String message) {
         super(message);
     }
