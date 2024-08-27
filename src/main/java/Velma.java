@@ -1,9 +1,14 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
@@ -81,7 +86,9 @@ public class Velma {
                 case 'D':
                     String[] deadlineParts = parts[2].split(" \\(by: ", 2);
                     String deadlineDescription = deadlineParts[0];
-                    String by = deadlineParts[1].substring(0, deadlineParts[1].length() - 1); // Remove closing parenthesis
+                    String byString = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");// Remove closing parenthesis
+                    LocalDateTime by = LocalDateTime.parse(byString, formatter);
                     task = new Deadline(deadlineDescription, by);
                     break;
                 case 'E':
@@ -143,7 +150,8 @@ public class Velma {
                         throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
                     }
                     String description = parts[0];
-                    String deadline = parts[1];
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     Task newDeadline = new Deadline(description, deadline);
