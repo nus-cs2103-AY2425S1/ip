@@ -37,4 +37,8 @@ abstract public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.description;
     }
+
+    public String toSaveString() {
+        return String.valueOf(this.isDone) + "|" + this.description;
+    }
 }

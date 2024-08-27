@@ -31,6 +31,11 @@ public class Murphy {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 Murphy.bye();
+                try {
+                    Murphy.writeSave();
+                } catch (IOException e) {
+                    System.err.println("Error writing to save file: " + e.getMessage());
+                }
                 scanner.close();
                 return;
             }
@@ -243,5 +248,13 @@ public class Murphy {
                 throw new MurphyException("Save file seems to be corrupted. Overriding save.");
             }
         }
+    }
+
+    private static void writeSave() throws IOException {
+        FileWriter fw = new FileWriter("./data/murphy.txt");
+        for (Task task : Murphy.tasks) {
+            fw.write(task.toSaveString() + System.lineSeparator());
+        }
+        fw.close();
     }
 }
