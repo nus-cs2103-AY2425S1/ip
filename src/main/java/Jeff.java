@@ -2,6 +2,10 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.nio.file.Files;
@@ -188,6 +192,14 @@ public class Jeff {
                 "\n Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    private static LocalDateTime getLocalDateTime(String input) throws DateTimeParseException {
+        try {
+            return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a"));
+        } catch (DateTimeParseException e) {
+            return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        }
+    }
+
     /**
      * Figures out the task type, adds it to the task list and prints out the task addition statement
      *
@@ -216,16 +228,16 @@ public class Jeff {
             case "deadline":
                 // Split the description into content and deadline
                 String[] deadlineParts = taskDescription.split(" /by ", 2);
+                String deadlineContent = deadlineParts[0];
+                String deadlinePeriod = deadlineParts.length > 1 ? deadlineParts[1] : "";
 
                 // Check if the format is correct
-                if (deadlineParts.length != 2) {
-                    throw new JeffException("The format is wrong! It should be \"deadline xx /by xx\"!");
-                } else {
-                    String content = deadlineParts[0];
-                    String deadline = deadlineParts[1];
-                    targetTask = new DeadlineTask(content, deadline);
+                try {
+                    targetTask = new DeadlineTask(deadlineContent, getLocalDateTime(deadlinePeriod));
+                } catch (DateTimeParseException e) {
+                    throw new JeffException(
+                            "The format is wrong! It should be \"deadline xx /by yyyy-mm-dd HH:mm or hh:mm AM/PM\"!");
                 }
-
                 break;
 
             case "event":
@@ -233,17 +245,19 @@ public class Jeff {
                 String[] eventParts = taskDescription.split(" /from ", 2);
                 String eventContent = eventParts[0];
                 String eventPeriod = eventParts.length > 1 ? eventParts[1] : "";
-                String[] periodParts = eventPeriod.split(" /to ", 2);
-                String start = periodParts[0];
-                String end = periodParts.length > 1 ? periodParts[1] : "";
+                String[] eventPeriodParts = eventPeriod.split(" /to ", 2);
+                String startPeriod = eventPeriodParts[0];
+                String endPeriod = eventPeriodParts.length > 1 ? eventPeriodParts[1] : "";
 
                 // Check if the format is correct
-                if (end.isEmpty()) {
-                    throw new JeffException("The format is wrong! It should be \"event xx /from xx /to xx\"!");
-                } else {
-                    targetTask = new EventTask(eventContent, start, end);
+                try {
+                    targetTask = new EventTask(
+                            eventContent, getLocalDateTime(startPeriod), getLocalDateTime(endPeriod));
+                } catch (DateTimeParseException e) {
+                    throw new JeffException(
+                            "The format is wrong! " +
+                                    "It should be \"event xx /from yyyy-mm-dd HH:mm /to yyyy-mm--dd HH:mm\"!");
                 }
-
                 break;
 
             default:
@@ -270,6 +284,38 @@ public class Jeff {
             } else {
                 throw new JeffException();
             }
+        }
+    }
+
+    private static void handleTaskPeriod(String input) throws JeffException {
+        String[] taskParts  = input.split(" ", 2);
+        String taskPeriod = taskParts.length > 1 ? taskParts[1] : "";
+        try {
+            LocalDate taskDate = LocalDate.parse(taskPeriod);
+            List<Task> filteredTasks = taskList.stream().filter(task -> task.isOnThisDate(taskDate)).toList();
+            // Check if the list is empty
+            if (filteredTasks.isEmpty()) {
+                throw new JeffException("No deadlines/events on " + taskPeriod + "!");
+            }
+
+            // Initialise a StringBuilder
+            StringBuilder listString = new StringBuilder();
+
+            // Loop through the inputList and add it to the StringBuilder
+            for (int i = 0; i < filteredTasks.size(); i++) {
+                listString.append(Integer.toString(i + 1)).append(".").append(filteredTasks.get(i).toString());
+
+                // Only add a new line when it is not the last task in the list
+                if (i != filteredTasks.size() - 1) {
+                    listString.append("\n ");
+                }
+
+            }
+
+            // Print the text
+            printText(listString.toString());
+        } catch (DateTimeParseException e) {
+            throw new JeffException("The format is wrong! " + "It should be \"task yyyy-mm-dd\"!");
         }
     }
 
@@ -304,6 +350,8 @@ public class Jeff {
                     deleteTask(input);
                 } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                     handleTask(input);
+                } else if (input.startsWith("task")) {
+                    handleTaskPeriod(input);
                 } else {
                     throw new JeffException();
                 }
@@ -318,11 +366,9 @@ public class Jeff {
     }
 
     private static Path getTaskFilePath() throws URISyntaxException {
-        // Use the location of Jeff.class to get the absolute path to the task file
-        URL url = Jeff.class.getProtectionDomain().getCodeSource().getLocation();
-        Path classPath = Paths.get(url.toURI()).getParent();
-        Path dataFolderPath = classPath.resolve("../../src/main/data").normalize();
-        return dataFolderPath.resolve("tasks.txt").normalize();
+        // Use the current working directory and create a task text file there
+        Path currentPath = Paths.get(System.getProperty("user.dir"));
+        return currentPath.resolve("tasks.txt").normalize();
     }
 
     private static void getTasksFromDatabase() {
@@ -352,22 +398,36 @@ public class Jeff {
                 Task currentTask = null;
 
                 // Categorise and initialise the task based on its task type
-                switch (taskType) {
-                case "T":
-                    // To Do Task
-                    currentTask = new ToDoTask(taskDescription, isDone);
-                    break;
-                case "D":
-                    // Deadline Task
-                    currentTask = new DeadlineTask(taskDescription, taskParts[3], isDone);
-                    break;
-                case "E":
-                    // Event Task
-                    currentTask = new EventTask(taskDescription, taskParts[3], taskParts[4], isDone);
-                    break;
-                default:
-                    break;
+                try {
+                    switch (taskType) {
+                    case "T":
+                        // To Do Task
+                        currentTask = new ToDoTask(taskDescription, isDone);
+                        break;
+                    case "D":
+                        // Deadline Task
+                        if (taskParts.length >= 4) {
+                            currentTask = new DeadlineTask(taskDescription,
+                                    LocalDateTime.parse(taskParts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                                    isDone);
+                        }
+                        break;
+                    case "E":
+                        // Event Task
+                        if (taskParts.length >= 5) {
+                            currentTask = new EventTask(taskDescription,
+                                    LocalDateTime.parse(taskParts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                                    LocalDateTime.parse(taskParts[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                                    isDone);
+                        }
+                        break;
+                    default:
+                        break;
+                    }
+                } catch (DateTimeParseException e) {
+                    throw new FileCorruptException();
                 }
+
 
                 // Add task to task list if it exists
                 if (currentTask != null) {

@@ -9,8 +9,10 @@ mark hi
 unmark
 unmark hi
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2024-08-30 18:00
+deadline get paper /by 2024-09-20 08:00 pm
+event project meeting /from 2024-08-27 08:00 /to 2024-08-27 20:00
+event wedding /from 2024-08-27 10:00 am /to 2024-08-28 09:00 pm
 list
 mark 1
 list
@@ -20,16 +22,10 @@ list
 unmark 1
 mark 4
 unmark 4
-deadline return book/by Sunday
 deadline return book
-deadline return book /by
 event project meeting
-event project meeting /to 4pm
-event project meeting /from
-event project meeting /from Mon 2pm
-event project meeting /from Mon 2pm /to
-event project meeting/from Mon 2pm /to 4pm
-event project meeting /from Mon 2pm/to 4pm
+event project meeting /from 2024-8-27 08:00 am /to 2024-08-27 08:00 pm
+event project meeting /from 2024-08-27 08:00 AM /to 2024-08-27 08:00 PM
 delete 0
 delete -1
 delete 4
