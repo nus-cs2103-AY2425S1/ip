@@ -190,10 +190,10 @@ public class Nimbus {
         String substringAfterOption = argument.substring(startIndex + target.length() + 1);
         int endIndex = substringAfterOption.indexOf("/");
         if (endIndex == -1)
-            return substringAfterOption;
+            return substringAfterOption.trim();
         else
             return argument.substring(startIndex + target.length() + 1,
-                    endIndex + startIndex + target.length() + 1);
+                    endIndex + startIndex + target.length() + 1).trim();
     }
 
     public static String getDescription(String argument) {
