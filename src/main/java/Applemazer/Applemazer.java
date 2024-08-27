@@ -1,3 +1,6 @@
+package Applemazer;
+
+import Commands.*;
 import java.util.Scanner;
 
 public class Applemazer {

@@ -1,4 +1,8 @@
+package Commands;
+
 import java.util.ArrayList;
+import Applemazer.*;
+import Tasks.*;
 
 public class ByeCommand extends Command {
     @Override

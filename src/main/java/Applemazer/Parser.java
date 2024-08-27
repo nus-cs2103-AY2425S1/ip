@@ -1,3 +1,7 @@
+package Applemazer;
+
+import Commands.*;
+
 public class Parser {
 
     public static Command parse(String command) throws Exception {

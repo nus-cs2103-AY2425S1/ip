@@ -1,3 +1,7 @@
+package Commands;
+
+import Applemazer.*;
+import Tasks.*;
 import java.util.ArrayList;
 
 public class NonExistentCommand extends Command {

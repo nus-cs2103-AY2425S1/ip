@@ -1,3 +1,6 @@
+package Applemazer;
+
+import Tasks.*;
 import java.io.*;
 import java.util.ArrayList;
 
