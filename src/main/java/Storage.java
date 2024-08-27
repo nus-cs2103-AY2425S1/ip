@@ -41,7 +41,7 @@ public class Storage {
     }
 
     // Save tasks to file using "," as delimiter
-    public void saveTasks(TaskList tasks) {
+    public void save(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks) {
             // Append task type, status, and description, separated by ","
@@ -64,7 +64,7 @@ public class Storage {
     }
 
     // Load tasks from file using "," as delimiter
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner sc = new Scanner(new File(filePath));

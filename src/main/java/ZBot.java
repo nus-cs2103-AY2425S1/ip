@@ -16,7 +16,7 @@ public class ZBot {
     public void run() {
         ui.intro();
         storage.createFileIfNotExists();
-        tasks = new TaskList(storage.loadTasks());
+        tasks = new TaskList(storage.load());
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
@@ -24,7 +24,7 @@ public class ZBot {
             input = sc.nextLine();
         }
 
-        storage.saveTasks(tasks);
+        storage.save(tasks);
         sc.close();
         ui.outro();
     }
