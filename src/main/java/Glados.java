@@ -13,7 +13,7 @@ public class Glados {
     private TaskList taskList;
 
     public Glados() {
-        this.taskList = new TaskList();
+        this.taskList = new TaskList(true);
     }
 
     private void run() {

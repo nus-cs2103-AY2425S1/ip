@@ -7,12 +7,17 @@ import utils.Parser;
 import utils.Storage;
 
 public class TaskList {
-    private ArrayList<Task> taskList = new ArrayList<>();  
-    private int listIndex = 0;
+    private ArrayList<Task> taskList;  
+    private int listIndex;
 
-    public TaskList() {
-        this.taskList = Storage.loadTasks();
-        this.listIndex = this.taskList.size();
+    public TaskList(boolean areTasksLoaded) {
+        if (areTasksLoaded) {
+            this.taskList = Storage.loadTasks();
+            this.listIndex = this.taskList.size();
+        } else {
+            this.taskList = new ArrayList<>();
+            this.listIndex = 0;
+        }
     }
 
     public String[] add(TaskType taskType, String input) throws GladosException {

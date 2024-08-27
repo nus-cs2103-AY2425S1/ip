@@ -14,19 +14,19 @@ public class ParserTest {
     @Test
     public void testParseTodo() throws GladosException {
         String[] parsedTodo = Parser.parseTask(TaskType.TODO, "test todo");
-        assertArrayEquals(parsedTodo, new String[]{"test todo"});
+        assertArrayEquals(new String[]{"test todo"}, parsedTodo);
     }
 
     @Test
     public void testParseTodoWithTrailingSpace() throws GladosException {
         String[] parsedTodo = Parser.parseTask(TaskType.TODO, "test todo    ");
-        assertArrayEquals(parsedTodo, new String[]{"test todo"});
+        assertArrayEquals(new String[]{"test todo"}, parsedTodo);
     }
 
     @Test
     public void testParseDeadline() throws GladosException {
         String[] parsedTodo = Parser.parseTask(TaskType.DEADLINE, "test deadline /by today");
-        assertArrayEquals(parsedTodo, new String[]{"test deadline", "today"});
+        assertArrayEquals(new String[]{"test deadline", "today"}, parsedTodo);
     }
     
     @Test
@@ -35,7 +35,7 @@ public class ParserTest {
             String[] parsedTodo = Parser.parseTask(TaskType.DEADLINE, "/by today");
             fail();
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Description for a task cannot be empty.");
+            assertEquals("Description for a task cannot be empty.", e.getMessage());
         }
     }
 
@@ -45,14 +45,14 @@ public class ParserTest {
             String[] parsedTodo = Parser.parseTask(TaskType.DEADLINE, "test deadline /by");
             fail();
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Date after '/by' not specified or invalid");
+            assertEquals("Date after '/by' not specified or invalid", e.getMessage());
         }
     }
 
     @Test
     public void testParseEvent() throws GladosException {
         String[] parsedTodo = Parser.parseTask(TaskType.EVENT, "test event /from today /to tomorrow");
-        assertArrayEquals(parsedTodo, new String[]{"test event", "today", "tomorrow"});
+        assertArrayEquals(new String[]{"test event", "today", "tomorrow"}, parsedTodo);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ParserTest {
             String[] parsedTodo = Parser.parseTask(TaskType.EVENT, "/from today /to tomorrow");
             fail();
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Description for a task cannot be empty.");
+            assertEquals("Description for a task cannot be empty.", e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class ParserTest {
             String[] parsedTodo = Parser.parseTask(TaskType.EVENT, "test event /to tomorrow");
             fail();
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Date range between '/from' and '/to' not specified or invalid");
+            assertEquals("Date range between '/from' and '/to' not specified or invalid", e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class ParserTest {
             String[] parsedTodo = Parser.parseTask(TaskType.EVENT, "test event");
             fail();
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Date range between '/from' and '/to' not specified or invalid");
+            assertEquals("Date range between '/from' and '/to' not specified or invalid", e.getMessage());
         }
     }
     
