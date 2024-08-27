@@ -40,16 +40,16 @@ public class EventParser {
     public static KorolevTask parseLoadedRecord(String record) throws ParseException {
         char type = record.charAt(1);
         switch (type) {
-            case 'T' -> {
-                return parseTodoRecord(record);
-            }
-            case 'D' -> {
-                return parseDeadlineRecord(record);
-            }
-            case 'E' -> {
-                return parseEventRecord(record);
-            }
-            default -> throw new ParseException("Invalid record presented in the hard disk.");
+        case 'T' -> {
+            return parseTodoRecord(record);
+        }
+        case 'D' -> {
+            return parseDeadlineRecord(record);
+        }
+        case 'E' -> {
+            return parseEventRecord(record);
+        }
+        default -> throw new ParseException("Invalid record presented in the hard disk.");
         }
     }
 
