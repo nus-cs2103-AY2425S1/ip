@@ -24,8 +24,8 @@ public class Evelyn {
         System.out.println("Here are my keywords:");
         System.out.println("\n");
         System.out.println("todo [task description]");
-        System.out.println("deadline [task description] /by [date in YYYY-MM-DD]");
-        System.out.println("event [task description] /from [date in YYYY-MM-DD] [Time] /to [date in YYYY-MM-DD] [Time]");
+        System.out.println("deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]");
+        System.out.println("event [task description] /from [date in YYYY-MM-DD] [Optional: time] /to [date in YYYY-MM-DD] [Optional: time]");
         System.out.println("\n");
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
@@ -175,16 +175,17 @@ public class Evelyn {
     private static void fileDataToList(String data) throws IOException {
         boolean isMarked;
         if (data.startsWith("[T]")) {
-            if (data.charAt(5) == 'X') {
+            if (data.contains("[X]")) {
                 isMarked = true;
             } else {
                 isMarked = false;
             }
+            System.out.println(isMarked ? "True" : "False");
             String description = data.substring(7);
             Todo newTodo = new Todo(description, isMarked);
             lst.add(newTodo);
         } else if (data.startsWith("[D]")) {
-            if (data.charAt(5) == 'X') {
+            if (data.contains("[X]")) {
                 isMarked = true;
             } else {
                 isMarked = false;
@@ -196,7 +197,7 @@ public class Evelyn {
             Deadline newDeadline = new Deadline(description, deadline, isMarked);
             lst.add(newDeadline);
         } else if (data.startsWith("[E]")) {
-            if (data.charAt(5) == 'X') {
+            if (data.contains("[X]")) {
                 isMarked = true;
             } else {
                 isMarked = false;
