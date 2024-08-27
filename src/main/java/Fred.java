@@ -118,7 +118,7 @@ public class Fred {
             throw new EmptyTaskDescriptionException();
         }
         if (taskType.equals("todo")) {
-            task = new ToDo(description);
+            task = new Todo(description);
         } else if (taskType.equals("deadline")) {
             String by = taskDetailsArr[1].substring(3);
             task = new Deadline(description, by);
