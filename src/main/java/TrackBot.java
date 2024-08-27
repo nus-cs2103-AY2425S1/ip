@@ -2,21 +2,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 public class TrackBot {
-    
-    public static void main(String[] args) {
-        TrackBotStorage storage;
-        TrackList trackList = null;
-        String filePath = "src/main/java/data/TrackBot.txt";
+    private TrackBotStorage storage;
+    private TrackList trackList;
+    private Ui ui;
+
+    public TrackBot(String filePath) {
+        ui = new Ui();
         try {
             storage = new TrackBotStorage(filePath);
             trackList = new TrackList(new File(filePath), storage);
         } catch (IOException e) {
             System.out.println("File not found");
+//            ui.showLoadingError();
         }
         if (trackList == null) {
             System.out.println("Failed to initialize TrackList.");
-            return;
         }
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("************************************************************");
         System.out.println("Hello from TrackBot!\n" + "How may I assist you?");
@@ -103,5 +107,10 @@ public class TrackBot {
         scanner.close();
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("************************************************************");
+    }
+    
+    public static void main(String[] args) {
+        String filePath = "src/main/java/data/TrackBot.txt";
+        new TrackBot(filePath).run();
     }
 }
