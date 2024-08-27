@@ -3,7 +3,12 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 public class Chatterbox {
 
     public enum Command {
@@ -61,6 +66,7 @@ public class Chatterbox {
         throw new ChatterBoxUnknownCommand("Error: Unknown command");
     }
 
+    final static String HISTFILE = Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
     final static String BOTNAME = "Chatterbox";
     final static String LINESEPERATOR = "____________________________________________________________";
     public static String greeting() {
@@ -78,6 +84,7 @@ ____________________________________________________________
 """;
     }
 
+
     //used to get the index number for mark and unmark
     private static int extractNum(String input) {
         int length = input.length();
@@ -92,6 +99,7 @@ ____________________________________________________________
         }
         return Integer.parseInt(numberBuild.toString());
     }
+
 
 
 
@@ -248,6 +256,44 @@ ____________________________________________________________
         }
     }
 
+    private static void checkDirectory() {
+        try {
+            Files.createDirectories(Paths.get(System.getProperty("user.dir"), "data"));
+        } catch (IOException e) {
+            System.out.println("Error creating data directory: " + e.getMessage());
+        }
+    }
+    private static void saveHistory(ArrayList<Task> userList) {
+        checkDirectory();
+//        System.out.println("Checked");
+//        System.out.println(HISTFILE);
+        File file = new File(HISTFILE);
+//        System.out.println("created");
+        try {
+            if (!file.exists()) {
+//                System.out.println("creatign file");
+                file.createNewFile();
+            }
+//            System.out.println("writing");
+            FileWriter writer = new FileWriter(file);
+
+            StringBuilder history = new StringBuilder();
+            for (int i = 0; i < userList.size(); i++) {
+
+                Task currentTask = userList.get(i);
+//                System.out.println(currentTask.getDescription());
+                String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(), currentTask.getStatus()? "X" : " ", currentTask.getDescription());
+                history.append(taskStr);
+                history.append(System.lineSeparator());
+            }
+            writer.write(history.toString());
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("Error has occurred " + e.getMessage());
+
+        }
+    }
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -332,71 +378,9 @@ ____________________________________________________________
                         checkMessage(response);
                         break;
                 }
-//                if (response.equals("bye")) {
-//                    break;
-//                } else if (response.equals("list")) {
-//                    System.out.println(Chatterbox.LINESEPERATOR);
-//                    System.out.println("Current Tasks in List: ");
-//                    for (int i = 0; i < userList.size(); i++) {
-//                        System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", userList.get(i).getTaskSymbol(), userList.get(i).getStatus() ? "X" : " ", userList.get(i).getDescription()));
-//                    }
-//
-//                } else if (response.startsWith("mark")){
-//                    response = response.trim();
-//                    int index = Chatterbox.extractNum(response) - 1; // -1 as the display  start from 1
-//                    userList.get(index).setStatus(true);
-//                    System.out.println(Chatterbox.LINESEPERATOR);
-//                    System.out.println("Marked task as done");
-//                    System.out.println(String.format("[X] %s", userList.get(index).getDescription()));
-//
-//
-//                } else if (response.startsWith("unmark")) {
-//                    response = response.trim();
-//                    int index = Chatterbox.extractNum(response) - 1; // -1 as the display  start from 1
-//                    userList.get(index).setStatus(false);
-//                    System.out.println(Chatterbox.LINESEPERATOR);
-//                    System.out.println("Marked task as undone");
-//                    System.out.println(String.format("[ ] %s", userList.get(index).getDescription()));
-//                } else if (response.startsWith("todo")) {
-//                    userList.add(new Todo(response));
-//                    current++;
-//                    System.out.println(Chatterbox.LINESEPERATOR);
-//                    System.out.println("Added Task to Todo");
-//                    System.out.println(String.format("Currently %d tasks in list", userList.size()));
-//                } else if (response.startsWith("deadline")) {
-//                    String[] parsed = parseDeadline(response);
-//                    userList.add(new Deadline(parsed[0], parsed[1]));
-//                    current++;
-//                    System.out.println(Chatterbox.LINESEPERATOR);
-//
-//                    System.out.println("Added Deadline to Todo");
-//                    System.out.println(String.format("Currently %d tasks in list", userList.size()));
-//                }else if (response.startsWith("event")) {
-//                    String[] parsed = parseEvent(response);
-//                    userList.add(new Event(parsed[0], parsed[1], parsed[2]));
-//                    current++;
-//                    System.out.println(Chatterbox.LINESEPERATOR);
-//
-//                    System.out.println("Added Event to Todo");
-//                    System.out.println(String.format("Currently %d tasks in list", userList.size()));
-//                } else if (response.startsWith("delete")) {
-//                    response = response.trim();
-//                    int index = Chatterbox.extractNum(response) - 1;
-//
-//                    System.out.println(LINESEPERATOR);
-//                    System.out.println("Removing Task: ");
-//                    System.out.println(userList.get(index).toString());
-//                    userList.remove(index);
-//                    System.out.println(String.format("List has %d tasks", userList.size()));
-//                }else {
-////                    userList[current] = new Task(response);
-////                    current++;
-////                    System.out.println(Chatterbox.LINESEPERATOR);
-////
-////                    System.out.println("added: " + response);
-////                    System.out.println(Chatterbox.LINESEPERATOR);
-//                    checkMessage(response);
-//                }
+//                System.out.println("saving");
+                saveHistory(userList);
+
             }
         } catch (ChatterBoxError e){
             System.out.println(e.getMessage());
