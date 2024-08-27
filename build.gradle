@@ -33,6 +33,7 @@ application {
 
 shadowJar {
     archiveBaseName = "tohru"
+    archiveVersion = "0.1"
     archiveClassifier = null
 }
 
