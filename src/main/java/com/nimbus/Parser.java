@@ -1,6 +1,15 @@
 package com.nimbus;
 
-import com.commands.*;
+import com.commands.ByeCommand;
+import com.commands.Command;
+import com.commands.DeadlineCommand;
+import com.commands.EventCommand;
+import com.commands.FindCommand;
+import com.commands.ListCommand;
+import com.commands.MarkCommand;
+import com.commands.RemoveCommand;
+import com.commands.TodoCommand;
+import com.commands.UnmarkCommand;
 
 final public class Parser {
 
@@ -88,7 +97,7 @@ final public class Parser {
             case "event" -> new EventCommand(getArgument(line));
             case "bye" -> new ByeCommand();
             case "find" -> new FindCommand(getArgument(line));
-            default -> throw new InvalidCommandException(getCommand(line));
+            default -> throw new InvalidCommandException(getCommandType(line));
         };
     }
 }
