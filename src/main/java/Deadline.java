@@ -2,8 +2,8 @@ package main.java;
 
 public class Deadline extends Task {
     private String deadline;
-    public Deadline(String description, String deadline) {
-        super(description, "D");
+    public Deadline(String description, boolean isDone, String deadline) {
+        super(description, "D", isDone);
         this.deadline = deadline;
     }
 

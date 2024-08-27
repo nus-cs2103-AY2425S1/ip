@@ -1,12 +1,11 @@
 package main.java;
 import exception.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CasperBot {
     private enum CommandType {
@@ -21,6 +20,7 @@ public class CasperBot {
     }
     private static List<Task> list = new ArrayList<>();
     public static void main(String[] args) throws CasperBotException {
+        openFile();
         line();
         System.out.println("Hello! I'm CasperBot.\n" +
                 "What can I do for you?");
@@ -90,7 +90,7 @@ public class CasperBot {
                             if (todoDescription.isEmpty()) {
                                 throw new CasperBotMissingInputException("description", "ToDo");
                             }
-                            ToDo newToDo = new ToDo(todoDescription);
+                            ToDo newToDo = new ToDo(todoDescription, false);
                             list.add(newToDo);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newToDo);
@@ -104,7 +104,7 @@ public class CasperBot {
                             if (deadline == null || deadline.isEmpty()) {
                                 throw new CasperBotMissingInputException("/by", "Deadline");
                             }
-                            Deadline newDeadline = new Deadline(deadlineDescription, deadline);
+                            Deadline newDeadline = new Deadline(deadlineDescription, false, deadline);
                             list.add(newDeadline);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newDeadline);
@@ -122,7 +122,7 @@ public class CasperBot {
                             if (end == null || end.isEmpty()) {
                                 throw new CasperBotMissingInputException("/to", "Event");
                             }
-                            Event newEvent = new Event(eventDescription, start, end);
+                            Event newEvent = new Event(eventDescription, false, start, end);
                             list.add(newEvent);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newEvent);
@@ -141,16 +141,6 @@ public class CasperBot {
             }
         }
         scanner.close();
-    }
-
-    private static boolean isMatch(String input, String regex) {
-        // Create a Pattern object
-        Pattern pattern = Pattern.compile(regex);
-
-        // Create a Matcher object
-        Matcher matcher = pattern.matcher(input);
-        String[] parts = input.split(" ");
-        return matcher.matches() && Integer.parseInt(parts[1]) <= list.size() && Integer.parseInt(parts[1]) > 0;
     }
 
     private static String[] splitInputIntoTwo(String input) {
@@ -199,5 +189,38 @@ public class CasperBot {
         } else {
             System.out.printf("Now you have %d tasks in the list.\n", list.size());
         }
+    }
+
+    private static void openFile() throws CasperBotIOException {
+        String filePath = "chatbot.txt";
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {  // Read each line until end of file
+                String[] values = line.split("\\|");
+                boolean isDone = Boolean.parseBoolean(values[1]);
+                String description = values[2];
+                switch (values[0]) {
+                case "T":
+                    list.add(new ToDo(description, isDone));
+                    break;
+                case "D":
+                    String deadline = values[3];
+                    list.add(new Deadline(description, isDone, deadline));
+                    break;
+                case "E":
+                    String start = values[3];
+                    String end = values[4];
+                    list.add(new Event(description, isDone, start, end));
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            File file = new File(filePath);
+            System.out.println("Created a new file in the directory!");
+        } catch (IOException e) {
+            throw new CasperBotIOException();
+        }
+
     }
 }
