@@ -31,7 +31,7 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error saving tasks to file: " + e.getMessage(), e);
         }
     }
 
@@ -47,33 +47,49 @@ public class Storage {
         return sb.toString();
     }
 
-    public TaskList load() {
+    public TaskList load() throws FishmanException {
         TaskList tasks = new TaskList();
         try {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
-                String[] arguments = line.split("\\|", 3);
-                String type = arguments[0];
-                boolean isDone = arguments[1].equals("1");
-                String description = arguments[2];
+                try {
+                    String[] arguments = line.split("\\|", -1);
+                    String type = arguments[0];
+                    boolean isDone = arguments[1].equals("1");
+                    String description = arguments[2];
 
-                switch (type) {
-                case "T":
-                    tasks.addTask(new ToDo(description, isDone));
-                    break;
-                case "D":
-                    String[] deadlineArguments = description.split("\\|", 2);
-                    tasks.addTask(new Deadline(deadlineArguments[0], isDone, deadlineArguments[1]));
-                    break;
-                case "E":
-                    String[] eventArguments = description.split("\\|", 3);
-                    tasks.addTask(new Event(eventArguments[0], isDone, eventArguments[1], eventArguments[2]));
-                    break;
+                    switch (type) {
+                    case "T":
+                        if (arguments.length != 3) {
+                            throw new FishmanException.InvalidArgumentsException(line);
+                        }
+                        tasks.addTask(new ToDo(description, isDone));
+                        break;
+                    case "D":
+                        if (arguments.length != 4) {
+                            throw new FishmanException.InvalidArgumentsException(line);
+                        }
+                        String deadline = arguments[3];
+                        tasks.addTask(new Deadline(description, isDone, deadline));
+                        break;
+                    case "E":
+                        if (arguments.length != 5) {
+                            throw new FishmanException.InvalidArgumentsException(line);
+                        }
+                        String from = arguments[3];
+                        String to = arguments[4];
+                        tasks.addTask(new Event(description, isDone, from, to));
+                        break;
+                    default:
+                        throw new FishmanException.InvalidArgumentsException("Empty line or unknown task type in line: " + "<" + line + ">");
+                    }
+                } catch (FishmanException.InvalidArgumentsException e) {
+                    System.out.print(e.getMessage());
                 }
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading file: " + e.getMessage(), e);
         }
         return tasks;
     }

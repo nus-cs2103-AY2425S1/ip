@@ -32,12 +32,15 @@ public class Fishman {
      * The method will handle exceptions that may occur during execution.
      * Any unchecked exception is caught and reported as well.
      */
-    public void start() {
+    public void start() throws FishmanException {
         ui.displayLogo();
         ui.displayWelcome();
         boolean isExit = false;
-        tasks = storage.load();
-
+        try {
+            tasks = storage.load();
+        } catch (FishmanException e) {
+            ui.displayError(e.getMessage());
+        }
         while (!isExit) {
             try {
                 String userInput = ui.readCommands();
@@ -59,7 +62,7 @@ public class Fishman {
      *
      * @param args The command line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FishmanException {
         new Fishman().start();
     }
 }

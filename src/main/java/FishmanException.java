@@ -93,7 +93,7 @@ public class FishmanException extends Exception {
      * The exception thrown when trying to perform command on an empty Task List.
      */
     public static class EmptyListException extends FishmanException {
-        private static final String MESSAGE = "The list is empty. Unable to mark or unmark tasks.";
+        private static final String MESSAGE = "The list is empty. Unable to perform operation.";
 
         /**
          * Constructs a new EmptyListException with message.
@@ -116,6 +116,14 @@ public class FishmanException extends Exception {
          */
         public IndexOutOfBoundsException(int index) {
             super(MESSAGE + " Index provided: " + index);
+        }
+    }
+
+    public static class InvalidArgumentsException extends FishmanException {
+        private static final String MESSAGE = "Insufficient/Extra information retrieved from line: ";
+
+        public InvalidArgumentsException(String line) {
+            super(MESSAGE + line + " Skipping.....\n" );
         }
     }
 
