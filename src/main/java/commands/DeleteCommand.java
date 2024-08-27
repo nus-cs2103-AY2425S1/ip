@@ -1,3 +1,12 @@
+package commands;
+
+import exceptions.DownyException;
+import exceptions.InvalidFormatException;
+import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
+
 public class DeleteCommand implements Command {
 
     public final String taskNumber;
@@ -13,9 +22,9 @@ public class DeleteCommand implements Command {
             storage.deleteTask(t);
             ui.displayDeletedTask(t);
         } catch (NumberFormatException e) {
-            throw new InvalidFormatException("Task number has to be a positive integer.");
+            throw new InvalidFormatException("tasks.Task number has to be a positive integer.");
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Task number does not exist.");
+            throw new IllegalArgumentException("tasks.Task number does not exist.");
         }
     }
     public boolean isExit() {

@@ -1,3 +1,12 @@
+package commands;
+
+import exceptions.DownyException;
+import exceptions.InvalidFormatException;
+import storage.Storage;
+import tasks.TaskList;
+import tasks.Todo;
+import ui.Ui;
+
 public class TodoCommand implements Command {
 
     private final String taskDescription;
@@ -13,9 +22,9 @@ public class TodoCommand implements Command {
             storage.writeTodoToFile(t);
             ui.displayTaskAdded(t, tasks.getSize());
         } catch (NumberFormatException e) {
-            throw new InvalidFormatException("Task number has to be a positive integer.");
+            throw new InvalidFormatException("tasks.Task number has to be a positive integer.");
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Task number does not exist.");
+            throw new IllegalArgumentException("tasks.Task number does not exist.");
         }
     }
     public boolean isExit() {
