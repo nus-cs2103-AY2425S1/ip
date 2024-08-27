@@ -18,10 +18,12 @@ public class Task {
     undone to done
      */
     public void markAsDone() {
-        System.out.println("Nice! I've marked this task as done:" );
         if (!this.isDone) {
             this.isDone = true;
+            System.out.println("Nice! I've marked this task as done:" );
             System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
+        } else {
+            System.out.println("This tasked has been already been completed!\n");
         }
 
     }
@@ -30,12 +32,12 @@ public class Task {
     done to undone
      */
     public void unMark() {
-        System.out.println("OK, I've marked this task as not done yet:");
         if (this.isDone) {
             this.isDone = false;
+            System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
         } else {
-            System.out.println("this tasked has not been marked!!\n");
+            System.out.println("This tasked has not been marked yet!!\n");
         }
     }
 
