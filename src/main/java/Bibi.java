@@ -237,6 +237,7 @@ public class Bibi {
             }
         }
     }
+
     private static void writeToFile(String pathName, ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(pathName);
 

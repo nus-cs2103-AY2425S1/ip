@@ -1,11 +1,21 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
-    private String deadline;
+    private final String deadline;
 
     public Deadline(String task, String deadline) {
         // Call Task constructor
         super(task);
 
-        this.deadline = deadline;
+        // Parse the deadline appropriately
+        if (deadline.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+            LocalDate date = LocalDate.parse(deadline);
+            this.deadline = String.format("%d %s %d",
+                    date.getDayOfMonth(), date.getMonth().name(), date.getYear());
+        } else {
+            this.deadline = deadline;
+        };
+
     }
 
     @Override
