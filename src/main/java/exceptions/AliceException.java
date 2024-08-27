@@ -1,7 +1,8 @@
 package exceptions;
 
-public class AliceException extends Exception{
+public class AliceException extends Exception {
     protected String message;
+
     public AliceException(String message) {
         this.message = message;
     }

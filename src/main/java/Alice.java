@@ -1,21 +1,20 @@
-import exceptions.AliceException;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
 public class Alice {
-    private final TaskList tasks;
-    private final Storage storage;
-    private final Ui ui;
+    private final TaskList TASKS;
+    private final Storage STORAGE;
+    private final Ui UI;
 
     public Alice(String filePath) {
-        storage = new Storage(filePath);
+        STORAGE = new Storage(filePath);
         // load tasks
-        storage.loadTasks();
-        tasks = storage.getTasks();
+        STORAGE.loadTasks();
+        TASKS = STORAGE.getTasks();
 
         // initialise UI with the loaded tasks
-        ui = new Ui(tasks);
+        UI = new Ui(TASKS);
     }
 
     public static void main(String[] args) {
@@ -25,9 +24,9 @@ public class Alice {
 
     // starts the program
     public void run() {
-        ui.showWelcome();
-        ui.getInput();
-        ui.exitMessage();
-        storage.saveTasks(tasks);
+        UI.showWelcome();
+        UI.getInput();
+        UI.exitMessage();
+        STORAGE.saveTasks(TASKS);
     }
 }

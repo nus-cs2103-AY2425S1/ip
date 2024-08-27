@@ -1,8 +1,14 @@
 package storage;
 
 import commands.Command;
-import tasks.*;
-import exceptions.*;
+
+import tasks.Task;
+import tasks.Todo;
+import tasks.Event;
+import tasks.Deadline;
+
+import exceptions.InvalidTaskException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -15,19 +21,19 @@ public class TaskList {
     public Task addTask(Command type, String[] response) {
         Task task = new Task(response[0]);
         switch (type) {
-            case TODO:
-                task = new Todo(response[1]);
-                break;
-            case DEADLINE:
-                // response[0] = description, response[1] = deadline
-                task = new Deadline(response[0], response[1].strip());
-                break;
-            case EVENT:
-                String[] times = response[1].split("/to ");
-                task = new Event(response[0], times[0].strip(), times[1].strip());
-                break;
-            default:
-                break;
+        case TODO:
+            task = new Todo(response[1]);
+            break;
+        case DEADLINE:
+            // response[0] = description, response[1] = deadline
+            task = new Deadline(response[0], response[1].strip());
+            break;
+        case EVENT:
+            String[] times = response[1].split("/to ");
+            task = new Event(response[0], times[0].strip(), times[1].strip());
+            break;
+        default:
+            break;
         }
         TASKS.add(task);
         return task;

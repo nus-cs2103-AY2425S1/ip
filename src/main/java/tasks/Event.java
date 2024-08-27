@@ -17,7 +17,7 @@ public class Event extends Task {
     public String writeTask() {
         return super.writeTask() + "," + this.from + "," + this.to;
     }
-    
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
