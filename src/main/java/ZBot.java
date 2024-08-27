@@ -3,14 +3,18 @@ import java.time.format.DateTimeParseException;
 
 public class ZBot {
     private static final String SAVE_PATH = "../../../data/tasks.txt";
-    private static TaskList tasks = new TaskList();
+    private Storage storage;
+    private TaskList tasks;
 
-    public static void main(String[] args) {
-        Storage storage = new Storage(SAVE_PATH);
+    public ZBot(String filepath) {
+        storage = new Storage(SAVE_PATH);
+        tasks = new TaskList();
+    }
+
+    public void run() {
+        greet();
         storage.createFileIfNotExists();
         tasks = new TaskList(storage.loadTasks());
-        greet();
-
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
@@ -23,6 +27,10 @@ public class ZBot {
         exit();
     }
 
+    public static void main(String[] args) {
+        new ZBot(SAVE_PATH).run();
+    }
+
     public static void greet() {
         System.out.println("Hello! I'm ZBot!");
         System.out.println("What can I do for you?\n");
@@ -32,7 +40,7 @@ public class ZBot {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void processInput(String input) {
+    public void processInput(String input) {
         if (input.equals("list")) {
             listTasks();
         } else if (input.startsWith("mark")) {
@@ -50,7 +58,7 @@ public class ZBot {
         }
     }
 
-    public static void addTask(String input) {
+    public void addTask(String input) {
         Task task;
         String[] inputParts = input.split(" ", 2);
 
@@ -82,7 +90,7 @@ public class ZBot {
         }
     }
 
-    public static void listTasks() {
+    public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
@@ -90,7 +98,7 @@ public class ZBot {
         System.out.println();
     }
 
-    public static void markTask(String input) {
+    public void markTask(String input) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             tasks.get(taskNumber - 1).markAsDone();
@@ -102,7 +110,7 @@ public class ZBot {
         }
     }
 
-    public static void unmarkTask(String input) {
+    public void unmarkTask(String input) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             tasks.get(taskNumber - 1).markAsUndone();
@@ -114,7 +122,7 @@ public class ZBot {
         }
     }
 
-    public static void deleteTask(String input) {
+    public void deleteTask(String input) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             System.out.println("Noted. I've removed this task:");
