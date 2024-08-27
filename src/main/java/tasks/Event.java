@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 public class Event extends Task {
     private final String startTime;

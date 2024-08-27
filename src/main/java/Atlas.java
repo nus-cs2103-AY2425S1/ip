@@ -1,5 +1,9 @@
-import Commands.Commands;
-import Tasks.*;
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
+
+import command.Command;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,33 +38,33 @@ public class Atlas {
             String command = nextCommandLine.split(" ")[0].toUpperCase();
             try {
                 // Solution below inspired by https://stackoverflow.com/questions/10387329/using-string-representations-of-enum-values-in-switch-case
-                switch (Commands.valueOf(command)) {
-                    case BYE:
-                        Atlas.exit();
-                        return;
-                    case LIST:
-                        listTaskItems(taskList, nextCommandLine);
-                        break;
-                    case MARK:
-                        markItem(taskList, nextCommandLine);
-                        break;
-                    case UNMARK:
-                        unmarkItem(taskList, nextCommandLine);
-                        break;
-                    case TODO:
-                        addToDo(taskList, nextCommandLine);
-                        break;
-                    case DEADLINE:
-                        addDeadline(taskList, nextCommandLine);
-                        break;
-                    case EVENT:
-                        addEvent(taskList, nextCommandLine);
-                        break;
-                    case DELETE:
-                        deleteTask(taskList, nextCommandLine);
-                        break;
-                    default:
-                        throw new AtlasException("Unknown command.");
+                switch (Command.valueOf(command)) {
+                case BYE:
+                    Atlas.exit();
+                    return;
+                case LIST:
+                    listTaskItems(taskList, nextCommandLine);
+                    break;
+                case MARK:
+                    markItem(taskList, nextCommandLine);
+                    break;
+                case UNMARK:
+                    unmarkItem(taskList, nextCommandLine);
+                    break;
+                case TODO:
+                    addToDo(taskList, nextCommandLine);
+                    break;
+                case DEADLINE:
+                    addDeadline(taskList, nextCommandLine);
+                    break;
+                case EVENT:
+                    addEvent(taskList, nextCommandLine);
+                    break;
+                case DELETE:
+                    deleteTask(taskList, nextCommandLine);
+                    break;
+                default:
+                    throw new AtlasException("Unknown command.");
                 }
             } catch (AtlasException e) {
                 Atlas.print(e.getMessage());
@@ -83,12 +87,12 @@ public class Atlas {
         Atlas.print("Bye. Hope to see you again soon!");
     }
 
-    public static boolean isNumber(String s) {
+    public static boolean isNotNumber(String s) {
         try {
             Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException e) {
             return false;
+        } catch (NumberFormatException e) {
+            return true;
         }
     }
 
@@ -116,7 +120,7 @@ public class Atlas {
         String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
             throw new AtlasException("Marking a task as done requires the task number.");
-        } else if (!isNumber(commandsArray[1])) {
+        } else if (isNotNumber(commandsArray[1])) {
             throw new AtlasException("Task number provided is not a number.");
         } else if (commandsArray.length > 2) {
             throw new AtlasException("Marking a task as done only requires the task number without any additional arguments.");
@@ -136,7 +140,7 @@ public class Atlas {
         String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
             throw new AtlasException("Unmarking a task as undone requires the task number.");
-        } else if (!isNumber(commandsArray[1])) {
+        } else if (isNotNumber(commandsArray[1])) {
             throw new AtlasException("Task number provided is not a number.");
         } else if (commandsArray.length > 2) {
             throw new AtlasException("Unmarking a task as undone only requires the task number without any additional arguments.");
@@ -163,7 +167,7 @@ public class Atlas {
         String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
             throw new AtlasException("Deleting a task as undone requires the task number.");
-        } else if (!isNumber(commandsArray[1])) {
+        } else if (isNotNumber(commandsArray[1])) {
             throw new AtlasException("Task number provided is not a number.");
         } else if (commandsArray.length > 2) {
             throw new AtlasException("Deleting a task only requires the task number without any additional arguments.");

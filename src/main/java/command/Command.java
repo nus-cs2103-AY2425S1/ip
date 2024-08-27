@@ -1,6 +1,6 @@
-package Commands;
+package command;
 
-public enum Commands {
+public enum Command {
     BYE,
     LIST,
     MARK,
