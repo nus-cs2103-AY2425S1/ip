@@ -1,71 +1,78 @@
-import java.util.ArrayList;
 import java.io.File;
-import java.util.stream.Collector;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.time.LocalDate;
 
+//Solution below adapted from https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/topics.html#W3-4
 public class Storage {
-    ArrayList<Task> TaskLists;
     
-    public Storage() {
-        this.TaskLists = FileUtility.fileContents();
+    private String FilePath;
+    
+    public Storage(String FilePath) {
+        this.FilePath = FilePath;
     }
     
-    private void updateMemory() {
-        String updatedTaskList = this.TaskLists.stream().map(Task::storageFormat).
-                reduce("", (firstLine, secondLine) -> firstLine + secondLine);
-        FileUtility.writeToFile(updatedTaskList);
-    }
+    private void createFile() {
+        try {
+            File myObj = new File(this.FilePath);
+            myObj.createNewFile();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    };
     
-    public void storeTask(Task newTask) {
-        this.TaskLists.add(newTask);
-        updateMemory();
-    }
-    
-    public Task lastTask() {
-        if (!this.TaskLists.isEmpty()) {
-            if (this.TaskLists.get(this.TaskLists.size() - 1).getDescription().equals("bye"))
-                return null;
-            else {
-                return this.TaskLists.get(this.TaskLists.size() - 1);
+    public void writeToFile(String textToAdd) {
+        try {
+            File dataFile = new File(this.FilePath);
+            if(!dataFile.exists()) {
+                createFile();
             }
-        }
-        else {
-            return null;
+            FileWriter fw = new FileWriter(this.FilePath);
+            fw.write(textToAdd);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
     
-    public String listWord() {
-        StringBuilder result = new StringBuilder();
-            for (int i =0; i < this.TaskLists.size(); i++) {
-                result.append(i + 1).append(". ")
-                    .append(this.TaskLists.get(i).toString()).append("\n");
+    public ArrayList<Task> load() {
+        try {
+            ArrayList<Task> taskList = new ArrayList<Task>();
+            File file = new File(this.FilePath);
+            Scanner scanner = new Scanner(file);
+            
+            while (scanner.hasNext()) {
+                String task = scanner.nextLine();
+                String[] taskProcessed = task.split("\\|");
+                switch (taskProcessed[0].trim()) {
+                    case "T":
+                        taskList.add(new ToDo(taskProcessed[2], Integer.parseInt(taskProcessed[1].trim()) == 1));
+                        break;
+                    case "E":
+                        taskList.add(new Event(taskProcessed[2], LocalDate.parse(taskProcessed[3].trim()),  LocalDate.parse(taskProcessed[4].trim()),
+                            Integer.parseInt(taskProcessed[1].trim()) == 1));
+                        break;
+                    case "D":
+                        taskList.add(new Deadline(taskProcessed[2],  LocalDate.parse(taskProcessed[3].trim()),
+                            Integer.parseInt(taskProcessed[1].trim()) == 1));
+                        break;
+                }
             }
-        return result.toString();
-    }
-    
-    public String modifyOperation(int index, boolean markStatus) {
-        int normalizedIndex = index -1;
-        StringBuilder result = new StringBuilder();
-        if (markStatus) {
-            this.TaskLists.get(normalizedIndex).markAsDone();
-        } else {
-            this.TaskLists.get(normalizedIndex).markAsUndone();
+            return taskList;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
         }
-        updateMemory();
-        result.append(this.TaskLists.get(normalizedIndex).toString());
-        return result.toString();
+        return new ArrayList<Task>();
     }
     
-    public String deleteOperation(int index) {
-        int normalizedIndex = index -1;
-        StringBuilder result = new StringBuilder();
-        result.append(this.TaskLists.get(normalizedIndex).toString());
-        this.TaskLists.remove(normalizedIndex);
-        updateMemory();
-        return result.toString();
-    }
-    
-    public String getLength() {
-        return "Now you have " + String.valueOf(this.TaskLists.size())+ " tasks in the list.";
+    public void synchronizeTasks(ArrayList<Task> TaskLists) {
+        String updatedTaskList = TaskLists.stream().map(Task::storageFormat).
+            reduce("", (firstLine, secondLine) -> firstLine + secondLine);
+                this.writeToFile(updatedTaskList);
     }
     
 }

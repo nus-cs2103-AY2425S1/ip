@@ -1,48 +1,56 @@
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.time.LocalDate;
 
 public class Alpha {
-    public static void main(String[] args) {
-        
+    
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    
+    public Alpha(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (AlphaException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+    
+    public void run() {
+        System.out.println("Run Executed!");
         Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage();
-        String initialResponse = "____________________________________________________________\n"
-                + "Hello! I'm Alpha\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n";
+        String input = "";
+    
+        ui.welcomeMessage();
         
-        System.out.println(initialResponse);
-        String s1 = "";
         while (true) {
             if (!scanner.hasNext()) {
                 break;
             } else {
-                s1 = scanner.nextLine();
-            }
-        
-            // Check if the user input is "bye"
-            if (s1.equalsIgnoreCase(Commands.BYE.getCommand())) {
-                String echoResponse = "____________________________________________________________\n"
-                        + "Bye. Hope to see you again soon!" +"\n"
-                        + "____________________________________________________________\n";
-                System.out.println(echoResponse);
-                break;  // Exit the loop
-            }
-    
-            else if (s1.equalsIgnoreCase(Commands.LIST.getCommand())) {
-                String echoResponse = "____________________________________________________________\n"
-                        +"Here are the tasks in your list:\n"
-                        + storage.listWord() +"\n"
-                        + "____________________________________________________________\n";
-                System.out.println(echoResponse);
+                input = scanner.nextLine();
             }
             
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.MARK.getCommand())) {
+            String inputCommand = Parser.extractCommand(input);
+            
+            // Check if the user input is "bye"
+            if (input.equalsIgnoreCase(Commands.BYE.getCommand())) {
+                storage.synchronizeTasks(tasks.getTaskLists());
+                ui.byeMessage();
+                break;  // Exit the loop
+            }
+            
+            else if (input.equalsIgnoreCase(Commands.LIST.getCommand())) {
+                ui.listTask(tasks);
+            }
+            
+            else if (inputCommand.equalsIgnoreCase(Commands.MARK.getCommand())) {
                 try {
-                    Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
-                    String modifiedRecord = storage.modifyOperation(indexInvolved, true);
+                    Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
+                    String modifiedRecord = tasks.modifyOperation(indexInvolved, true);
                     String echoResponse = "____________________________________________________________\n"
                             + "Nice! I've marked this task as done:\n"
                             + modifiedRecord + "\n"
@@ -52,29 +60,25 @@ public class Alpha {
                     System.out.println("OOPS!!! Must specify which task to mark");
                 }
             }
-    
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.UNMARK.getCommand())) {
+            
+            else if (inputCommand.equalsIgnoreCase(Commands.UNMARK.getCommand())) {
                 try {
-                    Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
-                    String modifiedRecord = storage.modifyOperation(indexInvolved, false);
-                    String echoResponse = "____________________________________________________________\n"
-                            + "OK, I've marked this task as not done yet:\n "
-                            + modifiedRecord + "\n"
-                            + "____________________________________________________________\n";
-                    System.out.println(echoResponse);
+                    Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
+                    String modifiedRecord = tasks.modifyOperation(indexInvolved, false);
+                    
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! Must specify which task to unmark");
                 }
             }
             
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DELETE.getCommand())) {
+            else if (inputCommand.equalsIgnoreCase(Commands.DELETE.getCommand())) {
                 try {
-                    Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
-                    String modifiedRecord = storage.deleteOperation(indexInvolved);
+                    Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
+                    String modifiedRecord = tasks.deleteOperation(indexInvolved);
                     String echoResponse = "____________________________________________________________\n"
                             + "Noted. I've removed this task:\n "
                             + modifiedRecord + "\n"
-                            + storage.getLength() + "\n"
+                            + tasks.getLength() + "\n"
                             + "____________________________________________________________\n";
                     System.out.println(echoResponse);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -82,80 +86,62 @@ public class Alpha {
                 }
             }
             
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.TODO.getCommand())) {
+            else if (inputCommand.equalsIgnoreCase(Commands.TODO.getCommand())) {
                 try {
-                    String[] splitArray = s1.split(" ");
+                    String[] splitArray = input.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
                     ToDo NewToDo = new ToDo(processedInput);
-                    storage.storeTask(NewToDo);
-                    String echoResponse = "____________________________________________________________ \n"
-                            + "Got it. I've added this task: \n"
-                            + storage.lastTask().toString()
-                            + storage.getLength() + "\n"
-                            + "____________________________________________________________ \n";
-                    System.out.println(echoResponse);
+                    tasks.storeTask(NewToDo);
+                    ui.addTaskMessage(tasks);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     // Handle the case where the description is missing
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 }
             }
-
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DEADLINE.getCommand())) {
+            
+            else if (inputCommand.equalsIgnoreCase(Commands.DEADLINE.getCommand())) {
                 try {
-                    String[] splitArray = s1.split(" ");
+                    String[] splitArray = input.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
-    
+                    
                     // Further processing to get the description before the "/"
-                    String description = processedInput.split("/")[0].trim();
-    
+                    String description = Parser.extractDescription(processedInput);
+                    
                     //Further processing to get by date after the "/"
-                    String by = processedInput.split("/")[1];
-                    by = by.replace("by ", "").trim();
+                    String by = Parser.extractFirstDate(input);
                     LocalDate byDate = LocalDate.parse(by);
-    
+                    
                     Deadline NewDeadline = new Deadline(description, byDate);
-                    storage.storeTask(NewDeadline);
-                    String echoResponse = "____________________________________________________________ \n"
-                            + "Got it. I've added this task: \n"
-                            + storage.lastTask().toString()
-                            + storage.getLength() + "\n"
-                            + "____________________________________________________________ \n";
-                    System.out.println(echoResponse);
+                    tasks.storeTask(NewDeadline);
+                    ui.addTaskMessage(tasks);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //Handle invalid inputs
                     System.out.println("Deadline creation should be in this format:" +
-                        " deadline <Description> /by <Deadline>");
+                            " deadline <Description> /by <Deadline>");
                 } catch (DateTimeParseException e) {
                     System.out.println("Date should be in format yyyy-mm-dd");
                 }
             }
-
-            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.EVENT.getCommand())) {
+            
+            else if (inputCommand.equalsIgnoreCase(Commands.EVENT.getCommand())) {
                 try {
-                    String[] splitArray = s1.split(" ");
+                    String[] splitArray = input.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
-    
+                    
                     // Further processing to get the description before the "/"
-                    String description = processedInput.split("/")[0].trim();
-    
+                    String description = Parser.extractDescription(processedInput);
+                    
                     //Further processing to get start date after the "/"
-                    String start = processedInput.split("/")[1];
-                    start = start.replace("from ", "").trim();
+                    String start = Parser.extractFirstDate(input);
                     LocalDate startDate = LocalDate.parse(start);
-    
+                    
                     //Further processing to get start date after the "/"
-                    String end = processedInput.split("/")[2];
-                    end = end.replace("to", "").trim();
+                    String end = Parser.extractSecondDate(input);
                     LocalDate endDate = LocalDate.parse(end);
-    
+                    
                     Event NewEvent = new Event(description, startDate, endDate);
-                    storage.storeTask(NewEvent);
-                    String echoResponse = "____________________________________________________________ \n"
-                            + "Got it. I've added this task: \n"
-                            + storage.lastTask().toString()
-                            + storage.getLength() + "\n"
-                            + "____________________________________________________________ \n";
-                    System.out.println(echoResponse);
+                    tasks.storeTask(NewEvent);
+                    ui.addTaskMessage(tasks);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //Handle invalid inputs
                     System.out.println("Event creation should be in this format: event <Description> /from <Start> /to <End>");
@@ -168,8 +154,13 @@ public class Alpha {
             }
             
         }
-    
+        
         // Close the scanner after the loop ends
         scanner.close();
     }
+    
+    public static void main(String[] args) {
+        new Alpha("./tasks_data.txt").run();
+    }
 }
+
