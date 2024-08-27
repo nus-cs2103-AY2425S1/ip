@@ -250,6 +250,7 @@ public class SecondMind {
     }
 
     public static void main(String[] args) {
+        loadTaskList();
         greetUser();
         getInput();
         exitProgram();
