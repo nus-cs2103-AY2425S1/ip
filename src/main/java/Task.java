@@ -29,7 +29,7 @@ public class Task {
       marked = true;
       System.out.println("Yay! This task has been marked as completed.");
       System.out.println(this.toString());
-      Hamyo.printLine();
+      UI.printLine();
     } else {
       throw new HamyoException("This task was already marked as completed!");
     }
@@ -40,7 +40,7 @@ public class Task {
       marked = false;
       System.out.println("Oki! This task has been marked as incomplete.");
       System.out.println(this.toString());
-      Hamyo.printLine();
+      UI.printLine();
     } else {
       throw new HamyoException("This task was already marked as incomplete!");
     }

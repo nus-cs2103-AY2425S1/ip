@@ -1,110 +1,93 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Hamyo {
 
-    private static boolean active = true;
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private final UI ui;
+    private boolean active;
+    private final ArrayList<Task> tasks;
     private enum TaskType {
         TODO,
         DEADLINE,
         EVENT
     }
 
+    public Hamyo() {
+        this.ui = new UI();
+        this.active = true;
+        this.tasks = new ArrayList<Task>();
+
+        this.ui.greet();
+    }
+
     public static void main(String[] args) {
+        Hamyo hamyo = new Hamyo();
+        Scanner scanner = new Scanner(System.in);
         try {
-            Scanner scanner = new Scanner(System.in);
-            greet();
-            loadData();
-            while (active) {
+            loadData(hamyo);
+            while (hamyo.active) {
                 try {
                     String command = scanner.nextLine();
                     String commandType = command.split(" ")[0];
                     String commandFields = command.substring(commandType.length());
                     switch (commandType) {
                     case "todo":
-                        add(TaskType.TODO, commandFields);
+                        add(hamyo, TaskType.TODO, commandFields);
                         break;
                     case "deadline":
-                        add(TaskType.DEADLINE, commandFields);
+                        add(hamyo, TaskType.DEADLINE, commandFields);
                         break;
                     case "event":
-                        add(TaskType.EVENT, commandFields);
+                        add(hamyo, TaskType.EVENT, commandFields);
                         break;
                     case "list":
-                        listTasks();
+                        listTasks(hamyo);
                         break;
                     case "listDate":
-                        listTasksByDate(commandFields);
+                        listTasksByDate(hamyo, commandFields);
                         break;
                     case "mark":
-                        mark(commandFields);
+                        mark(hamyo, commandFields);
                         break;
                     case "unmark":
-                        unmark(commandFields);
+                        unmark(hamyo, commandFields);
                         break;
                     case "delete":
-                        delete(commandFields);
+                        delete(hamyo, commandFields);
                         break;
                     case "bye":
-                        terminate();
+                        hamyo.active = false;
+                        hamyo.ui.terminate();
                         break;
                     default:
                         throw new HamyoException("Invalid Command!");
                     }
-                    saveData();
+                    saveData(hamyo);
                 } catch (HamyoException e) {
                     System.out.println(e.toString());
-                    printLine();
+                    UI.printLine();
                 }
             }
             scanner.close();
         } catch (HamyoException e) {
             System.out.println(e.toString());
-            printLine();
+            UI.printLine();
         }
     }
 
-    public static void printLine() {
-        System.out.println("________________________________________________________________________________");
-    }
-
-    private static void printLogo() {
-        System.out.println(
-            "$$   $$   $$$$    $$$$ $$$$   $$   $$  $$$$$$\n" +
-            "$$   $$  $$  $$  $$  $$$  $$  $$   $$  $$  $$\n" +
-            "$$$$$$$  $$$$$$  $$  $$$  $$  $$$$$$$  $$  $$\n" +
-            "$$   $$  $$  $$  $$  $$$  $$       $$  $$  $$\n" +
-            "$$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$");
-    }
-
-    public static void greet() {
-        printLine();
-        printLogo();
-        System.out.println("\nAnnyeonghaseyo! Hamyo here!\nHow may I assist you today?");
-        printLine();
-    }
-
-    public static void terminate() {
-        active = false;
-        System.out.println("Annyeong! Till we meet again. <3");
-        printLine();
-    }
-
-    public static void add (TaskType taskType, String task) throws HamyoException {
+    public static void add (Hamyo hamyo, TaskType taskType, String task) throws HamyoException {
         if (taskType.equals(TaskType.TODO)) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: todo [task description]");
             }
-            tasks.add(new ToDo(new String[]{task.substring(1)}));
+            hamyo.tasks.add(new ToDo(new String[]{task.substring(1)}));
         } else if (taskType.equals(TaskType.DEADLINE)) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: deadline [task description] /by [deadline]");
@@ -113,7 +96,7 @@ public class Hamyo {
             if (split.length != 2) {
                 throw new HamyoException("Usage: deadline [task description] /by [deadline]");
             }
-            tasks.add(new Deadline(split));
+            hamyo.tasks.add(new Deadline(split));
         } else if (taskType.equals(TaskType.EVENT)) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: event [task description] /from [start timestamp] /to [end timestamp]");
@@ -122,89 +105,89 @@ public class Hamyo {
             if (split.length != 3) {
                 throw new HamyoException("Usage: event [task description] /from [start timestamp] /to [end timestamp]");
             }
-            tasks.add(new Event(split));
+            hamyo.tasks.add(new Event(split));
         }
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(tasks.size() - 1).toString());
-        System.out.printf("There are %d tasks in the list now.\n", tasks.size());
-        printLine();
+        System.out.println(hamyo.tasks.get(hamyo.tasks.size() - 1).toString());
+        System.out.printf("There are %d tasks in the list now.\n", hamyo.tasks.size());
+        UI.printLine();
     }
 
-    public static void listTasks() throws HamyoException {
+    public static void listTasks(Hamyo hamyo) throws HamyoException {
         System.out.println("These are your tasks:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        for (int i = 0; i < hamyo.tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + hamyo.tasks.get(i).toString());
         }
-        printLine();
+        UI.printLine();
     }
-    public static void listTasksByDate(String str) throws HamyoException {
+    public static void listTasksByDate(Hamyo hamyo, String str) throws HamyoException {
         try {
             LocalDate date = LocalDate.parse(str.substring(1));
             System.out.println("These are your tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ".");
             int counter = 1;
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i) instanceof Deadline || tasks.get(i) instanceof Event) {
-                    if (tasks.get(i).occursToday(date)) {
-                        System.out.println(counter++ + ". " + tasks.get(i).toString());
+            for (int i = 0; i < hamyo.tasks.size(); i++) {
+                if (hamyo.tasks.get(i) instanceof Deadline || hamyo.tasks.get(i) instanceof Event) {
+                    if (hamyo.tasks.get(i).occursToday(date)) {
+                        System.out.println(counter++ + ". " + hamyo.tasks.get(i).toString());
                     }
                 }
             }
-            printLine();
+            UI.printLine();
         } catch (Exception e) {
             throw new HamyoException("Usage: listDate yyyy-MM-dd.");
         }
     }
 
-    public static void mark(String str) throws HamyoException {
+    public static void mark(Hamyo hamyo, String str) throws HamyoException {
         try {
             if (str.length() <= 1) {
                 throw new HamyoException("Usage: mark [index]");
             }
             int index = Integer.parseInt(str.substring(1)) - 1;
-            if (index < 0 || index >= tasks.size()) {
+            if (index < 0 || index >= hamyo.tasks.size()) {
                 throw new HamyoException("Usage: mark [index]");
             }
-            tasks.get(index).mark();
+            hamyo.tasks.get(index).mark();
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: mark [index]");
         }
     }
 
-    public static void unmark(String str) throws HamyoException {
+    public static void unmark(Hamyo hamyo, String str) throws HamyoException {
         try {
             if (str.length() <= 1) {
                 throw new HamyoException("Usage: unmark [index]");
             }
             int index = Integer.parseInt(str.substring(1)) - 1;
-            if (index < 0 || index >= tasks.size()) {
+            if (index < 0 || index >= hamyo.tasks.size()) {
                 throw new HamyoException("Usage: unmark [index]");
             }
-            tasks.get(index).unmark();
+            hamyo.tasks.get(index).unmark();
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: unmark [index]");
         }
     }
 
-    public static void delete(String str) throws HamyoException {
+    public static void delete(Hamyo hamyo, String str) throws HamyoException {
         try {
             if (str.length() <= 1) {
                 throw new HamyoException("Usage: delete [index]");
             }
             int index = Integer.parseInt(str.substring(1)) - 1;
-            if (index < 0 || index >= tasks.size()) {
+            if (index < 0 || index >= hamyo.tasks.size()) {
                 throw new HamyoException("Usage: delete [index]");
             }
             System.out.println("Noted. I've removed this task:");
-            System.out.println(tasks.get(index).toString());
-            tasks.remove(index);
-            System.out.printf("There are %d tasks in the list now.\n", tasks.size());
-            printLine();
+            System.out.println(hamyo.tasks.get(index).toString());
+            hamyo.tasks.remove(index);
+            System.out.printf("There are %d tasks in the list now.\n", hamyo.tasks.size());
+            UI.printLine();
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: delete [index]");
         }
     }
 
-    public static void loadData() throws HamyoException {
+    public static void loadData(Hamyo hamyo) throws HamyoException {
         try {
             File savedTasks = new File("./savedTasks.txt");
             if (!savedTasks.exists()) {
@@ -217,20 +200,20 @@ public class Hamyo {
                 String[] task = scannedTasks.nextLine().split(" \\| ");
                 switch (task[0]) {
                 case "T":
-                    tasks.add(new ToDo(new String[]{task[2]}));
+                    hamyo.tasks.add(new ToDo(new String[]{task[2]}));
                     break;
                 case "D":
-                    tasks.add(new Deadline(new String[]{task[2], task[3]}));
+                    hamyo.tasks.add(new Deadline(new String[]{task[2], task[3]}));
                     break;
                 case "E":
-                    tasks.add(new Event(new String[]{task[2], task[3], task[4]}));
+                    hamyo.tasks.add(new Event(new String[]{task[2], task[3], task[4]}));
                     break;
                 default:
                     throw new HamyoException("Invalid case " + task[0] + ".");
                 }
                 switch (task[1]) {
                 case "1":
-                    mark(" " + currTask);
+                    mark(hamyo, " " + currTask);
                     break;
                 case "0":
                     break;
@@ -245,11 +228,11 @@ public class Hamyo {
         }
     }
 
-    public static void saveData() throws HamyoException {
+    public static void saveData(Hamyo hamyo) throws HamyoException {
         try {
             FileWriter fw = new FileWriter("./savedTasks.txt");
             StringBuilder newData = new StringBuilder();
-            for (Task task : tasks) {
+            for (Task task : hamyo.tasks) {
                 newData.append(task.toFileFormat()).append(System.lineSeparator());
             }
             //System.out.println(newData.toString());
