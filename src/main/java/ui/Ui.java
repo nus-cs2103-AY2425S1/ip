@@ -58,6 +58,7 @@ public class Ui {
 
     /**
      * Prints message to terminal when task is marked or unmarked.
+     *
      * @param task the task which was handled.
      * @param command "mark" or "unmark".
      */
@@ -77,6 +78,7 @@ public class Ui {
 
     /**
      * Prints message to the terminal when task is deleted or added.
+     *
      * @param task the task that was handled.
      * @param command "delete" or "todo" or "deadline" or "event".
      * @param size number of tasks in the list.
@@ -99,6 +101,7 @@ public class Ui {
 
     /**
      * Prints all the tasks in the list.
+     * 
      * @param tasks the string representation of all the tasks.
      * @param size number of tasks in the list.
      */

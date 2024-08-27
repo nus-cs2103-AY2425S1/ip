@@ -29,6 +29,7 @@ public class Task {
 
     /**
      * Returns the status of the task in a string.
+     *
      * @return status icon.
      */
     public String getStatusIcon() {
@@ -37,6 +38,7 @@ public class Task {
 
     /**
      * Returns the string of the task to be saved to data file.
+     *
      * @return string representing the task information.
      */
     public String writeTask() {
@@ -47,6 +49,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return string of task.
      */
     @Override

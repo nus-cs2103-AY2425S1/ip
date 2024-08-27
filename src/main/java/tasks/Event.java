@@ -19,6 +19,7 @@ public class Event extends Task {
 
     /**
      * Returns the string of the task to be saved to data file.
+     *
      * @return string representing the task information.
      */
     @Override
@@ -28,6 +29,7 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return string of task.
      */
     @Override

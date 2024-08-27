@@ -12,6 +12,7 @@ public class AliceException extends Exception{
 
     /**
      * Returns the string representation of the exception.
+     *
      * @return custom error message for AliceException.
      */
     @Override

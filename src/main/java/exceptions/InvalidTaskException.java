@@ -13,6 +13,7 @@ public class InvalidTaskException extends AliceException {
 
     /**
      * Returns the string representation of the exception.
+     *
      * @return message that task does not exist.
      */
     @Override

@@ -42,6 +42,7 @@ public class Storage {
 
     /**
      * Saves the tasks into the data file after the program terminates.
+     *
      * @param tasks the input list to be saved to the data file.
      */
     public void saveTasks(TaskList tasks) {
@@ -59,6 +60,7 @@ public class Storage {
 
     /**
      * Returns the TaskList which has been populated with the saved data.
+     *
      * @return TaskList.
      */
     public TaskList getTasks() {
@@ -67,6 +69,7 @@ public class Storage {
 
     /**
      * Converts the task string in the data file into a task to be stored in TaskList.
+     *
      * @param line task string in data file.
      */
     private void createTask(String line) {
@@ -95,6 +98,7 @@ public class Storage {
 
     /**
      * Returns string representation of the task to be saved to data file.
+     *
      * @param t task to be saved.
      * @return string representation of task.
      */

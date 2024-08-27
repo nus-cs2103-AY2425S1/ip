@@ -15,6 +15,7 @@ public class MissingArgumentException extends AliceException {
 
     /**
      * Returns string representation of the exception.
+     *
      * @return message informing users of the specific arguments to that command.
      */
     @Override

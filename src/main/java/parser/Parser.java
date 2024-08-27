@@ -8,7 +8,8 @@ import tasks.Task;
 import ui.Ui;
 
 /**
- * Parses user input and triggers the corresponding actions, by activating TaskList and Ui.
+ * Parses user input and triggers the corresponding actions,
+ * by activating TaskList and Ui.
  */
 public class Parser {
     private boolean isBye;
@@ -23,6 +24,7 @@ public class Parser {
 
     /**
      * Parses user input, breaking down actions by commands.
+     *
      * @param input the string to be parsed.
      * @throws AliceException if command is invalid, or if task number is invalid, or if task is missing arguments.
      */

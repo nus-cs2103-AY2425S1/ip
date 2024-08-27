@@ -9,6 +9,7 @@ public enum Command {
 
     /**
      * Returns the Command associated to the specified string.
+     *
      * @param s the string to be translated into the Command.
      * @return Command.
      */
