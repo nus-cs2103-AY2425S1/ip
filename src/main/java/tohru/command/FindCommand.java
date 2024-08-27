@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class FindCommand extends Command {
 
-    /** Prefix used to invoke the find command **/
+    /** Prefix used to invoke the find command */
     public static final String COMMAND_PREFIX = "find";
 
     /**

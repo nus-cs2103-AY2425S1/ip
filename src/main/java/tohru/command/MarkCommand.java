@@ -10,7 +10,7 @@ import tohru.ui.Ui;
  */
 public class MarkCommand extends Command {
 
-    /** Prefix used to invoke the mark command **/
+    /** Prefix used to invoke the mark command */
     public static final String COMMAND_PREFIX = "mark";
 
     /**

@@ -9,7 +9,7 @@ import tohru.ui.Ui;
  */
 public class ByeCommand extends Command {
 
-    /** Prefix used to invoke the bye command **/
+    /** Prefix used to invoke the bye command */
     public static final String COMMAND_PREFIX = "bye";
 
     /**

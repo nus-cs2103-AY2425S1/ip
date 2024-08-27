@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    /** Scanner for receiving user input. **/
+    /** Scanner for receiving user input. */
     private final Scanner userInput;
 
     /**

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a to-do entry with a specified deadline.
  */
 public class DeadlineItem extends TodoItem {
-    /** Deadline that specifies when the to-do is due **/
+    /** Deadline that specifies when the to-do is due */
     private final LocalDateTime deadline;
 
     /**

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 public class AddDeadlineCommand extends Command {
 
-    /** Prefix used to invoke the add deadline command **/
+    /** Prefix used to invoke the add deadline command */
     public static final String COMMAND_PREFIX = "deadline";
 
     /**

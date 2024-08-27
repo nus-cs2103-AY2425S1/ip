@@ -10,7 +10,7 @@ import tohru.ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    /** Prefix used to invoke the delete command **/
+    /** Prefix used to invoke the delete command */
     public static final String COMMAND_PREFIX = "delete";
 
     /**

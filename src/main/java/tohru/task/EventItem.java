@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents a to-do entry with a specified time period.
  */
 public class EventItem extends TodoItem {
-    /** Start datetime of the event **/
+    /** Start datetime of the event */
     private final LocalDateTime from;
-    /** End datetime of the event **/
+    /** End datetime of the event */
     private final LocalDateTime to;
 
     /**

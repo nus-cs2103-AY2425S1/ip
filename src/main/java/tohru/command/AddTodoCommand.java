@@ -11,7 +11,7 @@ import tohru.ui.Ui;
  */
 public class AddTodoCommand extends Command {
 
-    /** Prefix used to invoke the add to-do command **/
+    /** Prefix used to invoke the add to-do command */
     public static final String COMMAND_PREFIX = "todo";
 
     /**

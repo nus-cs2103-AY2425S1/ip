@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class TodoList {
 
-    /** Array to hold the to-do items. **/
+    /** Array to hold the to-do items. */
     private final ArrayList<TodoItem> todoList;
 
     /**

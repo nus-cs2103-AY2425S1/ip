@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 public class FileStore {
 
-    /** Represents the savefile on local storage **/
+    /** Represents the savefile on local storage */
     private File savefile;
 
     /**

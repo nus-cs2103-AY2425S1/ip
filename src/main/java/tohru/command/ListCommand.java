@@ -9,7 +9,7 @@ import tohru.ui.Ui;
  */
 public class ListCommand extends Command {
 
-    /** Prefix used to invoke the list command **/
+    /** Prefix used to invoke the list command */
     public static final String COMMAND_PREFIX = "list";
 
     /**
