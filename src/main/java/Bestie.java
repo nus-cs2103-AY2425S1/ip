@@ -71,7 +71,6 @@ public class Bestie {
                     System.out.println("You now have 1 task in your list.");
                 } else {
                     System.out.println("You now have " + tasks.size() + " tasks in your list.");
-
                 }
 
             } else {
@@ -149,7 +148,7 @@ public class Bestie {
             fw.close();
         } catch (IOException e) {
             // must handle the checked exception from creating a new FileWriter instance, IOException
-            System.out.println("An error occured while attempting to save tasks to file.");
+            System.out.println("An error occurred while attempting to save tasks to file.");
         }
 
     }
@@ -157,8 +156,6 @@ public class Bestie {
     private static void loadTasksFromFile(ArrayList<Task> tasks) {
 
         File f = new File(FILE_PATH);
-
-
         try {
             // creates new file if and only if file does not yet exist
             f.createNewFile();
@@ -176,24 +173,24 @@ public class Bestie {
                 Task newTask = null;
                 switch (taskType) {
 
-                    case ("T"): // next task is a todo
-                        newTask = new Todo(description);
-                        tasks.add(newTask);
-                        break;
+                case ("T"): // next task is a todo
+                    newTask = new Todo(description);
+                    tasks.add(newTask);
+                    break;
 
-                    case ("D"):
+                case ("D"):
 
-                        String deadline = parts[3];
-                        newTask = new Deadline(description, deadline);
-                        tasks.add(newTask);
-                        break;
+                    String deadline = parts[3];
+                    newTask = new Deadline(description, deadline);
+                    tasks.add(newTask);
+                    break;
 
-                    case ("E"):
-                        String start = parts[3];
-                        String end = parts[4];
-                        newTask = new Event(description, start, end);
-                        tasks.add(newTask);
-                        break;
+                case ("E"):
+                    String start = parts[3];
+                    String end = parts[4];
+                    newTask = new Event(description, start, end);
+                    tasks.add(newTask);
+                    break;
                 }
 
                 if (newTask != null) {
@@ -205,8 +202,6 @@ public class Bestie {
         } catch (IOException e) {
             System.out.println("An error occured.");
         }
-
-
 
     }
 }
