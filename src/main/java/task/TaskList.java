@@ -1,5 +1,6 @@
+package task;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -39,7 +40,7 @@ public class TaskList {
         return tasks;
     }
 
-//    public ArrayList<Task> getLast() {
+//    public ArrayList<task.Task> getLast() {
 //        if(tasks.size() != 0) {
 //            return tasks.getLast();
 //        }

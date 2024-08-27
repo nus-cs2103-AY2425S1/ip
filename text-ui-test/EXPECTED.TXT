@@ -36,11 +36,11 @@
 			- [E][ ] project meeting  (from:  Mon 2pm  to: 4pm)
 		__________________________________________________
 		__________________________________________________
-		 Super! Task marked as done:
+		 Super! task.Task marked as done:
 			[T][X] return books
 		__________________________________________________
 		__________________________________________________
-		 Super! Task marked as done:
+		 Super! task.Task marked as done:
 			[D][X] return book  (by: Sunday)
 		__________________________________________________
 		__________________________________________________

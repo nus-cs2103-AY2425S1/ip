@@ -1,3 +1,5 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task{
@@ -28,6 +30,6 @@ public class Deadline extends Task{
 
     @Override
     public String toSaveFormat() {
-        return "Deadline | " + (isDone ? "Done" : "Not Done") + " | " + description + " | " +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
+        return "task.Deadline | " + (isDone ? "Done" : "Not Done") + " | " + description + " | " +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 }

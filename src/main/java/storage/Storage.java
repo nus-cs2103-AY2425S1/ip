@@ -1,3 +1,10 @@
+package storage;
+
+import task.Task;
+import task.ToDo;
+import task.Event;
+import task.Deadline;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +14,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import task.Task;
 
 public class Storage {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
@@ -55,13 +63,13 @@ public class Storage {
                 String description = components[2].trim();
                 Task task = null;
 
-                if (taskType.equalsIgnoreCase("ToDo")) {
+                if (taskType.equalsIgnoreCase("task.ToDo")) {
                     task = new ToDo(description);
-                } else if (taskType.equalsIgnoreCase("Event")) {
+                } else if (taskType.equalsIgnoreCase("task.Event")) {
                     LocalDateTime startDate = LocalDateTime.parse(components[3].trim(), FORMATTER);
                     LocalDateTime endDate = LocalDateTime.parse(components[4].trim(), FORMATTER);
                     task = new Event(description, startDate, endDate);
-                } else if (taskType.equalsIgnoreCase("Deadline")) {
+                } else if (taskType.equalsIgnoreCase("task.Deadline")) {
                     LocalDateTime by = LocalDateTime.parse(components[3].trim(), FORMATTER);
                     task = new Deadline(description, by);
                 } else {

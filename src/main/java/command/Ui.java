@@ -1,5 +1,8 @@
-import java.util.ArrayList;
+package command;
+
+import task.Task;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
     private static final String LINE_SEPARATOR = "\t\t" + "_".repeat(50);
@@ -39,7 +42,7 @@ public class Ui {
 
     public void showTaskMarkedAsDone(Task task) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("\t\tSuper! Task marked as done:");
+        System.out.println("\t\tSuper! task.Task marked as done:");
         System.out.println("\t\t" + task);
         System.out.println(LINE_SEPARATOR);
     }

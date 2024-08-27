@@ -1,3 +1,5 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task{
@@ -37,7 +39,7 @@ public class Event extends Task{
 
     @Override
     public String toSaveFormat() {
-        return "Event | " + (isDone ? "Done" : "Not Done") + " | " +
+        return "task.Event | " + (isDone ? "Done" : "Not Done") + " | " +
                 description + " | " +
                 dateStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) +
                 " | " +

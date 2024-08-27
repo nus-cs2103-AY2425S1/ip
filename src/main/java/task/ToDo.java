@@ -1,3 +1,5 @@
+package task;
+
 public class ToDo extends Task {
 
     public ToDo(String description) {
@@ -16,7 +18,7 @@ public class ToDo extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "ToDo | " + (isDone ? "Done" : "Not Done") + " | " + description;
+        return "task.ToDo | " + (isDone ? "Done" : "Not Done") + " | " + description;
     }
 }
 

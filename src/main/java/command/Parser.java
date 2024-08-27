@@ -1,6 +1,14 @@
-import java.time.LocalDateTime;
+package command;
+
+import task.Deadline;
+import task.Event;
+import task.ToDo;
+import task.Task;
+import task.TaskList;
+import storage.Storage;
+
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 
 public class Parser {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
@@ -73,7 +81,7 @@ public class Parser {
 
     private void deadlineCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         if (!input.contains("/by")) {
-            ui.showError("Deadline format should be: deadline DESCRIPTION /by DATE");
+            ui.showError("task.Deadline format should be: deadline DESCRIPTION /by DATE");
         } if (input.length() == 8) {
             ui.showErrorEmptyDeadlineDescription();
         } else {
@@ -111,9 +119,6 @@ public class Parser {
     }
 
     private void deleteCommand(String input, TaskList taskList, Storage storage, Ui ui) {
-//        if (input.length() < 8 || !Character.isDigit(input.charAt(7))) {
-//            ui.showError("Command must be followed by a specific task number");
-//        }
         try {
             int indexSpace = input.indexOf(" ");
             int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
