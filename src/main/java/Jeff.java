@@ -1,5 +1,14 @@
+import java.io.IOException;
+import java.io.FileWriter;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.List;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Jeff {
     private static final String HORIZONTAL =
@@ -308,9 +317,96 @@ public class Jeff {
         scanner.close();
     }
 
+    private static Path getTaskFilePath() throws URISyntaxException {
+        // Use the location of Jeff.class to get the absolute path to the task file
+        URL url = Jeff.class.getProtectionDomain().getCodeSource().getLocation();
+        Path classPath = Paths.get(url.toURI()).getParent();
+        Path dataFolderPath = classPath.resolve("../../src/main/data").normalize();
+        return dataFolderPath.resolve("tasks.txt").normalize();
+    }
+
+    private static void getTasksFromDatabase() {
+        try {
+            // Get the task file location
+            Path taskFilePath = getTaskFilePath();
+
+            // Create a task file if it doesn't exist
+            if (!Files.exists(taskFilePath)) {
+                Files.createFile(taskFilePath);
+            }
+
+            // Use a scanner to read the data file
+            Scanner scanner = new Scanner(taskFilePath);
+            while (scanner.hasNext()) {
+                // Get the task information
+                String[] taskParts = scanner.nextLine().split(" \\| ");
+
+                // Check if the data file is corrupted
+                if (taskParts.length < 3) {
+                    throw new FileCorruptException();
+                }
+
+                String taskType = taskParts[0];
+                boolean isDone = taskParts[1].equals("1");
+                String taskDescription = taskParts[2];
+                Task currentTask = null;
+
+                // Categorise and initialise the task based on its task type
+                switch (taskType) {
+                case "T":
+                    // To Do Task
+                    currentTask = new ToDoTask(taskDescription, isDone);
+                    break;
+                case "D":
+                    // Deadline Task
+                    currentTask = new DeadlineTask(taskDescription, taskParts[3], isDone);
+                    break;
+                case "E":
+                    // Event Task
+                    currentTask = new EventTask(taskDescription, taskParts[3], taskParts[4], isDone);
+                    break;
+                default:
+                    break;
+                }
+
+                // Add task to task list if it exists
+                if (currentTask != null) {
+                    taskList.add(currentTask);
+                } else {
+                    throw new FileCorruptException();
+                }
+            }
+
+        } catch (IOException | URISyntaxException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (FileCorruptException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private static void writeTasksToDatabase() {
+        try {
+            // Map the tasks in the task list into their file strings
+            List<String> fileStringList = taskList.stream()
+                    .map(Task::toFileString)
+                    .toList();
+
+            // Write the strings into the data file
+            Path taskFilePath = getTaskFilePath();
+            if (!Files.exists(taskFilePath)) {
+                Files.createFile(taskFilePath);
+            }
+            Files.write(taskFilePath, fileStringList);
+        } catch (IOException | URISyntaxException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
+        getTasksFromDatabase();
         printGreetings();
         printUserInput();
+        writeTasksToDatabase();
         printFarewell();
     }
 }
