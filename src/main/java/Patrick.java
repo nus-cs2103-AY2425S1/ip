@@ -1,8 +1,12 @@
-import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,11 +21,11 @@ public class Patrick {
     static ArrayList<Task> list = new ArrayList<>();
     static Task task;
     public enum Type {
-        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR, FORMATS
     }
     static Type inputType;
     static File file;
-    static String FILE_PATH = "data/bob.txt";
+    static String FILE_PATH = "data/tasks.txt";
 
     public static void main(String[] args) {
         Scanner inputMsg = new Scanner(System.in);
@@ -47,6 +51,7 @@ public class Patrick {
                     break;
                 } catch (PatrickException e) {
                     System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                    break;
                 }
 
             case UNMARK:
@@ -55,6 +60,7 @@ public class Patrick {
                     break;
                 } catch (PatrickException e) {
                     System.out.println(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                    break;
                 }
 
             case TODO:
@@ -63,6 +69,7 @@ public class Patrick {
                     break;
                 } catch (PatrickException e) {
                     System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                    break;
                 }
 
             case DEADLINE:
@@ -71,6 +78,7 @@ public class Patrick {
                     break;
                 } catch (PatrickException e) {
                     System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                    break;
                 }
 
             case EVENT:
@@ -79,6 +87,7 @@ public class Patrick {
                     break;
                 } catch (PatrickException e) {
                     System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                    break;
                 }
 
             case DELETE:
@@ -87,13 +96,32 @@ public class Patrick {
                     break;
                 } catch (PatrickException e) {
                     System.out.print(HORIZONTAL_LINE + e.toString() + "\n" + HORIZONTAL_LINE);
+                    break;
                 }
+
+            case FORMATS:
+                formats();
+                break;
 
             default:
                 System.out.println(HORIZONTAL_LINE + "What are you trying to say man. Re-enter your command \n" + HORIZONTAL_LINE);
                 break;
             }
         } while (!inputType.equals(Type.BYE));
+    }
+
+    private static void formats() {
+        System.out.println(HORIZONTAL_LINE + "Here are the different formats available:");
+        System.out.println("yyyy-MM-dd HHmm");
+        System.out.println("dd-MM-yyyy HHmm");
+        System.out.println("d-MM-yyyy HHmm");
+        System.out.println("MM-dd-yyyy HHmm");
+        System.out.println("yyyy/MM/dd HHmm");
+        System.out.println("dd/MM/yyyy HHmm");
+        System.out.println("d/MM/yyyy HHmm");
+        System.out.println("MM/dd/yyyy HHmm");
+        System.out.println("MMM dd yyyy HHmm");
+        System.out.println("MMM d yyyy HHmm");
     }
 
     private static void readTasks() throws FileNotFoundException {
@@ -112,7 +140,7 @@ public class Patrick {
             } else if (taskString.startsWith("D")) {
                 String taskDescription = taskString.substring(7);
                 taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
-                String deadline = taskString.substring(7).replace(taskDescription, "").replace("| ", "");
+                String deadline = taskString.substring(7).replace(taskDescription, "").replace(" | ", "");
                 currTask = new Deadline(taskDescription, deadline);
                 list.add(currTask);
                 if (taskString.substring(4).startsWith("X")) {
@@ -121,7 +149,7 @@ public class Patrick {
             } else if (taskString.startsWith("E")) {
                 String taskDescription = taskString.substring(7);
                 taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
-                String tempFrom = taskString.substring(7).replace(taskDescription, "").substring(2);
+                String tempFrom = taskString.substring(7).replace(taskDescription + " ", "").substring(2);
                 String to = tempFrom.substring(tempFrom.indexOf("-") + 1);
                 String from = tempFrom.replace("-" + to, "");
                 currTask = new Event(taskDescription, from, to);
@@ -164,11 +192,12 @@ public class Patrick {
                 throw new PatrickException("Deadline Task Description cannot be empty!!");
             }
             else {
-                String deadline = newInput.substring(newInput.indexOf("/by")).replace("/by", "");
+                String deadline = newInput.substring(newInput.indexOf("/by")).replace("/by ", "");
                 if (deadline.isEmpty()) {
                     throw new PatrickException("Deadline Task deadline cannot be empty!!");
-                }
-                else {
+                } else if (DateFormatChecker.getDateFormat(deadline).equals("Unknown Format")) {
+                    throw new PatrickException("Your deadline format is incorrect.\nType 'formats' for the formats.");
+                } else {
                     task = new Deadline(taskDescription, deadline);
                     list.add(task);
                     System.out.println(HORIZONTAL_LINE + TASK_MSG + task.toString() + "\n" + NUM_TASK_MSG_1
@@ -196,12 +225,16 @@ public class Patrick {
             if (taskDescription.isEmpty()) {
                 throw new PatrickException("Event Task Description cannot be empty!!");
             } else {
-                String from = newInput.substring(newInput.indexOf("/from"), newInput.indexOf("/to") - 1).replace("/from", "");
-                String to = newInput.substring(newInput.indexOf("/to")).replace("/to", "");
+                String from = newInput.substring(newInput.indexOf("/from"), newInput.indexOf("/to") - 1).replace("/from ", "");
+                String to = newInput.substring(newInput.indexOf("/to")).replace("/to ", "");
                 if (from.isEmpty()) {
                     throw new PatrickException("You are missing 'from' information from your details!!");
                 } else if (to.isEmpty()) {
                     throw new PatrickException("You are missing 'to' information from your details!!");
+                } else if (DateFormatChecker.getDateFormat(from).equals("Unknown Format")) {
+                    throw new PatrickException("Your from format is incorrect.\nType 'formats' for the formats.");
+                } else if (DateFormatChecker.getTimeFormat(to).equals("Unknown Format")) {
+                    throw new PatrickException("Your to format is incorrect.\n Format of 'to' is HHmm");
                 } else {
                     task = new Event(taskDescription, from, to);
                     list.add(task);
@@ -323,6 +356,8 @@ public class Patrick {
             inputType = Type.EVENT;
         else if (input.startsWith("delete"))
             inputType = Type.DELETE;
+        else if (input.startsWith("formats"))
+            inputType = Type.FORMATS;
         else
             inputType = Type.ERROR;
     }
@@ -356,16 +391,18 @@ public class Patrick {
     }
 
     public static class Deadline extends Task {
-        protected String by;
+        protected LocalDateTime by;
+        String format;
 
         public Deadline(String description, String by) {
             super(description);
-            this.by = by;
+            format = DateFormatChecker.getDateFormat(by);
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern(format));
         }
 
         @Override
         public String toString() {
-            return "D | " + super.toString() + " |" + this.by;
+            return "D | " + super.toString() + " | " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
         }
     }
 
@@ -381,17 +418,19 @@ public class Patrick {
     }
 
     public static class Event extends Task {
-        protected String from, to;
+        LocalDateTime from;
+        LocalTime to;
 
         public Event(String description, String from, String to) {
             super(description);
-            this.from = from;
-            this.to = to;
+            String format = DateFormatChecker.getDateFormat(from);
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern(format));
+            this.to = LocalTime.parse(to, DateTimeFormatter.ofPattern("HHmm"));
         }
 
         @Override
         public String toString() {
-            return "E | " + super.toString() + " |" + this.from + "-" + this.to;
+            return "E | " + super.toString() + " | " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + "-" + this.to.format(DateTimeFormatter.ofPattern("HHmm"));
         }
     }
 
@@ -434,8 +473,13 @@ public class Patrick {
     private static void writeToFile() throws IOException {
         FileWriter fileWriter = new FileWriter(FILE_PATH);
         for (int i = 0; i < list.size(); i++) {
-            String temp = list.get(i).toString();
-            fileWriter.write(temp + "\n");
+            if (i == list.size() - 1) {
+                String temp = list.get(i).toString();
+                fileWriter.write(temp);
+            } else {
+                String temp = list.get(i).toString();
+                fileWriter.write(temp + "\n");
+            }
         }
         fileWriter.close();
     }
