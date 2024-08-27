@@ -1,8 +1,19 @@
 package rizzler;
 
+/**
+ * Represents the command to mark a task as done
+ * in Rizzler's tasklist.
+ */
 class MarkCommand implements Command {
     private final int markIndex;
 
+    /**
+     * Constructs a new <code>MarkCommand</code>
+     * with the string array parsed by the Parser.
+     *
+     * @param fullCommand Parsed command from the Parser.
+     * @throws RizzlerException If the command's second argument is wrong.
+     */
     MarkCommand(String[] fullCommand) throws RizzlerException {
         if (fullCommand.length == 1) {
             throw new RizzlerException("Please key in the number of the task to mark\n"
@@ -18,6 +29,15 @@ class MarkCommand implements Command {
         }
     }
 
+    /**
+     * Executes the command to mark a task from the tasklist
+     * at the index specified.
+     *
+     * @param tasks TaskList supplied by Rizzler.
+     * @param ui Ui supplied by Rizzler.
+     * @param fileStorage FileStorage supplied by Rizzler.
+     * @throws RizzlerException If <code>TaskList</code> throws a <code>RizzlerException</code>.
+     */
     public void execute(TaskList tasks, Ui ui, FileStorage fileStorage) throws RizzlerException {
         try {
             tasks.mark(this.markIndex);
@@ -27,6 +47,11 @@ class MarkCommand implements Command {
         }
     }
 
+    /**
+     * Checks if this command is to exit Rizzler.
+     *
+     * @return <code>false</code> as command does not exit Rizzler.
+     */
     public boolean isExit() {
         return false;
     }

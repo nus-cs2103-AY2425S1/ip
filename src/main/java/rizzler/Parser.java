@@ -1,6 +1,19 @@
 package rizzler;
 
+/**
+ * Represents the parsing function of Rizzler.
+ */
 class Parser {
+
+    /**
+     * Parses the raw input String and creates a
+     * <code>Command</code> corresponding to the
+     * command type featured.
+     *
+     * @param fullCommand String that represents the raw command input.
+     * @return Command that corresponds to the raw input given.
+     * @throws RizzlerException If the command is not understood by the Parser.
+     */
     Command parse(String fullCommand) throws RizzlerException {
         String[] parsedCommand = fullCommand.split(" ");
         if (parsedCommand.length == 0) {

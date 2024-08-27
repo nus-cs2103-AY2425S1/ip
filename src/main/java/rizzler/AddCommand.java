@@ -3,15 +3,37 @@ package rizzler;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+/**
+ * Represents a command to the Rizzler chatbot to add
+ * a task to the tasklist.
+ *
+ * This class stores the addition of 3 types of tasks:
+ * <code>Todo</code>, <code>Deadline</code>, and <code>Event</code>.
+ */
 public class AddCommand implements Command {
     private final String taskType;
     private final String[] fullCommand;
 
+    /**
+     * Constructs the object <code>AddCommand</code>
+     * with the string array parsed by the Parser.
+     *
+     * @param fullCommand Parsed command from the Parser.
+     */
     AddCommand(String[] fullCommand) {
         this.taskType = fullCommand[0];
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Executes the command to add the task to the list by
+     * processing the command details into a <code>Task</code>,
+     * then adding it to the TaskList.
+     * @param tasks TaskList supplied by Rizzler.
+     * @param ui Ui supplied by Rizzler.
+     * @param fileStorage FileStorage supplied by Rizzler.
+     * @throws RizzlerException If the command was entered incorrectly.
+     */
     public void execute(TaskList tasks,  Ui ui, FileStorage fileStorage) throws RizzlerException {
         switch (this.taskType) {
         case "todo":
@@ -101,6 +123,11 @@ public class AddCommand implements Command {
         }
     }
 
+    /**
+     * Checks if this command is to exit Rizzler.
+     *
+     * @return false as command does not exit Rizzler.
+     */
     public boolean isExit() {
         return false;
     }
