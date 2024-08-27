@@ -1,4 +1,4 @@
-
+package nerf.io;
 
 public class Ui {
     private final int LINE_LENGTH = 60;
