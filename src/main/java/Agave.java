@@ -58,7 +58,7 @@ public class Agave {
     private void handleMark(String userInput) throws AgaveException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
+            if (taskNumber > 0 && taskNumber <= taskManager.getTasks().size()) {
                 taskManager.getTasks().get(taskNumber - 1).markAsDone();
                 ui.showMarkedTask(taskManager.getTasks().get(taskNumber - 1));
             } else {
@@ -72,7 +72,7 @@ public class Agave {
     private void handleUnmark(String userInput) throws AgaveException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
+            if (taskNumber > 0 && taskNumber <= taskManager.getTasks().size()) {
                 taskManager.getTasks().get(taskNumber - 1).unmarkAsDone();
                 ui.showUnmarkedTask(taskManager.getTasks().get(taskNumber - 1));
             } else {

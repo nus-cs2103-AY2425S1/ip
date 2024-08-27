@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class Task {
     private String description;
     private ArrayList<Task> tasks;
-    private int taskCount;
     private boolean isDone;
 
     public Task(String description, boolean isDone) {
@@ -58,10 +57,6 @@ public class Task {
         return tasks;
     }
 
-    public int getTaskCount() {
-        return taskCount;
-    }
-
     public void showNumberOfTasks() {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -70,7 +65,7 @@ public class Task {
         return String.format("%s | %d | %s",
                 this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E",
                 isDone ? 1 : 0,
-                getCorrectFormat()
+                this.toString()
         );
     }
 
