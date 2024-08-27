@@ -13,8 +13,8 @@ public class FriendlyBot {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String taskListFilePath = "./data/task_list.txt";
-    private static final String taskListFilePathWithoutFile = "./data";
+    private static final String TASK_LIST_FILE_PATH = "./data/task_list.txt";
+    private static final String TASK_LIST_FILE_PATH_WITHOUT_FILE = "./data";
 
     /**
      * A constructor for FriendlyBot.
@@ -35,7 +35,7 @@ public class FriendlyBot {
      * @param args friendlybot.command.Command line arguments.
      */
     public static void main(String[] args) {
-        FriendlyBot friendlyBot = new FriendlyBot(taskListFilePath, taskListFilePathWithoutFile);
+        FriendlyBot friendlyBot = new FriendlyBot(TASK_LIST_FILE_PATH, TASK_LIST_FILE_PATH_WITHOUT_FILE);
         // Initialise variables
         Scanner reader = new Scanner(System.in);
         // Start of Chat Bot
