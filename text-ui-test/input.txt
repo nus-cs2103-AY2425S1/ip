@@ -10,7 +10,7 @@ mark 2
 list
 unmark 2
 list
-deadline return book /by Sunday
+deadline return book /by 2022-02-02
 list
 mark 3
 list

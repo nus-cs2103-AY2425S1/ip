@@ -6,10 +6,17 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class WenJigglyBot {
-    TaskList tasks;
+    private TaskList tasks;
+    private Ui ui;
 
     public WenJigglyBot() {
         tasks = new TaskList();
+        ui = new Ui();
+        try {
+            loadTasksFromStorage();
+        } catch (WenJigglyBotException e) {
+
+        }
     }
 
     public static void main(String[] args) {
@@ -17,11 +24,9 @@ public class WenJigglyBot {
     }
 
     public void run() {
-        loadTasksFromStorage();
+
         Scanner scanner = new Scanner(System.in);
-        String name = "WenJigglyBot";
-        System.out.println("Sup im " + name);
-        System.out.println("What can I do for you?");
+        ui.intro();
         String task;
         boolean flag = true;
         while (flag) {
@@ -42,7 +47,7 @@ public class WenJigglyBot {
 
             switch (Objects.requireNonNull(command)) {
             case LIST:
-                displayTasks();
+                ui.displayTasks(tasks);
                 break;
             case MARK:
                 strings = task.split(" ");
@@ -99,7 +104,7 @@ public class WenJigglyBot {
         System.out.println("Goodbye!");
     }
 
-    private void loadTasksFromStorage() {
+    private void loadTasksFromStorage() throws WenJigglyBotException {
         File file = new File("./data/data.txt");
 
         // Check if the file exists
@@ -225,12 +230,11 @@ public class WenJigglyBot {
             System.out.println("You entered an invalid index you fool!");
             return;
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("\tRemoving this task!");
-        System.out.println("\t\t" + tasks.get(idx));
+        ui.showLine();
+        ui.showDeleteTask(tasks, idx);
         tasks.remove(idx);
-        System.out.println("\tYou now have " + tasks.size() + " tasks");
-        System.out.println("____________________________________________________________");
+        ui.showTaskCount(tasks);
+        ui.showLine();
     }
 
     private void toggleTask(String action, int idx) {
@@ -241,38 +245,27 @@ public class WenJigglyBot {
         }
         Task task = tasks.get(idx);
         if (action.equals("mark")) {
-            System.out.println("____________________________________________________________");
-            System.out.println("\tYay! Task Completed!");
+            ui.showLine();
             task.markTask();
-            System.out.println("\t" + task);
-            System.out.println("____________________________________________________________");
+            ui.showCompletedTask(task);
+            ui.showLine();
         } else {
-            System.out.println("____________________________________________________________");
-            System.out.println("\tGet to work boy, why not done!!!");
+            ui.showLine();
             tasks.get(idx).unmarkTask();
-            System.out.println("\t" + task);
-            System.out.println("____________________________________________________________");
+            ui.showUncompletedTask(task);
+            ui.showLine();
         }
     }
 
     private void addTask(Task task) {
         tasks.addTask(task);
         saveTasksToFile();
-        System.out.println("____________________________________________________________");
-        System.out.printf("\tAdding %s\n", task.taskType());
-        System.out.printf("\tDone! Added: %s\n", task.getDescription());
-        System.out.printf("You now have %d tasks!\n", tasks.size());
-        System.out.println("____________________________________________________________");
+        ui.showLine();
+        ui.showAddedTask(task);
+        ui.showTaskCount(tasks);
+        ui.showLine();
     }
 
-    private void displayTasks() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are your tasks :)");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. %s%n", i + 1, tasks.get(i).toString());
-        }
-        System.out.println("____________________________________________________________");
-    }
 
     private String tasksToString() {
         StringBuilder sb = new StringBuilder();

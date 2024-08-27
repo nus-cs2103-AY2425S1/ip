@@ -1,5 +1,7 @@
+Tasks loaded from .\data\data.txt
 Sup im WenJigglyBot
 What can I do for you?
+Tasks saved to data.txt
 ____________________________________________________________
 	Adding Todo Task
 	Done! Added: testtask
@@ -25,6 +27,7 @@ ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
 ____________________________________________________________
+Tasks saved to data.txt
 ____________________________________________________________
 	Adding Todo Task
 	Done! Added: borrow book
@@ -53,6 +56,7 @@ Here are your tasks :)
 	1. [T][ ] testtask
 	2. [T][ ] borrow book
 ____________________________________________________________
+Tasks saved to data.txt
 ____________________________________________________________
 	Adding Event Task
 	Done! Added: return book
@@ -62,28 +66,29 @@ ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
 	2. [T][ ] borrow book
-	3. [D][ ] return book (by: Sunday)
+	3. [D][ ] return book (by: 2 February 2022)
 ____________________________________________________________
 ____________________________________________________________
 	Yay! Task Completed!
-	[D][X] return book (by: Sunday)
+	[D][X] return book (by: 2 February 2022)
 ____________________________________________________________
 ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
 	2. [T][ ] borrow book
-	3. [D][X] return book (by: Sunday)
+	3. [D][X] return book (by: 2 February 2022)
 ____________________________________________________________
 ____________________________________________________________
 	Get to work boy, why not done!!!
-	[D][ ] return book (by: Sunday)
+	[D][ ] return book (by: 2 February 2022)
 ____________________________________________________________
 ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
 	2. [T][ ] borrow book
-	3. [D][ ] return book (by: Sunday)
+	3. [D][ ] return book (by: 2 February 2022)
 ____________________________________________________________
+Tasks saved to data.txt
 ____________________________________________________________
 	Adding Event Task
 	Done! Added: meeting
@@ -93,7 +98,7 @@ ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
 	2. [T][ ] borrow book
-	3. [D][ ] return book (by: Sunday)
+	3. [D][ ] return book (by: 2 February 2022)
 	4. [E][ ] meeting (from: mon 2pm to: tues 5pm)
 ____________________________________________________________
 ____________________________________________________________
@@ -104,7 +109,7 @@ ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
 	2. [T][ ] borrow book
-	3. [D][ ] return book (by: Sunday)
+	3. [D][ ] return book (by: 2 February 2022)
 	4. [E][X] meeting (from: mon 2pm to: tues 5pm)
 ____________________________________________________________
 ____________________________________________________________
@@ -115,7 +120,7 @@ ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
 	2. [T][ ] borrow book
-	3. [D][ ] return book (by: Sunday)
+	3. [D][ ] return book (by: 2 February 2022)
 	4. [E][ ] meeting (from: mon 2pm to: tues 5pm)
 ____________________________________________________________
 Oi enter correct command la
@@ -123,16 +128,16 @@ You entered an invalid index you fool!
 ____________________________________________________________
 	Removing this task!
 		[T][ ] borrow book
-	You now have 3 tasks
+You now have 3 tasks!
 ____________________________________________________________
 ____________________________________________________________
 	Removing this task!
 		[E][ ] meeting (from: mon 2pm to: tues 5pm)
-	You now have 2 tasks
+You now have 2 tasks!
 ____________________________________________________________
 ____________________________________________________________
 Here are your tasks :)
 	1. [T][ ] testtask
-	2. [D][ ] return book (by: Sunday)
+	2. [D][ ] return book (by: 2 February 2022)
 ____________________________________________________________
 Goodbye!
