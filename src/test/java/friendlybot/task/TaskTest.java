@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTest {
+    /**
+     * Tests the String representation of a completed Task.
+     */
     @Test
     public void createTask_markCompleted_correctStringOutput() {
         Task task = new Task("test task");
@@ -12,6 +15,9 @@ public class TaskTest {
         assertEquals("[X] test task", task.toString());
     }
 
+    /**
+     * Tests the String representation of an incomplete Task.
+     */
     @Test
     public void createTask_incomplete_correctStringOutput() {
         Task task = new Task("test task");

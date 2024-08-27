@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
+    /**
+     * Tests adding a Task to the TaskList.
+     */
     @Test
     public void testAddTask() {
         TaskList taskList = new TaskList(new ArrayList<>());
@@ -18,6 +21,9 @@ public class TaskListTest {
         assertEquals(3, taskList.getNumTasks());
     }
 
+    /**
+     * Tests deleting a Task from the TaskList.
+     */
     @Test
     public void testDeleteTask() {
         TaskList taskList = new TaskList(new ArrayList<>());
@@ -30,6 +36,9 @@ public class TaskListTest {
         assertEquals("test 3", taskList.getTask(2).description);
     }
 
+    /**
+     * Tests getting Tasks of a specified date from the TaskList.
+     */
     @Test
     public void testGetTasksOnDate() {
         LocalDate date1 = LocalDate.of(2024,8,26);

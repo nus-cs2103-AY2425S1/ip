@@ -5,7 +5,16 @@ import friendlybot.command.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser deals with making sense of the user's commands.
+ */
 public class Parser {
+    /**
+     * Takes in a full command input from the user and returns an executable Command.
+     *
+     * @param fullCommand The raw input from the user.
+     * @return A Command that can be executed.
+     */
     public static Command parse(String fullCommand) {
         if (fullCommand.equals("bye")) {
             return new ExitCommand();

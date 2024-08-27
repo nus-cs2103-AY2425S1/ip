@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class AddCommandTest {
+    /**
+     * Tests adding a new Event.
+     */
     @Test
     public void testAddEvent() {
         LocalDate from = LocalDate.of(2024,8,26);
@@ -23,6 +26,9 @@ public class AddCommandTest {
         assertInstanceOf(Event.class, friendlyBotStub.tasks.getTask(1));
     }
 
+    /**
+     * Tests adding a new Deadline.
+     */
     @Test
     public void testAddDeadline() {
         LocalDate by = LocalDate.of(2024,8,26);
@@ -33,6 +39,9 @@ public class AddCommandTest {
         assertInstanceOf(Deadline.class, friendlyBotStub.tasks.getTask(1));
     }
 
+    /**
+     * Tests adding a new ToDo.
+     */
     @Test
     public void testAddToDo() {
         FriendlyBotStub friendlyBotStub = new FriendlyBotStub();

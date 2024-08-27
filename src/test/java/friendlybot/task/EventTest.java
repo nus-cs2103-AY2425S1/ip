@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
+    /**
+     * Tests String representation of a complete Event Task.
+     */
     @Test
     public void createEvent_markAsCompleted_correctStringOutput() {
         LocalDate dummyDate = LocalDate.now();
@@ -18,6 +21,9 @@ public class EventTest {
                 task.toString());
     }
 
+    /**
+     * Tests String representation of an incomplete Event Task.
+     */
     @Test
     public void createEvent_incomplete_correctStringOutput() {
         LocalDate dummyDate = LocalDate.now();

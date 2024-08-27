@@ -1,33 +1,67 @@
 package friendlybot.task;
 
-import friendlybot.Ui;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * TaskList contains the task list, and handles operations that involve the task list.
+ */
 public class TaskList {
     ArrayList<Task> tasks;
 
+    /**
+     * A constructor for the TaskList.
+     *
+     * @param tasks An ArrayList of tasks to be contained within an instance of TaskList.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the TaskList.
+     *
+     * @param task Task to be added to the TaskList.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Deletes a Task in the TaskList that corresponds to the taskNumber.
+     *
+     * @param taskNumber taskNumber of Task to be deleted.
+     * @return Task that was deleted.
+     */
     public Task deleteTask(int taskNumber) {
         return this.tasks.remove(taskNumber - 1);
     }
 
+    /**
+     * Returns the number of tasks that is contained within the TaskList.
+     *
+     * @return Size of tasks in TaskList.
+     */
     public int getNumTasks() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns a Task that corresponds to the taskNumber.
+     *
+     * @param taskNumber Task Number of task to be deleted, which is one more than the index of the Task.
+     * @return Task that corresponds to the taskMumber.
+     */
     public Task getTask(int taskNumber) {
         return this.tasks.get(taskNumber - 1);
     }
 
+    /**
+     * Returns a list of Tasks that correspond to the given date.
+     *
+     * @param date Date to check whether a Task happens on that date.
+     * @return An ArrayList of Tasks that happens on a given date.
+     */
     public ArrayList<Task> getTasksOnDate(LocalDate date) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task task : this.tasks) {
@@ -44,6 +78,11 @@ public class TaskList {
         return res;
     }
 
+    /**
+     * Returns a String representation of the list of tasks in TaskList to be saved in a file for local storage.
+     *
+     * @return A String representation of the list of tasks in TaskList.
+     */
     public String formatTasksToSave() {
         StringBuilder sb = new StringBuilder();
         for (Task task : this.tasks) {
