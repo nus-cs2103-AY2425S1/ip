@@ -45,7 +45,7 @@ public class Bibi {
                 printHorizontalLine();
 
                 try {
-                    writeToFile("data/list.txt", tasks);
+                    Storage.writeToFile("data/list.txt", tasks);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -53,7 +53,7 @@ public class Bibi {
                 return;
             case "list":
                 printHorizontalLine();
-                printTaskList(tasks);
+                TaskList.printTaskList(tasks);
                 printHorizontalLine();
                 break;
             case "mark":
@@ -71,7 +71,7 @@ public class Bibi {
                 printHorizontalLine();
 
                 try {
-                    writeToFile("data/list.txt", tasks);
+                    Storage.writeToFile("data/list.txt", tasks);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -92,7 +92,7 @@ public class Bibi {
                 printHorizontalLine();
 
                 try {
-                    writeToFile("data/list.txt", tasks);
+                    Storage.writeToFile("data/list.txt", tasks);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -104,7 +104,7 @@ public class Bibi {
                     System.out.println("Invalid todo syntax: Please use \"todo <description>\"");
                 } else {
                     ToDo td = new ToDo(cmd.stripIndent());
-                    addToTaskList(tasks, td);
+                    TaskList.addToTaskList(tasks, td);
 
                     // Console
                     System.out.printf("added: \"%s\" to task list%n", td);
@@ -113,7 +113,7 @@ public class Bibi {
                 printHorizontalLine();
 
                 try {
-                    writeToFile("data/list.txt", tasks);
+                    Storage.writeToFile("data/list.txt", tasks);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -126,7 +126,7 @@ public class Bibi {
                 } else {
                     String[] input = cmd.split(" /by ");
                     Deadline dl = new Deadline(input[0].stripIndent(), input[1]);
-                    addToTaskList(tasks, dl);
+                    TaskList.addToTaskList(tasks, dl);
 
                     // Console
                     System.out.printf("added: \"%s\" to task list%n", dl);
@@ -135,7 +135,7 @@ public class Bibi {
                 printHorizontalLine();
 
                 try {
-                    writeToFile("data/list.txt", tasks);
+                    Storage.writeToFile("data/list.txt", tasks);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -149,7 +149,7 @@ public class Bibi {
                     String[] input = cmd.split(" /from ");
                     String[] interval = input[1].split(" /to ");
                     Event e = new Event(input[0].stripIndent(), interval[0], interval[1]);
-                    addToTaskList(tasks, e);
+                    TaskList.addToTaskList(tasks, e);
 
                     // Console
                     System.out.printf("added: \"%s\" to task list%n", e);
@@ -158,7 +158,7 @@ public class Bibi {
                 printHorizontalLine();
 
                 try {
-                    writeToFile("data/list.txt", tasks);
+                    Storage.writeToFile("data/list.txt", tasks);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -172,13 +172,13 @@ public class Bibi {
                     System.out.println("Invalid task index");
                 } else {
                     System.out.println("You will never see this task ever again >:(");
-                    System.out.printf("Removed %s from task list%n", removeFromTaskList(tasks, index).toString());
+                    System.out.printf("Removed %s from task list%n", TaskList.removeFromTaskList(tasks, index).toString());
                     System.out.printf("You now have %d task(s) to do%n", tasks.size());
                 }
                 printHorizontalLine();
 
                 try {
-                    writeToFile("data/list.txt", tasks);
+                    Storage.writeToFile("data/list.txt", tasks);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -206,7 +206,7 @@ public class Bibi {
             switch (taskLine.charAt(1)) {
             case 'T':
                 Task t = new ToDo(input.substring(4).strip());
-                addToTaskList(tasks, t);
+                TaskList.addToTaskList(tasks, t);
 
                 if (isDone) {
                     t.markAsDone();
@@ -216,7 +216,7 @@ public class Bibi {
             case 'D':
                 String[] deadlineName = input.substring(4).strip().split(" \\(by: ");
                 Task dl = new Deadline(deadlineName[0].stripIndent(), deadlineName[1].substring(0, deadlineName[1].length() - 1));
-                addToTaskList(tasks, dl);
+                TaskList.addToTaskList(tasks, dl);
 
                 if (isDone) {
                     dl.markAsDone();
@@ -227,7 +227,7 @@ public class Bibi {
                 String[] eventName = input.substring(4).strip().split("\\(");
                 String[] interval = eventName[1].split(" - ");
                 Event e = new Event(eventName[0].stripIndent(), interval[0], interval[1].substring(0, interval[1].length()- 1));
-                addToTaskList(tasks, e);
+                TaskList.addToTaskList(tasks, e);
 
                 if (isDone) {
                     e.markAsDone();
@@ -236,16 +236,6 @@ public class Bibi {
                 break;
             }
         }
-    }
-
-    private static void writeToFile(String pathName, ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(pathName);
-
-        for (Task t : tasks) {
-            fw.write(String.format("%s\n", t.toString()));
-        }
-
-        fw.close();
     }
 
     private static void initializeDataDirectory() {
@@ -263,25 +253,6 @@ public class Bibi {
             } catch (IOException e) {
                 System.out.println("Something went wrong during file creation");
             }
-        }
-    }
-
-    private static Task removeFromTaskList(ArrayList<Task> tasks, int index) {
-        return tasks.remove(index - 1);
-    }
-
-    private static void addToTaskList(ArrayList<Task> tasks, Task t) {
-        tasks.add(t);
-    }
-
-    private static void printTaskList(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            System.out.println("Good for you, nothing to do today :3");
-            return;
-        }
-
-        for (int i = 1; i <= tasks.size(); i++) {
-            System.out.printf("%d: %s%n", i, tasks.get(i - 1));
         }
     }
 
