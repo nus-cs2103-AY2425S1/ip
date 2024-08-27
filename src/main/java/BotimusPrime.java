@@ -1,4 +1,8 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -120,7 +124,7 @@ public class BotimusPrime {
             System.out.println("eh bro ur task no description leh wake up ur idea");
         }
 
-        Deadline task = new Deadline(description, false, deadline);
+        Deadline task = new Deadline(description, false, stringToDateTime(deadline));
 
         taskList.add(task);
         saveToDisk();
@@ -158,10 +162,10 @@ public class BotimusPrime {
             return;
         }
 
-        String from = fromAndTo[0];
-        String to = fromAndTo[1];
+        String from = fromAndTo[0].trim();
+        String to = fromAndTo[1].trim();
 
-        Event task = new Event(description, false, from, to);
+        Event task = new Event(description, false, stringToDateTime(from), stringToDateTime(to));
 
         taskList.add(task);
         saveToDisk();
@@ -211,6 +215,35 @@ public class BotimusPrime {
     private static void handleUnknown() {
         System.out.println("bro out here speaking nonsense issit");
     }
+
+    private static LocalDateTime stringToDateTime(String timeString) {
+        DateTimeFormatter withTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter withoutTime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter slashWithTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter slashWithoutTime = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try {
+            return LocalDateTime.parse(timeString, withTime);
+        } catch (DateTimeParseException e1) {
+            try {
+                LocalDate date = LocalDate.parse(timeString, withoutTime);
+                return date.atStartOfDay();
+            } catch (DateTimeParseException e2) {
+                try {
+                    LocalDate date = LocalDate.parse(timeString, slashWithoutTime);
+                    return date.atStartOfDay();
+                } catch (DateTimeParseException e3) {
+                    try {
+                        return LocalDateTime.parse(timeString, slashWithTime);
+                    } catch (DateTimeParseException e4) {
+                        throw new IllegalArgumentException("Wrong date" + timeString);
+                    }
+                }
+            }
+        }
+    }
+
+
 
     public static void main(String[] args) {
 
