@@ -1,8 +1,11 @@
-public class Event extends Task{
-    protected String startWhen;
-    protected String endWhen;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String startWhen, String endWhen) {
+public class Event extends Task{
+    protected LocalDateTime startWhen;
+    protected LocalDateTime endWhen;
+
+    public Event(String description, LocalDateTime startWhen, LocalDateTime endWhen) {
         super(description);
         this.startWhen = startWhen;
         this.endWhen = endWhen;
@@ -10,6 +13,13 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "E | " + this.getStatusIcon() + " | " + this.description + " | "  + this.startWhen + " to " + this.endWhen;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return "E | " + this.getStatusIcon() + " | " + this.description + " (from: " + this.startWhen.format(formatter) + " to: " + this.endWhen.format(formatter) + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "E | " + this.getStatusIcon() + " | " + this.description + " | " + this.startWhen.format(formatter) + " | " + this.endWhen.format(formatter);
     }
 }

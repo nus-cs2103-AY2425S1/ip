@@ -2,6 +2,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class ProYapper {
     private static final String FILE_PATH = "./data/ProYapper.txt";
@@ -80,7 +84,7 @@ public class ProYapper {
     private void loadTasks() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
-            return; 
+            return;
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -109,30 +113,33 @@ public class ProYapper {
                             System.out.println("Skipping invalid Deadline line: " + line);
                             continue;
                         }
-                        Deadline newDeadline = new Deadline(description, parts[3]);
-                        if (isDone) {
-                            newDeadline.markAsDone();
+                        try {
+                            LocalDateTime dueWhen = parseDateTime(parts[3]);
+                            Deadline newDeadline = new Deadline(description, dueWhen);
+                            if (isDone) {
+                                newDeadline.markAsDone();
+                            }
+                            taskList.add(newDeadline);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Skipping invalid date format in Deadline: " + line);
                         }
-                        taskList.add(newDeadline);
                         break;
                     case "E":
-                        if (parts.length < 4) {
+                        if (parts.length < 5) {
                             System.out.println("Skipping invalid Event line: " + line);
                             continue;
                         }
-
-                        String[] timeParts = parts[3].split(" to ");
-                        if (timeParts.length != 2) {
-                            System.out.println("Skipping invalid Event time format: " + line);
-                            continue;
+                        try {
+                            LocalDateTime startWhen = parseDateTime(parts[3]);
+                            LocalDateTime endWhen = parseDateTime(parts[4]);
+                            Event newEvent = new Event(description, startWhen, endWhen);
+                            if (isDone) {
+                                newEvent.markAsDone();
+                            }
+                            taskList.add(newEvent);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Skipping invalid date format in Event: " + line);
                         }
-                        String from = timeParts[0].trim();
-                        String to = timeParts[1].trim();
-                        Event newEvent = new Event(description, from, to);
-                        if (isDone) {
-                            newEvent.markAsDone();
-                        }
-                        taskList.add(newEvent);
                         break;
                     default:
                         System.out.println("Unknown task type: " + taskType);
@@ -152,7 +159,7 @@ public class ProYapper {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (Task task : taskList) {
-                bw.write(task.toString());
+                bw.write(task.toFileString());
                 bw.newLine();
             }
         } catch (IOException e) {
@@ -257,15 +264,20 @@ public class ProYapper {
             if (taskName.isEmpty()) {
                 System.out.println("deadline WHAT???");
             } else {
-                String dueWhen = parts[1].trim();
-                Task newTask = new Deadline(taskName, dueWhen);
-                taskList.add(newTask);
-                int numTasks = taskList.size();
+                try {
+                    LocalDateTime dueWhen = parseDateTime(parts[1].trim());
+                    Task newTask = new Deadline(taskName, dueWhen);
+                    taskList.add(newTask);
+                    int numTasks = taskList.size();
 
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + newTask.toString());
-                System.out.println("Now you have " + numTasks + " tasks in the list");
-                saveTasks();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + newTask.toString());
+                    System.out.println("Now you have " + numTasks + " tasks in the list");
+                    saveTasks();
+                } catch (DateTimeParseException e) {
+                    System.out.println("OI ENTER YOUR DATE AND TIME PROPERLY!\nPlease use yyyy-MM-dd HHmm format.");
+                }
+
             }
         }
     }
@@ -283,21 +295,28 @@ public class ProYapper {
                 if (taskName.isEmpty()) {
                     System.out.println("event WHAT???");
                 } else {
-                    String startWhen = partsTo[0].trim();
-                    String endWhen = partsTo[1].trim();
-                    Task newTask = new Event(taskName, startWhen, endWhen);
-                    taskList.add(newTask);
-                    int numTasks = taskList.size();
+                    try {
+                        LocalDateTime startWhen = parseDateTime(partsTo[0].trim());
+                        LocalDateTime endWhen = parseDateTime(partsTo[1].trim());
+                        Task newTask = new Event(taskName, startWhen, endWhen);
+                        taskList.add(newTask);
+                        int numTasks = taskList.size();
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + newTask.toString());
-                    System.out.println("Now you have " + numTasks + " tasks in the list");
-                    saveTasks();
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + newTask.toString());
+                        System.out.println("Now you have " + numTasks + " tasks in the list");
+                        saveTasks();
+                    } catch (DateTimeParseException e) {
+                        System.out.println("OI ENTER YOUR DATE AND TIME PROPERLY!\nPlease use yyyy-MM-dd HHmm format.");
+                    }
                 }
             }
         }
     }
 
+    public static LocalDateTime parseDateTime(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return LocalDateTime.parse(dateTime, formatter);
+    }
+
 }
-
-
