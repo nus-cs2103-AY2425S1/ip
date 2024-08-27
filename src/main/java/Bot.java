@@ -13,12 +13,12 @@ public class Bot {
     private ArrayList<Task> taskList = new ArrayList<>();
 
     public boolean loadData() {
+        Path saveDataPath = Paths.get("./data/Luke.txt");
         try {
-            Path data = Paths.get("./data/Luke.txt");
-            if (Files.notExists(data)) {
+            if (Files.notExists(saveDataPath)) {
                 throw new NoSaveDataFoundException();
             }
-            List<String> lines = Files.readAllLines(data);
+            List<String> lines = Files.readAllLines(saveDataPath);
             for (String line : lines) {
                 List<String> inputList = Arrays.asList(line.split("\\|"));
                 String mark = inputList.get(0).strip().toLowerCase();
@@ -55,23 +55,23 @@ public class Bot {
             }
             return true;
         } catch (NoSaveDataFoundException e) {
-            System.out.println("we couldn't find a save file. you will need to create one to continue using Luke.\n"
+            System.out.println("i couldn't find a saved task list. you will need to create one to continue using me.\n"
                     + "would you like to create one? (Y/N)");
             Scanner scanner = new Scanner(System.in);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine().toLowerCase();
                 switch (input) {
                 case "y", "yes" -> {
-                    Path newFile = Paths.get(".data/Luke.txt");
                     try {
-                        Files.createFile(newFile);
-                        System.out.println("save file created! ok, I'm all ears now. tell me what you need.");
+                        Files.createFile(saveDataPath);
+                        System.out.println("save file created! ok, i'm all ears now. tell me what you need.");
+                        // Don't close scanner here as doing so would close the underlying input stream (System.in).
+                        // Once it's closed, it can't be reopened later even if we call acceptCommand().
+                        return true;
                     } catch (IOException e2) {
                         System.out.println("oof, i couldn't create the file. i'll exit first - try restarting me!");
                         return false;
                     }
-                    scanner.close();
-                    return true;
                 }
                 case "n", "no" -> {
                     System.out.println("alright then. cya ;)");
