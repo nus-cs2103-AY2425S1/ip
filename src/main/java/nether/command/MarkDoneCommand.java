@@ -1,3 +1,7 @@
+package nether.command;
+
+import nether.task.Task;
+
 public class MarkDoneCommand extends MarkCommand {
     public MarkDoneCommand(int taskNumber) {
         super(taskNumber);

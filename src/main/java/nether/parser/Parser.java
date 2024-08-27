@@ -1,3 +1,11 @@
+package nether.parser;
+
+import nether.NetherException;
+import nether.command.*;
+import nether.task.DeadlineTask;
+import nether.task.EventTask;
+import nether.task.TodoTask;
+
 /**
  * Handles the parsing of user input into commands and arguments that the program can understand.
  * The Parser class provides methods to interpret different types of tasks and extract relevant details.

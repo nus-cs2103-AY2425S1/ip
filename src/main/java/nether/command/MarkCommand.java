@@ -1,3 +1,11 @@
+package nether.command;
+
+import nether.NetherException;
+import nether.Ui;
+import nether.storage.Storage;
+import nether.task.Task;
+import nether.task.TaskList;
+
 public abstract class MarkCommand extends Command {
     protected int taskNumber;
 

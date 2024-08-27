@@ -1,3 +1,7 @@
+package nether;
+
+import nether.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {

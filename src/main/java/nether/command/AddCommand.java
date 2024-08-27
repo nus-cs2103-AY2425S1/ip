@@ -1,4 +1,9 @@
-import java.lang.annotation.Inherited;
+package nether.command;
+
+import nether.Ui;
+import nether.storage.Storage;
+import nether.task.Task;
+import nether.task.TaskList;
 
 public class AddCommand extends Command {
     private final Task task;
