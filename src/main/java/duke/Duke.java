@@ -14,10 +14,10 @@ import java.util.Scanner;
  * It connects the user interface, task storage, and command parsing components.
  */
 public class Duke {
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
     private TaskList tasks;
-    private Parser parser;
+    private final Parser parser;
 
     /**
      * Initializes the Duke application with the specified file path for task storage.
