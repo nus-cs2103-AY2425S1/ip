@@ -36,6 +36,11 @@ public class ExitCommandTest {
 
         String output = BAR + "\r\nBye. Hope to see you again soon!\r\n" + BAR + "\r\n";
         assertEquals(output, outputStream.toString());
+    }
+
+    @Test
+    public void isExitTest() {
+        Command exitCommand = new ExitCommand();
         assertTrue(exitCommand.isExit());
     }
 
