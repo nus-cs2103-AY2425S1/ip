@@ -2,8 +2,9 @@ import java.util.Scanner;
 
 public class Cloud {
 
-    private static final TaskList tasks = new TaskList();
+    private static TaskList tasks = new TaskList();
     private static final String EXIT_COMMAND = "bye";
+    private static final Storage storage = new Storage();
 
     private static void greet() {
         System.out.println(
@@ -58,6 +59,7 @@ public class Cloud {
                 tasks.getTaskCount(),
                 tasks.getTaskCount() != 1 ? "s" : ""
         );
+        storage.saveData(tasks);
     }
 
     public static void deleteTask(Query query) {
@@ -72,11 +74,17 @@ public class Cloud {
         );
     }
 
+    public static void loadData() {
+        tasks = storage.readData();
+    }
+
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         printHorizLine();
         greet();
+        loadData();
         while (true) {
             printHorizLine();
             System.out.print(">> ");
