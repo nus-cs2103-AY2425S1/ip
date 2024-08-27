@@ -9,6 +9,11 @@ public class TodoTask extends Task {
     }
 
     @Override
+    public String getSaveTaskString() {
+        return String.format("T | %s", super.getSaveTaskString());
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
