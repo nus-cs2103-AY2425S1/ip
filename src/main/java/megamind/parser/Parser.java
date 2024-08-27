@@ -3,6 +3,10 @@ package megamind.parser;
 import megamind.exception.InvalidCommandException;
 import megamind.exception.MissingParameterException;
 
+/**
+ * The `Parser` class is responsible for parsing user commands.
+ * It provides methods to extract the action, task index, description, deadline, and event details from the commands.
+ */
 public class Parser {
 
     /**

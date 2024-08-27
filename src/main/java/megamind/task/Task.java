@@ -4,6 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The `Task` class represents a generic task.
+ * It implements the `Serializable` interface to allow tasks to be serialized.
+ * The class provides methods to mark tasks as done or not done, and to get the task description.
+ * It also includes methods to return the string representation of the task.
+ */
 public class Task implements Serializable {
     protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter

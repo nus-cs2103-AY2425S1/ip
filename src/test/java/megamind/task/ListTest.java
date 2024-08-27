@@ -20,7 +20,7 @@ public class ListTest {
         for (int i = 0; i < 3; i++) {
             list.add(task);
         }
-        assertEquals("1. [❌] task\n2. [❌] task\n3. [❌] task\n", list.toString());
+        assertEquals("1. [ ] task\n2. [ ] task\n3. [ ] task\n", list.toString());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ListTest {
         Task task = new Task("task");
         list.add(task);
         list.markTaskAsDone(0);
-        assertEquals("[✔️] task", task.toString());
+        assertEquals("[X] task", task.toString());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class ListTest {
         list.add(task);
         list.markTaskAsDone(0);
         list.markTaskAsNotDone(0);
-        assertEquals("[❌] task", task.toString());
+        assertEquals("[ ] task", task.toString());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ListTest {
         List list = new List(new ArrayList<>());
         Task task = new Task("task");
         list.add(task);
-        assertEquals("1. [❌] task\n", list.toString());
+        assertEquals("1. [ ] task\n", list.toString());
     }
 
     @Test

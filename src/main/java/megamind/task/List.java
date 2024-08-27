@@ -2,6 +2,11 @@ package megamind.task;
 
 import java.util.ArrayList;
 
+/**
+ * The `List` class represents a collection of tasks.
+ * It provides methods to add, delete, mark, and find tasks within the list.
+ * The class also includes methods to get the size of the list and return its string representation.
+ */
 public class List {
     private final ArrayList<Task> tasks;
 

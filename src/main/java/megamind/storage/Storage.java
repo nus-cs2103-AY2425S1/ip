@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 import megamind.task.Task;
 
+/**
+ * The `Storage` class handles the saving and loading of tasks to and from a file.
+ * It ensures that tasks are persisted between program runs.
+ * The class provides methods to save tasks to a file and load tasks from a file.
+ */
 public class Storage {
 
     /**
