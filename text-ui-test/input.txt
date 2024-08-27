@@ -46,5 +46,8 @@ mark 554
 mark 8
 unmark 3
 unmark 9
+delete 4
+delete -10
+delete 50
 list
 bye

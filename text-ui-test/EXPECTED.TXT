@@ -258,20 +258,30 @@
 		[T][ ] read book
 	#################################################################
 	#################################################################
+	sure hon, i'll remove this task from the list.
+		[E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
+	now we have 12 tasks left to work on.
+	#################################################################
+	#################################################################
+	pumpkin, why you tryna give me problems?
+	#################################################################
+	#################################################################
+	there ain't no task 50 darlin'
+	#################################################################
+	#################################################################
 	these are the things we gotta do:
 	1. [T][X] wake up
 	2. [D][X] get out of bed (by: <10 minutes after the alarm rings, hopefully)
 	3. [T][ ] get to the bathroom
-	4. [E][ ] brush teeth (from: 10 minutes after waking (AW) to: 12 minutes AW)
-	5. [T][ ] decide what to eat for breakfast
-	6. [T][ ] head out of the house
-	7. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
-	8. [E][X] order food (from: 8.07am to: 8.10)
-	9. [T][ ] read book
-	10. [D][ ] hi(by:err)
-	11. [D][ ] hi(by: errea)
-	12. [D][ ] hi (by: errear)
-	13. [E][ ] meeting (from: 6pm to: 8pm)
+	4. [T][ ] decide what to eat for breakfast
+	5. [T][ ] head out of the house
+	6. [D][ ] call the lift to head downstairs (by: the time the lift has not left yet)
+	7. [E][X] order food (from: 8.07am to: 8.10)
+	8. [T][ ] read book
+	9. [D][ ] hi(by:err)
+	10. [D][ ] hi(by: errea)
+	11. [D][ ] hi (by: errear)
+	12. [E][ ] meeting (from: 6pm to: 8pm)
 	#################################################################
 	#################################################################
 	aight bet, cya.
