@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class Azir {
                 taskList.add(currTask);
                 System.out.println(currTask);
             } else if (arr[0].equals("D")) {
-                Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3]));
+                Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3], DateTimeFormatter.ofPattern("MMM dd yyyy")));
                 if (arr[1].equals("Complete")) {
                     currTask.setDone();
                 } else {
@@ -155,11 +156,16 @@ public class Azir {
                         }
                         String description = input.substring(9, byIndex - 1);
                         String day = input.substring(byIndex + 4);
-                        System.out.println("Got it. I've added this task:");
-
-                        Task currTask = new Deadline(description, LocalDate.parse(day));
-                        taskList.add(currTask);
-                        System.out.println(currTask);
+                        String dateFormat = "yyyy-MM-dd";
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+                        try {
+                            Task currTask = new Deadline(description, LocalDate.parse(day, formatter));
+                            System.out.println("Got it. I've added this task:");
+                            taskList.add(currTask);
+                            System.out.println(currTask);
+                        } catch (DateTimeParseException e) {
+                            throw new AzirException("deadline needs to be in the following format: yyyy-mm-dd");
+                        }
                     } else if (input.startsWith("event")) {
                         int fromIndex = input.indexOf("/from");
                         int toIndex = input.indexOf("/to");
