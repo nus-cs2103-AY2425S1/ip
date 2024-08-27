@@ -21,6 +21,12 @@ public class Evelyn {
         String text = null;
         System.out.println(horizontalLine);
         System.out.println("Hi! I am Evelyn");
+        System.out.println("Here are my keywords:");
+        System.out.println("\n");
+        System.out.println("todo [task description]");
+        System.out.println("deadline [task description] /by [date in YYYY-MM-DD]");
+        System.out.println("event [task description] /from [date in YYYY-MM-DD] [Time] /to [date in YYYY-MM-DD] [Time]");
+        System.out.println("\n");
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
 
@@ -96,7 +102,9 @@ public class Evelyn {
         } else if (text.startsWith("unmark")) {
             int index = Integer.parseInt(text.substring(7)) - 1;
             Task task = (Task) lst.get(index);
+            System.out.println(horizontalLine);
             task.unmark();
+            System.out.println(horizontalLine);
         } else if (text.startsWith("todo")) {
             if (text.length() <= 5 || Character.isWhitespace(text.charAt(5))) {
                 throw new InvalidInputException("invalid input for todo");
