@@ -130,6 +130,11 @@ public class Deadline extends Task {
      * @return A string representing the Deadline task.
      */
     @Override
+    public boolean isMatchingDescription(String matchingString) {
+        return this.description.contains(matchingString);
+    }
+
+    @Override
     public String toString() {
         return String.format("[D]%s", super.toString());
     }

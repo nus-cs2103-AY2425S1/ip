@@ -101,6 +101,11 @@ public class Todo extends Task {
      * @return A string containing the task type, status, and description.
      */
     @Override
+    public boolean isMatchingDescription(String matchingString) {
+        return this.description.contains(matchingString);
+    }
+
+    @Override
     public String parseDetailsForDB() {
         return String.format("T | %d | %s", super.getStatus() ? 1 : 0, this.description);
     }

@@ -75,6 +75,8 @@ public class Parser {
                 this.dbContoller.create(task, taskStorage.isFirstTask());
             } else if(segments[0].equals("findeventon")) {
                 message = taskStorage.find(segments[1]);
+            } else if(segments[0].equals("find")) {
+                message = taskStorage.findDescription(currAction);
             } else {
                 throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
             }

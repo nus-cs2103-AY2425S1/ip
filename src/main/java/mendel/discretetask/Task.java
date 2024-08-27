@@ -68,6 +68,8 @@ public abstract class Task {
      */
     public abstract boolean isTargetDueDate(String formattedDate);
 
+    public abstract boolean isMatchingDescription(String matchingString);
+
     /**
      * Returns a string representation of the task, including its status icon and formatted description from subclasses.
      *
