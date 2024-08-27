@@ -79,4 +79,10 @@ public class TaskList {
     public String toFile() {
         return strandList.stream().map((x) -> x.getFile() + "\n").reduce((a, b) -> a + b).orElse("");
     }
+
+    public String getFoundTasks(String segment) {
+        return strandList.stream().filter((x) -> x.containsSegment(segment))
+                .map((x) -> (this.strandList.indexOf(x) + 1) + "." + x + "\n")
+                .reduce((a, b) -> a + b).orElse("");
+    }
 }

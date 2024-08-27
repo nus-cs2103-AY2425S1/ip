@@ -106,7 +106,7 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void list(TaskList tasks) {
-        print(tasks.toString());
+    public void list(String tasks) {
+        print(tasks);
     }
 }

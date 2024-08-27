@@ -4,6 +4,7 @@ import strand.command.AddCommand;
 import strand.command.ByeCommand;
 import strand.command.Command;
 import strand.command.DeleteCommand;
+import strand.command.FindCommand;
 import strand.command.ListCommand;
 import strand.command.MarkCommand;
 import strand.exception.StrandDescNotFoundException;
@@ -37,7 +38,7 @@ public class Parser {
 
         switch (command) {
         case DELETE, MARK, UNMARK: {
-            return parseIndexCommand(command, split);
+            return parseIndex(command, split);
         }
         case BYE: {
             return new ByeCommand();
@@ -45,8 +46,8 @@ public class Parser {
         case LIST: {
             return new ListCommand();
         }
-        case TODO, DEADLINE, EVENT: {
-            return parseTaskCommand(command, split);
+        case TODO, DEADLINE, EVENT, FIND: {
+            return parseDescription(command, split);
         }
         default: {
             throw new StrandWrongCommandException();
@@ -77,7 +78,7 @@ public class Parser {
      * @return The command object based on the index.
      * @throws StrandNumberNotFoundException If the index is missing or invalid.
      */
-    private static Command parseIndexCommand(
+    private static Command parseIndex(
             CommandEnums command, String[] split) throws StrandNumberNotFoundException {
         if (split.length < 2) {
             throw new StrandNumberNotFoundException(split[0]);
@@ -102,7 +103,7 @@ public class Parser {
      * @return The command object based on the task details.
      * @throws StrandDescNotFoundException If the description or other task details are missing.
      */
-    private static Command parseTaskCommand(CommandEnums command, String[] split) throws StrandException {
+    private static Command parseDescription(CommandEnums command, String[] split) throws StrandException {
         if (split.length < 2 || split[1].trim().isEmpty()) {
             throw new StrandDescNotFoundException("Description");
         }
@@ -116,6 +117,9 @@ public class Parser {
         }
         case EVENT: {
             return parseEventCommand(desc);
+        }
+        case FIND: {
+            return new FindCommand(desc);
         }
         default:
             throw new StrandDescNotFoundException("Description");
@@ -163,6 +167,7 @@ public class Parser {
         MARK,
         UNMARK,
         BYE,
-        LIST
+        LIST,
+        FIND
     }
 }
