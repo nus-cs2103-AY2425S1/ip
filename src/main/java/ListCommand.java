@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * ListCommand represents the command to list the entries in the to-do list
  */
