@@ -52,11 +52,11 @@ public class Atlas {
                 case DELETE:
                     deleteTask(taskList, nextCommandLine);
                     break;
-                default:
-                    throw new AtlasException("Unknown command.");
                 }
             } catch (AtlasException e) {
                 Atlas.print(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                Atlas.print("Unknown command.");
             }
         }
     }
