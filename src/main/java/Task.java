@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private boolean isDone;
     private String title;
 
@@ -23,4 +23,6 @@ public class Task {
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + title;
     }
+
+    public abstract String toStorageString();
 }

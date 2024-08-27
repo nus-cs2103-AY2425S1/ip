@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Waterfall {
     public static void main(String[] args) {
         String chatBotName = "Waterfall";
@@ -16,8 +15,16 @@ public class Waterfall {
             ("____________________________________________________________\n"
             + "Shhhhhhhhhhhh. Hope to see you again soon!\n"
             + "____________________________________________________________\n").indent(indentSpace);
-        List<Task> taskList = new ArrayList<>();
-        int num = 0;
+        FileManager fileManager;
+        List<Task> taskList;
+        try {
+            fileManager = new FileManager("data/Tasks.txt");
+            taskList = fileManager.readTasksFromFile();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        int num = taskList.size();
         System.out.println(welcomeMessage);
         Scanner userInput = new Scanner(System.in);
         boolean exit = false;
@@ -53,6 +60,7 @@ public class Waterfall {
                                 throw new WaterfallException("Why are you trying to edit a waterfall task that does not exist?");
                             }
                             task.setDone(true);
+                            fileManager.updateTask(taskList);
                             String markResponse = ("____________________________________________________________\n"
                                     + "Huluhuluhulu, I've marked this task as done:\n  "
                                     + task.toString() + "\n"
@@ -65,6 +73,7 @@ public class Waterfall {
                                 throw new WaterfallException("Why are you trying to edit a waterfall task that does not exist?");
                             }
                             task.setDone(false);
+                            fileManager.updateTask(taskList);
                             String unmarkResponse = ("____________________________________________________________\n"
                                     + "Hohohohohoho, I've marked this task as not done yet:\n  "
                                     + task.toString() + "\n"
@@ -78,6 +87,7 @@ public class Waterfall {
                             }
                             taskList.remove(index);
                             num--;
+                            fileManager.updateTask(taskList);
                             String unmarkResponse = ("____________________________________________________________\n"
                                     + "Hohohohohoho, I've deleted this task:\n  "
                                     + task.toString() + "\n"
@@ -96,7 +106,7 @@ public class Waterfall {
                                     throw new WaterfallException("oh man where's your deadline!");
                                 }
                                 int index = nextInput.indexOf("/");
-                                String title = nextInput.substring(9, index);
+                                String title = nextInput.substring(9, index - 1);
                                 if (title.isEmpty()) {
                                     throw new WaterfallException("Bruh what is this empty title are you kidding me!");
                                 }
@@ -106,7 +116,7 @@ public class Waterfall {
                                 }
                                 newTask = new Deadline(title, description.substring(3));
                             } else if (nextInput.startsWith("event ")) {
-                                String[] inputs = nextInput.split("/");
+                                String[] inputs = nextInput.split(" /");
                                 if (inputs.length != 3) {
                                     throw new WaterfallException("invalid event format: An event must contain only from and to comments");
                                 }
@@ -145,6 +155,7 @@ public class Waterfall {
                             }
                             taskList.add(newTask);
                             num++;
+                            fileManager.addTask(newTask);
                             String echoString = ("____________________________________________________________\n"
                                     + "Nice man, I have added the following task: \n" + newTask.toString() + "\n"
                                     + "Now the waterfall has " + num + " tasks flowing! \n"
