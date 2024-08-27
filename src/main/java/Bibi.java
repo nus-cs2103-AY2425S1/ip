@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bibi {
-    public static void main(String[] args) {
+    public Bibi(String filePath) {
+
+    }
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         String logo = """
                         ########   #######   ########   #######\s
@@ -191,6 +193,9 @@ public class Bibi {
                 printHorizontalLine();
             }
         }
+    }
+    public static void main(String[] args) {
+        new Bibi("data/list.txt").run();
     }
 
     private static void restoreTasks(ArrayList<Task> tasks) throws FileNotFoundException {
