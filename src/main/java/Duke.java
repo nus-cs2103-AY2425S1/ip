@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static TaskList taskList = new TaskList();
+    private static TaskList taskList = TaskList.init();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -114,7 +114,7 @@ public class Duke {
     }
 
     /**
-     * add event
+     * add event to list of Tasks
      *
      * @param message input of user
      */
@@ -132,6 +132,11 @@ public class Duke {
         taskList.addTask(new Event(taskName, from, to));
     }
 
+    /**
+     * delete specific event to list of Tasks
+     *
+     * @param message input of user
+     */
     public static void handleDeleteTask(String message) throws InvalidInputException, TaskNotFoundException {
         String[] split = message.split(" ");
         if (split.length > 2) {

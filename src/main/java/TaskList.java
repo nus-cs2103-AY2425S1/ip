@@ -1,13 +1,27 @@
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * This class represents a list containing tasks.
  * It provides methods to add, mark, unmark and print tasks in the list.
  */
 public class TaskList {
-    private ArrayList<Task> listOfTasks;
+    private static TaskList tasks;
+    private List<Task> listOfTasks;
 
-    public TaskList() {
-        listOfTasks = new ArrayList<>();
+    private TaskList() {
+        try {
+            listOfTasks = TaskDataBase.load();
+        } catch (IOException e) {
+            Reply.printMessage("Oops! There is a issue with file database.");
+        }
+    }
+
+    public static TaskList init() {
+        if (tasks == null) {
+            tasks = new TaskList();
+        }
+        return tasks;
     }
 
     /**
@@ -17,6 +31,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         listOfTasks.add(task);
+        TaskDataBase.save(listOfTasks);
         Reply.printMessage("Got it. I've added this task:" + "\n" +
                 "  " + task.toString() + "\n" +
                 "Now you have "  + listOfTasks.size() + " tasks in the list.");
@@ -31,6 +46,7 @@ public class TaskList {
         if (index > 0 && index <= listOfTasks.size()) {
             Task task = listOfTasks.get(index - 1);
             task.markAsDone();
+            TaskDataBase.save(listOfTasks);
             Reply.printMessage("Nice! I've marked this task as done:\n" + "  " + task.toString());
         } else {
             throw new TaskNotFoundException();
@@ -45,6 +61,7 @@ public class TaskList {
     public void unmarkTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
             Task task = listOfTasks.get(index - 1);
+            TaskDataBase.save(listOfTasks);
             task.markAsNotDone();
             Reply.printMessage("OK, I've marked this task as not done yet:\n" + "  " + task.toString());
         } else {
@@ -55,6 +72,7 @@ public class TaskList {
     public void deleteTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
             Task removedTask = listOfTasks.remove(index - 1);
+            TaskDataBase.save(listOfTasks);
             Reply.printMessage("Noted. I've removed this task:" + "\n" + "  "
                     + removedTask + "\n" + "Now you have "
                     + listOfTasks.size() + " tasks in the list." );

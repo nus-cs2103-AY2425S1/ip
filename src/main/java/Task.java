@@ -23,6 +23,19 @@ public class Task {
     }
 
     /**
+     * Use to convert task information format to storage
+     *
+     * @return string with contains task information
+     */
+    public String toDataFormat() {
+        if (isDone) {
+            return "|" + "1" + "|" + name;
+        } else {
+            return "|" + "0" + "|" + name;
+        }
+    }
+
+    /**
      * print task description, including name and status
      *
      * @return returns the task description
