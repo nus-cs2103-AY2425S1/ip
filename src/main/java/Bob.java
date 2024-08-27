@@ -202,6 +202,12 @@ public class Bob {
         }
     }
 
+    /**
+     * Checks if the value given is a valid task number in the current records of tasks.
+     *
+     * @param value Input after the keyword.
+     * @return Whether the input when converted to int is a valid task number.
+     */
     public boolean isValidTaskNumber(String value) {
         if (value.trim().isEmpty() || value == null) {
             return false;
@@ -245,6 +251,7 @@ public class Bob {
         this.counter = x;
     }
 
+    
     public void delete(String input) {
         try {
             String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
