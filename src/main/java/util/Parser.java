@@ -13,10 +13,8 @@ import tasks.Task;
 import tasks.ToDo;
 
 public class Parser {
-  public Parser() {
-  };
 
-  public List<Task> parseFromStorage(Storage storage) throws MizzException {
+  public static List<Task> parseFromStorage(Storage storage) throws MizzException {
     List<Task> result = new ArrayList<>();
 
     String[] entries = storage.toArray();
@@ -83,7 +81,7 @@ public class Parser {
    *         <li>parsedString[3] -> to if event else ""</li>
    *         </ul>
    */
-  public String[] parseStringInput(String inpuString) throws MizzException {
+  public static String[] parseStringInput(String inpuString) throws MizzException {
     String[] result = new String[4];
     String[] parts = inpuString.split("\\s+");
     result[0] = parts[0].toLowerCase();
@@ -106,13 +104,13 @@ public class Parser {
 
     switch (result[0]) {
       case "todo":
-        this.parseTodo(parts, result);
+        Parser.parseTodo(parts, result);
         return result;
       case "deadline":
-        this.parseDeadline(parts, result);
+        Parser.parseDeadline(parts, result);
         return result;
       case "event":
-        this.parseEvent(parts, result);
+        Parser.parseEvent(parts, result);
         return result;
       default:
         break;
@@ -121,13 +119,13 @@ public class Parser {
     return result;
   }
 
-  private String[] parseTodo(String[] parts, String[] result) throws ToDoException {
+  private static String[] parseTodo(String[] parts, String[] result) throws ToDoException {
     Validator.verifyTodo(parts);
     result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
     return result;
   }
 
-  private String[] parseDeadline(String[] parts, String[] result) throws DeadlineException {
+  private static String[] parseDeadline(String[] parts, String[] result) throws DeadlineException {
     int byIdx = -1;
     for (int i = 1; i < parts.length; i++) {
       if (byIdx == -1 && parts[i].equals("/by")) {
@@ -143,7 +141,7 @@ public class Parser {
     return result;
   }
 
-  private String[] parseEvent(String[] parts, String[] result) throws EventException {
+  private static String[] parseEvent(String[] parts, String[] result) throws EventException {
     int fromIdx = -1;
     int toIdx = -1;
 

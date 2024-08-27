@@ -16,7 +16,6 @@ public class Mizz {
   private String cmd;
 
   private final Storage storage;
-  private final Parser parser;
 
   /**
    * Constructor for Mizz class. Initialises the Mizz object with defualt values
@@ -30,9 +29,8 @@ public class Mizz {
     this.usrTasks = new TaskList();
     this.cmd = "";
     this.storage = new Storage(filePath);
-    this.parser = new Parser();
     try {
-      this.parser.parseFromStorage(this.storage).forEach((t) -> {
+      Parser.parseFromStorage(this.storage).forEach((t) -> {
         this.usrTasks.addTask(t);
       });
     } catch (MizzException e) {
@@ -64,7 +62,7 @@ public class Mizz {
    */
   private void commandHandler(String cmd) {
     try {
-      String[] parsedInput = this.parser.parseStringInput(cmd);
+      String[] parsedInput = Parser.parseStringInput(cmd);
       this.cmd = parsedInput[0];
       switch (this.cmd) {
         case "bye":
