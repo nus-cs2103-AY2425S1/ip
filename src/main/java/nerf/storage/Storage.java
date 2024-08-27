@@ -1,9 +1,12 @@
+package nerf.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import nerf.error.FilePermissionsException;
 
 public class Storage {
     private final String saveDirectory;
