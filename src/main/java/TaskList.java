@@ -1,15 +1,29 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    public static Task removeFromTaskList(ArrayList<Task> tasks, int index) {
+    private ArrayList<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
+
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public Task removeFromTaskList(int index) {
         return tasks.remove(index - 1);
     }
 
-    public static void addToTaskList(ArrayList<Task> tasks, Task t) {
+    public void addToTaskList(Task t) {
         tasks.add(t);
     }
 
-    public static void printTaskList(ArrayList<Task> tasks) {
+    public void printTaskList() {
         if (tasks.isEmpty()) {
             System.out.println("Good for you, nothing to do today :3");
             return;
