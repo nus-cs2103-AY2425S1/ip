@@ -1,18 +1,53 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    private final String startDateTime;
-    private final String endDateTime;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
-     * Constructor for Deadline class.
+     * Constructor for Event class.
      *
      * @param description   Description of the task.
      * @param startDateTime Start date and time of the event.
      * @param endDateTime   End date and time of the event.
+     * @throws DateTimeParseException If the date and time format is invalid.
      */
-    public Event(String description, String startDateTime, String endDateTime) {
+    public Event(String description, String startDateTime, String endDateTime) throws DateTimeParseException {
         super(TaskType.EVENT, description);
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        LocalDateTime parsedStartDateTime;
+        LocalDateTime parsedEndDateTime;
+        try {
+            parsedStartDateTime = LocalDateTime.parse(startDateTime, INPUT_FORMATTER);
+            parsedEndDateTime = LocalDateTime.parse(endDateTime, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format! Please use yyyy-MM-dd HHmm format.");
+            System.out.println("Example: 2021-09-30 1800");
+            throw e;
+        }
+        this.startDateTime = parsedStartDateTime;
+        this.endDateTime = parsedEndDateTime;
+    }
+
+    /**
+     * Returns the start date and time of the event.
+     *
+     * @return Start date and time of the event.
+     */
+    public String getStartDateTime() {
+        return startDateTime.format(OUTPUT_FORMATTER);
+    }
+
+    /**
+     * Returns the end date and time of the event.
+     *
+     * @return End date and time of the event.
+     */
+    public String getEndDateTime() {
+        return endDateTime.format(OUTPUT_FORMATTER);
     }
 
     /**
@@ -31,7 +66,7 @@ public class Event extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + " | " + startDateTime + " | " + endDateTime;
+        return super.serialize() + " | " + startDateTime.format(INPUT_FORMATTER) + " | " + endDateTime.format(INPUT_FORMATTER);
     }
 
     /**
@@ -41,6 +76,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
+        return super.toString() + " (from: " + getStartDateTime() + " to: " + getEndDateTime() + ")";
     }
 }
