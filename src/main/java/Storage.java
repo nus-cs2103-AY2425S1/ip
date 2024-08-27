@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,20 +29,24 @@ public class Storage {
                 String currentLine = scanner.nextLine();
                 String[] currentLineParsed = currentLine.split("!-");
                 Task task;
-                if (currentLineParsed[0].strip().equals("T")) {
-                    task = new Todo(currentLineParsed[2]);
-                    this.taskList.add(task);
-                } else if (currentLineParsed[0].strip().equals("D")) {
-                    task = new Deadline(currentLineParsed[2].strip(),
-                            currentLineParsed[3].strip());
-                    this.taskList.add(task);
-                } else {
-                    task = new Event(currentLineParsed[2].strip(),
-                            currentLineParsed[3].strip(), currentLineParsed[4].strip());
-                    this.taskList.add(task);
-                }
-                if (currentLineParsed[1].strip().equals("true")) {
-                    task.setIsDone(true);
+                try {
+                    if (currentLineParsed[0].strip().equals("T")) {
+                        task = new Todo(currentLineParsed[2]);
+                        this.taskList.add(task);
+                    } else if (currentLineParsed[0].strip().equals("D")) {
+                        task = new Deadline(currentLineParsed[2].strip(),
+                                currentLineParsed[3].strip());
+                        this.taskList.add(task);
+                    } else {
+                        task = new Event(currentLineParsed[2].strip(),
+                                currentLineParsed[3].strip(), currentLineParsed[4].strip());
+                        this.taskList.add(task);
+                    }
+                    if (currentLineParsed[1].strip().equals("true")) {
+                        task.setIsDone(true);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e); //Ideally never reached here!
                 }
             }
         }
@@ -147,7 +150,7 @@ public class Storage {
         } catch (StringIndexOutOfBoundsException e){
             throw new MeejuException("I'm having a bit of trouble understanding the task.\n" +
                     "Could you please explain it using the correct format?\n" +
-                    "The Correct format is -> deadline <desc> /by <by>");
+                    "The Correct format is -> deadline <desc> /by DD/MM/YYYY HHMM");
         }
         if (taskDescription.isEmpty() || taskDeadline.isEmpty()) {
             throw new MeejuException("I can't understand the task details!");
@@ -175,7 +178,7 @@ public class Storage {
         } catch (StringIndexOutOfBoundsException e){
             throw new MeejuException("I'm having a bit of trouble understanding the task. \n" +
                     "Could you please explain it using the correct format?\n" +
-                    "The Correct format is -> event <desc> /from <from> /to <to>");
+                    "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM");
         }
         if (taskDescription.isEmpty() || taskStart.isEmpty() || taskEnd.isEmpty()) {
             throw new MeejuException("I can't understand the task details!");
