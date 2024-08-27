@@ -37,7 +37,11 @@ public class ChatLogic {
         this.filePath = filePath;
         this.storage = new Storage(this.filePath);
 
-        this.taskList = storage.readTasksFromFile();
+        try {
+            this.taskList = storage.readTasksFromFile();
+        } catch (IOException e) {
+            storage.writeTasksToFile(taskList);
+        }
     }
 
     /** Processes text strings inputted by the user, and calls other functions
