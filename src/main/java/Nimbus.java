@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -26,103 +25,34 @@ public class Nimbus {
     }
 
     public static void addTask(Task task, boolean showMsg, boolean writeToFile) {
+        if (writeToFile)
+            storage.writeTaskToFile(task);
+
         tasks.add(task);
-        if (showMsg) {
+        if (showMsg)
             ui.showAddedTask(task, tasks.size());
-        }
 
-        if (!writeToFile)
-            return;
-
-        try (FileWriter file = new FileWriter(DATA_FILE_PATH, true)){
-            file.write(task.toFileFormat());
-            file.write(System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + e.getMessage());
-        }
     }
 
     public static void removeTask(int index) {
-        try {
-            File file = new File(DATA_FILE_PATH);
-            Scanner sc = new Scanner(file);
-            ArrayList<String> arr = new ArrayList<String>();
-            for (int i = 0; i < tasks.size() && sc.hasNext(); ++i) {
-                String nxt = sc.nextLine();
-                if (i == index)
-                    continue;
-                arr.add(nxt);
-            }
-            sc.close();
-            FileWriter fw = new FileWriter(DATA_FILE_PATH);
-            for (String s : arr) {
-                fw.write(s);
-                fw.write(System.lineSeparator());
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + e.getMessage());
-        }
-
-        ui.showRemovedTask(tasks.remove(index), tasks.size());
-
+        if (storage.removeTaskFromFileByIndex(index, tasks.size()))
+            ui.showRemovedTask(tasks.remove(index), tasks.size());
+        /*
+        else
+            ui.showErrorRemovingTask()
+         */
     }
 
     public static void setDone(int index) {
         tasks.get(index).setDone();
         ui.showDoneTask(tasks.get(index));
-
-        try {
-            File file = new File(DATA_FILE_PATH);
-            Scanner sc = new Scanner(file);
-            ArrayList<String> arr = new ArrayList<String>();
-            for (int i = 0; i < tasks.size() && sc.hasNext(); ++i) {
-                arr.add(sc.nextLine());
-            }
-            sc.close();
-
-            FileWriter fw = new FileWriter(DATA_FILE_PATH);
-            for (int i = 0; i < tasks.size(); ++i) {
-                if (i != index)
-                    fw.write(arr.get(i));
-                else
-                    fw.write(tasks.get(index).toFileFormat());
-                fw.write(System.lineSeparator());
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + e.getMessage());
-        }
+        storage.writeTasksToFile(tasks);
     }
 
     public static void setNotDone(int index) {
         tasks.get(index).setNotDone();
         ui.showNotDoneTask(tasks.get(index));
-
-        try {
-            File file = new File(DATA_FILE_PATH);
-            Scanner sc = new Scanner(file);
-            ArrayList<String> arr = new ArrayList<String>();
-            for (int i = 0; i < tasks.size() && sc.hasNext(); ++i) {
-                arr.add(sc.nextLine());
-            }
-            sc.close();
-
-            FileWriter fw = new FileWriter(DATA_FILE_PATH);
-            for (int i = 0; i < tasks.size(); ++i) {
-                if (i != index)
-                    fw.write(arr.get(i));
-                else
-                    fw.write(tasks.get(index).toFileFormat());
-                fw.write(System.lineSeparator());
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("Unable to write to file: " + e.getMessage());
-        }
+        storage.writeTasksToFile(tasks);
     }
 
     public static Command getCommandType(String line) throws InvalidCommandException {
@@ -208,11 +138,6 @@ public class Nimbus {
         }
     }
 
-    private static void readSavedFile() {
-        ArrayList<Task> arr = storage.readSavedFile();
-        tasks.addAll(arr);
-    }
-
     public static void main(String[] args) {
         Nimbus.ui = new Ui(name);
         Nimbus.storage = new Storage(DATA_FILE_PATH);
@@ -221,7 +146,7 @@ public class Nimbus {
     }
 
     public static void run() {
-        readSavedFile();
+        tasks.addAll(storage.load());
         ui.showWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);

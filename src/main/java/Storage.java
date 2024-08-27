@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,7 +40,7 @@ public class Storage {
         };
     }
 
-    public ArrayList<Task> readSavedFile() {
+    public ArrayList<Task> load() {
         ArrayList<Task> ans = new ArrayList<>();
         checkSavedFile();
         File file = new File(filePath);
@@ -55,4 +57,53 @@ public class Storage {
         return ans;
     }
 
+    public boolean writeTaskToFile(Task task) {
+        try (FileWriter file = new FileWriter(filePath, true)){
+            file.write(task.toFileFormat());
+            file.write(System.lineSeparator());
+            return true;
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean removeTaskFromFileByIndex(int index, int size) {
+        try {
+            File file = new File(filePath);
+            Scanner sc = new Scanner(file);
+            ArrayList<String> arr = new ArrayList<String>();
+            for (int i = 0; i < size && sc.hasNext(); ++i) {
+                String nxt = sc.nextLine();
+                if (i == index)
+                    continue;
+                arr.add(nxt);
+            }
+            sc.close();
+            FileWriter fw = new FileWriter(filePath);
+            for (String s : arr) {
+                fw.write(s);
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+
+            return true;
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public void writeTasksToFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            for (Task task : tasks) {
+                fw.write(task.toFileFormat());
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + e.getMessage());
+        }
+    }
 }
