@@ -24,4 +24,12 @@ public abstract class Task {
     public void unmarkAsUndone() {
         this.isDone = false;
     }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
