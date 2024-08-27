@@ -6,10 +6,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Asta {
     private static final String FILE_PATH = "./data/asta.txt";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         loadTasksFromFile();
 
@@ -25,24 +30,37 @@ public class Asta {
             try {
                 Command command = parseCommand(input);
                 switch (command) {
-                case BYE -> {
+                case BYE:
                     System.out.println("Bye. Hope to see you again soon!");
                     scanner.close();
                     return;
-                }
-                case LIST -> {
+                case LIST:
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + ". " + tasks.get(i));
                     }
-                }
-                case MARK -> handleMarkCommand(input, tasks);
-                case UNMARK -> handleUnmarkCommand(input, tasks);
-                case TODO -> handleTodoCommand(input, tasks);
-                case DEADLINE -> handleDeadlineCommand(input, tasks);
-                case EVENT -> handleEventCommand(input, tasks);
-                case DELETE -> handleDeleteCommand(input, tasks);
-                case UNKNOWN -> AstaException.handleInvalidCommand();
+                    break;
+                case MARK:
+                    handleMarkCommand(input);
+                    break;
+                case UNMARK:
+                    handleUnmarkCommand(input);
+                    break;
+                case TODO:
+                    handleTodoCommand(input);
+                    break;
+                case DEADLINE:
+                    handleDeadlineCommand(input);
+                    break;
+                case EVENT:
+                    handleEventCommand(input);
+                    break;
+                case DELETE:
+                    handleDeleteCommand(input);
+                    break;
+                case UNKNOWN:
+                    AstaException.handleInvalidCommand();
+                    break;
                 }
             } catch (AstaException e) {
                 System.out.println(e.getMessage());
@@ -59,23 +77,42 @@ public class Asta {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
 
-                switch (type) {
-                case "T" -> tasks.add(new ToDo(description, isDone));
-                case "D" -> {
-                    String by = parts[3];
-                    tasks.add(new Deadline(description, by, isDone));
-                }
-                case "E" -> {
-                    String from = parts[3];
-                    String to = parts[4];
-                    tasks.add(new Event(description, from, to, isDone));
-                }
+            while ((line = reader.readLine()) != null) {
+                try {
+                    String[] parts = line.split(" \\| ");
+                    if (parts.length < 3) {
+                        throw new IllegalArgumentException("Invalid task format: " + line);
+                    }
+
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+
+                    switch (type) {
+                    case "T":
+                        tasks.add(new ToDo(description, isDone));
+                        break;
+                    case "D":
+                        if (parts.length < 4) {
+                            throw new IllegalArgumentException("Invalid deadline format: " + line);
+                        }
+                        LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                        tasks.add(new Deadline(description, by, isDone));
+                        break;
+                    case "E":
+                        if (parts.length < 5) {
+                            throw new IllegalArgumentException("Invalid event format: " + line);
+                        }
+                        LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                        LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
+                        tasks.add(new Event(description, from, to, isDone));
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unknown task type: " + type);
+                    }
+                } catch (IllegalArgumentException | DateTimeParseException e) {
+                    System.out.println("Skipping corrupted line: " + e.getMessage());
                 }
             }
         } catch (IOException e) {
@@ -119,39 +156,45 @@ public class Asta {
         }
     }
 
-    private static void handleMarkCommand(String input, ArrayList<Task> tasks) throws AstaException {
-        try {
-            int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                tasks.get(taskNumber).markAsDone();
-                saveTasksToFile();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks.get(taskNumber));
-            } else {
-                AstaException.handleInvalidMarkTaskNumber();
-            }
-        } catch (NumberFormatException e) {
-            AstaException.handleInvalidTaskNumberFormat("mark");
-        }
+    private static void handleMarkCommand(String input) throws AstaException {
+        processTaskCommand(input, "mark", true);
     }
 
-    private static void handleUnmarkCommand(String input, ArrayList<Task> tasks) throws AstaException {
-        try {
-            int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
+    private static void handleUnmarkCommand(String input) throws AstaException {
+        processTaskCommand(input, "unmark", false);
+    }
+
+    private static void processTaskCommand(String input, String action, boolean markAsDone) throws AstaException {
+        int taskNumber = getTaskNumber(input, action);
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            if (markAsDone) {
+                tasks.get(taskNumber).markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+            } else {
                 tasks.get(taskNumber).markAsNotDone();
-                saveTasksToFile();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks.get(taskNumber));
+            }
+            System.out.println(tasks.get(taskNumber));
+            saveTasksToFile();
+        } else {
+            if (markAsDone) {
+                AstaException.handleInvalidMarkTaskNumber();
             } else {
                 AstaException.handleInvalidUnmarkTaskNumber();
             }
-        } catch (NumberFormatException e) {
-            AstaException.handleInvalidTaskNumberFormat("unmark");
         }
     }
 
-    private static void handleTodoCommand(String input, ArrayList<Task> tasks) throws AstaException {
+    private static int getTaskNumber(String input, String action) throws AstaException {
+        try {
+            return Integer.parseInt(input.substring(action.length() + 1).trim()) - 1;
+        } catch (NumberFormatException e) {
+            AstaException.handleInvalidTaskNumberFormat(action);
+            return -1;
+        }
+    }
+
+    private static void handleTodoCommand(String input) throws AstaException {
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
             AstaException.handleEmptyTodoDescription();
@@ -163,44 +206,64 @@ public class Asta {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void handleDeadlineCommand(String input, ArrayList<Task> tasks) throws AstaException {
+    private static void handleDeadlineCommand(String input) throws AstaException {
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
             AstaException.handleInvalidDeadlineInput();
         }
-        tasks.add(new Deadline(parts[0], parts[1]));
-        saveTasksToFile();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[D][ ] " + parts[0] + " (by: " + parts[1] + ")");
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        try {
+            LocalDateTime by = LocalDateTime.parse(parts[1].trim(), DATE_TIME_FORMATTER);
+            Task newTask = new Deadline(parts[0].trim(), by);
+            tasks.add(newTask);
+            saveTasksToFile();
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use dd/MM/yyyy HHmm format.");
+        }
     }
 
-    private static void handleEventCommand(String input, ArrayList<Task> tasks) throws AstaException {
+    private static void handleEventCommand(String input) throws AstaException {
+        // Split the input based on the command and delimiters
         String[] parts = input.substring(6).split(" /from | /to ");
+
+        // Check if we have the correct number of parts and validate the description
         if (parts.length < 3 || parts[0].trim().isEmpty()) {
             AstaException.handleInvalidEventInput();
+            return;
         }
-        tasks.add(new Event(parts[0], parts[1], parts[2]));
-        saveTasksToFile();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[E][ ] " + parts[0] + " (from: " + parts[1] + " to: " + parts[2] + ")");
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+        String description = parts[0].trim();
+        String fromDateString = parts[1].trim();
+        String toDateString = parts[2].trim();
+
+        try {
+            LocalDateTime from = LocalDateTime.parse(fromDateString, DATE_TIME_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(toDateString, DATE_TIME_FORMATTER);
+
+            Task newTask = new Event(description, from, to);
+            tasks.add(newTask);
+            saveTasksToFile();
+
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use dd/MM/yyyy HHmm format.");
+        }
     }
 
-    private static void handleDeleteCommand(String input, ArrayList<Task> tasks) throws AstaException {
-        try {
-            int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                Task removedTask = tasks.remove(taskNumber);
-                saveTasksToFile();
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(removedTask);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else {
-                AstaException.handleInvalidDeleteTaskNumber();
-            }
-        } catch (NumberFormatException e) {
-            AstaException.handleInvalidTaskNumberFormat("delete");
+    private static void handleDeleteCommand(String input) throws AstaException {
+        int taskNumber = getTaskNumber(input, "delete");
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task removedTask = tasks.remove(taskNumber);
+            saveTasksToFile();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            AstaException.handleInvalidDeleteTaskNumber();
         }
     }
 }
