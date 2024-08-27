@@ -1,20 +1,22 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Tick {
     private static final String separator = "____________________________________________________________";
-    private static final String botName = "Tick";
     private ArrayList<Task> checklist = new ArrayList<>();
 
     public void greet() {
         System.out.println(Tick.separator);
-        System.out.printf("Hello! I'm %s!\n", Tick.botName);
+        System.out.println("System starting up...");
+        System.out.println("Brrt brrt! I'm Tick!");
         System.out.println("What can I do for you?");
         System.out.println(Tick.separator);
     }
 
     public void exit() {
         System.out.println(Tick.separator);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("System shutting down...");
+        System.out.println("Bye bye, see you next time!");
         System.out.println(Tick.separator);
     }
 
@@ -68,17 +70,17 @@ public class Tick {
 
     public void markTaskAsDone(int index) throws TickException {
         if (index < 1 || index > this.checklist.size()) {
-            throw new TickException("The task number is out of range.");
+            throw new TickException("The task number is out of range!");
         }
         Task task = this.checklist.get(index - 1);
         task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Ding ding! I've marked this task as done:");
         System.out.println(task);
     }
 
     public void markTaskAsUndone(int index) throws TickException {
         if (index < 1 || index > this.checklist.size()) {
-            throw new TickException("The task number is out of range.");
+            throw new TickException("The task number is out of range!");
         }
         Task task = this.checklist.get(index - 1);
         task.markAsUndone();
@@ -131,7 +133,7 @@ public class Tick {
                 this.addTaskToList(command);
                 break;
             default:
-                throw new TickException("I'm sorry, but I don't know what that means :-(");
+                throw new TickException("I don't know what that means!");
         }
     }
 

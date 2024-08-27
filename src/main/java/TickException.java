@@ -1,5 +1,5 @@
 public class TickException extends Exception {
     public TickException(String message) {
-        super("Womp womp :,( " + message);
+        super("ERROR ERROR! " + message);
     }
 }
