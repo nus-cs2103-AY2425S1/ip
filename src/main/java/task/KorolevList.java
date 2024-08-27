@@ -135,6 +135,7 @@ public class KorolevList {
 
     public ArrayList<KorolevTask> findItem(String keyword) {
         ArrayList<KorolevTask> out = new ArrayList<>();
+
         for (KorolevTask e : this.events) {
             if (e.match(keyword)) {
                 out.add(e);
