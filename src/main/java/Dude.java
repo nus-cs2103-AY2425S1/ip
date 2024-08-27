@@ -7,9 +7,6 @@ import java.util.Scanner;
  */
 public class Dude {
 
-    /**
-     * The taskList is an ArrayList that stores all the tasks that the user has added.
-     */
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     /**
@@ -20,9 +17,6 @@ public class Dude {
         DEADLINE("deadline"),
         EVENT("event");
 
-        /**
-         * The type is a String that represents the type of task.
-         */
         private final String type;
 
         /**
