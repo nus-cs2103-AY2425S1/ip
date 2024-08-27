@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +13,8 @@ public class Bruno {
     enum TaskType {
         TODO, DEADLINE, EVENT
     }
+    static DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    static DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     public static void main(String[] args) {
         String userResponse;
@@ -90,16 +95,27 @@ public class Bruno {
                 throw new MissingFieldException();
             }
             String description = str.substring(0, str.indexOf("/by")).trim();
-            String by = str.substring(str.indexOf("/by") + 4).trim();
-            task = new Deadline(description, by);
+            String byString = str.substring(str.indexOf("/by") + 4).trim();
+            try {
+                LocalDateTime by = LocalDateTime.parse(byString, formatter1);
+                task = new Deadline(description, by);
+            } catch (DateTimeParseException e) {
+                throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
+            }
         } else if (type.equals(TaskType.EVENT)) {
             if (!str.contains("/from") || !str.contains("/to")) {
                 throw new MissingFieldException();
             }
             String description = str.substring(0, str.indexOf("/from")).trim();
-            String from = str.substring(str.indexOf("/from") + 6, str.indexOf("/to")).trim();
-            String to = str.substring(str.indexOf("/to") + 4).trim();
-            task = new Event(description, from, to);
+            String fromString = str.substring(str.indexOf("/from") + 6, str.indexOf("/to")).trim();
+            String toString = str.substring(str.indexOf("/to") + 4).trim();
+            try {
+                LocalDateTime from = LocalDateTime.parse(fromString, formatter1);
+                LocalDateTime to = LocalDateTime.parse(toString, formatter1);
+                task = new Event(description, from, to);
+            } catch (DateTimeParseException e) {
+                throw new BrunoException("Invalid date format. Please use 'yyyy-MM-dd HH:mm'");
+            }
         } else {
             recognized = false;
         }
@@ -197,11 +213,14 @@ public class Bruno {
                 if (type.equals("T")) {
                     taskList.add(new ToDo(description, done));
                 } else if (type.equals("D")) {
-                    String by = lineParts[3].substring(lineParts[3].indexOf("by:") + 3).trim();
+                    String byString = lineParts[3].substring(lineParts[3].indexOf("by:") + 3).trim();
+                    LocalDateTime by = LocalDateTime.parse(byString, formatter2);
                     taskList.add(new Deadline(description, by, done));
                 } else if (type.equals("E")) {
-                    String from = lineParts[3].substring(6, lineParts[3].indexOf("to")).trim();
-                    String to = lineParts[3].substring(lineParts[3].indexOf("to") + 3).trim();
+                    String fromString = lineParts[3].substring(6, lineParts[3].indexOf("to")).trim();
+                    String toString = lineParts[3].substring(lineParts[3].indexOf("to") + 3).trim();
+                    LocalDateTime from = LocalDateTime.parse(fromString, formatter2);
+                    LocalDateTime to = LocalDateTime.parse(toString, formatter2);
                     taskList.add(new Event(description, from, to, done));
                 } else {
                     System.out.println("There was a problem when loading some task");
