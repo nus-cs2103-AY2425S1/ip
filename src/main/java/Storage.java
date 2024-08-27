@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,11 +22,13 @@ public class Storage {
 
     public ArrayList<Task> load() throws BobException {
         ArrayList<Task> tasks = new ArrayList<>();
+        //DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // Create the folder if it doesn't exist
-                file.createNewFile(); // Create the file if it doesn't exist
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
 
             Scanner scanner = new Scanner(file);
@@ -40,13 +44,15 @@ public class Storage {
                         task = new Todo(parts[2]);
                         break;
                     case "D":
+                        //LocalDate deadlineDate = LocalDate.parse(parts[3], dateFormatter);
+                        //task = new Deadline(parts[2], deadlineDate);
                         task = new Deadline(parts[2], parts[3]);
                         break;
                     case "E":
                         task = new Event(parts[2], parts[3], parts[4]);
                         break;
                     default:
-                        throw new BobException("Unknown task type in file.");
+                        throw new BobException("Unknown task type");
                 }
 
                 if (isDone) {
@@ -55,7 +61,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            throw new BobException("Failed to load tasks from file.");
+            throw new BobException("Failed to load tasks from file");
         }
         return tasks;
     }
@@ -68,7 +74,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new BobException("Failed to save tasks to file.");
+            throw new BobException("Failed to save tasks to file");
         }
     }
 }

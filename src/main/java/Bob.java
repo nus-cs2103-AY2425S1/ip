@@ -1,6 +1,9 @@
 import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import Tasks.Deadline;
 import Tasks.Event;
@@ -138,13 +141,18 @@ public class Bob {
         if (dlParts.length < 2) {
             throw new BobException("Missing details :(\nPlease use this format: 'deadline [description] /by [deadline]' :(");
         }
-        tasks.add(new Deadline(dlParts[0], dlParts[1]));
-        storage.save(tasks);
-        System.out.println("------------------------------------------");
-        System.out.println("Ok! I've added this task:");
-        System.out.println(tasks.get(tasks.size() - 1).toString());
-        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
-        System.out.println("------------------------------------------");
+        try {
+            LocalDate deadlineDate = LocalDate.parse(dlParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            tasks.add(new Deadline(dlParts[0], deadlineDate.toString()));
+            storage.save(tasks);
+            System.out.println("------------------------------------------");
+            System.out.println("Ok! I've added this task:");
+            System.out.println(tasks.get(tasks.size() - 1).toString());
+            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+            System.out.println("------------------------------------------");
+        } catch (DateTimeParseException e) {
+            throw new BobException("Invalid date format! Please use yyyy-mm-dd :(");
+        }
     }
 
     private static void addEventTask(String taskDescription) throws BobException {
