@@ -4,11 +4,36 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents and instance of a AddCommand so that upon execution
+ * the right type of task is added to the task list and the right
+ * response is displayed
+ */
 public class AddCommand extends Command {
     char type;
+
+    /**
+     * Constructor for the class to store the type of task
+     * to be added to be used on a case by case basis in execute()
+     * so that the right message can be replied to using the ui instance
+     *
+     * @param type Represents the type of task to be added
+     *             T = ToDos, D = Deadline, E = Event
+     */
     public AddCommand(char type) {
         this.type = type;
     }
+
+    /**
+     * Meant to execute the adding of the task to TaskList instance
+     * and to call upon the ui instance to display the right type of information
+     * by passing it the required information as shown in the JavaDoc of the Ui Class
+     *
+     * @param tasks To help add the task into the TaskList instance
+     * @param ui To pass the required information needed to display the right message
+     *           with the right task
+     * @param storage To store the newly added task and updated the output file
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
 
@@ -71,6 +96,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Returns false so that Jag.java does not exit for loop
+     *
+     * @return a default false so the run() in Jag.java does not exit
+     * the while loop
+     */
     @Override
     public Boolean isExit() {
         return false;

@@ -2,6 +2,11 @@ package jag;
 
 import java.util.Scanner;
 
+/**
+ * Represents an instance of User Interface interactions
+ * Purpose is to read messages / commands, respond appropriately,
+ * and return values to be used for other Command instances e.g. "Event"
+ */
 public class Ui {
     String loadingError = "File not found :(";
     String dashed = "----------";
@@ -35,7 +40,13 @@ public class Ui {
 
 
 
-
+    /**
+     * Responds by printing out the String response
+     *
+     * @param response Response that consist of all Tasks
+     *                 that have been turned into Strings
+     *                 from the List class
+     */
     public void list(String response) {
         System.out.println(this.dashed);
         System.out.println(response);
@@ -43,6 +54,14 @@ public class Ui {
         command = scanner.nextLine();
     }
 
+    /**
+     * Returns the description of the task from user input
+     *
+     * @param type Type represents T, D, E, which helps to indicate
+     *             the type of Task to be processed.
+     * @return description of the task from the user input on a case
+     *          by case basis, of T, D, E
+     */
     public String getDescription(char type) {
         String description = "";
 
@@ -59,21 +78,46 @@ public class Ui {
         return description;
     }
 
+    /**
+     * Returns a String representation of the deadline from user input
+     * for a deadline task
+     *
+     * @return a String of the deadline set by the user for a deadline task
+     */
     public String getBy() {
         String[] split = command.split("/by");
         return split[1].trim();
     }
 
+    /**
+     * Returns a String representation of the starting date from user input
+     * for an event
+     *
+     * @return a String of the starting date set by the user for an event
+     */
     public String getFrom() {
         String[] split = command.split("/from | /to");
         return split[1].trim();
     }
 
+    /**
+     * Returns a String representation of the end date from user input
+     * for an event
+     *
+     * @return a String of the end date set by the user for an event
+     */
     public String getTo() {
         String[] split = command.split("/from | /to");
         return split[2].trim();
     }
 
+    /**
+     * Returns an Integer representing the index of the task to be deleted
+     * in the stored TaskList
+     *
+     * @return an Integer representing the index of the task to be deleted
+     *          in the stored TaskList
+     */
     public int getDeleteIndex() {
         char marker = command.charAt(command.length() - 1);
         int index = 0;
@@ -84,6 +128,13 @@ public class Ui {
         return index;
     }
 
+    /**
+     * Returns an Integer representing the index of the task to be marked
+     *  or unmarked in the stored TaskList
+     *
+     * @return an Integer representing the index of the task to be marked
+     *          or unmarked in the stored TaskList
+     */
     public int getMark() {
         char marker = command.charAt(command.length() - 1);
         int index = 0;
@@ -95,6 +146,16 @@ public class Ui {
         return index;
     }
 
+    /**
+     * Displays the right response to the user that a task has been added
+     * based on the type of task
+     *
+     * @param type Type of task so that the right type of response can be displayed
+     * @param task Task instance that has been created, so that it's toString() method
+     *             can be called upon
+     * @param tasks The Instance of the TaskList so that the size of the list can be
+     *              accessed and displayed to the user upon the addition
+     */
     public void addedResponse(char type, Task task, TaskList tasks) {
         if (type == 'T') {
             // Response for ToDos
@@ -124,7 +185,14 @@ public class Ui {
 
     }
 
-    public void deleteResponse(Task task, TaskList tasks, int size) {
+    /**
+     * Displays the right response to the user that a task has been deleted
+     *
+     * @param task Task instance that has been created, so that it's toString() method
+     *             can be called upon
+     * @param size Represents the updated size of the task list after the deletion
+     */
+    public void deleteResponse(Task task, int size) {
         System.out.println(this.dashed);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
@@ -133,6 +201,12 @@ public class Ui {
         command = scanner.nextLine();
     }
 
+    /**
+     * Displays the right response to the user that a task has been unmarked
+     *
+     * @param task Task instance that has been created, so that it's toString() method
+     *             can be called upon
+     */
     public void unmarkResponse(Task task) {
         System.out.println(this.dashed);
         System.out.println("OK, I've marked this task as not done yet:");
@@ -141,6 +215,12 @@ public class Ui {
         command = scanner.nextLine();
     }
 
+    /**
+     * Displays the right response to the user that a task has been marked
+     *
+     * @param task Task instance that has been created, so that it's toString() method
+     *             can be called upon
+     */
     public void markResponse(Task task) {
         System.out.println(this.dashed);
         System.out.println("Nice! I've marked this task as done:");
@@ -149,6 +229,10 @@ public class Ui {
         command = scanner.nextLine();
     }
 
+    /**
+     * Displays the response for exiting the chatbot
+     * and to close the instance of the scanner to end the application
+     */
     public void exitResponse() {
         System.out.println(bye);
         scanner.close();
