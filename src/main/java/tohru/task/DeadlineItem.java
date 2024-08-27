@@ -16,7 +16,7 @@ public class DeadlineItem extends TodoItem {
      * @param content The task description of the to-do item
      * @param deadline The deadline of the to-do item
      */
-    public DeadlineItem(String content ,LocalDateTime deadline) {
+    public DeadlineItem(String content, LocalDateTime deadline) {
         super(content);
         this.deadline = deadline;
     }
