@@ -14,13 +14,22 @@ public class Bocchi {
     /**
      * The list to store all tasks.
      */
-    private final List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = null;
+
+    /**
+     * The loader and saver for the task list.
+     */
+    private TaskListLoaderSaver loaderSaver = new TaskListLoaderSaver();
+
 
     /**
      * The constructor.
      */
     public Bocchi() {
-
+        tasks = loaderSaver.load();
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
     }
 
     /**
@@ -53,6 +62,7 @@ public class Bocchi {
         printSeparator();
         System.out.println("Oh no you are leaving.. It was a great time talking to you ::>_<::");
         printSeparator();
+        loaderSaver.save(tasks);  // save the task list for persistence
     }
 
     /**
@@ -90,7 +100,6 @@ public class Bocchi {
 
     /**
      * Adds a task to the list.
-     *
      */
     private void task(Task task) {
         printSeparator();

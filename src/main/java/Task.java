@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Represents a base task.
  */
-public abstract class Task {
+public abstract class Task implements Serializable {
     /**
      * The task description.
      */
@@ -59,5 +61,4 @@ public abstract class Task {
     public String toString() {
         return (isDone ? "[X]" : "[ ]") + " " + description;
     }
-
 }
