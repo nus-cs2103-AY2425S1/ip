@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -130,16 +132,21 @@ public class Fred {
 
     private static Task createTask(String taskType, String taskDetails) {
         Task task;
+        System.out.println(taskDetails);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
         if (taskType.equals("todo")) {
             task = new Todo(description);
         } else if (taskType.equals("deadline")) {
-            String by = taskDetailsArr[1].substring(3);
+            String byStr = taskDetailsArr[1].substring(3);
+            LocalDateTime by = LocalDateTime.parse(byStr, formatter);
             task = new Deadline(description, by);
         } else {
-            String from = taskDetailsArr[1].substring(5);
-            String to = taskDetailsArr[2].substring(3);
+            String fromStr = taskDetailsArr[1].substring(5);
+            String toStr = taskDetailsArr[2].substring(3);
+            LocalDateTime from = LocalDateTime.parse(fromStr, formatter);
+            LocalDateTime to = LocalDateTime.parse(toStr, formatter);
             task = new Event(description, from, to);
         }
         return task;
@@ -205,7 +212,7 @@ public class Fred {
                 task = createTask("deadline", lineParts[2] + " /by " + lineParts[3]);
                 break;
             case "E":
-                String[] fromTo = lineParts[3].split("-");
+                String[] fromTo = lineParts[3].split(" - ");
                 task = createTask("event", lineParts[2] + " /from " + fromTo[0] + " /to " + fromTo[1]);
                 break;
             }
@@ -240,3 +247,4 @@ public class Fred {
         }
     }
 }
+
