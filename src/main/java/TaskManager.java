@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class TaskManager {
     enum Command {
         MARK,
@@ -156,8 +160,15 @@ public class TaskManager {
                     + " Example Usage: deadline homework /by 6pm wednesday");
         }
 
-        Task deadlineTask = new Deadline(components[0], components[1]);
-        return handleTaskAddition(taskList, deadlineTask);
+        try {
+            String deadlineString = components[1];
+            DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("dd/MM/yyy HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(deadlineString, deadlineFormatter);
+            Task deadlineTask = new Deadline(components[0], deadline);
+            return handleTaskAddition(taskList, deadlineTask);
+        } catch (DateTimeParseException e) {
+            throw new DenimException("Format for Date is Wrong");
+        }
     }
 
     private Task handleEvent(TaskList taskList, String argument) throws DenimException {
