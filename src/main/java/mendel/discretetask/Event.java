@@ -85,6 +85,11 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean isMatchingDescription(String matchingString) {
+        return this.description.contains(matchingString);
+    }
+
+    @Override
     public String parseDetailsForDB() {
         return String.format("E | %d | %s | %s | %s", super.getStatus() ? 1 : 0, this.description, this.from, this.to);
     }

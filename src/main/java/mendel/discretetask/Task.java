@@ -31,6 +31,8 @@ public abstract class Task {
 
     public abstract boolean isTargetDueDate(String formattedDate);
 
+    public abstract boolean isMatchingDescription(String matchingString);
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(),this.description);

@@ -6,6 +6,7 @@ import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TaskList extends Command{
@@ -81,6 +82,28 @@ public class TaskList extends Command{
         int increment = 0;
         for (int i = 0; i < counter; i++) {
             if (this.messages.get(i).isTargetDueDate(formattedDate)) {
+                increment++;
+                finalMessage += String.format("\n%d.%s", increment,
+                        this.messages.get(i).toString());
+            }
+        }
+        return finalMessage;
+    }
+
+    public String findDescription(String fullCommand) {
+        String[] segments = fullCommand.split("find ");
+        String matchString = "";
+        for (int i = 1; i < segments.length; i++) {
+            if (i == 1) {
+                matchString += segments[i];
+            } else {
+                matchString += "find " + segments[i];
+            }
+        }
+        String finalMessage = "Here are the matching tasks in your list", formattedDate;
+        int increment = 0;
+        for (int i = 0; i < counter; i++) {
+            if (this.messages.get(i).isMatchingDescription(matchString)) {
                 increment++;
                 finalMessage += String.format("\n%d.%s", increment,
                         this.messages.get(i).toString());
