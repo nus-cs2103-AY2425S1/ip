@@ -15,6 +15,13 @@ public class Astra {
                 "____________________________________________________________\n";
     }
 
+    /**
+     * Returns the index argument of a command.
+     *
+     * @param text Command text with its arguments.
+     * @return Index specified in the command.
+     * @throws AstraException If index is invalid.
+     */
     private static int getIndex(String text) throws AstraException {
         int index;
         try {
@@ -25,6 +32,12 @@ public class Astra {
         return index;
     }
 
+    /**
+     * Returns the key word arguments of a command.
+     *
+     * @param text Command text with its arguments.
+     * @return Map of each key word to its string value.
+     */
     private static HashMap<String, String> getArgs(String text) {
         String[] words = text.split(" ");
         HashMap<String, String> args = new HashMap<>();
@@ -60,6 +73,13 @@ public class Astra {
         System.out.println(formatMsg(tasks.toString()));
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param type Type of the task.
+     * @param text Command text with its arguments.
+     * @throws AstraException If task description is empty.
+     */
     public static void add(TaskType type, String text) throws AstraException {
         String argText;
 
