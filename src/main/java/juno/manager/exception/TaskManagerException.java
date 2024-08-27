@@ -10,15 +10,16 @@ public class TaskManagerException extends Exception {
         TASK_OUT_OF_RANGE,
         INVALID_DATETIME_ARGUMENT,
         INVALID_FUNCTION,
-        EMPTY_INPUT
+        EMPTY_INPUT,
+        INVALID_DELETE_TASK_NUMBER
     }
 
     public TaskManagerException(String message, ErrorType errorType) {
         super(message);
         this.errorType = errorType;
     }
-//
-//    public ErrorType getErrorType() {
-//        return this.errorType;
-//    }
+
+    public ErrorType getErrorType() {
+        return this.errorType;
+    }
 }

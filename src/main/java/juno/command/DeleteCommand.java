@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. " +
                     "Please enter a task number after mark/unmark/delete command. " +
                     "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
-                    TaskManagerException.ErrorType.INVALID_MARK_TASK_NUMBER);
+                    TaskManagerException.ErrorType.INVALID_DELETE_TASK_NUMBER);
         } finally {
             this.fileManager.writeTasksToFile(this.tasks);
         }
