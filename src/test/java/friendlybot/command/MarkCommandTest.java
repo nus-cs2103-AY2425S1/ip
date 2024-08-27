@@ -1,6 +1,5 @@
 package friendlybot.command;
 
-import friendlybot.FriendlyBot;
 import friendlybot.FriendlyBotStub;
 import friendlybot.task.ToDo;
 import org.junit.jupiter.api.Test;

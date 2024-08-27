@@ -1,7 +1,5 @@
 package friendlybot.task;
 
-import friendlybot.Ui;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 

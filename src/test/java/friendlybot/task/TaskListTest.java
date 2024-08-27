@@ -3,7 +3,6 @@ package friendlybot.task;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

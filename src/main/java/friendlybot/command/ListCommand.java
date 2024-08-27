@@ -2,8 +2,8 @@ package friendlybot.command;
 
 import friendlybot.Storage;
 import friendlybot.Ui;
-import friendlybot.task.TaskList;
 import friendlybot.task.Task;
+import friendlybot.task.TaskList;
 
 public class ListCommand extends Command {
     @Override
