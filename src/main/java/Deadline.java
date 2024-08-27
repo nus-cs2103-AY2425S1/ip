@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class Deadline extends Task {
@@ -16,11 +17,24 @@ public class Deadline extends Task {
     }
 
     /**
-     * Getter for the due field
-     * @return the LocalDateTime object representing the due date/time
+     * Returns the number of days until the deadline.
+     * @param dateTime the date/time provided by the user
+     * @return the number of days until the deadline
      */
-    public LocalDateTime getDue() {
-        return due;
+    public long daysTillDeadline(LocalDateTime dateTime) {
+        return ChronoUnit.DAYS.between(dateTime, due);
+    }
+
+    /**
+     * Returns a formatted String representing the Deadline object and its fields for saving to file
+     * @return a String saved representation of the Deadline object
+     */
+    @Override
+    public String saveRepr() {
+        return String.format("D | %s | by %s",
+                super.saveRepr(),
+                Formatter.formatDateTime(due)
+        );
     }
 
     /**

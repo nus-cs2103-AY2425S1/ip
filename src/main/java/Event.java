@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
     private final LocalDateTime start;
@@ -18,19 +19,24 @@ public class Event extends Task {
     }
 
     /**
-     * Getter for the start field
-     * @return the LocalDateTime object representing the start date/time
+     * Returns the number of days until the event.
+     * @param dateTime the date/time provided by the user
+     * @return the number of days until the event
      */
-    public LocalDateTime getStart() {
-        return start;
+    public long daysTillEvent(LocalDateTime dateTime) {
+        return ChronoUnit.DAYS.between(dateTime, start);
     }
 
     /**
-     * Getter for the end field
-     * @return the LocalDateTime object representing the end date/time
+     * Returns a formatted String representing the Event object and its fields for saving to file
+     * @return a String saved representation of the Event object
      */
-    public LocalDateTime getEnd() {
-        return end;
+    @Override
+    public String saveRepr() {
+        return String.format("E | %s | from %s | to %s",
+                super.saveRepr(),
+                Formatter.formatDateTime(start),
+                Formatter.formatDateTime(end));
     }
 
     /**

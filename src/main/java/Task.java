@@ -19,11 +19,12 @@ public class Task {
 
     /**
      * Returns the description of the task.
-     * @return a String describing the Task
+     * @return a String representing the description of the task
      */
-    public String getDescription() {
-        return description;
+    public String saveRepr() {
+        return String.format("%d | %s", done ? 1 : 0, description);
     }
+
 
     /**
      * Sets the status of the task.
@@ -33,13 +34,6 @@ public class Task {
         this.done = done;
     }
 
-    /**
-     * Returns the status of the task.
-     * @return a boolean that states whether a task is done
-     */
-    public boolean isDone() {
-        return done;
-    }
 
     /**
      * Returns a formatted String that represents the done and description fields of the Task

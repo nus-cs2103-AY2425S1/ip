@@ -9,6 +9,15 @@ public class ToDo extends Task {
     }
 
     /**
+     * Returns a formatted String representing the ToDo object and its fields for saving to file
+     * @return a String saved representation of the ToDo object
+     */
+    @Override
+    public String saveRepr() {
+        return String.format("T | %s", super.saveRepr());
+    }
+
+    /**
      * Returns a formatted String representing the ToDo object and its fields
      * @return a String representation of the ToDo object
      */
