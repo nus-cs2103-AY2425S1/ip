@@ -1,8 +1,10 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DateFormatChecker {
@@ -30,6 +32,18 @@ public class DateFormatChecker {
             } catch (DateTimeException e) {
                 // skip
             }
+        }
+        return "Unknown Format";
+    }
+
+    public static String getTimeFormat(String time) {
+        String format = "HHmm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        try {
+            LocalTime.parse(time, formatter);
+            return format;
+        } catch (DateTimeException e) {
+            // skip
         }
         return "Unknown Format";
     }
