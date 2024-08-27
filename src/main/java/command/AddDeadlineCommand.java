@@ -6,7 +6,11 @@ import tasks.Deadline;
 import tasks.Task;
 import ui.CommandLineUI;
 
+/**
+ * Represents a command to add a deadline task to the task list.
+ */
 public class AddDeadlineCommand extends Command {
+    /** The task to be added to the task list. */
     protected Task task;
 
     public AddDeadlineCommand(String desc, String date) throws OuiOuiBaguetteException {

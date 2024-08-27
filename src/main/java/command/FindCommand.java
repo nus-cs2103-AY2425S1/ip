@@ -11,9 +11,7 @@ import ui.CommandLineUI;
  * Represents a command to find tasks in the task list that match a given keyword.
  */
 public class FindCommand extends Command {
-    /** 
-     * The keyword to search for in the task descriptions.
-     * */
+    /** The keyword to search for in the task descriptions. */
     protected String keyword;
 
     /**
