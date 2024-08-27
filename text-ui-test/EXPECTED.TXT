@@ -17,6 +17,24 @@ I've added "submit assignment" to your list :3
 I've added "watch movie" to your list :3
 
 > 
+ /\_/\     _____________________________
+ >x.x<    ( Meow?! What does that mean? )
+  / \      -----------------------------
+ (___)_/
+
+Error: Command 'deadline' must have a 'by' flag
+Type 'help' to see a list of commands, or 'help <command>' to see more about a specific command.
+
+> 
+ /\_/\     _____________________________
+ >x.x<    ( Meow?! What does that mean? )
+  / \      -----------------------------
+ (___)_/
+
+Error: 'by' is not a known flag
+Type 'help' to see a list of commands, or 'help <command>' to see more about a specific command.
+
+> 
 You have 3 tasks in your list, here they are :3
 1. [T][ ] read book
 2. [D][ ] submit assignment (due today 3pm)
@@ -37,6 +55,15 @@ You have 3 tasks in your list, here they are :3
 3. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
 
 > 
+ /\_/\     _____________________________
+ >x.x<    ( Meow?! What does that mean? )
+  / \      -----------------------------
+ (___)_/
+
+Error: Task index is out of range
+Type 'help' to see a list of commands, or 'help <command>' to see more about a specific command.
+
+> 
 Meow, I unscratched the check box for you:
 [D][ ] submit assignment (due today 3pm)
 
@@ -47,12 +74,30 @@ You have 3 tasks in your list, here they are :3
 3. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
 
 > 
+ /\_/\     _____________________________
+ >x.x<    ( Meow?! What does that mean? )
+  / \      -----------------------------
+ (___)_/
+
+Error: Task index is out of range
+Type 'help' to see a list of commands, or 'help <command>' to see more about a specific command.
+
+> 
 Meow, I deleted the task 'read book' for you :3
 
 > 
 You have 2 tasks in your list, here they are :3
 1. [D][ ] submit assignment (due today 3pm)
 2. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
+
+> 
+ /\_/\     _____________________________
+ >x.x<    ( Meow?! What does that mean? )
+  / \      -----------------------------
+ (___)_/
+
+Error: Task index is out of range
+Type 'help' to see a list of commands, or 'help <command>' to see more about a specific command.
 
 > 
  /\_/\     _____________
