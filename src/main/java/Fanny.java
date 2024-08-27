@@ -2,14 +2,10 @@ import java.util.Scanner;
 
 public class Fanny {
 
-    private static TaskList list;
+    private static TaskList list = new TaskList();
     private static Scanner scanner = new Scanner(System.in);
-    private static FileOperation fileOperation;
 
     public static void main(String[] args) {
-
-        fileOperation = new FileOperation("./data/fanny.txt");
-        list = new TaskList(fileOperation);
 
         printHello();
 

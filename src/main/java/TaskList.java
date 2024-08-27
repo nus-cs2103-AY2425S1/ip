@@ -1,41 +1,20 @@
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.IOException;
+import java.util.*;
 
 public class TaskList {
 
     private List<Task> list;
-    private FileOperation fileOperation;
 
-    public TaskList(FileOperation fileOperation) {
+    public TaskList() {
         this.list = new ArrayList<>();
-        this.fileOperation = fileOperation;
-        try {
-            this.list = fileOperation.loadTask();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
     }
 
     public void add(Task item) {
-        try {
-            this.list.add(item);
-            fileOperation.save(this.list);
-        } catch (IOException e) {
-            System.out.println("Error saving task");
-        }
+        this.list.add(item);
     }
 
     public String delete(int index) {
         String taskToBeRemoved = list.get(index - 1).toString();
-        try {
-            this.list.remove(index - 1);
-            fileOperation.save(this.list);
-        } catch (IOException e) {
-            System.out.println("Error saving task");
-        }
+        this.list.remove(index - 1);
         return taskToBeRemoved;
     }
 
@@ -51,22 +30,12 @@ public class TaskList {
     }
 
     public String markAsDone(int index) {
-        try {
-            list.get(index).markAsDone();
-            fileOperation.save(this.list);
-        } catch (IOException e) {
-            System.out.println("Error saving task");
-        }
+        list.get(index).markAsDone();
         return list.get(index).toString();
     }
 
     public String markAsNotDone(int index) {
-        try {
-            list.get(index).markAsNotDone();
-            fileOperation.save(this.list);
-        } catch (IOException e) {
-            System.out.println("Error saving task");
-        }
+        list.get(index).markAsNotDone();
         return list.get(index).toString();
     }
 }
