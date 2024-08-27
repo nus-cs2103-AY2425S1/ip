@@ -25,7 +25,7 @@ public class Event extends Task{
             LocalDate date = LocalDate.parse(to);
             this.to = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } catch (DateTimeParseException e){
-            this.to = from;
+            this.to = to;
         }
     }
 

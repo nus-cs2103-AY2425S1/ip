@@ -9,7 +9,7 @@ import com.Commands.Command;
 public class Nimbus {
     final private static String name = "Nimbus";
 
-    private final ArrayList<Task> tasks;
+    private final TaskList tasks;
     private boolean isRunning;
     private final Ui ui;
     private final Storage storage;
@@ -18,7 +18,7 @@ public class Nimbus {
         this.ui = new Ui(name);
         this.storage = new Storage(filePath);
         this.isRunning = true;
-        this.tasks = new ArrayList<>();
+        this.tasks = new TaskList();
     }
 
     public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class Nimbus {
     }
 
     public void run() {
-        tasks.addAll(storage.load());
+        tasks.add(storage.load());
         ui.showWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);

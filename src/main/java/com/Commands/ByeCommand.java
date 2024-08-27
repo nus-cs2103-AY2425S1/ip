@@ -1,15 +1,12 @@
 package com.Commands;
 
-import com.Nimbus.InvalidArgumentException;
-import com.Nimbus.Storage;
-import com.Nimbus.Task;
-import com.Nimbus.Ui;
+import com.Nimbus.*;
 
 import java.util.ArrayList;
 
 public class ByeCommand extends Command {
     @Override
-    public void execute(Ui ui, Storage storage, ArrayList<Task> tasks) throws InvalidArgumentException {
+    public void execute(Ui ui, Storage storage, TaskList tasks) throws InvalidArgumentException {
         ui.showGoodbyeMessage();
     }
 }

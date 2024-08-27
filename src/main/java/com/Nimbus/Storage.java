@@ -41,8 +41,8 @@ public class Storage {
         };
     }
 
-    public ArrayList<Task> load() {
-        ArrayList<Task> ans = new ArrayList<>();
+    public TaskList load() {
+        TaskList ans = new TaskList();
         checkSavedFile();
         File file = new File(filePath);
         try {
@@ -95,11 +95,11 @@ public class Storage {
         return false;
     }
 
-    public void writeTasksToFile(ArrayList<Task> tasks) {
+    public void writeTasksToFile(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (Task task : tasks) {
-                fw.write(task.toFileFormat());
+            for (int i = 0; i < tasks.size(); ++i) {
+                fw.write(tasks.get(i).toFileFormat());
                 fw.write(System.lineSeparator());
             }
             fw.close();

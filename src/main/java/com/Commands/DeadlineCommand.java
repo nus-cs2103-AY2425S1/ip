@@ -1,10 +1,6 @@
 package com.Commands;
 
-import com.Nimbus.InvalidArgumentException;
-import com.Nimbus.Storage;
-import com.Nimbus.Task;
-import com.Nimbus.Ui;
-import com.Nimbus.Deadline;
+import com.Nimbus.*;
 
 import static com.Nimbus.Parser.getDescription;
 import static com.Nimbus.Parser.readOption;
@@ -20,7 +16,7 @@ public class DeadlineCommand extends Command {
 
 
     @Override
-    public void execute(Ui ui, Storage storage, ArrayList<Task> tasks) throws InvalidArgumentException {
+    public void execute(Ui ui, Storage storage, TaskList tasks) throws InvalidArgumentException {
         Task task = new Deadline(getDescription(argument),
                 readOption(argument, "by"));
         storage.writeTaskToFile(task);
