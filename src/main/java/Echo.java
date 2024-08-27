@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -83,6 +84,7 @@ public class Echo {
             throw new EchoException(LINE_BREAK + "\nSorry! Please include a " +
                     "deadline for the task.\n" + LINE_BREAK);
         }
+
         String deadlineDescription = deadlineArray[0];
         String deadlineDate = deadlineArray[1];
         return new Deadlines(deadlineDescription, deadlineDate);
@@ -174,6 +176,8 @@ public class Echo {
             }
         } catch (EchoException e) {
             System.err.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.err.println("Sorry! You have used the wrong date and time format");
         }
     }
 

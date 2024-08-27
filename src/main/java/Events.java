@@ -1,11 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 public class Events extends Task {
-
-    String startTime;
-    String endTime;
-    public Events(String description, String start, String end) {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    public Events(String description, String start, String end) throws DateTimeParseException {
         super(description);
-        this.startTime = start;
-        this.endTime = end;
+        this.startDate = LocalDateTime.parse(start, INPUT_FORMATTER);
+        this.endDate = LocalDateTime.parse(end, INPUT_FORMATTER);
     }
 
     /**
@@ -15,8 +16,8 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + this.startDate.format(OUTPUT_FORMATTER) +
+                " to: " + this.endDate.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
@@ -27,7 +28,8 @@ public class Events extends Task {
      */
     @Override
     public String toFancyString() {
-        return "Event | " + super.getStatus() + " | " +
-                super.getDescription() + " | /from "  + this.startTime + " /to " + this.endTime;
+        return "Event | " + super.getStatus() + " | " + super.getDescription() +
+                " | /from "  + super.reverseLocalDateTimeParse(this.startDate) +
+                " /to " + super.reverseLocalDateTimeParse(this.endDate);
     }
 }
