@@ -10,6 +10,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddDeadlineCommandFactory extends CommandFactory {
+
+    /**
+     * Returns the add deadline command parsed from the text.
+     *
+     * @param text
+     * @return Add deadline task command
+     * @throws GrayException
+     */
     @Override
     public Command parse(String text) throws GrayException {
         Pattern pattern = Pattern.compile("deadline (.*) /by (.*)");

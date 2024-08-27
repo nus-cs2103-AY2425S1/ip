@@ -8,6 +8,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DeleteCommandFactory extends CommandFactory {
+
+    /**
+     * Returns the delete command parsed from the text.
+     *
+     * @param text
+     * @return Delete Task Command
+     * @throws GrayException
+     */
     @Override
     public Command parse(String text) throws GrayException {
         Pattern pattern = Pattern.compile("delete (-?\\d+)");

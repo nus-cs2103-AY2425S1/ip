@@ -8,10 +8,20 @@ public class AddTodoCommand extends Command {
 
     private final String description;
 
+    /**
+     * Constructs a command to add to-do task.
+     * @param description
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes the add to-do task.
+     *
+     * @param ui
+     * @param tasks
+     */
     @Override
     public void execute(Ui ui, TaskList tasks) {
         TodoTask task = new TodoTask(description);

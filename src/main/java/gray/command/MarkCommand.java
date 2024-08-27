@@ -10,11 +10,24 @@ public class MarkCommand extends Command {
     private final String command;
     private final int index;
 
+    /**
+     * Constructs a command to mark or un-mark a task.
+     *
+     * @param command
+     * @param index
+     */
     public MarkCommand(String command, int index) {
         this.command = command;
         this.index = index;
     }
 
+    /**
+     * Executes mark or un-mark task.
+     *
+     * @param ui
+     * @param tasks
+     * @throws GrayException
+     */
     @Override
     public void execute(Ui ui, TaskList tasks) throws GrayException {
         if (index <= 0 || index > tasks.size()) {

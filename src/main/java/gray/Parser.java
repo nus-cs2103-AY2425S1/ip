@@ -17,6 +17,14 @@ public class Parser {
             new DeleteCommandFactory()
     );
 
+    /**
+     * Attempts to parse text from the list of command factories,
+     * and returns the associated command.
+     *
+     * @param text
+     * @return Command
+     * @throws GrayException
+     */
     public static Command parse(String text) throws GrayException {
         for (CommandFactory commandFactory : commandFactoryList) {
             Command command = commandFactory.parse(text);
