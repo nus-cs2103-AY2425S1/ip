@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -6,18 +5,21 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final ArrayList<Task> tasks; // Array to store tasks
-    private final UI ui;                 // UI for handling user interface interactions
-    private final Storage storage;       // Storage for saving, loading of tasks
 
     /**
-     * Constructs a new TaskList with a fixed size to store up to 100 tasks.
-     *
-     * @param ui UI class object needed for user interface interactions.
+     * Constructs a new TaskList with empty list.
      */
-    public TaskList(UI ui, Storage storage) throws IOException, SecurityException, MiraException {
-        this.ui = ui;
-        this.storage = storage;
-        this.tasks = this.storage.loadTasks();
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a TaskList with the given list of tasks.
+     *
+     * @param tasks The list of tasks to be managed by this TaskList.
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -25,11 +27,8 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) throws IOException {
+    public void addTask(Task task) {
         this.tasks.add(task);
-        this.storage.saveTask(task);
-        this.ui.showMessage("Got it. I've added this task:\n  " + task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -37,17 +36,14 @@ public class TaskList {
      *
      * @param index The index of the task to delete (1-based).
      */
-    public void deleteTask(int index) throws IOException {
-        Task removedTask = this.tasks.remove(index - 1);
-        this.storage.saveTasks(this.tasks);
-        this.ui.showMessage("Noted. I've removed this task:\n  " + removedTask +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+    public void deleteTask(int index) {
+        this.tasks.remove(index - 1);
     }
 
     /**
      * Lists all the tasks currently stored in the task list.
      */
-    public void listTasks() {
+    public String listTasks() {
         StringBuilder tasksList = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             tasksList.append((i + 1)).append(". ").append(tasks.get(i));
@@ -55,7 +51,7 @@ public class TaskList {
                 tasksList.append("\n"); // Add newline only if it is not the last task
             }
         }
-        this.ui.showMessage(tasksList.toString());
+        return tasksList.toString();
     }
 
     /**
@@ -63,10 +59,8 @@ public class TaskList {
      *
      * @param index The index of the task to mark as done (1-based index).
      */
-    public void markTask(int index) throws IOException {
+    public void markTask(int index) {
         this.tasks.get(index - 1).setStatus(true);
-        this.storage.saveTasks(this.tasks);
-        this.ui.showMessage("Nice! I've marked this task as done:\n  " + tasks.get(index - 1));
     }
 
     /**
@@ -74,9 +68,36 @@ public class TaskList {
      *
      * @param index The index of the task to unmark (1-based index).
      */
-    public void unmarkTask(int index) throws IOException {
+    public void unmarkTask(int index) {
         this.tasks.get(index - 1).setStatus(false);
-        this.storage.saveTasks(this.tasks);
-        this.ui.showMessage("OK, I've marked this task as not done yet:\n  " + tasks.get(index - 1));
+    }
+
+    /**
+     * Retrieves the task at the specified index.
+     *
+     * @param index The index of the task to retrieve (1-based index).
+     * @return The task at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of range (index < 1 || index > size()).
+     */
+    public Task getTask(int index) {
+        return this.tasks.get(index - 1);
+    }
+
+    /**
+     * Returns the list of tasks managed by this TaskList.
+     *
+     * @return The list of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
+    public int size() {
+        return tasks.size();
     }
 }
