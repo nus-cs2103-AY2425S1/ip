@@ -1,9 +1,17 @@
+package tohru.command;
+
+import tohru.exception.TohruException;
+import tohru.storage.FileStore;
+import tohru.task.DeadlineItem;
+import tohru.task.TodoList;
+import tohru.ui.Ui;
+
 import java.time.LocalDateTime;
 
 /**
  * AddDeadlineCommand represents the command to add a deadline task to the to-do list
  */
-public class AddDeadlineCommand extends Command{
+public class AddDeadlineCommand extends Command {
 
     /** Prefix used to invoke the add deadline command **/
     public static final String COMMAND_PREFIX = "deadline";

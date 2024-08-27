@@ -1,3 +1,5 @@
+package tohru.exception;
+
 /**
  * TohruException catches errors that are due to improper prompts
  */

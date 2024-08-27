@@ -1,3 +1,9 @@
+package tohru.storage;
+
+import tohru.task.DeadlineItem;
+import tohru.task.EventItem;
+import tohru.task.TodoItem;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

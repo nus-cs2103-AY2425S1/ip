@@ -1,3 +1,5 @@
+package tohru.task;
+
 /**
  * TodoItem represents a to-do entry
  */

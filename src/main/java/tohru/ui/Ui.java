@@ -1,3 +1,5 @@
+package tohru.ui;
+
 import java.util.Scanner;
 
 /**

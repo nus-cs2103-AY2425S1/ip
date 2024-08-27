@@ -1,3 +1,12 @@
+package tohru;
+
+import tohru.command.Command;
+import tohru.command.Parser;
+import tohru.exception.TohruException;
+import tohru.storage.FileStore;
+import tohru.task.TodoList;
+import tohru.ui.Ui;
+
 /**
  * Tohru represents the chatbot that keeps track of user's tasks
  */

@@ -1,12 +1,19 @@
+package tohru.command;
+
+import tohru.exception.TohruException;
+import tohru.storage.FileStore;
+import tohru.task.TodoList;
+import tohru.ui.Ui;
+
 /**
- * UnmarkCommand represents the command to unmark a completed task as incomplete in the to-do list
+ * MarkCommand represents the command to mark a task as complete in the to-do list
  */
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
 
     /** Prefix used to invoke the mark command **/
-    public static final String COMMAND_PREFIX = "unmark";
+    public static final String COMMAND_PREFIX = "mark";
 
-    public UnmarkCommand(String arguments) {
+    public MarkCommand(String arguments) {
         super(arguments);
     }
 
@@ -14,7 +21,7 @@ public class UnmarkCommand extends Command {
     public void execute(TodoList list, Ui ui, FileStore store) throws TohruException {
         // Check if no arguments are provided
         if (super.arguments == null) {
-            throw new TohruException("Missing argument: Specify index to unmark");
+            throw new TohruException("Missing argument: Specify index to mark");
         }
 
         int itemIndex = -1;
@@ -26,13 +33,12 @@ public class UnmarkCommand extends Command {
             throw new TohruException(String.format("%s is not valid index", arguments));
         }
 
-        list.markIncomplete(itemIndex);
+        list.markComplete(itemIndex);
 
-        ui.showText("Alright! I have set this task as not done:");
+        ui.showText("Alright! I have set this task as done:");
         ui.showText(list.getItemStatus(itemIndex));
 
         store.saveTodoList(list.getTodoList());
 
     }
-
 }
