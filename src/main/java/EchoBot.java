@@ -1,9 +1,109 @@
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
+
 
 public class EchoBot {
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./data/echo-bot.txt";
+    private static final String DIR_PATH = "./data/";
+
+
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+
+    // Method to ensure the directory and file exist
+    private static void ensureFileExists() {
+        File dir = new File(DIR_PATH);
+        if (!dir.exists()) {
+            dir.mkdirs(); // Create the directory if it doesn't exist
+        }
+
+        File file = new File(FILE_PATH);
+        try {
+            if (!file.exists()) {
+                file.createNewFile(); // Create the file if it doesn't exist
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+    }
+
+    // Method to save tasks to a file
+    private static void saveTasksToFile() {
+        ensureFileExists();
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.println(task.toFileFormat());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    // Call this method after any operation that modifies the task list
+    private static void addTask(Task task) {
+        tasks.add(task);
+        saveTasksToFile(); // Save after adding a task
+    }
+
+    private static Task removeTask(int index) {
+        Task removedTask = tasks.remove(index);
+        saveTasksToFile(); // Save after removing a task
+        return removedTask;
+    }
+
+    // Load tasks from file when starting the program
+    private static void loadTasksFromFile() {
+        ensureFileExists();
+        Path path = Paths.get(FILE_PATH);
+        if (!Files.exists(path)) {
+            return; // No file to load from
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    String[] parts = line.split(" \\| ");
+                    Task task = null;
+                    switch (parts[0]) {
+                        case "T":
+                            task = new Todo(parts[2]);
+                            break;
+                        case "D":
+                            task = new Deadline(parts[2], parts[3]);
+                            break;
+                        case "E":
+                            task = new Event(parts[2], parts[3], parts[4]);
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Unknown task type");
+                    }
+                    if (task != null && parts[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                } catch (Exception e) {
+                    System.out.println("Corrupted line in file: " + line);
+                    // Optionally, delete or reset the file if corruption detected:
+                    // new File(FILE_PATH).delete(); // Resets the file
+                    // System.out.println("File reset due to corruption.");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
     public static void main(String[] args) {
+        loadTasksFromFile(); // Load tasks when starting
         Scanner scanner = new Scanner(System.in);
 
 
@@ -78,6 +178,7 @@ public class EchoBot {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             if (taskNumber < tasks.size() && taskNumber >= 0) {
                 tasks.get(taskNumber).markAsDone();
+                saveTasksToFile();
                 System.out.println("____________________________________________________________");
                 System.out.println(" Great! I've marked this task as done:");
                 System.out.println("   " + tasks.get(taskNumber));
@@ -98,6 +199,7 @@ public class EchoBot {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             if (taskNumber < tasks.size() && taskNumber >= 0) {
                 tasks.get(taskNumber).markAsNotDone();
+                saveTasksToFile();
                 System.out.println("____________________________________________________________");
                 System.out.println(" OK! I've marked this task as not done yet:");
                 System.out.println("   " + tasks.get(taskNumber));
@@ -116,7 +218,7 @@ public class EchoBot {
             System.out.println(" The description of a todo cannot be empty.");
             System.out.println("____________________________________________________________");
         } else {
-            tasks.add(new Todo(inputParts[1]));
+            addTask(new Todo(inputParts[1]));
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + tasks.get(tasks.size() - 1));
@@ -137,7 +239,7 @@ public class EchoBot {
                 System.out.println(" The description of a deadline cannot be empty.");
                 System.out.println("____________________________________________________________");
             } else {
-                tasks.add(new Deadline(details[0], details[1]));
+                addTask(new Deadline(details[0], details[1]));
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + tasks.get(tasks.size() - 1));
@@ -159,7 +261,7 @@ public class EchoBot {
                 System.out.println(" The description of an event cannot be empty.");
                 System.out.println("____________________________________________________________");
             } else {
-                tasks.add(new Event(details[0], details[1], details[2]));
+                addTask(new Event(details[0], details[1], details[2]));
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + tasks.get(tasks.size() - 1));
@@ -176,7 +278,7 @@ public class EchoBot {
         } else {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             if (taskNumber < tasks.size() && taskNumber >= 0) {
-                Task removedTask = tasks.remove(taskNumber);
+                Task removedTask = removeTask(taskNumber);
                 System.out.println("____________________________________________________________");
                 System.out.println(" Noted. I've removed this task:");
                 System.out.println("   " + removedTask);
