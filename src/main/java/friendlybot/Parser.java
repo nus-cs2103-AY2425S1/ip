@@ -90,6 +90,14 @@ public class Parser {
                 Ui.print("Please enter a valid date! (YYYY-MM-DD)");
                 return new BadCommand();
             }
+        } else if (fullCommand.startsWith("find")) {
+            try {
+                String keyword = fullCommand.split("find", 2)[1];
+                return new FindCommand(keyword);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Ui.print("Please enter a keyword!");
+                return new BadCommand();
+            }
         } else {
             Ui.print("OOPS!! I'm sorry, that's not a command :-(");
             return new BadCommand();

@@ -1,9 +1,9 @@
 package friendlybot.task;
 
+import friendlybot.FriendlyBotStub;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,5 +40,23 @@ public class TaskListTest {
         taskList.addTask(new Event("test 3", date1, date1));
         taskList.addTask(new Event("test 4", date1, date2));
         assertEquals(taskList.getTasksOnDate(date1).size(), 2);
+    }
+
+    /**
+     * Tests if findTasks correctly finds the tasks with the given keyword.
+     */
+    @Test
+    public void testFindTasks() {
+        LocalDate dummyDate1 = LocalDate.of(2024, 8, 1);
+        LocalDate dummyDate2 = LocalDate.of(2024, 8, 26);
+        FriendlyBotStub friendlyBotStub = new FriendlyBotStub();
+        friendlyBotStub.tasks.addTask(new Event("borrow book", dummyDate1, dummyDate1));
+        friendlyBotStub.tasks.addTask(new ToDo("test task 1"));
+        friendlyBotStub.tasks.addTask(new ToDo("read book"));
+        friendlyBotStub.tasks.addTask(new ToDo("test task 2"));
+        friendlyBotStub.tasks.addTask(new Deadline("return book", dummyDate2));
+        friendlyBotStub.tasks.addTask(new ToDo("test task 3"));
+        assertEquals(6, friendlyBotStub.tasks.getNumTasks());
+        assertEquals(3, friendlyBotStub.tasks.findTasks("book").size());
     }
 }
