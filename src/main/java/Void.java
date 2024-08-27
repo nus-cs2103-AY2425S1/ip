@@ -80,13 +80,29 @@ public class Void {
                         }
                         System.out.printf(format, "------------------------------------------------------------------");
                     }
+                } else if (splitInput[0].equalsIgnoreCase("delete")) {
+                    if (splitInput.length < 2 || splitInput[1].isBlank()) {
+                        throw new VoidException("Hm.. I dont know which to delete! Give me the task number please.");
+                    } else {
+                        int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+                        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                            throw new VoidException("OOPS!!! The task number provided is invalid.");
+                        } else {
+                            Task removedTask = tasks.remove(taskIndex);
+                            System.out.printf(format, "------------------------------------------------------------------");
+                            System.out.printf(format, "Noted. I've removed this task:");
+                            System.out.printf("\t\t%s%n", removedTask);
+                            System.out.printf(format, "Now you have " + tasks.size() + " tasks in the list.");
+                            System.out.printf(format, "------------------------------------------------------------------");
+                        }
+                    }
                 } else if (splitInput[0].equalsIgnoreCase("mark")) {
                     if (splitInput.length < 2) {
                         throw new VoidException("Hm.. I don't know which to mark! Give me the task number please.");
                     } else {
                         int tasksIndex = Integer.parseInt(splitInput[1]) - 1;
                         if (tasksIndex >= tasks.size() || tasksIndex < 0) { //checks if index is appropriate
-                            throw new VoidException("Sorry! Can't mark tasks out of the list");
+                            throw new VoidException("OOPS!!! The task number provided is invalid.");
 
                         } else {
                             Task t = tasks.get(tasksIndex);
@@ -104,7 +120,7 @@ public class Void {
                     } else {
                         int tasksIndex = Integer.parseInt(splitInput[1]) - 1;
                         if (tasksIndex >= tasks.size() || tasksIndex < 0) { //checks if index is appropriate
-                            throw new VoidException("Sorry! Can't unmark tasks out of the list");
+                            throw new VoidException("OOPS!!! The task number provided is invalid.");
 
                         } else {
                             Task t = tasks.get(tasksIndex);
@@ -150,7 +166,7 @@ public class Void {
                         }
                     }
                 } else {
-                    throw new VoidException("OOPS!! My apologies, I don't know what that means =T^T=");
+                    throw new VoidException("AH!! My apologies, I don't know what that means =T^T=");
                 }
             } catch (VoidException e) {
                 System.out.printf(format, "------------------------------------------------------------------");

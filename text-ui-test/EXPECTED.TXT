@@ -12,6 +12,9 @@
 	At your service, human.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
+	No tasks found in list yet!
+	------------------------------------------------------------------
+	------------------------------------------------------------------
 	Got it. I've added this task:
 		[T][ ] read book
 	Now you have 1 tasks in the list.
@@ -47,10 +50,10 @@
 	Hm.. I don't know which to unmark! Give me the task number please.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
-	Sorry! Can't mark tasks out of the list
+	OOPS!!! The task number provided is invalid.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
-	Sorry! Can't unmark tasks out of the list
+	OOPS!!! The task number provided is invalid.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Meow! The description of a deadline can't be empty!
@@ -60,7 +63,26 @@
 	Remember to put a /by after the description!
 	------------------------------------------------------------------
 	------------------------------------------------------------------
-	OOPS!! My apologies, I don't know what that means =T^T=
+	Meow! The description of an event can't be empty!
+	------------------------------------------------------------------
+	------------------------------------------------------------------
+	AH! The description of an event, and the start and end time can't be empty!
+	Remember to put a /from and /to after the description!
+	------------------------------------------------------------------
+	------------------------------------------------------------------
+	AH! The description of an event, and the start and end time can't be empty!
+	Remember to put a /from and /to after the description!
+	------------------------------------------------------------------
+	------------------------------------------------------------------
+	Hm.. I dont know which to delete! Give me the task number please.
+	------------------------------------------------------------------
+	------------------------------------------------------------------
+	Noted. I've removed this task:
+		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	Now you have 2 tasks in the list.
+	------------------------------------------------------------------
+	------------------------------------------------------------------
+	AH!! My apologies, I don't know what that means =T^T=
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Meow! I shall vanish into the shadows now.
