@@ -1,6 +1,7 @@
 package ui;
 
 import task.Task;
+import task.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -8,20 +9,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static common.Messages.*;
+
 
 public class Ui {
     private static final String LS = System.lineSeparator();
     private static final String DIVIDER = "_________________________________________";
-    private static final String MESSAGE_GREETING = "Hello! I'm Taskon\nWhat can I do for you?\n";
-    private static final String MESSAGE_EXIT = "Bye. Hope to see you again soon!\n";
-    private static final String MESSAGE_MARK = "Woohoo! task.Task complete! \nI've marked this as done:\n";
-    private static final String MESSAGE_UNMARK = "Got it! No rush, I've marked it as not done yet:\n";
-    private static final String MESSAGE_NO_TASKS = "Hmm, it looks like you've got a free day!\n";
-    /** Format of indexed list item */
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
-
-    /** Format of a comment input line */
-    private static final String COMMENT_LINE_FORMAT_REGEX = "#.*";
 
     private final Scanner in;
     private final PrintStream out;
@@ -63,10 +56,10 @@ public class Ui {
         out.println(MESSAGE_EXIT);
     }
 
-    public void listItems(ArrayList<? extends Task> tasks) {
+    public void listItems(TaskList tasks) {
         out.println("Here's what we've got on your to-do list:");
         for (int i = 0; i < tasks.size(); i++) {
-            Task t = tasks.get(i);
+            Task t = tasks.getTask(i);
             System.out.println(i+1 + "." + t.toString());
         }
     }
@@ -79,11 +72,12 @@ public class Ui {
         out.println(MESSAGE_UNMARK + task + LS);
     }
 
-    public void showTasksOnDate(String date, ArrayList<Task> tasks) {
+    public void showTasksOnDate(String date, TaskList tasks) {
         LocalDate localDate = LocalDate.parse(date);
         boolean isFound = false;
         out.println("Tasks on " + localDate + " :");
-        for (Task task : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.getTask(i);
             if (task.occursOn(localDate)) {
                 out.println(task);
                 isFound = true;
@@ -92,5 +86,22 @@ public class Ui {
         if (!isFound) {
             out.println(MESSAGE_NO_TASKS);
         }
+    }
+
+    public void showDeleted(Task task, int size) {
+        out.println("Alright, I've removed this task:\n    " + task + "\nNow you have " + size + " tasks.\n");
+    }
+
+    public void showTaskAdded(Task task, int size) {
+        out.println("Got it! I've added this task:\n    " + task + "\nNow you have " +
+                size + " tasks in your list.\n");
+    }
+
+    public void showError(String message) {
+        out.println(message);
+    }
+
+    public void showLine() {
+        out.println(DIVIDER);
     }
 }
