@@ -9,15 +9,30 @@ import duke.ui.Ui;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class interprets user input and executes the appropriate actions.
+ * It interacts with the TaskList and Ui classes to manage tasks and provide feedback to the user.
+ */
 public class Parser {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Parser object with the specified TaskList and Ui.
+     *
+     * @param tasks The TaskList containing all tasks.
+     * @param ui The Ui object for user interaction.
+     */
     public Parser(TaskList tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
     }
 
+    /**
+     * Parses the user input and performs the corresponding action.
+     *
+     * @param input The user's input as a string.
+     */
     public void parse(String input) {
         if (input.equals("list")) {
             ui.showTaskList(tasks.getTasks());
@@ -40,6 +55,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as done based on user input.
+     *
+     * @param input The user's input indicating which task to mark as done.
+     */
     private void markTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -54,6 +74,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as not done based on user input.
+     *
+     * @param input The user's input indicating which task to unmark as done.
+     */
     private void unmarkTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -68,6 +93,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new ToDo task based on user input.
+     *
+     * @param input The user's input containing the description of the ToDo task.
+     */
     private void addTodo(String input) {
         if (input.length() <= 5) {
             ui.showErrorMessage("Oops! The description of a todo cannot be empty.");
@@ -82,6 +112,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new Deadline task based on user input.
+     *
+     * @param input The user's input containing the description and deadline.
+     */
     private void addDeadline(String input) {
         String[] substrings = input.split(" /by ");
         if (substrings.length == 2) {
@@ -106,6 +141,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new Event task based on user input.
+     *
+     * @param input The user's input containing the description, start time, and end time.
+     */
     private void addEvent(String input) {
         String[] substrings = input.split(" /from ");
         if (substrings.length == 2) {
@@ -136,6 +176,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task based on user input.
+     *
+     * @param input The user's input indicating which task to delete.
+     */
     private void deleteTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
