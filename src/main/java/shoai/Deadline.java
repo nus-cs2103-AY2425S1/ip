@@ -1,3 +1,6 @@
+package shoai;
+import shoai.Task;
+
 public class Deadline extends Task {
     protected String by;
 

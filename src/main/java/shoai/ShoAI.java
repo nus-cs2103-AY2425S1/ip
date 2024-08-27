@@ -1,3 +1,10 @@
+package shoai;
+import shoai.TaskList; // Imports the TaskList class to manage tasks
+import shoai.Ui; // Imports the Ui class for user interface interactions
+import shoai.Storage; // Imports the Storage class to handle task storage
+import shoai.Parser; // Imports the Parser class to parse commands
+import shoai.ShoAIException; // Imports the ShoAIException class for handling exceptions
+
 public class ShoAI {
 
     private Storage storage;

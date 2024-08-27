@@ -1,3 +1,14 @@
+package shoai;
+import shoai.TaskList; // Imports the TaskList class for managing tasks
+import shoai.Ui; // Imports the Ui class for user interface interactions
+import shoai.Storage; // Imports the Storage class for handling storage of tasks
+import shoai.Task; // Imports the Task class for task handling
+import shoai.Todo; // Imports the Todo class for creating todo tasks
+import shoai.Deadline; // Imports the Deadline class for creating deadline tasks
+import shoai.Event; // Imports the Event class for creating event tasks
+import shoai.ShoAIException; // Imports the ShoAIException class for handling custom exceptions
+
+
 public class Parser {
 
     public boolean parse(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws ShoAIException {
