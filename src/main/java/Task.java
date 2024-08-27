@@ -15,6 +15,9 @@ public class Task {
     public boolean getIsDone() {
         return this.isDone;
     }
+    public String getTaskName() {
+        return this.taskName;
+    }
     @Override
     public String toString() {
         String status = isDone ? "X" : " ";
