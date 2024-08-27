@@ -5,10 +5,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Talky {
     private static ArrayList<Task> userTasks = new ArrayList<>();
@@ -123,34 +128,36 @@ public class Talky {
 
     private static void addDeadline(String[] commandLine) throws TalkyException {
         if (commandLine.length != 2) {
-            throw new TalkyException("Specify deadline in the format: deadline [name] /by [date]");
+            throw new TalkyException("Specify deadline in the format: deadline [name] /by [date] [24hr Time]");
         }
         String[] params = commandLine[1].split(" /by ");
         if (params.length != 2) {
-            throw new TalkyException("Specify deadline in the format: deadline [name] /by [date]");
+            throw new TalkyException("Specify deadline in the format: deadline [name]  /by [date] [24hr Time]");
         }
         String name = params[0];
         String by = params[1];
-        userTasks.add(new Deadline(name, by));
         String dataLine = String.format("Deadline %s %s false", name, by);
         save(dataLine);
+        ArrayList<LocalDateTime> formattedDate = parseDate(by);
+        userTasks.add(new Deadline(name, formattedDate.get(0)));
         printSeperator("Added Deadline: " + name);
     }
 
     private static void addEvent(String[] commandLine) throws TalkyException {
         if (commandLine.length != 2) {
-            throw new TalkyException("Specify event in the format: event [name] /from [date] /to [date]");
+            throw new TalkyException("Specify event in the format: event [name] /from [date] [24hr Time] /to [date] [24hr Time]");
         }
         String[] params = commandLine[1].split(" /from | /to ");
         if (params.length != 3) {
-            throw new TalkyException("Specify deadline in the format: event [name] /from [date] /to [date]");
+            throw new TalkyException("Specify deadline in the format: event [name] /from [date] [24hr Time] /to [date] [24hr Time]");
         }
         String name = params[0];
         String from = params[1];
         String to = params[2];
-        userTasks.add(new Event(name, from, to));
         String dataLine = String.format("Event %s %s %s false", name, from, to);
         save(dataLine);
+        ArrayList<LocalDateTime> formattedDates = parseDate(from, to);
+        userTasks.add(new Event(name, formattedDates.get(0), formattedDates.get(1)));
         printSeperator("Added Event: " + name);
     }
 
@@ -164,6 +171,7 @@ public class Talky {
         }
         Task removedTask = userTasks.get(indexToChange);
         userTasks.remove(indexToChange);
+        saveDelete(indexToChange);
         printSeperator("I've deleted this task: " + removedTask.getName());
     }
 
@@ -192,13 +200,21 @@ public class Talky {
                     userTasks.add(newTodo);
                     break;
                 case "Deadline":
-                    Deadline newDeadline = new Deadline(taskDetails[1], taskDetails[2]);
+                    String saveBy = String.join(" ", taskDetails[2], taskDetails[3]);
+                    ArrayList<LocalDateTime> deadlineDate = parseDate(saveBy);
+                    LocalDateTime by = deadlineDate.get(0);
+                    Deadline newDeadline = new Deadline(taskDetails[1], by);
                     newDeadline.setMark(Boolean.parseBoolean(taskDetails[3]));
                     userTasks.add(newDeadline);
                     break;
                 case "Event":
-                    Event newEvent = new Event(taskDetails[1], taskDetails[2], taskDetails[3]);
-                    newEvent.setMark(Boolean.parseBoolean(taskDetails[3]));
+                    String saveFrom = String.join(" ", taskDetails[2], taskDetails[3]);
+                    String saveTo = String.join(" ", taskDetails[4], taskDetails[5]);
+                    ArrayList<LocalDateTime> eventDates = parseDate(saveFrom, saveTo);
+                    LocalDateTime from = eventDates.get(0);
+                    LocalDateTime to = eventDates.get(1);
+                    Event newEvent = new Event(taskDetails[1], from, to);
+                    newEvent.setMark(Boolean.parseBoolean(taskDetails[6]));
                     userTasks.add(newEvent);
                     break;
                 }
@@ -206,6 +222,8 @@ public class Talky {
             sc.close();
         } catch (FileNotFoundException err) {
             err.printStackTrace();
+        } catch (TalkyException err) {
+            printSeperator(err.getMessage());
         }
     }
 
@@ -230,5 +248,34 @@ public class Talky {
         } catch (IOException err) {
             err.printStackTrace();
         }
+    }
+
+    private static void saveDelete(int index) {
+        try {
+            Path savePath = Paths.get(SAVE_PATH);
+            List<String> dataLines = Files.readAllLines(savePath, StandardCharsets.UTF_8);
+            dataLines.remove(index);
+            Files.write(savePath, dataLines, StandardCharsets.UTF_8);
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
+
+    private static ArrayList<LocalDateTime> parseDate(String... dates) throws TalkyException {
+        ArrayList<LocalDateTime> formattedDates = new ArrayList<>();
+        for (int i = 0; i < dates.length; i++) {
+            LocalDate date;
+            LocalTime time;
+            String[] format = dates[0].split(" ");
+            try {
+                date = LocalDate.parse(format[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                time = LocalTime.parse(format[1], DateTimeFormatter.ofPattern("HHmm"));
+                LocalDateTime formatted = LocalDateTime.of(date, time);
+                formattedDates.add(formatted);
+            } catch (DateTimeParseException err) {
+                throw new TalkyException("DateTime Format invalid, input in the format dd/MM/yyy HHmm");
+            }
+        }
+        return formattedDates;
     }
 }
