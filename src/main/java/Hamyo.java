@@ -124,7 +124,7 @@ public class Hamyo {
         printLine();
     }
 
-    public static void listTasks() {
+    public static void listTasks() throws HamyoException {
         System.out.println("These are your tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());

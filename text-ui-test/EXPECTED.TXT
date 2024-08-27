@@ -10,19 +10,19 @@ How may I assist you today?
 ________________________________________________________________________________
 These are your tasks:
 1. [T] [ ] TEST_MEMORY_TODO
-2. [D] [ ] TEST_MEMORY_DEADLINE (by: DEADLINE)
-3. [E] [ ] TEST_MEMORY_EVENT (from: FROM to: TO)
+2. [D] [ ] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
 ________________________________________________________________________________
 Noted. I've removed this task:
 [T] [ ] TEST_MEMORY_TODO
 There are 2 tasks in the list now.
 ________________________________________________________________________________
 Noted. I've removed this task:
-[D] [ ] TEST_MEMORY_DEADLINE (by: DEADLINE)
+[D] [ ] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
 There are 1 tasks in the list now.
 ________________________________________________________________________________
 Noted. I've removed this task:
-[E] [ ] TEST_MEMORY_EVENT (from: FROM to: TO)
+[E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
 There are 0 tasks in the list now.
 ________________________________________________________________________________
 Oh No! Usage: todo [task description]
@@ -38,7 +38,7 @@ ________________________________________________________________________________
 Oh No! Usage: deadline [task description] /by [deadline]
 ________________________________________________________________________________
 Got it. I've added this task:
-[D] [ ] banana (by: Wednesday)
+[D] [ ] banana (by: Nov 11 2011)
 There are 2 tasks in the list now.
 ________________________________________________________________________________
 Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
@@ -52,13 +52,13 @@ ________________________________________________________________________________
 Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
 ________________________________________________________________________________
 Got it. I've added this task:
-[E] [ ] chiku (from: 0800hrs to: 1000hrs)
+[E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
 There are 3 tasks in the list now.
 ________________________________________________________________________________
 These are your tasks:
 1. [T] [ ] apple
-2. [D] [ ] banana (by: Wednesday)
-3. [E] [ ] chiku (from: 0800hrs to: 1000hrs)
+2. [D] [ ] banana (by: Nov 11 2011)
+3. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ________________________________________________________________________________
 Oh No! This task was already marked as incomplete!
 ________________________________________________________________________________
@@ -68,25 +68,25 @@ ________________________________________________________________________________
 Oh No! This task was already marked as completed!
 ________________________________________________________________________________
 Yay! This task has been marked as completed.
-[D] [X] banana (by: Wednesday)
+[D] [X] banana (by: Nov 11 2011)
 ________________________________________________________________________________
 Yay! This task has been marked as completed.
-[E] [X] chiku (from: 0800hrs to: 1000hrs)
+[E] [X] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ________________________________________________________________________________
 Oh No! Usage: mark [index]
 ________________________________________________________________________________
 These are your tasks:
 1. [T] [X] apple
-2. [D] [X] banana (by: Wednesday)
-3. [E] [X] chiku (from: 0800hrs to: 1000hrs)
+2. [D] [X] banana (by: Nov 11 2011)
+3. [E] [X] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ________________________________________________________________________________
 Oki! This task has been marked as incomplete.
-[E] [ ] chiku (from: 0800hrs to: 1000hrs)
+[E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ________________________________________________________________________________
 These are your tasks:
 1. [T] [X] apple
-2. [D] [X] banana (by: Wednesday)
-3. [E] [ ] chiku (from: 0800hrs to: 1000hrs)
+2. [D] [X] banana (by: Nov 11 2011)
+3. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ________________________________________________________________________________
 Oh No! Invalid Command!
 ________________________________________________________________________________
@@ -101,18 +101,18 @@ Noted. I've removed this task:
 There are 2 tasks in the list now.
 ________________________________________________________________________________
 These are your tasks:
-1. [D] [X] banana (by: Wednesday)
-2. [E] [ ] chiku (from: 0800hrs to: 1000hrs)
+1. [D] [X] banana (by: Nov 11 2011)
+2. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ________________________________________________________________________________
 Noted. I've removed this task:
-[D] [X] banana (by: Wednesday)
+[D] [X] banana (by: Nov 11 2011)
 There are 1 tasks in the list now.
 ________________________________________________________________________________
 These are your tasks:
-1. [E] [ ] chiku (from: 0800hrs to: 1000hrs)
+1. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
 ________________________________________________________________________________
 Noted. I've removed this task:
-[E] [ ] chiku (from: 0800hrs to: 1000hrs)
+[E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
 There are 0 tasks in the list now.
 ________________________________________________________________________________
 These are your tasks:
@@ -124,11 +124,11 @@ Got it. I've added this task:
 There are 1 tasks in the list now.
 ________________________________________________________________________________
 Got it. I've added this task:
-[D] [ ] TEST_MEMORY_DEADLINE (by: DEADLINE)
+[D] [ ] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
 There are 2 tasks in the list now.
 ________________________________________________________________________________
 Got it. I've added this task:
-[E] [ ] TEST_MEMORY_EVENT (from: FROM to: TO)
+[E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
 There are 3 tasks in the list now.
 ________________________________________________________________________________
 Annyeong! Till we meet again. <3

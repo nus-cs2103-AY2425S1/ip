@@ -7,13 +7,13 @@ todo apple
 deadline
 deadline banana
 deadline banana /by
-deadline banana /by Wednesday
+deadline banana /by 2011-11-11
 event
 event chiku
 event chiku /from
-event chiku /from 0800hrs
-event chiku /from 0800hrs /to
-event chiku /from 0800hrs /to 1000hrs
+event chiku /from 2024-12-31
+event chiku /from 2024-12-31 /to
+event chiku /from 2024-12-31 /to 2025-01-01
 list
 unmark 1
 mark 1
@@ -36,6 +36,6 @@ delete 1
 list
 delete 1
 todo TEST_MEMORY_TODO
-deadline TEST_MEMORY_DEADLINE /by DEADLINE
-event TEST_MEMORY_EVENT /from FROM /to TO
+deadline TEST_MEMORY_DEADLINE /by 2002-09-18
+event TEST_MEMORY_EVENT /from 2002-09-18 /to 2002-09-20
 bye
