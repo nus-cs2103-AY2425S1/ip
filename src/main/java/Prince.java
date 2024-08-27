@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 public class Prince {
 
@@ -475,9 +474,3 @@ public class Prince {
         }
     }
 }
-
-// date time
-// accept only yyyy-mm-dd with 24h clock timing if timing exists
-// extension dd-mm-yyyy and dd/mm/yyyy
-// deadline return book /by 2/12/2019 1800,
-// the chatbot should convert to and print out 2nd December 2019, 6pm,
