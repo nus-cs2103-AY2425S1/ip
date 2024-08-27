@@ -1,5 +1,7 @@
 package tohru.storage;
 
+import tohru.exception.CorruptSaveException;
+import tohru.exception.TohruException;
 import tohru.task.DeadlineItem;
 import tohru.task.EventItem;
 import tohru.task.TodoItem;
@@ -36,139 +38,145 @@ public class FileStore {
      *
      * @return An arraylist consisting of the to-do entries
      */
-    public ArrayList<TodoItem> retrieveTodoList() {
+    public ArrayList<TodoItem> retrieveTodoList() throws TohruException {
         ArrayList<TodoItem> todoList = new ArrayList<>();
-        if (savefile.exists()) {
-            int errorEntriesCount = 0; //Counter to count the number of error entries
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-            try {
-                Scanner s = new Scanner(savefile);
-                while (s.hasNext()) {
-                    String entryString = s.nextLine();
-                    String[] entryStringSplit = entryString.split("\\|");
-
-                    String type = entryStringSplit[0].trim();
-                    // Check if there are less than 3 segments, which would indicate an invalid format
-                    if (entryStringSplit.length < 3) {
-                        errorEntriesCount++;
-                        continue;
-                    }
-
-                    String entryStatusString = entryStringSplit[1].trim();
-                    // Check if the status of the to-do entry is valid
-                    if (entryStatusString.isEmpty() || !entryStatusString.equalsIgnoreCase("true") &&
-                            !entryStatusString.equalsIgnoreCase("false")) {
-                        errorEntriesCount++;
-                        continue;
-                    }
-                    boolean status = Boolean.parseBoolean(entryStatusString);
-
-                    switch (type) {
-                    case "T":
-                        // Check if the number of expected components
-                        if (entryStringSplit.length != 3) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        String entryTodoString = entryStringSplit[2].trim();
-                        // Check if the components is empty
-                        if (entryTodoString.isEmpty()) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-                        TodoItem todo = new TodoItem(entryTodoString);
-                        todo.setCompleted(status);
-                        todoList.add(todo);
-                        break;
-
-                    case "D":
-                        // Check if the number of expected components
-                        if (entryStringSplit.length != 4) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        String entryDeadlineString = entryStringSplit[2].trim();
-                        String entryDeadlineDueString = entryStringSplit[3].trim();
-                        // Check if the components is empty
-                        if (entryDeadlineString.isEmpty() || entryDeadlineDueString.isEmpty()) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        LocalDateTime deadlineDue = null;
-                        try {
-                            deadlineDue = LocalDateTime.parse(entryDeadlineDueString, formatter);
-                        } catch (DateTimeParseException e) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        DeadlineItem deadline = new DeadlineItem(entryDeadlineString, deadlineDue);
-                        deadline.setCompleted(status);
-                        todoList.add(deadline);
-                        break;
-
-                    case "E":
-                        // Check if the number of expected components
-                        if (entryStringSplit.length != 5) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        String entryEventString = entryStringSplit[2].trim();
-                        String entryEventFromString = entryStringSplit[3].trim();
-                        String entryEventToString = entryStringSplit[4].trim();
-                        // Check if the components is empty
-                        if (entryEventString.isEmpty() || entryEventFromString.isEmpty() ||
-                                entryEventToString.isEmpty()) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        LocalDateTime eventFrom;
-                        LocalDateTime eventTo;
-                        try {
-                            eventFrom = LocalDateTime.parse(entryEventFromString, formatter);
-                            eventTo = LocalDateTime.parse(entryEventFromString, formatter);
-                        } catch (DateTimeParseException e) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        if (eventFrom.isAfter(eventTo)) {
-                            errorEntriesCount++;
-                            continue;
-                        }
-
-                        EventItem event = new EventItem(entryEventString, eventFrom, eventTo);
-                        todoList.add(event);
-                        break;
-                    default:
-                        // Invalid type encountered, entry is ignored
-                        errorEntriesCount++;
-                        break;
-                    }
-                }
-                s.close();
-            } catch (FileNotFoundException e) {
-                return todoList;
-            }
-            System.out.println(String.format("%d entries found in your save file is corrupt", errorEntriesCount));
-            return todoList;
-        } else {
+        if (!savefile.exists()) {
             return todoList;
         }
+
+        int errorEntriesCount = 0; //Counter to count the number of error entries
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        try {
+            Scanner s = new Scanner(savefile);
+            while (s.hasNext()) {
+                String entryString = s.nextLine();
+                String[] entryStringSplit = entryString.split("\\|");
+
+                String type = entryStringSplit[0].trim();
+                // Check if there are less than 3 segments, which would indicate an invalid format
+                if (entryStringSplit.length < 3) {
+                    errorEntriesCount++;
+                    continue;
+                }
+
+                String entryStatusString = entryStringSplit[1].trim();
+                // Check if the status of the to-do entry is valid
+                if (entryStatusString.isEmpty() || !entryStatusString.equalsIgnoreCase("true")
+                        && !entryStatusString.equalsIgnoreCase("false")) {
+                    errorEntriesCount++;
+                    continue;
+                }
+                boolean status = Boolean.parseBoolean(entryStatusString);
+
+                switch (type) {
+                case "T":
+                    // Check if the number of expected components
+                    if (entryStringSplit.length != 3) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    String entryTodoString = entryStringSplit[2].trim();
+                    // Check if the components is empty
+                    if (entryTodoString.isEmpty()) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+                    TodoItem todo = new TodoItem(entryTodoString);
+                    todo.setCompleted(status);
+                    todoList.add(todo);
+                    break;
+
+                case "D":
+                    // Check if the number of expected components
+                    if (entryStringSplit.length != 4) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    String entryDeadlineString = entryStringSplit[2].trim();
+                    String entryDeadlineDueString = entryStringSplit[3].trim();
+                    // Check if the components is empty
+                    if (entryDeadlineString.isEmpty() || entryDeadlineDueString.isEmpty()) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    LocalDateTime deadlineDue = null;
+                    try {
+                        deadlineDue = LocalDateTime.parse(entryDeadlineDueString, formatter);
+                    } catch (DateTimeParseException e) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    DeadlineItem deadline = new DeadlineItem(entryDeadlineString, deadlineDue);
+                    deadline.setCompleted(status);
+                    todoList.add(deadline);
+                    break;
+
+                case "E":
+                    // Check if the number of expected components
+                    if (entryStringSplit.length != 5) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    String entryEventString = entryStringSplit[2].trim();
+                    String entryEventFromString = entryStringSplit[3].trim();
+                    String entryEventToString = entryStringSplit[4].trim();
+                    // Check if the components is empty
+                    if (entryEventString.isEmpty() || entryEventFromString.isEmpty() ||
+                            entryEventToString.isEmpty()) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    LocalDateTime eventFrom;
+                    LocalDateTime eventTo;
+                    try {
+                        eventFrom = LocalDateTime.parse(entryEventFromString, formatter);
+                        eventTo = LocalDateTime.parse(entryEventFromString, formatter);
+                    } catch (DateTimeParseException e) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    if (eventFrom.isAfter(eventTo)) {
+                        errorEntriesCount++;
+                        continue;
+                    }
+
+                    EventItem event = new EventItem(entryEventString, eventFrom, eventTo);
+                    todoList.add(event);
+                    break;
+                default:
+                    // Invalid type encountered, entry is ignored
+                    errorEntriesCount++;
+                    break;
+                }
+            }
+
+            s.close();
+        } catch (FileNotFoundException e) {
+            throw new TohruException("Save file not found");
+        }
+
+        if (errorEntriesCount > 0) {
+            throw new CorruptSaveException(errorEntriesCount, todoList);
+        }
+
+        return todoList;
+
     }
 
     /**
      * Attempts to save the current todolist to local storage
      *
      * @param todoList The to-do list to be saved
-     * @return Status of the save operation
+     * @throws TohruException When to-do list is unable to save to local storage.
      */
-    public boolean saveTodoList(ArrayList<TodoItem> todoList) {
+    public void saveTodoList(ArrayList<TodoItem> todoList) throws TohruException {
         String[] items = new String[todoList.size()];
         for (int i = 0; i < todoList.size(); i++) {
             items[i] = todoList.get(i).getSaveString();
@@ -184,9 +192,8 @@ public class FileStore {
             FileWriter fw = new FileWriter(savefile);
             fw.write(stringForWriting);
             fw.close();
-            return true;
         } catch (IOException e) {
-            return false;
+            throw new TohruException("Unable to save to-do list to local storage");
         }
     }
 }

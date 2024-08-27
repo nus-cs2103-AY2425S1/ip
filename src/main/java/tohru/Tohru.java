@@ -2,6 +2,7 @@ package tohru;
 
 import tohru.command.Command;
 import tohru.command.Parser;
+import tohru.exception.CorruptSaveException;
 import tohru.exception.TohruException;
 import tohru.storage.FileStore;
 import tohru.task.TodoList;
@@ -24,7 +25,18 @@ public class Tohru {
     public Tohru(String filePath) {
         ui = new Ui();
         store = new FileStore(filePath);
-        todoList = new TodoList(store.retrieveTodoList());
+        try {
+            todoList = new TodoList(store.retrieveTodoList());
+        } catch (CorruptSaveException e) {
+            ui.showError(e.getMessage());
+            todoList = new TodoList(e.getSavedEntries());
+        } catch (TohruException e) {
+            ui.showError(e.getMessage());
+            todoList = new TodoList();
+        } finally {
+            ui.showDivider();
+        }
+
     }
 
     /**
