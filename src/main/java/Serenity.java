@@ -1,11 +1,28 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 
 public class Serenity {
     private static final String horizontalLine = "__________________________________________";
     private static final ArrayList<Task> list = new ArrayList<>();
     private static int count = 0;
+
+    private static final String filePath = "data/serenity.txt";
     public static void main(String[] args) {
+
+        File f = new File(filePath);
+
+        try {
+            setUpFile();
+            loadFile(f);
+        } catch (IOException | SerenityException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println(horizontalLine);
         System.out.println("Hi, I'm Serenity!\n" + "What can I do for you?");
@@ -23,6 +40,7 @@ public class Serenity {
                     }
                 } else if (input.contains("mark")) {
                     changeStatus(input);
+                    writeToFile();
                 } else if (input.startsWith("delete")) {
                     deleteTask(input);
                 } else {
@@ -30,6 +48,8 @@ public class Serenity {
                 }
             } catch (SerenityException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
             System.out.println(horizontalLine);
             input = sc.nextLine();
@@ -43,7 +63,7 @@ public class Serenity {
 
     }
 
-    private static void changeStatus(String input) throws SerenityException {
+    private static void changeStatus(String input) throws SerenityException, IOException {
 
         String[] parts = input.split(" ");
         if (parts.length == 1) {
@@ -67,7 +87,7 @@ public class Serenity {
         }
     }
 
-    private static void addTask(String input) throws SerenityException {
+    private static void addTask(String input) throws SerenityException, IOException {
 
         Task t;
 
@@ -78,8 +98,7 @@ public class Serenity {
             } else {
                 //remove the type of task
                 String taskDescription = input.split(" ", 2)[1];
-                Todo td = new Todo(taskDescription);
-                t = td;
+                t = new Todo(taskDescription);
             }
         } else if (input.startsWith("deadline")) {
             String[] description = input.split(" ");
@@ -88,8 +107,7 @@ public class Serenity {
             } else {
                 String taskDescription = input.split(" ", 2)[1];
                 String[] parts = taskDescription.split("/by");
-                Deadline dl = new Deadline(parts[0], parts[1]);
-                t = dl;
+                t = new Deadline(parts[0].strip(), parts[1].strip());
             }
         } else if (input.startsWith("event")) {
             String[] description = input.split(" ");
@@ -99,8 +117,7 @@ public class Serenity {
                 String taskDescription = input.split(" ", 2)[1];
                 String[] parts = taskDescription.split("/from");
                 String[] timings = parts[1].split("/to");
-                Event e = new Event(parts[0], timings[0], timings[1]);
-                t = e;
+                t = new Event(parts[0].strip(), timings[0].strip(), timings[1].strip());
             }
         } else {
             throw new SerenityException("Error: Type of task is not specified.");
@@ -108,6 +125,7 @@ public class Serenity {
 
         list.add(t);
         count++;
+        saveTask(t);
         System.out.println(horizontalLine);
         System.out.println("Got it. I've added this task:\n" + t);
         String numOfTasks = count == 1 ? "task" : "tasks";
@@ -129,4 +147,76 @@ public class Serenity {
         String numOfTasks = count == 1 ? "task" : "tasks";
         System.out.println("Now you have " + count + " " + numOfTasks + " in the list.");
     }
+
+    private static void setUpFile() throws IOException {
+
+        //create directory if directory does not exist
+        Files.createDirectories(Paths.get("data"));
+        File f = new File(filePath);
+
+        //create file if file does not exist
+        if (!f.exists()) {
+            Files.createFile(Paths.get(filePath));
+        }
+    }
+
+    private static void loadFile(File f) throws FileNotFoundException, SerenityException {
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+           list.add(loadTask(s.nextLine()));
+           count++;
+        }
+    }
+
+    private static Task loadTask(String taskDescription) throws SerenityException {
+        String[] parts = taskDescription.split("\\|");
+        Task t;
+
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].strip();
+        }
+
+        String taskType = parts[0];
+
+        //noinspection EnhancedSwitchMigration
+        switch (taskType) {
+        case "T":
+            t = new Todo(parts[2]);
+            break;
+        case "D":
+            t = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            t = new Event(parts[2], parts[3], parts[4]);
+            break;
+        default:
+            throw new SerenityException("Error: Task cannot be loaded.");
+        }
+
+        if (parts[1].equals("1")) {
+            t.markAsDone();
+        }
+
+        return t;
+    }
+
+    private static void appendToFile(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend + "\n");
+        fw.close();
+    }
+
+    private static void saveTask(Task t) throws IOException {
+        String textToAppend = t.formatData();
+        appendToFile(textToAppend);
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath); //overwrite
+        for (Task t: list) {
+            fw.write(t.formatData() + "\n");
+        }
+        fw.close();
+    }
+
 }
