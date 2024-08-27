@@ -3,12 +3,6 @@ import java.util.Scanner;
 public class Void {
 
     public static void main(String[] args) {
-       /* String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        */
         String logo =
                 "### ###   ## ##     ####   ### ##\n" +
                 " ##  ##  ##   ##     ##     ##  ##\n" +
@@ -68,124 +62,100 @@ public class Void {
         while (true) {
             input = scanner.nextLine();  // Reads user
             String[] splitInput = input.split(" ", 2); //to get the command and argument
-            if (splitInput[0].equalsIgnoreCase("bye")) {
+
+            try {
+                if (splitInput[0].equalsIgnoreCase("bye")) {
+                    System.out.printf(format, "------------------------------------------------------------------");
+                    //Display a random exit
+                    System.out.printf(format, exits[(int) (Math.random() * exits.length)]);
+                    break;  // Exit loop when bye
+                } else if (splitInput[0].equalsIgnoreCase("list")) {
+                    if (tasks.size() == 0) {
+                        throw new VoidException("No tasks found in list yet!");
+                    } else {
+                        System.out.printf(format, "------------------------------------------------------------------");
+                        System.out.printf(format, "Here are the tasks in your list:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.printf(format, (i + 1) + ". " + tasks.get(i));  // Lists all task objects
+                        }
+                        System.out.printf(format, "------------------------------------------------------------------");
+                    }
+                } else if (splitInput[0].equalsIgnoreCase("mark")) {
+                    if (splitInput.length < 2) {
+                        throw new VoidException("Hm.. I don't know which to mark! Give me the task number please.");
+                    } else {
+                        int tasksIndex = Integer.parseInt(splitInput[1]) - 1;
+                        if (tasksIndex >= tasks.size() || tasksIndex < 0) { //checks if index is appropriate
+                            throw new VoidException("Sorry! Can't mark tasks out of the list");
+
+                        } else {
+                            Task t = tasks.get(tasksIndex);
+                            t.markAsDone();
+                            System.out.printf(format, "------------------------------------------------------------------");
+                            System.out.printf(format, "Good job! I've marked this task as done:");
+                            System.out.printf("\t\t%s%n", t);
+                            System.out.printf(format, "------------------------------------------------------------------");
+
+                        }
+                    }
+                } else if (splitInput[0].equalsIgnoreCase("unmark")) {
+                    if (splitInput.length < 2) {
+                        throw new VoidException("Hm.. I don't know which to unmark! Give me the task number please.");
+                    } else {
+                        int tasksIndex = Integer.parseInt(splitInput[1]) - 1;
+                        if (tasksIndex >= tasks.size() || tasksIndex < 0) { //checks if index is appropriate
+                            throw new VoidException("Sorry! Can't unmark tasks out of the list");
+
+                        } else {
+                            Task t = tasks.get(tasksIndex);
+                            t.unmarkAsDone();
+                            System.out.printf(format, "------------------------------------------------------------------");
+                            System.out.printf(format, "OK, I've marked this task as not done yet:");
+                            System.out.printf("\t\t%s%n", t);
+                            System.out.printf(format, "------------------------------------------------------------------");
+                        }
+                    }
+                } else if (splitInput[0].equalsIgnoreCase("todo")) {
+                    if (splitInput.length == 1 || splitInput[1].isBlank()) {
+                        throw new VoidException("Meow! The description of a todo can't be empty!");
+                    } else {
+                        ToDo t = new ToDo(splitInput[1]);
+                        t.addTaskMessage(tasks);
+
+                    }
+                } else if (splitInput[0].equalsIgnoreCase("deadline")) {
+                    if (splitInput.length == 1 || splitInput[1].isBlank()) {
+                        throw new VoidException("Meow! The description of a deadline can't be empty!");
+
+                    } else {
+                        String[] details = splitInput[1].split(" /by ");
+                        if (details.length != 2) {
+                            throw new VoidException("AH! The description of a deadline and the deadline can't be empty!\n\tRemember to put a /by after the description!");
+
+                        } else {
+                            Deadline d = new Deadline(details[0], details[1]);
+                            d.addTaskMessage(tasks);
+                        }
+                    }
+                } else if (splitInput[0].equalsIgnoreCase("event")) {
+                    if (splitInput.length == 1 || splitInput[1].isBlank()) {
+                        throw new VoidException("Meow! The description of an event can't be empty!");
+                    } else {
+                        String[] details = splitInput[1].split(" /from | /to ");
+                        if (details.length != 3) {
+                            throw new VoidException("AH! The description of an event, and the start and end time can't be empty!\n\tRemember to put a /from and /to after the description!");
+                        } else {
+                            Event e = new Event(details[0], details[1], details[2]);
+                            e.addTaskMessage(tasks);
+                        }
+                    }
+                } else {
+                    throw new VoidException("OOPS!! My apologies, I don't know what that means =T^T=");
+                }
+            } catch (VoidException e) {
                 System.out.printf(format, "------------------------------------------------------------------");
-                //Display a random exit
-                System.out.printf(format, exits[(int) (Math.random() * exits.length)]);
-                break;  // Exit loop when bye
-            } else if (splitInput[0].equalsIgnoreCase("list")) {
-                if (tasks.size() == 0) {
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "No tasks found in list yet!");
-                    System.out.printf(format, "------------------------------------------------------------------");
-
-                } else {
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.printf(format, (i + 1) + ". " + tasks.get(i));  // Lists all task objects
-                    }
-                    System.out.printf(format, "------------------------------------------------------------------");
-                }
-            } else if (splitInput[0].equalsIgnoreCase("mark")) {
-                if (splitInput.length < 2) {
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Hm.. I don't know which to mark! Give me the task number please.");
-                    System.out.printf(format, "------------------------------------------------------------------");
-
-                } else {
-                    int tasksIndex = Integer.parseInt(splitInput[1]) - 1;
-                    if (tasksIndex >= tasks.size() || tasksIndex < 0) { //checks if index is appropriate
-                        System.out.printf(format, "------------------------------------------------------------------");
-                        System.out.printf(format, "Sorry! Can't mark tasks out of the list");
-                        System.out.printf(format, "------------------------------------------------------------------");
-
-                    } else {
-                        Task t =  tasks.get(tasksIndex);
-                        t.markAsDone();
-                        System.out.printf(format, "------------------------------------------------------------------");
-                        System.out.printf(format, "Good job! I've marked this task as done:");
-                        System.out.printf(format, t);
-                        System.out.printf(format, "------------------------------------------------------------------");
-
-                    }
-                }
-            } else if (splitInput[0].equalsIgnoreCase("unmark")) {
-                if (splitInput.length < 2) {
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Hm.. I don't know which to unmark! Give me the task number please.");
-                    System.out.printf(format, "------------------------------------------------------------------");
-                } else {
-                    int tasksIndex = Integer.parseInt(splitInput[1]) - 1;
-                    if (tasksIndex >= tasks.size() || tasksIndex < 0 ) { //checks if index is appropriate
-                        System.out.printf(format, "------------------------------------------------------------------");
-                        System.out.printf(format, "Sorry! Can't mark tasks out of the list");
-                        System.out.printf(format, "------------------------------------------------------------------");
-
-                    } else {
-                        Task t =  tasks.get(tasksIndex);
-                        t.unmarkAsDone();
-                        System.out.printf(format, "------------------------------------------------------------------");
-                        System.out.printf(format, "OK, I've marked this task as not done yet:");
-                        System.out.printf(format, t);
-                        System.out.printf(format, "------------------------------------------------------------------");
-                    }
-                }
-            } else if (splitInput[0].equalsIgnoreCase("todo")){
-                if (splitInput.length == 1 || splitInput[1].isBlank()) {
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Meow! The description of a todo can't be empty!");
-                    System.out.printf(format, "------------------------------------------------------------------");
-
-                } else {
-                    ToDo t = new ToDo(splitInput[1]);
-                    /* tasks.add(t);
-                    taskCounter++;
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Got it. I've added this task:");
-                    System.out.printf(format, t);
-                    System.out.printf(format, "Now you have " + taskCounter + "in the list.");
-                    System.out.printf(format, "------------------------------------------------------------------");
-                     */
-                    t.addTaskMessage(tasks);
-
-                }
-            } else if (splitInput[0].equalsIgnoreCase("deadline")){
-                if (splitInput.length == 1 || splitInput[1].isBlank()) {
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Meow! The description of a deadline can't be empty!");
-                    System.out.printf(format, "------------------------------------------------------------------");
-
-                } else {
-                    String[] details = splitInput[1].split(" /by ");
-                    if (details.length != 2) {
-                        System.out.printf(format, "------------------------------------------------------------------");
-                        System.out.printf(format, "Ah! The description of a deadline and the deadline can't be empty!");
-                        System.out.printf(format, "------------------------------------------------------------------");
-
-                    } else {
-                        Deadline d = new Deadline(details[0], details[1]);
-                        d.addTaskMessage(tasks);
-                    }
-                }
-            } else if (splitInput[0].equalsIgnoreCase("event")) {
-                if (splitInput.length == 1 || splitInput[1].isBlank()) {
-                    System.out.printf(format, "------------------------------------------------------------------");
-                    System.out.printf(format, "Meow! The description of an event can't be empty!");
-                    System.out.printf(format, "------------------------------------------------------------------");
-
-                } else {
-                    String[] details = splitInput[1].split(" /from | /to ");
-                    if (details.length != 3) {
-                        System.out.printf(format, "------------------------------------------------------------------");
-                        System.out.printf(format, "Ah! The description of an event, and the start and end time can't be empty!");
-                        System.out.printf(format, "------------------------------------------------------------------");
-
-                    } else {
-                        Event e = new Event(details[0], details[1], details[2]);
-                        e.addTaskMessage(tasks);
-                    }
-                }
+                System.out.printf(format, e.getMessage());
+                System.out.printf(format, "------------------------------------------------------------------");
             }
         }
 
