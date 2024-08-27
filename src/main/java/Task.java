@@ -1,12 +1,13 @@
 import java.text.Normalizer;
+import java.util.HashMap;
 
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) throws TaskArgumentMissingException {
+    public Task(String description) throws EkudException {
         if (description == null || description.isEmpty()) {
-            throw new TaskArgumentMissingException(getEmptyDescriptionErrorMessage());
+            throw new EkudException(getEmptyDescriptionErrorMessage());
         }
         this.description = description;
         isDone = false;
@@ -32,7 +33,7 @@ public abstract class Task {
 
             return task;
 
-        } catch (IndexOutOfBoundsException | TaskArgumentMissingException | EkudWrongInputFormatException e) {
+        } catch (IndexOutOfBoundsException | EkudException e) {
             FormatPrinter.printIndent(
                     String.format(
                             "Warning: Task entry { %s } is missing required arguments or is incorrectly formatted"
@@ -41,6 +42,18 @@ public abstract class Task {
                     Ekud.OUTPUT_PREFIX);
             return null;
         }
+    }
+
+    public static Task getTaskFromTokens(HashMap<String, String> tokens) throws EkudException {
+        String type = tokens.get("command").toLowerCase();
+        String argument = tokens.get("argument");
+
+        return switch (type) {
+            case "todo" -> new TodoTask(argument);
+            case "deadline" -> new DeadlineTask(argument, tokens.get("/by"));
+            case "event" -> new EventTask(argument, tokens.get("/from"), tokens.get("/to"));
+            default -> throw new EkudException("Wow! What is this type of task?\nI'm not sure how to process this");
+        };
     }
 
     public abstract String getEmptyDescriptionErrorMessage();

@@ -12,15 +12,15 @@ public class EventTask extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    public EventTask(String description, String from, String to) throws TaskArgumentMissingException, EkudWrongInputFormatException {
+    public EventTask(String description, String from, String to) throws EkudException {
         super(description);
         if (from == null || from.isEmpty()) {
-            throw new TaskArgumentMissingException(
+            throw new EkudException(
                     """
                             Woah Woah! Calm down buddy!
                             Could you first tell when this event starts using '/from'?""");
         } else if (to == null || to.isEmpty()) {
-            throw new TaskArgumentMissingException(
+            throw new EkudException(
                     """
                             Dude, stop being overzealous! Surely this event doesn't last forever?
                             Think hard about it and you can tell me when it ends again with '/to'.""");
@@ -30,7 +30,7 @@ public class EventTask extends Task {
             this.from = LocalDateTime.parse(from, READ_FORMAT);
             this.to = LocalDateTime.parse(to, READ_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new EkudWrongInputFormatException(
+            throw new EkudException(
                     """
                             Man... What's wrong with you!!
                             Why can't you just follow the correct 'd/M/yyyy HHmm' date format!""");
