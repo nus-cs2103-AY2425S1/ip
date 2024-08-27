@@ -1,6 +1,6 @@
-public class ToDo extends Task {
+public class ToDoTask extends Task {
 
-    public ToDo(String description) {
+    public ToDoTask(String description) {
         super(description);
     }
 
@@ -8,4 +8,10 @@ public class ToDo extends Task {
     public String toString() {
         return "[T] " + super.toString();
     }
+    @Override
+    public String toFileString() {
+        return "T | " + getStatusIcon() + " | " + description;
+    }
+
+    
 }
