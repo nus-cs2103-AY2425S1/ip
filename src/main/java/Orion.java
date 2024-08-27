@@ -1,6 +1,9 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
 public class Orion {
 
     public static final String LOGO = "             .__               \n"
@@ -17,6 +20,67 @@ public class Orion {
     private static boolean isOnline;
     private static ArrayList<Task> tasks;
     private static int noTasks;
+
+    private static void loadTasks() {
+        File taskList = new File("./data/tasks.txt");
+        try {
+            Scanner s = new Scanner(taskList);
+
+            while (s.hasNext()) {
+                String task = s.nextLine();
+                String[] parsed = task.split(",");
+                System.out.println(Arrays.toString(parsed));
+                switch (parsed[0]) {
+                    case "todo":
+                        if (parsed.length != 2) {
+                            // TODO: Create new exception type TaskDataException
+                            throw new IOException("Unrecognised todo task format");
+                        } else {
+                            Task todo = new Todo(parsed[1]);
+                            Orion.tasks.add(todo);
+                            Orion.noTasks++;
+                            break;
+                        }
+                    case "deadline":
+                        if (parsed.length != 3) {
+                            // TODO: Create new exception type TaskDataException
+                            throw new IOException("Unrecognised deadline task format");
+                        } else {
+                            Task deadline = new Deadline(parsed[1], parsed[2]);
+                            Orion.tasks.add(deadline);
+                            Orion.noTasks++;
+                            break;
+                        }
+                    case "event":
+                        if (parsed.length != 4) {
+                            // TODO: Create new exception type TaskDataException
+                            throw new IOException("Unrecognised event task format");
+                        } else {
+                            Task event = new Event(parsed[1], parsed[2], parsed[3]);
+                            Orion.tasks.add(event);
+                            Orion.noTasks++;
+                            break;
+                        }
+                    default:
+                        // File corrupted
+                        // TODO: Create new exception type TaskDataException
+                        throw new IOException("Unrecognised task type");
+                }
+            }
+
+            Orion.printIndent(String.format("Welcome back! You have %d tasks in your task list.", Orion.noTasks));
+            Orion.printBar();
+        } catch (FileNotFoundException e) {
+            Orion.printIndent("Your existing task list is somewhere amongst the stars...");
+            Orion.printIndent("We can't seem to find it!");
+            Orion.printIndent("We've created a new task list for you.");
+            Orion.printBar();
+        } catch (IOException e) {
+            Orion.printIndent("Looks like your existing task list has been corrupted...");
+            Orion.printIndent("We've created a new task list for you.");
+            Orion.printBar();
+        }
+    }
 
     private static void printBar() {
         System.out.println(Orion.BAR);
@@ -36,7 +100,7 @@ public class Orion {
         Orion.printBar();
 
         Orion.printIndent("Hello from Orion!");
-        Orion.printIndent("What do you want to talk about today?");
+        Orion.printIndent("We're fetching your task list from the cosmos...");
         Orion.printBar();
     }
 
@@ -215,6 +279,7 @@ public class Orion {
         Orion.tasks = new ArrayList<>();
         Orion.noTasks = 0;
         Orion.greet();
+        Orion.loadTasks();
 
         while (Orion.isOnline) {
             String command = sc.nextLine();
