@@ -10,61 +10,73 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A concrete implementation of the Storage class that manages data using a file system.
+ * It reads from and writes to a file in a specified directory.
+ */
 public class FileStorage extends Storage {
+    /** The directory path where the storage file is located. */
     protected String dirPath;
+
+    /** The file where the data is stored. */
     protected File file;
 
+    /**
+     * Constructs a FileStorage object and initializes the storage file.
+     * If the directory or file does not exist, they will be created.
+     *
+     * @param dirPath The directory path where the storage file is located.
+     */
     public FileStorage(String dirPath) {
         this.dirPath = dirPath;
 
-        // Creates all folders if not exits
+        // Creates all folders if they do not exist
         try {
             Files.createDirectories(Paths.get(dirPath));
-
         } catch (IOException e) {
-            // Handle error
-
+            // Handle error (can log this if needed)
         }
 
-        // Creates file if not exists
+        // Creates file if it does not exist
         file = new File(this.dirPath + "/storage.txt");
 
-        // Create file if not exists
         try {
             file.createNewFile();
-
         } catch (IOException ioException) {
             System.out.println("Unable to create task save file at path " + file.getAbsolutePath()
                     + "\n" + ioException.getMessage());
-
         }
     }
 
+    /**
+     * Loads all the data from the storage file.
+     *
+     * @return A list of strings representing the data loaded from the file.
+     */
     @Override
     public List<String> load() {
         try (Scanner fs = new Scanner(file)) {
-            List<String> res = new ArrayList<String>();
+            List<String> res = new ArrayList<>();
 
             while (fs.hasNextLine()) {
                 String line = fs.nextLine();
-
                 res.add(line);
             }
 
-            fs.close();
-
             return res;
         } catch (FileNotFoundException e) {
-            // Print error
             System.out.println("Unable to load data in storage:\n" + e.getMessage());
 
-            // Return empty ArrayList
-            return new ArrayList<String>();
-
+            return new ArrayList<>();
         }
-
     }
 
+    /**
+     * Stores the given element by appending it to the storage file.
+     *
+     * @param elem The element to be stored.
+     * @return A list of strings representing the updated data in the file.
+     */
     @Override
     public List<String> store(String elem) {
         try {
@@ -72,18 +84,20 @@ public class FileStorage extends Storage {
             FileWriter fw = new FileWriter(file, true);
             fw.write(elem + "\n");
             fw.close();
-
         } catch (IOException e) {
-            // Print error
             System.out.println("Unable to add element:\n" + e.getMessage());
-
         }
 
         return load();
-
     }
 
-
+    /**
+     * Overwrites the existing data in the storage file with the provided data.
+     *
+     * @param data The new data to overwrite the existing data in the storage file.
+     * @return A list of strings representing the updated data in the file.
+     */
+    @Override
     public List<String> update(List<String> data) {
         try {
             // Overwrite previous save
@@ -94,24 +108,10 @@ public class FileStorage extends Storage {
             }
 
             fw.close();
-
         } catch (IOException e) {
-            // Print error
             System.out.println("Unable to update data:\n" + e.getMessage());
-
         }
 
         return load();
     }
-
-    // public static void main(String[] args) {
-    //     FileStorage fs = new FileStorage("data");
-
-    //     try {
-
-    //         fs.store("null");
-    //     } catch (IOException e) {
-
-    //     }
-    // }
 }
