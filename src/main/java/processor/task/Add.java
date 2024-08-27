@@ -13,7 +13,7 @@ import java.util.List;
 public class Add {
   private static Response process(Task newTask) {
     processor.task.TaskList.addTask(newTask);
-    return new Response(java.util.List.of("Got it! I have added:\n  " + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"));
+    return new Response(java.util.List.of("Got it! I have added:\n  " + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"), false, true);
   }
 
   public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException {
