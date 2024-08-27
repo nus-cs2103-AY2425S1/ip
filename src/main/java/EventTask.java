@@ -17,7 +17,7 @@ public class EventTask extends Task {
             this.from = LocalDateTime.parse(from.trim(), formatter);
 
         } catch (DateTimeException e) {
-            throw new NetherException("The date/time format for the event FROM timing is invalid. Please use " +
+            throw new NetherException("the date/time format for the event FROM timing is invalid. Please use " +
                     "the format: yyyy-MM-dd HHmm.");
         }
         try {
@@ -25,7 +25,7 @@ public class EventTask extends Task {
             this.to = LocalDateTime.parse(to.trim(), formatter);
 
         } catch (DateTimeException e) {
-            throw new NetherException("The date/time format for the event TO timing is invalid. Please use " +
+            throw new NetherException("the date/time format for the event TO timing is invalid. Please use " +
                     "the format: yyyy-MM-dd HHmm.");
         }
     }

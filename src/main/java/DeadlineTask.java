@@ -14,7 +14,7 @@ public class DeadlineTask extends Task {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             this.by = LocalDateTime.parse(by, formatter);
         } catch (DateTimeException e) {
-            throw new NetherException("The date/time format for the deadline is invalid. Please use " +
+            throw new NetherException("the date/time format for the deadline is invalid. Please use " +
                     "the format: yyyy-MM-dd HHmm.");
         }
     }
