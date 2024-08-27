@@ -117,9 +117,7 @@ public class Main {
                     }
                     case TODO -> {
                         // get the todo description and create a new Todo object
-                        String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
-                        String todoDescription = String.join(" ", todoItem);
-                        Task todo = new ToDo(todoDescription, "T");
+                        Task todo = new ToDo(command);
                         taskList.addTaskToList(todo);
                         ui.showSuccessfulTaskAddition(todo, taskList.getNumberOfTasks());
                     }
