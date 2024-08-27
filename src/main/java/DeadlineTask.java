@@ -1,14 +1,16 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class DeadlineTask extends Task{
 
-    String deadline;
-    public DeadlineTask(String desc, String deadline) {
+    LocalDate deadline;
+    public DeadlineTask(String desc, LocalDate deadline) {
         super(desc);
         this.deadline = deadline;
     }
 
-    public DeadlineTask(String desc, String deadline, String status) {
+    public DeadlineTask(String desc, LocalDate deadline, String status) {
         this(desc, deadline);
         if (Objects.equals(status, "1")) {
             super.markAsComplete();
@@ -21,7 +23,7 @@ public class DeadlineTask extends Task{
         s += "[D]";
         s += "[" + super.getStatusString() + "] ";
         s += super.getTaskDesc();
-        s += String.format(" (by: %s)", this.deadline);
+        s += String.format(" (by: %s)", this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         return s;
     }
 

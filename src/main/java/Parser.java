@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -8,7 +10,7 @@ public class Parser {
     private static final String TASK_NOT_SPECIFIED_MSG = "The Task number is not specified";
     private static final String NO_DESCRIPTION_MSG = "This Task requires a description";
 
-    public static Command parse(String input) throws InvalidCommandException, IncompleteCommandException, InvalidTaskNumberException {
+    public static Command parse(String input) throws InvalidCommandException, IncompleteCommandException, InvalidTaskNumberException, InvalidDateFormatException {
         String[] commands = input.split(" ");
         if (commands.length == 0) {
             throw new InvalidCommandException("No command entered.");
@@ -42,7 +44,7 @@ public class Parser {
     }
 
 
-    private static Command addTask(String[] commands) throws IncompleteCommandException, InvalidCommandException {
+    private static Command addTask(String[] commands) throws IncompleteCommandException, InvalidCommandException, InvalidDateFormatException {
         if (commands.length < 2) {
             throw new IncompleteCommandException(NO_DESCRIPTION_MSG);
         }
@@ -58,7 +60,13 @@ public class Parser {
             case "deadline" -> {
                 endTime = extractDateAfterFlag(commands, "/by")
                         .orElseThrow(() -> new IncompleteCommandException("Deadline Tasks must have a deadline specified"));
-                return new AddTaskCommand(new DeadlineTask(description, endTime));
+                LocalDate deadline;
+                try {
+                    deadline = LocalDate.parse(endTime);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateFormatException("Dates for Deadline tasks must be in the YYYY-MM-DD format");
+                }
+                return new AddTaskCommand(new DeadlineTask(description, deadline));
             }
             case "event" -> {
                 startTime = extractDateAfterFlag(commands, "/from")
