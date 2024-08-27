@@ -40,7 +40,7 @@ public class Events extends Task {
     @Override
     public String toFancyString() {
         return "Event | " + super.getStatus() + " | " + super.getDescription()
-                + " | /from "  + super.reverseLocalDateTimeParse(this.startDate)
+                + " | /from " + super.reverseLocalDateTimeParse(this.startDate)
                 + " /to " + super.reverseLocalDateTimeParse(this.endDate);
     }
 }
