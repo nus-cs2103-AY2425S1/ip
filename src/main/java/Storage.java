@@ -25,35 +25,37 @@ public class Storage {
     }
   }
 
-  public void loadData(Hamyo hamyo, ArrayList<Task> tasks) throws HamyoException {
+  public void loadData(Hamyo hamyo, TaskList tasks) throws HamyoException {
     try {
       Scanner scannedTasks = new Scanner(this.file);
       int currTask = 0;
       while (scannedTasks.hasNext()) {
         currTask++;
         String[] task = scannedTasks.nextLine().split(" \\| ");
+        Task tempTask;
         switch (task[0]) {
         case "T":
-          tasks.add(new ToDo(new String[]{task[2]}));
+          tempTask = new ToDo(new String[]{task[2]});
           break;
         case "D":
-          tasks.add(new Deadline(new String[]{task[2], task[3]}));
+          tempTask = new Deadline(new String[]{task[2], task[3]});
           break;
         case "E":
-          tasks.add(new Event(new String[]{task[2], task[3], task[4]}));
+          tempTask = new Event(new String[]{task[2], task[3], task[4]});
           break;
         default:
           throw new HamyoException("Invalid case " + task[0] + ".");
         }
         switch (task[1]) {
         case "1":
-          Hamyo.mark(hamyo, " " + currTask);
+          tempTask.mark(false);
           break;
         case "0":
           break;
         default:
           throw new HamyoException("Invalid boolean " + task[1] + ".");
         }
+        tasks.add(tempTask);
       }
     } catch (HamyoException e) {
       throw new HamyoException("Possible File Corruption. " + e.getMessage());
