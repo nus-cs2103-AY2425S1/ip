@@ -2,12 +2,19 @@ package dude;
 
 import dude.exception.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dude {
     private static final String BOT_NAME = "Dude";
     private static final String LINE = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/dude.txt";
     private Scanner scanner;
     private String input;
     private ArrayList<Task> tasks;
@@ -17,8 +24,8 @@ public class Dude {
     public Dude() {
         scanner = new Scanner(System.in);
         input = "";
-        tasks = new ArrayList<>();
-        tasksSize = 0;
+        tasks = loadData();
+        tasksSize = tasks.size();
         isRunning = true;
     }
 
@@ -224,9 +231,95 @@ public class Dude {
         this.isRunning = false;
         scanner.close();
 
+        try {
+            saveData();
+        } catch (DudeDataFileException e) {
+            System.out.println(e.getMessage());
+        }
+
         System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
+    }
+
+    public ArrayList<Task> loadData() {
+        File dataFile = new File(FILE_PATH);
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        try {
+            Scanner fileScanner = new Scanner(dataFile);
+
+            while (fileScanner.hasNextLine()) {
+                String dataLine = fileScanner.nextLine();
+                try {
+                    tasks.add(stringDataToTask(dataLine));
+                } catch (DudeCorruptedDataException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            createNewDataFile();
+        }
+
+        return tasks;
+    }
+
+    public void createNewDataFile(){
+        File dataFile = new File(FILE_PATH);
+        File parent = new File(dataFile.getParent());
+        parent.mkdirs();
+
+        try {
+            dataFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("There is something wrong while creating data file:");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Task stringDataToTask(String stringData) throws DudeCorruptedDataException {
+        String[] taskComponent = stringData.split("\\|");
+        Task task;
+
+        switch (taskComponent[0]) {
+        case "T":
+            task = new ToDo(taskComponent[2]);
+            break;
+        case "D":
+            task = new Deadline(taskComponent[2], taskComponent[3]);
+            break;
+        case "E":
+            task = new Event(taskComponent[2], taskComponent[3], taskComponent[4]);
+            break;
+        default:
+            throw new DudeCorruptedDataException();
+        }
+
+        if (taskComponent[1].equals("X")){
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    public void saveData() {
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (Task task : tasks){
+                bufferedWriter.write(task.taskToStringData());
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+            fileWriter.close();
+        } catch (IOException e){
+            System.out.println("There is something wrong while saving to data file:");
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
