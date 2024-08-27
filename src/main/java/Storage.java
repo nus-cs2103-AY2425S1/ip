@@ -1,4 +1,3 @@
-// import java.io.*;
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -7,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeParseException;
 
 public class Storage {
     private final String filePath;
@@ -25,26 +25,38 @@ public class Storage {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
+                if (parts.length < 3) {
+                    throw new TarsException("Corrupt task data: " + line);
+                }
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
 
-                switch (type) {
-                    case "T":
-                        tasks.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        String by = parts[3];
-                        tasks.add(new Deadline(description, isDone, by));
-                        break;
-                    case "E":
-                        String from = parts[3];
-                        String to = parts[4];
-                        tasks.add(new Event(description, isDone, from, to));
-                        break;
-                    default:
-                        String toThrow = "There was an issue with the task" + type + isDone + description;
-                        throw new TarsException(toThrow);
+                try {
+                    switch (type) {
+                        case "T":
+                            tasks.add(new Todo(description, isDone));
+                            break;
+                        case "D":
+                            if (parts.length < 4) {
+                                throw new TarsException("Corrupt deadline task data: " + line);
+                            }
+                            String by = parts[3];
+                            tasks.add(new Deadline(description, isDone, by));
+                            break;
+                        case "E":
+                            if (parts.length < 5) {
+                                throw new TarsException("Corrupt event task data: " + line);
+                            }
+                            String from = parts[3];
+                            String to = parts[4];
+                            tasks.add(new Event(description, isDone, from, to));
+                            break;
+                        default:
+                            throw new TarsException("Unknown task type: " + type);
+                    }
+                } catch (DateTimeParseException e) {
+                    throw new TarsException("Invalid date format in task data: " + line);
                 }
             }
         } catch (IOException e) {
@@ -74,7 +86,6 @@ public class Storage {
         }
     }
 
-    // Helper method to convert Task to string for saving to file
     private String taskToFileString(Task task) {
         String type = "";
         String additionalInfo = "";
