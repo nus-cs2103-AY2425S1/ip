@@ -25,6 +25,8 @@ public class Parser {
             return new ListCommand(arguments);
         case MarkCommand.COMMAND_PREFIX:
             return new MarkCommand(arguments);
+        case UnmarkCommand.COMMAND_PREFIX:
+            return new UnmarkCommand(arguments);
         }
 
         return null;

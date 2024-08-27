@@ -21,7 +21,7 @@ public class Ui {
      * Helper function to print errors from commands
      */
     public void showError(String error) {
-        System.out.printf("Error: %s%n", error);
+        System.out.printf("Error | %s%n", error);
     }
 
     /**

@@ -61,14 +61,12 @@ public class TodoList {
     /**
      * Mark an item with the specified index as incomplete
      * @param index The index of the item
-     * @return Status of the operation
      */
-    public boolean markIncomplete(int index) {
+    public void markIncomplete(int index) throws TohruException {
         if (index < 0 || index >= this.todoList.size()) {
-            return false;
+            throw new TohruException("The entry you are looking to unmark cannot be found");
         }
         this.todoList.get(index).setCompleted(false);
-        return true;
     }
 
     /**
