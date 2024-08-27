@@ -1,4 +1,4 @@
-package Exceptions;
+package ned.exceptions;
 
 public class NedException extends Exception{
     public NedException(String errorMsg) {

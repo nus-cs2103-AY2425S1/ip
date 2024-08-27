@@ -1,17 +1,11 @@
-package Default;
+package ned;
 
-import Commands.ByeCommand;
-import Commands.Command;
-import Tasks.ToDo;
-import Exceptions.NedException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.IOException;
+import ned.commands.Command;
+import tasks.ToDo;
+import ned.exceptions.NedException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
 
 public class CommandManager {
     private static final String FLAG_BYE = "bye";

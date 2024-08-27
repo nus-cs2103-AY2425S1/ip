@@ -1,7 +1,7 @@
-package Tasks;
+package tasks;
 
-import Default.Ui;
-import Exceptions.NedException;
+import ned.Ui;
+import ned.exceptions.NedException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

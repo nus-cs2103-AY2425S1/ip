@@ -1,12 +1,9 @@
-package Commands;
+package ned.commands;
 
-import Default.CommandManager;
-import Default.Storage;
-import Default.TaskList;
-import Default.Ui;
-import Exceptions.NedException;
-import Tasks.Task;
-import java.util.ArrayList;
+import ned.Storage;
+import ned.TaskList;
+import ned.Ui;
+import ned.exceptions.NedException;
 
 public class DeleteCommand implements Command {
     private final String REGEX = "^delete.*";

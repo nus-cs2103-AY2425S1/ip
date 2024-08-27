@@ -1,12 +1,11 @@
-package Commands;
+package ned.commands;
 
-import Default.Storage;
-import Default.TaskList;
-import Exceptions.NedException;
-import Tasks.Task;
-import Tasks.ToDo;
-import Default.Ui;
-import java.util.ArrayList;
+import ned.Storage;
+import ned.TaskList;
+import ned.exceptions.NedException;
+import tasks.Task;
+import tasks.ToDo;
+import ned.Ui;
 
 public class AddToDoCommand implements Command{
     private final String REGEX = "^todo.*";

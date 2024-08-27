@@ -1,9 +1,9 @@
-package Default;
+package ned;
 
 import java.util.ArrayList;
 
-import Exceptions.NedException;
-import Tasks.Task;
+import ned.exceptions.NedException;
+import tasks.Task;
 public class TaskList {
     private ArrayList<Task> listOfTasks;
 

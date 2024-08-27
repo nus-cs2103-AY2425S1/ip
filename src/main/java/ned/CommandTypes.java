@@ -1,6 +1,6 @@
-package Default;
+package ned;
 
-import Commands.*;
+import ned.commands.*;
 
 import java.util.regex.Pattern;
 public enum CommandTypes {

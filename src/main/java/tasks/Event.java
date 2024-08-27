@@ -1,7 +1,7 @@
-package Tasks;
+package tasks;
 
-import Exceptions.NedException;
-import Default.Ui;
+import ned.exceptions.NedException;
+import ned.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 public class Event extends Task {

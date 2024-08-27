@@ -1,15 +1,13 @@
-package Commands;
+package ned.commands;
 
-import Default.Storage;
-import Default.TaskList;
-import Exceptions.NedException;
+import ned.Storage;
+import ned.TaskList;
+import ned.exceptions.NedException;
 
-import java.util.ArrayList;
+import tasks.Task;
+import tasks.Event;
 
-import Tasks.Task;
-import Tasks.Event;
-
-import Default.Ui;
+import ned.Ui;
 
 import java.util.regex.Pattern;
 

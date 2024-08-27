@@ -1,13 +1,9 @@
-package Commands;
+package ned.commands;
 
-import Default.Storage;
-import Default.TaskList;
-import Default.Ui;
-import Exceptions.NedException;
-
-import java.util.ArrayList;
-
-import Tasks.Task;
+import ned.Storage;
+import ned.TaskList;
+import ned.Ui;
+import ned.exceptions.NedException;
 
 public interface Command {
     void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException;

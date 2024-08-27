@@ -1,4 +1,4 @@
-package Default;
+package ned;
 
 public class FlagWrapper {
     private boolean status;

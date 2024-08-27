@@ -1,10 +1,8 @@
-package Default;
+package ned;
 
-import Commands.Command;
-import Exceptions.NedException;
-import Tasks.Task;
+import ned.commands.Command;
+import ned.exceptions.NedException;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Paths;
 public class Ned {

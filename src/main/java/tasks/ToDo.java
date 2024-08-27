@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-import Exceptions.NedException;
+import ned.exceptions.NedException;
 
 public class ToDo extends Task {
 

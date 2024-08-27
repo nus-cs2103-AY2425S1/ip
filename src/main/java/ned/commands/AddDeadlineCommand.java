@@ -1,16 +1,14 @@
-package Commands;
+package ned.commands;
 
-import Default.Storage;
-import Default.TaskList;
-import Exceptions.NedException;
+import ned.Storage;
+import ned.TaskList;
+import ned.exceptions.NedException;
 
-import Default.Ui;
+import ned.Ui;
 
-import java.util.ArrayList;
+import tasks.Task;
 
-import Tasks.Task;
-
-import Tasks.Deadline;
+import tasks.Deadline;
 
 public class AddDeadlineCommand implements Command {
     private final String REGEX = "^deadline.*";

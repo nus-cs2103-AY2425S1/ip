@@ -1,15 +1,11 @@
-package Commands;
+package ned.commands;
 
-import Default.Storage;
-import Default.TaskList;
-import Default.Ui;
-import Exceptions.NedException;
+import ned.Storage;
+import ned.TaskList;
+import ned.Ui;
+import ned.exceptions.NedException;
 
-import java.util.ArrayList;
-
-import Tasks.Task;
-
-import Default.FlagWrapper;
+import ned.FlagWrapper;
 
 public class ByeCommand implements Command {
     private final String REGEX = "bye\\s*";

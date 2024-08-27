@@ -1,7 +1,7 @@
-package Default;
+package ned;
 
-import Exceptions.NedException;
-import Tasks.Task;
+import ned.exceptions.NedException;
+import tasks.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;

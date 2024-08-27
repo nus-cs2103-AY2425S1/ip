@@ -1,15 +1,14 @@
-package Commands;
+package ned.commands;
 
-import Default.Storage;
-import Default.TaskList;
-import Default.Ui;
-import Exceptions.NedException;
-import java.util.ArrayList;
-import Tasks.Task;
+import ned.Storage;
+import ned.TaskList;
+import ned.Ui;
+import ned.exceptions.NedException;
 
-public class UnmarkCommand implements Command {
-    private final String REGEX = "^unmark.*";
-    public UnmarkCommand() {}
+public class MarkCommand implements Command {
+
+    private final String REGEX = "^mark.*";
+    public MarkCommand() {}
     @Override
     public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
         String[] words = userInput.split(" ");
@@ -20,7 +19,7 @@ public class UnmarkCommand implements Command {
         String possibleIndex = words[1];
         try {
             int index = Integer.parseInt(possibleIndex) - 1;
-            taskList.markTaskAsUndone(index, uiInstance);
+            taskList.markTaskAsDone(index, uiInstance);
             storageInstance.save(taskList);
         } catch (NumberFormatException e) {
             throw new NedException("Sorry m'lord, your command must specify a valid number" + uiInstance.getCommandMessage());

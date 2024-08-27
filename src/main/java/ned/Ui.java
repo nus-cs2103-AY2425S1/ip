@@ -1,4 +1,4 @@
-package Default;
+package ned;
 
 import java.util.Scanner;
 
