@@ -10,6 +10,13 @@ public class MarkCommand extends Command {
     private CommandEnum commandEnum;
     private int itemIdx;
 
+    /**
+     * Command for marking and unmarking items.
+     *
+     * @param commandEnum Command enum to flag if this action is to unmark or mark a task
+     * @param itemIdx 1-based index of which item to mark or unmark
+     */
+
     public MarkCommand(CommandEnum commandEnum, int itemIdx) {
         this.commandEnum = commandEnum;
         this.itemIdx = itemIdx;
@@ -24,6 +31,7 @@ public class MarkCommand extends Command {
                 message = tasks.unmark(itemIdx);
             }
             ui.echo(message);
+            storage.save(tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new DumplingException(
                     "You tried to mark / unmark at an index out of range! " +

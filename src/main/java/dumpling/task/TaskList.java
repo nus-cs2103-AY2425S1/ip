@@ -7,6 +7,9 @@ public class TaskList {
 
     private List<Task> items;
 
+    /**
+     * TaskList that handles the functionalities of items
+     */
     public TaskList() {
         this.items = new ArrayList<>();
     }
@@ -15,10 +18,20 @@ public class TaskList {
         this.items = items;
     }
 
+    /**
+     * Add a given task to the list.
+     *
+     * @param task Target task to be added
+     */
     public void add(Task task) {
         this.items.add(task);
     }
 
+    /**
+     * Lists all the tasks
+     *
+     * @return String-representation of the list of items
+     */
     public String list() {
         String message = "     Here are the tasks in your list:\n";
         for (int i = 1; i <= this.items.size(); i++) {
@@ -30,6 +43,13 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Marks an item as done
+     *
+     * @param itemIdx target 1-based index of item to be marked as done
+     * @return String message of completion
+     * @throws IndexOutOfBoundsException If given index is out of range
+     */
     public String mark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     Nice! I've marked this task as done:\n";
         if (itemIdx > this.items.size()) {
@@ -40,6 +60,13 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Unmarks an item as done
+     *
+     * @param itemIdx target 1-based index of item to be unmarked as done
+     * @return String message of completion
+     * @throws IndexOutOfBoundsException If given index is out of range
+     */
     public String unmark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     OK, I've marked this task as not done yet:\n";
         if (itemIdx > this.items.size()) {
@@ -50,6 +77,13 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Deletes the task at the given index
+     *
+     * @param itemIdx target 1-based index of item to be unmarked as done
+     * @return String message of completion
+     * @throws IndexOutOfBoundsException If given index is out of range
+     */
     public String delete(int itemIdx) throws IndexOutOfBoundsException {
         Task deletedTask = this.items.remove(itemIdx - 1);
         String message = "     Noted. I've removed this task:\n" +
@@ -59,6 +93,11 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Helper function that returns the tasks in the format of loading files
+     *
+     * @return String representation of tasks in the TaskList
+     */
     public String getTasksForSaving() {
         String dataString = "";
         for (Task task : this.items) {
@@ -67,6 +106,11 @@ public class TaskList {
         return dataString;
     }
 
+    /**
+     * Get the number of items in the TaskList
+     *
+     * @return number of items in TaskList
+     */
     public int getNumItems() {
         return this.items.size();
     }

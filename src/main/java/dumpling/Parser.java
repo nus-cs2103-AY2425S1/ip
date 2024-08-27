@@ -25,6 +25,13 @@ public class Parser {
     private static final String EVENT_FROM_SEPARATOR = "/from";
     private static final String EVENT_TO_SEPARATOR = "/to";
 
+    /**
+     * Parse a given full command from the user and stores its information into the relevant Command object
+     *
+     * @param stringCommand user's input
+     * @return Command object that stores the information of the command. Resulting Command object can be executed.
+     * @throws DumplingException Message includes information about the error experienced.
+     */
     public static Command parse(String stringCommand) throws DumplingException {
         String commandString = stringCommand.split(" ")[0];
         CommandEnum commandEnum;
@@ -81,6 +88,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Loads the data from the harddisk file.
+     *
+     * @param filePath Filepath of the harddisk file
+     * @return List of Task objects that can be used to instantiate a TaskList object
+     */
     public static List<Task> loadData(String filePath) {
         File dataFile = new File(filePath);
         List<Task> items = new ArrayList<>();
@@ -125,6 +138,15 @@ public class Parser {
         return items;
     }
 
+    /**
+     * Deciphers information for commands that add a Task to the TaskList
+     *
+     * @param description User's input without the command
+     * @param command Command representing either TODO, DEADLINE or EVENT
+     * @param numItems number of items currently in the TaskList
+     * @return Pair of the deciphered Task and message
+     * @throws DumplingException Thrown either due to a date format issue or empty description
+     */
     public static Pair<Task, String> add(
             String description, CommandEnum command, int numItems) throws DumplingException {
         String[] splitDescription = description.split(" ");
@@ -173,6 +195,14 @@ public class Parser {
         return new Pair<>(task, message);
     }
 
+    /**
+     * Helper method to obtain information from the split user input string
+     *
+     * @param splitDescrption String array obtained by splitting the user input string
+     * @param startIdx Starting index to consider
+     * @param terminalString String to stop forming the subsection
+     * @return Pair of formed string and ending index of this traversal
+     */
     public static Pair<String, Integer> formSubSection(
             String[] splitDescrption,
             int startIdx,
