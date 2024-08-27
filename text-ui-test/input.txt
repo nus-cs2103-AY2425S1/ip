@@ -5,6 +5,7 @@ deadline
 deadline /by May
 deadline Hand in work
 deadline do homework /by Friday
+deadline do homework /by 2024-08-31
 event
 event do homework
 event do homework /from
@@ -12,4 +13,5 @@ event do homework /from Monday 3pm
 event do homework /to
 event do homework /to Monday 6pm
 event do homework /from Monday 3pm /to Monday 6pm
+event do homework /from 2024-08-27 /to 2024-08-31
 bye
