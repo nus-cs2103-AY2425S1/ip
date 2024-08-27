@@ -1,3 +1,4 @@
+
 public class Event extends Task {
     private final String from;
     private final String to;
@@ -9,11 +10,14 @@ public class Event extends Task {
         this.to= to;
     }
 
+    public Event() {
+        this("",true,"","");
+    }
+
     @Override
     public String toString() {
         return String.format(formatString,this.isComplete?"X":" ",this.description,this.from, this.to);
     }
-
 
     @Override
     public Event mark() {
@@ -24,4 +28,6 @@ public class Event extends Task {
     public Event unmark() {
         return new Event(this.description, false, this.from, this.to);
     }
+
+
 }
