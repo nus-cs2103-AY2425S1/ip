@@ -151,10 +151,19 @@ public class Velma {
                     }
                     String description = parts[0];
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                    LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
+                    LocalDateTime deadline;
+                    try {
+                        deadline = LocalDateTime.parse(parts[1], formatter);
+                    } catch (DateTimeParseException e) {
+                        throw new VelmaException("Sorry boss! The date format is incorrect. Please use d/M/yyyy HHmm.");
+                    }
                     printLine();
                     System.out.println("Got it. I've added this task:");
                     Task newDeadline = new Deadline(description, deadline);
+
+
+
+
                     list.add(newDeadline);
                     System.out.println("  " + newDeadline.toString());
                     System.out.println("Now you have " + list.size() + " tasks in the list");
