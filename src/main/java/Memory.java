@@ -31,9 +31,9 @@ public class Memory {
 
             switch (type) {
                 case "T":
-                    Task todo = new ToDo(description);
-                    todo.setDone(isDone);
-                    taskList.add(todo);
+                    Task toDO = new ToDo(description);
+                    toDO.setDone(isDone);
+                    taskList.add(toDO);
                     break;
                 case "D":
                     String by = entryDetails[3];
@@ -49,7 +49,7 @@ public class Memory {
                     taskList.add(event);
                     break;
                 default:
-                    throw new SageException("Corrupted data file.");
+                    throw new SageException("Corrupted file.");
             }
         }
         scanner.close();

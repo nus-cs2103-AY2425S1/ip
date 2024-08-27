@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
 
 public class Sage {
     public static final String NAME = "Sage";
