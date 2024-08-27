@@ -107,7 +107,25 @@ public class Regina {
      */
     public TaskList occurringOn(String dateAndTime) throws ReginaException {
         ReginaDateAndTime occurringInstance = new ReginaDateAndTime(dateAndTime);
-        TaskList tempList = this.listOfTasks.tasksOccurringOn(occurringInstance);
+        TaskList tempList = this.listOfTasks.findTasksOccurringOn(occurringInstance);
+        ui.printMessage(tempList.toString());
+        return tempList;
+    }
+
+    /**
+     * Searches for tasks in the list that contain the specified keyword and displays them to the user.
+     *
+     * <p>This method utilizes the {@link TaskList#findTasksWithKeyword(String)} method
+     * to retrieve a list of tasks matching the given keyword. It then prints the result
+     * to the user via the {@link Ui} instance. The method returns the filtered list of tasks.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     *                The search is case-sensitive, and only tasks that contain
+     *                the keyword in their string representation will be included in the result.
+     * @return A {@link TaskList} containing tasks that match the keyword.
+     */
+    public TaskList find(String keyword) {
+        TaskList tempList = this.listOfTasks.findTasksWithKeyword(keyword);
         ui.printMessage(tempList.toString());
         return tempList;
     }
@@ -301,7 +319,11 @@ public class Regina {
                         regina.list(); // List current tasks
                         break;
                     case "occurring":
-                        regina.occurringOn(data.getRawInput().substring(10)); // Get tasks occurring at a specific date
+                        // Get tasks occurring at a specific date
+                        regina.occurringOn(data.getRawInput().substring(10));
+                        break;
+                    case "find":
+                        regina.find(data.getRawInput().substring(5));
                         break;
                     case "mark":
                     case "unmark":

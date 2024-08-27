@@ -16,7 +16,7 @@ public class TaskList extends ArrayList<Task> {
         super();
     }
 
-    public TaskList tasksOccurringOn(ReginaDateAndTime dateAndTime) {
+    public TaskList findTasksOccurringOn(ReginaDateAndTime dateAndTime) {
         TaskList list = new TaskList();
         for (Task task : this) {
             if (task.isOccurringOn(dateAndTime)) {
@@ -36,6 +36,28 @@ public class TaskList extends ArrayList<Task> {
         }
 
         return tasksRepresentation.toString(); // Returns the final string representation.
+    }
+
+    /**
+     * Searches for tasks in the task list that contain the specified keyword.
+     *
+     * <p>This method iterates through the current task list and checks whether each task's
+     * string representation contains the given keyword. If a match is found, the task is
+     * added to a new TaskList, which is returned at the end of the search.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     *                This may be part of the task description and is case-sensitive.
+     * @return A new {@link TaskList} containing all tasks that match the keyword,
+     *         or an empty TaskList if no matches are found.
+     */
+    public TaskList findTasksWithKeyword(String keyword) {
+        TaskList list = new TaskList();
+        for (Task task : this) {
+            if (task.toString().contains(keyword)) {
+                list.add(task);
+            }
+        }
+        return list;
     }
 
     @Override

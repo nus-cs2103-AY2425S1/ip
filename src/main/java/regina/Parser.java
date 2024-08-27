@@ -33,10 +33,10 @@ public class Parser {
      * @return True if valid, false otherwise.
      */
     private boolean isValidCommand(String command) {
-        return command.equals("help") || command.equals("now") ||
-                command.equals("clear") || command.equals("list") ||
-                command.startsWith("occurring") || command.startsWith("mark") ||
-                command.startsWith("unmark") || command.startsWith("delete") ||
-                command.equals("bye");
+        return command.equals("help") || command.equals("now")
+                || command.equals("clear") || command.equals("list")
+                || command.startsWith("occurring") || command.startsWith("mark")
+                || command.startsWith("unmark") || command.startsWith("delete")
+                || command.equals("bye") || command.startsWith("find");
     }
 }
