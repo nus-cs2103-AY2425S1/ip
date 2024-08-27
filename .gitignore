@@ -17,5 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 /data/
 /text-ui-test/data/
-/jar/strand.jar
-/jar/data
+/jar

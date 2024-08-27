@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import strand.exception.StrandException;
 
 /**
- * The strand.Tasks.Event class represents a task that occurs within a specific time range.
+ * The strand.task.Event class represents a task that occurs within a specific time range.
  */
 public class Event extends Task {
 

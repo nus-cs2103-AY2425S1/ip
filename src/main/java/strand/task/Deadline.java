@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import strand.exception.StrandException;
 
 /**
- * The strand.Tasks.Deadline class represents a task with a specific deadline.
+ * The strand.task.Deadline class represents a task with a specific deadline.
  */
 public class Deadline extends Task {
     protected LocalDateTime deadline;

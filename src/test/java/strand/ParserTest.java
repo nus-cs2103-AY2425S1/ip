@@ -12,6 +12,9 @@ import strand.command.ListCommand;
 import strand.command.MarkCommand;
 import strand.exception.StrandException;
 
+/**
+ * The strand.ParserTest class is a JUnit test for the class strand.Parser
+ */
 public class ParserTest {
     @Test
     public void testValidCommands() throws StrandException {
