@@ -1,7 +1,6 @@
 package gray;
 
 import gray.command.Command;
-import gray.task.TaskList;
 
 public class Gray {
 

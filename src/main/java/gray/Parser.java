@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Parser {
 
-    public static List<CommandFactory> commandFactoryList = List.of(
+    private static List<CommandFactory> commandFactoryList = List.of(
             new ByeCommandFactory(),
             new ListCommandFactory(),
             new AddTodoCommandFactory(),

@@ -2,7 +2,7 @@ package gray.command;
 
 import gray.Ui;
 import gray.task.DeadlineTask;
-import gray.task.TaskList;
+import gray.TaskList;
 
 import java.time.LocalDateTime;
 

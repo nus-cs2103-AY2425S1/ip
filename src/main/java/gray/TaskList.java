@@ -1,4 +1,6 @@
-package gray.task;
+package gray;
+
+import gray.task.Task;
 
 import java.io.Serializable;
 import java.util.ArrayList;

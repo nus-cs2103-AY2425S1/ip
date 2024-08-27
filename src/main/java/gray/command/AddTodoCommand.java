@@ -1,7 +1,7 @@
 package gray.command;
 
 import gray.Ui;
-import gray.task.TaskList;
+import gray.TaskList;
 import gray.task.TodoTask;
 
 public class AddTodoCommand extends Command {

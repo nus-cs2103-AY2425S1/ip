@@ -22,8 +22,14 @@ public class AddEventCommandFactory extends CommandFactory {
             throw new GrayException("OOPS!!! The description, start and end cannot be empty.");
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        LocalDateTime startDate = LocalDateTime.parse(start, formatter);
-        LocalDateTime endDate = LocalDateTime.parse(end, formatter);
+        LocalDateTime startDate;
+        LocalDateTime endDate;
+        try {
+            startDate = LocalDateTime.parse(start, formatter);
+            endDate = LocalDateTime.parse(end, formatter);
+        } catch (Exception e) {
+            throw new GrayException("Cannot parse datetime yyyy-MM-dd HHmm");
+        }
         return new AddEventCommand(description, startDate, endDate);
     }
 }

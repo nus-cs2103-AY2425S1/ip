@@ -2,7 +2,7 @@ package gray.command;
 
 import gray.GrayException;
 import gray.Ui;
-import gray.task.TaskList;
+import gray.TaskList;
 
 public abstract class Command {
     public void execute(Ui ui, TaskList tasks) throws GrayException { }
