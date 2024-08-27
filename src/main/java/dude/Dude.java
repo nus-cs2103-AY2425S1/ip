@@ -230,12 +230,7 @@ public class Dude {
     public void exit() {
         this.isRunning = false;
         scanner.close();
-
-        try {
-            saveData();
-        } catch (DudeDataFileException e) {
-            System.out.println(e.getMessage());
-        }
+        saveData();
 
         System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
