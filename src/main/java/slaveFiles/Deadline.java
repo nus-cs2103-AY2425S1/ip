@@ -7,6 +7,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    protected Deadline(boolean completed, String task, String deadline) {
+        super(completed, task);
+        this.deadline = deadline;
+    }
+
     public String getDeadline() {
         return this.deadline;
     }
