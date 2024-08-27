@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Task {
@@ -10,7 +9,6 @@ public class Task {
         this.description = description;
         this.isDone = isDone;
     }
-    //TODO fix out of bounds error, getCorrectFormat() method
     public Task() {
         this.tasks = new ArrayList<Task>();
     }
@@ -65,7 +63,7 @@ public class Task {
         return String.format("%s | %d | %s",
                 this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E",
                 isDone ? 1 : 0,
-                this.toString()
+                this.getCorrectFormat()
         );
     }
 
@@ -80,6 +78,10 @@ public class Task {
             task.markAsDone();
         }
         return task;
+    }
+
+    public String getCorrectFormat() {
+        return description;
     }
 
     @Override
