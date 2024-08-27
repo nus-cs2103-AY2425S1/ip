@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Stobberi {
-    private static final String nameOfChatBot = "Stobberi";
-    private static final String helloGreeting =
-            "Hello! I'm " + nameOfChatBot + ".\n"
+    private static final String NAME_OF_CHATBOT = "Stobberi";
+    private static final String HELLO_GREETING =
+            "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
             + "What can I do for you?";
-    private static final String goodByeGreeting = "Bye. Hope to see you again soon! :)\n";
+    private static final String GOODBYE_GREETING = "Bye. Hope to see you again soon! :)\n";
     private static ArrayList<Task> listOfTasks= new ArrayList<>();
 
     private static String displayForm(String phrase) {
         return
-                "___________________________________________\n"
+                "_______________________________________________\n"
                 + phrase
-                + "\n___________________________________________\n";
+                + "\n_______________________________________________\n";
     }
     private static void displayList() {
         String list = "Here are the tasks in your list:\n";
@@ -70,7 +70,6 @@ public class Stobberi {
         }
         displayLastAdded();
     }
-
     private static void createList() {
         Scanner scanner = new Scanner(System.in);
         String temp = scanner.nextLine();
@@ -109,8 +108,8 @@ public class Stobberi {
     }
 
     public static void main(String[] args) {
-        System.out.println(displayForm(helloGreeting));
+        System.out.println(displayForm(HELLO_GREETING));
         createList();
-        System.out.println(displayForm(goodByeGreeting));
+        System.out.println(displayForm(GOODBYE_GREETING));
     }
 }
