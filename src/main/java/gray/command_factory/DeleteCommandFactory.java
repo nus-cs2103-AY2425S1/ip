@@ -1,3 +1,9 @@
+package gray.command_factory;
+
+import gray.GrayException;
+import gray.command.Command;
+import gray.command.DeleteCommand;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
