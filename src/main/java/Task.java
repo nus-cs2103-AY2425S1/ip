@@ -23,4 +23,8 @@ public class Task {
     public String getString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    public String getStorageFormat() {
+        return "";
+    }
 }

@@ -40,7 +40,7 @@ public class Bean {
                             current = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
                             break;
                         case "deadline":
-                            taskDetails = splited[2].split(" /by ");
+                            taskDetails = splited[1].split(" /by ");
                             current = new Deadline(taskDetails[0],taskDetails[1]);
                             break;
                     }
@@ -136,36 +136,8 @@ public class Bean {
         try {
             FileWriter fw = new FileWriter(filePath,false);
             for (int i = 0; i < pointer; i++) {
-                String output = "";
                 Task curr = taskList.get(i);
-                if (curr.isDone()) {
-                    output += "1 ";
-                } else {
-                    output += "0 ";
-                }
-                String substring = curr.getString().split("] ",2)[1];
-                String type = (curr.getString().split("]")[0]);
-                switch (type) {
-                    case "[T":
-                        output += "todo ";
-                        output += substring + '\n';
-                        fw.write(output);
-                        break;
-                    case "[E":
-                        output += "event ";
-                        substring = substring.replace("(from:", "/from").replace("to:", "/to");
-                        substring = substring.substring(0, substring.length() - 1) + "\n";
-                        output += substring;
-                        fw.write(output);
-                        break;
-                    case "[D":
-                        output += "deadline ";
-                        substring = substring.replace("(by:", "/by");
-                        substring = substring.substring(0, substring.length() - 1) + "\n";
-                        output += substring;
-                        fw.write(output);
-                        break;
-                }
+                fw.write(curr.getStorageFormat());
             }
             fw.close();
         } catch (IOException e){

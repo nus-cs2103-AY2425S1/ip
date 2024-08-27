@@ -9,4 +9,11 @@ public class Todo extends Task {
     public String getString() {
         return "[T]" + super.getString();
     }
+
+    @Override
+    public String getStorageFormat() {
+        String output = this.isDone ? "1" : "0";
+        output += " todo " + description + "\n";
+        return output;
+    }
 }

@@ -2,3 +2,4 @@
 0 todo not die
 0 deadline cry /by Sunday
 1 event birthday /from 2020-12-12 /to 2020-12-13
+0 deadline cry /by 2020-12-12
