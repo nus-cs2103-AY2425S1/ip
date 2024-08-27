@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Storage {
@@ -99,12 +98,11 @@ public class Storage {
 
                 String date = parts[3];
                 String[] dateParts = date.split("-");
-                if (dateParts.length != 2) {
+                if (dateParts.length != 6) {
                     throw new SlothingWafflerException("Invalid date format for: " + line);
                 }
-
-                String startDate = dateParts[0];
-                String endDate = dateParts[1];
+                String startDate = dateParts[0] + "-" + dateParts[1] + "-" + dateParts[2];
+                String endDate = dateParts[3] + "-" + dateParts[4] + "-" + dateParts[5];
                 if (startDate != null && endDate != null) {
                     task = new Event(description, startDate, endDate);
                 }
@@ -112,7 +110,7 @@ public class Storage {
             default:
                 throw new SlothingWafflerException("Invalid task type for: " + line);
             }
-            if (task != null) {
+            if (task != null && isDone) {
                 task.markAsDone();
             }
             return task;

@@ -1,23 +1,22 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    private final String by;
+    private final LocalDateTime by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDateTime.parse(by, Task.dtf1);
     }
 
     @Override
     public String toFileFormat() {
-        return "D" + super.toFileFormat() + " | " + this.by;
+        return "D" + super.toFileFormat() + " | " + this.by.format(Task.dtf1);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(Task.dtf2) + ")";
     }
 
 }
