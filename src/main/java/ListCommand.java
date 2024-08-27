@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * ListCommand represents the command to list the entries in the to-do list
  */
@@ -13,7 +15,10 @@ public class ListCommand extends Command {
     @Override
     public void execute(TodoList list, Ui ui, FileStore store) {
         ui.showText(String.format("These are %s entries on your todo:", list.getTotal()));
-        ui.showText(String.join("\n", list.listItems()));
+
+        for (int i = 0; i < list.getTotal(); i++) {
+            ui.showText(String.format("%d. %s", i + 1, list.getItemStatus(i)));
+        }
     }
 
 }
