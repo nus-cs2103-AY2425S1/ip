@@ -5,9 +5,18 @@ public class Deadline extends Task {
         this.time = time;
     }
 
+    public Deadline(String body, boolean isDone, String time) {
+        super(body, isDone);
+        this.time = time;
+    }
+
     @Override
     public String toString() {
-        String str = String.format("[D]%s (due by: %s)", super.toString(), this.time);
-        return str;
+        return String.format("[D]%s (due by: %s)", super.toString(), this.time);
+    }
+
+    @Override
+    public String saveString() {
+        return "deadline," + super.saveString() + "," + this.time;
     }
 }

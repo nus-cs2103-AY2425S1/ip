@@ -1,9 +1,15 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
+
 import java.io.File;
+import java.util.Date;
+import java.util.Scanner;
+import java.nio.file.Files;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 public class Orion {
 
     public static final String LOGO = "             .__               \n"
@@ -17,46 +23,51 @@ public class Orion {
 
     public static final String INDENT = "    ";
 
+    public static final String DATA_PATHNAME = "./data/tasks.txt";
+
     private static boolean isOnline;
     private static ArrayList<Task> tasks;
     private static int noTasks;
 
     private static void loadTasks() {
-        File taskList = new File("./data/tasks.txt");
+        File taskList = new File(DATA_PATHNAME);
+        Path path = Paths.get(DATA_PATHNAME);
         try {
             Scanner s = new Scanner(taskList);
 
             while (s.hasNext()) {
                 String task = s.nextLine();
                 String[] parsed = task.split(",");
-                System.out.println(Arrays.toString(parsed));
                 switch (parsed[0]) {
                     case "todo":
-                        if (parsed.length != 2) {
+                        if (parsed.length != 3) {
                             // TODO: Create new exception type TaskDataException
-                            throw new IOException("Unrecognised todo task format");
+                            throw new OrionTaskDataException("Unrecognised todo task format");
                         } else {
-                            Task todo = new Todo(parsed[1]);
+                            boolean done = parsed[2].equals("T");
+                            Task todo = new Todo(parsed[1], done);
                             Orion.tasks.add(todo);
                             Orion.noTasks++;
                             break;
                         }
                     case "deadline":
-                        if (parsed.length != 3) {
+                        if (parsed.length != 4) {
                             // TODO: Create new exception type TaskDataException
-                            throw new IOException("Unrecognised deadline task format");
+                            throw new OrionTaskDataException("Unrecognised deadline task format");
                         } else {
-                            Task deadline = new Deadline(parsed[1], parsed[2]);
+                            boolean done = parsed[2].equals("T");
+                            Task deadline = new Deadline(parsed[1], done, parsed[3]);
                             Orion.tasks.add(deadline);
                             Orion.noTasks++;
                             break;
                         }
                     case "event":
-                        if (parsed.length != 4) {
+                        if (parsed.length != 5) {
                             // TODO: Create new exception type TaskDataException
-                            throw new IOException("Unrecognised event task format");
+                            throw new OrionTaskDataException("Unrecognised event task format");
                         } else {
-                            Task event = new Event(parsed[1], parsed[2], parsed[3]);
+                            boolean done = parsed[2].equals("T");
+                            Task event = new Event(parsed[1], done, parsed[3], parsed[4]);
                             Orion.tasks.add(event);
                             Orion.noTasks++;
                             break;
@@ -64,23 +75,45 @@ public class Orion {
                     default:
                         // File corrupted
                         // TODO: Create new exception type TaskDataException
-                        throw new IOException("Unrecognised task type");
+                        throw new OrionTaskDataException("Unrecognised task type");
                 }
             }
 
             Orion.printIndent(String.format("Welcome back! You have %d tasks in your task list.", Orion.noTasks));
             Orion.printBar();
         } catch (FileNotFoundException e) {
-            Orion.printIndent("Your existing task list is somewhere amongst the stars...");
-            Orion.printIndent("We can't seem to find it!");
-            Orion.printIndent("We've created a new task list for you.");
-            Orion.printBar();
-        } catch (IOException e) {
-            Orion.printIndent("Looks like your existing task list has been corrupted...");
-            Orion.printIndent("We've created a new task list for you.");
-            Orion.printBar();
+            try {
+                Orion.printIndent("Your existing task list is somewhere amongst the stars...");
+                Orion.printIndent("We can't seem to find it!");
+                Files.createFile(path);
+                Orion.printIndent("We've created a new task list for you.");
+                Orion.printBar();
+            } catch (IOException err) {
+                Orion.printIndent("Unfortunately... an error has occurred when creating a new task list...");
+                Orion.printBar();
+            }
+        } catch (OrionTaskDataException e) {
+            try {
+                Orion.printIndent("Looks like your existing task list has been corrupted...");
+                Files.delete(path);
+                Files.createFile(path);
+                Orion.printIndent("We've created a new task list for you.");
+                Orion.printBar();
+            } catch (IOException err) {
+                Orion.printIndent("Unfortunately... an error has occurred when creating a new task list...");
+                Orion.printBar();
+            }
         }
     }
+
+//    private static void saveTasks() {
+//        try {
+//            FileWriter fw = new FileWriter(DATA_PATHNAME);
+//            for (Task task : Orion.tasks) {
+//                fw.write();
+//            }
+//        }
+//    }
 
     private static void printBar() {
         System.out.println(Orion.BAR);
