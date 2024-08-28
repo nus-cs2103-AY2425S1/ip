@@ -1,16 +1,16 @@
 package applemazer;
 
-import commands.*;
+import commands.Command;
 import java.util.Scanner;
 
 public class Applemazer {
-    private final UI ui;
+    private final Ui ui;
     private static Storage storage;
     public static TaskList tasks;
     public static Scanner sc = new Scanner(System.in);
 
     public Applemazer(String filePath) {
-        ui = new UI();
+        ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
     }

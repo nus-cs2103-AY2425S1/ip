@@ -1,9 +1,10 @@
 package commands;
 
-import applemazer.*;
-import tasks.*;
-import java.time.DateTimeException;
 import java.util.ArrayList;
+import applemazer.Storage;
+import tasks.Task;
+import tasks.Event;
+import java.time.DateTimeException;
 
 public class EventCommand extends Command {
     private final String desc, from, to;

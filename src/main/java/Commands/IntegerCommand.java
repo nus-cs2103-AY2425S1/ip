@@ -1,8 +1,8 @@
 package commands;
 
-import applemazer.*;
-import tasks.*;
 import java.util.ArrayList;
+import applemazer.Storage;
+import tasks.Task;
 
 public class IntegerCommand extends Command {
     private final IntegerCommands command;

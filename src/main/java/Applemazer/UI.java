@@ -1,8 +1,8 @@
 package applemazer;
 
-public class UI {
+public class Ui {
 
-    public UI() {}
+    public Ui() {}
 
     public void greeting() {
         String greeting = "Hello! I'm Applemazer.\nWhat can I do for you?\n";

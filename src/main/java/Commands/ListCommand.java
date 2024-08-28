@@ -1,8 +1,8 @@
 package commands;
 
-import applemazer.*;
-import tasks.*;
 import java.util.ArrayList;
+import applemazer.Storage;
+import tasks.Task;
 
 public class ListCommand extends Command {
     @Override

@@ -2,8 +2,6 @@ package applemazer;
 
 import commands.*;
 
-import java.util.Arrays;
-
 public class Parser {
 
     public static Command parse(String command) throws Exception {
@@ -67,7 +65,7 @@ public class Parser {
     private static int parseIntegerCommand(Command.IntegerCommands command) throws Exception {
         int taskNumber;
         try {
-            taskNumber = Integer.parseInt(Applemazer.sc.nextLine().trim())-1; // Will throw error if non-integer or no input.
+            taskNumber = Integer.parseInt(Applemazer.sc.nextLine().trim()) - 1; // Will throw error if non-integer or no input.
         } catch (Exception e) {
             String errorMessage = String.format("""
                                                 OOPS!!! You either have a non-integer input or no input at all.

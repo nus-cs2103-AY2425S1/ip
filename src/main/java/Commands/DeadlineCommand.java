@@ -1,9 +1,10 @@
 package commands;
 
-import applemazer.*;
-import tasks.*;
-import java.time.DateTimeException;
 import java.util.ArrayList;
+import applemazer.Storage;
+import tasks.Task;
+import tasks.Deadline;
+import java.time.DateTimeException;
 
 public class DeadlineCommand extends Command {
     private final String desc, deadline;
