@@ -9,7 +9,17 @@ import tick.tasks.Deadline;
 import tick.tasks.Event;
 import tick.tasks.ToDo;
 
+/**
+ * Represents a parser that parses user input into commands.
+ */
 public class Parser {
+    /**
+     * Parses the user input into a command.
+     *
+     * @param input The user input.
+     * @return The command that corresponds to the user input.
+     * @throws TickException If the user input is invalid.
+     */
     public static Command parse(String input) throws TickException {
         String[] tokens = input.split(" ", 2);
         try {

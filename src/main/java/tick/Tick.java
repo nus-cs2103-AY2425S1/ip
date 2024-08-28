@@ -9,11 +9,19 @@ import tick.storage.Storage;
 import tick.storage.TaskList;
 import tick.ui.Ui;
 
+/**
+ * Tick is a chatbot that helps users to keep track of their tasks.
+ */
 public class Tick {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Constructs a Tick object and initializes the UI, storage, and task list.
+     *
+     * @param filePath The file path to load the task data from.
+     */
     public Tick(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -25,6 +33,11 @@ public class Tick {
         }
     }
 
+    /**
+     * Runs the main loop of the Tick application.
+     * It continuously reads user commands, parses them, and executes the corresponding actions.
+     * The loop terminates when an exit command is issued.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
