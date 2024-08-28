@@ -61,6 +61,11 @@ public class Parser {
                 } catch (Exception e) {
                     throw new DudeException("Try using this format for the dates: yyyy-mm-dd HH:mm");
                 }
+            case FIND:
+                if (tokens.length == 1 || tokens[1].isEmpty()) {
+                    throw new DudeException("The keyword to find cannot be empty.");
+                }
+                return new FindCommand(tokens[1]);
             default:
                 return new InvalidCommand();
             }
