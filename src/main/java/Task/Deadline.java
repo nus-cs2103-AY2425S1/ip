@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
 public class Deadline extends Task {
 
     String by;
@@ -24,7 +23,7 @@ public class Deadline extends Task {
             dateTime = LocalDateTime.parse(str);
             this.hasTime = true;
         } else {
-            throw new IllegalArgumentException("ERROR! Invalid deadline format.");
+            throw new InvalidTaskException("ERROR! Invalid deadline format.");
         }
     }
 

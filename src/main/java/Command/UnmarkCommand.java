@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute() {
         try {
-            tasks.get(index).markAsNotDone();
+            tasks.unmark(index);
             Ui.printText("Task has been unmarked.\n" + tasks.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");

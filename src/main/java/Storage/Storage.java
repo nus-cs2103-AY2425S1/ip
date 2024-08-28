@@ -82,7 +82,7 @@ public class Storage {
     }
 
     public void writeFile(TaskList tasks) {
-                try {
+        try {
             FileWriter fileWriter = new FileWriter(this.file);
             fileWriter.write("");
             for (Task item : tasks.getTasks()) {

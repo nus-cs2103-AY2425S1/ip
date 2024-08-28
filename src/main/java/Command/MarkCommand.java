@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute() {
         try {
-            tasks.get(index).markAsDone();
+            tasks.mark(index);
             Ui.printText("Marked that as done for you.\n" + tasks.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");
