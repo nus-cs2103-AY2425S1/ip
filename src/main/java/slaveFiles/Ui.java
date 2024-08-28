@@ -14,7 +14,7 @@ public class Ui {
 
     public void getUserInputs(Storage storage) {
         do {
-            parser.getUserInput(hasMoreInputs);
+            hasMoreInputs = parser.getUserInput(hasMoreInputs);
         } while (hasMoreInputs);
     }
 
@@ -23,12 +23,13 @@ public class Ui {
      */
     public void welcome() {
         Parser.pageBreakLine();
-        // @@author Fluffykan-reused
+        // @@author ASCII Figlet Generator -reused
         // logo sourced from: https://www.askapache.com/online-tools/figlet-ascii/
         String logo
                 = "_______        _______ _    _ _______\n"
                 + "|______ |      |_____|  \\  /  |______\n"
                 + "______| |_____ |     |   \\/   |______\n";
+        //@@author
         System.out.println("Ugh... why did you wake me up...\nGuess I am now your personal\n" + logo);
         System.out.println("What do you want from me? Say it now, I don't have all day...");
         Parser.pageBreakLine();
