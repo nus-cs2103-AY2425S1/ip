@@ -1,10 +1,9 @@
+import rotodo.commands.Command;
 import rotodo.exception.InvalidInputException;
 import rotodo.processes.Parser;
 import rotodo.processes.Storage;
 import rotodo.processes.Ui;
 import rotodo.tasklist.TaskList;
-
-import java.util.Scanner;
 
 /**
  * __________       __________            __   _____
@@ -20,21 +19,29 @@ import java.util.Scanner;
  */
 public class RoTodo {
     private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
     public RoTodo() {
-        storage = Storage.of("./data/rotodo.txt");
+        storage = new Storage("./data/rotodo.txt");
+        ui = new Ui();
+        tasks = new TaskList();
+        storage.loadList(tasks);
     }
 
     public void run() {
-        storage.loadList();
-        Ui.banner();
-        Scanner sc = new Scanner(System.in);  // Create a Scanner object
-
-        while (true) {
+        ui.showMessage();
+        boolean hasExited = false;
+        while (!hasExited) {
             try {
-                Ui.print(Parser.process(sc.nextLine()));
+                String command = ui.readCommand();
+                Command c = Parser.process(command);
+                c.execute(tasks, ui, storage);
+                hasExited = c.isExit();
             } catch (InvalidInputException e) {
-                Ui.print(e.toString());
+                ui.addMessage(e.toString());
+            } finally {
+                ui.showMessage();
             }
         }
     }

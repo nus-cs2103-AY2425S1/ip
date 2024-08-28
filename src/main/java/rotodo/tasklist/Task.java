@@ -11,9 +11,9 @@ public abstract class Task {
     String name;
     boolean done = false;
     
-    public Task(String value, String done) {
+    public Task(String value, boolean status) {
         this.name = value;
-        this.done = (done == "1");
+        this.done = status;
     }
 
     /**
@@ -24,7 +24,7 @@ public abstract class Task {
      */
     public String markAsDone() {
         done = true;
-        return "    RoTodo is happy for you! Task done:\n      " + this.toString();
+        return "RoTodo is happy for you! Task done:\n  " + this.toString();
     }
 
     /**
@@ -35,7 +35,7 @@ public abstract class Task {
      */
     public String unmarkAsDone() {
         done = false;
-        return "    Did something happen? RoTodo is confused... Task undone:\n      " + this.toString();
+        return "Did something happen? RoTodo is confused... Task undone:\n  " + this.toString();
     }
 
     @Override
@@ -43,9 +43,7 @@ public abstract class Task {
         return "[" + (done ? "X" : " ") + "] " + name; 
     }
 
-    public abstract String saveString();
-
-    public String saveString(String insert) {
-        return name + " | " + (insert == "" ? "" : insert + " | ") + (done ? "1" : "0");
+    public String saveString() {
+        return (done ? "1" : "0") + " | " + name;
     }
 }

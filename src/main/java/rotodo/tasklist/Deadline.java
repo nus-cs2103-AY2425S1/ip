@@ -1,5 +1,8 @@
 package rotodo.tasklist;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Deadline class encapsulates the specific type 
  * of Task, called Deadlines. Events are tasks that 
@@ -9,19 +12,21 @@ package rotodo.tasklist;
  * @version CS2103T AY24/25 Semester 1
  */
 public class Deadline extends Task {
-    String by;
+    LocalDateTime by;
 
-    public Deadline(String ...value) {
-        super(value[0], value.length > 2 ? value[2] : "0");
-        this.by = value[1];
+    public Deadline(String value, LocalDateTime by, boolean status) {
+        super(value, status);
+        this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() 
+            + " (by: " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + ")";
     }
 
     public String saveString() {
-        return "D | " + saveString(by);
+        return "D | " + super.saveString() 
+            + " | " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }

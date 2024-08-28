@@ -15,10 +15,10 @@ public class InvalidInputException extends Exception {
     }
     
     public InvalidInputException(String arg) {
-        super("    \u001B[31m" + (count < 3 ? error[0] : 
+        super("\u001B[31m" + (count < 3 ? error[0] : 
                 (count < 8 ? error[1] : error[2]))
-            + "\n      " + arg + "\u001B[0m\n"
-            + "    type 'help' to see guide");
+            + "\n  " + arg + "\u001B[0m\n"
+            + "type 'help' to see guide");
         count += 1;
     }
 

@@ -7,33 +7,20 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 import rotodo.tasklist.TaskList;
+import rotodo.commands.AddCommand;
+import rotodo.exception.InvalidInputException;
 
 public class Storage {
     private final String datafile;
-    private static Storage storage;
 
-    private Storage(String file) {
+    public Storage(String file) {
         datafile = file;
     }
 
-    public static Storage of(String file) {
-        if (storage != null) {
-            return storage;
-        }
-        storage = new Storage(file);
-        return storage;
-    }
-
-    public static Storage of() {
-        return storage;
-    }
-
-    public void saveList() throws IOException {
-        TaskList tl = TaskList.of();
+    public void saveList(TaskList tl) throws IOException {
         File f = new File(datafile);
         f.getParentFile().mkdirs();
         f.createNewFile();
@@ -42,17 +29,24 @@ public class Storage {
         fw.close();
     }
 
-    public void loadList() {
-        TaskList tl = TaskList.of();
-
+    public void loadList(TaskList tl) {
         try { 
             FileReader fr = new FileReader(datafile);
             BufferedReader br = new BufferedReader(fr);
             Stream<String> sr = br.lines();
 
             sr.forEach(x -> {
-                String[] token = x.split(" \\| ");
-                tl.addTask(Arrays.copyOfRange(token, 1, token.length));
+                String[] token = x.split(" \\| ", 3);
+                AddCommand.TaskType type = token[0].equals("T") ? AddCommand.TaskType.TODO :
+                    token[0].equals("D") ? AddCommand.TaskType.DEADLINE : AddCommand.TaskType.EVENT;
+                boolean status = token[1].equals("1");
+                try {
+                    AddCommand add = new AddCommand(type, token[2].split(" \\| "));
+                    add.setStatus(status);
+                    add.execute(tl, null, null);
+                } catch (InvalidInputException e) {
+                    // do nothing
+                }
             }); 
         } catch (FileNotFoundException e) {
             // Do nothing
