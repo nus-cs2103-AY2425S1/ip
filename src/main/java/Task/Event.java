@@ -34,4 +34,18 @@ public class Event extends Task {
     public String toString() {
         return super.toString() + " (" + "from: " + datetimeToString("dd MMM yyyy HH:mm", this.startDateTime) + " to: " + datetimeToString("dd MMM yyyy HH:mm", this.endDateTime) + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Event t = (Event) o;
+        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && this.startDateTime.equals(t.startDateTime) && this.endDateTime.equals(t.endDateTime) && (super.getStatus() == t.getStatus());
+    }
 }

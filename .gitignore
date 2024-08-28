@@ -19,5 +19,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Ignore all .class files
 *.class
 
-# Ignore Blitz txt file
-Blitz.txt
+# Ignore txt file
+*.txt

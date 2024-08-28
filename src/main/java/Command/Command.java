@@ -18,4 +18,18 @@ public abstract class Command {
     public boolean isExit() {
         return this.command.equalsIgnoreCase("bye");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Command c = (Command) o;
+        return this.command.equals((c.command));
+    }
 }

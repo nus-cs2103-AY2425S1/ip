@@ -9,6 +9,6 @@ public class BlitzInvalidParameterFormatException extends BlitzException {
 
     @Override
     public String toString() {
-        return  "Please use this format \"" + format + "!\"";
+        return  "Please use this format \"" + format + "\"!";
     }
 }

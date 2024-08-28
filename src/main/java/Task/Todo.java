@@ -17,4 +17,18 @@ public class Todo extends Task {
     public String getType() {
         return this.type;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Todo t = (Todo) o;
+        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && (super.getStatus() == t.getStatus());
+    }
 }

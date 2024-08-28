@@ -33,5 +33,19 @@ public class Deadline extends Task {
     public String toString() {
         return super.toString() + " (" + "by: " + datetimeToString("dd MMM yyyy HH:mm") + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Deadline t = (Deadline) o;
+        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && this.dateTime.equals(t.dateTime) && (super.getStatus() == t.getStatus());
+    }
 }
 
