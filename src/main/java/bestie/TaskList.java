@@ -2,6 +2,7 @@ package bestie;
 
 import bestie.task.Task;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -69,4 +70,13 @@ public class TaskList {
         return tasks;
     }
 
+    public ArrayList<Task> findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keyword)) {
+                matchingTasks.add(tasks.get(i));
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -45,6 +45,11 @@ abstract public class Task {
      */
     public abstract String toSaveFormat();
 
+    public String getDescription() {
+        return this.description;
+    }
+
+
     /**
      * Returns string representation of the task in the console, together with its completion status.
      * Task is preceded by [X] if it is completed and [ ] if it is not yet completed.
