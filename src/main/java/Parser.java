@@ -11,6 +11,76 @@ public class Parser {
         return command;
     }
 
+    public Command parseCommand(String userInput) throws JustbotException {
+        String[] words = userInput.split(" ", 2);
+        CommandType commandType = CommandType.fromString(words[0].trim());
+
+        switch (commandType) {
+            case TODO:
+                return new TodoCommand(words.length > 1 ? words[1].trim() : "");
+            case DEADLINE:
+                if (words.length < 2) {
+                    throw new JustbotException("Invalid deadline command format. Use: deadline <description> /by <yyyy-MM-dd HH:mm>");
+                }
+                String[] deadlineParts = words[1].split("/by", 2);
+                if (deadlineParts.length < 2) {
+                    throw new JustbotException("Invalid deadline command format. Use: deadline <description> /by <yyyy-MM-dd HH:mm>");
+                }
+                String deadlineDescription = deadlineParts[0].trim();
+                LocalDateTime byDateTime = parseDateTime(deadlineParts[1].trim());
+                return new DeadlineCommand(deadlineDescription, byDateTime);
+            case EVENT:
+                if (words.length < 2) {
+                    throw new JustbotException("Invalid event command format. Use: event <description> /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>");
+                }
+                String[] eventParts = words[1].split("/from", 2);
+                if (eventParts.length < 2) {
+                    throw new JustbotException("Invalid event command format. Use: event <description> /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>");
+                }
+                String description = eventParts[0].trim();
+                String[] timeParts = eventParts[1].split("/to", 2);
+                if (timeParts.length < 2) {
+                    throw new JustbotException("Invalid event time format. Use: /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>");
+                }
+                LocalDateTime startDateTime = parseDateTime(timeParts[0].trim());
+                LocalDateTime endDateTime = parseDateTime(timeParts[1].trim());
+                return new EventCommand(description, startDateTime, endDateTime);
+            case LIST:
+                return new ListCommand();
+            case MARK:
+                if (words.length < 2) {
+                    throw new JustbotException("Please provide a task number to mark.");
+                }
+                int markNumber = Integer.parseInt(words[1].trim());
+                return new MarkCommand(markNumber);
+            case UNMARK:
+                if (words.length < 2) {
+                    throw new JustbotException("Please provide a task number to unmark.");
+                }
+                int unmarkNumber = Integer.parseInt(words[1].trim());
+                return new UnmarkCommand(unmarkNumber);
+            case DELETE:
+                if (words.length < 2) {
+                    throw new JustbotException("Please provide a task number to delete.");
+                }
+                int deleteNumber = Integer.parseInt(words[1].trim());
+                return new DeleteCommand(deleteNumber);
+            case BYE:
+                return new ByeCommand();
+            case UNKNOWN:
+            default:
+                throw new JustbotException("Unknown command: " + words[0]);
+        }
+    }
+
+    private LocalDateTime parseDateTime(String dateTimeStr) throws JustbotException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(dateTimeStr.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new JustbotException("Invalid date and time format. Please use 'yyyy-MM-dd HH:mm'.");
+        }
+    }
     public int extractTaskNumber(String input) throws JustbotException {
         String[] splitInputMark = input.split(" ");
 

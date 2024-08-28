@@ -8,7 +8,8 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.validateUnmarkTaskNumber(unmarkNumber);
-            Commands.unmarkTask(taskList, unmarkNumber);
+            Task currTask = taskList.get(this.unmarkNumber);
+            currTask.setIsDone(false);
             ui.unmarkMessage(taskList, unmarkNumber);
             storage.saveTasks(taskList);
         } catch (JustbotException e) {

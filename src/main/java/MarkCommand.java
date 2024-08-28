@@ -7,8 +7,9 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            taskList.validateMarkTaskNumber(markNumber);
-            Commands.markTask(taskList, markNumber);
+            taskList.validateMarkTaskNumber(this.markNumber);
+            Task currTask = taskList.get(this.markNumber);
+            currTask.setIsDone(true);
             ui.markMessage(taskList, markNumber);
             storage.saveTasks(taskList);
         } catch (JustbotException e) {

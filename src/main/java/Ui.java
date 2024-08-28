@@ -1,4 +1,16 @@
+import java.util.Scanner;
+
 public class Ui {
+    private Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    public String readCommand() {
+        System.out.print("Enter your command: ");
+        return scanner.nextLine().trim();
+    }
 
     public void getJustBotExceptionMessage(JustbotException e) {
         System.out.println("------------------------------------------");
@@ -12,9 +24,9 @@ public class Ui {
         System.out.println("------------------------------------------");
     }
 
-    public void botIntro(String botName) {
+    public void botIntro() {
         System.out.println("------------------------------------------");
-        System.out.println("Hello I'm " + botName);
+        System.out.println("Hello I'm Justbot");
         System.out.println("What can I do for you?");
         System.out.println("------------------------------------------");
     }

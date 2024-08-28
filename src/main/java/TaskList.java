@@ -5,8 +5,8 @@ import java.util.Iterator;
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> tasks;
 
-    public TaskList() {
-        this.tasks = new ArrayList<Task>();
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
