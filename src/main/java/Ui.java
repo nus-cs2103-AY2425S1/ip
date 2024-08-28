@@ -33,7 +33,15 @@ public class Ui {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public void showTasks(TaskList taskList) {
+    public void showTaskMarked(Task task) {
+        System.out.println("Nice! I've marked this task as done: " + task);
+    }
+
+    public void showTaskUnmarked(Task task) {
+        System.out.println("OK, I've marked this task as not done yet: " + task);
+    }
+
+    public void showTasks(TaskList taskList) throws InvalidTaskNumberException {
         if (taskList.isEmpty()) {
             System.out.println("No tasks added to the list yet.");
         } else {

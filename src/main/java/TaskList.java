@@ -12,12 +12,21 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public Task get(int index) {
-        return tasks.get(index);
+    public Task get(int index) throws InvalidTaskNumberException {
+        try {
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException();
+        }
+
     }
 
-    public Task remove(int index) {
-        return tasks.remove(index);
+    public Task remove(int index) throws InvalidTaskNumberException {
+        try {
+            return tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException();
+        }
     }
 
     public int size() {
