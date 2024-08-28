@@ -1,3 +1,5 @@
+package janet;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -22,12 +24,12 @@ public class Deadline extends Task {
 
     /**
      * Returns a String array based on user's commands.
-     * First element = a String of Deadline's description.
-     * Second element = a String of Deadline's dueDate (MMM dd yyyy hh:mm a).
+     * First element = a String of janet.Deadline's description.
+     * Second element = a String of janet.Deadline's dueDate (MMM dd yyyy hh:mm a).
      * input date and time format must be "yyyy-mm-dd HH:MM"
      *
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
-     * @return a String[], where first elem = Deadline.description, second elem = Deadline.dueDate.
+     * @return a String[], where first elem = janet.Deadline.description, second elem = janet.Deadline.dueDate.
      */
     public static String[] findDeadlineDetails(String[] commandDetails) {
         int indexOfBy = 0;
@@ -37,7 +39,7 @@ public class Deadline extends Task {
                 indexOfBy = i;
             }
         }
-        // get description of Deadline
+        // get description of janet.Deadline
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
         // get due date

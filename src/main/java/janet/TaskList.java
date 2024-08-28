@@ -1,7 +1,9 @@
+package janet;
+
 import java.util.ArrayList;
 
 public class TaskList {
-    // replaces the ArrayList<Task> listOfTasks inside Janet
+    // replaces the ArrayList<janet.Task> listOfTasks inside Janet
     private final ArrayList<Task> listOfTasks;
 
     TaskList() {
@@ -35,7 +37,7 @@ public class TaskList {
 
 
     /**
-     * @param task a Task object that is to be added into the listOfTasks
+     * @param task a janet.Task object that is to be added into the listOfTasks
      */
     public void addTaskToList(Task task) {
         this.listOfTasks.add(task);
@@ -44,7 +46,7 @@ public class TaskList {
 
     /**
      * Level 3 - mark as done
-     * marks the desired task as done, by setting the boolean value of Task.done = true.
+     * marks the desired task as done, by setting the boolean value of janet.Task.done = true.
      * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
      * @return a String message to indicate successful marking of desired task as done (done = true).
      */
@@ -62,7 +64,7 @@ public class TaskList {
 
     /**
      * Level 3 - mark as done (unmark)
-     * marks the desired task as NOT done, by setting the boolean value of Task.done = false.
+     * marks the desired task as NOT done, by setting the boolean value of janet.Task.done = false.
      * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
      * @return a String message to indicate successful unmarking of desired task (done = false).
      */

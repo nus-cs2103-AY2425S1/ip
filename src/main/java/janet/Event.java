@@ -1,3 +1,5 @@
+package janet;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,13 +27,13 @@ public class Event extends Task {
 
     /**
      * Returns a String array based on user's commands.
-     * First element = a String of Event's description.
-     * Second element = a String of Event's startDate (MMM dd yyyy hh:mm a).
-     * Third element = a String of Event's endDate (MMM dd yyyy hh:mm a).
+     * First element = a String of janet.Event's description.
+     * Second element = a String of janet.Event's startDate (MMM dd yyyy hh:mm a).
+     * Third element = a String of janet.Event's endDate (MMM dd yyyy hh:mm a).
      * input date and time format must be "yyyy-mm-dd HH:MM"
      *
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
-     * @return a String[], where first elem = Event.description, second elem = Event.startDate, third elem = Event.endDate.
+     * @return a String[], where first elem = janet.Event.description, second elem = janet.Event.startDate, third elem = janet.Event.endDate.
      */
     public static String[] findEventDetails(String[] commandDetails) {
         int indexOfFrom = 0;
