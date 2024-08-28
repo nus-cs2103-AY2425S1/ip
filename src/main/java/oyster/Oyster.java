@@ -1,3 +1,5 @@
+package oyster;
+
 public class Oyster {
     public static final String CHATBOT_EMOJI = "\uD83E\uDDAA";
     public static final String CHATBOT_NAME = "OYSTER CHATBOT " + CHATBOT_EMOJI;

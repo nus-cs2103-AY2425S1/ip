@@ -24,7 +24,7 @@ Here is your current list!
 2. [T][ ] BOOK TEST
 __________________________________________________
 __________________________________________________
-Task number does not exist!
+oyster.tasks.Task number does not exist!
 __________________________________________________
 __________________________________________________
 Well done on completing the task!
@@ -38,7 +38,7 @@ __________________________________________________
 Please input a valid task number!
 __________________________________________________
 __________________________________________________
-Task number does not exist!
+oyster.tasks.Task number does not exist!
 __________________________________________________
 __________________________________________________
 Please input a valid task number!
@@ -50,7 +50,7 @@ __________________________________________________
 Please input a valid task number!
 __________________________________________________
 __________________________________________________
-Task number does not exist!
+oyster.tasks.Task number does not exist!
 __________________________________________________
 __________________________________________________
 I have unmarked the task!
@@ -105,10 +105,10 @@ Alright, the task has been added!
 You now have 4 tasks!
 __________________________________________________
 __________________________________________________
-Task number does not exist!
+oyster.tasks.Task number does not exist!
 __________________________________________________
 __________________________________________________
-Task number does not exist!
+oyster.tasks.Task number does not exist!
 __________________________________________________
 __________________________________________________
 Please input a valid task number!

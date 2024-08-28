@@ -1,3 +1,5 @@
+package oyster;
+
 public class Display {
     private int LINE_LENGTH = 50;
 

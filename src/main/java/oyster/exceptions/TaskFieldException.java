@@ -1,3 +1,5 @@
+package oyster.exceptions;
+
 public class TaskFieldException extends OysterException {
     public final String field;
 

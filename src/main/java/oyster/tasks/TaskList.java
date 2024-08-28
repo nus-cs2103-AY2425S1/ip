@@ -1,3 +1,5 @@
+package oyster.tasks;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,27 +9,31 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
-    public Task insert(Task.TASK_TYPES type, String input) {
-        Task task;
-        input = input.trim();
-
-        switch (type) {
-            case TODO:
-                task = new ToDoTask(input);
-                break;
-            case DEADLINE:
-                task = DeadlineTask.fromInput(input);
-                break;
-            case EVENT:
-                task = EventTask.fromInput(input);
-                break;
-            default:
-                throw new RuntimeException();
-        }
-
+    public void insert(Task task) {
         tasks.add(task);
-        return task;
     }
+
+//    public Task insert(Task.TASK_TYPES type, String input) {
+//        Task task;
+//        input = input.trim();
+//
+//        switch (type) {
+//            case TODO:
+//                task = new ToDoTask(input);
+//                break;
+//            case DEADLINE:
+//                task = DeadlineTask.fromInput(input);
+//                break;
+//            case EVENT:
+//                task = EventTask.fromInput(input);
+//                break;
+//            default:
+//                throw new RuntimeException();
+//        }
+//
+//        tasks.add(task);
+//        return task;
+//    }
 
     public void delete(int index) {
         tasks.remove(index);

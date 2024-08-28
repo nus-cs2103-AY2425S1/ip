@@ -1,10 +1,16 @@
+package oyster.tasks;
+
+import oyster.exceptions.TaskFieldException;
+
 import java.util.Scanner;
 
 public class DeadlineTask extends Task {
+    public static final String FILE_SYMBOL = "D";
+
     private String deadline;
 
-    public DeadlineTask(String name, String deadline) {
-        super(name);
+    public DeadlineTask(String description, String deadline) {
+        super(description);
         this.deadline = deadline;
     }
 
@@ -41,11 +47,21 @@ public class DeadlineTask extends Task {
             throw new TaskFieldException("Deadline");
         }
 
-        return new DeadlineTask(name, deadline);
+        return new DeadlineTask(name.trim(), deadline);
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + String.format("(by: %s)", deadline);
+    }
+
+    @Override
+    public String[] compose() {
+        return new String[] {
+                FILE_SYMBOL,
+                isMarked() ? "1" : "0",
+                getDescription(),
+                deadline
+        };
     }
 }

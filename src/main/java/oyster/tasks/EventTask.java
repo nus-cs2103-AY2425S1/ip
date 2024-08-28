@@ -1,11 +1,17 @@
+package oyster.tasks;
+
+import oyster.exceptions.TaskFieldException;
+
 import java.util.Scanner;
 
 public class EventTask extends Task {
+    public static final String FILE_SYMBOL = "E";
+
     private String from;
     private String to;
 
-    public EventTask(String name, String from, String to) {
-        super(name);
+    public EventTask(String description, String from, String to) {
+        super(description);
         this.from = from;
         this.to = to;
     }
@@ -54,11 +60,22 @@ public class EventTask extends Task {
             throw new TaskFieldException("To");
         }
 
-        return new EventTask(name, from, to);
+        return new EventTask(name.trim(), from, to);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (from: %sto: %s)", from, to);
+        return "[E]" + super.toString() + String.format(" (from: %sto: %s)", from, to);
+    }
+
+    @Override
+    public String[] compose() {
+        return new String[] {
+                FILE_SYMBOL,
+                isMarked() ? "1" : "0",
+                getDescription(),
+                from,
+                to
+        };
     }
 }
