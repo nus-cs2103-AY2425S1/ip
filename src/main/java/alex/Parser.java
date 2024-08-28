@@ -1,8 +1,22 @@
+package alex;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
+
+import alex.task.Deadline;
+import alex.task.Event;
+import alex.task.Task;
+import alex.task.Todo;
+import alex.command.Command;
+import alex.command.AddCommand;
+import alex.command.DeleteCommand;
+import alex.command.ExitCommand;
+import alex.command.ListCommand;
+import alex.command.MarkCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) throws AlexException {

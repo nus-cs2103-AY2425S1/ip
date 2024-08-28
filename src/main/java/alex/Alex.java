@@ -1,6 +1,11 @@
+package alex;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.time.format.DateTimeParseException;
+
+import alex.command.Command;
 
 public class Alex {
     private Storage storage;

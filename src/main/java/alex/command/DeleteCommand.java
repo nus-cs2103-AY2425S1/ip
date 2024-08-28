@@ -1,6 +1,13 @@
-import java.io.IOException;
-import java.util.ArrayList;
+package alex.command;
+
 import java.util.Scanner;
+
+import java.io.IOException;
+
+import alex.TaskList;
+import alex.Ui;
+import alex.Storage;
+import alex.AlexException;
 
 public class DeleteCommand extends Command {
     private Scanner lineScanner;

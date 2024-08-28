@@ -1,7 +1,19 @@
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
+package alex.command;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.io.IOException;
+
+import java.time.format.DateTimeParseException;
+
+
+import alex.task.Task;
+import alex.TaskList;
+import alex.Ui;
+import alex.Storage;
+import alex.AlexException;
+import alex.Parser;
 
 public class AddCommand extends Command {
     private Scanner lineScanner;

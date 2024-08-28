@@ -1,5 +1,11 @@
-import java.io.IOException;
+package alex;
+
 import java.util.ArrayList;
+
+import java.io.IOException;
+
+import alex.task.Task;
+
 public class TaskList {
     private ArrayList<Task> list;
     public TaskList(ArrayList<Task> list) {
