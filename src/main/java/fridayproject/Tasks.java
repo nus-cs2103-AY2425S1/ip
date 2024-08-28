@@ -1,6 +1,6 @@
 package fridayproject;
 
-public class Tasks {
+public abstract class Tasks {
     protected String description;
     protected boolean isDone;
 
@@ -20,6 +20,8 @@ public class Tasks {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public abstract String getTypeIcon();
 
     @Override
     public String toString() {
