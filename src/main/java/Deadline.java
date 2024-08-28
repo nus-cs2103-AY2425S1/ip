@@ -1,20 +1,25 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 /**
  * This class represents a Deadline Task
  * @author Gan Ren Yick (A0276246X)
  */
-
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString()
+                + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override

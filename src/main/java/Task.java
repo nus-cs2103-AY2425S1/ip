@@ -1,8 +1,11 @@
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Date;
+
 /**
  * This class represents a Task, super class of Todo, Event and Deadline
  * @author Gan Ren Yick (A0276246X)
  */
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -20,19 +23,27 @@ public abstract class Task {
      * @throws ArgumentMissingException is thrown when argument(s) of task(Event and Deadline) is missing
      * @throws EmptyDescriptionException is thrown when description of tasks is missing
      */
-    public static Task of(String text) throws InvalidInputException, ArgumentMissingException, EmptyDescriptionException {
+    public static Task of(String text) throws InvalidInputException,
+            ArgumentMissingException,
+            EmptyDescriptionException,
+            DateTimeFormatIncorrectException {
         String action = text.split(" ")[0];
-        return switch (action) {
-            case "todo" -> new Todo(Task.getDescription(text));
-            case "deadline" -> new Deadline(Task.getDescription(text), Task.findArgumentOf("by", text));
-            case "event" -> new Event(Task.getDescription(text),
-                    Task.findArgumentOf("from", text),
-                    Task.findArgumentOf("to", text));
-            default -> throw new InvalidInputException("Im not smart enough to understand that :(");
-        };
+        try {
+            Task t = switch (action) {
+                case "todo" -> new Todo(Task.getDescription(text));
+                case "deadline" -> new Deadline(Task.getDescription(text), Task.findArgumentOf("by", text));
+                case "event" -> new Event(Task.getDescription(text),
+                        Task.findArgumentOf("from", text),
+                        Task.findArgumentOf("to", text));
+                default -> throw new InvalidInputException("Im not smart enough to understand that :(");
+            };
+            return t;
+        } catch(DateTimeParseException e) {
+            throw new DateTimeFormatIncorrectException("I don't understand this format of date :(\npls use yyyy-mm-dd :)");
+        }
     }
 
-    private static String findArgumentOf(String parameter, String text) throws InvalidInputException{
+    private static String findArgumentOf(String parameter, String text) throws InvalidInputException {
         String[] fragments = text.split("/");
         for (int i = 1; i < fragments.length; i++) {
             String[] args = fragments[i].split(" ");
