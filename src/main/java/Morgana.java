@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -131,22 +134,30 @@ public class Morgana {
                 if (parts.length != 2) {
                     throw new MorganaException("""
                             Invalid deadline format.
-                            Usage: deadline <description> /by <date/time>
-                            Example: deadline return book /by Sunday""");
+                            Usage: deadline <description> /by <yyyy-MM-dd HHmm>
+                            Example: deadline return book /by 2019-10-15 1800""");
                 }
-                yield new Deadline(parts[0], parts[1]);
+                yield new Deadline(parts[0], parseDateTime(parts[1]));
             }
             case "event" -> {
                 String[] parts = args.split(" /from | /to ");
                 if (parts.length != 3) {
                     throw new MorganaException("""
                             Invalid event format.
-                            Usage: event <description> /from <date/time> /to <date/time>
-                            Example: event project meeting /from Mon 2pm /to 4pm""");
+                            Usage: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>
+                            Example: event project meeting /from 2019-10-15 1400 /to 2019-10-15 1600""");
                 }
-                yield new Event(parts[0], parts[1], parts[2]);
+                yield new Event(parts[0], parseDateTime(parts[1]), parseDateTime(parts[2]));
             }
             default -> throw new MorganaException("Unknown command: %s".formatted(command));
         };
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) throws MorganaException {
+        try {
+            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new MorganaException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm'.");
+        }
     }
 }
