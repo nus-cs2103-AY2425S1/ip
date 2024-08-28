@@ -1,26 +1,47 @@
 package count;
 
-import count.task.*;
 import count.exception.IncorrectFormatException;
+import count.task.Deadline;
+import count.task.Event;
+import count.task.Task;
+import count.task.ToDo;
 
-import java.io.*;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
+
+/**
+ * The Storage class deals with reading any existing Count.txt files for Tasks
+ * in the specified file path
+ * @author Kieran Koh Jun Wei
+ */
 public class Storage {
     protected File file;
     protected String filePath;
     protected Scanner sc;
     protected DateTimeFormatter readerFormat = DateTimeFormatter.ofPattern("LLLL dd yyyy");
 
+    /**
+     * Constructor for Storage class
+     * @param filePath String filePath in which Storage will read from
+     */
+
     public Storage(String filePath) {
         this.file = new File(filePath);
         this.filePath = filePath;
     }
 
+    /**
+     * The load method checks if there is any Count.txt files in the specified file path
+     * It will then read the file and add the Tasks to an ArrayList to return.
+     * @return ArrayList<Task> with Tasks read from Count.txt
+     * @throws IncorrectFormatException if the String format of the read file does not match the format reader
+     * @throws FileNotFoundException if no Count.txt file can be found
+     */
     public ArrayList<Task> load() throws IncorrectFormatException, FileNotFoundException {
         this.sc = new Scanner(this.file);
         ArrayList<Task> ls = new ArrayList<>();

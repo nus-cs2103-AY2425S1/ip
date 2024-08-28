@@ -1,21 +1,34 @@
 package count.task;
 
+/**
+ * The Task class has a description and a boolean, isCompleted
+ */
 public class Task {
     private String description;
-    private boolean completion;
+    private boolean isCompleted;
 
+    /**
+     * Constructor for Task, taking in only a description,
+     * setting isCompleted to false
+     * @param description String description of the task
+     */
     public Task(String description) {
         this.description = description;
-        this.completion = false;
+        this.isCompleted = false;
     }
 
+    /**
+     * Constructor for Task, taking in a String description and a boolean for isCompleted
+     * @param description String description of the task
+     * @param completion Boolean whether the task is completed
+     */
     public Task(String description, boolean completion) {
         this.description = description;
-        this.completion = completion;
+        this.isCompleted = completion;
     }
 
     public void setCompletion(boolean completion) {
-        this.completion = completion;
+        this.isCompleted = completion;
     }
 
     public String getDescription() {
@@ -23,8 +36,9 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (this.completion ? "X" : " ");
+        return (this.isCompleted ? "X" : " ");
     }
+
 
     @Override
     public String toString() {

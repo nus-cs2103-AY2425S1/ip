@@ -3,15 +3,29 @@ package count.action;
 import count.task.Task;
 import count.TaskList;
 import count.exception.CountException;
+
+/**
+ * The Delete class is used to add tasks to the TaskList
+ */
 public class Delete extends Action {
     TaskList ls;
     int index;
 
+    /**
+     * Constructor for Delete
+     * @param ls TaskList to delete the task from
+     * @param index int index of the Task in TaskList to delete
+     */
     public Delete(TaskList ls, int index) {
         this.ls = ls;
         this.index = index;
     }
 
+    /**
+     * The run method deletes the Task with the index of index from TaskList
+     * @return String for Count's UI to print
+     * @throws CountException if the index selected is out of bounds for the TaskList
+     */
     @Override
     public String run() throws CountException {
         try {

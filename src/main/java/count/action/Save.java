@@ -7,12 +7,29 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The Save class is used to save the current TaskList as Count.txt
+ * in the Count object's filePath
+ */
 public class Save extends Action {
     TaskList ls;
-    public Save(TaskList ls) {
+    String filePath;
+
+    /**
+     * Constructor for Save
+     * @param ls TaskList being saved
+     * @param filePath String file path the Save class will save to
+     */
+    public Save(TaskList ls, String filePath) {
         this.ls = ls;
+        this.filePath = filePath;
     }
 
+    /**
+     * The save method saves the TaskList as Count.txt, overwriting any existing Count.txt
+     * @return String for Count's UI to print
+     * @throws CountException if the file creation fails
+     */
     @Override
     public String run() throws CountException {
         String output = "";
@@ -21,13 +38,13 @@ public class Save extends Action {
         }
 
         try {
-            File file = new File("./Count.txt");
+            File file = new File(this.filePath);
             if (file.exists()) {
                 file.delete();
             }
 
             file.createNewFile();
-            FileWriter writer = new FileWriter("./Count.txt");
+            FileWriter writer = new FileWriter(this.filePath);
             writer.write(output);
             writer.close();
 

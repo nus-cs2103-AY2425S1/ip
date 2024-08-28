@@ -3,21 +3,37 @@ package count;
 import count.action.Greet;
 import count.action.Deactivate;
 
+/**
+ * The UI class formats how Count replies
+ * @author Kieran Koh Jun Wei
+ */
 public class UI {
     public UI() {
 
     }
 
+    /**
+     * The reply method prints the output between two horizontal lines
+     * @param output String passed in to be printed
+     */
     public void reply(String output) {
         String spacer = "\n____________________________________________________________\n";
         System.out.println(spacer + output + spacer);
     }
 
+    /**
+     * The greet method creates a new Greet object and runs it,
+     * printing the String returned like how Count would say it
+     */
     public void greet() {
         Greet welcome = new Greet();
         reply(welcome.run());
     }
 
+    /**
+     * The farewell method creates a new Deactivate object and runs it,
+     * printing the String returned like how Count would say it
+     */
     public void farewell() {
         Deactivate d = new Deactivate();
         reply(d.run());

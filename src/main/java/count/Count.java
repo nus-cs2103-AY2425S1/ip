@@ -1,11 +1,17 @@
 package count;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Scanner;
 
 import count.action.Action;
-import count.exception.*;
+import count.action.Deactivate;
+import count.exception.IncorrectFormatException;
+import count.exception.CountException;
+
+/**
+ * Count is a lightweight helper with an inbuilt to-do list
+ * @author Kieran Koh Jun Wei
+ */
 public class Count {
     private TaskList ls;
     private boolean on;
@@ -14,6 +20,10 @@ public class Count {
     private Storage storage;
     private Parser parser;
 
+    /**
+     * Constructor for Count object
+     * @param filePath String filePath in which Count will read and save to
+     */
     public Count(String filePath) {
         this.on = true;
         this.sc = new Scanner(System.in);
@@ -27,9 +37,14 @@ public class Count {
             this.ls = new TaskList();
             this.ui.reply(e.getMessage());
         }
-        this.parser = new Parser(this.ls);
+        this.parser = new Parser(this.ls, filePath);
     }
 
+    /**
+     * start is a method that turns the Count program on,
+     * It calls ui.greet() and passes all commands typed to the parser
+     * If the command parsed returns a Deactivate object, Count turns off
+     */
     private void start() {
         ui.greet();
 
@@ -38,7 +53,7 @@ public class Count {
             try {
                 Action curr = parser.parse(command);
                 String message = curr.run();
-                if (message.equals("Bye. Hope to see you again soon!")) {
+                if (curr instanceof Deactivate) {
                     this.on = false;
                     this.sc.close();
                 }
@@ -50,6 +65,11 @@ public class Count {
         }
     }
 
+    /**
+     * main method for Count.java
+     * starts a Count instance with filePath of the root directory
+     * @param args
+     */
     public static void main(String[] args) {
         Count c = new Count("./Count.txt");
         c.start();
