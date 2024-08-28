@@ -1,11 +1,9 @@
-import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package BotimusPrime;
+
+import BotimusPrime.Parser.Parser;
+import BotimusPrime.Storage.Storage;
+import BotimusPrime.Tasks.TaskList;
+import BotimusPrime.UI.Ui;
 
 public class BotimusPrime {
 

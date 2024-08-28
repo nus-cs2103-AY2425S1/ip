@@ -1,3 +1,7 @@
+package BotimusPrime.Storage;
+
+import BotimusPrime.Tasks.Task;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -9,7 +13,7 @@ public class Storage {
         this.fileName = fileName;
     }
 
-    public void saveToDisk(TaskList taskList) {
+    public void saveToDisk(BotimusPrime.Tasks.TaskList taskList) {
         File dir = new File(DIRECTORY);
         File file = new File(dir, fileName);
 
@@ -26,11 +30,11 @@ public class Storage {
         }
     }
 
-    public TaskList loadFromDisk() {
+    public BotimusPrime.Tasks.TaskList loadFromDisk() {
         File file = new File(DIRECTORY, fileName);
 
         if (!file.exists()) {
-            return new TaskList(fileName);
+            return new BotimusPrime.Tasks.TaskList(fileName);
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -39,10 +43,10 @@ public class Storage {
                 Task task = Task.fromString(line);
                 tasks.add(task);
             }
-            return new TaskList(tasks, fileName);
+            return new BotimusPrime.Tasks.TaskList(tasks, fileName);
         } catch (IOException e) {
             e.printStackTrace();
-            return new TaskList(fileName);
+            return new BotimusPrime.Tasks.TaskList(fileName);
         }
     }
 }

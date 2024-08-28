@@ -1,3 +1,8 @@
+package BotimusPrime.Tasks;
+
+import BotimusPrime.Parser.Parser;
+import BotimusPrime.Storage.Storage;
+
 import java.util.ArrayList;
 
 public class TaskList {
