@@ -1,6 +1,6 @@
 package MichaelScott.Parser;
 
-import MichaelScott.Command.*;
+import MichaelScott.Command.*; 
 import MichaelScott.Exception.MichaelScottException;
 
 public class Parser {
