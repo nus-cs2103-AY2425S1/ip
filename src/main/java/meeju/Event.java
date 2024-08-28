@@ -1,4 +1,4 @@
-package Meeju;
+package meeju;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,7 +38,8 @@ public class Event extends Task{
             toDate = LocalDate.parse(dateRawTo, dateFormatter);
             toTime = LocalTime.parse(timeRawTo, timeFormatter);
         } catch (DateTimeParseException e) {
-            throw new MeejuException(exceptionMessage);
+            throw new MeejuException("Meow! Please recheck date and time you have entered \n"
+                    + "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM");
         }
         this.from = LocalDateTime.of(fromDate, fromTime);
         this.to = LocalDateTime.of(toDate, toTime);

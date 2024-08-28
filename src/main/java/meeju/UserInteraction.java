@@ -1,4 +1,4 @@
-package Meeju;
+package meeju;
 
 import java.util.Scanner;
 public class UserInteraction {
@@ -8,7 +8,8 @@ public class UserInteraction {
 
     public void interact() {
         Scanner scannerObject = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList(storage);
         Parser parser = new Parser();
 
 

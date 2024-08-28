@@ -1,4 +1,4 @@
-package Meeju;
+package meeju;
 
 public class Parser {
 
@@ -45,6 +45,7 @@ public class Parser {
             }
         } else {
             System.out.println("I'm sorry, I did not understand that =^..^=");
+            return 5;
         }
         return 0;
     }

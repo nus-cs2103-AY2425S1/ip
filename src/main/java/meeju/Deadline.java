@@ -1,4 +1,4 @@
-package Meeju;
+package meeju;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,7 +28,8 @@ public class Deadline extends Task{
             date = LocalDate.parse(dateRaw, dateFormatter);
             time = LocalTime.parse(timeRaw, timeFormatter);
         } catch (DateTimeParseException e) {
-            throw new MeejuException(exceptionMessage);
+            throw new MeejuException("Meow! Please recheck date and time you have entered \n"
+                    + "The Correct format is -> deadline <desc> /by DD/MM/YYYY HHMM");
         }
 
         this.by = LocalDateTime.of(date, time);

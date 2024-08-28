@@ -1,4 +1,4 @@
-package Meeju;
+package meeju;
 
 public class GoodByeMessage {
     public static void goodByeMessage() {

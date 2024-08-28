@@ -1,4 +1,4 @@
-package Meeju;
+package meeju;
 
 public class Todo extends Task{
     public Todo(String taskDescription) {

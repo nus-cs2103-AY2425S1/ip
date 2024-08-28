@@ -1,12 +1,12 @@
-package Meeju;
+package meeju;
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
 
     private Storage storage;
 
-    public TaskList() {
-        this.storage = new Storage();
+    public TaskList(Storage storage) {
+        this.storage = storage;
         this.taskList = this.storage.initialiseList();
     }
 

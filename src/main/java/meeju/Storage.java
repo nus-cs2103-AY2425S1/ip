@@ -1,4 +1,4 @@
-package Meeju;
+package meeju;
 
 import java.io.File;
 import java.io.FileWriter;
