@@ -1,3 +1,5 @@
+package echobot;
+
 import java.util.Scanner;
 
 public class Ui {
