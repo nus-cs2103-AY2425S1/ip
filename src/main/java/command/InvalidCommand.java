@@ -7,7 +7,7 @@ import ui.Ui;
 
 public class InvalidCommand extends Command {
     /**
-     * Throws a DukeException to indicate that the command is invalid.
+     * Throws a DudeException to indicate that the command is invalid.
      *
      * @param tasks The task list to be listed.
      * @param ui The user interface to interact with the user.

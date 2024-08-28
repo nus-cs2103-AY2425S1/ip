@@ -1,3 +1,5 @@
+package dude;
+
 import command.Command;
 import exception.DudeException;
 import parser.Parser;
