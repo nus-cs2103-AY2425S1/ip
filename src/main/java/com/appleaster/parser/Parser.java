@@ -1,18 +1,29 @@
 package com.appleaster.parser;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import com.appleaster.command.Command;
 import com.appleaster.command.CommandType;
 import com.appleaster.exception.AppleasterException;
+import com.appleaster.task.Todo;
 import com.appleaster.task.Deadline;
 import com.appleaster.task.Event;
-import com.appleaster.task.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Parses user input into Command objects for the Appleaster application.
+ */
 public class Parser {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
 
+    /**
+     * Parses a user input string into a Command object.
+     *
+     * @param input The user input string to parse.
+     * @return A Command object representing the parsed input.
+     * @throws AppleasterException If the input is invalid or cannot be parsed.
+     */
     public static Command parseCommand(String input) throws AppleasterException {
         String[] parts = input.split("\\s+", 2);
         String commandWord = parts[0].toLowerCase();
@@ -41,6 +52,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a mark or unmark command.
+     *
+     * @param commandWord The command word ("mark" or "unmark").
+     * @param arguments The arguments following the command word.
+     * @return A Command object representing a mark or unmark action.
+     * @throws AppleasterException If the arguments are invalid.
+     */
     private static Command parseMarkUnmark(String commandWord, String arguments) throws AppleasterException {
         if (arguments.isEmpty()) {
             throw new AppleasterException("Please provide a task number to " + commandWord + ". For example: " + commandWord + " 1");
@@ -53,6 +72,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a todo command.
+     *
+     * @param description The description of the todo task.
+     * @return A Command object representing a todo task.
+     * @throws AppleasterException If the todo description is empty.
+     */
     private static Command parseTodo(String description) throws AppleasterException {
         if (description.trim().isEmpty()) {
             throw new AppleasterException("The description of a todo cannot be empty. Please provide a description after 'todo'.");
@@ -60,6 +86,13 @@ public class Parser {
         return new Command(CommandType.TODO, new Todo(description));
     }
 
+    /**
+     * Parses a deadline command.
+     *
+     * @param arguments The arguments for the deadline command.
+     * @return A Command object representing a deadline task.
+     * @throws AppleasterException If the deadline format is invalid.
+     */
     private static Command parseDeadline(String arguments) throws AppleasterException {
         String[] parts = arguments.split(" /by ");
         if (parts.length != 2) {
@@ -74,6 +107,13 @@ public class Parser {
         return new Command(CommandType.DEADLINE, new Deadline(parts[0], parts[1]));
     }
 
+    /**
+     * Parses an event command.
+     *
+     * @param arguments The arguments for the event command.
+     * @return A Command object representing an event task.
+     * @throws AppleasterException If the event format is invalid.
+     */
     private static Command parseEvent(String arguments) throws AppleasterException {
         String[] parts = arguments.split(" /from | /to ");
         if (parts.length != 3) {
@@ -88,6 +128,13 @@ public class Parser {
         return new Command(CommandType.EVENT, new Event(parts[0], parts[1], parts[2]));
     }
 
+    /**
+     * Parses a delete command.
+     *
+     * @param arguments The arguments for the delete command.
+     * @return A Command object representing a delete action.
+     * @throws AppleasterException If the delete command format is invalid.
+     */
     private static Command parseDelete(String arguments) throws AppleasterException {
         if (arguments.isEmpty()) {
             throw new AppleasterException("Please provide a task number to delete. For example: delete 1");
@@ -100,6 +147,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date command.
+     *
+     * @param arguments The arguments for the date command.
+     * @return A Command object representing a date filter action.
+     * @throws AppleasterException If the date format is invalid.
+     */
     private static Command parseDate(String arguments) throws AppleasterException {
         if (arguments.isEmpty()) {
             throw new AppleasterException("Please provide a date in the format: date yyyy-MM-dd");

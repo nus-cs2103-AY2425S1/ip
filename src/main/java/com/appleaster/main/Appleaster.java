@@ -8,11 +8,21 @@ import com.appleaster.storage.Storage;
 import com.appleaster.task.TaskList;
 import com.appleaster.ui.Ui;
 
+/**
+ * The main class for the Appleaster application.
+ * This class initializes the application and handles the main interaction loop.
+ */
+
 public class Appleaster {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs an Appleaster instance with the specified file path for storage.
+     *
+     * @param filePath The file path where tasks will be stored and loaded from.
+     */
     public Appleaster(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +34,10 @@ public class Appleaster {
         }
     }
 
+    /**
+     * Starts the main interaction loop of the application.
+     * This method continuously processes user input until the exit command is given.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -40,6 +54,13 @@ public class Appleaster {
         }
     }
 
+    /**
+     * Executes a command based on the parsed user input.
+     *
+     * @param c The Command object representing the user's input.
+     * @return true if the command is to exit the application, false otherwise.
+     * @throws AppleasterException If there's an error executing the command.
+     */
     private boolean executeCommand(Command c) {
         try {
             switch (c.getType()) {
@@ -72,6 +93,11 @@ public class Appleaster {
         return false;
     }
 
+    /**
+     * The main entry point of the application.
+     *
+     * @param args Command line arguments (not used).
+     */    
     public static void main(String[] args) {
         new Appleaster("data/tasks.txt").run();
     }
