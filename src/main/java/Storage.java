@@ -17,7 +17,7 @@ public class Storage {
     }
 
     public static String getDataPath() {
-        return String.valueOf(Paths.get("data/db.txt"));
+        return String.valueOf(Paths.get("data/tasks.txt"));
     }
 
     public File getDbFile() throws IOException {
