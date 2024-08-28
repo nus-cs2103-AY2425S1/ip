@@ -194,5 +194,21 @@ These are your tasks on Sep 19 2024.
 ________________________________________________________________________________
 Oh No! Usage: listDate yyyy-MM-dd.
 ________________________________________________________________________________
+Here are the matching tasks in your list for TODO.
+1. [T] [ ] TEST_MEMORY_TODO
+________________________________________________________________________________
+Here are the matching tasks in your list for 2002.
+1. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+2. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+________________________________________________________________________________
+Here are the matching tasks in your list for MEMORY.
+1. [T] [ ] TEST_MEMORY_TODO
+2. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+________________________________________________________________________________
+Here are the matching tasks in your list for DATETIME.
+1. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+________________________________________________________________________________
 Annyeong! Till we meet again. <3
 ________________________________________________________________________________

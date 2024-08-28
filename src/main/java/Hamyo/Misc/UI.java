@@ -58,6 +58,12 @@ public class UI {
     UI.printLine();
   }
 
+  public static void printListTasksByKeyword(String tasksList, String keyword) {
+    System.out.println("Here are the matching tasks in your list for " + keyword.toUpperCase() + ".");
+    System.out.println(tasksList);
+    UI.printLine();
+  }
+
   public static void markTask(Task task) {
     System.out.println("Yay! This task has been marked as completed.");
     System.out.println(task.toString());

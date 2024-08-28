@@ -28,6 +28,9 @@ public class Parser {
       case "listDate":
         tasks.listTasksByDate(commandFields);
         break;
+      case "find":
+        tasks.listTasksByKeyword(commandFields);
+        break;
       case "mark":
         tasks.markTask(commandFields);
         break;
