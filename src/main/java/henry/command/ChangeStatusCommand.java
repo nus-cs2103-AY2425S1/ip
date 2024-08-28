@@ -2,7 +2,6 @@ package henry.command;
 
 import henry.util.Ui;
 import henry.util.TaskList;
-import henry.util.Storage;
 import henry.HenryException;
 import henry.task.Task;
 
@@ -22,10 +21,8 @@ public class ChangeStatusCommand extends Command {
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
      * @param ui instance of a Ui class that interacts with the user
-     * @param storage instance of a storage that contains tasks
-     *                recorded previously
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws HenryException {
+    public void execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
         //check for invalid number
         try {
@@ -61,7 +58,6 @@ public class ChangeStatusCommand extends Command {
                         + task.toString()
                         + "\n");
             }
-            save(taskList, storage);
         } catch(NumberFormatException e) {
             throw new HenryException("This is not a number!!");
         }

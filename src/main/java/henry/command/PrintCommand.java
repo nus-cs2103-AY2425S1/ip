@@ -16,10 +16,8 @@ public class PrintCommand extends Command{
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
      * @param ui instance of a Ui class that interacts with the user
-     * @param storage instance of a storage that contains tasks
-     *                recorded previously
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws HenryException {
+    public void execute(TaskList taskList, Ui ui) throws HenryException {
         //check if there is any task to print
         int numOfTasks = taskList.getTasks().size();
         if (numOfTasks == 0) {

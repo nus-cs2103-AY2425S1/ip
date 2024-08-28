@@ -34,7 +34,8 @@ public class Henry {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, ui);
+                c.save(tasks, storage);
                 isExit = c.isExit();
             } catch (HenryException e) {
                 System.out.println("\nSorry! " + e.getMessage() + "\n");
