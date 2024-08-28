@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ public class Neuro {
     private static Task getTask(String input) throws IllegalArgumentException {
         // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
         // Array copyOfRange inspired by https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-        String[] inputComponents = input.split("[\s]");
+        String[] inputComponents = input.split(" ");
         String taskType = inputComponents[0];
         Task task = null;
 
@@ -129,8 +130,17 @@ public class Neuro {
         return taskToAdd;
     }
 
-    private static ArrayList<Task> loadTaskFile(String filePath) throws FileNotFoundException {
+    private static ArrayList<Task> loadOrCreateTaskFile(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
+        try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error encountered: " + e);
+        }
+
         Scanner s = new Scanner(f);
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -150,9 +160,10 @@ public class Neuro {
     public static void main(String[] args) {
         ArrayList<Task> taskList;
         try {
-            taskList = loadTaskFile("./data/Neuro.txt");
+            taskList = loadOrCreateTaskFile("./data/Neuro.txt");
         } catch (FileNotFoundException e) {
-            System.out.println("NO FILE");
+            System.out.println("No save file found");
+            System.out.println("Error encountered: " + e);
             return;
         }
 
