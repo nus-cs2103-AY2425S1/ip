@@ -1,5 +1,12 @@
 package taskon.common;
 
+/**
+ * Contains all user-visible messages for the Taskon application.
+ *
+ * The `Messages` class provides a central location for all the messages
+ * that can be displayed to the user, ensuring consistency and making it
+ * easier to update or modify the messages.
+ */
 public class Messages {
     public static final String MESSAGE_GREETING = "Hello! I'm Taskon\nWhat can I do for you?\n";
     public static final String MESSAGE_EXIT = "Bye. Hope to see you again soon!\n";

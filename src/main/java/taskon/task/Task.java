@@ -5,7 +5,7 @@ import taskon.exception.TaskonException;
 import java.time.LocalDate;
 
 /**
- * The task.Task class represents a task with a description and a completion status.
+ * The Task class represents a task with a description and a completion status.
  * It provides methods to mark the task as done or undone, and to retrieve the task's status icon.
  */
 public class Task {
@@ -56,6 +56,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Checks if tasks occur on a specified date. Returns false by default
+     * @param date The date to compare with
+     * @return false by default
+     */
     public boolean occursOn(LocalDate date) {
         return false;
     }

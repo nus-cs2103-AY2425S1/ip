@@ -6,7 +6,7 @@ import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The task.Event class represents a task that occurs during a specific time frame.
+ * The Event class represents a task that occurs during a specific time frame.
  * It extends the task.Task class by adding a start and end time.
  */
 public class Event extends Task {
@@ -14,7 +14,7 @@ public class Event extends Task {
     private LocalDateTime end;
 
     /**
-     * Constructs a new task.Event with the given description, start time, and end time.
+     * Constructs a new task Event with the given description, start time, and end time.
      *
      * @param description The description of the event.
      * @param start The start time of the event.
@@ -26,15 +26,28 @@ public class Event extends Task {
         this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Returns the start date of the event
+     * @return The start date of the event as a LocalDateTime object
+     */
     public LocalDateTime getStart() {
         return this.start;
     }
 
+    /**
+     * Returns the end date of the event
+     * @return The end date of the event as a LocalDateTime object
+     */
     public LocalDateTime getEnd() {
         return this.end;
     }
 
-
+    /**
+     * Checks if the event occurs on the specified date.
+     *
+     * @param date The date to compare with.
+     * @return true if the event occurs on the specified date, false otherwise.
+     */
     @Override
     public boolean occursOn(LocalDate date) {
         return this.start.toLocalDate().equals(date) || this.end.toLocalDate().equals(date)
