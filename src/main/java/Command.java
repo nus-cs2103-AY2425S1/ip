@@ -1,7 +1,9 @@
 public enum Command {
     TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, RAWR, BYE, HELP;
 
-    public static Command inputToCommand(String input) throws InvalidInputException {
+    private static Command lastCommand;
+
+    public static Command inputToCommand(String input) throws InvalidCommandException {
         return switch (input) {
             case "help" -> HELP;
             case "todo" -> TODO;
@@ -13,7 +15,7 @@ public enum Command {
             case "delete" -> DELETE;
             case "rawr" -> RAWR;
             case "bye" -> BYE;
-            default -> throw new InvalidInputException("I don't know what that means!!!");
+            default -> throw new InvalidCommandException();
         };
     }
 
@@ -32,7 +34,7 @@ public enum Command {
         };
     }
 
-    public static String listCommands() {
+    public static String getCommandList() {
         String spaces = "  ";
         String output = "";
         output += "Here are a list of valid commands and how to use them:\n";
