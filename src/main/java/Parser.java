@@ -128,7 +128,6 @@ public class Parser {
         if (description.isEmpty()) {
             throw new BobException("The description of a deadline cannot be empty.");
         }
-        Task t;
         try {
             LocalDateTime by = DeadlineTask.parseDateTime(date);
             return new Deadline(description, by);
@@ -148,7 +147,6 @@ public class Parser {
         if (description.isEmpty()) {
             throw new BobException("The description of an event cannot be empty.");
         }
-        Task t;
         try {
             LocalDateTime fromTime = EventTask.parseDateTime(from);
             return new Event(description, fromTime, to);

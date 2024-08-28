@@ -28,10 +28,6 @@ public class Storage {
         }
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
-
     private String getDirectoryName() {
         return new File(filePath).getParent(); // Extracts the directory path
     }

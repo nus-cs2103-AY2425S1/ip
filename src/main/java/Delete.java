@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Delete extends Command {
     private final int index;
 
