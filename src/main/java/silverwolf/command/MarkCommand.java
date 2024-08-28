@@ -1,3 +1,11 @@
+package silverwolf.command;
+
+import silverwolf.exception.SilverWolfException;
+import silverwolf.storage.Storage;
+import silverwolf.task.Task;
+import silverwolf.task.TaskList;
+import silverwolf.ui.Ui;
+
 /**
  * The MarkCommand class represents a command to mark a task as completed in the task list.
  * It extends the abstract Command class and implements the logic to update the status of a task.

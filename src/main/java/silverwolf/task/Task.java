@@ -1,3 +1,7 @@
+package silverwolf.task;
+
+import silverwolf.exception.SilverWolfException;
+
 /**
  * represents an abstract task with a description and completion status.
  * a Task can be marked as done or undone and has a specific TaskType.

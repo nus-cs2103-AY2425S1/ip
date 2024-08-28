@@ -1,3 +1,4 @@
+package silverwolf.task;
 /**
  * Represents a task of type "Event", which includes a description, start time, and end time.
  * An Event task tracks a specific time frame in addition to the task's description and status.

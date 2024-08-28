@@ -1,3 +1,9 @@
+package silverwolf.command;
+
+import silverwolf.storage.Storage;
+import silverwolf.task.TaskList;
+import silverwolf.ui.Ui;
+
 /**
  * The ExitCommand class represents a command to terminate the application.
  * It extends the abstract Command class and provides the logic to exit the program.
@@ -11,7 +17,6 @@ public class ExitCommand extends Command {
      * @param tasks The TaskList object representing the list of tasks.
      * @param ui The Ui object used for interacting with the user.
      * @param storage The Storage object used for saving the task list.
-     * @throws SilverWolfException This method does not throw any exceptions.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

@@ -1,3 +1,5 @@
+package silverwolf.task;
+
 /**
  * Represents a task of type "Deadline", which includes a description and a due date or time.
  * A Deadline task must be completed by a specified date or time.

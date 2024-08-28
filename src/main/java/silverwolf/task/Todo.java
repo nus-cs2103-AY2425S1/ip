@@ -1,8 +1,10 @@
+package silverwolf.task;
+
 /**
  * represents a task of type "Todo", which has no specific date or deadline.
  * A Todo task simply contains a description and its completion status.
  */
-class Todo extends Task {
+public class Todo extends Task {
 
     /**
      * Constructs a Todo task with the specified description.

@@ -1,3 +1,7 @@
+package silverwolf.ui;
+
+import silverwolf.task.Task;
+
 import java.util.Scanner;
 
 /**

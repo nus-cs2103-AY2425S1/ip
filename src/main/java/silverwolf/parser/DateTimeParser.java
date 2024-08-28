@@ -1,3 +1,7 @@
+package silverwolf.parser;
+
+import silverwolf.exception.SilverWolfException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

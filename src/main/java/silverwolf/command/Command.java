@@ -1,3 +1,10 @@
+package silverwolf.command;
+
+import silverwolf.exception.SilverWolfException;
+import silverwolf.storage.Storage;
+import silverwolf.task.TaskList;
+import silverwolf.ui.Ui;
+
 /**
  * The Command class serves as an abstract base class for all command types in the application.
  * Each command represents an action that the user can perform, such as adding a task, deleting a task, marking a task as done, etc.

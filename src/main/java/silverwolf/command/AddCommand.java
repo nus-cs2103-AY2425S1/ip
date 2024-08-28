@@ -1,3 +1,12 @@
+package silverwolf.command;
+
+import silverwolf.exception.SilverWolfException;
+import silverwolf.storage.Storage;
+import silverwolf.task.Task;
+import silverwolf.task.TaskList;
+import silverwolf.ui.Ui;
+
+
 /**
  * The AddCommand class represents a command to add a new task to the task list.
  * It extends the Command class and encapsulates the logic for adding tasks

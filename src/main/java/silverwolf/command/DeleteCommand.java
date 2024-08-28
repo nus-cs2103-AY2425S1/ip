@@ -1,3 +1,11 @@
+package silverwolf.command;
+
+import silverwolf.exception.SilverWolfException;
+import silverwolf.storage.Storage;
+import silverwolf.task.Task;
+import silverwolf.task.TaskList;
+import silverwolf.ui.Ui;
+
 /**
  * The DeleteCommand class represents a command to delete a task from the task list based on its index.
  * It extends the abstract Command class and implements the logic for task deletion.

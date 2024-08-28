@@ -1,3 +1,12 @@
+package silverwolf;
+
+import silverwolf.command.Command;
+import silverwolf.exception.SilverWolfException;
+import silverwolf.parser.Parser;
+import silverwolf.storage.Storage;
+import silverwolf.task.TaskList;
+import silverwolf.ui.Ui;
+
 /**
  * The main class for the SilverWolf chatbot application.
  * It initializes the necessary components and runs the chatbot loop.

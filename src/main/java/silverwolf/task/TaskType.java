@@ -1,3 +1,5 @@
+package silverwolf.task;
+
 /**
  * Enum representing different types of tasks.
  * Each task type has a corresponding short form used for display.
