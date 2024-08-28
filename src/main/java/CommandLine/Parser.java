@@ -9,6 +9,13 @@ public class Parser {
     public Parser(){
 
     };
+
+    /**
+     * Parses the input supplied by user, adds it to the task list if possible
+     * This method helps to parse inputs, calling the appropriate commands where possible
+     * @param  taskList the current taskList
+     * @param  s the string that was parsed
+     */
     public static void parse(TaskList taskList, String s) {
         Line line = new Line();
         String[] parts = s.split(" ", 2);
@@ -78,6 +85,11 @@ public class Parser {
 
         }
     }
+
+    /**
+     * Helps print the string supplied in the appropriate format
+     * @param s the string supplied
+     */
     public static void responseHelper(String s) {
         Line line = new Line();
         line.drawLine();

@@ -6,10 +6,21 @@ public class ToDo extends Task {
         super(name, taskType);
     }
 
+    /**
+     * Returns the task type
+     * @return  the task type as a string
+     */
     public String getTaskTypeAsString(){
         return "T";
     }
 
+    /**
+     * Creates a ToDo with given string
+     * @param name the string containing information about the task type
+     * @param taskType the type of task
+     * @throws TaskCreationException if error occurs while creating task
+     * @return ToDo
+     */
     public static ToDo of(String name, TaskType taskType) {
         return new ToDo(name, TaskType.T);
     }
