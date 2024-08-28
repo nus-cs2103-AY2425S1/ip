@@ -71,7 +71,7 @@ public class Event extends Task {
         }
         catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             line.drawLine();
-            System.out.println("      Invalid deadline format. Expected format: 'task description /by date/time' ");
+            System.out.println("      Invalid Event format. Expected format: 'task description /by date/time' ");
             line.drawLine();
             throw new TaskCreationException();
         }
