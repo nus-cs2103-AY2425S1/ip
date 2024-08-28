@@ -1,4 +1,10 @@
+package NextGPT.command;
 import java.io.IOException;
+import NextGPT.TaskList;
+import NextGPT.Ui;
+import NextGPT.Storage;
+import NextGPT.NextGPTException;
+import NextGPT.task.Task;
 
 public class AddCommand extends Command{
     protected Task todo;

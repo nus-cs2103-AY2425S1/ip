@@ -1,11 +1,12 @@
-import java.io.File;
-import java.io.IOException;
+package NextGPT;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
+import NextGPT.task.Todo;
+import NextGPT.task.Deadline;
+import NextGPT.task.Event;
+import NextGPT.task.Task;
 public class TaskList {
-    static List<Task> todo_list;
+    static ArrayList<Task> todo_list;
     public TaskList(){
         this.todo_list = new ArrayList<>();
     }

@@ -1,5 +1,8 @@
+package NextGPT;
+
 import java.util.List;
 import java.util.Scanner;
+import NextGPT.task.Task;
 public class Ui {
     String line = "_______________________________________________________\n";
 

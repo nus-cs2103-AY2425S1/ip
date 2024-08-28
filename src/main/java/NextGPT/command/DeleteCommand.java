@@ -1,4 +1,10 @@
+package NextGPT.command;
+import NextGPT.TaskList;
+import NextGPT.Ui;
+import NextGPT.Storage;
+import NextGPT.NextGPTException;
 import java.io.IOException;
+import NextGPT.task.Task;
 
 public class DeleteCommand extends Command{
     int index;

@@ -1,3 +1,8 @@
+package NextGPT;
+import NextGPT.command.*;
+import NextGPT.task.Todo;
+import NextGPT.task.Deadline;
+import NextGPT.task.Event;
 public class Parser {
     static Command parse(String fullCommand) throws NextGPTException{
         String[] split = fullCommand.trim().split(" ",2);

@@ -1,7 +1,7 @@
+package NextGPT;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import NextGPT.command.Command;
 public class NextGPT {
     protected Storage storage;
     protected TaskList tasks;
