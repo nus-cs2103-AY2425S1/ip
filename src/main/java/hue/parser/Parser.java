@@ -27,8 +27,11 @@ public class Parser {
             return new AddEventCommand(fullCommand);
         } else if (fullCommand.startsWith("delete")) {
             return new DeleteCommand(fullCommand);
+        } else if (fullCommand.startsWith("find")) {
+            return new FindCommand(fullCommand);
         } else {
             throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
         }
     }
 }
+
