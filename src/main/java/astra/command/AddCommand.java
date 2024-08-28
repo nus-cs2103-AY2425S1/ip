@@ -39,14 +39,18 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
         storage.save(tasks);
-        String msg = "Got it. I've added this task: \n  " +
-                task + "\n" +
-                "Now you have " + tasks.length() + " tasks in the list. \n";
+        String msg = "Got it. I've added this task: \n  " + task + "\n"
+                + "Now you have " + tasks.length() + " tasks in the list. \n";
         ui.display(msg);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "ADD " + task.toText();
     }
 }

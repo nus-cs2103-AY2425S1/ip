@@ -19,7 +19,7 @@ public class Parser {
      * @return Index specified in the command.
      * @throws AstraException If index is invalid.
      */
-    private static int getIndex(String fullCommand) throws AstraException {
+    static int getIndex(String fullCommand) throws AstraException {
         int index;
         try {
             index = Integer.parseInt(fullCommand.split(" ")[1]);
@@ -35,7 +35,7 @@ public class Parser {
      * @param fullCommand Command text with its arguments.
      * @return Map of each key word to its string value.
      */
-    private static HashMap<String, String> getArgs(String fullCommand) {
+    static HashMap<String, String> getArgs(String fullCommand) {
         String[] words = fullCommand.split(" ");
         int len = words.length;
         HashMap<String, String> args = new HashMap<>();
