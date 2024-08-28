@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class Shenhe {
     public static void main(String[] args) {
+        Storage storage = new Storage("./data/Shenhe.txt");
+        List<Task> tasks = storage.loadTasks();
+        int totalNumberOfTasks = tasks.size();
         System.out.println("____________________________________________________________");
         System.out.println("Hello, Ying. I'm Shenhe. The assumption that every person has somewhere to call home is\n" +
                 "naive. I got used to living in the mountains alongside the birds and beasts a long time ago.\n" +
@@ -12,8 +15,8 @@ public class Shenhe {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
-        int totalNumberOfTasks = 0;
+//        List<Task> tasks = new ArrayList<>();
+//        int totalNumberOfTasks = 0;
         String userInput;
 
         while (true) {
@@ -39,6 +42,7 @@ public class Shenhe {
                         System.out.println(tasks.get(lastDigit - 1).toString());
                         System.out.println("____________________________________________________________");
                     }
+                    storage.saveTasks(tasks);
                 } else if (userInput.startsWith("unmark")) {
                     if (userInput.trim().length() == 6) {
                         throw new EmptyTaskDescriptionException();
@@ -56,6 +60,7 @@ public class Shenhe {
                         System.out.println(tasks.get(lastDigit - 1).toString());
                         System.out.println("____________________________________________________________");
                     }
+                    storage.saveTasks(tasks);
                 } else if (userInput.startsWith("todo")) {
                     if (userInput.trim().length() == 4) {
                         throw new EmptyTaskDescriptionException();
@@ -68,6 +73,7 @@ public class Shenhe {
                     System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
                     System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.saveTasks(tasks);
                 } else if (userInput.startsWith("deadline")) {
                     if (userInput.trim().length() == 8) {
                         throw new EmptyTaskDescriptionException();
@@ -86,6 +92,7 @@ public class Shenhe {
                     System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
                     System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.saveTasks(tasks);
                 } else if (userInput.startsWith("event")) {
                     if (userInput.trim().length() == 5) {
                         throw new EmptyTaskDescriptionException();
@@ -111,6 +118,7 @@ public class Shenhe {
                     System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
                     System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.saveTasks(tasks);
                 } else if (userInput.startsWith("delete")) {
                     if (userInput.trim().length() == 6) {
                         throw new EmptyTaskDescriptionException();
@@ -131,6 +139,7 @@ public class Shenhe {
                         System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                     }
+                    storage.saveTasks(tasks);
                 } else if (!userInput.startsWith("list")) {
                     throw new UnknownTaskException();
                 } else if (userInput.startsWith("list") && userInput.trim().length() != 4) {
