@@ -69,10 +69,6 @@ public class Task {
         return totalTasks;
     }
 
-    public static void setTotalTasks(int totalTasks) {
-        Task.totalTasks = totalTasks;
-    }
-
     public String getDesc() {
         return this.isDone.charAt(1) + " | " + this.desc;
     }
