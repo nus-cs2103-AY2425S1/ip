@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Enum representing different types of commands.
  */
@@ -27,6 +31,7 @@ enum CommandType {
 
 public class Gutti {
 
+    private static final String FILE_PATH = "./data/gutti.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int noOfTasks = 0;
 
@@ -203,7 +208,7 @@ public class Gutti {
     public static void createsDeadline(String input) throws GuttiException {
         String[] parts = input.split(" /by ");
         if (parts.length == 2) {
-            Task task = new Deadline(parts[0], parts[1]);
+            Task task = new Deadline(parts[0], parts[1],false);
             taskAdder(task);
         } else {
             throw new GuttiException("Invalid format. Use: deadline <task description> /by <date/time>");
@@ -221,7 +226,7 @@ public class Gutti {
     public static void createsEvent(String input) throws GuttiException{
         String[] parts = input.split(" /from | /to ");
         if (parts.length == 3) {
-            Task task = new Event(parts[0], parts[1], parts[2]);
+            Task task = new Event(parts[0], parts[1], parts[2],false);
             taskAdder(task);
         } else {
             throw new GuttiException("Invalid format. Use: event <task description> /from <start time> /to <end time>");
@@ -235,7 +240,7 @@ public class Gutti {
      * @param description The description of the todo task.
      */
     public static void createsTodo(String description) {
-        Todo todoTask = new Todo(description);
+        Todo todoTask = new Todo(description,false);
         taskAdder(todoTask);
     }
 
@@ -246,6 +251,7 @@ public class Gutti {
      */
     private static void taskAdder(Task task) {
         tasks.add(task);
+        saveTasksToFile();
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
@@ -267,6 +273,7 @@ public class Gutti {
             int taskIndex = Integer.parseInt(index) - 1;
             try{
                 tasks.get(taskIndex).markAsDone();
+                saveTasksToFile();
             }
             catch(NullPointerException e) {
                 throw new GuttiException("Cannot mark task as done as there is no such task added yet!");
@@ -293,6 +300,7 @@ public class Gutti {
             int taskIndex = Integer.parseInt(index) - 1;
             try {
                 tasks.get(taskIndex).unmark();
+                saveTasksToFile();
             }
             catch(NullPointerException e) {
                 throw new GuttiException("Cannot unmark task as there is no such task added yet!");
@@ -334,6 +342,60 @@ public class Gutti {
         System.out.println("____________________________________________________________");
     }
 
+
+    private static void saveTasksToFile() {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                writer.write(task.toString());
+                writer.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+    private static void loadTasksFromFile() {
+        try (Scanner sc = new Scanner(new File(FILE_PATH))) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                if (line.isEmpty()) {
+                    continue;
+                }
+                if (line.startsWith("[T]")) { //todolist
+                    String description = line.substring(6).trim();
+                    boolean isDone = line.charAt(4) == 'X';
+                    tasks.add(new Todo(description,isDone));
+                }
+                else if (line.startsWith("[E]")) {
+                    int fromIndex = line.indexOf("(from: ");
+                    int toIndex = line.indexOf(" to: ");
+                    if (fromIndex != 1 && toIndex != -1) {
+                        String description = line.substring(6,fromIndex).trim();
+                        String from = line.substring(fromIndex + 6,toIndex).trim();
+                        String to = line.substring(toIndex + 4,line.length()-1).trim();
+                        boolean isDone = line.charAt(4) == 'X';
+                        tasks.add(new Event(description,from,to,isDone));
+                    } else {
+                        System.out.println("Corrupted Event line: " + line);
+                    }
+                }
+                else if (line.startsWith("[D]")) {
+                    int byIndex = line.indexOf("(by: ") + 5;
+                    int byEndIndex = line.indexOf(')');
+
+                    if (byIndex != -1) {
+                        String description = line.substring(6,line.indexOf("(by:")).trim();
+                        String by = line.substring(byIndex,byEndIndex).trim();
+                        boolean isDone = line.charAt(4) == 'X';
+                        tasks.add(new Deadline(description,by,isDone));
+                    } else {
+                        System.out.println("Corrupted Deadline line: " + line);
+                    }
+                }
+            }
+            } catch (IOException e) {
+                System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
     /**
      * The entry point of the program.
      * @param args (not used)
@@ -343,6 +405,8 @@ public class Gutti {
 
         // Display the greeting message
         greetings();
+        // Loads existing tasks list from file
+        loadTasksFromFile();
         // Echos
         echo();
         // Exit message
