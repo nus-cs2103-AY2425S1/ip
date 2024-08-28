@@ -1,8 +1,16 @@
 package mel.exceptions;
 
+/**
+ * Exception thrown for providing an
+ * invalid task input.
+ */
 public class TaskException extends Exception {
-    public TaskException(String str) {
-        super(str);
+    /**
+     * Constructor for TaskException.
+     * @param input The intended format for valid task input
+     */
+    public TaskException(String input) {
+        super(input);
     }
 
     @Override

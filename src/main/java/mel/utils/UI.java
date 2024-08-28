@@ -1,12 +1,21 @@
 package mel.utils;
 
+import mel.exceptions.TaskException;
 import mel.main.Mel;
 
 import java.util.Objects;
 
+/**
+ * UI class handles the user interface of Mel
+ * chatbot, to receive and respond to user input.
+ */
 public class UI {
     private final Mel mel;
 
+    /**
+     * Constructor for UI.
+     * @param mel Mel chatbot instance.
+     */
     public UI(Mel mel) {
         this.mel = mel;
     }
@@ -17,12 +26,22 @@ public class UI {
             + "|_|    |_|\\____||__| ";
     private static final String LINE = "____________________________________";
 
+    /**
+     * Sends introductory text to user on Mel startup.
+     */
     public void hello() {
         System.out.println(LOGO + "\n" + LINE + "\n"
                 + "Hihi! Mel here (:\n"
                 + "What you need?\n" + LINE);
     }
 
+    /**
+     * Reads user input to Mel chatbot.
+     * @param input user input string.
+     * @return boolean indicator for ending chatbot session,
+     * False - persist session,
+     * True - end session.
+     */
     public boolean read(String input) {
         System.out.println(LINE);
         boolean isBye;
@@ -41,6 +60,11 @@ public class UI {
         return isBye;
     }
 
+    /**
+     * Sends string response to user using system output,
+     * terminates line after output.
+     * @param str user input string.
+     */
     public void println(String str) {
         System.out.println(str);
     }

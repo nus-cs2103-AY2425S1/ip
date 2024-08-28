@@ -6,21 +6,34 @@ import mel.exceptions.TaskException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event class that represents a task with a
+ * start and end date and/or time.
+ */
 public class Event extends Task {
     private final String task;
     private final LocalDateTime from;
     private final LocalDateTime to;
 
-    public Event(String str) throws TaskException {
+    /**
+     * Constructs new Event task.
+     * @param input task input with a start and end date and/or time
+     *              , in the format: event *task*
+     *              /from *date* *time* /to *date* *time*.
+     * @throws TaskException if input is of invalid format.
+     */
+    public Event(String input) throws TaskException {
         try {
-            String[] temp = str.split("/from ");
+            String[] temp = input.split("/from ");
             task = temp[0];
 
             String[] s = temp[1].split(" /to ");
             from = super.parseDateTime(s[0]);
             to = super.parseDateTime(s[1]);
             if (from.isAfter(to)) {
-                throw new TaskException("Mel wonders if you control time..?");
+                throw new TaskException("event <task> "
+                        + "/from <date> <time> /to <date> <time>\n"
+                        + "Mel wonders if you control time..?");
             }
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new TaskException("event <task> "
