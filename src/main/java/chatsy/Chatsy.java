@@ -3,6 +3,10 @@ package chatsy;
 import chatsy.exceptions.ChatsyException;
 import chatsy.exceptions.LocalFileException;
 
+/**
+ * The main class for the Chatsy application.
+ * It initializes the necessary components and handles the main program loop.
+ */
 public class Chatsy {
     static final String name = "Chatsy";
     static final String LOCAL_DIRECTORY_PATH = "./data";
@@ -13,6 +17,12 @@ public class Chatsy {
     static UI ui;
     static CommandHandler commandHandler;
 
+    /**
+     * The entry point for the Chatsy application.
+     * Initializes the components, loads tasks, and starts the main program loop.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
         ui = new UI();
@@ -39,6 +49,10 @@ public class Chatsy {
         exit();
     }
 
+    /**
+     * Exits the Chatsy application.
+     * Saves the current tasks and displays a goodbye message.
+     */
     public static void exit() {
         try {
             storage.saveTasks(taskManager.getTasks());

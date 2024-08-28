@@ -19,17 +19,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles file storage and retrieval of tasks for the Chatsy application.
+ */
 public class Storage {
     private String directoryPath;
     private String filePath;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a {@code Storage} instance with the specified directory and file paths.
+     *
+     * @param directoryPath The directory where tasks will be stored.
+     * @param filePath The file where tasks will be saved.
+     */
     public Storage(String directoryPath, String filePath) {
         this.directoryPath = directoryPath;
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file into a list.
+     *
+     * @return A list of tasks.
+     * @throws LocalFileException If there is an issue with loading the file.
+     */
     public List<Task> loadTasks() throws LocalFileException {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -55,6 +70,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws LocalFileException If there is an issue with saving the file.
+     */
     public void saveTasks(List<Task> tasks) throws LocalFileException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {

@@ -12,17 +12,34 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles user commands and interacts with the task manager and UI components.
+ */
 public class CommandHandler {
     private final TaskManager taskManager;
     private final UI ui;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a {@code CommandHandler} with the specified task manager and UI.
+     *
+     * @param taskManager The task manager to handle tasks.
+     * @param ui The UI to interact with the user.
+     */
     public CommandHandler(TaskManager taskManager, UI ui) {
         this.taskManager = taskManager;
         this.ui = ui;
     }
 
+    /**
+     * Processes the given command and performs the corresponding action.
+     *
+     * @param command The user command.
+     * @throws InvalidCommandException If the command is invalid.
+     * @throws EmptyDescriptionException If a task description is empty.
+     * @throws InvalidTaskIndexException If the task index is invalid.
+     */
     public void handle(String command) throws InvalidCommandException, EmptyDescriptionException, InvalidTaskIndexException {
         String[] parts = command.split(" ", 2);
         String action = parts[0];
@@ -130,4 +147,3 @@ public class CommandHandler {
         }
     }
 }
-
