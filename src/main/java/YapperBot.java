@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -95,8 +96,9 @@ public class YapperBot {
                     }
                     String[] deadlineInput = userInput.substring(9).split(" /by ");
                     if (deadlineInput.length < 2 || deadlineInput[0].trim().isEmpty()) {
-                        throw new YapperBotException("Umm, you need to provide a description with a deadline.\n"
-                                + "Eg. deadline play bball /by Monday");
+                        throw new YapperBotException("Umm, you need to provide a description "
+                                + "with a deadline in the following formats.\n"
+                                + "Eg. deadline play bball /by 2/12/2024 1800 or deadline return book /by 2024-12-02");
                     }
                     String deadlineDescription = deadlineInput[0];
                     String by = deadlineInput[1];
@@ -116,8 +118,9 @@ public class YapperBot {
                     }
                     String[] eventInput = userInput.substring(6).split(" /from | /to ");
                     if (eventInput.length < 3 || eventInput[0].trim().isEmpty()) {
-                        throw new YapperBotException("Umm, you need to provide a description with a time frame."
-                                + "\nEg. event play bball /from Monday 2pm /to Monday 4pm");
+                        throw new YapperBotException("Umm, you need to provide a description "
+                                + "with a time frame in the following format.\n"
+                                + "Eg. event play bball /from 2/12/2024 1400 /to 2/12/2024 1600");
                     }
                     String eventDescription = eventInput[0];
                     String from = eventInput[1];
@@ -199,7 +202,7 @@ public class YapperBot {
                 while ((line = reader.readLine()) != null) {
                     String[] taskInfo = line.split(" \\| | - ");
                     String type = taskInfo[0];
-                    Boolean isDone = taskInfo[1].equals("1");
+                    boolean isDone = taskInfo[1].equals("1");
                     String description = taskInfo[2];
 
                     switch (type) {
@@ -208,12 +211,20 @@ public class YapperBot {
                         break;
                     case "D":
                         String by = taskInfo[3];
-                        tasks.add(new Deadline(description, by, isDone));
+                        try{
+                            tasks.add(new Deadline(description, by, isDone));
+                        } catch (YapperBotException e) {
+                            System.out.println("Failed to load deadline task: " + e.getMessage());
+                        }
                         break;
                     case "E":
                         String from = taskInfo[3];
                         String to = taskInfo[4];
-                        tasks.add(new Event(description, from, to, isDone));
+                        try{
+                            tasks.add(new Event(description, from, to, isDone));
+                        } catch (YapperBotException e) {
+                            System.out.println("Failed to load event task: " + e.getMessage());
+                        }
                         break;
                     }
                 }
