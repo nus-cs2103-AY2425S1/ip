@@ -42,6 +42,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns the string representation of the task for display purposes.
      * This method must be implemented by subclasses to provide specific details.

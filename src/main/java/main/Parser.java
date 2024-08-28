@@ -39,6 +39,8 @@ public class Parser {
                 return new ListCommand();
             case "bye":
                 return new ExitCommand();
+            case "find":
+                return parseFindCommand(parts);
             default:
                 return new InvalidCommand("Unknown command: " + commandWord);
         }
@@ -160,6 +162,13 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new InvalidCommand("THIS ONE NOT INTEGER!!!");
         }
+    }
+
+    private static Command parseFindCommand(String[] parts) {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            return new InvalidCommand("find WHAT????");
+        }
+        return new FindCommand(parts[1].trim());
     }
 
     /**
