@@ -13,26 +13,26 @@ import java.util.ArrayList;
 public class TaskList {
     
     /** The list of tasks managed by this {@code TaskList}. */
-    private ArrayList<Task> TaskLists;
+    private ArrayList<Task> tasks;
     
     /**
      * Constructs a {@code TaskList} object with the specified list of tasks.
      *
-     * @param TaskLists the initial list of tasks
+     * @param tasks the initial list of tasks
      * @throws AlphaException if the provided list of tasks is empty
      */
-    public TaskList(ArrayList<Task> TaskLists) throws AlphaException {
-        if (TaskLists.isEmpty()) {
+    public TaskList(ArrayList<Task> tasks) throws AlphaException {
+        if (tasks.isEmpty()) {
             throw new AlphaException("No tasks currently!");
         }
-        this.TaskLists = TaskLists;
+        this.tasks = tasks;
     }
     
     /**
      * Constructs an empty {@code TaskList}.
      */
     public TaskList() {
-        this.TaskLists = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>();
     }
     
     /**
@@ -41,7 +41,7 @@ public class TaskList {
      * @param newTask the task to be added to the list
      */
     public void storeTask(Task newTask) {
-        this.TaskLists.add(newTask);
+        this.tasks.add(newTask);
     }
     
     /**
@@ -50,11 +50,11 @@ public class TaskList {
      * @return the last task in the list or {@code null} if the list is empty or the last task's description is "bye"
      */
     public Task lastTask() {
-        if (!this.TaskLists.isEmpty()) {
-            if (this.TaskLists.get(this.TaskLists.size() - 1).getDescription().equals("bye"))
+        if (!this.tasks.isEmpty()) {
+            if (this.tasks.get(this.tasks.size() - 1).getDescription().equals("bye"))
                 return null;
             else {
-                return this.TaskLists.get(this.TaskLists.size() - 1);
+                return this.tasks.get(this.tasks.size() - 1);
             }
         }
         else {
@@ -69,9 +69,9 @@ public class TaskList {
      */
     public String listWord() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < this.TaskLists.size(); i++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             result.append(i + 1).append(". ")
-                    .append(this.TaskLists.get(i).toString()).append("\n");
+                    .append(this.tasks.get(i).toString()).append("\n");
         }
         return result.toString();
     }
@@ -87,11 +87,11 @@ public class TaskList {
         int normalizedIndex = index - 1;
         StringBuilder result = new StringBuilder();
         if (markStatus) {
-            this.TaskLists.get(normalizedIndex).markAsDone();
+            this.tasks.get(normalizedIndex).markAsDone();
         } else {
-            this.TaskLists.get(normalizedIndex).markAsUndone();
+            this.tasks.get(normalizedIndex).markAsUndone();
         }
-        result.append(this.TaskLists.get(normalizedIndex).toString());
+        result.append(this.tasks.get(normalizedIndex).toString());
         return result.toString();
     }
     
@@ -104,8 +104,8 @@ public class TaskList {
     public String deleteOperation(int index) {
         int normalizedIndex = index - 1;
         StringBuilder result = new StringBuilder();
-        result.append(this.TaskLists.get(normalizedIndex).toString());
-        this.TaskLists.remove(normalizedIndex);
+        result.append(this.tasks.get(normalizedIndex).toString());
+        this.tasks.remove(normalizedIndex);
         return result.toString();
     }
     
@@ -115,7 +115,7 @@ public class TaskList {
      * @return a formatted string showing the current number of tasks
      */
     public String getLength() {
-        return "Now you have " + String.valueOf(this.TaskLists.size()) + " tasks in the list.";
+        return "Now you have " + String.valueOf(this.tasks.size()) + " tasks in the list.";
     }
     
     /**
@@ -124,6 +124,6 @@ public class TaskList {
      * @return an {@code ArrayList} of tasks
      */
     public ArrayList<Task> getTaskLists() {
-        return this.TaskLists;
+        return this.tasks;
     }
 }

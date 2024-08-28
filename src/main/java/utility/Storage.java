@@ -20,15 +20,15 @@ import java.time.LocalDate;
 public class Storage {
     
     /** The file path where the task data is stored. */
-    private String FilePath;
+    private String filePath;
     
     /**
      * Constructs a {@code Storage} object with the specified file path.
      *
-     * @param FilePath the path to the file where task data will be stored
+     * @param filePath the path to the file where task data will be stored
      */
-    public Storage(String FilePath) {
-        this.FilePath = FilePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
     
     /**
@@ -37,7 +37,7 @@ public class Storage {
      */
     private void createFile() {
         try {
-            File myObj = new File(this.FilePath);
+            File myObj = new File(this.filePath);
             myObj.createNewFile();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -53,11 +53,11 @@ public class Storage {
      */
     public void writeToFile(String textToAdd) {
         try {
-            File dataFile = new File(this.FilePath);
+            File dataFile = new File(this.filePath);
             if (!dataFile.exists()) {
                 createFile();
             }
-            FileWriter fw = new FileWriter(this.FilePath);
+            FileWriter fw = new FileWriter(this.filePath);
             fw.write(textToAdd);
             fw.close();
         } catch (IOException e) {
@@ -74,7 +74,7 @@ public class Storage {
     public ArrayList<Task> load() {
         try {
             ArrayList<Task> taskList = new ArrayList<>();
-            File file = new File(this.FilePath);
+            File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
             
             while (scanner.hasNext()) {
@@ -90,7 +90,7 @@ public class Storage {
                         break;
                     case "D":
                         taskList.add(new Deadline(taskProcessed[2],  LocalDate.parse(taskProcessed[3].trim()),
-                            Integer.parseInt(taskProcessed[1].trim()) == 1));
+                        Integer.parseInt(taskProcessed[1].trim()) == 1));
                         break;
                 }
             }

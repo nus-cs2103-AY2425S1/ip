@@ -7,9 +7,10 @@ import tasktypes.ToDo;
 import exception.AlphaException;
 
 import utility.TaskList;
-import utility.storage;
+import utility.Storage;
 import utility.Ui;
 import utility.Commands;
+import utility.Parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -76,6 +77,7 @@ public class Alpha {
                 try {
                     Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
                     String modifiedRecord = tasks.deleteOperation(indexInvolved);
+                    
                     String echoResponse = "____________________________________________________________\n"
                         + "Noted. I've removed this task:\n "
                         + modifiedRecord + "\n"
