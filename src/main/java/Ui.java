@@ -1,3 +1,5 @@
+import java.time.format.DateTimeParseException;
+
 public class Ui {
     Parser parser;
     TaskList taskList;
@@ -78,12 +80,19 @@ public class Ui {
         } else if (in.equals("deadline")) {
             String item = parser.scanUntil("/by");
             String by = parser.retrieveNextString().strip();
-            Task task = new Deadline(false, item, by);
-            storage.save(task);
-            taskList.add(task);
-            System.out.println(INDENT + "Got it. I've added this task:");
-            System.out.println(INDENT + "  " + task);
-            System.out.println(INDENT + "Now you have " + taskList.size() + " tasks in the list.");
+            try {
+                Task task = new Deadline(false, item, by);
+                storage.save(task);
+                taskList.add(task);
+                System.out.println(INDENT + "Got it. I've added this task:");
+                System.out.println(INDENT + "  " + task);
+                System.out.println(
+                        INDENT + "Now you have " + taskList.size() + " tasks in the list.");
+            } catch (DateTimeParseException d) {
+                System.out.println("OOPS! Please enter a date in the format YYYY-MM-DD");
+            }
+
+
 
         } else if (in.equals("event")) {
             String item = parser.scanUntil("/from");

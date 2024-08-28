@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
@@ -9,16 +10,18 @@ public class Deadline extends Task {
         return this.by;
     }
 
-    public void setBy(String by) {
+    public void setBy(String by) throws DateTimeParseException {
+
         this.by = LocalDate.parse(by);
+
     }
 
-    public Deadline(boolean done, String task, String by) {
+    public Deadline(boolean done, String task, String by) throws DateTimeParseException {
         super(done, task);
         this.by = LocalDate.parse(by);
     }
 
-    public Deadline(int done, String task, String by) {
+    public Deadline(int done, String task, String by) throws DateTimeParseException {
         super(done == 1 ? true : false, task);
         this.by = LocalDate.parse(by);
     }
