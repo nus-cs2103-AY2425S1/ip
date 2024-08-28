@@ -2,22 +2,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
-    private List<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
+
+    public TaskManager() {
+        tasks = Storage.loadTasks(); // Load tasks on initialization
+    }
 
     public String addTask(String type, String description, String... timeInfo) {
         Task task = null;
         switch (type) {
             case "todo":
-                task = new Todo(description);
+                task = new Todo(description, false);
                 break;
             case "deadline":
-                task = new Deadline(description, timeInfo[0]);
+                task = new Deadline(description, false, timeInfo[0]);
                 break;
             case "event":
-                task = new Event(description, timeInfo[0], timeInfo[1]);
+                task = new Event(description, false, timeInfo[0], timeInfo[1]);
                 break;
         }
         tasks.add(task);
+        Storage.saveTasks(tasks); // Save tasks after adding a new one
+
         return "Roger that! I've added in this task:\n  " + task.toString() + "\nNow you have " + tasks.size() + " tasks in the list ~ !";
     }
 
@@ -26,6 +32,8 @@ public class TaskManager {
             return "OOPS!!! The task number " + taskNumber + " is out of bounds.";
         }
         Task removedTask = tasks.remove(taskNumber - 1);
+        Storage.saveTasks(tasks); // Save tasks after deleting
+
         return "Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
@@ -46,9 +54,11 @@ public class TaskManager {
 
             if (isDone) {
                 task.markAsDone(); // Mark the task as done
+                Storage.saveTasks(tasks); // Save tasks after marking as done/not done
                 return "Yippee~ *uweah* I've marked this task as done:\n  " + task;
             } else {
                 task.unmarkAsDone(); // Mark the task as not done
+                Storage.saveTasks(tasks); // Save tasks after marking as done/not done
                 return "LOL I've marked this task as not done yet:\n  " + task;
             }
         }
