@@ -1,4 +1,4 @@
-package utils;
+package cs2103w10.glados.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,10 +13,10 @@ import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import cs2103w10.glados.tasks.Deadline;
+import cs2103w10.glados.tasks.Event;
+import cs2103w10.glados.tasks.Task;
+import cs2103w10.glados.tasks.Todo;
 
 public class Storage {
 

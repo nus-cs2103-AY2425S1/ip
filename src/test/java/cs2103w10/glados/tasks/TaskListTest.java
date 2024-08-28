@@ -1,9 +1,9 @@
-package tasks;
+package cs2103w10.glados.tasks;
 
 import org.junit.jupiter.api.Test;
 
-import enums.TaskType;
-import exceptions.GladosException;
+import cs2103w10.glados.enums.TaskType;
+import cs2103w10.glados.exceptions.GladosException;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,17 +1,17 @@
-package glados;
+package cs2103w10.glados;
 
 import java.util.Scanner;
 
-import enums.TaskType;
+import cs2103w10.glados.enums.TaskType;
 
-import exceptions.CommandNotFoundException;
-import exceptions.GladosException;
-import exceptions.TaskNotFoundException;
+import cs2103w10.glados.exceptions.CommandNotFoundException;
+import cs2103w10.glados.exceptions.GladosException;
+import cs2103w10.glados.exceptions.TaskNotFoundException;
 
-import tasks.Task;
-import tasks.TaskList;
+import cs2103w10.glados.tasks.Task;
+import cs2103w10.glados.tasks.TaskList;
 
-import utils.Ui;
+import cs2103w10.glados.utils.Ui;
 
 import java.util.ArrayList;
 

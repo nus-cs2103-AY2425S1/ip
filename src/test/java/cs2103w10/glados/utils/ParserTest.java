@@ -1,9 +1,9 @@
-package utils;
+package cs2103w10.glados.utils;
 
 import org.junit.jupiter.api.Test;
 
-import enums.TaskType;
-import exceptions.GladosException;
+import cs2103w10.glados.enums.TaskType;
+import cs2103w10.glados.exceptions.GladosException;
 
 import java.time.LocalDate;
 

@@ -1,17 +1,17 @@
-package tasks;
+package cs2103w10.glados.tasks;
 
 import java.time.LocalDate;
 
 import java.util.ArrayList;
 
-import enums.TaskType;
+import cs2103w10.glados.enums.TaskType;
 
-import exceptions.GladosException;
-import exceptions.TaskNotFoundException;
+import cs2103w10.glados.exceptions.GladosException;
+import cs2103w10.glados.exceptions.TaskNotFoundException;
 
-import utils.ParsedInfo;
-import utils.Parser;
-import utils.Storage;
+import cs2103w10.glados.utils.ParsedInfo;
+import cs2103w10.glados.utils.Parser;
+import cs2103w10.glados.utils.Storage;
 
 public class TaskList {
 

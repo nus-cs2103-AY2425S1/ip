@@ -1,6 +1,6 @@
-package tasks;
+package cs2103w10.glados.tasks;
 
-import enums.TaskType;
+import cs2103w10.glados.enums.TaskType;
 
 public abstract class Task {
     protected String description;

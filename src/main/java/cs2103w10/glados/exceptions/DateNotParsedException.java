@@ -1,4 +1,4 @@
-package exceptions;
+package cs2103w10.glados.exceptions;
 
 public class DateNotParsedException extends GladosException {
     /**

@@ -1,8 +1,8 @@
-package tasks;
-
-import enums.TaskType;
+package cs2103w10.glados.tasks;
 
 import java.time.LocalDate;
+
+import cs2103w10.glados.enums.TaskType;
 
 public class Deadline extends Task{
 
@@ -39,7 +39,7 @@ public class Deadline extends Task{
      */
     @Override
     public TaskType getTaskType() {
-        return TaskType.DEADLINE;
+        return TaskType.TODO;
     }
 
     /**

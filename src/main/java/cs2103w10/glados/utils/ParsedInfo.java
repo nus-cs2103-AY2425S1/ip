@@ -1,4 +1,4 @@
-package utils;
+package cs2103w10.glados.utils;
 
 import java.time.LocalDate;
 

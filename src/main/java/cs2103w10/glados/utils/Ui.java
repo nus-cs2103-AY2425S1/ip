@@ -1,8 +1,8 @@
-package utils;
+package cs2103w10.glados.utils;
 
 import java.util.ArrayList;
 
-import tasks.Task;
+import cs2103w10.glados.tasks.Task;
 
 public class Ui {
 
