@@ -341,8 +341,4 @@ public class Tayoo {
             logger.warning("An error occurred while updating the task");
         }
     }
-
-
-
-
 }
