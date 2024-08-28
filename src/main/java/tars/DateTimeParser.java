@@ -10,6 +10,15 @@ public class DateTimeParser {
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
     private static final DateTimeFormatter STORED_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
 
+    /**
+     * Parses a date-time string into a {@link LocalDateTime} object.
+     * This method first attempts to parse the string using the format "yyyy-MM-dd HHmm".
+     * If that fails, it tries to parse the string using the format "dd MMM yyyy, HH:mm".
+     *
+     * @param dateTimeString The date-time string to be parsed.
+     * @return The parsed {@link LocalDateTime} object.
+     * @throws DateTimeParseException if the string cannot be parsed.
+     */
     public static LocalDateTime parse(String dateTimeString) throws DateTimeParseException {
         try {
             System.out.println("Attempting to parse date: " + dateTimeString);
@@ -21,6 +30,12 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Formats a {@link LocalDateTime} object into a string using the format "dd MMM yyyy, HH:mm".
+     *
+     * @param dateTime The {@link LocalDateTime} object to be formatted.
+     * @return The formatted date-time string.
+     */
     public static String format(LocalDateTime dateTime) {
         return dateTime.format(OUTPUT_FORMATTER);
     }
