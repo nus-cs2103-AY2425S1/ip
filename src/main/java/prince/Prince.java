@@ -10,6 +10,10 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.io.IOException;
 
+
+/**
+ * Prince is a chatbot that interacts with users.
+ */
 public class Prince {
 
     private Storage storage;
@@ -19,6 +23,11 @@ public class Prince {
     // flag to control input printing when running automated tests
     // private static boolean DEBUG = false;
 
+    /**
+     * A constructor for Prince.
+     * 
+     * @param filePath Path that represents a relative path to the storage file.
+     */
     public Prince(Path filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -33,6 +42,9 @@ public class Prince {
 
     }
 
+    /**
+     * Runs Prince.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

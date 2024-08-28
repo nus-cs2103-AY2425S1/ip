@@ -17,20 +17,28 @@ import Tasks.Task;
 import Tasks.TaskList;
 import Tasks.Todo;
 
+/**
+ * Storage handles the reading and writing of user input to text files.
+ */
 public class Storage {
 
     private static Path FILE_PATH;
 
+    /**
+     * A constructor for the storage class.
+     */
     public Storage(Path filePath) {
         FILE_PATH = filePath;
     }
 
-    /*
-     * Methods relating to reading and writing inputs to files
+    /**
+     * Returns a TaskList that is read from storage.
+     * If storage is empty, then it returns an empty TaskList.
+     * 
+     * @return A TaskList.
      */
-
     public TaskList loadFromFile() {
-        TaskList tasksArray = new TaskList();
+        TaskList taskList = new TaskList();
 
         try {
             if (Files.notExists(FILE_PATH.getParent())) {
@@ -78,21 +86,21 @@ public class Storage {
                 // create new task based on each line in the file
                 if (taskType.equals("T")) {
                     Task todoTask = new Todo(description);
-                    tasksArray.add(todoTask);
+                    taskList.add(todoTask);
                     if (status.equals("1")) {
                         todoTask.markAsDone();
                     }
                 }
                 if (taskType.equals("D")) {
                     Task deadlineTask = new Deadline(description, byFrom);
-                    tasksArray.add(deadlineTask);
+                    taskList.add(deadlineTask);
                     if (status.equals("1")) {
                         deadlineTask.markAsDone();
                     }
                 }
                 if (taskType.equals("E")) {
                     Task eventTask = new Event(description, byFrom, to);
-                    tasksArray.add(eventTask);
+                    taskList.add(eventTask);
                     if (status.equals("1")) {
                         eventTask.markAsDone();
                     }
@@ -101,10 +109,16 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return tasksArray;
+        return taskList;
     }
 
-    public void saveToFile(Task task, TaskList tasksArray) {
+    /**
+     * Saves newly created tasks by writing to storage.
+     * 
+     * @param task Task that is created based on user input.
+     * @param taskList List of tasks. 
+     */
+    public void saveToFile(Task task, TaskList taskList) {
         try {
 
             if (Files.notExists(FILE_PATH.getParent())) {
@@ -127,10 +141,16 @@ public class Storage {
         }
     }
 
-    public void deleteFromFile(String input, TaskList tasksArray) {
+    /**
+     * Deletes the task from storage.
+     * 
+     * @param input Input of the user.
+     * @param taskList List of tasks.
+     */
+    public void deleteFromFile(String input, TaskList taskList) {
         try {
             int index = getIndex(input);
-            Task task = tasksArray.get(index);
+            Task task = taskList.get(index);
             // open the old file for reading
             BufferedReader reader = Files.newBufferedReader(FILE_PATH);
             // open a new (temporary) file for writing
@@ -163,10 +183,16 @@ public class Storage {
         }
     }
 
-    public void updateFile(String input, TaskList tasksArray) {
+    /**
+     * Updates storage when user marks or unmarks tasks.
+     * 
+     * @param input Input of the user.
+     * @param taskList List of tasks.
+     */
+    public void updateFile(String input, TaskList taskList) {
         try {
             int index = getIndex(input);
-            Task task = tasksArray.get(index);
+            Task task = taskList.get(index);
             String desc = task.getDescription();
             // open the old file for reading
             BufferedReader reader = Files.newBufferedReader(FILE_PATH);
@@ -205,6 +231,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an integer representing the index of a task in an array.
+     * 
+     * @param input Input by the user.
+     * @return Index of the task.
+     */
     private int getIndex(String input) {
         if (input.contains("unmark")) {
             // get character value of index in the input
