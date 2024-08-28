@@ -171,10 +171,14 @@ public class XBot {
     }
 
     public static void displayTask() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            int index = i + 1;
-            System.out.println(index + ". " + list.get(i).toString());
+        if (list.size() == 0) {
+            System.out.println("Yayy!! You have no task in your list");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                int index = i + 1;
+                System.out.println(index + ". " + list.get(i).toString());
+            }
         }
     }
 
