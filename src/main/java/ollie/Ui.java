@@ -6,8 +6,11 @@ import ollie.exception.UnknownTaskTypeException;
 import ollie.task.Deadline;
 import ollie.task.Event;
 import ollie.task.Todo;
+import ollie.task.Task;
 
 import java.util.Scanner;
+
+import java.util.ArrayList;
 
 /**
  * The Ui class handles all interactions with the user.
@@ -98,6 +101,12 @@ public class Ui {
                 taskList.deleteTask(taskNumber);
                 break;
             }
+            case FIND: {
+                String keyword = Parser.parseKeyword(userCommand);
+                ArrayList<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+                showFindResults(matchingTasks);
+                break;
+            }
             case TODO:
                 taskList.addTask(Todo.createTask(userCommand));
                 break;
@@ -113,6 +122,24 @@ public class Ui {
         } catch (OllieException e) {
             showMessage(e.getMessage());
         }
+    }
+
+    /**
+     * Displays the search results for the find command.
+     *
+     * @param matchingTasks The list of tasks that match the search keyword.
+     */
+    public void showFindResults(ArrayList<Task> matchingTasks) {
+        System.out.println("____________________________________________________________");
+        if (matchingTasks.isEmpty()) {
+            System.out.println("There are no matching tasks in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+        System.out.println("____________________________________________________________");
     }
 
     /**
