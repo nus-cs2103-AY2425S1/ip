@@ -1,12 +1,10 @@
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected static int totalTasks = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        totalTasks += 1;
     }
 
     public String getStatusIcon() {
@@ -20,16 +18,6 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
-    }
-
-    public static int getTotalTasks() {
-        return totalTasks;
-    }
-
-    public static void deleteTask() {
-        if (totalTasks > 0) {
-            totalTasks -= 1;
-        }
     }
 
     public abstract String toData();

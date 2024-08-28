@@ -57,7 +57,12 @@ public class Lict {
                         //Invalid format, discard data entry
                         continue;
                     }
-                    task = new Deadline(messages[0].trim(), messages[1].trim());
+                    try {
+                        task = new Deadline(messages[0].trim(), messages[1].trim());
+                    } catch (LictException e) {
+                        //Invalid deadline, discard data entry
+                        continue;
+                    }
                     break;
 
                 case EVENT:
@@ -146,10 +151,9 @@ public class Lict {
                     break;
                 case DELETE:
                     tasks.remove(index);
-                    Task.deleteTask();
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("    " + t);
-                    System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     break;
                 default:
                     //Fallthrough
@@ -261,7 +265,7 @@ public class Lict {
                     saveData();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("    " + newTask);
-                    System.out.println("Now you have " + Task.getTotalTasks() + " in the list.");
+                    System.out.println("Now you have " + tasks.size() + " in the list.");
                 } catch (LictException e) {
                     System.out.println(e.getMessage());
                 }
