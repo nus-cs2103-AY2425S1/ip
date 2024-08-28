@@ -35,7 +35,7 @@ public class Schedulo {
         } catch (FileNotFoundException e) {
             System.out.println("File not found, please create a new file data.txt under data folder outside src");
         } catch (Exception e) {
-            System.err.println("Something went wrong, please try again");
+            System.err.println(e + ", Something went wrong, please try again");
         } finally {
             if (fileReader != null) {
                 fileReader.close();

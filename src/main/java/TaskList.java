@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public class TaskList {
@@ -141,13 +142,37 @@ public class TaskList {
                     newTask = new Todo(taskDescription, isDone);
                     break;
                 case "D":
-                    LocalDate d = LocalDate.parse(taskParts[3]);
-                    newTask = new Deadline(taskDescription, d, isDone);
+                    if (taskParts[3].length() == 10) {
+                        LocalDate d = LocalDate.parse(taskParts[3]);
+                        newTask = new Deadline(taskDescription, d, isDone);
+                    } else {
+                        String[] dateParts = taskParts[3].split(" ");
+                        LocalDateTime d = LocalDateTime.parse(dateParts[0] + "T" + dateParts[1]);
+                        newTask = new Deadline(taskDescription, d, isDone);
+                    }
                     break;
                 case "E":
-                    LocalDate from = LocalDate.parse(taskParts[3]);
-                    LocalDate to = LocalDate.parse(taskParts[4]);
-                    newTask = new Event(taskDescription, from, to, isDone);
+                    if (taskParts[3].length() == 10 && taskParts[4].length() == 10) {
+                        LocalDate from = LocalDate.parse(taskParts[3]);
+                        LocalDate to = LocalDate.parse(taskParts[4]);
+                        newTask = new Event(taskDescription, from, to, isDone);
+                    } else if (taskParts[3].length() != 10 && taskParts[4].length() != 10) {
+                        String[] dateParts1 = taskParts[3].split(" ");
+                        String[] dateParts2 = taskParts[4].split(" ");
+                        LocalDateTime from = LocalDateTime.parse(dateParts1[0] + "T" + dateParts1[1]);
+                        LocalDateTime to = LocalDateTime.parse(dateParts2[0] + "T" + dateParts2[1]);
+                        newTask = new Event(taskDescription, from, to, isDone);
+                    } else if (taskParts[3].length() == 10 && taskParts[4].length() != 10) {
+                        LocalDate from = LocalDate.parse(taskParts[3]);
+                        String[] dateParts = taskParts[4].split(" ");
+                        LocalDateTime to = LocalDateTime.parse(dateParts[0] + "T" + dateParts[1]);
+                        newTask = new Event(taskDescription, from, to, isDone);
+                    } else {
+                        String[] dateParts = taskParts[3].split(" ");
+                        LocalDateTime from = LocalDateTime.parse(dateParts[0] + "T" + dateParts[1]);
+                        LocalDate to = LocalDate.parse(taskParts[4]);
+                        newTask = new Event(taskDescription, from, to, isDone);
+                    }
                     break;
             }
             tasks.add(newTask);
@@ -275,18 +300,60 @@ public class TaskList {
         if (taskParts.length < 2 || taskParts[0].trim().isEmpty()) {
             throw new ScheduloException("The description of a deadline or the /by cannot be empty.");
         }
-        // format of taskParts[1] should be "yyyy-mm-dd", otherwise throw exception
-        String[] dateParts = taskParts[1].split("-");
-        if (dateParts.length != 3) {
-            throw new ScheduloException("The /by of a deadline should be in the format yyyy-mm-dd.");
+        String[] dateParts = taskParts[1].split(" ");
+        if (dateParts.length == 1) {
+            if (dateParts[0].split("-").length != 3) {
+                throw new ScheduloException("The /by of a deadline should be in the format yyyy-mm-dd or yyyy-mm-dd HH:mm.");
+            }
+            LocalDate d = LocalDate.parse(dateParts[0]);
+            if (d.isBefore(LocalDate.now())) {
+                throw new ScheduloException("The deadline of a deadline should be in the future.");
+            }
+            Task task = new Deadline(taskParts[0], d);
+            this.add(task);
+        } else if (dateParts.length == 2) {
+            if (dateParts[1].length() != 5) {
+                throw new ScheduloException("The /by of a deadline should be in the format yyyy-mm-dd HH:mm.");
+            }
+            if (dateParts[0].split("-").length != 3) {
+                throw new ScheduloException("The /by of a deadline should be in the format yyyy-mm-dd HH:mm.");
+            }
+            LocalDateTime d = LocalDateTime.parse(dateParts[0] + "T" + dateParts[1]);
+            if (d.isBefore(LocalDateTime.now())) {
+                throw new ScheduloException("The deadline of a deadline should be in the future.");
+            }
+            Task task = new Deadline(taskParts[0], d);
+            this.add(task);
+        } else {
+            throw new ScheduloException("The /by of a deadline should be in the format yyyy-mm-dd or yyyy-mm-dd HH:mm.");
         }
-        LocalDate d = LocalDate.parse(taskParts[1]);
-        if (d.isBefore(LocalDate.now())) {
-            throw new ScheduloException("The /by of a deadline should be after today.");
-        }
-        Task task = new Deadline(taskParts[0], d);
-        this.add(task);
     }
+
+    // private void handleEventCommand(String[] splitWords) throws ScheduloException {
+    //     if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+    //         throw new EmptyDescriptionException("event");
+    //     }
+    //     String[] taskParts = splitWords[1].split(" /from ", 2);
+    //     if (taskParts.length < 2 || taskParts[0].trim().isEmpty()) {
+    //         throw new ScheduloException("The description or /from of an event cannot be empty.");
+    //     }
+    //     String[] deadlines = taskParts[1].split(" /to ", 2);
+    //     if (deadlines.length < 2) {
+    //         throw new ScheduloException("The /from or /to of an event cannot be empty.");
+    //     }
+    //     String[] dateParts1 = deadlines[0].split("-");
+    //     String[] dateParts2 = deadlines[1].split("-");
+    //     if (dateParts1.length != 3 || dateParts2.length != 3) {
+    //         throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd.");
+    //     }
+    //     LocalDate from = LocalDate.parse(deadlines[0]);
+    //     LocalDate to = LocalDate.parse(deadlines[1]);
+    //     if (from.isAfter(to)) {
+    //         throw new ScheduloException("The /from of an event should be before the /to.");
+    //     }
+    //     Task task = new Event(taskParts[0], from, to);
+    //     this.add(task);
+    // }
 
     private void handleEventCommand(String[] splitWords) throws ScheduloException {
         if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
@@ -300,18 +367,63 @@ public class TaskList {
         if (deadlines.length < 2) {
             throw new ScheduloException("The /from or /to of an event cannot be empty.");
         }
-        String[] dateParts1 = deadlines[0].split("-");
-        String[] dateParts2 = deadlines[1].split("-");
-        if (dateParts1.length != 3 || dateParts2.length != 3) {
-            throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd.");
+        String[] dateParts1 = deadlines[0].split(" ");
+        String[] dateParts2 = deadlines[1].split(" ");
+        
+        if (dateParts1.length == 1 && dateParts2.length == 1) {
+            // Both are dates
+            if (dateParts1[0].split("-").length != 3 || dateParts2[0].split("-").length != 3) {
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd or yyyy-mm-dd HHmm.");
+            }
+            LocalDate from = LocalDate.parse(dateParts1[0]);
+            LocalDate to = LocalDate.parse(dateParts2[0]);
+            if (from.isAfter(to)) {
+                throw new ScheduloException("The /from of an event should be before the /to.");
+            }
+            Task task = new Event(taskParts[0], from, to);
+            this.add(task);
+        } else if (dateParts1.length == 2 && dateParts2.length == 2) {
+            // Both are date-times
+            if (dateParts1[1].length() != 5 || dateParts2[1].length() != 5) {
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd HH:mm.");
+            }
+            if (dateParts1[0].split("-").length != 3 || dateParts2[0].split("-").length != 3) {
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd HH:mm.");
+            }
+            LocalDateTime from = LocalDateTime.parse(dateParts1[0] + "T" + dateParts1[1]);
+            LocalDateTime to = LocalDateTime.parse(dateParts2[0] + "T" + dateParts2[1]);
+            if (from.isAfter(to)) {
+                throw new ScheduloException("The /from of an event should be before the /to.");
+            }
+            Task task = new Event(taskParts[0], from, to);
+            this.add(task);
+        } else if (dateParts1.length == 1 && dateParts2.length == 2) {
+            // from is date, to is date-time
+            if (dateParts1[0].split("-").length != 3 || dateParts2[0].split("-").length != 3 || dateParts2[1].length() != 5) {
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd or yyyy-mm-dd HHmm.");
+            }
+            LocalDate from = LocalDate.parse(dateParts1[0]);
+            LocalDateTime to = LocalDateTime.parse(dateParts2[0] + "T" + dateParts2[1]);
+            if (from.atStartOfDay().isAfter(to)) {
+                throw new ScheduloException("The /from of an event should be before the /to.");
+            }
+            Task task = new Event(taskParts[0], from, to);
+            this.add(task);
+        } else if (dateParts1.length == 2 && dateParts2.length == 1) {
+            // from is date-time, to is date
+            if (dateParts1[0].split("-").length != 3 || dateParts1[1].length() != 5 || dateParts2[0].split("-").length != 3) {
+                throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd or yyyy-mm-dd HHmm.");
+            }
+            LocalDateTime from = LocalDateTime.parse(dateParts1[0] + "T" + dateParts1[1]);
+            LocalDate to = LocalDate.parse(dateParts2[0]);
+            if (from.isAfter(to.atStartOfDay())) {
+                throw new ScheduloException("The /from of an event should be before the /to.");
+            }
+            Task task = new Event(taskParts[0], from, to);
+            this.add(task);
+        } else {
+            throw new ScheduloException("The /from and /to of an event should be in the format yyyy-mm-dd or yyyy-mm-dd HHmm.");
         }
-        LocalDate from = LocalDate.parse(deadlines[0]);
-        LocalDate to = LocalDate.parse(deadlines[1]);
-        if (from.isAfter(to)) {
-            throw new ScheduloException("The /from of an event should be before the /to.");
-        }
-        Task task = new Event(taskParts[0], from, to);
-        this.add(task);
     }
 
     private void handleTodoCommand(String[] splitWords) throws ScheduloException {
