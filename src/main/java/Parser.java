@@ -2,10 +2,17 @@ public class Parser {
     public static String[] parse(String command) throws AzirException {
         if (command.equals("list")) {
             return new String[] {"list"};
+        } else if (command.equals("bye")) {
+            return new String[] {"bye"};
         }
-        if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
+        else if (command.startsWith("mark")) {
             return command.split(" ");
-        } else if (command.startsWith("todo")) {
+        } else if (command.startsWith("unmark")) {
+            return command.split(" ");
+        } else if (command.startsWith("delete")) {
+            return command.split(" ");
+        }
+        else if (command.startsWith("todo")) {
             String description = command.substring(5);
             return new String[] {"todo", description};
         } else if (command.startsWith("deadline")) {
