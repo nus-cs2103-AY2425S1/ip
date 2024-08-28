@@ -12,16 +12,28 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public void deleteTask(int index) {
-        this.tasks.remove(index);
+    public void deleteTask(int index) throws LeBronException {
+        if (index <= this.tasks.size()) {
+            this.tasks.remove(index - 1);
+        } else {
+            throw new LeBronException("Thats out of bounds bro");
+        }
     }
 
-    public void markTask(int index) {
-        this.tasks.get(index).markAsDone();
+    public void markTask(int index) throws LeBronException {
+        if (index <= this.tasks.size()) {
+            this.tasks.get(index - 1).markAsDone();
+        } else {
+            throw new LeBronException("Thats out of bounds bro");
+        } 
     }
 
-    public void unmarkTask(int index) {
-        this.tasks.get(index).markAsUndone();
+    public void unmarkTask(int index) throws LeBronException {
+        if (index <= this.tasks.size()) {
+            this.tasks.get(index - 1).markAsUndone();
+        } else {
+            throw new LeBronException("Thats out of bounds bro");
+        }
     }
 
     public int size() {
@@ -32,8 +44,12 @@ public class TaskList {
         return this.tasks;
     }
 
-    public Task getTask(int index) {
-        return this.tasks.get(index);
+    public Task getTask(int index) throws LeBronException {
+        if (index <= this.tasks.size()) {
+            return this.tasks.get(index - 1);
+        } else {
+            throw new LeBronException("Thats out of bounds bro");
+        }
     }
 
     

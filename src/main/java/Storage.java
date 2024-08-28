@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -20,15 +21,15 @@ public class Storage {
         if (!file.exists()) {
             return taskList;
         }
-    
+
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
-    
+
         while ((line = br.readLine()) != null) {
             String[] parts = line.split("\\|");
             String type = parts[0].trim();
             boolean isDone = parts[1].trim().equals("1");
-    
+
             Task task;
             switch (type) {
                 case "T":
@@ -39,7 +40,7 @@ public class Storage {
                     task = new Deadlines(parts[2].trim(), date);
                     break;
                 case "E":
-                    String[] startEnd = parts[3].split("-");
+                    String[] startEnd = parts[3].split("to");
                     LocalDate start = LocalDate.parse(startEnd[0].trim());
                     LocalDate end = LocalDate.parse(startEnd[1].trim());
                     task = new Event(parts[2].trim(), start, end);
@@ -47,7 +48,7 @@ public class Storage {
                 default:
                     continue;
             }
-    
+
             if (isDone) {
                 task.markAsDone();
             }
@@ -57,22 +58,26 @@ public class Storage {
         return taskList;
     }
 
-    public void saveTasks(TaskList taskList) throws IOException {
-        File directory = new File("./data");
-        if (!directory.exists()) {
-            directory.mkdirs();
+    public void saveTasks(TaskList taskList) {
+        FileWriter fw = null;
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            fw = new FileWriter(filePath);
+            ArrayList<Task> tasks = taskList.getTasks();
+            for (Task task : tasks) {
+                String taskString = task.toFileString();
+                fw.write(taskString + "\n");
+            }
+        } catch (IOException ex) {
+        } finally {
+            try {
+                fw.close();
+            } catch (IOException ex) {
+            }
         }
-    
-        FileWriter fw = new FileWriter(filePath);
-    
-        ArrayList<Task> tasks = taskList.getTasks();
-    
-        for (Task task : tasks) {
-            String taskString = task.toFileString();
-            fw.write(taskString + "\n");
-        }
-    
-        fw.close();
     }
-    
+
 }

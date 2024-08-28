@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -22,8 +21,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s-%s", this.done ? 1 : 0, this.description, 
-          this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")), 
-            this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format("E | %d | %s | %s to %s", this.done ? 1 : 0, this.description, 
+          this.start, this.end);
     }
 }

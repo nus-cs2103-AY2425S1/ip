@@ -3,10 +3,14 @@ import java.util.Scanner;
 
 public class Ui {
 
-    private final Scanner scanner;
+    Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
+    }
+
+    public void showLine() {
+        System.out.println("------------------------");
     }
 
     public void showLoadingError() {
@@ -14,10 +18,10 @@ public class Ui {
     }
 
     public void showWelcomeMessage() {
-        System.out.println("------------------------");
+        this.showLine();
         System.out.println("Wassup! I'm LeBron");
         System.out.println("What can I do for you?");
-        System.out.println("------------------------");
+        this.showLine();
     }
 
     public String getUserCommand() {
@@ -26,6 +30,39 @@ public class Ui {
 
     public void showGoodbyeMessage() {
         System.out.println("Bye! I'm leaving now.");
-        System.out.println("------------------------");
+        this.showLine();
+    }
+
+    public void showTaskAdded(Task task, int size) {
+        System.out.println("Gotchu, added the task: ");
+        System.out.println(task.toString());
+        System.out.println(String.format("Now you have %d tasks in the list", size));
+        this.showLine();
+    }
+
+    public void showTaskDeleted(Task task) {
+        System.out.println("Alright bro, I've deleted that task.");
+        System.out.println(task.toString());
+        this.showLine();
+    }
+
+    public void showTaskMarked(Task task) {
+        System.out.println("Alright bro, I've marked that task");
+        System.out.println(task.toString());
+        this.showLine();
+    }
+
+    public void showTaskUnmarked(Task task) {
+        System.out.println("Alright bro, I've unmarked that task");
+        System.out.println(task.toString());
+        this.showLine();
+    }
+
+    public void showTaskList(TaskList taskList) throws LeBronException {
+        for (int i = 1; i <= taskList.size(); i++) {
+            Task task = taskList.getTask(i);
+            System.out.println(String.format("%d. %s", i, task.toString()));
+        }
+        this.showLine();
     }
 }
