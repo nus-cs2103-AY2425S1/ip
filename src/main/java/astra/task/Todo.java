@@ -1,3 +1,7 @@
+package astra.task;
+
+import astra.AstraException;
+
 public class Todo extends Task {
     public Todo(String name) throws AstraException {
         super(name);

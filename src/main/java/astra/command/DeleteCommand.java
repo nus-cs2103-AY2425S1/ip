@@ -1,3 +1,11 @@
+package astra.command;
+
+import astra.AstraException;
+import astra.Ui;
+import astra.Storage;
+import astra.TaskList;
+import astra.task.Task;
+
 public class DeleteCommand extends Command {
     private final int index;
 

@@ -1,3 +1,7 @@
+package astra;
+
+import astra.command.Command;
+
 public class Astra {
     private final Ui ui;
     private final Storage storage;

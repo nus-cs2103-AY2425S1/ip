@@ -1,3 +1,9 @@
+package astra.command;
+
+import astra.Storage;
+import astra.TaskList;
+import astra.Ui;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
 

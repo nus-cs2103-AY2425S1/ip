@@ -1,3 +1,7 @@
+package astra;
+
+import astra.task.Task;
+
 import java.util.ArrayList;
 import java.util.Collection;
 

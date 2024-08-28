@@ -1,3 +1,5 @@
+package astra;
+
 import java.util.Scanner;
 
 public class Ui {

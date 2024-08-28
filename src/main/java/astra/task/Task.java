@@ -1,3 +1,7 @@
+package astra.task;
+
+import astra.AstraException;
+
 import java.util.function.Function;
 
 public abstract class Task {
