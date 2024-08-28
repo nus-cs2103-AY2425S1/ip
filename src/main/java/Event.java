@@ -10,13 +10,13 @@ public class Event extends Task{
         super(description);
         this.from_msg = from_msg;
         this.to_msg = to_msg;
+        this.write_to_datafile(dataFile);
     }
 
     public Event(String description, String from_msg, String to_msg, File dataFile, boolean done) {
         super(description, done);
         this.from_msg = from_msg;
         this.to_msg = to_msg;
-        this.write_to_datafile(dataFile);
     }
 
     @Override

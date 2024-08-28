@@ -1,10 +1,10 @@
+import java.io.*;
 import java.util.Scanner; // Import the Scanner class
 import java.util.ArrayList; // import the ArrayList class
 import java.lang.ArrayIndexOutOfBoundsException;
-import java.io.File;  // Import the File class
-//import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;  // Import the IOException class to handle errors
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Tuesday {
     private static ArrayList<Task> tasksArray = new ArrayList<>();
@@ -46,6 +46,16 @@ public class Tuesday {
 
     private static void comm_mark(int task_num, boolean state) {
         tasksArray.get(task_num - 1).changeDone(state);
+        /*String[] dataLine;
+        try{
+            String line = Files.readAllLines(Paths.get("src/main/data/tuesday.txt")).get(task_num - 1);
+            System.out.println(line);
+            dataLine = line.split(" \\| ");
+
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }*/
         String message = "";
         if (state)
             message = "Nice! I've marked this task as done: \n  ";
@@ -81,10 +91,47 @@ public class Tuesday {
     }
 
     private static void comm_delete(int index) {
-        print_taskcount("removed");
-
         Task.deleteTask();
+        Tuesday.print_line();
+        System.out.println("Got it. I've deleted this task:\n  "
+                + tasksArray.get(index - 1).toString()
+                + "\nNow you have " + Task.count + " task(s) in the list.");
+        Tuesday.print_line();
         tasksArray.remove(index - 1);
+
+        int i = 0;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/main/data/tuesday.txt"));
+            try {
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+
+                while (line != null) {
+                    if (i != (index-1)) {
+                        sb.append(line);
+                        sb.append(System.lineSeparator());
+                        line = br.readLine();
+                    } else {
+                        line = br.readLine();
+                        line = br.readLine();
+                    }
+                    i++;
+                }
+                String everything = sb.toString();
+                //System.out.println(everything);
+                FileWriter wr = new FileWriter(new File("src/main/data/tuesday.txt"), false);
+                wr.write(everything);
+                //flushing & closing the writer
+                wr.flush();
+                wr.close();
+            } finally {
+                br.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: No file");
+        } catch (IOException e) {
+            System.out.println("Error: IOException");
+        }
     }
 
     private static void check_datafile_existence(File myFile) {
@@ -200,7 +247,7 @@ public class Tuesday {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Hey there! The 'event' function cannot be empty");
                 } catch (Exception e) {
-                    System.out.println("Hey there! Can you try typing differently ");
+                    System.out.println("Hey there! Can you try typing differently " + e);
                 }
             } else {
                 Tuesday.print_line();
