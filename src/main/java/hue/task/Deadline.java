@@ -1,9 +1,19 @@
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+package hue.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import hue.DateUtils;
+/**
+ * Represents a deadline task with a specific due date and time.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
+    /**
+     * Creates a {@code Deadline} task with the given description and due date.
+     *
+     * @param description The description of the task.
+     * @param by The due date and time of the task in the format "yyyy-MM-dd HH:mm".
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = DateUtils.parseDateTime(by);
