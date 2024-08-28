@@ -1,4 +1,7 @@
+package com.appleaster.command;
 import java.time.LocalDate;
+
+import com.appleaster.task.Task;
 
 public class Command {
     private final CommandType type;

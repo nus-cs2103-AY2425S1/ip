@@ -1,7 +1,10 @@
+package com.appleaster.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.appleaster.exception.AppleasterException;
 
 public class TaskList {
     private List<Task> tasks;

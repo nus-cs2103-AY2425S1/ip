@@ -1,3 +1,4 @@
+package com.appleaster.task;
 public enum TaskStatus {
     NOT_DONE(" "),
     DONE("X");

@@ -1,3 +1,4 @@
+package com.appleaster.command;
 public enum CommandType {
     TODO,
     DEADLINE,

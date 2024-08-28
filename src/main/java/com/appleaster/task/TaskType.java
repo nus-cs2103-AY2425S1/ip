@@ -1,3 +1,4 @@
+package com.appleaster.task;
 public enum TaskType {
     TODO("T"),
     DEADLINE("D"),

@@ -1,3 +1,4 @@
+package com.appleaster.ui;
 import java.util.Scanner;
 
 public class Ui {

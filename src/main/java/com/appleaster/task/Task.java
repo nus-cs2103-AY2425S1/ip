@@ -1,3 +1,4 @@
+package com.appleaster.task;
 public abstract class Task {
     protected String description;
     protected TaskStatus status;

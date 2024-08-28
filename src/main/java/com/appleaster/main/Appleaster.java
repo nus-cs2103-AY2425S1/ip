@@ -1,3 +1,13 @@
+package com.appleaster.main;
+
+import com.appleaster.command.Command;
+import com.appleaster.command.CommandType;
+import com.appleaster.exception.AppleasterException;
+import com.appleaster.parser.Parser;
+import com.appleaster.storage.Storage;
+import com.appleaster.task.TaskList;
+import com.appleaster.ui.Ui;
+
 public class Appleaster {
     private Storage storage;
     private TaskList tasks;
