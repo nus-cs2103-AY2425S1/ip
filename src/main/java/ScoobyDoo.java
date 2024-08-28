@@ -1,13 +1,23 @@
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScoobyDoo {
     public static final String name = "Scooby-Doo";
-    public static final TaskList taskList = new TaskList(100);
+    public static TaskList taskList = new TaskList();
+
+    public static final String FILE_NAME ="data/tasks.txt";
 
     public static void main(String[] args) {
         //greeting
         printFormattedResponse(String.format("Hello! I'm %s\nWhat can I do for you?", name));
+        try {
+            ArrayList<String> stringList = FileReadWrite.readFile(FILE_NAME);
+            taskList = new TaskList(FileReadWrite.getTaskListFromFile(stringList));
+        } catch (FileNotFoundException e) {
+            FileReadWrite.createFile(FILE_NAME);
+        }
         //loop
         String input;
         Scanner scanIn = new Scanner(System.in);
@@ -15,6 +25,7 @@ public class ScoobyDoo {
             input = scanIn.nextLine();
             if (input.equals("bye")) {
                 printFormattedResponse("Bye. Hope to see you again soon!");
+                FileReadWrite.writeFile(ScoobyDoo.FILE_NAME, taskList.toFileFormatString());
                 break;
             }
 
@@ -25,8 +36,7 @@ public class ScoobyDoo {
 
             if (Todo.matchTodo(input)) {
                 try {
-                    String formatInput = Todo.checkTodoFormat(input);
-                    printFormattedResponse(taskList.addTask(new Todo(formatInput)));
+                    printFormattedResponse(taskList.addTask(new Todo(input)));
                 } catch (InputFormatException e) {
                     printFormattedResponse(e.getMessage());
                 }
@@ -35,8 +45,7 @@ public class ScoobyDoo {
 
             if (Deadline.matchDeadline(input)) {
                 try {
-                    String formatInput = Deadline.checkDeadlineFormat(input);
-                    printFormattedResponse(taskList.addTask(new Deadline(formatInput)));
+                    printFormattedResponse(taskList.addTask(new Deadline(input)));
                 } catch (InputFormatException e) {
                     printFormattedResponse(e.getMessage());
                 }
@@ -46,8 +55,7 @@ public class ScoobyDoo {
 
             if (Event.matchEvent(input)) {
                 try {
-                    String formatInput = Event.checkEventFormat(input);
-                    printFormattedResponse(taskList.addTask(new Event(formatInput)));
+                    printFormattedResponse(taskList.addTask(new Event(input)));
                 } catch (InputFormatException e) {
                     printFormattedResponse(e.getMessage());
                 }
@@ -57,7 +65,7 @@ public class ScoobyDoo {
             if (input.startsWith("mark")) {
                 try {
                     int num = Task.matchesMark(input);
-                    printFormattedResponse(taskList.getTask(num - 1).markAsDone());
+                    printFormattedResponse(taskList.markTask(num));
                 } catch (InputFormatException e) {
                     printFormattedResponse(e.getMessage());
                 }
@@ -67,7 +75,7 @@ public class ScoobyDoo {
             if (input.startsWith("unmark")) {
                 try {
                     int num = Task.matchesUnmark(input);
-                    printFormattedResponse(taskList.getTask(num - 1).markAsUndone());
+                    printFormattedResponse(taskList.unmarkTask(num));
                 } catch (InputFormatException e) {
                     printFormattedResponse(e.getMessage());
                 }
