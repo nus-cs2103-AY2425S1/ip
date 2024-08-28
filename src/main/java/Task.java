@@ -6,6 +6,11 @@ public class Task {
         this.description = description;
     }
 
+    public Task(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public void mark() {
         isDone = true;
     }
@@ -21,5 +26,10 @@ public class Task {
     @Override
     public String toString() {
         return getStatus() + description;
+    }
+
+    public String stringData() {
+        int isDoneNum = isDone ? 1 : 0;
+        return isDoneNum + " | " + description;
     }
 }
