@@ -89,14 +89,14 @@ public class Storage {
         String description = parts[2];
 
         switch (type) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                return new Deadline(description, parts[3], isDone);
-            case "E":
-                return new Event(description, parts[3], parts[4], isDone);
-            default:
-                throw new MiraException("Invalid task type in file");
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            return new Deadline(description, parts[3], isDone);
+        case "E":
+            return new Event(description, parts[3], parts[4], isDone);
+        default:
+            throw new MiraException("Invalid task type in file");
         }
     }
 }

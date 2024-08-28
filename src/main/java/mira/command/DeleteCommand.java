@@ -1,10 +1,10 @@
 package mira.command;
 
+import java.io.IOException;
+
 import mira.Savable;
 import mira.Storage;
 import mira.Task;
-
-import java.io.IOException;
 
 public class DeleteCommand extends Command implements Savable {
     private final int index;
@@ -27,8 +27,8 @@ public class DeleteCommand extends Command implements Savable {
     public String execute() {
         Task removedTask = taskList.getTask(index);
         taskList.deleteTask(index);
-        return "Noted. I've removed this task:\n  " + removedTask +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Noted. I've removed this task:\n  " + removedTask
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**

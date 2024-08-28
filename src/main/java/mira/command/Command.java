@@ -7,6 +7,7 @@ import mira.TaskList;
  * Subclasses should implement specific command behaviors by overriding the {@code execute} method.
  */
 public abstract class Command {
+    /* TaskList to access lists of tasks */
     protected TaskList taskList;
 
     /**

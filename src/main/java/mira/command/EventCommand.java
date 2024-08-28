@@ -1,10 +1,10 @@
 package mira.command;
 
+import java.io.IOException;
+
 import mira.Event;
 import mira.Savable;
 import mira.Storage;
-
-import java.io.IOException;
 
 public class EventCommand extends Command implements Savable {
     private final Event event;
@@ -28,8 +28,8 @@ public class EventCommand extends Command implements Savable {
     @Override
     public String execute() {
         taskList.addTask(event);
-        return "Got it. I've added this task:\n  " + event +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n  " + event
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**

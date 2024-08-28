@@ -1,10 +1,10 @@
 package mira.command;
 
+import java.io.IOException;
+
 import mira.Savable;
 import mira.Storage;
 import mira.Todo;
-
-import java.io.IOException;
 
 /**
  * Represents a command to add a todo task to the task list.
@@ -29,8 +29,8 @@ public class TodoCommand extends Command implements Savable {
     @Override
     public String execute() {
         taskList.addTask(todo);
-        return "Got it. I've added this task:\n  " + todo +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n  " + todo
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**

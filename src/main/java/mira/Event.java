@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     private final LocalDateTime from; // The start datetime of the event
-    private final LocalDateTime to;   // The end datetime of the event
+    private final LocalDateTime to; // The end datetime of the event
     private final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
@@ -48,8 +48,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + this.from.format(DEFAULT_FORMAT) +
-                " | " + this.to.format(DEFAULT_FORMAT);
+        return "E | " + super.toFileString() + " | " + this.from.format(DEFAULT_FORMAT)
+                + " | " + this.to.format(DEFAULT_FORMAT);
     }
 
     /**
@@ -62,11 +62,11 @@ public class Event extends Task {
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, h:mma");
         boolean isSameDay = this.from.toLocalDate().isEqual(this.to.toLocalDate());
-        String endDateTime = isSameDay ?
-                this.to.format(DateTimeFormatter.ofPattern("h:mma")) // only show time
+        String endDateTime = isSameDay
+                ? this.to.format(DateTimeFormatter.ofPattern("h:mma")) // only show time
                 : this.to.format(dateTimeFormatter);
-        String outputDateTime = isSameDay ?
-                " (" + this.from.format(dateTimeFormatter) + "-" + endDateTime + ")"
+        String outputDateTime = isSameDay
+                ? " (" + this.from.format(dateTimeFormatter) + "-" + endDateTime + ")"
                 : " (from: " + this.from.format(dateTimeFormatter) + " to: " + endDateTime + ")";
         return "[E]" + super.toString() + outputDateTime;
     }

@@ -1,10 +1,10 @@
 package mira.command;
 
+import java.io.IOException;
+
 import mira.Deadline;
 import mira.Savable;
 import mira.Storage;
-
-import java.io.IOException;
 
 /**
  * Represents a command to add a deadline task to the task list.
@@ -30,8 +30,8 @@ public class DeadlineCommand extends Command implements Savable {
     @Override
     public String execute() {
         taskList.addTask(deadline);
-        return "Got it. I've added this task:\n  " + deadline +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n  " + deadline
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**

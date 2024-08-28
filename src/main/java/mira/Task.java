@@ -4,8 +4,8 @@ package mira;
  * Represents a task with a description and completion status.
  */
 public abstract class Task {
-    private final String description;  // The task's description
-    private boolean isDone;            // Indicates if the task is completed
+    private final String description; // The task's description
+    private boolean isDone; // Indicates if the task is completed
 
     /**
      * Constructs a new Task with the specified description.
