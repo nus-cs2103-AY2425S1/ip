@@ -1,5 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,6 +10,7 @@ import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+
 
 public class Sigma {
     public static ArrayList<Task> items = new ArrayList<>();
@@ -104,6 +107,16 @@ public class Sigma {
         }
     }
 
+    public static String stringToDate(String date) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+//        return LocalDateTime.parse(date, formatter);
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime parsedDateTime = LocalDateTime.parse(date, inputFormatter);
+
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss");
+        return parsedDateTime.format(outputFormatter);
+    }
+
     public static void main(String[] args) throws IOException {
 //        items = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -188,14 +201,15 @@ public class Sigma {
                 if (matcher.find()) {
                     String description = matcher.group(1);
                     String by = matcher.group(2);
-                    Task task = new Deadline(description, false, by);
+                    String dateBy = stringToDate(by);
+                    Task task = new Deadline(description, false, dateBy);
                     items.add(task);
                     try {
                         writer.write(task + "\n");
                     } catch (IOException exception) {
                         System.err.println("an error occurred writing to file");
                     }
-                    System.out.println("added deadline task:\n  [D][ ] " + description + " (by: " + by + ")");
+                    System.out.println("added deadline task:\n  [D][ ] " + description + " (by: " + dateBy + ")");
                 } else {
                     System.out.println("is the deadline in the room with us? let's try again");
                 }
@@ -208,15 +222,17 @@ public class Sigma {
                 if (matcher.find()) {
                     String description = matcher.group(1);
                     String from = matcher.group(2);
+                    String fromDate = stringToDate(from);
                     String to = matcher.group(3);
-                    Task task = new Event(description, false, from, to);
+                    String toDate = stringToDate(to);
+                    Task task = new Event(description, false, fromDate, toDate);
                     items.add(task);
                     try {
                         writer.write(task + "\n");
-                    } catch (IOException exception) {
-                        System.err.println("an error occurred writing to file");
+                    } catch (IOException e) {
+                        System.err.println("an error occurred writing to file: " + e.getMessage());
                     }
-                    System.out.println("added event task:\n  [E][ ] " + description + " (from: " + from + " to: " + to + ")");
+                    System.out.println("added event task:\n  [E][ ] " + description + " (from: " + fromDate + " to: " + toDate + ")");
                 } else {
                     System.out.println("bro really thinks bro can make an empty event and get away with it, lets try again");
                 }
