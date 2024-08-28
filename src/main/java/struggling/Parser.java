@@ -8,13 +8,27 @@ import struggling.task.ToDo;
 
 import java.time.LocalDate;
 
+/**
+ * Commands accepted by the Parser class.
+ */
 enum Commands
 {
     bye, list, mark, unmark, todo, deadline, event, delete;
 }
 
+/**
+ * Parser class deals with making sense of the user command.
+ */
 public class Parser {
 
+    /**
+     * Parses the full command and creates Command
+     * object with arguments.
+     *
+     * @param cmd Full command entered by the user.
+     * @return A Command object to be executed.
+     * @throws StrugglingException If there are missing arguments in the full command.
+     */
     public static Command parse(String cmd) {
         String[] args = cmd.split(" ");
 

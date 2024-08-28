@@ -8,6 +8,11 @@ public class MarkCommand extends Command {
 
     private final int index;
 
+    /**
+     * Mark a Task object in TaskList as Done.
+     *
+     * @param index Index of the Task in TaskList.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

@@ -9,6 +9,11 @@ public class AddCommand extends Command {
 
     private final Task task;
 
+    /**
+     * Adds a new Task object in TaskList.
+     *
+     * @param task Task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }
