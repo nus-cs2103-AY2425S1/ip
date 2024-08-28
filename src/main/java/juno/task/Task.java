@@ -39,6 +39,10 @@ public class Task {
         return this.description;
     }
 
+    public String getTaskType() {
+        return this.taskType;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

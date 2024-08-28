@@ -20,6 +20,7 @@ public class CommandParser {
         String addEventTaskString = "add event";
         String listTaskString = "list";
         String exitString = "bye";
+        String findString = "find";
         if (userInput.equalsIgnoreCase(exitString)) {
             return new ExitCommand(junoUi);
         } else if (userInput.equalsIgnoreCase(listTaskString)) {
@@ -39,6 +40,8 @@ public class CommandParser {
             return new AddDeadlineCommand(userInput, taskManager, fileManager);
         } else if (userInput.startsWith(addEventTaskString)) {
             return new AddEventCommand(userInput, taskManager, fileManager);
+        } else if (userInput.startsWith(findString)) {
+            return new FindCommand(userInput, taskManager);
         } else {
             throw new TaskManagerException(junoUi.invalidFunctionInput(),
                     TaskManagerException.ErrorType.INVALID_FUNCTION);
