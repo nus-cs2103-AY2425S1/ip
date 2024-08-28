@@ -1,6 +1,8 @@
+package com.example.YourHelperBuddy;
+
 import java.io.*;
 
-public class YourHelperBuddy {
+public class Main {
     private static String home = System.getProperty("user.home");
 
     private static String directoryPath = home + "/Documents/";
@@ -38,7 +40,6 @@ public class YourHelperBuddy {
                 System.out.println("________________________________________________");
                 System.out.println("An error occurred while creating the file.");
                 System.out.println("________________________________________________");
-                e.printStackTrace();
                 return;
             }
         }
@@ -48,19 +49,24 @@ public class YourHelperBuddy {
             String taskDescription = screen.readUserInput();
             if (taskDescription.equals("")) {
                 break;
-            } else if (taskDescription.equals("bye")) {
+            }
+            else if (taskDescription.equals("bye")) {
                 break;
-            } else if (taskDescription.equals("list")) {
+            }
+            else if (taskDescription.equals("list")) {
                 screen.showTaskList(taskList);
-            } else if (taskDescription.startsWith("delete")) {
+            }
+            else if (taskDescription.startsWith("delete")) {
                 int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
                 Task removedTask = taskList.deleteTask(taskLabel);
                 screen.showTaskRemoved(removedTask, taskList);
-            } else if (taskDescription.startsWith("mark")) {
+            }
+            else if (taskDescription.startsWith("mark")) {
                 int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
                 Task currentTask = taskList.getTask(taskLabel);
                 screen.showTaskMarked(currentTask);
-            } else if (taskDescription.startsWith("unmark")) {
+            }
+            else if (taskDescription.startsWith("unmark")) {
                 int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
                 Task currentTask = taskList.getTask(taskLabel);
                 screen.showTaskUnmarked(currentTask);
@@ -70,11 +76,7 @@ public class YourHelperBuddy {
                 Task objective = parser.parseCommand(taskDescription);
                 if (objective != null) {
                     taskList.addTask(objective);
-                    System.out.println("________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + objective);
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println("________________________________________________");
+                    screen.showTaskAdded(objective, taskList.size());
                 }
             }
         }
