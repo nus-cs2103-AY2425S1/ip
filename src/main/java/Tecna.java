@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Tecna {
     private ArrayList<Task> taskList;
@@ -123,11 +124,14 @@ public class Tecna {
             return new ToDo(des);
         } else if (category.equalsIgnoreCase("deadline")) {
             String[] description = input.substring(boundary + 1).split("/by");
-            LocalDate by = LocalDate.parse(description[1].trim());
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime by = LocalDateTime.parse(description[1].trim(), pattern);
+
             return new Deadline(description[0].trim(), by);
         } else if (category.equalsIgnoreCase("event")) {
             String[] description = input.substring(boundary + 1).split("/from | /to ");
-            return new Event(description[0].trim(), description[1].trim(), description[2].trim());
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return new Event(description[0].trim(), LocalDateTime.parse(description[1].trim(), pattern), LocalDateTime.parse(description[2].trim(), pattern));
         } else {
             throw new InvalidRequestException();
         }
