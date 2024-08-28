@@ -1,15 +1,6 @@
 package michaelscott.parser;
 
-import michaelscott.command.ClearlistCommand;
-import michaelscott.command.Command;
-import michaelscott.command.DeadlineCommand;
-import michaelscott.command.DeleteCommand;
-import michaelscott.command.EventCommand;
-import michaelscott.command.ExitCommand;
-import michaelscott.command.ListCommand;
-import michaelscott.command.MarkCommand;
-import michaelscott.command.TodoCommand;
-import michaelscott.command.UnmarkCommand;
+import michaelscott.command.*;
 import michaelscott.exception.MichaelScottException;
 
 public class Parser {
@@ -29,6 +20,7 @@ public class Parser {
             case "deadline" -> new DeadlineCommand(args);
             case "event" -> new EventCommand(args);
             case "clear" -> new ClearlistCommand();
+            case "find" -> new FindCommand(args);
             default -> throw new MichaelScottException("I don't understand what you mean to say!");
         };
     }
