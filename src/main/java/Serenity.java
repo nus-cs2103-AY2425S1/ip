@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Serenity {
     private static final String horizontalLine = "__________________________________________";
@@ -184,7 +186,10 @@ public class Serenity {
             t = new Todo(parts[2]);
             break;
         case "D":
-            t = new Deadline(parts[2], parts[3]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            LocalDate date = LocalDate.parse(parts[3], formatter);
+            String by = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            t = new Deadline(parts[2], by);
             break;
         case "E":
             t = new Event(parts[2], parts[3], parts[4]);

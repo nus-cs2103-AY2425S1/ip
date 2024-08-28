@@ -1,4 +1,7 @@
 T | 0 | borrow book
-D | 0 | return book | Sunday
+D | 0 | return book | 28 Aug 2024
 E | 0 | project meeting | Mon 2pm | 4pm
 T | 1 | write essay
+T | 0 | read book
+D | 0 | write report | 29 Aug 2024
+D | 0 | submit report | 30 Aug 2024
