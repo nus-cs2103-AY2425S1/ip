@@ -6,11 +6,14 @@ import storage.TaskList;
 import task.Task;
 import ui.Ui;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Creates a command.DeleteCommand with the given index.
+     * Creates a DeleteCommand with the given index.
      *
      * @param index The index of the task to be deleted.
      */

@@ -10,10 +10,20 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a parser that parses the user input.
+ */
 public class Parser {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input.
+     * @return The corresponding command.
+     * @throws DudeException If the user input is invalid.
+     */
     public static Command parse(String input) throws DudeException {
         String[] tokens = input.split(" ", 2);
         try {

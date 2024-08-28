@@ -5,7 +5,11 @@ import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to exit the program.
+ */
 public class ExitCommand extends Command {
+
     /**
      * Exits the program.
      *

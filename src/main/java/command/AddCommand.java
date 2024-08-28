@@ -6,11 +6,14 @@ import storage.TaskList;
 import task.Task;
 import ui.Ui;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddCommand extends Command {
     private Task task;
 
     /**
-     * Creates an command.AddCommand with the given task.
+     * Creates an AddCommand with the given task.
      *
      * @param task The task to be added.
      */

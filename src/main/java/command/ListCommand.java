@@ -5,6 +5,9 @@ import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to list all the tasks in the task list.
+ */
 public class ListCommand extends Command {
     /**
      * Lists all the tasks in the task list.
