@@ -8,10 +8,10 @@ public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
-    public Event(String name, String startTime, String endTime) {
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
-        this.startTime = DateTime.formatDate(startTime);
-        this.endTime = DateTime.formatDate(endTime);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override

@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     private final LocalDateTime deadline;
 
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, LocalDateTime deadline) {
         super(name);
-        this.deadline = DateTime.formatDate(deadline);
+        this.deadline = deadline;
     }
 
     @Override

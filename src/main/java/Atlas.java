@@ -4,12 +4,14 @@ import tasks.Deadline;
 import tasks.Event;
 
 import command.Command;
+import utils.DateTime;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -57,6 +59,8 @@ public class Atlas {
                 Atlas.print(e.getMessage());
             } catch (IllegalArgumentException e) {
                 Atlas.print("Unknown command.");
+            } catch (DateTimeException e) {
+                Atlas.print("Invalid DateTime format. Please use yyyy-mm-dd HHmm");
             }
         }
     }
@@ -158,10 +162,10 @@ public class Atlas {
         if (sections[0].equals("T")) {
             task = new ToDo(sections[2]);
         } else if (sections[0].equals("D")) {
-            task = new Deadline(sections[2], sections[3]);
+            task = new Deadline(sections[2], DateTime.formatDate(sections[3]));
         } else {
             String[] dateTimes = sections[3].split(" to ");
-            task = new Event(sections[2], dateTimes[0], dateTimes[1]);
+            task = new Event(sections[2], DateTime.formatDate(dateTimes[0]), DateTime.formatDate(dateTimes[1]));
         }
 
         if (sections[1].equals("1")) {
@@ -174,7 +178,8 @@ public class Atlas {
     public static void addTask(ArrayList<Task> taskList, Task task) {
         taskList.add(task);
         Atlas.save(taskList);
-        String addMessage = String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
+        String addMessage = String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.",
+                task, taskList.size());
         Atlas.print(addMessage);
     }
 
@@ -196,7 +201,8 @@ public class Atlas {
         Task task = taskList.get(deleteIndex);
         taskList.remove(deleteIndex);
         Atlas.save(taskList);
-        String addMessage = String.format("Noted. I've removed this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
+        String addMessage = String.format("Noted. I've removed this task:\n\t%s\n Now you have %s tasks in the list.",
+                task, taskList.size());
         Atlas.print(addMessage);
     }
 
@@ -210,7 +216,8 @@ public class Atlas {
         Atlas.addTask(taskList, todo);
     }
 
-    public static void addDeadline(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+    public static void addDeadline(ArrayList<Task> taskList, String nextCommandLine)
+            throws AtlasException, DateTimeException {
         String[] commandsArray = nextCommandLine.split("deadline | /by ");
         if (commandsArray.length == 1) {
             throw new AtlasException("The description of a deadline cannot be empty.");
@@ -218,11 +225,12 @@ public class Atlas {
             throw new AtlasException("A deadline requires a description and a date, in that order.");
         }
 
-        Deadline deadline = new Deadline(commandsArray[1], commandsArray[2]);
+        Deadline deadline = new Deadline(commandsArray[1], DateTime.formatDate(commandsArray[2]));
         Atlas.addTask(taskList, deadline);
     }
 
-    public static void addEvent(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+    public static void addEvent(ArrayList<Task> taskList, String nextCommandLine)
+            throws AtlasException, DateTimeException {
         String[] commandsArray = nextCommandLine.split("event | /from | /to ");
         if (commandsArray.length == 1) {
             throw new AtlasException("The description of an event cannot be empty.");
@@ -230,7 +238,9 @@ public class Atlas {
             throw new AtlasException("An event requires a description, start time and end time, in that order.");
         }
 
-        Event event = new Event(commandsArray[1], commandsArray[2], commandsArray[3]);
+        Event event = new Event(commandsArray[1],
+                DateTime.formatDate(commandsArray[2]),
+                DateTime.formatDate(commandsArray[3]));
         Atlas.addTask(taskList, event);
     }
 
