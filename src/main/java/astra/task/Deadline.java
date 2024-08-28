@@ -1,9 +1,9 @@
 package astra.task;
 
-import astra.AstraException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import astra.AstraException;
 
 public class Deadline extends Task {
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

@@ -1,8 +1,8 @@
 package astra.task;
 
-import astra.AstraException;
-
 import java.util.function.Function;
+
+import astra.AstraException;
 
 public abstract class Task {
     public enum TaskType {
@@ -11,7 +11,7 @@ public abstract class Task {
         EVENT,
     }
 
-    private boolean done;
+    private boolean isDone;
     private final String name;
 
     public Task(String name) throws AstraException {
@@ -19,12 +19,12 @@ public abstract class Task {
             throw new AstraException("Task description cannot be empty.");
         }
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public Task(boolean done, String name) {
+    public Task(boolean isDone, String name) {
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public static Task fromText(String text) {
@@ -44,17 +44,17 @@ public abstract class Task {
     }
 
     public String toText() {
-        char status = done ? '1' : '0';
+        char status = isDone ? '1' : '0';
         return status + " | " + name;
     }
 
     @Override
     public String toString() {
-        char status = done ? 'X' : ' ';
+        char status = isDone ? 'X' : ' ';
         return String.format("[%s] %s", status, name);
     }
 
     public void setDone(boolean status) {
-        this.done = status;
+        this.isDone = status;
     }
 }

@@ -1,16 +1,16 @@
 package astra.command;
 
+import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+
 import astra.AstraException;
-import astra.Ui;
 import astra.Storage;
 import astra.TaskList;
+import astra.Ui;
 import astra.task.Deadline;
 import astra.task.Event;
 import astra.task.Task;
 import astra.task.Todo;
-
-import java.time.format.DateTimeParseException;
-import java.util.HashMap;
 
 public class AddCommand extends Command {
     private Task task;
@@ -27,6 +27,8 @@ public class AddCommand extends Command {
             case EVENT:
                 this.task = new Event(args.getOrDefault("main", ""), args.get("from"), args.get("to"));
                 break;
+            default:
+                throw new AstraException("Invalid task type.");
             }
         } catch (NullPointerException e) {
             throw new AstraException("Please supply dates.");

@@ -1,9 +1,9 @@
 package astra.command;
 
 import astra.AstraException;
-import astra.Ui;
 import astra.Storage;
 import astra.TaskList;
+import astra.Ui;
 import astra.task.Task;
 
 public class MarkCommand extends Command {
