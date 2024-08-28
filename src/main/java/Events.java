@@ -23,6 +23,14 @@ public class Events extends Task {
         }
     }
 
+    public boolean isDuring(String date) {
+        LocalDateTime start = LocalDateTime.parse(date + " 0000hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+        LocalDateTime end = LocalDateTime.parse(date + " 2359hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+
+        return (endOfEvent.isAfter(start) || endOfEvent.isEqual(start)) &&
+                (startOfEvent.isBefore(end) || startOfEvent.isEqual(end));
+    }
+
     public String getStartOfEvent() {
         return startOfEvent.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
     }

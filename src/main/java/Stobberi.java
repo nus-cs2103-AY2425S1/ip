@@ -61,6 +61,25 @@ public class Stobberi {
                         + listOfTasks.get(listOfTasks.size() - 1))
                 + "Now you have " + listOfTasks.size() + " in the list.");
     }
+    private void filterListByDate(String date) {
+        String list = "Here are the tasks in your list that you have to do on " + date + ":\n";
+        int n = 1;
+        for (int i = 1; i < listOfTasks.size() + 1; i++) {
+            Task task = listOfTasks.get(i - 1);
+            if (task instanceof Deadlines deadline) {
+                if (deadline.isDuring(date)) {
+                    list += n + ". " + listOfTasks.get(i - 1) + "\n";
+                    n++;
+                }
+            } else if (task instanceof Events event) {
+                if (event.isDuring(date)) {
+                    list += n + ". " + listOfTasks.get(i - 1) + "\n";
+                    n++;
+                }
+            }
+        }
+        System.out.println(displayForm(list));
+    }
 
     private void addTask(String firstWord, String task) throws StobberiException {
         if (task.isEmpty()) {
@@ -110,6 +129,15 @@ public class Stobberi {
                         temp = scanner.nextLine();
                         continue;
                     }
+                }
+                if (parts.length == 2 && firstWord.equals("date")) {
+                    try {
+                        filterListByDate(parts[1]);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n" + e.getMessage());
+                    }
+                    temp = scanner.nextLine();
+                    continue;
                 }
                 try {
                     addTask(firstWord, restOfTask);

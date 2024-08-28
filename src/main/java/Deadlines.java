@@ -15,6 +15,14 @@ public class Deadlines extends Task {
         if (done.equals("1")) {super.setDone();}
     }
 
+    public boolean isDuring(String date) {
+        LocalDateTime start = LocalDateTime.parse(date + " 0000hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+        LocalDateTime end = LocalDateTime.parse(date + " 2359hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+
+        return (deadlineOfTask.isAfter(start) || deadlineOfTask.isEqual(start)) &&
+                (deadlineOfTask.isBefore(end) || deadlineOfTask.isEqual(end));
+    }
+
     public String getDeadlineOfTask() {
         return deadlineOfTask.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
     }
