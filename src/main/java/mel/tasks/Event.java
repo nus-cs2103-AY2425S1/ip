@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private final String task;
     private final LocalDateTime from;
     private final LocalDateTime to;
 
@@ -30,7 +29,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + task + "(from: "
+        return "[E]" + super.toString() + "(from: "
                 + from.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma")) + " to: "
                 + to.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma")) + ")";
     }

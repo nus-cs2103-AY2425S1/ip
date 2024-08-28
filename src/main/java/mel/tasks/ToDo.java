@@ -3,7 +3,6 @@ package mel.tasks;
 import mel.exceptions.TaskException;
 
 public class ToDo extends Task {
-    private final String task;
     public ToDo(String str) throws TaskException {
         try {
             task = str.split(" ", 2)[1];
@@ -14,6 +13,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString() + task;
+        return "[T]" + super.toString();
     }
 }

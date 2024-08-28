@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private final String task;
     private final LocalDateTime by;
 
     public Deadline(String str) throws TaskException {
@@ -22,7 +21,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + task + "(by: "
+        return "[D]" + super.toString() + "(by: "
                 + by.format(DateTimeFormatter.ofPattern("d LLL uuuu h.mma")) + ")";
     }
 }
