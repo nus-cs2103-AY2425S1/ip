@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -9,6 +10,8 @@ import java.util.Scanner;
 
 public class Storage {
     String filePath;
+    Scanner fileReader;
+    FileWriter writer;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -24,7 +27,6 @@ public class Storage {
             return list;
         }
 
-        Scanner fileReader;
         try {
             fileReader = new Scanner(file);
         } catch (FileNotFoundException fe) {
@@ -82,11 +84,10 @@ public class Storage {
         }
 
         // Write to the save file
-        FileWriter fw;
         try {
-            fw = new FileWriter(filePath);
-            fw.write(list.toFileFormat());
-            fw.close();
+            writer = new FileWriter(filePath);
+            writer.write(list.toFileFormat());
+            writer.close();
         } catch (IOException ie) {
             throw new JudeException("IOException has occurred while writing to a save file.");
         }

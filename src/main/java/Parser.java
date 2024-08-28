@@ -40,17 +40,17 @@ public class Parser {
             if (command.equals("mark")) {
                 // Create an array with 1 element (without using split.)
                 index = Integer.parseInt(split[1]);
-                return new MarkCommand(index - 1);
+                return new MarkCommand(index);
             }
             if (command.equals("unmark")) {
                 // Create an array with 1 element (without using split.)
                 index = Integer.parseInt(split[1]);
-                return new UnmarkCommand(index- 1);
+                return new UnmarkCommand(index);
             }
             if (command.equals("delete")) {
                 // Create an array with 1 element (without using split.)
                 index = Integer.parseInt(split[1]);
-                return new DeleteCommand(index- 1);
+                return new DeleteCommand(index);
             }
         } catch (NumberFormatException ne) {
             throw new JudeException("Number format exception has occurred.");
