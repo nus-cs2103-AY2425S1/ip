@@ -13,8 +13,8 @@ public class Event extends Task {
     private final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
-     * Constructs a new Event task with the specified description,
-     * start date/time, and end date/time.
+     * Constructs a new Event task.
+     * It contains specified description, start, and end datetime.
      *
      * @param description The description of the Event task.
      * @param from        The start datetime of the event.
@@ -27,8 +27,8 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a new Event task with the specified description,
-     * start date/time, and end date/time.
+     * Constructs a new Event task.
+     * It contains specified description, start, and end datetime.
      *
      * @param description The description of the Event task.
      * @param from        The start date/time of the event.
@@ -42,7 +42,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return the string format of Event task to be saved for storage.
+     * Returns the string format of Event task to be saved for storage.
      *
      * @return A specified format string for storage.
      */
@@ -53,8 +53,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task,
-     * including its type, status icon, description, start and end date/times.
+     * Returns a string representation of the Event task.
+     * It includes its type, status icon, description, start and end date/times.
      *
      * @return The task's type "[E]", status icon, description, start and end date/times.
      */

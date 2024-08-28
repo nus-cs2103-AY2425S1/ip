@@ -10,7 +10,23 @@ import mira.command.MarkCommand;
 import mira.command.TodoCommand;
 import mira.command.UnmarkCommand;
 
+/**
+ * Represents a Parser class to parse user input.
+ */
 public class Parser {
+    /**
+     * Parses the user's input command and returns the corresponding {@link Command} object.
+     * <p>
+     * The method splits the input string into the command and its arguments,
+     * and then maps it to the appropriate command class, such as {@link MarkCommand},
+     * {@link UnmarkCommand}, {@link DeadlineCommand}, etc.
+     * </p>
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return The {@link Command} object corresponding to the user's input.
+     * @throws MiraException If the command is not recognized or if the command arguments
+     *         are in an invalid format.
+     */
     public static Command parse(String fullCommand) throws MiraException {
         String[] commandParts = fullCommand.split(" ", 2); // can only split one time
         String command = commandParts[0];

@@ -10,7 +10,7 @@ public class DeleteCommand extends Command implements Savable {
     private final int index;
 
     /**
-     * Constructs a {@code mira.command.DeleteCommand} with the specified index.
+     * Constructs a {@code DeleteCommand} with the specified index.
      *
      * @param index The index of the task.
      */

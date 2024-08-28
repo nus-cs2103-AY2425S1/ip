@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command implements Savable {
     private final int index;
 
     /**
-     * Constructs a {@code mira.command.UnmarkCommand} with the specified index of the task to be marked.
+     * Constructs a {@code UnmarkCommand} with the specified index of the task to be marked.
      *
      * @param index The index of the task to mark as undone (1-based index).
      */

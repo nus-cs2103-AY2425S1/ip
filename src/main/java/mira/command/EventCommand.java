@@ -10,7 +10,7 @@ public class EventCommand extends Command implements Savable {
     private final Event event;
 
     /**
-     * Constructs a {@code mira.command.EventCommand} with the specified description and due date.
+     * Constructs a {@code EventCommand} with the specified description and due date.
      *
      * @param description The description of the deadline task.
      * @param from The start date of the event task.

@@ -12,7 +12,7 @@ public class MarkCommand extends Command implements Savable {
     private final int index;
 
     /**
-     * Constructs a {@code mira.command.MarkCommand} with the specified index of the task to be marked.
+     * Constructs a {@code MarkCommand} with the specified index of the task to be marked.
      *
      * @param index The index of the task to mark as done (1-based index).
      */
