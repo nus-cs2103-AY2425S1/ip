@@ -210,6 +210,18 @@ public class Alex {
         System.out.println(farewell);
     }
 
+    private static String convertDateTime(String deadline) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            LocalDateTime date = LocalDateTime.parse(deadline, formatter);
+            deadline = date.format(DateTimeFormatter.ofPattern("MMM d yyyy ha"));
+        } catch (DateTimeParseException e) {
+            //do nothing
+        }
+
+        return deadline;
+    }
+
     private static Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws AlexException {
         while (lineScanner.hasNext()) {
             arrOfStr.add(lineScanner.next());
@@ -234,13 +246,6 @@ public class Alex {
         }
 
         deadline = String.join(" ", arrOfStr);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        try {
-            LocalDateTime date = LocalDateTime.parse(deadline, formatter);
-            deadline = date.format(DateTimeFormatter.ofPattern("MMM d yyyy ha"));
-        } catch (DateTimeParseException e) {
-            //do nothing
-        }
 
         if ((description.isEmpty() && !arrOfStr.isEmpty()) || (!description.isEmpty()) && deadline.isEmpty()) {
             throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a deadline date by writing '/by' followed by the deadline!");
@@ -248,7 +253,7 @@ public class Alex {
         if (description.isEmpty() && deadline.isEmpty()) {
             throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide a task!");
         }
-        return new Deadline(size + 1, description, isDone, deadline);
+        return new Deadline(size + 1, description, isDone, convertDateTime(deadline));
     }
 
     private static Task makeEventTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws AlexException  {
@@ -288,7 +293,7 @@ public class Alex {
         if (!isEnd) {
             throw new AlexException("Oh no! Alex doesn't like that no end time is provided :( You have to provide an end time with '/to' followed by the time!");
         }
-        return new Event(size + 1, description, isDone, start, String.join(" ", arrOfStr));
+        return new Event(size + 1, description, isDone, convertDateTime(start), convertDateTime(String.join(" ", arrOfStr)));
     }
 
     private static void message(String line, String str, Task task, int size) {

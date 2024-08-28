@@ -12,3 +12,8 @@
 [D][ ] wash /by Oct 15 2019 6pm
 [D][ ] wash /by Oct 15 2019 6:00pm
 [D][ ] wash /by Oct 15 2019 6pm
+[D][ ] wash /by 2/12/2019 1800
+[D][ ] wash /by 2/12/2019 1800
+[D][ ] wash /by 2/12/2019 1800
+[D][ ] wash /by Oct 15 2019 6pm
+[E][ ] wash /from Oct 15 2019 6pm /to Oct 16 2019 11am
