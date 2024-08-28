@@ -1,3 +1,5 @@
+package jeff.exception;
+
 public class JeffException extends Exception {
     private String message;
 

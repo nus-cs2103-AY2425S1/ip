@@ -1,3 +1,5 @@
+package jeff.exception;
+
 public class FileCorruptException extends Exception {
     private String message;
 
