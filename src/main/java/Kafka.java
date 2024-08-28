@@ -20,7 +20,9 @@ public class Kafka {
 
     public void addTask(Task task) {
         this.tasks.add(task);
-        System.out.println("  added: " + task.description);
+        System.out.println("  Got it. I've added this task.");
+        System.out.println("    " + task);
+        System.out.println("  Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     public void createList() {
@@ -30,7 +32,6 @@ public class Kafka {
             String listMessage = "  " + (i + 1) + "." + t;
             System.out.println(listMessage);
         }
-        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void mark(int taskNumber) {
@@ -77,9 +78,18 @@ public class Kafka {
                 int taskNumber = Integer.parseInt(userInput[1]);
                 kafka.unmark(taskNumber);
             } else {
-                String description = String.join(" ", userInput);
-                Task task = new Task(description);
-                kafka.addTask(task);
+                if (userInput[0].equalsIgnoreCase("todo")) {
+                    Task todo = new Todo(userInput[1]);
+                    kafka.addTask(todo);
+                } else if (userInput[0].equalsIgnoreCase("deadline")) {
+                    String[] deadlineSplit = userInput[1].split("/by");
+                    Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                    kafka.addTask(deadline);
+                } else if (userInput[0].equalsIgnoreCase("event")) {
+                    String[] eventSplit = userInput[1].split("/from |/to ");
+                    Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                    kafka.addTask(event);
+                }
             }
         }
         kafka.goodbye();
