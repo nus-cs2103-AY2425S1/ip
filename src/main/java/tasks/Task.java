@@ -47,14 +47,14 @@ public abstract class Task {
     public String toString() {
         return String.format("Name: %s, Completed: %s", this.taskName, this.taskDone);
     }
-    public String serialiaze() {
+    public String serialize() {
         return String.format("%s:%s:%s",
                 taskType,
                 taskName.replaceAll(":", "/colon"),
                 taskDone
         );
     }
-    public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
+    public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
         if (sString.length < 3) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }

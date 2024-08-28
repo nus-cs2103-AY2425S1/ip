@@ -43,19 +43,19 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String serialiaze() {
+    public String serialize() {
         return String.format("%s:%s",
-                super.serialiaze(),
+                super.serialize(),
                 deadline.replaceAll(":", "/colon")
         );
     }
     @Override
-    public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
+    public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
         if (sString.length < 4) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
-            super.deserialiaze(sString);
+            super.deserialize(sString);
             deadline = sString[3].replaceAll("/colon", ":");
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());

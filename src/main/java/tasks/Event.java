@@ -55,20 +55,20 @@ public class Event extends Task {
     }
 
     @Override
-    public String serialiaze() {
+    public String serialize() {
         return String.format("%s:%s:%s",
-                super.serialiaze(),
+                super.serialize(),
                 startTime.replaceAll(":", "/colon"),
                 endTime.replaceAll(":", "/colon")
         );
     }
     @Override
-    public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
+    public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
         if (sString.length < 5) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
-            super.deserialiaze(sString);
+            super.deserialize(sString);
             startTime = sString[3].replaceAll("/colon", ":");
             endTime = sString[4].replaceAll("/colon", ":");
         } catch (IllegalArgumentException e) {

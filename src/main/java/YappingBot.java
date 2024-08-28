@@ -6,7 +6,6 @@ import java.io.*;
 import java.util.*;
 
 import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s;
-import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
 
 public class YappingBot {
@@ -264,15 +263,15 @@ public class YappingBot {
                         switch (TaskTypes.valueOf(s[0])) {
                             case TODO:
                                 t = new Todo();
-                                t.deserialiaze(s);
+                                t.deserialize(s);
                                 break;
                             case DEADLINE:
                                 t = new Deadline();
-                                t.deserialiaze(s);
+                                t.deserialize(s);
                                 break;
                             case EVENT:
                                 t = new Event();
-                                t.deserialiaze(s);
+                                t.deserialize(s);
                                 break;
                             default:
                                 throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, s[0]));
@@ -293,7 +292,7 @@ public class YappingBot {
     private static void saveListToFile() throws YappingBotSaveFileIOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(LIST_SAVE_PATH))) {
             for (Task t : userList) {
-                bw.write(t.serialiaze());
+                bw.write(t.serialize());
                 bw.newLine();
             }
         } catch (IOException e) {
