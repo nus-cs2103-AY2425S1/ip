@@ -80,7 +80,6 @@ public class Parser {
         String[] params = line.split(splitRegex);
         Task t;
         String type = params[0];
-        boolean isDone = params[1].equals("1");
 
         switch (type) {
         case "T":
@@ -96,6 +95,7 @@ public class Parser {
             throw new CorruptedFileException();
         }
 
+        boolean isDone = params[1].equals("1");
         t.setDone(isDone);
         System.out.println("Loaded: " + t);
         return t;
