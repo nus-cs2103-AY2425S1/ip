@@ -34,7 +34,8 @@ test {
 
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = "Monique.jar"
+    archiveBaseName = "Monique"
     archiveClassifier = null
 }
 
