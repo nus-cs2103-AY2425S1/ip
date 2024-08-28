@@ -10,19 +10,12 @@ public class Stobberi {
         listOfTasks = new ArrayList<>();
     }
 
-    private String displayForm(String phrase) {
-        return
-                "_______________________________________________\n"
-                        + phrase
-                        + "\n_______________________________________________\n";
-    }
-
     private void displayList() {
         String list = "Here are the tasks in your list:\n";
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             list += i + ". " + listOfTasks.get(i - 1) + "\n";
         }
-        System.out.println(displayForm(list));
+        Ui.displayForm(list);
     }
 
     private void markTask(int number) {
@@ -30,7 +23,7 @@ public class Stobberi {
         String done = "Nice! I've marked this task as done:\n" +
                 "  ";
         done += listOfTasks.get(number - 1).toString();
-        System.out.println(displayForm(done));
+        Ui.displayForm(done);
     }
 
     private void unmarkTask(int number) {
@@ -38,7 +31,7 @@ public class Stobberi {
         String done = "OK, I've marked this task as not done yet:\n" +
                 "  ";
         done += listOfTasks.get(number - 1).toString();
-        System.out.println(displayForm(done));
+        Ui.displayForm(done);
     }
 
     private void delete(int number) {
@@ -47,13 +40,13 @@ public class Stobberi {
         String done = "Noted. I've removed this task:\n" +
                 "  " + temp
                 + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
-        System.out.println(displayForm(done));
+        Ui.displayForm(done);
     }
 
     private void displayLastAdded() {
-        System.out.println(displayForm(
+        Ui.displayForm(
                 "Got it. I've added this task:\n    "
-                        + listOfTasks.get(listOfTasks.size() - 1))
+                        + listOfTasks.get(listOfTasks.size() - 1)
                 + "Now you have " + listOfTasks.size() + " in the list.");
     }
     private void filterListByDate(String date) {
@@ -73,16 +66,16 @@ public class Stobberi {
                 }
             }
         }
-        System.out.println(displayForm(list));
+        Ui.displayForm(list);
     }
 
     private void addTask(String firstWord, String task) throws StobberiException {
         if (task.isEmpty()) {
-            throw new EmptyStobberiException(displayForm("That's not a task?! Try again. "));
+            throw new EmptyStobberiException("That's not a task?! Try again. ");
         }
 
         if (!firstWord.equals("todo") && !firstWord.equals("deadline") && !firstWord.equals("event")) {
-            throw new NoSuchTaskStobberiException(displayForm("Huh! There is no such task?? "));
+            throw new NoSuchTaskStobberiException("Huh! There is no such task?? ");
         }
 
         if (firstWord.equals("todo")) {
@@ -129,7 +122,7 @@ public class Stobberi {
                     try {
                         filterListByDate(parts[1]);
                     } catch (DateTimeParseException e) {
-                        System.out.println("Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n" + e.getMessage());
+                        Ui.displayForm("Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n" + e.getMessage());
                     }
                     temp = scanner.nextLine();
                     continue;
@@ -137,9 +130,9 @@ public class Stobberi {
                 try {
                     addTask(firstWord, restOfTask);
                 } catch (StobberiException e) {
-                    System.out.println(e.getMessage());
+                    Ui.displayForm(e.getMessage());
                 } catch (DateTimeParseException e) {
-                    System.out.println("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n" + e.getMessage());
+                    Ui.displayForm("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n" + e.getMessage());
                 }
             }
             temp = scanner.nextLine();
