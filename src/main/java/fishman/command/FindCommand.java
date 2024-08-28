@@ -5,7 +5,6 @@ import fishman.task.TaskList;
 import fishman.utils.Ui;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Represents the command to find a task in the task list.
