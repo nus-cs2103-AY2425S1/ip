@@ -1,8 +1,8 @@
 package ollie.task;
+import ollie.TaskType;
 
 import ollie.exception.EmptyDescriptionException;
 import ollie.exception.OllieException;
-import ollie.TaskType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -54,12 +54,15 @@ public class Deadline extends Task {
      */
     public static Deadline createTask(String command) throws OllieException {
         String[] parts = command.substring(8).split(" /by:");
+
         if (parts.length != 2) {
             throw new OllieException("Please enter in the format:\n" +
                     "deadline task_name /by: due_date" +
                     "\nExample: deadline assignment /by: 2021-09-30 23:59");
         }
+
         DateTimeFormatter inputDate = Task.getInputDate();
+
         try {
             return new Deadline(parts[0].trim(), LocalDateTime.parse(parts[1].trim(), inputDate));
         } catch (Exception e) {

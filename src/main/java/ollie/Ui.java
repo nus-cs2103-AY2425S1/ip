@@ -2,6 +2,7 @@ package ollie;
 
 import ollie.exception.OllieException;
 import ollie.exception.UnknownTaskTypeException;
+
 import ollie.task.Deadline;
 import ollie.task.Event;
 import ollie.task.Todo;
@@ -73,41 +74,41 @@ public class Ui {
             Command command = Parser.parse(userCommand);
 
             switch (command) {
-                case GREETING:
-                    greeting();
-                    break;
-                case EXIT:
-                    exit();
-                    break;
-                case LIST:
-                    taskList.listTasks();
-                    break;
-                case MARK: {
-                    int taskNumber = Parser.parseTaskNumber(userCommand, 5);
-                    taskList.markTaskAsDone(taskNumber);
-                    break;
-                }
-                case UNMARK: {
-                    int taskNumber = Parser.parseTaskNumber(userCommand, 7);
-                    taskList.unmarkTaskAsDone(taskNumber);
-                    break;
-                }
-                case DELETE: {
-                    int taskNumber = Parser.parseTaskNumber(userCommand, 7);
-                    taskList.deleteTask(taskNumber);
-                    break;
-                }
-                case TODO:
-                    taskList.addTask(Todo.createTask(userCommand));
-                    break;
-                case DEADLINE:
-                    taskList.addTask(Deadline.createTask(userCommand));
-                    break;
-                case EVENT:
-                    taskList.addTask(Event.createTask(userCommand));
-                    break;
-                default:
-                    throw new UnknownTaskTypeException();
+            case GREETING:
+                greeting();
+                break;
+            case EXIT:
+                exit();
+                break;
+            case LIST:
+                taskList.listTasks();
+                break;
+            case MARK: {
+                int taskNumber = Parser.parseTaskNumber(userCommand, 5);
+                taskList.markTaskAsDone(taskNumber);
+                break;
+            }
+            case UNMARK: {
+                int taskNumber = Parser.parseTaskNumber(userCommand, 7);
+                taskList.unmarkTaskAsDone(taskNumber);
+                break;
+            }
+            case DELETE: {
+                int taskNumber = Parser.parseTaskNumber(userCommand, 7);
+                taskList.deleteTask(taskNumber);
+                break;
+            }
+            case TODO:
+                taskList.addTask(Todo.createTask(userCommand));
+                break;
+            case DEADLINE:
+                taskList.addTask(Deadline.createTask(userCommand));
+                break;
+            case EVENT:
+                taskList.addTask(Event.createTask(userCommand));
+                break;
+            default:
+                throw new UnknownTaskTypeException();
             }
         } catch (OllieException e) {
             showMessage(e.getMessage());

@@ -35,7 +35,7 @@ public class EventTest {
     public void createTask_validCommand_eventTaskCreated() throws OllieException {
         String command = "event Project meeting /from: 2023-09-30 14:00 /to: 2023-09-30 16:00";
         Event task = Event.createTask(command);
-        assertEquals("Project meeting", task.description);
+        assertEquals("Project meeting", task.getDescription());
         assertEquals(LocalDateTime.of(2023, 9, 30, 14, 0), task.getStart());
         assertEquals(LocalDateTime.of(2023, 9, 30, 16, 0), task.getEnd());
     }

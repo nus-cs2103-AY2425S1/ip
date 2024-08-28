@@ -57,9 +57,9 @@ public class TaskTest {
     @Test
     public void markAsDone_updatesStatus() {
         task.markAsDone(true);
-        assertTrue(task.isDone);
+        assertTrue(task.getIsDone());
         task.markAsDone(false);
-        assertFalse(task.isDone);
+        assertFalse(task.getIsDone());
     }
 
     /**
