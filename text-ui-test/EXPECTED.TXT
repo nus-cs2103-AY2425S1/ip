@@ -82,7 +82,7 @@ ____________________________________
 ____________________________________
 
 ____________________________________
-ERROR! The description of a deadline cannot be empty.
+ERROR! The description of a task cannot be empty.
 ____________________________________
 
 ____________________________________
@@ -115,7 +115,7 @@ Done, removed that task for you.
 ____________________________________
 
 ____________________________________
-I'm sorry, I don't understand that command.
+ERROR! Unknown command.
 ____________________________________
 
 ERROR! Could not write to file.

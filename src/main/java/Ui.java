@@ -1,7 +1,10 @@
+import java.util.Scanner;
+
 public class Ui {
 
     private static final String LINE_BREAK = "____________________________________";
     private boolean isTerminated;
+    private static Scanner scanner = new Scanner(System.in);
 
     public Ui() {
         this.isTerminated = false;
@@ -15,6 +18,12 @@ public class Ui {
 
     public static void printList(TaskList tasks) {
         printText(tasks.toString());
+    }
+
+    public static void printAddTask(Task task, TaskList tasks) {
+        String output = String.format("Added %s task:\n%s", task.getType(), task);
+        output += "\nYou currently have " + tasks.size() + " task/s in your list.";
+        printText(output);
     }
 
     public static void printGreeting() {
@@ -31,6 +40,10 @@ public class Ui {
 
     public static void printError(String error) {
         printText(error);
+    }
+
+    public static String readInput() {
+        return scanner.nextLine().trim();
     }
 }
 

@@ -19,7 +19,7 @@ public class Event extends Task {
             this.fromDateTime = LocalDateTime.parse(fromStr);
             this.toDateTime = LocalDateTime.parse(toStr);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("ERROR! Invalid event duration format.");
+            throw new InvalidTaskException("ERROR! Invalid event duration format.");
         }
     }
 
@@ -29,6 +29,11 @@ public class Event extends Task {
 
     public String getTo() {
         return to;
+    }
+
+    @Override
+    public String getType() {
+        return "Event";
     }
 
     @Override
