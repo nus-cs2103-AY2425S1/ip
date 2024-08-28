@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.Serializable;
 
 // Serializable so that i am able to save and restore information

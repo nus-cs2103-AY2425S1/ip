@@ -1,12 +1,8 @@
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+package duke;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 public class Meow {
     /*
@@ -230,9 +226,7 @@ public class Meow {
                     ui.showGoodbyeMessage();
                     break;
                 }
-            } catch (IOException e) {
-                ui.showMessage("Error: " + e.getMessage());
-            } catch (MeowException e) {
+            } catch (IOException | MeowException e) {
                 ui.showMessage("Error: " + e.getMessage());
             }
         }
