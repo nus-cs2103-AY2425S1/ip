@@ -8,6 +8,7 @@ import tick.commands.Command;
 import tick.commands.CommandType;
 import tick.commands.DeleteCommand;
 import tick.commands.ExitCommand;
+import tick.commands.FindCommand;
 import tick.commands.IncorrectCommand;
 import tick.commands.ListCommand;
 import tick.commands.MarkCommand;
