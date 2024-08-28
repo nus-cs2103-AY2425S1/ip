@@ -45,4 +45,14 @@ public class EventTask extends Task {
     public String toString() {
         return String.format("[%s]%s %s", this.getTypeLabel(), super.toString(), this.getTimingLabel());
     }
+
+    /**
+     * Returns the string representation of the task in data format (for saving to file)
+     *
+     * @return The data string.
+     */
+    @Override
+    public String toDataString() {
+        return String.format("%s | %s | %s | %s", this.getTypeLabel(), this.getDescription(), this.startTime, this.endTime);
+    }
 }

@@ -58,4 +58,11 @@ public abstract class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusLabel(), this.description);
     }
+
+    /**
+     * Returns the string representation of the task in data format (for saving to file)
+     *
+     * @return The data string.
+     */
+    public abstract String toDataString();
 }
