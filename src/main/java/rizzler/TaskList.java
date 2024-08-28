@@ -111,4 +111,25 @@ class TaskList {
                     "Please put task number that is actually in the list");
         }
     }
+
+    /**
+     * Conducts a search among the tasklist for tasks with
+     * name having a keyword in them, then adding the tasks to
+     * another ArrayList, which is fed to the Ui to be outputted.
+     * 
+     * @param keyword Keyword to match with the task.
+     * @throws RizzlerException If the tasklist is empty.
+     */
+    void find(String keyword) throws RizzlerException {
+        if (this.tasks.size() == 0) {
+            throw new RizzlerException("No tasks here to find");
+        }
+        ArrayList<Task> foundList = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).matches(keyword)) {
+                foundList.add(this.tasks.get(i));
+            }
+        }
+        this.ui.showFoundList(foundList);
+    }
 }

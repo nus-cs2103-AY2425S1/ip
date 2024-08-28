@@ -124,6 +124,29 @@ class Ui {
     }
 
     /**
+     * Outputs the tasks found to match a given keyword.
+     * If no tasks are found, outputs that no tasks are found.
+     * 
+     * @param tasks ArrayList of tasks that match the given keyword.
+     */
+    void showFoundList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println(
+                    separator
+                    + "I couldn't find any tasks matching your keyword\n"
+                    + separator);
+        } else {
+            System.out.println(
+                    separator
+                    + "I found these tasks matching your keyword");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i));
+            }
+            System.out.println(separator);
+        }
+    }
+
+    /**
      * Outputs error message when loading up.
      */
     void showLoadingError() {

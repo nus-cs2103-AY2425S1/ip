@@ -1,5 +1,8 @@
 package rizzler;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Represents a task that is stored in Rizzler's tasklist.
  */
@@ -33,6 +36,22 @@ class Task {
      */
     void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Checks if the task name matches the given keyword.
+     * 
+     * @param keyword Keyword to match with the task name.
+     * @return <code>true</Code> if the keyword is in the task name.
+     */
+    boolean matches(String keyword) {
+        Pattern pattern = Pattern.compile(keyword);
+        Matcher matcher = pattern.matcher(this.name);
+        boolean isMatched = false;
+        while (matcher.find()) {
+            isMatched = true;
+        }
+        return isMatched;
     }
 
     /**
