@@ -1,5 +1,8 @@
 package rotodo.tasklist;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Event class encapsulates the specific type of 
  * Task, called Events. Events are tasks that start 
@@ -10,21 +13,25 @@ package rotodo.tasklist;
  * @version CS2103T AY24/25 Semester 1
  */
 public class Event extends Task {
-    String from;
-    String to;
+    LocalDateTime from;
+    LocalDateTime to;
 
-    public Event(String ...value) {
-        super(value[0], value.length > 3 ? value[3] : "0");
-        this.from = value[1];
-        this.to = value[2];
+    public Event(String value, LocalDateTime from, LocalDateTime to, boolean status) {
+        super(value, status);
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() 
+            + " (from: " + from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) 
+            + " to: " + to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + ")";
     }
 
     public String saveString() {
-        return "E | " + saveString(from + " | " + to);
+        return "E | " + super.saveString()
+            + " | " + from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+            + " | " + to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }

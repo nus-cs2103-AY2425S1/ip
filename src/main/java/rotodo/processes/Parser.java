@@ -1,12 +1,16 @@
 package rotodo.processes;
 
+import rotodo.commands.Command;
+import rotodo.commands.AddCommand;
+import rotodo.commands.DeleteCommand;
+import rotodo.commands.ExitCommand;
+import rotodo.commands.HelpCommand;
+import rotodo.commands.ListCommand;
+import rotodo.commands.MarkCommand;
 import rotodo.exception.IncompleteInputException;
 import rotodo.exception.InvalidInputException;
-import rotodo.tasklist.TaskList;
 
 public class Parser {
-    private static TaskList taskList = TaskList.of();
-
     /**
      * Different types of tasks
      */
@@ -30,7 +34,7 @@ public class Parser {
      * @param input user input
      * @throws InvalidInputException
      */
-    public static String process(String input) throws InvalidInputException {
+    public static Command process(String input) throws InvalidInputException {
         String[] token = input.split(" ", 2);
         boolean delete = false;
         boolean mark = false;
@@ -38,98 +42,100 @@ public class Parser {
         String output = "";
         switch (token[0]) {
         case LIST:
-            output = taskList.toString();
-            break;
+            return new ListCommand();
 
         case EXIT:
-            Ui.exit();
-            break;
+            return new ExitCommand();
 
         case DELETE:
-            delete = true;
-            // Fallthrough
-        case MARK:
-            mark = true;
-            // Fallthrough
-        case UNMARK:
             if (token.length < 2) {
                 throw new IncompleteInputException(
                     "RoTodo need task number");
             }
-
-            int taskNumber;
             try {
-                taskNumber = Integer.parseInt(token[1]) - 1;
+                int idx = Integer.parseInt(token[1].split(" ")[0]);
+                return new DeleteCommand(idx-1);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
                     + "number RoTodo knows (and RoTodo know much numbers, "
                     + "like 1s and 0s)", token[1]));
             }
-            if (delete) {
-                output = taskList.deleteTask(taskNumber);
-                break;
+        
+        case MARK:
+            if (token.length < 2) {
+                throw new IncompleteInputException(
+                    "RoTodo need task number");
             }
-            if (mark) output = taskList.markDone(taskNumber);
-            else output = taskList.unmarkDone(taskNumber);
-            break;
+            try {
+                int idx = Integer.parseInt(token[1].split(" ")[0]);
+                return new MarkCommand(idx-1, true);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException(String.format("'%s' not a "
+                    + "number RoTodo knows (and RoTodo know much numbers, "
+                    + "like 1s and 0s)", token[1]));
+            }
+
+        case UNMARK:
+            if (token.length < 2) {
+                throw new IncompleteInputException(
+                    "RoTodo need task number");
+            }
+            try {
+                int idx = Integer.parseInt(token[1].split(" ")[0]);
+                return new MarkCommand(idx-1, false);
+            } catch (NumberFormatException e) {
+                throw new InvalidInputException(String.format("'%s' not a "
+                    + "number RoTodo knows (and RoTodo know much numbers, "
+                    + "like 1s and 0s)", token[1]));
+            }
 
         case TODO:
             if (token.length < 2) {
                 throw new IncompleteInputException(
                     "RoTodo can't read you mind, otherwise "
-                    + "RoTodo's creator would be rich!\n      "
-                    + "RoTodo needs a task description");
+                    + "RoTodo's creator would be rich!\n"
+                    + "  RoTodo needs a task description");
             }
-            output = taskList.addTask(token[1]);
-            break;
+            return new AddCommand(AddCommand.TaskType.TODO, token[1]);
         
         case DEADLINE:
             if (token.length < 2) {
                 throw new IncompleteInputException(
                     "RoTodo can't read you mind, otherwise "
-                    + "RoTodo's creator would be rich!\n      "
-                    + "RoTodo needs a task description and deadline");
+                    + "RoTodo's creator would be rich!\n"
+                    + "  RoTodo needs a task description and deadline");
             }
             token = token[1].split(" /by ", 2);
             if (token.length < 2) {
                 throw new IncompleteInputException(
                     "RoTodo can't read you mind, otherwise "
-                    + "RoTodo's creator would be rich!\n      "
-                    + "RoTodo needs a task description and deadline");
+                    + "RoTodo's creator would be rich!\n"
+                    + "  RoTodo needs a task description and deadline");
             }
-            output = taskList.addTask(token[0], token[1]);
-            break;
+            return new AddCommand(AddCommand.TaskType.DEADLINE, token[0], token[1]);
 
         case EVENT:
             if (token.length < 2) {
                 throw new IncompleteInputException(
                     "RoTodo can't read you mind, otherwise "
-                    + "RoTodo's creator would be rich!\n      "
-                    + "RoTodo needs a task description, from and to date/time");
+                    + "RoTodo's creator would be rich!\n"
+                    + "  RoTodo needs a task description, from and to date/time");
             }
             token = token[1].split(" /from | /to ", 3);
             if (token.length < 3) {
                 throw new IncompleteInputException(
                     "RoTodo can't read you mind, otherwise "
-                    + "RoTodo's creator would be rich!\n      "
-                    + "RoTodo needs a task description, from and to date/time");
+                    + "RoTodo's creator would be rich!\n"
+                    + "  RoTodo needs a task description, from and to date/time");
             }
-            boolean fromBeforeTo = input.indexOf("/from") < input.indexOf("/to");
-            if (fromBeforeTo) {
-                output = taskList.addTask(token[0], token[1], token[2]);
-            } else {
-                output = taskList.addTask(token[0], token[2], token[1]);
-            }
-            break;
+            return new AddCommand(AddCommand.TaskType.EVENT, token[0], token[1], token[2]);
         
         case HELP:
-            Ui.help();
+            return new HelpCommand();
     
         default:
             throw new InvalidInputException(
                 "Reep Roop... RoTodo Read No Understand?");
         }
-        InvalidInputException.noError();
-        return output;
     }
 }
