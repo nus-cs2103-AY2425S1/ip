@@ -23,7 +23,7 @@ public class Task {
 
         TaskType taskType = determineTaskType(strippedDescription);
 
-        if (taskType == TaskType.TODO){
+        if (taskType == TaskType.TODO) {
             return new Todo(description);
         } else if (taskType == TaskType.DEADLINE) {
             String[] splitStr = description.split("/");
