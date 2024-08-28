@@ -1,3 +1,7 @@
+import Exceptions.EmptyDescriptionException;
+import Exceptions.InputErrorException;
+import Exceptions.WrongNumberOfItemException;
+
 import java.util.Scanner;
 public class Blue {
 
@@ -48,6 +52,8 @@ public class Blue {
                     note.mark(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                } catch (WrongNumberOfItemException e) {
+                    System.out.println("Can you check the number you input please");
                 }
                 continue;
             }
@@ -58,6 +64,8 @@ public class Blue {
                     note.unmark(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                } catch (WrongNumberOfItemException e) {
+                    System.out.println("Can you check the number you input please");
                 }
                 continue;
             }
@@ -68,6 +76,8 @@ public class Blue {
                     note.delete(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                } catch (WrongNumberOfItemException e) {
+                    System.out.println("Can you check the number you input please");
                 }
                 continue;
             }

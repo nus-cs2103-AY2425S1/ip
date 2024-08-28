@@ -1,3 +1,7 @@
+import Exceptions.EmptyDescriptionException;
+import Exceptions.InputErrorException;
+import Exceptions.WrongNumberOfItemException;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -111,7 +115,12 @@ public class Note {
 
 
 
-    public void mark(int number) {
+    public void mark(int number) throws WrongNumberOfItemException {
+
+        if (number <= 0 || number > noOfTask) {
+            throw new WrongNumberOfItemException(number);
+        }
+
         Task currTask = myList.get(number);
         currTask.markAsDone();
         System.out.println("--------------------------------------------");
@@ -120,7 +129,12 @@ public class Note {
         System.out.println("--------------------------------------------");
     }
 
-    public void unmark(int number) {
+    public void unmark(int number) throws WrongNumberOfItemException {
+
+        if (number <= 0 || number > noOfTask) {
+            throw new WrongNumberOfItemException(number);
+        }
+
         Task currTask = myList.get(number);
         currTask.markAsUnDone();
         System.out.println("--------------------------------------------");
@@ -129,7 +143,12 @@ public class Note {
         System.out.println("--------------------------------------------");
     }
 
-    public void delete(int number) {
+    public void delete(int number) throws WrongNumberOfItemException {
+
+        if (number <= 0 || number > noOfTask) {
+            throw new WrongNumberOfItemException(number);
+        }
+
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
         System.out.println(myList.get(number).toString());
