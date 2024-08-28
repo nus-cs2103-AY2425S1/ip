@@ -21,7 +21,7 @@ public class Event extends Task{
 
     @Override
     public String getDescription() {
-        return description;
+        return description.trim();
     }
     public LocalDateTime getStartDate() {
         return this.dateStart;

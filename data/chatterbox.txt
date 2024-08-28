@@ -1,2 +1,1 @@
-task.ToDo | Not Done | run
-task.ToDo | Not Done | die
+task.ToDo | Done | sample task
