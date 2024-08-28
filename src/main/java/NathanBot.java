@@ -1,3 +1,8 @@
+/**
+ * This code has been refined with the assistance of Copilot to comply with the Java Style Guide.
+ * For further information, please refer to the Academic Declarations.
+ */
+
 import nathanbot.storage.Storage;
 import nathanbot.tasks.TaskListStore;
 import nathanbot.ui.UserInterface;
@@ -7,6 +12,7 @@ import nathanbot.ui.UserInterface;
  * Initializes the storage, task list, and user interface, and starts the application.
  */
 public class NathanBot {
+
     /**
      * The main method to run the NathanBot application.
      *
@@ -18,6 +24,4 @@ public class NathanBot {
         UserInterface ui = new UserInterface(taskList);
         ui.start();
     }
-
-    
 }
