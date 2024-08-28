@@ -61,8 +61,8 @@ public class Ui {
      * Prints a message when a task has been deleted from the list.
      */
     public void printDeleteTask(Task task) {
-        String delete = "Cookie has removed the following task from your list:\n" +
-                task.toString();
+        String delete = "Cookie has removed the following task from your list:\n"
+                + task.toString();
         System.out.println(delete);
     }
 
@@ -70,8 +70,8 @@ public class Ui {
      * Prints a message when a task is successfully marked as done.
      */
     public void printMarkTask(Task task) {
-        String mark = "Cookie has marked this as done! Good job!\n" +
-                task.toString();
+        String mark = "Cookie has marked this as done! Good job!\n"
+                + task.toString();
         System.out.println(mark);
     }
 
@@ -79,8 +79,8 @@ public class Ui {
      * Prints a message when a task is successfully marked as not done.
      */
     public void printUnmarkTask(Task task) {
-        String unmark = "Cookie has unmarked this task!\n" +
-                task.toString();
+        String unmark = "Cookie has unmarked this task!\n"
+                + task.toString();
         System.out.println(unmark);
     }
 

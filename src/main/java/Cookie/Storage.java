@@ -1,8 +1,11 @@
 package Cookie;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
@@ -35,14 +38,13 @@ public class Storage {
     }
 
     /**
-     * Takes in a file and converts into an ArrayList<Task>.
+     * Takes in a file and converts into an ArrayList of Task.
      *
      * @param file File to be loaded.
-     * @return Returns an ArrayList<Task>.
+     * @return Returns an ArrayList of Task.
      * @throws FileNotFoundException If file is not found.
      * @throws CookieException If file contains commands or format that is not implemented.
      */
-
     public ArrayList<Task> loadFile(File file) throws FileNotFoundException, CookieException {
         Scanner fileScanner = new Scanner(file);
         ArrayList<Task> taskArrayList = new ArrayList<>();
@@ -70,22 +72,22 @@ public class Storage {
         String details = parts.length > 3 ? parts[3] : "";
 
         switch (command) {
-            case "T":
-                return new ToDo(isDone, task);
-            case "D":
-                return new Deadline(isDone, task, details);
-            case "E":
-                String[] eventDetails = details.split("-");
-                return new Event(isDone, task, eventDetails[0], eventDetails[1]);
-            default:
-                throw new CookieException("File contains unknown command");
+        case "T":
+            return new ToDo(isDone, task);
+        case "D":
+            return new Deadline(isDone, task, details);
+        case "E":
+            String[] eventDetails = details.split("-");
+            return new Event(isDone, task, eventDetails[0], eventDetails[1]);
+        default:
+            throw new CookieException("File contains unknown command");
         }
     }
 
     /**
      * Handles the logic for saving tasks into a .txt file
      *
-     * @param taskArrayList ArrayList<Task> to be saved.
+     * @param taskArrayList ArrayList of Task to be saved.
      * @throws IOException If the file does not exist.
      */
     public void saveFile(ArrayList<Task> taskArrayList) throws IOException {

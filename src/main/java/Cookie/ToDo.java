@@ -1,5 +1,5 @@
 package Cookie;
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Constructor for ToDo class.
