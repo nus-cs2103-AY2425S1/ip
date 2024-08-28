@@ -1,3 +1,5 @@
+package sora;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
-    protected static ArrayList<String> parse(String command) {
+    public static ArrayList<String> parse(String command) {
         ArrayList<String> parsedResult = new ArrayList<>();
         String[] parse_1 = command.split(" ", 2);
         parsedResult.add(parse_1[0]);
@@ -16,7 +18,7 @@ public class Parser {
         return parsedResult;
     }
 
-    protected static LocalDateTime parseDate(String date) {
+    public static LocalDateTime parseDate(String date) {
         try {
             return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         } catch (DateTimeParseException e) {

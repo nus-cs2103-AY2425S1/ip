@@ -1,3 +1,10 @@
+package sora.Tasks;
+
+import sora.Parser;
+import sora.Sora;
+import sora.SoraException;
+import sora.Ui;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +16,15 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    protected List<Task> getTaskList() {
+    public List<Task> getTaskList() {
         return this.taskList;
     }
 
-    protected int getSize() {
+    public int getSize() {
         return this.taskList.size();
     }
 
-    protected void displayList() {
+    public void displayList() {
         if (this.taskList.isEmpty()) {
             System.out.println("\tSeems like there are no tasks!");
             return;
@@ -27,7 +34,7 @@ public class TaskList {
         }
     }
 
-    protected void markTask(String value) throws SoraException {
+    public void markTask(String value) throws SoraException {
         try {
             Task task = this.taskList.get(Integer.parseInt(value) - 1);
             if (task.isDone) {
@@ -44,7 +51,7 @@ public class TaskList {
         }
     }
 
-    protected void unmarkTask(String value) throws SoraException {
+    public void unmarkTask(String value) throws SoraException {
         try {
             Task task = this.taskList.get(Integer.parseInt(value) - 1);
             if (!task.isDone) {
@@ -61,7 +68,7 @@ public class TaskList {
         }
     }
 
-    protected void addTask(String mainCommand, ArrayList<String> parsedCommand) throws SoraException {
+    public void addTask(String mainCommand, ArrayList<String> parsedCommand) throws SoraException {
         switch (mainCommand) {
             case "todo":
                 try {
@@ -81,7 +88,7 @@ public class TaskList {
                     }
                     break;
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SoraException("\tPlease Enter - Deadline (Description) /by (dd/MM/yy HHmm)");
+                    throw new SoraException("\tPlease Enter - Sora.Deadline (Description) /by (dd/MM/yy HHmm)");
                 }
             case "event":
                 String from = parsedCommand.get(2).substring(5);
@@ -108,7 +115,7 @@ public class TaskList {
         System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
     }
 
-    protected void deleteTask(String value) throws SoraException {
+    public void deleteTask(String value) throws SoraException {
         try {
             int index = Integer.parseInt(value) - 1;
             Task deletedTask = this.taskList.remove(index);

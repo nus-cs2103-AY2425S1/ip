@@ -1,3 +1,5 @@
+package sora;
+
 public class SoraException extends Exception {
     public SoraException(String message) {
         super(message);
