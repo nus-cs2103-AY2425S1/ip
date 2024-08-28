@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -5,60 +6,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Sigma {
     public static void main(String[] args) {
-        String name = "SIGMA";
         Scanner input = new Scanner(System.in);
         ArrayList<Task> items = new ArrayList<>();
 
-        // Creates a file to store data if none exists
-        try {
-            Files.createFile(Paths.get("data.txt"));
-        } catch (IOException e) {
-            System.out.println("Loading up your saved tasks!");
-        }
+        load();
         File data = new File("data.txt");
 
         // Read data from file and input into items
-        try {
-            Scanner fileInput = new Scanner(data);
-            while (fileInput.hasNextLine()) {
-                String line = fileInput.nextLine();
-                String[] split = line.split(" \\| ");
-                String type = split[0];
-                boolean status = split[1].equals("X");
-                String desc = split[2];
-                Task item;
-                switch (type) {
-                case "T":
-                    item = new ToDoTask(desc);
-                    break;
-                case "D":
-                    item = new DeadlineTask(desc, split[3]);
-                    break;
-                case "E":
-                    item = new EventTask(desc, split[3], split[4]);
-                    break;
-                default:
-                    throw new SigmaException("What the sigma? Invalid task type!");
-                }
-                item.setStatus(status);
-                items.add(item);
-            }
-            fileInput.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading file.");
-            e.printStackTrace();
-        } catch (SigmaException e) {
-            System.out.println(e.getMessage());
-        }
+        items = read(data, items);
 
         enum Commands {
             TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE
         }
 
-        print("Hello! I'm " + name + "\nLooking forward to slaying with you!\nWhat do you need today?" +
+        print("Hello! I'm SIGMA! \nLooking forward to slaying with you!\nWhat do you need today?" +
                 "\nYou can add tasks with \"todo\", \"deadline\", \"event\" or view tasks with \"list\"." +
                 "\nYou can also mark tasks as done with \"mark\" or \"unmark\" them." +
                 "\nYou can also delete tasks with \"delete\"." +
@@ -147,7 +113,8 @@ public class Sigma {
                         throw new SigmaException("What the sigma? You're missing the deadline! " +
                                 "Write \"deadline <task> /by <deadline>\"!");
                     }
-                    DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], deadlineSplit[1]);
+                    LocalDateTime dateTime = parse(deadlineSplit[1]);
+                    DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], dateTime);
                     items.add(deadlineTask);
                     print("Wow! Keeping yourself busy! Added: \n" + deadlineTask.toString()
                             + "\nNow you have " + items.size() + " tasks in the list!");
@@ -165,7 +132,9 @@ public class Sigma {
                     if (timing.length < 2) {
                         throw new SigmaException("What the sigma? You're missing the end timing!");
                     }
-                    EventTask eventTask = new EventTask(eventSplit[0], timing[0], timing[1]);
+                    LocalDateTime from = parse(timing[0]);
+                    LocalDateTime to = parse(timing[1]);
+                    EventTask eventTask = new EventTask(eventSplit[0], from, to);
                     items.add(eventTask);
                     print("You're a busy bee! Added: \n" + eventTask.toString()
                             + "\nNow you have " + items.size() + " tasks in the list!");
@@ -198,23 +167,10 @@ public class Sigma {
             } finally {
                 // Do nothing
             }
+
             // Write data to file
-            try {
-                FileWriter writer = new FileWriter(data);
-                for (Task item : items) {
-                    writer.write(String.format("%s | %s | %s | %s \n",
-                            item.getTaskType(), item.getStatusString(), item.getDesc(),
-                            item instanceof DeadlineTask
-                                    ? ((DeadlineTask) item).getDate()
-                                    : item instanceof EventTask
-                                        ? ((EventTask) item).getFrom() + " | " + ((EventTask) item).getTo()
-                                        : ""));
-                }
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to file.");
-                e.printStackTrace();
-            }
+            write(data, items);
+
             userPrompt = input.nextLine();
         }
         exit();
@@ -233,5 +189,105 @@ public class Sigma {
     private static void line() {
         String line = "----------------------------------------------------------------------------------------------";
         System.out.println(line);
+    }
+
+    private static Task createTask(String type, String desc, String date) throws SigmaException {
+        Task item;
+        switch (type) {
+        case "T":
+            item = new ToDoTask(desc);
+            break;
+        case "D":
+            LocalDateTime dateTime;
+            try {
+                dateTime = LocalDateTime.parse(date.strip(), DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
+            } catch (DateTimeParseException e) {
+                throw new SigmaException("What the sigma? File contains invalid date format!");
+            }
+            item = new DeadlineTask(desc, dateTime);
+            break;
+        case "E":
+            String[] dates = date.split("-");
+            System.out.println(dates[0]);
+            System.out.println(dates[1]);
+            LocalDateTime from;
+            LocalDateTime to;
+            try {
+                from = LocalDateTime.parse(dates[0].strip(), DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
+                to = LocalDateTime.parse(dates[1].strip(), DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
+            } catch (DateTimeParseException e) {
+                throw new SigmaException("What the sigma? File not saved correctly, invalid date format!");
+            }
+            item = new EventTask(desc, from, to);
+            break;
+        default:
+            throw new SigmaException("What the sigma? Invalid task type!");
+        }
+        return item;
+    }
+
+
+    private static void load() {
+        // Creates a file to store data if none exists
+        try {
+            Files.createFile(Paths.get("data.txt"));
+        } catch (IOException e) {
+            System.out.println("SLAY! Loading up your saved tasks!");
+        }
+    }
+
+    private static void write(File data, ArrayList<Task> items) {
+        try {
+            FileWriter writer = new FileWriter(data);
+            for (Task item : items) {
+                writer.write(String.format("%s | %s | %s | %s \n",
+                        item.getTaskType(), item.getStatusString(), item.getDesc(),
+                        item instanceof DeadlineTask
+                                ? ((DeadlineTask) item).getDate()
+                                : item instanceof EventTask
+                                ? ((EventTask) item).getFrom() + " - " + ((EventTask) item).getTo()
+                                : ""));
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to file.");
+            e.printStackTrace();
+        }
+    }
+
+    private static LocalDateTime parse(String timing) throws SigmaException {
+        LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(timing, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new SigmaException("What the sigma? Invalid date format! " +
+                    "Write the date in the format YYYY-MM-DD HHmm!");
+        }
+        return dateTime;
+    }
+
+    private static ArrayList<Task> read(File data, ArrayList<Task> items) {
+        try {
+            Scanner fileInput = new Scanner(data);
+            while (fileInput.hasNextLine()) {
+                // Loading from file
+                String line = fileInput.nextLine();
+                String[] split = line.split(" \\| ");
+                String type = split[0];
+                boolean status = split[1].equals("X");
+                String desc = split[2];
+                String date = split[3];
+                Task item = createTask(type, desc, date);
+                item.setStatus(status);
+                items.add(item);
+            }
+            fileInput.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading file.");
+            e.printStackTrace();
+        } catch (SigmaException e) {
+            System.out.println(e.getMessage());
+        }
+        return items;
     }
 }

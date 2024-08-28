@@ -1,19 +1,24 @@
-public class EventTask extends Task {
-    private String from;
-    private String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public EventTask(String desc, String from, String to) {
+public class EventTask extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public EventTask(String desc, LocalDateTime from, LocalDateTime to) {
         super(desc);
         this.from = from;
         this.to = to;
     }
 
     public String getFrom() {
-        return from;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
+        return from.format(formatter);
     }
 
     public String getTo() {
-        return to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
+        return to.format(formatter);
     }
 
     public String getTaskType() {
@@ -22,7 +27,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)", getStatusString(), getDesc(), from, to);
+        return String.format("[E][%s] %s (from: %s to: %s)",
+                getStatusString(), getDesc(), getFrom(), getTo());
     }
 
 }
