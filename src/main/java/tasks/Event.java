@@ -43,4 +43,13 @@ public class Event extends Task {
     public String toString() {
         return String.format("%s (from: %s to: %s)", super.getTaskName(), this.startTime, this.endTime);
     }
+
+    @Override
+    public String serialiaze() {
+        return String.format("%s:%s:%s",
+                super.serialiaze(),
+                startTime.replaceAll(":", "/colon"),
+                endTime.replaceAll(":", "/colon")
+        );
+    }
 }

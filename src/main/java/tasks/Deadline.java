@@ -32,5 +32,13 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("%s (by: %s)", super.getTaskName(), this.deadline);
     }
+
+    @Override
+    public String serialiaze() {
+        return String.format("%s:%s",
+                super.serialiaze(),
+                deadline.replaceAll(":", "/colon")
+        );
+    }
 }
 
