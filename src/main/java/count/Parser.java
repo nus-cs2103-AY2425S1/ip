@@ -3,6 +3,7 @@ package count;
 import count.action.*;
 import count.exception.CountException;
 import count.task.*;
+import count.action.Find;
 import count.exception.InvalidCommandException;
 import count.exception.IncorrectFormatException;
 import java.time.format.DateTimeParseException;
@@ -57,6 +58,8 @@ public class Parser {
                     String commandSplitE[] = rest.split(" /from ", 2);
                     String startEndTime[] = commandSplitE[1].split(" /to ", 2);
                     return new AddTask(this.ls, new Event(commandSplitE[0], startEndTime[1], startEndTime[0]));
+            case "find":
+                return new Find(this.ls, rest);
                 default:
                     throw new InvalidCommandException();
             }
