@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,12 +30,24 @@ public class Storage {
     }
 
     public ArrayList<Task> retrieveTasks() {
-        File tasks = new File(folderName, fileName);
         ArrayList<Task> taskList = new ArrayList<>();
-        int taskCount = 0;
+        Path path = Paths.get(this.filePath);
 
+        // Ensure the folder and file exist
         try {
-            Scanner sc = new Scanner(tasks);
+            if (Files.notExists(path.getParent())) {
+                Files.createDirectories(path.getParent());
+            }
+            if (Files.notExists(path)) {
+                Files.createFile(path);
+            }
+        } catch (IOException e) {
+            Ui.showErrorMessage("Error creating file or folder: " + e.getMessage());
+            return taskList;  // Return an empty list if file creation fails
+        }
+
+        // Now proceed to read the file
+        try (Scanner sc = new Scanner(path.toFile())) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 char taskType = line.charAt(0);
@@ -46,34 +59,32 @@ public class Storage {
                 String taskDescription = parts[2];
                 switch (taskType) {
                     case 'T' -> {
-                        taskList.add(taskCount, new Todo(taskDescription));
+                        taskList.add(new Todo(taskDescription));
                         if (taskNumber.equals("1")) {
-                            taskList.get(taskCount).completeTask();
+                            taskList.get(taskList.size() - 1).completeTask();
                         }
-                        taskCount++;
                     }
                     case 'D' -> {
                         LocalDateTime taskDeadline = LocalDateTime.parse(parts[3]);
-                        taskList.add(taskCount, new Deadline(taskDescription, taskDeadline));
+                        taskList.add(new Deadline(taskDescription, taskDeadline));
                         if (taskNumber.equals("1")) {
-                            taskList.get(taskCount).completeTask();
+                            taskList.get(taskList.size() - 1).completeTask();
                         }
-                        taskCount++;
                     }
                     case 'E' -> {
                         LocalDateTime taskStartTime = LocalDateTime.parse(parts[3]);
                         LocalDateTime taskEndTime = LocalDateTime.parse(parts[4]);
-                        taskList.add(taskCount, new Event(taskDescription, taskStartTime, taskEndTime));
+                        taskList.add(new Event(taskDescription, taskStartTime, taskEndTime));
                         if (taskNumber.equals("1")) {
-                            taskList.get(taskCount).completeTask();
+                            taskList.get(taskList.size() - 1).completeTask();
                         }
-                        taskCount++;
                     }
                 }
             }
         } catch (FileNotFoundException e) {
-            Ui.showErrorMessage("File not found:" + tasks.getAbsolutePath());
+            Ui.showErrorMessage("File not found: " + path.toAbsolutePath());
         }
+
         return taskList;
     }
 

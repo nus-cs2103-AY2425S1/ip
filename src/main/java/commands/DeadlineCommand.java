@@ -28,4 +28,12 @@ public class DeadlineCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    public String getTaskDescription() {
+        return this.taskDescription;
+    }
+
+    public LocalDateTime getDueDate() {
+        return this.time;
+    }
 }

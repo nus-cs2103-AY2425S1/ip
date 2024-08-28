@@ -30,4 +30,11 @@ public class DeleteCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    public String getTaskNumber() {
+        return this.taskNumber;
+    }
+
+
+
 }

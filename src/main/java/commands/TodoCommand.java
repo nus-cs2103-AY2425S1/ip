@@ -24,4 +24,8 @@ public class TodoCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    public String getTaskDescription() {
+        return this.taskDescription;
+    }
 }

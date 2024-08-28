@@ -32,6 +32,7 @@ public class Downy {
                 ui.showErrorMessage(e.getMessage());
             }
         }
+        ui.showExitMessage();
     }
 
     public static void main(String[] args) {
