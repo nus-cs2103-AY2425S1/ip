@@ -24,6 +24,11 @@ public class Event extends Task {
         this.dateTo = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
         this.dateFrom = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
     }
+    /**
+     * Returns a string representation of the Event task.
+     *
+     * @return a string representation of the Event task
+     */
     @Override
     public String toString() {
         //return "[E]" + super.toString() + " (from: " + from + " to: " +  to + ")";
@@ -31,7 +36,11 @@ public class Event extends Task {
                 + dateFrom.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH))
                         + " to: " +  dateTo.format(DateTimeFormatter.ofPattern("MMMM dd yyyy, ha", Locale.ENGLISH)) + ")";
     }
-
+    /**
+     * Returns a string representation of the Event task in a format to save in a file.
+     *
+     * @return a string representation of the Event task for saving
+     */
     @Override
     public String save() {
         return "E | " + super.save() + " | " + from + " | " + to;
