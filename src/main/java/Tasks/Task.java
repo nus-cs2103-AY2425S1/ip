@@ -22,6 +22,10 @@ public class Task {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String toFileFormat() {
         return (this instanceof ToDo ? "T" :
                 this instanceof Deadline ? "D" : "E") +

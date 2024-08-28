@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * The {@code TaskStorage} class manages the storage and retrieval of tasks.
  * It utilizes {@code HarddiskStorage} for persistent storage and maintains a map of tasks in memory.
- * The class supports adding, marking, retrieving, deleting, and listing tasks.
+ * The class supports adding, marking, retrieving, deleting, listing, and finding tasks.
  */
 public class TaskStorage {
     private final Map<Integer, Task> tasks;
@@ -104,5 +104,21 @@ public class TaskStorage {
         for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
             System.out.println("     " + entry.getKey() + ". " + entry.getValue());
         }
+    }
+
+    /**
+     * Finds and returns a map of tasks that contain the given keyword in their description.
+     *
+     * @param keyword the keyword to search for in task descriptions.
+     * @return a map of tasks where the description contains the keyword.
+     */
+    public Map<Integer, Task> findTasks(String keyword) {
+        Map<Integer, Task> foundTasks = new HashMap<>();
+        for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
+            if (entry.getValue().getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return foundTasks;
     }
 }
