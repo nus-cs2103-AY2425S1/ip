@@ -2,6 +2,7 @@ package joe;
 
 import joe.controller.Controller;
 import joe.parser.Parser;
+import joe.ui.Ui;
 
 public class Joe {
     public static final String CHATBOT_NAME = "Joe";
@@ -10,10 +11,12 @@ public class Joe {
 
     private Controller controller;
     private Parser parser;
+    private Ui ui;
 
     public Joe() {
-        this.controller = new Controller(CHATBOT_NAME);
-        this.parser = new Parser(controller);
+        this.ui = new Ui(CHATBOT_NAME);
+        this.controller = new Controller(ui);
+        this.parser = new Parser(controller, ui);
     }
 
     public void run() {

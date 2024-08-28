@@ -24,4 +24,22 @@ public class TaskEvent extends Task {
     public String toSaveString() {
         return String.format("E|%d|%s|%s|%s", isDone() ? 1 : 0, getTask(), from, to);
     }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public LocalDate getTo() {
+        return to;
+    }
+
+    public static boolean isValidFormat(String from, String to) {
+        try {
+            LocalDate.parse(from);
+            LocalDate.parse(to);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

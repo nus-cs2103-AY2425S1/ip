@@ -12,10 +12,10 @@ import joe.ui.Ui;
 public class Controller {
     private Ui ui;
     private Storage storage;
-    private ArrayList<Task> store;
+    protected ArrayList<Task> store;
 
-    public Controller(String chatbotName) {
-        this.ui = new Ui(chatbotName);
+    public Controller(Ui ui) {
+        this.ui = ui;
         this.storage = new Storage();
         this.store = storage.loadTasks();
     }
@@ -53,8 +53,7 @@ public class Controller {
         ui.printDeleteMessage(store.get(index), store.size());
     }
 
-    public void handleTodo(String input) {
-        String task = input.substring(5);
+    public void handleTodo(String task) {
         if (task.equals("")) {
             ui.printEmptyTaskErrorMessage();
             return;
@@ -63,36 +62,31 @@ public class Controller {
         ui.printTodoMessage(store.get(store.size() - 1), store.size());
     }
 
-    public void handleDeadline(String input) {
-        int byIndex = input.indexOf("/by ");
-        if (byIndex == -1) {
-            ui.printEmptyByErrorMessage();
-            return;
-        }
-        String task = input.substring(9, byIndex - 1);
+    public void handleDeadline(String task, String by) {
         if (task.equals("")) {
             ui.printEmptyTaskErrorMessage();
             return;
         }
-        String by = input.substring(byIndex + 4);
+
+        if (TaskDeadline.isValidFormat(by)) {
+            ui.printInvalidDateFormatErrorMessage();
+            return;
+        }
         store.add(new TaskDeadline(task, by));
         ui.printDeadlineMessage(store.get(store.size() - 1), store.size());
     }
 
-    public void handleEvent(String input) {
-        int fromIndex = input.indexOf("/from ");
-        int toIndex = input.indexOf("/to ");
-        if (fromIndex == -1 || toIndex == -1) {
-            ui.printInvalidEventDateErrorMessage();
-            return;
-        }
-        String task = input.substring(6, fromIndex - 1);
+    public void handleEvent(String task, String from, String to) {
         if (task.equals("")) {
             ui.printEmptyTaskErrorMessage();
             return;
         }
-        String from = input.substring(fromIndex + 6, toIndex - 1);
-        String to = input.substring(toIndex + 4);
+
+        if (TaskEvent.isValidFormat(from, to)) {
+            ui.printInvalidDateFormatErrorMessage();
+            return;
+        }
+
         store.add(new TaskEvent(task, from, to));
         ui.printEventMessage(store.get(store.size() - 1), store.size());
     }

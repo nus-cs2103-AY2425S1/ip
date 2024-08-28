@@ -90,4 +90,9 @@ public class Ui {
         System.out.println("Give me a valid from and to!");
         System.out.println(HORIZONTAL_LINE);
     }
+
+    public void printInvalidDateFormatErrorMessage() {
+        System.out.println("Invalid date format! Please use yyyy-mm-dd format.");
+        System.out.println(HORIZONTAL_LINE);
+    }
 }

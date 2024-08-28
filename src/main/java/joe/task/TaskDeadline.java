@@ -20,4 +20,17 @@ public class TaskDeadline extends Task {
     public String toSaveString() {
         return String.format("D|%d|%s|%s", isDone() ? 1 : 0, getTask(), by);
     }
+
+    public LocalDate getBy() {
+        return by;
+    }
+
+    public static boolean isValidFormat(String by) {
+        try {
+            LocalDate.parse(by);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
