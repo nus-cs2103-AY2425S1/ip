@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -106,24 +107,36 @@ public class DGPT {
 
     private void addDeadlineToList(String text) {
         String[] parts = text.split(" /by ");
-        Task newTask = new Deadline(parts[0], parts[1]);
-        this.listOfTasks.add(newTask);
-        System.out.println("-----------------------");
-        System.out.println("DGPT> Got it. I've added this task:");
-        System.out.println(newTask.toString());
-        System.out.printf("Now you have %d tasks in the list.%n", this.listOfTasks.size());
-        System.out.println("-----------------------");
+        try {
+            Task newTask = new Deadline(parts[0], parts[1]);
+            this.listOfTasks.add(newTask);
+            System.out.println("-----------------------");
+            System.out.println("DGPT> Got it. I've added this task:");
+            System.out.println(newTask.toString());
+            System.out.printf("Now you have %d tasks in the list.%n", this.listOfTasks.size());
+            System.out.println("-----------------------");
+        } catch (DateTimeParseException e) {
+            System.out.println("-----------------------");
+            System.out.println("Illegal Date Format!");
+            System.out.println("-----------------------");
+        }
     }
 
     private void addEventToList(String text) {
         String[] parts = text.split(" /");
-        Task newTask = new Event(parts[0],parts[1].substring(5), parts[2].substring(3));
-        this.listOfTasks.add(newTask);
-        System.out.println("-----------------------");
-        System.out.println("DGPT> Got it. I've added this task:");
-        System.out.println(newTask.toString());
-        System.out.printf("Now you have %d tasks in the list.%n", this.listOfTasks.size());
-        System.out.println("-----------------------");
+        try {
+            Task newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
+            this.listOfTasks.add(newTask);
+            System.out.println("-----------------------");
+            System.out.println("DGPT> Got it. I've added this task:");
+            System.out.println(newTask.toString());
+            System.out.printf("Now you have %d tasks in the list.%n", this.listOfTasks.size());
+            System.out.println("-----------------------");
+        } catch (DateTimeParseException e) {
+            System.out.println("-----------------------");
+            System.out.println("Illegal Date and Time Format!");
+            System.out.println("-----------------------");
+        }
     }
 
     private void showList() {
@@ -196,6 +209,7 @@ public class DGPT {
                 }
             }
         } catch (FileNotFoundException e) {
+            // In the event that the file does not exist
             System.out.println("Could not load existing data");
         }
     }
@@ -203,6 +217,7 @@ public class DGPT {
     private void saveToFile(String filePath) throws IOException {
         File file = new File(filePath);
 
+        // Handle the case where parent directory does not exist
         File parentDir = file.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             if (!parentDir.mkdirs()) {
@@ -224,16 +239,16 @@ public class DGPT {
                             .append(t.getIsDone() ? "1 | " : "0 | ")
                             .append(t.getDescription())
                             .append(" | ")
-                            .append(((Deadline) t).getDueDate())
+                            .append(((Deadline) t).getDueDateString())
                             .append("\n");
                 } else if (t instanceof Event) {
                     s.append("E | ")
                             .append(t.getIsDone() ? "1 | " : "0 | ")
                             .append(t.getDescription())
                             .append(" | ")
-                            .append(((Event) t).getFromDate())
+                            .append(((Event) t).getFromTime())
                             .append(" | ")
-                            .append(((Event) t).getToDate())
+                            .append(((Event) t).getToTime())
                             .append("\n");
                 }
             }
@@ -255,8 +270,7 @@ public class DGPT {
 
         String filePath = "./data/dgpt.txt";
 
-
-        // loading in existing hard drive data
+        // load existing hard drive data
         System.out.println("-----------------------");
         System.out.println("DGPT> Hello! I'm DGPT");
         try {
@@ -267,9 +281,6 @@ public class DGPT {
             System.out.println(e.getMessage());
             System.out.println("-----------------------");
         }
-
-
-
 
         Scanner scanner = new Scanner(System.in);
         boolean isActive = true;
@@ -294,6 +305,7 @@ public class DGPT {
 
         scanner.close();
 
+        // Save existing data to hard drive
         try {
             dgpt.saveToFile(filePath);
         } catch (IOException e) {

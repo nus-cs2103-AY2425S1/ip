@@ -1,16 +1,24 @@
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
-    String dueDate;
+    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
 
-    public Deadline(String description, String dueDate) {
+    LocalDate dueDate;
+
+    public Deadline(String description, String dueDate) throws DateTimeParseException {
         super(description);
-        this.dueDate = dueDate;
+        this.dueDate = LocalDate.parse(dueDate, inputFormatter);
     }
 
-    public String getDueDate() { return this.dueDate; }
+    public String getDueDateString() { return this.dueDate.format(outputFormatter); }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dueDate + ")";
+        return "[D]" + super.toString() + " (by: " + getDueDateString() + ")";
     }
 }

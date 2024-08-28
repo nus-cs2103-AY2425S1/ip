@@ -1,20 +1,28 @@
-public class Event extends Task {
-    private String fromDate;
-    private String toDate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String fromDate, String toDate) {
+public class Event extends Task {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+
+    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, h:mma");
+
+    public Event(String description, String startTime, String endTime) throws DateTimeParseException {
         super(description);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.startTime = LocalDateTime.parse(startTime, inputFormatter);
+        this.endTime = LocalDateTime.parse(endTime, inputFormatter);
     }
 
-    public String getFromDate() { return this.fromDate; }
+    public String getFromTime() { return this.startTime.format(outputFormatter); }
 
-    public String getToDate() { return this.toDate; }
+    public String getToTime() { return this.endTime.format(outputFormatter); }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.fromDate + " to: " +
-                this.toDate + ")";
+        return "[E]" + super.toString() + " (from: " + this.getFromTime() + " to: " +
+                this.getToTime() + ")";
     }
 }
