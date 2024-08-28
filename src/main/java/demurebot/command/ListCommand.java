@@ -11,9 +11,10 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui) {
-        for (int i = 0; i < list.getSize(); i++) {
-            Task task = list.getTask(i);
-            System.out.println((i + 1) + "." + task);
+        if (list.getSize() == 0) {
+            ui.displayEmptyList();
+        } else {
+            ui.displayList(list);
         }
     }
 }
