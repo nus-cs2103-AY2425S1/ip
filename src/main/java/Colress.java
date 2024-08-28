@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -15,6 +16,7 @@ public class Colress {
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_UNCHECK = "uncheck";
     private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_DATE = "date";
     private static final String MESSAGE_ADD_CONFIRMATION
             = "Okay. I have added this task to your list:";
     private static final String MESSAGE_CHECK_CONFIRMATION
@@ -40,10 +42,13 @@ public class Colress {
             = "Your list is empty.";
     private static final String MESSAGE_NOT_A_NUMBER_ERROR
             = "You did not seem to have entered a number. Try Again.";
+    private static final String MESSAGE_NOT_A_VALID_DATE_TIME_ERROR
+            = "You did not seem to have entered a valid date/time. Try Again.";
     private static final String MESSAGE_NOT_A_VALID_NUMBER_ERROR
             = "You did not seem to have entered a valid number. Try Again.";
     private static final String MESSAGE_UNCHECK_CONFIRMATION
             = "Right. I have marked this task on your list as not done:";
+    private static final String PROMPT_DATE = "Enter the date (in the form yyyy-mm-dd).";
     private static final String PROMPT_DEADLINE = "Enter the deadline (in the form yyyy-mm-dd).";
     private static final String PROMPT_EVENT_DATE = "Enter the date of the event (in the form yyyy-mm-dd).";
     private static final String PROMPT_EVENT_DESCRIPTION = "Enter the description of the event.";
@@ -89,10 +94,30 @@ public class Colress {
         }
     }
 
+    public static LocalDate readDate(String date) {
+        LocalDate result;
+        try {
+            result = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+        return result;
+    }
+
+    public static LocalTime readTime(String time) {
+        LocalTime result;
+        try {
+            result = LocalTime.parse(time);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+        return result;
+    }
+
     public static void makeList() {
         retrieveFile();
         repopulateTasks();
-        Colress.print(Colress.printTasks());
+        Colress.print(Colress.printTasks(true));
 
         Colress.getInput();
         while (!Colress.input.equals(Colress.COMMAND_EXIT)) {
@@ -105,7 +130,10 @@ public class Colress {
                     Colress.editTasks(Colress.input);
                     break;
                 case Colress.COMMAND_LIST:
-                    Colress.print(Colress.printTasks());
+                    Colress.print(Colress.printTasks(true));
+                    break;
+                case Colress.COMMAND_DATE:
+                    Colress.print(Colress.printTasks(false));
                     break;
                 default:
                     throw new UnknownCommandException();
@@ -148,7 +176,11 @@ public class Colress {
                     description = Colress.SCANNER.nextLine();
 
                     Colress.print(Colress.PROMPT_DEADLINE);
-                    date = LocalDate.parse(Colress.SCANNER.nextLine());
+                    date = readDate(Colress.SCANNER.nextLine());
+                    if (date == null) {
+                        print(Colress.MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
+                        break;
+                    }
 
                     currTask = new Deadline(description, date);
                     Colress.TASKS.add(currTask);
@@ -163,13 +195,25 @@ public class Colress {
                     description = Colress.SCANNER.nextLine();
 
                     Colress.print(Colress.PROMPT_EVENT_DATE);
-                    date = LocalDate.parse(Colress.SCANNER.nextLine());
+                    date = readDate(Colress.SCANNER.nextLine());
+                    if (date == null) {
+                        print(Colress.MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
+                        break;
+                    }
 
                     Colress.print(Colress.PROMPT_EVENT_START_TIME);
-                    from = LocalTime.parse(Colress.SCANNER.nextLine());
+                    from = readTime(Colress.SCANNER.nextLine());
+                    if (from == null) {
+                        print(Colress.MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
+                        break;
+                    }
 
                     Colress.print(Colress.PROMPT_EVENT_END_TIME);
-                    to = LocalTime.parse(Colress.SCANNER.nextLine());
+                    to = readTime(Colress.SCANNER.nextLine());
+                    if (to == null) {
+                        print(Colress.MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
+                        break;
+                    }
 
                     currTask = new Event(description, date, from, to);
                     Colress.TASKS.add(currTask);
@@ -217,7 +261,7 @@ public class Colress {
                 break;
             case "delete":
                 Colress.TASKS.remove(index - 1);
-                Colress.print(Colress.MESSAGE_DELETE_CONFIRMATION + "\n" + printTasks());
+                Colress.print(Colress.MESSAGE_DELETE_CONFIRMATION + "\n" + printTasks(true));
                 break;
             default:
                 throw new UnknownCommandException();
@@ -225,11 +269,24 @@ public class Colress {
         }
     }
 
-    public static String printTasks() {
+    public static String printTasks(boolean printsAll) {
         String result = "";
-        for(int i = 0; i < Colress.TASKS.size(); i++) {
-            result += String.format("\n%d. " + Colress.TASKS.get(i), i + 1);
+        if (printsAll) {
+            for(int i = 0; i < Colress.TASKS.size(); i++) {
+                result += String.format("\n%d. " + Colress.TASKS.get(i), i + 1);
+            }
+        } else {
+            Colress.print(Colress.PROMPT_DATE);
+            LocalDate date = readDate(Colress.SCANNER.nextLine());
+            for(int i = 0; i < Colress.TASKS.size(); i++) {
+                Task currTask = Colress.TASKS.get(i);
+                if (!currTask.fallsOnDate(date)) {
+                    continue;
+                }
+                result += String.format("\n%d. " + Colress.TASKS.get(i), i + 1);
+            }
         }
+
         if(result.isEmpty()) {
             return Colress.MESSAGE_LIST_EMPTY;
         }
@@ -274,12 +331,25 @@ public class Colress {
                     Colress.TASKS.add(new ToDo(strings[2], isChecked));
                     break;
                 case "Deadline":
-                    Colress.TASKS.add(new Deadline(strings[2], LocalDate.parse(strings[3]), isChecked));
+                    LocalDate deadline = readDate(strings[3]);
+                    if (deadline == null) {
+                        print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+                        continue;
+                    }
+
+                    Colress.TASKS.add(new Deadline(strings[2], deadline, isChecked));
                     break;
                 case "Event":
+                    LocalDate eventDate = readDate(strings[3]);
                     String[] times = strings[4].split(" to ");
-                    Colress.TASKS.add(new Event(strings[2], LocalDate.parse(strings[3]),
-                           LocalTime.parse(times[0]), LocalTime.parse(times[1]), isChecked));
+                    LocalTime from = readTime(times[0]);
+                    LocalTime to = readTime(times[1]);
+                    if (eventDate == null || from == null || to == null) {
+                        print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+                        continue;
+                    }
+
+                    Colress.TASKS.add(new Event(strings[2], eventDate, from, to, isChecked));
                     break;
                 default:
                     Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);

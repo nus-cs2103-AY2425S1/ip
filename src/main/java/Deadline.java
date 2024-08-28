@@ -17,6 +17,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean fallsOnDate(LocalDate date) {
+        return this.deadline.isEqual(date);
+    }
+
+    @Override
     public String toString() {
         if (getIsDone()) {
             return String.format("[X][D] %s (%s)", getDescription(),

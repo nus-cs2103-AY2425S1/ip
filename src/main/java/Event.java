@@ -25,6 +25,11 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean fallsOnDate(LocalDate date) {
+        return this.date.isEqual(date);
+    }
+
+    @Override
     public String toString() {
         if (getIsDone()) {
             return String.format("[X][E] %s (%s, %s to %s)", getDescription(),

@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public abstract class Task {
     private String description;
     private boolean isDone;
@@ -32,6 +34,7 @@ public abstract class Task {
     public void uncheck() {
         this.isDone = false;
     }
+    public abstract boolean fallsOnDate(LocalDate date);
 
     public abstract String toTextFile();
 }

@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
@@ -9,6 +11,11 @@ public class ToDo extends Task {
 
     public ToDo() {
         super();
+    }
+
+    @Override
+    public boolean fallsOnDate(LocalDate date) {
+        return false;
     }
 
     @Override
