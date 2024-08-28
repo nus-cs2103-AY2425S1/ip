@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,12 +37,11 @@ public class FileOperation {
     }
 
     public void save(List<Task> tasks) throws IOException {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : tasks) {
-                writer.write(taskToString(task) + "\n");
-            }
-            writer.close();
+        FileWriter writer = new FileWriter(filePath);
+        for (Task task : tasks) {
+            writer.write(taskToString(task) + "\n");
         }
+        writer.close();
     }
 
     private Task parseTask(String line) {
@@ -47,6 +49,7 @@ public class FileOperation {
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
 
         Task task;
         switch (taskType) {
@@ -55,12 +58,15 @@ public class FileOperation {
                 break;
             case "D":
                 String by = parts[3].trim();
-                task = new Deadline(description, by);
+                LocalDateTime byDate = LocalDateTime.parse(parts[3].trim(), formatter);
+                task = new Deadline(description, byDate);
                 break;
             case "E":
                 String from = parts[3].trim();
                 String to = parts[4].trim();
-                task = new Event(description, from, to);
+                LocalDateTime fromDate = LocalDateTime.parse(parts[3].trim(), formatter);
+                LocalDateTime toDate = LocalDateTime.parse(parts[4].trim(), formatter);
+                task = new Event(description, fromDate, toDate);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown task type");
