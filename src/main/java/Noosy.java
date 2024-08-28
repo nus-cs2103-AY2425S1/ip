@@ -11,6 +11,7 @@ public class Noosy {
         String goodbye = "Alright, see ya!";
         String done = "Hooray you've done this: \n";
         String undo = "Ok don't worry, you can continue working on this: \n";
+        String delete = "Oo, removing the irrelevant task: \n";
 
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -44,6 +45,15 @@ public class Noosy {
                     Task uncomplete = tasks.get(taskNum - 1);
                     uncomplete.unDone();
                     System.out.println(undo + uncomplete);
+                    break;
+
+                case "delete":
+                    taskNum = Integer.parseInt(desc);
+                    Task toDelete = tasks.get(taskNum - 1);
+                    tasks.remove(toDelete);
+                    System.out.println(delete + toDelete);
+                    totalTasks = tasks.size();
+                    System.out.println("We're left with " + totalTasks + " tasks in the bucket!");
                     break;
 
                 case "todo":
