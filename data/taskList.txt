@@ -1,0 +1,6 @@
+T 1 read book
+T 0 Finish cs2103
+D 0 Finish 2100 | May 5th
+E 0 tut | Mon 3pm | 6pm
+E 1 Lecture | Tue 3pm | 6pm
+T 0 xdd

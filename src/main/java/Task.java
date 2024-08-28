@@ -19,4 +19,8 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String toTxt() {
+        return (isDone ? "1 " : "0 ") + this.description;
+    }
 }
