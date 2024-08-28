@@ -3,6 +3,7 @@ package ui;
 import storage.TaskList;
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -128,6 +129,24 @@ public class Ui {
     public void showError(String e) {
         printLine();
         System.out.println("Error! " + e);
+        printLine();
+    }
+
+    /**
+     * Shows the tasks in a filtered list.
+     *
+     * @param tasks The list of tasks that match the keyword.
+     */
+    public void showMatching(ArrayList<Task> tasks) {
+        printLine();
+        if (tasks.isEmpty()) {
+            System.out.println("There are no matching tasks in your list!");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + "." + tasks.get(i));
+            }
+        }
         printLine();
     }
 

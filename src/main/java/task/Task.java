@@ -1,5 +1,7 @@
 package task;
 
+import java.util.Collection;
+
 /**
  * Represents a task that can be marked done.
  */
@@ -56,5 +58,14 @@ public abstract class Task {
     @Override
     public String toString () {
         return (isDone ? "[X]" : "[ ]") + " " + description;
+    }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
     }
 }
