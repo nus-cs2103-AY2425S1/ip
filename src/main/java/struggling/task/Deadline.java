@@ -3,11 +3,21 @@ package struggling.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline class stores the description, the
+ * completion state and the deadline of a task.
+ */
 public class Deadline extends Task {
 
     private LocalDate by;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Initializes a Deadline object.
+     *
+     * @param description Description of Task.
+     * @param by The date which the Task has to be completed.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

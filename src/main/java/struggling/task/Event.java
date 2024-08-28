@@ -1,10 +1,20 @@
 package struggling.task;
 
+/**
+ * Task class stores the description, the completion state,
+ * the start and end date of a task.
+ */
 public class Event extends Task {
-
     private String from;
     private String to;
 
+    /**
+     * Initializes an Event object.
+     *
+     * @param description Description of Task.
+     * @param from Start date of Task.
+     * @param to End date of Task.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;

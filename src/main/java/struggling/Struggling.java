@@ -5,6 +5,11 @@ import struggling.task.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Struggling class creates a text-based chatbot.
+ *
+ * @author KengHian
+ */
 public class Struggling {
     final private String name = "struggling";
 
@@ -14,6 +19,12 @@ public class Struggling {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes Struggling object by initializing the
+     * UI, Storage and TaskList objects.
+     *
+     * @param filePath Relative file path of save file.
+     */
     public Struggling(String filePath) {
         try {
             ui = new Ui();
@@ -27,6 +38,9 @@ public class Struggling {
         }
     }
 
+    /**
+     * Starts the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

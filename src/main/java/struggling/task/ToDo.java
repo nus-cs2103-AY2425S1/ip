@@ -1,7 +1,16 @@
 package struggling.task;
 
+/**
+ * ToDo class stores the description and
+ * the completion state of a task.
+ */
 public class ToDo extends Task{
 
+    /**
+     * Initializes a ToDo object.
+     *
+     * @param description Description of Task.
+     */
     public ToDo(String description) {
         super(description);
     }

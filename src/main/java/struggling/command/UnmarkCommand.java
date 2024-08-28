@@ -8,6 +8,11 @@ public class UnmarkCommand extends Command {
 
     private final int index;
 
+    /**
+     * Mark a Task object in TaskList as not Done.
+     *
+     * @param index Index of the Task in TaskList.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
