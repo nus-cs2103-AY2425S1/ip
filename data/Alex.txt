@@ -5,3 +5,10 @@
 [D][X] dinner today /by 10pm
 [D][ ] test the system /by 3pm
 [T][ ] work
+[D][ ] wash clothes /by 2019-10-15
+[D][ ] wash /by 3 Jun 2008 11:05
+[D][ ] wash /by oct 15 2019 6pm
+[D][ ] wash /by oct 15 2019 9am
+[D][ ] wash /by Oct 15 2019 6pm
+[D][ ] wash /by Oct 15 2019 6:00pm
+[D][ ] wash /by Oct 15 2019 6pm

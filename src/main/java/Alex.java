@@ -2,9 +2,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Alex {
     private static String line = "____________________________________________________________"; //create separation line
@@ -229,7 +232,16 @@ public class Alex {
                 arrOfStr.add(next);
             }
         }
+
         deadline = String.join(" ", arrOfStr);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            LocalDateTime date = LocalDateTime.parse(deadline, formatter);
+            deadline = date.format(DateTimeFormatter.ofPattern("MMM d yyyy ha"));
+        } catch (DateTimeParseException e) {
+            //do nothing
+        }
+
         if ((description.isEmpty() && !arrOfStr.isEmpty()) || (!description.isEmpty()) && deadline.isEmpty()) {
             throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a deadline date by writing '/by' followed by the deadline!");
         }
