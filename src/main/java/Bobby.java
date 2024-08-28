@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Bobby {
-    private static List<Task> storage = new ArrayList<>();
+    private static ArrayList<Task> storage = new ArrayList<>();
     private static File dataFile;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -178,6 +178,7 @@ public class Bobby {
         System.out.println("Nice! I have marked this task as done:");
         System.out.println(t);
         horizontalLine(35);
+        saveData(storage);
     }
 
     public static void unmark(int x) {
@@ -188,6 +189,7 @@ public class Bobby {
         System.out.println("OK, I have marked this task as not done yet:");
         System.out.println(t);
         horizontalLine(35);
+        saveData(storage);
     }
 
     public static void delete(int x) {
@@ -197,6 +199,7 @@ public class Bobby {
         storage.remove(x);
         System.out.printf("Now you have %d tasks left.%n", storage.size());
         horizontalLine(35);
+        saveData(storage);
     }
 
     public static void loadData() throws IOException {
@@ -280,6 +283,20 @@ public class Bobby {
         }
         fw.write(input);
         fw.close();
+    }
+
+    public static void saveData(ArrayList<Task> taskList) {
+        try {
+            FileWriter fw = new FileWriter(dataFile.getPath());
+            for (Task task: taskList) {
+                String taskEntry = task.taskInFile();
+                fw.write(taskEntry + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public static void printFileContent(String filePath) throws FileNotFoundException {
