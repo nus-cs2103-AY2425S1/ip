@@ -1,11 +1,16 @@
 import exceptions.*;
 import stringconstants.ReplyTextMessages;
 import tasks.*;
+
+import java.io.*;
 import java.util.*;
+
+import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s;
 
 
 public class YappingBot {
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
+    private static final String LIST_SAVE_PATH = "savefile";
     private static final HashMap<String, Commands> COMMANDS_HASH_MAP;
     private static final Scanner userInputScanner;
     private static final ArrayList<Task> userList;
@@ -43,6 +48,9 @@ public class YappingBot {
     }
     private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
+        if (text == null) {
+            return quoteSinglelineText("");
+        }
         String[] lines = text.split("\n");
         StringBuilder sb = new StringBuilder();
         for (String l : lines) {
@@ -243,12 +251,65 @@ public class YappingBot {
             }
         }
     }
+    private static void loadListFromFile() throws YappingBotSaveFileNotFoundException, YappingBotInvalidSaveFileException{
+        try {
+            File saveFile = new File(LIST_SAVE_PATH);
+            Scanner scanner = new Scanner(saveFile);
+            while (scanner.hasNext()) {
+                String[] s = scanner.nextLine().split(":");
+                Task t;
+                try {
+                    try {
+                        switch (TaskTypes.valueOf(s[0])) {
+                            case TODO:
+                                t = new Todo();
+                                t.deserialize(s);
+                                break;
+                            case DEADLINE:
+                                t = new Deadline();
+                                t.deserialize(s);
+                                break;
+                            case EVENT:
+                                t = new Event();
+                                t.deserialize(s);
+                                break;
+                            default:
+                                throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, s[0]));
+                        }
+                    } catch (IllegalArgumentException e) {
+                        // todo: add line number
+                        throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, e.getMessage()));
+                    }
+                    userList.add(t);
+                } catch (YappingBotException e) {
+                    System.out.println(quoteMultilineText(e.getMessage()));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new YappingBotSaveFileNotFoundException();
+        }
+    }
+    private static void saveListToFile() throws YappingBotSaveFileIOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(LIST_SAVE_PATH))) {
+            for (Task t : userList) {
+                bw.write(t.serialize());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new YappingBotSaveFileIOException(e.getMessage());
+        }
+    }
     // end of class methods
 
     public static void main(String[] args) {
         // start
-        System.out.println(quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
+        try {
+            loadListFromFile();
+        } catch (YappingBotException e) {
+            System.out.println(quoteMultilineText(e.getMessage()));
+        }
 
+        System.out.println(quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
         programmeLoop: // to break out of loop
         while (userInputScanner.hasNextLine()) {
             String userInput = userInputScanner.nextLine();
@@ -291,6 +352,11 @@ public class YappingBot {
             }
         }
         // exit
+        try {
+            saveListToFile();
+        } catch (YappingBotException e) {
+            System.out.println(quoteMultilineText(e.getMessage()));
+        }
         System.out.println(quoteMultilineText(ReplyTextMessages.EXIT_TEXT));
     }
 }
