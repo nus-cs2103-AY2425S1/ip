@@ -1,5 +1,6 @@
 /**
- * The Task class keeps track of whether a specific action has been completed or not.
+ *  Represents a task that has to be completed. A {@code Task} corresponds to a description represented by a string,
+ *  as well as a completion status.
  */
 abstract public class Task {
 

@@ -17,76 +17,76 @@ public class DGPT {
         list = new ArrayList<>();
     }
 
-    private void parseInput(String input) throws IncorrectInputException, TaskNotFoundException{
+    private void parseInput(String input) throws IncorrectInputException, TaskNotFoundException {
         String[] parts = input.split(" ", 2);
 
         switch (parts[0]) {
-            case "list" -> {
-                if (parts.length == 1) {
-                    showList();
-                } else {
-                    throw new IncorrectInputException("OOPS!!! You should not have anything after your request. " +
-                            "(e.g. \"list\")");
-                }
+        case "list" -> {
+            if (parts.length == 1) {
+                showList();
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should not have anything after your request. " +
+                        "(e.g. \"list\")");
             }
-            case "mark" -> {
-                if (parts.length == 2) {
-                    markTask(Integer.parseInt(parts[1]) - 1);
-                } else {
-                    throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
-                            "(e.g. \"mark 1\")");
-                }
+        }
+        case "mark" -> {
+            if (parts.length == 2) {
+                markTask(Integer.parseInt(parts[1]) - 1);
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
+                        "(e.g. \"mark 1\")");
             }
-            case "unmark" -> {
-                if (parts.length == 2) {
-                    unmarkTask(Integer.parseInt(parts[1]) - 1);
-                } else {
-                    throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
-                            "(e.g. \"unmark 1\")");
-                }
+        }
+        case "unmark" -> {
+            if (parts.length == 2) {
+                unmarkTask(Integer.parseInt(parts[1]) - 1);
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
+                        "(e.g. \"unmark 1\")");
             }
-            case "todo" -> {
-                if (parts.length == 2) {
-                    addToDoToList(parts[1]);
-                } else {
-                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
-                            "(e.g. \"todo your_description\")");
-                }
+        }
+        case "todo" -> {
+            if (parts.length == 2) {
+                addToDoToList(parts[1]);
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                        "(e.g. \"todo your_description\")");
             }
-            case "deadline" -> {
-                if (parts.length == 2) {
-                    addDeadlineToList(parts[1]);
-                } else {
-                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
-                            "(e.g. \"todo your_description /by your_deadline\")");
-                }
+        }
+        case "deadline" -> {
+            if (parts.length == 2) {
+                addDeadlineToList(parts[1]);
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                        "(e.g. \"todo your_description /by your_deadline\")");
             }
-            case "event" -> {
-                if (parts.length == 2) {
-                    addEventToList(parts[1]);
-                } else {
-                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
-                            "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
-                }
+        }
+        case "event" -> {
+            if (parts.length == 2) {
+                addEventToList(parts[1]);
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                        "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
             }
-            case "delete" -> {
-                if (parts.length == 2) {
-                    deleteTask(Integer.parseInt(parts[1]) - 1);
-                } else {
-                    throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
-                            "(e.g. \"delete 1\")");
-                }
+        }
+        case "delete" -> {
+            if (parts.length == 2) {
+                deleteTask(Integer.parseInt(parts[1]) - 1);
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
+                        "(e.g. \"delete 1\")");
             }
-            default -> throw new TaskNotFoundException("OOPS!!! I do not recognise that request. These are the " +
-                    "following requests that are supported:\n" +
-                    "-list\n" +
-                    "-mark\n" +
-                    "-unmark\n" +
-                    "-todo\n" +
-                    "-deadline\n" +
-                    "-event\n" +
-                    "-delete\n" +
-                    "-bye");
+        }
+        default -> throw new TaskNotFoundException("OOPS!!! I do not recognise that request. These are the " +
+                "following requests that are supported:\n" +
+                "-list\n" +
+                "-mark\n" +
+                "-unmark\n" +
+                "-todo\n" +
+                "-deadline\n" +
+                "-event\n" +
+                "-delete\n" +
+                "-bye");
         }
     }
 
