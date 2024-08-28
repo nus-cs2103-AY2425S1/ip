@@ -22,11 +22,25 @@ public class Ekud {
         this.sc = sc;
         ui = new Ui(OUTPUT_PREFIX);
         storage = new Storage(TASK_DATA_PATH);
-        tasks = storage.loadTasks(ui);
+        tasks = new TaskList();
     }
 
     public void run() {
+        // greet
         ui.printGreeting();
+
+        // load storage
+        ui.printOutput("Before we start, let me try to find your tasks!!");
+        if (storage.doesPathExists()) {
+            ui.printOutput("Found them! I'm going to load them into the system now!");
+            storage.loadTasks(tasks, ui);
+        } else {
+            ui.printOutput("Hmm... It looks like your save doesn't exists!\nNo worries, I've make one for you!");
+            storage.createPath(ui);
+        }
+        ui.printLineSeparator();
+
+        // read commands
         boolean isExit = false;
         while (!isExit) {
             try {

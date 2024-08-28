@@ -17,18 +17,22 @@ public class Storage {
         return (directory.exists() && dataFile.isFile());
     }
 
-    public void createPath() throws IOException {
-        if (!directory.exists()) {
-            boolean createdDirectory = directory.mkdir();
-            assert(createdDirectory);
-        }
-        boolean createdFile = dataFile.createNewFile();
+    public void createPath(Ui ui) {
+        try {
+            if (!directory.exists()) {
+                boolean createdDirectory = directory.mkdir();
+                assert (createdDirectory);
+            }
+            boolean createdFile = dataFile.createNewFile();
 
-        assert(createdFile);
+            assert (createdFile);
+        } catch (IOException e) {
+            String error = String.format("Oh no!! I could not create a save file for you\n  ERROR %s", e);
+            ui.printOutput(error);
+        }
     }
 
-    public TaskList loadTasks(Ui ui) {
-        TaskList tasks = new TaskList();
+    public void loadTasks(TaskList tasks, Ui ui) {
         File copy = new File(dataFile.getParent() + "/temp.txt");
 
         try {
@@ -65,8 +69,6 @@ public class Storage {
                     e);
             ui.printOutput(error);
         }
-
-        return tasks;
     }
 
     public void saveNewTask(Task task, Ui ui) {
