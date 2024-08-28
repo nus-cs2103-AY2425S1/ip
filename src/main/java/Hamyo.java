@@ -1,3 +1,10 @@
+import Hamyo.Misc.HamyoException;
+import Hamyo.Misc.Parser;
+import Hamyo.Misc.UI;
+import Hamyo.Misc.Storage;
+
+import Hamyo.Tasks.TaskList;
+
 import java.util.Scanner;
 
 public class Hamyo {
@@ -19,12 +26,12 @@ public class Hamyo {
     public void run() {
         try {
             Scanner scanner = new Scanner(System.in);
-            storage.loadData(this, this.tasks);
+            storage.loadData(this.tasks);
 
             while (this.active) {
                 try {
                     this.active = Parser.parse(scanner.nextLine(), this.tasks);
-                    storage.saveData(this, this.tasks);
+                    storage.saveData(this.tasks);
                 } catch (HamyoException e) {
                     UI.printException(e);
                 }

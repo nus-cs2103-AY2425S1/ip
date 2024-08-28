@@ -1,3 +1,4 @@
+package Hamyo.Misc;
 public class HamyoException extends Exception{
   public HamyoException(String message) {
     super(message);

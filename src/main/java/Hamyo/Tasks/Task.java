@@ -1,3 +1,8 @@
+package Hamyo.Tasks;
+
+import Hamyo.Misc.HamyoException;
+import Hamyo.Misc.UI;
+
 import java.time.LocalDate;
 
 public class Task {

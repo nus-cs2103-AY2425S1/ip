@@ -1,3 +1,7 @@
+package Hamyo.Misc;
+
+import Hamyo.Tasks.Task;
+
 /**
  * Ui - deals with interactions with the user.
  */
