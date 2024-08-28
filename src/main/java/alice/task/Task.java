@@ -48,6 +48,16 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Checks if the task description contains a given keyword.
+     * 
+     * @param  keyword the keyword to search for
+     * @return         whether the description contains the keyword
+     */
+    public boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", isCompleted ? "X" : " ", description);

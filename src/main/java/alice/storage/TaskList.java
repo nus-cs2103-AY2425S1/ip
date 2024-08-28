@@ -92,6 +92,22 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks which contain a given keyword.
+     * 
+     * @param  keyword the keyword to search for
+     * @return         the tasks which contain the keyword
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.containsKeyword(keyword)) {
+                results.add(task);
+            }
+        }
+        return results;
+    }
+
+    /**
      * Save tasks to disk to persist data.
      * 
      * @throws IOException if the stored file cannot be written to
