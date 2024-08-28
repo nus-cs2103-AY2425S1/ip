@@ -162,7 +162,9 @@ public class ChatBaby {
             case DEADLINE:
                 String[] deadlineParts = description.split("/by ");
                 if (deadlineParts.length == 2) {
-                    newTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                    String taskDescription = deadlineParts[0].trim();
+                    String deadline = deadlineParts[1].trim();
+                    newTask = new Deadline(taskDescription, deadline);
                 } else {
                     printEmptyDescriptionError(type);
                     return;
