@@ -24,7 +24,7 @@ public class Duke {
         String[] splitedBySpace;
         String[] splitedBySlash;
         Task event;
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list;
         //fetch the savedlist
         list = readFromFile(savedListPath);
         while (scanner.hasNextLine()) {
