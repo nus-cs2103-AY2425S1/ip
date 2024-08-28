@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -6,7 +11,7 @@ public class Neuro {
     private static Task getTask(String input) throws IllegalArgumentException {
         // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
         // Array copyOfRange inspired by https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-        String[] inputComponents = input.split("[\s]");
+        String[] inputComponents = input.split(" ");
         String taskType = inputComponents[0];
         Task task = null;
 
@@ -102,8 +107,76 @@ public class Neuro {
         return task;
     }
 
-    public static void main(String[] args) {
+    private static Task getTaskToAdd(String taskType, String[] taskComponents, String taskIsDone) {
+        Task taskToAdd = null;
+
+        switch (taskType) {
+            case ("T"):
+                taskToAdd = new Todo(taskComponents[2]);
+                break;
+            case ("D"):
+                taskToAdd = new Deadline(taskComponents[2], taskComponents[3]);
+                break;
+            case ("E"):
+                taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                break;
+            default:
+
+                break;
+        }
+
+        if (taskIsDone.equals("1") && taskToAdd != null) {
+            taskToAdd.markDone();
+        }
+        return taskToAdd;
+    }
+
+    private static ArrayList<Task> loadOrCreateTaskFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        try {
+            if (!f.exists()) {
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error encountered: " + e);
+        }
+
+        Scanner s = new Scanner(f);
         ArrayList<Task> taskList = new ArrayList<>();
+
+        while (s.hasNext()) {
+            String nextLine = s.nextLine();
+            String[] taskComponents = nextLine.split(" \\| ");
+            String taskType = taskComponents[0];
+            String taskIsDone = taskComponents[1];
+            Task taskToAdd = getTaskToAdd(taskType, taskComponents, taskIsDone);
+
+            taskList.add(taskToAdd);
+        }
+
+        return taskList;
+    }
+
+    private static void updateTaskFile(String filePath, ArrayList<Task> taskList) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+
+        for (Task task : taskList) {
+            fileWriter.write(task.toSaveData() + System.lineSeparator());
+        }
+
+        fileWriter.close();
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Task> taskList;
+        try {
+            taskList = loadOrCreateTaskFile("./data/Neuro.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("No save file found");
+            System.out.println("Error encountered: " + e);
+            return;
+        }
 
         // Scanner creation format inspired by https://www.w3schools.com/java/java_user_input.asp
         Scanner scanner = new Scanner(System.in);
@@ -115,6 +188,11 @@ public class Neuro {
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
+                try {
+                    updateTaskFile("./data/Neuro.txt", taskList);
+                } catch (IOException e) {
+                    System.out.println("Error encountered: " + e);
+                }
                 break;
             } else if (input.equals("list")) {
                 System.out.println("    ___________________________________________________");
@@ -131,7 +209,7 @@ public class Neuro {
                 System.out.println("    ___________________________________________________");
             } else if (input.startsWith("mark")) {
                 // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
-                String[] inputComponents = input.split("[\s]");
+                String[] inputComponents = input.split(" ");
 
                 System.out.println("    ___________________________________________________");
                 try {

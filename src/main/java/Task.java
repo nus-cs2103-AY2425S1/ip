@@ -23,4 +23,12 @@ public abstract class Task {
             return "[ ] " + this.description;
         }
     }
+
+    public String toSaveData() {
+        if (this.isDone) {
+            return "1 | " + this.description;
+        } else {
+            return "0 | " + this.description;
+        }
+    };
 }
