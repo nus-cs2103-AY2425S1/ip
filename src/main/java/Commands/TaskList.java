@@ -1,17 +1,20 @@
+package Commands;
+import Storage.Storage;
+import System.Ui;
+import System.DateTimeSystem;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 public abstract class TaskList {
-    private String name;
+    public String name;
 
-    enum status {
+    public enum status {
         MARKED,
         UNMARKED
     }
 
-    status current_status;
+    public status current_status;
     public static Ui r = new Ui();
     public String tag;
     public static ArrayList<TaskList> task_List_list = new ArrayList<>();

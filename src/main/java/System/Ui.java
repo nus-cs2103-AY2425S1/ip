@@ -1,3 +1,10 @@
+package System;
+
+import Commands.Deadlines;
+import Commands.Events;
+import Commands.TaskList;
+import Commands.ToDos;
+
 public class Ui {
     public void greet() {
         line();
@@ -66,15 +73,15 @@ public class Ui {
 //        for (Task t : task_list) {
 //            if (t.getCurrent_status()== Task.status.MARKED) {
 //                if (t.getTag().equals("T")) {
-//                    if (t instanceof ToDos) {
+//                    if (t instanceof Commands.ToDos) {
 //                        System.out.println(counter + ".[T][X] " + t.getName());
 //                    }
 //                } else if (t.getTag().equals("D")) {
-//                    if (t instanceof Deadlines) {
+//                    if (t instanceof Commands.Deadlines) {
 //                        System.out.println(counter + ".[D][X] " + t.getName() + "(by: " + t.getDay() + ")");
 //                    }
 //                } else if (t.getTag().equals("E")) {
-//                    if (t instanceof Events) {
+//                    if (t instanceof Commands.Events) {
 //                        System.out.println(counter + ".[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
 //                    }
 //                } else {
@@ -82,15 +89,15 @@ public class Ui {
 //                }
 //            } else {
 //                if (t.getTag().equals("T")) {
-//                    if (t instanceof ToDos) {
+//                    if (t instanceof Commands.ToDos) {
 //                        System.out.println(counter + ".[T][ ] " + t.getName());
 //                    }
 //                } else if (t.getTag().equals("D")) {
-//                    if (t instanceof Deadlines) {
+//                    if (t instanceof Commands.Deadlines) {
 //                        System.out.println(counter + ".[D][ ] " + t.getName() + "(by: " + t.getDay() + ")");
 //                    }
 //                } else if (t.getTag().equals("E")) {
-//                    if (t instanceof Events) {
+//                    if (t instanceof Commands.Events) {
 //                        System.out.println(counter + ".[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
 //                    }
 //                } else {

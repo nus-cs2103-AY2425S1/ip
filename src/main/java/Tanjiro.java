@@ -1,3 +1,8 @@
+import Commands.TaskList;
+import Storage.Storage;
+import System.Ui;
+import System.InputProcessor;
+import System.Parser;
 import java.io.IOException;
 
 public class Tanjiro {
@@ -18,15 +23,15 @@ public class Tanjiro {
             } else if (p.containMark(user_input)) {
 //                int list_no = Character.getNumericValue(user_input.charAt(user_input.length() - 1));
 //                if (user_input.contains("unmark")) {
-//                    TaskList.unmark_task(list_no);
+//                    Commands.TaskList.unmark_task(list_no);
 //                } else {
-//                    TaskList.mark_task(list_no);
+//                    Commands.TaskList.mark_task(list_no);
 //                }
                 p.performMark(user_input);
             } else if (p.containToDo(user_input)) {
 //                try {
 //                    String name = user_input.substring(5);
-//                    ToDos temp_todo = new ToDos(name);
+//                    Commands.ToDos temp_todo = new Commands.ToDos(name);
 //                    temp_todo.add_task(temp_todo);
 //                } catch (StringIndexOutOfBoundsException e) {
 //                    ui.empty_todo();
@@ -46,7 +51,7 @@ public class Tanjiro {
 //                    String day = dateTokens[2];
 //                    LocalDateTime ldt = ds.createDate(year,month,day,time.substring(0,2),time.substring(2));
 //
-//                    Deadlines temp_deadline = new Deadlines(name, ldt);
+//                    Commands.Deadlines temp_deadline = new Commands.Deadlines(name, ldt);
 //                    temp_deadline.add_task(temp_deadline);
 //                } catch (StringIndexOutOfBoundsException e) {
 //                    ui.empty_deadline();
@@ -71,7 +76,7 @@ public class Tanjiro {
 //
 //                    LocalDateTime ldt_end = ds.createDate(date_token_end[0],date_token_end[1],date_token_end[2],full_date_token_end[1].substring(0,2),full_date_token_end[1].substring(2));
 //
-//                    Events temp_event = new Events(name, ldt_start, ldt_end);
+//                    Commands.Events temp_event = new Commands.Events(name, ldt_start, ldt_end);
 //                    temp_event.add_task(temp_event);
 //                } catch (StringIndexOutOfBoundsException e) {
 //                    ui.empty_event();
@@ -79,7 +84,7 @@ public class Tanjiro {
                 p.performEvent(user_input);
             } else if (p.containDelete(user_input)) {
 //                int list_no = Character.getNumericValue(user_input.charAt(user_input.length() - 1));
-//                TaskList.delete_task(list_no);
+//                Commands.TaskList.delete_task(list_no);
                 p.performDelete(user_input);
             } else {
                 ui.invalid_input();
