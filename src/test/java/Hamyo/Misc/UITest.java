@@ -1,6 +1,5 @@
 package Hamyo.Misc;
 
-import Hamyo.Tasks.Task;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
@@ -8,57 +7,57 @@ import java.io.PrintStream;
 
 public class UITest {
 
-  private final ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
-  private final PrintStream originalOutput = System.out;
-  public void setUpStreams() {
-    System.setOut(new PrintStream(systemOutput));
-  }
-  public void restoreStreams() {
-    System.setOut(originalOutput);
-  }
-
-  @Test
-    public void testGreet() {
-      UI ui = new UI();
-      setUpStreams();
-
-      ui.greet();
-      assertEquals(
-          "________________________________________________________________________________\n" +
-              "$$   $$   $$$$    $$$$ $$$$   $$   $$  $$$$$$\n" +
-              "$$   $$  $$  $$  $$  $$$  $$  $$   $$  $$  $$\n" +
-              "$$$$$$$  $$$$$$  $$  $$$  $$  $$$$$$$  $$  $$\n" +
-              "$$   $$  $$  $$  $$  $$$  $$       $$  $$  $$\n" +
-              "$$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$\n" +
-              "\nAnnyeonghaseyo! Hamyo here!\nHow may I assist you today?\n" +
-              "________________________________________________________________________________\n",
-          systemOutput.toString());
-
-      restoreStreams();
+    private final ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
+    private final PrintStream originalOutput = System.out;
+    public void setUpStreams() {
+        System.setOut(new PrintStream(systemOutput));
     }
+    public void restoreStreams() {
+        System.setOut(originalOutput);
+    }
+
+    @Test
+    public void testGreet() {
+        UI ui = new UI();
+        setUpStreams();
+
+        ui.greet();
+        assertEquals(
+            "________________________________________________________________________________\n" +
+                "$$   $$   $$$$    $$$$ $$$$   $$   $$  $$$$$$\n" +
+                "$$   $$  $$  $$  $$  $$$  $$  $$   $$  $$  $$\n" +
+                "$$$$$$$  $$$$$$  $$  $$$  $$  $$$$$$$  $$  $$\n" +
+                "$$   $$  $$  $$  $$  $$$  $$       $$  $$  $$\n" +
+                "$$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$\n" +
+                "\nAnnyeonghaseyo! Hamyo here!\nHow may I assist you today?\n" +
+                "________________________________________________________________________________\n",
+            systemOutput.toString());
+
+        restoreStreams();
+        }
 
     @Test
     public void testTerminate() {
-      UI ui = new UI();
-      setUpStreams();
+        UI ui = new UI();
+        setUpStreams();
 
-      ui.terminate();
-      assertEquals("Annyeong! Till we meet again. <3\n" +
-              "________________________________________________________________________________\n",
-          systemOutput.toString());
+        ui.terminate();
+        assertEquals("Annyeong! Till we meet again. <3\n" +
+                "________________________________________________________________________________\n",
+            systemOutput.toString());
 
-      restoreStreams();
-    }
+        restoreStreams();
+        }
 
     @Test
     public void testPrintException() {
-      HamyoException e = new HamyoException("Testing an exception.");
-      setUpStreams();
+        HamyoException e = new HamyoException("Testing an exception.");
+        setUpStreams();
 
-      UI.printException(e);
-      assertEquals(e.toString() + "\n________________________________________________________________________________\n",
-          systemOutput.toString());
+        UI.printException(e);
+        assertEquals(e.toString() + "\n________________________________________________________________________________\n",
+            systemOutput.toString());
 
-      restoreStreams();
-  }
+        restoreStreams();
+    }
 }
