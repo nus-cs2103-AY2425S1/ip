@@ -91,11 +91,11 @@ public class TaskList {
         ui.showUnmarkedTask(task);
     }
 
-    public TaskList findTask(String keyword) {
+    public TaskList findTask(String keyword) throws PikappiException {
         TaskList matches = new TaskList();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                matches.add(task);
+                matches.getTasks().add(task);
             }
         }
         return matches;

@@ -1,8 +1,4 @@
 T | 0 | hello
-D | 0 | now | later
-E | 0 | haha | yes | no
-T | 0 | testing hello
-E | 1 | event test | tday | tmr
-E | 1 | another event | 2pm | 4pm
-E | 1 | task5 | Aug 24 2024 | Aug 30 2024
-
+D | 0 | now | later   
+E | 1 | haha | yes | no
+D | 0 | trying | Mar 12 2024 6:20PM 12
