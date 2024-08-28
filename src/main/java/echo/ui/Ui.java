@@ -18,6 +18,7 @@ public class Ui {
      */
     public void greet() {
         System.out.println(LINE_BREAK);
+
         System.out.println("Hello: I'm Echo\nWhat can I do for you?");
         System.out.println(LINE_BREAK);
     }
@@ -27,7 +28,11 @@ public class Ui {
      */
     public void bye() {
         System.out.println(LINE_BREAK);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Goodnight! Hope to see you again soon!");
+        System.out.println("      |\\      _,,,---,,_\n" +
+                           "ZZZzz /,`.-'`'    -.  ;-;;,_\n" +
+                           "     |,4-  ) )-,_. ,\\ (  `'-'\n" +
+                           "    '---''(_/--'  `-'\\_)");
         System.out.println(LINE_BREAK);
     }
 
