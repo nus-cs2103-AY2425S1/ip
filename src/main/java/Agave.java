@@ -1,13 +1,23 @@
+import java.io.File;
+import java.io.IOException;
+
 public class Agave {
 
     private UserInterface ui;
     private boolean isRunning;
     private Task taskManager;
+    private FileHandler fileHandler;
 
     public Agave() {
         this.ui = new UserInterface();
         this.isRunning = true;
         this.taskManager = new Task();
+        this.fileHandler = new FileHandler("./data/agave.txt");
+        try {
+            this.taskManager.setTasks(fileHandler.loadTasks());
+        } catch (IOException e) {
+            System.out.println("Error loading the tasks: " + e.getMessage());
+        }
     }
 
     public void run() {
@@ -36,8 +46,11 @@ public class Agave {
                 } else {
                     throw new AgaveException("I'm sorry, but I don't understand the command: " + userInput);
                 }
+                fileHandler.saveTasks(taskManager.getTasks());
             } catch (AgaveException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 ui.showError(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Error while saving tasks: " + e.getMessage());;
             }
         }
     }
@@ -45,7 +58,7 @@ public class Agave {
     private void handleMark(String userInput) throws AgaveException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
+            if (taskNumber > 0 && taskNumber <= taskManager.getTasks().size()) {
                 taskManager.getTasks().get(taskNumber - 1).markAsDone();
                 ui.showMarkedTask(taskManager.getTasks().get(taskNumber - 1));
             } else {
@@ -59,7 +72,7 @@ public class Agave {
     private void handleUnmark(String userInput) throws AgaveException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
+            if (taskNumber > 0 && taskNumber <= taskManager.getTasks().size()) {
                 taskManager.getTasks().get(taskNumber - 1).unmarkAsDone();
                 ui.showUnmarkedTask(taskManager.getTasks().get(taskNumber - 1));
             } else {

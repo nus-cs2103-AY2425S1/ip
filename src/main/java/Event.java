@@ -9,6 +9,12 @@ public class Event extends Task {
     }
 
     @Override
+    public String getCorrectFormat() {
+        return String.format("%s | %s | %s",
+                getDescription(), start, end);
+    }
+
+    @Override
     public String toString() {
         return " [E] " + super.toString() + " (at: " + start + " to " + end + ")";
     }
