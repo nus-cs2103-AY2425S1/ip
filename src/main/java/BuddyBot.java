@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -7,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class BuddyBot {
+
+    static FileStorage store = new FileStorage("BuddyBot.txt");
     public static void main(String[] args) {
         //Scanner object
         Scanner myObj = new Scanner(System.in);
@@ -53,11 +58,18 @@ public class BuddyBot {
                         input = myObj.nextLine();
                     } else {
                         String time = parts[1].trim();
-                        Deadline additionD = new Deadline(description, time);
-                        myList.add(i, additionD);
-                        System.out.println("Got it. I've added this task: \n" + additionD);
-                        System.out.println("Now you have " + count(myList) + " tasks in the list.");
-                        input = myObj.nextLine();
+                        try {
+                            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate date = LocalDate.parse(time, format);
+                            Deadline additionD = new Deadline(description, date);
+                            myList.add(i, additionD);
+                            System.out.println("Got it. I've added this task: \n" + additionD);
+                            System.out.println("Now you have " + count(myList) + " tasks in the list.");
+                        } catch (DateTimeParseException e) {
+                            System.out.println(e.getMessage());
+                        } finally {
+                            input = myObj.nextLine();
+                        }
                     }
                 } else if (input.startsWith("event")) {
                     String[] parts = input.substring(5).split("/from|/to");
@@ -69,11 +81,19 @@ public class BuddyBot {
                     } else {
                         String start = parts[1].trim();
                         String end = parts[2].trim();
-                        Event additionE = new Event(description, start, end);
-                        myList.add(i, additionE);
-                        System.out.println("Got it. I've added this task: \n" + additionE);
-                        System.out.println("Now you have " + count(myList) + " tasks in the list.");
-                        input = myObj.nextLine();
+                        try {
+                            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate startTime = LocalDate.parse(start, format);
+                            LocalDate endTime = LocalDate.parse(end, format);
+                            Event additionE = new Event(description, startTime, endTime);
+                            myList.add(i, additionE);
+                            System.out.println("Got it. I've added this task: \n" + additionE);
+                            System.out.println("Now you have " + count(myList) + " tasks in the list.");
+                        } catch (DateTimeParseException e) {
+                            System.out.println(e.getMessage());
+                        } finally {
+                            input = myObj.nextLine();
+                        }
                     }
                 } else if (input.startsWith("todo")) { //NORMAL case (TODOs)
                     String description = input.substring(4).trim();
@@ -112,7 +132,7 @@ public class BuddyBot {
                 }
             }
         }
-        write(writtenList(myList));
+        store.writeToTxt(writtenList(myList));
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
@@ -144,11 +164,13 @@ public class BuddyBot {
         return result.toString();
     }
 
-    public static void write(String tasks) { //Using this method
-        try (FileWriter myWriter = new FileWriter("BuddyBot.txt")) {
-            myWriter.write(tasks);
+    /*public static void writeToTxt(String myTasks) { //Using this method
+        try  {
+            FileWriter myWriter = new FileWriter("BuddyBot.txt");
+            myWriter.write(myTasks);
+            myWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
