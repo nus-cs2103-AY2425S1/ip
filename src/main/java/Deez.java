@@ -1,8 +1,13 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Deez implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static final DateTimeFormatter dateTimeInputFormatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     // Path to write to
     private static final String filePath = "./data";
     // Name of data file
@@ -62,41 +67,61 @@ public class Deez implements Serializable {
     }
 
     private void addDeadline(String params) throws DeezException {
+
         if (params.isEmpty() || !params.contains("/by")) {
             throw new DeezException("Please provide a description and deadline.", "Usage:", "deadline " +
                     "return book" +
-                    " /by Sunday");
+                    " /by 2019-10-15 1800");
         }
         String[] parts = params.split("/by", 2);
         if (parts.length != 2 || parts[0].isBlank() || parts[1].isBlank()) {
             throw new DeezException("Description and deadline must not be blank.", "Usage:", "deadline " +
                     "return book" +
-                    " /by Sunday");
+                    " /by 2019-10-15 1800");
         }
-        Deadline d = new Deadline(parts[0].strip(), parts[1].strip());
-        tasks.add(d);
-        say("Donezo. I have added your task.",
-                d.toString(),
-                "You have " + tasks.size() + " tasks in the " +
-                        "list");
+        try {
+            LocalDateTime byDateTime = LocalDateTime.parse(parts[1].strip(), dateTimeInputFormatter);
+            Deadline d = new Deadline(parts[0].strip(), byDateTime);
+            tasks.add(d);
+            say("Donezo. I have added your task.",
+                    d.toString(),
+                    "You have " + tasks.size() + " tasks in the " +
+                            "list");
+        } catch (DateTimeParseException e) {
+            throw new DeezException("Failed to parse deadline date.", "Usage:", "deadline " +
+                    "return book" +
+                    " /by 2019-10-15 1800");
+        }
+
     }
 
     private void addEvent(String params) throws DeezException {
         if (params.isEmpty() || !params.contains("/from") || !params.contains("/to")) {
             throw new DeezException("Please provide a description, start date, and end date.", "Usage:", "event " +
-                    "project meeting /from Mon 2pm /to 4pm");
+                    "project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
         }
         String[] parts = params.split("/from|/to", 3);
         if (parts.length != 3 || parts[0].isBlank() || parts[1].isBlank() || parts[2].isBlank()) {
             throw new DeezException("Description start date, and end date must not be blank.", "Usage:", "event " +
-                    "project meeting /from Mon 2pm /to 4pm");
+                    "project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
         }
-        Event e = new Event(parts[0].strip(), parts[1].strip(), parts[2].strip());
-        tasks.add(e);
-        say("Event added",
-                e.toString(),
-                "You have " + tasks.size() + " tasks in the " +
-                        "list");
+        try {
+            LocalDateTime startDate = LocalDateTime.parse(parts[1].strip(), dateTimeInputFormatter);
+            LocalDateTime endDate = LocalDateTime.parse(parts[2].strip(), dateTimeInputFormatter);
+            if (startDate.isAfter(endDate)) {
+                throw new DeezException("Start date must be before end date.", "Usage:",
+                        "event project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
+            }
+            Event e = new Event(parts[0].strip(), startDate, endDate);
+            tasks.add(e);
+            say("Event added",
+                    e.toString(),
+                    "You have " + tasks.size() + " tasks in the " +
+                            "list");
+        } catch (DateTimeParseException e) {
+            throw new DeezException("Invalid date.", "Usage:", "event " +
+                    "project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
+        }
     }
 
     private void handleMarkUnmarkDone(boolean isMarkDone, String param) throws DeezException {

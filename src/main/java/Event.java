@@ -1,16 +1,20 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    protected String eventStart;
-    protected String eventEnd;
+    protected LocalDateTime eventStartDate;
+    protected LocalDateTime eventEndDate;
     private static final long serialVersionUID = 1L;
 
-    public Event(String description, String eventStart, String eventEnd) {
+    public Event(String description, LocalDateTime eventStartDate, LocalDateTime eventEndDate) {
         super(description);
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.eventStart + ")" + " (to: " + this.eventEnd + ")";
+        return "[E]" + super.toString() + " (from: " + this.eventStartDate.format(defaultDateTimeFormatter) + ")" + " (to" +
+                ": " + this.eventEndDate.format(defaultDateTimeFormatter) + ")";
     }
 }

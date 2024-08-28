@@ -1,14 +1,16 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime byDate;
     private static final long serialVersionUID = 1L;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime byDate) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.byDate.format(defaultDateTimeFormatter) + ")";
     }
 }
