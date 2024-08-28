@@ -9,6 +9,7 @@ import java.util.Objects;
 public class DeadlineTask extends Task {
 
     LocalDate deadline;
+
     public DeadlineTask(String desc, LocalDate deadline) {
         super(desc);
         this.deadline = deadline;

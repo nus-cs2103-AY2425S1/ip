@@ -12,6 +12,7 @@ public class MarkCommand extends Command {
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
+
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
         Task task = tasks.getTask(taskIndex);

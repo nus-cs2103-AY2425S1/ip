@@ -1,7 +1,6 @@
 package optimus.tasks;
 
 import optimus.Storage;
-import optimus.tasks.Task;
 
 import java.util.Objects;
 
