@@ -9,8 +9,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    runtimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
 test {
@@ -32,10 +32,11 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "ShoAI"
-    archiveClassifier = null
+    archiveBaseName.set("ShoAI")
+    archiveClassifier.set("") // Setting classifier to an empty string for a fat JAR
+    archiveVersion.set("") // Remove version from JAR file name if desired
 }
 
-run{
+run {
     standardInput = System.in
 }
