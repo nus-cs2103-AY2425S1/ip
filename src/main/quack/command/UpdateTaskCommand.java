@@ -1,3 +1,5 @@
+package quack.command;
+
 /**
  * This class is responsible for updating of tasks in the task list.
  */

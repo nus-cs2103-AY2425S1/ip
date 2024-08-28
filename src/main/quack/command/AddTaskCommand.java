@@ -1,3 +1,5 @@
+package quack.command;
+
 import java.time.format.DateTimeParseException;
 
 /**
@@ -6,7 +8,6 @@ import java.time.format.DateTimeParseException;
  */
 public class AddTaskCommand extends Command{
     
-
     /**
      * Creates a AddTaskCommand object.
      */

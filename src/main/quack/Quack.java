@@ -1,3 +1,5 @@
+package quack;
+
 /**
  * The Quack chatbot program implements the functionality needed
  * to help users keep track of tasks for them.

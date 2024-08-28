@@ -1,3 +1,5 @@
+package quack.command;
+
 /**
  * This class is responsible for handling the list command in Quack.
  */

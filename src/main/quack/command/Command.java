@@ -1,3 +1,5 @@
+package quack.command;
+
 /**
  * This is an abstract class to define a command object.
  */

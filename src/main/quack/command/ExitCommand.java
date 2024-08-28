@@ -1,3 +1,5 @@
+package quack.command;
+
 import java.io.IOException;
 
 /**

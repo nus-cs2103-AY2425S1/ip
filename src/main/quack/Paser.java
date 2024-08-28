@@ -1,3 +1,5 @@
+package quack;
+
 /**
  * This class is responsible for handling user input commands.
  */

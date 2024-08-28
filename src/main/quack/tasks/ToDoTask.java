@@ -1,3 +1,5 @@
+package quack.tasks;
+
 /**
  * This class defines and prodides functionality for todo tasks.
  */

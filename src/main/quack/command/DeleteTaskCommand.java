@@ -1,3 +1,5 @@
+package quack.command;
+
 /**
  * This class is responsible for deleting tasks in the task list.
  */
