@@ -1,12 +1,22 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lolo {
 
+    private static final String FILE_PATH = "./data/lolo.txt";
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks;
+    private static Storage storage;
 
     public static void main(String[] args) {
+        storage = new Storage(FILE_PATH);
+        try {
+            tasks = storage.load();
+        } catch (LoloException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Hello! I'm Lolo, your friendly task manager. 😊");
@@ -18,31 +28,30 @@ public class Lolo {
             System.out.print("You: ");
             userCommand = scanner.nextLine();
 
-            try {
-                if (userCommand.equalsIgnoreCase("bye")) {
-                    break;
-                } else if (userCommand.equalsIgnoreCase("list")) {
-                    listTasks();
-                } else if (userCommand.startsWith("todo ")) {
-                    handleTodoCommand(userCommand);
-                } else if (userCommand.startsWith("deadline ")) {
-                    handleDeadlineCommand(userCommand);
-                } else if (userCommand.startsWith("event ")) {
-                    handleEventCommand(userCommand);
-                } else if (userCommand.startsWith("mark ")) {
-                    handleMarkCommand(userCommand);
-                } else if (userCommand.startsWith("unmark ")) {
-                    handleUnmarkCommand(userCommand);
-                } else {
-                    throw new LoloException("I'm sorry, but I don't know what that means :-(");
-                }
-
-            } catch (LoloException e) {
-                System.out.println("    OOPS!!! " + e.getMessage());
-            } catch (NumberFormatException e) {
-                System.out.println("    OOPS!!! Invalid task number format.");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("    OOPS!!! Missing task description or date.");
+            if (userCommand.equalsIgnoreCase("bye")) {
+                break;
+            } else if (userCommand.equalsIgnoreCase("list")) {
+                listTasks();
+            } else if (userCommand.startsWith("todo ")) {
+                addTask(new ToDo(userCommand.substring(5)));
+            } else if (userCommand.startsWith("deadline ")) {
+                String[] parts = userCommand.split(" /by ");
+                addTask(new Deadline(parts[0].substring(9), parts[1]));
+            } else if (userCommand.startsWith("event ")) {
+                String[] parts = userCommand.split(" /from ");
+                String[] fromTo = parts[1].split(" /to ");
+                addTask(new Event(parts[0].substring(6), fromTo[0], fromTo[1]));
+            } else if (userCommand.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
+                markTaskAsDone(taskNumber);
+            } else if (userCommand.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
+                markTaskAsNotDone(taskNumber);
+            } else if (userCommand.startsWith("delete ")) {
+                int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
+                deleteTask(taskNumber);
+            } else {
+                System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
         } while (!userCommand.equalsIgnoreCase("bye"));
@@ -52,84 +61,70 @@ public class Lolo {
         scanner.close();
     }
 
-    public static void handleTodoCommand(String command) throws LoloException {
-        String description = command.substring(5).trim();
-        if (description.isEmpty()) {
-            throw new LoloException("The description of a todo cannot be empty.");
-        }
-        addTask(new ToDo(description));
-    }
-
-    public static void handleDeadlineCommand(String command) throws LoloException {
-        String[] parts = command.split(" /by ");
-        if (parts.length != 2) {
-            throw new LoloException("Invalid deadline format. Use 'deadline [description] /by [date]'.");
-        }
-        addTask(new Deadline(parts[0].substring(9).trim(), parts[1].trim()));
-    }
-
-    public static void handleEventCommand(String command) throws LoloException {
-        String[] parts = command.split(" /from ");
-        if (parts.length != 2) {
-            throw new LoloException("Invalid event format. Use 'event [description] /from [start] /to [end]'.");
-        }
-        String[] fromTo = parts[1].split(" /to ");
-        if (fromTo.length != 2) {
-            throw new LoloException("Invalid event time format. Use '/from [start] /to [end]'.");
-        }
-        addTask(new Event(parts[0].substring(6).trim(), fromTo[0].trim(), fromTo[1].trim()));
-    }
-
-    public static void handleMarkCommand(String command) throws LoloException {
-        int taskNumber = Integer.parseInt(command.split(" ")[1]);
-        markTaskAsDone(taskNumber);
-    }
-
-    public static void handleUnmarkCommand(String command) throws LoloException {
-        int taskNumber = Integer.parseInt(command.split(" ")[1]);
-        markTaskAsNotDone(taskNumber);
-    }
-
     public static void addTask(Task task) {
-        if (taskCount < MAX_TASKS) {
-            tasks[taskCount] = task;
-            taskCount++;
+        if (tasks.size() < MAX_TASKS) {
+            tasks.add(task);
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + task);
-            System.out.println("    Now you have " + taskCount + " task(s) in the list.");
+            System.out.println("    Now you have " + tasks.size() + " task(s) in the list.");
+            saveTasks();
         } else {
             System.out.println("    Task list is full! Cannot add more tasks.");
         }
     }
 
     public static void listTasks() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("    No tasks added yet.");
         } else {
             System.out.println("    Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println("    " + (i + 1) + "." + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("    " + (i + 1) + "." + tasks.get(i));
             }
         }
     }
 
-    public static void markTaskAsDone(int taskNumber) throws LoloException {
-        if (taskNumber > 0 && taskNumber <= taskCount) {
-            tasks[taskNumber - 1].markAsDone();
+    public static void markTaskAsDone(int taskNumber) {
+        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+            tasks.get(taskNumber - 1).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks[taskNumber - 1]);
+            System.out.println("  " + tasks.get(taskNumber - 1));
+            saveTasks();
         } else {
-            throw new LoloException("Invalid task number.");
+            System.out.println("    OOPS!!! The task number is invalid.");
         }
     }
 
-    public static void markTaskAsNotDone(int taskNumber) throws LoloException {
-        if (taskNumber > 0 && taskNumber <= taskCount) {
-            tasks[taskNumber - 1].markAsNotDone();
+    public static void markTaskAsNotDone(int taskNumber) {
+        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+            tasks.get(taskNumber - 1).markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks[taskNumber - 1]);
+            System.out.println("  " + tasks.get(taskNumber - 1));
+            saveTasks();
         } else {
-            throw new LoloException("Invalid task number.");
+            System.out.println("    OOPS!!! The task number is invalid.");
+        }
+    }
+
+    public static void deleteTask(int taskNumber) {
+        if (taskNumber > 0 && taskNumber <= tasks.size()) {
+            Task removedTask = tasks.remove(taskNumber - 1);
+            System.out.println("    Noted. I've removed this task:");
+            System.out.println("      " + removedTask);
+            System.out.println("    Now you have " + tasks.size() + " task(s) in the list.");
+            saveTasks();
+        } else {
+            System.out.println("    OOPS!!! The task number is invalid.");
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            storage.save(tasks);
+        } catch (LoloException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
 }
+
+
