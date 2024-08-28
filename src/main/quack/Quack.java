@@ -1,5 +1,8 @@
 package quack;
 
+import quack.command.Command;
+import quack.exception.InvalidCommandException;
+
 /**
  * The Quack chatbot program implements the functionality needed
  * to help users keep track of tasks for them.

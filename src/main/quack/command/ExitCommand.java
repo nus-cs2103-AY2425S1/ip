@@ -1,6 +1,10 @@
 package quack.command;
 
 import java.io.IOException;
+import quack.Quack;
+import quack.TaskList;
+import quack.Storage;
+import quack.Ui;
 
 /**
  * This class is responsible for handling the stopping of Quack.

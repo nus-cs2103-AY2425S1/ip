@@ -1,5 +1,13 @@
 package quack.command;
 
+import quack.Quack;
+import quack.TaskList;
+import quack.Storage;
+import quack.Ui;
+import quack.tasks.Task;
+import quack.exception.InvalidIndexException;
+import quack.exception.FailedUpdateException;
+
 /**
  * This class is responsible for updating of tasks in the task list.
  */

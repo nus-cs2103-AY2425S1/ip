@@ -1,6 +1,9 @@
 package quack;
 
 import java.util.Scanner;
+import quack.tasks.Task;
+import quack.exception.InvalidIndexException;
+import quack.exception.InvalidTaskTypeException;
 
 /**
  * This class is responsible for displaying any UI interface,

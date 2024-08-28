@@ -1,5 +1,10 @@
 package quack.command;
 
+import quack.Quack;
+import quack.TaskList;
+import quack.Storage;
+import quack.Ui;
+
 /**
  * This is an abstract class to define a command object.
  */
