@@ -26,32 +26,37 @@ public class Utility {
     public static void fileToTaskList(File file) throws FileNotFoundException {
         toDo.clear();
         Scanner s = new Scanner(file);
-        while (s.hasNextLine()) {
-            String taskMessage = s.nextLine();
-            if (taskMessage.isEmpty()) {
-                continue;
+        try {
+            while (s.hasNextLine()) {
+                String taskMessage = s.nextLine();
+                if (taskMessage.isEmpty()) {
+                    continue;
+                }
+                Task task = EMPTY_TASK;
+                switch (taskMessage.charAt(1)) {
+                    case 'T':
+                        task = new TodoTask(splitTaskInfo(taskMessage)[1]);
+                        toDo.add(task);
+                        break;
+                    case 'D':
+                        task = new DeadlineTask(splitTaskInfo(taskMessage)[1]);
+                        toDo.add(task);
+                        break;
+                    case 'E':
+                        task = new EventTask(splitTaskInfo(taskMessage)[1]);
+                        toDo.add(task);
+                        break;
+                    default:
+                        System.out.println("Cannot read: " + taskMessage);
+                }
+                if(taskMessage.charAt(4) == 'X') {
+                    task.markAsDone();
+                }
             }
-            Task task = EMPTY_TASK;
-            switch (taskMessage.charAt(1)) {
-            case 'T':
-                task = new TodoTask(splitTaskInfo(taskMessage)[1]);
-                toDo.add(task);
-                break;
-            case 'D':
-                task = new DeadlineTask(splitTaskInfo(taskMessage)[1]);
-                toDo.add(task);
-                break;
-            case 'E':
-                task = new EventTask(splitTaskInfo(taskMessage)[1]);
-                toDo.add(task);
-                break;
-            default:
-                System.out.println("Cannot read: " + taskMessage);
-            }
-            if(taskMessage.charAt(4) == 'X') {
-                task.markAsDone();
-            }
+        } catch (Exception e) {
+            System.out.println("Failed to read file, so the task list is empty now." + e.getMessage());
         }
+
     }
 
     public static void taskListToFile() {
