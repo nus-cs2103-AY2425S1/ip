@@ -15,7 +15,7 @@ deadline submit report /by Sunday
 event team meeting /from 2pm /to 4pm
 
 ## error handling
-todo -> OOPS!!! I'm sorry, but I don't know what that means :-(
+hello -> OOPS!!! I'm sorry, but I don't know what that means :-(
 deadline submit report -> OOPS!!! The description of a deadline cannot be empty.
 event /from 2pm /to 4pm -> OOPS!!! The description of a event cannot be empty.
 
@@ -34,3 +34,13 @@ show on 2019-10-15
 
 ## find 
 find cook
+
+# gradle
+## quitting gradle
+:q!
+
+## running build for gradle
+./gradlew build 
+
+## running tests for gradle
+./gradlew test
