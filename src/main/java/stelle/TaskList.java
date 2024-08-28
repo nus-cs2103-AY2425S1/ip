@@ -83,6 +83,7 @@ public class TaskList {
 
     /**
      * Updates task list according to file. If file not found, creates a blank file.
+     * File location is as defined during construction.
      */
     public void readFromFile() {
         try {
@@ -92,6 +93,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Writes the current task list to a local file. If file is not found, creates it.
+     * File location is as defined during construction.
+     */
     public void writeToFile() {
         storage.writeTasksToFile(taskList);
     }
