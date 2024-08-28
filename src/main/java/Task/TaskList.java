@@ -1,3 +1,5 @@
+package Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -25,6 +27,16 @@ public class TaskList {
             idx++;
         }
         System.out.println();
+    }
+
+    public TaskList tasksContainingTerm(String term) {
+        TaskList tasksContainingTermList = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.containsTerm(term)) {
+                tasksContainingTermList.addTask(task);
+            }
+        }
+        return tasksContainingTermList;
     }
 
     public void markTask(int i) {

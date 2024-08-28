@@ -1,3 +1,8 @@
+package UI;
+
+import Storage.Storage;
+import Task.*;
+
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -32,11 +37,24 @@ public class Parser {
             case "bye":
                 handleBye();
                 return false;
+            case "find":
+                handleFind(arguments);
+                break;
             default:
                 throw new BotException("I'm sorry, I don't recognize that command.");
         }
 
         return true;
+    }
+
+    private static void handleFind(String arguments) throws BotException{
+        if (arguments.isEmpty()) throw new BotException("Please provide a search term");
+        TaskList searchResultList = TaskList.mainTaskList.tasksContainingTerm(arguments);
+        searchResultList.printList();
+        if (searchResultList.getNumTasks() == 1) {
+            System.out.printf("There is 1 task containing the word \"%s\".\n", arguments);
+        }
+        System.out.printf("There are %s tasks containing the word \"%s\".\n", searchResultList.getNumTasks(), arguments);
     }
 
     private static void handleMarkUnmark(String command, String arguments) throws BotException {

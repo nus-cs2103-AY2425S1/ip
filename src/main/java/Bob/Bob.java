@@ -1,3 +1,10 @@
+package Bob;
+
+import Storage.Storage;
+import UI.UI;
+import UI.Parser;
+import UI.BotException;
+
 public class Bob {
     public static void main(String[] args) {
         UI ui = new UI();

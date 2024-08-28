@@ -1,3 +1,5 @@
+package Task;
+
 import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected final static DateTimeFormatter toSelfFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm");
@@ -36,5 +38,10 @@ public abstract class Task {
         String done = (this.completed ? "[X]" : "[ ]");
 
         return this.type + " " + done + " " + this.task;
+    }
+
+    public boolean containsTerm(String term) {
+        int b = this.task.indexOf(term);
+        return (b != -1);
     }
 }

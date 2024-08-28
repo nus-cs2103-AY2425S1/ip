@@ -1,3 +1,5 @@
+package UI;
+
 import java.util.Scanner;
 
 public class UI {
@@ -10,6 +12,14 @@ public class UI {
     public void showWelcomeMessage() {
         System.out.println("Hello! I'm Bob\nWhat can I do for you?");
         System.out.println();
+    }
+
+    public void showAddTaskMsg() {
+        System.out.println("Sure I'll add that in for you!");
+    }
+
+    public void showMessage(String msg) {
+        System.out.println(msg);
     }
 
     public void showSeparator() {
