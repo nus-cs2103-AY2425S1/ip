@@ -1,5 +1,5 @@
 todo borrow book
-deadline return book /by June 6th
+deadline return book /by 2022-08-02
 event project meeting /from 12/11/2021 /to 21/11/2022
 mark 2
 list

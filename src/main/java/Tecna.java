@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.time.LocalDate;
+
 public class Tecna {
     private ArrayList<Task> taskList;
     private int todoSize;
@@ -121,7 +123,8 @@ public class Tecna {
             return new ToDo(des);
         } else if (category.equalsIgnoreCase("deadline")) {
             String[] description = input.substring(boundary + 1).split("/by");
-            return new Deadline(description[0].trim(), description[1].trim());
+            LocalDate by = LocalDate.parse(description[1].trim());
+            return new Deadline(description[0].trim(), by);
         } else if (category.equalsIgnoreCase("event")) {
             String[] description = input.substring(boundary + 1).split("/from | /to ");
             return new Event(description[0].trim(), description[1].trim(), description[2].trim());

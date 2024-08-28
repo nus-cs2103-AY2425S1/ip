@@ -23,7 +23,7 @@ Sure! I've added this task:
 ----------------------------------------------
 ----------------------------------------------
 Sure! I've added this task:
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: Aug 02 2022)
 >> Now you have 2 tasks in the list.
 ----------------------------------------------
 ----------------------------------------------
@@ -33,12 +33,12 @@ Sure! I've added this task:
 ----------------------------------------------
 ----------------------------------------------
 Nice job! I've mark this as done. You deserve a short break <3
-[D][X] return book (by: June 6th)
+[D][X] return book (by: Aug 02 2022)
 ----------------------------------------------
 ----------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][X] return book (by: June 6th)
+2. [D][X] return book (by: Aug 02 2022)
 3. [E][ ] project meeting (from: 12/11/2021 to: 21/11/2022)
 ----------------------------------------------
 ----------------------------------------------
@@ -47,7 +47,7 @@ Nice job! I've mark this as done. You deserve a short break <3
 ----------------------------------------------
 ----------------------------------------------
 I've mark this as undone. Keep going, my friend!
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: Aug 02 2022)
 ----------------------------------------------
 ----------------------------------------------
 Oops! Wrong format of todo: todo description cannot be empty!
