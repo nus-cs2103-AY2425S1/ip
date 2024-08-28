@@ -23,7 +23,7 @@ public class Event extends Task {
     protected String endTimeString;
 
     /**
-     * Event constructor which takes in a specified description, start time, end time, and task type.
+     * Constructs an Event instance which takes in a specified description, start time, end time, and task type.
      * Calls its superclass Task.
      * Parses the start and end times from strings to LocalDateTime objects.
      * Throws an exception if the date-time format is invalid.

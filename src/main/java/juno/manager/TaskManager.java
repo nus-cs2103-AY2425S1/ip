@@ -11,7 +11,7 @@ public class TaskManager {
     private ArrayList<Task> tasks;
 
     /**
-     * TaskManager constructor that takes in a specified list of tasks.
+     * Constructs a TaskManager instance that takes in a specified list of tasks.
      * If the provided list is null, such as when the user just started the chat bot for the first time,
      * a new empty ArrayList is initialised.
      *

@@ -12,7 +12,7 @@ import juno.ui.JunoUi;
 public class CommandParser {
 
     /**
-     * Parse the user's input and returns the command to be executed.
+     * Parses the user's input and returns the command to be executed.
      * Needs to pass in these parameters for use in creating the command.
      *
      * @param userInput The input entered by the user.

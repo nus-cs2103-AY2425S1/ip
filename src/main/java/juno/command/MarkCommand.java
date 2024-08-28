@@ -21,8 +21,8 @@ public class MarkCommand extends Command {
     boolean markAsDone;
 
     /**
-     * MarkCommand constructor which takes in a specified user input, TaskManager instance , FileManager instance,
-     * and whether it is a mark/unmark command (through the markAsDone boolean parameter)
+     * Constructs a MarkCommand instance which takes in a specified user input, TaskManager instance , FileManager
+     * instance, and whether it is a mark/unmark command (through the markAsDone boolean parameter).
      *
      * @param userInput The input provided by the user to specify which task to mark or unmark.
      * @param taskManager The TaskManager instance to handle all task specific operations.
@@ -39,7 +39,7 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the command to mark or unmark a task based on the user input.
-     * The user input should specify the task number to be updated. (e.g. mark 1 marks the first task on list as done)
+     * The user input should specify the task number to be updated. (e.g. mark 1 marks the first task on list as done).
      * If the task is already marked and user wants to mark the task, it will tell user that it cannot be done.
      * Similarly, if the task is already unmarked and user wants to unmark the task.
      * <p>

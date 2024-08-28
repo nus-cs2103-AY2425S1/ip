@@ -9,7 +9,7 @@ import juno.manager.exception.TaskManagerException;
 public class Todo extends Task {
 
     /**
-     * Todo constructor which takes in a specified description and task type.
+     * Constructs a Todo instance which takes in a specified description and task type.
      * Calls its superclass Task.
      *
      * @param description The description of the deadline.

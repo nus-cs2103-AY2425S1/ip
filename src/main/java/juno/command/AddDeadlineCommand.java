@@ -15,8 +15,8 @@ public class AddDeadlineCommand extends AddCommand {
     private final String TASK_TYPE = "deadline";
 
     /**
-     * AddDeadlineCommand constructor that takes in a specified user input, TaskManager instance, and FileManager
-     * instance.
+     * Constructs an AddDeadlineCommand instance that takes in a specified user input, TaskManager instance,
+     * and FileManager instance.
      * Initialises an AddDeadlineCommand instance with the provided parameters below.
      *
      * @param userInput The input provided by the user to specify the task to add.

@@ -10,7 +10,7 @@ import juno.manager.exception.TaskManagerException;
 public abstract class Command {
 
     /**
-     * Runs the command. Subclasses must implement this method
+     * Runs the command. Subclasses must implement this method.
      * and define the specific behaviour of the command.
      *
      * @throws TaskManagerException If an error occurs during command execution.
@@ -19,7 +19,7 @@ public abstract class Command {
 
     /**
      * Determines if the command being executed changes the while loop behaviour in Juno class.
-     * Overriden by ExitCommand class, where it returns false instead
+     * Overriden by ExitCommand class, where it returns false instead.
      *
      * @return True if the command is considered to be in a while loop, otherwise false.
      */

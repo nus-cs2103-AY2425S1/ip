@@ -15,7 +15,7 @@ public class AddTodoCommand extends AddCommand {
     private final String TASK_TYPE = "todo";
 
     /**
-     * AddTodoCommand constructor that takes in a specified user input, TaskManager instance, and FileManager instance.
+     * Constructs a AddTodoCommand that takes in a specified user input, TaskManager instance, and FileManager instance.
      * Initialises an AddTodoCommand instance with the provided parameters below
      *
      * @param userInput The input provided by the user to specify the task to add.

@@ -24,7 +24,7 @@ public class TaskManagerException extends Exception {
     /**
      * Constructs a TaskManagerException instance that takes in a specified detail message and error type.
      *
-     * @param message   the message for the exception.
+     * @param message the message for the exception.
      * @param errorType the type of error that occurred, based on the ErrorType enumeration.
      */
     public TaskManagerException(String message, ErrorType errorType) {

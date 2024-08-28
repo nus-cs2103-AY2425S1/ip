@@ -16,7 +16,7 @@ public class ListCommand extends Command {
     private ArrayList<Task> tasks;
 
     /**
-     * ListCommand constructor which takes in a TaskManager instance.
+     * Constructs a ListCommand instance which takes in a TaskManager instance.
      * Initialises the task list from the TaskManager by calling <code>getTasksArray()</code> method.
      *
      * @param taskManager The TaskManager instance to retrieve the tasks from.
@@ -31,7 +31,7 @@ public class ListCommand extends Command {
      * If the task list is empty, throws a TaskManagerException.
      * Otherwise, prints each task in a formatted list and the total
      * number of tasks.
-     * Can be executed with the "list" input prompt
+     * Can be executed with the "list" input prompt.
      *
      * @throws TaskManagerException If no tasks are present in the list.
      */

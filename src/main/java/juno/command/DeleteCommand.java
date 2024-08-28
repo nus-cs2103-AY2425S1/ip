@@ -8,8 +8,8 @@ import juno.task.Task;
 import java.util.ArrayList;
 
 /**
- * A class to execute the delete functionality for the tasks in Juno chat bot
- * Subclass of Command class
+ * A class to execute the delete functionality for the tasks in Juno chat bot.
+ * Subclass of Command class.
  */
 public class DeleteCommand extends Command {
     TaskManager taskManager;
@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     ArrayList<Task> tasks;
 
     /**
-     * Constructor for DeleteCommand class with the specified user input, TaskManager, and FileManager.
+     * Constructs a DeleteCommand instance with the specified user input, TaskManager, and FileManager.
      * Initialises the task list from the TaskManager.
      *
      * @param userInput The input provided by the user which specify the task to delete.

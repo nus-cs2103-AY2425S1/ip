@@ -19,7 +19,7 @@ public class Task {
     protected String taskType;
 
     /**
-     * Task constructor that takes in a specified description and task type.
+     * Constructs a Task instance that takes in a specified description and task type.
      *
      * @param description The description of the task.
      * @param taskType The type of the task (e.g. "todo", "deadline", "event").

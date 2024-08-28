@@ -14,7 +14,7 @@ public class AddEventCommand extends AddCommand {
     private final String TASK_TYPE = "event";
 
     /**
-     * AddEventCommand constructor that takes in a specified user input, TaskManager instance, and FileManager
+     * Constructs a AddEventCommand instance that takes in a specified user input, TaskManager instance, and FileManager
      * instance.
      * Initialises an AddEventCommand instance with the provided parameters below.
      *

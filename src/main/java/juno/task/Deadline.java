@@ -18,7 +18,7 @@ public class Deadline extends Task {
     protected String endTimeString;
 
     /**
-     * Deadline constructor which takes in a specified description, end time, and task type.
+     * Constructs a Deadline instance which takes in a specified description, end time, and task type.
      * Calls its superclass Task.
      * Parses end time from string to LocalDateTime object.
      * Throws an exception if the date-time format is invalid.

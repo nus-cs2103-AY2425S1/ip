@@ -10,8 +10,7 @@ import java.util.ArrayList;
  * An abstract class for commands that add tasks to the system.
  * (Specifically, for AddTodoCommand, AddDeadlineCommand, and AddEventCommand classes)
  * A subclass of abstract class Command, without the implementation of <code>runCommand()</code>
- * Provides the functionality of managing interactions with
- * TaskManager and FileManager.
+ * Provides the functionality of managing interactions with TaskManager and FileManager.
  */
 public abstract class AddCommand extends Command {
 
@@ -26,7 +25,7 @@ public abstract class AddCommand extends Command {
      * This constructor is used by its subclasses and can be called with <code>super</code> keyword.
      *
      * @param userInput The input provided by the user to create the task.
-     * @param taskManager The TaskManager instance to handle task specific operations
+     * @param taskManager The TaskManager instance to handle task specific operations.
      * @param fileManager The FileManager instance to handle file operations related to tasks.
      */
     public AddCommand(String userInput, TaskManager taskManager, FileManager fileManager) {

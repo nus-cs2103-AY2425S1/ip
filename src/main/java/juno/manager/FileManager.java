@@ -22,7 +22,7 @@ public class FileManager {
     private Gson gsonInstance;
 
     /**
-     * FileManager constructor which when initialised, will initialise a custom Gson instance as well.
+     * Constructs a FileManager instance which when initialised, will initialise a custom Gson instance as well.
      * The Gson instance will handle Task objects and exclude fields without @Expose annotation.
      */
     public FileManager() {
