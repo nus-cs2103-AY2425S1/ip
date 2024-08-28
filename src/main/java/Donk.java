@@ -1,6 +1,11 @@
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class Donk {
@@ -23,9 +28,15 @@ public class Donk {
         String byeMsg = "    Bye bro, catch 'ya later\n" +
                 "____________________________________________________________\n";
         System.out.println(greeting);
-
         List<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
+        try {
+            tasks = readFile("./save.txt");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Couldn't read save file");
+        }
+
         while (scanner.hasNextLine()) {
             try {
                 String userInput = scanner.nextLine();
@@ -34,9 +45,29 @@ public class Donk {
                 if (userInput.isBlank()) {
                     continue;
                 } else if (userInput.equals("bye")) {
+                    String filePath = "./save.txt";
+                    File file = new File(filePath);
+                    if (!file.exists()) {
+                        try {
+                            // Attempt to create the file
+                            if (file.createNewFile()) {
+                                System.out.println("Save file created successfully.");
+                            } else {
+                                System.out.println("Failed to create the file.");
+                            }
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while creating the file: " + e.getMessage());
+                            e.printStackTrace();
+                            return;
+                        }
+                    }
+                    writeToFile("./save.txt", tasks);
                     System.out.println(byeMsg);
                     break;
                 } else if (userInput.equals("list")) {
+                    if (tasks.size() == 0) {
+                        System.out.println("    You've got not tasks yet bro. Add todo, deadline, or event tasks.");
+                    }
                     for (int i = 1; i <= tasks.size(); i++) {
                         System.out.println("    " + i + ": " + tasks.get(i - 1).toString());
                     }
@@ -77,6 +108,7 @@ public class Donk {
                         String[] split = userInput.split("/by");
                         if (split.length < 2) {
                             System.out.println("invalid format, require /by");
+                            continue;
                         }
                         String bef = split[0].substring(9);
                         String aft = split[1];
@@ -85,7 +117,15 @@ public class Donk {
 
                     } else {
                         String[] split1 = userInput.split("/start");
+                        if (split1.length < 2) {
+                            System.out.println("    Invalid Format man. You need a /start and a /end");
+                            continue;
+                        }
                         String[] split2 = split1[1].split("/end");
+                        if (split1.length < 2 || split2.length < 2) {
+                            System.out.println("    Invalid Format man. You need a /start and a /end");
+                            continue;
+                        }
                         String start = split2[0];
                         String end = split2[1];
                         String description = split1[0].substring(6);
@@ -108,5 +148,38 @@ public class Donk {
             }
         }
     }
+
+    private static void writeToFile(String filePath, List<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < tasks.size(); i++) {
+            fw.write(tasks.get(i).toFileSaveString() + "\n");
+        }
+
+        fw.close();
+    }
+
+
+    private static List<Task> readFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        List<Task> tasks = new ArrayList<>();
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] data = line.split("\\|");
+            if (line.charAt(0) == 'T') {
+                tasks.add(new ToDo(data[2]));
+            } else if (line.charAt(0) == 'D') {
+                tasks.add(new Deadline(data[2], data[3]));
+            } else if (line.charAt(0) == 'E') {
+                tasks.add(new Event(data[2], data[3], data[4]));
+            }
+            if (line.charAt(2) == '1') {
+                tasks.get(tasks.size() - 1).markDone();
+            }
+        }
+        return tasks;
+    }
+
+
 }
 

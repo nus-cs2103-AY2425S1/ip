@@ -1,12 +1,16 @@
 public class ToDo extends Task{
 
-    protected String taskType = "T";
     public ToDo (String description) {
-        super(description);
+        super(description, "T");
     }
 
     public String toString() {
         return "[T] " + super.toString();
+    }
+
+    @Override
+    public String toFileSaveString() {
+        return this.taskType + "|" + (this.isDone ? "1" : "0") + "|" + this.description;
     }
 
 }
