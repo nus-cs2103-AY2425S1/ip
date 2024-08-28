@@ -1,10 +1,10 @@
 package mira;
 
-import mira.command.Command;
-import mira.command.ExitCommand;
-
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+
+import mira.command.Command;
+import mira.command.ExitCommand;
 
 /**
  * Mira is a simple chatbot that echoes user commands and exits when the user types "bye".
@@ -48,8 +48,8 @@ public class Mira {
                 command.setTaskList(tasks);
                 String commandResult = command.execute();
                 ui.showMessage(commandResult);
-                if (command instanceof Savable) { // if command is Savable
-                    ((Savable) command).save(storage);
+                if (command instanceof Savable savable) { // if command is Savable
+                    savable.save(storage);
                 }
             } catch (MiraException e) {
                 ui.showMessage(e.getMessage());
