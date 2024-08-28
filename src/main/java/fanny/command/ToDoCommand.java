@@ -1,3 +1,10 @@
+package fanny.command;
+
+import fanny.task.TaskList;
+import fanny.task.Task;
+import fanny.task.ToDo;
+import fanny.ui.Ui;
+
 public class ToDoCommand extends Command {
     private String description;
 

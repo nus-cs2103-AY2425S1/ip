@@ -1,3 +1,8 @@
+package fanny.command;
+
+import fanny.task.TaskList;
+import fanny.ui.Ui;
+
 public class ByeCommand extends Command {
 
     @Override

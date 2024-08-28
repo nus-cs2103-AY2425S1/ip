@@ -1,3 +1,5 @@
+package fanny.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -5,7 +7,7 @@ public class Ui {
 
     public void printHello() {
         showHorizontalLine();
-        System.out.println("Hello! I'm Fanny\nWhat can I do for you?");
+        System.out.println("Hello! I'm fanny.Fanny\nWhat can I do for you?");
         showHorizontalLine();
     }
 

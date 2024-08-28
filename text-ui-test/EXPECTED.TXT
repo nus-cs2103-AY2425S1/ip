@@ -1,30 +1,30 @@
 _____________________________________________
-Hello! I'm Fanny
+Hello! I'm fanny.Fanny
 What can I do for you?
 _____________________________________________
 User:
 _____________________________________________
-Fanny:
+fanny.Fanny:
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
 _____________________________________________
 User:
-Fanny:
+fanny.Fanny:
 _____________________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
 _____________________________________________
 User:
 _____________________________________________
-Fanny:
+fanny.Fanny:
 Got it. I've added this task:
 [D][ ] return book (by: Sunday)
 Now you have 2 tasks in the list.
 _____________________________________________
 User:
 _____________________________________________
-Fanny:
+fanny.Fanny:
 Got it. I've added this task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list.

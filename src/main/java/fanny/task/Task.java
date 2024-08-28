@@ -1,3 +1,5 @@
+package fanny.task;
+
 public class Task {
 
     protected String description;

@@ -1,7 +1,12 @@
-public class MarkCommand extends Command {
+package fanny.command;
+
+import fanny.task.TaskList;
+import fanny.ui.Ui;
+
+public class UnmarkCommand extends Command {
     private String arguments;
 
-    public MarkCommand(String arguments) {
+    public UnmarkCommand(String arguments) {
         this.arguments = arguments;
     }
 
@@ -9,8 +14,8 @@ public class MarkCommand extends Command {
     public void actionable(TaskList list, Ui ui) {
         ui.showHorizontalLine();
         int taskId = Integer.parseInt(arguments);
-        ui.showMessage("Fanny:\nNice! I've marked this task as done:");
-        ui.showMessage(list.markAsDone(taskId - 1));
+        ui.showMessage("Fanny:\nOK, I've marked this task as not done yet:");
+        ui.showMessage(list.markAsNotDone(taskId - 1));
         ui.showHorizontalLine();
     }
 
@@ -18,4 +23,5 @@ public class MarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

@@ -1,3 +1,10 @@
+package fanny.command;
+
+import fanny.task.TaskList;
+import fanny.ui.Ui;
+import fanny.task.Task;
+import fanny.task.Event;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -17,7 +24,7 @@ public class EventCommand extends Command {
             String[] duration = cmdEvent[1].split(" /to ", 2);
             LocalDateTime from = LocalDateTime.parse(duration[0], formatter);
             LocalDateTime to = LocalDateTime.parse(duration[1], formatter);
-            Task event = new Event(description, from, to);
+            Task event = new Event(info, from, to);
             list.add(event);
             ui.showMessage("Fanny:\nGot it. I've added this task:");
             ui.showMessage(event.toString());
