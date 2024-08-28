@@ -1,5 +1,8 @@
 package Kita;
 
+import Kita.Exceptions.KitaIllegalDateFormat;
+import Kita.Exceptions.KitaOutofBounds;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -9,31 +12,74 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the ArrayList<Task> stored in this TaskList object
+     *
+     * @return ArrayList<Task>
+     * */
     public ArrayList<Task> getAllTasks() {
         return this.tasks;
     }
 
+    /**
+     * Adds a given Task object
+     *
+     * @param taskObj - The Task to add
+     * @return void
+     * */
     public void addTask(Task taskObj) {
         this.tasks.add(taskObj);
     }
 
+    /**
+     * Returns a Task object given an int Index
+     *
+     * @param index Int index to return a task from
+     * @return Task - The task to get
+     * */
     public Task getTask(Integer index) {
+        if (index >= this.tasks.size() || index < 0) {
+            throw new KitaOutofBounds();
+        }
+
         return this.tasks.get(index);
     }
 
-    public void removeTask(int index) {
-        Task removed = this.tasks.remove(index);
-        System.out.println("  " + removed);
+    /**
+     * Removes a task and returns it
+     *
+     * @param index Int index to remove the task
+     * @exception KitaOutofBounds If the given index is out of bounds of the TaskList
+     * @return Task - The task that was removed
+     * */
+    public Task removeTask(int index) {
+        if (index >= this.tasks.size() || index < 0) {
+            throw new KitaOutofBounds();
+        }
+
+        return this.tasks.remove(index);
     }
 
     public int size() {
         return this.tasks.size();
     }
 
-    public void setTaskCompleted(Integer index, boolean status) {
+    /**
+     * Sets the task's completed status and returns it
+     *
+     * @param index Int index of the task to target
+     * @param status boolean to change the status to
+     * @exception KitaOutofBounds If the given index is out of bounds of the TaskList
+     * @return Task - The task that was removed
+     * */
+    public Task setTaskCompleted(Integer index, boolean status) {
+        if (index >= this.tasks.size() || index < 0) {
+            throw new KitaOutofBounds();
+        }
+
         Task theTask = this.tasks.get(index);
         theTask.setCompleted(status);
-        System.out.println("  " + theTask);
+        return theTask;
     }
 
     @Override

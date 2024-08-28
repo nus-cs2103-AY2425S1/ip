@@ -26,11 +26,12 @@ public class Storage {
         this.saveFilePath = Paths.get(LOCATION);
     }
 
-    /*
-    * Creates a new file at the path - regardless of whether the file exists or not
-    * Directory will also be created along the path
-    * @return void
-    * */
+    /**
+     * Creates a new file at the path - regardless of whether the file exists or not
+     * Directory will also be created along the path if it does not exist
+     *
+     * @return void
+     * */
     public void createSaveFile() throws IOException {
         File directory = new File(LOCATION_DIR);
         if (!directory.exists()) {
@@ -46,6 +47,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Returns the Tasks from the file as an ArrayList<Task>
+     *
+     * @exception IOException
+     * @return ArrayList<Task>
+     * */
     public ArrayList<Task> readTasksFromFile() throws IOException {
         try {
             List<String> lines = Files.readAllLines(this.saveFilePath);
@@ -71,6 +79,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Given an ArrayList<Task>, writes the Tasks to the save file
+     *
+     * @param commandList The ArrayList<Task> of tasks to save
+     * @exception IOException
+     * @return void
+     * */
     public void writeTasksToFile(ArrayList<Task> commandList) throws IOException {
         ArrayList<String> taskStrings = new ArrayList<>();
 

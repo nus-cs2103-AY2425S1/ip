@@ -11,9 +11,17 @@ public class Parser {
     private final static Pattern deadlinePattern = Pattern.compile("^deadline (.+) /by (.+)$");
     private final static Pattern eventPattern = Pattern.compile("^event (?<name>.+) (?:(?:/from (?<from>.+) /to (?<to>.+))|(?:/to (?<to2>.+) /from (?<from2>.+)))$");
 
-    public static void parse(String command, Commands commandsExecutor) throws KitaError, IOException {
+    /**
+     * Parses a given command and executes commands in the given Commands object based on the result
+     *
+     * @param command The String command entered
+     * @param commandsExecutor The commandsExecutor to execute commands on
+     * @returns boolean - Whether the "bye" command was entered
+     */
+    public static boolean parse(String command, Commands commandsExecutor) throws KitaError, IOException {
         if (command.equals("bye")) {
             commandsExecutor.bye();
+            return true;
         } else if (command.equals("list")) {
            commandsExecutor.list();
         } else if (command.startsWith("mark")) {
@@ -58,5 +66,6 @@ public class Parser {
                 throw new KitaNotFound();
             }
         }
+        return false;
     }
 }

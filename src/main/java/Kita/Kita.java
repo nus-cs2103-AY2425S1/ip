@@ -26,7 +26,10 @@ public class Kita {
             try {
                 String command = getInput.nextLine();
                 commandsExecutor.printLine();
-                Parser.parse(command, commandsExecutor);
+                boolean shouldEnd = Parser.parse(command, commandsExecutor);
+                if (shouldEnd) {
+                    break;
+                }
             }
             catch (Exception e) {
                 System.out.println(e);
