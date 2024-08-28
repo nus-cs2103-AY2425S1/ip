@@ -10,8 +10,8 @@ public class Ui {
     /**
      * Constructs a new Ui object with specified divider and tab.
      *
-     * @param divider Divider that will print to divide the text from each other.
-     * @param tab Tab that will print in front of text as padding.
+     * @param divider Divider to be printed to divide the text from each other.
+     * @param tab Tab to be printed in front of text as padding.
      */
     public Ui(String divider, String tab) {
         this.divider = divider;

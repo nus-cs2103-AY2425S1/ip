@@ -7,6 +7,11 @@ import blitz.Ui;
 import exception.BlitzException;
 
 public class CommandBye extends Command {
+    /**
+     * Constructs a new CommandBye object with specified command String.
+     *
+     * @param command Command String to be associated with this Command object.
+     */
     public CommandBye(String command) {
         super(command);
     }

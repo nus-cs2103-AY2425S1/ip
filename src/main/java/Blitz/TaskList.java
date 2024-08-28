@@ -75,7 +75,7 @@ public class TaskList {
     }
 
     /**
-     * Compares two TaskList object and determines if they are equal.
+     * Compares two TaskList objects and determines if they are equal.
      *
      * @param o Object to be compared.
      * @return True if both objects are of same reference or all Tasks in both TaskList are the same, false otherwise.

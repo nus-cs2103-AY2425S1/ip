@@ -9,10 +9,23 @@ import exception.BlitzException;
 import task.Task;
 
 public class CommandList extends Command {
+    /**
+     * Constructs a new CommandList object with specified command String.
+     *
+     * @param command Command String to be associated with this Command object.
+     */
     public CommandList(String command) {
         super(command);
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param list TaskList to get all the existing Task.
+     * @param ui Ui to print the required text.
+     * @param storage Storage to be used if required.
+     * @throws BlitzException If TaskList is empty.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         //readFromFile();

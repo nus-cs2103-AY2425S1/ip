@@ -13,11 +13,25 @@ import task.Task;
 public class CommandDelete extends Command {
     private String param;
 
+    /**
+     * Constructs a new CommandDelete object with specified command String and a parameter String.
+     *
+     * @param command Command String to be associated with this Command object.
+     * @param param String containing the parameter for this command.
+     */
     public CommandDelete(String command, String param) {
         super(command);
         this.param = param;
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param list TaskList to delete the Task.
+     * @param ui Ui to print the required text.
+     * @param storage Storage to write to the file after removing the Task.
+     * @throws BlitzException If I/O error occurs, TaskList is empty or parameters are invalid.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
