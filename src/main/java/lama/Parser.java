@@ -1,6 +1,7 @@
 package lama;
 
 import lama.command.AddCommand;
+import lama.command.FindCommand;
 import lama.command.Command;
 import lama.command.DeleteCommand;
 import lama.command.ExitCommand;
