@@ -20,8 +20,15 @@ public class Task {
         this.done = false;
     }
 
+    public boolean isDone() {
+        return this.done;
+    }
     @Override
     public String toString() {
         return "[" + (this.done ? "X" : " ") + "] " + this.name;
+    }
+
+    public String toData() {
+        return (this.done ? "1" : "0") + this.name;
     }
 }

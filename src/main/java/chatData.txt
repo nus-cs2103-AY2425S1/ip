@@ -1,3 +1,5 @@
 T1read book
-D0June 6th|return book
-E0Aug 6th%Aug 7th|project meeting
+D0return book%June6th
+E0project meeting%Aug 6th|Aug 7th
+T078
+D1say hi%tomorrow

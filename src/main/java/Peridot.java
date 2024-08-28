@@ -20,6 +20,7 @@ public class Peridot {
                 userResponse = scanner.nextLine();
             }
         }
+        list.write();
         botSay("Bye!");
     }
 }

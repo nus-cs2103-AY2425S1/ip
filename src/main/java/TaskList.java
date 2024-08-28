@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,14 +26,14 @@ public class TaskList {
                     break;
                 case 'D':
                     done = line.charAt(1) == '1';
-                    String deadline = line.substring(2, line.indexOf('|'));
-                    this.add(new Deadline(line.substring(line.indexOf('|') + 1), deadline, done), true);
+                    String deadline = line.substring(line.indexOf('%') + 1);
+                    this.add(new Deadline(line.substring(2, line.indexOf('%')), deadline, done), true);
                     break;
                 case 'E':
                     done = line.charAt(1) == '1';
-                    String start = line.substring(2, line.indexOf('%'));
-                    String end = line.substring(line.indexOf('%') + 1, line.indexOf('|'));
-                    this.add(new Event(line.substring(line.indexOf('|') + 1), start, end, done), true);
+                    String start = line.substring(line.indexOf('%') + 1, line.indexOf('|'));
+                    String end = line.substring(line.indexOf('|') + 1);
+                    this.add(new Event(line.substring(2, line.indexOf('%')), start, end, done), true);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -144,5 +147,21 @@ public class TaskList {
         this.list.remove(index);
         System.out.println("Let's go deleting!");
         System.out.println("Deleted task " + deleted);
+    }
+
+    public void write() {
+        try {
+            FileWriter data = new FileWriter("./src/main/java/chatData.txt");
+            this.list.forEach(task -> {
+                try {
+                    data.write(task.toData() + "\n");
+                } catch (IOException e) {
+                    System.out.println("An error in writing has occured");
+                }
+            });
+            data.close();
+        } catch (IOException e) {
+            System.out.println("An error in writing has occured");
+        }
     }
 }
