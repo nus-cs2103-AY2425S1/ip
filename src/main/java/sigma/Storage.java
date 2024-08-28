@@ -1,3 +1,11 @@
+package sigma;
+
+import sigma.exception.SigmaException;
+import sigma.task.DeadlineTask;
+import sigma.task.EventTask;
+import sigma.task.Task;
+import sigma.task.ToDoTask;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,3 +1,6 @@
+package sigma;
+import sigma.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
