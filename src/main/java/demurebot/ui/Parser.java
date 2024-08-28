@@ -8,11 +8,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for parsing user commands and creating the appropriate Command objects.
+ */
 public abstract class Parser {
     /**
      * Checks if user command is valid and executes the command.
      *
      * @param command User command.
+     * @return The Command object corresponding to the user command.
      * @throws DemureBotException If the user command is invalid.
      */
     public static Command parse(String command) throws DemureBotException {
