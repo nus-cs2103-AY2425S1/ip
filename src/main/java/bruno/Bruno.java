@@ -1,5 +1,10 @@
+package bruno;
+
+import bruno.command.Command;
+import bruno.task.TaskList;
+
 public class Bruno {
-    enum TaskType {
+    public enum TaskType {
         TODO, DEADLINE, EVENT
     }
     private Storage storage;

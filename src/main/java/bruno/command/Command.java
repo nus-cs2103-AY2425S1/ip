@@ -1,6 +1,8 @@
-import java.util.ArrayList;
+package bruno.command;
 
-abstract class Command {
+import bruno.task.TaskList;
+
+public abstract class Command {
     private boolean isExit;
     private TaskList tasks;
 
@@ -18,5 +20,5 @@ abstract class Command {
     public boolean isExit() {
         return this.isExit;
     }
-    abstract void execute();
+    public abstract void execute();
 }

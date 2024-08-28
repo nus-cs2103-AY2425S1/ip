@@ -1,3 +1,7 @@
+package bruno;
+
+import bruno.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

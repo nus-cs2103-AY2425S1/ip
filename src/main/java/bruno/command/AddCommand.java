@@ -1,3 +1,10 @@
+package bruno.command;
+
+import bruno.Bruno;
+import bruno.task.TaskList;
+import bruno.Ui;
+import bruno.exceptions.BrunoException;
+
 public class AddCommand extends Command {
     private String description;
     private Bruno.TaskType type;

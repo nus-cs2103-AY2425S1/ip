@@ -1,7 +1,15 @@
+package bruno;
+
+import bruno.command.*;
+import bruno.exceptions.BrunoException;
+import bruno.exceptions.UnknownCommandException;
+import bruno.task.TaskList;
+
 public class Parser {
     public static Command parse(String command, TaskList tasks) {
         String firstWord;
         String restOfString = "";
+        command = command.trim();
 
         if (command.contains(" ")) {
             firstWord = command.substring(0, command.indexOf(" "));
@@ -11,21 +19,21 @@ public class Parser {
         }
 
         try {
-            if (command.equals("bye")) {
+            if (command.equalsIgnoreCase("bye")) {
                 return new ExitCommand(tasks);
-            } else if (command.equals("list")) {
+            } else if (command.equalsIgnoreCase("list")) {
                 return new ListCommand(tasks);
-            } else if (firstWord.equals("mark")) {
+            } else if (firstWord.equalsIgnoreCase("mark")) {
                 return new MarkCommand(tasks, restOfString);
-            } else if (firstWord.equals("unmark")) {
+            } else if (firstWord.equalsIgnoreCase("unmark")) {
                 return new UnmarkCommand(tasks, restOfString);
-            } else if (firstWord.equals("delete")) {
+            } else if (firstWord.equalsIgnoreCase("delete")) {
                 return new DeleteCommand(tasks, restOfString);
-            } else if (firstWord.equals("todo")) {
+            } else if (firstWord.equalsIgnoreCase("todo")) {
                 return new AddCommand(tasks, restOfString, Bruno.TaskType.TODO);
-            } else if (firstWord.equals("deadline")) {
+            } else if (firstWord.equalsIgnoreCase("deadline")) {
                 return new AddCommand(tasks, restOfString, Bruno.TaskType.DEADLINE);
-            } else if (firstWord.equals("event")) {
+            } else if (firstWord.equalsIgnoreCase("event")) {
                 return new AddCommand(tasks, restOfString, Bruno.TaskType.EVENT);
             } else {
                 throw new UnknownCommandException();
