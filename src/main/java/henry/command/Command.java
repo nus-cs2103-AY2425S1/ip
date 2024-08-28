@@ -4,11 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import henry.util.Ui;
-import henry.util.TaskList;
-import henry.util.Storage;
 import henry.HenryException;
 import henry.task.Task;
+import henry.util.Storage;
+import henry.util.TaskList;
+import henry.util.Ui;
 
 /**
  * Deals with executing the task given by user input
@@ -17,7 +17,7 @@ public abstract class Command {
 
     public abstract void execute(TaskList tasks, Ui ui) throws HenryException;
 
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 
@@ -46,7 +46,7 @@ public abstract class Command {
     public void save(TaskList taskList, Storage storage) throws HenryException {
         ArrayList<Task> tasks = taskList.getTasks();
         try {
-            for (int i = 0; i < tasks.size(); i++){
+            for (int i = 0; i < tasks.size(); i++) {
                 writeToFile(storage.getFilePath(), tasks.get(i).summary()
                         + System.lineSeparator(), i);
             }

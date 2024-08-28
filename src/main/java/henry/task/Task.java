@@ -9,11 +9,22 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Sets up the instance
+     *
+     * @param description description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Sets up the instance
+     *
+     * @param description description of the task
+     * @param isDone whether the task is completed
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
@@ -66,7 +77,7 @@ public class Task {
      * @return task summary
      */
     public String summary() {
-        return  "| " + (this.isDone() ? "1" : "0") + " | "
+        return "| " + (this.isDone() ? "1" : "0") + " | "
                 + this.getDescription();
     }
 

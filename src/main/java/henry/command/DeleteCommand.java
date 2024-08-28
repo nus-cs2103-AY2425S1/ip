@@ -1,14 +1,14 @@
 package henry.command;
 
-import henry.util.Ui;
-import henry.util.TaskList;
 import henry.HenryException;
 import henry.task.Task;
+import henry.util.TaskList;
+import henry.util.Ui;
 
 /**
  * Deals with deleting task for TaskList
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private String input;
 
     public DeleteCommand(String input) {
@@ -38,7 +38,7 @@ public class DeleteCommand extends Command{
             } else if (number <= 0) {
                 throw new HenryException("Number must be greater than zero!");
             }
-            Task task = taskList.getTasks().get(number-1);
+            Task task = taskList.getTasks().get(number - 1);
             System.out.println("\nNoted. I've removed this task:\n"
                     + task.toString()
                     + "\nNow you have "
@@ -46,7 +46,7 @@ public class DeleteCommand extends Command{
                     + (numOfTasks - 1 <= 1 ? " task" : " tasks")
                     + " in the list.\n");
             taskList.getTasks().remove(number - 1);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new HenryException("This is not a number!!");
         }
     }

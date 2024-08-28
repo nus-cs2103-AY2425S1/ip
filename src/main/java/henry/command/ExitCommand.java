@@ -1,9 +1,8 @@
 package henry.command;
 
-import henry.util.Ui;
-import henry.util.TaskList;
-import henry.util.Storage;
 import henry.HenryException;
+import henry.util.TaskList;
+import henry.util.Ui;
 
 /**
  * Deals with exiting the chat
@@ -11,7 +10,7 @@ import henry.HenryException;
 public class ExitCommand extends Command {
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return true;
     }
 

@@ -1,12 +1,12 @@
 package henry.util;
 
 import henry.HenryException;
-import henry.command.Command;
 import henry.command.AddCommand;
+import henry.command.ChangeStatusCommand;
+import henry.command.Command;
+import henry.command.DeleteCommand;
 import henry.command.ExitCommand;
 import henry.command.PrintCommand;
-import henry.command.ChangeStatusCommand;
-import henry.command.DeleteCommand;
 
 /**
  * Deals with making sense of the user command
