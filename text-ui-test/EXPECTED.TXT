@@ -9,18 +9,13 @@ Now you have 1 tasks in the list.
 _________________________________________
 _________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Nov 12 2002, 1:00 pm)
 Now you have 2 tasks in the list.
 _________________________________________
 _________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: Nov 12 2002, 2:00 pm to: Nov 12 2002, 4:00 pm)
 Now you have 3 tasks in the list.
-_________________________________________
-_________________________________________
-1. [T][ ] read book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 _________________________________________
 _________________________________________
 Nice! I've marked this task as done:
@@ -28,27 +23,6 @@ Nice! I've marked this task as done:
 _________________________________________
 _________________________________________
 1. [T][X] read book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-_________________________________________
-_________________________________________
-OK, I've marked this task as not done yet:
-[T][ ] read book
-_________________________________________
-_________________________________________
-1. [T][ ] read book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-_________________________________________
-_________________________________________
-Noted. I've removed this task:
-[T][ ] read book
-Now you have 2 tasks in the list.
-_________________________________________
-_________________________________________
-1. [D][ ] return book (by: Sunday)
-2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-_________________________________________
-_________________________________________
-Bye. Hope to see you again soon!
+2. [D][ ] return book (by: Nov 12 2002, 1:00 pm)
+3. [E][ ] project meeting (from: Nov 12 2002, 2:00 pm to: Nov 12 2002, 4:00 pm)
 _________________________________________
