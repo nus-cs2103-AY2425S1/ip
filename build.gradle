@@ -33,7 +33,9 @@ application {
 
 shadowJar {
     archiveBaseName = "bitbot"
+    archiveFileName = "bitbot.jar"
     archiveClassifier = null
+    mainClassName = 'bitbot.BitBot'
 }
 
 run{
