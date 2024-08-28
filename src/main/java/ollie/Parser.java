@@ -25,6 +25,20 @@ public class Parser {
     }
 
     /**
+     * Parses the keyword from the user's command.
+     *
+     * @param userCommand to find the keyword.
+     * @return string with keyword.
+     */
+    public static String parseKeyword(String userCommand) throws OllieException {
+        String[] words = userCommand.split(" ", 2);
+        if (words.length < 2) {
+            throw new OllieException("The find command requires a keyword.");
+        }
+        return words[1].trim();
+    }
+
+    /**
      * Parses the user's command and returns the appropriate action.
      *
      * @param userCommand The command entered by the user.
@@ -49,6 +63,9 @@ public class Parser {
         }
         if (userCommand.startsWith("delete ")) {
             return Command.DELETE;
+        }
+        if (userCommand.startsWith("find ")) {
+            return Command.FIND;
         }
         if (userCommand.startsWith("todo")) {
             return Command.TODO;

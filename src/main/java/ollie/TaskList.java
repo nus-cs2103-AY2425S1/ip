@@ -5,6 +5,8 @@ import ollie.task.Task;
 
 import java.util.ArrayList;
 
+import java.util.stream.Collectors;
+
 /**
  * Manages a list of tasks.
  */
@@ -120,6 +122,18 @@ public class TaskList {
         if (storage != null) {
             storage.saveTasks(tasks);
         }
+    }
+
+    /**
+     * Finds tasks that contain the keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return The list of tasks that contain the keyword.
+     */
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
