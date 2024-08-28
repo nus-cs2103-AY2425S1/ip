@@ -9,15 +9,22 @@ public abstract class Task {
         this.taskType = taskType;
     }
 
+    public Task(String description, TaskType taskType, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.taskType = taskType;
+    }
+
     public void markAsDone() {
         System.out.println("     Nice! I've marked this task as done:");
         this.isDone = true;
         System.out.println("       " + this.toString());
     }
+
     public void unmark() {
         System.out.println("     OK, I've marked this task as not done yet:");
         this.isDone = false;
-        System.out.println("       "+ this.toString());
+        System.out.println("       " + this.toString());
     }
 
     public String getStatusIcon() {
