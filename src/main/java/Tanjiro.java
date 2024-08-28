@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Tanjiro {
     public static void main(String[] args) throws IOException {
@@ -8,6 +9,7 @@ public class Tanjiro {
         r.greet();
         fs.createFile();
         Task.init_list();
+        DateTimeSystem ds = new DateTimeSystem();
 
         String user_input = i.read().toLowerCase();
         while (!(user_input.contains("bye"))) {
@@ -32,8 +34,17 @@ public class Tanjiro {
                 try {
                     String[] deadline_arr = user_input.split("/");
                     String name = deadline_arr[0].substring(9);
-                    String day = deadline_arr[1].substring(3);
-                    Deadlines temp_deadline = new Deadlines(name, day);
+                    String date = deadline_arr[1].substring(3);
+
+                    String[] tokens = date.split(" ");
+                    String[] dateTokens = tokens[0].split("-");
+                    String time = tokens[1];
+                    String year = dateTokens[0];
+                    String month = dateTokens[1];
+                    String day = dateTokens[2];
+                    LocalDateTime ldt = ds.createDate(year,month,day,time.substring(0,2),time.substring(2));
+
+                    Deadlines temp_deadline = new Deadlines(name, ldt);
                     temp_deadline.add_task(temp_deadline);
                 } catch (StringIndexOutOfBoundsException e) {
                     r.empty_deadline();
@@ -44,7 +55,20 @@ public class Tanjiro {
                     String name = deadline_arr[0].substring(6);
                     String start = deadline_arr[1].substring(5);
                     String end = deadline_arr[2].substring(3);
-                    Events temp_event = new Events(name, start, end);
+
+                    String[] full_date_token_start = start.split(" ");
+                    String[] date_token_start = full_date_token_start[0].split("-");
+
+                    System.out.println("Start Date: " + date_token_start[0] + " / " + date_token_start[1] + " / " + date_token_start[2]);
+
+                    LocalDateTime ldt_start = ds.createDate(date_token_start[0],date_token_start[1],date_token_start[2],full_date_token_start[1].substring(0,2),full_date_token_start[1].substring(2));
+
+                    String[] full_date_token_end = end.split(" ");
+                    String[] date_token_end = full_date_token_end[0].split("-");
+
+                    LocalDateTime ldt_end = ds.createDate(date_token_end[0],date_token_end[1],date_token_end[2],full_date_token_end[1].substring(0,2),full_date_token_end[1].substring(2));
+
+                    Events temp_event = new Events(name, ldt_start, ldt_end);
                     temp_event.add_task(temp_event);
                 } catch (StringIndexOutOfBoundsException e) {
                     r.empty_event();

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class ToDos extends Task{
     public ToDos(String name) throws IOException {
@@ -30,17 +31,17 @@ public class ToDos extends Task{
     }
 
     @Override
-    public String getDay() {
+    public LocalDateTime getDate() {
         return null;
     }
 
     @Override
-    public String getStart() {
+    public LocalDateTime getStart() {
         return null;
     }
 
     @Override
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return null;
     }
 }

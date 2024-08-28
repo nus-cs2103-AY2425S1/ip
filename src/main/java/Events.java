@@ -1,9 +1,11 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Events extends Task{
-    String start;
-    String end;
-    public Events(String name, String start, String end) throws IOException {
+    LocalDateTime start;
+    LocalDateTime end;
+    public Events(String name, LocalDateTime start, LocalDateTime end) throws IOException {
         super(name, "E");
         this.start = start;
         this.end = end;
@@ -12,9 +14,8 @@ public class Events extends Task{
     public void add_task(Events e) throws IOException {
         task_list.add(e);
 //        super.update_saved_tasklist();
-
         System.out.println("Got it. I've added this task:");
-        System.out.println("[E][_] " + e.getName() + "(from: " + this.start + " to: " + this.end + ")");
+        System.out.println("[E][_] " + e.getName() + "(from: " + ds.format(this.start) + " to: " + ds.format(this.end) + ")");
         System.out.println("Now you have " + e.get_list_size() +" tasks in the list.");
         update_tasklist(e);
     }
@@ -30,22 +31,22 @@ public class Events extends Task{
             information = new StringBuilder(index + ". [" + e.getTag() + "]" + unmarked + " " + e.getName());
         }
 
-        information.append(" (from: ").append(e.getStart()).append(" to: ").append(e.getEnd()).append(")");
+        information.append(" (from: ").append(ds.format(e.getStart())).append(" to: ").append(ds.format(e.getEnd())).append(")");
         fs.write(String.valueOf(information));
     }
 
     @Override
-    public String getDay() {
+    public LocalDateTime getDate() {
         return null;
     }
 
     @Override
-    public String getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
     @Override
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 }

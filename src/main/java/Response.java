@@ -1,14 +1,14 @@
-import java.util.ArrayList;
-
 public class Response {
     public void greet() {
         line();
         System.out.println("Hello! I'm Tanjiro!");
         System.out.println("What can I do for you?");
+        line();
         System.out.println("Instructions:");
         System.out.println("todo ___");
         System.out.println("deadline ___ /by ____");
         System.out.println("event ___ /from ___ /to ___");
+        System.out.println("Please input the date format in: yyyy-mm-dd hhmm.");
         line();
     }
 
@@ -44,9 +44,9 @@ public class Response {
             }
         } else if (t instanceof Deadlines) {
             if (t.getCurrent_status()== Task.status.MARKED) {
-                System.out.println("[D][X] " + t.getName() + "(by: " + t.getDay() + ")");
+                System.out.println("[D][X] " + t.getName() + "(by: " + t.getDate() + ")");
             } else {
-                System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDay() + ")");
+                System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDate() + ")");
             }
         } else if (t instanceof Events) {
             if (t.getCurrent_status()== Task.status.MARKED) {
@@ -58,6 +58,9 @@ public class Response {
         System.out.println("Now you have " + t.get_list_size() + " tasks in the list.");
     }
 
+    public void date() {
+        System.out.println("The date provided is invalid!");
+    }
     public void list_task_message(String information) {
 //        int counter = 1;
 //        for (Task t : task_list) {

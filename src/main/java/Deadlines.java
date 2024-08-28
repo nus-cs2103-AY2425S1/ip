@@ -1,18 +1,19 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Deadlines extends Task{
-    String day ;
-    public Deadlines(String name, String day) throws IOException {
+    LocalDateTime date;
+
+    public Deadlines(String name, LocalDateTime date) throws IOException {
         super(name, "D");
-        this.day = day;
+        this.date = date;
     }
 
     public void add_task(Deadlines d) throws IOException {
         task_list.add(d);
 //        super.update_saved_tasklist();
-
         System.out.println("Got it. I've added this task:");
-        System.out.println("[D][_] " + d.getName() + "(by: " + this.day + ")");
+        System.out.println("[D][_] " + d.getName() + "(by: " + ds.format(date) + ")");
         System.out.println("Now you have " + d.get_list_size() +" tasks in the list.");
         update_tasklist(d);
     }
@@ -28,22 +29,22 @@ public class Deadlines extends Task{
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + unmarked + " " + d.getName());
         }
 
-        information.append(" (by: ").append(d.getDay()).append(")");
+        information.append(" (by: ").append(ds.format(d.getDate())).append(")");
 
         fs.write(String.valueOf(information));
     }
 
-    public String getDay() {
-        return day;
+    public LocalDateTime getDate() {
+        return date;
     }
 
     @Override
-    public String getStart() {
+    public LocalDateTime getStart() {
         return null;
     }
 
     @Override
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return null;
     }
 }
