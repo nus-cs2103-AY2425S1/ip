@@ -1,1 +1,2 @@
-task.ToDo | Not Done | akfnkjfn
+task.ToDo | Not Done | run
+task.ToDo | Not Done | die
