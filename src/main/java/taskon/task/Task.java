@@ -23,10 +23,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
     /**
      * Returns the description of the task
      * @return String of the description of the task

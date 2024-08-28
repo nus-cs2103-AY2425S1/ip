@@ -1,5 +1,13 @@
 package taskon.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import taskon.exception.TaskonException;
 import taskon.task.Deadline;
 import taskon.task.Event;
@@ -7,23 +15,13 @@ import taskon.task.Task;
 import taskon.task.TaskList;
 import taskon.task.Todo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /**
  * Handles the loading and saving of tasks to and from a storage file.
  */
 public class Storage {
     private static final String FILE_PATH = "./data/taskon.txt";
-    private final String path;
     private static final String SEPARATOR = "|";
+    private final String path;
 
     /**
      * Constructs a Storage object with the specified file path.
