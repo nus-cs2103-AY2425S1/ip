@@ -19,13 +19,15 @@ public class Event extends Task {
         this.to = to;
     }
 
-    @Override public String toFileFormat() {
+    @Override
+    public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " +
                 to.format(formatter);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
         return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }

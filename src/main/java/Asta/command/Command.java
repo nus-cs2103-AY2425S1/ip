@@ -9,5 +9,5 @@ public enum Command {
     DELETE,
     LIST,
     BYE,
-    UNKNOWN;
+    UNKNOWN
 }

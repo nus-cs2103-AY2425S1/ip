@@ -26,7 +26,8 @@ public class AstaException extends Exception {
     }
 
     public static void handleInvalidEventInput() throws AstaException {
-        throw new AstaException("Unfortunately, Asta needs both a description and 'from' and 'to' times for the event...");
+        throw new AstaException(
+                "Unfortunately, Asta needs both a description and 'from' and 'to' times for the event...");
     }
 
     public static void handleInvalidTaskNumberFormat(String command) throws AstaException {
