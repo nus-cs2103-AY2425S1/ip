@@ -50,23 +50,5 @@ public class Struggling {
         new Struggling("data/Struggling.txt").run();
     }
 
-//    Struggling() {
-//
-//        this.isActive = true;
-//
-//        try {
-//
-//        } catch (FileNotFoundException e) {
-//            reply("Save file not found, please try again!");
-//            this.isActive = false;
-//        } catch (IOException e) {
-//            reply("Failed to create a save file, please contact the developer!");
-//            this.isActive = false;
-//        } catch (StrugglingException e) {
-//            reply("Save file corrupted, using a fresh save file");
-//            resetSaveFile();
-//            this.taskArr.clear();
-//        }
-//    }
 }
 
