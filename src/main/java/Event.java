@@ -15,9 +15,9 @@ public class Event extends Task{
     @Override
     public String toSaveString() {
         if (isDone) {
-            return String.format("E | %d | %s",1,this.getDescription());
+            return String.format("E | %d | %s | %s-%s",1,this.getDescription(),this.from,this.to);
         } else {
-            return String.format("E | %d | %s",0,this.getDescription());
+            return String.format("E | %d | %s | %s-%s",0,this.getDescription(),this.from,this.to);
         }
     }
 }
