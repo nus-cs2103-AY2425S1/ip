@@ -40,6 +40,10 @@ public enum Command {
      * Command to list all current tasks.
      */
     LIST,
+    /**
+     * Command to find task by keyword.
+     */
+    FIND,
 
     /**
      * Command to exit the application.

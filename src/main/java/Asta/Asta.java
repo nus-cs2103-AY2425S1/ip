@@ -5,6 +5,8 @@ import Asta.command.Parser;
 import Asta.task.Task;
 import Asta.task.TaskList;
 
+import java.util.ArrayList;
+
 public class Asta {
     private static final String FILE_PATH = "./data/asta.txt";
     private final Storage storage;
@@ -91,6 +93,14 @@ public class Asta {
                     ui.showMessage("Noted. I've removed this task:");
                     ui.showMessage(removedTask.toString());
                     storage.save(tasks.getTasks());
+                    break;
+                case FIND:
+                    String keyword = fullCommand.substring(5).trim();
+                    ArrayList<Task> matchingTasks = tasks.findTasks(keyword, ui);
+                    ui.showMessage("Here are the matching tasks in your list:");
+                    for (int i = 0; i < matchingTasks.size(); i++) {
+                        ui.showMessage((i + 1) + ". " + matchingTasks.get(i));
+                    }
                     break;
                 default:
                     AstaException.handleInvalidCommand();
