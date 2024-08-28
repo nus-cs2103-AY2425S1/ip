@@ -1,18 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class ChatBaby {
-    private static final String DIRECTORY_PATH = "." + File.separator + "data";
-    private static final String FILE_PATH = DIRECTORY_PATH + File.separator + "chatBaby.txt";
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = loadTasks();
+        ArrayList<Task> tasks = new ArrayList<>();
         greet();
 
         while (true) {
@@ -38,52 +30,8 @@ public class ChatBaby {
             } else {
                 printUnknownCommandError();
             }
-            saveTasks(tasks);
         }
         scanner.close();
-    }
-
-    private static void saveTasks(ArrayList<Task> tasks) {
-        try {
-            File directory = new File(DIRECTORY_PATH);
-            if (!directory.exists()) {
-                directory.mkdirs();  // Create the directory if it doesn't exist
-            }
-
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-                for (Task task: tasks) {
-                    writer.write(task.toFileText());
-                    writer.newLine();
-                }
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error while saving tasks: " + e.getMessage());
-        }
-    }
-
-    private static ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return tasks; // Return an empty list if the file doesn't exist
-        }
-
-        try (Scanner scanner = new Scanner(file)) {
-            String line;
-            while (scanner.hasNextLine()) {
-                line = scanner.nextLine();
-                try {
-                    tasks.add(Task.fromFileText(line)); // Handle corrupted data inside the method
-                } catch (Exception e) {
-                    System.out.println("Error while reading line: " + line);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Error while loading tasks: " + e.getMessage());
-        }
-
-        return tasks;
     }
 
     public static void greet() {
