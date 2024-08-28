@@ -1,9 +1,11 @@
-import java.io.IOException;
+package jarvis;
+
+import jarvis.Deadline;
+import jarvis.Event;
+import jarvis.Storage;
+import jarvis.Task;
+
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.FileWriter;
 
 public class TaskList {
 

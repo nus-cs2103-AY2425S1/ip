@@ -1,13 +1,14 @@
-public class Deadline extends Task{
-    String deadline;
-    public Deadline(String name, String deadline){
+package jarvis;
+
+import jarvis.Task;
+
+public class Todo extends Task {
+    public Todo(String name){
         super(name);
-        this.deadline = deadline;
     }
-    @Override
     public String toString(){
         String checkbox = this.done ? "[X]" : "[ ]";
         String result = String.format(" %s %s\n", checkbox, this.name);
-        return "[D]" + result;
+        return "[T]" + result;
     }
 }

@@ -1,4 +1,6 @@
-public class Event extends Task{
+package jarvis;
+
+public class Event extends Task {
     String start;
     String end;
     public Event(String name, String start, String end){
