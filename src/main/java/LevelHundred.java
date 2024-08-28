@@ -4,13 +4,17 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class LevelHundred {
+
+    private final String pathToTaskFile = "src/main/data/level-hundred.txt";
     private final String name = "LevelHundred";
     private final Ui ui;
     private final Storage storage;
-
+    private final TaskList taskList;
+    
     public LevelHundred() {
         this.ui = new Ui();
-        this.storage = new Storage();
+        this.storage = new Storage(pathToTaskFile);
+        this.taskList = new TaskList(this.storage);
     }
 
     private Task createTask(String[] words, String command) throws LevelHundredException {
@@ -71,8 +75,8 @@ public class LevelHundred {
     private void handleAddTask(String[] words, String command) {
         try {
             Task newTask = createTask(words, command);
-            this.storage.addTask(newTask);
-            this.ui.printAddTask(newTask, this.storage.size());
+            this.taskList.addTask(newTask);
+            this.ui.printAddTask(newTask, this.taskList.size());
         } catch (LevelHundredException e) {
             this.ui.printException(e);
         }
@@ -91,7 +95,7 @@ public class LevelHundred {
 
         try {
             int idx = Integer.parseInt(words[1]) - 1;
-            Task t = this.storage.getTaskList().get(idx);
+            Task t = this.taskList.getTaskList().get(idx);
             if (command.equals("mark")) {
                 t.mark();
                 this.ui.printSuccessfulMark(t);
@@ -117,8 +121,8 @@ public class LevelHundred {
 
         try {
             int idx = Integer.parseInt(words[1]) - 1;
-            Task t = this.storage.removeTask(idx);
-            this.ui.printDeleteTask(t, this.storage.size());
+            Task t = this.taskList.removeTask(idx);
+            this.ui.printDeleteTask(t, this.taskList.size());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             this.ui.printException(new InvalidArgumentException("task index", words[1]));
         }
@@ -141,7 +145,7 @@ public class LevelHundred {
                     this.ui.exit();
                     break;
                 case "list":
-                    ArrayList<Task> tasks = this.storage.getTaskList();
+                    ArrayList<Task> tasks = this.taskList.getTaskList();
                     this.ui.printTasks(tasks);
                     break;
                 case "mark": case "unmark":

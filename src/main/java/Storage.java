@@ -1,29 +1,34 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+/**
+ * The Storage class deals with loading and saving tasks from the file
+ */
 public class Storage {
-    private ArrayList<Task> taskList;
+    private final String path;
 
-    public Storage() {
-        this.taskList = new ArrayList<Task>();
+    public Storage(String path) {
+        this.path = path;
     }
 
-    public ArrayList<Task> getTaskList() {
-        return this.taskList;
-    }
-
-    public Task get(int idx) throws IndexOutOfBoundsException {
-        return this.taskList.get(idx);
-    }
-
-    public Task removeTask(int idx) throws IndexOutOfBoundsException {
-        return this.taskList.remove(idx);
-    }
-
-    public void addTask(Task t) {
-        this.taskList.add(t);
-    }
-
-    public int size() {
-        return this.taskList.size();
+    /**
+     * Loads the tasks from the file 
+     * @return ArrayList<Task> of tasks from the file
+     */
+    public ArrayList<Task> load() {
+        try {
+            ArrayList<Task> t = new ArrayList<>();
+            File f = new File(this.path);
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                System.out.println(sc.nextLine());
+            }
+            return t;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        return null;
     }
 }
