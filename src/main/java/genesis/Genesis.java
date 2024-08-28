@@ -179,11 +179,11 @@ class TaskManager {
      * Adds a task to the task list.
      *
      * @param task The task to add.
-     * @param silent If true, suppress output messages.
+     * @param isSilent If true, suppress output messages.
      */
-    public void addTask(Task task, boolean silent) {
+    public void addTask(Task task, boolean isSilent) {
         tasks.add(task);
-        if (!silent) {
+        if (!isSilent) {
             System.out.println("Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size()
                     + " tasks in the list.");
         }
@@ -327,9 +327,9 @@ class Ui {
      * Processes user input and delegates to the appropriate command handler.
      *
      * @param input The user input to process.
-     * @param silent If true, suppress output messages.
+     * @param isSilent If true, suppress output messages.
      */
-    public void handleInput(String input, boolean silent) {
+    public void handleInput(String input, boolean isSilent) {
         if (input.equalsIgnoreCase("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
             System.exit(0);
@@ -342,11 +342,11 @@ class Ui {
         } else if (input.startsWith("delete ")) {
             this.parser.handleDelete(input);
         } else if (input.startsWith("deadline ")) {
-            this.parser.handleDeadline(input, silent);
+            this.parser.handleDeadline(input, isSilent);
         } else if (input.startsWith("todo ")) {
-            this.parser.handleTodo(input, silent);
+            this.parser.handleTodo(input, isSilent);
         } else if (input.startsWith("event ")) {
-            this.parser.handleEvent(input, silent);
+            this.parser.handleEvent(input, isSilent);
         } else {
             System.out.println("Sorry, I am not sure what task this is! Please enter a valid task.");
         }
@@ -420,9 +420,9 @@ class CommandParser {
      * Adds a deadline task based on user input.
      *
      * @param input The user input containing the task description and deadline.
-     * @param silent If true, suppress output messages.
+     * @param isSilent If true, suppress output messages.
      */
-    public void handleDeadline(String input, boolean silent) {
+    public void handleDeadline(String input, boolean isSilent) {
         if (!input.contains("/by ")) {
             System.out.println("You need a deadline to add this task!");
             return;
@@ -436,7 +436,7 @@ class CommandParser {
         String initial = parts[1].trim();
         LocalDate deadline = LocalDate.parse(initial);
         Deadline deadlineTask = new Deadline(taskName, deadline, input);
-        taskManager.addTask(deadlineTask, silent);
+        taskManager.addTask(deadlineTask, isSilent);
         this.storage.writeTasks();
     }
 
@@ -444,16 +444,16 @@ class CommandParser {
      * Adds a todo task based on user input.
      *
      * @param input The user input containing the task description.
-     * @param silent If true, suppress output messages.
+     * @param isSilent If true, suppress output messages.
      */
-    public void handleTodo(String input, boolean silent) {
+    public void handleTodo(String input, boolean isSilent) {
         String taskName = input.replaceFirst("todo ", "").trim();
         if (taskName.isEmpty()) {
             System.out.println("You need a task description!");
             return;
         }
         Todo todoTask = new Todo(taskName, input);
-        taskManager.addTask(todoTask, silent);
+        taskManager.addTask(todoTask, isSilent);
         this.storage.writeTasks();
     }
 
@@ -461,9 +461,9 @@ class CommandParser {
      * Adds an event task based on user input.
      *
      * @param input The user input containing the task description, start, and end time.
-     * @param silent If true, suppress output messages.
+     * @param isSilent If true, suppress output messages.
      */
-    public void handleEvent(String input, boolean silent) {
+    public void handleEvent(String input, boolean isSilent) {
         if (!input.contains("/from ") || !input.contains("/to ")) {
             System.out.println("You need a starting and ending date to add this task!");
             return;
@@ -480,7 +480,7 @@ class CommandParser {
         LocalDate startDate = LocalDate.parse(initialStartDate);
         LocalDate endDate = LocalDate.parse(initialEndDate);
         Event eventTask = new Event(taskName, startDate, endDate, input);
-        taskManager.addTask(eventTask, silent);
+        taskManager.addTask(eventTask, isSilent);
         this.storage.writeTasks();
     }
 }
