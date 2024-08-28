@@ -33,6 +33,8 @@ public class Tecna {
      * Exits the chatbot by printing the goodbye lines
      */
     public void exitChatBot() {
+        TaskWriter taskWriter = new TaskWriter();
+        taskWriter.saveTasks(this.taskList);
         System.out.println("----------------------------------------------");
         System.out.println("Pleased to help you! See you again ^_^");
         System.out.println("----------------------------------------------");
@@ -57,7 +59,7 @@ public class Tecna {
 
     /**
      * Receives requests entered by the user.
-     * Accepts string input and processes accordingly
+     * Accepts string input and processes accordingly.
      */
     public void getRequest() {
         java.util.Scanner sc = new java.util.Scanner(System.in);
@@ -166,7 +168,7 @@ public class Tecna {
     }
 
     /**
-     * @@author: https://dzone.com/articles/how-can-we-read-a-json-file-in-java
+     * @author: https://dzone.com/articles/how-can-we-read-a-json-file-in-java
      * Parses the tasks data in the tecna.json file into an ArrayList of Task(s)
      * @return an ArrayList of Tasks
      */
