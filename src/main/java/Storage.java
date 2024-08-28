@@ -42,7 +42,7 @@ public class Storage {
      *
      * @return The task list. Returns null if the file does not exist or cannot be read.
      */
-    public List<Task> load() {
+    public List<Task> load() throws BocchiException {
         List<Task> savedTasks = new ArrayList<>();
 
         try (FileInputStream fileIn = new FileInputStream(FILE_PATH.toString());
@@ -51,16 +51,16 @@ public class Storage {
             if (savedObject instanceof List<?> savedList) {  // first check if the object is a list
                 for (Object task : savedList) {
                     if (!(task instanceof Task)) {  // then check if the elements in the list are tasks
-                        throw new IOException("The saved object is not a list of tasks.");
+                        throw new BocchiException("There is a problem with the saved data.");
                     } else {
                         savedTasks.add((Task) task);
                     }
                 }
             } else {
-                throw new IOException("The saved object is not a list.");
+                throw new BocchiException("There is a problem with the saved data.");
             }
         } catch (FileNotFoundException e) {
-            return null;  // return null if the file does not exist
+            return new ArrayList<>();  // return an empty list if the file does not exist
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);  // this should not happen
         } catch (IOException e) {
@@ -69,7 +69,7 @@ public class Storage {
             } catch (IOException ex) {
                 throw new RuntimeException(ex); // this should not happen
             }
-            return null;  // return null if the file cannot be read
+            throw new BocchiException("There is a problem with the saved data.");
         }
         return savedTasks;
     }
@@ -79,18 +79,14 @@ public class Storage {
      * Saves the task list to the file.
      *
      * @param tasks The task list.
-     * @return true if the task list is saved successfully, false otherwise.
-     * @throws IOException If an I/O error occurs.
      */
-    public boolean save(List<Task> tasks) {
+    public void save(List<Task> tasks) throws BocchiException {
         try (FileOutputStream fileOut = new FileOutputStream(FILE_PATH.toString());
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(tasks);
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;  // return false if an I/O error occurs
+            throw new BocchiException("There is a problem with saving the data.");
         }
-        return true;
     }
 
 }
