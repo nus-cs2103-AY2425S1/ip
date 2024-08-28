@@ -1,3 +1,5 @@
+package Gutti;
+
 public class Gutti {
 
     private static final String FILE_PATH = "./data/gutti.txt";

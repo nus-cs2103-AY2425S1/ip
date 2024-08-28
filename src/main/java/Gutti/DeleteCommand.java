@@ -1,3 +1,5 @@
+package Gutti;
+
 public class DeleteCommand extends Command {
     private final int index;
 

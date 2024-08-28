@@ -1,3 +1,5 @@
+package Gutti;
+
 import java.time.format.DateTimeParseException;
 
 public class EventCommand extends Command {

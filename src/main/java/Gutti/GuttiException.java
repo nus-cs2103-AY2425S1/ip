@@ -1,3 +1,5 @@
+package Gutti;
+
 /**
  * The {@code GuttiException} class represents a custom exception used in the {@code Gutti} chatbot.
  * <p>
