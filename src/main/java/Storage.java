@@ -51,7 +51,6 @@ public class Storage {
             Task.decideTask(command, taskList);
             if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
-                System.out.println("marked!");
             }
         } else if (typeOfTask == 'D') {
             String command = "deadline" + fields[2] + "/by" + fields[3];
@@ -62,8 +61,6 @@ public class Storage {
         } else if (typeOfTask == 'E') {
             String command = "event" + fields[2] + "/from" + fields[3] + " /to" + fields[4];
             Task.decideTask(command, taskList);
-            System.out.println(fields[1]);
-            System.out.println(fields[1].length());
             if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
             }

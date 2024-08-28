@@ -16,10 +16,21 @@ public class TaskList {
         return list.get(i);
     }
 
-    public void printTasks(){
+    public void add(Task newTask) {
+        list.add(newTask);
+    }
+
+    public void delete(int position) {
+        list.remove(position - 1);
+    }
+
+    public String showTasks(){
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
+            result.append(list.get(i));
+            result.append("\n");
         }
+        return result.toString();
     }
 
 
