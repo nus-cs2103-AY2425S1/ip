@@ -1,3 +1,9 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * The {@code Deadline} class represents a task that has a specific deadline by which it needs to be completed.
  * <p>
@@ -6,8 +12,14 @@
  */
 public class Deadline extends Task {
 
+    private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+            DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")
+    );
+
     /** The deadline by which the task should be completed. */
-    protected String by;
+    protected LocalDateTime by;
     /**
      * Constructs a new {@code Deadline} task with the specified description and deadline.
      *
@@ -16,8 +28,19 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, boolean isDone) {
         super(description,isDone);
-        this.by = by;
+        this.by = parseDateTime(by);
 
+    }
+    private LocalDateTime parseDateTime(String by) {
+        for (DateTimeFormatter formatter : FORMATTERS) {
+            try {
+                return LocalDateTime.parse(by, formatter);
+            } catch (DateTimeParseException e) {
+                // Continue trying other formats
+            }
+        }
+        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm or dd/MM/yyyy HHmm format.");
+        return null; // Return null if no format matched
     }
 
     /**
@@ -31,6 +54,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + (by != null ? by.format(formatter) : "Invalid date") + ")";
     }
 }
