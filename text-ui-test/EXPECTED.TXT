@@ -1,6 +1,6 @@
 ____________________________________________________________
 Good day Sir. I am Alfred, your English butler.
-Might I offer you some tea, or perhaps something stronger to suit the occasion?
+How can I help you today?
 ____________________________________________________________
 ____________________________________________________________
 That is the wrong todo format Sir. It goes todo <task>
@@ -9,7 +9,7 @@ ____________________________________________________________
 Terribly sorry Sir, I have no idea what you are saying.
 ____________________________________________________________
 ____________________________________________________________
-That is the wrong deadline format Sir. It goes deadline <task> /by date
+That is the wrong deadline format Sir. It goes deadline <task> /by yyyy-mm-dd
 ____________________________________________________________
 ____________________________________________________________
 Apologies, Sir, but that task number is not valid.
@@ -17,7 +17,7 @@ You currently have only 0 items in the list.
 Might I suggest reviewing the list before proceeding?
 ____________________________________________________________
 ____________________________________________________________
-That is the wrong deadline format Sir. It goes deadline <task> /by date
+That is the wrong deadline format Sir. It goes deadline <task> /by yyyy-mm-dd
 ____________________________________________________________
 ____________________________________________________________
 Got it Sir. The following task has been added to your list:
@@ -29,65 +29,71 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 Got it Sir. The following task has been added to your list:
-    [D][ ] return book (by: Sunday)
+    [D][ ] return book (by: Dec 1 2019)
 You now have 2 tasks awaiting your attention.
+____________________________________________________________
+____________________________________________________________
+That is not a valid deadline Sir. It should go yyyy-mm-dd.
+____________________________________________________________
+____________________________________________________________
+That is not a valid deadline Sir. It should go yyyy-mm-dd.
+____________________________________________________________
+____________________________________________________________
+Got it Sir. The following task has been added to your list:
+    [D][ ] IPPT (by: Oct 21 2020)
+You now have 3 tasks awaiting your attention.
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Dec 1 2019)
+3. [D][ ] IPPT (by: Oct 21 2020)
 ____________________________________________________________
 ____________________________________________________________
 Got it Sir. The following task has been added to your list:
     [E][ ] project meeting (from: Mon 2pm to: 4pm)
-You now have 3 tasks awaiting your attention.
-____________________________________________________________
-____________________________________________________________
-Got it Sir. The following task has been added to your list:
-    [D][ ] do homework (by: no idea :-p)
 You now have 4 tasks awaiting your attention.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4. [D][ ] do homework (by: no idea :-p)
+2. [D][ ] return book (by: Dec 1 2019)
+3. [D][ ] IPPT (by: Oct 21 2020)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Indeed, Sir, the task has been duly completed:
-    [D][X] do homework (by: no idea :-p)
+    [E][X] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Very well Sir, the task remains outstanding:
-    [D][ ] return book (by: Sunday)
-A reminder that even small tasks deserve attention.
-____________________________________________________________
-____________________________________________________________
-Apologies, Sir, but that task number is not valid.
-You currently have only 4 items in the list.
-Might I suggest reviewing the list before proceeding?
-____________________________________________________________
-____________________________________________________________
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4. [D][X] do homework (by: no idea :-p)
-____________________________________________________________
-____________________________________________________________
-Very well Sir, the task remains outstanding:
-    [D][ ] do homework (by: no idea :-p)
+    [D][ ] return book (by: Dec 1 2019)
 A reminder that even small tasks deserve attention.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4. [D][ ] do homework (by: no idea :-p)
+2. [D][ ] return book (by: Dec 1 2019)
+3. [D][ ] IPPT (by: Oct 21 2020)
+4. [E][X] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Very well Sir, the task remains outstanding:
+    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+A reminder that even small tasks deserve attention.
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Dec 1 2019)
+3. [D][ ] IPPT (by: Oct 21 2020)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Of course Sir, the task has been successfully removed.
-    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    [D][ ] IPPT (by: Oct 21 2020)
 Your list now contains 3 tasks. Efficiency is its own rewards.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [D][ ] do homework (by: no idea :-p)
+2. [D][ ] return book (by: Dec 1 2019)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Apologies, Sir, but that task number is not valid.
@@ -96,8 +102,8 @@ Might I suggest reviewing the list before proceeding?
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [D][ ] do homework (by: no idea :-p)
+2. [D][ ] return book (by: Dec 1 2019)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Farewell Sir. Should you need anything, you know where to find me.

@@ -5,13 +5,15 @@ mark 2
 deadline return Book
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 2019-12-01
+deadline do homework /by 2019-12-50
+deadline do homework /by 2019-91-04
+deadline IPPT /by 2020-10-21
+list
 event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idea :-p
 list
 mark 4
 unmark 2
-mark 5
 list
 unmark 4
 list

@@ -1,27 +1,39 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Deadlines extends Task {
-    private String deadline;
+    private LocalDate deadline;
 
-    public Deadlines(String description, String deadline) {
+    public Deadlines(String description, String deadline) throws AlfredException {
         super(description);
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new AlfredException("That is not a valid deadline Sir. It should go yyyy-mm-dd.");
+        }
     }
 
-    public Deadlines(String description, String deadline, boolean isDone) {
+    public Deadlines(String description, String deadline, boolean isDone) throws AlfredException {
         super(description);
-        this.deadline = deadline;
         this.isDone = isDone;
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new AlfredException("That is not a valid deadline Sir. It should go yyyy-mm-dd.");
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " +
+                deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     public static Task createTask(String input) throws AlfredException {
-        String regex = "^deadline\\s+(.+?)\\s+/by\\s+(.+)$";
+        String regex = "^deadline\\s+(.+?)\\s+/by\\s+(([0-9]{4})-([0-9]{2})-([0-9]{2}))$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
@@ -32,7 +44,7 @@ public class Deadlines extends Task {
             return new Deadlines(description, deadline);
         } else {
             throw new AlfredException("That is the wrong deadline format Sir. It goes deadline <task> " +
-                    "/by date");
+                    "/by yyyy-mm-dd");
         }
     }
 
