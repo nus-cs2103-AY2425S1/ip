@@ -169,4 +169,18 @@ public class Ui {
         System.out.println("\t\t" +message);
         System.out.println(LINE_SEPARATOR);
     }
+
+    /**
+     * Displays the list of tasks the user wants to find.
+     *
+     * @param taskList The list of tasks to be displayed.
+     */
+    public void showFindTaskList(ArrayList<Task> taskList) {
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("\t\tHere are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println("\t\t\t" + (i + 1) + ". " + taskList.get(i));
+        }
+        System.out.println(LINE_SEPARATOR);
+    }
 }

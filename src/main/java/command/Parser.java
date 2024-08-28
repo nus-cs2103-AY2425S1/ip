@@ -1,6 +1,7 @@
 package command;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import storage.Storage;
 
@@ -44,6 +45,8 @@ public class Parser {
             listCommand(input, taskList, storage, ui);
         } else if(input.startsWith("bye")) {
             byeCommand(input, taskList, storage, ui);
+        } else if(input.startsWith("find")) {
+            findCommand(input, taskList, storage, ui);
         } else {
             ui.showErrorUnknownCommand();
         }
@@ -219,5 +222,19 @@ public class Parser {
      */
     private void byeCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         ui.showGoodbye();
+    }
+
+    private void findCommand(String input, TaskList taskList, Storage storage, Ui ui) {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
+            ui.showError("Please provide a description to search for");
+        } else {
+            ArrayList<Task> matchingTasks = taskList.findTasks(description);
+            if (matchingTasks.isEmpty()) {
+                ui.showError("No tasks found matching: " + description);
+            } else {
+                ui.showFindTaskList(matchingTasks);
+            }
+        }
     }
 }

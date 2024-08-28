@@ -89,6 +89,19 @@ public class TaskList {
         return null;
     }
 
+    public ArrayList<Task> findTasks(String description) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        if (description == null || description.trim().isEmpty()) {
+            return matchingTasks;
+        } else  {
+            for (Task task: tasks) {
+                if (task.getDescription().toLowerCase().contains(description.toLowerCase())) {
+                    matchingTasks.add(task);
+                }
+            }
+        }
+        return matchingTasks;
+    }
     /**
      * Returns the number of tasks in the list.
      *
