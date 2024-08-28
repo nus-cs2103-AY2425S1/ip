@@ -1,4 +1,4 @@
-package exceptions;
+package puke.exceptions;
 
 public class TaskNumberOutOfBoundsException extends PukeException {
     public TaskNumberOutOfBoundsException(int taskNumber) {

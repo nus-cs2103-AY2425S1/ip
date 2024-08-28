@@ -1,4 +1,4 @@
-package exceptions;
+package puke.exceptions;
 
 public class MissingTimeException extends PukeException {
     public MissingTimeException() {

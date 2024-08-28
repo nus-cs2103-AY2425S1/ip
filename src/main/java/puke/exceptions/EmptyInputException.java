@@ -1,4 +1,4 @@
-package exceptions;
+package puke.exceptions;
 
 public class EmptyInputException extends PukeException {
     public EmptyInputException() {

@@ -1,19 +1,18 @@
+package puke.ui;
+
 import java.util.Scanner;
-public class Puke {
+import puke.handlers.InputManager;
+
+public class Ui {
     private MessageBuilder messageBuilder;
-    private TaskManager taskManager;
     private InputManager inputManager;
-    public Puke() {
-        this.messageBuilder = new MessageBuilder();
-        this.taskManager = new TaskManager();
-        this.inputManager = new InputManager(taskManager, messageBuilder);
-    }
-    public static void main(String[] args) {
-        Puke chatBot = new Puke();
-        chatBot.start();
+
+    public Ui(InputManager inputManager, MessageBuilder messageBuilder) {
+        this.messageBuilder = messageBuilder;
+        this.inputManager = inputManager;
     }
 
-    private void start() {
+    public void start() {
         messageBuilder.sendGreetingMessage();
         Scanner scanner = new Scanner(System.in);
         String userInput;

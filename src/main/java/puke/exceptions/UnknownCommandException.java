@@ -1,4 +1,4 @@
-package exceptions;
+package puke.exceptions;
 
 public class UnknownCommandException extends PukeException {
     public UnknownCommandException() {

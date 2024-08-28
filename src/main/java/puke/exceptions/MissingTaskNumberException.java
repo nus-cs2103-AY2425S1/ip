@@ -1,4 +1,4 @@
-package exceptions;
+package puke.exceptions;
 
 public class MissingTaskNumberException extends PukeException {
     public MissingTaskNumberException(boolean isDone) {
