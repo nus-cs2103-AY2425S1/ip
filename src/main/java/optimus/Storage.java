@@ -72,9 +72,9 @@ public class Storage {
                 String[] values = line.split(SPECIAL_CHAR);
                 String type = values[0];
                 switch (type) {
-                    case "T" -> data.add(new ToDoTask(values[2], values[1]));
-                    case "D" -> data.add(new DeadlineTask(values[2], LocalDate.parse(values[3]), values[1]));
-                    case "E" -> data.add(new EventTask(values[2], values[3], values[4], values[1]));
+                case "T" -> data.add(new ToDoTask(values[2], values[1]));
+                case "D" -> data.add(new DeadlineTask(values[2], LocalDate.parse(values[3]), values[1]));
+                case "E" -> data.add(new EventTask(values[2], values[3], values[4], values[1]));
                 }
             }
         } catch (IOException e) {

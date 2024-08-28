@@ -1,15 +1,10 @@
 package optimus;
 
-import optimus.commands.AddTaskCommand;
-import optimus.commands.Command;
-import optimus.commands.MarkCommand;
 import optimus.exceptions.OptimusExceptions;
-import optimus.tasks.DeadlineTask;
 import optimus.tasks.Task;
 import optimus.tasks.ToDoTask;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

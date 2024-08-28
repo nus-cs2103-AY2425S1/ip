@@ -6,6 +6,7 @@ public class Ui {
 
     Scanner scanner;
     private static final String linebreak = "____________________________";
+
     public Ui() {
         this.scanner = new Scanner(System.in);
     }

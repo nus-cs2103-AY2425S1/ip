@@ -7,6 +7,7 @@ import java.util.Objects;
 public class EventTask extends Task {
     String start;
     String end;
+
     public EventTask(String desc, String start, String end) {
         super(desc);
         this.start = start;

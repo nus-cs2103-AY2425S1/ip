@@ -1,7 +1,17 @@
 package optimus;
 
-import optimus.commands.*;
-import optimus.exceptions.*;
+import optimus.commands.AddTaskCommand;
+import optimus.commands.Command;
+import optimus.commands.DeleteTaskCommand;
+import optimus.commands.LeaveCommand;
+import optimus.commands.ListCommand;
+import optimus.commands.MarkCommand;
+import optimus.commands.UnmarkCommand;
+import optimus.exceptions.IncompleteCommandException;
+import optimus.exceptions.InvalidCommandException;
+import optimus.exceptions.InvalidDateFormatException;
+import optimus.exceptions.InvalidTaskNumberException;
+import optimus.exceptions.OptimusExceptions;
 import optimus.tasks.DeadlineTask;
 import optimus.tasks.EventTask;
 import optimus.tasks.ToDoTask;
@@ -61,28 +71,28 @@ public class Parser {
         String startTime, endTime;
 
         switch (type) {
-            case "todo" -> {
-                return new AddTaskCommand(new ToDoTask(description));
+        case "todo" -> {
+            return new AddTaskCommand(new ToDoTask(description));
+        }
+        case "deadline" -> {
+            endTime = extractDateAfterFlag(commands, "/by")
+                    .orElseThrow(() -> new IncompleteCommandException("Deadline Tasks must have a deadline specified"));
+            LocalDate deadline;
+            try {
+                deadline = LocalDate.parse(endTime);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateFormatException("Dates for Deadline tasks must be in the YYYY-MM-DD format");
             }
-            case "deadline" -> {
-                endTime = extractDateAfterFlag(commands, "/by")
-                        .orElseThrow(() -> new IncompleteCommandException("Deadline Tasks must have a deadline specified"));
-                LocalDate deadline;
-                try {
-                    deadline = LocalDate.parse(endTime);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateFormatException("Dates for Deadline tasks must be in the YYYY-MM-DD format");
-                }
-                return new AddTaskCommand(new DeadlineTask(description, deadline));
-            }
-            case "event" -> {
-                startTime = extractDateAfterFlag(commands, "/from")
-                        .orElseThrow(() -> new IncompleteCommandException("Events must have a start specified"));
-                endTime = extractDateAfterFlag(commands, "/to")
-                        .orElseThrow(() -> new IncompleteCommandException("Events must have an end specified"));
-                return new AddTaskCommand(new EventTask(description, startTime, endTime));
-            }
-            default -> throw new InvalidCommandException("This task does not exist.");
+            return new AddTaskCommand(new DeadlineTask(description, deadline));
+        }
+        case "event" -> {
+            startTime = extractDateAfterFlag(commands, "/from")
+                    .orElseThrow(() -> new IncompleteCommandException("Events must have a start specified"));
+            endTime = extractDateAfterFlag(commands, "/to")
+                    .orElseThrow(() -> new IncompleteCommandException("Events must have an end specified"));
+            return new AddTaskCommand(new EventTask(description, startTime, endTime));
+        }
+        default -> throw new InvalidCommandException("This task does not exist.");
         }
     }
 

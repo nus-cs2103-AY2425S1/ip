@@ -35,6 +35,7 @@ public class TaskList {
     public void addTask(Task task) {
         list.add(task);
     }
+
     private boolean isInvalidTaskNum(int taskNum) {
         return taskNum < 0 || taskNum >= list.size();
     }

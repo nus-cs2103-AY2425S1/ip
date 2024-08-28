@@ -1,7 +1,6 @@
 package optimus;
 
 import optimus.commands.AddTaskCommand;
-import optimus.commands.Command;
 import optimus.commands.MarkCommand;
 import optimus.exceptions.OptimusExceptions;
 import optimus.tasks.DeadlineTask;
@@ -32,7 +31,7 @@ public class ParserTest {
             MarkCommand mc = (MarkCommand) Parser.parse("mark ");
             fail("Accepted mark command without task number");
         } catch (OptimusExceptions e) {
-            assertEquals( "The task number is not specified", e.getMessage());
+            assertEquals("The task number is not specified", e.getMessage());
         } catch (ClassCastException e) {
             fail("Wrong command produced");
         }
@@ -57,7 +56,7 @@ public class ParserTest {
             AddTaskCommand addTaskCommand = (AddTaskCommand) Parser.parse("deadline test /by ");
             fail("Accepted deadline command without deadline");
         } catch (OptimusExceptions e) {
-            assertEquals( "Deadline Tasks must have a deadline specified", e.getMessage());
+            assertEquals("Deadline Tasks must have a deadline specified", e.getMessage());
         } catch (ClassCastException e) {
             fail("Wrong command produced");
         }
@@ -69,7 +68,7 @@ public class ParserTest {
             AddTaskCommand addTaskCommand = (AddTaskCommand) Parser.parse("deadline test /by today");
             fail("Accepted deadline command with incorrect deadline format");
         } catch (OptimusExceptions e) {
-            assertEquals( "Dates for Deadline tasks must be in the YYYY-MM-DD format", e.getMessage());
+            assertEquals("Dates for Deadline tasks must be in the YYYY-MM-DD format", e.getMessage());
         } catch (ClassCastException e) {
             fail("Wrong command produced");
         }

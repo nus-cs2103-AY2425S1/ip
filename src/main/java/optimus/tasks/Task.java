@@ -12,6 +12,7 @@ public class Task {
     public String getTaskDesc() {
         return taskDesc;
     }
+
     public void markAsComplete() {
         this.isDone = true;
     }
@@ -23,6 +24,7 @@ public class Task {
     public String getStatusString() {
         return this.isDone ? "X" : " ";
     }
+
     public int getStatusInt() {
         return this.isDone ? 1 : 0;
     }
