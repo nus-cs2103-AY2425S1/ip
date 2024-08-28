@@ -47,6 +47,7 @@ public class Parser {
             case "unmark" -> new UnmarkCommand(parseTaskNumber(commands));
             case "todo", "deadline", "event" -> addTask(commands);
             case "delete" -> new DeleteTaskCommand(parseTaskNumber(commands));
+            case "find" -> new FindCommand(extractDescription(commands));
             default -> throw new InvalidCommandException("This command does not exist.");
         };
     }

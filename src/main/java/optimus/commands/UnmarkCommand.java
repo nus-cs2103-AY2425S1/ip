@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
-    
+
     /**
      * Marks the task as incomplete in permanent and session storage, prints to UI if successful
      * @param storage - permanent storage

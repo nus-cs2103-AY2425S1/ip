@@ -4,6 +4,7 @@ import optimus.exceptions.InvalidTaskNumberException;
 import optimus.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class TaskList {
     ArrayList<Task> list;
@@ -46,6 +47,16 @@ public class TaskList {
         } else {
             return list.remove(taskNum);
         }
+    }
+
+    /**
+     * Returns a stream of Tasks whose descriptions contain the keyword
+     * @param keyword
+     * @return
+     */
+    public Stream<Task> filterByKeyword(String keyword) {
+        return list.stream()
+                .filter(task -> task.getTaskDesc().contains(keyword));
     }
 
     /**
