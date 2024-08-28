@@ -6,7 +6,15 @@ import java.time.format.DateTimeParseException;
 public class Llama {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static void addTodo(String remaining, TaskStorage tasks) {
+    private Storage storage;
+    private Ui ui;
+
+    public Llama() {
+        this.ui = new Ui();
+        this.storage = new Storage();
+    }
+
+    public static void addTodo(String remaining, Storage tasks) {
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
         }
@@ -14,7 +22,7 @@ public class Llama {
         tasks.addTask(new Todo(remaining, false));
     }
 
-    public static void addDeadline(String remaining, TaskStorage tasks) {
+    public static void addDeadline(String remaining, Storage tasks) {
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Deadline?!? What's the point of keeping track of nothing?");
         }
@@ -29,7 +37,7 @@ public class Llama {
         }
     }
 
-    public static void addEvent(String remaining, TaskStorage tasks) {
+    public static void addEvent(String remaining, Storage tasks) {
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
         }
@@ -48,18 +56,16 @@ public class Llama {
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         Scanner sc = new Scanner(System.in);
-        Ui userInterface = new Ui();
-        TaskStorage tasks = new TaskStorage();
 
         // Initializing message
-        userInterface.displayWelcome();
+        this.ui.displayWelcome();
 
         // Get user input
         boolean shouldContinue = true;
         while (shouldContinue) {
-            String input = userInterface.getUserInput(sc);
+            String input = this.ui.getUserInput(sc);
 
             // Split input into command and remaining
             String command = input;
@@ -73,58 +79,62 @@ public class Llama {
                 shouldContinue = false;
                 sc.close();
             } else if (command.equals("list")) {                    // list out tasks
-                tasks.listAllTasks();
+                this.storage.listAllTasks();
             } else if (command.equals("mark")) {                    // mark task
                 int index = Integer.parseInt(remaining);
                 try {
-                    tasks.markTask(index);
+                    this.storage.markTask(index);
                 } catch (InvalidTaskException e) {
-                    userInterface.displayString(e.getMessage());
+                    this.ui.displayString(e.getMessage());
                 }
             } else if (command.equals("unmark")) {                  // unmark task
                 int index = Integer.parseInt(remaining);
                 try {
-                    tasks.unmarkTask(index);
+                    this.storage.unmarkTask(index);
                 } catch (InvalidTaskException e) {
-                    userInterface.displayString(e.getMessage());
+                    this.ui.displayString(e.getMessage());
                 }
             } else if (command.equals("delete")) {
                 int index = Integer.parseInt(remaining);
                 try {
-                    tasks.deleteTask(index);
+                    this.storage.deleteTask(index);
                 } catch (InvalidTaskException e) {
-                    userInterface.displayString(e.getMessage());
+                    this.ui.displayString(e.getMessage());
                 }
             } else {
                 if (command.equals("todo")) {                       // add todo
                     try {
-                        addTodo(remaining, tasks);
+                        addTodo(remaining, this.storage);
                     } catch(LlamaException e) {
-                        userInterface.displayString(e.getMessage());
+                        this.ui.displayString(e.getMessage());
                     }
                 } else if (command.equals("deadline")) {            // add deadline
                     try {
-                        addDeadline(remaining, tasks);
+                        addDeadline(remaining, this.storage);
                     } catch(LlamaException e) {
-                        userInterface.displayString(e.getMessage());
+                        this.ui.displayString(e.getMessage());
                     }
                 } else if (command.equals("event")) {               // add event
                     try {
-                        addEvent(remaining, tasks);
+                        addEvent(remaining, this.storage);
                     } catch(LlamaException e) {
-                        userInterface.displayString(e.getMessage());
+                        this.ui.displayString(e.getMessage());
                     }
                 } else {
                     try {
                         throw new LlamaException("Command not found, try again."); // really?
                     } catch (LlamaException e){
-                        userInterface.displayString(e.getMessage());
+                        this.ui.displayString(e.getMessage());
                     }
                 }
             }
         }
 
         // Exit message
-        userInterface.displayBye();
+        this.ui.displayBye();
+    }
+
+    public static void main(String[] args) {
+        new Llama().run();
     }
 }

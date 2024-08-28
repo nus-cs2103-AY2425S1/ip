@@ -1,11 +1,10 @@
 import java.io.*;
-import java.nio.Buffer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TaskStorage {
+public class Storage {
     private ArrayList<Task> taskList;
     private int numberOfTasks;
     private final String filePath = "./data/taskFile.txt";
@@ -97,7 +96,7 @@ public class TaskStorage {
         tempFile.renameTo(file);
     }
 
-    public TaskStorage() {
+    public Storage() {
         this.taskList = new ArrayList<>();
 
         try {
@@ -125,7 +124,7 @@ public class TaskStorage {
         // Save task into the file
         String text = task.getSaveTaskString();
         try {
-            TaskStorage.appendTaskToFile(taskFile, text);
+            Storage.appendTaskToFile(taskFile, text);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -140,7 +139,7 @@ public class TaskStorage {
         this.taskList.remove(i - 1);
 
         try {
-            deleteTaskFromFile(taskFile, i);
+            Storage.deleteTaskFromFile(taskFile, i);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -159,7 +158,7 @@ public class TaskStorage {
         task.markDone();
 
         try {
-            editTaskFromFile(taskFile, i, task.getSaveTaskString());
+            Storage.editTaskFromFile(taskFile, i, task.getSaveTaskString());
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -176,7 +175,7 @@ public class TaskStorage {
         task.markNotDone();
 
         try {
-            editTaskFromFile(taskFile, i, task.getSaveTaskString());
+            Storage.editTaskFromFile(taskFile, i, task.getSaveTaskString());
         } catch (IOException e) {
             System.err.println(e);
         }
