@@ -7,23 +7,30 @@ public class Opus {
         System.out.println(" Hello! I'm Opus");
         System.out.println(" What can I do for you?");
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[101];
         int taskCount = 0;
 
         while(true) {
             String s = scanner.nextLine();
+            String[] words = s.split(" ");
             if (s.equals("bye")) {
                 break;
             } else if (s.equals("list")) {
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                for (int i = 1; i <= taskCount; i++) {
+                    System.out.println(i + ". " + tasks[i]);
                 }
-            } else {
-                tasks[taskCount++] = s;
+            } 
+            else if (words[0].equals("mark")) {
+                int i = Integer.parseInt(words[1]);
+                tasks[i].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(tasks[i]);
+            } 
+            else {
+                tasks[++taskCount] = new Task(s);
                 System.out.println("added: " + s);
             }
         }
         System.out.println(" Bye. Hope to see you again soon!");
     }
 }
-
