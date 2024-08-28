@@ -23,7 +23,7 @@ public class Echoa {
 
         int taskcount = 0;
 
-        System.out.println("Hello! I'm Echoa.");
+        System.out.println("Hello, I'm Echoa!");
         System.out.println("What can I do for you?\n");
 
         try {
