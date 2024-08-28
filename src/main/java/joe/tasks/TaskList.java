@@ -170,4 +170,12 @@ public class TaskList {
 
         System.out.println(line);
     }
+
+    public int size() {
+        return taskList.size();
+    }
+
+    public Task get(int index) {
+        return taskList.get(index);
+    }
 }

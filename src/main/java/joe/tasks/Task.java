@@ -49,4 +49,12 @@ public class Task {
         char mark = done ? 'X' : ' ';
         return String.format("[%c] %s", mark, description);
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
 }
