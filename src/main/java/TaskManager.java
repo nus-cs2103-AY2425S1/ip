@@ -24,8 +24,22 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Creates a task manager with tasks loaded from file.
+     */
+    public TaskManager() {
+        TaskManagerFile.loadTasksFromFile(this, FILE_PATH);
+    }
+
     public void addTask(Task task) {
+        addTask(task, true);
+    }
+
+    public void addTask(Task task, boolean toSave) {
         tasks.add(task);
+        if (toSave) {
+            saveTasksToFile();
+        }
     }
 
     public int getTaskCount() {
@@ -50,6 +64,7 @@ public class TaskManager {
             "Nice! I've marked this task as done:",
             "  " + tasks.get(taskNumber - 1)
         );
+        saveTasksToFile();
     }
 
     /**
@@ -66,6 +81,7 @@ public class TaskManager {
             "OK, I've marked this task as not done yet:",
             "  " + tasks.get(taskNumber - 1)
         );
+        saveTasksToFile();
     }
 
     /**
@@ -83,6 +99,7 @@ public class TaskManager {
             "  " + task,
             String.format("Now you have %s tasks in the list.", this.getTaskCount())
         );
+        saveTasksToFile();
     }
 
     /**

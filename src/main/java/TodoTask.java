@@ -12,6 +12,16 @@ public class TodoTask extends Task {
     }
 
     /**
+     * Creates a Todo task with the specified description and done status.
+     *
+     * @param description The description of the task.
+     * @param isDone      The done status of the task.
+     */
+    public TodoTask(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
+    /**
      * Returns the type label of the task.
      *
      * @return The type label of the task.
@@ -37,6 +47,6 @@ public class TodoTask extends Task {
      */
     @Override
     public String toDataString() {
-        return String.format("%s | %s", this.getTypeLabel(), this.getDescription());
+        return String.format("%s|%s", this.getTypeLabel(), super.toDataString());
     }
 }

@@ -10,6 +10,9 @@ public class TaskManagerFile {
             File file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile();
+            } else {
+                file.delete();
+                file.createNewFile();
             }
             FileWriter fileWriter = new FileWriter(filePath);
             Iterator<Task> taskIterator = taskManager.getTasksIterator();
@@ -33,7 +36,7 @@ public class TaskManagerFile {
             while (scanner.hasNext()) {
                 String taskString = scanner.nextLine();
                 Task task = TaskDecoder.parseTask(taskString);
-                taskManager.addTask(task);
+                taskManager.addTask(task, false);
             }
             scanner.close();
         } catch (IOException e) {

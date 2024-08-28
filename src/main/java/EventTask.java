@@ -19,6 +19,20 @@ public class EventTask extends Task {
     }
 
     /**
+     * Creates an event task with the specified description, start time, end time and done status.
+     *
+     * @param description The description of the task.
+     * @param startTime The start time of the task.
+     * @param endTime The end time of the task.
+     * @param isDone The done status of the task.
+     */
+    public EventTask(String description, String startTime, String endTime, boolean isDone) {
+        super(description, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
      * Returns the type label of the task.
      *
      * @return The type label of the task.
@@ -53,6 +67,6 @@ public class EventTask extends Task {
      */
     @Override
     public String toDataString() {
-        return String.format("%s | %s | %s | %s", this.getTypeLabel(), this.getDescription(), this.startTime, this.endTime);
+        return String.format("%s|%s|%s|%s", this.getTypeLabel(), super.toDataString(), this.startTime, this.endTime);
     }
 }
