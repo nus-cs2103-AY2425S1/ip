@@ -18,11 +18,12 @@ test {
     testLogging.showStandardStreams=true
 }
 
-mainClassName = 'src.main.java.Gutti.Gutti'
+application {
+    mainClass = 'Gutti.Gutti'
 
+}
 
-
-shadowJar {
+jar {
     manifest {
         attributes 'Main-Class': 'Gutti.Gutti'
     }
