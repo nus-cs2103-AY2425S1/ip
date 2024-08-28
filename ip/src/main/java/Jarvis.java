@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Jarvis {
 
+
     public static void main(String[] args) {
         String logo =
                 "       _                  _     \n" +
@@ -12,57 +13,31 @@ public class Jarvis {
                         "/___/\n";
         Scanner scanner = new Scanner(System.in);
 
+        TaskList tasklist = new TaskList();
+        Parser parser = new Parser();
+        Storage storage = Storage.getInstance();
+
+
 
         System.out.println("Hello from\n" + logo);
         System.out.println(" What can I do for you?\n\n");
 
         String input = "";
-        TaskList tasklist = new TaskList();
+        storage.list();
+        storage.clearFile();
 
         // Keep reading input until "bye" is entered
         while (!input.equals("bye")) {
 
             input = scanner.nextLine();
-            if (input.equals("list")) {
-                tasklist.list();
-            } else if (!input.equals("bye")) { // Only print if it's not "bye"
-                if (input.startsWith("mark") || input.startsWith("unmark" )||
-                        input.startsWith("delete")) {
-                    String[] parts = input.split(" ");
-                    try {
-                        if (parts.length == 2) {
-                            int taskIndex = Integer.parseInt(parts[1]);
-                            if (input.startsWith("mark")) {
-                                tasklist.mark(taskIndex);
-                            } else if (input.startsWith("unmark")) {
-                                tasklist.unmark(taskIndex);
-                            } else if(input.startsWith("delete")){
-                                tasklist.handleDelete(taskIndex);
-                            }
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("index error!");
-                    }
+            parser.parse(input, tasklist);
 
-                } else {
-                    try {
-                        tasklist.add(input);
-                        String result = tasklist.acknowledge();
-                        System.out.println("__________________________________\n" + result + "\n" +
-                                "__________________________________");
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("bad input: invalid format " + input);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("bad input: invalid format " + input);
-                    } catch (Exception e){
-                        System.out.println("error");
-                    }
-                }
-            }
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
 
 }
+
+
 
 

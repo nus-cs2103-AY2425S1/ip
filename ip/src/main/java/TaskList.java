@@ -1,12 +1,19 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
 
 public class TaskList {
 
     ArrayList<Task> list;
+    Storage storage = Storage.getInstance();
 
     public TaskList() {
         list = new ArrayList<>();
     }
+
     public void list() {
         for(int i = 0; i < list.size(); i++) {
             Task task = this.list.get(i);
@@ -15,6 +22,8 @@ public class TaskList {
         }
     }
     public void add(String input){
+
+
         String[] words = input.split(" ");
         String[] parts = input.split(" /");
         switch(words[0]) {
@@ -22,6 +31,7 @@ public class TaskList {
                 String nameAndType = parts[0].substring(5);
                 Task todo = new Todo(nameAndType);
                 list.add(todo);
+                storage.add(todo.toString());
 
         break;
         case "event":
@@ -30,6 +40,7 @@ public class TaskList {
                 String to = parts[2].replace("to ", "");
                 Task event = new Event(nameAndType, from, to);
                 list.add(event);
+                storage.add(event.toString());
 
 
         break;
@@ -38,6 +49,7 @@ public class TaskList {
                 String end = parts[1].replace("by ", "by: ");
                 Task deadline = new Deadline(nameAndType, end);
                 list.add(deadline);
+                storage.add(deadline.toString());
 
         break;
         default:
@@ -46,20 +58,22 @@ public class TaskList {
         }
     }
 
-    public void unmark(int i){
+    public void unmark(int i) {
         this.list.get(i-1).done = false;
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf("  [X] %s\n", this.list.get(i-1).name);
         System.out.println("____________________________________________________________");
+        storage.unmark(i-1);
     }
 
-    public void mark(int i){
+    public void mark(int i) {
         this.list.get(i-1).done = true;
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've unmarked this task:");
         System.out.printf("  [X] %s\n", this.list.get(i-1).name);
         System.out.println("____________________________________________________________");
+        storage.mark(i-1);
     }
 
     public String acknowledge() {
@@ -69,13 +83,17 @@ public class TaskList {
         return result;
     }
 
-    public void handleDelete(int i){
+    public void handleDelete(int i) {
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
         System.out.printf(" %s", this.list.get(i-1));
         System.out.printf("Now you have %d tasks in the list.\n", this.list.size() -1);
         System.out.println("____________________________________________________________");
         this.list.remove(i-1);
+        storage.delete(i-1);
+
     }
+
+
 
 }
