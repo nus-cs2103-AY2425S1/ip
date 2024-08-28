@@ -42,13 +42,13 @@ public class TaskList {
 
     public void removeTask(int index) {
         Task task = (Task) list.get(index);
+        list.remove(index);
         System.out.println(Ui.horizontalLine);
         System.out.println("Noted. I've removed this task:");
         System.out.println("   " + task.toString());
         System.out.println(this.listSize() > 1 ? "Now you have " + this.listSize() + " tasks in this list"
                 : "Now you have " + this.listSize() + " task in this list");
         System.out.println(Ui.horizontalLine);
-        list.remove(index);
     }
 
     public void addTask(Task task) {
