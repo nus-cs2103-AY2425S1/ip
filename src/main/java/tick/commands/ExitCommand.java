@@ -1,7 +1,7 @@
 package tick.commands;
 
 import tick.storage.Storage;
-import tick.tasks.TaskList;
+import tick.storage.TaskList;
 import tick.ui.Ui;
 
 public class ExitCommand extends Command {

@@ -3,7 +3,7 @@ package tick.commands;
 import tick.exceptions.TickException;
 import tick.storage.Storage;
 import tick.tasks.Task;
-import tick.tasks.TaskList;
+import tick.storage.TaskList;
 import tick.ui.Ui;
 
 public class UnmarkCommand extends Command {
@@ -15,7 +15,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TickException {
-        Task undoneTask = tasks.markTaskAsDone(this.toUnmark);
+        Task undoneTask = tasks.markTaskAsUndone(this.toUnmark);
         ui.showTaskMarked(undoneTask);
         storage.saveData(tasks.getAllTasks());
     }

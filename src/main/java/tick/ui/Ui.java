@@ -3,7 +3,7 @@ package tick.ui;
 import java.util.Scanner;
 
 import tick.tasks.Task;
-import tick.tasks.TaskList;
+import tick.storage.TaskList;
 
 public class Ui {
     public static final String separator = "____________________________________________________________";

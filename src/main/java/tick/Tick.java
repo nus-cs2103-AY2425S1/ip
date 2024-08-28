@@ -6,7 +6,7 @@ import tick.commands.Command;
 import tick.exceptions.TickException;
 import tick.parser.Parser;
 import tick.storage.Storage;
-import tick.tasks.TaskList;
+import tick.storage.TaskList;
 import tick.ui.Ui;
 
 public class Tick {

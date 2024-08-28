@@ -1,4 +1,6 @@
-package tick.tasks;
+package tick.storage;
+
+import tick.tasks.Task;
 
 import java.util.ArrayList;
 
@@ -37,7 +39,7 @@ public class TaskList {
 
     public Task markTaskAsUndone(int index) {
         Task undoneTask = this.tasks.get(index);
-        undoneTask.markAsDone();
+        undoneTask.markAsUndone();
         return undoneTask;
     }
 

@@ -3,7 +3,7 @@ package tick.commands;
 import tick.exceptions.TickException;
 import tick.storage.Storage;
 import tick.tasks.Task;
-import tick.tasks.TaskList;
+import tick.storage.TaskList;
 import tick.ui.Ui;
 
 public class DeleteCommand extends Command {

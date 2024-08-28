@@ -20,11 +20,11 @@ public class Parser {
             case LIST:
                 return new ListCommand();
             case MARK:
-                return new MarkCommand(Integer.parseInt(tokens[1]));
+                return new MarkCommand(Integer.parseInt(tokens[1]) - 1);
             case UNMARK:
-                return new UnmarkCommand(Integer.parseInt(tokens[1]));
+                return new UnmarkCommand(Integer.parseInt(tokens[1]) - 1);
             case DELETE:
-                return new DeleteCommand(Integer.parseInt(tokens[1]));
+                return new DeleteCommand(Integer.parseInt(tokens[1]) - 1);
             case TODO:
                 return Parser.prepareTodo(tokens[1]);
             case DEADLINE:
