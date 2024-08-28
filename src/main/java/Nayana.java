@@ -15,6 +15,7 @@ public class Nayana {
      * Commands include listing tasks or adding new tasks.
      * The tasks can be marked as done or not done
      * tasks can be deleted
+     * date formatting has been added (commit to branch 8)
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
