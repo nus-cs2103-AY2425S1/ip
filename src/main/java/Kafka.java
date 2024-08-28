@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Kafka {
 
-    public static String[] list = new String[100];
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public void greet() {
         String message = """
@@ -17,14 +18,14 @@ public class Kafka {
         System.out.println(message);
     }
 
-    public void add(String task, int taskNumber) {
-        list[taskNumber] = task;
-        System.out.println("  added: " + task);
+    public void addTask(Task task) {
+        tasks.add(task);
+        System.out.println("  added: " + task.description);
     }
 
-    public void setList(int taskNumber) {
-        for (int i = 1; i <= taskNumber; i++) {
-            String listMessage = "  " + i + ". " + list[i];
+    public void createList() {
+        for (int i = 0; i < tasks.size(); i++) {
+            String listMessage = "  " + (i + 1) + ". " + tasks.get(i).description;
             System.out.println(listMessage);
         }
     }
@@ -39,20 +40,19 @@ public class Kafka {
         Scanner scanner = new Scanner(System.in);
         Kafka kafka = new Kafka();
         boolean exitChat = false;
-        int taskNumber = 0;
 
         System.out.println("  Hello from\n" + logo);
         kafka.greet();
         System.out.println("  What do you need me for?");
         while (!exitChat) {
-            String task = scanner.nextLine();
-            if (task.trim().equalsIgnoreCase("Bye")) {
+            String description = scanner.nextLine();
+            Task task =  new Task(description);
+            if (task.description.trim().equalsIgnoreCase("Bye")) {
                 exitChat = true;
-            } else if (task.trim().equalsIgnoreCase("list")) {
-                kafka.setList(taskNumber);
+            } else if (task.description.trim().equalsIgnoreCase("list")) {
+                kafka.createList();
             } else {
-                taskNumber++;
-                kafka.add(task, taskNumber);
+                kafka.addTask(task);
             }
         }
         kafka.goodbye();
