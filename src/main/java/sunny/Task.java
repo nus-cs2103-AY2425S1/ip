@@ -1,3 +1,5 @@
+package sunny;
+
 /**
  * Represents information of tasks specified by user
  */
