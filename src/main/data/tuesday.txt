@@ -1,0 +1,5 @@
+T | 0 | read book
+D | 0 | finish book  | 2pm-4pm
+T | 0 | kill someone
+T | 0 | sleep somewhere
+D | 0 | finish this  | 3pm
