@@ -1,18 +1,31 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Hue {
 
+    private static Storage storage;
+    private static ArrayList<Task> tasks;
+
+    public Hue(String filePath) {
+        storage = new Storage(filePath);
+        tasks = storage.loadTasks();
+    }
+
+    private static void saveTasks() {
+        try {
+            storage.saveTasks(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file:" + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        Hue heu = new Hue("./data/Hue.txt");
         String name = "Hue";
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        int taskCount = 0;
 
         System.out.println("____________________________________________________________" );
         System.out.println("Hello! I'm [" + name + "]");
@@ -32,7 +45,7 @@ public class Hue {
             try {
 
                 if (input.equalsIgnoreCase("list")) {
-                    listTasks(tasks, taskCount);
+                    listTasks(tasks, tasks.size());
                 } else if (input.startsWith("mark")) {
                    markTaskAsDone(input, tasks);
                 } else if (input.startsWith("unmark")) {
@@ -73,6 +86,7 @@ public class Hue {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.size()) {
                 tasks.get(taskIndex).markDone();
+                saveTasks();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(" " + tasks.get(taskIndex));
             } else {
@@ -88,6 +102,7 @@ public class Hue {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.size()) {
                 tasks.get(taskIndex).unmarkDone();
+                saveTasks();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(" " + tasks.get(taskIndex));
             } else {
@@ -105,6 +120,7 @@ public class Hue {
                 throw new HueException("The description of a todo cannot be empty.");
             }
             tasks.add(new Todo(description));
+            saveTasks();
             System.out.println("Got it. I've added this task");
             System.out.println(" " + tasks.get(tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -122,6 +138,7 @@ public class Hue {
                 throw new HueException("The description and deadline of a task cannot be empty.");
             }
             tasks.add(new Deadline(description, by));
+            saveTasks();
             System.out.println("Got it. I've added this task");
             System.out.println(" " + tasks.get(tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -140,6 +157,7 @@ public class Hue {
                 throw new HueException("The description, start time and end time of an event cannot be empty.");
             }
             tasks.add(new Event(description, from, to));
+            saveTasks();
             System.out.println("Got it. I've added this task");
             System.out.println(" " + tasks.get(tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -153,6 +171,7 @@ public class Hue {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.size()) {
                 Task removedTask = tasks.remove(taskIndex);
+                saveTasks();
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(removedTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list");

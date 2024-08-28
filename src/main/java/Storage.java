@@ -15,57 +15,83 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {
-            writer.write(task.toFileFormat() + System.lineSeparator());
+            if (task != null) {
+                writer.write(task.toFileFormat() + System.lineSeparator());
+            }
         }
         writer.close();
 
     }
 
-    public ArrayList<Task> loadTasks() throws FileNotFoundException {
+    public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        if (!file.exists()) {
-            File parentFile = file.getParentFile();
-            parentFile.mkdirs();
-            return tasks;
+        try {
+            if (!file.exists()) {
+                System.out.println("Data file not found. Starting with an empty task list.");
+                return tasks;
+            }
+
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                loadTasksFromData(tasks, parts);
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Data file not found. Starting with an empty task list.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Data file is corrupted or not in the expected format.");
         }
 
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            String[] taskData = line.split(" \\| ");
-            Task task = createTaskFromData(taskData);
-            tasks.add(task);
-        }
-        scanner.close();
         return tasks;
-
     }
 
-    private Task createTaskFromData(String[] taskData) {
-        String type = taskData[1];
-        boolean isDone = taskData[2].equals("1");
-        String description = taskData[2];
+    public void loadTasksFromData(ArrayList<Task> tasks, String[] data) {
+        String type = data[0];
+        boolean isDone = data[1].equals("1");
+        String descritpion = data[2];
 
-        Task task = null;
         switch (type) {
         case "T":
-            task = new Todo(description);
+            Task todoTask = new Todo(descritpion);
+            if (isDone) {
+                todoTask.markDone();
+            }
+            tasks.add(todoTask);
             break;
         case "D":
-            String by = taskData[3];
-            task = new Deadline(description, by);
+            String by = data[3];
+            Task deadlineTask = new Deadline(descritpion, by);
+            if (isDone) {
+                deadlineTask.markDone();
+            }
+            tasks.add(deadlineTask);
+            break;
         case "E":
-            String from = taskData[3];
-            String to = taskData[4];
-            task = new Event(description, from, to);
+            String from = data[3];
+            String to = data[4];
+            Task eventTask = new Event(descritpion, from, to);
+            if (isDone) {
+                eventTask.markDone();
+            }
+            tasks.add(eventTask);
+            break;
+        default:
+            System.out.println("unknwon task type in file: " + type);
             break;
         }
-        if (isDone) {
-            task.markDone();
-        }
-        return task;
+
+
+
     }
+
+
+
+
 
 }
