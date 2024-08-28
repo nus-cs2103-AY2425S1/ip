@@ -1,7 +1,8 @@
-public class Task {
-    protected String description;
-    protected boolean isDone;
+package evan.task;
 
+public class Task {
+    protected final String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
