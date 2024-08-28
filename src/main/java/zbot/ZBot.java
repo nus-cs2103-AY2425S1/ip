@@ -7,7 +7,7 @@ import zbot.task.Task;
 import zbot.task.ToDo;
 
 public class ZBot {
-    private static final String SAVE_PATH = "../../../data/tasks.txt";
+    private static final String SAVE_PATH = "./data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
