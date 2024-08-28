@@ -12,9 +12,19 @@ import astra.task.Todo;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
+/**
+ * Represents a command to add a task.
+ */
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param type The type of task to add.
+     * @param args The arguments for the task.
+     * @throws AstraException If the arguments are invalid.
+     */
     public AddCommand(Task.TaskType type, HashMap<String, String> args) throws AstraException {
         try {
             switch (type) {

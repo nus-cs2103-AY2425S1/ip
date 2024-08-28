@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class to handle loading and saving of tasks.
+ */
 public class Storage {
     private final String PATH;
     private final String FILENAME = "/tasks.txt";
@@ -17,6 +20,12 @@ public class Storage {
         this.PATH = path;
     }
 
+    /**
+     * Loads tasks from the data file.
+     *
+     * @return List of tasks loaded from the data file.
+     * @throws AstraException If the data file is corrupted.
+     */
     public ArrayList<Task> load() throws AstraException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(PATH + FILENAME);
@@ -35,6 +44,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the data file.
+     *
+     * @param tasks List of tasks to be saved.
+     */
     public void save(TaskList tasks) {
         String text = tasks.toText();
 

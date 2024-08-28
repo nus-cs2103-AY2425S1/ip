@@ -5,6 +5,9 @@ import astra.Storage;
 import astra.TaskList;
 import astra.Ui;
 
+/**
+ * Represents a command to list all tasks.
+ */
 public class ListCommand extends Command {
     public ListCommand() {
 

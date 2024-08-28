@@ -6,6 +6,9 @@ import astra.Storage;
 import astra.TaskList;
 import astra.task.Task;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
