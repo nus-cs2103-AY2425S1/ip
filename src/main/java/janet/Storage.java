@@ -79,6 +79,7 @@ public class Storage {
             fileReader.close();
             bufferedReader.close();
         } catch (IOException e) {
+            // exception will be thrown when fileReader cannot find the file.
             throw new JanetException("");
         }
         return listOfTasks;
