@@ -40,7 +40,7 @@ public class CommandParser {
             String intValue = input.replaceAll("[^0-9]", "");
             int index = Integer.parseInt(intValue) - 1;
             tl.removeFromTaskList(index);
-            s.removeFileTask(index);
+            store.removeFileTask(index);
         } else if (input.startsWith("find")) {
             String matchValue = input.replace("find", "").strip();
             tl.findTasks(matchValue);
