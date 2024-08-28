@@ -12,7 +12,7 @@ public class Task {
      * @param description The description of the task.
      * @throws EmptyInputException if the description is empty.
      */
-    public Task(String description) throws EmptyInputException {
+    public Task(String description) throws DelphiException {
         if (description.length() > 0 && description.charAt(0) != '/') {
             this.name = description;
             this.isDone = false;

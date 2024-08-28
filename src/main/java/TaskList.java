@@ -105,40 +105,40 @@ public class TaskList {
                 if (Parser.checkStringPrefix(s, 6, "[T][ ]")) {
                     try {
                         tasks.add(new Todo(s.substring(7)));
-                    } catch (EmptyInputException e) {
+                    } catch (DelphiException e) {
                         //empty
                     }
                 } else if (Parser.checkStringPrefix(s, 6, "[T][X]")) {
                     try {
                         tasks.add(new Todo(s.substring(7)));
                         markTaskAsDone(tasks.size());
-                    } catch (EmptyInputException e) {
+                    } catch (DelphiException e) {
                         //empty
                     }
                 } else if (Parser.checkStringPrefix(s, 6, "[D][ ]")) {
                     try {
                         tasks.add(new Deadline(Parser.formatStringDeadline(s.substring(7))));
-                    } catch (EmptyInputException e)  {
+                    } catch (DelphiException e)  {
                         //empty
                     }
                 } else if (Parser.checkStringPrefix(s, 6, "[D][X]")) {
                     try {
                         tasks.add(new Deadline(Parser.formatStringDeadline(s.substring(7))));
                         markTaskAsDone(tasks.size());
-                    } catch (EmptyInputException e)  {
+                    } catch (DelphiException e)  {
                         //empty
                     }
                 } else if (Parser.checkStringPrefix(s, 6, "[E][ ]")) {
                     try {
                         tasks.add(new Event(Parser.formatStringEvent(s.substring(7))));
-                    } catch (EmptyInputException e)  {
+                    } catch (DelphiException e)  {
                         //empty
                     }
                 } else if (Parser.checkStringPrefix(s, 6, "[E][X]")) {
                     try {
                         tasks.add(new Event(Parser.formatStringEvent(s.substring(7))));
                         markTaskAsDone(tasks.size());
-                    } catch (EmptyInputException e)  {
+                    } catch (DelphiException e)  {
                         //empty
                     }
                 }
