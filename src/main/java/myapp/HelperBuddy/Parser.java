@@ -1,4 +1,4 @@
-package myapp.HelperBuddy;
+package myapp.helperbuddy;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,12 +14,10 @@ public class Parser {
                 System.out.println("________________________________________________");
                 System.out.println("Sorry! The description cannot be empty.");
                 System.out.println("________________________________________________");
-            }
-            else {
+            } else {
                 return new ToDo(description);
             }
-        }
-        else if (command.startsWith("deadline")) {
+        } else if (command.startsWith("deadline")) {
             try {
                 String[] parts = command.split(" /by ");
                 String description = parts[0].substring(9).trim();
@@ -29,17 +27,14 @@ public class Parser {
                     System.out.println("Sorry! The description cannot be empty");
                     System.out.println("The deadline timing should be in dd/MM/yyyy HHmm format.");
                     System.out.println("________________________________________________");
-                }
-                else {
+                } else {
                     return new Deadline(description, deadline);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Error parsing deadline command.");
                 return null;
             }
-        }
-        else if (command.startsWith("event")) {
+        } else if (command.startsWith("event")) {
             try {
                 String[] parts = command.split(" /from ");
                 String[] subParts = parts[1].split(" /to ");
@@ -51,17 +46,14 @@ public class Parser {
                     System.out.println("Sorry! The description cannot be empty");
                     System.out.println("The from and to timings should be in dd/MM/yyyy HHmm format.");
                     System.out.println("________________________________________________");
-                }
-                else {
+                } else {
                     return new Event(description, from, to);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Error parsing event command.");
                 return null;
             }
-        }
-        else {
+        } else {
             System.out.println("________________________________________________");
             System.out.println("Invalid command. Please use 'todo', 'deadline', 'event', 'delete'," +
                     " 'mark', 'unmark', 'list' or 'bye'. Thank you for understanding!");
@@ -73,8 +65,7 @@ public class Parser {
     public static LocalDateTime parseDateTime(String dateTimeStr) {
         try {
             return LocalDateTime.parse(dateTimeStr, FORMATTER);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             System.out.println("Error parsing date/time: " + dateTimeStr);
             return null;
         }

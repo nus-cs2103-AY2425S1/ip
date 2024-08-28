@@ -1,4 +1,4 @@
-package myapp.HelperBuddy;
+package myapp.helperbuddy;
 
 import org.junit.jupiter.api.Test;
 

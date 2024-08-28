@@ -1,4 +1,4 @@
-package myapp.HelperBuddy;
+package myapp.helperbuddy;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,20 +17,16 @@ public class Storage {
                 Task task;
                 if (line.startsWith("T")) {
                     task = ToDo.parseTask(line);
-                }
-                else if (line.startsWith("D")) {
+                } else if (line.startsWith("D")) {
                     task = Deadline.parseTask(line);
-                }
-                else if (line.startsWith("E")) {
+                } else if (line.startsWith("E")) {
                     task = Event.parseTask(line);
-                }
-                else {
+                } else {
                     throw new IllegalArgumentException("Unknown task type");
                 }
                 taskList.add(task);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred while loading tasks from file.");
         }
     }
@@ -42,8 +38,7 @@ public class Storage {
                 writer.write(task.toFileFormat() + System.lineSeparator());
             }
             writer.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred while saving tasks to file.");
         }
     }
