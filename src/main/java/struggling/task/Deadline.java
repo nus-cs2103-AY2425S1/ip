@@ -1,13 +1,14 @@
+package struggling.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 public class Deadline extends Task {
 
     private LocalDate by;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }

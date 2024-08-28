@@ -1,5 +1,8 @@
+package struggling;
+import struggling.command.Command;
+import struggling.task.Task;
+
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Struggling {

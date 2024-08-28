@@ -1,3 +1,5 @@
+package struggling;
+import struggling.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -1,8 +1,10 @@
+package struggling.task;
+
 public class Task {
     private String description;
     private boolean isDone;
 
-    Task(String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }

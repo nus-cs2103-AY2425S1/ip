@@ -1,3 +1,9 @@
+package struggling;
+import struggling.task.Deadline;
+import struggling.task.Event;
+import struggling.task.Task;
+import struggling.task.ToDo;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;

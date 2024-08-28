@@ -1,4 +1,9 @@
-import java.io.IOException;
+package struggling.command;
+
+import struggling.Storage;
+import struggling.TaskList;
+import struggling.Ui;
+import struggling.task.Task;
 
 public class AddCommand extends Command {
 
