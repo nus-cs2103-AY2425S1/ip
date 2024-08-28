@@ -5,39 +5,66 @@ import java.util.Scanner;
 import Main.TaskList;
 import Tasks.Task;
 
+/**
+ * The {@code Ui} class handles interactions with the user, including
+ * reading user input and displaying messages.
+ */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
+    /**
+     * Constructs a {@code Ui} object and initializes the Scanner to read user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
-    // Reads the next line of user input
+    /**
+     * Reads the next line of user input.
+     *
+     * @return the user's input as a String
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
-    // Shows welcome message
+    /**
+     * Displays a welcome message to the user.
+     */
     public void showWelcome() {
         showMessage("Hello! I am Pro Yapper!\nWhat can I do for you?");
     }
 
-    // Shows goodbye message
+    /**
+     * Displays a goodbye message to the user.
+     */
     public void showGoodbye() {
         showMessage("Hope to see you again soon!");
     }
 
-    // Shows general message
+    /**
+     * Displays a general message to the user.
+     *
+     * @param message the message to display
+     */
     public void showMessage(String message) {
         System.out.println(message);
     }
 
-    // Shows error message
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message the error message to display
+     */
     public void showError(String message) {
         System.err.println(message);
     }
 
-    // Shows the list of tasks
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param taskList the {@code TaskList} containing tasks to be displayed
+     */
     public void showTasks(TaskList taskList) {
         if (taskList.size() == 0) {
             showMessage("No tasks in your list.");

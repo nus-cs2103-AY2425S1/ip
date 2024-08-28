@@ -7,11 +7,15 @@ import Tasks.Event;
 import Main.Parser;
 
 import java.util.ArrayList;
-import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.io.*;
 
+/**
+ * The {@code Storage} class handles reading tasks from a file and saving tasks back to a file.
+ * This class ensures that task data is persistent between application runs.
+ */
 public class Storage {
     private String filepath;
 
@@ -19,7 +23,11 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    // load tasks from file when we start up the program again
+    /**
+     * Loads tasks from the file at the specified filepath.
+     *
+     * @return a list of tasks loaded from the file
+     */
     public List<Task> loadTasks() {
         List<Task> taskList = new ArrayList<>();
         File file = new File(this.filepath);
@@ -94,7 +102,11 @@ public class Storage {
     }
 
 
-    // update the file
+    /**
+     * Saves the list of tasks to the file at the specified filepath.
+     *
+     * @param taskList the list of tasks to save
+     */
     public void saveTasks(List<Task> taskList) {
         File file = new File(this.filepath);
         file.getParentFile().mkdirs();

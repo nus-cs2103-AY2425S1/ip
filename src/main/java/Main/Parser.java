@@ -6,8 +6,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Parser} class is responsible for interpreting user input and converting it
+ * into specific command objects that can be executed by the application.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding {@code Command} object.
+     *
+     * @param userInput the user input to parse
+     * @return the command corresponding to the user input
+     */
     public static Command parseCommand(String userInput) {
         String[] parts = userInput.split(" ", 2);
         String commandWord = parts[0];
@@ -34,6 +44,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a to-do command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code ToDoCommand} or {@code InvalidCommand}
+     */
     private static Command parseTodoCommand(String[] parts) {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("todo WHAT????");
@@ -41,6 +57,12 @@ public class Parser {
         return new ToDoCommand(parts[1].trim());
     }
 
+    /**
+     * Parses a deadline command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code DeadlineCommand} or {@code InvalidCommand}
+     */
     private static Command parseDeadlineCommand(String[] parts) {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("WHEN IS THE DEADLINE???\nPlease use yyyy-MM-dd HHmm format.");
@@ -58,6 +80,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an event command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code EventCommand} or {@code InvalidCommand}
+     */
     private static Command parseEventCommand(String[] parts) {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("WHEN DOES IT START???\nPlease use yyyy-MM-dd HHmm format.");
@@ -80,6 +108,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a delete command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code DeleteCommand} or {@code InvalidCommand}
+     */
     private static Command parseDeleteCommand(String[] parts) {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("delete WHAT???");
@@ -92,6 +126,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a mark command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code MarkCommand} or {@code InvalidCommand}
+     */
     private static Command parseMarkCommand(String[] parts) {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("mark WHAT???");
@@ -104,6 +144,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an unmark command from user input.
+     *
+     * @param parts the split user input
+     * @return the corresponding {@code UnmarkCommand} or {@code InvalidCommand}
+     */
     private static Command parseUnmarkCommand(String[] parts) {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             return new InvalidCommand("unmark WHAT???");
@@ -116,7 +162,14 @@ public class Parser {
         }
     }
 
-    // Method to parse date-time strings into LocalDateTime objects
+    /**
+     * Parses a date-time string into a {@code LocalDateTime} object.
+     * Expected format is "yyyy-MM-dd HHmm".
+     *
+     * @param dateTime the date-time string to parse
+     * @return the parsed {@code LocalDateTime} object
+     * @throws DateTimeParseException if the date-time string is not in the expected format
+     */
     public static LocalDateTime parseDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(dateTime, formatter);
