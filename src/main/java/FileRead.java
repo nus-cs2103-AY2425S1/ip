@@ -17,25 +17,27 @@ public class FileRead {
             }
 
             Task task;
-            if (splitString[0].equals("D")){
+            switch (splitString[0]) {
+            case "D" -> {
                 // Save as deadline
                 String[] details = splitString[2].split(" \\| ", 2);
                 if (details.length < 2) {
                     throw new CorruptFileException(filePath);
                 }
                 task = new Deadline(details[0], details[1]);
-            } else if (splitString[0].equals("E")){
+            }
+            case "E" -> {
                 // Save as event
                 String[] details = splitString[2].split(" \\| ", 3);
                 if (details.length < 3) {
                     throw new CorruptFileException(filePath);
                 }
                 task = new Event(details[0], details[1], details[2]);
-            } else if (splitString[0].equals("T")) {
+            }
+            case "T" ->
                 // Save as todo
-                task = new Todo(splitString[2]);
-            } else {
-                throw new CorruptFileException(filePath);
+                    task = new Todo(splitString[2]);
+            default -> throw new CorruptFileException(filePath);
             }
 
             // Check for mark
