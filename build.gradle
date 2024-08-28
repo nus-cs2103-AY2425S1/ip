@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Blitz.Blitz")
+    mainClass.set("blitz.Blitz")
 }
 
 shadowJar {

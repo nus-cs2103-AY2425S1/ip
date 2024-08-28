@@ -1,4 +1,4 @@
-package Blitz;
+package blitz;
 
 public enum Instruction {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
@@ -13,7 +13,7 @@ public enum Instruction {
         return false;
     }
 
-    public static boolean checkCommandExist(String command) {
+    public static boolean isCommandExist(String command) {
         return Instruction.contains(command);
     }
 }

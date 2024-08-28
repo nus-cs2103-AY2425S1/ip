@@ -1,8 +1,8 @@
-package Task;
+package task;
 
 /* My import */
-import Exception.BlitzException;
-import Exception.BlitzIOException;
+import exception.BlitzException;
+import exception.BlitzIOException;
 
 /* System import */
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public static Task stringToTask(String str) throws BlitzException {
+    public static Task convertStringToTask(String str) throws BlitzException {
         String[] params = str.split("::");
         String type = params[0];
 
@@ -25,23 +25,27 @@ public abstract class Task {
             if (params.length != 3) {
                 throw new BlitzIOException("Failed to read from database");
             }
+
             return new Todo(params[2], "T", Boolean.parseBoolean(params[1]));
         case "D":
             if (params.length != 4) {
                 throw new BlitzIOException("Failed to read from database");
             }
-            return new Deadline(params[2], "D", stringToLocaldatetime(params[3]), Boolean.parseBoolean(params[1]));
+
+            return new Deadline(params[2], "D", convertStringToLocalDateTime(params[3]), Boolean.parseBoolean(params[1]));
         case "E":
             if (params.length != 5) {
                 throw new BlitzIOException("Failed to read from database");
             }
-            return new Event(params[2], "E", stringToLocaldatetime(params[3]), stringToLocaldatetime(params[4]), Boolean.parseBoolean(params[1]));
+
+            return new Event(params[2], "E", convertStringToLocalDateTime(params[3]),
+                    convertStringToLocalDateTime(params[4]), Boolean.parseBoolean(params[1]));
         default:
             throw new BlitzIOException("Failed to read from database");
         }
     }
 
-    public static LocalDateTime stringToLocaldatetime(String str) {
+    public static LocalDateTime convertStringToLocalDateTime(String str) {
         int year = Integer.parseInt(str.substring(0, 4));
         int month = Integer.parseInt(str.substring(5, 7));
         int day = Integer.parseInt(str.substring(8, 10));
@@ -55,21 +59,17 @@ public abstract class Task {
         return this.desc;
     }
 
-    public boolean getStatus() {
+    public boolean isDone() {
         return this.isDone;
     }
 
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkDone() {
-        this.isDone = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public abstract String getType();
 
-    public abstract String taskToString();
+    public abstract String convertTaskToString();
 
     @Override
     public String toString() {

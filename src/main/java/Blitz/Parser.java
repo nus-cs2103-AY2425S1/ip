@@ -1,20 +1,20 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Command.Command;
-import Command.CommandBye;
-import Command.CommandDeadline;
-import Command.CommandDelete;
-import Command.CommandEvent;
-import Command.CommandList;
-import Command.CommandMark;
-import Command.CommandTodo;
-import Command.CommandUnmark;
-import Exception.BlitzCommandDoesNotExistException;
-import Exception.BlitzException;
-import Exception.BlitzInvalidParameterMoreThanOneException;
-import Exception.BlitzInvalidParameterRegexException;
-import Exception.BlitzNoParameterException;
+import command.Command;
+import command.CommandBye;
+import command.CommandDeadline;
+import command.CommandDelete;
+import command.CommandEvent;
+import command.CommandList;
+import command.CommandMark;
+import command.CommandTodo;
+import command.CommandUnmark;
+import exception.BlitzCommandDoesNotExistException;
+import exception.BlitzException;
+import exception.BlitzInvalidParameterMoreThanOneException;
+import exception.BlitzInvalidParameterRegexException;
+import exception.BlitzNoParameterException;
 
 /* System import */
 import java.util.regex.Matcher;
@@ -22,15 +22,15 @@ import java.util.regex.Pattern;
 
 public class Parser {
     public static Command parse(String command) throws BlitzException {
-        if (regexChecker("^list\\s*$", command)) {
+        if (isRegexMatched("^list\\s*$", command)) {
             return new CommandList("list");
-        } else if (regexChecker("^bye\\s*$", command)) {
+        } else if (isRegexMatched("^bye\\s*$", command)) {
             return new CommandBye("bye");
         } else {
             String[] cont = command.split(" ", 2);
             String inst = cont[0];
 
-            if (!Instruction.checkCommandExist(inst)) {
+            if (!Instruction.isCommandExist(inst)) {
                 throw new BlitzCommandDoesNotExistException();
             }
 
@@ -41,6 +41,7 @@ public class Parser {
             switch (inst) {
             case "mark":
                 String[] markParam = cont[1].split(" ");
+
                 if (markParam.length > 1) {
                     throw new BlitzInvalidParameterMoreThanOneException("mark [Integer]");
                 }
@@ -48,6 +49,7 @@ public class Parser {
                 return new CommandMark(command, markParam[0]);
             case "unmark":
                 String[] unmarkParam = cont[1].split(" ");
+
                 if (unmarkParam.length > 1) {
                     throw new BlitzInvalidParameterMoreThanOneException("unmark [Integer]");
                 }
@@ -56,7 +58,8 @@ public class Parser {
             case "todo":
                 return new CommandTodo(command, cont[1]);
             case "deadline":
-                if (!regexChecker("^.+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command)) {
+                if (!isRegexMatched(
+                        "^.+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command)) {
                     throw new BlitzInvalidParameterRegexException("deadline [Task name] /by [yyyy-mm-dd hhmm]");
                 }
 
@@ -64,7 +67,9 @@ public class Parser {
 
                 return new CommandDeadline(command, deadlineParams);
             case "event":
-                if (!regexChecker("^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9] \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command)) {
+                if (!isRegexMatched(
+                        "^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]" +
+                                " \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command)) {
                     throw new BlitzInvalidParameterRegexException("event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
                 }
 
@@ -75,6 +80,7 @@ public class Parser {
                 return new CommandEvent(command, eventParams);
             case "delete":
                 String[] deleteParam = cont[1].split(" ");
+
                 if (deleteParam.length > 1) {
                     throw new BlitzInvalidParameterMoreThanOneException("Delete [Integer]");
                 }
@@ -86,7 +92,7 @@ public class Parser {
         }
     }
 
-    private static boolean regexChecker(String reg, String inp) {
+    private static boolean isRegexMatched(String reg, String inp) {
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(inp);
 

@@ -1,12 +1,12 @@
-package Command;
+package command;
 
 /* My import */
-import Blitz.Storage;
-import Blitz.TaskList;
-import Blitz.Ui;
-import Exception.BlitzException;
-import Task.Event;
-import Task.Task;
+import blitz.Storage;
+import blitz.TaskList;
+import blitz.Ui;
+import exception.BlitzException;
+import task.Event;
+import task.Task;
 
 public class CommandEvent extends Command {
     private String[] params;
@@ -18,10 +18,11 @@ public class CommandEvent extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task temp = new Event(params[0], "E", Task.stringToLocaldatetime(params[1]), Task.stringToLocaldatetime(params[2]), false);
+        Task temp = new Event(params[0], "E", Task.convertStringToLocalDateTime(params[1]),
+                Task.convertStringToLocalDateTime(params[2]), false);
 
         list.addTask(temp);
         storage.writeOneToFile(temp);
-        ui.printTaskAddedWithDivider("E", list.size(), temp);
+        ui.printTaskAddedWithDivider("E", list.getSize(), temp);
     }
 }

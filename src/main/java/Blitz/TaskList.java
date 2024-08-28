@@ -1,7 +1,7 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Task.Task;
+import task.Task;
 
 /* System import */
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class TaskList {
         return this.list.isEmpty();
     }
 
-    public int size() {
+    public int getSize() {
         return this.list.size();
     }
 

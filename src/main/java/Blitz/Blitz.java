@@ -1,10 +1,8 @@
-package Blitz;
+package blitz;
 
-/* My import */
-import Command.Command;
-import Exception.BlitzException;
+import command.Command;
+import exception.BlitzException;
 
-/* System import */
 import java.util.Scanner;
 
 public class Blitz {

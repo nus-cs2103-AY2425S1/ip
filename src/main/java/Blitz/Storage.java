@@ -1,9 +1,9 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Exception.BlitzException;
-import Exception.BlitzIOException;
-import Task.Task;
+import exception.BlitzException;
+import exception.BlitzIOException;
+import task.Task;
 
 /* System import */
 import java.io.File;
@@ -23,7 +23,7 @@ public class Storage {
     public void writeOneToFile(Task task) throws BlitzException {
         try {
             FileWriter fw = new FileWriter(path, true);
-            fw.write(task.getType().equals("Empty") ? "" : task.taskToString());
+            fw.write(task.getType().equals("Empty") ? "" : task.convertTaskToString());
             fw.close();
         } catch (IOException e) {
             throw new BlitzIOException("Failed to write to database");
@@ -41,6 +41,7 @@ public class Storage {
 
         if (!list.isEmpty()) {
             ArrayList<Task> temp = list.getAllTask();
+
             for (Task task : temp) {
                 writeOneToFile(task);
             }
@@ -53,8 +54,9 @@ public class Storage {
 
         try {
             Scanner s = new Scanner(f);
+
             while (s.hasNext()) {
-                list.addTask(Task.stringToTask(s.nextLine()));
+                list.addTask(Task.convertStringToTask(s.nextLine()));
             }
         } catch (FileNotFoundException e) {
             try {
