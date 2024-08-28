@@ -10,14 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class BuddyBot {
-
-
-    //testing
-
-    //second test
     //test
+
     //test
+<<<<<<< HEAD
     //test
+=======
+//test
+>>>>>>> branch-level-7
     static FileStorage store = new FileStorage("BuddyBot.txt");
     public static void main(String[] args) {
         //Scanner object
