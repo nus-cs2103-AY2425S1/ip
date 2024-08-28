@@ -4,7 +4,9 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzException;
+
 import task.Deadline;
 import task.Task;
 
@@ -32,10 +34,10 @@ public class CommandDeadline extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task temp = new Deadline(params[0], "D", Task.stringToLocaldatetime(params[1]), false);
+        Task temp = new Deadline(params[0], "D", Task.convertStringToLocalDateTime(params[1]), false);
 
         list.addTask(temp);
         storage.writeOneToFile(temp);
-        ui.printTaskAddedWithDivider("D", list.size(), temp);
+        ui.printTaskAddedWithDivider("D", list.getSize(), temp);
     }
 }

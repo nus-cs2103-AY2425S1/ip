@@ -25,12 +25,12 @@ public class TaskListTest {
 
     @Test
     public void checkListSize_emptyTaskList_returnZero() {
-        assertEquals(0, new TaskList(new ArrayList<>()).size());
+        assertEquals(0, new TaskList(new ArrayList<>()).getSize());
     }
 
     @Test
     public void checkListSize_tasklistOfSizeOne_returnOne() {
-        assertEquals(1, new TaskList(new ArrayList<>(List.of(new Todo("", "", false)))).size());
+        assertEquals(1, new TaskList(new ArrayList<>(List.of(new Todo("", "", false)))).getSize());
     }
 
     @Test

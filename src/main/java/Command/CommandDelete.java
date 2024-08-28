@@ -4,10 +4,12 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
 import exception.BlitzIndexOutOfBoundsException;
 import exception.BlitzNumberFormatException;
+
 import task.Task;
 
 public class CommandDelete extends Command {
@@ -44,7 +46,9 @@ public class CommandDelete extends Command {
             Task task = list.deleteTask(ind);
             storage.writeAllToFile(list);
 
-            String[] toPrint = {"Noted. I've removed this task:", "  [" + task.getType() + "]" + "[" + (task.getStatus() ? "X" : " ") + "] " + task};
+            String[] toPrint = {"Noted. I've removed this task:",
+                    "  [" + task.getType() + "]" + "[" + (task.isDone() ? "X" : " ") + "] " + task};
+
             ui.printInDivider(toPrint);
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();

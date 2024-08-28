@@ -38,7 +38,7 @@ public class Parser {
             String[] cont = command.split(" ", 2);
             String inst = cont[0];
 
-            if (!Instruction.checkCommandExist(inst)) {
+            if (!Instruction.isCommandExist(inst)) {
                 throw new BlitzCommandDoesNotExistException();
             }
 

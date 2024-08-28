@@ -4,10 +4,12 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
 import exception.BlitzIndexOutOfBoundsException;
 import exception.BlitzNumberFormatException;
+
 import task.Task;
 
 public class CommandUnmark extends Command {
@@ -42,9 +44,10 @@ public class CommandUnmark extends Command {
             }
 
             Task task = list.getTask(ind);
+            task.setDone(false);
 
-            task.unmarkDone();
-            String[] toPrint = {"Ok, I've marked this task as not done yet:", "  [" + task.getType() + "]" + "[ ] " + task};
+            String[] toPrint = {"Ok, I've marked this task as not done yet:",
+                    "  [" + task.getType() + "]" + "[ ] " + task};
 
             storage.writeAllToFile(list);
             ui.printInDivider(toPrint);

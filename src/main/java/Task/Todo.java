@@ -21,8 +21,8 @@ public class Todo extends Task {
      * @return String representation of this Todo object.
      */
     @Override
-    public String taskToString() {
-        return this.type + "::" + super.getStatus() + "::" + super.getDesc() + "\n";
+    public String convertTaskToString() {
+        return this.type + "::" + super.isDone() + "::" + super.getDesc() + "\n";
     }
 
     /**
@@ -52,6 +52,6 @@ public class Todo extends Task {
         }
 
         Todo t = (Todo) o;
-        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && (super.getStatus() == t.getStatus());
+        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && (super.isDone() == t.isDone());
     }
 }

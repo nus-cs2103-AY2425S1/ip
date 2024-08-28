@@ -2,6 +2,7 @@ package blitz;
 
 /* My import */
 import exception.BlitzException;
+
 import task.Task;
 
 public class Ui {
@@ -40,8 +41,10 @@ public class Ui {
      * @param task Task object to be printed.
      */
     public void printTaskAddedWithDivider(String type, int size, Task task) {
-        String[] toPrint = {"Got it. I've added this task:", "  [" + type + "][ ] " + task,
+        String[] toPrint = {"Got it. I've added this task:",
+                "  [" + type + "][ ] " + task,
                 "Now you have " + size + " tasks in the list."};
+
         printInDivider(toPrint);
     }
 
@@ -52,6 +55,7 @@ public class Ui {
      */
     public void printError(BlitzException err) {
         String[] toPrint = {err.toString()};
+
         printInDivider(toPrint);
     }
 }

@@ -4,7 +4,9 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzException;
+
 import task.Task;
 import task.Todo;
 
@@ -36,6 +38,6 @@ public class CommandTodo extends Command {
 
         list.addTask(task);
         storage.writeOneToFile(task);
-        ui.printTaskAddedWithDivider("T", list.size(), task);
+        ui.printTaskAddedWithDivider("T", list.getSize(), task);
     }
 }

@@ -4,8 +4,10 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
+
 import task.Task;
 
 public class CommandList extends Command {
@@ -33,12 +35,12 @@ public class CommandList extends Command {
             throw new BlitzEmptyTaskListException();
         }
 
-        String[] toPrint = new String[list.size() + 1];
+        String[] toPrint = new String[list.getSize() + 1];
         toPrint[0] = "Here are the tasks in your list:";
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.getSize(); i++) {
             Task curr = list.getTask(i);
-            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]" + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr;
+            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]" + "[" + (curr.isDone() ? "X" : " ") + "] " + curr;
         }
 
         ui.printInDivider(toPrint);

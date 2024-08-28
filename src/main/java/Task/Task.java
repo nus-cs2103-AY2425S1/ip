@@ -29,7 +29,7 @@ public abstract class Task {
      * @return Task object converted from String (if possible).
      * @throws BlitzException If corrupted file content format or unrecognized type.
      */
-    public static Task stringToTask(String str) throws BlitzException {
+    public static Task convertStringToTask(String str) throws BlitzException {
         String[] params = str.split("::");
         String type = params[0];
 
@@ -38,17 +38,21 @@ public abstract class Task {
             if (params.length != 3) {
                 throw new BlitzIOException("Failed to read from database");
             }
+
             return new Todo(params[2], "T", Boolean.parseBoolean(params[1]));
         case "D":
             if (params.length != 4) {
                 throw new BlitzIOException("Failed to read from database");
             }
-            return new Deadline(params[2], "D", stringToLocaldatetime(params[3]), Boolean.parseBoolean(params[1]));
+
+            return new Deadline(params[2], "D", convertStringToLocalDateTime(params[3]), Boolean.parseBoolean(params[1]));
         case "E":
             if (params.length != 5) {
                 throw new BlitzIOException("Failed to read from database");
             }
-            return new Event(params[2], "E", stringToLocaldatetime(params[3]), stringToLocaldatetime(params[4]), Boolean.parseBoolean(params[1]));
+
+            return new Event(params[2], "E", convertStringToLocalDateTime(params[3]),
+                    convertStringToLocalDateTime(params[4]), Boolean.parseBoolean(params[1]));
         default:
             throw new BlitzIOException("Failed to read from database");
         }
@@ -60,7 +64,7 @@ public abstract class Task {
      * @param str String to be converted.
      * @return LocalDateTime object converted from the specififed String.
      */
-    public static LocalDateTime stringToLocaldatetime(String str) {
+    public static LocalDateTime convertStringToLocalDateTime(String str) {
         int year = Integer.parseInt(str.substring(0, 4));
         int month = Integer.parseInt(str.substring(5, 7));
         int day = Integer.parseInt(str.substring(8, 10));
@@ -88,17 +92,17 @@ public abstract class Task {
         return this.isDone;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     /**
      * Sets the value of isDone in this object.
      *
      * @param isDone Boolean value to be set.
      */
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkDone() {
-        this.isDone = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**
@@ -113,7 +117,7 @@ public abstract class Task {
      *
      * @return String representation of this object.
      */
-    public abstract String taskToString();
+    public abstract String convertTaskToString();
 
     /**
      * Returns a String representation of this object.

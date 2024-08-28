@@ -28,7 +28,7 @@ public class Deadline extends Task {
      * @param format String represents the desired format.
      * @return String representation of date time formatted according to the specified format.
      */
-    private String datetimeToString(String format) {
+    private String convertDatetimeToString(String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return this.dateTime.format(formatter);
     }
@@ -39,8 +39,9 @@ public class Deadline extends Task {
      * @return String representation of this Deadline object.
      */
     @Override
-    public String taskToString() {
-        return this.type + "::" + super.getStatus() + "::" + super.getDesc() + "::" + datetimeToString("yyyy-MM-dd HHmm") + "\n";
+    public String convertTaskToString() {
+        return this.type + "::" + super.isDone() + "::" + super.getDesc() + "::"
+                + convertDatetimeToString("yyyy-MM-dd HHmm") + "\n";
     }
 
     /**
@@ -60,7 +61,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (" + "by: " + datetimeToString("dd MMM yyyy HH:mm") + ")";
+        return super.toString() + " (" + "by: " + convertDatetimeToString("dd MMM yyyy HH:mm") + ")";
     }
 
     /**
@@ -80,7 +81,8 @@ public class Deadline extends Task {
         }
 
         Deadline t = (Deadline) o;
-        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && this.dateTime.equals(t.dateTime) && (super.getStatus() == t.getStatus());
+        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) &&
+                this.dateTime.equals(t.dateTime) && (super.isDone() == t.isDone());
     }
 }
 

@@ -31,7 +31,7 @@ public class Event extends Task {
      * @param dt LocalDateTime to be converted.
      * @return String representation of date time formatted according to the specified format.
      */
-    private String datetimeToString(String format, LocalDateTime dt) {
+    private String convertDatetimeToString(String format, LocalDateTime dt) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return dt.format(formatter);
     }
@@ -42,8 +42,10 @@ public class Event extends Task {
      * @return String representation of this Event object.
      */
     @Override
-    public String taskToString() {
-        return this.type + "::" + super.getStatus() + "::" + super.getDesc() + "::" + datetimeToString("yyyy-MM-dd HHmm", this.startDateTime) + "::" + datetimeToString("yyyy-MM-dd HHmm", this.endDateTime) + "\n";
+    public String convertTaskToString() {
+        return this.type + "::" + super.isDone() + "::" + super.getDesc() + "::"
+                + convertDatetimeToString("yyyy-MM-dd HHmm", this.startDateTime) + "::"
+                + convertDatetimeToString("yyyy-MM-dd HHmm", this.endDateTime) + "\n";
     }
 
     /**
@@ -63,7 +65,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (" + "from: " + datetimeToString("dd MMM yyyy HH:mm", this.startDateTime) + " to: " + datetimeToString("dd MMM yyyy HH:mm", this.endDateTime) + ")";
+        return super.toString() + " (" +
+                "from: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.startDateTime) +
+                " to: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.endDateTime) + ")";
     }
 
     /**
@@ -83,6 +87,8 @@ public class Event extends Task {
         }
 
         Event t = (Event) o;
-        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) && this.startDateTime.equals(t.startDateTime) && this.endDateTime.equals(t.endDateTime) && (super.getStatus() == t.getStatus());
+        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) &&
+                this.startDateTime.equals(t.startDateTime)&& this.endDateTime.equals(t.endDateTime) &&
+                (super.isDone() == t.isDone());
     }
 }
