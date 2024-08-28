@@ -1,4 +1,5 @@
 package shoai;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import shoai.TaskList;
@@ -9,11 +10,25 @@ import shoai.Todo;
 import shoai.Deadline;
 import shoai.Event;
 import shoai.ShoAIException;
+import java.util.ArrayList;
 
+/**
+ * Parses user commands and executes the corresponding actions on the task list.
+ */
 public class Parser {
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Parses a command and executes the appropriate action.
+     *
+     * @param fullCommand The full command string from the user.
+     * @param tasks The TaskList to operate on.
+     * @param ui The Ui instance for user interaction.
+     * @param storage The Storage instance for saving/loading tasks.
+     * @return true if the command is "bye" and the application should exit, false otherwise.
+     * @throws ShoAIException If there is an error processing the command.
+     */
     public boolean parse(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws ShoAIException {
         String[] words = fullCommand.split(" ", 2);
         String command = words[0];
@@ -96,6 +111,13 @@ public class Parser {
                 ui.showTaskDeleted(removedTask, tasks.size());
                 storage.saveTasks(tasks.getAllTasks());
                 break;
+            case "find":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new ShoAIException("The find command requires a keyword.");
+                }
+                String keyword = words[1];
+                findTasks(keyword, tasks, ui);
+                break;
             default:
                 throw new ShoAIException("Sorry, I don't understand that command.");
         }
@@ -103,6 +125,24 @@ public class Parser {
         return false; // Continue the loop for other commands
     }
 
+    /**
+     * Finds tasks containing the given keyword and displays them.
+     *
+     * @param keyword The keyword to search for.
+     * @param tasks The TaskList to search in.
+     * @param ui The Ui instance for user interaction.
+     */
+    private void findTasks(String keyword, TaskList tasks, Ui ui) {
+        ui.showFindResults(tasks, keyword);
+    }
+
+
+    /**
+     * Converts a Task object to a string representation suitable for file storage.
+     *
+     * @param task The Task object to convert.
+     * @return A string representation of the Task object.
+     */
     public static String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
         if (task instanceof Todo) {
@@ -126,6 +166,12 @@ public class Parser {
         return sb.toString();
     }
 
+    /**
+     * Converts a string representation from file storage back to a Task object.
+     *
+     * @param fileString The string representation of a Task object.
+     * @return The corresponding Task object.
+     */
     public static Task fileStringToTask(String fileString) {
         String[] parts = fileString.split(" \\| ");
         Task task = null;
