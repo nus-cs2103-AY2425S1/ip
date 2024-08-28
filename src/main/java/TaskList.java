@@ -18,4 +18,8 @@ public class TaskList {
     public void DeleteTask(int index) {
         tasks.remove(index);
     }
+
+    public int getSize() {
+        return tasks.size();
+    }
 }
