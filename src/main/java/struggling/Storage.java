@@ -32,7 +32,7 @@ public class Storage {
         resetSaveFile();
 
         FileWriter fw = new FileWriter(file, true);
-        for(String d: data) {
+        for (String d : data) {
             fw.write(d + System.lineSeparator());
         }
 

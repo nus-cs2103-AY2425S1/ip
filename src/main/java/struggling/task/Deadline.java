@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    private LocalDate by;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private final LocalDate by;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public Deadline(String description, LocalDate by) {
         super(description);
