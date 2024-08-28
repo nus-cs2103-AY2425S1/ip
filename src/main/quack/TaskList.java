@@ -1,4 +1,8 @@
+package quack;
+
 import java.util.ArrayList;
+import quack.tasks.Task;
+import quack.exception.FailedUpdateException;
 
 /**
 * This class provides functionality to keep track of tasks.

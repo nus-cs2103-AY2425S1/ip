@@ -1,3 +1,12 @@
+package quack.command;
+
+import quack.Quack;
+import quack.TaskList;
+import quack.Storage;
+import quack.Ui;
+import quack.exception.InvalidIndexException;
+import quack.tasks.Task;
+
 /**
  * This class is responsible for deleting tasks in the task list.
  */

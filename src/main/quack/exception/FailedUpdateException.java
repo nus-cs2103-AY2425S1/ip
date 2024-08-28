@@ -1,3 +1,7 @@
+package quack.exception;
+
+import quack.tasks.Task;
+
 /**
  * This exception class indicates that the task did not get updated.
  */

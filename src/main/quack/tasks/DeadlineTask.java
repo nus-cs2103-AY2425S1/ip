@@ -1,3 +1,5 @@
+package quack.tasks;
+
 import java.time.LocalDateTime;
 
 /**

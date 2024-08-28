@@ -1,3 +1,5 @@
+package quack.exception;
+
 /**
  * This exception class indicates that the index keyed in by the user 
  * is out of bounds based on the task list or is invalid.
