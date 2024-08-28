@@ -241,4 +241,43 @@ public class TaskHandling {
         }
         System.out.println("          ____________________________________\n");
     }
+
+    public static void handleFind (String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException {
+        if (partsOfInput.length < 2) {
+            throw new BitBotException("OOPS!! Add a string of words you want to find.\n" +
+                    "          Please do not leave it blank.");
+        }
+        String textToBeFound;
+        StringBuilder sb1 = new StringBuilder();
+        ArrayList<Task> similarWordList = new ArrayList<>();
+
+        for (int i = 1; i < partsOfInput.length; i++) {
+            if (!sb1.isEmpty()) {
+                sb1.append(" ");
+            }
+            sb1.append(partsOfInput[i]);
+        }
+
+        textToBeFound = sb1.toString();
+
+        for (Task indivTask : arrayList) {
+            if (indivTask.taskDescription.toLowerCase().contains(textToBeFound.toLowerCase())) {
+                similarWordList.add(indivTask);
+            }
+        }
+
+        if (similarWordList.isEmpty()) {
+            System.out.println("          ____________________________________");
+            System.out.println("          There are no matching tasks in the list.");
+            System.out.println("          Please try another keyword.");
+            System.out.println("          ____________________________________");
+        } else {
+            System.out.println("          ____________________________________");
+            System.out.println("          Here are the matching tasks in your list:");
+            for (int i = 1; i < similarWordList.size() + 1; i++) {
+                System.out.println("          " + i + ". " + similarWordList.get(i - 1).finalString());
+            }
+            System.out.println("          ____________________________________");
+        }
+    }
 }
