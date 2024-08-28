@@ -18,6 +18,28 @@ public class EventTask extends Task {
         this.endTime = endTime;
     }
 
+    public EventTask(String name, String startTime, String endTime, String isCompleted) {
+        super(name);
+        this.startTime = startTime;
+        this.endTime = endTime;
+        if (isCompleted.equals("X")) {
+            super.markCompleted();
+        }
+    }
+
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public String getName() {
+        return super.getName();
+    }
+
     /**
      * Returns a string representation of the event task, including the task name,
      * start time, and end time, formatted as "(from: startTime to: endTime)".

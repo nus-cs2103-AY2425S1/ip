@@ -49,14 +49,19 @@ public class Command {
      * @throws IncorrectCommandException if the task number is out of bounds
      */
     public boolean isCompletedCommand(Integer size) throws IncorrectCommandException {
-        String[] words = command.split("\\s+");
-        if (words[0].equals("mark")) {
-            int taskNumber = Integer.valueOf(words[1]);
-            if (taskNumber < size || taskNumber > size) {
-                throw new IncorrectCommandException("do you not know how to count????");
+        try {
+            String[] words = command.split("\\s+");
+            if (words[0].equals("mark")) {
+                int taskNumber = Integer.valueOf(words[1]);
+                if (taskNumber < size || taskNumber > size) {
+                    throw new IncorrectCommandException("do you not know how to count????");
+                }
             }
+            return words[0].equals("mark");
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
         }
-        return words[0].equals("mark");
+        return false;
     }
 
     /**
@@ -67,14 +72,19 @@ public class Command {
      * @throws IncorrectCommandException if the task number is out of bounds
      */
     public boolean isIncompleteCommand(Integer size) throws IncorrectCommandException {
-        String[] words = command.split("\\s+");
-        if (words[0].equals("unmark")) {
-            int taskNumber = Integer.valueOf(words[1]);
-            if (taskNumber < size || taskNumber > size) {
-                throw new IncorrectCommandException("do you not know how to count????");
+        try {
+            String[] words = command.split("\\s+");
+            if (words[0].equals("unmark")) {
+                int taskNumber = Integer.valueOf(words[1]);
+                if (taskNumber < size || taskNumber > size) {
+                    throw new IncorrectCommandException("do you not know how to count????");
+                }
             }
+            return words[0].equals("unmark");
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
         }
-        return words[0].equals("unmark");
+        return false;
     }
 
 

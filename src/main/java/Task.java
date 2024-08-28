@@ -32,6 +32,11 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public String isCompleted() {
+        return this.isCompleted? "X"
+                                : " ";
+    }
+
     /**
      * Creates a new DeadlineTask with the specified name and deadline.
      * @param name the name or description of the task
@@ -41,6 +46,11 @@ public class Task {
     public static Task deadlineTask(String name, String deadline) {
         return new DeadlineTask(name, deadline);
     }
+
+    public static Task deadlineTask(String name, String deadline, String isCompleted) {
+        return new DeadlineTask(name, deadline, isCompleted);
+    }
+
 
     /**
      * Creates a new EventTask with the specified name, start time, and end time.
@@ -53,6 +63,11 @@ public class Task {
         return new EventTask(name, startTime, endTime);
     }
 
+    public static Task eventTask(String name, String startTime, String endTime, String isCompleted) {
+        return new EventTask(name, startTime, endTime, isCompleted);
+    }
+
+
     /**
      * Creates a new ToDoTask with the specified name.
      * @param name the name or description of the task
@@ -61,6 +76,18 @@ public class Task {
     public static Task toDoTask(String name) {
         return new ToDoTask(name);
     }
+
+    public static Task toDoTask(String name, String isCompleted) {
+
+        return new ToDoTask(name, isCompleted);
+    }
+
+
+    public String getName() {
+        return this.name;
+    }
+
+
 
     /**
      * Returns a string representation of the task, including its completion status and name.
