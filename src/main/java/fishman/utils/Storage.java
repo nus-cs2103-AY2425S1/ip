@@ -67,6 +67,9 @@ public class Storage {
             for (String line : lines) {
                 try {
                     String[] arguments = line.split("\\|", -1);
+                    if (arguments.length < 3) {
+                        throw new FishmanException.InvalidArgumentsException(line);
+                    }
                     String type = arguments[0];
                     boolean isDone = arguments[1].equals("1");
                     String description = arguments[2];
@@ -101,6 +104,7 @@ public class Storage {
                     }
                 } catch (FishmanException.InvalidArgumentsException e) {
                     System.out.print(e.getMessage());
+                    throw e;
                 }
             }
 
