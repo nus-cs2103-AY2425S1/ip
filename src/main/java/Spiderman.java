@@ -66,8 +66,8 @@ public class Spiderman {
                 String to = splitInputByCommand[2].replaceAll("to ", "");
 
                 taskList.add(new Event(description, from, to));
-            } else {
-                taskList.add(new Todo(splitInput[1] + " " ));
+            } else if (splitInput[0].equals("todo")) {
+                taskList.add(new Todo(splitInputByCommand[0].replaceAll("todo ", "")));
             }
 
             System.out.println("Cool! I'll add this to your task list!");
