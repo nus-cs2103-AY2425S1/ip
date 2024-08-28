@@ -8,7 +8,7 @@ public class Ollie {
     private Ui ui;
 
     /**
-     * Constructs an ollie.Ollie instance with a new ollie.TaskList.
+     * Constructs an Ollie instance with a new TaskList.
      */
     public Ollie() {
         ui = new Ui();
@@ -22,9 +22,9 @@ public class Ollie {
     }
 
     /**
-     * The main method that runs the ollie.Ollie task manager.
+     * The main method that runs the Ollie task manager.
      *
-     * @param args ollie.Command-line arguments (not used).
+     * @param args Command-line arguments.
      */
     public static void main(String[] args) throws OllieException {
         Ollie ollie = new Ollie();

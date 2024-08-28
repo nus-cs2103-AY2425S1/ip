@@ -6,7 +6,7 @@ import ollie.TaskType;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a generic task with a description and completion status.
+ * The Task class represents a generic task with a description and completion status.
  */
 public abstract class Task {
     protected String description;
@@ -16,7 +16,7 @@ public abstract class Task {
     private static final DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
-     * Constructs a ollie.task.Task with the specified description and type.
+     * Constructs a Task with the specified description and type.
      *
      * @param description The description of the task.
      * @param taskType The type of the task.
@@ -79,6 +79,11 @@ public abstract class Task {
         return String.format("%s | %s | %s", taskType, getStatusIcon(), description);
     }
 
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + "[" + taskType + "] " + description;

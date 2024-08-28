@@ -14,8 +14,8 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 /**
- * Represents a storage which stores all the tasks.
- * Allows the user to save and load the list of tasks from a file.
+ * The Storage class represents a storage which stores all the tasks.
+ * It allows the user to save and load the list of tasks from a file.
  */
 public class Storage {
 

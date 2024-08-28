@@ -9,7 +9,7 @@ import ollie.task.Todo;
 import java.util.Scanner;
 
 /**
- * Handles all interactions with the user.
+ * The Ui class handles all interactions with the user.
  */
 public class Ui {
     private final Scanner scanner;
@@ -122,7 +122,7 @@ public class Ui {
     }
 
     /**
-     * Sets the ollie.TaskList for this UI instance.
+     * Sets the TaskList for this UI instance.
      *
      * @param taskList The ollie.TaskList to set.
      */

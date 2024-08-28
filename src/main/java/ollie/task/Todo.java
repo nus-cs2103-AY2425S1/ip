@@ -4,19 +4,26 @@ import ollie.exception.EmptyDescriptionException;
 import ollie.TaskType;
 
 /**
- * Represents a ollie.task.Todo task with only a description.
+ * Todo is a type of Task.
+ * It represents a task with a description.
  */
 public class Todo extends Task {
 
     /**
-     * Constructs a ollie.task.Todo task with the specified description.
+     * Constructs a Todo with the specified description.
      *
-     * @param description The description of the ollie.task.Todo task.
+     * @param description The description of the Todo.
      */
     public Todo(String description) {
         super(description, TaskType.TODO);
     }
 
+    /**
+     * Validates the description of the Todo task.
+     *
+     * @param command The command entered by the user.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
     @Override
     public void validateDescription(String command) throws EmptyDescriptionException {
         if (command.trim().isEmpty()) {
@@ -24,6 +31,13 @@ public class Todo extends Task {
         }
     }
 
+    /**
+     * Creates a Todo task from the specified command.
+     *
+     * @param command The command entered by the user.
+     * @return The Todo task created from the command.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
     public static Todo createTask(String command) throws EmptyDescriptionException {
         String description = command.substring(4).trim();
         if (description.isEmpty()) {
@@ -32,11 +46,21 @@ public class Todo extends Task {
         return new Todo(description);
     }
 
+    /**
+     * Saves the Todo task as a string for storage.
+     *
+     * @return The Todo task as a string.
+     */
     @Override
     public String saveAsString() {
         return super.saveAsString();
     }
 
+    /**
+     * Returns the string representation of the Todo task.
+     *
+     * @return The string representation of the Todo task.
+     */
     @Override
     public String toString() {
         return super.toString();
