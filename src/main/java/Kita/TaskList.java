@@ -82,6 +82,20 @@ public class TaskList {
         return theTask;
     }
 
+    public TaskList find(String searchQuery) {
+        TaskList returnTasks = new TaskList(new ArrayList<>());
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).getName().toLowerCase()
+                    .contains(
+                            searchQuery.toLowerCase()
+                    )
+            ) {
+                returnTasks.addTask(this.tasks.get(i));
+            }
+        }
+        return returnTasks;
+    }
+
     @Override
     public String toString() {
         StringBuilder finalStr = new StringBuilder();

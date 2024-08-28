@@ -30,7 +30,11 @@ public class Parser {
             commandsExecutor.unmark(command);
         } else if (command.startsWith("delete")) {
             commandsExecutor.delete(command);
-        } else {
+        }
+        else if (command.startsWith("find")) {
+            commandsExecutor.find(command);
+        }
+        else {
             Matcher eventMatcher = eventPattern.matcher(command);
             Matcher deadlineMatcher = deadlinePattern.matcher(command);
             Matcher todoMatcher = toDoPattern.matcher(command);

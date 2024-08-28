@@ -4,6 +4,7 @@ import Kita.Exceptions.KitaMissingIndex;
 import Kita.Exceptions.KitaOutofBounds;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class Commands {
@@ -171,5 +172,14 @@ public class Commands {
     public void bye() {
         System.out.println(" Bye. Hope to see you again soon!\n");
         this.printLine();
+    }
+
+
+    public void find(String command) {
+        String[] splitCommand = command.split(" ");
+
+        System.out.println("Here are the matching tasks in your list:");
+        TaskList foundTasks = this.tasks.find(splitCommand[1]);
+        System.out.println(foundTasks);
     }
 }
