@@ -1,13 +1,18 @@
+package Tasks;
+
+import Exceptions.DelphiException;
+import Exceptions.EmptyInputException;
+
 public class Task {
     /**
      * Abstract class representing a generic task. Specific tasks like
-     * Todo, Deadline, and Event inherit from this class.
+     * Tasks.Todo, Tasks.Deadline, and Tasks.Event inherit from this class.
      */
     protected String name;
     protected boolean isDone;
 
     /**
-     * Constructs a Task with a given description.
+     * Constructs a Tasks.Task with a given description.
      *
      * @param description The description of the task.
      * @throws EmptyInputException if the description is empty.

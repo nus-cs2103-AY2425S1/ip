@@ -1,13 +1,20 @@
+package Tasks;
+
+import Exceptions.DelphiException;
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidInputException;
+import Tasks.Task;
+
 /**
- * Represents an Event task with a specific time window.
+ * Represents an Tasks.Event task with a specific time window.
  */
 public class Event extends Task {
     private String window;
 
     /**
-     * Constructs an Event task with a given description.
+     * Constructs an Tasks.Event task with a given description.
      *
-     * @param description The description of the Event task.
+     * @param description The description of the Tasks.Event task.
      * @throws EmptyInputException if the description is empty.
      */
     public Event(String description) throws DelphiException {
@@ -48,9 +55,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task, including its time window.
+     * Returns a string representation of the Tasks.Event task, including its time window.
      *
-     * @return The string representation of the Event task.
+     * @return The string representation of the Tasks.Event task.
      */
     @Override
     public String toString() {
