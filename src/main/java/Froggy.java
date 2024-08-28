@@ -132,8 +132,7 @@ public class Froggy {
                         System.out.println(current.toString());
                         System.out.println(line);
                     }
-                }
-                else {
+                } else {
                     System.out.println("Input not recognised. Please input a valid action:");
                     System.out.println("todo, event, deadline, mark, unmark, list, bye");
                     System.out.println(line);
