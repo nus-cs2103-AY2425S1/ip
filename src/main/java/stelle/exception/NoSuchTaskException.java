@@ -1,4 +1,6 @@
-/** Exception thrown when there is no task under the list number given during a command. Child of StelleException.
+package stelle.exception;
+
+/** Exception thrown when there is no task under the list number given during a command. Child of stelle.exception.StelleException.
  * @author Lee Ze Hao (A0276123J)
  */
 

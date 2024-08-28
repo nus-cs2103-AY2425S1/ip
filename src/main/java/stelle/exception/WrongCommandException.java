@@ -1,4 +1,6 @@
-/** Exception thrown when the command given by user does not exist. Child of StelleException.
+package stelle.exception;
+
+/** Exception thrown when the command given by user does not exist. Child of stelle.exception.StelleException.
  * @author Lee Ze Hao (A0276123J)
  */
 

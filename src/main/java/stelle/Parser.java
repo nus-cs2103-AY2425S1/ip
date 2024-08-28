@@ -1,3 +1,11 @@
+package stelle;
+
+import stelle.exception.*;
+import stelle.task.Deadline;
+import stelle.task.Event;
+import stelle.task.Task;
+import stelle.task.ToDo;
+
 import java.io.IOException;
 
 /** This class encapsulates chatbot parsing and logic.
@@ -26,7 +34,7 @@ public class Parser {
     private final TaskList taskList;
 
     /** Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
-     * @param ui The Ui used by the chatbot.
+     * @param ui The stelle.Ui used by the chatbot.
      * @param filePath The file path used for data storage.
      */
     public Parser(Ui ui, String filePath) {

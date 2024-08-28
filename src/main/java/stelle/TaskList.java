@@ -1,3 +1,8 @@
+package stelle;
+
+import stelle.exception.NoSuchTaskException;
+import stelle.task.Task;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -12,7 +17,7 @@ public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<Task>();
 
     /**
-     * Constructs a TaskList object.
+     * Constructs a stelle.TaskList object.
      * Tries to get list of tasks from file path. If it does not exist, create an empty save file.
      * @param filePath Path where the local task list file is stored.
      */
@@ -38,7 +43,7 @@ public class TaskList {
     /**
      * Gets the task at the specified index in the list.
      * @param index The list number of the task.
-     * @return Task the task at the specific index
+     * @return stelle.task.Task the task at the specific index
      */
     public Task get(int index) {
         if (index >= taskList.size() || index < 0) {

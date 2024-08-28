@@ -1,3 +1,5 @@
+package stelle;
+
 import java.util.Scanner;
 
 /** Represents the UI handler of the chatbot.
@@ -12,7 +14,7 @@ public class Ui {
     private Parser parser;
 
     /**
-     * Creates a Ui handler instance.
+     * Creates a stelle.Ui handler instance.
      * @param name Name of the chatbot.
      */
     public Ui(String name, String filePath) {
@@ -22,7 +24,7 @@ public class Ui {
     }
 
     /**
-     * Handles input and responds with output from Parser.
+     * Handles input and responds with output from stelle.Parser.
      *
      */
     public void run() {

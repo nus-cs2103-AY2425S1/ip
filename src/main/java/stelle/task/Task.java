@@ -1,9 +1,11 @@
-/** This class represents a Task. It is parent to the ToDo, Deadline and Event classes.
+package stelle.task;
+
+/** This class represents a stelle.task.Task. It is parent to the stelle.task.ToDo, stelle.task.Deadline and stelle.task.Event classes.
  * @author Lee Ze Hao (A0276123J)
  */
 
 public class Task {
-    enum TASK_TYPE {
+    public enum TASK_TYPE {
         TODO,
         DEADLINE,
         EVENT,

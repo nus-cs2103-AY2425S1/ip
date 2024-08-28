@@ -1,7 +1,11 @@
+package stelle.task;
+
+import stelle.exception.WrongDateFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/** This class represents a Deadline. It is child of the Task class.
+/** This class represents a stelle.task.Deadline. It is child of the stelle.task.Task class.
  * @author Lee Ze Hao (A0276123J)
  */
 
@@ -15,8 +19,8 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Constructor for a Deadline object. Sets name upon creation.
-     * @param name Name of Deadline object.
+     * Constructor for a stelle.task.Deadline object. Sets name upon creation.
+     * @param name Name of stelle.task.Deadline object.
      * @param by A string containing the date the deadline must be accomplished by.
      */
     public Deadline(String name, String by) {
@@ -37,8 +41,8 @@ public class Deadline extends Task {
         return this.by.format(dateTimeInputFormatter);
     }
 
-    /** Returns string representation of the Deadline.
-     * @return String containing indication of Deadline class, and string representation of parent Task class.
+    /** Returns string representation of the stelle.task.Deadline.
+     * @return String containing indication of stelle.task.Deadline class, and string representation of parent stelle.task.Task class.
      */
     @Override
     public String toString() {
