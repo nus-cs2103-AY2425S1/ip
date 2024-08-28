@@ -50,6 +50,17 @@ public class Task {
         return String.join(DELIMITER, arr);
     }
 
+    /**
+     * Checks if the task description contains the specified keyword.
+     * The search is case-insensitive.
+     *
+     * @param keyword The keyword to search for in the description.
+     * @return true if the keyword is found in the description, false otherwise.
+     */
+    public boolean hasKeywordInDescription(String keyword) {
+        if (keyword == null || description == null) return false;
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
 
     @Override
     public String toString() {
