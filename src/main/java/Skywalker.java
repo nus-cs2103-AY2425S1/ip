@@ -1,18 +1,22 @@
-
-
-import java.sql.SQLOutput;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 public class Skywalker {
+    private static final String FILE_PATH = "./data/skywalker.txt";
+
+    public Skywalker() throws IOException {
+    }
+
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Skywalker");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = loadTasksFromFile(); //helper function to load the file
         Scanner scanner = new Scanner(System.in);
-
 
 
         while (true) {
@@ -23,7 +27,7 @@ public class Skywalker {
                 if (Objects.equals(printable, "bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println("____________________________________________________________");
-
+                    saveTasksToFile(tasks); //helper function to save the tasks before exiting the programme
                     break;
                 } else if (Objects.equals(printable, "list")) {
                     System.out.println("Here are the tasks in your list:");
@@ -33,7 +37,7 @@ public class Skywalker {
                     System.out.println("____________________________________________________________");
                 } else if (printable.startsWith("mark ")) {
                     int index = Integer.parseInt(printable.split(" ")[1]) - 1;
-                    if(index<0 || index >= tasks.size()) {
+                    if (index < 0 || index >= tasks.size()) {
                         throw new IndexOutOfBoundsException("Task number is out of range!");
                     }
                     tasks.get(index).markDone();
@@ -43,7 +47,7 @@ public class Skywalker {
 
                 } else if (printable.startsWith("unmark ")) {
                     int index = Integer.parseInt(printable.split(" ")[1]) - 1;
-                    if(index<0 || index >= tasks.size()) {
+                    if (index < 0 || index >= tasks.size()) {
                         throw new IndexOutOfBoundsException("Task number is out of range!");
                     }
                     tasks.get(index).unmarkDone();
@@ -69,7 +73,7 @@ public class Skywalker {
                     String description = information[0];
                     String by = information[1];
                     //empty exception catching
-                    if (information.length<2 || description.isEmpty() || by.isEmpty()) {
+                    if (information.length < 2 || description.isEmpty() || by.isEmpty()) {
                         throw new EmptyDescriptionException("the deadline task description/date cannot be empty!!!!");
                     }
                     System.out.println("Got it. I've added this task:");
@@ -83,7 +87,7 @@ public class Skywalker {
                     String description = information[0];
                     String from = information[1];
                     String to = information[2];
-                    if (information.length<3 || from.isEmpty() || to.isEmpty()) {
+                    if (information.length < 3 || from.isEmpty() || to.isEmpty()) {
                         throw new EmptyDescriptionException("the deadline task description/ from date/ to date cannot be empty!!!!");
                     }
                     System.out.println("Got it. I've added this task:");
@@ -93,8 +97,8 @@ public class Skywalker {
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else if (printable.startsWith("delete ")) {
 
-                    int index = Integer.parseInt(printable.substring(7))-1;
-                    if(index<0 || index >= tasks.size()) {
+                    int index = Integer.parseInt(printable.substring(7)) - 1;
+                    if (index < 0 || index >= tasks.size()) {
                         throw new IndexOutOfBoundsException("Task number is out of range!");
                     }
                     System.out.println("Noted. I've removed this task:");
@@ -102,16 +106,91 @@ public class Skywalker {
                     tasks.remove(index);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                }
-
-                else {
+                } else {
                     throw new UnknownCommandException("the command is not correct :( check again!");
                 }
-            } catch (EmptyDescriptionException | IndexOutOfBoundsException| UnknownCommandException e) {
+            } catch (EmptyDescriptionException | IndexOutOfBoundsException | UnknownCommandException e) {
                 System.out.println("OOPS!" + e.getMessage());
             } catch (Exception e) { // safety net catch error
                 System.out.println("OOPS! Something is wrong: " + e.getMessage());
             }
+        }
+    }
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter writer = new FileWriter("./data/skywalker.txt");
+            for (Task task : tasks) {
+                writer.write(taskToFileString(task) + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("OOPS! Unable to save tasks to file: " + e.getMessage());
+        }
+
+
+    }
+
+    // Method to convert a task to a file string
+    private static String taskToFileString(Task task) {
+        String status = task.isDone ? "1" : "0";
+        if (task instanceof Todo) {
+            return "T | " + status + " | " + task.description;
+        } else if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return "D | " + status + " | " + deadline.description + " | " + (deadline.by);
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return "E | " + status + " | " + event.description + " | " + event.from + " | " + event.to;
+        }
+        return"";
+    }
+
+
+    // Method to load tasks from the file
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    Task task = parseTaskFromFileString(line);
+                    tasks.add(task);
+                }
+                scanner.close();
+            }
+        } catch (Exception e) {
+            System.out.println("OOPS! Unable to load task from file" + e.getMessage());
+        }
+        return tasks;
+    }
+    // Method to parse a task from a file string
+    private static Task parseTaskFromFileString(String fileString) {
+        String[] parts = fileString.split(" \\| ");
+        String taskTypeCode = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (taskTypeCode) {
+            case "T":
+                Todo todo = new Todo(description);
+                if (isDone) todo.markDone();
+                return todo;
+            case "D":
+                String by = parts[3];
+                Deadline deadline = new Deadline(description, by);
+                if (isDone) deadline.markDone();
+                return deadline;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                Event event = new Event(description, from, to);
+                if (isDone) event.markDone();
+                return event;
+            default:
+                throw new IllegalArgumentException("Invalid task type found in file.");
         }
     }
 }
