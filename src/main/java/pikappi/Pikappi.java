@@ -7,10 +7,10 @@ import pikappi.exception.PikappiException;
  * Represents the main class that runs the program.
  */
 public class Pikappi {
-    static Ui ui = new Ui();
-    static Storage storage = new Storage("data/pikappi.txt");
-    static TaskList tasks = new TaskList();
-    static Parser parser;
+    protected static Ui ui = new Ui();
+    protected static Storage storage = new Storage("data/pikappi.txt");
+    protected static TaskList tasks = new TaskList();
+    protected static Parser parser;
 
     public static void main(String[] args) throws PikappiException {
         tasks = storage.load();

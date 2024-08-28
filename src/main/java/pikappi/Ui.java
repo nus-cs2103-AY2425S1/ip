@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Represents a user interface that interacts with the user.
  */
 public class Ui {
-    static Scanner reader = new Scanner(System.in);
+    protected static Scanner reader = new Scanner(System.in);
 
     /**
      * Returns a Ui object that interacts with the user.

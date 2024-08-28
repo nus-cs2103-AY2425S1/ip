@@ -11,9 +11,6 @@ public class Parser {
     protected TaskList tasks;
     protected Ui ui;
     protected boolean isExit;
-    enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
-    }
 
     /**
      * Returns a Parser object that handles user input.
