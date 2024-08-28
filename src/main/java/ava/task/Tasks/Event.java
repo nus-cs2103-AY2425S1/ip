@@ -1,6 +1,6 @@
-package Task.Tasks;
+package ava.task.Tasks;
 
-import Task.Task;
+import ava.task.Task;
 
 public class Event extends Task {
 

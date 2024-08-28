@@ -1,5 +1,7 @@
-import Task.Task;
-import Task.TaskManager;
+package ava;
+
+import ava.task.Task;
+import ava.task.TaskManager;
 
 import java.io.PrintStream;
 import java.util.List;

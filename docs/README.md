@@ -1,4 +1,4 @@
-# AVA User Guide
+# ava.ava User Guide
 
 // Update the title above to match the actual product name
 

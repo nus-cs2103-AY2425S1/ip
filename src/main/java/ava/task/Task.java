@@ -1,4 +1,4 @@
-package Task;
+package ava.task;
 
 abstract public class Task {
     private String title;

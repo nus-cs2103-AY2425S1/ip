@@ -1,3 +1,5 @@
+package ava;
+
 import java.util.Scanner;
 
 public class TextUI {
@@ -5,7 +7,7 @@ public class TextUI {
 
     public static void run(){
         Scanner scanner = new Scanner(System.in);
-        AVA ava = new AVA(); //default AVA object
+        AVA ava = new AVA(); //default ava.ava object
 
         // Greet the user
         System.out.println("""

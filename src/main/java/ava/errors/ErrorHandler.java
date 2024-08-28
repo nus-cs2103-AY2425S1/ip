@@ -1,4 +1,4 @@
-package Errors;
+package ava.errors;
 
 public class ErrorHandler {
 

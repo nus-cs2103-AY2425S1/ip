@@ -1,8 +1,8 @@
-package Task;
+package ava.task;
 
-import Task.Tasks.Deadline;
-import Task.Tasks.Event;
-import Task.Tasks.Todo;
+import ava.task.Tasks.Deadline;
+import ava.task.Tasks.Event;
+import ava.task.Tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
