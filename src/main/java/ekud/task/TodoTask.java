@@ -1,3 +1,7 @@
+package ekud.task;
+
+import ekud.exceptions.EkudException;
+
 public class TodoTask extends Task {
     public TodoTask(String description) throws EkudException {
         super(description);

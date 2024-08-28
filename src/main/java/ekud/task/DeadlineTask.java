@@ -1,3 +1,7 @@
+package ekud.task;
+
+import ekud.exceptions.EkudException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -31,7 +35,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getEmptyDescriptionErrorMessage() {
-        return "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual task.";
+        return "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual ekud.task.";
     }
 
     @Override

@@ -1,3 +1,11 @@
+package ekud.commands;
+
+import ekud.exceptions.EkudException;
+import ekud.components.Storage;
+import ekud.components.Ui;
+import ekud.task.Task;
+import ekud.components.TaskList;
+
 public class AddCommand extends Command {
     private final Task task;
 

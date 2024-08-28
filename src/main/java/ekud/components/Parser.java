@@ -1,3 +1,9 @@
+package ekud.components;
+
+import ekud.commands.*;
+import ekud.exceptions.EkudException;
+import ekud.task.Task;
+
 import java.util.HashMap;
 
 public class Parser {

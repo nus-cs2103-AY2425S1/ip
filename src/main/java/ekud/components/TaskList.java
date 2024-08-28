@@ -1,3 +1,8 @@
+package ekud.components;
+
+import ekud.exceptions.EkudException;
+import ekud.task.Task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -36,7 +41,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     public void checkTask(int index) throws EkudException {
-        // checks if there is a task at the given index
+        // checks if there is a ekud.task at the given index
         // if not throw TaskListIndexOutOfBoundsException
         if (index < 0 || index >= tasks.size()) {
             String message = String.format(
