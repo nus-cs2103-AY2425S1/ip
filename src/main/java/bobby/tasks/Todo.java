@@ -1,3 +1,7 @@
+package bobby.tasks;
+
+import bobby.tasks.Task;
+
 public class Todo extends Task {
 
     public Todo(String description) {
