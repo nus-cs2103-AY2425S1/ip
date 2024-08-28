@@ -2,9 +2,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hien {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
+
+    // Constructor
+    public Hien() {
+        this.tasks = new ArrayList<>();
+    }
 
     public static void main(String[] args) {
+        Hien hien = new Hien();
+        hien.runHien();
+    }
+
+    public void runHien() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("____________________________________________________________");
@@ -42,7 +52,7 @@ public class Hien {
         scanner.close();
     }
 
-    private static void addTodo(String input) {
+    private void addTodo(String input) {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
         tasks.add(todo);
@@ -51,7 +61,7 @@ public class Hien {
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void addDeadline(String input) {
+    private void addDeadline(String input) {
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length == 2) {
             Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
@@ -64,7 +74,7 @@ public class Hien {
         }
     }
 
-    private static void addEvent(String input) {
+    private void addEvent(String input) {
         String[] parts = input.substring(6).split(" /from | /to ");
         if (parts.length == 3) {
             Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
@@ -77,7 +87,7 @@ public class Hien {
         }
     }
 
-    private static void listTasks() {
+    private void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println(" There are no tasks in your list.");
         } else {
@@ -88,7 +98,7 @@ public class Hien {
         }
     }
 
-    private static void markTask(String input, boolean isDone) {
+    private void markTask(String input, boolean isDone) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             if (index >= 0 && index < tasks.size()) {
