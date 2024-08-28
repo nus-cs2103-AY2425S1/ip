@@ -2,6 +2,7 @@ package blitz;
 
 /* My import */
 import exception.BlitzException;
+
 import task.Task;
 
 public class Ui {

@@ -1,8 +1,11 @@
 package blitz;
 
+/* My import */
 import command.Command;
+
 import exception.BlitzException;
 
+/* System import */
 import java.util.Scanner;
 
 public class Blitz {

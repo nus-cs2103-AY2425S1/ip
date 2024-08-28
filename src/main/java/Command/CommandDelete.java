@@ -4,10 +4,12 @@ package command;
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
+
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
 import exception.BlitzIndexOutOfBoundsException;
 import exception.BlitzNumberFormatException;
+
 import task.Task;
 
 public class CommandDelete extends Command {
