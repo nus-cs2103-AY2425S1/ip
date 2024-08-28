@@ -142,7 +142,7 @@ public class Knight2103 {
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                             taskListWriter = new FileWriter("./savedTaskList.txt", true);
-                            taskListWriter.write(taskToAdd.saveToFileFormat());
+                            taskListWriter.write("\n" + taskToAdd.saveToFileFormat());
                             taskListWriter.close();
                             break;
                         case "deadline":
@@ -152,7 +152,7 @@ public class Knight2103 {
                                 taskList.add(taskToAdd);
                                 System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                                 taskListWriter = new FileWriter("./savedTaskList.txt", true);
-                                taskListWriter.write(taskToAdd.saveToFileFormat());
+                                taskListWriter.write("\n" + taskToAdd.saveToFileFormat());
                                 taskListWriter.close();
                                 break;
                             } catch (IOException e) {
@@ -167,7 +167,7 @@ public class Knight2103 {
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                             taskListWriter = new FileWriter("./savedTaskList.txt", true);
-                            taskListWriter.write(taskToAdd.saveToFileFormat());
+                            taskListWriter.write("\n" + taskToAdd.saveToFileFormat());
                             taskListWriter.close();
                             break;
                         case "mark":
