@@ -41,6 +41,7 @@ public class NewGreetBot {
         String[] segment = Parser.parseCommand(input);
         String keyword = segment[0];
         if (keyword.equals("BYE")) {
+            isRunning = false;
             return ui.farewellUser();
         } else if (keyword.equals("LIST")) {
             return ui.showList(this.tasks);
