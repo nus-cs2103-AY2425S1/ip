@@ -12,12 +12,17 @@ import main.java.chatbot.tasks.TodoTask;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     private String directoryPath;
     private String filePath;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Storage(String directoryPath, String filePath) {
         this.directoryPath = directoryPath;
@@ -70,11 +75,11 @@ public class Storage {
             case "T":
                 return new TodoTask(description, isDone);
             case "D":
-                String by = parts[3];
+                LocalDate by = LocalDate.parse(parts[3], DATE_FORMATTER);
                 return new DeadlineTask(description, by, isDone);
             case "E":
-                String from = parts[3];
-                String to = parts[4];
+                LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
                 return new EventTask(description, from, to, isDone);
             default:
                 throw new InvalidTaskStringException();
@@ -86,12 +91,11 @@ public class Storage {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof DeadlineTask) {
             DeadlineTask deadlineTask = (DeadlineTask) task;
-            return "D | " + (deadlineTask.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + deadlineTask.getBy();
+            return "D | " + (deadlineTask.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + deadlineTask.getBy().format(DATE_FORMATTER);
         } else if (task instanceof EventTask) {
             EventTask eventTask = (EventTask) task;
-            return "E | " + (eventTask.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + eventTask.getFrom() + " | " + eventTask.getTo();
+            return "E | " + (eventTask.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + eventTask.getFrom().format(DATE_TIME_FORMATTER) + " | " + eventTask.getTo().format(DATE_TIME_FORMATTER);
         }
         return "";
     }
 }
-

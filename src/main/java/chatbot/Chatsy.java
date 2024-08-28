@@ -10,6 +10,10 @@ import main.java.chatbot.tasks.EventTask;
 import main.java.chatbot.tasks.Task;
 import main.java.chatbot.tasks.TodoTask;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,6 +26,9 @@ public class Chatsy {
     static ArrayList<Task> tasks = new ArrayList<>();
     static boolean isRunning = true;
     static Storage storage;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static void main(String[] args) {
         storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
@@ -153,9 +160,14 @@ public class Chatsy {
                     if (parts.length > 1) {
                         String[] deadlineParts = parts[1].split(" /by ", 2);
                         if (deadlineParts.length > 1) {
-                            addTask(new DeadlineTask(deadlineParts[0], deadlineParts[1]));
+                            try {
+                                LocalDate by = LocalDate.parse(deadlineParts[1], DATE_FORMATTER);
+                                addTask(new DeadlineTask(deadlineParts[0], by));
+                            } catch (DateTimeParseException e) {
+                                output("\tPlease enter the deadline in the correct format (yyyy-MM-dd).");
+                            }
                         } else {
-                            output("\tPlease specify the deadline in the format: description /by deadline");
+                            output("\tPlease specify the deadline in the format: description /by yyyy-MM-dd");
                         }
                     } else {
                         throw new EmptyDescriptionException();
@@ -165,9 +177,15 @@ public class Chatsy {
                     if (parts.length > 1) {
                         String[] eventParts = parts[1].split(" /from | /to ", 3);
                         if (eventParts.length == 3) {
-                            addTask(new EventTask(eventParts[0], eventParts[1], eventParts[2]));
+                            try {
+                                LocalDateTime from = LocalDateTime.parse(eventParts[1], DATE_TIME_FORMATTER);
+                                LocalDateTime to = LocalDateTime.parse(eventParts[2], DATE_TIME_FORMATTER);
+                                addTask(new EventTask(eventParts[0], from, to));
+                            } catch (DateTimeParseException e) {
+                                output("\tPlease enter the event times in the correct format (yyyy-MM-dd HH:mm).");
+                            }
                         } else {
-                            output("\tPlease specify the event in the format: description /from start_time /to end_time");
+                            output("\tPlease specify the event in the format: description /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
                         }
                     } else {
                         throw new EmptyDescriptionException();
