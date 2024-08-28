@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +22,9 @@ public class Storage {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
             File f = new File(this.path);
+            if (!f.exists()) {
+                f.createNewFile();
+            }
             Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
                 String line = sc.nextLine();
@@ -29,10 +33,8 @@ public class Storage {
             sc.close();
 
             return tasks;
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+        } catch (IOException e) {
+            throw new InvalidStorageFileException();
         }
-        
-        return null;
     }
 }
