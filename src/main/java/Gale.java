@@ -18,43 +18,44 @@ public class Gale {
         String input;
 
         while (true) {
-            input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
-                exit();
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                listTasks();
-            } else if (input.startsWith("mark")) {
-                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (taskList.get(taskIndex).status()) {
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("Your task is already completed!");
-                    System.out.println(HORIZONTAL_LINE);
-                } else {
+            try {
+                input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("bye")) {
+                    exit();
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    listTasks();
+                } else if (input.startsWith("mark")) {
+                    int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+//                    if (taskList.get(taskIndex).status()) {
+//                        System.out.println(HORIZONTAL_LINE);
+//                        System.out.println("Your task is already completed!");
+//                        System.out.println(HORIZONTAL_LINE);
+//                    } else { }
                     markTask(taskIndex, true);
-                }
-            } else if (input.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (!taskList.get(taskIndex).status()) {
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("Your task is already unmarked!");
-                    System.out.println(HORIZONTAL_LINE);
-                } else {
+
+                } else if (input.startsWith("unmark")) {
+                    int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+//                    if (!taskList.get(taskIndex).status()) {
+//                        System.out.println(HORIZONTAL_LINE);
+//                        System.out.println("Your task is already unmarked!");
+//                        System.out.println(HORIZONTAL_LINE);
+//                    } else { }
                     markTask(taskIndex, false);
+
+                } else if (input.startsWith("todo")) {
+                    addToDo(input);
+                } else if (input.startsWith("deadline")) {
+                    addDeadline(input);
+                } else if (input.startsWith("event")) {
+                    addEvent(input);
+                } else {
+                    throw new GaleException("Oops! That command got lost in the windy realm. Please try again!");
                 }
-            } else if (input.startsWith("todo")) {
-                addToDo(input);
-            } else if (input.startsWith("deadline")) {
-                addDeadline(input);
-            } else if (input.startsWith("event")) {
-                addEvent(input);
-            } else {
-                System.out.println(HORIZONTAL_LINE);
-                System.out.println("Oops, your command is not valid in this windy realm.");
-                System.out.println(HORIZONTAL_LINE);
+            } catch (GaleException e) {
+                System.out.println(e.getMessage());
             }
         }
-
         scanner.close();
     }
     public void greet() {
@@ -76,27 +77,46 @@ public class Gale {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void addToDo(String input) {
+    public void addToDo(String input) throws GaleException {
+        if (input.length() <= 5) {
+            throw new GaleException("Oops! The wind blew away your to-do description. Please use: 'todo [description]'");
+        }
         String description = input.substring(5).trim();
+        if (description.isEmpty()) {
+            throw new GaleException("Oops! The wind blew away your to-do description. Please furnish it again.");
+        }
         Task task = new ToDo(description);
         taskList.add(task);
         printAddedTask(task);
     }
 
-    public void addDeadline(String input) {
-        String[] truncatedInput = input.substring(9).split("/by");
-        String description = truncatedInput[0].trim();
-        String by = truncatedInput[1].trim();
+    public void addDeadline(String input) throws GaleException {
+        if (input.length() <= 9) {
+            throw new GaleException("Your deadline got tossed by the wind! Please use 'deadline [description] /by [date]'");
+        }
+        String[] strA  = input.substring(9).split("/by");
+        if (strA.length != 2 || strA[0].trim().isEmpty() || strA[1].trim().isEmpty()) {
+            throw new GaleException("Your deadline got tossed by the wind! Please use 'deadline [description] /by [date]'");
+        }
+        String description = strA[0].trim();
+        String by = strA[1].trim();
         Task task = new Deadline(description, by);
         taskList.add(task);
         printAddedTask(task);
     }
 
-    public void addEvent(String input) {
-        String[] truncatedInput = input.substring(6).split("/from|/to");
-        String description = truncatedInput[0].trim();
-        String from = truncatedInput[1].trim();
-        String to = truncatedInput[2].trim();
+    public void addEvent(String input) throws GaleException {
+        if (input.length() <= 6) {
+            throw new GaleException("Your event is lost in the wind! Please use 'event [description] /from [start] /to [end]'");
+        }
+        String[] strA = input.substring(6).split("/from|/to");
+        if (strA.length != 3 || strA[0].trim().isEmpty() || strA[1].trim().isEmpty()
+            || strA[2].trim().isEmpty()) {
+            throw new GaleException("Your event is lost in the wind! Please use 'event [description] /from [start] /to [end]'");
+        }
+        String description = strA[0].trim();
+        String from = strA[1].trim();
+        String to = strA[2].trim();
         Task task = new Event(description, from, to);
         taskList.add(task);
         printAddedTask(task);
@@ -113,21 +133,27 @@ public class Gale {
         }
         System.out.println(HORIZONTAL_LINE);
     }
-    public void markTask(int index, boolean isDone) {
+    public void markTask(int index, boolean isDone) throws GaleException {
         if (index >= 0 && index < taskList.size()) {
             Task task = taskList.get(index);
-            if (isDone) {
-                task.markAsDone();
+            if (task.status() == isDone) {
                 System.out.println(HORIZONTAL_LINE);
-                System.out.println("Good work! You breezed through this task!");
+                System.out.println("You've already marked/unmarked this windy task!");
             } else {
-                task.markAsNotDone();
-                System.out.println(HORIZONTAL_LINE);
-                System.out.println("Tough, this task is back in the windy realm.");
+                if (isDone) {
+                    task.markAsDone();
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("Good work! You breezed through this task!");
+                } else {
+                    task.markAsNotDone();
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("Tough, this task is back in the windy realm.");
+                }
+                System.out.println("  " + task.toString());
             }
-            System.out.println("  " + task.toString());
         } else {
-            System.out.println("Oops! That task number is lost in the wind. Try again?");
+//          System.out.println(HORIZONTAL_LINE);
+            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
         }
         System.out.println(HORIZONTAL_LINE);
     }
