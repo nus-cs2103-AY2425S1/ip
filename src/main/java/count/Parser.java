@@ -61,7 +61,7 @@ public class Parser {
                     throw new InvalidCommandException();
             }
         } catch (NumberFormatException e) {
-            throw new IncorrectFormatException("Use a number after mark/unmark/delete to specify the count.task targeted!\nType 'help' to see correct formatting examples");
+            throw new IncorrectFormatException("Use a number after mark/unmark/delete to specify the task targeted!\nType 'help' to see correct formatting examples");
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new IncorrectFormatException("Invalid format for event or deadline!\nType 'help' to see correct formatting examples");
         }
