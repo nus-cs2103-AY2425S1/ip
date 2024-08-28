@@ -260,36 +260,41 @@ public class YappingBot {
                 String[] s = scanner.nextLine().split(":");
                 Task t;
                 try {
-                    switch (TaskTypes.valueOf(s[0])) {
-                        case TODO:
-                            t = new Todo();
-                            t.deserialiaze(s);
-                            break;
-                        case DEADLINE:
-                            t = new Deadline();
-                            t.deserialiaze(s);
-                            break;
-                        case EVENT:
-                            t = new Event();
-                            t.deserialiaze(s);
-                            break;
-                        default:
-                            throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, s[0]));
+                    try {
+                        switch (TaskTypes.valueOf(s[0])) {
+                            case TODO:
+                                t = new Todo();
+                                t.deserialiaze(s);
+                                break;
+                            case DEADLINE:
+                                t = new Deadline();
+                                t.deserialiaze(s);
+                                break;
+                            case EVENT:
+                                t = new Event();
+                                t.deserialiaze(s);
+                                break;
+                            default:
+                                throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, s[0]));
+                        }
+                    } catch (IllegalArgumentException e) {
+                        // todo: add line number
+                        throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, e.getMessage()));
                     }
-                } catch (IllegalArgumentException e) {
-                    // todo: add line number
-                    throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, e.getMessage()));
+                    userList.add(t);
+                } catch (YappingBotException e) {
+                    System.out.println(quoteMultilineText(e.getMessage()));
                 }
-                userList.add(t);
             }
         } catch (FileNotFoundException e) {
             throw new YappingBotSaveFileNotFoundException();
         }
     }
     private static void saveListToFile() throws YappingBotSaveFileIOException {
-        try (FileWriter fw = new FileWriter(LIST_SAVE_PATH)) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(LIST_SAVE_PATH))) {
             for (Task t : userList) {
-                fw.write(t.serialiaze());
+                bw.write(t.serialiaze());
+                bw.newLine();
             }
         } catch (IOException e) {
             throw new YappingBotSaveFileIOException(e.getMessage());

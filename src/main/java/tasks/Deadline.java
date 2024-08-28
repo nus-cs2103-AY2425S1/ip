@@ -51,10 +51,11 @@ public class Deadline extends Task {
     }
     @Override
     public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
-        if (sString.length != 5) {
+        if (sString.length < 4) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
+            super.deserialiaze(sString);
             deadline = sString[3].replaceAll("/colon", ":");
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());

@@ -17,7 +17,7 @@ public class Event extends Task {
     }
     public Event(String taskName, boolean taskDone, String startTime, String endTime) {
         super(taskName, taskDone);
-        super.setTaskType(TaskTypes.DEADLINE);
+        super.setTaskType(TaskTypes.EVENT);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -64,10 +64,11 @@ public class Event extends Task {
     }
     @Override
     public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
-        if (sString.length != 5) {
+        if (sString.length < 5) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
+            super.deserialiaze(sString);
             startTime = sString[3].replaceAll("/colon", ":");
             endTime = sString[4].replaceAll("/colon", ":");
         } catch (IllegalArgumentException e) {

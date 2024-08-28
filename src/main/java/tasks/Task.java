@@ -55,7 +55,7 @@ public abstract class Task {
         );
     }
     public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
-        if (sString.length != 3) {
+        if (sString.length < 3) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
