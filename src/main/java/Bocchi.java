@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -223,7 +224,9 @@ public class Bocchi {
                     }
                 } catch (NumberFormatException e) {
                     printError(new BocchiException("So sorry... I can't understand the number you entered. ( T_T )"));
-                } catch (BocchiException e) {
+                } catch (DateTimeParseException e){
+                    printError(new BocchiException("So sorry... I can't understand the date/time format you entered. ( T_T )"));
+                } catch (BocchiException e){
                     printError(e);
                 }
             }
