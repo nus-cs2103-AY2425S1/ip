@@ -1,5 +1,15 @@
-public class Parser {
+package hue.parser;
 
+import hue.command.*;
+import hue.HueException;
+public class Parser {
+    /**
+     * Parses the user input to generate a command.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return The {@code Command} that corresponds to the user input.
+     * @throws HueException If the input command is invalid or unrecognized.
+     */
     public static Command parse(String fullCommand) throws HueException {
         if (fullCommand.equalsIgnoreCase("bye")) {
             return new ExitCommand();

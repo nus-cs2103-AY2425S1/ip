@@ -1,13 +1,26 @@
+package hue.storage;
+
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+import hue.task.*;
+import hue.HueException;
+
+/**
+ * Handles loading and saving of tasks to and from a file.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Creates a {@code Storage} object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage (String filePath) {
         this.filePath = filePath;
     }
@@ -23,7 +36,13 @@ public class Storage {
         writer.close();
 
     }
-
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An {@code ArrayList} of tasks loaded from the file.
+     * @throws FileNotFoundException If the file is not found.
+     * @throws HueException If there is an error processing the file data.
+     */
     public ArrayList<Task> loadTasks() throws FileNotFoundException, HueException{
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -51,7 +70,13 @@ public class Storage {
 
         return tasks;
     }
-
+    /**
+     * Processes and adds tasks to the list based on the data from the file.
+     *
+     * @param tasks The list to which the tasks should be added.
+     * @param data The data representing a task, split into components.
+     * @throws HueException If an unknown task type is encountered.
+     */
     public void loadTasksFromData(ArrayList<Task> tasks, String[] data) throws HueException{
         String type = data[0];
         boolean isDone = data[1].equals("1");
@@ -85,13 +110,5 @@ public class Storage {
         default:
             throw new HueException("Unknown task type in file:" + type);
         }
-
-
-
     }
-
-
-
-
-
 }

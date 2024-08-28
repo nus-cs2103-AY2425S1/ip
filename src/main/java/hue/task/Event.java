@@ -1,9 +1,20 @@
+package hue.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import hue.DateUtils;
+/**
+ * Represents an event task with a specific start and end time.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
-
+    /**
+     * Creates an {@code Event} task with the given description, start time, and end time.
+     *
+     * @param description The description of the event.
+     * @param from The start date and time of the event in the format "yyyy-MM-dd HH:mm".
+     * @param to The end date and time of the event in the format "yyyy-MM-dd HH:mm".
+     */
     public Event (String description, String from, String to) {
         super(description);
         this.from = DateUtils.parseDateTime(from);
