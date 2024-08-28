@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
@@ -29,23 +30,24 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadTasks() throws LocalFileException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public List<Task> loadTasks() throws LocalFileException {
+        List<Task> tasks = new ArrayList<>();
         try {
             File dir = new File(directoryPath);
             if (!dir.exists()) {
                 dir.mkdirs(); // Create directory if it doesn't exist
             }
+
             File file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile(); // Create file if it doesn't exist
             } else {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    tasks.add(parseTask(line));
+                try (Scanner scanner = new Scanner(file)) {
+                    while (scanner.hasNextLine()) {
+                        String line = scanner.nextLine();
+                        tasks.add(parseTask(line));
+                    }
                 }
-                scanner.close();
             }
         } catch (IOException | InvalidTaskStringException e) {
             throw new FileCorruptedException(filePath);
@@ -53,13 +55,11 @@ public class Storage {
         return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) throws LocalFileException {
-        try {
-            FileWriter writer = new FileWriter(filePath);
+    public void saveTasks(List<Task> tasks) throws LocalFileException {
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 writer.write(formatTaskForSaving(task) + System.lineSeparator());
             }
-            writer.close();
         } catch (IOException e) {
             throw new FilePermissionException(filePath);
         }
