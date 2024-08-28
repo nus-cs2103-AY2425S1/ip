@@ -3,8 +3,9 @@ package blitz;
 /* My import */
 import exception.BlitzNoParameterException;
 
-/* System import */
 import task.Todo;
+
+/* System import */
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

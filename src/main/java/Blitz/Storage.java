@@ -16,10 +16,21 @@ import java.util.Scanner;
 public class Storage {
     private String path;
 
+    /**
+     * Constructs a new Storage object with specified file path.
+     *
+     * @param path File path to read and store the tasks.
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Writes a single task to the file (by appending).
+     *
+     * @param task Task object to be written to the file.
+     * @throws BlitzException If I/O error occurs.
+     */
     public void writeOneToFile(Task task) throws BlitzException {
         try {
             FileWriter fw = new FileWriter(path, true);
@@ -30,6 +41,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes all tasks from the provided TaskList to the file (overwrite)
+     *
+     * @param list TaskList that contains all the Task objects to be written to the file.
+     * @throws BlitzException If I/O error occurs.
+     */
     public void writeAllToFile(TaskList list) throws BlitzException {
         try {
             FileWriter fw = new FileWriter(path);
@@ -47,6 +64,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the file and returns the file content as a TaskList object.
+     *
+     * @param ui Ui object that is used for printing errors if any.
+     * @return TaskList object that containing the tasks read from the file.
+     * @throws BlitzException If I/O error or corrupted file content format.
+     */
     public TaskList readFromFile(Ui ui) {
         File f = new File(path);
         TaskList list = new TaskList(new ArrayList<>());
