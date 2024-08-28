@@ -1,15 +1,17 @@
 package oyster.tasks;
 
 import oyster.exceptions.TaskFieldException;
+import oyster.utils.DateTimeFormatter;
 
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class DeadlineTask extends Task {
     public static final String FILE_SYMBOL = "D";
 
-    private String deadline;
+    private final LocalDateTime deadline;
 
-    public DeadlineTask(String description, String deadline) {
+    public DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
@@ -47,12 +49,13 @@ public class DeadlineTask extends Task {
             throw new TaskFieldException("Deadline");
         }
 
-        return new DeadlineTask(name.trim(), deadline);
+        return new DeadlineTask(name.trim(), DateTimeFormatter.readInput(deadline));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format("(by: %s)", deadline);
+        return "[D]" + super.toString() + String.format(" (by: %s)",
+                DateTimeFormatter.format(deadline));
     }
 
     @Override
@@ -61,7 +64,7 @@ public class DeadlineTask extends Task {
                 FILE_SYMBOL,
                 isMarked() ? "1" : "0",
                 getDescription(),
-                deadline
+                deadline.toString()
         };
     }
 }

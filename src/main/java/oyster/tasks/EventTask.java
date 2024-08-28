@@ -1,16 +1,19 @@
 package oyster.tasks;
 
+import oyster.exceptions.OysterException;
 import oyster.exceptions.TaskFieldException;
+import oyster.utils.DateTimeFormatter;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class EventTask extends Task {
     public static final String FILE_SYMBOL = "E";
 
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -60,12 +63,20 @@ public class EventTask extends Task {
             throw new TaskFieldException("To");
         }
 
-        return new EventTask(name.trim(), from, to);
+        LocalDateTime fromDate = DateTimeFormatter.readInput(from);
+        LocalDateTime toDate = DateTimeFormatter.readInput(to);
+
+        if (fromDate.isAfter(toDate)) {
+            throw new OysterException("Time period is invalid!");
+        }
+
+        return new EventTask(name.trim(), fromDate, toDate);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %sto: %s)", from, to);
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)",
+                DateTimeFormatter.format(from), DateTimeFormatter.format(to));
     }
 
     @Override
@@ -74,8 +85,8 @@ public class EventTask extends Task {
                 FILE_SYMBOL,
                 isMarked() ? "1" : "0",
                 getDescription(),
-                from,
-                to
+                from.toString(),
+                to.toString()
         };
     }
 }

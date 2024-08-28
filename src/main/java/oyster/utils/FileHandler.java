@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import oyster.commands.Command;
+import oyster.exceptions.ParseException;
 import oyster.tasks.Task;
 import oyster.tasks.TaskList;
 
@@ -17,14 +18,13 @@ public class FileHandler {
         return Files.exists(SAVE_PATH);
     }
 
-    public static TaskList loadTaskList() {
+    public static TaskList loadTaskList() throws ParseException {
         if (!directoryExists()) createSave();
 
         try {
             return Parser.parseTaskList(Files.readString(SAVE_PATH));
-        } catch (IOException e) {
-            // TODO corrupted
-            return new TaskList();
+        } catch (Exception e) {
+            throw new ParseException();
         }
     }
 

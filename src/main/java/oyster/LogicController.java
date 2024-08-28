@@ -18,7 +18,16 @@ public class LogicController {
     private static TaskList taskList;
 
     public static void begin() {
-        taskList = FileHandler.loadTaskList();
+        try {
+            taskList = FileHandler.loadTaskList();
+        } catch (Exception e) {
+            display.output(new String[]{
+                    e.getMessage(),
+                    "Save file deleted..."
+            });
+            taskList = new TaskList();
+            FileHandler.saveTaskList(taskList);
+        }
 
         display.output(new String[]{
                 "Hello! I'm " + Oyster.CHATBOT_NAME,
@@ -42,16 +51,17 @@ public class LogicController {
         if (!inputScanner.hasNext()) {
             display.output("Oops, please type something!");
             isAwaitingInput = false;
-            awaitInput();
+        } else {
+            String input = inputScanner.nextLine();
+            isAwaitingInput = false;
+
+            if (!input.trim().isEmpty()) {
+                Command command = Parser.parseCommand(input);
+                command.execute();
+                FileHandler.saveTaskList(taskList);
+                display.output(command.getMessage());
+            }
         }
-        String input = inputScanner.nextLine();
-
-        isAwaitingInput = false;
-
-        Command command = Parser.parseCommand(input);
-        command.execute();
-        FileHandler.saveTaskList(taskList);
-        display.output(command.getMessage());
 
         awaitInput();
     }

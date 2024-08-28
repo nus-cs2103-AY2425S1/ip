@@ -5,6 +5,7 @@ import oyster.tasks.EventTask;
 import oyster.tasks.Task;
 import oyster.tasks.ToDoTask;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class TaskParser {
@@ -23,13 +24,16 @@ public class TaskParser {
             }
             break;
         case DeadlineTask.FILE_SYMBOL:
-            task = new DeadlineTask(lineInfo[2], lineInfo[3]);
+            task = new DeadlineTask(lineInfo[2],
+                    LocalDateTime.parse(lineInfo[3]));
             if (Objects.equals(lineInfo[1], "1")) {
                 task.mark();
             }
             break;
         case EventTask.FILE_SYMBOL:
-            task = new EventTask(lineInfo[2], lineInfo[3], lineInfo[4]);
+            task = new EventTask(lineInfo[2],
+                    LocalDateTime.parse(lineInfo[3]),
+                    LocalDateTime.parse(lineInfo[4]));
             if (Objects.equals(lineInfo[1], "1")) {
                 task.mark();
             }

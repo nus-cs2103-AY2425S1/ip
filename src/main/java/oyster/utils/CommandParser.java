@@ -7,10 +7,12 @@ import oyster.commands.ToDoCommand;
 import oyster.commands.ErrorCommand;
 import oyster.commands.DeadlineCommand;
 import oyster.commands.EventCommand;
+import oyster.exceptions.DateFormatException;
 import oyster.exceptions.TaskFieldException;
 import oyster.tasks.DeadlineTask;
 
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 public class CommandParser {
     public static Command parse(String line) {
@@ -45,6 +47,10 @@ public class CommandParser {
                 }
             } catch (TaskFieldException e) {
                 command = new ErrorCommand("Please provide the " + e.field + " field!");
+            } catch (DateFormatException e) {
+                command = new ErrorCommand("Please input in (dd/mm/yyyy) format!");
+            } catch (Exception e) {
+                command = new ErrorCommand(e.getMessage());
             }
             break;
         default:
