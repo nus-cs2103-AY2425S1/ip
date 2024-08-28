@@ -10,6 +10,9 @@ public class EventCommand extends Command {
         task = EventTask.fromInput(input);
     }
 
+    /**
+     * Adds a new EventTask when executed
+     */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();

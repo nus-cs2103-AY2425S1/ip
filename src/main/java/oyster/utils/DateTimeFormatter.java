@@ -5,6 +5,11 @@ import oyster.exceptions.DateFormatException;
 import java.time.LocalDateTime;
 
 public class DateTimeFormatter {
+    /**
+     * @param input Line to be converted into LocalDateTime
+     * @return LocalDateTime
+     * @throws DateFormatException If parsing goes wrong
+     */
     public static LocalDateTime readInput(String input) throws DateFormatException {
         String[] date = input.split("/");
 
@@ -54,6 +59,12 @@ public class DateTimeFormatter {
         }
     }
 
+    /**
+     * Converts a LocalDateTime into a nice String
+     *
+     * @param date Date to turn into nice String
+     * @return Formatted date string
+     */
     public static String format(LocalDateTime date) {
         return String.format("%s %s %s",
                 date.getDayOfMonth(),

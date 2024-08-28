@@ -13,6 +13,9 @@ public class DeadlineCommand extends Command {
         task = DeadlineTask.fromInput(input);
     }
 
+    /**
+     * Adds a new DeadlineTask when executed
+     */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();

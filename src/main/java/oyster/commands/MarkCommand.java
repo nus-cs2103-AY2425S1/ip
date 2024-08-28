@@ -10,6 +10,9 @@ public class MarkCommand extends Command {
         this.markIndex = markIndex;
     }
 
+    /**
+     * Marks a Task when executed
+     */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();

@@ -16,6 +16,9 @@ public class LogicController {
 
     private static TaskList taskList;
 
+    /**
+     * Begins the chatbot
+     */
     public static void begin() {
         try {
             taskList = Storage.loadTaskList();
@@ -38,6 +41,9 @@ public class LogicController {
         awaitInput();
     }
 
+    /**
+     * Ends the chatbot
+     */
     public static void close() {
         isRunning = false;
     }

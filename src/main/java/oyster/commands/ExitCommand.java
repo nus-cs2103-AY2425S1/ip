@@ -8,6 +8,9 @@ public class ExitCommand extends Command {
         super("See you again! " + Oyster.CHATBOT_EMOJI);
     }
 
+    /**
+     * Closes the chatbot when executed
+     */
     @Override
     public void execute() {
         LogicController.close();

@@ -9,10 +9,13 @@ import oyster.tasks.ToDoTask;
 public class ToDoCommand extends Command {
     private final Task task;
 
-    public ToDoCommand(String description) {
-        task = new ToDoTask(description.trim());
+    public ToDoCommand(String input) {
+        task = ToDoTask.fromInput(input);
     }
 
+    /**
+     * Adds a new TodoTask when executed
+     */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();

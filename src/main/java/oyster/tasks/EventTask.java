@@ -14,12 +14,21 @@ public class EventTask extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * @param description The description of the Task
+     * @param from The start date of the Event
+     * @param to The end date of the Event
+     */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * @param input The string to parse into a EventTask
+     * @return EventTask object
+     */
     public static EventTask fromInput(String input) {
         String name = "";
         String from = "";
