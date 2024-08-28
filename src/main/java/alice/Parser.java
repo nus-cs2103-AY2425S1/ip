@@ -1,6 +1,7 @@
+package alice;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 public class Parser {
     private Ui ui;
