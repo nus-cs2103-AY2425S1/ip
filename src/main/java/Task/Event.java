@@ -1,7 +1,11 @@
+package Task;
+
+import Task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-public class Event extends Task{
+public class Event extends Task {
     protected String to;
     LocalDateTime dateTo;
     protected String from;

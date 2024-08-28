@@ -1,7 +1,11 @@
+package daniel;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
-
+import Storage.Storage;
+import Task.TaskList;
+import Ui.Ui;
+import Parse.Parse;
 
 public class Daniel {
     private Storage storage;
