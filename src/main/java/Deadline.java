@@ -1,19 +1,19 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    private final LocalDateTime by;
+    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private final LocalDate by;
 
-    public Deadline(String name, String by) {
+    public Deadline(String name, String by) throws AstraException {
         super(name);
-        this.by = LocalDateTime.parse(by, inputFormatter);
+        this.by = LocalDate.parse(by, inputFormatter);
     }
 
     public Deadline(boolean done, String name, String by) {
         super(done, name);
-        this.by = LocalDateTime.parse(by, inputFormatter);
+        this.by = LocalDate.parse(by, inputFormatter);
     }
 
     @Override
