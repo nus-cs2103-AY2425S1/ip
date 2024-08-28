@@ -5,6 +5,10 @@ public class Response {
         line();
         System.out.println("Hello! I'm Tanjiro!");
         System.out.println("What can I do for you?");
+        System.out.println("Instructions:");
+        System.out.println("todo ___");
+        System.out.println("deadline ___ /by ____");
+        System.out.println("event ___ /from ___ /to ___");
         line();
     }
 
@@ -13,6 +17,20 @@ public class Response {
         line();
     }
 
+    public void emptyList() {
+        System.out.println("There are currently zero tasks in the list!");
+    }
+
+    public void doesNotExist() {
+        System.out.println("Task does not exist!");
+    }
+    public void alreadyMarked(){
+        System.out.println("Task has already been marked!");
+    }
+
+    public void alreadyUnmarked(){
+        System.out.println("Task has already been unmarked!");
+    }
     //    public void added_task_message(String s) {
 //        System.out.println("added: " + s);
 //    }
@@ -40,45 +58,45 @@ public class Response {
         System.out.println("Now you have " + t.get_list_size() + " tasks in the list.");
     }
 
-    public void list_task_message(ArrayList<Task> task_list) {
-        int counter = 1;
-        for (Task t : task_list) {
-            if (t.getCurrent_status()== Task.status.MARKED) {
-                if (t.getTag().equals("T")) {
-                    if (t instanceof ToDos) {
-                        System.out.println(counter + ".[T][X] " + t.getName());
-                    }
-                } else if (t.getTag().equals("D")) {
-                    if (t instanceof Deadlines) {
-                        System.out.println(counter + ".[D][X] " + t.getName() + "(by: " + t.getDay() + ")");
-                    }
-                } else if (t.getTag().equals("E")) {
-                    if (t instanceof Events) {
-                        System.out.println(counter + ".[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
-                    }
-                } else {
-                    System.out.println(counter + ".[-][X] " + t.getName());
-                }
-            } else {
-                if (t.getTag().equals("T")) {
-                    if (t instanceof ToDos) {
-                        System.out.println(counter + ".[T][ ] " + t.getName());
-                    }
-                } else if (t.getTag().equals("D")) {
-                    if (t instanceof Deadlines) {
-                        System.out.println(counter + ".[D][ ] " + t.getName() + "(by: " + t.getDay() + ")");
-                    }
-                } else if (t.getTag().equals("E")) {
-                    if (t instanceof Events) {
-                        System.out.println(counter + ".[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
-                    }
-                } else {
-                    System.out.println(counter + ".[-][ ] " + t.getName());
-                }
-            }
-            counter++;
-        }
-
+    public void list_task_message(String information) {
+//        int counter = 1;
+//        for (Task t : task_list) {
+//            if (t.getCurrent_status()== Task.status.MARKED) {
+//                if (t.getTag().equals("T")) {
+//                    if (t instanceof ToDos) {
+//                        System.out.println(counter + ".[T][X] " + t.getName());
+//                    }
+//                } else if (t.getTag().equals("D")) {
+//                    if (t instanceof Deadlines) {
+//                        System.out.println(counter + ".[D][X] " + t.getName() + "(by: " + t.getDay() + ")");
+//                    }
+//                } else if (t.getTag().equals("E")) {
+//                    if (t instanceof Events) {
+//                        System.out.println(counter + ".[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
+//                    }
+//                } else {
+//                    System.out.println(counter + ".[-][X] " + t.getName());
+//                }
+//            } else {
+//                if (t.getTag().equals("T")) {
+//                    if (t instanceof ToDos) {
+//                        System.out.println(counter + ".[T][ ] " + t.getName());
+//                    }
+//                } else if (t.getTag().equals("D")) {
+//                    if (t instanceof Deadlines) {
+//                        System.out.println(counter + ".[D][ ] " + t.getName() + "(by: " + t.getDay() + ")");
+//                    }
+//                } else if (t.getTag().equals("E")) {
+//                    if (t instanceof Events) {
+//                        System.out.println(counter + ".[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
+//                    }
+//                } else {
+//                    System.out.println(counter + ".[-][ ] " + t.getName());
+//                }
+//            }
+//            counter++;
+//        }
+        System.out.println(information);
     }
 
     public void mark_message(String s) {
@@ -88,7 +106,7 @@ public class Response {
 
     public void unmark_message(String s) {
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[ ] " + s);
+        System.out.println("[_] " + s);
     }
 
     private void line() {

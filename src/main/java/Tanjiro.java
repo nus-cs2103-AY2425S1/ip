@@ -1,9 +1,13 @@
+import java.io.IOException;
+
 public class Tanjiro {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Response r = new Response();
         InputProcessor i = new InputProcessor();
-
+        FileSystem fs = new FileSystem();
         r.greet();
+        fs.createFile();
+        Task.init_list();
 
         String user_input = i.read().toLowerCase();
         while (!(user_input.contains("bye"))) {
@@ -49,16 +53,9 @@ public class Tanjiro {
                 int list_no = Character.getNumericValue(user_input.charAt(user_input.length() - 1));
                 Task.delete_task(list_no);
 
-            }
-            else {
+            } else {
                 r.invalid_input();
-//                Task task = new Task(user_input, "-");
-//                task.add_task(task);
             }
-//            else {
-//                Task temp_task = new Task(user_input);
-//                temp_task.add_task(temp_task);
-//            }
 
             user_input = i.read().toLowerCase();
         }

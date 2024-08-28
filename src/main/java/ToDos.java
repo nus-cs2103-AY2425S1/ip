@@ -1,16 +1,32 @@
+import java.io.IOException;
+
 public class ToDos extends Task{
-    public ToDos(String name) {
+    public ToDos(String name) throws IOException {
         super(name, "T");
     }
 
-    public void add_task(ToDos t) {
+    public void add_task(ToDos t) throws IOException {
         task_list.add(t);
+//        super.update_saved_tasklist();
         System.out.println("Got it. I've added this task:");
-        System.out.println("[T][ ] " + t.getName());
+        System.out.println("[T][_] " + t.getName());
         System.out.println("Now you have " + t.get_list_size() +" tasks in the list.");
-    }
-    public void added_task_message(Task t) {
 
+        update_tasklist(t);
+    }
+
+    private void update_tasklist(ToDos t) throws IOException {
+        String marked = "[X]";
+        String unmarked = "[_]";
+        int index = task_list.size();
+        StringBuilder information;
+        if (t.getCurrent_status()==status.MARKED) {
+            information = new StringBuilder(index + ". [" + t.getTag() + "]" + marked + " " + t.getName());
+        } else {
+            information = new StringBuilder(index + ". [" + t.getTag() + "]" + unmarked + " " + t.getName());
+        }
+
+        fs.write(String.valueOf(information));
     }
 
     @Override
