@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -195,6 +197,8 @@ public class Park {
                     System.out.println("Now you have " + strn + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("please use the format: desc /by deadline");
+                } catch (DateTimeParseException e) {
+                    System.out.println("please input DateTime in format yyyy-MM-dd HHmm");
                 }
             } else if (s.startsWith("event")) {
                 try {
@@ -218,6 +222,8 @@ public class Park {
                     System.out.println("Now you have " + strn + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("please use the format: desc /from start /to end");
+                } catch (DateTimeParseException e) {
+                    System.out.println("please input DateTime in format yyyy-MM-dd HHmm");
                 }
             } else {
                 System.out.println("I have no idea what that means");

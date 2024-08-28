@@ -1,4 +1,2 @@
-T/[X]/read book
-D/[ ]/return book/June 6th
-E/[ ]/project meeting/Aug 6th 2pm/4pm
-T/[X]/join sports club
+D/[ ]/amogus/Dec 12 2000, 6:00pm
+E/[ ]/amorgus/Dec 12 2000, 7:00pm/Dec 12 2000, 8:00pm

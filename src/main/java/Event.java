@@ -1,11 +1,17 @@
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task{
     protected String start;
     protected String end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        try {
+            this.start = DTFormatter.format(start);
+            this.end = DTFormatter.format(end);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("please input DateTime in format yyyy-MM-dd HHmm", e.getParsedString(), e.getErrorIndex());
+        }
     }
 
     @Override
