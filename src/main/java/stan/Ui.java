@@ -1,7 +1,6 @@
 package stan;
 
-import stan.Task;
-import stan.TaskList;
+import stan.tasks.Task;
 
 import java.util.Scanner;
 

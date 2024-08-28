@@ -1,6 +1,6 @@
-package stan;
+package stan.exceptions;
 
-import stan.StanException;
+import stan.exceptions.StanException;
 
 public class StanInvalidArgumentException extends StanException {
     public StanInvalidArgumentException(String message) {

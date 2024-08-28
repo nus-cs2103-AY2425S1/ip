@@ -1,5 +1,5 @@
 package stan;
-import java.util.ArrayList;
+import stan.tasks.Task;
 
 import java.util.ArrayList;
 

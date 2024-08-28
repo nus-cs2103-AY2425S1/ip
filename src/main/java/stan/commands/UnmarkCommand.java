@@ -2,9 +2,9 @@ package stan.commands;
 import stan.TaskList;
 import stan.Ui;
 import stan.Storage;
-import stan.Task;
-import stan.StanMissingArgumentException;
-import stan.StanInvalidArgumentException;
+import stan.tasks.Task;
+import stan.exceptions.StanMissingArgumentException;
+import stan.exceptions.StanInvalidArgumentException;
 public class UnmarkCommand extends Command {
     private final int taskIndex;
 

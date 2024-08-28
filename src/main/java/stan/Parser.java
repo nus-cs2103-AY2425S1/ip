@@ -1,5 +1,9 @@
 package stan;
 import stan.commands.*;
+import stan.exceptions.StanException;
+import stan.exceptions.StanInvalidArgumentException;
+import stan.exceptions.StanInvalidCommandException;
+import stan.exceptions.StanMissingArgumentException;
 
 public class Parser {
 

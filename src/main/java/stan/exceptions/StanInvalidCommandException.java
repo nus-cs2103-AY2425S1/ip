@@ -1,6 +1,6 @@
-package stan;
+package stan.exceptions;
 
-import stan.StanException;
+import stan.exceptions.StanException;
 
 public class StanInvalidCommandException extends StanException {
     public StanInvalidCommandException() {

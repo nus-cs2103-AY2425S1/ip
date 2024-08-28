@@ -1,4 +1,4 @@
-package stan;
+package stan.exceptions;
 
 public class StanException extends Exception {
     public StanException(String message) {

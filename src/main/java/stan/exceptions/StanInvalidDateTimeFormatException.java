@@ -1,6 +1,6 @@
-package stan;
+package stan.exceptions;
 
-import stan.StanInvalidArgumentException;
+import stan.exceptions.StanInvalidArgumentException;
 
 public class StanInvalidDateTimeFormatException extends StanInvalidArgumentException {
     public StanInvalidDateTimeFormatException(String message) {

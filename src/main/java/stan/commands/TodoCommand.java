@@ -2,9 +2,9 @@ package stan.commands;
 import stan.TaskList;
 import stan.Ui;
 import stan.Storage;
-import stan.Task;
-import stan.Todo;
-import stan.StanMissingArgumentException;
+import stan.tasks.Task;
+import stan.tasks.Todo;
+import stan.exceptions.StanMissingArgumentException;
 
 public class TodoCommand extends Command {
     private final String description;

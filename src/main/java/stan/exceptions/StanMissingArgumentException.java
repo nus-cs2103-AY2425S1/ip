@@ -1,6 +1,6 @@
-package stan;
+package stan.exceptions;
 
-import stan.StanException;
+import stan.exceptions.StanException;
 
 public class StanMissingArgumentException extends StanException {
     public StanMissingArgumentException(String message) {

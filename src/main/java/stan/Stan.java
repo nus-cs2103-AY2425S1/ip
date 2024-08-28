@@ -2,6 +2,7 @@ package stan;
 
 import java.util.ArrayList;
 import stan.commands.*;
+import stan.exceptions.StanException;
 
 public class Stan {
     private static final String FILE_PATH = "data/stan.txt";
