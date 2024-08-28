@@ -4,19 +4,18 @@ import java.util.Scanner;
 import joe.controller.Controller;
 import joe.ui.Ui;
 
-public class Parser {
-    private Controller controller;
+public class Parser<C extends Controller> {
+    private C controller;
     private Scanner scanner;
     private Ui ui;
 
-    public Parser (Controller controller, Ui ui) {
+    public Parser (C controller, Ui ui) {
         this.controller = controller;
         this.scanner = new Scanner(System.in);
         this.ui = ui;
     }
     
-    public boolean parse() {
-        String input = scanner.nextLine();
+    public boolean parse(String input) {
         if (input.equals("bye")) {
             scanner.close();
             return false;
