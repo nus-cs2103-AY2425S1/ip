@@ -7,13 +7,13 @@ import java.io.IOException;
 public class TaskList {
 
     private List<Task> list;
-    private FileOperation fileOperation;
+    private Storage storage;
 
-    public TaskList(FileOperation fileOperation) {
+    public TaskList(Storage storage) {
         this.list = new ArrayList<>();
-        this.fileOperation = fileOperation;
+        this.storage = storage;
         try {
-            this.list = fileOperation.loadTask();
+            this.list = storage.loadTask();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
@@ -22,7 +22,7 @@ public class TaskList {
     public void add(Task item) {
         try {
             this.list.add(item);
-            fileOperation.save(this.list);
+            storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
@@ -32,7 +32,7 @@ public class TaskList {
         String taskToBeRemoved = list.get(index - 1).toString();
         try {
             this.list.remove(index - 1);
-            fileOperation.save(this.list);
+            storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
@@ -53,7 +53,7 @@ public class TaskList {
     public String markAsDone(int index) {
         try {
             list.get(index).markAsDone();
-            fileOperation.save(this.list);
+            storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }
@@ -63,7 +63,7 @@ public class TaskList {
     public String markAsNotDone(int index) {
         try {
             list.get(index).markAsNotDone();
-            fileOperation.save(this.list);
+            storage.save(this.list);
         } catch (IOException e) {
             System.out.println("Error saving task");
         }

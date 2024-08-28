@@ -8,13 +8,13 @@ public class Fanny {
 
     private static TaskList list;
     private static Scanner scanner = new Scanner(System.in);
-    private static FileOperation fileOperation;
+    private static Storage storage;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static void main(String[] args) {
 
-        fileOperation = new FileOperation("./data/fanny.txt");
-        list = new TaskList(fileOperation);
+        storage = new Storage("./data/fanny.txt");
+        list = new TaskList(storage);
 
         printHello();
 
@@ -135,7 +135,7 @@ public class Fanny {
         try {
             String[] cmdEvent = cmdParts[1].split("/from ", 2);
             String description = cmdEvent[0];
-            String[] duration = cmdEvent[1].split("/to ", 2);
+            String[] duration = cmdEvent[1].split(" /to ", 2);
             LocalDateTime from = LocalDateTime.parse(duration[0], formatter);
             LocalDateTime to = LocalDateTime.parse(duration[1], formatter);
             Task event = new Event(description, from, to);
@@ -146,7 +146,7 @@ public class Fanny {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Event description and duration cannot be empty");
         } catch (DateTimeParseException e) {
-            System.out.println("Please enter a valid date and time: YYYY-MM-DD HH:MM:SS");
+            System.out.println("Please enter a valid date and time: YYYY-MM-DD HH:MM");
         } finally {}
         System.out.println(horizontalLine);
     }
