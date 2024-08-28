@@ -16,21 +16,21 @@ public class EventTest {
                         "E",
                         LocalDateTime.of(2024, 8, 30, 18, 0),
                         LocalDateTime.of(2024, 9, 30, 18, 0)
-                ),
-                new Event("event project meeting /from 2024-08-30 18:00 /to 2024-09-30 18:00")
+                ).getDescription(),
+                new Event("event project meeting /from 2024-08-30 18:00 /to 2024-09-30 18:00").getDescription()
         );
 
         assertEquals(
                 new Event("event project meeting /from 2024-08-30 18:00 /to 2024-09-30 18:00").getStartDate(),
                 LocalDateTime.of(2024, 8, 30, 18, 0).format(
-                        DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")
+                        DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a")
                 )
         );
 
         assertEquals(
                 new Event("event project meeting /from 2024-08-30 18:00 /to 2024-09-30 18:00").getEndDate(),
                 LocalDateTime.of(2024, 9, 30, 18, 0).format(
-                        DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")
+                        DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a")
                 )
         );
     }
