@@ -1,8 +1,10 @@
-import java.time.LocalDate;
+package jude.task;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import jude.JudeException;
 
 public class Event extends Task {
     private LocalDateTime fromDateTime;

@@ -1,3 +1,5 @@
+package jude;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +22,7 @@ public class Ui {
 
     public void startChat() {
         // Initiate the chat
-        System.out.println("Hello I'm Jude");
+        System.out.println("Hello I'm jude.Jude");
         System.out.println("What can I do for you, poyo?");
     }
 

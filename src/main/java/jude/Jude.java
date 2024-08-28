@@ -1,22 +1,9 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+package jude;
 
-import java.lang.reflect.Array;
-import java.nio.CharBuffer;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
+import jude.command.Command;
 
 /**
- * Represents a Jude, the personal assistant chatbot.
+ * Represents a jude.Jude, the personal assistant chatbot.
  * <p>
  * This class helps a person to keep track of various things.
  *
@@ -24,7 +11,7 @@ import java.io.IOException;
  **/
 public class Jude {
 
-    String name = "Jude";
+    String name = "jude.Jude";
     private TaskList tasks;
     private Storage storage;
     private Parser parser;

@@ -1,6 +1,16 @@
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+package jude;
+
+import jude.command.AddCommand;
+import jude.command.Command;
+import jude.command.DeleteCommand;
+import jude.command.ExitCommand;
+import jude.command.ListCommand;
+import jude.command.MarkCommand;
+import jude.command.UnmarkCommand;
+import jude.task.Deadline;
+import jude.task.Event;
+import jude.task.Task;
+import jude.task.Todo;
 
 public class Parser {
     private String command;
@@ -18,11 +28,11 @@ public class Parser {
             throw new JudeException("Poyo, invalid input. Try again...");
         }
 
-        // Perform split of command, and a description, if present.
+        // Perform split of jude.command, and a description, if present.
         String[] split = input.split(" ", 2);
         this.command = split[0];
 
-        // Handle inputs with only a command (and without a description).
+        // Handle inputs with only a jude.command (and without a description).
         if (command.equals("bye")) {
 
             if (split.length > 1) {
@@ -66,8 +76,8 @@ public class Parser {
             descriptions = split[1].split(" /by ", 2);
 
             if (descriptions.length != 2) {
-                throw new JudeException("Poyo,  the command "
-                        + command + " must be provided with a description with the use of /by command.");
+                throw new JudeException("Poyo,  the jude.command "
+                        + command + " must be provided with a description with the use of /by jude.command.");
             }
             return new AddCommand(new Deadline(descriptions[0], descriptions[1]));
 
@@ -76,13 +86,13 @@ public class Parser {
             descriptions = split[1].split(" /from | /to ", 3);
 
             if (descriptions.length != 3) {
-                throw new JudeException("Poyo,  the command " + command
-                        + " must be provided with a description with the use of /from followed by /to command.");
+                throw new JudeException("Poyo,  the jude.command " + command
+                        + " must be provided with a description with the use of /from followed by /to jude.command.");
             }
             return new AddCommand(new Event(descriptions[0], descriptions[1], descriptions[2]));
         }
 
-        throw new JudeException("No valid command was provided.");
+        throw new JudeException("No valid jude.command was provided.");
     }
 
     public String getCommand() {

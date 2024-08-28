@@ -1,4 +1,4 @@
-Hello I'm Jude
+Hello I'm jude.Jude
 What can I do for you, poyo?
 Poyo! added: [T][ ] read book
 Poyo! added: [D][ ] homework (by: today)
@@ -6,40 +6,40 @@ Poyo! added: [E][ ] meeting (from: 8 to: 9)
 1. [T][ ] read book
 2. [D][ ] homework (by: today)
 3. [E][ ] meeting (from: 8 to: 9)
-Poyo! I've marked this task as done:
+Poyo! I've marked this jude.task as done:
 [T][X] read book
 1. [T][X] read book
 2. [D][ ] homework (by: today)
 3. [E][ ] meeting (from: 8 to: 9)
-Poyo! I've unmarked this task as not done:
+Poyo! I've unmarked this jude.task as not done:
 [T][ ] read book
 1. [T][ ] read book
 2. [D][ ] homework (by: today)
 3. [E][ ] meeting (from: 8 to: 9)
-Poyo! I've marked this task as done:
+Poyo! I've marked this jude.task as done:
 [T][X] read book
-Poyo! I've marked this task as done:
+Poyo! I've marked this jude.task as done:
 [D][X] homework (by: today)
-Poyo! I've marked this task as done:
+Poyo! I've marked this jude.task as done:
 [E][X] meeting (from: 8 to: 9)
 1. [T][X] read book
 2. [D][X] homework (by: today)
 3. [E][X] meeting (from: 8 to: 9)
-Poyo! I've unmarked this task as not done:
+Poyo! I've unmarked this jude.task as not done:
 [T][ ] read book
-Poyo! I've unmarked this task as not done:
+Poyo! I've unmarked this jude.task as not done:
 [D][ ] homework (by: today)
-Poyo! I've unmarked this task as not done:
+Poyo! I've unmarked this jude.task as not done:
 [E][ ] meeting (from: 8 to: 9)
-Poyo! I've deleted this task:
+Poyo! I've deleted this jude.task:
 [T][ ] read book
 1. [D][ ] homework (by: today)
 2. [E][ ] meeting (from: 8 to: 9)
-Poyo, the command either does not exist, or the description of a invalid cannot be empty.
-Poyo,  the command deadline must be provided with a description with the use of /by command.
-Poyo,  the command event must be provided with a description with the use of /from followed by /to command.
+Poyo, the jude.command either does not exist, or the description of a invalid cannot be empty.
+Poyo,  the jude.command deadline must be provided with a description with the use of /by jude.command.
+Poyo,  the jude.command event must be provided with a description with the use of /from followed by /to jude.command.
 Poyo,  The description of a list must be empty.
-The command for mark should be followed by a number. Please try again, poyo
-The command for unmark should be followed by a number. Please try again, poyo
-The command for delete should be followed by a number. Please try again, poyo
+The jude.command for mark should be followed by a number. Please try again, poyo
+The jude.command for unmark should be followed by a number. Please try again, poyo
+The jude.command for delete should be followed by a number. Please try again, poyo
 Poyo. Hope to see you again soon!

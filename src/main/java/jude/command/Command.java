@@ -1,3 +1,10 @@
+package jude.command;
+
+import jude.JudeException;
+import jude.Storage;
+import jude.TaskList;
+import jude.Ui;
+
 public abstract class Command {
 
     private boolean isExit;
