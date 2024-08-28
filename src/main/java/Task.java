@@ -31,4 +31,6 @@ public abstract class Task {
             totalTasks -= 1;
         }
     }
+
+    public abstract String toData();
 }
