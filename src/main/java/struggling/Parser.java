@@ -4,6 +4,7 @@ import struggling.command.AddCommand;
 import struggling.command.Command;
 import struggling.command.DeleteCommand;
 import struggling.command.ExitCommand;
+import struggling.command.FindCommand;
 import struggling.command.InvalidCommand;
 import struggling.command.ListCommand;
 import struggling.command.MarkCommand;
@@ -19,7 +20,7 @@ import java.time.LocalDate;
  * Commands accepted by the Parser class.
  */
 enum Commands {
-    bye, list, mark, unmark, todo, deadline, event, delete
+    bye, list, mark, unmark, todo, deadline, event, delete, find
 }
 
 /**
@@ -74,6 +75,8 @@ public class Parser {
             return new AddCommand(event);
         case delete:
             return new DeleteCommand(Integer.parseInt(args[1]) - 1);
+        case find:
+            return new FindCommand(args[1]);
         }
 
         return new InvalidCommand();

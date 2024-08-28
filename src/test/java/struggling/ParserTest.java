@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import struggling.command.AddCommand;
 import struggling.command.DeleteCommand;
 import struggling.command.ExitCommand;
+import struggling.command.FindCommand;
 import struggling.command.ListCommand;
 import struggling.command.MarkCommand;
 import struggling.command.UnmarkCommand;
@@ -53,6 +54,11 @@ public class ParserTest {
     @Test
     public void parse_deleteInput_deleteCommand() {
         assertEquals(DeleteCommand.class, Parser.parse("delete 1").getClass());
+    }
+
+    @Test
+    public void parse_findInput_findCommand() {
+        assertEquals(FindCommand.class, Parser.parse("find book").getClass());
     }
 
     @Test

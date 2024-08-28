@@ -130,4 +130,16 @@ public class TaskList {
     public int getSize() {
         return this.tasks.size();
     }
+
+    public ArrayList<String> findTask(String str) {
+        ArrayList<String> arr = new ArrayList<>();
+
+        for (Task t : tasks) {
+            if (t.getDescription().contains(str)) {
+                arr.add(t.toString());
+            }
+        }
+
+        return arr;
+    }
 }

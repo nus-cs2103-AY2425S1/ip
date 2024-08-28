@@ -107,4 +107,12 @@ public class TaskListTest {
     public void addTask_unmarkedTask() {
         assertEquals("D | 0 | return book | 2024-08-27", new TaskList(input).unmarkTask(1).getState());
     }
+
+    @Test
+    public void parse_deleteInput_deleteCommand() {
+        ArrayList<String> expectedOutput = new ArrayList<>(
+                Arrays.asList("T | 0 | borrow book", "D | 0 | return book | 2024-08-27"));
+
+        assertEquals(expectedOutput, new TaskList(input).findTask("book"));
+    }
 }

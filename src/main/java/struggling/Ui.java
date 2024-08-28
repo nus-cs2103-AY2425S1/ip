@@ -66,6 +66,20 @@ public class Ui {
     public void list(ArrayList<String> arr) {
         StringBuilder ans = new StringBuilder("Here are the tasks in your list:\n");
         int count = 0;
+        for (String s : arr) {
+            ans.append(String.format("%d. %s\n", ++count, s));
+        }
+
+        if (!ans.isEmpty()) {
+            ans.deleteCharAt(ans.length() - 1);
+        }
+
+        show(ans.toString());
+    }
+
+    public void find(ArrayList<String> arr) {
+        StringBuilder ans = new StringBuilder("Here are the matching tasks in your list:\n");
+        int count = 0;
 
         for (String s : arr) {
             ans.append(String.format("%d. %s\n", ++count, s));
@@ -90,8 +104,8 @@ public class Ui {
      * Displays the message after a Task is removed to TaskList.
      */
     public void showDeleteTask(Task task, int size) {
-        show(String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks" + " in the list.",
-                task, size));
+        show(String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.", task,
+                           size));
     }
 
     /**
