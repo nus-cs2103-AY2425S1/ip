@@ -2,9 +2,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Alex {
     private static String line = "____________________________________________________________"; //create separation line
@@ -19,11 +22,7 @@ public class Alex {
 
         try {
             readFile();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
-        } catch (AlexException e) {
-            //should not happen
+        } catch (FileNotFoundException | AlexException | DateTimeParseException e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -119,7 +118,8 @@ public class Alex {
                 System.out.println(line);
             } else if (response.equals("mark") || response.equals("unmark")) {  //mark and unmark tasks
                 if (!lineScanner.hasNext()) {
-                    throw new AlexException("Oh no! Please provide an integer number after 'mark' or 'unmark' indicating the task number to mark or unmark!");
+                    throw new AlexException("Oh no! Please provide an integer number after 'mark' or 'unmark' " +
+                            "indicating the task number to mark or unmark!");
                 }
                 String taskNumberStr = lineScanner.next();
                 int taskNumber = 0;
@@ -133,7 +133,8 @@ public class Alex {
                 try {
                     taskNumber = Integer.valueOf(taskNumberStr);
                 } catch (NumberFormatException e) {
-                    throw new AlexException("Oh no! Please only provide an integer number after 'mark' or 'unmark' indicating the task number to mark or unmark!");
+                    throw new AlexException("Oh no! Please only provide an integer number after 'mark' or 'unmark' " +
+                            "indicating the task number to mark or unmark!");
                 }
 
                 if (taskNumber < 1 || taskNumber > size) {
@@ -152,7 +153,8 @@ public class Alex {
                 }
             } else if (response.equals("delete")) {
                 if (!lineScanner.hasNext()) {
-                    throw new AlexException("Oh no! Please provide an integer number after 'delete' indicating the task number to delete!");
+                    throw new AlexException("Oh no! Please provide an integer number after 'delete' indicating the " +
+                            "task number to delete!");
                 }
                 String taskNumberStr = lineScanner.next();
                 int taskNumber = 0;
@@ -166,7 +168,8 @@ public class Alex {
                 try {
                     taskNumber = Integer.valueOf(taskNumberStr);
                 } catch (NumberFormatException e) {
-                    throw new AlexException("Oh no! Please only provide an integer number after 'delete' indicating the task number to delete!");
+                    throw new AlexException("Oh no! Please only provide an integer number after 'delete' indicating " +
+                            "the task number to delete!");
                 }
 
                 if (taskNumber < 1 || taskNumber > size) {
@@ -184,11 +187,23 @@ public class Alex {
                 if (response.equals("todo")) {
                     task = makeTodoTask(lineScanner, arrOfStr, false);
                 } else if (response.equals("deadline")) {
-                    task = makeDeadlineTask(lineScanner, arrOfStr, false);
+                    try {
+                        task = makeDeadlineTask(lineScanner, arrOfStr, false);
+                    } catch (DateTimeParseException e) {
+                        throw new AlexException("Oh no! Please provide the deadline in yyyy-mm-dd HHMM format " +
+                                "e.g. 2024-05-19 1800");
+                    }
                 } else if (response.equals("event")) {
-                    task = makeEventTask(lineScanner, arrOfStr, false);
+                    try {
+                        task = makeEventTask(lineScanner, arrOfStr, false);
+                    } catch (DateTimeParseException e) {
+                        throw new AlexException("Oh no! Please provide the start and end date and time in yyyy-mm-dd " +
+                                "HHMM format e.g. 2024-05-19 1800");
+                    }
+
                 } else {
-                    throw new AlexException("Sorry! Alex doesn't understand you. Please only start with 'todo', 'deadline', 'event', 'mark', 'unmark', 'list' or 'bye'!");
+                    throw new AlexException("Sorry! Alex doesn't understand you. Please only start with 'todo', " +
+                            "'deadline', 'event', 'mark', 'unmark', 'list' or 'bye'!");
                 }
                 list.add(task);
                 size++;
@@ -207,46 +222,72 @@ public class Alex {
         System.out.println(farewell);
     }
 
-    private static Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws AlexException {
+    private static LocalDateTime convertDateTime(String deadline) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return LocalDateTime.parse(deadline, formatter);
+    }
+
+    private static Task makeTodoTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
+            throws AlexException {
         while (lineScanner.hasNext()) {
             arrOfStr.add(lineScanner.next());
         }
         if (arrOfStr.isEmpty()) {
-            throw new AlexException("Oh no! Alex doesn't like that the todo task is blank :( You have to provide a task!");
+            throw new AlexException("Oh no! Alex doesn't like that the todo task is blank :( " +
+                    "You have to provide a task!");
         }
         return new Todo(size + 1, String.join(" ", arrOfStr), isDone);
     }
 
-    private static Task makeDeadlineTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws AlexException  {
+    private static Task makeDeadlineTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
+            throws AlexException  {
         String description = "";
         String deadline = "";
+        boolean hasProvidedDeadline = false;
         while (lineScanner.hasNext()) {
             String next = lineScanner.next();
             if (next.equals("/by")) {
                 description = String.join(" ", arrOfStr);
                 arrOfStr.clear();
+                hasProvidedDeadline = true;
             } else {
                 arrOfStr.add(next);
             }
         }
+
         deadline = String.join(" ", arrOfStr);
-        if ((description.isEmpty() && !arrOfStr.isEmpty()) || (!description.isEmpty()) && deadline.isEmpty()) {
-            throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a deadline date by writing '/by' followed by the deadline!");
+
+        if ((!hasProvidedDeadline && !deadline.isEmpty() && description.isEmpty())
+                || (hasProvidedDeadline && !description.isEmpty() && deadline.isEmpty())) {
+            throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a " +
+                    "deadline date by writing '/by' followed by the deadline!");
         }
-        if (description.isEmpty() && deadline.isEmpty()) {
-            throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide a task!");
+        if (description.isEmpty() ) {
+            throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide " +
+                    "a task!");
         }
-        return new Deadline(size + 1, description, isDone, deadline);
+
+//        if ((description.isEmpty() && !arrOfStr.isEmpty()) || (!description.isEmpty()) && deadline.isEmpty()) {
+//            throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a " +
+//                    "deadline date by writing '/by' followed by the deadline!");
+//        }
+//        if (description.isEmpty() && deadline.isEmpty()) {
+//            throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide " +
+//                    "a task!");
+//        }
+        return new Deadline(size + 1, description, isDone, convertDateTime(deadline));
     }
 
-    private static Task makeEventTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws AlexException  {
+    private static Task makeEventTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
+            throws AlexException  {
         String description = "";
         String start = "";
         boolean isStart = false;
         boolean isEnd = false;
 
         if (!lineScanner.hasNext()) {
-            throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide a task!");
+            throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide " +
+                    "a task!");
         }
 
         while (lineScanner.hasNext()) {
@@ -258,7 +299,8 @@ public class Alex {
                     isStart = true;
                 }
                 if (isEnd) {
-                    throw new AlexException("Oh no! Alex doesn't like that /to comes before /from :( You should write the start time first before the end time");
+                    throw new AlexException("Oh no! Alex doesn't like that /to comes before /from :( You should " +
+                            "write the start time first before the end time");
                 }
             } else if (next.equals("/to")) {
                 start = String.join(" ", arrOfStr);
@@ -270,13 +312,20 @@ public class Alex {
                 arrOfStr.add(next);
             }
         }
-        if (!isStart) {
-            throw new AlexException("Oh no! Alex doesn't like that no start time is provided :( You have to provide a start time with '/from' followed by the time!");
+        if (!isStart || start.isEmpty()) {
+            throw new AlexException("Oh no! Alex doesn't like that no start time is provided :( You have to provide a " +
+                    "start time with '/from' followed by the time!");
         }
         if (!isEnd) {
-            throw new AlexException("Oh no! Alex doesn't like that no end time is provided :( You have to provide an end time with '/to' followed by the time!");
+            throw new AlexException("Oh no! Alex doesn't like that no end time is provided :( You have to provide " +
+                    "an end time with '/to' followed by the time!");
         }
-        return new Event(size + 1, description, isDone, start, String.join(" ", arrOfStr));
+        if (description.isEmpty()) {
+            throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide " +
+                    "a task!");
+        }
+        return new Event(size + 1, description, isDone, convertDateTime(start),
+                convertDateTime(String.join(" ", arrOfStr)));
     }
 
     private static void message(String line, String str, Task task, int size) {
