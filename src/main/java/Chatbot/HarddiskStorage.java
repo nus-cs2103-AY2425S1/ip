@@ -9,16 +9,31 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-    import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
+/**
+ * The {@code HarddiskStorage} class handles the loading and saving of tasks to and from the hard disk.
+ * It supports various types of tasks, including ToDo, Deadline, and Event tasks.
+ */
 public class HarddiskStorage {
     private final String filePath;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
+    /**
+     * Constructs a {@code HarddiskStorage} object with the specified file path.
+     *
+     * @param filePath the path of the file where tasks are stored.
+     */
     public HarddiskStorage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the {@code filePath}.
+     * If the file does not exist or cannot be read, an empty task list is returned.
+     *
+     * @return a map of tasks, where the key is the task ID and the value is the task object.
+     */
     public Map<Integer, Task> load() {
         Map<Integer, Task> tasks = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -54,11 +69,16 @@ public class HarddiskStorage {
         return tasks;
     }
 
-
+    /**
+     * Saves the given map of tasks to the file specified by the {@code filePath}.
+     * If the file or its directories do not exist, they will be created.
+     * If an error occurs during saving, an error message will be printed.
+     *
+     * @param tasks a map of tasks to be saved, where the key is the task ID and the value is the task object.
+     */
     public void save(Map<Integer, Task> tasks) {
         try {
             File file = new File(filePath);
-
             File parentDir = file.getParentFile();
 
             // Ensure parent directories exist
@@ -70,6 +90,7 @@ public class HarddiskStorage {
             if (!file.exists()) {
                 file.createNewFile(); // This will create the file if it doesn't exist
             }
+
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
                 for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
                     Task task = entry.getValue();
@@ -82,4 +103,3 @@ public class HarddiskStorage {
         }
     }
 }
-
