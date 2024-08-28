@@ -160,8 +160,8 @@ public class Atlas {
         } else if (sections[0].equals("D")) {
             task = new Deadline(sections[2], sections[3]);
         } else {
-            String[] times = sections[3].split("-");
-            task = new Event(sections[2], times[0], times[1]);
+            String[] dateTimes = sections[3].split(" to ");
+            task = new Event(sections[2], dateTimes[0], dateTimes[1]);
         }
 
         if (sections[1].equals("1")) {

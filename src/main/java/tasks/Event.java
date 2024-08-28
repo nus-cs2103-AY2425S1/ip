@@ -16,7 +16,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("E %s | %s-%s", super.toFileString(),
+        return String.format("E %s | %s to %s", super.toFileString(),
                 this.startTime.format(DateTime.DateTimeFileOutputFormatter),
                 this.endTime.format(DateTime.DateTimeFileOutputFormatter));
     }
@@ -24,7 +24,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(),
-                this.startTime.format(DateTime.DateTimeFileOutputFormatter),
-                this.endTime.format(DateTime.DateTimeFileOutputFormatter));
+                this.startTime.format(DateTime.DateTimePrintOutputFormatter),
+                this.endTime.format(DateTime.DateTimePrintOutputFormatter));
     }
 }
