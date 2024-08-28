@@ -11,6 +11,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract String getTaskTypeIcon();
+    public abstract TaskType getTaskType();
+    public abstract String getDescription();
+    public abstract String getSaveFormat();
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); 
     }
@@ -18,11 +23,6 @@ public abstract class Task {
     public boolean getIsDone() {
         return this.isDone;
     }
-
-    public abstract String getTaskTypeIcon();
-    public abstract TaskType getTaskType();
-    public abstract String getDescription();
-    public abstract String getSaveFormat();
 
     public void mark() {
         this.isDone = true;

@@ -16,8 +16,13 @@ import utils.Ui;
 import java.util.ArrayList;
 
 public class Glados {
+    /* TaskList object to manage tasks */
     private TaskList taskList;
 
+    /**
+     * Constructs Glados object by initializing TaskList.
+     * TaskList object is created with loading tasks.
+     */
     public Glados() {
         this.taskList = new TaskList(true);
     }
@@ -96,6 +101,11 @@ public class Glados {
         Ui.unmark(res);
     }
 
+    /**
+     * Initializes a new Glados object and invokes its run method.
+     * 
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Glados().run();
     }

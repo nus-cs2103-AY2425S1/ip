@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import tasks.Task;
 
 public class Ui {
+
+    /* Dividers and logo to display in CLI */
     private static final String HORIZONTAL_LINE = "\n" 
         + "-----------------------------------------------------------------------------\n";
     private static final String LOGO = "\n"
@@ -17,6 +19,9 @@ public class Ui {
             + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
             + "\n";
 
+    /**
+     * Prints greeting statement in terminal.
+     */
     public static void greet() {
         System.out.println(
             HORIZONTAL_LINE
@@ -27,6 +32,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Prints user input in echo command.
+     * 
+     * @param input Input to be echoed.
+     */
     public static void echo(String input) {
         System.out.println(
             HORIZONTAL_LINE
@@ -35,6 +45,12 @@ public class Ui {
         );
     }
 
+    /**
+     * Prints result after task has been added. 
+     * 
+     * @param task Task description to be added.
+     * @param index Number of tasks left.
+     */
     public static void add(String task, String index) {
         System.out.println(
             HORIZONTAL_LINE
@@ -45,6 +61,12 @@ public class Ui {
         );
     }
 
+    /**
+     * Prints result after task has been deleted.
+     * 
+     * @param task Task description to be deleted.
+     * @param index Number of tasks left.
+     */
     public static void delete(String task, String index) {
         System.out.println(
             HORIZONTAL_LINE
@@ -54,7 +76,12 @@ public class Ui {
             + HORIZONTAL_LINE
         );
     }
-    
+
+    /**
+     * Prints all elements inside the tasklist.
+     * 
+     * @param taskList Task list to be printed.
+     */
     public static void list(ArrayList<Task> taskList) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("GLaDOS: Here is the list...\n");
@@ -64,6 +91,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints task after it has been marked.
+     * 
+     * @param input Description of task.
+     */
     public static void mark(String input) {
         System.out.println(
             HORIZONTAL_LINE
@@ -72,6 +104,11 @@ public class Ui {
             + HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints task after it has been unmarked.
+     * 
+     * @param input Description of task.
+     */
     public static void unmark(String input) {
         System.out.println(
             HORIZONTAL_LINE
@@ -80,6 +117,11 @@ public class Ui {
             + HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints error caught by Glados.
+     * 
+     * @param e Exception to be printed.
+     */
     public static void error(Exception e) {
         System.out.println(
             HORIZONTAL_LINE
@@ -88,12 +130,20 @@ public class Ui {
         );
     }
 
+    /**
+     * Prints appropriate statement during taskList initialization.
+     * 
+     * @param str Statement to be printed.
+     */
     public static void initialise(String str) {
         System.out.println(
             "\n" + str
         );
     }
 
+    /**
+     * Prints exit statement after bye command.
+     */
     public static void exit() {
         System.out.println(
             HORIZONTAL_LINE

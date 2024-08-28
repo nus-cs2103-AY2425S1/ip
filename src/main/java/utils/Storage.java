@@ -19,8 +19,15 @@ import tasks.Task;
 import tasks.Todo;
 
 public class Storage {
+
+    /* File path to store task list data */
     private static final String FILE_PATH = "./data/tasks.txt";
 
+    /**
+     * Saves tasks in a separate data folder.
+     * 
+     * @param taskList Task list to be saved in data.
+     */
     public static void saveTasks(ArrayList<Task> taskList) {
         File file = new File(FILE_PATH);
         File directory = file.getParentFile();
@@ -39,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from existing data file.
+     * If data does not exists, returns empty array list.
+     * 
+     * @return Array list of tasks.
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {

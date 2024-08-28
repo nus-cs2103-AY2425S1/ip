@@ -14,6 +14,14 @@ import exceptions.TaskNotFoundException;
 
 public class Parser {
     
+    /**
+     * Parses a task based on its taskType and command line arguments.
+     * 
+     * @param taskType Type of task.
+     * @param input Command line arguments passed by user.
+     * @return ParsedInfo object with task description and corresponding dates.
+     * @throws GladosException If arguments cannot be parsed correctly.
+     */
     public static ParsedInfo parseTask(TaskType taskType, String input) throws GladosException {
         switch (taskType) {
         case TODO:
