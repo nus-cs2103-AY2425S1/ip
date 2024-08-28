@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public abstract class Task {
+public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -10,12 +10,6 @@ public abstract class Task {
         this.description = description;
         this.isDone = isDone;
     }
-
-    public abstract boolean isEvent();
-
-    public abstract boolean isToDo();
-
-    public abstract boolean isDeadline();
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");

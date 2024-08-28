@@ -10,21 +10,6 @@ public class Event extends Task {
         this.to = to;
     }
 
-    @Override
-    public boolean isEvent() {
-        return true;
-    }
-
-    @Override
-    public boolean isToDo() {
-        return false;
-    }
-
-    @Override
-    public boolean isDeadline() {
-        return false;
-    }
-
     public String saveString() {
         return String.format("E | %s | %s | %s | %s", description, isDone,
                 from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),

@@ -9,21 +9,6 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    @Override
-    public boolean isEvent() {
-        return false;
-    }
-
-    @Override
-    public boolean isToDo() {
-        return true;
-    }
-
-    @Override
-    public boolean isDeadline() {
-        return false;
-    }
-
     public String saveString() {
         return String.format("D | %s | %s | %s", description, isDone,
                 deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
