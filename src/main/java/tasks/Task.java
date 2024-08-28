@@ -117,7 +117,6 @@ public abstract class Task {
         return task;
     }
 
-
     /**
      * Returns a string representation of a task when saving to file.
      *
@@ -134,5 +133,14 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    /**
+     * Returns a textual description of the task
+     *
+     * @return the description of this task
+     */
+    public String getDescription() {
+        return this.description;
     }
 }

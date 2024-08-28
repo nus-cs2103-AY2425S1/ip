@@ -22,6 +22,7 @@ public class HelpCommand implements Command {
         ui.show("6. unmark <task number> : Unmarks the specified task.");
         ui.show("7. delete <task number> : Deletes the specified task.");
         ui.show("8. help : Displays this help message.");
+        ui.show("9. find <keyword> : Lists tasks containing the keyword.");
         ui.show("9. bye : Exits the PandaBot.");
         ui.printLine();
     }
