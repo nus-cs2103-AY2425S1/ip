@@ -7,6 +7,7 @@ import stelle.task.Task;
 import stelle.task.ToDo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /** This class encapsulates chatbot parsing and logic.
  * @author Lee Ze Hao (A0276123J)
@@ -18,6 +19,7 @@ public class Parser {
     static final String MARK_COMMAND = "mark";
     static final String UNMARK_COMMAND = "unmark";
     static final String DELETE_COMMAND = "delete";
+    static final String FIND_COMMAND = "find";
 
     static final String TODO_COMMAND = "todo";
     static final String DEADLINE_COMMAND = "deadline";
@@ -53,6 +55,8 @@ public class Parser {
             taskList.writeToFile();
             ui.printBye();
             System.exit(0);
+        } else if (input.contains(FIND_COMMAND)) {
+            processFindTaskInput(input);
         } else if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
             processMarkUnmarkInput(input);
         } else if (input.equals(LIST_COMMAND)) {
@@ -63,6 +67,27 @@ public class Parser {
             processDeleteTaskInput(input);
         } else {
             throw new WrongCommandException();
+        }
+    }
+
+    /**
+     * Prints the tasks with names that contain the find query entered by user.
+     * @param input The text string entered by the user.
+     */
+    private void processFindTaskInput(String input) {
+        String query = input.split(" ", 2)[1];
+        ArrayList<Integer> resultList = taskList.find(query);
+
+        if (resultList.isEmpty()) {
+            System.out.println("No tasks with names matching this liquery!");
+            return;
+        }
+
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (int i = 0; i < resultList.size(); i++) {
+            String output = " " + (i + 1) + ". " + this.taskList.get(resultList.get(i)).toString();
+            System.out.println(output);
         }
     }
 

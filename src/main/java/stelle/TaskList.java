@@ -97,20 +97,20 @@ public class TaskList {
     }
 
     /**
-     * Returns an ArrayList containing all tasks with names that contain the query.
+     * Returns an ArrayList containing all list numbers of tasks with names that contain the query.
      * @param query The string being searched for.
-     * @return ArrayList<Task> ArrayList containing all tasks with names that contain the query.
+     * @return ArrayList<Integer> ArrayList containing all list numbers of tasks with names that contain the query.
      */
-    public ArrayList<Task> search(String query) {
-        ArrayList<Task> result = new ArrayList<Task>();
+    public ArrayList<Integer> find(String query) {
+        ArrayList<Integer> resultIndexes = new ArrayList<Integer>();
 
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            if (task.getTaskName().contains(query)) {
-                result.add(task);
+            if (task.getTaskName().toLowerCase().contains(query.toLowerCase())) {
+                resultIndexes.add(i);
             }
         }
 
-        return result;
+        return resultIndexes;
     }
 }
