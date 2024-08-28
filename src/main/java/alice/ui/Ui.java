@@ -1,5 +1,6 @@
 package alice.ui;
 
+/** Handles output to the user. */
 public class Ui {
     private static final String FACE = "(*-.-)";
     private static final String DIVIDER = "____________________________________________________________";

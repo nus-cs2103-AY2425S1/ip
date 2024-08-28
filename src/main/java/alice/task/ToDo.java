@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/** Basic task with no time constraints. */
 public class ToDo extends Task {
     public ToDo(String line) throws InvalidTaskException {
         super(line);

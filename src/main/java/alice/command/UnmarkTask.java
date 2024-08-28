@@ -11,6 +11,13 @@ public class UnmarkTask extends Command {
         super(ui, taskList);
     }
 
+    /**
+     * Marks a task as incomplete.
+     * 
+     * Input should be: unmark &lt;task number&gt;
+     *
+     * @param line the input line from the user
+     */
     @Override
     public void execute(String line) {
         String[] tokens = line.split(" ", 2);

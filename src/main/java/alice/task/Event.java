@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/** Task with /from and /to fields. */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;

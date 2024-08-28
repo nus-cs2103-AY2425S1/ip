@@ -12,6 +12,7 @@ import java.util.List;
 import alice.task.InvalidTaskException;
 import alice.task.Task;
 
+/** Reads and writes task data to a file. */
 public class Storage {
     private final String dataDirectoryPath;
     private final String tasksFileName;
@@ -21,6 +22,13 @@ public class Storage {
         this.tasksFileName = tasksFileName;
     }
 
+    /**
+     * Loads stored tasks from disk.
+     * 
+     * @throws IOException          if the stored file cannot be read
+     * @throws InvalidTaskException if there are errors in parsing the stored task
+     * @return                      the list of stored tasks
+     */
     public List<Task> loadTasks() throws IOException, InvalidTaskException {
         File dataDirectory = new File(dataDirectoryPath);
         if (!dataDirectory.exists()) {
@@ -44,6 +52,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Save tasks to disk to persist data.
+     * 
+     * @throws IOException if the stored file cannot be written to
+     */
     public void saveTasks(List<Task> tasks) throws IOException {
         File dataDirectory = new File(dataDirectoryPath);
         if (!dataDirectory.exists()) {

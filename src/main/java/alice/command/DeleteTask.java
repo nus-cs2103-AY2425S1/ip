@@ -11,6 +11,13 @@ public class DeleteTask extends Command {
         super(ui, taskList);
     }
 
+    /**
+     * Deletes a task from the taskList.
+     * 
+     * Input should be: delete &lt;task number&gt;
+     *
+     * @param line the input line from the user
+     */
     @Override
     public void execute(String line) {
         String[] tokens = line.split(" ", 2);

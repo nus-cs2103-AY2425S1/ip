@@ -11,6 +11,13 @@ public class ListTask extends Command {
         super(ui, taskList);
     }
 
+    /**
+     * Lists current tasks.
+     * 
+     * Input should be: list
+     *
+     * @param line the input line from the user
+     */
     @Override
     public void execute(String line) {
         List<Task> tasks = taskList.getTasks();

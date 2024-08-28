@@ -15,6 +15,14 @@ public class AddTask extends Command {
         super(ui, taskList);
     }
 
+    /**
+     * Adds a task to the taskList.
+     * Can be TODO, DEADLINE or EVENT.
+     * 
+     * Input should be: &lt;task type&gt; &lt;description&gt; &lt;flags&gt;
+     *
+     * @param line the input line from the user
+     */
     @Override
     public void execute(String line) {
         Task.TaskType taskType = Task.TaskType.valueOf(line.split(" ")[0].toUpperCase());        

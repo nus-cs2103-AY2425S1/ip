@@ -11,6 +11,13 @@ public class MarkTask extends Command {
         super(ui, taskList);
     }
 
+    /**
+     * Marks a task as complete.
+     * 
+     * Input should be: mark &lt;task number&gt;
+     *
+     * @param line the input line from the user
+     */
     @Override
     public void execute(String line) {
         String[] tokens = line.split(" ", 2);

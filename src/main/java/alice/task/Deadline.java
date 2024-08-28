@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/** Task with a /by field. */
 public class Deadline extends Task {
     private LocalDateTime by;
 
