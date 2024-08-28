@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Dave {
 
@@ -9,7 +10,7 @@ public class Dave {
                 + "| |_| / ___ \\   \\ V / | |___\n"
                 + "|____/_/   \\_\\   \\_/  |_____|\n";
         String horizontal = "__________________________________________________________";
-        Task[] dataList = new Task[100];
+        ArrayList<Task> dataList  = new ArrayList<>();
         int dataIndex = 0;
         String statement;
 
@@ -50,7 +51,7 @@ public class Dave {
                         try {
                             System.out.println(horizontal);
                             for (int i = 0; i < dataIndex; i++) {
-                                statement = String.format("%d.%s", i + 1, dataList[i]);
+                                statement = String.format("%d.%s", i + 1, dataList.get(i));
                                 System.out.println(statement);
                             }
                             System.out.println(horizontal);
@@ -64,13 +65,13 @@ public class Dave {
                     case "mark":
                         try {
                             int taskNumber = Integer.parseInt(reply[1]);
-                            if (dataList[taskNumber - 1] == null) {
+                            if (dataList.get(taskNumber - 1) == null) {
                                 throw new IndexOutOfBoundsException();
                             }
-                            dataList[taskNumber - 1].markAsDone();
+                            dataList.get(taskNumber - 1).markAsDone();
                             System.out.println(horizontal);
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println(dataList[taskNumber - 1]);
+                            System.out.println(dataList.get(taskNumber - 1));
                         } catch (IndexOutOfBoundsException | NumberFormatException e) {
                             System.out.println(horizontal);
                             System.out.println("Oh no! You have entered an invalid number. Please try again.");
@@ -84,13 +85,13 @@ public class Dave {
                     case "unmark":
                         try {
                             int taskNumber = Integer.parseInt(reply[1]);
-                            if (dataList[taskNumber - 1] == null) {
+                            if (dataList.get(taskNumber - 1) == null) {
                                 throw new IndexOutOfBoundsException();
                             }
-                            dataList[taskNumber - 1].markAsNotDone();
+                            dataList.get(taskNumber - 1).markAsNotDone();
                             System.out.println(horizontal);
                             System.out.println("Ok, I've marked this task as not done yet:");
-                            System.out.println(dataList[taskNumber - 1]);
+                            System.out.println(dataList.get(taskNumber - 1));
                         } catch (IndexOutOfBoundsException | NumberFormatException e) {
                             System.out.println(horizontal);
                             System.out.println("Oh no! You have entered an invalid number. Please try again.");
@@ -106,11 +107,11 @@ public class Dave {
                             if (reply.length < 2 || reply[1].trim().isEmpty()) {
                                 throw new InvalidDescriptionException("Oh No! Please provide a todo task in the format: todo <task>");
                             }
-                            dataList[dataIndex] = new Todo(reply[1].trim());
+                            dataList.add(new Todo(reply[1].trim()));
                             dataIndex++;
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(dataList[dataIndex - 1]);
+                            System.out.println(dataList.get(dataIndex - 1));
                             System.out.println("Now you have " + dataIndex + " tasks in the list.");
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
@@ -131,11 +132,11 @@ public class Dave {
                             if (deadlineParts.length < 2) {
                                 throw new InvalidDescriptionException("Oh No! Please provide a deadline task in the format: deadline <task> /by <date>");
                             }
-                            dataList[dataIndex] = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                            dataList.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
                             dataIndex++;
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(dataList[dataIndex - 1]);
+                            System.out.println(dataList.get(dataIndex - 1));
                             System.out.println("Now you have " + dataIndex + " tasks in the list.");
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
@@ -156,11 +157,11 @@ public class Dave {
                             if (eventParts.length < 3) {
                                 throw new InvalidDescriptionException("Please provide an event task in the format: event <task> /from <start> /to <end>");
                             }
-                            dataList[dataIndex] = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+                            dataList.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
                             dataIndex++;
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(dataList[dataIndex - 1]);
+                            System.out.println(dataList.get(dataIndex - 1));
                             System.out.println("Now you have " + dataIndex + " tasks in the list.");
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
@@ -168,6 +169,27 @@ public class Dave {
                         } catch (Exception e) {
                             System.out.println(horizontal);
                             System.out.println("An unexpected error occurred while adding the event task.");
+                        }
+                        System.out.println(horizontal);
+                        break;
+
+                    case "delete":
+                        try {
+                            int taskNumber = Integer.parseInt(reply[1]) - 1;
+                            if (taskNumber < 0 || taskNumber >= dataList.size()) {
+                                throw new IndexOutOfBoundsException();
+                            }
+                            Task removedTask = dataList.remove(taskNumber);
+                            System.out.println(horizontal);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(removedTask);
+                            System.out.println("Now you have " + dataList.size() + " tasks in the list.");
+                        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                            System.out.println(horizontal);
+                            System.out.println("Oh no! You have entered an invalid number. Please try again.");
+                        } catch (Exception e) {
+                            System.out.println(horizontal);
+                            System.out.println("An unexpected error occurred while deleting the task.");
                         }
                         System.out.println(horizontal);
                         break;
