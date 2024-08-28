@@ -1,4 +1,9 @@
-import java.io.FileNotFoundException;
+package fanny;
+import fanny.ui.Ui;
+import fanny.task.TaskList;
+import fanny.storage.Storage;
+import fanny.command.Command;
+import fanny.parser.Parser;
 
 public class Fanny {
 
@@ -17,9 +22,9 @@ public class Fanny {
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.getUserInput();
+                String input = ui.getUserInput();
                 ui.showHorizontalLine();
-                Command c = Parser.parse(fullCommand);
+                Command c = Parser.parse(input);
                 c.actionable(tasks, ui);
                 isExit = c.isExit();
             } catch (FannyException e) {

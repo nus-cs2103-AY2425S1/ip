@@ -1,3 +1,5 @@
+package fanny.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +14,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " + this.getDescription() + "(by: " + getDeadline() + ")";
+        return "[D][" + this.getStatusIcon() + "] " + this.getDescription() + " (by: " + getDeadline() + ")";
     }
 
     public String getDeadline() {

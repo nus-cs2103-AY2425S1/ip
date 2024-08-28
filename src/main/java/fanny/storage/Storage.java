@@ -1,3 +1,10 @@
+package fanny.storage;
+
+import fanny.task.Deadline;
+import fanny.task.Event;
+import fanny.task.Task;
+import fanny.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

@@ -1,8 +1,10 @@
+package fanny.task;
+
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import fanny.storage.Storage;
 
 public class TaskList {
 
