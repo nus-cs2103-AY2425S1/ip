@@ -1,13 +1,11 @@
 package delta;
 
+import delta.command.Command;
+import delta.exception.DeltaException;
+import delta.util.Parser;
 import delta.util.Storage;
 import delta.util.TaskList;
 import delta.util.Ui;
-import delta.util.Parser;
-
-import delta.command.Command;
-
-import delta.exception.DeltaException;
 
 /**
  * Delta is a chatbot to assist in task management.
@@ -34,8 +32,7 @@ public class Delta {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        }
-        catch (DeltaException e) {
+        } catch (DeltaException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
@@ -52,13 +49,11 @@ public class Delta {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks,ui, storage);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            }
-            catch (DeltaException e) {
+            } catch (DeltaException e) {
                 ui.showError(e.getMessage());
-            }
-            finally {
+            } finally {
                 ui.showLine();
             }
         }

@@ -1,10 +1,10 @@
 package delta.task;
 
-import delta.exception.DeltaException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import delta.exception.DeltaException;
 
 /**
  * Subclass of Task class.
@@ -15,7 +15,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor for Deadline instance.
+     * Creates a Deadline instance.
      * Only used by load method in Storage class to load up saved tasks.
      *
      * @param description Name of deadline task.
@@ -26,8 +26,7 @@ public class Deadline extends Task {
         super(description, TaskType.Deadline);
         try {
             this.by = LocalDateTime.parse(by, FORMATTER);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new DeltaException("""
                     OOPS!!! Save File has been corrupted!
                     \t Please delete the save file.

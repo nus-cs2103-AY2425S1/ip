@@ -1,10 +1,9 @@
 package delta.util;
 
-import delta.task.Task;
+import java.util.ArrayList;
 
 import delta.exception.DeltaException;
-
-import java.util.ArrayList;
+import delta.task.Task;
 
 /**
  * Contains all the tasks in a list.

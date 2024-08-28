@@ -9,7 +9,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for Task instance.
+     * Creates a Task instance.
      *
      * @param description Description of task.
      */

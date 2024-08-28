@@ -1,19 +1,17 @@
 package delta.util;
 
-import delta.task.Task;
-import delta.task.Todo;
-import delta.task.Deadline;
-import delta.task.Event;
-
-import delta.exception.DeltaException;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import delta.exception.DeltaException;
+import delta.task.Deadline;
+import delta.task.Event;
+import delta.task.Task;
+import delta.task.Todo;
 
 /**
  * Deals with loading tasks from save file and saving tasks into save file.
@@ -61,8 +59,7 @@ public class Storage {
 
                 tasks.add(task);
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new DeltaException("OOPS!!! Save File not found!");
         }
         return tasks;
@@ -99,8 +96,7 @@ public class Storage {
                             \t Please check Save File path:
                             \t """ + file.getAbsolutePath());
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new DeltaException("""
                         OOPS!!! Save File unable to be created!
                         \t Please check Save File path:
@@ -120,8 +116,7 @@ public class Storage {
             FileWriter fw = new FileWriter(file);
             fw.write(fileContents);
             fw.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DeltaException("OOPS!!! List unable to save!");
         }
     }
