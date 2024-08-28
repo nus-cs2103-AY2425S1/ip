@@ -37,7 +37,7 @@ public class Glados {
         // Run a loop indefinitely to execute commands until program exits through bye
         while(true) {
             String input = sc.nextLine().toLowerCase();
-            if (input.equals("bye")) {
+            if (Parser.parseCommand(input).equals("bye")) {
                 Ui.exit();
                 break;
             } else {
