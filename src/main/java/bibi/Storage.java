@@ -39,7 +39,8 @@ public class Storage {
                 break;
             case 'D':
                 String[] deadlineName = input.substring(4).strip().split(" \\(by: ");
-                Task dl = new Deadline(deadlineName[0].stripIndent(), deadlineName[1].substring(0, deadlineName[1].length() - 1));
+                Task dl = new Deadline(deadlineName[0].stripIndent(),
+                        deadlineName[1].substring(0, deadlineName[1].length() - 1));
                 tasks.addToTaskList(dl);
 
                 if (isDone) {
