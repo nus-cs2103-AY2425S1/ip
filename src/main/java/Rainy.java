@@ -24,8 +24,10 @@ public class Rainy {
                         tm.updateListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
                     } else {
                         String updatedOldData = oldData.substring(11, oldData.length() - 1);
-                        String[] eventSplit = updatedOldData.split(" \\(from | to ");
-                        tm.updateListEvent(eventSplit[0] + " ","from " + eventSplit[1], " to " + eventSplit[2]);
+                        String[] eventSplit = updatedOldData.split(" \\(");
+                        System.out.println(eventSplit[0]);
+                        System.out.println(eventSplit[1]);
+                        tm.updateListEvent(eventSplit[0] + " ", eventSplit[1].split(" from ")[0], eventSplit[1].split(" from ")[1]);
                     }
                     if (oldData.charAt(4) == 'X') {
                         tm.markDone(trace - 1);
@@ -131,17 +133,20 @@ public class Rainy {
                         System.out.println("You need to provide a description of your Deadline, please try again!");
                     } else if (splitByTask.length == 1) {
                         System.out.println("Please provide an end date for your Deadline!");
-                    } else {
-                        tm.updateListDeadline(splitByTask[0].substring(9), splitByTask[1]);
+                    } else if (splitByTask.length < 4) {
+                        System.out.println("Please input a date in the format MM/DD/YYYY!");
+                    }
+                    else {
+                        tm.updateListDeadline(splitByTask[0].substring(9), "" + splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5) + " " + splitByTask[3].substring(5, 9));
                     }
                     break;
                 case EVENT:
                     if (input.length == 1) {
                         System.out.println("You need to provide a description of your Event, please try again!");
-                    } else if (splitByTask.length < 3) {
+                    } else if (splitByTask.length < 5) {
                         System.out.println("Please provide a proper start time and end time for your Event!");
                     } else {
-                        tm.updateListEvent(splitByTask[0].substring(6), splitByTask[1], splitByTask[2]);
+                        tm.updateListEvent(splitByTask[0].substring(6), splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5), splitByTask[4]);
                     }
                     break;
                 case INVALID:
