@@ -1,13 +1,3 @@
-<<<<<<<< HEAD:src/main/java/MichaelScott/MichaelScott.java
-package MichaelScott;
-
-import MichaelScott.Storage.Storage;
-import MichaelScott.Parser.Parser;
-import MichaelScott.Task.TaskList;
-import MichaelScott.Ui.Ui;
-import MichaelScott.Command.Command;
-import MichaelScott.Exception.MichaelScottException;
-========
 package michaelscott;
 
 import michaelscott.parser.Parser;
@@ -16,7 +6,6 @@ import michaelscott.task.TaskList;
 import michaelscott.command.Command;
 import michaelscott.exception.MichaelScottException;
 import michaelscott.ui.Ui;
->>>>>>>> branch-A-CodingStandard:src/main/java/michaelscott/MichaelScott.java
 
 public class MichaelScott {
     private final Storage storage;
