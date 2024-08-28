@@ -11,7 +11,6 @@ public class Dave {
                 + "|____/_/   \\_\\   \\_/  |_____|\n";
         String horizontal = "__________________________________________________________";
         ArrayList<Task> dataList  = new ArrayList<>();
-        int dataIndex = 0;
         String statement;
 
         System.out.println("Hello from\n" + logo);
@@ -50,7 +49,7 @@ public class Dave {
                     case "list":
                         try {
                             System.out.println(horizontal);
-                            for (int i = 0; i < dataIndex; i++) {
+                            for (int i = 0; i < dataList.size(); i++) {
                                 statement = String.format("%d.%s", i + 1, dataList.get(i));
                                 System.out.println(statement);
                             }
@@ -108,11 +107,10 @@ public class Dave {
                                 throw new InvalidDescriptionException("Oh No! Please provide a todo task in the format: todo <task>");
                             }
                             dataList.add(new Todo(reply[1].trim()));
-                            dataIndex++;
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(dataList.get(dataIndex - 1));
-                            System.out.println("Now you have " + dataIndex + " tasks in the list.");
+                            System.out.println(dataList.get(dataList.size() - 1));
+                            System.out.println("Now you have " + dataList.size() + " tasks in the list.");
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
                             System.out.println(e.getMessage());
@@ -133,11 +131,10 @@ public class Dave {
                                 throw new InvalidDescriptionException("Oh No! Please provide a deadline task in the format: deadline <task> /by <date>");
                             }
                             dataList.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
-                            dataIndex++;
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(dataList.get(dataIndex - 1));
-                            System.out.println("Now you have " + dataIndex + " tasks in the list.");
+                            System.out.println(dataList.get(dataList.size() - 1));
+                            System.out.println("Now you have " + dataList.size() + " tasks in the list.");
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
                             System.out.println(e.getMessage());
@@ -158,11 +155,10 @@ public class Dave {
                                 throw new InvalidDescriptionException("Please provide an event task in the format: event <task> /from <start> /to <end>");
                             }
                             dataList.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
-                            dataIndex++;
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(dataList.get(dataIndex - 1));
-                            System.out.println("Now you have " + dataIndex + " tasks in the list.");
+                            System.out.println(dataList.get(dataList.size() - 1));
+                            System.out.println("Now you have " + dataList.size() + " tasks in the list.");
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
                             System.out.println(e.getMessage());
