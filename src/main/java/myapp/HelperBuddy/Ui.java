@@ -1,6 +1,7 @@
 package myapp.helperbuddy;
 
 import java.util.Scanner;
+import java.util.List;
 
 public class Ui {
     private Scanner scanner;
@@ -36,7 +37,6 @@ public class Ui {
     /**
      * Displays the list of tasks to the user.
      * Shows all tasks in the provided TaskList with their corresponding index.
-     *
      * @param taskList The TaskList containing tasks to be displayed.
      */
     public void showTaskList(TaskList taskList) {
@@ -52,7 +52,6 @@ public class Ui {
     /**
      * Displays a message indicating that a task has been added.
      * Shows the details of the added task and the updated size of the task list.
-     *
      * @param task          The Task that was added to the list.
      * @param taskList_size The updated number of tasks in the list.
      */
@@ -67,7 +66,6 @@ public class Ui {
     /**
      * Displays a message indicating that a task has been removed.
      * Shows the details of the removed task and the updated size of the task list.
-     *
      * @param task     The Task that was removed from the list.
      * @param taskList The TaskList containing the updated list of tasks.
      */
@@ -82,7 +80,6 @@ public class Ui {
     /**
      * Displays a message indicating that a task has been marked as done.
      * Marks the provided task as done and shows its updated status.
-     *
      * @param task The Task that was marked as done.
      */
     public void showTaskMarked(Task task) {
@@ -102,7 +99,6 @@ public class Ui {
     /**
      * Displays a message indicating that a task has been marked as not done yet.
      * Marks the provided task as not done and shows its updated status.
-     *
      * @param task The Task that was marked as not done.
      */
     public void showTaskUnmarked(Task task) {
@@ -120,9 +116,29 @@ public class Ui {
     }
 
     /**
+     * Filters out the tasks from the list which match the user keyword.
+     * Displays all the relevant search results from the task list
+     * @param tasks is the task list
+     */
+    public void showSearchResults(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("________________________________________________");
+            System.out.println("No tasks found matching the search keyword.");
+            System.out.println("________________________________________________");
+        } else {
+            int index = 0;
+            System.out.println("________________________________________________");
+            System.out.println("Search results:");
+            for (Task task : tasks) {
+                System.out.println(++index + ". " + task);
+            }
+            System.out.println("________________________________________________");
+        }
+    }
+
+    /**
      * Reads user input from the console.
      * Prompts the user to enter a task or command and returns the input string.
-     *
      * @return The user's input as a String.
      */
     public String readUserInput() {

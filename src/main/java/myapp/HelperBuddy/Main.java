@@ -2,6 +2,7 @@ package myapp.helperbuddy;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
     private static final String HOME = System.getProperty("user.home");
@@ -61,6 +62,10 @@ public class Main {
                 int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
                 Task currentTask = taskList.getTask(taskLabel);
                 screen.showTaskUnmarked(currentTask);
+            } else if (taskDescription.startsWith("find")) {
+                String keyword = taskDescription.substring(7).trim();
+                List<Task> searchResults = taskList.searchTasks(keyword);
+                screen.showSearchResults(searchResults);
             } else {
                 Task currentTask = Parser.parseCommand(taskDescription);
                 if (currentTask != null) {
