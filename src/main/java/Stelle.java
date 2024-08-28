@@ -9,11 +9,11 @@ public class Stelle {
     static final String FILE_PATH = "./data/stelle.txt";
 
     private Ui ui;
-    private ChatLogic chatLogic;
+    private Parser parser;
 
     public Stelle(String name, String filePath) {
         ui = new Ui(name);
-        chatLogic = new ChatLogic(ui, filePath);
+        parser = new Parser(ui, filePath);
     }
 
     public void run() {
@@ -26,7 +26,7 @@ public class Stelle {
 
             ui.showLine();
             try {
-                chatLogic.processInput(input);
+                parser.processInput(input);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

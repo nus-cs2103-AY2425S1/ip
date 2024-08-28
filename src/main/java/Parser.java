@@ -4,7 +4,7 @@ import java.io.IOException;
  * @author Lee Ze Hao (A0276123J)
  */
 
-public class ChatLogic {
+public class Parser {
     static final String BYE_COMMAND = "bye";
     static final String LIST_COMMAND = "list";
     static final String MARK_COMMAND = "mark";
@@ -29,7 +29,7 @@ public class ChatLogic {
      * @param ui The Ui used by the chatbot.
      * @param filePath The file path used for data storage.
      */
-    public ChatLogic(Ui ui, String filePath) {
+    public Parser(Ui ui, String filePath) {
         this.ui = ui;
         this.filePath = filePath;
         this.taskList = new TaskList(this.filePath);
