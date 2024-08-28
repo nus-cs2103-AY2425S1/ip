@@ -19,16 +19,19 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         try {
-            ArrayList<Task> t = new ArrayList<>();
+            ArrayList<Task> tasks = new ArrayList<>();
             File f = new File(this.path);
             Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
-                System.out.println(sc.nextLine());
+                String line = sc.nextLine();
+                tasks.add(Parser.parseStorageFileLine(line));
             }
-            return t;
+            
+            return tasks;
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
+        
         return null;
     }
 }
