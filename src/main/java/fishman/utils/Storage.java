@@ -17,15 +17,28 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * The storage class is used to handle the storage of tasks to and from a save file.
+ */
 public class Storage {
+
     private final Path filePath;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Constructs a new Storage object with the provided file path and creates the file if it does not exist.
+     *
+     * @param filePath The path of the save file used to store tasks.
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
         createFileIfDoesNotExist();
     }
 
+    /**
+     * Creates the ave file and its parent directories if they do not exist.
+     * It handles any IOException that occurs during the file creation process.
+     */
     private void createFileIfDoesNotExist() {
         try {
             Files.createDirectories(filePath.getParent());
@@ -37,6 +50,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the save file as specified by the filepath. The tasks are converted to CSV string format
+     * before being written to the file.
+     *
+     * @param tasks The list of tasks to be written to the save file.
+     * @throws RuntimeException If an error occurs while writing to the file.
+     */
     public void save(TaskList tasks) {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (Task task : tasks) {
@@ -48,6 +68,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a Task object to a CSV string representation, with "|" as the delimiter.
+     *
+     * @param task The task to be converted to CSV format.
+     * @return A string representing the task in CSV format.
+     */
     private String toCsv(Task task) {
         StringBuilder sb = new StringBuilder();
         if(task instanceof ToDo) {
@@ -60,6 +86,13 @@ public class Storage {
         return sb.toString();
     }
 
+    /**
+     * Loads the tasks from the file specified by the filepath. Each line is read and parsed into the corresponding Task object.
+     *
+     * @return A TaskList object containing all the loaded tasks.
+     * @throws FishmanException.InvalidArgumentsException If the file contains lines with invalid arguments.
+     * @throws RuntimeException If an error occurs while reading the file.
+     */
     public TaskList load() throws FishmanException {
         TaskList tasks = new TaskList();
         try {
@@ -114,6 +147,15 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a date-time string into a LocalDateTime object using the specified date-time formatter.
+     * This method attempts to parse the given date-time string using the DATE_TIME_FORMATTER.
+     * If the string does not conform to the expected format, a FishmanException is thrown to indicate parsing error.
+     *
+     * @param dateTimeStr The date-time string to parses.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws FishmanException.InvalidArgumentsException If the input string does not match the expected date-time format.
+     */
     private static LocalDateTime parseDateTime(String dateTimeStr) throws FishmanException {
         try {
             return LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
