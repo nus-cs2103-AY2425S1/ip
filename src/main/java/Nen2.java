@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 /**
@@ -20,6 +21,8 @@ public class Nen2 {
     private static final Scanner messageReader = new Scanner(System.in);
 
     private static final ArrayList<Task> listOfTasks = new ArrayList<>();
+
+    private static final PriorityQueue<Task> listOfTasksWithDeadline = new PriorityQueue<>();
 
     private static final String DATA_ADDRESS = "data/nen2.txt";
 
@@ -69,7 +72,10 @@ public class Nen2 {
                     System.out.println("Got it. I've added this task: \n" + t);
                     System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
             }
-        } catch (InvalidInputException | ArgumentMissingException | EmptyDescriptionException e){
+        } catch (InvalidInputException |
+                 ArgumentMissingException |
+                 EmptyDescriptionException |
+                 DateTimeFormatIncorrectException e){
             System.out.println(e.getMessage());
         }
 
