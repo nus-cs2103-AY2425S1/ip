@@ -33,6 +33,6 @@ public abstract class Task {
     }
 
     public String toSave() {
-        return isDone + "|" + description;
+        return description + "|" + isDone;
     }
 }

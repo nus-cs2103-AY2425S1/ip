@@ -8,6 +8,7 @@ import task.TodoTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,13 +19,13 @@ public class Ratchet {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        greet();
         try {
             load();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return;
         }
+        greet();
         String input;
         String command = "";
         while (!command.equals("bye")) {
@@ -49,6 +50,7 @@ public class Ratchet {
                     break;
                 case "bye":
                     exit();
+                    save();
                     break;
                 default:
                     throw new InvalidCommandException("Ratchet is unable to " + "execute" + " " + command
@@ -72,9 +74,9 @@ public class Ratchet {
     }
 
     private static void load() throws IOException {
-        try {
-            File file = new File("data/ratchet.txt");
-            Scanner scanner = new Scanner(file);
+        System.out.println(INDENT + "Attempting to load data...");
+        File file = new File("data/ratchet.txt");
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String[] info = scanner.nextLine().split("\\|");
                 String type = info[0];
@@ -90,10 +92,11 @@ public class Ratchet {
                     break;
                 }
             }
-            System.out.println("Data loaded!");
+            System.out.println(INDENT + "Data loaded!");
         } catch (FileNotFoundException e) {
-            System.out.println(INDENT + "Save file not found, Creating now...");
+            System.out.println(INDENT + "Data file not found, creating now...");
             createFile();
+            System.out.println(INDENT + "Data file created!");
         }
     }
 
@@ -102,6 +105,19 @@ public class Ratchet {
         File f = new File("data/ratchet.txt");
         f.createNewFile();
         System.out.println(INDENT + "Save file is created!");
+    }
+
+    private static void save() {
+        System.out.println(INDENT + "Attempting to save data!");
+        try (FileWriter fw = new FileWriter("data/ratchet.txt")) {
+            for (Task task : taskList) {
+                fw.write(task.toSave());
+                fw.write(System.lineSeparator());
+            }
+            System.out.println(INDENT + "Data saved!");
+        } catch (IOException e) {
+            System.out.println(INDENT + "Unable to save data!");
+        }
     }
 
     private static void greet() {

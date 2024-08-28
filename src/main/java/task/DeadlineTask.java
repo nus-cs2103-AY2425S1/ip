@@ -20,6 +20,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toSave() {
-        return "D" + super.toSave() + "|" + deadline;
+        return "D|" + super.toSave() + "|" + deadline;
     }
 }
