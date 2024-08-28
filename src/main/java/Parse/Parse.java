@@ -43,7 +43,7 @@ public class Parse {
      * @return false if user entered "bye" and true oterwise
      */
     public static Boolean initialParse(String input, Ui ui, TaskList tasks, Storage storage) {
-        if (input.equals("bye")){
+        if (input.equals("bye")) {
             ui.uiBye();
             return false;
         } else if (input.equals("list")) {

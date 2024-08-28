@@ -1,7 +1,5 @@
 package Task;
 
-import Task.Task;
-
 import java.util.List;
 import Exception.*;
 import Ui.Ui;
