@@ -73,18 +73,18 @@ public class Storage {
             Task task = null;
 
             switch (taskType) {
-                case "TODO":
-                    task = new Todo(description);
-                    break;
-                case "DEADLINE":
-                    task = new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
-                    break;
-                case "EVENT":
-                    task = new Event(description, LocalDateTime.parse(date, Task.getFormatDate()),
-                            LocalDateTime.parse(end, Task.getFormatDate()));
-                    break;
-                default:
-                    throw new OllieException("Oops! Invalid task type detected: " + taskType);
+            case "TODO":
+                task = new Todo(description);
+                break;
+            case "DEADLINE":
+                task = new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
+                break;
+            case "EVENT":
+                task = new Event(description, LocalDateTime.parse(date, Task.getFormatDate()),
+                        LocalDateTime.parse(end, Task.getFormatDate()));
+                break;
+            default:
+                throw new OllieException("Oops! Invalid task type detected: " + taskType);
             }
 
             if (task != null) {
@@ -130,6 +130,7 @@ public class Storage {
         try {
             File file = new File(filePath);
             assert file != null : "Oops! File cannot be null.";
+
             if (!file.exists()) {
                 boolean created = file.createNewFile();
                 assert created : "Oops! Failed to create a new file for the list of tasks.";

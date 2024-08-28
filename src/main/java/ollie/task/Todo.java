@@ -1,6 +1,7 @@
 package ollie.task;
 
 import ollie.exception.EmptyDescriptionException;
+
 import ollie.TaskType;
 
 /**

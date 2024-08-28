@@ -1,8 +1,8 @@
 package ollie.task;
+import ollie.TaskType;
 
 import ollie.exception.EmptyDescriptionException;
 import ollie.exception.OllieException;
-import ollie.TaskType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

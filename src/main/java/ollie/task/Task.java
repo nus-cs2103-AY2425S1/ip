@@ -1,6 +1,7 @@
 package ollie.task;
 
 import ollie.exception.OllieException;
+
 import ollie.TaskType;
 
 import java.time.format.DateTimeFormatter;
@@ -9,11 +10,11 @@ import java.time.format.DateTimeFormatter;
  * Represents a generic task with a description and completion status.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-    protected TaskType taskType;
-    private static final DateTimeFormatter inputDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private String description;
+    private boolean isDone;
+    private TaskType taskType;
+    private static final DateTimeFormatter INPUT_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Constructs a ollie.task.Task with the specified description and type.
@@ -25,6 +26,24 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
         this.taskType = taskType;
+    }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns a boolean indicating if the task is done.
+     *
+     * @return true if the task is done, false otherwise.
+     */
+    public boolean getIsDone() {
+        return isDone;
     }
 
     /**
@@ -42,7 +61,7 @@ public abstract class Task {
      * @return inputDate the DateTimeFormatter instance with the pattern "yyyy-MM-dd HH:mm".
      */
     public static DateTimeFormatter getInputDate() {
-        return inputDate;
+        return INPUT_DATE;
     }
 
     /**
@@ -51,7 +70,7 @@ public abstract class Task {
      * @return formatDate the DateTimeFormatter instance with the pattern "MMM dd yyyy HH:mm".
      */
     public static DateTimeFormatter getFormatDate() {
-        return formatDate;
+        return FORMAT_DATE;
     }
 
     /**

@@ -1,7 +1,5 @@
 package ollie.exception;
 
-import ollie.exception.OllieException;
-
 /**
  * Exception thrown when an unknown task type is provided.
  */
