@@ -1,5 +1,5 @@
 public class Parser {
-    public static Task parseStorageFileLine(String line) {
+    public static Task parseStorageFileLine(String line) throws InvalidStorageFileException {
         char START_IDX = 7;
         char taskType = line.charAt(1);
         Task t;

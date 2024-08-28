@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +17,7 @@ public class Storage {
      * Loads the tasks from the file 
      * @return ArrayList<Task> of tasks from the file
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws InvalidStorageFileException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
             File f = new File(this.path);
