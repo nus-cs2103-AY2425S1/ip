@@ -1,10 +1,16 @@
+package glados;
+
 import java.util.Scanner;
+
 import enums.TaskType;
+
 import exceptions.CommandNotFoundException;
 import exceptions.GladosException;
 import exceptions.TaskNotFoundException;
+
 import tasks.Task;
 import tasks.TaskList;
+
 import utils.Ui;
 
 import java.util.ArrayList;

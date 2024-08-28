@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("Glados")
+    mainClass.set("glados.Glados")
 }
 
 shadowJar {

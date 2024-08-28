@@ -1,4 +1,5 @@
 package tasks;
+
 import enums.TaskType;
 
 public abstract class Task {
