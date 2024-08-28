@@ -13,10 +13,15 @@ public class TodoCommand extends Commands {
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
-        if (split.length < 2) {
-            ui.throwError("???? You're missing the task! Write \"todo <task>\"!");
+        ToDoTask toDoTask = null;
+        try {
+            if (split.length < 2 || split[1].strip() == "") {
+                ui.throwError("???? You're missing the task! Write \"todo <task>\"!");
+            }
+            toDoTask = new ToDoTask(split[1].strip());
+        } catch (NullPointerException e) {
+            ui.throwError("Please don't run me on null!");
         }
-        ToDoTask toDoTask = new ToDoTask(split[1]);
         tasks.add(toDoTask);
         ui.print("Productive! Added: \n" + toDoTask.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list!");

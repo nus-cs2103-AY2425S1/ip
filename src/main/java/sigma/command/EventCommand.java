@@ -22,11 +22,11 @@ public class EventCommand extends Commands {
         }
         String[] eventSplit = split[1].split(" /from ");
         if (eventSplit.length < 2) {
-            throw new SigmaException("What the sigma? You're missing the timing!" + syntax);
+            throw new SigmaException("What the sigma? You're missing the timing! " + syntax);
         }
         String[] timing = eventSplit[1].split(" /to ");
         if (timing.length < 2) {
-            throw new SigmaException("What the sigma? You're missing the end timing!" + syntax);
+            throw new SigmaException("What the sigma? You're missing the end timing! " + syntax);
         }
         LocalDateTime from = parser.dateTimeParse(timing[0]);
         LocalDateTime to = parser.dateTimeParse(timing[1]);
