@@ -1,12 +1,10 @@
 import java.io.IOException;
-import java.util.ArrayList;
 
 /** This class encapsulates chatbot parsing and logic.
  * @author Lee Ze Hao (A0276123J)
  */
 
-public class ChatLogic {
-    static final String HORIZONTAL_LINE = "____________________________________________________________";
+public class Parser {
     static final String BYE_COMMAND = "bye";
     static final String LIST_COMMAND = "list";
     static final String MARK_COMMAND = "mark";
@@ -23,25 +21,18 @@ public class ChatLogic {
         EVENT
     }
 
-    private final String name;
+    private final Ui ui;
     private final String filePath;
-    private final Storage storage;
-    private ArrayList<Task> taskList = new ArrayList<Task>();
+    private final TaskList taskList;
 
     /** Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
-     * @param name The name used by the chatbot.
+     * @param ui The Ui used by the chatbot.
      * @param filePath The file path used for data storage.
      */
-    public ChatLogic(String name, String filePath) throws IOException {
-        this.name = name;
+    public Parser(Ui ui, String filePath) {
+        this.ui = ui;
         this.filePath = filePath;
-        this.storage = new Storage(this.filePath);
-
-        try {
-            this.taskList = storage.readTasksFromFile();
-        } catch (IOException e) {
-            storage.writeTasksToFile(taskList);
-        }
+        this.taskList = new TaskList(this.filePath);
     }
 
     /** Processes text strings inputted by the user, and calls other functions
@@ -51,8 +42,8 @@ public class ChatLogic {
      */
     public void processInput(String input) throws StelleException, IOException {
         if (input.equals(BYE_COMMAND)) {
-            storage.writeTasksToFile(taskList);
-            printBye();
+            taskList.writeToFile();
+            ui.printBye();
             System.exit(0);
         } else if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
             processMarkUnmarkInput(input);
@@ -78,13 +69,11 @@ public class ChatLogic {
             throw new NoSuchTaskException();
         }
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Alright. Removed the task:");
         System.out.println(this.taskList.get(possibleTaskNum - 1));
-        System.out.println(HORIZONTAL_LINE);
-        this.taskList.remove(possibleTaskNum - 1);
 
-        storage.writeTasksToFile(taskList);
+        this.taskList.remove(possibleTaskNum - 1);
+        this.taskList.writeToFile();
     }
 
     private void processMarkUnmarkInput(String input) throws TaskException, IOException {
@@ -103,9 +92,7 @@ public class ChatLogic {
 
     private void processAddTaskInput(String input) throws IOException {
         if (input.isEmpty()) {
-            System.out.println(HORIZONTAL_LINE);
             System.out.println("Please specify a task name!");
-            System.out.println(HORIZONTAL_LINE);
             return;
         }
 
@@ -134,11 +121,9 @@ public class ChatLogic {
                 break;
         }
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println(this.taskList.get(taskList.size() - 1).toString());
         System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
     }
 
     private void addToDo(String input) throws TaskException, IOException {
@@ -148,9 +133,8 @@ public class ChatLogic {
             throw new ToDoNoDescriptionException();
         }
 
-        taskList.add(new ToDo(taskName));
-
-        storage.writeTasksToFile(taskList);
+        this.taskList.add(new ToDo(taskName));
+        this.taskList.writeToFile();
     }
 
     private void addDeadline(String input) throws TaskException, IOException {
@@ -161,9 +145,8 @@ public class ChatLogic {
         }
         String date = noCommandInput.split("/by")[1].strip();
 
-        taskList.add(new Deadline(taskName, date));
-
-        storage.writeTasksToFile(taskList);
+        this.taskList.add(new Deadline(taskName, date));
+        this.taskList.writeToFile();
     }
 
     private void addEvent(String input) throws TaskException, IOException {
@@ -176,9 +159,8 @@ public class ChatLogic {
         String fromDate = fromAndTo.split("/to")[0].strip();
         String toDate = fromAndTo.split("/to")[1].strip();
 
-        taskList.add(new Event(taskName, fromDate, toDate));
-
-        storage.writeTasksToFile(taskList);
+        this.taskList.add(new Event(taskName, fromDate, toDate));
+        this.taskList.writeToFile();
     }
 
     /** Marks a certain task (makes it done).
@@ -193,12 +175,10 @@ public class ChatLogic {
         Task task = this.taskList.get(taskNum - 1);
         task.mark();
 
-        storage.writeTasksToFile(taskList);
+        this.taskList.writeToFile();
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /** Unmarks a certain task (makes it not done).
@@ -213,45 +193,22 @@ public class ChatLogic {
         Task task = this.taskList.get(taskNum - 1);
         task.unmark();
 
-        storage.writeTasksToFile(taskList);
+        this.taskList.writeToFile();
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString());
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
      * Reads tasks from local file and lists all Tasks currently stored, with added list numbers.
      */
     private void listTasks() throws IOException {
-        this.taskList = this.storage.readTasksFromFile();
+        this.taskList.readFromFile();
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
             String output = " " + (i + 1) + ". " + this.taskList.get(i).toString();
             System.out.println(output);
         }
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Prints a greeting message for the chatbot.
-     */
-    public void printGreeting() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(" Hello! I'm " + name + ".");
-        System.out.println(" What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Prints a goodbye / ending message for the chatbot.
-     */
-    private void printBye() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(HORIZONTAL_LINE);
     }
 }

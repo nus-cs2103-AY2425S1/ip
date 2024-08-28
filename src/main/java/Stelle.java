@@ -5,34 +5,20 @@ import java.util.Scanner;
  */
 
 public class Stelle {
-    static final String HORIZONTAL_LINE = "____________________________________________________________";
     static final String NAME = "Stelle";
     static final String FILE_PATH = "./data/stelle.txt";
 
+    private Ui ui;
+
+    public Stelle(String name, String filePath) {
+        ui = new Ui(name, filePath);
+    }
+
+    public void run() {
+        ui.run();
+    }
+
     public static void main(String[] args) {
-        ChatLogic chatLogic;
-        try {
-            chatLogic = new ChatLogic(NAME, FILE_PATH);
-        } catch (Exception e) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println(e.getMessage());
-            System.out.println(HORIZONTAL_LINE);
-            return;
-        }
-
-        Scanner scanner = new Scanner(System.in);
-
-        chatLogic.printGreeting();
-
-        while (true) {
-            String input = scanner.nextLine();
-            try {
-                chatLogic.processInput(input);
-            } catch (Exception e) {
-                System.out.println(HORIZONTAL_LINE);
-                System.out.println(e.getMessage());
-                System.out.println(HORIZONTAL_LINE);
-            }
-        }
+        new Stelle(NAME, FILE_PATH).run();
     }
 }
