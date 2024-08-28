@@ -48,6 +48,11 @@ public class Noosy {
                     break;
 
                 case "delete":
+                    if (desc.equals("")) {
+                        System.out.println("So what are we deleting???");
+                        break;
+                    }
+
                     taskNum = Integer.parseInt(desc);
                     Task toDelete = tasks.get(taskNum - 1);
                     tasks.remove(toDelete);
