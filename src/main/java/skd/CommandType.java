@@ -1,3 +1,5 @@
+package skd;
+
 public enum CommandType {
     BYE,
     LIST,

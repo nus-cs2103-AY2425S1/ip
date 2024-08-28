@@ -1,3 +1,5 @@
+package skd;
+
 import skd.CommandType;
 import task.Deadline;
 import task.Event;
