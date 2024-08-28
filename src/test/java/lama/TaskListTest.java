@@ -88,4 +88,18 @@ public class TaskListTest {
         assertEquals(task, taskRemoved);
     }
 
+    /**
+     * Test case for find by keyword.
+     * Verifies that TaskList with the keywords will be returned.
+     */
+    @Test
+    public void findTest() {
+        TaskList taskList = new TaskList();
+        Task task = new Todo("Read Book");
+        Task task2 = new Todo("Reading");
+        taskList.add(task);
+        taskList.add(task2);
+        assertEquals(task, taskList.find("Read").get(0));
+        assertEquals(task2, taskList.find("Read").get(1));
+    }
 }

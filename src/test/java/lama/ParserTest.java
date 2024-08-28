@@ -108,6 +108,17 @@ public class ParserTest {
     }
 
     /**
+     * Test case for find command.
+     * Verifies that when find is input, find command will be executed.
+     * @throws LamaException Thrown if error occurs during execution
+     */
+    @Test
+    public void parseFindCommandTest() throws LamaException {
+        Command command = Parser.parse("find hi");
+        assertInstanceOf(FindCommand.class, command);
+    }
+
+    /**
      * Tests parsing of the default cases
      * Verifies that the command is correctly being displayed.
      *
@@ -127,7 +138,8 @@ public class ParserTest {
                 "4. list\n" +
                 "5. mark [number of todo in the list]\n" +
                 "6. unmark [number of todo in the list]\n" +
-                "7. bye";
+                "7. find [keywords]" +
+                "8. bye";
 
         assertEquals(output, lamaException.getMessage());
     }
@@ -297,6 +309,21 @@ public class ParserTest {
         });
 
         String output = "Please specify the number that wanted to delete!";
+
+        assertEquals(output, lamaException.getMessage());
+    }
+
+    /**
+     * Test case for find command.
+     * Verifies that no task return when no keyword given.
+     */
+    @Test
+    public void parseFindFailTest() {
+        LamaException lamaException = assertThrows(LamaException.class, () -> {
+            Parser.parse("find");
+        });
+
+        String output = "Please specify the keyword you wanted to search!";
 
         assertEquals(output, lamaException.getMessage());
     }
