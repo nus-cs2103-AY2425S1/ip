@@ -32,4 +32,24 @@ public class Ui {
         System.out.println("File cannot be loaded. Create taskList instead.");
     }
 
+    public void showList(TaskList taskList) {
+        System.out.println(showLine() + "\n" + taskList.printToList() + showLine());
+    }
+
+    public void showAdd(Task taskToAdd, TaskList taskList) {
+        System.out.println(showLine() + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.getSize() + " tasks in the list.\n" + showLine());
+    }
+
+    public void showMark(Task taskAffected) {
+        System.out.println(showLine() + "\nNice! I've marked this task as done:\n" + taskAffected + "\n" + showLine());
+    }
+
+    public void showUnmark(Task taskAffected) {
+        System.out.println(showLine() + "\nOK, I've marked this task as not done yet:\n" + taskAffected + "\n" + showLine());
+    }
+
+    public void showDelete(Task taskAffected, TaskList taskList) {
+        System.out.println(showLine() + "\nNoted. I've removed this task:\n" + taskAffected + "\n Now you have " + taskList.getSize() + " tasks in the list.\n" + showLine());
+    }
+
 }

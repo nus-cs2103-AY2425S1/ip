@@ -1,21 +1,47 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 public class Parser {
+    public static Optional<Command> parse(String fullCommand) {
+        String[] commandArray = fullCommand.split(" ", 2);
+        try {
+            switch (commandArray[0]) {
+                case "list":
+                    return Optional.of(new ListCommand());
+                case "todo":
+                    return Optional.of(new AddCommand(CommandVerb.TODO, commandArray[1]));
+                case "deadline":
+                    return Optional.of(new AddCommand(CommandVerb.DEADLINE, commandArray[1]));
+                case "event":
+                    return Optional.of(new AddCommand(CommandVerb.EVENT, commandArray[1]));
+                case "mark":
+                    return Optional.of(new ModifyCommand(CommandVerb.MARK, commandArray[1]));
+                case "unmark":
+                    return Optional.of(new ModifyCommand(CommandVerb.UNMARK, commandArray[1]));
+                case "delete":
+                    return Optional.of(new ModifyCommand(CommandVerb.DELETE, commandArray[1]));
+                case "bye":
+                    return Optional.of(new ByeCommand());
+                default:
+                    throw new InstructionInvalid();
+            }
+        } catch (InstructionInvalid e) {
+            System.out.println("Invalid Instruction. Only valid Instructions are list, todo, deadline, event, mark, unmark, delete");
+            return Optional.empty();
+        }
+    }
+}
 
-    public static void parse(String fullCommand) {
-            String[] inputArray = fullCommand.split(" ", 2);
+/*
             Task taskToAdd;
             try {
                 FileWriter taskListWriter;
-                switch (inputArray[0]) {
+                switch (commandArray[0]) {
                     case "list":
                         String listContents = printList(taskList, taskList.size());
                         System.out.println(horiLine + "\n" + listContents + horiLine);
                         break;
                     case "todo":
-                        taskToAdd = new Todo(inputArray[1]);
+                        taskToAdd = new Todo(commandArray[1]);
                         taskList.add(taskToAdd);
                         System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                         taskListWriter = new FileWriter("./savedTaskList.txt", true);
@@ -23,7 +49,7 @@ public class Parser {
                         taskListWriter.close();
                         break;
                     case "deadline":
-                        String[] deadlineArray = inputArray[1].split(" /by ");
+                        String[] deadlineArray = commandArray[1].split(" /by ");
                         try {
                             taskToAdd = new Deadline(deadlineArray[0], deadlineArray[1]);
                             taskList.add(taskToAdd);
@@ -40,7 +66,7 @@ public class Parser {
                         break;
                     case "event":
                         try {
-                            String[] eventArray = inputArray[1].split(" /from | /to ");
+                            String[] eventArray = commandArray[1].split(" /from | /to ");
                             taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
@@ -54,7 +80,7 @@ public class Parser {
                         }
                         break;
                     case "mark":
-                        int taskMarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
+                        int taskMarkIndex = Integer.parseInt(commandArray[1]) - 1; // can try
                         taskList.get(taskMarkIndex).markDone(); // need to check if it works
                         System.out.println(horiLine + "\nNice! I've marked this task as done:\n" + taskList.get(taskMarkIndex) + "\n" + horiLine);
                         taskListWriter = new FileWriter("./savedTaskList.txt", false);
@@ -62,7 +88,7 @@ public class Parser {
                         taskListWriter.close();
                         break;
                     case "unmark":
-                        int taskUnmarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
+                        int taskUnmarkIndex = Integer.parseInt(commandArray[1]) - 1; // can try
                         taskList.get(taskUnmarkIndex).unmarkDone();
                         System.out.println(horiLine + "\nOK, I've marked this task as not done yet:\n" + taskList.get(taskUnmarkIndex) + "\n" + horiLine);
                         taskListWriter = new FileWriter("./savedTaskList.txt", false);
@@ -70,7 +96,7 @@ public class Parser {
                         taskListWriter.close();
                         break;
                     case "delete":
-                        int taskDeleteIndex = Integer.parseInt(inputArray[1]) - 1; // can try
+                        int taskDeleteIndex = Integer.parseInt(commandArray[1]) - 1; // can try
                         Task taskToDelete = taskList.get(taskDeleteIndex);
                         taskList.remove(taskDeleteIndex);
                         System.out.println(horiLine + "\nNoted. I've removed this task:\n" + taskToDelete + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
@@ -95,5 +121,5 @@ public class Parser {
             } catch (IOException e) {
                 System.out.println("Problems creating an instance of FileWriter");
             }
-    }
-}
+    }*/
+

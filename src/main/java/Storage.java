@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -27,8 +29,28 @@ public class Storage {
         return taskList;
     }
 
+    public void save(Task taskToSave) {
+        try {
+            FileWriter taskListWriter = new FileWriter(this.taskStore, true);
+            taskListWriter.write("\n" + taskToSave.saveToFileFormat());
+            taskListWriter.close();
+        } catch (IOException e) {
+            System.out.println("Problems creating an instance of FileWriter");
+        }
+    }
 
-// should move to Storage
+    public void save (TaskList taskList) {
+        try {
+            FileWriter taskListWriter = new FileWriter(this.taskStore, false);
+            taskListWriter.write(taskList.printToFile());
+            taskListWriter.close();
+        } catch (IOException e) {
+            System.out.println("Problems creating an instance of FileWriter");
+        }
+    }
+
+
+// to simplify
 public static Optional<Task> formatToTask(String lineInFile) {
     String[] inputArray = lineInFile.split(" \\| ");
     try {

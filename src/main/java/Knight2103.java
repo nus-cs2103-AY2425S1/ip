@@ -87,22 +87,6 @@ public class Knight2103 {
         return taskList;
     }
 
-    public static String printList(ArrayList<Task> list, int length) {
-        String stringToPrint = "";
-        for (int i = 0; i < length; i++) {
-            int bulletPoint = i + 1;
-            stringToPrint += bulletPoint + ". " + list.get(i) + "\n";
-        }
-        return stringToPrint;
-    }
-
-    public static String writeToFile(ArrayList<Task> list, int length) {
-        String stringToWrite = "";
-        for (int i = 0; i < length; i++) {
-            stringToWrite += list.get(i).saveToFileFormat() + "\n";
-        }
-        return stringToWrite;
-    }
 
     public Knight2103(String filePath) {
         this.name = "Knight2103";
@@ -120,16 +104,17 @@ public class Knight2103 {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
+            try {
             String fullCommand = this.ui.readCommand();
             this.ui.showLine();
-            Parser.parse(fullCommand);
-
-            //if parse bye
-           this.ui.showBye();
+                Command c = Parser.parse(fullCommand).orElseThrow(() -> new MissingCommand());
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (MissingCommand e) {
+                System.out.println(e);
+            }
         }
-
     }
-
     public static void main(String[] args) {
         new Knight2103("./savedTaskList.txt").run(); // in ip folder, not java folder
     }
