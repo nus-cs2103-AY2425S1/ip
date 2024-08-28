@@ -1,3 +1,5 @@
+package talkie;
+
 import talkie.command.Command;
 import talkie.components.Parser;
 import talkie.components.Storage;
@@ -39,7 +41,7 @@ public class Talkie {
     }
 
     public static void main(String[] args) {
-        // Start of Talkie
-        new Talkie("./data/Talkie.txt").runTalkie();
+        // Start of talkie.Talkie
+        new Talkie("./data/talkie.Talkie.txt").runTalkie();
     }
 }
