@@ -2,6 +2,8 @@ package shoai;
 
 import shoai.TaskList; // Imports TaskList for managing and displaying tasks
 import shoai.Task; // Imports Task for displaying task information
+
+import java.util.ArrayList;
 import java.util.Scanner; // Imports Scanner for reading user input
 
 /**
@@ -121,5 +123,25 @@ public class Ui {
     public void showTaskUnmarked(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
+    }
+
+    /**
+     * Displays the matching tasks found based on the keyword search.
+     *
+     * @param tasks The TaskList containing the tasks to search through.
+     * @param keyword The keyword to search for in the task descriptions.
+     */
+    public void showFindResults(TaskList tasks, String keyword) {
+        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+        showLine();
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No tasks found matching the keyword: " + keyword);
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+        showLine();
     }
 }

@@ -1,4 +1,5 @@
 package shoai;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import shoai.TaskList;
@@ -9,6 +10,7 @@ import shoai.Todo;
 import shoai.Deadline;
 import shoai.Event;
 import shoai.ShoAIException;
+import java.util.ArrayList;
 
 /**
  * Parses user commands and executes the corresponding actions on the task list.
@@ -109,12 +111,31 @@ public class Parser {
                 ui.showTaskDeleted(removedTask, tasks.size());
                 storage.saveTasks(tasks.getAllTasks());
                 break;
+            case "find":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new ShoAIException("The find command requires a keyword.");
+                }
+                String keyword = words[1];
+                findTasks(keyword, tasks, ui);
+                break;
             default:
                 throw new ShoAIException("Sorry, I don't understand that command.");
         }
 
         return false; // Continue the loop for other commands
     }
+
+    /**
+     * Finds tasks containing the given keyword and displays them.
+     *
+     * @param keyword The keyword to search for.
+     * @param tasks The TaskList to search in.
+     * @param ui The Ui instance for user interaction.
+     */
+    private void findTasks(String keyword, TaskList tasks, Ui ui) {
+        ui.showFindResults(tasks, keyword);
+    }
+
 
     /**
      * Converts a Task object to a string representation suitable for file storage.
