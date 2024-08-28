@@ -22,7 +22,7 @@ public class CommandParser {
      * @param s Storage class for writing to files.
      * @return Boolean value for termination of program.
      */
-    public static boolean parseCommand(String input, TaskList tl, Storage store) {
+    public static boolean canParseCommand(String input, TaskList tl, Storage store) {
         if (input.startsWith("bye")) {
             UI.updateUserOnExit();
             return false;
