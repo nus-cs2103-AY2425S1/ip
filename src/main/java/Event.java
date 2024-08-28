@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+
 public class Event extends Task {
     protected String endTime;
     protected String startTime;
@@ -14,6 +19,23 @@ public class Event extends Task {
 
     public String getStartTime() {
         return this.startTime;
+    }
+
+    @Override
+    public void writeToFile(FileWriter fileWriter) {
+        // Write event to file
+        try {
+            String toWrite = "E | ";
+            if (this.isDone) {
+                toWrite += "1 | ";
+            } else {
+                toWrite += "0 | ";
+            }
+            toWrite += this.name + " | " + this.startTime + " | " + this.endTime + "\n";
+            fileWriter.write(toWrite);
+        } catch (IOException writeException) {
+            throw new RuntimeException(writeException);
+        }
     }
 
     @Override

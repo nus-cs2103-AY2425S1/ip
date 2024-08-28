@@ -1,27 +1,33 @@
+import java.io.FileWriter;
+
 public class Task {
     protected final String name;
-    protected boolean done;
+    protected boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getName() {
         return this.name;
     }
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void markUndone() {
-        this.done = false;
+        this.isDone = false;
+    }
+
+    public void writeToFile(FileWriter fileWriter) {
+        return;
     }
 
     @Override
     public String toString() {
         String out;
-        if (this.done) {
+        if (this.isDone) {
             out = "{X} " + this.name;
         } else {
             out = "{ } " + this.name;
