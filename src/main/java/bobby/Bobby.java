@@ -1,3 +1,13 @@
+package bobby;
+
+import bobby.command.Command;
+import bobby.exceptions.BobbyException;
+import bobby.storage.Storage;
+import bobby.tasklist.TaskList;
+import bobby.tasks.Task;
+import bobby.parser.Parser;
+import bobby.ui.Ui;
+
 import java.time.LocalDate;
 
 public class Bobby {

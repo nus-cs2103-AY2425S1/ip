@@ -1,3 +1,11 @@
+package bobby.storage;
+
+import bobby.tasklist.TaskList;
+import bobby.tasks.Deadline;
+import bobby.tasks.Event;
+import bobby.tasks.Task;
+import bobby.tasks.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
