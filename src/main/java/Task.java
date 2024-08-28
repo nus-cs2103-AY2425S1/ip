@@ -1,6 +1,9 @@
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task implements Serializable {
+    protected static final DateTimeFormatter defaultDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy " +
+            "hh:mma");
     protected boolean done;
     protected String description;
 
