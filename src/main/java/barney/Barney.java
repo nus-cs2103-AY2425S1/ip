@@ -9,6 +9,11 @@ import barney.data.exception.BarneyException;
 import barney.storage.Storage;
 import barney.ui.Ui;
 
+/**
+ * The Barney class represents a chatbot application that allows users to
+ * interact with it through a command-line interface. It provides functionality
+ * for managing tasks and saving/loading data.
+ */
 public class Barney {
 
     private Scanner scanner;
@@ -17,6 +22,11 @@ public class Barney {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a Barney object with the specified file path.
+     *
+     * @param filePath The file path to save/load data from.
+     */
     public Barney(String filePath) {
         scanner = new Scanner(System.in);
         commandManager = new CommandManager();
@@ -32,6 +42,11 @@ public class Barney {
 
     }
 
+    /**
+     * The main entry point for the Barney application.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         String saveFilePath = "list.txt";
         if (args.length > 0) {
@@ -40,6 +55,9 @@ public class Barney {
         new Barney(saveFilePath).run();
     }
 
+    /**
+     * Runs the Barney application.
+     */
     public void run() {
         ui.printWelcome();
 

@@ -3,7 +3,6 @@ package barney;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -15,6 +14,9 @@ import barney.data.exception.InvalidArgumentException;
 import barney.data.task.DeadlineTask;
 import barney.ui.Ui;
 
+/**
+ * This class contains unit tests for the {@link DeadlineCommand} class.
+ */
 public class DeadlineCommandTest {
 
     @Test
@@ -37,7 +39,6 @@ public class DeadlineCommandTest {
             // Verify the task was added
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof DeadlineTask);
-            DeadlineTask task = (DeadlineTask) tasks.get(0);
             // Verify the output
             String expectedOutput = "Got it. I've added this task:\r\n" + //
                     "[D][ ] return book (by: June 6th)\r\n" + //

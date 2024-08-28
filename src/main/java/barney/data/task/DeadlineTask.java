@@ -5,16 +5,37 @@ import java.util.ArrayList;
 
 import barney.data.datetime.BarneyDateTime;
 
+/**
+ * Represents a task with a deadline.
+ * 
+ * This class extends the Task class and adds functionality to handle tasks with
+ * deadlines.
+ */
 public class DeadlineTask extends Task {
     private String byString;
     private LocalDate byDate;
 
+    /**
+     * Represents a task with a deadline.
+     * 
+     * This class extends the Task class and adds functionality to handle tasks with
+     * deadlines.
+     * 
+     * @param description The description of the task.
+     * @param byString    The deadline of the task in string format.
+     */
     public DeadlineTask(String description, String byString) {
         super(description);
         this.byString = byString;
         this.byDate = BarneyDateTime.parseDate(byString);
     }
 
+    /**
+     * Converts the DeadlineTask object into an ArrayList of strings for saving
+     * purposes.
+     * 
+     * @return The ArrayList of strings representing the DeadlineTask object.
+     */
     @Override
     public ArrayList<String> toSaveArray() {
         ArrayList<String> rtr = super.toSaveArray();
@@ -23,6 +44,11 @@ public class DeadlineTask extends Task {
         return rtr;
     }
 
+    /**
+     * Returns a string representation of the DeadlineTask object.
+     *
+     * @return A string representation of the DeadlineTask object.
+     */
     @Override
     public String toString() {
         String rtrByString = (this.byDate != null) ? BarneyDateTime.formatDate(this.byDate) : this.byString;

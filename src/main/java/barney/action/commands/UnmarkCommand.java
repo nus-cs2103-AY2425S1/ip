@@ -7,14 +7,32 @@ import barney.data.exception.InvalidArgumentException;
 import barney.data.task.Task;
 import barney.ui.Ui;
 
+/**
+ * Represents a command for unmarking a task as incomplete. Extends the
+ * {@link Command} class.
+ */
 public class UnmarkCommand extends Command {
     HashMap<String, String> argumentMap;
 
+    /**
+     * Represents an UnmarkCommand. This command is used to unmark an item.
+     *
+     * @param argumentMap A HashMap containing the arguments for the command.
+     */
     public UnmarkCommand(HashMap<String, String> argumentMap) {
         super("unmark");
         this.argumentMap = argumentMap;
     }
 
+    /**
+     * Executes the UnmarkCommand, which unmarks a task in the task list.
+     *
+     * @param tasks The task list to operate on.
+     * @param ui    The user interface to display messages.
+     * @return true if the command is executed successfully, false otherwise.
+     * @throws InvalidArgumentException if the task number is invalid or out of
+     *                                  range.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
         verifyFlags(argumentMap);

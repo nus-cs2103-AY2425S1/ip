@@ -15,15 +15,32 @@ import barney.data.task.EventTask;
 import barney.data.task.Task;
 import barney.data.task.TodoTask;
 
+/**
+ * The Storage class is responsible for loading and saving data to a file.
+ */
 public class Storage {
 
     private static final String SAVE_FILE_DELIMITER = "###";
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * 
+     * @param filePath The file path to save/load data from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads a file and returns an ArrayList of Task objects.
+     * 
+     * @return The ArrayList of Task objects read from the file.
+     * @throws FileNotFoundException      If the file specified by the filePath does
+     *                                    not exist.
+     * @throws InvalidSaveFormatException If the file has an invalid format or
+     *                                    contains invalid data.
+     */
     private ArrayList<Task> readFile() throws FileNotFoundException, InvalidSaveFormatException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         File listFile = new File(filePath);
@@ -71,6 +88,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Loads data from a file.
+     *
+     * @return An ArrayList of Task objects containing the loaded data.
+     * @throws BarneyException If the file is not found or there is an error reading
+     *                         the file.
+     */
     public ArrayList<Task> loadData() throws BarneyException {
         try {
             return readFile();
@@ -81,6 +105,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the given list of tasks to a file.
+     * 
+     * @param taskList the list of tasks to be written
+     * @throws FileNotFoundException if the file specified by the file path cannot
+     *                               be found
+     * @throws IOException           if an I/O error occurs while writing to the
+     *                               file
+     */
     private void writeFile(ArrayList<Task> taskList) throws FileNotFoundException, IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         for (Task task : taskList) {
@@ -92,6 +125,12 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Writes the data from the given TaskList to a file.
+     *
+     * @param taskList the TaskList containing the data to be written
+     * @throws BarneyException if there is an error writing the file
+     */
     public void writeData(TaskList taskList) throws BarneyException {
         try {
             writeFile(taskList.getArrayList());
