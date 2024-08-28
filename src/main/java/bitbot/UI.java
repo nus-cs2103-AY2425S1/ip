@@ -1,5 +1,8 @@
 package bitbot;
 public class UI {
+    /**
+     * prints out the introduction when BitBot boots up for the first time.
+     */
     public static String intro = "          ____________________________________\n          Hello! I'm BitBot\n          What can I do for you?\n          ____________________________________\n" +
             "          Please key in only one of these keywords:\n          " +
             "\n          " +
@@ -19,6 +22,9 @@ public class UI {
             "dd-MM-yyyy HH:mm or just dd-MM-yyyy or just HH:mm\n          " +
             "____________________________________";
 
+    /**
+     * prints out the conclusion when the user keys in "bye"
+     */
     public static String conclusion = "          ____________________________________\n" +
             "          Bye. Thank you for using BitBot and hope you enjoyed my service!\n" +
             "          Hope to see you again soon!\n          " +

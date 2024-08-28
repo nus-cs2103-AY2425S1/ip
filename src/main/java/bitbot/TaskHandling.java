@@ -111,6 +111,14 @@ public class TaskHandling {
                 + "          ____________________________________");
     }
 
+    /**
+     * Takes in the description, the "from" and "to" string from the file
+     * and converts them into a Event.
+     * @param description the string that tells the user what the task is about
+     * @param from the time when the task is supposed to start
+     * @param to the time when the task is supposed to be completed
+     * @return an Event
+     */
     public static Task handleEventFromFile (String description, String from, String to) {
         Task event = new Events(description, from, to);
         return event;
@@ -195,6 +203,13 @@ public class TaskHandling {
                 + "          ____________________________________");
     }
 
+    /**
+     * Takes in the description and the "by" string from the file
+     * and converts them into a Deadline.
+     * @param description the string that tells the user what the task is about
+     * @param by the time by when the task is supposed to be completed.
+     * @return a Deadline
+     */
     public static Task handleDeadlineFromFile (String description, String by) {
         Task deadline = new Deadline(description, by);
         return deadline;
@@ -226,6 +241,11 @@ public class TaskHandling {
                 + "          ____________________________________\n");
     }
 
+    /**
+     * Takes in the description and converts it into a Todo.
+     * @param description the string that tells the user what the task is about
+     * @return a ToDos
+     */
     public static Task handleTodoFromFile (String description) {
         Task todo = new ToDos(description);
         return todo;
