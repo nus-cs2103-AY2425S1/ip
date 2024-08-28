@@ -85,7 +85,7 @@ public class Jay {
                             throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 };
 
-                return this.addTask(this.parseTask(taskType, command));
+                return this.addTask(Parser.parseTask(taskType, command));
             }
         } catch (InvalidCommandException | InvalidTaskException e) {
             return formattedCommand(e.getMessage());
@@ -99,42 +99,6 @@ public class Jay {
             return formattedCommand("You have no tasks in the list.");
         } else {
             return formattedCommand("Here are the tasks in your list:\n" + tasks);
-        }
-    }
-
-    private Task parseTask(Task.TYPE taskType, String command) throws InvalidTaskException {
-        switch (taskType) {
-            case TODO: {
-                try {
-                    String description = command.split(" ", 2)[1].trim();
-                    return new ToDoTask(description, false);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
-                }
-            }
-            case DEADLINE: {
-                try {
-                    String description = command.split("/")[0].split(" ", 2)[1].trim();
-                    String by = command.split("/")[1].split(" ", 2)[1].trim();
-                    return new DeadlineTask(description,false, by);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new InvalidTaskException("OOPS!!! The description or by of a deadline cannot be empty.");
-                }
-            }
-            case EVENT: {
-                try {
-                    String[] commands = command.split("/");
-                    String description = commands[0].split(" ", 2)[1].trim();
-                    String startTime = commands[1].split(" ", 2)[1].trim();
-                    String endTime = commands[2].split(" ", 2)[1].trim();
-                    return new EventTask(description,false, startTime, endTime);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new InvalidTaskException("OOPS!!! The description, start time or " +
-                            "end time of an event cannot be empty.");
-                }
-            }
-            default:
-                throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't what task is this. :-(");
         }
     }
 

@@ -1,14 +1,22 @@
-public class DeadlineTask extends Task {
-    private final String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public DeadlineTask(String description, boolean isDone, String by) {
+public class DeadlineTask extends Task {
+    private final LocalDate by;
+
+    public DeadlineTask(String description, boolean isDone, String by) throws InvalidDateException {
         super(description, isDone);
-        this.by = by;
+
+        try {
+            this.by = Parser.parseDate(by);
+        } catch (Exception e) {
+            throw new InvalidDateException("Invalid date format. Please use the format dd/MM/yyyy");
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.dateToString(by) + ")";
     }
 
     @Override
