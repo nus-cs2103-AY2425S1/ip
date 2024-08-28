@@ -25,8 +25,6 @@ public class Rainy {
                     } else {
                         String updatedOldData = oldData.substring(11, oldData.length() - 1);
                         String[] eventSplit = updatedOldData.split(" \\(");
-                        System.out.println(eventSplit[0]);
-                        System.out.println(eventSplit[1]);
                         tm.updateListEvent(eventSplit[0] + " ", eventSplit[1].split(" from ")[0], eventSplit[1].split(" from ")[1]);
                     }
                     if (oldData.charAt(4) == 'X') {
@@ -60,8 +58,6 @@ public class Rainy {
         } catch(Exception e) {
             instruction = Instructions.INVALID;
         }
-
-
         while(instruction != Instructions.BYE) {
             switch (instruction) {
                 case LIST:
@@ -144,10 +140,14 @@ public class Rainy {
                     if (input.length == 1) {
                         System.out.println("You need to provide a description of your Event, please try again!");
                     } else if (splitByTask.length < 5) {
-                        System.out.println("Please provide a proper start time and end time for your Event!");
+                        System.out.println("Please provide a proper date in MM/DD/YYYY format, as well as a start time and end time in HH:MM format for your Event!");
                     } else {
                         tm.updateListEvent(splitByTask[0].substring(6), splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5), splitByTask[4]);
                     }
+                    break;
+                case SORT:
+                    tm.sortList();
+                    System.out.println("The task list has been sorted according to date!");
                     break;
                 case INVALID:
                     System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
@@ -183,7 +183,6 @@ public class Rainy {
             catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
         System.out.println("Goodbye! Have a nice day ahead!!");
 

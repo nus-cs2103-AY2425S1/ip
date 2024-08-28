@@ -67,7 +67,9 @@ public class TaskTracker {
             }
         }
     }
-
+    public void sortList() {
+        Collections.sort(this.taskList);
+    }
     public void updateListToDo(String s) {
         this.taskList.add(new ToDo(s));
         this.counter++;

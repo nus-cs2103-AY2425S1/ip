@@ -7,5 +7,6 @@ public enum Instructions {
     TODO,
     DEADLINE,
     EVENT,
+    SORT,
     INVALID
 }

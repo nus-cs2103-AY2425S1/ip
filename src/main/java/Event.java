@@ -23,12 +23,13 @@ public class Event extends Task {
     @Override
     public String toString() {
         try {
-            return "[E] " + super.getName() + "(" + LocalDate.parse(this.date)
-                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            this.compareDate = LocalDate.parse(this.date);
+            return "[E] " + super.getName() + "(" + this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + " from " + LocalTime.parse(this.time.substring(0, 2) + ":" + this.time.substring(2, 4)).format(DateTimeFormatter.ofPattern("HH:mm")) + " to "
                     + LocalTime.parse(this.time.substring(8, 10) + ":" + this.time.substring(10, 12)).format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
         } catch (Exception e) {
-            return "[E] " + super.getName() + "(" + this.date + " from " + this.time + ")";
+            this.compareDate = LocalDate.parse(this.date, DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return "[E] " + super.getName() + "(" + this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " from " + this.time + ")";
         }
 
     }
