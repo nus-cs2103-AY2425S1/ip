@@ -24,7 +24,7 @@ public class TaskManager {
         String[] taskRows = taskString.split("\n");
         String[] tokens;
         for (String row : taskRows) {
-            if (row.equals("\n")) continue;
+            if (row.isEmpty()) continue;
 
             tokens = row.split(" \\| ");
             String taskType = tokens[0];
