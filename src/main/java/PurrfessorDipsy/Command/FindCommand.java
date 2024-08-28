@@ -40,9 +40,8 @@ public class FindCommand extends Command {
     @Override
     public void execute() throws InvalidCommandException {
         Matcher matcher = FIND_PATTERN.matcher(userInput);
-        String keyword = matcher.group(1);
-
         if (matcher.matches()) {
+            String keyword = matcher.group(1);
             ArrayList<Task> tasksMatchingKeyword = tasks.getTasksByKeyword(keyword);
             ui.printTasksMatchingKeyword(tasksMatchingKeyword);
         } else {
