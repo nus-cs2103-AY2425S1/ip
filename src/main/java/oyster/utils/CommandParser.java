@@ -1,12 +1,6 @@
 package oyster.utils;
 
-import oyster.commands.Command;
-import oyster.commands.ExitCommand;
-import oyster.commands.ListCommand;
-import oyster.commands.ToDoCommand;
-import oyster.commands.ErrorCommand;
-import oyster.commands.DeadlineCommand;
-import oyster.commands.EventCommand;
+import oyster.commands.*;
 import oyster.exceptions.DateFormatException;
 import oyster.exceptions.TaskFieldException;
 
@@ -50,6 +44,26 @@ public class CommandParser {
             } catch (Exception e) {
                 command = new ErrorCommand(e.getMessage());
             }
+            break;
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            // Fallthrough
+        case "delete":
+            if (!scanner.hasNextInt()) {
+                command = new ErrorCommand("Please input a valid task number!");
+                break;
+            }
+
+            int index = scanner.nextInt() - 1;
+            if (input.equals("mark")) {
+                command = new MarkCommand(index);
+            } else if (input.equals("unmark")) {
+                command = new MarkCommand(index);
+            } else {
+                command = new DeleteCommand(index);
+            }
+
             break;
         default:
             command = new ErrorCommand("Oh no! I'm afraid I don't understand...");

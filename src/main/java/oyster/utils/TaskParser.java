@@ -1,5 +1,6 @@
 package oyster.utils;
 
+import oyster.exceptions.ParseException;
 import oyster.tasks.DeadlineTask;
 import oyster.tasks.EventTask;
 import oyster.tasks.Task;
@@ -21,6 +22,8 @@ public class TaskParser {
             task = new ToDoTask(lineInfo[2]);
             if (Objects.equals(lineInfo[1], "1")) {
                 task.mark();
+            } else if (!Objects.equals(lineInfo[1], "0")) {
+                throw new ParseException();
             }
             break;
         case DeadlineTask.FILE_SYMBOL:
@@ -28,6 +31,8 @@ public class TaskParser {
                     LocalDateTime.parse(lineInfo[3]));
             if (Objects.equals(lineInfo[1], "1")) {
                 task.mark();
+            } else if (!Objects.equals(lineInfo[1], "0")) {
+                throw new ParseException();
             }
             break;
         case EventTask.FILE_SYMBOL:
@@ -36,10 +41,12 @@ public class TaskParser {
                     LocalDateTime.parse(lineInfo[4]));
             if (Objects.equals(lineInfo[1], "1")) {
                 task.mark();
+            } else if (!Objects.equals(lineInfo[1], "0")) {
+                throw new ParseException();
             }
             break;
         default:
-            throw new RuntimeException(); // TODO
+            throw new ParseException();
         }
 
         return task;

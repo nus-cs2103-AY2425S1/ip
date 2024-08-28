@@ -1,86 +1,62 @@
-package oyster.utils;
+package oyster.tasks;
 
 import org.junit.jupiter.api.Test;
-import oyster.commands.ToDoCommand;
+import oyster.utils.Parser;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ParserTest {
+public class TaskListTest {
     @Test
-    public void parseTest(){
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        System.setOut(new PrintStream(out));
-        assertEquals("""
-                1. [T][ ] Test task
-                2. [D][ ] Test task (by: 28 NOV 2002)
-                3. [E][ ] Test task (from: 30 AUG 2024 to: 31 AUG 2024)
-                4. [T][X] Test task 2
-                5. [D][X] Test task 2 (by: 28 NOV 2002)
-                6. [E][X] Test task 2 (from: 30 AUG 2024 to: 31 AUG 2024)""".trim(),
-                Parser.parseTaskList("""
-                T~ ~0~ ~Test task
-                D~ ~0~ ~Test task~ ~2002-11-28T00:00
-                E~ ~0~ ~Test task~ ~2024-08-30T00:00~ ~2024-08-31T00:00
-                T~ ~1~ ~Test task 2
-                D~ ~1~ ~Test task 2~ ~2002-11-28T00:00
-                E~ ~1~ ~Test task 2~ ~2024-08-30T00:00~ ~2024-08-31T00:00
-                """).toString().trim());
+    public void empty(){
+        TaskList taskList = new TaskList();
 
-        assertEquals("1. [T][ ] Test task",
-                Parser.parseTaskList("""
-                T~ ~0~ ~Test task
-                """).toString());
+        assertEquals("", taskList.toString());
 
-        assertEquals("1. [T][ ] Test task",
-                Parser.parseTaskList("""
-                T~ ~0~ ~Test task
-                """).toString());
+        assertEquals(true, taskList.isEmpty());
     }
 
     @Test
-    public void corrupted(){
-        try {
-            Parser.parseTaskList("""
-                T~ ~0Test task
-                """);
-            fail();
-        } catch (Exception e) {
-            assertEquals("[OYSTER CHATBOT \uD83E\uDDAA] [Parsing] Your data is corrupted!",
-                    e.getMessage());
-        }
+    public void add(){
+        TaskList taskList = new TaskList();
 
-        try {
-            Parser.parseTaskList("""
-                D~ ~0Test task
-                """);
-            fail();
-        } catch (Exception e) {
-            assertEquals("[OYSTER CHATBOT \uD83E\uDDAA] [Parsing] Your data is corrupted!",
-                    e.getMessage());
-        }
+        taskList.insert(new ToDoTask("Test"));
+        taskList.insert(new DeadlineTask("Test", LocalDateTime.parse("2000-10-10T00:00:00")));
+        taskList.insert(new EventTask("Test", LocalDateTime.parse("2000-10-10T00:00:00"), LocalDateTime.parse("2000-10-11T00:00:00")));
 
-        try {
-            Parser.parseTaskList("""
-                E~ ~0Test task
-                """);
-            fail();
-        } catch (Exception e) {
-            assertEquals("[OYSTER CHATBOT \uD83E\uDDAA] [Parsing] Your data is corrupted!",
-                    e.getMessage());
-        }
+        taskList.mark(1);
+        taskList.unmark(1);
 
-        try {
-            Parser.parseTaskList("""
-                T~ ~3~ ~Test task
-                """);
-            fail();
-        } catch (Exception e) {
-            assertEquals("[OYSTER CHATBOT \uD83E\uDDAA] [Parsing] Your data is corrupted!",
-                    e.getMessage());
-        }
+        assertEquals("""
+                1. [T][ ] Test
+                2. [D][ ] Test (by: 10 OCT 2000)
+                3. [E][ ] Test (from: 10 OCT 2000 to: 11 OCT 2000)
+                """.trim(), taskList.toString().trim());
+
+        assertEquals(false, taskList.isEmpty());
+    }
+
+    @Test
+    public void remove(){
+        TaskList taskList = new TaskList();
+
+        taskList.insert(new ToDoTask("Test"));
+        taskList.insert(new DeadlineTask("Test", LocalDateTime.parse("2000-10-10T00:00:00")));
+        taskList.insert(new EventTask("Test", LocalDateTime.parse("2000-10-10T00:00:00"), LocalDateTime.parse("2000-10-11T00:00:00")));
+
+        taskList.pop(0);
+        taskList.pop(0);
+
+        assertEquals("""
+                1. [E][ ] Test (from: 10 OCT 2000 to: 11 OCT 2000)
+                """.trim(), taskList.toString().trim());
+
+        assertEquals(false, taskList.isEmpty());
+
+        taskList.pop(0);
+
+        assertEquals(true, taskList.isEmpty());
     }
 }

@@ -3,10 +3,10 @@ package oyster.commands;
 import oyster.LogicController;
 import oyster.tasks.TaskList;
 
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private final int markIndex;
 
-    public MarkCommand(int markIndex) {
+    public UnmarkCommand(int markIndex) {
         this.markIndex = markIndex;
     }
 
@@ -15,9 +15,9 @@ public class MarkCommand extends Command {
         TaskList taskList = LogicController.getTaskList();
 
         try {
-            taskList.mark(markIndex);
+            taskList.unmark(markIndex);
             setMessage(new String[]{
-                    "Well done on completing the task!",
+                    "I have unmarked the task!",
                     "\t" + taskList.getTask(markIndex).toString()
             });
         } catch (Exception e) {
