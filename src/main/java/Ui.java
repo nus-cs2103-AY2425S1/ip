@@ -47,7 +47,7 @@ public class Ui {
      */
     public Command readCommand(Scanner scanner) {
         System.out.print(">> ");
-        return new Command(scanner.nextLine());
+        return Parser.parse(scanner.nextLine());
     }
 
     /**
