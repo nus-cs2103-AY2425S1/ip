@@ -10,7 +10,7 @@ import cs2103w10.glados.exceptions.TaskNotFoundException;
 
 import cs2103w10.glados.tasks.Task;
 import cs2103w10.glados.tasks.TaskList;
-
+import cs2103w10.glados.utils.Parser;
 import cs2103w10.glados.utils.Ui;
 
 import java.util.ArrayList;
@@ -42,31 +42,38 @@ public class Glados {
                 break;
             } else {
                 try {
-                    String query = input.split(" ")[0];
+                    String query = Parser.parseCommand(input);
                     switch (query) {
                     case "echo":
-                        Ui.echo(input.substring(4, input.length()));
+                        String echoArgs = Parser.parseArguments(input);
+                        Ui.echo(echoArgs);
                         break;
                     case "todo":
-                        add(TaskType.TODO, input.substring(4, input.length()));
+                        String todoArgs = Parser.parseArguments(input);
+                        add(TaskType.TODO, todoArgs);
                         break;
                     case "deadline":
-                        add(TaskType.DEADLINE, input.substring(8, input.length()));
+                        String deadlineArgs = Parser.parseArguments(input);
+                        add(TaskType.DEADLINE, deadlineArgs);
                         break;
                     case "event":
-                        add(TaskType.EVENT, input.substring(5, input.length()));
+                        String eventArgs = Parser.parseArguments(input);
+                        add(TaskType.EVENT, eventArgs);
                         break;
                     case "list":
                         list();
                         break;
                     case "mark":
-                        mark(Integer.valueOf(input.substring(5, input.length())));
+                        String markArgs = Parser.parseArguments(input);
+                        mark(Integer.valueOf(markArgs));
                         break;
                     case "unmark":
-                        unmark(Integer.valueOf(input.substring(7, input.length())));
+                        String unmarkArgs = Parser.parseArguments(input);
+                        unmark(Integer.valueOf(unmarkArgs));
                         break;
                     case "delete":
-                        delete(Integer.valueOf(input.substring(7, input.length())));
+                        String deleteArgs = Parser.parseArguments(input);
+                        delete(Integer.valueOf(deleteArgs));
                         break;
                     default:
                         throw new CommandNotFoundException();

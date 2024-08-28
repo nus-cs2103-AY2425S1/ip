@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import cs2103w10.glados.enums.TaskType;
-
+import cs2103w10.glados.exceptions.ArgumentsNotFoundException;
 import cs2103w10.glados.exceptions.DateNotFoundException;
 import cs2103w10.glados.exceptions.DateNotParsedException;
 import cs2103w10.glados.exceptions.DateRangeNotFoundException;
@@ -75,6 +75,18 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new DateNotParsedException();
         }
+    }
+
+    public static String parseCommand(String input) {
+        return input.split(" ")[0];
+    }
+
+    public static String parseArguments(String input) throws ArgumentsNotFoundException {
+        String[] parsedArgs = input.split(" ", 2);
+        if (parsedArgs.length <= 1 || parsedArgs[1].trim().equals("")) {
+            throw new ArgumentsNotFoundException();
+        }
+        return parsedArgs[1];
     }
 
     private static void checkDescription(String description) throws DescriptionNotFoundException {
