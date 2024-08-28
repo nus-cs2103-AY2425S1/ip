@@ -198,6 +198,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Finds and lists all those tasks whose task description contains the specified keyword.
+     *
+     * @param keyword The search keyword.
+     * @throws MeejuException If blank string is provided.
+     */
     public void findTask(String keyword) throws MeejuException{
         if (keyword.isEmpty()) {
             throw new MeejuException("Meow! Please tell me what should i find");
