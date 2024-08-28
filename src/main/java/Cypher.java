@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Cypher {
     private enum Commands {
-        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE, HELP, DELETE
+        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE,HELP, DELETE
     }
 
     private static ArrayList<Task> taskList;
@@ -84,7 +84,7 @@ public class Cypher {
                         Cypher.printTaskList();
                         break;
                     case TODO:
-                        if (command.length != 2 || command[1].isEmpty()) {
+                        if (command.length != 2 || command[1].trim().isEmpty()) {
                             throw new CypherException("No task is given. The format of the todo command is:\n todo <Description of task>");
                         }
                         Task todo = new ToDo(command[1]);
