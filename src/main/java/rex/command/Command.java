@@ -1,4 +1,6 @@
-import exceptions.InvalidCommandException;
+package rex.command;
+
+import rex.exception.InvalidCommandException;
 
 public enum Command {
     TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, RAWR, BYE, HELP;

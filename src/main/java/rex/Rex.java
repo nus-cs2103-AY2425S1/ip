@@ -1,8 +1,15 @@
-import exceptions.InvalidInputException;
-import tasks.*;
-import util.Parser;
-import util.Storage;
-import util.Ui;
+package rex;
+
+import rex.command.Command;
+import rex.exception.InvalidInputException;
+import rex.task.Deadline;
+import rex.task.Event;
+import rex.task.Task;
+import rex.task.TaskList;
+import rex.task.ToDo;
+import rex.util.Parser;
+import rex.util.Storage;
+import rex.util.Ui;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;

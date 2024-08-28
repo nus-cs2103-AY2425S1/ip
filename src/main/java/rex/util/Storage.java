@@ -1,8 +1,7 @@
-package util;
+package rex.util;
 
-import tasks.Task;
-import tasks.TaskList;
-import util.Parser;
+import rex.task.Task;
+import rex.task.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;

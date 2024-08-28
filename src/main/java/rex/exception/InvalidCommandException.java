@@ -1,4 +1,4 @@
-package exceptions;
+package rex.exception;
 
 public class InvalidCommandException extends InvalidInputException {
     public InvalidCommandException() {

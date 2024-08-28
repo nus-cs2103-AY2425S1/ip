@@ -1,6 +1,4 @@
-package tasks;
-
-import tasks.Task;
+package rex.task;
 
 public class ToDo extends Task {
 

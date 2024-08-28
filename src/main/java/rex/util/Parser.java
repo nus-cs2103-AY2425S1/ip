@@ -1,7 +1,7 @@
-package util;
+package rex.util;
 
-import exceptions.InvalidInputException;
-import tasks.TaskList;
+import rex.exception.InvalidInputException;
+import rex.task.TaskList;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,13 +13,13 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
 
     public static String[] parseInput(String input) throws InvalidInputException {
-        // Parse command and command argument
+        // Parse rex.command and rex.command argument
         String[] inputTokens = input.split(" ", 2);
 
-        // Error check input argument based on command
+        // Error check input argument based on rex.command
         parseInputError(inputTokens);
 
-        // Return command if no error
+        // Return rex.command if no error
         return inputTokens;
     }
 
@@ -38,7 +38,7 @@ public class Parser {
             int marked = Integer.parseInt(taskTokens[1]);
             boolean isMarked = marked == 1;
 
-            // Add to task list
+            // Add to rex.task list
             String description = taskTokens[2];
             switch (taskType) {
             case "T":
