@@ -37,7 +37,10 @@ public class Events extends Task {
         this.localTime1 = localTime1;
     }
 
-
+    /**
+     * prints out the final display of the event details to the user.
+     * @return prints out the final display of the event details to the user.
+     */
     @Override
     public String finalString() {
         if (localDateTime != null) {
@@ -51,6 +54,10 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * prints out the final display of the event details to the file to be stored.
+     * @return prints out the final display of the event details to the file to be stored.
+     */
     @Override
     public String toFileFormat() {
         String fromToTimeString;

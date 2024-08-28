@@ -139,6 +139,7 @@ public class BitBot {
                             "list\n          " +
                             "delete\n          " +
                             "bye\n          " +
+                            "find\n          " +
                             "\n          " +
                             "Please key in in this format:\n          " +
                             "todo ... / deadline ... ");
