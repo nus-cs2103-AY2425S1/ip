@@ -34,26 +34,26 @@ public class Parser {
      * @throws BotException If the command is not recognised or formatted wrongly.
      */
     public Action parseInput(String input) throws BotException {
-        Command command  = Command.getCommandFromInput(input.split(" ")[0]);
+        Command command = Command.getCommandFromInput(input.split(" ")[0]);
         return switch (command) {
-            case LIST -> new ListTasksAction();
-            case TODO -> {
-                Todo todo = parseTodo(input);
-                yield new AddTaskAction(todo);
-            }
-            case DEADLINE -> {
-                Deadline deadline = parseDeadline(input);
-                yield new AddTaskAction(deadline);
-            }
-            case EVENT -> {
-                Event event = parseEvent(input);
-                yield new AddTaskAction(event);
-            }
-            case MARK -> new MarkTaskAction(parseTaskIndex(input));
-            case UNMARK -> new UnmarkTaskAction(parseTaskIndex(input));
-            case DELETE -> new DeleteTaskAction(parseTaskIndex(input));
-            case HELP -> new HelpAction();
-            default -> throw new InvalidCommandException(input);
+        case LIST -> new ListTasksAction();
+        case TODO -> {
+            Todo todo = parseTodo(input);
+            yield new AddTaskAction(todo);
+        }
+        case DEADLINE -> {
+            Deadline deadline = parseDeadline(input);
+            yield new AddTaskAction(deadline);
+        }
+        case EVENT -> {
+            Event event = parseEvent(input);
+            yield new AddTaskAction(event);
+        }
+        case MARK -> new MarkTaskAction(parseTaskIndex(input));
+        case UNMARK -> new UnmarkTaskAction(parseTaskIndex(input));
+        case DELETE -> new DeleteTaskAction(parseTaskIndex(input));
+        case HELP -> new HelpAction();
+        default -> throw new InvalidCommandException(input);
         };
     }
 
@@ -88,7 +88,7 @@ public class Parser {
         }
         try {
             return new Deadline(args[0].strip(), LocalDate.parse(args[1].strip()));
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             throw new InvalidDateFormatException(e.getParsedString());
         }
     }

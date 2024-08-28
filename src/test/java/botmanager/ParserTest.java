@@ -16,7 +16,6 @@ import exception.InvalidCommandException;
 import exception.InvalidCommandFormatException;
 import exception.InvalidDateFormatException;
 import exception.InvalidTaskIndexException;
-import task.Deadline;
 
 public class ParserTest {
     @Test
@@ -25,7 +24,7 @@ public class ParserTest {
             new Parser().parseInput("");
             fail();
         } catch (BotException e) {
-            assertEquals(e.getClass(),  InvalidCommandException.class);
+            assertEquals(e.getClass(), InvalidCommandException.class);
         }
     }
 
@@ -34,7 +33,7 @@ public class ParserTest {
         try {
             new Parser().parseInput("invalidcommand"); // this will never be added as a command
         } catch (BotException e) {
-            assertEquals(e.getClass(),  InvalidCommandException.class);
+            assertEquals(e.getClass(), InvalidCommandException.class);
         }
     }
 
@@ -43,7 +42,7 @@ public class ParserTest {
         try {
             new Parser().parseInput("todo description1 description2");
         } catch (BotException e) {
-            assertEquals(e.getClass(),  InvalidCommandFormatException.class);
+            assertEquals(e.getClass(), InvalidCommandFormatException.class);
         }
     }
 

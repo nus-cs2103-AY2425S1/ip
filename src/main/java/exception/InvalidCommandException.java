@@ -11,6 +11,6 @@ public class InvalidCommandException extends BotException {
      * @param input Command inputted by user.
      */
     public InvalidCommandException(String input) {
-        super("Invalid command: " + input + "! Type 'help' to view all available commands." );
+        super("Invalid command: " + input + "! Type 'help' to view all available commands.");
     }
 }

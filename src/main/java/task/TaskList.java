@@ -8,14 +8,14 @@ import java.util.ArrayList;
  * @author dwsc37
  */
 public class TaskList {
-    private final ArrayList<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Add a <code>task</code> to the task list.
      * @param task Task to be added.
      */
     public void addTask(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -25,8 +25,8 @@ public class TaskList {
      * @return Task marked as done.
      */
     public Task markTask(int taskIndex) {
-        taskList.get(taskIndex).mark();
-        return taskList.get(taskIndex);
+        tasks.get(taskIndex).mark();
+        return tasks.get(taskIndex);
     }
 
     /**
@@ -36,8 +36,8 @@ public class TaskList {
      * @return Task marked as undone.
      */
     public Task unmarkTask(int taskIndex) {
-        taskList.get(taskIndex).unmark();
-        return taskList.get(taskIndex);
+        tasks.get(taskIndex).unmark();
+        return tasks.get(taskIndex);
     }
 
     /**
@@ -47,8 +47,8 @@ public class TaskList {
      * @return Task deleted.
      */
     public Task deleteTask(int taskIndex) {
-        Task task = taskList.get(taskIndex);
-        taskList.remove(taskIndex);
+        Task task = tasks.get(taskIndex);
+        tasks.remove(taskIndex);
         return task;
     }
 
@@ -58,7 +58,7 @@ public class TaskList {
      * @return Number of tasks in the task list.
      */
     public int getTaskCount() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -67,12 +67,12 @@ public class TaskList {
      * @return Summary of tasks in the task list.
      */
     public String getSummary() {
-        if (taskList.isEmpty()) {
+        if (tasks.isEmpty()) {
             return "You have no tasks currently.";
         } else if (getTaskCount() == 1) {
             return "You have 1 task currently.";
         }
-        return "You have " + getTaskCount()+ " tasks currently.";
+        return "You have " + getTaskCount() + " tasks currently.";
     }
 
     /**
@@ -86,7 +86,7 @@ public class TaskList {
         stringBuilder.append(getSummary()).append("\n");
         for (int i = 0; i < getTaskCount(); i++) {
             stringBuilder.append(i + 1).append(". ");
-            stringBuilder.append(taskList.get(i).toString()).append("\n");
+            stringBuilder.append(tasks.get(i).toString()).append("\n");
         }
 
         return stringBuilder.toString();
@@ -100,7 +100,7 @@ public class TaskList {
     public String toData() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < getTaskCount(); i++) {
-            stringBuilder.append(taskList.get(i).toData());
+            stringBuilder.append(tasks.get(i).toData());
             if (i != getTaskCount() - 1) {
                 stringBuilder.append("\n");
             }

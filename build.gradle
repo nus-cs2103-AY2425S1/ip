@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    //id 'checkstyle'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -32,9 +32,9 @@ application {
     mainClass.set("botmanager.BotManager")
 }
 
-//checkstyle {
-//    toolVersion = '10.2'
-//}
+checkstyle {
+    toolVersion = '10.2'
+}
 
 shadowJar {
     archiveBaseName = "botmanager"

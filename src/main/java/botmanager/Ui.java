@@ -21,8 +21,8 @@ public class Ui {
      * Prints a welcome message and initialises a scanner.
      */
     public void start() {
-        String greetMessage = "Hello, I'm BotManager, your friendly task assistant!\n" +
-                "What can I do for you? (Type 'help' to view all available commands)";
+        String greetMessage = "Hello, I'm BotManager, your friendly task assistant!\n"
+                + "What can I do for you? (Type 'help' to view all available commands)";
         printMessageWithDividers(greetMessage);
         scanner = new Scanner(System.in);
     }
@@ -40,7 +40,7 @@ public class Ui {
      * Shows a file loading error message.
      */
     public void showLoadError() {
-        String loadErrorMessage  = "File data/tasks.txt not found! Initialising empty file...";
+        String loadErrorMessage = "File data/tasks.txt not found! Initialising empty file...";
         printMessageWithDividers(loadErrorMessage);
     }
 

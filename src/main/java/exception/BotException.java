@@ -5,7 +5,7 @@ package exception;
  *
  * @author dwsc37
  */
-public abstract class BotException extends Exception{
+public abstract class BotException extends Exception {
     public BotException(String message) {
         super(message);
     }
