@@ -27,6 +27,12 @@ public class Parser {
     private static final String TASK_NOT_SPECIFIED_MSG = "The task number is not specified";
     private static final String NO_DESCRIPTION_MSG = "This task requires a description";
 
+    /**
+     * Returns a Command object based on user input and throws an Exception for invalid commands
+     * @param input - user input through keyboard
+     * @return corresponding Command object
+     * @throws OptimusExceptions
+     */
     public static Command parse(String input) throws OptimusExceptions {
         String[] commands = input.split(" ");
         if (commands.length == 0) {

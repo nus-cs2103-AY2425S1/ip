@@ -13,6 +13,13 @@ public class DeleteTaskCommand extends Command {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Deletes task from permanent and session storage and prints to UI if successful
+     * @param storage - permanent storage
+     * @param tasks - session storage
+     * @param ui - user interface
+     * @throws InvalidTaskNumberException - when task number does not exist or is not valid
+     */
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
         Task removed = tasks.removeTask(taskIndex);

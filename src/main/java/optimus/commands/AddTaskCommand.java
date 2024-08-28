@@ -13,6 +13,12 @@ public class AddTaskCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * Adds task to both permenant and session storage and prints success message
+     * @param storage - permenant storage
+     * @param tasks - session storage
+     * @param ui - user interface
+     */
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) {
         tasks.addTask(task);

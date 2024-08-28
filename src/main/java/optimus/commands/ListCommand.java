@@ -11,6 +11,13 @@ public class ListCommand extends Command {
 
     }
 
+    /**
+     * Fetches tasks from session storage and prints to UI
+     * @param storage - permanent storage
+     * @param tasks - session storage
+     * @param ui - user interface
+     * @throws InvalidTaskNumberException - Should not be triggered
+     */
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
         for (int i = 0; i < tasks.getNumOfTasks(); i++) {
