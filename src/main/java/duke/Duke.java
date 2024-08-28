@@ -66,6 +66,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             String response = parser.handleGuiInput(input);
+            assert !response.isEmpty();
             if (response.equals("Bye. Hope to see you again soon!")) {
                 isRunning = false;
             }
