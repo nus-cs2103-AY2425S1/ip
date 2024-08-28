@@ -1,27 +1,34 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
- * The Storage class handles reading and writing data to a file,
- * as well as ensuring the necessary directory and file exist.
+ * The Storage class is responsible for handling file operations related to task storage.
+ * It ensures that the necessary directory and file are created, and provides methods
+ * for reading from and writing to the file. The class supports both file creation
+ * and file management tasks, making sure that the application's data is preserved
+ * and correctly loaded when needed.
  */
 public class Storage {
     private final String directoryPath;
     private final String filePath;
+    private final String fullPath;
 
     /**
-     * Constructs a Storage object with specified directory and file paths.
+     * Constructs a Storage object with the specified file path,
+     * automatically extracting the directory path from the file path.
+     * This constructor is used when only the file path is known.
      *
-     * @param directoryPath The relative path to the directory.
      * @param filePath The relative path to the file within the directory.
      */
-    public Storage(String directoryPath, String filePath) {
-        this.directoryPath = directoryPath;
-        this.filePath = filePath;
+    public Storage(String filePath) {
+        Path path = Paths.get(filePath);
+        this.directoryPath = path.getParent() != null ? path.getParent().toString() : "";
+        this.filePath = path.getFileName().toString();
+        this.fullPath = Paths.get(this.directoryPath, this.filePath).toString();
     }
-
 
     /**
      * Sets up the storage by ensuring the directory and file exist.
@@ -47,48 +54,51 @@ public class Storage {
     }
 
     /**
-     * Reads the file and processes each line of data.
-     * If the file does not exist, prints a file-not-found message.
+     * Saves a list of tasks to the file.
+     * Each task is written to a new line in the file.
      *
-     * @return data returns
+     * @param tasks The list of tasks to be saved.
+     * @throws SilverWolfException If an error occurs during file writing.
      */
-    public String readFile() {
-
+    public void save(List<Task> tasks) throws SilverWolfException {
         try {
-            File file = new File(this.filePath);
-            String data = "";
-            if(file.exists()){
-                Scanner scanner = new Scanner(file).useDelimiter("\\A");;
-                while(scanner.hasNextLine()) {
-                    data = scanner.next();
-                    return data;
-                }
-                scanner.close();
-            } else {
-                System.out.println("File not found");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.fullPath));
+            for (Task task : tasks) {
+                writer.write(task.toFileString());
+                writer.newLine();
             }
-        } catch (IOException e) {
-            System.out.println("Urm, an error occurred while reading the file.");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    /**
-     * Writes a line of content to the file, appending it to any existing data.
-     * IOException If the file does not exist, prints a file-not-found message.
-     *
-     * @param data The content to write to the file.
-     */
-    public void writeFile(String data) {
-        try {
-            FileWriter writer = new FileWriter(filePath, false); // false for overwrite
-            writer.write(data);
+            File toBeDeleted = new File(filePath);
+            toBeDeleted.delete();
             writer.close();
         } catch (IOException e) {
-            System.out.println("urm, an error occurred while writing to the file.");
-            e.printStackTrace();
+            throw new SilverWolfException("urm, an error occurred while writing to the file.");
         }
+
+    }
+
+    /**
+     * Loads tasks from the file and returns them as a list.
+     * Each line in the file is parsed into a Task object.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws SilverWolfException If an error occurs during file reading or if the file is not found.
+     */
+    public List<Task> load() throws SilverWolfException {
+        List<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(this.fullPath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                tasks.add(Task.fromString(line));
+            }
+        } catch (IOException e) {
+            throw new SilverWolfException("Error loading tasks from file");
+        }
+        return tasks;
     }
 }

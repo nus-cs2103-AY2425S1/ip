@@ -19,6 +19,57 @@ public abstract class Task {
     }
 
     /**
+     * Converts a string representation of a task into an appropriate Task object.
+     *
+     * The input string is expected to follow a specific format:
+     * "TaskType | isDone | description | additionalInfo" where:
+     * - TaskType indicates the type of task (TODO, DEADLINE, or EVENT).
+     * - isDone is a flag indicating whether the task is completed ("1" for done, "0" for not done).
+     * - description is the text description of the task.
+     * - additionalInfo provides extra details specific to the task type (e.g., deadline date or event times).
+     *
+     * The method parses the input string, creates the corresponding Task object, sets its completion status,
+     * and returns the Task object.
+     *
+     * @param str The string representation of the task to be converted.
+     * @return A Task object corresponding to the input string.
+     * @throws SilverWolfException If the task type is unknown or if there is an error in parsing the input string.
+     */
+    public static Task fromString(String str) throws SilverWolfException {
+        String[] parts = str.split(" \\| ");
+        TaskType taskType = TaskType.fromString(parts[0]);
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (taskType) {
+        case TODO:
+            Todo todo = new Todo(description);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
+        case DEADLINE:
+            String by = parts[3];
+            Deadline deadline = new Deadline(description, by);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            return deadline;
+        case EVENT:
+            String[] eventTimes = parts[3].split("-");
+            String from = eventTimes[0];
+            String to = eventTimes[1];
+            Event event = new Event(description, from, to);
+            if (isDone) {
+                event.markAsDone();
+            }
+            return event;
+        default:
+            throw new SilverWolfException("Unknown task type: " + taskType);
+        }
+    }
+
+    /**
      * Marks this task as done by setting its completion status to true.
      */
     public void markAsDone(){

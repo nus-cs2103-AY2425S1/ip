@@ -20,8 +20,10 @@ then
 fi
 
 rm -rf data
+rm silverWolf.txt
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin SilverWolf < input.txt > ACTUAL.TXT
+rm silverWolf.txt
 
 rm -rf data
 # convert to UNIX format
