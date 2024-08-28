@@ -5,7 +5,20 @@ import bruno.exceptions.BrunoException;
 import bruno.exceptions.UnknownCommandException;
 import bruno.task.TaskList;
 
+/**
+ * The Parser class is responsible for interpreting user input and
+ * converting it into commands for execution.
+ * It takes in raw input from the user, identifies the type of command,
+ * and generates a Command object based on that input.
+ */
 public class Parser {
+    /**
+     * Parses the given user command string and returns the corresponding Command object.
+     *
+     * @param command The raw input string from the user.
+     * @param tasks The TaskList containing the user's tasks, used to apply the command.
+     * @return A Command object corresponding to the parsed command, or null if an exception occurs.
+     */
     public static Command parse(String command, TaskList tasks) {
         String firstWord;
         String restOfString = "";
