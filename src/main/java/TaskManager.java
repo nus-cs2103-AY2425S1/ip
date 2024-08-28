@@ -6,6 +6,7 @@ import java.util.List;
  * It provides basic functionality for adding, deleting, listing, and marking tasks as done.
  */
 public class TaskManager {
+    private static final String FILE_PATH = "../../../data/tasks.txt";
     private List<Task> tasks = new ArrayList<>();
 
     public void addTask(Task task) {
@@ -73,5 +74,13 @@ public class TaskManager {
         for (int i = 0; i < taskCount; i++) {
             PrintUtility.indentPrint((i + 1) + ". " + tasks.get(i));
         }
+    }
+
+    /**
+     * Saves the tasks to hardcoded file location.
+     */
+    public void saveTasksToFile() {
+        TaskManagerFile.saveTasksToFile(this, filePath);
+
     }
 }
