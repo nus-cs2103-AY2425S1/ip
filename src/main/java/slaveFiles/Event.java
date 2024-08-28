@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
     public Event(String task, LocalDate start, LocalDate end) throws InvalidChronologicalOrderException {
         super(task);
         if (start.isAfter(end)) {
@@ -28,8 +28,16 @@ public class Event extends Task {
         return start.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
     }
 
+    public LocalDate getRawStart() {
+        return this.start;
+    }
+
     public String getEnd() {
         return end.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+    }
+
+    public LocalDate getRawEnd() {
+        return this.end;
     }
 
     public void setStart(LocalDate start) {

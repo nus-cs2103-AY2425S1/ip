@@ -3,6 +3,7 @@ package slaveFiles;
 import java.io.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -101,6 +102,9 @@ public class Slave {
                     break;
                 case "reload":
                     reload();
+                    break;
+                case "schedule":
+                    scheduleOn(body);
                     break;
                 default:
                     System.out.println("You're spouting gibberish...");
@@ -471,6 +475,34 @@ public class Slave {
         list.clear();
         load();
         System.out.println("Reloaded");
+    }
+
+    /**
+     * prints all deadlines / events occuring on the specified date
+     * @param s
+     */
+    private static void scheduleOn(String s) {
+        if (s.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        System.out.println("Your tasks are :");
+        try {
+            LocalDate target = LocalDate.parse(s);
+            list.forEach(task -> {
+                if (task instanceof Event) {
+                    if (((Event) task).getRawStart().isBefore(target) && ((Event) task).getRawEnd().isAfter(target)) {
+                        System.out.println(task);
+                    }
+                } else if (task instanceof Deadline) {
+                    if (((Deadline) task).getRawDeadline().isAfter(target) || ((Deadline) task).getRawDeadline().isEqual(target)) {
+                        System.out.println(task);
+                    }
+                }
+            });
+            System.out.println("That's all your tasks for " + target.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+        } catch (DateTimeParseException | NoSuchElementException e) {
+            System.out.println("Give me the date in yyyy-mm-dd or I won't check your schedule");
+        }
     }
 
 }

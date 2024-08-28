@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    LocalDate deadline;
+    private LocalDate deadline;
     public Deadline (String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
@@ -17,6 +17,10 @@ public class Deadline extends Task {
 
     public String getDeadline() {
         return this.deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+    }
+
+    public LocalDate getRawDeadline() {
+        return this.deadline;
     }
 
     public void setDeadline(LocalDate deadline) {
