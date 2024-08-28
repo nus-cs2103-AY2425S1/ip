@@ -8,6 +8,7 @@ import delta.command.AddCommand;
 import delta.command.Command;
 import delta.command.DeleteCommand;
 import delta.command.ExitCommand;
+import delta.command.FindCommand;
 import delta.command.MarkCommand;
 import delta.command.PrintCommand;
 import delta.command.UnmarkCommand;
@@ -58,6 +59,18 @@ public class Parser {
         // Print List
         } else if (task.equalsIgnoreCase("list")) {
             return new PrintCommand();
+
+        // Find Tasks
+        } else if (task.equalsIgnoreCase("find")) {
+            if (description.length == 2) {
+                String taskName = description[1].strip();
+                return new FindCommand(taskName);
+            } else {
+                throw new DeltaException("""
+                        OOPS!!! Description of task to find cannot be left blank!
+                        \t Please follow the proper format:
+                        \t * find [description]""");
+            }
 
         // Add Todo
         } else if (task.equalsIgnoreCase("todo")) {
