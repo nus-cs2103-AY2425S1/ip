@@ -1,0 +1,6 @@
+T | 0 | book fair
+T | 1 | book fair
+D | 0 | return book | Sunday
+E | 0 | race car | Sun | Fri
+T | 0 | jumping jack
+D | 0 | A2 | Sunday

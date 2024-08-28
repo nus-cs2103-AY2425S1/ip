@@ -6,6 +6,11 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    /*
+    Task (String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }*/
 
     public boolean isDone() {
         return this.isDone;
@@ -17,6 +22,10 @@ public class Task {
 
     public void unmarkDone() {
         this.isDone = false;
+    }
+
+    public String saveToFileFormat() {
+        return String.format("| %d | %s", this.isDone ? 1 : 0, this.description);
     }
 
     @Override
