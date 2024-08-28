@@ -15,16 +15,38 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the reading and writing of task data
+ * to and from a file. It ensures the directory and file for task
+ * data storage exist and provides methods to load tasks from a file
+ * and update the file with the current task list.
+ */
 public class Storage {
     private String directoryPath;
     private String filePath;
     DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param directoryPath The directory where the data file is stored.
+     * @param filePath The file path for storing task data.
+     */
     public Storage(String directoryPath, String filePath) {
         this.directoryPath = directoryPath;
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the list of tasks from the file specified by filePath.
+     * This method reads the file line by line, parses each line to create
+     * the appropriate task, and returns an ArrayList of tasks.
+     * If there is an issue with the file reading process, it throws
+     * a BrunoException.
+     *
+     * @return An ArrayList containing the tasks loaded from the file.
+     * @throws BrunoException If an error occurs while loading the file.
+     */
     public ArrayList<Task> loadFromFile() throws BrunoException {
         try {
             File f = new File(this.filePath);
@@ -62,6 +84,14 @@ public class Storage {
             throw new FileLoadingException();
         }
     }
+
+    /**
+     * Updates the task data file with the current list of tasks.
+     * This method writes each task in the provided task list to the file,
+     * replacing the previous file contents.
+     *
+     * @param taskList The ArrayList of tasks to be written to the file.
+     */
     public void updateFile(ArrayList<Task> taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -75,6 +105,11 @@ public class Storage {
             Ui.printErrorMessage(e);
         }
     }
+
+    /**
+     * Ensures that the directory for storing the data file exists.
+     * If the directory does not exist, this method will create it.
+     */
     public void ensureDirectoryExists() {
         File directory = new File(directoryPath);
         if (!directory.exists()) {
@@ -84,6 +119,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Ensures that the task data file exists.
+     * If the file does not exist, this method will create a new empty file.
+     */
     public void ensureFileExists() {
         File file = new File(filePath);
         if (!file.exists()) {

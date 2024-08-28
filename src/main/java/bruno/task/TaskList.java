@@ -14,11 +14,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Manages the list of tasks, including adding, marking, unmarking, and deleting tasks.
+ * Interacts with the Storage class to load and save tasks from and to a file.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
     DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Initializes a TaskList object and loads tasks from the storage file.
+     * If there is an error loading the file, it initializes an empty task list.
+     *
+     * @param storage The storage instance used to load and save tasks.
+     */
     public TaskList(Storage storage) {
         this.storage = storage;
         try {
@@ -29,9 +39,23 @@ public class TaskList {
         }
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Adds a task based on the input string and the task type.
+     * Validates the input and ensures the required fields are present.
+     *
+     * @param str  The input string describing the task.
+     * @param type The type of the task.
+     * @throws BrunoException If the input is invalid or a required field is missing.
+     */
     public void addTask(String str, Bruno.TaskType type) throws BrunoException {
         if (str.trim().isEmpty()) {
             throw new EmptyTaskException();
@@ -85,6 +109,13 @@ public class TaskList {
             throw new UnknownCommandException();
         }
     }
+
+    /**
+     * Marks a task as completed based on its index.
+     *
+     * @param num The index of the task to mark as completed.
+     * @throws BrunoException If the index is invalid.
+     */
     public void markTask(String num) throws BrunoException {
         try {
             Task task = tasks.get(Integer.parseInt(num) - 1);
@@ -96,6 +127,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task (sets it as incomplete) based on its index.
+     *
+     * @param num The index of the task to unmark.
+     * @throws BrunoException If the index is invalid.
+     */
     public void unmarkTask(String num) throws BrunoException {
         try {
             Task task = tasks.get(Integer.parseInt(num) - 1);
@@ -107,6 +144,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task based on its index.
+     *
+     * @param num The index of the task to delete.
+     * @throws BrunoException If the index is invalid.
+     */
     public void deleteTask(String num) throws BrunoException {
         try {
             Task task = tasks.remove(Integer.parseInt(num) - 1);
