@@ -4,10 +4,24 @@ import pikappi.Storage;
 import pikappi.TaskList;
 import pikappi.Ui;
 
+/**
+ * Represents a command by user to list all tasks.
+ */
 public class ListCommand extends Command {
+
+    /**
+     * Creates a new ListCommand object.
+     */
     public ListCommand() {
     }
 
+    /**
+     * Lists all tasks in the list of tasks.
+     *
+     * @param tasks List of tasks.
+     * @param ui Ui object that interacts with the user.
+     * @param storage The storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.listTasks();

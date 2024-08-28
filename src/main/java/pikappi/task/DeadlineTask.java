@@ -5,9 +5,18 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class DeadlineTask extends Task {
     protected String by;
 
+    /**
+     * Creates a new DeadlineTask object.
+     *
+     * @param description The description of the task.
+     * @param by The deadline of the task.
+     */
     public DeadlineTask(String description, String by) {
         super(description);
         String timeBy = "";
@@ -27,6 +36,13 @@ public class DeadlineTask extends Task {
         }
     }
 
+    /**
+     * Creates a new DeadlineTask object.
+     *
+     * @param description The description of the task.
+     * @param by The deadline of the task.
+     * @param isDone The status of the task.
+     */
     public DeadlineTask(String description, String by, boolean isDone) {
         super(description, isDone);
         String timeBy = "";
@@ -46,10 +62,20 @@ public class DeadlineTask extends Task {
         }
     }
 
+    /**
+     * Gets the deadline of the task.
+     *
+     * @return The deadline of the task.
+     */
     public String getBy() {
         return by;
     }
 
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

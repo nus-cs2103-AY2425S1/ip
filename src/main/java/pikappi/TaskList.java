@@ -8,25 +8,45 @@ import pikappi.task.TodoTask;
 
 import java.util.ArrayList;
 
+/** Represents a list of tasks. */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /** Returns a TaskList object that contains no tasks. */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /** Returns a TaskList object that contains tasks.
+     *
+     * @param tasks List of tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /** Returns a TaskList object that contains tasks.
+     *
+     * @return List of tasks
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public void add(Task task) {
+    /** Loads and adds a task to the list of tasks without printing statement.
+     * Used for loading tasks from Storage.
+     *
+     * @param task Task to be added
+     */
+    public void load(Task task) {
         tasks.add(task);
     }
 
+    /** Adds a task to the list of tasks.
+     * Used for adding tasks from user input.
+     *
+     * @param task Task to be added
+     */
     public void addTask(Task task) throws PikappiException {
         if (task == null) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
@@ -46,6 +66,11 @@ public class TaskList {
         }
     }
 
+    /** Deletes a task from the list of tasks.
+     *
+     * @param taskNum Index of the task to be deleted
+     * @throws PikappiException If the task does not exist
+     */
     public void deleteTask(int taskNum) throws PikappiException {
         if (taskNum > tasks.size() || taskNum < 1) {
             throw new PikappiException("Pi-ka..?? Task does not exist..");
@@ -55,6 +80,7 @@ public class TaskList {
                 "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
+    /** Lists all tasks in the list of tasks. */
     public void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println("Pika-ka! You have no tasks!");

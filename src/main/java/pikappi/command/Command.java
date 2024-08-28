@@ -5,6 +5,9 @@ import pikappi.Storage;
 import pikappi.TaskList;
 import pikappi.Ui;
 
+/**
+ * Represents a command that can be executed by the user.
+ */
 public abstract class Command {
     private Storage storage;
     private TaskList tasks;

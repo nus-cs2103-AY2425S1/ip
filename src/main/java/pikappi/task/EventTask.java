@@ -5,10 +5,20 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a start and end time.
+ */
 public class EventTask extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Creates a new EventTask object.
+     *
+     * @param description The description of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     */
     public EventTask(String description, String from, String to) {
         super(description);
         try {
@@ -33,6 +43,14 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * Creates a new EventTask object.
+     *
+     * @param description The description of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     * @param isDone The status of the task.
+     */
     public EventTask(String description, String from, String to, boolean isDone) {
         super(description, isDone);
         try {
@@ -57,14 +75,29 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * Gets the start time of the task.
+     *
+     * @return The start time of the task.
+     */
     public String getFrom() {
         return from;
     }
 
+    /**
+     * Gets the end time of the task.
+     *
+     * @return The end time of the task.
+     */
     public String getTo() {
         return to;
     }
 
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";

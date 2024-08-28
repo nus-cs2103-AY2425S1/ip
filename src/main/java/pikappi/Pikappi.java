@@ -3,6 +3,9 @@ package pikappi;
 import pikappi.command.Command;
 import pikappi.exception.PikappiException;
 
+/**
+ * Represents the main class that runs the program.
+ */
 public class Pikappi {
     static Ui ui = new Ui();
     static Storage storage = new Storage("data/pikappi.txt");

@@ -14,25 +14,49 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a storage that saves and loads tasks.
+ */
 public class Storage {
     protected String path;
     protected TaskList tasks;
 
+    /**
+     * Returns a Storage object that saves and loads tasks.
+     *
+     * @param path Filepath to save and load tasks from
+     */
     public Storage(String path) {
         this.path = path;
         this.tasks = new TaskList();
     }
 
+    /**
+     * Returns a TaskList object that contains tasks.
+     *
+     * @return TaskList object that contains tasks
+     * @throws PikappiException If there is an error loading tasks
+     */
     public TaskList load() throws PikappiException {
         this.loadTasks();
         return this.tasks;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks TaskList object that contains tasks
+     */
     public void save(TaskList tasks) {
         this.tasks = tasks;
         this.saveTasks();
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @throws PikappiException If there is an error loading tasks
+     */
     public void loadTasks() throws PikappiException {
         File file = new File(this.path);
         if (!file.exists()) {
@@ -45,7 +69,6 @@ public class Storage {
                 System.out.println("Error creating file!");
             }
         }
-
         try {
             Scanner fileReader = new Scanner(file);
             while (fileReader.hasNextLine()) {
@@ -58,6 +81,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a task to <code>tasks</code>.
+     *
+     * @param task Task to load
+     * @throws PikappiException If there is an error loading the task
+     */
     public void loadCurrentTask(ArrayList<String> task) throws PikappiException {
         if (task.size() < 3) {
             throw new PikappiException("Error loading task!");
@@ -75,19 +104,22 @@ public class Storage {
         }
         switch (taskType) {
         case "T":
-            this.tasks.add(new TodoTask(taskDescription, isDone));
+            this.tasks.load(new TodoTask(taskDescription, isDone));
             break;
         case "D":
-            this.tasks.add(new DeadlineTask(taskDescription, taskTime, isDone));
+            this.tasks.load(new DeadlineTask(taskDescription, taskTime, isDone));
             break;
         case "E":
-            this.tasks.add(new EventTask(taskDescription, taskTime, taskEndTime, isDone));
+            this.tasks.load(new EventTask(taskDescription, taskTime, taskEndTime, isDone));
             break;
         default:
             throw new PikappiException("Error loading task!");
         }
     }
 
+    /**
+     * Saves tasks to the file.
+     */
     public void saveTasks() {
         try {
             FileWriter fileWriter = new FileWriter(this.path);
