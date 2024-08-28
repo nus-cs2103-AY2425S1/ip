@@ -1,5 +1,4 @@
 package juno.ui;
-// class to deal with user interaction
 
 /**
  * The {@code JunoUi} class handles user interaction for the Juno chat bot.

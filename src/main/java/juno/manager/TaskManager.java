@@ -1,6 +1,7 @@
 package juno.manager;
 
 import juno.task.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -40,7 +41,7 @@ public class TaskManager {
      * @param taskDescription the description of the task to check for duplicates with the current task list.
      * @return true if a task with the same description exists, else, return false.
      */
-    public boolean checkDuplicateTask(String taskDescription) {
+    public boolean isDuplicateTask(String taskDescription) {
         for (Task task : this.tasks) {
             if (task.getDescription().equalsIgnoreCase(taskDescription)) {
                 return true;

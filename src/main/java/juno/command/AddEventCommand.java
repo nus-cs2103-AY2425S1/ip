@@ -56,7 +56,7 @@ public class AddEventCommand extends AddCommand {
             String[] taskInfoArray = taskInfo.split("/", 3);
             taskDescription = taskInfoArray[0];
             // Check if the task already exists
-            if (this.taskManager.checkDuplicateTask(taskDescription)) {
+            if (this.taskManager.isDuplicateTask(taskDescription)) {
                 throw new TaskManagerException("This task is already in your list! " +
                         "Maybe you can try renaming it and input again?",
                         TaskManagerException.ErrorType.DUPLICATE_TASK);
@@ -69,7 +69,6 @@ public class AddEventCommand extends AddCommand {
                     "/ {Input task description here}\" to add a task)",
                     TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
         }
-
         this.tasks.add(t);
         this.fileManager.writeTasksToFile(this.tasks);
         System.out.println("\uD83C\uDF89 Got it! I've added: \"" + taskDescription + "\" to your list!");

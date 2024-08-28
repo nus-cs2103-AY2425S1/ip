@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
 import juno.task.Task;
 
 import java.io.File;
@@ -27,10 +28,10 @@ public class FileManager {
      */
     public FileManager() {
          this.gsonInstance = new GsonBuilder()
-                .registerTypeAdapter(Task.class, new TaskAdapter())
-                .setPrettyPrinting()
+                 .registerTypeAdapter(Task.class, new TaskAdapter())
+                 .setPrettyPrinting()
                  .excludeFieldsWithoutExposeAnnotation()
-                .create();
+                 .create();
     }
 
     /**

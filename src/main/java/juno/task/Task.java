@@ -8,13 +8,10 @@ import com.google.gson.annotations.Expose;
  * Superclass for other task types such as Event, Deadline and Todo.
  */
 public class Task {
-
     @Expose
     protected String description;
-
     @Expose
     protected boolean isDone;
-
     @Expose
     protected String taskType;
 

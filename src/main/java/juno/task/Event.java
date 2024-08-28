@@ -1,6 +1,7 @@
 package juno.task;
 
 import com.google.gson.annotations.Expose;
+
 import juno.manager.exception.TaskManagerException;
 
 import java.time.LocalDateTime;
@@ -15,10 +16,8 @@ public class Event extends Task {
 
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
-
     @Expose
     protected String startTimeString;
-
     @Expose
     protected String endTimeString;
 
@@ -42,7 +41,8 @@ public class Event extends Task {
             String taskType) throws TaskManagerException {
         super(description, taskType);
         try {
-            this.startTime = LocalDateTime.parse(startTimeString.trim(), DateTimeFormatter.ofPattern("yyyy MM dd hh.mma"));
+            this.startTime = LocalDateTime.parse(startTimeString.trim(),
+                    DateTimeFormatter.ofPattern("yyyy MM dd hh.mma"));
             this.endTime = LocalDateTime.parse(endTimeString.trim(), DateTimeFormatter.ofPattern("yyyy MM dd hh.mma"));
         } catch (DateTimeParseException e) {
             throw new TaskManagerException("Your format for date is wrong! Please use this format: " +
