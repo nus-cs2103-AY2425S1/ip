@@ -56,7 +56,7 @@ public class TaskList {
     private void loadTasksFromSave() {
         File file = new File(save.getPath());
         if (!file.exists()) {
-            return;  // No file to load from, start with an empty list
+            return;
         }
 
         try (Scanner scanner = new Scanner(file)) {
