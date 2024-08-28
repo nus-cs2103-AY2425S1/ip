@@ -38,6 +38,8 @@ public class ListSaver {
             System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
             System.out.println("IO Error found: " + e.getMessage());
+        } catch (NotPossibleDurationStobberiException e) {
+            System.out.println(e.getMessage());
         }
 
         return taskList;
