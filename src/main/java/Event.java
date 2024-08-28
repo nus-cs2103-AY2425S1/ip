@@ -1,25 +1,29 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
 
-    private final LocalDate fromDate;
-    private final LocalDate toDate;
+    private final LocalDateTime fromDate;
+    private final LocalDateTime toDate;
 
     public Event(String description) throws InputFormatException{
         super(getDescription(description));
-        LocalDate[] fromTo = getFromAndToDate(description);
+        LocalDateTime[] fromTo = getFromAndToDate(description);
         this.fromDate = fromTo[0];
         this.toDate = fromTo[1];
     }
 
     public String toFileFormatString() {
-        return String.format("D | %s | %s | %s", super.toFileFormatString(), fromDate.toString(), toDate.toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return String.format("E | %s | %s | %s", super.toFileFormatString(), fromDate.format(formatter), toDate.format(formatter));
     }
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)\n",super.toString(), fromDate.toString(), toDate.toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:ma");
+        return String.format("[E] %s (from: %s to: %s)\n",super.toString(), fromDate.format(formatter), toDate.format(formatter));
     }
 
     public static String getDescription(String input) throws InputFormatException{
@@ -35,16 +39,18 @@ public class Event extends Task{
         return splitFromTo[0];
     }
 
-    public static LocalDate[] getFromAndToDate(String input) throws InputFormatException{
+    public static LocalDateTime[] getFromAndToDate(String input) throws InputFormatException{
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] splitFromTo = input.split("/from|/to",3);
         if (splitFromTo.length != 3) {
             throw new InputFormatException("Oops! I need a /from and a /to regex to save your event task");
         }
         try {
-            LocalDate[] fromTo = {LocalDate.parse(splitFromTo[1].trim()), LocalDate.parse(splitFromTo[2].trim())};
+            LocalDateTime[] fromTo = {LocalDateTime.parse(splitFromTo[1].trim(), formatter),
+                    LocalDateTime.parse(splitFromTo[2].trim(),formatter)};
             return fromTo;
         } catch (DateTimeParseException e) {
-            throw new InputFormatException("Please input your date in the format of YYYY-MM-DD");
+            throw new InputFormatException("Please input your date in the format of YYYY-MM-DD HH:mm");
         }
 
     }
