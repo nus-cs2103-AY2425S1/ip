@@ -5,8 +5,8 @@ package moimoi.exception;
  */
 public class InvalidDateTimeException extends MoiMoiException {
 
-    String type;
-    String formatter;
+    private String type;
+    private String formatter;
 
     /**
      * Constructs an exception for the specified type of invalid input.

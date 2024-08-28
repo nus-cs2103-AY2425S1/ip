@@ -1,25 +1,28 @@
 package moimoi.task;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import moimoi.exception.InvalidDateTimeRangeException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
+import moimoi.exception.InvalidDateTimeRangeException;
+
 public class EventTest {
 
-    String description = "dummy";
-    LocalDateTime datetimeEarly = LocalDateTime.parse("2024-08-24 12:00",
+    private String description = "dummy";
+    private LocalDateTime datetimeEarly = LocalDateTime.parse("2024-08-24 12:00",
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-    LocalDateTime datetimeLate = LocalDateTime.parse("2024-08-27 17:00",
+    private LocalDateTime datetimeLate = LocalDateTime.parse("2024-08-27 17:00",
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
     @Test
-    public void Event_invalidDateRange_invalidDateTimeRangeExceptionThrown() {
+    public void event_invalidDateRange_invalidDateTimeRangeExceptionThrown() {
         try {
             Event event = new Event(this.description, this.datetimeLate, this.datetimeEarly);
             fail();

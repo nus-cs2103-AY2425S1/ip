@@ -1,11 +1,13 @@
 package moimoi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import moimoi.exception.InvalidCommandException;
 import moimoi.exception.MissingArgumentException;
 import moimoi.exception.MoiMoiException;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 

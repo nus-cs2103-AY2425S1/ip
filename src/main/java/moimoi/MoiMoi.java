@@ -1,6 +1,7 @@
 package moimoi;
 
 import java.util.ArrayList;
+
 import moimoi.command.Command;
 import moimoi.exception.MoiMoiException;
 import moimoi.task.Task;
@@ -34,7 +35,6 @@ public class MoiMoi {
      * Runs the program.
      */
     public void run() {
-
         this.ui.showGreeting();
         boolean isExit = false;
 
@@ -42,7 +42,6 @@ public class MoiMoi {
             try {
                 this.ui.showUserHeader();
                 String input = this.ui.getInput();
-                
                 this.ui.showMoiMoiHeader();
                 Command command = Parser.parse(input);
                 command.execute(this.storage, this.tasks, this.ui);
@@ -51,7 +50,6 @@ public class MoiMoi {
                 ui.showMoiMoiException(e);
             }
         }
-
     }
 
     public static void main(String[] args) {

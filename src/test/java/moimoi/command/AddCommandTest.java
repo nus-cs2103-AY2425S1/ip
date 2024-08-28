@@ -1,6 +1,13 @@
 package moimoi.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import moimoi.Storage;
 import moimoi.TaskList;
 import moimoi.Ui;
@@ -8,16 +15,12 @@ import moimoi.exception.InvalidDateTimeException;
 import moimoi.exception.MissingArgumentException;
 import moimoi.exception.MoiMoiException;
 import moimoi.task.Task;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class AddCommandTest {
 
-    Storage storage;
-    TaskList tasks = new TaskList(new ArrayList<Task>());
-    Ui ui = new Ui();
+    private Storage storage;
+    private TaskList tasks = new TaskList(new ArrayList<Task>());
+    private Ui ui = new Ui();
 
     @Test
     public void testisExit() {
@@ -37,7 +40,7 @@ public class AddCommandTest {
         }
 
         try {
-            AddCommand addCommand = new AddCommand(CommandEnum.DEADLINE,"dummy /before 2024-08-22 18:00");
+            AddCommand addCommand = new AddCommand(CommandEnum.DEADLINE, "dummy /before 2024-08-22 18:00");
             addCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {

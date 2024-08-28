@@ -1,14 +1,17 @@
 package moimoi;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import moimoi.task.Task;
 import moimoi.task.Todo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
 
-    TaskList tasks;
+    private TaskList tasks;
 
     @Test
     public void testAdd() {

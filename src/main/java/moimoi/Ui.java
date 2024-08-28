@@ -3,6 +3,7 @@ package moimoi;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 import moimoi.exception.MoiMoiException;
 import moimoi.task.Task;
 
@@ -24,7 +25,7 @@ public class Ui {
     /**
      * Constructs the user interface.
      */
-    public Ui(){
+    public Ui() {
         this.sc = new Scanner(System.in);
     }
 

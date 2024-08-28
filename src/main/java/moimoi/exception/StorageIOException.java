@@ -3,7 +3,7 @@ package moimoi.exception;
 /**
  * Represents an exception related to storage I/O.
  */
-public class StorageIOException extends MoiMoiException {
+public class StorageIoException extends MoiMoiException {
 
     /**
      * Returns corresponding error message.

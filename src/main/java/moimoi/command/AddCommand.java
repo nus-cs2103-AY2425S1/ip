@@ -3,10 +3,14 @@ package moimoi.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import moimoi.Storage;
 import moimoi.TaskList;
 import moimoi.Ui;
-import moimoi.exception.*;
+import moimoi.exception.InvalidCommandException;
+import moimoi.exception.InvalidDateTimeException;
+import moimoi.exception.MissingArgumentException;
+import moimoi.exception.MoiMoiException;
 import moimoi.task.Deadline;
 import moimoi.task.Event;
 import moimoi.task.Task;
@@ -17,8 +21,8 @@ import moimoi.task.Todo;
  */
 public class AddCommand extends Command {
 
-    CommandEnum command;
-    String arguments;
+    private CommandEnum command;
+    private String arguments;
 
     /**
      * Constructs a command to add a task of a specific type, with the specified information.
