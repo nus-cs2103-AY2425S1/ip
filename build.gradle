@@ -38,9 +38,10 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "astra"
+    archiveVersion = "v0.1"
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }
