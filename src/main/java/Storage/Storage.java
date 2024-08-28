@@ -1,3 +1,11 @@
+package Storage;
+
+import Task.Task;
+import Task.TaskList;
+import Task.Todo;
+import Task.Deadline;
+import Task.Event;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -17,12 +25,12 @@ public class Storage {
         this.filePath = filePath;
         this.file = new File(this.filePath);
         if (file.isFile()) {
-            System.out.println("Task file found.");
+            System.out.println("Task.Task file found.");
         } else {
-            System.out.println("Task file not found, creating task file.");
+            System.out.println("Task.Task file not found, creating task file.");
             try {
                 file.createNewFile();
-                System.out.println("Task file created");
+                System.out.println("Task.Task file created");
             } catch (IOException e) {
                 System.out.println("Unable to create task file.");
             }
@@ -65,7 +73,7 @@ public class Storage {
             fileReader.close();
             bufferedReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Task file not found.");
+            System.out.println("Task.Task file not found.");
         } catch (IOException e) {
             System.out.println("Error reading file.");
         }
@@ -77,13 +85,13 @@ public class Storage {
                 try {
             FileWriter fileWriter = new FileWriter(this.file);
             fileWriter.write("");
-            for (Task item : tasks.tasks) {
+            for (Task item : tasks.getTasks()) {
                 String type;
                 String isDone;
                 String description = item.getDescription();
                 String str;
 
-                if (item.isDone) {
+                if (item.isDone()) {
                     isDone = "1";
                 } else {
                     isDone = "0";

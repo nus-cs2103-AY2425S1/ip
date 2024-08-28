@@ -1,9 +1,18 @@
-public class UnmarkCommand extends Command {
+package Command;
+
+import Task.TaskList;
+import Task.InvalidTaskException;
+
+import Ui.Ui;
+
+
+
+public class DeleteCommand extends Command {
 
     private TaskList tasks;
     private int index;
 
-    public UnmarkCommand(TaskList tasks, int index) {
+    public DeleteCommand(TaskList tasks, int index) {
         this.tasks = tasks;
         this.index = index;
     }
@@ -11,8 +20,8 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute() {
         try {
-            tasks.get(index).markAsNotDone();
-            Ui.printText("Task has been unmarked.\n" + tasks.get(index).toString());
+            Ui.printText("Done, removed that task for you.\n" + tasks.get(index).toString());
+            tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");
         }

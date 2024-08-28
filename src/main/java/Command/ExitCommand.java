@@ -1,3 +1,11 @@
+package Command;
+
+import Task.TaskList;
+
+import Storage.Storage;
+
+import Ui.Ui;
+
 public class ExitCommand extends Command {
     private boolean isTerminated;
     private Storage storage;

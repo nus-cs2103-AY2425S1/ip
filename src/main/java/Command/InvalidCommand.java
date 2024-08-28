@@ -1,3 +1,7 @@
+package Command;
+
+import Ui.Ui;
+
 public class InvalidCommand extends Command {
 
     private String message;

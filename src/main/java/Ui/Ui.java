@@ -1,3 +1,8 @@
+package Ui;
+
+import Task.Task;
+import Task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -32,10 +37,6 @@ public class Ui {
 
     public static void printFarewell() {
         printText("Bye. See you later!");
-    }
-
-    public static void printInvalidCommand() {
-        printText("I'm sorry, I don't understand that command.");
     }
 
     public static void printError(String error) {

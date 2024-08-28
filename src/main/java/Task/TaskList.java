@@ -1,3 +1,5 @@
+package Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -9,6 +11,10 @@ public class TaskList {
 
     public boolean isEmpty() {
         return tasks.isEmpty();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     public Task get(int index) {

@@ -1,3 +1,15 @@
+import Command.Command;
+import Command.InvalidCommand;
+
+import Parser.Parser;
+
+import Storage.Storage;
+
+import Task.RasputinException;
+import Task.TaskList;
+
+import Ui.Ui;
+
 public class Rasputin {
 
     private Storage storage;
@@ -24,13 +36,10 @@ public class Rasputin {
                 new InvalidCommand(e.getMessage()).execute();
             }
         }
-
     }
 
     public static void main(String[] args) {
-
         Rasputin rasputin = new Rasputin("src/main/data/rasputin.txt");
         rasputin.run();
-
     }
 }
