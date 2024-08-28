@@ -16,6 +16,7 @@ public class Storage {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList<Task> loadTasks() throws IOException, ClassNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
