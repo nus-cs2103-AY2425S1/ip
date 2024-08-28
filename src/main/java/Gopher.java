@@ -13,11 +13,17 @@ public class Gopher {
             """;
     private final static String horizontalSeparator = "==================================================";
 
-    // Initialize the input reader
-    private final static Scanner inputReader = new Scanner(System.in);
+    // Initialize the necessary components
+    private static Scanner inputReader;
 
     // Tasks ArrayList to store user input tasks
-    private final static ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList;
+
+    private static void initialize() {
+        inputReader = new Scanner(System.in);
+        TaskManager.initialize();
+        taskList = TaskManager.loadTasks();
+    }
 
     // Show greeting message when user first enter the application
     private static void greet () {
@@ -31,6 +37,8 @@ public class Gopher {
         try {
             Task newTask = Task.of(input);
             taskList.add(newTask);
+            TaskManager.saveTasks(taskList);
+
             System.out.println(horizontalSeparator);
             System.out.println("Got it! I have added this task:\n" + newTask);
             System.out.println(String.format("Now you have %d %s in the list",
@@ -75,6 +83,8 @@ public class Gopher {
         int taskIndex = taskNumber - 1;
         Task task = taskList.get(taskIndex);
         task.markAsDone();
+        TaskManager.saveTasks(taskList);
+
         System.out.println(horizontalSeparator);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
@@ -86,6 +96,8 @@ public class Gopher {
         int taskIndex = taskNumber - 1;
         Task task = taskList.get(taskIndex);
         task.markAsNotDone();
+        TaskManager.saveTasks(taskList);
+
         System.out.println(horizontalSeparator);
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(task);
@@ -102,6 +114,7 @@ public class Gopher {
         System.out.println(horizontalSeparator + "\n");
 
         taskList.remove(taskIndex);
+        TaskManager.saveTasks(taskList);
     }
 
     // Say goodbye to the user and exit the application
@@ -112,6 +125,7 @@ public class Gopher {
     }
 
     public static void main(String[] args) {
+        initialize();
         greet();
 
         // Start the event loop for responding user input and query
