@@ -1,3 +1,8 @@
+package monique.ui;
+
+import monique.tasklist.TaskList;
+import monique.task.Task;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

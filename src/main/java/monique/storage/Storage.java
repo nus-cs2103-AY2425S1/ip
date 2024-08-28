@@ -1,3 +1,7 @@
+package monique.storage;
+
+import monique.task.Task;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;

@@ -1,3 +1,5 @@
+package monique.exception;
+
 public abstract class MoniqueException extends Exception {
     public MoniqueException(String message) {
     }

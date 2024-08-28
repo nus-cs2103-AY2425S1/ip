@@ -1,3 +1,10 @@
+package monique.command;
+
+import monique.storage.Storage;
+import monique.task.Task;
+import monique.tasklist.TaskList;
+import monique.ui.Ui;
+
 public class AddCommand extends Command {
 
     private final Task task;

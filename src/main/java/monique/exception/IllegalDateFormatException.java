@@ -1,4 +1,6 @@
-public class IllegalDateFormatException extends MoniqueException{
+package monique.exception;
+
+public class IllegalDateFormatException extends MoniqueException {
     public IllegalDateFormatException(){super("Illegal Date Format");}
 
     @Override

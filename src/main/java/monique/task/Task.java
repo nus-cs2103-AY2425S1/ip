@@ -1,8 +1,10 @@
+package monique.task;
+
 public abstract class Task implements java.io.Serializable {
     private static final long serialisableUid = 1L;
     //instance fields
-    protected final String description;
-    protected boolean isComplete;
+    public final String description;
+    public boolean isComplete;
 
 
     public Task(String description){
@@ -18,6 +20,6 @@ public abstract class Task implements java.io.Serializable {
         this("");
     }
 
-    protected abstract Task mark();
-    protected abstract Task unmark();
+    public abstract Task mark();
+    public abstract Task unmark();
 }

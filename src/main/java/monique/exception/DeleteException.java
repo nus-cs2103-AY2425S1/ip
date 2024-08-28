@@ -1,4 +1,6 @@
-public class DeleteException extends MoniqueException{
+package monique.exception;
+
+public class DeleteException extends MoniqueException {
     public DeleteException(){super("Delete Exception: Item Number is not allowed");}
     @Override
     public void advice(){
