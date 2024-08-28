@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Alpha.Alpha")
+    mainClass.set("alpha.Alpha")
 }
 
 

@@ -1,4 +1,4 @@
-package TaskTypes;
+package tasktypes;
 
 import java.time.LocalDate;
 

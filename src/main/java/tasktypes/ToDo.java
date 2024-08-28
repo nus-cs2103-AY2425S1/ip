@@ -1,4 +1,4 @@
-package TaskTypes;
+package tasktypes;
 
 public class ToDo extends Task{
     

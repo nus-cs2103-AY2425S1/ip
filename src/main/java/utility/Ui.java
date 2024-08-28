@@ -1,6 +1,7 @@
-package Utility;
+package utility;
 
 public class Ui {
+    
     public void welcomeMessage() {
         String initialResponse = "____________________________________________________________\n"
                 + "Hello! I'm Alpha\n"
@@ -11,8 +12,8 @@ public class Ui {
     
     public void listTask(TaskList taskList) {
         String echoResponse = "____________________________________________________________\n"
-                +"Here are the tasks in your list:\n"
-                + taskList.listWord() +"\n"
+                + "Here are the tasks in your list:\n"
+                + taskList.listWord() + "\n"
                 + "____________________________________________________________\n";
         System.out.println(echoResponse);
     }
@@ -23,7 +24,7 @@ public class Ui {
     
     public void byeMessage() {
         String echoResponse = "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!" +"\n"
+                + "Bye. Hope to see you again soon!" + "\n"
                 + "____________________________________________________________\n";
         System.out.println(echoResponse);
     }
@@ -46,6 +47,10 @@ public class Ui {
     }
     
     public void doneMessage(String modifiedRecord) {
-    
+        String echoResponse = "____________________________________________________________\n"
+                + "Nice! I've marked this task as done:\n"
+                + modifiedRecord + "\n"
+                + "____________________________________________________________\n";
+        System.out.println(echoResponse);
     }
 }

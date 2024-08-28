@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class AlphaException extends Exception {
     private final String description;
