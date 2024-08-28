@@ -11,11 +11,24 @@ public abstract class Task {
     private String desc;
     private boolean isDone;
 
+    /**
+     * Constructs a new Task object with specified description and isDone.
+     *
+     * @param desc String description of this Task object.
+     * @param isDone Boolean indicating the task is done or not.
+     */
     public Task(String desc, boolean isDone) {
         this.desc = desc;
         this.isDone = isDone;
     }
 
+    /**
+     * Converts specified String to Task object.
+     *
+     * @param str String to be converted.
+     * @return Task object converted from String (if possible).
+     * @throws BlitzException If corrupted file content format or unrecognized type.
+     */
     public static Task stringToTask(String str) throws BlitzException {
         String[] params = str.split("::");
         String type = params[0];
@@ -41,6 +54,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Converts specified String to LocalDateTime object.
+     *
+     * @param str String to be converted.
+     * @return LocalDateTime object converted from the specififed String.
+     */
     public static LocalDateTime stringToLocaldatetime(String str) {
         int year = Integer.parseInt(str.substring(0, 4));
         int month = Integer.parseInt(str.substring(5, 7));
@@ -51,14 +70,29 @@ public abstract class Task {
         return LocalDateTime.of(year, month, day, hour, min);
     }
 
+    /**
+     * Returns the description of this Task object.
+     *
+     * @return String representation of the description of this Task object.
+     */
     public String getDesc() {
         return this.desc;
     }
 
+    /**
+     * Returns the status of this Task object (done or not done).
+     *
+     * @return True if the task is done, false otherwise.
+     */
     public boolean getStatus() {
         return this.isDone;
     }
 
+    /**
+     * Sets the value of isDone in this object.
+     *
+     * @param isDone Boolean value to be set.
+     */
     public void markDone() {
         this.isDone = true;
     }
@@ -67,10 +101,25 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the type of this object.
+     *
+     * @return String representation of the type of this object.
+     */
     public abstract String getType();
 
+    /**
+     * Converts this object to String representation (different format with toString()).
+     *
+     * @return String representation of this object.
+     */
     public abstract String taskToString();
 
+    /**
+     * Returns a String representation of this object.
+     *
+     * @return String representing this object.
+     */
     @Override
     public String toString() {
         return this.desc;
