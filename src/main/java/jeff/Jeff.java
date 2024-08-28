@@ -1,3 +1,12 @@
+package jeff;
+
+import jeff.command.Command;
+import jeff.exception.JeffException;
+import jeff.parser.Parser;
+import jeff.storage.Storage;
+import jeff.task.TaskList;
+import jeff.ui.Ui;
+
 public class Jeff {
     private Storage storage;
     private TaskList tasks;

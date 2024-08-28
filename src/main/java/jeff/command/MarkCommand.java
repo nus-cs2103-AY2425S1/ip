@@ -1,3 +1,11 @@
+package jeff.command;
+
+import jeff.exception.JeffException;
+import jeff.storage.Storage;
+import jeff.task.Task;
+import jeff.task.TaskList;
+import jeff.ui.Ui;
+
 public class MarkCommand extends Command {
     public MarkCommand(String input) {
         super(input);

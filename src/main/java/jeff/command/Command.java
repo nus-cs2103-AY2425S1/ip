@@ -1,3 +1,10 @@
+package jeff.command;
+
+import jeff.exception.JeffException;
+import jeff.storage.Storage;
+import jeff.task.TaskList;
+import jeff.ui.Ui;
+
 public abstract class Command {
     String input;
 

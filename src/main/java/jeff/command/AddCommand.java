@@ -1,3 +1,11 @@
+package jeff.command;
+
+import jeff.exception.JeffException;
+import jeff.parser.Parser;
+import jeff.storage.Storage;
+import jeff.task.*;
+import jeff.ui.Ui;
+
 import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
