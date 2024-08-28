@@ -1,11 +1,41 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TaskList {
 
     private List<Task> list;
     public TaskList() {
         this.list = new ArrayList<Task>();
+        try {
+            File data = new File("./src/main/java/chatData.txt");
+            Scanner dataReader = new Scanner(data);
+            while (dataReader.hasNextLine()) {
+                String line = dataReader.nextLine();
+                char taskType = line.charAt(0);
+                boolean done = false;
+                switch (taskType) {
+                case 'T':
+                    done = line.charAt(1) == '1';
+                    this.add(new Todo(line.substring(2), done), true);
+                    break;
+                case 'D':
+                    done = line.charAt(1) == '1';
+                    String deadline = line.substring(2, line.indexOf('|'));
+                    this.add(new Deadline(line.substring(line.indexOf('|') + 1), deadline, done), true);
+                    break;
+                case 'E':
+                    done = line.charAt(1) == '1';
+                    String start = line.substring(2, line.indexOf('%'));
+                    String end = line.substring(line.indexOf('%') + 1, line.indexOf('|'));
+                    this.add(new Event(line.substring(line.indexOf('|') + 1), start, end, done), true);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("error");
+        }
     }
 
     public void answer(String response) throws InvalidCommandException, InvalidNumberException {
@@ -20,7 +50,7 @@ public class TaskList {
             case "todo":
                 try {
                     name = response.substring(response.indexOf(' ') + 1);
-                    this.add(new Todo(name));
+                    this.add(new Todo(name), false);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new InvalidCommandException();
                 }
@@ -29,7 +59,7 @@ public class TaskList {
                 try {
                     name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
                     endTime = response.substring(response.indexOf("/by") + 4);
-                    this.add(new Deadline(name, endTime));
+                    this.add(new Deadline(name, endTime), false);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new InvalidCommandException();
                 }
@@ -39,7 +69,7 @@ public class TaskList {
                     name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
                     startTime = response.substring(response.indexOf("/from") + 6, response.indexOf("/to") - 1);
                     endTime = response.substring(response.indexOf("/to") + 4);
-                    this.add(new Event(name, startTime, endTime));
+                    this.add(new Event(name, startTime, endTime), false);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new InvalidCommandException();
                 }
@@ -82,11 +112,13 @@ public class TaskList {
         }
     }
 
-    public void add(Task task) {
+    public void add(Task task, boolean saved) {
         this.list.add(task);
-        System.out.println("I've added the task: ");
-        System.out.println(task);
-        System.out.println("Now you have " + this.list.size() + " tasks in the list");
+        if (!saved) {
+            System.out.println("I've added the task: ");
+            System.out.println(task);
+            System.out.println("Now you have " + this.list.size() + " tasks in the list");
+        }
     }
 
     public void listOut() {

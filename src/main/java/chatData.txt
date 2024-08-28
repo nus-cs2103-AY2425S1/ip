@@ -1,0 +1,3 @@
+T1read book
+D0June 6th|return book
+E0Aug 6th%Aug 7th|project meeting
