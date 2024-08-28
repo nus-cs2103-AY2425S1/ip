@@ -11,6 +11,9 @@ import henry.task.Todo;
 import henry.util.TaskList;
 import henry.util.Ui;
 
+/**
+ * Deals with adding tasks into TaskList
+ */
 public class AddCommand extends Command {
     private String input;
 
