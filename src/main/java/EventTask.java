@@ -33,8 +33,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.getDateString(this.start, "MMM dd yyyy hh:mm a")
-                + " to: " + this.getDateString(this.end, "MMM dd yyyy hh:mm a")
-                + ")";
+                + " to: " + this.getDateString(this.end, "MMM dd yyyy hh:mm a") + ")";
     }
 
     @Override
