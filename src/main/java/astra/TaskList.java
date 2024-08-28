@@ -1,9 +1,9 @@
 package astra;
 
-import astra.task.Task;
-
 import java.util.ArrayList;
 import java.util.Collection;
+
+import astra.task.Task;
 
 /**
  * Represents a list of tasks.

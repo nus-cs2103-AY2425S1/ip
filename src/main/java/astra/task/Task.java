@@ -1,8 +1,8 @@
 package astra.task;
 
-import astra.AstraException;
-
 import java.util.function.Function;
+
+import astra.AstraException;
 
 /**
  * Represents a task.
@@ -17,7 +17,7 @@ public abstract class Task {
         EVENT,
     }
 
-    private boolean done;
+    private boolean isDone;
     private final String name;
 
     /**
@@ -31,22 +31,22 @@ public abstract class Task {
             throw new AstraException("Task description cannot be empty.");
         }
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Constructor for Task.
      *
-     * @param done The status of the task.
+     * @param isDone The status of the task.
      * @param name The name of the task.
      * @throws AstraException If the name is empty.
      */
-    public Task(boolean done, String name) throws AstraException {
+    public Task(boolean isDone, String name) throws AstraException {
         if (name.isBlank()) {
             throw new AstraException("Task description cannot be empty.");
         }
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
@@ -77,17 +77,17 @@ public abstract class Task {
      * @return The text file format of the task.
      */
     public String toText() {
-        char status = done ? '1' : '0';
+        char status = isDone ? '1' : '0';
         return status + " | " + name;
     }
 
     @Override
     public String toString() {
-        char status = done ? 'X' : ' ';
+        char status = isDone ? 'X' : ' ';
         return String.format("[%s] %s", status, name);
     }
 
     public void setDone(boolean status) {
-        this.done = status;
+        this.isDone = status;
     }
 }
