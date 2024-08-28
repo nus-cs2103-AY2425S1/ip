@@ -1,8 +1,16 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Utility {
 
+    public static final String FILE_PATH = "docs/taskListFile.txt";
     public static final String LINE = "____________________________________________________________\n";
+    public static final Task EMPTY_TASK = new Task("default");
+
     protected static ArrayList<Task> toDo = new ArrayList<>();
 
     public static void greeting() {
@@ -15,10 +23,52 @@ public class Utility {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void addToDo(String s) {
-        Task task = new Task(s);
-        toDo.add(task);
-        System.out.println("added: " + s);
+    public static void fileToTaskList(File file) throws FileNotFoundException {
+        toDo.clear();
+        Scanner s = new Scanner(file);
+        try {
+            while (s.hasNextLine()) {
+                String taskMessage = s.nextLine();
+                if (taskMessage.isEmpty()) {
+                    continue;
+                }
+                Task task = EMPTY_TASK;
+                switch (taskMessage.charAt(1)) {
+                    case 'T':
+                        task = new TodoTask(splitTaskInfo(taskMessage)[1]);
+                        toDo.add(task);
+                        break;
+                    case 'D':
+                        task = new DeadlineTask(splitTaskInfo(taskMessage)[1]);
+                        toDo.add(task);
+                        break;
+                    case 'E':
+                        task = new EventTask(splitTaskInfo(taskMessage)[1]);
+                        toDo.add(task);
+                        break;
+                    default:
+                        System.out.println("Cannot read: " + taskMessage);
+                }
+                if(taskMessage.charAt(4) == 'X') {
+                    task.markAsDone();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to read file, so the task list is empty now." + e.getMessage());
+        }
+
+    }
+
+    public static void taskListToFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (int i = 1; i <= toDo.size(); i++) {
+                fileWriter.write(toDo.get(i - 1) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static String[] divideMessage(String message) {
@@ -59,6 +109,7 @@ public class Utility {
             for (int i = 1; i <= toDo.size(); i++) {
                 System.out.println(i + "." + toDo.get(i - 1));
             }
+            System.out.println("Tips: Tasks marked as [X] are already completed ～(∠・ω< )⌒★");
             return;
         }
         if (taskType.equals("mark")) {
