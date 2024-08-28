@@ -21,6 +21,7 @@ public class Llama {
         }
     }
 
+    /*
     public void addTodo(String remaining, TaskList taskList) throws IOException {
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
@@ -52,6 +53,7 @@ public class Llama {
     }
 
     public void addEvent(String remaining, TaskList taskList) throws IOException {
+
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
         }
@@ -75,7 +77,7 @@ public class Llama {
         taskList.addTask(newTask, ui);
         storage.save(taskList);
     }
-
+    */
     public void run() {
         Scanner sc = new Scanner(System.in);
 
@@ -87,6 +89,15 @@ public class Llama {
         while (shouldContinue) {
             String input = this.ui.getUserInput(sc);
 
+
+            try {
+                Command command = Parser.parse(input);
+                command.execute(this.taskList, this.ui, this.storage);
+            } catch (IOException | LlamaException e) {
+                ui.displayString(e.getMessage());
+            }
+
+            /*
             // Split input into command and remaining
             String command = input;
             String remaining = "";
@@ -151,6 +162,7 @@ public class Llama {
                     }
                 }
             }
+            */
         }
 
         // Exit message
