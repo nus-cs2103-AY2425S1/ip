@@ -14,4 +14,13 @@ event project meeting /from
 event project meeting /from Mon 2pm
 delete 3
 list
+deadline finish math /by 2020-12-10
+deadline finish eng /by 2020-12-10 16:00
+deadline finish sci /by 10/12/2020
+deadline finish tamil /by 10/12/2020 16:00
+deadline finish chinese /by 16:00
+deadline finish malay /by Sunday
+list
+due 2020-12-10
+due 10/12/2020
 bye
