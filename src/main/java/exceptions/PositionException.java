@@ -1,7 +1,8 @@
+package exceptions;
 public class PositionException extends Exception{
 
     int pos;
-    PositionException(int pos) {
+    public PositionException(int pos) {
         this.pos = pos;
     }
     @Override
