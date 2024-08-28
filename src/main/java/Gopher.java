@@ -21,8 +21,8 @@ public class Gopher {
 
     private static void initialize() {
         inputReader = new Scanner(System.in);
-        taskList = new ArrayList<>();
         TaskManager.initialize();
+        taskList = TaskManager.loadTasks();
     }
 
     // Show greeting message when user first enter the application
