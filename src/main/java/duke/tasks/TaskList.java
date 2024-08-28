@@ -4,7 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
@@ -17,7 +20,7 @@ public class TaskList {
     private static TaskList taskList;
     private final List<Task> taskStore;
     private final DateTimeFormatter formatter = DateTimeFormatter
-            .ofPattern("yyyy-MM-dd HH:mm");
+            .ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs a new TaskList object.
@@ -44,24 +47,27 @@ public class TaskList {
      * @param data String representation of the task
      */
     public void loadData(String data) {
-        try {
-            String[] line = data.split("\\s*\\|\\s*");
-            String taskType = line[0];
-            Task task = switch (taskType) {
-            case "T" -> new Todo(line[2]);
-            case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3].trim(), formatter));
-            case "E" ->
-                    new Event(line[2], LocalDateTime.parse(line[3].trim(), formatter),
-                            LocalDateTime.parse(line[4].trim(), formatter));
-            default -> throw new DukeException("Invalid Task type provided.");
-            };
-            if (line[1].equals("1")) {
-                task.markAsDoneNonVerbose();
-            }
-            this.taskStore.add(task);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        Arrays.stream(data.split("\n"))
+                .map(line -> line.split("\\s*\\|\\s*"))
+                .forEach(parts -> {
+                    try {
+                        Task task = switch (parts[0]) {
+                        case "T" -> new Todo(parts[2]);
+                        case "D" -> new Deadline(parts[2], LocalDateTime.parse(parts[3].trim(), dtf));
+                        case "E" -> new Event(parts[2], LocalDateTime.parse(parts[3].trim(), dtf),
+                                LocalDateTime.parse(parts[4].trim(), dtf));
+                        default -> throw new DukeException("Invalid Task type provided.");
+                        };
+                        if (parts[1].equals("1")) {
+                            task.markAsDoneNonVerbose();
+                        }
+                        this.taskStore.add(task);
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
     }
 
     /**
@@ -73,28 +79,24 @@ public class TaskList {
             return;
         }
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.taskStore.size(); ++i) {
-            System.out.printf("%d. %s\n", i + 1, taskStore.get(i));
-        }
+        IntStream.range(0, taskStore.size())
+                .forEach(i -> System.out.printf("%d. %s\n", i + 1, taskStore.get(i)));
     }
 
     /**
      * Filters and prints all tasks containing the input.
      */
     public void filter(String input) {
-        ArrayList<Task> filtered = new ArrayList<>();
-        for (Task t : this.taskStore) {
-            if (t.toString().contains(input)) {
-                filtered.add(t);
-            }
-        }
+        List<Task> filtered = this.taskStore.stream()
+                .filter(t -> t.toString().contains(input))
+                .collect(Collectors.toList());
+
         if (filtered.isEmpty()) {
             System.out.println("No matching tasks found in your list.");
         } else {
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < filtered.size(); ++i) {
-                System.out.printf("%d.%s\n", i + 1, filtered.get(i).toString());
-            }
+            IntStream.range(0, filtered.size())
+                    .forEach(i -> System.out.printf("%d.%s\n", i + 1, filtered.get(i)));
         }
     }
 
@@ -132,7 +134,7 @@ public class TaskList {
                 }
                 String[] deadlineInput = input.split("/by", 2);
                 task = new Deadline(deadlineInput[0].trim(),
-                        LocalDateTime.parse(deadlineInput[1].trim(),formatter));
+                        LocalDateTime.parse(deadlineInput[1].trim(), formatter));
                 break;
             case "event":
                 if (
