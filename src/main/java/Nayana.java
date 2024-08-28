@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
-
+import java.io.File;
 /**
  * Nayana is a class that demonstrates a simple console-based interaction.
  * It prints an ASCII logo and several lines of text to the console.
@@ -17,17 +19,28 @@ public class Nayana {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        String pathName = "data/nayana.txt";
+        File taskListFile = new File(pathName);
+        try {
+            Scanner scannerFile= new Scanner(taskListFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found." +
+                  "Please ensure that the file nayana.txt is saved under the directory data/nayana.txt");
+            System.exit(0);
+        }
+
         String logo =
               "\n" +
                     " ___ .-.     .---.   ___  ___    .---.   ___ .-.     .---.\n" +
                     "(   )   \\   / .-, \\ (   )(   )  / .-, \\ (   )   \\   / .-,\\\n" +
                     " |  .-. .  (__) ; |  | |  | |  (__) ; |  |  .-. .  (__) ; |\n" +
-                    " | |  | |    .'  |  | |  | |    .'  |  | |  | |    .'  |\n" +
-                    " | |  | |   / .'| |  | '  | |   / .'| |  | |  | |   / .'| |\n" +
-                    " | |  | |  | /  | |  '  -' |  | /  | |  | |  | |  | /  | |\n" +
-                    " | |  | |  ; |  ; |   .__. |  ; |  ; |  | |  | |  ; |  ; |\n" +
-                    " | |  | |  ' -'  |   ___ | |  ' -'  |  | |  | |  ' -'  |\n" +
-                    "(___)(___) .__.'_.  (   )' |  .__.'_. (___)(___) .__.'_.\n" +
+                    " | |  | |    .'  |  | |  | |   .'  |  |  |  | |    .'  |\n" +
+                    " | |  | |   / .'| |  | '  | |  / .'|  |  | |  | |   / .'| |\n" +
+                    " | |  | |  | /  | |  '  -' |  | /  |  |  | |  | |  | /  | |\n" +
+                    " | |  | |  ; |  ; |   .__. |  ; |  ;  |  | |  | |  ; |  ; |\n" +
+                    " | |  | |  ' -'  |   ___ | |  ' -'    |  | |  | |  ' -'  |\n" +
+                    "(___)(___) .__.'_.  (   )' |  .__.'_.   (___)(___) .__.'_.\n" +
                     "                      ; -' '\n" +
                     "                       .__.'";
 
@@ -36,7 +49,7 @@ public class Nayana {
         System.out.println("Hello! I'm Nayana");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList(taskListFile, pathName);
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             try {
@@ -47,45 +60,49 @@ public class Nayana {
                 System.out.println("OOPS!!! " + e.getMessage());
                 System.out.println("____________________________________________________________");
             }
-            if (command.equals("bye")) {
-                System.out.print("Bye!!! Hope to help you again soon!\n");
-                System.out.print("____________________________________________________________\n");
-                break;
-            } else if (command.equals("list")) {
-                System.out.print(taskList);
-                System.out.print("____________________________________________________________\n");
-            } else if (command.startsWith("mark")) {
-                int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                taskList.markAsDone(index);
-            } else if (command.startsWith("unmark")) {
-                int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                taskList.markAsNotDone(index);
-            } else if (command.startsWith("delete")) {
-                int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                taskList.delete(index);
-            } else if (command.startsWith("deadline")) {
-                String[] parts = command.split(" /by ");
-                String description = parts[0].substring(8).trim();
-                String deadline = parts[1].trim();
+            try {
+                if (command.equals("bye")) {
+                    System.out.print("Bye!!! Hope to help you again soon!\n");
+                    System.out.print("____________________________________________________________\n");
+                    break;
+                } else if (command.equals("list")) {
+                    System.out.print(taskList);
+                    System.out.print("____________________________________________________________\n");
+                } else if (command.startsWith("mark")) {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    taskList.markAsDone(index);
+                } else if (command.startsWith("unmark")) {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    taskList.markAsNotDone(index);
+                } else if (command.startsWith("delete")) {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    taskList.delete(index);
+                } else if (command.startsWith("deadline")) {
+                    String[] parts = command.split(" /by ");
+                    String description = parts[0].substring(8).trim();
+                    String deadline = parts[1].trim();
 
-                Deadlines nextTask = new Deadlines(description, deadline);
-                taskList.addTask(nextTask);
-            } else if (command.startsWith("event")) {
-                String[] fromParts = command.split(" /from ");
-                String description = fromParts[0].substring(5).trim();
-                String[] toParts = fromParts[1].split(" /to ");
-                String startTime = toParts[0].trim();
-                String endTime = toParts[1].trim();
+                    Deadlines nextTask = new Deadlines(description, deadline);
+                    taskList.addTask(nextTask);
+                } else if (command.startsWith("event")) {
+                    String[] fromParts = command.split(" /from ");
+                    String description = fromParts[0].substring(5).trim();
+                    String[] toParts = fromParts[1].split(" /to ");
+                    String startTime = toParts[0].trim();
+                    String endTime = toParts[1].trim();
 
-                Event nextTask = new Event(description, startTime, endTime);
-                taskList.addTask(nextTask);
-            } else if (command.startsWith("todo")) {
-                String[] parts = command.split("todo ");
-                String description = parts[1].trim();
-                ToDos nextTask = new ToDos(description);
-                taskList.addTask(nextTask);
-            } else if (command.equals("-1")) {
-                // Do nothing on error to prevent trailing newlines
+                    Event nextTask = new Event(description, startTime, endTime);
+                    taskList.addTask(nextTask);
+                } else if (command.startsWith("todo")) {
+                    String[] parts = command.split("todo ");
+                    String description = parts[1].trim();
+                    ToDos nextTask = new ToDos(description);
+                    taskList.addTask(nextTask);
+                } else if (command.equals("-1")) {
+                    // Do nothing on error to prevent trailing newlines
+                }
+            } catch (IOException e) {
+                System.out.println("Error when writing to the file. Try again");
             }
         }
         scanner.close();

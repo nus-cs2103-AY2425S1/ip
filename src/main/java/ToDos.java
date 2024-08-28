@@ -13,6 +13,16 @@ public class ToDos extends Task{
     }
 
     /**
+     * Returns the type of task as "T ".
+     *
+     * @return A string representing the task type.
+     */
+    @Override
+    public String getType() {
+        return "T ";
+    }
+
+    /**
      * Returns a string representation of the task.
      *
      * @return A string in the format "[T] description".

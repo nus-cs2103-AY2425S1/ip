@@ -26,6 +26,28 @@ public class Task {
     }
 
     /**
+     * Returns the date-related information of the task.
+     *
+     * @return A string representing the task's dates.
+     */
+    public String getDates() {
+        return "";
+    }
+
+    /**
+     * Returns the status of the task, indicating whether it is done or not.
+     *
+     * @return A string representing the task's status.
+     */
+    public String getStatus() {
+        if (done) {
+            return "| 1 |";
+        } else {
+            return "| 0 |";
+        }
+    }
+
+    /**
      * Marks the task as done.
      */
     public void done() {
@@ -51,6 +73,15 @@ public class Task {
     }
 
     /**
+     * Returns the type of task.
+     *
+     * @return An empty string, to be overridden by subclasses.
+     */
+    public String getType() {
+        return "";
+    }
+
+    /**
      * Marks the task as not done.
      */
     public void notDone() {
@@ -60,4 +91,5 @@ public class Task {
         System.out.println(this);
         System.out.println("____________________________________________________________");
     }
+
 }
