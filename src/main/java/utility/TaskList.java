@@ -130,6 +130,14 @@ public class TaskList {
         return this.tasks;
     };
     
+    /**
+     * Finds and returns a list of tasks that match the specified search parameter.
+     * The search is case-insensitive and matches the search parameter against the
+     * description of each task in the list.
+     *
+     * @param searchParameter the keyword or phrase to search for within the task descriptions
+     * @return an {@code ArrayList} of tasks that match the search criteria
+     */
     public ArrayList<Task> findLists(String searchParameter) {
         System.out.println(searchParameter);
         Pattern pattern = Pattern.compile(searchParameter.trim(), Pattern.CASE_INSENSITIVE);

@@ -91,20 +91,33 @@ public class Ui {
         System.out.println(echoResponse);
     }
     
+    /**
+     * Formats and returns a string representing the tasks in the provided list.
+     * Each task is numbered sequentially.
+     *
+     * @param taskList the list of tasks to be formatted
+     * @return a formatted string of the tasks in the list
+     */
     public String listSearchResult(ArrayList<Task> taskList) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             result.append(i + 1).append(". ")
-                    .append(taskList.get(i).toString()).append("\n");
+                .append(taskList.get(i).toString()).append("\n");
         }
         return result.toString();
     }
     
+    /**
+     * Prints the search results of tasks that match a specific search criterion.
+     * The search results are displayed in a formatted manner with a header and footer.
+     *
+     * @param taskList the list of tasks that match the search criteria
+     */
     public void searchTask(ArrayList<Task> taskList) {
         String echoResponse = "____________________________________________________________\n"
-                + "Here are the matching tasks in your list:\n"
-                + listSearchResult(taskList) + "\n"
-                + "____________________________________________________________\n";
+            + "Here are the matching tasks in your list:\n"
+            + listSearchResult(taskList) + "\n"
+            + "____________________________________________________________\n";
         System.out.println(echoResponse);
     }
 }
