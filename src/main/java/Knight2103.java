@@ -74,14 +74,13 @@ public class Knight2103 {
         try {
             Scanner scanner = new Scanner(fileInput);
             while (scanner.hasNextLine()) {
-                Task toAdd = formatToTask(scanner.nextLine()).orElseThrow(() -> new InstructionInvalid());
-                taskList.add(toAdd);
+                formatToTask(scanner.nextLine()).ifPresent(
+                        item -> taskList.add(item)
+                );
                 System.out.println(taskList);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } catch (InstructionInvalid e) {
-            System.out.println("cannot add empty Task?");
         }
         return taskList;
     }
