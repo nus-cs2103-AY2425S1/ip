@@ -1,7 +1,5 @@
 package task;
 
-import java.util.Collection;
-
 /**
  * Represents a task that can be marked done.
  */
