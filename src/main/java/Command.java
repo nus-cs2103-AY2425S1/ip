@@ -1,5 +1,4 @@
 public enum Command {
-    GREETING,
     BYE,
     LIST,
     TODO,
