@@ -10,8 +10,8 @@ import joe.task.TaskTodo;
 import joe.ui.Ui;
 
 public class Controller {
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
     protected ArrayList<Task> store;
 
     public Controller(Ui ui) {

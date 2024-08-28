@@ -6,9 +6,9 @@ import joe.controller.Controller;
 import joe.ui.Ui;
 
 public class Parser<C extends Controller> {
-    private C controller;
-    private Scanner scanner;
-    private Ui ui;
+    private final C controller;
+    private final Scanner scanner;
+    private final Ui ui;
 
     public Parser(C controller, Ui ui) {
         this.controller = controller;
