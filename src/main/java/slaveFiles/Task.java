@@ -60,4 +60,12 @@ public abstract class Task {
         sb.append(getTask());
         return sb.toString();
     }
+
+    /**
+     * used as a .toString() used only when save() is called in Slave.java
+     * prints the Task's date in the format yyyy-mm-dd
+     *
+     * @return a String representation of the task
+     */
+    abstract String save();
 }
