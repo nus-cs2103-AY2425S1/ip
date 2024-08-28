@@ -1,12 +1,16 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 public class Deadline extends Task {
     public boolean done;
     public String text;
-    public String date;
+    public LocalDate date;
 
-    public Deadline(String text, String date) {
+    public Deadline(String text, LocalDate date) {
         super(text);
         this.text = text;
-        date = date.split("by ")[1];
         this.date = date;
     }
 
@@ -21,6 +25,6 @@ public class Deadline extends Task {
         } else {
             str = " ";
         }
-        return "[D][" + str + "] " + text + " (by: " + date + ")";
+        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

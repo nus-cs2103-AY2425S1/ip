@@ -1,11 +1,16 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 public class Event extends Task {
 
     public boolean done;
     public String text;
-    public String start;
-    public String end;
+    public LocalDate start;
+    public LocalDate end;
 
-    public Event(String text, String start, String end) {
+    public Event(String text, LocalDate start, LocalDate end) {
         super(text);
         this.text = text;
         this.start = start;
@@ -22,6 +27,7 @@ public class Event extends Task {
         } else {
             str = " ";
         }
-        return "[E][" + str + "] " + text + "(from:" + start + "to:" + end + ")";
+        return "[E][" + str + "] " + text + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
+                + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

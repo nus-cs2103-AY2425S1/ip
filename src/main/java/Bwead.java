@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Bwead {
 
@@ -77,7 +80,9 @@ public class Bwead {
                 System.out.println("Now you have " + texts.size() + " tasks in the list.");
             } else if (input.startsWith("deadline ")) {
                 String input1 = input.replace("deadline ", "");
-                String date = input.split("/")[1];
+                String dateString = input.split("/by ")[1];
+                System.out.println(dateString);
+                LocalDate date = LocalDate.parse(dateString);
                 int slash = input1.indexOf("/");
                 Deadline task = new Deadline(input1.substring(0, slash -1), date);
                 texts.add(task);
@@ -87,8 +92,10 @@ public class Bwead {
             } else if (input.startsWith("event ")) {
                 input = input.replace("event ", "");
                 String name = input.split("/from")[0];
-                String start = input.split("/from")[1].split("/to")[0];
-                String end = input.split("/from")[1].split("/to")[1];
+                String startString = input.split("/from ")[1].split(" /to")[0];
+                LocalDate start = LocalDate.parse(startString);
+                String endString = input.split("/from ")[1].split("/to ")[1];
+                LocalDate end = LocalDate.parse(endString);
                 Event task = new Event(name, start, end);
                 texts.add(task);
                 updateFile();
@@ -127,22 +134,23 @@ public class Bwead {
             String text = string.substring(7);
             return new Todo(text);
         } else if (type == 'D') {
-            System.out.println(string);
             String text = string.substring(7);
             String text1 = text.split("by: ")[0];
             text1 = text1.substring(0, text1.length() - 2);
-            String date = text.split("by: ")[1];
-            date = date.substring(0, date.length() - 1);
-            return new Deadline(text1, "by " + date);
+            String dateString = text.split("by: ")[1];
+            dateString = dateString.substring(0, dateString.length() - 1);
+            LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MMM d uuuu"));
+            return new Deadline(text1, date);
         } else if (type == 'E') {
             String text = string.substring(7);
             String text1 = text.split("from: ")[0];
             text1 = text1.substring(0, text1.length() - 2);
             String dates = text.split("from: ")[1];
-            String start = dates.split(" to: ")[0];
-            String end = dates.split(" to: ")[1];
-            end = end.substring(0, end.length() - 1);
-            return new Event(text1 + " ", " " + start + " ", " " + end);
+            String startString = dates.split(" to: ")[0];
+            String endString = dates.split(" to: ")[1];
+            endString = endString.substring(0, endString.length() - 1);
+            return new Event(text1 + " ", LocalDate.parse(startString, DateTimeFormatter.ofPattern("MMM d uuuu"))
+                    , LocalDate.parse(endString, DateTimeFormatter.ofPattern("MMM d uuuu")));
         } else {
             return new Task("dh");
         }
