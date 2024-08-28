@@ -2,18 +2,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileOperation {
+public class Storage {
 
     private String filePath;
 
-    public FileOperation(String filePath) {
+    public Storage(String filePath) {
+
         this.filePath = filePath;
     }
 
