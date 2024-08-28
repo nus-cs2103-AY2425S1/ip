@@ -1,3 +1,11 @@
+package arts.command;
+
+import arts.task.TaskList;
+import arts.util.Storage;
+import arts.util.Ui;
+import arts.ArtsException;
+import arts.task.Task;
+
 public class MarkCommand implements Command {
     private final TaskList tasks;
     private final Storage storage;

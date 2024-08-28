@@ -1,15 +1,22 @@
+package arts.command;
+
+import arts.task.Event;
+import arts.task.TaskList;
+import arts.util.Storage;
+import arts.util.Ui;
+import arts.ArtsException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class AddDeadlineCommand implements Command {
+public class AddEventCommand implements Command {
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
     private final String details;
     private final DateTimeFormatter[] inputFormatters;
 
-    public AddDeadlineCommand(TaskList tasks, Storage storage, Ui ui, String details, DateTimeFormatter[] inputFormatters) {
+    public AddEventCommand(TaskList tasks, Storage storage, Ui ui, String details, DateTimeFormatter[] inputFormatters) {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -19,12 +26,13 @@ public class AddDeadlineCommand implements Command {
 
     @Override
     public void execute() throws ArtsException {
-        String[] deadlineParts = details.split(" /by ");
-        if (deadlineParts.length < 2) {
-            throw new ArtsException("The deadline must have a /by date.");
+        String[] eventParts = details.split(" /from | /to ");
+        if (eventParts.length < 3) {
+            throw new ArtsException("The event must have /from and /to times.");
         }
-        LocalDateTime deadlineDate = parseDate(deadlineParts[1]);
-        tasks.addTask(new Deadline(deadlineParts[0], deadlineDate));
+        LocalDateTime eventFromDate = parseDate(eventParts[1]);
+        LocalDateTime eventToDate = parseDate(eventParts[2]);
+        tasks.addTask(new Event(eventParts[0], eventFromDate, eventToDate));
         storage.save(tasks.getTasks());
         ui.showMessage("Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1) +
                 "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks") + " in the list.");

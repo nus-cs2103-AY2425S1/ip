@@ -1,3 +1,8 @@
+package arts.util;
+
+import arts.ArtsException;
+import arts.enums.CommandType;
+
 public class Parser {
 
     public CommandType parseCommand(String input) throws ArtsException {
