@@ -7,6 +7,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toFileFormat() {
+        return "%s | %s".formatted(super.toFileFormat(), by);
+    }
+
+    @Override
     public String toString() {
         return "%s (by: %s)".formatted(super.toString(), by);
     }

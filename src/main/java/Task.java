@@ -12,6 +12,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public String toFileFormat() {
+        return "%s | %s | %s".formatted(type, getStatusIcon(), description);
+    }
+
     @Override
     public String toString() {
         return "[%s][%s] %s".formatted(type, getStatusIcon(), description);
