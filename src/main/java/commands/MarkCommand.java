@@ -30,4 +30,8 @@ public class MarkCommand implements Command {
         return false;
     }
 
+    public String getTaskNumber() {
+        return this.taskNumber;
+    }
+
 }

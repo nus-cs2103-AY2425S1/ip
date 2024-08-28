@@ -7,7 +7,6 @@ import ui.Ui;
 public class ByeCommand implements Command {
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) {
-        ui.displayExitMessage();
     }
 
     @Override

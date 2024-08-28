@@ -57,7 +57,7 @@ public class Ui {
     }
 
     public void displayDeletedTask(Task t) {
-        System.out.println(DIVIDER + "Ok! This task has been removed:\n " + t + "\n" + DIVIDER);
+        System.out.println(DIVIDER + "Ok! This task has been removed:\n  " + t + "\n" + DIVIDER);
     }
 
     public void displayTaskAdded(Task t, int taskCount) {

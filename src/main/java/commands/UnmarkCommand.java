@@ -30,6 +30,11 @@ public class UnmarkCommand implements Command {
         return false;
     }
 
+    public String getTaskNumber() {
+        return this.taskNumber;
+    }
+
+
 }
 
 

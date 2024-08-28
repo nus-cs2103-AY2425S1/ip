@@ -32,4 +32,16 @@ public class EventCommand implements Command {
         return false;
     }
 
+    public String getTaskDescription() {
+        return this.taskDescription;
+    }
+
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
 }
