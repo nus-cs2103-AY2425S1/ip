@@ -1,9 +1,9 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.Task;
-import MichaelScott.Task.TaskList;
-import MichaelScott.Task.Todo;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.Task;
+import michaelscott.task.TaskList;
+import michaelscott.task.Todo;
 
 /**
  * Represents a command to add a new todoTask to the task list.
@@ -37,7 +37,8 @@ public class TodoCommand implements Command {
     public String execute(TaskList tasks) {
         Task newTask = new Todo(description);
         tasks.addTask(newTask);
-        return "Got it. I've added this task:\n" + newTask.toString() +
-                "\nNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
+        return "Got it. I've added this task:\n" + newTask.toString()
+                + "\nNow you have " + tasks.size()
+                + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
     }
 }

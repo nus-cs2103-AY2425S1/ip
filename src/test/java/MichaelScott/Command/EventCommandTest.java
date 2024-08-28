@@ -1,8 +1,9 @@
 package MichaelScott.Command;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.TaskList;
-import MichaelScott.Task.Event;
+import michaelscott.command.EventCommand;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.TaskList;
+import michaelscott.task.Event;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

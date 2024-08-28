@@ -1,6 +1,6 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import MichaelScott.Task.TaskList;
+import michaelscott.task.TaskList;
 
 /**
  * Represents a command to exit the application.

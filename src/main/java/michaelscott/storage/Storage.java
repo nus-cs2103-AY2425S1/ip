@@ -1,11 +1,10 @@
-package MichaelScott.Storage;
+package michaelscott.storage;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.Task;
-
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.FileWriter;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.Task;
 
 public class Storage {
     private final String filePath;
@@ -18,14 +17,8 @@ public class Storage {
         this.filePath = "./";
     }
 
-    // MichaelScott.MichaelScott.task.Todo: Can add loadTask functionality later
+    // michaelscott.MichaelScott.task.Todo: Can add loadTask functionality later
 
-    /**
-     * Saves the list of tasks to a file.
-     *
-     * @param todo An ArrayList of tasks to be saved.
-     * @throws MichaelScottException If an error occurs while saving data.
-     */
     public void saveTasks(ArrayList<Task> todo) throws MichaelScottException {
         try {
             FileWriter fw = new FileWriter(this.filePath);

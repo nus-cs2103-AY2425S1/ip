@@ -1,4 +1,4 @@
-Running MichaelScott.MichaelScott.exe
+Running michaelscott.MichaelScott.exe
 ____________________________________________________________
 Hello! I'm Michael Scott
 What can I do for you?

@@ -1,8 +1,8 @@
-package MichaelScott.Task;
-
-import MichaelScott.Exception.MichaelScottException;
+package michaelscott.task;
 
 import java.util.ArrayList;
+import michaelscott.exception.MichaelScottException;
+
 
 /**
  * This class represents the list used to store all the tasks

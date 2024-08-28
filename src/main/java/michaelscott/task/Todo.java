@@ -1,4 +1,4 @@
-package MichaelScott.Task;
+package michaelscott.task;
 
 public class Todo extends Task {
     public Todo(String description) {
@@ -11,7 +11,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + (isDone ? "[X] " : "[ ] " ) + desc ;
+        return "[T]" + (isDone ? "[X] " : "[ ] ") + desc;
     }
 
     @Override
