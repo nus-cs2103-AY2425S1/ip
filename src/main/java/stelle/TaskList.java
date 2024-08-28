@@ -100,4 +100,22 @@ public class TaskList {
     public void writeToFile() {
         storage.writeTasksToFile(taskList);
     }
+
+    /**
+     * Returns an ArrayList containing all list numbers of tasks with names that contain the query.
+     * @param query The string being searched for.
+     * @return ArrayList<Integer> ArrayList containing all list numbers of tasks with names that contain the query.
+     */
+    public ArrayList<Integer> find(String query) {
+        ArrayList<Integer> resultIndexes = new ArrayList<Integer>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (task.getTaskName().toLowerCase().contains(query.toLowerCase())) {
+                resultIndexes.add(i);
+            }
+        }
+
+        return resultIndexes;
+    }
 }
