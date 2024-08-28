@@ -51,6 +51,13 @@ public class Julie {
                         t.unmark();
                         CommonFunctions.wrappedLinePrint(String.format("Oop, this task is not yet done\n%s",t));
                         break;
+                    case DELETE:
+                        tokens = input.split(" ");
+                        x = Integer.parseInt(tokens[1]) - 1;
+                        t = taskList.get(x);
+                        taskList.remove(x);
+                        CommonFunctions.wrappedLinePrint(String.format("Okay, I'll remove this task from the list!\n    %s\n You still have %d tasks left!!",t, taskList.size()));
+                        break;
                     case TODO:
                         t = new ToDo(input.substring(5));
                     case DEADLINE:
@@ -71,6 +78,7 @@ public class Julie {
                         }
                         taskList.add(t);
                         CommonFunctions.addedPrompt(t, taskList);
+                        break;
                 }
 
             } catch (JulieException e) { // The command is not recognised

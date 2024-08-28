@@ -23,6 +23,7 @@ public class CommonFunctions {
         for (int i = 0; i < list.size(); i++) {
             output += String.format("%d. %s\n", i + 1, list.get(i));
         }
+        output = String.format("%sYou have a total of %d tasks!!", output, list.size());
         wrappedLinePrint(output);
     }
 
