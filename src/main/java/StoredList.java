@@ -14,7 +14,7 @@ public class StoredList {
         message.append("Got it, I've added this task: \n");
         message.append(item).append("\n");
         message.append("Now you have ").append(this.getSize()).append(" task in the list.\n");
-        message.append("____________________________________________________________\n");
+        message.append("____________________________________________________________");
         return message.toString();
     }
 
@@ -27,14 +27,13 @@ public class StoredList {
     }
 
     public String removeItem(int index) {
-        StringBuilder message = new StringBuilder();
-        message.append("____________________________________________________________\n");
-        message.append("Noted. I've removed this task:\n");
-        message.append(this.getItem(index)).append("\n");
-        message.append("Now you have ").append(this.getSize()).append(" task in the list.\n");
-        message.append("____________________________________________________________\n");
+        String message = "____________________________________________________________\n" +
+                "Noted. I've removed this task:\n" +
+                this.getItem(index) + "\n" +
+                "Now you have " + this.getSize() + " task in the list.\n" +
+                "____________________________________________________________\n";
         this.data.remove(index);
-        return message.toString();
+        return message;
     }
 
     @Override
@@ -43,7 +42,7 @@ public class StoredList {
         for (int i = 0; i < this.getSize(); i++) {
             message.append(i+1).append(". ").append(this.getItem(i).toString()).append("\n");
         }
-        message.append("____________________________________________________________");
+        message.append("____________________________________________________________\n");
         return message.toString();
     }
 }

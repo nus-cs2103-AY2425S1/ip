@@ -22,7 +22,7 @@ public class Deadline extends Task {
         }
         saveTaskInfo.append("deadline ");
         saveTaskInfo.append(this.getName());
-        saveTaskInfo.append("/by ");
+        saveTaskInfo.append(" /by ");
         saveTaskInfo.append(this.end.format(formatter));
         saveTaskInfo.append("\n");
         return saveTaskInfo.toString();
