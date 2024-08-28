@@ -1,2 +1,1 @@
-1. [D][] 213 (by: Friday)
-2. [T][X] 321
+1. [D][] return book (by: 21 Nov 2002, 19:00)

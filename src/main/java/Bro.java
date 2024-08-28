@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 enum ChatCommand {
@@ -17,6 +21,17 @@ public class Bro {
                  What can I do for you?""";
     final static String GOODBYE_MESSAGE = "Goodbye.";
 
+    private static final List<DateTimeFormatter> DATE_TIME_FORMATTERS = Arrays.asList(
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("M/d/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm")
+    );
+
+    // Desired output format
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm");
+
+
     public static void main(String[] args) {
         reply(GREETING_MESSAGE);
         TaskList taskList = new TaskList();
@@ -32,6 +47,7 @@ public class Bro {
                 cmd = ChatCommand.valueOf(inputArgs[0]);
             } catch (IllegalArgumentException e) {
                 reply("Bro. I don't understand that");
+                continue;
             }
             String secondArg = "";
             if (inputArgs.length > 1) {
@@ -91,7 +107,17 @@ public class Bro {
                     String taskContent = deadlineInputs[0].trim();
                     String deadline = deadlineInputs[1].trim();
 
-                    Task deadlineTask = taskList.addTask(new DeadlineTask(taskContent, deadline));
+                    // Parse deadline
+                    String parsedDeadline = deadline;
+                    for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
+                        try {
+                            LocalDateTime parsedDate = LocalDateTime.parse(deadline, formatter);
+                            parsedDeadline = parsedDate.format(OUTPUT_FORMATTER);
+                            break;
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    Task deadlineTask = taskList.addTask(new DeadlineTask(taskContent, parsedDeadline));
                     onListChange(taskList);
                     addTaskReply(deadlineTask, taskList.getNumberOfTask());
                     break;
