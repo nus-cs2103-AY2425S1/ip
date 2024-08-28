@@ -1,48 +1,45 @@
 ____________________________________________________________
- Hello! I'm Xizi.
- What can I do for you?
+Hello! I'm Xizi.
+What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [T][ ] borrow book
+  [T][ ] read book
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Dec 2 2023, 6:00pm)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Got it. I've added this event:
+  [E][ ] meeting (from: Dec 2 2023, 2:00pm to: Dec 2 2023, 3:00pm)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-  [D][ ] do homework (by: no idea :-p)
-Now you have 4 tasks in the list.
+1. [T][ ] read book
+2. [D][ ] return book (by: Dec 2 2023, 6:00pm)
+3. [E][ ] meeting (from: Dec 2 2023, 2:00pm to: Dec 2 2023, 3:00pm)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done: 
-[D][X] return book (by: Sunday)
+[T][X] read book
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done: 
-[E][X] project meeting (from: Mon 2pm to: 4pm)
+OK, I've marked this task as not done yet:
+[T][ ] read book
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][X] project meeting (from: Mon 2pm to: 4pm)
-4. [D][ ] do homework (by: no idea :-p)
+Noted. I've removed this task:
+  [D][ ] return book (by: Dec 2 2023, 6:00pm)
+Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
- Bye. Hope to see you again soon!
+Here are the tasks on the particular day in your list:
+[E][ ] meeting (from: Dec 2 2023, 2:00pm to: Dec 2 2023, 3:00pm)
+____________________________________________________________
+____________________________________________________________
+Goodbye! Have a great day!
 ____________________________________________________________
