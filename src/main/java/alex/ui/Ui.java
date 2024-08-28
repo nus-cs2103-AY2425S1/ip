@@ -1,3 +1,5 @@
+package alex.ui;
+
 public class Ui {
     public static final String LINE = "----------------------------------------------------";
     public static final String byeMessage = "Bye. Hope to see you again soon!";

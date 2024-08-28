@@ -1,3 +1,11 @@
+package alex.tasklist;
+
+import alex.task.Deadline;
+import alex.task.Event;
+import alex.task.Task;
+import alex.task.Todo;
+import alex.ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -133,10 +141,11 @@ public class TaskList {
     public void handleDate(String input) {
         try {
             LocalDate dateToFind = LocalDate.parse(input.substring(9).trim());
-            ArrayList<Task> newList = list;
+            @SuppressWarnings("unchecked")
+            ArrayList<Task> newList = (ArrayList<Task>) list.clone();
             newList.removeIf(task -> task.dueDate == null);
             System.out.println(LINE);
-            for (Task task : list) {
+            for (Task task : newList) {
                 if (task.dueDate.isEqual(dateToFind)) {
                     System.out.println(task);
                 }

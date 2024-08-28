@@ -1,3 +1,9 @@
+package alex;
+
+import alex.storage.Storage;
+import alex.tasklist.TaskList;
+import alex.ui.Ui;
+
 import java.util.Scanner;
 
 public class Alex {
