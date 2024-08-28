@@ -15,14 +15,31 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles the reading and writing of task data to a file.
+ * It provides methods to load tasks from a file at startup and save tasks to a file during runtime.
+ */
+
 public class Storage {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file. If the file does not exist, throws an exception.
+     * It reads each line of the file, interprets the task data, and populates the task list.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws AstaException If the file does not exist, the task format is invalid, or there is an error reading the file.
+     */
     public ArrayList<Task> load() throws AstaException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -68,6 +85,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the specified file.
+     * It writes each task's data to a line in the file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws AstaException If there is an error writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws AstaException {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
