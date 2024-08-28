@@ -9,6 +9,7 @@ public class NewGreetBot {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
+            tasks.printTasks();
         } finally {
             /*catch (DukeException e) {
             ui.showLoadingError();
@@ -22,6 +23,6 @@ public class NewGreetBot {
     }
 
     public static void main(String[] args) {
-        new NewGreetBot("data/tasks.txt").run();
+        new NewGreetBot("data/greetbot.txt").run();
     }
 }
