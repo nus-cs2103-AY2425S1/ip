@@ -24,7 +24,7 @@ public class Ui {
     public void showWelcome() {
         System.out.println(Ui.separator);
         System.out.println("System starting up...");
-        System.out.println("Brrt brrt! I'm Tick.Tick!");
+        System.out.println("Brrt brrt! I'm Tick!");
         System.out.println("What can I do for you?");
         System.out.println(Ui.separator);
     }
@@ -45,13 +45,13 @@ public class Ui {
     public void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + taskCount + " Tick.tasks in the list.");
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     public void showTaskDeleted(Task task, int taskCount) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
-        System.out.println("Now you have " + taskCount + " Tick.tasks in the list.");
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     public void showTaskMarked(Task task) {
@@ -66,9 +66,9 @@ public class Ui {
 
     public void showList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("You have no Tick.tasks in your list.");
+            System.out.println("You have no tasks in your list.");
         } else {
-            System.out.println("Here are the Tick.tasks in your list:");
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < tasks.getSize(); i++) {
                 System.out.printf("%d.%s\n", i + 1, tasks.getTask(i));
             }
