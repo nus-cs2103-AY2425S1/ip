@@ -82,7 +82,7 @@ public class Ui {
     }
 
     /**
-     * Display the confirmation message after the task is marked or unmarked.
+     * Displays the confirmation message after the task is marked or unmarked.
      *
      * @param task The task object that is marked or unmarked.
      */
@@ -107,7 +107,7 @@ public class Ui {
     }
 
     /**
-     * Display the header to the error message.
+     * Displays the header to the error message.
      *
      * @param message The message header for the error.
      */

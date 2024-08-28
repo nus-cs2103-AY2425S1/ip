@@ -25,7 +25,7 @@ public class DeleteCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Delete the task in the task list and displays a confirmation message alongside the
+     * Deletes the task in the task list and displays a confirmation message alongside the
      * current number of tasks in the list.
      *
      * @param tasks The Task List in which the task is deleted from.

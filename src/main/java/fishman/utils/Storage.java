@@ -53,9 +53,12 @@ public class Storage {
         if(task instanceof ToDo) {
             sb.append("T").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription());
         } else if(task instanceof Deadline) {
-            sb.append("D").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|").append(((Deadline) task).getBy().format(DATE_TIME_FORMATTER));
+            sb.append("D").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|")
+                            .append(((Deadline) task).getBy().format(DATE_TIME_FORMATTER));
         } else if(task instanceof Event) {
-            sb.append("E").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|").append(((Event) task).getFrom().format(DATE_TIME_FORMATTER)).append("|").append(((Event) task).getTo().format(DATE_TIME_FORMATTER));
+            sb.append("E").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|")
+                            .append(((Event) task).getFrom().format(DATE_TIME_FORMATTER)).append("|")
+                            .append(((Event) task).getTo().format(DATE_TIME_FORMATTER));
         }
         return sb.toString();
     }
@@ -100,7 +103,8 @@ public class Storage {
                         tasks.addTask(new Event(description, isDone, fromDate, toDate));
                         break;
                     default:
-                        throw new FishmanException.InvalidArgumentsException("Empty line or unknown task type in line: " + "<" + line + ">");
+                        throw new FishmanException.InvalidArgumentsException("Empty line or unknown task type in line: "
+                                        + "<" + line + ">");
                     }
                 } catch (FishmanException.InvalidArgumentsException e) {
                     System.out.print(e.getMessage());
