@@ -42,6 +42,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a task in string format to the end of permanent storage
+     * @param stringToAdd - task in string format
+     */
     public void appendToStorage(String stringToAdd) {
         try {
             Files.write(storeFile, List.of(stringToAdd), StandardOpenOption.APPEND);
@@ -50,6 +54,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites the entire permanent storage file using data from session storage
+     * @param taskList - session storage
+     */
     public void rewriteEntireFile(ArrayList<Task> taskList) {
         try {
             List<String> lines = taskList.stream()
@@ -61,6 +69,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Initialises an ArrayList<Task> from the tasks in permanent storage to be used in session storage.
+     * Used when first starting Optimus
+     * @return - An ArrayList containing all the Tasks in permanent storage
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> data = new ArrayList<>();
         try {

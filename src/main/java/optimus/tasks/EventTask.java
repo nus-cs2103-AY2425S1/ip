@@ -20,6 +20,10 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * Returns string representation of the task for UI purposes
+     * @return
+     */
     @Override
     public String toString() {
         String s = "";
@@ -30,6 +34,10 @@ public class EventTask extends Task {
         return s;
     }
 
+    /**
+     * Returns string representation of the task for storage purposes
+     * @return
+     */
     @Override
     public String getStorageString() {
         String s = "";
