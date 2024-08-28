@@ -1,12 +1,13 @@
-import java.awt.*;
-import java.io.File;
+package command;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.Objects;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -136,7 +137,7 @@ public class TaskList {
             String start = parts2[0];
             String end = parts2[1].substring(0, parts2[1].length() - 1);
 
-            Event newEvent = new Event(description, start, end, isMarked);
+            tasks.Event newEvent = new Event(description, start, end, isMarked);
             this.list.add(newEvent);
         } else {
             throw new IOException();
