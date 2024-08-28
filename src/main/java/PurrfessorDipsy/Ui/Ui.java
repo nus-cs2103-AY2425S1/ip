@@ -70,15 +70,29 @@ public class Ui {
         if (taskCount == 0) {
             printWithTerminalLines("Your task list is as empty as a well-sunned nap spot.");
         } else {
-            StringBuilder result = new StringBuilder("Time to stretch those paws and tackle your tasks!\n");
-            for (int i = 0; i < taskCount; i++) {
-                int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
-                result.append(printedIndex).append(".").append(tasks.get(i));
-                if (i < taskCount - 1) { // Don't append a newline after the last task
-                    result.append("\n");
-                }
-            }
-            printWithTerminalLines(result.toString());
+            printTasks("Time to stretch those paws and tackle your tasks!\n", tasks);
+
         }
+    }
+
+    public void printTasksMatchingKeyword(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            printWithTerminalLines("There are no tasks in your list that match the keyword.");
+        } else {
+            printTasks("Here is the list of matching tasks:\n", tasks);
+        }
+    }
+
+    private void printTasks(String header, ArrayList<Task> tasks) {
+        StringBuilder result = new StringBuilder(header + "\n");
+        int taskCount = tasks.size();
+        for (int i = 0; i < taskCount; i++) {
+            int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
+            result.append(printedIndex).append(".").append(tasks.get(i));
+            if (i < taskCount - 1) { // Don't append a newline after the last task
+                result.append("\n");
+            }
+        }
+        printWithTerminalLines(result.toString());
     }
 }

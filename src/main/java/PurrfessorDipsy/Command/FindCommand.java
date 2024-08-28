@@ -44,7 +44,7 @@ public class FindCommand extends Command {
 
         if (matcher.matches()) {
             ArrayList<Task> tasksMatchingKeyword = tasks.getTasksByKeyword(keyword);
-            ui.printListOfTasks(tasksMatchingKeyword);
+            ui.printTasksMatchingKeyword(tasksMatchingKeyword);
         } else {
             throw new InvalidCommandException(InvalidCommandException.ErrorType.INVALID_FIND_COMMAND);
         }
