@@ -1,5 +1,7 @@
 package ned.tasks;
 
+import java.util.regex.Pattern;
+
 public abstract class Task {
 
 //    protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("")
@@ -35,6 +37,10 @@ public abstract class Task {
         String marker = this.isDone ? "X" : " ";
         return String.format("[%s][%s] %s",this.taskType, marker, this.taskDescription);
     };
+
+    public boolean isMatchingPattern(String searchPattern) {
+        return Pattern.matches(searchPattern, this.taskDescription);
+    }
     public abstract String toTextForm();
 
 }

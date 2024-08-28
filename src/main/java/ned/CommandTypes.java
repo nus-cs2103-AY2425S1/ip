@@ -13,6 +13,8 @@ public enum CommandTypes {
     DEADLINE(new AddDeadlineCommand()),
     EVENT(new AddEventCommand()),
     BYE(new ByeCommand()),
+
+    FIND(new FindCommand()),
     UNKNOWN(null);
     private final Command command;
     // Enum constructor
