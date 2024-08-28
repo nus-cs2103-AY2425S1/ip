@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a utility class for parsing and formatting dates and times. This
+ * class provides methods to parse a date string into a {@link LocalDate} object
+ * and format a {@link LocalDate} object into a string.
+ */
 public class BarneyDateTime {
     private static final String DATE_TIME_RETURN_FORMAT = "yyyy-MM-dd";
     private static final String[] DATE_TIME_PARSE_FORMATS = {
@@ -40,6 +45,12 @@ public class BarneyDateTime {
             "EEE, MMM d, yyyy h:mm a" // Short format with day of week
     };
 
+    /**
+     * Parses a string representation of a date into a LocalDate object.
+     *
+     * @param dateString the string representation of the date
+     * @return the parsed LocalDate object, or null if the parsing fails
+     */
     public static LocalDate parseDate(String dateString) {
         for (String format : DATE_TIME_PARSE_FORMATS) {
             try {
@@ -50,6 +61,13 @@ public class BarneyDateTime {
         return null;
     }
 
+    /**
+     * Formats the given LocalDate object into a string representation using the
+     * specified format.
+     *
+     * @param date The LocalDate object to be formatted.
+     * @return A string representation of the formatted date.
+     */
     public static String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern(DATE_TIME_RETURN_FORMAT));
     }

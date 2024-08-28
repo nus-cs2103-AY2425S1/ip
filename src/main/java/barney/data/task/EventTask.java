@@ -5,12 +5,25 @@ import java.util.ArrayList;
 
 import barney.data.datetime.BarneyDateTime;
 
+/**
+ * Represents an event task.
+ */
 public class EventTask extends Task {
     private String atString;
     private LocalDate atDate;
     private String toString;
     private LocalDate toDate;
 
+    /**
+     * Represents an event task that has a specific start and end date/time.
+     * Inherits from the Task class.
+     *
+     * @param description a description of the event task
+     * @param atString    a string representation of the start date/time of the
+     *                    event task
+     * @param toString    a string representation of the end date/time of the event
+     *                    task
+     */
     public EventTask(String description, String atString, String toString) {
         super(description);
         this.atString = atString;
@@ -20,6 +33,12 @@ public class EventTask extends Task {
 
     }
 
+    /**
+     * Converts the EventTask object into an ArrayList of strings for saving
+     * purposes.
+     * 
+     * @return The ArrayList of strings representing the EventTask object.
+     */
     @Override
     public ArrayList<String> toSaveArray() {
         ArrayList<String> rtr = super.toSaveArray();
@@ -29,6 +48,11 @@ public class EventTask extends Task {
         return rtr;
     }
 
+    /**
+     * Returns a string representation of the EventTask object.
+     *
+     * @return A string representation of the EventTask object.
+     */
     @Override
     public String toString() {
         String rtrAtString = (this.atDate != null) ? BarneyDateTime.formatDate(this.atDate) : this.atString;
