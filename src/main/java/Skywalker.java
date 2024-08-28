@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -7,8 +10,7 @@ import java.io.FileWriter;
 public class Skywalker {
     private static final String FILE_PATH = "./data/skywalker.txt";
 
-    public Skywalker() throws IOException {
-    }
+
 
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
@@ -72,12 +74,15 @@ public class Skywalker {
                     String[] information = printable.substring(9).split("/by ");
                     String description = information[0];
                     String by = information[1];
+                    // Parse the date and time string to a LocalDateTime object
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    LocalDate parsedDate = LocalDate.parse(by, formatter);
                     //empty exception catching
                     if (information.length < 2 || description.isEmpty() || by.isEmpty()) {
                         throw new EmptyDescriptionException("the deadline task description/date cannot be empty!!!!");
                     }
                     System.out.println("Got it. I've added this task:");
-                    Deadline task = new Deadline(description, by);
+                    Deadline task = new Deadline(description, parsedDate.toString());
                     tasks.add(task);
                     System.out.println(task.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -87,11 +92,14 @@ public class Skywalker {
                     String description = information[0];
                     String from = information[1];
                     String to = information[2];
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    LocalDateTime startTime = LocalDateTime.parse(from, formatter);
+                    LocalDateTime endTime = LocalDateTime.parse(to, formatter);
                     if (information.length < 3 || from.isEmpty() || to.isEmpty()) {
                         throw new EmptyDescriptionException("the deadline task description/ from date/ to date cannot be empty!!!!");
                     }
                     System.out.println("Got it. I've added this task:");
-                    Event task = new Event(description, from, to);
+                    Event task = new Event(description, startTime.toString(), endTime.toString());
                     tasks.add(task);
                     System.out.println(task.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
