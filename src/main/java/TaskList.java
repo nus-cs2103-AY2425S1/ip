@@ -2,10 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class TaskList {
 
@@ -14,6 +14,13 @@ public class TaskList {
         this.list = new ArrayList<Task>();
         try {
             File data = new File("./src/main/java/chatData.txt");
+            if (!data.exists()) {
+                try {
+                    data.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("Error creating the file");
+                }
+            }
             Scanner dataReader = new Scanner(data);
             while (dataReader.hasNextLine()) {
                 String line = dataReader.nextLine();
@@ -27,13 +34,13 @@ public class TaskList {
                 case 'D':
                     done = line.charAt(1) == '1';
                     String deadline = line.substring(line.indexOf('%') + 1);
-                    this.add(new Deadline(line.substring(2, line.indexOf('%')), deadline, done), true);
+                    this.add(new Deadline(line.substring(2, line.indexOf('%')), LocalDate.parse(deadline), done), true);
                     break;
                 case 'E':
                     done = line.charAt(1) == '1';
                     String start = line.substring(line.indexOf('%') + 1, line.indexOf('|'));
                     String end = line.substring(line.indexOf('|') + 1);
-                    this.add(new Event(line.substring(2, line.indexOf('%')), start, end, done), true);
+                    this.add(new Event(line.substring(2, line.indexOf('%')), LocalDate.parse(start), LocalDate.parse(end), done), true);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -62,7 +69,7 @@ public class TaskList {
                 try {
                     name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
                     endTime = response.substring(response.indexOf("/by") + 4);
-                    this.add(new Deadline(name, endTime), false);
+                    this.add(new Deadline(name, LocalDate.parse(endTime)), false);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new InvalidCommandException();
                 }
@@ -72,7 +79,7 @@ public class TaskList {
                     name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
                     startTime = response.substring(response.indexOf("/from") + 6, response.indexOf("/to") - 1);
                     endTime = response.substring(response.indexOf("/to") + 4);
-                    this.add(new Event(name, startTime, endTime), false);
+                    this.add(new Event(name, LocalDate.parse(startTime), LocalDate.parse(endTime)), false);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new InvalidCommandException();
                 }
