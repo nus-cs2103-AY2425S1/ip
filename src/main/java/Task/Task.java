@@ -1,8 +1,8 @@
-package Task;
+package task;
 
 /* My import */
-import Exception.BlitzException;
-import Exception.BlitzIOException;
+import exception.BlitzException;
+import exception.BlitzIOException;
 
 /* System import */
 import java.time.LocalDateTime;

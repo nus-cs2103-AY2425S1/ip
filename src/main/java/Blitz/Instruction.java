@@ -1,8 +1,14 @@
-package Blitz;
+package blitz;
 
 public enum Instruction {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
 
+    /**
+     * Checks if the given command exist as an enum constant.
+     *
+     * @param command Command String to check for existence.
+     * @return True if the command matches any of the enum constant, false otherwise.
+     */
     private static boolean contains(String command) {
         for (Instruction c : Instruction.values()) {
             if (c.name().equals(command.toUpperCase())) {
@@ -13,6 +19,12 @@ public enum Instruction {
         return false;
     }
 
+    /**
+     * Checks if the specified command exist.
+     *
+     * @param command Command String to be checked.
+     * @return True if the command exists, false otherwise.
+     */
     public static boolean checkCommandExist(String command) {
         return Instruction.contains(command);
     }

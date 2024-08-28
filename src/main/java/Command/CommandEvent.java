@@ -1,12 +1,12 @@
-package Command;
+package command;
 
 /* My import */
-import Blitz.Storage;
-import Blitz.TaskList;
-import Blitz.Ui;
-import Exception.BlitzException;
-import Task.Event;
-import Task.Task;
+import blitz.Storage;
+import blitz.TaskList;
+import blitz.Ui;
+import exception.BlitzException;
+import task.Event;
+import task.Task;
 
 public class CommandEvent extends Command {
     private String[] params;

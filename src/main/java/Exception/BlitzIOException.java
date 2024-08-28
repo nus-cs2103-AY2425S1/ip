@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class BlitzIOException extends BlitzException {
     private String desc;
