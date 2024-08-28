@@ -22,4 +22,17 @@ public class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
+    public String toFileFormat() {
+        String task;
+        if (this instanceof Todo) {
+            task = "T";
+        } else if (this instanceof Deadline) {
+            task = "D";
+        } else {
+            task = "E";
+        }
+        return task + " | " + (this.isDone ? "1" : "0") + " | "
+                + this.description;
+    }
 }
