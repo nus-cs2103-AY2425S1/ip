@@ -43,6 +43,7 @@ public class Storage {
      * @param taskList The list of tasks to be saved.
      */
     public void saveTasksToFile(ArrayList<Task> taskList) {
+        // Logic implemented by me; syntax and formatting recommended by Copilot.
         File dataDir = new File(storageDirectory);
         if (!dataDir.exists()) {
             dataDir.mkdirs();
@@ -66,6 +67,7 @@ public class Storage {
      * @return The list of tasks loaded from the file.
      */
     public ArrayList<Task> loadTasksFromFile() {
+        // Logic implemented by me; syntax and formatting recommended by Copilot.
         ArrayList<Task> taskList = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(datFileName))) {
             taskList.addAll((ArrayList<Task>) ois.readObject());

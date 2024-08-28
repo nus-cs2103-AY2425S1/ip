@@ -98,6 +98,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
+        // Logic implemented by me; syntax and formatting recommended by Copilot.
         if (taskList.isEmpty()) {
             return "You have no tasks in the list.\n";
         }
