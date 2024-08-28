@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Bob {
     private static final String LINE = "____________________________________________________________";
     private static final String NAME = "Bob";
@@ -67,6 +72,9 @@ public class Bob {
             break;
         case "delete":
             Bob.deleteTask(tmp);
+            break;
+        case "on":
+            Bob.printTasksOnDate(tmp[1]);
             break;
         default:
             throw new ChatBotException("I'm sorry, but I don't know what that means.");
@@ -214,7 +222,8 @@ public class Bob {
             System.out.printf("  %s\n", Bob.tasks.get(Bob.tasks.size() - 1));
             System.out.printf("Now you have %d tasks in the list.\n", Bob.tasks.size());
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ChatBotException("Invalid format for deadline. Correct format: deadline <description> /by <date>");
+            throw new ChatBotException("Invalid format for deadline. " +
+                    "Correct format: deadline <description> /by <yyyy-MM-dd HHmm>");
         }
     }
 
@@ -229,7 +238,33 @@ public class Bob {
             System.out.printf("  %s\n", Bob.tasks.get(tasks.size() - 1));
             System.out.printf("Now you have %d tasks in the list.\n", Bob.tasks.size());
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ChatBotException("Invalid format for event. Correct format: event <description> /from <start> /to <end>");
+            throw new ChatBotException("Invalid format for deadline. " +
+                    "Correct format: deadline <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+        }
+    }
+
+    private static void printTasksOnDate(String date) throws ChatBotException {
+        LocalDate searchDate;
+        try {
+            searchDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            throw new ChatBotException("Invalid date format. Please use yyyy-MM-dd.");
+        }
+
+        System.out.println("Here are your tasks on " + searchDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        for (Task task : Bob.tasks) {
+            if (task instanceof Deadline) {
+                LocalDate taskDate = ((Deadline) task).getDeadline().toLocalDate();
+                if (taskDate.equals(searchDate)) {
+                    System.out.println(task);
+                }
+            }
+            else if (task instanceof Event) {
+                LocalDate taskDate = ((Event) task).getFrom().toLocalDate();
+                if (taskDate.equals(searchDate)) {
+                    System.out.println(task);
+                }
+            }
         }
     }
 }
