@@ -13,7 +13,7 @@ import java.util.List;
  * Represents a loader and saver for the task list.
  * It uses serialization to save and load the task list.
  */
-public class TaskListLoaderSaver {
+public class Storage {
 
     /**
      * The directory where data is stored.
@@ -27,7 +27,7 @@ public class TaskListLoaderSaver {
     /**
      * The constructor.
      */
-    public TaskListLoaderSaver() {
+    public Storage() {
         if (!Files.exists(DATA_DIRECTORY)) {  // create the data directory if it does not exist
             try {
                 Files.createDirectories(DATA_DIRECTORY);

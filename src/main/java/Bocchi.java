@@ -20,7 +20,7 @@ public class Bocchi {
     /**
      * The loader and saver for the task list.
      */
-    private TaskListLoaderSaver loaderSaver = new TaskListLoaderSaver();
+    private Storage loaderSaver = new Storage();
 
 
     /**
