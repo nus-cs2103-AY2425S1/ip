@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Fanny {
@@ -5,6 +9,7 @@ public class Fanny {
     private static TaskList list;
     private static Scanner scanner = new Scanner(System.in);
     private static FileOperation fileOperation;
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static void main(String[] args) {
 
@@ -110,7 +115,7 @@ public class Fanny {
         System.out.println(horizontalLine);
         try {
             String[] cmdDeadline = cmdParts[1].split("/by ", 2);
-            String time = cmdDeadline[1];
+            LocalDateTime time = LocalDateTime.parse(cmdDeadline[1], formatter);
             String description = cmdDeadline[0];
             Task deadline = new Deadline(description, time);
             list.add(deadline);
@@ -119,6 +124,8 @@ public class Fanny {
             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Task description and deadline cannot be empty");
+        } catch (DateTimeParseException e) {
+            System.out.println("Please enter a valid date and time: YYYY-MM-DD HH:MM:SS");
         } finally {}
         System.out.println(horizontalLine);
     }
@@ -129,8 +136,8 @@ public class Fanny {
             String[] cmdEvent = cmdParts[1].split("/from ", 2);
             String description = cmdEvent[0];
             String[] duration = cmdEvent[1].split("/to ", 2);
-            String from = duration[0];
-            String to = duration[1];
+            LocalDateTime from = LocalDateTime.parse(duration[0], formatter);
+            LocalDateTime to = LocalDateTime.parse(duration[1], formatter);
             Task event = new Event(description, from, to);
             list.add(event);
             System.out.println("Fanny:\nGot it. I've added this task:");
@@ -138,6 +145,8 @@ public class Fanny {
             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Event description and duration cannot be empty");
+        } catch (DateTimeParseException e) {
+            System.out.println("Please enter a valid date and time: YYYY-MM-DD HH:MM:SS");
         } finally {}
         System.out.println(horizontalLine);
     }
