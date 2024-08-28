@@ -1,3 +1,6 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -7,36 +10,49 @@ public class Task {
         this.isDone = false;
     }
 
-    public static Task of(String s) {
-        // /from and /to or /by
-        if (s.contains("/from") && s.contains("/to") && s.contains("/by")) {
-            throw new IllegalArgumentException("/from /to /by cannot exist simultaneously");
+
+    public static Task of(String s) throws DukeException {
+        s = s.trim();
+        if (s.isEmpty()) {
+            throw new NoInputException();
         }
 
-        int i = s.indexOf(' ');
-        String word = i == -1 ? "" : s.substring(0, i);
-        if (word.equals("todo")) {
-            s = s.substring(i + 1);
-            return new Todo(s);
-        } else if (word.equals("deadline")) {
-            s = s.substring(i + 1);
-            int index = s.indexOf("/by");
-            String description = s.substring(0, index);
-            String by = s.substring(index + 3);
+        String[] parts = s.split(" ", 2);
+        String command = parts[0].toLowerCase();
+
+        if (command.equals("todo")) {
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new NoInputException();
+            }
+            return new Todo(parts[1].trim());
+
+        } else if (command.equals("deadline")) {
+            Pattern deadlinePattern = Pattern.compile("(.+) /by (.+)");
+            Matcher deadlineMatcher = deadlinePattern.matcher(parts[1]);
+            if (!deadlineMatcher.matches()) {
+                throw new FormatException("deadline");
+            }
+            String description = deadlineMatcher.group(1).trim();
+            String by = deadlineMatcher.group(2).trim();
             return new Deadline(description, by);
-        } else if (word.equals("event")){
-            s = s.substring(i + 1);
-            int index1 = s.indexOf("/from");
-            String description = s.substring(0, index1);
-            int index2 = s.indexOf("/to");
-            String from = s.substring(index1 + 5, index2);
-            String to = s.substring(index2 + 3);
-            return new Event(description, from, to);
-        } else {
-            return new Task(s);
-        }
 
+        } else if (command.equals("event")) {
+            Pattern eventPattern = Pattern.compile("(.+) /from (.+) /to (.+)");
+            Matcher eventMatcher = eventPattern.matcher(parts[1]);
+            if (!eventMatcher.matches()) {
+                throw new FormatException("event");
+            }
+            String description = eventMatcher.group(1).trim();
+            String from = eventMatcher.group(2).trim();
+            String to = eventMatcher.group(3).trim();
+            return new Event(description, from, to);
+
+        } else {
+            throw new NoInputException();
+        }
     }
+
+
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -72,7 +88,7 @@ public class Task {
 
         @Override
         public String toString() {
-            return String.format("[D][%s] %s (by:%s)",
+            return String.format("[D][%s] %s (by: %s)",
                     super.getStatusIcon(), super.description, by);
         }
     }
@@ -88,7 +104,7 @@ public class Task {
 
         @Override
         public String toString() {
-            return String.format("[T][%s] %s (from:%s to:%s)",
+            return String.format("[T][%s] %s (from: %s to: %s)",
                     super.getStatusIcon(), super.description, from, to);
         }
     }

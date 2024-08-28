@@ -6,21 +6,21 @@ public class Duke {
     private static List<Task> taskList = new ArrayList<>();
 
     public static String addHorizontalLinesAndIndentation(String dialog) {
-        String res =  "    ____________________________________________________________\n";
+        StringBuilder res = new StringBuilder("    ____________________________________________________________\n");
         Scanner sc = new Scanner(dialog);
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            res += "      " + line + "\n";
+            res.append("      ").append(line.trim()).append("\n");  // Ensure consistent indentation
         }
-        res += "    ____________________________________________________________";
-        return res;
+        res.append("    ____________________________________________________________");
+        return res.toString();
     }
 
     public static void addToList(String dialog) {
         Task task = Task.of(dialog);
         taskList.add(task);
         String res = addHorizontalLinesAndIndentation("Got it. I've added this task: \n"
-                + "  " + task + "\n" + String.format("Now you have %d tasks in the list.", taskList.size()));
+                + String.format("  %s", task) + "\n" + String.format("Now you have %d tasks in the list.", taskList.size()));
         System.out.println(res);
     }
 
@@ -56,29 +56,32 @@ public class Duke {
                 )
         );
     }
-
     public static void main(String[] args) {
         String hi = "Hello! I'm Foo\n" +
                 "What can I do for you?";
         System.out.println(addHorizontalLinesAndIndentation(hi));
         Scanner sc = new Scanner(System.in);
         while (true) {
-            String line = sc.nextLine();
-            if (line.equals("bye")) {
-                break;
-            } else if (line.equals("list")) {
-                displayList();
-                continue;
-            } else if (line.length() >= 6 && line.substring(0, 4).equals("mark")) {
-                int index = Integer.parseInt(line.substring(5));
-                mark(index);
-                continue;
-            } else if (line.length() >= 8 && line.substring(0, 6).equals("unmark")) {
-                int index = Integer.parseInt(line.substring(7));
-                unmark(index);
-                continue;
+            try {
+                String line = sc.nextLine();
+                if (line.equals("bye")) {
+                    break;
+                } else if (line.equals("list")) {
+                    displayList();
+                } else if (line.startsWith("mark")) {
+                    int index = Integer.parseInt(line.substring(5));
+                    mark(index);
+                } else if (line.startsWith("unmark")) {
+                    int index = Integer.parseInt(line.substring(7));
+                    unmark(index);
+                } else {
+                    addToList(line);
+                }
+            } catch (DukeException e) {
+                System.out.println(addHorizontalLinesAndIndentation("BRUH... " + e.getMessage()));
+            } catch (Exception e) {
+                System.out.println(addHorizontalLinesAndIndentation("An unexpected error occurred."));
             }
-            addToList(line);
         }
         System.out.println(addHorizontalLinesAndIndentation("Bye. Hope to see you again soon!"));
     }
