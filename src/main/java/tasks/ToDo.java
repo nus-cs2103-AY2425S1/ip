@@ -3,26 +3,26 @@ package tasks;
 import exceptions.InputException;
 
 /**
- * Represents a tasks.ToDo task.
- * A tasks.ToDo task is a simple task with a description but without any associated date or time.
+ * Represents a ToDo task.
+ * A ToDo task is a simple task with a description but without any associated date or time.
  */
 public class ToDo extends Task{
 
     /**
-     * Constructs a new tasks.ToDo task with the given description.
+     * Constructs a new ToDo task with the given description.
      *
-     * @param description the description of the tasks.ToDo task.
+     * @param description the description of the ToDo task.
      */
     public ToDo(String description) {
         super(description);
     }
 
     /**
-     * Creates a tasks.ToDo task from the given input string.
+     * Creates a ToDo task from the given input string.
      * The input string must start with the command "todo" followed by the task description.
      *
      * @param input the input string containing the task details.
-     * @return the created tasks.ToDo task.
+     * @return the created ToDo task.
      * @throws InputException if the input format is incorrect or if the description is missing.
      */
     @Override
@@ -38,10 +38,10 @@ public class ToDo extends Task{
     }
 
     /**
-     * Returns a string representation of the tasks.ToDo task.
-     * The string includes a "[T]" prefix to indicate that it is a tasks.ToDo task, followed by the task status and description.
+     * Returns a string representation of the ToDo task.
+     * The string includes a "[T]" prefix to indicate that it is a ToDo task, followed by the task status and description.
      *
-     * @return a string representing the tasks.ToDo task.
+     * @return a string representing the ToDo task.
      */
     @Override
     public String toString() {
@@ -49,9 +49,9 @@ public class ToDo extends Task{
     }
 
     /**
-     * Returns a string representation of a tasks.ToDo when saving to file.
+     * Returns a string representation of a ToDo when saving to file.
      *
-     * @return a string representation of the tasks.ToDo.
+     * @return a string representation of the ToDo.
      */
     @Override
     public String encode() {

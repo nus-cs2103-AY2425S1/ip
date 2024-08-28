@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Abstract class representing a generic tasks.Task.
+ * Abstract class representing a generic Task.
  * This class provides basic functionalities for a task,
  * such as marking the task as done, unmarking it, and displaying its status.
  */
@@ -22,7 +22,7 @@ public abstract class Task {
     protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
-     * Constructs a new tasks.Task with the given description.
+     * Constructs a new Task with the given description.
      * The task is initially not marked as done.
      *
      * @param description the description of the task.
@@ -37,7 +37,7 @@ public abstract class Task {
      * This method must be implemented by any subclass.
      *
      * @param input the input string containing the task details.
-     * @return the created tasks.Task object.
+     * @return the created Task object.
      * @throws InputException if the input is invalid or incomplete.
      */
     public abstract Task createTask(String input) throws InputException;
@@ -67,11 +67,11 @@ public abstract class Task {
     }
 
     /**
-     * Creates a tasks.Task object from a string representation.
+     * Creates a Task object from a string representation.
      * This is an abstract method to be implemented by subclasses.
      *
      * @param details an array of string details parsed from the file.
-     * @return the created tasks.Task object.
+     * @return the created Task object.
      */
     public static Task parse(String[] details) {
         if (details.length < 3) {

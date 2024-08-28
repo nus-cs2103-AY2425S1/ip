@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an tasks.Event task.
- * An tasks.Event task is a task that has a specific start and end time, in addition to a description.
+ * Represents an Event task.
+ * Event task is a task that has a specific start and end time, in addition to a description.
  */
 public class Event extends Task {
 
@@ -18,9 +18,9 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Constructs a new tasks.Event task with the given description, start time, and end time.
+     * Constructs a new Event task with the given description, start time, and end time.
      *
-     * @param description the description of the tasks.Event task.
+     * @param description the description of the Event task.
      * @param from the start time of the event.
      * @param to the end time of the event.
      */
@@ -31,12 +31,12 @@ public class Event extends Task {
     }
 
     /**
-     * Creates an tasks.Event task from the given input string.
+     * Creates an Event task from the given input string.
      * The input string must start with the command "event" followed by the task description,
      * the start time, and the end time.
      *
      * @param input the input string containing the task details.
-     * @return the created tasks.Event task.
+     * @return the created Event task.
      * @throws InputException if the input format is incorrect or if the description is missing.
      */
     @Override
@@ -75,11 +75,11 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the tasks.Event task.
-     * The string includes a "[E]" prefix to indicate that it is an tasks.Event task, followed by the task status,
+     * Returns a string representation of the Event task.
+     * The string includes a "[E]" prefix to indicate that it is an Event task, followed by the task status,
      * description, start time, and end time.
      *
-     * @return a string representing the tasks.Event task.
+     * @return a string representing the Event task.
      */
 
     @Override
@@ -89,9 +89,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of an tasks.Event when saving to file.
+     * Returns a string representation of an Event when saving to file.
      *
-     * @return a string representation of the tasks.Event.
+     * @return a string representation of the Event.
      */
     @Override
     public String encode() {

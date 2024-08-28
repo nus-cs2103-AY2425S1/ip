@@ -42,7 +42,7 @@ public class Storage {
     }
 
 
-    public void saveTaskList(ArrayList<Task> taskList) throws IOException {
+    public void saveTaskList(ArrayList<Task> taskList) {
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdirs();
