@@ -32,8 +32,8 @@ public class UI {
      * Pushes a break line to users' terminal, to segment different commands.
      */
     public static void printLine() {
-        System.out.println("________________________________________________" +
-                "__________________________________");
+        System.out.println("___________________________________________" +
+                "_________________________________________________");
     }
 
     /**
