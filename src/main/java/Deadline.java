@@ -13,6 +13,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public  String toFileRecord() {
+        Integer status = isDone ? 1 : 0;
+        return "D" + " | " + status + " | " + this.description
+                + " | " + this.by;
+    }
+    @Override
     public String getStatus() {
         return "[D]" + "[" + super.getStatusIcon() + "]" + " " + super.toString() + " (by: " + by + ")";
     }
