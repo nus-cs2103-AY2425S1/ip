@@ -1,5 +1,6 @@
 package rex.util;
 
+import rex.command.Command;
 import rex.exception.InvalidInputException;
 import rex.task.Task;
 import rex.task.TaskList;

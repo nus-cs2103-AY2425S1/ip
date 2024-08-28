@@ -1,5 +1,6 @@
 package rex.util;
 
+import rex.command.Command;
 import rex.exception.InvalidInputException;
 import rex.task.TaskList;
 
@@ -95,36 +96,36 @@ public class Parser {
     private static void parseInputError(String[] inputTokens) throws InvalidInputException {
         Command command = Command.inputToCommand(inputTokens[0]);
         switch (command) {
-        case Command.HELP:
-        case Command.BYE:
+        case HELP:
+        case BYE:
             if (inputTokens.length > 1) {
                 String usageMessage = Command.usageMessage(command);
                 throw new InvalidInputException("Too many arguments!\nUsage: " + usageMessage);
             }
             break;
-        case Command.TODO:
-        case Command.DEADLINE:
-        case Command.EVENT:
+        case TODO:
+        case DEADLINE:
+        case EVENT:
             if (inputTokens.length == 1) {
                 String usageMessage = Command.usageMessage(command);
                 throw new InvalidInputException("tasks.Task description cannot be empty!\nUsage: " + usageMessage);
             }
             break;
-        case Command.LIST:
+        case LIST:
             if (inputTokens.length > 1) {
                 String usageMessage = Command.usageMessage(command);
                 throw new InvalidInputException("Too MANY arguments!\nUsage: " + usageMessage);
             }
             break;
-        case Command.MARK:
-        case Command.UNMARK:
-        case Command.DELETE:
+        case MARK:
+        case UNMARK:
+        case DELETE:
             if (inputTokens.length == 1) {
                 String usageMessage = Command.usageMessage(command);
                 throw new InvalidInputException("Too FEW arguments!\nUsage: " + usageMessage);
             }
             break;
-        case Command.RAWR:
+        case RAWR:
             if (inputTokens.length > 1) {
                 throw new InvalidInputException("");
             }
