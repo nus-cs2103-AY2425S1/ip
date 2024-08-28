@@ -38,17 +38,25 @@ public class Cloud {
                 break;
             case "deadline":
                 details = query.getDetails().split("/by");
-                Deadline dl = new Deadline(details[0].strip(), details[1].strip());
-                tasks.add(dl);
+                try {
+                    Deadline dl = new Deadline(details[0].strip(), details[1].strip());
+                    tasks.add(dl);
+                } catch (CloudException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case "event":
                 details = query.getDetails().split("/from|/to");
-                Event event = new Event(
-                        details[0].strip(),
-                        details[1].strip(),
-                        details[2].strip()
-                );
-                tasks.add(event);
+                try {
+                    Event event = new Event(
+                            details[0].strip(),
+                            details[1].strip(),
+                            details[2].strip()
+                    );
+                    tasks.add(event);
+                } catch (CloudException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             default:
                 break;
