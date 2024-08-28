@@ -1,6 +1,7 @@
 package nathanbot.ui;
 
 import java.util.Scanner;
+
 import nathanbot.commands.CommandHandler;
 import nathanbot.commands.CommandType;
 import nathanbot.tasks.TaskList;
@@ -8,14 +9,24 @@ import nathanbot.tasks.TaskList;
 /**
  * Cleaned up using Copilot to follow Google's Java Style Guide,
  * while keeping indentations to be 4 spaces.
+ * Handles the user interface for NathanBot, including reading user input and executing commands.
+ * Javadocs using Copilot
  */
 public class UserInterface {
     private final TaskList taskList;
 
+    /**
+     * Constructs a UserInterface with the specified TaskList.
+     *
+     * @param taskList The TaskList to be managed by the UserInterface.
+     */
     public UserInterface(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Starts the user interface, greeting the user and processing commands in a loop.
+     */
     public void start() {
         CommandHandler.handleGreet();
 

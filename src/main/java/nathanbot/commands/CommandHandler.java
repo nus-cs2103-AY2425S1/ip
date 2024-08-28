@@ -22,18 +22,40 @@ public abstract class CommandHandler {
                         What can I do for you?
                        """;
 
+    /**
+     * Handles the greet command by printing 
+     * Hello! I'm NathanBot
+     * What can I do for you?.
+     */
     public static void handleGreet() {
         System.out.println(LINE + GREET + LINE);
     }
-    
+
+    /**
+     * Handles the exit command by printing 
+     * Bye. Hope to see you again soon!.
+     */
     public static void handleExit() {
         System.out.println(LINE + EXIT + LINE);
     }
 
+    /**
+     * Handles the display list command by printing the task list.
+     *
+     * @param taskList The task list to display.
+     */
     public static void handleDisplayList(TaskList taskList) {
         System.out.println(LINE + taskList + LINE);
     }
 
+    /**
+     * Handles the mark command, marking a task as done or undone. 
+     * 
+     * @param input The user input containing the command and task number.
+     * @param command The command string (e.g., "mark" or "unmark").
+     * @param taskList The list of tasks.
+     * @param isDone True if the task should be marked as done, false otherwise.
+     */
     public static void handleMarkCommand(String input, String command, TaskList taskList, boolean isDone) {
         // Assisted by Copilot
         try {
@@ -50,6 +72,12 @@ public abstract class CommandHandler {
         }
     }
 
+    /**
+     * Handles the delete command by removing a task from the task list.
+     * 
+     * @param input The user input containing the command and task number.
+     * @param taskList The list of tasks.
+     */
     public static void handleDeleteCommand(String input, TaskList taskList) {
         // Assisted by Copilot
         try {
@@ -62,6 +90,12 @@ public abstract class CommandHandler {
         }
     }
 
+    /**
+     * Handles the todo command by adding a todo task to the task list.
+     * 
+     * @param input The user input containing the command.
+     * @param taskList The list of tasks.
+     */
     public static void handleTodoCommand(String input, TaskList taskList) {
         input = input.substring(CommandType.TODO.getCommand().length());
         if (input.length() == 0) {
@@ -73,6 +107,13 @@ public abstract class CommandHandler {
         printAddTaskLine(task, taskList);
     }
 
+    /**
+     * Handles the deadline command by adding a deadline task to the task list.
+     * It has to be in this format: deadline <description> /by <date>.
+     * 
+     * @param input The user input containing the command.
+     * @param taskList The list of tasks.
+     */
     public static void handleDeadlineCommand(String input, TaskList taskList) {
         // Logic input by me, syntax suggested by Copilot
         input = input.substring(CommandType.DEADLINE.getCommand().length()).trim();
@@ -97,6 +138,13 @@ public abstract class CommandHandler {
         }
     }
 
+    /**
+     * Handles the event command by adding a event task to the task list.
+     * It has to be in this format: event <description> /from <start time> /to <end time>.
+     * 
+     * @param input The user input containing the command.
+     * @param taskList The list of tasks.
+     */
     public static void handleEventCommand(String input, TaskList taskList) {
         // Logic input by me, syntax suggested by Copilot
         input = input.substring(CommandType.EVENT.getCommand().length()).trim();
@@ -125,11 +173,15 @@ public abstract class CommandHandler {
         }
     }
 
+    /**
+     * Handles unknown commands.
+     * Prints Unknown Command, womp womp..
+     */
     public static void handleUnknownCommand() {
         System.out.println(LINE + "Unknown Command, womp womp." + "\n" + LINE);
     }
 
-    public static void printAddTaskLine(Task task, TaskList taskList) {
+    private static void printAddTaskLine(Task task, TaskList taskList) {
         System.out.println(LINE + "Got it. I've added this task: \n    " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n" + LINE);
     }
 }
