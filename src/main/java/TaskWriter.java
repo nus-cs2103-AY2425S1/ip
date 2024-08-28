@@ -5,7 +5,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * @author Crunchify.com
+ * @author Crunchify.com.
+ * https://crunchify.com/how-to-write-json-object-to-file-in-java/.
  *
  * An object converts java Task objects into JSON object and write to a json file.
  */
