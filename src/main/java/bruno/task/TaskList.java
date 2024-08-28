@@ -116,4 +116,19 @@ public class TaskList {
             throw new InvalidTaskIndexException();
         }
     }
+
+    public void findTask(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+
+        if (foundTasks.isEmpty()) {
+            Ui.printNoTaskFound();
+        } else {
+            Ui.printFoundTasks(foundTasks);
+        }
+    }
 }

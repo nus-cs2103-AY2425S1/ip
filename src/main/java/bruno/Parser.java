@@ -35,6 +35,8 @@ public class Parser {
                 return new AddCommand(tasks, restOfString, Bruno.TaskType.DEADLINE);
             } else if (firstWord.equalsIgnoreCase("event")) {
                 return new AddCommand(tasks, restOfString, Bruno.TaskType.EVENT);
+            } else if (firstWord.equalsIgnoreCase("find")) {
+                return new FindCommand(tasks, restOfString);
             } else {
                 throw new UnknownCommandException();
             }
