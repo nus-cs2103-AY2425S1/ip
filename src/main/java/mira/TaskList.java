@@ -78,6 +78,39 @@ public class TaskList {
     }
 
     /**
+     * Finds and returns a list of tasks that contain the given keyword in their description.
+     *
+     * <p>This method searches through the task list and collects all tasks that have the keyword
+     * in their descriptions. If no tasks are found, it returns a message indicating that no tasks
+     * matched the keyword. Otherwise, it returns a formatted string listing the matching tasks.</p>
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A formatted string listing the tasks that match the keyword, or a message indicating
+     *         that no tasks were found.
+     */
+    public String findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.containsKeyword(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            return "No tasks found with the keyword: " + keyword;
+        } else {
+            StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                result.append(i + 1).append(".").append(matchingTasks.get(i));
+                if (i < matchingTasks.size() - 1) {
+                    result.append("\n"); // Add newline only if it is not the last task
+                }
+            }
+            return result.toString();
+        }
+    }
+
+    /**
      * Retrieves the task at the specified index.
      *
      * @param index The index of the task to retrieve (1-based index).

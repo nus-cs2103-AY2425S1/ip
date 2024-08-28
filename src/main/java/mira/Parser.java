@@ -5,6 +5,7 @@ import mira.command.DeadlineCommand;
 import mira.command.DeleteCommand;
 import mira.command.EventCommand;
 import mira.command.ExitCommand;
+import mira.command.FindCommand;
 import mira.command.ListCommand;
 import mira.command.MarkCommand;
 import mira.command.TodoCommand;
@@ -65,6 +66,8 @@ public class Parser {
             String from = eventParts[1].trim();
             String to = eventParts[2].trim();
             return new EventCommand(eventDesc, from, to);
+        case "find":
+            return new FindCommand(arguments);
         default:
             throw new MiraException("I'm sorry, I don't understand that command.");
         }
