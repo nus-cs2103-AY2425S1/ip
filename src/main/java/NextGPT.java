@@ -192,6 +192,7 @@ public class NextGPT {
                         }
                         String name = line.split("/by")[0].trim();
                         String by = line.split("/by")[1].trim();
+
                         if (name.length() == 0 || by.length() == 0) {
                             throw new Exception(("Event names/to/from must not be empty please!"));
                         }
@@ -220,6 +221,11 @@ public class NextGPT {
                         if (index > todo_list.size() || index <= 0)
                             throw new Exception("Task is not within the saved list! Please double check");
                         Task task = todo_list.remove(index - 1);
+                        try {
+                            saveToList();
+                        } catch (IOException e) {
+
+                        }
                         System.out.println("_______________________________________________________\n " +
                                 "Noted. I've removed this task:\n " + task + "\n" +
                                 "Now you have " + todo_list.size() + " tasks in the list." + "\n" +
