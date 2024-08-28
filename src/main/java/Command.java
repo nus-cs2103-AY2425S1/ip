@@ -63,7 +63,6 @@ public class Command {
     }
 
     public static void main(String[] args) {
-        new Command("event  project  meeting    /from    Mon    2pm    /to       4pm");
+        System.out.println(new Command("ddl meet /by 8/29").keywordParams);
     }
-
 }
