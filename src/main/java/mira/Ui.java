@@ -3,13 +3,11 @@ package mira;
 import java.util.Scanner;
 
 /**
- * Ui handles all user interface interactions for the Mira chatbot,
- * including reading commands, and displaying messages.
+ * Ui handles all user interface interactions for the Mira chatbot.
+ * It includes reading commands, and displaying messages.
  */
 public class Ui {
-    /**
-     * Scanner object to read user input from the console.
-     */
+    /* Scanner object to read user input from the console. */
     private final Scanner scanner;
 
     public Ui() {

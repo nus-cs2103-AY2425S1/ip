@@ -15,10 +15,10 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Checks whether the given command is an instance of {@code mira.command.ExitCommand}.
+     * Checks whether the given command is an instance of {@code ExitCommand}.
      *
      * @param command The command to check.
-     * @return {@code true} if the command is an {@code mira.command.ExitCommand}; {@code false} otherwise.
+     * @return {@code true} if the command is an {@code ExitCommand}; {@code false} otherwise.
      */
     public static boolean isExit(Command command) {
         return command instanceof ExitCommand;

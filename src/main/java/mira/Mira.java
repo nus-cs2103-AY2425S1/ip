@@ -15,6 +15,17 @@ public class Mira {
     private final Storage storage; // storage for saving, loading tasks
     private TaskList tasks; // Manages tasks
 
+    /**
+     * Constructs a new {@code Mira} instance, initializing the UI, storage, and task list.
+     * <p>
+     * This constructor attempts to load the tasks from the specified file path. If the tasks
+     * cannot be loaded due to an error, it displays an appropriate message to the user and
+     * initializes an empty task list.
+     * </p>
+     *
+     * @param filePath The path to the file where tasks will be stored and loaded from.
+     *                 If the file does not exist, it will be created.
+     */
     public Mira(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);

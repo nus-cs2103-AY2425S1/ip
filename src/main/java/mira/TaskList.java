@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * TaskList handles adding and listing of tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks; // Array to store tasks
+    /* Array to store tasks */
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs a new TaskList with empty list.
@@ -44,6 +45,8 @@ public class TaskList {
 
     /**
      * Lists all the tasks currently stored in the task list.
+     *
+     * @return The string representation of the entire task list.
      */
     public String listTasks() {
         StringBuilder tasksList = new StringBuilder("Here are the tasks in your list:\n");

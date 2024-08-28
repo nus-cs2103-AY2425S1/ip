@@ -10,7 +10,7 @@ public abstract class Command {
     protected TaskList taskList;
 
     /**
-     * Sets the {@code mira.TaskList} that this command will operate on.
+     * Sets the {@code TaskList} that this command will operate on.
      *
      * @param taskList The task list to be used by this command.
      */

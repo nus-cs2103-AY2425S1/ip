@@ -25,7 +25,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the string format of Todo task to be saved for storage.
+     * Returns the string format of Todo task to be saved for storage.
      *
      * @return A specified format string for storage.
      */
@@ -35,8 +35,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a string representation of the ToDo task,
-     * including its type, status icon, and description.
+     * Returns a string representation of the ToDo task.
+     * It includes its type, status icon, and description.
      *
      * @return The task's type "[T]", status icon, and description.
      */

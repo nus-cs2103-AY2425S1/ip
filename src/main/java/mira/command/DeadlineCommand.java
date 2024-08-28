@@ -13,7 +13,7 @@ public class DeadlineCommand extends Command implements Savable {
     private final Deadline deadline;
 
     /**
-     * Constructs a {@code mira.command.DeadlineCommand} with the specified description and due date.
+     * Constructs a {@code DeadlineCommand} with the specified description and due date.
      *
      * @param description The description of the deadline task.
      * @param by The due date of the deadline task.

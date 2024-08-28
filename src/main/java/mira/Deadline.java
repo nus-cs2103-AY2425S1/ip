@@ -35,7 +35,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the string format of Deadline task to be saved for storage.
+     * Returns a string format of Deadline task to be saved for storage.
      *
      * @return A specified format string for storage.
      */
@@ -45,8 +45,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task,
-     * including its type, status icon, description, and deadline.
+     * Returns a string representation of the Deadline task.
+     * It includes its type, status icon, description, and deadline.
      *
      * @return The task's type "[D]", status icon, description, and deadline.
      */
