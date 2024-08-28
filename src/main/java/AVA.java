@@ -12,10 +12,11 @@ public class AVA {
     private String currentInput;
 
     /**
-     * Task.TaskManager for AVA
-     * its initialized on ava's creation
-     *
-     * final to avoid unnecessary modifications
+     * TaskManager for AVA
+     * <br>
+     * initialized on ava's creation
+     * <br><br>
+     * <code>final</code> to avoid unnecessary modifications
      */
     private final TaskManager taskManager;
 
@@ -27,7 +28,7 @@ public class AVA {
     }
 
     /**
-     * Main function which decides if AVA is running or not
+     * Decides if AVA is running or not
      * //TODO: switch to a state based system like Operating System Threads
      * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise
      */
@@ -36,7 +37,7 @@ public class AVA {
     }
 
     /**
-     * updates the currentInput with the user input
+     * Updates the currentInput with the user input
      * @param s the user input
      */
     public void tellAva(String s) {
@@ -45,7 +46,7 @@ public class AVA {
 
     //todo:have a non printstream version
     /**
-     * method to print AVA's response to given PrintStream
+     * Prints AVA's response to given PrintStream
      * @param out PrintStream to print AVA's response to
      * //TODO:refactor mark and unmark to remove redundancy
      */
@@ -104,7 +105,10 @@ public class AVA {
     }
 
     /**
-     * Main Driver method running AVA
+     *  Runs AVA
+     *
+     *  <br>
+     *  Main driver method running AVA
      */
     public static void main(String[] args) {
         TextUI.run();
