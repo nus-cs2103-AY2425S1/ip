@@ -8,19 +8,24 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.nio.file.Path;
+
 
 public class Storage {
-    public String path;
+    public Path path;
+    public Path file;
 
     public Storage(String path) {
-        this.path = path;
+        this.path = Paths.get(path);
+        this.file = Paths.get(path + "tissue.csv");
     }
 
     public void save(Task task) {
         String parsedTask = parseTask(task);
         try {
-            Files.createDirectories(Paths.get(path));
-            Files.write(Paths.get(path + "tissue.csv"), parsedTask.getBytes(StandardCharsets.UTF_8),
+            Files.createDirectories(path);
+            Files.write(file, parsedTask.getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println(e);
@@ -29,7 +34,7 @@ public class Storage {
 
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(path + "tissue.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file.toString()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
@@ -73,6 +78,22 @@ public class Storage {
             temp = String.format("D,%s,%s,%s\n", dl.getDone() ? 1 : 0, dl.getTask(), dl.getBy());
         }
         return temp;
+    }
+
+    public void delete(int line) {
+        try {
+            List<String> lines = Files.readAllLines(file);
+            if (line <= lines.size()) {
+                lines.remove(line - 1);
+                Files.write(file, lines);
+                System.out.println("Line " + line + " deleted successfully.");
+            } else {
+                System.out.println("Line number out of range.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

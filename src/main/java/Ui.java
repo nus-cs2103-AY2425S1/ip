@@ -42,7 +42,9 @@ public class Ui {
                 System.out.println(INDENT + "  " + task);
 
             } else if (in.equals("delete")) {
-                Task task = taskList.deleteTask(parser.retrieveNextInt());
+                int line = parser.retrieveNextInt();
+                Task task = taskList.deleteTask(line);
+                storage.delete(line);
                 System.out.println(INDENT + "Noted. I've removed this task:");
                 System.out.println(INDENT + "  " + task);
                 System.out.println(
