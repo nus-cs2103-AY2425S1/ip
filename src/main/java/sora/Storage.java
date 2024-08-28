@@ -1,3 +1,11 @@
+package sora;
+
+import sora.Tasks.Deadline;
+import sora.Tasks.Event;
+import sora.Tasks.Task;
+import sora.Tasks.TaskList;
+import sora.Tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,14 +19,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    protected String saveTaskString(TaskList taskList) {
+    public String saveTaskString(TaskList taskList) {
         return taskList.getTaskList().stream()
                 .map(Task::getTaskDetails)
                 .map(x -> String.join(" | ", x) + "\n")
                 .reduce("", (x, y) -> x + y);
     }
 
-    protected void saveTaskList(TaskList taskList) {
+    public void saveTaskList(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
             fileWriter.write(saveTaskString(taskList));
@@ -28,7 +36,7 @@ public class Storage {
         }
     }
 
-    protected void loadTaskList(TaskList taskList) throws SoraException {
+    public void loadTaskList(TaskList taskList) throws SoraException {
         File file = new File(this.filePath);
         try {
             if (!file.exists()) {
