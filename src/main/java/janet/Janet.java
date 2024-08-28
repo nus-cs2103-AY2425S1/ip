@@ -77,7 +77,11 @@ public class Janet {
                 System.out.println(e.getMessage());
             }
         }
-        storage.saveToJanetTextFile(tasks.getListOfTasks());
+        try {
+            storage.saveToJanetTextFile(tasks.getListOfTasks());
+        } catch (JanetException e) {
+            ui.showSavingError();
+        }
     }
 
     public static void main(String[] args) throws IOException {
