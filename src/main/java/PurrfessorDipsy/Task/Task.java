@@ -1,6 +1,8 @@
 package PurrfessorDipsy.Task;
 
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Task {
     protected String description;
@@ -59,7 +61,13 @@ public class Task {
      */
     public boolean hasKeywordInDescription(String keyword) {
         if (keyword == null || description == null) return false;
-        return description.toLowerCase().contains(keyword.toLowerCase());
+
+        // Use word boundaries to ensure exact word matches
+        String regex = "\\b" + Pattern.quote(keyword.toLowerCase()) + "\\b";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(description.toLowerCase());
+
+        return matcher.find();
     }
 
     @Override
