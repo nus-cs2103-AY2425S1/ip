@@ -3,9 +3,8 @@ import java.io.*;
 
 public class Rainy {
     public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException {
-        System.out.println("Hello! I am RAINY - Responsive, Automated, Intelligence Network for You.");
-        System.out.println("I am a digital assistant designed to help you keep track of your day.");
-        System.out.println("So, what can I do for you today?");
+        UI ui = new UI();
+        ui.welcomeMessage();
         TaskTracker tm = new TaskTracker();
         Scanner sc = new Scanner(System.in);
 
@@ -33,9 +32,9 @@ public class Rainy {
                 }
                 trace++;
             }
-            System.out.println("Use me to track your ToDos/Deadlines/Events!");
+            ui.startTracking();
         } catch (FileNotFoundException e) {
-            System.out.println("Use me to track your ToDos/Deadlines/Events!");
+            ui.startTracking();
         }
         tm.receivedFirstInput();
         String messages = sc.nextLine();
@@ -78,7 +77,7 @@ public class Rainy {
                     if (count != -1) {
                         tm.markDone(count - 1);
                     } else {
-                        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
+                        ui.noCategoryDeclared();
                     }
                     break;
                 case UNMARK:
@@ -96,7 +95,7 @@ public class Rainy {
                     if (count != -1) {
                         tm.unmarkDone(count - 1);
                     } else {
-                        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
+                        ui.noCategoryDeclared();
                     }
                     break;
                 case DELETE:
@@ -114,23 +113,23 @@ public class Rainy {
                     if (count != -1) {
                         tm.delete(count - 1);
                     } else {
-                        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
+                        ui.noCategoryDeclared();
                     }
                     break;
                 case TODO:
                     if (input.length == 1) {
-                        System.out.println("You need to provide a description of your ToDo task, please try again!");
+                        ui.noToDoDescription();
                     } else {
                         tm.updateListToDo(splitByTask[0].substring(5));
                     }
                     break;
                 case DEADLINE:
                     if (input.length == 1) {
-                        System.out.println("You need to provide a description of your Deadline, please try again!");
+                        ui.noDeadlineDescription();
                     } else if (splitByTask.length == 1) {
-                        System.out.println("Please provide an end date for your Deadline!");
+                        ui.noEndDateDeadline();
                     } else if (splitByTask.length < 4) {
-                        System.out.println("Please input a date in the format MM/DD/YYYY!");
+                        ui.invalidDateDeadline();
                     }
                     else {
                         tm.updateListDeadline(splitByTask[0].substring(9), "" + splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5) + " " + splitByTask[3].substring(5, 9));
@@ -138,19 +137,20 @@ public class Rainy {
                     break;
                 case EVENT:
                     if (input.length == 1) {
-                        System.out.println("You need to provide a description of your Event, please try again!");
+                        ui.noEventDescription();
                     } else if (splitByTask.length < 5) {
-                        System.out.println("Please provide a proper date in MM/DD/YYYY format, as well as a start time and end time in HH:MM format for your Event!");
+                        ui.invalidEventDate();
                     } else {
                         tm.updateListEvent(splitByTask[0].substring(6), splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5), splitByTask[4]);
                     }
                     break;
                 case SORT:
                     tm.sortList();
-                    System.out.println("The task list has been sorted according to date!");
+                    ui.sortDone();
+                    System.out.println(tm.getList());
                     break;
                 case INVALID:
-                    System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
+                    ui.noCategoryDeclared();
                     break;
             }
             messages = sc.nextLine();
@@ -184,7 +184,6 @@ public class Rainy {
                 e.printStackTrace();
             }
         }
-        System.out.println("Goodbye! Have a nice day ahead!!");
-
+        ui.goodbyeMessage();
     }
 }

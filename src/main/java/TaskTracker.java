@@ -4,11 +4,13 @@ public class TaskTracker {
     private ArrayList<Task> taskList;
     private int counter;
     private boolean receivedInputs;
+    private UI ui;
 
     public TaskTracker() {
         this.taskList = new ArrayList<Task>();
         this.counter = 0;
         this.receivedInputs = false;
+        this.ui = new UI();
     }
     public int getCounter() {
         return this.counter;
@@ -38,32 +40,32 @@ public class TaskTracker {
 
     public void markDone(int z) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
-            System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
+            this.ui.noTasksAdded();
         } else if (z < 0 || z >= this.counter) {
-            throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
+            throw new InvalidIndexException(this.ui.invalidTask());
         }
         else {
             Task newTask = this.taskList.get(z);
             newTask.mark();
             this.taskList.set(z, newTask);
             if (this.receivedInputs) {
-                System.out.println("Well Done Champ! I've marked this task as done!");
+                this.ui.markedTask();
             }
         }
     }
 
     public void unmarkDone(int q) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
-            System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
+            this.ui.noTasksAdded();
         } else if (q < 0 || q >= this.counter) {
-            throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
+            throw new InvalidIndexException(this.ui.invalidTask());
         }
         else {
             Task newTask = this.taskList.get(q);
             newTask.unmark();
             this.taskList.set(q, newTask);
             if (this.receivedInputs) {
-                System.out.println("I've marked this task as undone! Please remember to complete it!");
+                this.ui.unmarkedTask();
             }
         }
     }
@@ -74,7 +76,7 @@ public class TaskTracker {
         this.taskList.add(new ToDo(s));
         this.counter++;
         if (this.receivedInputs) {
-            System.out.println("Gotcha!! Added this task to your list:");
+            this.ui.addedTask();
             System.out.println(this.taskList.get(this.counter - 1));
             System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
         }
@@ -84,7 +86,7 @@ public class TaskTracker {
         this.taskList.add(new Deadline(s, t));
         this.counter++;
         if (this.receivedInputs) {
-            System.out.println("Gotcha!! Added this task to your list:");
+            this.ui.addedTask();
             System.out.println(this.taskList.get(this.counter - 1));
             System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
         }
@@ -94,7 +96,7 @@ public class TaskTracker {
         this.taskList.add(new Event(s, t, u));
         this.counter++;
         if (this.receivedInputs) {
-            System.out.println("Gotcha!! Added this task to your list:");
+            this.ui.addedTask();
             System.out.println(this.taskList.get(this.counter - 1));
             System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
         }
@@ -102,11 +104,11 @@ public class TaskTracker {
 
     public void delete(int i) throws InvalidIndexException {
         if (this.counter == 0) {
-            System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before deleting them.");
+            this.ui.noTasksBeforeDelete();
         } else if (i < 0 || i >= this.counter) {
-            throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
+            throw new InvalidIndexException(this.ui.invalidTask());
         }
-        System.out.println("Alright I have removed this task: ");
+        this.ui.removedTask();
         System.out.println(this.taskList.get(i));
         this.taskList.remove(i);
         counter--;
