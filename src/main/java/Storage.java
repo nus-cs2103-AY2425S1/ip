@@ -1,10 +1,16 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class DataLoading {
+public class Storage {
+    private final String filePath;
+    private final File dbFile;
+
+    public Storage(String filePath) throws IOException {
+        this.filePath = filePath;
+        this.dbFile = this.getDbFile();
+    }
+
     public static String getCurrentPath() {
         String s = Paths.get("").toAbsolutePath().toString();
         return s;
@@ -14,21 +20,18 @@ public class DataLoading {
         return String.valueOf(Paths.get("data/db.txt"));
     }
 
-    public static File getDbFile() throws IOException {
-        File dbFile = new File(String.valueOf(Paths.get("data/db.txt")));
+    public File getDbFile() throws IOException {
+        File dbFile = new File(String.valueOf(Paths.get(this.filePath)));
         if (!dbFile.exists()) {
             dbFile.getParentFile().mkdirs();
             dbFile.createNewFile();
-            System.out.println("Created database file to store your data at: " + dbFile.getAbsolutePath());
-        } else {
-            System.out.println("Successfully Loaded your previous todo list from the database");
         }
         return dbFile;
     }
 
-    public static void save(ArrayList<Task> taskList) {
+    public void save(ArrayList<Task> taskList) {
         try {
-            FileOutputStream fos = new FileOutputStream(getDbFile());
+            FileOutputStream fos = new FileOutputStream(this.getDbFile());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             for (Task task : taskList) {
                 oos.writeObject(task);
@@ -39,10 +42,10 @@ public class DataLoading {
         }
     }
 
-    public static ArrayList<Task> loadData() {
+    public ArrayList<Task> loadData() {
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
-            FileInputStream fin = new FileInputStream(getDbFile());
+            FileInputStream fin = new FileInputStream(this.getDbFile());
             ObjectInputStream ois = new ObjectInputStream(fin);
             Object o;
             while(true) {
