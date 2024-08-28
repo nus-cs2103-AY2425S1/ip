@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.List;
-
 public class Parser {
     public static Task parseStorageFileLine(String line) {
         char START_IDX = 7;
