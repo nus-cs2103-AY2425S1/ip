@@ -26,6 +26,7 @@ public class LeBron {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
         this.parser = new Parser();
+
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
@@ -42,6 +43,7 @@ public class LeBron {
         String input;
         ui.showWelcomeMessage();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 input = ui.getUserCommand();

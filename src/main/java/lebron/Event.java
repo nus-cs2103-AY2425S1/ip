@@ -34,8 +34,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", super.getStatusIcons(), 
-        super.description, this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
-         this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+                super.description, this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                        this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     /**
@@ -47,7 +47,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return String.format("E | %d | %s | %s to %s", this.done ? 1 : 0, this.description, 
-          this.start, this.end);
+                this.start, this.end);
     }
 
     /**
