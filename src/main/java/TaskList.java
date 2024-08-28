@@ -14,6 +14,8 @@ public class TaskList {
             listOfTasks = TaskDataBase.load();
         } catch (IOException e) {
             Reply.printMessage("Oops! There is a issue with file database.");
+        } catch (InvalidDateException e) {
+            Reply.printMessage(e.toString());
         }
     }
 
