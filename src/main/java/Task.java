@@ -1,15 +1,18 @@
+package main.java;
+
 public class Task {
     private boolean isComplete;
     private String description;
 
     public Task(String description, int type) {
-        this.isComplete = type > 0 ? true : false;
+        this.isComplete = type > 0;
         this.description = description;
     }
 
     public String getDescription() {
         return this.description;
     }
+
     public void check() {
         this.isComplete = true;
     }
@@ -23,5 +26,10 @@ public class Task {
         String str = "";
         str = String.format((isComplete ? "[X]" : "[ ]") + " " + this.description);
         return str;
+    }
+
+    public String storageDisplay() {
+        String type = isComplete ? "1" : "0";
+        return " | " + type + " | " + this.description;
     }
 }

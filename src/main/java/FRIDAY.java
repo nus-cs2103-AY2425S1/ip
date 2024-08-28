@@ -1,19 +1,22 @@
+package main.java;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.ArrayIndexOutOfBoundsException;
 
 public class FRIDAY {
-    private Boolean isActive;
     private String userInput;
     private String output;
     private final String greeting, exitMessage;
     private String divider;
     private final ArrayList<Task> storage = new ArrayList<>();
-    private int storagePointer = 0;
 
     public FRIDAY() {
         //divider
@@ -38,49 +41,90 @@ public class FRIDAY {
         //initialize scanner object
         Scanner scanner = new Scanner(System.in);
         try {
-            String fileName = "../storage/FRIDAY.txt";
-            Scanner fileScanner = new Scanner(new File(fileName));
+            String fileName = "./storage/FRIDAY.txt";
+            File file = new File(fileName);
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                if (!parentDir.mkdirs()) {
+                    System.err.println("Failed to create directory: " + parentDir.getAbsolutePath());
+                    return; // Exit if directory creation fails
+                }
+            }
+            // Ensure the file exists
+            try {
+                if (!file.exists()) {
+                    if (!file.createNewFile()) {
+                        System.err.println("Failed to create the file: " + file.getAbsolutePath());
+                        return; // Exit if file creation fails
+                    }
+                    System.out.println("File created: " + file.getAbsolutePath());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return; // Exit if an exception occurs during file creation
+            }
+
+            Scanner fileScanner = new Scanner(file);
+            //read from file
             while(fileScanner.hasNextLine()) {
-                //data is saved as a string in the format type | completion | desc | deadline/duration
-                String[] retrievedTaskDetails = fileScanner.nextLine().split(" \\| ");
-                String taskType = retrievedTaskDetails[0];
-                Integer taskStatus = Integer.parseInt(retrievedTaskDetails[1]);
-                String taskDescription = retrievedTaskDetails[2];
-                Task retrievedTask;
-                switch(taskType) {
-                    case("T"):
-                        //todo
-                        retrievedTask = new ToDo(taskDescription, taskStatus);
-                        storage.add(retrievedTask);
-                        break;
-                    case("D"):
-                        //deadline
-                        String retrievedDeadline = retrievedTaskDetails[3];
-                        retrievedTask = new Deadline(taskDescription, retrievedDeadline, taskStatus);
-                        storage.add(retrievedTask);
-                        break;
-                    case("E"):
-                        //event
-                        String[] retrievedDuration = String.join(" ", retrievedTaskDetails[3].split("-")).split(" ");
-                        String date = retrievedDuration[0] + " " + retrievedDuration[1];
-                        String start = retrievedDuration[2];
-                        String end = retrievedDuration[3];
-                        retrievedTask = new Event(taskDescription, start, end, taskStatus);
-                        storage.add(retrievedTask);
-                        break;
-                    default:
-                        //throw error
-                        System.out.println("heehe");
-                        break;
+                try {
+                    //data is saved as a string in the format type | completion | desc | deadline/duration
+                    //E | 0 | assignment  from  2pm  to  4pm
+                    String[] retrievedTaskDetails = fileScanner.nextLine().split(" \\| ");
+                    String taskType = retrievedTaskDetails[0];
+                    Integer taskStatus = Integer.parseInt(retrievedTaskDetails[1]);
+                    String taskDescription = retrievedTaskDetails[2];
+                    Task retrievedTask;
+                    switch (taskType) {
+                        case ("T"):
+                            //todo
+                            retrievedTask = new ToDo(taskDescription, taskStatus);
+                            storage.add(retrievedTask);
+                            break;
+                        case ("D"):
+                            //deadline
+                            String retrievedDeadline = retrievedTaskDetails[3];
+                            retrievedTask = new Deadline(taskDescription, retrievedDeadline, taskStatus);
+                            storage.add(retrievedTask);
+                            break;
+                        case ("E"):
+                            //event
+                            //taskDescription = Aug 6th from  2pm  to  4pm
+                            //split duration by delimiter from and to get start and end time and date
+                            String[] retrievedDuration = retrievedTaskDetails[3].split("from|to");
+                            String date = retrievedDuration[0];
+                            String start = retrievedDuration[1];
+                            String end = retrievedDuration[2];
+                            retrievedTask = new Event(taskDescription, start, end, taskStatus);
+                            storage.add(retrievedTask);
+                            break;
+                        default:
+                            //throw error
+                            System.out.println("heehe");
+                            break;
+                    }
+                } catch (ArrayIndexOutOfBoundsException a) {
+                    System.out.println("possible file formatting error");
                 }
             }
         } catch(FileNotFoundException f) {
-            System.out.println("file not found");
+            String outputPath = "./storage/FRIDAY.txt";
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath));
+                    try {
+                        writer.write("");
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        storage.forEach(item -> System.out.println(item));
+    //debugging statement to verify state of storage
+        //storage.forEach(item -> System.out.println(item));
         //start the bot
-        isActive = true;
+        boolean isActive = true;
 
         //bot running
         System.out.println(greeting);
@@ -129,11 +173,14 @@ public class FRIDAY {
                         if (taskDetails.isEmpty()) {
                             throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
                         }
+                        //assignment from 2pm to 5pm
                         //create new event task
+                        //split the input with the whitespace, "from" and "to" delimiters
                         String[] eventDetails = taskDetails.split("/");
+                        String[] startEnd = eventDetails[1].split("to");
                         String eventDescription = eventDetails[0];
-                        String eventStart = eventDetails[1];
-                        String eventEnd = eventDetails[2];
+                        String eventStart = startEnd[0];
+                        String eventEnd = startEnd[1];
                         Task newEvent = new Event(eventDescription, eventStart, eventEnd, 0);
                         add(newEvent);
                         break;
@@ -147,6 +194,20 @@ public class FRIDAY {
                         break;
 
                     case ("bye"):
+                        String outputPath = "./storage/FRIDAY.txt";
+                        try {
+                            BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath));
+                            storage.forEach((task) -> {
+                                try {
+                                    writer.write(task.storageDisplay() + "\n");
+                                } catch (IOException e){
+                                    e.printStackTrace();
+                                }
+                            });
+                            writer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println(exitMessage);
                         isActive = false;
                         break;
@@ -169,7 +230,7 @@ public class FRIDAY {
 
     //function to add string to storage array
     public void add(Task input) {
-        //add the input to the array
+        //add the input to the arraylist
         storage.add(input);
         output = divider + "Got it. I've added this task:\n " + input.getDescription() + "\nNow you have " + storage.size() + " tasks in your list\n" + divider;
         System.out.println(output);
