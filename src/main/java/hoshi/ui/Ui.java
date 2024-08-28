@@ -73,6 +73,14 @@ public class Ui {
     }
 
     /**
+     * Displays text indicating text has been unmarked
+     */
+    public void displayTaskUnmarked(Task task) {
+        System.out.println("OK! I've marked this task as not done: \n");
+        System.out.println(task.toString() + "\n");
+    }
+
+    /**
      * Displays text requesting user to specify which task to delete
      */
     public void displayTaskToDelete() {

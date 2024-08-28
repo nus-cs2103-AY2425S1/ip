@@ -46,6 +46,7 @@ public class Hoshi {
             ui.displayPrompt();
             input = scanner.nextLine();
             parser.parseCommand(input, scanner, taskList, ui);
+
         } while (!input.equalsIgnoreCase("bye"));
 
         try {

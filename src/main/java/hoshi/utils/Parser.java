@@ -48,6 +48,7 @@ public class Parser {
             break;
 
         case "delete":
+
             handleDelete(input, taskList, ui);
             break;
 
@@ -68,7 +69,7 @@ public class Parser {
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui Ui that handles all user interaction
      */
-    private void handleMark(String input, TaskList taskList, Ui ui) {
+    public void handleMark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 5) {
 
@@ -112,7 +113,7 @@ public class Parser {
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui Ui that handles all user interaction
      */
-    private void handleUnmark(String input, TaskList taskList, Ui ui) {
+    public void handleUnmark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 7) {
             ui.displayTaskToMark();
@@ -136,10 +137,10 @@ public class Parser {
 
                     handleSave(ui, taskList);
 
-                    ui.displayTaskMarked(taskList.get(markIndex));
+                    ui.displayTaskUnmarked(taskList.get(markIndex));
 
                 } else {
-                    throw new HoshiException("Hoshi doesn't have such a task! \n");
+                    throw new HoshiException("Hoshi doesn't have such a task!");
                 }
 
             } catch (HoshiException e) {
@@ -155,26 +156,40 @@ public class Parser {
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui Ui that handles all user interaction
      */
-    private void handleDelete(String input, TaskList taskList, Ui ui) {
+    public void handleDelete(String input, TaskList taskList, Ui ui) {
 
-        if (input.length() < 7) {
-            ui.displayTaskToDelete();
+
+
+        if (input.trim().length() < 7) {
+            ui.displayError("Hoshi doesn't understand, try a different input?");
+
         } else {
-
             String trimmedInput = input.trim();
 
             char taskNo = trimmedInput.charAt(trimmedInput.length() - 1);
 
             // get only the number from the 2nd half of the splitInput
-
             int markIndex = Character.getNumericValue(taskNo) - 1;
 
-            ui.displayTaskDeleted(taskList.get(markIndex));
-            taskList.delete(markIndex);
+            try {
 
-            handleSave(ui, taskList);
+                // if specified index is not out of bounds
+                if (markIndex <= taskList.size() - 1) {
 
+                    ui.displayTaskDeleted(taskList.get(markIndex));
 
+                    // delete the task
+                    taskList.delete(markIndex);
+
+                    handleSave(ui, taskList);
+
+                } else {
+                    throw new HoshiException("Hoshi doesn't have such a task!");
+                }
+
+            } catch (HoshiException e) {
+                ui.displayError(e.getMessage());
+            }
         }
     }
 
@@ -186,7 +201,7 @@ public class Parser {
      * @param scanner Scanner that allows user input to be read.
      * @param taskList TaskList of 3 types of tasks that will be added to in this method.
      */
-    private void handleAdd(String input, Scanner scanner, TaskList taskList, Ui ui) {
+    public void handleAdd(String input, Scanner scanner, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 4) {
 
