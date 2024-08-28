@@ -52,5 +52,7 @@ public final class ReplyTextMessages {
     public static final String INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES = "Missing Data Values";
     public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse value - %s";
     public static final String SAVEFILE_IO_EXCEPTION_1s = "Unable to save list to disk - %s";
-
+    public static final String TIME_PARSE_HINT = "Time value must be given in any valid date-time format!";
+    public static final String SAVE_FILE_ERROR_1s = "Error encountered while saving savefile:\n%s";
+    public static final String LOAD_FILE_ERROR_1s = "Error encountered while loading savefile:\n%s";
 }

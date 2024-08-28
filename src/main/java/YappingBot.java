@@ -252,6 +252,7 @@ public class YappingBot {
         }
     }
     private static void loadListFromFile() throws YappingBotSaveFileNotFoundException, YappingBotInvalidSaveFileException{
+        StringBuilder error_list = new StringBuilder();
         try {
             File saveFile = new File(LIST_SAVE_PATH);
             Scanner scanner = new Scanner(saveFile);
@@ -282,11 +283,14 @@ public class YappingBot {
                     }
                     userList.add(t);
                 } catch (YappingBotException e) {
-                    System.out.println(quoteMultilineText(e.getMessage()));
+                    error_list.append(quoteMultilineText(e.getMessage()));
                 }
             }
         } catch (FileNotFoundException e) {
             throw new YappingBotSaveFileNotFoundException();
+        }
+        if (!error_list.isEmpty()) {
+            throw new YappingBotException(error_list.toString());
         }
     }
     private static void saveListToFile() throws YappingBotSaveFileIOException {
@@ -306,7 +310,7 @@ public class YappingBot {
         try {
             loadListFromFile();
         } catch (YappingBotException e) {
-            System.out.println(quoteMultilineText(e.getMessage()));
+            System.out.println(quoteMultilineText(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, e.getMessage())));
         }
 
         System.out.println(quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
@@ -355,7 +359,7 @@ public class YappingBot {
         try {
             saveListToFile();
         } catch (YappingBotException e) {
-            System.out.println(quoteMultilineText(e.getMessage()));
+            System.out.println(quoteMultilineText(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage())));
         }
         System.out.println(quoteMultilineText(ReplyTextMessages.EXIT_TEXT));
     }

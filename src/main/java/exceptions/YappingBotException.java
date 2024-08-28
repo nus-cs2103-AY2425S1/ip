@@ -1,6 +1,6 @@
 package exceptions;
 
-public abstract class YappingBotException extends RuntimeException {
+public class YappingBotException extends RuntimeException {
     public YappingBotException() {
         super();
     }
