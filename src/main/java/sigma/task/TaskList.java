@@ -1,6 +1,7 @@
 package sigma.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks that can be managed (added, deleted, retrieved).
@@ -72,12 +73,9 @@ public class TaskList {
      * @return A {@code TaskList} containing all tasks that match the keyword.
      */
     public TaskList search(String keyword) {
-        ArrayList<Task> filtered = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.containsKeyword(keyword)) {
-                filtered.add(task);
-            }
-        }
+        ArrayList<Task> filtered = tasks.stream()
+                .filter(task -> task.containsKeyword(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
         return new TaskList(filtered);
     }
 }

@@ -69,6 +69,7 @@ public class MainWindow extends AnchorPane {
      * @param s The Sigma instance to be used by this controller.
      */
     public void setSigma(Sigma s) {
+        assert s != null;
         sigma = s;
     }
 
