@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;  // Import the Scanner class
 
 public class Ai {
@@ -11,18 +14,81 @@ public class Ai {
     static final String closing = "Don't you wanna get my autograph first?\n"
             + "Aww okie :,( See ya!!\n";
     static final String line = "____________________________________________________________\n";
+    static final String DIRECTORY_PATH = "./data";
+    static final String FILE_PATH = "./data/ai.txt";
 
-    public void readFileContents(String path) throws FileNotFoundException {
-        File f = new File(path);
-        Scanner s = new Scanner(f);
+    public void readFileContents() {
+        try {
+            File dir = new File(DIRECTORY_PATH);
 
-        while (s.hasNext()) {
-            add(readFileLine(s.nextLine()));
+            dir.mkdirs();
+
+            if (!dir.exists()) {
+                System.out.println("Path created");
+            }
+
+            File f = new File(FILE_PATH);
+            Scanner s = new Scanner(f);
+
+
+            f.createNewFile();
+            // Check if file exists
+            if (!f.exists()) {
+                // Create file
+                System.out.println("File created");
+            }
+
+            // File exists, read from file
+            while (s.hasNext()) {
+                add(readFileLine(s.nextLine()));
+            }
+
+            s.close();
+        } catch (IOException | AiException e) {
         }
     }
 
-    public Task readFileLine(String s) {
-        return null;
+    public Task readFileLine(String input) throws AiException {
+        try {
+            String[] parsedInput = input.split(" \\| ", 3);
+            String taskType = parsedInput[0];
+            Boolean isDone = parsedInput[1].equals("1");
+            String taskDesc = parsedInput[2];
+
+            if (taskType.equals("T")) {
+                return new ToDo(taskDesc, isDone);
+            } else if (taskType.equals("D")) {
+                String[] parsedDateDesc = taskDesc.split(" \\| ", 2);
+                String descDeadline = parsedDateDesc[0];
+                String date = parsedDateDesc[1];
+
+                return new Deadline(descDeadline, date, isDone);
+            } else {
+                String[] parsedFromToDesc = taskDesc.split(" \\| ", 2);
+                String descEvent = parsedFromToDesc[0];
+                String fromTo = parsedFromToDesc[1];
+
+                String[] parsedDate = fromTo.split(" - ",2);
+                String from = parsedDate[0];
+                String to = parsedDate[1];
+
+                return new Event(descEvent, from, to, isDone);
+
+            }
+        } catch (Exception e) {
+            throw new AiException("Ahh dearr, I think your lines might be a teeny tiny buggyyy :p");
+        }
+    }
+
+    public void writeFile(String path) {
+        try {
+            FileWriter fw = new FileWriter(path);
+            for (Task task : tasks) {
+                fw.write(task.stringData() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+        }
     }
 
     public void list() {
@@ -85,6 +151,8 @@ public class Ai {
     public static void main(String[] args) throws AiException {
         Ai ai = new Ai();
 
+        ai.readFileContents();
+
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
         System.out.println(line + greetings + line);
@@ -142,6 +210,8 @@ public class Ai {
                             + "wanna try typing smth else??\n" + line);
                     break;
                 }
+
+                ai.writeFile(FILE_PATH);
             } catch (AiException e) {
                 System.out.println(e.getMessage() + "\n" + line);
             }
