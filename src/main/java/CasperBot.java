@@ -5,6 +5,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class CasperBot {
@@ -88,54 +90,61 @@ public class CasperBot {
                     HashMap<String, String> hashMap = new HashMap<>();
                     parseBySlash(inputArray[1], hashMap);
                     CreateCommand command = CreateCommand.valueOf(inputArray[0].trim().toUpperCase());
-                    switch (command) {
-                    case TODO:
-                        String todoDescription = hashMap.get("description");
-                        if (todoDescription.isEmpty()) {
-                            throw new CasperBotMissingInputException("description", "ToDo");
+                    try {
+                        switch (command) {
+                        case TODO:
+                            String todoDescription = hashMap.get("description");
+                            if (todoDescription.isEmpty()) {
+                                throw new CasperBotMissingInputException("description", "ToDo");
+                            }
+                            ToDo newToDo = new ToDo(todoDescription, false);
+                            TASK_LIST.add(newToDo);
+                            writeToFile(newToDo);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + newToDo);
+                            break;
+                        case DEADLINE:
+                            String deadlineDescription = hashMap.get("description");
+                            if (deadlineDescription.isEmpty()) {
+                                throw new CasperBotMissingInputException("description", "Deadline");
+                            }
+                            String deadline = hashMap.get("by");
+                            if (deadline == null || deadline.isEmpty()) {
+                                throw new CasperBotMissingInputException("/by", "Deadline");
+                            }
+                            LocalDate dateOfDeadline = LocalDate.parse(deadline);
+                            Deadline newDeadline = new Deadline(deadlineDescription, false, dateOfDeadline);
+                            TASK_LIST.add(newDeadline);
+                            writeToFile(newDeadline);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + newDeadline);
+                            break;
+                        case EVENT:
+                            String eventDescription = hashMap.get("description");
+                            if (eventDescription.isEmpty()) {
+                                throw new CasperBotMissingInputException("description", "Event");
+                            }
+                            String start = hashMap.get("from");
+                            if (start == null || start.isEmpty()) {
+                                throw new CasperBotMissingInputException("/from", "Event");
+                            }
+                            LocalDate dateOfStart = LocalDate.parse(start);
+                            String end = hashMap.get("to");
+                            if (end == null || end.isEmpty()) {
+                                throw new CasperBotMissingInputException("/to", "Event");
+                            }
+                            LocalDate dateOfEnd = LocalDate.parse(end);
+                            Event newEvent = new Event(eventDescription, false, dateOfStart, dateOfEnd);
+                            TASK_LIST.add(newEvent);
+                            writeToFile(newEvent);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + newEvent);
+                            break;
                         }
-                        ToDo newToDo = new ToDo(todoDescription, false);
-                        TASK_LIST.add(newToDo);
-                        writeToFile(newToDo);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + newToDo);
-                        break;
-                    case DEADLINE:
-                        String deadlineDescription = hashMap.get("description");
-                        if (deadlineDescription.isEmpty()) {
-                            throw new CasperBotMissingInputException("description", "Deadline");
-                        }
-                        String deadline = hashMap.get("by");
-                        if (deadline == null || deadline.isEmpty()) {
-                            throw new CasperBotMissingInputException("/by", "Deadline");
-                        }
-                        Deadline newDeadline = new Deadline(deadlineDescription, false, deadline);
-                        TASK_LIST.add(newDeadline);
-                        writeToFile(newDeadline);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + newDeadline);
-                        break;
-                    case EVENT:
-                        String eventDescription = hashMap.get("description");
-                        if (eventDescription.isEmpty()) {
-                            throw new CasperBotMissingInputException("description", "Event");
-                        }
-                        String start = hashMap.get("from");
-                        if (start == null || start.isEmpty()) {
-                            throw new CasperBotMissingInputException("/from", "Event");
-                        }
-                        String end = hashMap.get("to");
-                        if (end == null || end.isEmpty()) {
-                            throw new CasperBotMissingInputException("/to", "Event");
-                        }
-                        Event newEvent = new Event(eventDescription, false, start, end);
-                        TASK_LIST.add(newEvent);
-                        writeToFile(newEvent);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + newEvent);
-                        break;
+                        printTaskListLength();
+                    } catch (DateTimeParseException e) {
+                        throw new CasperBotInvalidDateException();
                     }
-                    printTaskListLength();
                 } else if (inputArray[0].equalsIgnoreCase("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                 } else {
@@ -211,12 +220,12 @@ public class CasperBot {
                     TASK_LIST.add(new ToDo(description, isDone));
                     break;
                 case "D":
-                    String deadline = values[3];
+                    LocalDate deadline = LocalDate.parse(values[3]);
                     TASK_LIST.add(new Deadline(description, isDone, deadline));
                     break;
                 case "E":
-                    String start = values[3];
-                    String end = values[4];
+                    LocalDate start = LocalDate.parse(values[3]);
+                    LocalDate end = LocalDate.parse(values[4]);
                     TASK_LIST.add(new Event(description, isDone, start, end));
                     break;
                 }
@@ -228,7 +237,6 @@ public class CasperBot {
                     System.out.println("New file created successfully!");
                 }
             } catch (IOException ioException) {
-                // Handle potential IOException from createNewFile()
                 throw new CasperBotIOException();
             }
         } catch (IOException e) {
@@ -238,7 +246,7 @@ public class CasperBot {
 
     private static void writeToFile(Task task) throws CasperBotIOException {
         try {
-            FileWriter writer = new FileWriter("chatbot.txt");
+            FileWriter writer = new FileWriter("chatbot.txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
             boolean isDone = task.getStatusIcon().equals("X");
             String description = task.getDescription();
@@ -256,6 +264,7 @@ public class CasperBot {
                 bufferedWriter.write("D|" + taskString + "|" + event.getStart() + "|" + event.getEnd());
                 break;
             }
+            bufferedWriter.newLine();
             bufferedWriter.close();
         } catch (IOException e) {
             throw new CasperBotIOException();
@@ -266,17 +275,14 @@ public class CasperBot {
          // Path to your file
 
         try {
-            // Read all lines from the file into a list
             Path path = Paths.get(FILE_PATH);
             List<String> lines = Files.readAllLines(path);
 
             if (line >= 0 && line < lines.size()) {
-                // Remove the line
                 lines.remove(line);
             } else {
                 throw new CasperBotOutOfBoundsException();
             }
-            // Write the updated content back to the file
             Files.write(path, lines);
         } catch (IOException e) {
             throw new CasperBotIOException();
@@ -285,7 +291,6 @@ public class CasperBot {
 
     private static void updateDoneStatus(int line, boolean isDone) throws CasperBotIOException, CasperBotOutOfBoundsException {
         try {
-            // Read all lines from the file into a list
             Path path = Paths.get(FILE_PATH);
             List<String> lines = Files.readAllLines(path);
 
@@ -299,7 +304,6 @@ public class CasperBot {
             } else {
                 throw new CasperBotOutOfBoundsException();
             }
-            // Write the updated content back to the file
             Files.write(path, lines);
         } catch (IOException e) {
             throw new CasperBotIOException();

@@ -1,9 +1,11 @@
 package main.java;
 
+import java.time.LocalDate;
+
 public class Event extends Task {
-    private String start;
-    private String end;
-    public Event(String description, boolean isDone, String start, String end) {
+    private LocalDate start;
+    private LocalDate end;
+    public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
         super(description, "E", isDone);
         this.start = start;
         this.end = end;
@@ -12,15 +14,15 @@ public class Event extends Task {
     @Override
     public String toString() {
         String superString = super.toString();
-        String dueDate = String.format(" (from: %s to: %s)", this.start, this.end);
+        String dueDate = String.format(" (from: %s to: %s)", this.formatDate(this.start), this.formatDate(this.end));
         return superString + dueDate;
     }
 
     public String getStart() {
-        return this.start;
+        return this.start.toString();
     }
 
     public String getEnd() {
-        return this.end;
+        return this.end.toString();
     }
 }

@@ -1,8 +1,14 @@
 package main.java;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public abstract class Task {
     private String description;
     private String taskType;
     private boolean isDone;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
 
     public Task(String description, String taskType, boolean isDone) {
         this.description = description;
@@ -33,5 +39,9 @@ public abstract class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    protected String formatDate(LocalDate dateTime) {
+        return dateTime.format(FORMATTER);
     }
 }
