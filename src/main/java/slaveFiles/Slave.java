@@ -479,7 +479,7 @@ public class Slave {
 
     /**
      * prints all deadlines / events occuring on the specified date
-     * @param s
+     * @param s is the date input provided by user
      */
     private static void scheduleOn(String s) {
         if (s.isEmpty()) {
