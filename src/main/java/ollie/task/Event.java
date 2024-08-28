@@ -1,4 +1,4 @@
-package ollie;
+package ollie.task;
 
 public class Event extends Task {
 

@@ -1,4 +1,9 @@
-package ollie;
+package ollie.command;
+
+import ollie.Storage;
+import ollie.task.Task;
+import ollie.TaskList;
+import ollie.Ui;
 
 public class AddCommand extends Command {
     Task task;

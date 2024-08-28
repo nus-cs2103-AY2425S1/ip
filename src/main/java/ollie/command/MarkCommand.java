@@ -1,4 +1,8 @@
-package ollie;
+package ollie.command;
+
+import ollie.*;
+import ollie.exception.OllieException;
+import ollie.task.Task;
 
 public class MarkCommand extends Command{
     int index;

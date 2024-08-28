@@ -1,3 +1,12 @@
+package ollie;
+
+import ollie.exception.CorruptFileException;
+import ollie.exception.OllieException;
+import ollie.task.Deadline;
+import ollie.task.Event;
+import ollie.task.Task;
+import ollie.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

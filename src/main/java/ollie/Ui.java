@@ -1,3 +1,8 @@
+package ollie;
+
+import ollie.exception.OllieException;
+import ollie.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {

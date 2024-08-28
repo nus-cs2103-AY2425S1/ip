@@ -1,4 +1,9 @@
-package ollie;
+package ollie.command;
+
+import ollie.exception.OllieException;
+import ollie.Storage;
+import ollie.TaskList;
+import ollie.Ui;
 
 public class ExitCommand extends Command {
     public ExitCommand() {
