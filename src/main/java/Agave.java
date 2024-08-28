@@ -107,7 +107,7 @@ public class Agave {
             System.out.println("  [D][ ] " + description + " (by: " + by + ")");
             taskManager.showNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the deadline in the correct format: 'deadline <description> /by <yyyy-MM-dd HHmm>'.");
+            throw new AgaveException("Please enter the deadline in the correct format: 'deadline <description> /by <yyyy/MM/dd HHmm>'.");
         }
     }
 
@@ -125,7 +125,7 @@ public class Agave {
             System.out.println("  [E][ ] " + description + " (from: " + from + " to: " + to + ")");
             taskManager.showNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>'.");
+            throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <yyyy/MM/dd HHmm> /to <yyyy/MM/dd HHmm>'.");
         }
     }
 
