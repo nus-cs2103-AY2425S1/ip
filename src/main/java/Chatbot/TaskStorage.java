@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class TaskStorage {
     private final Map<Integer, Task> tasks;
-    private final HarddiskStorage harddiskStorage;
+    private final HarddiskStorage hardDiskStorage;
     private int autoIncrementId;
 
-    public TaskStorage(HarddiskStorage harddiskStorage) {
-        this.harddiskStorage = harddiskStorage;
+    public TaskStorage(HarddiskStorage hardDiskStorage) {
+        this.hardDiskStorage = hardDiskStorage;
 
         // Attempt to load tasks from the hard disk storage
-        Map<Integer, Task> loadedTasks = this.harddiskStorage.load();
+        Map<Integer, Task> loadedTasks = this.hardDiskStorage.load();
 
         // Initialize the tasks map based on the loaded data
         if (loadedTasks != null && !loadedTasks.isEmpty()) {
@@ -30,7 +30,7 @@ public class TaskStorage {
 
     public void addTask(Task task) {
         tasks.put(autoIncrementId, task);
-        this.harddiskStorage.save(tasks);
+        this.hardDiskStorage.save(tasks);
         autoIncrementId++;
     }
 
@@ -38,7 +38,7 @@ public class TaskStorage {
         Task task = tasks.get(taskId);
         if (task != null) {
             task.markDone();
-            this.harddiskStorage.save(tasks);
+            this.hardDiskStorage.save(tasks);
         } else {
             System.out.println("    Invalid task ID.");
         }
@@ -50,7 +50,7 @@ public class TaskStorage {
 
     public void deleteTask(int taskId) {
         tasks.remove(taskId);
-        this.harddiskStorage.save(tasks);
+        this.hardDiskStorage.save(tasks);
     }
 
     public int getTaskCount() {
