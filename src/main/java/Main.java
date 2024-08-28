@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws TaskDescriptionEmptyException {
         PoChat poChat = new PoChat();
+        ChatData chatData = new ChatData("src//main//chat_data.txt");
+        poChat.load(chatData);
         poChat.sayHello();
 
         Scanner scanner = new Scanner(System.in);
@@ -67,6 +69,7 @@ public class Main {
             } else {
                 poChat.replyToInvalidInput();
             }
+            poChat.save(chatData);
         }
     }
 }
