@@ -12,6 +12,10 @@ public class Deadlines extends Task {
         if (done.equals("1")) {super.setDone();}
     }
 
+    public String getDeadlineOfTask() {
+        return deadlineOfTask;
+    }
+
     @Override
     public String toString() {
         return "[D] " + super.toString() + "(by: " + deadlineOfTask + ")";

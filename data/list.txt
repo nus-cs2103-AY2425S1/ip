@@ -1,2 +1,6 @@
-T | dooo | 1
-T | doooo | 0
+T | play | 1
+T | play | 0
+D | playy | 2pm | 1
+D | playy | 4pm | 0
+E | playyy | 2pm | 4pm | 1
+E | playyy | 3pm | 7pm | 0

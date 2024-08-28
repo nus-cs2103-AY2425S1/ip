@@ -15,6 +15,14 @@ public class Events extends Task {
         if (done.equals("1")) {super.setDone();}
     }
 
+    public String getStartOfEvent() {
+        return startOfEvent;
+    }
+
+    public String getEndOfEvent() {
+        return endOfEvent;
+    }
+
     @Override
     public String toString() {
         return "[E] " + super.toString() + "(from: " + startOfEvent + "to: " + endOfEvent + ")";
