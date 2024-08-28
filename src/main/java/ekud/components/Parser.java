@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Parser {
     public static int parseInt(String input) throws EkudException {
         try {
-            return Integer.parseInt(input) - 1;
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             String error = String.format("""
                             Now look what you've done!!
