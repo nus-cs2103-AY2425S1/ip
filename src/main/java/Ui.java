@@ -1,41 +1,44 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
 
-    private static final String LINE = "____________________________________________________________";
-    private static final String NAME = "Bob";
-    private final Scanner scanner;
-
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
-
-    public void showWelcomeMessage() {
-        System.out.println(LINE);
-        System.out.printf("Hello! I'm %s!\n", NAME);
+    public void showWelcomeMessage(String botName) {
+        System.out.println("____________________________________________________________");
+        System.out.printf("Hello! I'm %s!\n", botName);
         System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        System.out.println("____________________________________________________________");
     }
 
     public void showGoodbyeMessage() {
-        System.out.println(LINE);
+        System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+        System.out.println("____________________________________________________________");
     }
 
     public void showLine() {
-        System.out.println(LINE);
+        System.out.println("____________________________________________________________");
     }
 
-    public String readInput() {
-        return scanner.nextLine();
+    public void showTaskAdded(Task task, int size) {
+        System.out.println("Got it. I've added this task:");
+        System.out.printf("  %s\n", task);
+        System.out.printf("Now you have %d tasks in the list.\n", size);
     }
 
-    public void showError(String message) {
-        System.out.println(" Error: " + message);
+    public void showTaskDeleted(String deleted, int size) {
+        System.out.println(deleted);
+        System.out.printf("Now you have %d tasks in the list.\n", size);
     }
 
-    public void showLoadingError() {
-        System.out.println(" Error loading from file.");
+    public void showError(String errorMessage) {
+        System.out.println("Error: " + errorMessage);
+    }
+
+    public void showTaskMarked(String mark) {
+        System.out.println(mark);
+    }
+
+    public void showTaskUnmarked(String unmark) {
+        System.out.println(unmark);
     }
 }

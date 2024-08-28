@@ -1,31 +1,31 @@
 public class Parser {
 
-    public static void handleInput(String phrase, TaskList tasks, Ui ui) throws ChatBotException {
+    public static void handleInput(String phrase, TaskList taskList, Ui ui) throws ChatBotException {
         String[] tmp = phrase.split(" ");
         switch (tmp[0]) {
         case "list":
-            tasks.listTasks(ui);
+            taskList.listTasks(ui);
             break;
         case "mark":
-            tasks.getTask(Integer.parseInt(tmp[1]) - 1).mark();
+            taskList.markTask(Integer.parseInt(tmp[1]) - 1, ui);
             break;
         case "unmark":
-            tasks.getTask(Integer.parseInt(tmp[1]) - 1).unmark();
+            taskList.unmarkTask(Integer.parseInt(tmp[1]) - 1, ui);
             break;
         case "todo":
-            String description = phrase.substring(5);
-            tasks.addTask(new ToDo(description, TaskType.TODO));
+            taskList.addToDo(phrase, ui);
             break;
         case "deadline":
-            String[] deadlineParts = phrase.split(" /by ");
-            tasks.addTask(new Deadline(deadlineParts[0].substring(9), deadlineParts[1], TaskType.DEADLINE));
+            taskList.addDeadline(phrase, ui);
             break;
         case "event":
-            String[] eventParts = phrase.split(" /from | /to ");
-            tasks.addTask(new Event(eventParts[0].substring(6), eventParts[1], eventParts[2], TaskType.EVENT));
+            taskList.addEvent(phrase, ui);
             break;
         case "delete":
-            tasks.removeTask(Integer.parseInt(tmp[1]) - 1);
+            taskList.deleteTask(Integer.parseInt(tmp[1]) - 1, ui);
+            break;
+        case "on":
+            taskList.printTasksOnDate(tmp[1], ui);
             break;
         default:
             throw new ChatBotException("I'm sorry, but I don't know what that means.");
