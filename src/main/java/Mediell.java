@@ -1,15 +1,17 @@
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Mediell {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         printLine();
         System.out.println("Hello! I'm Mediell!");
         System.out.println("What can I do for you? :)");
         printLine();
         Scanner scanner = new Scanner(System.in);
         String message = "";
-        TaskList items = new TaskList();
+        Storage storage = new Storage();
+        TaskList items = storage.loadData();
         while (true) {
             try {
                 System.out.println("");
@@ -39,6 +41,7 @@ public class Mediell {
                 } else {
                     System.out.println("Sorry :( I'm confused at what I have to do");
                 }
+                storage.saveData(items);
             } catch (ArrayIndexOutOfBoundsException e) {
                 // if out of range likely because not enough inputs
                 System.out.println("OOPS!! Not enough inputs were provided");

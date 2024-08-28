@@ -1,5 +1,7 @@
+import java.util.Objects;
+
 public class Task {
-    private final String taskName;
+    private String taskName;
     private boolean completed;
     public Task(String taskName) {
         this.taskName = taskName;
@@ -23,5 +25,15 @@ public class Task {
             status = "[ ] ";
         }
         return status + taskName;
+    }
+
+    public String taskToStorageFormat() {
+        return completed ? "1" : "0" + "|" + taskName;
+    }
+
+    public void initStorageFormat(String format) {
+        String[] temp = format.split("\\|", 2);
+        completed = Objects.equals(temp[0], "1");
+        taskName = temp[1];
     }
 }

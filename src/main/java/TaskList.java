@@ -66,4 +66,34 @@ public class TaskList {
         }
         size--;
     }
+
+    public String[] exportTasks() {
+        String[] temp = new String[size];
+        for (int i = 0; i < size; i++) {
+            temp[i] = listItems[i].taskToStorageFormat();
+        }
+        return temp;
+    }
+
+    public void initTasks(String[] tasks) {
+        size = tasks.length;
+        for (int i = 0; i < size; i++) {
+            if (ToDo.isToDoFormat(tasks[i])) {
+                listItems[i] = new ToDo();
+                listItems[i].initStorageFormat(tasks[i]);
+            }
+            else if (Event.isEventFormat(tasks[i])) {
+                listItems[i] = new Event();
+                listItems[i].initStorageFormat(tasks[i]);
+            }
+            else if (Deadline.isDeadlineFormat(tasks[i])) {
+                listItems[i] = new Deadline();
+                listItems[i].initStorageFormat(tasks[i]);
+            }
+            else {
+                listItems[i] = new Event();
+                listItems[i].initStorageFormat(tasks[i]);
+            }
+        }
+    }
 }
