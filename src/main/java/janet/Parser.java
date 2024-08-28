@@ -79,4 +79,47 @@ public class Parser {
         }
     }
 
+
+    public static boolean byKeywordNotFound(String[] commandDetails) {
+        for (String word : commandDetails) {
+            if (word.equals("/by")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean fromOrToKeywordNotFound(String[] commandDetails) {
+        boolean fromFound = false;
+        boolean toFound = false;
+        for (String word : commandDetails) {
+            if (word.equals("/from")) {
+                fromFound = true;
+            }
+            if (word.equals("/to")) {
+                toFound = true;
+            }
+        }
+        return fromFound && toFound;
+    }
+
+
+    public static void validateDeadline(String[] commandDetails) throws JanetException {
+        if (commandDetails[0].equals("deadline") &&
+                commandDetails.length > 1 &&
+                byKeywordNotFound(commandDetails)
+        ) {
+            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");
+        }
+    }
+
+    public static void validateEvent(String[] commandDetails) throws JanetException {
+        if (commandDetails[0].equals("event") &&
+                commandDetails.length > 1 &&
+                fromOrToKeywordNotFound(commandDetails)
+        ) {
+            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
+        }
+    }
+
 }
