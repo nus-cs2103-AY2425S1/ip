@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -52,11 +53,15 @@ public class HoodiniMainWindow extends Stage {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = hoodini.handleInput(input);
-        dialogContainer.getChildren().addAll(
+        getDialogBoxes(
                 HoodiniDialogBox.getUserDialog(input, userImage),
                 HoodiniDialogBox.getHoodiniDialog(response, hoodiniImage)
         );
         userInput.clear();
+    }
+
+    private void getDialogBoxes(HBox... dialogboxes) {
+        dialogContainer.getChildren().addAll(dialogboxes);
     }
 
 
