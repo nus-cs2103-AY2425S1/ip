@@ -19,12 +19,13 @@ public class KieTwoForOne {
             sum++;
         }
         System.out.println("Got it. I've added this task:");
-        System.out.println("   " + newTask);
+        System.out.println("    " + newTask);
         System.out.println(String.format("Now you have %d tasks in the list", sum));
         System.out.println(separationLine);
     }
 
     public static void listTasks() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; tasks[i] != null; i++) {
             System.out.println(String.format("%d. %s", i + 1, tasks[i].toString()));
         }
@@ -34,14 +35,14 @@ public class KieTwoForOne {
     public static void markTask(int position) {
         Task markedTask = tasks[position - 1];
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("   " + markedTask.markTask());
+        System.out.println("    " + markedTask.markTask());
         System.out.println(separationLine);
     }
 
     public static void unmarkTask(int position) {
         Task unmarkedTask = tasks[position - 1];
         System.out.println("Ok. I've marked this task as not done yet:");
-        System.out.println("   " + unmarkedTask.unmarkTask());
+        System.out.println("    " + unmarkedTask.unmarkTask());
         System.out.println(separationLine);
     }
 
