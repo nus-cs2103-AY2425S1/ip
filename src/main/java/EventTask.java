@@ -1,10 +1,11 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  * Represent events
  */
-public class EventTasks extends Tasks{
-    public EventTasks(String message) {
+public class EventTask extends Task {
+    public EventTask(String message) {
         super(message);
     }
 
@@ -12,9 +13,8 @@ public class EventTasks extends Tasks{
     String timeline = super.name.split("/from", 2)[1];
     String m2 = timeline.split("/to ", 2)[0];
     String m3 = timeline.split("/to ", 2)[1];
-
-        LocalDateTime startTime = LocalDateTime.parse(m2);
-        LocalDateTime endTime = LocalDateTime.parse(m3);
+    LocalDate startTime = LocalDate.parse(m2.trim());
+    LocalDate endTime = LocalDate.parse(m3.trim());
 
 
     @Override

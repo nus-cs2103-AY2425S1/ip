@@ -1,8 +1,8 @@
 /**
  * Represent todo tasks
  */
-public class TodoTasks extends Tasks{
-    public TodoTasks(String name) {
+public class TodoTask extends Task {
+    public TodoTask(String name) {
         super(name);
     }
 

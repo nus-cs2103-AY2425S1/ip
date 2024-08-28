@@ -5,7 +5,7 @@ import java.util.Scanner;
  * Contains the main loop of the program, initialise java scanner objects and replies objects
  */
 public class Sunny {
-    private static Replies toUser = new Replies();
+    private static Ui toUser = new Ui();
 
 
     /**

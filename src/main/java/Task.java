@@ -1,7 +1,7 @@
 /**
  * Represents information of tasks specified by user
  */
-public class Tasks {
+public class Task {
     // FIELDS-----------------------------
     String name;
     Boolean isDone;
@@ -10,7 +10,7 @@ public class Tasks {
      * Initialises name of task and set as not done
      * @param name
      */
-    public Tasks (String name) {
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }

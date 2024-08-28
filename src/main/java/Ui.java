@@ -1,7 +1,5 @@
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +10,7 @@ import java.util.Objects;
 /**
  * Handles user inputs and generate appropriate replies
  */
-public class Replies {
+public class Ui {
 
     // Stock messages
     public static final String logo = "       _____   _    _  _   _  _   _  __     __  \n" +
@@ -26,26 +24,18 @@ public class Replies {
     public static final String goodbye = "     You are leaving? Ok bye:( come back soon";
 
     // List for tasks
-    List<Tasks> ls = new ArrayList<>();
+    List<Task> ls;
 
     // File path for external storage
     String filePath = "/Users/jerryyou/ip/taskslist.txt";
+    Storage store = new Storage(filePath);
 
     /**
      * Generates welcome message, load in previous files
      * @return
      */
     public String welcome() {
-        try {
-            Path path = Paths.get(filePath);
-            List<String> lines = Files.readAllLines(path);
-            for (String line : lines) {
-                Tasks t = TaskCreator.create(line);
-                ls.add(t);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ls = store.read();
         return "Hello from\n" + logo + "\n" + welcome + "\n" + line + "\n";
     }
 
@@ -58,24 +48,7 @@ public class Replies {
         String m1 = message.split(" ", 2)[0];
 
         if (Objects.equals(message,"bye")) {
-            String str = "";
-            for (Tasks t: ls) {
-                if (t instanceof TodoTasks) {
-                    str += "todo " + t.getName() + "\n";
-                } else if (t instanceof DeadlineTasks) {
-                    str += "deadline " + t.getName() + "\n";
-                } else {
-                    str += "event " + t.getName() + '\n';
-                }
-            }
-            try {
-                Files.write(Paths.get(filePath), str.getBytes());
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found, please create new file with file path: " +
-                        "/Users/jerryyou/ip/taskslist.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            store.write(ls);
             return line + "\n" + goodbye;
         } else if (Objects.equals(message,"list")){
             String s = "";
@@ -106,7 +79,7 @@ public class Replies {
                     + String.format("Now you have %h tasks in the list \n", ls.size()) + line;
         } else {
             try {
-                Tasks t = TaskCreator.create(message);
+                Task t = TaskCreator.create(message);
                 ls.add(t);
                 return line + "\n     "
                         + "Got it! added the task: \n     "
