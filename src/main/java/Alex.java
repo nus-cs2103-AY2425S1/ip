@@ -1,11 +1,73 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Alex {
 
     public static final String byeMessage = "Bye. Hope to see you again soon!";
     public static final String LINE = "----------------------------------------------------";
     ArrayList<Task> list = new ArrayList<>();
+    private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_PATH = DIRECTORY_PATH + "/alex.txt";
+
+    public Alex() {
+        createDirectory();
+        loadTasksFromFile();
+    }
+    private void createDirectory() {
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+    }
+
+    private void loadTasksFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String desc;
+            while ((desc = reader.readLine()) != null) {
+
+                Task task;
+                if (desc.startsWith("[T]")) {
+                    String details = desc.substring(6).trim();
+                    task = new Todo(details);
+                } else if (desc.startsWith("[D]")) {
+                    String details = desc.substring(6);
+                    String[] info = details.split("/");
+                    String item = info[0].trim();
+                    String dueBy = info[1].substring(4).trim();
+                    task = new Deadline(item, dueBy);
+                } else {
+                    String details = desc.substring(6);
+                    String[] info = details.split("/");
+                    String item = info[0].trim();
+                    String start = info[1].substring(6).trim();
+                    String dueBy = info[2].substring(4).trim();
+                    task = new Event(item, start, dueBy);
+                }
+                task.isDone = desc.substring(4,5).equals("X") ? true : false;
+                list.add(task);
+            }
+        } catch (IOException e) {
+            try {
+                File dataFile = new File(FILE_PATH);
+                dataFile.createNewFile();
+            } catch (IOException ee) {
+                System.err.println("Error reading tasks from file: " + ee.getMessage());
+            }
+        }
+    }
+
+    private void saveTasksToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : list) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing tasks to file: " + e.getMessage());
+        }
+    }
     public void handleList() {
         System.out.println(LINE + "\n" +
                 "Here are the tasks in your list: ");
@@ -29,6 +91,7 @@ public class Alex {
             System.out.println("It seems that task does not exist. Please try again.");
             System.out.println(LINE);
         }
+        saveTasksToFile();
         scan();
     }
     public void handleUnmark(String input) {
@@ -45,6 +108,7 @@ public class Alex {
             System.out.println("It seems that task does not exist. Please try again.");
             System.out.println(LINE);
         }
+        saveTasksToFile();
         scan();
     }
     public void handleTodo(String input) {
@@ -59,6 +123,7 @@ public class Alex {
                     + "\n Now you have " + list.size() + " tasks in the list.");
             System.out.println(LINE);
         }
+        saveTasksToFile();
         scan();
     }
     public void handleDeadline(String input) {
@@ -80,6 +145,7 @@ public class Alex {
                 System.out.println(LINE);
             }
         }
+        saveTasksToFile();
         scan();
     }
     public void handleEvent(String input) {
@@ -102,6 +168,7 @@ public class Alex {
                 System.out.println(LINE);
             }
         }
+        saveTasksToFile();
         scan();
     }
     public void handleDelete(String input) {
@@ -118,6 +185,7 @@ public class Alex {
             System.out.println("It seems that task does not exist. Please try again.");
             System.out.println(LINE);
         }
+        saveTasksToFile();
         scan();
     }
     public void scan() {
