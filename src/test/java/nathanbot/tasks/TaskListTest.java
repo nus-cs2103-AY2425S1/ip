@@ -9,12 +9,12 @@ import static org.mockito.Mockito.when;
 
 import nathanbot.storage.Storage;
 import nathanbot.tasks.Task;
-import nathanbot.tasks.TaskList;
+import nathanbot.tasks.TaskListStore;
 
 public class TaskListTest {
     // built with Copilot's assistance 
     private Storage storage;
-    private TaskList taskList;
+    private TaskListStore taskList;
     private Task task1;
     private Task task2;
 
@@ -26,7 +26,7 @@ public class TaskListTest {
 
         when(storage.loadTasksFromFile()).thenReturn(new ArrayList<>(Arrays.asList(task1, task2)));
 
-        taskList = new TaskList(storage);
+        taskList = new TaskListStore(storage);
     }
 
     @Test

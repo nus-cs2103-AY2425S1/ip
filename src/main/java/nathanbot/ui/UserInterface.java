@@ -4,21 +4,21 @@ import java.util.Scanner;
 
 import nathanbot.commands.CommandHandler;
 import nathanbot.commands.CommandType;
-import nathanbot.tasks.TaskList;
+import nathanbot.tasks.TaskListStore;
 
 /**
  * Handles the user interface for NathanBot, including reading user input and executing commands.
  * Javadocs using Copilot
  */
 public class UserInterface {
-    private final TaskList taskList;
+    private final TaskListStore taskList;
 
     /**
      * Constructs a UserInterface with the specified TaskList.
      *
      * @param taskList The TaskList to be managed by the UserInterface.
      */
-    public UserInterface(TaskList taskList) {
+    public UserInterface(TaskListStore taskList) {
         this.taskList = taskList;
     }
 
