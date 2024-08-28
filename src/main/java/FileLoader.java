@@ -31,20 +31,12 @@ public class FileLoader {
             }
 
             String taskType = properties.getProperty("taskType");
-            Task task;
-            switch (taskType) {
-                case "T":
-                    task = new ToDo(properties.getProperty("description"));
-                    break;
-                case "D":
-                    task = new Deadline(properties.getProperty("description"), properties.getProperty("endDate"));
-                    break;
-                case "E":
-                    task = new Event(properties.getProperty("description"), properties.getProperty("endDate"), properties.getProperty("startDate"));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown task type: " + taskType);
-            }
+            Task task = switch (taskType) {
+                case "T" -> new ToDo(properties.getProperty("description"));
+                case "D" -> new Deadline(properties.getProperty("description"), properties.getProperty("endDate"));
+                case "E" -> new Event(properties.getProperty("description"), properties.getProperty("endDate"), properties.getProperty("startDate"));
+                default -> throw new IllegalArgumentException("Unknown task type: " + taskType);
+            };
             tasks.add(task);
             index++;
         }
