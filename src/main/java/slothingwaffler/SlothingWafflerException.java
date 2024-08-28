@@ -6,7 +6,7 @@ package slothingwaffler;
  * This class is used to signal application-specific exceptions.
  * </p>
  */
-public class SlothingWafflerException extends Exception{
+public class SlothingWafflerException extends Exception {
 
     /**
      * Constructs a SlothingWafflerException with the specified detail message.

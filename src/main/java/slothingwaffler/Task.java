@@ -10,13 +10,13 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
 
+    // For now, Deadline Tasks will take in dates only, while Event Tasks will take in dates and times
+    protected static final DateTimeFormatter DTF1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    protected static final DateTimeFormatter DTF2 = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    protected static final DateTimeFormatter DTF3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected static final DateTimeFormatter DTF4 = DateTimeFormatter.ofPattern("MMM dd yyyy");
     private final String description;
     private boolean isDone;
-    // For now, Deadline Tasks will take in dates only, while Event Tasks will take in dates and times
-    protected final static DateTimeFormatter DTF1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    protected final static DateTimeFormatter DTF2 = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    protected final static DateTimeFormatter DTF3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    protected final static DateTimeFormatter DTF4 = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
      * Constructs a Task instance with the specified description.
