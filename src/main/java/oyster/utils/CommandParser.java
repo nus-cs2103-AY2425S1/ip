@@ -44,6 +44,7 @@ public class CommandParser {
             } catch (Exception e) {
                 command = new ErrorCommand(e.getMessage());
             }
+
             break;
         case "mark":
             // Fallthrough
@@ -62,6 +63,20 @@ public class CommandParser {
                 command = new MarkCommand(index);
             } else {
                 command = new DeleteCommand(index);
+            }
+
+            break;
+        case "find":
+            try {
+                if (!scanner.hasNext()) {
+                    throw new TaskFieldException("Search keyword");
+                }
+
+                command = new FindCommand(scanner.nextLine());
+            } catch (TaskFieldException e) {
+                command = new ErrorCommand("Please provide the " + e.field + " field!");
+            } catch (Exception e) {
+                command = new ErrorCommand(e.getMessage());
             }
 
             break;
