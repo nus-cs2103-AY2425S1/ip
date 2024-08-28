@@ -1,6 +1,6 @@
+
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import Components.StorageList;
 
 public class FlyChat {
     private static final String lineBreak = "\n--------------------\n";
@@ -9,10 +9,10 @@ public class FlyChat {
     /*  Scanner declared here as any instance of closing a Scanner(System.in) instance also closes
         System.in, so we should only declare 1 scanner instance in main */
     private static Scanner userInput = new Scanner(System.in);
-    private static boolean operatingStatus = true;
+    private static boolean isChatOperational = true;
     public static void main(String[] args) {
         start();
-        while(operatingStatus) {
+        while(isChatOperational) {
             try {
                 listManipulation();
             } catch(InputMismatchException e) {
@@ -25,6 +25,7 @@ public class FlyChat {
     }
 
     private static void start() {
+        storageList.findSaveFile("./src/main/java/save.txt");
         System.out.println(lineBreak);
         System.out.println("Hello! I'm FlyChat\nWhat can I do for you?");
         System.out.println(lineBreak);
@@ -84,7 +85,6 @@ public class FlyChat {
             }
             inputString = userInput.nextLine();
         }
-        operatingStatus = false;
+        isChatOperational = false;
     }
-
 }

@@ -1,4 +1,5 @@
-package Components;
+package Tasks;
+
 
 public class Task {
     private boolean done;
