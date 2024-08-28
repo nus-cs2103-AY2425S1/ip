@@ -69,6 +69,9 @@ public class CommandHandler {
             case "event":
                 handleEventTask(parts);
                 break;
+            case "find":
+                handleFindTask(parts);
+                break;
             default:
                 throw new InvalidCommandException();
         }
@@ -141,6 +144,20 @@ public class CommandHandler {
                 }
             } else {
                 ui.output("Please specify the event in the format: description /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
+            }
+        } else {
+            throw new EmptyDescriptionException();
+        }
+    }
+
+    private void handleFindTask(String[] parts) throws EmptyDescriptionException {
+        if (parts.length > 1) {
+            String keyword = parts[1];
+            String result = taskManager.findTasks(keyword);
+            if (result.isEmpty()) {
+                ui.output("No matching tasks found.");
+            } else {
+                ui.output("Here are the matching tasks in your list:\n" + result);
             }
         } else {
             throw new EmptyDescriptionException();

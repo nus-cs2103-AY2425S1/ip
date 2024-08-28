@@ -94,4 +94,19 @@ public class TaskManager {
             throw new InvalidTaskIndexException();
         }
     }
+
+    public String findTasks(String keyword) {
+        StringBuilder matchingTasks = new StringBuilder();
+        int matchCount = 0;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchCount++;
+                matchingTasks.append(matchCount).append(". ").append(task).append("\n");
+            }
+        }
+
+        return matchingTasks.toString();
+    }
 }
