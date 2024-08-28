@@ -1,3 +1,7 @@
+package storage;
+
+import tasks.Task;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -28,7 +32,7 @@ public class Storage {
                         taskList.add(task);
                     }
                 } catch (IllegalArgumentException e) {
-                    System.out.println("There are errors in your Task Data File. Contact the Admin for more info.");
+                    System.out.println("There are errors in your tasks.Task Data File. Contact the Admin for more info.");
                 }
             }
         } catch (IOException e) {
