@@ -32,8 +32,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "daniel"
+    archiveFileName = 'daniel.jar'
     archiveClassifier = null
+    archiveVersion = "v0.1"
 }
 
 run{
