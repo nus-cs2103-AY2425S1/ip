@@ -19,11 +19,12 @@ public class Deadline extends Task {
 
     public void setDateAndTime(String deadline) throws JudeException {
         try {
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             this.dateTime = LocalDateTime.parse(deadline, format);
 
         } catch (DateTimeParseException de) {
-            throw new JudeException("wrong date or time format was provided.");
+            throw new JudeException("wrong date or time format was provided."
+                    + " Provide: day/month/year time (e.g. 1/1/2000 1800).");
         }
     }
 

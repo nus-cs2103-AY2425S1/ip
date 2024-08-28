@@ -21,9 +21,9 @@ public class Event extends Task {
 
     public void setDatesAndTimes(String from, String to) throws JudeException {
         try {
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             this.fromDateTime = LocalDateTime.parse(from, format);
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             this.toDateTime = LocalDateTime.parse(to, dateFormat);
         } catch (DateTimeParseException de) {
             throw new JudeException("wrong Date or Time format was provided.");
