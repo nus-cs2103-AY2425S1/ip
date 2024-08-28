@@ -6,7 +6,8 @@ public class Event extends Task {
         this.startDate = startDate;
     }
     @Override
-    public String listedString(){
-        return super.listedString() + " [from: " + this.startDate + " | to: " + this.endDate + "]";
-    }
+    public String listedString(){ return super.listedString() + " [from: " + this.startDate + " | to: " + this.endDate + "]"; }
+
+    public String getStartDate() { return startDate; }
+    public String getEndDate(){ return endDate; }
 }
