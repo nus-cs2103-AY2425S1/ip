@@ -2,38 +2,43 @@ package Tasks;
 
 import java.util.ArrayList;
 
-
-
-// contains the task list e.g., it has operations to add/delete tasks in the list
-
+/**
+ * TaskList represents an arraylist of tasks.
+ */
 public class TaskList {
     
     private ArrayList<Task> tasksArray;
 
+
+    /**
+     * A second constructor for TaskList.
+     * Used to intialise a new TaskList with data from a previous TaskList.
+     * 
+     * @param taskList
+     */
     public TaskList(TaskList taskList) {
         this.tasksArray = new ArrayList<Task>(taskList.tasksArray);
     }
 
+    /**
+     * A default constructor for TaskList.
+     */
     public TaskList() {
         this.tasksArray = new ArrayList<Task>();
     }
 
-    // add
     public void add(Task task) {
         tasksArray.add(task);
     }
 
-    // get
     public Task get(int index) {
         return tasksArray.get(index);
     }
 
-    // size
     public int size() {
         return tasksArray.size();
     }
 
-    // remove
     public void remove(int index) {
         tasksArray.remove(index);
     }

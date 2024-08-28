@@ -1,6 +1,15 @@
 package exceptions;
 
+/**
+ * PrinceException is a custom exception.
+ */
 public class PrinceException extends Exception {
+
+    /**
+     * A constructor for PrinceException.
+     * 
+     * @param msg String representing the error message.
+     */
     public PrinceException(String msg) {
         super(msg);
     }
@@ -10,14 +19,3 @@ public class PrinceException extends Exception {
         return getMessage();
     }
 }
-
-/*
- * ERRORS TO HANDLE
- * 
- * todo/deadline/event with spaces before or after the words
- * incorrect formatting of deadline/event
- * words such as unmarking/marking on its own should throw errors
- * "todo unmarking a player" should be added as a legit event
- * case sensitivity
- * punctuations
- */

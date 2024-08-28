@@ -1,20 +1,21 @@
 package util;
 
-//deals with interactions with the user
-// everything to do with printing out lines
-
 import java.util.Scanner;
 
 import Tasks.Task;
 import Tasks.TaskList;
 
-
-
+/**
+ * Ui deals with interactions with the user by displaying the relevant information. 
+ */
 public class Ui {
 
     private static final String LINE = "    ___________________________________________";
     private Scanner sc;
 
+    /**
+     * A constructor for the Ui class.
+     */
     public Ui() {
         sc = new Scanner(System.in);
     }
@@ -34,12 +35,17 @@ public class Ui {
         return sc.nextLine();
     }
 
-    public void showTaskList(TaskList tasksArray) {
+    /**
+     * Displays all tasks in a numbered list format.
+     * 
+     * @param taskList List of tasks.
+     */
+    public void showTaskList(TaskList taskList) {
         System.out.println("    Here are the tasks in your list:");
-        int length = tasksArray.size();
+        int length = taskList.size();
         // print the list of inputs
         for (int i = 0; i < length; i++) {
-            Task task = tasksArray.get(i);
+            Task task = taskList.get(i);
             // formatting for numbering of list
             int listNum = i + 1;
             String numDot = listNum + ".";
