@@ -12,12 +12,23 @@ public class Rei {
         System.out.println("What can I do for you?");
         System.out.println("-----------YOU------------");
 
+        String[] list = new String[100];
+        int count = 0;
         Scanner scanner = new Scanner(System.in);
         String prompt = scanner.nextLine();
         while (!prompt.equals("annyeong")  && !prompt.equals("Annyeong")) {
-            System.out.println("-----------REI♥-----------");
-            System.out.println(prompt);
-            System.out.println("-----------YOU------------");
+            if (prompt.equals("list")) {
+                for (int i = 0; i < count; i++) {
+                    System.out.println(i + ". " + list[i]);
+                }
+            } else {
+                System.out.println("-----------REI♥-----------");
+                System.out.println("added: " + prompt);
+                System.out.println("-----------YOU------------");
+                list[count++] = prompt;
+            }
+
+
             prompt = scanner.nextLine();
         }
         scanner.close();
