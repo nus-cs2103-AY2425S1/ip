@@ -27,6 +27,24 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Returns the start time of the ollie.task.Event task.
+     *
+     * @return start of the ollie.task.Event task.
+     */
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    /**
+     * Returns the end time of the ollie.task.Event task.
+     *
+     * @return end of the ollie.task.Event task.
+     */
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
     @Override
     public void validateDescription(String command) throws OllieException {
         String[] parts = command.split(" /from | /to ");
