@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.List;
@@ -8,6 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class XBot {
     private static List<Task> list = new ArrayList<>();
@@ -210,19 +212,33 @@ public class XBot {
     public static void addDeadline(String rest) throws XBotException {
         String[] parts = rest.split("/by", 2);
         if (parts.length == 2) {
-            System.out.println("Got it. I've added this task:");
             String taskDescription = parts[0].trim();
             String deadline = parts[1].trim();
-            Task newTask = new Deadline(taskDescription, deadline);
-            list.add(newTask);
-            System.out.println(newTask.toString());
-            System.out.println("Now you have " + list.size() + " tasks in the list.");
-            saveTask();
+            if (isValidDateFormat(deadline, "YYYY-MM-DD")) {
+                Task newTask = new Deadline(taskDescription, deadline);
+                list.add(newTask);
+
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask.toString());
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                saveTask();
+            } else {
+                System.out.println("Invalid date input format. Please use the format: YYYY-MM-DD");
+            }
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'deadline <task> /by <date>'");
         }
     }
 
+    public static boolean isValidDateFormat(String date, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        try {
+            LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
     public static void addEvent(String rest) throws XBotException{
         String[] parts = rest.split("/from", 2);
         if (parts.length == 2) {
