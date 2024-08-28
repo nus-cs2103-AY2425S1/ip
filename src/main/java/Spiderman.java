@@ -32,6 +32,16 @@ public class Spiderman {
                 continue;
             }
 
+            // User types delete; delete task
+            if (splitInput[0].equals("delete")) {
+                int number = Integer.parseInt(splitInput[1]) - 1;
+                System.out.println("Alright! I will delete this task for you!");
+                System.out.println(taskList.get(number).toString());
+
+                taskList.remove(number);
+                continue;
+            }
+
             // User types mark; mark as done
             if (splitInput[0].equals("mark")) {
                 int number = Integer.parseInt(splitInput[1]) - 1;
