@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,36 +9,49 @@ public class Llama {
 
     private Storage storage;
     private Ui ui;
+    private TaskList taskList;
 
     public Llama() {
         this.ui = new Ui();
         this.storage = new Storage();
+        try {
+            this.taskList = storage.load();
+        } catch (IOException e) {
+            ui.displayString(e.getMessage()); // TODO: Make own exception for custom message
+        }
     }
 
-    public static void addTodo(String remaining, Storage tasks) {
+    public void addTodo(String remaining, TaskList taskList) throws IOException {
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
         }
 
-        tasks.addTask(new Todo(remaining, false));
+        Task newTask = new Todo(remaining, false);
+        taskList.addTask(newTask , ui);
+        storage.save(taskList);
     }
 
-    public static void addDeadline(String remaining, Storage tasks) {
+    public void addDeadline(String remaining, TaskList taskList) throws IOException{
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Deadline?!? What's the point of keeping track of nothing?");
         }
 
         String[] substringArr = remaining.split("/by ");
+        LocalDateTime deadline;
         try {
-            LocalDateTime deadline = LocalDateTime.parse(substringArr[1].trim(), FORMATTER);
-            tasks.addTask(new Deadline(substringArr[0], deadline, false));
+            deadline = LocalDateTime.parse(substringArr[1].trim(), FORMATTER);
+
         } catch (DateTimeParseException e) {
             throw new LlamaException("Invalid date given, please give in the format " +
                     "`deadline <name>/by yyyy-mm-dd HH:mm'");
         }
+
+        Task newTask = new Deadline(substringArr[0], deadline, false);
+        taskList.addTask(newTask, ui);
+        storage.save(taskList);
     }
 
-    public static void addEvent(String remaining, Storage tasks) {
+    public void addEvent(String remaining, TaskList taskList) throws IOException {
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
         }
@@ -46,14 +60,20 @@ public class Llama {
         String desc = substringArr[0];
         String startTimeStr = substringArr[1].substring(substringArr[1].indexOf(" ") + 1).trim();
         String endTimeStr = substringArr[2].substring(substringArr[2].indexOf(" ") + 1).trim();
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+
         try {
-            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, FORMATTER);
-            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, FORMATTER);
-            tasks.addTask(new Event(desc, startTime, endTime, false));
+            startTime = LocalDateTime.parse(startTimeStr, FORMATTER);
+            endTime = LocalDateTime.parse(endTimeStr, FORMATTER);
         } catch (DateTimeParseException e) {
             throw new LlamaException("Invalid date given, please give in the format " +
                     "`event <name> /from yyyy-MM-dd HH:mm /to  yyyy-MM-dd HH:mm'");
         }
+
+        Task newTask = new Event(desc, startTime, endTime, false);
+        taskList.addTask(newTask, ui);
+        storage.save(taskList);
     }
 
     public void run() {
@@ -79,45 +99,48 @@ public class Llama {
                 shouldContinue = false;
                 sc.close();
             } else if (command.equals("list")) {                    // list out tasks
-                this.storage.listAllTasks();
+                this.taskList.listAllTasks(this.ui);
             } else if (command.equals("mark")) {                    // mark task
                 int index = Integer.parseInt(remaining);
                 try {
-                    this.storage.markTask(index);
-                } catch (InvalidTaskException e) {
+                    this.taskList.markTask(index, ui);
+                    this.storage.save(this.taskList);
+                } catch (InvalidTaskException | IOException e) {
                     this.ui.displayString(e.getMessage());
                 }
             } else if (command.equals("unmark")) {                  // unmark task
                 int index = Integer.parseInt(remaining);
                 try {
-                    this.storage.unmarkTask(index);
-                } catch (InvalidTaskException e) {
+                    this.taskList.unmarkTask(index, ui);
+                    this.storage.save(this.taskList);
+                } catch (InvalidTaskException | IOException e) {
                     this.ui.displayString(e.getMessage());
                 }
             } else if (command.equals("delete")) {
                 int index = Integer.parseInt(remaining);
                 try {
-                    this.storage.deleteTask(index);
-                } catch (InvalidTaskException e) {
+                    this.taskList.deleteTask(index, ui);
+                    this.storage.save(this.taskList);
+                } catch (InvalidTaskException | IOException e) {
                     this.ui.displayString(e.getMessage());
                 }
             } else {
                 if (command.equals("todo")) {                       // add todo
                     try {
-                        addTodo(remaining, this.storage);
-                    } catch(LlamaException e) {
+                        this.addTodo(remaining, this.taskList);
+                    } catch(LlamaException | IOException e) {
                         this.ui.displayString(e.getMessage());
                     }
                 } else if (command.equals("deadline")) {            // add deadline
                     try {
-                        addDeadline(remaining, this.storage);
-                    } catch(LlamaException e) {
+                        this.addDeadline(remaining, this.taskList);
+                    } catch(LlamaException | IOException e) {
                         this.ui.displayString(e.getMessage());
                     }
                 } else if (command.equals("event")) {               // add event
                     try {
-                        addEvent(remaining, this.storage);
-                    } catch(LlamaException e) {
+                        this.addEvent(remaining, this.taskList);
+                    } catch(LlamaException | IOException e) {
                         this.ui.displayString(e.getMessage());
                     }
                 } else {
