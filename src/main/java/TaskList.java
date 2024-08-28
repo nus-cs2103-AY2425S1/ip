@@ -1,59 +1,55 @@
 import java.util.List;
 
 public class TaskList {
-    private final ImList<Task> taskList;
+    private final ImList<Task> imTaskList;
 
     public TaskList() {
-        taskList = new ImList<Task>();
+        imTaskList = new ImList<Task>();
     }
 
-    private TaskList(ImList<Task> taskList) {
-        this.taskList = taskList;
+    private TaskList(ImList<Task> imTaskList) {
+        this.imTaskList = imTaskList;
     }
 
     public TaskList addTask(Task task) {
-        return new TaskList(taskList.add(task));
+        return new TaskList(imTaskList.add(task));
     }
 
     public TaskList deleteTask(int taskIndex) {
-        return new TaskList(taskList.remove(taskIndex));
+        return new TaskList(imTaskList.remove(taskIndex));
     }
 
     public TaskList markTaskAsDone(int taskIndex) {
-        return taskIndex < taskList.size() && taskIndex >= 0
-            ? new TaskList(taskList
-                .set(taskIndex, taskList
-                    .get(taskIndex)
-                    .markAsDone()))
+        return taskIndex < imTaskList.size() && taskIndex >= 0
+            ? new TaskList(imTaskList.set(
+                    taskIndex, imTaskList.get(taskIndex).markAsDone()))
             : this;
     }
 
     public TaskList markTaskAsUndone(int taskIndex) {
-        return taskIndex < taskList.size() && taskIndex >= 0
-            ? new TaskList(taskList
-                .set(taskIndex, taskList
-                    .get(taskIndex)
-                    .markAsUndone()))
+        return taskIndex < imTaskList.size() && taskIndex >= 0
+            ? new TaskList(imTaskList.set(
+                    taskIndex, imTaskList.get(taskIndex).markAsUndone()))
             : this;
     }
 
     public Task get(int taskIndex) {
-        return taskIndex < taskList.size() && taskIndex >= 0
-            ? taskList.get(taskIndex)
+        return taskIndex < imTaskList.size() && taskIndex >= 0
+            ? imTaskList.get(taskIndex)
             : new Task("");
     }
 
     public int size() {
-        return taskList.size();
+        return imTaskList.size();
     }
 
     @Override
     public String toString() {
         String outputString;
-        if (taskList.size() > 0) {
+        if (imTaskList.size() > 0) {
             outputString = "Here are your tasks in your list:\n";
-            for (int i = 0; i < taskList.size(); i++) {
-                outputString += (i+1) + "." + taskList.get(i) + "\n";
+            for (int i = 0; i < imTaskList.size(); i++) {
+                outputString += (i+1) + "." + imTaskList.get(i) + "\n";
             }
         } else {
             outputString = "No tasks! What tasks would you like to add?\n";
