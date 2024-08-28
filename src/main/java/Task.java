@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 
-public class Task {
+abstract class Task {
     protected String description;
     protected boolean isDone;
+    abstract String getFrom();
+    abstract public String getTo();
+    abstract public String getBy();
 
     public static void decideTask(String currentCommand, ArrayList<Task> list) throws EmptyDescriptionException, RandomInputException {
 
@@ -65,6 +68,10 @@ public class Task {
         this.isDone = false;
 
     }
+
+    public boolean isMarked() {
+        return this.isDone;
+    }
     public String getDescription() {
         return this.description;
     }
@@ -84,6 +91,18 @@ public class Task {
 
         }
 
+        public String getBy() {
+            return this.by;
+        }
+
+        public String getFrom() {
+            return "";
+        }
+
+        public String getTo() {
+            return "";
+        }
+
         @Override
         public String toString() {
             return String.format("[D]%s(by: %s)", super.toString(), this.by);
@@ -91,7 +110,20 @@ public class Task {
     }
 
     private static class Todo extends Task {
+        @Override
+        public String getFrom() {
+            return "";
+        }
 
+        @Override
+        public String getTo() {
+            return "";
+        }
+
+        @Override
+        public String getBy() {
+            return "";
+        }
         public Todo(String description) {
             super(description);
         }
@@ -110,6 +142,21 @@ public class Task {
             super(description);
             this.from = from.substring(from.indexOf(" ") + 1);
             this.to = to.substring(to.indexOf(" ") + 1);
+        }
+
+        @Override
+        public String getFrom() {
+            return this.from;
+        }
+
+        @Override
+        public String getTo() {
+            return this.to;
+        }
+
+        @Override
+        public String getBy() {
+            return "";
         }
 
         @Override

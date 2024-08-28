@@ -135,11 +135,26 @@ public class GreetBot {
                         System.out.println(e.getMessage());
                     }
                 }
+                FileWriter databaseWriter = new FileWriter(dataPath.toString(), false);
+                for (int i = 0; i < list.size(); i++) {
+                    Task currentTask = list.get(i);
+                    char typeOfTask = currentTask.toString().charAt(1);
+                    if (typeOfTask == 'T') {
+                        databaseWriter.write(String.format("%s | %d |%s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6)));
+                    } else if (typeOfTask == 'D') {
+                        databaseWriter.write(String.format("%s | %d |%s |%s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6, currentTask.toString().indexOf("(")), currentTask.toString().substring(currentTask.toString().indexOf("(") + 4, currentTask.toString().indexOf(")"))));
+                    } else {
+                        databaseWriter.write(String.format("%s | %d | %s | %s | %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.description, currentTask.getFrom(), currentTask.getTo()));
 
+                    }
+                    databaseWriter.write(System.lineSeparator());
+                }
+                databaseWriter.close();
             }
 
 
             scanner.close();
+
 
         } catch (IOException e) {
             System.out.println("reached");
