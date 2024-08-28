@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
  * start and end date and/or time.
  */
 public class Event extends Task {
-    private final String task;
     private final LocalDateTime from;
     private final LocalDateTime to;
 

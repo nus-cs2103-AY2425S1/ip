@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
  * Task class represents a task.
  */
 public class Task {
+    protected String task;
     protected boolean isDone;
 
     /**
@@ -38,6 +39,18 @@ public class Task {
     public void unmark() {
         isDone = false;
         System.out.println("  " + this);
+    }
+
+    /**
+     * Checks if the requested user input
+     * matches the task detail.
+     * @param str input string.
+     * @return boolean of match result,
+     * where True - match,
+     * False - no match.
+     */
+    public boolean isMatch(String str) {
+        return task.contains(str);
     }
 
     @Override

@@ -7,7 +7,6 @@ import mel.exceptions.TaskException;
  * date and/or time associated to said task.
  */
 public class ToDo extends Task {
-    private final String task;
 
     /**
      * Constructs new ToDo task.
@@ -23,6 +22,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString() + task;
+        return "[T]" + super.toString();
     }
 }

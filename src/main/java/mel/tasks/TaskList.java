@@ -1,13 +1,11 @@
 package mel.tasks;
 
 import mel.exceptions.MelException;
-import mel.exceptions.ParseException;
 import mel.exceptions.TaskException;
 import mel.main.Mel;
 import mel.utils.Storage;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -37,12 +35,15 @@ public class TaskList {
      * @throws TaskException if task input is invalid.
      */
     public void taskAction(String input) throws MelException, TaskException {
+        String cmd = input.split(" ", 2)[0];
         if (Objects.equals(input, "list")) {
             printAll();
-        } else if (input.split(" ", 2)[0].equals("mark")) {
+        } else if (cmd.equals("mark")) {
             mark(input);
-        } else if (input.split(" ", 2)[0].equals("delete")) {
+        } else if (cmd.equals("delete")) {
             delete(input);
+        } else if (cmd.equals("find")) {
+            find(input);
         } else {
             mel.println("Mel remembers...");
             add(input);
@@ -119,6 +120,20 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?! " +
                     "Mel recalls only " + tasks.size() + " things");
+        }
+    }
+
+    /**
+     * Finds tasks that match user input from existing task list,
+     * then outputs details of matching tasks
+     * @param str input string.
+     */
+    private void find(String str) {
+        mel.println("Mel brain rattles in recollection...");
+        for (Task t : tasks) {
+            if (t.isMatch(str.split(" ", 2)[1])) {
+                mel.println(t.toString());
+            }
         }
     }
 

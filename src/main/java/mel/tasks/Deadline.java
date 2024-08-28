@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
  * Deadline class that represents a task with a deadlines.
  */
 public class Deadline extends Task {
-    private final String task;
     private final LocalDateTime by;
 
     /**
