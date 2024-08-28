@@ -72,7 +72,7 @@ public class Storage {
             fw.write(listAsString);
             fw.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Ui.printErrorMessage(e);
         }
     }
     public void ensureDirectoryExists() {
@@ -92,7 +92,7 @@ public class Storage {
                     System.out.println("Data file created");
                 }
             } catch (IOException e) {
-                System.out.println("Something went wrong when creating the data file");
+                Ui.printErrorMessage(e);
             }
         }
     }
