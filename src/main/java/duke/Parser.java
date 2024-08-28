@@ -33,6 +33,9 @@ public class Parser {
     }
 
     public static String[] ParseString(String input, ArrayList<String> splitters) {
+        return Arrays.stream(ParseStringHelper(input, splitters)).map(String::trim).toArray(String[]::new);
+    }
+    private static String[] ParseStringHelper(String input, ArrayList<String> splitters) {
         String[] split = input.split(splitters.get(0));
         if (split.length == 0) {
             return new String[]{};
