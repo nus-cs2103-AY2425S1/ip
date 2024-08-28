@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,16 +35,19 @@ public class Alex {
                     task = new Todo(details);
                 } else if (desc.startsWith("[D]")) {
                     String details = desc.substring(6);
-                    String[] info = details.split("/");
+                    String[] info = details.split("//");
                     String item = info[0].trim();
-                    String dueBy = info[1].substring(4).trim();
-                    task = new Deadline(item, dueBy);
+                    String dueInter = info[1].substring(4).trim();
+                    LocalDate dueDate = LocalDate.parse(dueInter);
+                    task = new Deadline(item, dueDate);
                 } else {
                     String details = desc.substring(6);
-                    String[] info = details.split("/");
+                    String[] info = details.split("//");
                     String item = info[0].trim();
-                    String start = info[1].substring(6).trim();
-                    String dueBy = info[2].substring(4).trim();
+                    String startInter = info[1].substring(6).trim();
+                    LocalDate start = LocalDate.parse(startInter);
+                    String dueInter = info[2].substring(4).trim();
+                    LocalDate dueBy = LocalDate.parse(dueInter);
                     task = new Event(item, start, dueBy);
                 }
                 task.isDone = desc.substring(4,5).equals("X") ? true : false;
@@ -61,7 +66,7 @@ public class Alex {
     private void saveTasksToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : list) {
-                writer.write(task.toString());
+                writer.write(task.toBeSavedAsData());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -131,19 +136,20 @@ public class Alex {
         if (description.isEmpty()) {
             System.out.println("You missed out the details of the deadline task. Try again");
         } else {
-            String[] details = description.split("/");
-            String task = details[0].trim();
-            String dueDate = details[1].substring(2).trim();
-            if (task.isEmpty() || dueDate.isEmpty()) {
-                System.out.println("You missed out some details. Try again");
-            } else {
-                Deadline deadline = new Deadline(task, dueDate);
-                list.add(deadline);
-                System.out.println(LINE);
-                System.out.println("Got it. I've added this task: \n" + deadline.toString()
-                        + "\n Now you have " + list.size() + " tasks in the list.");
-                System.out.println(LINE);
-            }
+                String[] details = description.split("/", 2);
+                String task = details[0].trim();
+                String dueInter = details[1].substring(2).trim();
+                LocalDate dueDate = LocalDate.parse(dueInter);
+                if (task.isEmpty() || dueInter.isEmpty()) {
+                    System.out.println("You missed out some details. Try again");
+                } else {
+                    Deadline deadline = new Deadline(task, dueDate);
+                    list.add(deadline);
+                    System.out.println(LINE);
+                    System.out.println("Got it. I've added this task: \n" + deadline.toString()
+                            + "\n Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(LINE);
+                }
         }
         saveTasksToFile();
         scan();
@@ -153,11 +159,13 @@ public class Alex {
         if (description.isEmpty()) {
             System.out.println("You missed out the details of the event task. Try again");
         } else {
-            String[] details = description.split("/");
+            String[] details = description.split("/", 3);
             String task = details[0].trim();
-            String startDate = details[1].substring(4).trim();
-            String endDate = details[2].substring(2).trim();
-            if (task.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+            String startInter = details[1].substring(4).trim();
+            LocalDate startDate = LocalDate.parse(startInter);
+            String endInter = details[2].substring(2).trim();
+            LocalDate endDate = LocalDate.parse(endInter);
+            if (task.isEmpty() || startInter.isEmpty() || endInter.isEmpty()) {
                 System.out.println("You missed out some details. Try again");
             } else {
                 Event event = new Event(task, startDate, endDate);

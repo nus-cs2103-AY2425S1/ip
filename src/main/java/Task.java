@@ -17,6 +17,9 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toBeSavedAsData() {
+        return toString();
+    }
     public String toString() {
         return description;
     }
