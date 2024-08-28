@@ -5,13 +5,30 @@ import tasks.Task;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of tasks from and to a file.
+ * This class is responsible for managing the persistence of tasks, allowing them to be stored
+ * in a file and retrieved when the application is restarted.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a new Storage instance with the specified file path.
+     *
+     * @param filePath the path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task list from the file specified by filePath.
+     * If the file does not exist, an empty task list is returned.
+     *
+     * @return an ArrayList of Task objects loaded from the file.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public ArrayList<Task> loadTaskList() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -41,7 +58,12 @@ public class Storage {
         return taskList;
     }
 
-
+    /**
+     * Saves the task list to the file specified by filePath.
+     * If the directory does not exist, it is created.
+     *
+     * @param taskList the list of Task objects to save.
+     */
     public void saveTaskList(ArrayList<Task> taskList) {
         File directory = new File("./data");
         if (!directory.exists()) {
