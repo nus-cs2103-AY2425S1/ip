@@ -1,12 +1,24 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SKD {
     private static final String LINE = "    ____________________________________________________________";
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
+    private final ToStore storage;
 
     public SKD() {
-        tasks = new ArrayList<>();
+        storage = new ToStore("./data/duke.txt");
+        tasks = loadTasks();
+    }
+
+    private List<Task> loadTasks() {
+        return storage.load();
+    }
+
+    private void saveTasks() {
+        storage.save(tasks);
     }
 
     public void run() {
@@ -17,6 +29,7 @@ public class SKD {
         while (isRunning) {
             String input = scanner.nextLine();
             CommandType commandType = parseCommand(input);
+
             try {
                 switch (commandType) {
                     case BYE:
@@ -30,28 +43,33 @@ public class SKD {
                     case MARK:
                         System.out.println(input);
                         executeMark(input);
+                        saveTasks();
                         break;
                     case UNMARK:
                         System.out.println(input);
                         executeUnmark(input);
+                        saveTasks();
                         break;
                     case TODO:
                         System.out.println(input);
                         executeToDo(input);
+                        saveTasks();
                         break;
                     case DEADLINE:
                         System.out.println(input);
                         executeDeadline(input);
+                        saveTasks();
                         break;
                     case EVENT:
                         System.out.println(input);
                         executeEvent(input);
+                        saveTasks();
                         break;
                     case DELETE:
                         System.out.println(input);
                         executeDelete(input);
+                        saveTasks();
                         break;
-                    case ETC:
                     default:
                         System.out.println(input);
                         throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -63,6 +81,7 @@ public class SKD {
                 System.out.println();
             }
         }
+
         scanner.close();
     }
 
@@ -75,7 +94,6 @@ public class SKD {
     }
 
     private void bye() {
-        System.out.println("bye");
         System.out.println(LINE);
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println(LINE);
@@ -188,34 +206,29 @@ public class SKD {
         System.out.println();
     }
 
-    private void printAddedMessage(Task task) {
-        task.printTaskAddedMessage(tasks.size());
-    }
-
     private CommandType parseCommand(String input) {
-        if (input.startsWith("todo")) {
-            return CommandType.TODO;
-        } else if (input.startsWith("deadline")) {
-            return CommandType.DEADLINE;
-        } else if (input.startsWith("event")) {
-            return CommandType.EVENT;
-        } else if (input.equals("list")) {
+        if (input.equalsIgnoreCase("bye")) {
+            return CommandType.BYE;
+        } else if (input.equalsIgnoreCase("list")) {
             return CommandType.LIST;
         } else if (input.startsWith("mark")) {
             return CommandType.MARK;
         } else if (input.startsWith("unmark")) {
             return CommandType.UNMARK;
+        } else if (input.startsWith("todo")) {
+            return CommandType.TODO;
+        } else if (input.startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        } else if (input.startsWith("event")) {
+            return CommandType.EVENT;
         } else if (input.startsWith("delete")) {
             return CommandType.DELETE;
-        } else if (input.equals("bye")) {
-            return CommandType.BYE;
         } else {
             return CommandType.ETC;
         }
     }
 
-
-    public static void main(String[] args) {
-        new SKD().run();
+    private void printAddedMessage(Task task) {
+        task.printTaskAddedMessage(tasks.size());
     }
 }

@@ -1,3 +1,11 @@
 public enum CommandType {
-    TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, ETC;
+    BYE,
+    LIST,
+    MARK,
+    UNMARK,
+    TODO,
+    DEADLINE,
+    EVENT,
+    DELETE,
+    ETC;
 }
