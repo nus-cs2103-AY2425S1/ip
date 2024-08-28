@@ -6,7 +6,9 @@ import henry.command.ChangeStatusCommand;
 import henry.command.Command;
 import henry.command.DeleteCommand;
 import henry.command.ExitCommand;
+import henry.command.FindCommand;
 import henry.command.PrintCommand;
+
 
 /**
  * Deals with making sense of the user command
@@ -32,6 +34,8 @@ public class Parser {
                 return new ChangeStatusCommand(words);
             } else if (command.equals("delete")) {
                 return new DeleteCommand(words[1]);
+            } else if (command.equals("find")) {
+                return new FindCommand(words[1]);
             } else {
                 return new AddCommand(input);
             }
