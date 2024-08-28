@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Event extends Task {
 
     private String from;
@@ -12,5 +14,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    protected void save() throws IOException {
+        Storage.getWriter().write("E | " + (super.getIsDone() ? "1" : "0") + " | " + super.getDescription() + " | " + from + " | " + to + "\n");
     }
 }

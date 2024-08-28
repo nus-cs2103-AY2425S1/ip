@@ -1,4 +1,7 @@
-public class Task {
+import java.io.FileWriter;
+import java.io.IOException;
+
+abstract public class Task {
     private String description;
     private boolean isDone;
 
@@ -6,6 +9,8 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    abstract protected void save() throws IOException;
 
     //Marks completed tasks with an 'X'
     public String getStatusIcon() {
@@ -23,5 +28,13 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 }
