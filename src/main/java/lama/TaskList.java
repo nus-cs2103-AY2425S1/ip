@@ -32,5 +32,24 @@ public class TaskList {
         return taskList.remove(i);
     }
 
+    /**
+     * Finds and returns a list of tasks that contain the specified word.
+     *
+     * @param word The keyword to search for in the task description.
+     * @return TaskList contain tasks that matched the word given.
+     */
+    public TaskList find(String word) {
+
+        TaskList tasks = new TaskList();
+
+        for (Task task: taskList) {
+            if (task.toString().toLowerCase().contains(word.toLowerCase())) {
+                tasks.add(task);
+            }
+        }
+
+        return tasks;
+    }
+
 
 }

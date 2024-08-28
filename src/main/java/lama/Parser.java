@@ -97,6 +97,13 @@ public class Parser {
 
             return new DeleteCommand(Integer.parseInt(words[1]) - 1);
 
+        case "find":
+            if (words.length < 2) {
+                throw new LamaException("Please specify the keyword you wanted to search!");
+            }
+
+            return new FindCommand(words[1]);
+
         default:
             throw new LamaException("Sorry, I don't know what you want to do!\n"
                     + "You can either choose to use:\n"
@@ -106,7 +113,8 @@ public class Parser {
                     + "4. list\n"
                     + "5. mark [number of todo in the list]\n"
                     + "6. unmark [number of todo in the list]\n"
-                    + "7. bye");
+                    + "7. find [keywords]"
+                    + "8. bye");
         }
 
 

@@ -111,6 +111,29 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the run method of FindCommand to ensure it correctly finds and displays tasks
+     */
+    @Test
+    public void showFindCommandTest() {
+        ui.showFindCommand(taskList);
+        String output = BAR +"\r\nHere are the matching tasks in your list:\r\n"
+                + "1.[T][ ] Read Book\r\n" + BAR + "\n\r\n";
+
+        assertEquals(output, outputStream.toString());
+    }
+
+    /**
+     * Tests the run method of FindCommand when there is no keyword found in the task list.
+     */
+    @Test
+    public void showFindCommandNoneTest() {
+        ui.showFindCommand(new TaskList());
+        String output = BAR +"\r\nNo matching tasks found!\r\n" + BAR + "\n\r\n";
+
+        assertEquals(output, outputStream.toString());
+    }
+
     @AfterEach
     public void reset() {
         System.setOut(standardOut);
