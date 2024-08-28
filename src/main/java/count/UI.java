@@ -1,16 +1,13 @@
 package count;
 
-import count.action.Greet;
 import count.action.Deactivate;
+import count.action.Greet;
 
 /**
  * The UI class formats how Count replies
  * @author Kieran Koh Jun Wei
  */
 public class UI {
-    public UI() {
-
-    }
 
     /**
      * The reply method prints the output between two horizontal lines

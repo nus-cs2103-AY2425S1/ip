@@ -1,18 +1,23 @@
 package count;
 
-import count.exception.IncorrectFormatException;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import java.time.LocalDate;
+
+import java.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
+
 import count.task.Deadline;
 import count.task.Event;
 import count.task.Task;
 import count.task.ToDo;
 
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.io.File;
-import java.util.Scanner;
-import java.util.regex.PatternSyntaxException;
+import count.exception.IncorrectFormatException;
+
 
 /**
  * The Storage class deals with reading any existing Count.txt files for Tasks
@@ -57,30 +62,36 @@ public class Storage {
 
                 boolean isComplete = completion.equals("X");
                 String desc = taskString.split("] ", 2)[1];
+
                 switch (type) {
-                    case "T":
-                        ls.add(new ToDo(desc, isComplete));
-                        break;
-                    case "D":
-                        String[] deadlineInfo = desc.split(" \\(by: ", 2);
-                        LocalDate byTime = LocalDate.parse(deadlineInfo[1].substring(0, deadlineInfo[1].length() - 1), readerFormat);
-                        ls.add(new Deadline(deadlineInfo[0], byTime, isComplete));
-                        break;
-                    case "E":
-                        String[] eventInfo = desc.split(" \\(from: ", 2);
-                        String[] eventTimeInfo = eventInfo[1].split(" to: ",2);
-                        LocalDate fromTime = LocalDate.parse(eventTimeInfo[0], readerFormat);
-                        LocalDate toTime = LocalDate.parse(eventTimeInfo[1].substring(0, eventTimeInfo[1].length() - 1), readerFormat);
-                        ls.add(new Event(eventInfo[0], toTime, fromTime, isComplete));
-                        break;
-                    default:
-                        throw new IncorrectFormatException("Incorrect format for Task.Task types scanned in count.Count.txt!");
+                case "T":
+                    ls.add(new ToDo(desc, isComplete));
+                    break;
+                case "D":
+                    String[] deadlineInfo = desc.split(" \\(by: ", 2);
+                    LocalDate byTime = LocalDate.parse(deadlineInfo[1].substring(0, deadlineInfo[1].length() - 1),
+                            readerFormat);
+                    ls.add(new Deadline(deadlineInfo[0], byTime, isComplete));
+                    break;
+                case "E":
+                    String[] eventInfo = desc.split(" \\(from: ", 2);
+                    String[] eventTimeInfo = eventInfo[1].split(" to: ",2);
+                    LocalDate fromTime = LocalDate.parse(eventTimeInfo[0], readerFormat);
+                    LocalDate toTime = LocalDate.parse(eventTimeInfo[1].substring(0, eventTimeInfo[1].length() - 1),
+                            readerFormat);
+                    ls.add(new Event(eventInfo[0], toTime, fromTime, isComplete));
+                    break;
+                default:
+                    throw new IncorrectFormatException("Incorrect format for Task types" +
+                            " scanned in count.Count.txt!");
                 }
 
             } catch (StringIndexOutOfBoundsException e) {
-                throw new IncorrectFormatException("Incorrect format for Task.Task types scanned in count.Count.txt!");
+                throw new IncorrectFormatException("Incorrect format for Task types " +
+                        "scanned in count.Count.txt!");
             } catch (PatternSyntaxException e) {
-                throw new IncorrectFormatException("Incorrect format for Task.Task description scanned in count.Count.txt!");
+                throw new IncorrectFormatException("Incorrect format for Task description" +
+                        " scanned in count.Count.txt!");
             }
 
         }

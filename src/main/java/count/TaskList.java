@@ -1,7 +1,10 @@
 package count;
 
-import count.task.Task;
 import java.util.ArrayList;
+
+import count.task.Task;
+
+import count.exception.CountException;
 
 /**
  * The TaskList class stores the ArrayList<Task>
@@ -9,7 +12,7 @@ import java.util.ArrayList;
  * @author Kieran Koh Jun Wei
  */
 public class TaskList {
-    private ArrayList<Task> ls;
+    protected ArrayList<Task> ls;
 
     /**
      * Constructor for TaskList if no ArrayList<Task> is provided

@@ -1,12 +1,14 @@
 package count;
 
 import java.io.FileNotFoundException;
+
 import java.util.Scanner;
 
 import count.action.Action;
 import count.action.Deactivate;
-import count.exception.IncorrectFormatException;
+
 import count.exception.CountException;
+import count.exception.IncorrectFormatException;
 
 /**
  * Count is a lightweight helper with an inbuilt to-do list
@@ -29,6 +31,7 @@ public class Count {
         this.sc = new Scanner(System.in);
         this.ui = new UI();
         this.storage = new Storage(filePath);
+
         try {
             this.ls = new TaskList(this.storage.load());
         } catch (FileNotFoundException e) {
@@ -65,11 +68,6 @@ public class Count {
         }
     }
 
-    /**
-     * main method for Count.java
-     * starts a Count instance with filePath of the root directory
-     * @param args
-     */
     public static void main(String[] args) {
         Count c = new Count("./Count.txt");
         c.start();
