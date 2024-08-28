@@ -22,11 +22,10 @@ public class ZBot {
         storage.createFileIfNotExists();
         String input = ui.readCommand();
         while (!input.equals("bye")) {
-            processInput(input, ui);
+            processInput(input, ui, storage);
             input = ui.readCommand();
         }
 
-        storage.save(tasks);
         ui.outro();
     }
 
@@ -34,19 +33,23 @@ public class ZBot {
         new ZBot(SAVE_PATH).run();
     }
 
-    public void processInput(String input, Ui ui) {
+    public void processInput(String input, Ui ui, Storage storage) {
         if (input.equals("list")) {
             listTasks();
         } else if (input.startsWith("mark")) {
             markTask(input, ui);
+            storage.save(tasks);
         } else if (input.startsWith("unmark")) {
             unmarkTask(input, ui);
+            storage.save(tasks);
         } else if (input.startsWith("todo") ||
                 input.startsWith("deadline") ||
                 input.startsWith("event")) {
             addTask(input, ui);
+            storage.save(tasks);
         } else if (input.startsWith("delete")) {
             deleteTask(input, ui);
+            storage.save(tasks);
         } else {
             System.out.println("Invalid command.\n");
         }
