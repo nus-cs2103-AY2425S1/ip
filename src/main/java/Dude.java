@@ -1,11 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 
 /**
  * The Dude class is a chatbot, whose name is Dude, that can help you manage your tasks.
