@@ -18,11 +18,12 @@ public class Ui {
      */
     public void greet() {
         System.out.println(LINE_BREAK);
-        System.out.println("           __..--''``---....___   _..._    __\n" +
-                " /// //_.-'    .-/\";  `        ``<._  ``.''_ `. / // /\n" +
-                "///_.-' _..--.'_    \\                    `( ) ) // //\n" +
-                "/ (_..-' // (< _     ;_..__               ; `' / ///\n" +
-                " / // // //  `-._,_)' // / ``--...____..-' /// / //");
+        System.out.println("   |\\---/|\n" +
+                           "   | ,_, |\n" +
+                           "    \\_'_/-..----.\n" +
+                           " ___/ `   ' ,\"\"+ \\  Meow\n" +
+                           "(__...'   __\\    |`.___.';\n" +
+                           "  (_,...'(_,.`__)/'.....+");
         System.out.println("Meow I'm Echo");
         System.out.println("What can I do for you?");
         System.out.println(LINE_BREAK);
@@ -169,6 +170,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a list of valid commands and how to use them
+     *
+     */
     public void showValidCommands() {
         System.out.println(LINE_BREAK);
         System.out.println("List of valid commands:\n"
