@@ -1,4 +1,5 @@
 package bitbot;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -7,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * Adapted from the partial solution in the question
  */
 public class Deadline extends Task {
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     protected String by;
     protected LocalDateTime localDateTime;
@@ -36,7 +37,10 @@ public class Deadline extends Task {
         this.localTime = localTime;
     }
 
-
+    /**
+     * prints out the final display of the task details to the user.
+     * @return prints out the final display of the task details to the user.
+     */
     @Override
     public String finalString() {
         if (localDateTime != null) {
@@ -50,6 +54,10 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * prints out the final display of the task details to the file to be stored.
+     * @return prints out the final display of the task details to the file to be stored.
+     */
     @Override
     public String toFileFormat() {
 

@@ -1,9 +1,11 @@
 package bitbot;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 
 public class TaskHandling {
@@ -25,10 +27,10 @@ public class TaskHandling {
                                     String[] partsOfInput, int indexFrom, StringBuilder from,
                                     StringBuilder to, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
-            throw new BitBotException("OOPS!!! The description and timings of an event should not be empty.\n          "
-                    + "Please add a description to the event you wish to add to the list.\n" +
-                    "          For example: \"event return book /from Mon 4pm /to 6pm\"\n" +
-                    "          Or \"event return book /from 29-04-2021 18:00 /to 29-04-2021 18:30\"");
+            throw new BitBotException("OOPS!!! The description and timings of an event should not be empty.\n"
+                    + "          Please add a description to the event you wish to add to the list.\n"
+                    + "          For example: \"event return book /from Mon 4pm /to 6pm\"\n"
+                    + "          Or \"event return book /from 29-04-2021 18:00 /to 29-04-2021 18:30\"");
 
         }
         for (int i = 0; i < partsOfInput.length; i++) {
@@ -115,12 +117,22 @@ public class TaskHandling {
                 + "          ____________________________________");
     }
 
+    /**
+     * Takes in the description, the "from" and "to" string from the file
+     * and converts them into an Event.
+     *
+     * @param description the string that tells the user what the task is about
+     * @param from the time when the task is supposed to start
+     * @param to the time when the task is supposed to be completed
+     * @return an Event
+     */
     public static Task handleEventFromFile (String description, String from, String to) {
         Task event = new Events(description, from, to);
         return event;
     }
     /**
      * Handles the deadline task by helping to extract the "by" time
+     *
      * @param arrayList the list of tasks
      * @param textPart the description of the input
      * @param partsOfInput the String[] of the split input
@@ -201,7 +213,15 @@ public class TaskHandling {
                 + "          ____________________________________");
     }
 
-    public static Task handleDeadlineFromFile(String description, String by) {
+    /**
+     * Takes in the description and the "by" string from the file
+     * and converts them into a Deadline.
+     *
+     * @param description the string that tells the user what the task is about
+     * @param by the time by when the task is supposed to be completed.
+     * @return a Deadline
+     */
+    public static Task handleDeadlineFromFile (String description, String by) {
         Task deadline = new Deadline(description, by);
         return deadline;
     }
@@ -234,7 +254,12 @@ public class TaskHandling {
                 + "          ____________________________________\n");
     }
 
-    public static Task handleTodoFromFile(String description) {
+    /**
+     * Takes in the description and converts it into a Todo.
+     * @param description the string that tells the user what the task is about
+     * @return a ToDos
+     */
+    public static Task handleTodoFromFile (String description) {
         Task todo = new ToDos(description);
         return todo;
     }
@@ -249,5 +274,51 @@ public class TaskHandling {
             System.out.println("          " + i + ". " + arrayList.get(i - 1).finalString());
         }
         System.out.println("          ____________________________________\n");
+    }
+
+    /**
+     * Finds the related tasks and returns a list of tasks for the user to see.
+     *
+     * @param partsOfInput the String[] of the split input
+     * @param arrayList the list of tasks
+     * @throws BitBotException when the user does not key in any text after "find"
+     */
+    public static void handleFind (String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException {
+        if (partsOfInput.length < 2) {
+            throw new BitBotException("OOPS!! Add a string of words you want to find.\n" +
+                    "          Please do not leave it blank.");
+        }
+        String textToBeFound;
+        StringBuilder sb1 = new StringBuilder();
+        ArrayList<Task> similarWordList = new ArrayList<>();
+
+        for (int i = 1; i < partsOfInput.length; i++) {
+            if (!sb1.isEmpty()) {
+                sb1.append(" ");
+            }
+            sb1.append(partsOfInput[i]);
+        }
+
+        textToBeFound = sb1.toString();
+
+        for (Task indivTask : arrayList) {
+            if (indivTask.taskDescription.toLowerCase().contains(textToBeFound.toLowerCase())) {
+                similarWordList.add(indivTask);
+            }
+        }
+
+        if (similarWordList.isEmpty()) {
+            System.out.println("          ____________________________________");
+            System.out.println("          There are no matching tasks in the list.");
+            System.out.println("          Please try another keyword.");
+            System.out.println("          ____________________________________");
+        } else {
+            System.out.println("          ____________________________________");
+            System.out.println("          Here are the matching tasks in your list:");
+            for (int i = 1; i < similarWordList.size() + 1; i++) {
+                System.out.println("          " + i + ". " + similarWordList.get(i - 1).finalString());
+            }
+            System.out.println("          ____________________________________");
+        }
     }
 }

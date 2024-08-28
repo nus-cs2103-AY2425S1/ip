@@ -2,7 +2,9 @@ package bitbot;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Objects;
 
 
 public class BitBot {
@@ -105,6 +107,8 @@ public class BitBot {
                         }
 
 
+                    } else if (Objects.equals(keyWord, "find")) {
+                      TaskHandling.handleFind(partsOfInput, arrayList);
                     } else if (Objects.equals(keyWord, "event")) {
                         // this is to check if the keyword is "event".
                         // if so, get the different parts accurately.
@@ -126,20 +130,21 @@ public class BitBot {
                     } else {
                         // if it does not fall in any of this keyword,
                         // throw an error saying there is no such keyword.
-                        throw new BitBotException("OOPS!!! I do not know what this keyword is!\n" +
-                            "          Please key in only one of these:\n          " +
-                            "\n          " +
-                            "mark \n          " +
-                            "unmark \n          " +
-                            "todo \n          " +
-                            "deadline \n          " +
-                            "event\n          " +
-                            "list\n          " +
-                            "delete\n          " +
-                            "bye\n          " +
-                            "\n          " +
-                            "Please key in in this format:\n          " +
-                            "todo ... / deadline ... ");
+                        throw new BitBotException("OOPS!!! I do not know what this keyword is!\n"
+                                + "          Please key in only one of these:\n          "
+                                + "\n          "
+                                + "mark \n          "
+                                + "unmark \n          "
+                                + "todo \n          "
+                                + "deadline \n          "
+                                + "event\n          "
+                                + "list\n          "
+                                + "delete\n          "
+                                + "bye\n          "
+                                + "find\n          "
+                                + "\n          "
+                                + "Please key in in this format:\n          "
+                                + "todo ... / deadline ... ");
                     }
                 } else {
                     textPart = inputData.trim();

@@ -1,13 +1,17 @@
 package bitbot;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +23,12 @@ public class Storage {
 
     private static final String PATH_TO_FILE = "./data/Bitbot.txt";
 
+    /**
+     * It checks if the file that is being read from exists.
+     * If it doesn't, create the directory and the file.
+     *
+     * @throws IOException if directory is not found.
+     */
     public static void ensureFileExists() throws IOException {
         File file = new File(PATH_TO_FILE);
 
@@ -45,6 +55,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from the arrayList into the PATH_TO_FILE.
+     * It is using the .toFileFormat() in the Task class to convert it into a storable format.
+     *
+     * @param tasks this is the arrayList of tasks that have been saved.
+     * @throws IOException
+     */
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         ensureFileExists();
         FileWriter fileWriter = new FileWriter(PATH_TO_FILE);
@@ -55,6 +72,14 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Reads all the tasks stored in the file and then converts it back into
+     * user-readable format and stored in an ArrayList.
+     *
+     * @param filePath uses the filePath to read the correct file.
+     * @return ArrayList<Task> which contains all the tasks from the storage file.
+     * @throws FileNotFoundException if the file is not found
+     */
     public static ArrayList<Task> readTasksFromFile(String filePath) throws FileNotFoundException {
         ArrayList<Task> listFromFile = new ArrayList<>();
         try {
