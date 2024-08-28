@@ -19,6 +19,7 @@ public class Julie {
         }
     }
     public static void main(String[] args) {
+        Storage.start();
         CommonFunctions.wrappedLinePrint("Hi!! My name is: " + NAME + "!\nHow may I help?");
         Scanner sc = new Scanner(System.in);
         while (run) {
