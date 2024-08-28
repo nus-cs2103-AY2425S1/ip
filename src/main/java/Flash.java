@@ -89,6 +89,13 @@ public class Flash {
                 storeList.saveTasksToFile();
                 userInput = scanner.nextLine();
 
+                //if user inputs due, list of tasks due on date is given
+            } else if (words[0].equals("due")) {
+                System.out.println(line);
+                storeList.dueOnDate(userInput.substring(4).trim());
+                System.out.println(line);
+                userInput = scanner.nextLine();
+
             } else {
                 //random input given, throw exception
                 try {

@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 public class StoreList {
 
@@ -59,7 +61,6 @@ public class StoreList {
     /**
      * Saves appropriate task to file
      * Catch all the relevant exceptions when trying to save invalid tasks
-     *
      */
     public void saveTasksToFile() {
         FileUI.createFileIfNotPresent();
@@ -67,7 +68,7 @@ public class StoreList {
         try {
             FileWriter fw = new FileWriter(FileUI.FILE_PATH);
 
-            for (Task task: items) {
+            for (Task task : items) {
                 String taskType = task instanceof ToDos ? "T"
                         : task instanceof Deadlines ? "D" : "E";
                 String taskStatus = task.getStatusIcon();
@@ -86,7 +87,6 @@ public class StoreList {
     /**
      * loads tasks from file and adds to list
      * Catch all the relevant exceptions when trying to add invalid tasks
-     *
      */
     public void loadTasks() {
         FileUI.createFileIfNotPresent();
@@ -148,10 +148,10 @@ public class StoreList {
      * @param num Index of task to be marked.
      */
     public void markItem(int num) {
-        items.get(num-1).mark();
+        items.get(num - 1).mark();
         System.out.println("    " + "Wohoo! I've marked this task as done! WELL DONE!:\n" +
-                "      " + items.get(num-1).print()) ;
-        }
+                "      " + items.get(num - 1).print());
+    }
 
     /**
      * Unmarks item as incomplete
@@ -159,9 +159,9 @@ public class StoreList {
      * @param num Index of task to be unmarked.
      */
     public void UnmarkItem(int num) {
-        items.get(num-1).unMark();
+        items.get(num - 1).unMark();
         System.out.println("    " + "Aww:( I've marked this task as not done yet:\n" +
-                "      " + items.get(num-1).print());
+                "      " + items.get(num - 1).print());
     }
 
     /**
@@ -170,8 +170,12 @@ public class StoreList {
      * @param num Index of task to be deleted.
      */
     public void deleteItem(int num) {
-        Task temp = items.get(num-1);
-        items.remove(num-1);
+        if (num > items.size()) {
+            System.out.println("Task number does not exist");
+            return;
+        }
+        Task temp = items.get(num - 1);
+        items.remove(num - 1);
         System.out.println("    " + "Noted! I've removed this task:\n" +
                 "      " + temp.print() + "\n    Now you have " + this.getSize() + " tasks in the list.");
 
@@ -179,7 +183,6 @@ public class StoreList {
 
     /**
      * Displays items in list
-     *
      */
     public void displayItems() {
         System.out.println("    Here are the tasks in your list:");
@@ -188,4 +191,47 @@ public class StoreList {
         }
     }
 
+    /**
+     * Displays items in list due on a specific date.
+     *
+     * @param date the date in the format yyyy-MM-dd or dd/MM/yyyy to check deadlines against.
+     */
+    public void dueOnDate(String date) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate inputDate;
+        // variable to store if tasks found
+        boolean found = false;
+
+        try {
+            // check if input date matches format of stored date
+            inputDate = LocalDate.parse(date, dateTimeFormatter);
+        } catch (Exception e) {
+            try {
+                // check if input date matches format of stored date
+                inputDate = LocalDate.parse(date, dateTimeFormatter2);
+            } catch (Exception e2) {
+                System.out.println("invalid date format! pls use yyyy-MM-dd or dd/MM/yyyy");
+                return;
+            }
+        }
+
+        System.out.println("    Here are the tasks due on " + date + ":");
+        for (int i = 0; i < items.size(); i++) {
+            Task task = items.get(i);
+            if (task instanceof Deadlines) {
+                // type cast once sure of type of task
+                LocalDate taskDate = ((Deadlines) task).getLocalDate();
+                if (taskDate != null && taskDate.equals(inputDate)) {
+                    System.out.println("    " + (i + 1) + "." + items.get(i).print());
+                    found = true;
+                }
+            }
+        }
+
+        // if no tasks found, return no tasks due
+        if (!found) {
+            System.out.println("No tasks due on " + date);
+        }
+    }
 }

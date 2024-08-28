@@ -1,4 +1,6 @@
-public class Task {
+import java.time.LocalDate;
+
+public abstract class Task {
     //var that describes task
     protected String desc;
     //var that stores status of task
