@@ -50,6 +50,7 @@ public class Bro {
                         int taskId = Integer.parseInt(secondArg);
                         Task task = taskList.markTask(taskId);
                         reply("Nice bro! I've marked this task as done:\n" + task);
+                        onListChange(taskList);
                         break;
                     } catch (Exception e) {
                         reply("Error: " + e.getMessage());
@@ -60,6 +61,7 @@ public class Bro {
                         int taskId = Integer.parseInt(secondArg);
                         Task task = taskList.unmarkTask(taskId);
                         reply("Ok bro! I've marked this task as undone:\n" + task);
+                        onListChange(taskList);
                         break;
                     } catch (Exception e) {
                         reply("Error: " + e.getMessage());
@@ -71,6 +73,7 @@ public class Bro {
                         break;
                     }
                     Task todoTask = taskList.addTask(new TodoTask(secondArg));
+                    onListChange(taskList);
                     addTaskReply(todoTask, taskList.getNumberOfTask());
                     break;
                 case deadline:
@@ -89,6 +92,7 @@ public class Bro {
                     String deadline = deadlineInputs[1].trim();
 
                     Task deadlineTask = taskList.addTask(new DeadlineTask(taskContent, deadline));
+                    onListChange(taskList);
                     addTaskReply(deadlineTask, taskList.getNumberOfTask());
                     break;
                 case event:
@@ -111,6 +115,7 @@ public class Bro {
                         String startTime = durationInputs[0].trim();
                         String endTime = durationInputs[1].trim();
                         Task eventTask = taskList.addTask(new EventTask(eventName, startTime, endTime));
+                        onListChange(taskList);
                         addTaskReply(eventTask, taskList.getNumberOfTask());
                         break;
                     } catch (Exception e) {
@@ -123,6 +128,7 @@ public class Bro {
                         int taskId = Integer.parseInt(secondArg);
                         Task task = taskList.deleteTask(taskId);
                         reply("Noted. Removed this task:\n" + task);
+                        onListChange(taskList);
                         break;
                     } catch (Exception e) {
                         reply("There was an error bro.");
@@ -155,5 +161,10 @@ public class Bro {
                 ____________________________________________________________
                 """, task.toString(), numberOfTasks);
         System.out.print(replyStr);
+    }
+
+    // Handles change to list
+    public static void onListChange(TaskList taskList) {
+        taskList.writeAllTasks(); // Write to file system
     }
 }
