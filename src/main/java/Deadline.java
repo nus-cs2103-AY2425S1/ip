@@ -9,4 +9,6 @@ public class Deadline extends Task{
     public String listedString(){
         return super.listedString() + " [by " + this.endDate + "]";
     }
+    public String getEndDate(){ return endDate; }
+
 }

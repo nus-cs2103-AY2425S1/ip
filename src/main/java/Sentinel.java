@@ -4,7 +4,7 @@ public class Sentinel {
 
     enum Command{todo, deadline, event, list, mark, unmark, delete, help, bye }
 
-    public static ArrayList<Task> list = new ArrayList<>();
+    private static ArrayList<Task> list;
 
     public static void main(String[] args) {
         String logo
@@ -27,6 +27,13 @@ public class Sentinel {
 
         System.out.println("Hello from\n" + logo);
         System.out.println("\nWhat can I do for you?");
+        try {
+            list = new FileLoader().loadTasks();
+        } catch (Exception e) {
+            System.err.println("Error loading file: "+ e);
+            list = new ArrayList<>();
+        }
+
         Scanner sc = new Scanner(System.in);
         Command input = null;
         do {
@@ -34,6 +41,7 @@ public class Sentinel {
             try { input = Command.valueOf(sc.next().toLowerCase());}
             catch (IllegalArgumentException e) {System.out.println("Unrecognised command. Type \"help\" to list all commands."); continue;}
             System.out.println("____________________________________________________________\n");
+            new FileWriter(list).saveTasks();
             switch (input) {
                 case list -> {
                     System.out.println("Here " + (list.size() == 1 ? "is" : "are") + " the " + (list.size() == 1 ? "task" : "tasks") + " in your list:");
@@ -91,7 +99,7 @@ public class Sentinel {
                     System.out.println("Got it. I've added this task: " + list.get(list.size()-1));
                     System.out.println("\t" + list.get(list.size()-1).listedString());
                 }
-                case help ->{
+                case help -> {
                     String helpText = """
                     1. todo <task>                                Adds tasks without any date/time attached to list.
                     2. deadline <task> /by <date>                 Adds tasks that need to be done before a specific date/time to list.
@@ -106,6 +114,7 @@ public class Sentinel {
                 }
             }
         } while (input == null || !input.equals(Command.bye));
+
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
