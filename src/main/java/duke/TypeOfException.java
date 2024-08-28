@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * A class that throws different type of exception expecting during runtime of program
+ */
 public class TypeOfException {
     public void showLoadingError() throws DukeException {
         throw new DukeException("Error loading file");
