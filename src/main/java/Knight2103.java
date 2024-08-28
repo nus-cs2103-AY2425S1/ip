@@ -1,7 +1,75 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Knight2103 {
+
+    public static Task formatToTask(String lineInFile) {
+        String[] inputArray = lineInFile.split(" \\| ");
+        try {
+            Task taskToAdd;
+            switch (inputArray[0]) {
+                case "T":
+                    if (inputArray.length != 3) {
+                        throw new InstructionInvalid();
+                    }
+                    taskToAdd = new Todo(inputArray[2]);
+                    if (inputArray[1].equals("0")) {
+                        return taskToAdd;
+                    } else if (inputArray[1].equals("1")) {
+                        taskToAdd.markDone();
+                        return taskToAdd;
+                    }
+                    break;
+
+                case "D":
+                    if (inputArray.length != 4) {
+                        throw new InstructionInvalid();
+                    }
+                    taskToAdd = new Deadline(inputArray[2], inputArray[3]);
+                    if (inputArray[1].equals("0")) {
+                        return taskToAdd;
+                    } else if (inputArray[1].equals("1")) {
+                        taskToAdd.markDone();
+                        return taskToAdd;
+                    }
+                    break;
+
+                case "E":
+                    if (inputArray.length != 5) {
+                        throw new InstructionInvalid();
+                    }
+                    taskToAdd = new Event(inputArray[2], inputArray[3], inputArray[4]);
+                    if (inputArray[1].equals("0")) {
+                        return taskToAdd;
+                    } else if (inputArray[1].equals("1")) {
+                        taskToAdd.markDone();
+                        return taskToAdd;
+                    }
+                    break;
+                default:
+                    throw new InstructionInvalid();
+            }
+        } catch (InstructionInvalid e) { // need to change type of Exception
+            System.out.println("help me");
+        }
+        return new Task(""); // code will be problematic
+    }
+    public static ArrayList<Task> loadTaskList(File fileInput) {
+        ArrayList<Task> taskList = new ArrayList<Task>();
+        try {
+            Scanner scanner = new Scanner(fileInput);
+            while (scanner.hasNextLine()) {
+                taskList.add(formatToTask(scanner.nextLine()));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        return taskList;
+    }
+
     public static String printList(ArrayList<Task> list, int length) {
         String stringToPrint = "";
         for (int i = 0; i < length; i++) {
@@ -21,8 +89,17 @@ public class Knight2103 {
                 + horiLine + "\n";
         System.out.println(intro);
 
+        File savedTaskList = new File("../savedTaskList.txt");
+
         // Initialise Task list
         ArrayList<Task> taskList = new ArrayList<Task>();
+        try {
+            if (!savedTaskList.createNewFile()) {
+                taskList = loadTaskList(savedTaskList); // is it?
+            }
+        } catch (IOException e) {
+                System.out.println("something went wrong");
+            }
 
         // Enable Input
         Scanner scanObject = new Scanner(System.in);
