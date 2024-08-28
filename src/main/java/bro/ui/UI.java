@@ -1,5 +1,6 @@
 package bro.ui;
 
+import bro.BroException;
 import bro.task.Task;
 import bro.task.TaskList;
 
@@ -26,8 +27,12 @@ public class UI {
         reply(GOODBYE_MESSAGE);
     }
 
-    public String readCommand() {
-        return scanner.nextLine();
+    public String readCommand() throws BroException {
+        try {
+            return scanner.nextLine();
+        } catch (Exception e) {
+            throw new BroException("Input cannot be empty.");
+        }
     }
 
     public void showCreateTaskSuccess(Task task, int numberOfTasks) {
