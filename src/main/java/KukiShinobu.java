@@ -1,20 +1,159 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;  // Import the Scanner class
+import java.io.File;
 
 public class KukiShinobu {
     private final String name = "Kuki Shinobu";
-    private final ArrayList<Task> tasks = new ArrayList<>();
-
+    private ArrayList<Task> tasks = new ArrayList<>();
+    // IMPORTANT: Relative Filepath Specified must always be relative to root directory of the entire project
+    private static final String FILE_PATH = "./data/database.txt";
+    private static final String DELIMITER = " \\| ";
     public static void main(String[] args) {
-        KukiShinobu shinobu = new KukiShinobu();
-        shinobu.listen();
+//        final String filepath = "../../../data/database.txt";
+        KukiShinobu kukiShinobu = new KukiShinobu();
+        kukiShinobu.listen();
     }
 
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
 
+//    public KukiShinobu(String filepath) {
+//        this.filepath = filepath;
+//    }
+
+    public static boolean readBoolean(int i) {
+        return i != 0;
+    }
+    public List<Task> loadDatabaseFile() {
+        String cwd = System.getProperty("user.dir");
+        System.out.println("Current working directory: " + cwd);
+
+        ArrayList<String> input = readFile(FILE_PATH);
+        ArrayList<Task> existingTasks = parseTasks(input);
+        System.out.println(existingTasks);
+        this.tasks = existingTasks;
+        System.out.println(this.tasks);
+        return parseTasks(input);
+    }
+
+    private ArrayList<String> readFile(String filePath) {
+        File file = new File(filePath);
+        // Ensure parent directory exists
+        file.getParentFile().mkdirs();
+        ArrayList<String> input = new ArrayList<>();
+        try {
+            System.out.println(file.exists());
+            // Check if the file exists
+            if (!file.exists()) {
+                // Create an empty file
+                file.createNewFile();
+            }
+            try (Scanner scanner = new Scanner(file)) {
+                while (scanner.hasNextLine()) {
+                    input.add(scanner.nextLine());
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + filePath);
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Error creating or accessing the file: " + filePath);
+            e.printStackTrace();
+        }
+        System.out.println(input);
+        return input;
+    }
+
+    private ArrayList<Task> parseTasks(ArrayList<String> input) {
+        ArrayList<Task> existingTasks = new ArrayList<>();
+        for (String taskString : input) {
+            String[] taskConstituents = taskString.split(DELIMITER);
+            if (taskConstituents.length < 2) {
+                System.err.println("Invalid task format: " + taskString);
+                continue; // Skip to the next line
+            }
+
+            String taskType = taskConstituents[0];
+            boolean isCompleted = taskConstituents[1].equals("1");
+
+            switch (taskType) {
+                case "T":
+                    if (taskConstituents.length >= 3) {
+                        existingTasks.add(new Todo(taskConstituents[2], isCompleted));
+                    } else {
+                        System.err.println("Invalid Todo task format: " + taskString);
+                    }
+                    break;
+                case "D":
+                    if (taskConstituents.length >= 4) {
+                        existingTasks.add(new Deadline(taskConstituents[2], taskConstituents[3], isCompleted));
+                    } else {
+                        System.err.println("Invalid Deadline task format: " + taskString);
+                    }
+                    break;
+                case "E":
+                    if (taskConstituents.length >= 5) {
+                        existingTasks.add(new Event(taskConstituents[2], taskConstituents[3], taskConstituents[4], isCompleted));
+                    } else {
+                        System.err.println("Invalid Event task format: " + taskString);
+                    }
+                    break;
+                default:
+                    System.err.println("Unknown task type: " + taskType);
+                    break;
+            }
+        }
+        return existingTasks;
+    }
+
+//    public ArrayList<Task> loadDatabaseFile() {
+//        // TODO: Loads the file specified by the filepath and updates task
+//
+//        ArrayList<String> input = new ArrayList<>();
+//        ArrayList<Task> existingTasks = new ArrayList<>();
+//
+//        // Attempt to open file and file path and read it
+//        try (Scanner scanner = new Scanner(new File(this.filepath))) {
+//            while (scanner.hasNextLine()) {
+//                input.add(scanner.nextLine());
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            File file = new File(this.filepath);
+//            if (!file.exists()) {
+//                // Create an empty file
+//                file.createNewFile();
+//                file.getParentFile().mkdirs();
+//            }
+//            return existingTasks;
+//        }
+//
+//
+//        // Loop through each entry in the input line and then break into it's constitutents
+//        for (String taskString : input) {
+//            String[] taskConstituents = taskString.split(" \\| ");
+//            String taskType = taskConstituents[0];
+//            switch (taskType) {
+//                case "T":
+//                    existingTasks.add(new Todo(taskConstituents[2], taskConstituents[1].equals("1")));
+//                    break;
+//                case "D":
+//                    existingTasks.add(new Deadline(taskConstituents[2], taskConstituents[3], taskConstituents[1].equals("1")));
+//                    break;
+//                case "E":
+//                    existingTasks.add(new Event(taskConstituents[2], taskConstituents[3], taskConstituents[4], taskConstituents[1].equals("1")));
+//                    break;
+//            }
+//        }
+//        return existingTasks;
+//    }
+
     public void listen() {
+        this.loadDatabaseFile();
         this.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -34,7 +173,7 @@ public class KukiShinobu {
 
             try {
                 // otherwise, handle all other commands as appropriate
-                switch(command) {
+                switch (command) {
                     case "list":
                         this.listTasks();
                         break;
@@ -73,9 +212,11 @@ public class KukiShinobu {
         }
         this.goodbye();
     }
+
     private void handleUnknownCommand() throws KukiShinobuException {
         throw new KukiShinobuException("Hmm... I don't quite understand what you mean!");
     }
+
     private void listTasks() {
         for (int i = 0; i < this.tasks.size(); i++) {
             System.out.println((i + 1) + "." + this.tasks.get(i));
