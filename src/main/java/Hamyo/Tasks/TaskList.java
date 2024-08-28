@@ -8,14 +8,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * TaskList - contains the task list e.g., it has operations to add/delete tasks in the list.
+ * Represents the list of users' tasks. Provides operations to add/delete etc.
+ *
+ * @author Han Yu
  */
 public class TaskList extends ArrayList<Task> {
 
+  /**
+   * Constructor for TaskList. Creates a new instance of an ArrayList.
+   */
   public TaskList() {
     super();
   }
 
+  /**
+   * Adds the specified Task to the list of users' tasks.
+   *
+   * @param taskType Type of task (i.e. To-Do, Deadline, Event).
+   * @param task Trailing String after to-do/deadline/event command,
+   *             (e.g. " apple", " banana /from 2002-09-18).
+   * @throws HamyoException If the command is incomplete/invalid.
+   */
   public void addTask (TaskType taskType, String task) throws HamyoException {
     if (taskType.equals(TaskType.TODO)) {
       if (task.length() <= 1) {
@@ -45,6 +58,12 @@ public class TaskList extends ArrayList<Task> {
     UI.printAddTask(this.get(this.size() - 1), this.size());
   }
 
+  /**
+   * Deletes the specified Task from the list of users' tasks.
+   *
+   * @param str Trailing String after delete command, (e.g. " 1", " 2", " 3").
+   * @throws HamyoException If the command is incomplete/invalid.
+   */
   public void deleteTask(String str) throws HamyoException {
     try {
       if (str.length() <= 1) {
@@ -62,7 +81,10 @@ public class TaskList extends ArrayList<Task> {
     }
   }
 
-  public void listTasks() throws HamyoException {
+  /**
+   * List all the users' tasks onto the terminal.
+   */
+  public void listTasks() {
     StringBuilder tasksList = new StringBuilder();
     for (int i = 1; i < this.size() + 1; i++) {
       if (!tasksList.isEmpty()) {
@@ -74,6 +96,12 @@ public class TaskList extends ArrayList<Task> {
     UI.printListTasks(tasksList.toString());
   }
 
+  /**
+   * List all the users' tasks on the specified date onto the terminal.
+   *
+   * @param str Trailing String after listDate command, (e.g. " 2002-09-18").
+   * @throws HamyoException If the command is incomplete/invalid.
+   */
   public void listTasksByDate(String str) throws HamyoException {
     try {
       LocalDate date = LocalDate.parse(str.substring(1));
@@ -96,6 +124,12 @@ public class TaskList extends ArrayList<Task> {
     }
   }
 
+  /**
+   * Mark a task in the list of users' tasks.
+   *
+   * @param str Trailing String after mark command, (e.g. " 1", " 2", " 3").
+   * @throws HamyoException If the command is incomplete/invalid.
+   */
   public void markTask(String str) throws HamyoException {
     try {
       if (str.length() <= 1) {
@@ -111,6 +145,12 @@ public class TaskList extends ArrayList<Task> {
     }
   }
 
+  /**
+   * Unmark a task in the list of users' tasks.
+   *
+   * @param str Trailing String after mark command, (e.g. " 1", " 2", " 3").
+   * @throws HamyoException If the command is incomplete/invalid.
+   */
   public void unmarkTask(String str) throws HamyoException {
     try {
       if (str.length() <= 1) {

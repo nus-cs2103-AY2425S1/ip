@@ -5,11 +5,24 @@ import Hamyo.Misc.HamyoException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents a Task that has to be completed before a specified Deadline.
+ *
+ * @author Han Yu
+ */
 public class Deadline extends Task {
 
   private final LocalDate deadlineDate;
   private final LocalDateTime deadlineDateTime;
 
+  /**
+   * Constructor for Deadline instance.
+   *
+   * @param task Description for the task, stored in String array.
+   *             [Description, Deadline].
+   * @throws HamyoException If user inputs an invalid Date/ Time.
+   */
   public Deadline(String[] task) throws HamyoException {
     super(task);
     try {
@@ -27,6 +40,12 @@ public class Deadline extends Task {
     }
   }
 
+  /**
+   * Converts the Deadline representation to a standardised format for the
+   * printing of TaskList.
+   *
+   * @return Formatted String to represent the Deadline.
+   */
   @Override
   public String toString() {
     String deadlineString = this.deadlineDateTime != null ?
@@ -35,6 +54,12 @@ public class Deadline extends Task {
     return "[D] " + super.toString() + " (by: " + deadlineString + ")";
   }
 
+  /**
+   * Converts the Deadline representation to a standardised format for the loading
+   * and storing of tasks in files.
+   *
+   * @return Formatted String to represent the Deadline.
+   */
   @Override
   public String toFileFormat() {
     String deadlineString = this.deadlineDateTime != null ?
@@ -43,6 +68,12 @@ public class Deadline extends Task {
     return "D" + " | " + super.toFileFormat() + " | " + deadlineString;
   }
 
+  /**
+   * Verify if the Deadline occurs on the specified date.
+   *
+   * @param  date The specified date to check.
+   * @return true if Deadline falls on specified date, false otherwise.
+   */
   @Override public boolean occursToday(LocalDate date) {
     return date.isEqual(this.deadlineDate);
   }
