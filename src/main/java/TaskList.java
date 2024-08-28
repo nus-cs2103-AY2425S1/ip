@@ -65,29 +65,8 @@ public class TaskList {
         Ui.displayForm(list);
     }
 
-    public void addTask(String firstWord, String task) throws StobberiException {
-        if (task.isEmpty()) {
-            throw new EmptyStobberiException("That's not a task?! Try again. ");
-        }
-
-        if (!firstWord.equals("todo") && !firstWord.equals("deadline") && !firstWord.equals("event")) {
-            throw new NoSuchTaskStobberiException("Huh! There is no such task?? ");
-        }
-
-        switch (firstWord) {
-            case "todo" :
-                listOfTasks.add(new ToDos(task));
-                break;
-            case "deadline" :
-                String[] parts = task.split(" /by ");
-                listOfTasks.add(new Deadlines(parts[0], parts[1]));
-                break;
-            case "event" :
-                String[] eventParts = task.split(" /from ");
-                String[] secondParts = eventParts[1].split(" /to ");
-                listOfTasks.add(new Events(eventParts[0], secondParts[0], secondParts[1]));
-                break;
-        }
+    public void addTask(Task task) throws StobberiException {
+        listOfTasks.add(task);
         displayLastAdded();
     }
 
