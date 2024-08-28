@@ -7,6 +7,12 @@ import oyster.exceptions.TaskFieldException;
 import java.util.Scanner;
 
 public class CommandParser {
+    /**
+     * Parses a singular line into a Command object
+     *
+     * @param line Line to be converted into a Command
+     * @return Command
+     */
     public static Command parse(String line) {
         Scanner scanner = new Scanner(line);
         String input = scanner.next().toLowerCase();

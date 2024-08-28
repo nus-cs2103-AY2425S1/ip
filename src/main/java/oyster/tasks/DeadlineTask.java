@@ -11,11 +11,19 @@ public class DeadlineTask extends Task {
 
     private final LocalDateTime deadline;
 
+    /**
+     * @param description The description of the Task
+     * @param deadline The deadline of the Task
+     */
     public DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
 
+    /**
+     * @param input The string to parse into a DeadlineTask
+     * @return DeadlineTask object
+     */
     public static DeadlineTask fromInput(String input) {
         String name = "";
         String deadline = "";

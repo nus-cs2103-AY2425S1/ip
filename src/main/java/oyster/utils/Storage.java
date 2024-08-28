@@ -16,6 +16,10 @@ public class Storage {
         return Files.exists(SAVE_PATH);
     }
 
+    /**
+     * @return TaskList loaded from SAVE_PATH storage
+     * @throws ParseException If parsing goes wrong
+     */
     public static TaskList loadTaskList() throws ParseException {
         if (!directoryExists()) createSave();
 
@@ -26,11 +30,11 @@ public class Storage {
         }
     }
 
-    public static void createSave() {
+    private static void createSave() {
         try {
             Files.createDirectories(SAVE_PATH.getParent());
             Files.write(SAVE_PATH, "".getBytes());
-        } catch (IOException e) {
+        } catch (Exception e) {
             // TODO fatal error
         }
     }
@@ -40,15 +44,18 @@ public class Storage {
 
         try {
             Files.write(SAVE_PATH, text.getBytes());
-        } catch (IOException e) {
+        } catch (Exception e) {
             // TODO saving error
         }
     }
 
+    /**
+     * @param taskList The TaskList to be saved into SAVE_PATH Storage
+     */
     public static void saveTaskList(TaskList taskList) {
         try {
             writeSave(Parser.composeTaskList(taskList));
-        } catch (IOException e) {
+        } catch (Exception e) {
             // TODO saving error
         }
     }

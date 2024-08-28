@@ -10,6 +10,9 @@ public class UnmarkCommand extends Command {
         this.markIndex = markIndex;
     }
 
+    /**
+     * Unmarks a Task when executed
+     */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();

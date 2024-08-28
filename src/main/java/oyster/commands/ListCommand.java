@@ -8,6 +8,9 @@ public class ListCommand extends Command {
 
     }
 
+    /**
+     * Populates the message of the Command with the TaskList when executed
+     */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();

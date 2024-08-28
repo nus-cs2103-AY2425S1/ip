@@ -12,6 +12,10 @@ import java.util.Objects;
 public class TaskParser {
     private static String FILE_DELIMITER = "~ ~";
 
+    /**
+     * @param line The line to be parsed into a Task
+     * @return Task object
+     */
     public static Task parse(String line) {
         String[] lineInfo = line.split(FILE_DELIMITER);
 
@@ -52,6 +56,10 @@ public class TaskParser {
         return task;
     }
 
+    /**
+     * @param task The Task to be converted into String
+     * @return Writable save String of a Task
+     */
     public static String compose(Task task) {
         return String.join(FILE_DELIMITER, task.compose());
     }

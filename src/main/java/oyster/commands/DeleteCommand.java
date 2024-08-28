@@ -10,6 +10,9 @@ public class DeleteCommand extends Command {
         this.markIndex = markIndex;
     }
 
+    /**
+     * Deletes a Task when executed
+     */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();

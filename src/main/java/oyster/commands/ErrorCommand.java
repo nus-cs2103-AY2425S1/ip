@@ -7,6 +7,9 @@ public class ErrorCommand extends Command {
         super(message);
     }
 
+    /**
+     * Does not do anything when executed
+     */
     @Override
     public void execute() {
         // do nothing
