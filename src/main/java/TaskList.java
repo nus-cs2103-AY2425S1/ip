@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -47,6 +50,10 @@ public class TaskList {
         }
     }
 
+    public Task getTask(int i) {
+        return tasks.get(i);
+    }
+
     public String get() {
         String temp = "";
         for (int i = 0; i < n; i++) {
@@ -62,8 +69,10 @@ public class TaskList {
         return temp;
     }
 
+
+
     public String delete(int i) throws InputErrorException {
-        String str = getSpecific(i-1);
+        String str = getSpecific(i);
         tasks.remove(i-1);
         n--;
         return str;

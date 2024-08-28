@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -5,8 +8,14 @@ import java.util.function.Function;
 
 public class Gumball {
     public static void main(String[] args) {
-        Gumball chat = new Gumball();
-        chat.start();
+        try {
+            Gumball chat = new Gumball();
+            chat.start();
+        } catch (IOException e) {
+            print(e.getMessage());
+        } catch (InputErrorException e) {
+            print("Error in file please start over.");
+        }
 
     }
 
@@ -14,13 +23,17 @@ public class Gumball {
     public Scanner input;
     public TaskList list;
 
+    private FileManager fileManager;
 
-    public Gumball() {
+
+
+    public Gumball() throws IOException, InputErrorException {
         input = new Scanner(System.in);
-        list = new TaskList();
+        fileManager = new FileManager("./gumball.txt");
+        list = fileManager.loadFile();
     }
 
-    public void start() {
+    public void start() throws FileNotFoundException {
         intro();
         while (true){
             command = input.nextLine();
@@ -29,12 +42,14 @@ public class Gumball {
                 execute(command);
             } catch (InputErrorException e) {
                 print(e.getMessage());
+            } catch (IOException e) {
+                print(e.getMessage());
             }
         }
         outro();
     }
 
-    public void execute(String command) throws InputErrorException{
+    public void execute(String command) throws InputErrorException, IOException {
         if (command.equals("bye")) {
 
         } else if (command.equals("list")) {
@@ -48,12 +63,16 @@ public class Gumball {
             String temp = list.delete(num);
             print("Nice! I've deleted this task:\n" + temp
                     + String.format("\nNow you have %d tasks in the list.",list.getN()));
+            fileManager.updateFile(list);
         } else if (command.startsWith("todo")) {
             addToList(new ToDos(command));
+            fileManager.updateFile(list);
         } else if (command.startsWith("deadline")) {
             addToList(new Deadlines(command));
+            fileManager.updateFile(list);
         } else if (command.startsWith("event")) {
             addToList(new Events(command));
+            fileManager.updateFile(list);
         } else {
             throw(new InputErrorException("Sorry I don't know how to do that"));
         }
