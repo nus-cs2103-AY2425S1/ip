@@ -81,7 +81,7 @@ public class BitBot {
                     if (Objects.equals(keyWord, "mark") || Objects.equals(keyWord, "unmark") || Objects.equals(keyWord, "delete")) {
                         if (partsOfInput.length < 2) {
                             throw new BitBotException("OOPS!! Add the task number to mark/ unmark / delete the event.\n" +
-                                "          Please do not leave it blank");
+                                "          Please do not leave it blank.");
                         }
                         if (isAString(partsOfInput[partsOfInput.length - 1])) {
                             throw new BitBotException("OOPS!!! The second character should be a number.\n" +
@@ -100,6 +100,8 @@ public class BitBot {
                                 "          There are only " + arrayList.size() + " item(s) in your list so far.");
                         }
 
+                    } else if (Objects.equals(keyWord, "find")) {
+                       TaskHandling.handleFind(partsOfInput, arrayList);
                     }
                     // this is to check if the keyword is "event".
                     // if so, get the different parts accurately.
@@ -123,7 +125,6 @@ public class BitBot {
                         // add all the tasks in the list into BitBot.txt
                         // and then do nothing else.
                         Storage.saveTasksToFile(arrayList);
-
                     }
                     // if it does not fall in any of this keyword,
                     // throw an error saying there is no such keyword.
@@ -139,6 +140,7 @@ public class BitBot {
                             "list\n          " +
                             "delete\n          " +
                             "bye\n          " +
+                            "find\n          " +
                             "\n          " +
                             "Please key in in this format:\n          " +
                             "todo ... / deadline ... ");
@@ -153,6 +155,9 @@ public class BitBot {
                 // the scanner will read.
                 switch (keyWord) {
                 case "bye":
+                    break;
+
+                case "find":
                     break;
 
                 case "mark":
