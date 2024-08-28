@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -120,36 +123,37 @@ public class Storage {
                 }
             }
             if (success == 0) {
-                System.out.println("No valid save file found");
+                System.out.println("No valid saved Tasks found");
             }
         } catch (FileNotFoundException fnfe) {
-            System.out.println("no save file found");
-        }
-    }
-
-    /**
-     * marks the task as completed by changing the boolean value to true
-     *
-     * @param s is the task index in String format
-     * @throws IllegalArgumentException in the event that event index is out of the range of the task list
-     */
-    private void markAsDone(String s) throws IllegalArgumentException {
-        try {
-            int i = Integer.parseInt(s);
-
-            if (i < 1 || i > list.size()) {
-                System.out.println("You don't have a task number " + i);
-                return;
+            System.out.println("no save file found, creating new save file");
+            Path saveFilePath = Paths.get(filePath);
+            Path directory = saveFilePath.getParent();
+            //@@author mkyong -reused
+            // source: https://mkyong.com/java/how-to-create-directory-in-java/
+            // code for creating directory reused from the tutorial website above
+            try {
+                //@@author Baeldung -reused
+                // source: https://www.baeldung.com/java-file-directory-exists
+                // code for checking if directories and files exist reused from website above
+                if (!Files.exists(directory)) {
+                    Files.createDirectories(directory);
+                    System.out.println("Creating directory: " + directory);
+                }
+                if (!Files.exists(saveFilePath)) {
+                    //@@author tutorialspoint -reused
+                    // source: https://www.tutorialspoint.com/javaexamples/file_dir.htm
+                    // code for creating files using Files.createFile() reused from website
+                    Files.createFile(saveFilePath);
+                    System.out.println("Creating file: " + saveFilePath.getFileName());
+                    //@@author
+                }
+                //@@author
+                System.out.println("Save file created at " + saveFilePath);
+            } catch (IOException e) {
+                System.out.println("Error in creating file / directory: " + e.getMessage());
             }
-            Task t = list.get(i - 1);
-            t.completed();
-            save();
-            System.out.println("Finally doing something useful with your life eh...");
-            System.out.println(t);
-        } catch (NumberFormatException nfe) {
-            System.out.println("That's not a task number");
+            //@@author
         }
     }
-
-
 }

@@ -245,7 +245,7 @@ public class Parser {
         } catch (NumberFormatException nfe) {
             System.out.println("That's not a task number");
         } catch (IllegalArgumentException ile) {
-            System.out.println(ile.toString());
+            System.out.println(ile.getMessage());
         }
     }
 
