@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -73,11 +74,11 @@ public class Stobberi {
         if (firstWord.equals("todo")) {
             listOfTasks.add(new ToDos(task));
         } else if (firstWord.equals("deadline")) {
-            String[] parts = task.split("/by ");
+            String[] parts = task.split(" /by ");
             listOfTasks.add(new Deadlines(parts[0], parts[1]));
         } else if (firstWord.equals("event")) {
-            String[] parts = task.split("/from ");
-            String[] secondParts = parts[1].split("/to ");
+            String[] parts = task.split(" /from ");
+            String[] secondParts = parts[1].split(" /to ");
             listOfTasks.add(new Events(parts[0], secondParts[0], secondParts[1]));
         }
         displayLastAdded();
@@ -114,6 +115,8 @@ public class Stobberi {
                     addTask(firstWord, restOfTask);
                 } catch (StobberiException e) {
                     System.out.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n" + e.getMessage());
                 }
             }
             temp = scanner.nextLine();
