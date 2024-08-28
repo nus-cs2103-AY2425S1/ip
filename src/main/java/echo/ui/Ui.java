@@ -11,15 +11,20 @@ import java.util.ArrayList;
  * @author Ernest Lim
  */
 public class Ui {
-    private static final String LINE_BREAK = "-------------------------------------";
+    private static final String LINE_BREAK = "-----------------------------------------------";
 
     /**
      * Prints a greeting
      */
     public void greet() {
         System.out.println(LINE_BREAK);
-
-        System.out.println("Hello: I'm Echo\nWhat can I do for you?");
+        System.out.println("           __..--''``---....___   _..._    __\n" +
+                " /// //_.-'    .-/\";  `        ``<._  ``.''_ `. / // /\n" +
+                "///_.-' _..--.'_    \\                    `( ) ) // //\n" +
+                "/ (_..-' // (< _     ;_..__               ; `' / ///\n" +
+                " / // // //  `-._,_)' // / ``--...____..-' /// / //");
+        System.out.println("Meow I'm Echo");
+        System.out.println("What can I do for you?");
         System.out.println(LINE_BREAK);
     }
 
