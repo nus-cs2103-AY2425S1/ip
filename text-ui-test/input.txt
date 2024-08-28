@@ -6,11 +6,11 @@ deadline return Book
 todo borrow book
 list
 deadline return book /by 2019-12-01
-deadline do homework /by 2019-12-50
 deadline do homework /by 2019-91-04
 deadline IPPT /by 2020-10-21
 list
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2020-01-02 /to 2020-01-03
+event project meeting /from 2020-01-02 /to 2020-01-90
 list
 mark 4
 unmark 2
