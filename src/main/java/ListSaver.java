@@ -26,7 +26,6 @@ public class ListSaver {
                     taskList.add(new ToDos(parts[1], parts[2]));
                     break;
                 case "D":
-                    System.out.println(parts[3]);
                     taskList.add(new Deadlines(parts[1], parts[2], parts[3]));
                     break;
                 case "E":
