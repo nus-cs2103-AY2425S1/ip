@@ -2,6 +2,9 @@ package applemazer;
 
 import commands.*;
 
+/**
+ * Class that parses all user commands.
+ */
 public class Parser {
 
     /**

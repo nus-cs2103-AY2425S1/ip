@@ -3,11 +3,14 @@ package commands;
 import applemazer.*;
 import tasks.*;
 
+/**
+ * Class that represents the "to-do" command.
+ */
 public class TodoCommand extends Command {
     private final String desc;
 
     /**
-     * Constructor for a TodoCommand object.
+     * Constructor for a {@code TodoCommand} object.
      * @param desc Description of the task.
      */
     public TodoCommand(String desc) {
@@ -15,7 +18,7 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Executes the "to-do" command by adding a To-do task to the task list.
+     * Executes the "to-do" command which adds a To-do task to the task list.
      * @param tasks   The task list to use.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
      */
@@ -28,7 +31,8 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * @return Returns true as the chatbot should continue running after executing the "to-do" command.
+     * Returns {@code true} as the chatbot should continue running after executing the "to-do" command.
+     * @return {@code true}
      */
     @Override
     public boolean continueProcessing() {

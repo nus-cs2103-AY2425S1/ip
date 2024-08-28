@@ -4,11 +4,15 @@ import applemazer.*;
 import tasks.*;
 import java.time.DateTimeException;
 
+/**
+ * Class that represents the "event" command.
+ */
 public class EventCommand extends Command {
     private final String desc, from, to;
 
     /**
-     * Constructor for an EventCommand object.
+     * Constructor for an {@code EventCommand} object.
+     * <p>
      * Note that setting the time is optional.
      * @param desc Description of the event.
      * @param from The start date (and time) of the event, as a String.
@@ -21,7 +25,7 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Executes the "event" command by adding an Event task to the task list.
+     * Executes the "event" command which adds an {@code Event} task to the task list.
      * @param tasks   The task list to use.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
      */
@@ -43,7 +47,8 @@ public class EventCommand extends Command {
     }
 
     /**
-     * @return Returns true as the chatbot should continue running after executing the "event" command.
+     * Returns {@code true} as the chatbot should continue running after executing the "event" command.
+     * @return {@code true}
      */
     @Override
     public boolean continueProcessing() {

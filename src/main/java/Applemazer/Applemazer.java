@@ -3,6 +3,10 @@ package applemazer;
 import commands.*;
 import java.util.Scanner;
 
+
+/**
+ * Main class that runs the Applemazer chatbot.
+ */
 public class Applemazer {
     private final Ui ui;
     private static Storage storage;
@@ -21,6 +25,7 @@ public class Applemazer {
 
     /**
      * Main processing loop for the Applemazer chatbot.
+     * <p>
      * Executes commands based on user input.
      */
     private void process() {
@@ -34,7 +39,7 @@ public class Applemazer {
                 c.execute(tasks, storage);
                 processing = c.continueProcessing();
             } catch (Exception e) {
-                System.err.println(e.getMessage() + "\n");
+                System.err.println(e.getMessage() + "\n"); // Catches parsing errors.
             }
         }
         sc.close();

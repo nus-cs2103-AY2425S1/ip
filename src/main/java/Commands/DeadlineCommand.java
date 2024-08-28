@@ -4,11 +4,14 @@ import applemazer.*;
 import tasks.*;
 import java.time.DateTimeException;
 
+/**
+ * Class that represents the "deadline" command.
+ */
 public class DeadlineCommand extends Command {
     private final String desc, deadline;
 
     /**
-     * Constructor for a DeadLineCommand object.
+     * Constructor for a {@code DeadLineCommand} object.
      * @param desc Description of the task.
      * @param deadline The deadline for the task, as a String.
      */
@@ -18,7 +21,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Executes the "deadline" command by adding a Deadline task to the task list.
+     * Executes the "deadline" command which adds a {@code Deadline} task to the task list.
      * @param tasks   The task list to use.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
      */
@@ -40,7 +43,8 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * @return Returns true as the chatbot should continue running after executing the "deadline" command.
+     * Returns {@code true} as the chatbot should continue running after executing the "deadline" command.
+     * @return {@code true}
      */
     @Override
     public boolean continueProcessing() {

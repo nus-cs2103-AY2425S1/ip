@@ -1,5 +1,8 @@
 package applemazer;
 
+/**
+ * Class that handles chatbot messages.
+ */
 public class Ui {
 
     /**

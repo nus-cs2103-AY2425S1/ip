@@ -3,12 +3,16 @@ package commands;
 import applemazer.*;
 import tasks.*;
 
+/**
+ * Class that represents either the "mark", "unmark", or "delete" command.
+ */
 public class IntegerCommand extends Command {
     private final IntegerCommands command;
     private final int taskNumber;
 
     /**
-     * Constructor for an IntegerCommand object.
+     * Constructor for an {@code IntegerCommand} object.
+     * <p>
      * Integer commands include "mark", "unmark", and "delete".
      * @param command The type of integer command (mark, unmark, delete).
      * @param taskNumber The task number to use.
@@ -19,7 +23,7 @@ public class IntegerCommand extends Command {
     }
 
     /**
-     * Executes the integer command (mark, unmark, delete).
+     * Executes the specified integer command.
      * @param tasks   The task list to use if necessary.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
      */
@@ -60,7 +64,8 @@ public class IntegerCommand extends Command {
     }
 
     /**
-     * @return Returns true as the chatbot should continue running after executing an integer command.
+     * Returns {@code true} as the chatbot should continue running after executing an integer command.
+     * @return {@code true}
      */
     @Override
     public boolean continueProcessing() {

@@ -3,6 +3,9 @@ package applemazer;
 import tasks.*;
 import java.util.ArrayList;
 
+/**
+ * Class that abstracts a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -37,7 +40,7 @@ public class TaskList {
     }
 
     /**
-     * @return Returns true if the task list is empty.
+     * @return Returns {@code true} if the task list is empty.
      */
     public boolean isEmpty() {
         return tasks.isEmpty();

@@ -3,6 +3,10 @@ package tasks;
 import applemazer.*;
 import java.io.Serializable;
 
+/**
+ * Class that represents a task.
+ * These tasks are added to the task list.
+ */
 public class Task implements Serializable {
     protected final String description;
     protected boolean isDone = false;
@@ -17,7 +21,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * @return Returns a task's done or undone status.
+     * Returns a task's done or undone status.
+     * @return Either [X] or [ ] for done and undone respectively.
      */
     public String getStatusIcon() {
         return isDone ? "[X] " : "[ ] ";
@@ -38,7 +43,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * @return Returns the task description.
+     * Returns the task description.
+     * @return The task description.
      */
     @Override
     public String toString() {

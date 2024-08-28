@@ -4,12 +4,15 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Class that represents a task with a deadline.
+ */
 public class Deadline extends Task {
     private final LocalDateTime localDateTime;
     private final LocalDate localDate;
 
     /**
-     * Constructor for a Deadline task.
+     * Constructor for a {@code Deadline} task.
      * @param description Description of the task.
      * @param deadline The deadline for the task, as a String.
      * @throws DateTimeException Thrown when the string for the deadline does not follow the appropriate format.
@@ -26,7 +29,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * @return Returns the task icon, followed by its done/undone status.
+     *  Returns the task icon, followed by its done/undone status.
+     * @return The task icon [D] and the task's done/undone status.
      */
     @Override
     public String getStatusIcon() {
@@ -34,7 +38,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * @return Returns the task description, followed by its deadline.
+     * Returns the task description, followed by its deadline.
+     * @return The task description and its deadline.
      */
     @Override
     public String toString() {

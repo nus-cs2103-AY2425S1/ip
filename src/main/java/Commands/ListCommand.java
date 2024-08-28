@@ -3,6 +3,9 @@ package commands;
 import applemazer.*;
 import tasks.*;
 
+/**
+ * Class that represents the "list" command.
+ */
 public class ListCommand extends Command {
     /**
      * Executes the "list" command by listing down all current tasks in the task list.
@@ -22,7 +25,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * @return Returns true as the chatbot should continue running after executing the "list" command.
+     * Returns {@code true} as the chatbot should continue running after executing the "list" command.
+     * @return {@code true}
      */
     @Override
     public boolean continueProcessing() {

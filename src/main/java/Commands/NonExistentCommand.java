@@ -2,6 +2,9 @@ package commands;
 
 import applemazer.*;
 
+/**
+ * Class that represents a non-existent command.
+ */
 public class NonExistentCommand extends Command {
     /**
      * Does not do anything since it is a non-existent command.
@@ -12,7 +15,8 @@ public class NonExistentCommand extends Command {
     public void execute(TaskList tasks, Storage storage) {}
 
     /**
-     * @return Returns true as the chatbot should continue running after executing a non-existent command.
+     * Returns {@code true} as the chatbot should continue running after executing a non-existent command.
+     * @return {@code true}
      */
     @Override
     public boolean continueProcessing() {

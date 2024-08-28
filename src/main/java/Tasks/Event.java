@@ -4,6 +4,9 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Class that represents an {@code Event} with a start and end date.
+ */
 public class Event extends Task {
     private final LocalDateTime localDateTimeFrom;
     private final LocalDate localDateFrom;
@@ -11,7 +14,8 @@ public class Event extends Task {
     private final LocalDate localDateTo;
 
     /**
-     * Constructor for an Event task.
+     * Constructor for an {@code Event} task.
+     * <p>
      * Note that setting the time is optional.
      * @param description Description of the event.
      * @param from The start date (and time) of the event, as a String.
@@ -32,7 +36,8 @@ public class Event extends Task {
     }
 
     /**
-     * @return Returns the task icon, followed by its done/undone status.
+     * Returns the task icon, followed by its done/undone status.
+     * @return The task icon [E] and the task's done/undone status.
      */
     @Override
     public String getStatusIcon() {
@@ -40,8 +45,10 @@ public class Event extends Task {
     }
 
     /**
-     * @return Returns the task description, followed by its start date and end date.
-     *         Time will be added if it had been previously set.
+     * Returns the task description, followed by its start date and end date.
+     * <p>
+     * Time will be added if it had been previously set.
+     * @return The task description and its start and end date.
      */
     @Override
     public String toString() {

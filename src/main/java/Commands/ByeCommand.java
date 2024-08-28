@@ -2,6 +2,9 @@ package commands;
 
 import applemazer.*;
 
+/**
+ * Class that represents the "bye" command.
+ */
 public class ByeCommand extends Command {
 
     /**
@@ -14,7 +17,8 @@ public class ByeCommand extends Command {
     public void execute(TaskList tasks, Storage storage) {}
 
     /**
-     * @return Returns false as the chatbot should shut down after executing the "bye" command.
+     * Returns {@code false} as the chatbot should shut down after executing the "bye" command.
+     * @return {@code false}
      */
     @Override
     public boolean continueProcessing() {

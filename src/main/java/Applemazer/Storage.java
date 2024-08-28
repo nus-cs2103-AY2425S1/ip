@@ -4,6 +4,9 @@ import tasks.*;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class that handles saving and loading of task list information.
+ */
 public class Storage {
     private final String filePath;
 
@@ -17,6 +20,7 @@ public class Storage {
 
     /**
      * Saves task list information to the stored filepath.
+     * <p>
      * A new filepath will be created if the stored filepath does not exist.
      */
     public void save() {
@@ -56,6 +60,7 @@ public class Storage {
 
     /**
      * Loads task list information from the stored filepath.
+     * <p>
      * If the stored filepath does not exist, a new task list will be returned.
      */
     @SuppressWarnings("unchecked")

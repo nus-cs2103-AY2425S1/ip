@@ -5,6 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class that parses an input string into a {@code LocalDateTime} or {@code LocalDate}.
+ * <p>
+ * This can be used by classes which require an input date and time.
+ */
 public class DateHandler {
     private static final DateTimeFormatter[] formatters = {
         DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
@@ -16,12 +21,12 @@ public class DateHandler {
     public static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma");
     public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-
     /**
-     * Parses an input string into a LocalDateTime if possible.
-     * Else, returns a null LocalDateTime.
+     * Parses an input string into a c if possible.
+     * <p>
+     * Otherwise, returns a null {@code LocalDateTime}.
      * @param date The input string to parse.
-     * @return LocalDateTime object.
+     * @return {@code LocalDateTime} object.
      */
     public static LocalDateTime parseLocalDateTime(String date) {
         LocalDateTime localDateTime = null;
@@ -36,10 +41,11 @@ public class DateHandler {
     }
 
     /**
-     * Parses an input string into a LocalDate if possible.
-     * Else, returns a null LocalDate.
+     * Parses an input string into a {@code LocalDate} if possible.
+     * <p>
+     * Otherwise, returns a null {@code LocalDate}.
      * @param date The input string to parse.
-     * @return LocalDateTime object.
+     * @return {@code LocalDate} object.
      */
     public static LocalDate parseLocalDate(String date) {
         LocalDate localDate = null;
