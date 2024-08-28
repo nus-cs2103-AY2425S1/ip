@@ -1,8 +1,9 @@
 package shrimp.task;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
 
     public TaskList() {
@@ -31,6 +32,11 @@ public class TaskList {
 
     public int getCount() {
         return tasks.size();
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
     }
 
 }
