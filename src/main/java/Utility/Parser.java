@@ -1,3 +1,5 @@
+package Utility;
+
 public class Parser {
     
     public static String extractCommand(String input) {

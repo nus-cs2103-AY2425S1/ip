@@ -1,3 +1,5 @@
+package Utility;
+
 public enum Commands {
     BYE("bye"),
     LIST("list"),
