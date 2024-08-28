@@ -62,17 +62,6 @@ public class UI {
         reply(errorMessage);
     }
 
-
-    // Prints an adds to list on standard output
-    private static void reply(String content) {
-        String replyStr = String.format("""
-                %s
-                bro.
-                """, content);
-        System.out.print(replyStr);
-        showLine();
-    }
-
     // Prints an add task reply
     public static void addTaskReply(Task task, int numberOfTasks) {
         String replyStr = String.format("""
@@ -88,5 +77,15 @@ public class UI {
 
     public void printTasks(TaskList taskList) {
         taskList.printAllTasks();
+    }
+
+    // Prints an adds to list on standard output
+    private static void reply(String content) {
+        String replyStr = String.format("""
+                %s
+                bro.
+                """, content);
+        System.out.print(replyStr);
+        showLine();
     }
 }
