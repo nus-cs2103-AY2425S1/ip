@@ -25,7 +25,6 @@ public class Storage {
                 if (line.trim().isEmpty()) {
                     continue;
                 }
-
                 try {
                     Task task = Task.parse(line.split(" \\| "));
                     if (task != null) {
@@ -41,13 +40,11 @@ public class Storage {
         return taskList;
     }
 
-
     public void saveTaskList(ArrayList<Task> taskList) {
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdirs();
         }
-
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList) {
                 writer.write(task.encode() + System.lineSeparator());
