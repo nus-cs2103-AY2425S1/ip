@@ -162,13 +162,19 @@ public class Knight2103 {
                             }
                         break;
                         case "event":
-                            String[] eventArray = inputArray[1].split(" /from | /to ");
-                            taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
-                            taskList.add(taskToAdd);
-                            System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
-                            taskListWriter = new FileWriter("./savedTaskList.txt", true);
-                            taskListWriter.write("\n" + taskToAdd.saveToFileFormat());
-                            taskListWriter.close();
+                            try {
+                                String[] eventArray = inputArray[1].split(" /from | /to ");
+                                taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
+                                taskList.add(taskToAdd);
+                                System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
+                                taskListWriter = new FileWriter("./savedTaskList.txt", true);
+                                taskListWriter.write("\n" + taskToAdd.saveToFileFormat());
+                                taskListWriter.close();
+                            }  catch (IOException e) {
+                                System.out.println("Problems creating an instance of FileWriter");
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Start & end time format is wrong during input. Please follow yyyy-mm-dd + T + hh:mm format. E.g. 2007-12-04T22:00");
+                            }
                             break;
                         case "mark":
                             int taskMarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
