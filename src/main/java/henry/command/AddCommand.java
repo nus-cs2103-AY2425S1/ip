@@ -12,7 +12,7 @@ import henry.util.TaskList;
 import henry.util.Ui;
 
 /**
- * Deals with adding tasks into TaskList
+ * Deals with adding task into TaskList
  */
 public class AddCommand extends Command {
     private String input;
