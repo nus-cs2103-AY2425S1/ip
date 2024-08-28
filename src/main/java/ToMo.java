@@ -14,7 +14,7 @@ public class ToMo {
                 System.out.println(cmd);
             }
         }
-        
+        sc.close()
         System.out.println("Bye, see you later!");
     }
 }
