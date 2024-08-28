@@ -1,6 +1,6 @@
-package BotimusPrime.Parser;
+package botimusprime.parser;
 
-import BotimusPrime.UI.Ui;
+import botimusprime.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,11 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private BotimusPrime.Tasks.TaskList taskList;
+    private botimusprime.tasks.TaskList taskList;
     private Ui ui;
-    private BotimusPrime.Storage.Storage storage;
+    private botimusprime.storage.Storage storage;
 
-    public Parser(BotimusPrime.Tasks.TaskList taskList, Ui ui, BotimusPrime.Storage.Storage storage) {
+    public Parser(botimusprime.tasks.TaskList taskList, Ui ui, botimusprime.storage.Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;

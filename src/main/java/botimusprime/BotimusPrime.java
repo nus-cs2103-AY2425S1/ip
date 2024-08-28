@@ -1,9 +1,9 @@
-package BotimusPrime;
+package botimusprime;
 
-import BotimusPrime.Parser.Parser;
-import BotimusPrime.Storage.Storage;
-import BotimusPrime.Tasks.TaskList;
-import BotimusPrime.UI.Ui;
+import botimusprime.parser.Parser;
+import botimusprime.storage.Storage;
+import botimusprime.tasks.TaskList;
+import botimusprime.ui.Ui;
 
 public class BotimusPrime {
 

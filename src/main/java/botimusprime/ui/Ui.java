@@ -1,4 +1,4 @@
-package BotimusPrime.UI;
+package botimusprime.ui;
 
 import java.util.Scanner;
 
