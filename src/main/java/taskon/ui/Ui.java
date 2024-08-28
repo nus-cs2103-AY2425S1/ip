@@ -6,7 +6,6 @@ import taskon.task.TaskList;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static taskon.common.Messages.*;
@@ -93,8 +92,8 @@ public class Ui {
     }
 
     public void showTaskAdded(Task task, int size) {
-        out.println("Got it! I've added this task:\n    " + task + "\nNow you have " +
-                size + " tasks in your list.\n");
+        out.println("Got it! I've added this task:\n    " + task + "\nNow you have "
+                + size + " tasks in your list.\n");
     }
 
     public void showError(String message) {

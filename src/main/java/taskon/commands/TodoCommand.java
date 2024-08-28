@@ -8,10 +8,14 @@ import taskon.ui.Ui;
 
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    public Task task;
+    private Task task;
 
     public TodoCommand(String description) {
         this.task = new Todo(description);
+    }
+
+    public Task getTask() {
+        return this.task;
     }
 
     @Override

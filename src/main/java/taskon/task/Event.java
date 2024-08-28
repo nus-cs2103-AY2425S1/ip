@@ -1,7 +1,5 @@
 package taskon.task;
 
-import taskon.task.Task;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
@@ -12,8 +10,8 @@ import java.time.format.DateTimeFormatter;
  * It extends the task.Task class by adding a start and end time.
  */
 public class Event extends Task {
-    public LocalDateTime start;
-    public LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Constructs a new task.Event with the given description, start time, and end time.
@@ -28,10 +26,19 @@ public class Event extends Task {
         this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    public LocalDateTime getStart() {
+        return this.start;
+    }
+
+    public LocalDateTime getEnd() {
+        return this.end;
+    }
+
+
     @Override
     public boolean occursOn(LocalDate date) {
-        return this.start.toLocalDate().equals(date) || this.end.toLocalDate().equals(date) ||
-                (date.isAfter(ChronoLocalDate.from(start)) && date.isBefore(ChronoLocalDate.from(end)));
+        return this.start.toLocalDate().equals(date) || this.end.toLocalDate().equals(date)
+                || (date.isAfter(ChronoLocalDate.from(start)) && date.isBefore(ChronoLocalDate.from(end)));
     }
 
     /**
@@ -42,9 +49,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                start.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + " to: " +
-                end.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + start.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + " to: "
+                + end.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
     }
 }
 

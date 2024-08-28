@@ -2,10 +2,10 @@ package taskon;
 
 import taskon.commands.Command;
 import taskon.exception.TaskonException;
-import taskon.storage.Storage;
-import taskon.task.*;
-import taskon.ui.Ui;
 import taskon.parser.Parser;
+import taskon.storage.Storage;
+import taskon.task.TaskList;
+import taskon.ui.Ui;
 
 public class Taskon {
 

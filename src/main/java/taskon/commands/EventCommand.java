@@ -8,11 +8,14 @@ import taskon.ui.Ui;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public Task task;
+    private Task task;
     public EventCommand(String description, String from, String to) {
         this.task = new Event(description, from, to);
     }
 
+    public Task getTask() {
+        return task;
+    }
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(task);

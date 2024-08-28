@@ -1,7 +1,5 @@
 package taskon.task;
 
-import taskon.task.Task;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * It extends the task.Task class by adding a due date.
  */
 public class Deadline extends Task {
-    public LocalDateTime date;
+    private LocalDateTime date;
 
     /**
      * Constructs a new task.Deadline with the given description and due date.
@@ -24,6 +22,9 @@ public class Deadline extends Task {
         this.date = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    public LocalDateTime getDate() {
+        return this.date;
+    }
     @Override
     public boolean occursOn(LocalDate date) {
         return this.date.toLocalDate().equals(date);
@@ -37,6 +38,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
     }
 }

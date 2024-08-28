@@ -1,7 +1,5 @@
 package taskon.task;
 
-import taskon.task.Task;
-
 /**
  * The class represents a simple task that does not have any specific
  * date or time constraints. It extends the task.Task class.

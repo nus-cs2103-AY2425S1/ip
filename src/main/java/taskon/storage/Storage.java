@@ -1,7 +1,11 @@
 package taskon.storage;
 
 import taskon.exception.TaskonException;
-import taskon.task.*;
+import taskon.task.Deadline;
+import taskon.task.Event;
+import taskon.task.Task;
+import taskon.task.TaskList;
+import taskon.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,21 +73,21 @@ public class Storage {
         String taskType = taskDescription[0];
 
         switch (taskType) {
-            case "T":
-                task = new Todo(taskDescription[2]);
-                break;
+        case "T":
+            task = new Todo(taskDescription[2]);
+            break;
 
-            case "D":
-                task = new Deadline(taskDescription[2], taskDescription[3]);
-                break;
+        case "D":
+            task = new Deadline(taskDescription[2], taskDescription[3]);
+            break;
 
-            case "E":
-                task = new Event(taskDescription[2], taskDescription[3], taskDescription[4]);
-                break;
+        case "E":
+            task = new Event(taskDescription[2], taskDescription[3], taskDescription[4]);
+            break;
 
-            default:
-                System.out.println("Unknown task type: " + taskType);
-                break;
+        default:
+            System.out.println("Unknown task type: " + taskType);
+            break;
         }
 
         boolean isDone = taskDescription[1].equals("1");
@@ -106,12 +110,12 @@ public class Storage {
         if (task instanceof Todo) {
             taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.description;
         } else if (task instanceof Deadline) {
-            taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.description +
-                    SEPARATOR + ((Deadline) task).date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.description
+                    + SEPARATOR + ((Deadline) task).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else {
-            taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.description +
-                    SEPARATOR + ((Event) task).start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) +
-                    SEPARATOR + ((Event) task).end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.description
+                    + SEPARATOR + ((Event) task).getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                    + SEPARATOR + ((Event) task).getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         return taskDescription;

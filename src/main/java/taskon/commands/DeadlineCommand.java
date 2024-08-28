@@ -8,10 +8,14 @@ import taskon.ui.Ui;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
-    public Task task;
+    private Task task;
 
     public DeadlineCommand(String description, String date) {
         this.task = new Deadline(description, date);
+    }
+
+    public Task getTask() {
+        return task;
     }
 
     @Override

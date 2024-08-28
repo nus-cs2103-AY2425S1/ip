@@ -1,8 +1,6 @@
 package taskon.parser;
 
 import taskon.commands.*;
-import taskon.commands.Command;
-import taskon.commands.IncorrectCommand;
 import taskon.exception.TaskonException;
 
 import java.time.format.DateTimeParseException;
@@ -29,38 +27,38 @@ public class Parser {
 
         switch (commandWord) {
 
-            case ByeCommand.COMMAND_WORD:
-                return new ByeCommand();
+        case ByeCommand.COMMAND_WORD:
+            return new ByeCommand();
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case MarkCommand.COMMAND_WORD:
-                return prepareMark(arguments);
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
 
-            case UnmarkCommand.COMMAND_WORD:
-                return prepareUnmark(arguments);
+        case UnmarkCommand.COMMAND_WORD:
+            return prepareUnmark(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDelete(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDelete(arguments);
 
-            case TodoCommand.COMMAND_WORD:
-                return prepareTodo(arguments);
-
-
-            case DeadlineCommand.COMMAND_WORD:
-                return prepareDeadline(arguments);
+        case TodoCommand.COMMAND_WORD:
+            return prepareTodo(arguments);
 
 
-            case EventCommand.COMMAND_WORD:
-                return prepareEvent(arguments);
+        case DeadlineCommand.COMMAND_WORD:
+            return prepareDeadline(arguments);
 
 
-            case OnCommand.COMMAND_WORD:
-                return new OnCommand(arguments);
+        case EventCommand.COMMAND_WORD:
+            return prepareEvent(arguments);
 
-            default:
-                return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+
+        case OnCommand.COMMAND_WORD:
+            return new OnCommand(arguments);
+
+        default:
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
 
         }
     }
