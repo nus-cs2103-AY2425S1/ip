@@ -18,8 +18,14 @@ public class Storage {
         this.filePath = "./";
     }
 
-    // MichaelScott.task.Todo: Can add loadTask functionality later
+    // MichaelScott.MichaelScott.task.Todo: Can add loadTask functionality later
 
+    /**
+     * Saves the list of tasks to a file.
+     *
+     * @param todo An ArrayList of tasks to be saved.
+     * @throws MichaelScottException If an error occurs while saving data.
+     */
     public void saveTasks(ArrayList<Task> todo) throws MichaelScottException {
         try {
             FileWriter fw = new FileWriter(this.filePath);
