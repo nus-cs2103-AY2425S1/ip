@@ -1,26 +1,27 @@
 package tars;
 
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StorageTest {
 
     private Storage storage;
     private File tempFile;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         tempFile = File.createTempFile("tars", ".txt");
         storage = new Storage(tempFile.getAbsolutePath());
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (tempFile.exists()) {
             tempFile.delete();
@@ -31,14 +32,17 @@ public class StorageTest {
     public void testSaveAndLoadTasks() throws TarsException {
         // Create some tasks
         Todo todo = new Todo("Read book", false);
-        Deadline deadline = new Deadline("Return book", false, "2024-08-27");
-        Event event = new Event("Meeting", false, "2024-08-27", "2024-08-28");
+        System.out.println("Creating deadline task...");
+        Deadline deadline = new Deadline("Return book", false, "2024-08-27 0000");
+        Event event = new Event("Meeting", false, "2024-08-27 0900", "2024-08-28 1700");
 
         // Save tasks to file
         storage.saveTasks(List.of(todo, deadline, event));
+        System.out.println("Tasks saved successfully.");
 
         // Load tasks from file
         List<Task> tasks = storage.loadTasks();
+        System.out.println("Tasks loaded successfully.");
 
         // Verify loaded tasks
         assertEquals(3, tasks.size());
@@ -47,10 +51,12 @@ public class StorageTest {
         assertTrue(tasks.get(2) instanceof Event);
 
         // Check individual task details
-        assertEquals("[T][ ] Read book", tasks.get(0).toString());
-        assertEquals("[D][ ] Return book (by: 27 Aug 2024)", tasks.get(1).toString());
-        assertEquals("[E][ ] Meeting (from: 27 Aug 2024, 00:00 to: 28 Aug 2024, 00:00)", tasks.get(2).toString());
+        assertEquals("[T] [ ] Read book", tasks.get(0).toString());
+        assertEquals("[D] [ ] Return book (by: 27 Aug 2024, 00:00)", tasks.get(1).toString());
+        assertEquals("[E] [ ] Meeting (from: 27 Aug 2024, 09:00 to: 28 Aug 2024, 17:00)", tasks.get(2).toString());
     }
+
+
 
     @Test
     public void testLoadEmptyFile() throws TarsException {

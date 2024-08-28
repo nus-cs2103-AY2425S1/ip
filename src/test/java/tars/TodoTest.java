@@ -1,7 +1,10 @@
 package tars;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TodoTest {
 
@@ -29,8 +32,8 @@ public class TodoTest {
     @Test
     public void testToString() {
         Todo todo = new Todo("Read book", false);
-        assertEquals("[T][ ] Read book", todo.toString());
+        assertEquals("[T] [ ] Read book", todo.toString());
         todo.setDone();
-        assertEquals("[T][X] Read book", todo.toString());
+        assertEquals("[T] [X] Read book", todo.toString());
     }
 }
