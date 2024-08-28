@@ -10,6 +10,9 @@ public class Ui {
     /* Scanner object to read user input from the console. */
     private final Scanner scanner;
 
+    /**
+     * Reads scanner input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }

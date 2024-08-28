@@ -115,14 +115,14 @@ public class TaskList {
      *
      * @param index The index of the task to retrieve (1-based index).
      * @return The task at the specified index.
-     * @throws IndexOutOfBoundsException If the index is out of range (index < 1 || index > size()).
+     * @throws IndexOutOfBoundsException If the index is out of range (index less than 1 || index larger than size()).
      */
     public Task getTask(int index) {
         return this.tasks.get(index - 1);
     }
 
     /**
-     * Returns the list of tasks managed by this mira.TaskList.
+     * Returns the list of tasks managed by this TaskList.
      *
      * @return The list of tasks.
      */
