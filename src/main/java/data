@@ -1,2 +1,9 @@
 [T][ ] chicken
 [T][ ] nuggets
+[D][ ] return book (by: 2/12/2019 1800)
+[D][ ] return book (by: 2nd of december 2019, 6 pm)
+[D][ ] return book (by: Invalid date format!)
+[D][ ] return book (by: Invalid date format!)
+[D][ ] return book (by: Invalid date format!)
+[D][ ] return book (by: Invalid date format!)
+[D][ ] return book (by: Dec 12 2100)
