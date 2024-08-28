@@ -10,7 +10,7 @@ import fishman.utils.Ui;
  */
 public interface Command {
     /**
-     * Executes the command, performing actions on the tasklist and user interface.
+     * Executes the command, performing actions on the task list and user interface.
      *
      * @param tasks The tasks to be added.
      * @param ui The Ui object used when displaying the message.
