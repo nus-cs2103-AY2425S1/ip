@@ -2,6 +2,9 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class BuddyBot {
     public static void main(String[] args) {
@@ -109,6 +112,7 @@ public class BuddyBot {
                 }
             }
         }
+        write(writtenList(myList));
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
@@ -139,5 +143,13 @@ public class BuddyBot {
             }
         }
         return "";
+    }
+
+    public static void write(String tasks) { //Using this method
+        try (FileWriter myWriter = new FileWriter("BuddyBot.txt")) {
+            myWriter.write(tasks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

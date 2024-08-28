@@ -9,6 +9,6 @@ public class Event extends Task {
     }
 
     public String toString() { //prototype in case of future modification
-        return "[E]" + super.toString() + " from: " + this.startTime + " |to: " + this.endTime;
+        return "[E]" + super.toString() + " from: " + this.startTime + " to: " + this.endTime;
     }
 }
