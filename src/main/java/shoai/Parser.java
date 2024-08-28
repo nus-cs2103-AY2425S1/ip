@@ -1,15 +1,18 @@
 package shoai;
-import shoai.TaskList; // Imports the TaskList class for managing tasks
-import shoai.Ui; // Imports the Ui class for user interface interactions
-import shoai.Storage; // Imports the Storage class for handling storage of tasks
-import shoai.Task; // Imports the Task class for task handling
-import shoai.Todo; // Imports the Todo class for creating todo tasks
-import shoai.Deadline; // Imports the Deadline class for creating deadline tasks
-import shoai.Event; // Imports the Event class for creating event tasks
-import shoai.ShoAIException; // Imports the ShoAIException class for handling custom exceptions
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import shoai.TaskList;
+import shoai.Ui;
+import shoai.Storage;
+import shoai.Task;
+import shoai.Todo;
+import shoai.Deadline;
+import shoai.Event;
+import shoai.ShoAIException;
 
 public class Parser {
+
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public boolean parse(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws ShoAIException {
         String[] words = fullCommand.split(" ", 2);
@@ -57,9 +60,10 @@ public class Parser {
                 }
                 String[] deadlineParts = words[1].split(" /by ");
                 if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-                    throw new ShoAIException("The deadline description or date/time cannot be empty.");
+                    throw new ShoAIException("The deadline description or date cannot be empty.");
                 }
-                Task newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                LocalDate deadlineDate = LocalDate.parse(deadlineParts[1].trim(), DATE_FORMAT);
+                Task newDeadline = new Deadline(deadlineParts[0], deadlineDate);
                 tasks.addTask(newDeadline);
                 ui.showTaskAdded(newDeadline, tasks.size());
                 storage.saveTasks(tasks.getAllTasks());
@@ -70,13 +74,15 @@ public class Parser {
                 }
                 String[] eventParts = words[1].split(" /from ");
                 if (eventParts.length < 2) {
-                    throw new ShoAIException("The event description or start time cannot be empty.");
+                    throw new ShoAIException("The event description or start date cannot be empty.");
                 }
                 String[] timeParts = eventParts[1].split(" /to ");
                 if (timeParts.length < 2 || eventParts[0].trim().isEmpty() || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
-                    throw new ShoAIException("The event description, start time, or end time cannot be empty.");
+                    throw new ShoAIException("The event description, start date, or end date cannot be empty.");
                 }
-                Task newEvent = new Event(eventParts[0], timeParts[0], timeParts[1]);
+                LocalDate fromDate = LocalDate.parse(timeParts[0].trim(), DATE_FORMAT);
+                LocalDate toDate = LocalDate.parse(timeParts[1].trim(), DATE_FORMAT);
+                Task newEvent = new Event(eventParts[0], fromDate, toDate);
                 tasks.addTask(newEvent);
                 ui.showTaskAdded(newEvent, tasks.size());
                 storage.saveTasks(tasks.getAllTasks());
@@ -109,13 +115,13 @@ public class Parser {
             Deadline deadline = (Deadline) task;
             sb.append(deadline.isDone() ? "1" : "0");
             sb.append(" | ");
-            sb.append(deadline.getDescription()).append(" | ").append(deadline.getBy());
+            sb.append(deadline.getDescription()).append(" | ").append(deadline.getBy().format(DATE_FORMAT));
         } else if (task instanceof Event) {
             sb.append("E | ");
             Event event = (Event) task;
             sb.append(event.isDone() ? "1" : "0");
             sb.append(" | ");
-            sb.append(event.getDescription()).append(" | ").append(event.getFrom()).append(" | ").append(event.getTo());
+            sb.append(event.getDescription()).append(" | ").append(event.getFrom().format(DATE_FORMAT)).append(" | ").append(event.getTo().format(DATE_FORMAT));
         }
         return sb.toString();
     }
@@ -128,10 +134,13 @@ public class Parser {
                 task = new Todo(parts[2]);
                 break;
             case "D":
-                task = new Deadline(parts[2], parts[3]);
+                LocalDate deadlineDate = LocalDate.parse(parts[3], DATE_FORMAT);
+                task = new Deadline(parts[2], deadlineDate);
                 break;
             case "E":
-                task = new Event(parts[2], parts[3], parts[4]);
+                LocalDate eventFromDate = LocalDate.parse(parts[3], DATE_FORMAT);
+                LocalDate eventToDate = LocalDate.parse(parts[4], DATE_FORMAT);
+                task = new Event(parts[2], eventFromDate, eventToDate);
                 break;
         }
         if (task != null && parts[1].equals("1")) {
