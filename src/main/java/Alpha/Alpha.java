@@ -59,11 +59,7 @@ public class Alpha {
                 try {
                     Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
                     String modifiedRecord = tasks.modifyOperation(indexInvolved, true);
-                    String echoResponse = "____________________________________________________________\n"
-                            + "Nice! I've marked this task as done:\n"
-                            + modifiedRecord + "\n"
-                            + "____________________________________________________________\n";
-                    System.out.println(echoResponse);
+                    ui.doneMessage(modifiedRecord);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! Must specify which task to mark");
                 }
@@ -73,7 +69,7 @@ public class Alpha {
                 try {
                     Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);
                     String modifiedRecord = tasks.modifyOperation(indexInvolved, false);
-                    
+                    ui.undoneMessage(modifiedRecord);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! Must specify which task to unmark");
                 }

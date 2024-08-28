@@ -12,15 +12,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
-//Solution below adapted from https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/topics.html#W3-4
+/**
+ * The {@code Storage} class handles the creation, reading, writing,
+ * and synchronization of task data to a file.
+ */
 public class Storage {
     
+    /** The file path where the task data is stored. */
     private String FilePath;
     
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param FilePath the path to the file where task data will be stored
+     */
     public Storage(String FilePath) {
         this.FilePath = FilePath;
     }
     
+    /**
+     * Creates a new file if it does not already exist.
+     * If the file already exists, no action is taken.
+     */
     private void createFile() {
         try {
             File myObj = new File(this.FilePath);
@@ -29,12 +42,18 @@ public class Storage {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-    };
+    }
     
+    /**
+     * Writes the specified text to the file.
+     * If the file does not exist, it is created.
+     *
+     * @param textToAdd the text to write to the file
+     */
     public void writeToFile(String textToAdd) {
         try {
             File dataFile = new File(this.FilePath);
-            if(!dataFile.exists()) {
+            if (!dataFile.exists()) {
                 createFile();
             }
             FileWriter fw = new FileWriter(this.FilePath);
@@ -45,9 +64,15 @@ public class Storage {
         }
     }
     
+    /**
+     * Loads tasks from the file and returns them as an {@code ArrayList} of {@code Task} objects.
+     * If the file is not found, an empty list is returned.
+     *
+     * @return an {@code ArrayList} of tasks loaded from the file
+     */
     public ArrayList<Task> load() {
         try {
-            ArrayList<Task> taskList = new ArrayList<Task>();
+            ArrayList<Task> taskList = new ArrayList<>();
             File file = new File(this.FilePath);
             Scanner scanner = new Scanner(file);
             
@@ -60,11 +85,11 @@ public class Storage {
                         break;
                     case "E":
                         taskList.add(new Event(taskProcessed[2], LocalDate.parse(taskProcessed[3].trim()),  LocalDate.parse(taskProcessed[4].trim()),
-                            Integer.parseInt(taskProcessed[1].trim()) == 1));
+                                Integer.parseInt(taskProcessed[1].trim()) == 1));
                         break;
                     case "D":
                         taskList.add(new Deadline(taskProcessed[2],  LocalDate.parse(taskProcessed[3].trim()),
-                            Integer.parseInt(taskProcessed[1].trim()) == 1));
+                                Integer.parseInt(taskProcessed[1].trim()) == 1));
                         break;
                 }
             }
@@ -72,13 +97,17 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
-        return new ArrayList<Task>();
+        return new ArrayList<>();
     }
     
+    /**
+     * Synchronizes the task list with the file by writing the updated list to the file.
+     *
+     * @param TaskLists an {@code ArrayList} of tasks to be synchronized with the file
+     */
     public void synchronizeTasks(ArrayList<Task> TaskLists) {
-        String updatedTaskList = TaskLists.stream().map(Task::storageFormat).
-            reduce("", (firstLine, secondLine) -> firstLine + secondLine);
-                this.writeToFile(updatedTaskList);
+        String updatedTaskList = TaskLists.stream().map(Task::storageFormat)
+                .reduce("", (firstLine, secondLine) -> firstLine + secondLine);
+        this.writeToFile(updatedTaskList);
     }
-    
 }
