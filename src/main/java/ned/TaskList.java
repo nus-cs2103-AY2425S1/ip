@@ -28,7 +28,7 @@ public class TaskList {
             this.listOfTasks.remove(index);
             uiInstance.print("Noted m'lord. The following task has been removed:");
             uiInstance.print(Ui.INDENTATIONS + selectedTask);
-            uiInstance.print(String.format("Now you've %d ned.tasks in the list. Get to it then.", listOfTasks.size()));
+            uiInstance.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfTasks.size()));
         } catch (IndexOutOfBoundsException e) {
             throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
                     "size");
@@ -48,7 +48,7 @@ public class TaskList {
         this.listOfTasks.add(newTask);
         uiInstance.print("Aye, I've added this task m'lord:");
         uiInstance.print(Ui.INDENTATIONS + newTask);
-        uiInstance.print("Now you've " + this.listOfTasks.size() + " ned.tasks left. Get to it then!");
+        uiInstance.print("Now you've " + this.listOfTasks.size() + " tasks left. Get to it then!");
     }
 
     public void listTasks(Ui uiInstance) {
@@ -78,6 +78,19 @@ public class TaskList {
 
     public String getTaskTextForm(int index) throws NedException {
         return getTask(index).toTextForm();
+    }
+
+    public TaskList findRelatedTasks(String searchTerm) {
+        String regexSearchPattern = ".*" + searchTerm + ".*";
+        int sizeOfArray = this.listOfTasks.size();
+        int index = 1;
+        ArrayList<Task> listOfRelatedTasks = new ArrayList<>();
+        for (int i = 0; i < sizeOfArray; i++){
+            if (this.listOfTasks.get(i).isMatchingPattern(regexSearchPattern)) {
+                listOfRelatedTasks.add(this.listOfTasks.get(i));
+            }
+        }
+        return new TaskList(listOfRelatedTasks);
     }
 
 
