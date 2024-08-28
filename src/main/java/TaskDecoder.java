@@ -48,7 +48,7 @@ public class TaskDecoder {
             throw new IllegalArgumentException("Invalid deadline task string: " + taskMetadata);
         }
         String description = parts[0];
-        String deadline = parts[1];
+        LocalDate deadline = LocalDate.parse(parts[1]);
         return new DeadlineTask(description, deadline, isDone);
     }
 

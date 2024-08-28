@@ -93,7 +93,7 @@ public class Nixy {
                 // index 0 is task name, index 1 is deadline
                 try {
                     String[] taskParts = taskMeta.split(" /by ");
-                    store(new DeadlineTask(taskParts[0], taskParts[1]));
+                    store(new DeadlineTask(taskParts[0], LocalDate.parse(taskParts[1])));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The deadline of a deadline task must be specified.");
                 }
