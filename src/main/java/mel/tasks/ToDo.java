@@ -2,11 +2,20 @@ package mel.tasks;
 
 import mel.exceptions.TaskException;
 
+/**
+ * ToDo class that represents a task, without a
+ * date and/or time associated to said task.
+ */
 public class ToDo extends Task {
     private final String task;
-    public ToDo(String str) throws TaskException {
+
+    /**
+     * Constructs new ToDo task.
+     * @param input task input, in the format: todo *task*
+     */
+    public ToDo(String input) throws TaskException {
         try {
-            task = str.split(" ", 2)[1];
+            task = input.split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new TaskException("todo <task>");
         }
