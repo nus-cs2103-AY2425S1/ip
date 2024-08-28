@@ -1,3 +1,5 @@
+package ollie;
+
 public class MarkCommand extends Command{
     int index;
 

@@ -1,3 +1,5 @@
+package ollie;
+
 public abstract class Command {
     protected boolean isExit = false;
 

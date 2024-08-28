@@ -1,4 +1,6 @@
-public class AddCommand extends Command{
+package ollie;
+
+public class AddCommand extends Command {
     Task task;
     public AddCommand(Task task) {
         this.task = task;

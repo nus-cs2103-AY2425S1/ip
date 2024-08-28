@@ -1,3 +1,5 @@
+package ollie;
+
 public class DeleteCommand extends Command{
     int index;
 

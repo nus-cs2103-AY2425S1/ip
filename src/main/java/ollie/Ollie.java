@@ -1,3 +1,5 @@
+package src.main.java.ollie;
+
 public class Ollie {
     // Constants
     private static final String filepath = "./data/tasks.txt";

@@ -1,4 +1,4 @@
-import java.io.IOException;
+package ollie;
 
 public class ExitCommand extends Command {
     public ExitCommand() {
