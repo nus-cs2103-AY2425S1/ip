@@ -6,6 +6,7 @@ import beeboo.exception.NoDescriptionException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadlines extends Tasks {
 
@@ -35,7 +36,12 @@ public class Deadlines extends Tasks {
             throw new InvalidDateException(text);
         }
         String date = dateCommand.substring(2).trim();
-        LocalDateTime dateTime = TimeConverter.timeConverter(date);
+        LocalDateTime dateTime;
+        try {
+            dateTime = TimeConverter.timeConverter(date);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(text);
+        }
         return new Deadlines(description, dateTime);
     }
 

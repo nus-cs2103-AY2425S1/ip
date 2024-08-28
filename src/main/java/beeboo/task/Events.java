@@ -6,6 +6,7 @@ import beeboo.exception.NoDescriptionException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Events extends Tasks {
     private LocalDateTime startDate;
@@ -43,8 +44,12 @@ public class Events extends Tasks {
 
         int startDateEnd = dateSubstring.indexOf('/');
         String startDate = dateSubstring.substring(4, startDateEnd).trim();
-        LocalDateTime startDateTime = TimeConverter.timeConverter(startDate);
-
+        LocalDateTime startDateTime;
+        try {
+            startDateTime = TimeConverter.timeConverter(startDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(text);
+        }
         String endDateCommand = dateSubstring.substring(startDateEnd + 1);
         if (!endDateCommand.startsWith("to")) {
             throw new InvalidDateException(text);
