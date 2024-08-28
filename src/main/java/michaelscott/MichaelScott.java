@@ -1,3 +1,5 @@
+package michaelscott;
+
 import michaelscott.storage.Storage;
 import michaelscott.parser.Parser;
 import michaelscott.task.TaskList;

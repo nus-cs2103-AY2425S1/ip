@@ -9,7 +9,7 @@ public class Parser {
         String command = parts[0];
         String args = parts.length > 1 ? parts[1] : "";
 
-//        MichaelScott.task.Todo think enums
+//        michaelscott.MichaelScott.task.Todo think enums
         return switch (command.toLowerCase()) {
             case "list" -> new ListCommand();
             case "bye" -> new ExitCommand();
