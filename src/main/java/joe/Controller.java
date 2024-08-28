@@ -53,7 +53,7 @@ public class Controller {
             return;
         }
         store.add(new TaskTodo(task));
-        ui.printTodoMessage(store.getLast(), store.size());
+        ui.printTodoMessage(store.get(store.size() - 1), store.size());
     }
 
     public void handleDeadline(String input) {
@@ -69,7 +69,7 @@ public class Controller {
         }
         String by = input.substring(byIndex + 4);
         store.add(new TaskDeadline(task, by));
-        ui.printDeadlineMessage(store.getLast(), store.size());
+        ui.printDeadlineMessage(store.get(store.size() - 1), store.size());
     }
 
     public void handleEvent(String input) {
@@ -87,6 +87,6 @@ public class Controller {
         String from = input.substring(fromIndex + 6, toIndex - 1);
         String to = input.substring(toIndex + 4);
         store.add(new TaskEvent(task, from, to));
-        ui.printEventMessage(store.getLast(), store.size());
+        ui.printEventMessage(store.get(store.size() - 1), store.size());
     }
 }
