@@ -1,3 +1,7 @@
+import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -177,5 +181,27 @@ public class Bobby {
         storage.remove(x);
         System.out.printf("Now you have %d tasks left.%n", storage.size());
         horizontalLine(35);
+    }
+
+    public static void loadData() throws IOException {
+        File data = new File("data.txt");
+
+        if (data.createNewFile()) {
+            System.out.println("A new data file has been created");
+        } else {
+            try {
+                printFileContent((data.getPath()));
+            } catch (FileNotFoundException) {
+                System.out.println("The file cannot be found, please check again.");
+            }
+        }
+    }
+
+    public static void printFileContent(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
     }
 }
