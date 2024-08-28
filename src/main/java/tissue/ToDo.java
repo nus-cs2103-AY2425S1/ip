@@ -1,3 +1,5 @@
+package tissue;
+
 public class ToDo extends Task {
 
     public ToDo(boolean done, String task) {
@@ -5,12 +7,11 @@ public class ToDo extends Task {
     }
 
     public ToDo(int done, String task) {
-        super(done == 1 ? true : false, task);
+        super(done == 1, task);
     }
 
     @Override
     public String toString() {
         return super.getDone() ? "[T][X] " + super.getTask() : "[T][ ] " + super.getTask();
     }
-
 }

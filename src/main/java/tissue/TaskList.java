@@ -1,8 +1,10 @@
+package tissue;
+
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> taskArray = new ArrayList<>();
     private final String INDENT = "       ";
+    private ArrayList<Task> taskArray = new ArrayList<>();
 
     public TaskList(ArrayList<Task> taskArray) {
         this.taskArray = taskArray;
@@ -25,13 +27,12 @@ public class TaskList {
         String parsedText = "";
         for (int i = 0; i < taskArray.size(); i++) {
             Task task = taskArray.get(i);
-            parsedText += INDENT + String.valueOf(i + 1) + "." + " " + task + "\n";
+            parsedText += INDENT + (i + 1) + "." + " " + task + "\n";
         }
         return parsedText;
     }
 
     public Task deleteTask(int number) {
         return taskArray.remove(number - 1);
-
     }
 }

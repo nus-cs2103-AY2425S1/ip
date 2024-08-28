@@ -1,16 +1,15 @@
+package tissue;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.nio.file.Path;
-
 
 public class Storage {
     public Path path;
@@ -25,8 +24,11 @@ public class Storage {
         String parsedTask = parseTask(task);
         try {
             Files.createDirectories(path);
-            Files.write(file, parsedTask.getBytes(StandardCharsets.UTF_8),
-                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.write(
+                    file,
+                    parsedTask.getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -44,19 +46,25 @@ public class Storage {
                         taskList.add(new ToDo(Integer.parseInt(values[1]), values[2]));
                         break;
                     case "E":
-                        taskList.add(new Event(Integer.parseInt(values[1]), values[2].strip(),
-                                values[3].strip(), values[4].strip()));
+                        taskList.add(
+                                new Event(
+                                        Integer.parseInt(values[1]),
+                                        values[2].strip(),
+                                        values[3].strip(),
+                                        values[4].strip()));
                         break;
 
                     case "D":
-                        taskList.add(new Deadline(Integer.parseInt(values[1]), values[2].strip(),
-                                values[3].strip()));
+                        taskList.add(
+                                new Deadline(
+                                        Integer.parseInt(values[1]),
+                                        values[2].strip(),
+                                        values[3].strip()));
                         break;
 
                     default:
                         break;
                 }
-
             }
         } catch (IOException e) {
             System.out.println(e);
@@ -69,12 +77,15 @@ public class Storage {
         if (task instanceof ToDo) {
             temp = String.format("T,%s,%s\n", task.getDone() ? 1 : 0, task.getTask());
 
-        } else if (task instanceof Event) {
-            Event event = (Event) task;
-            temp = String.format("E,%s,%s,%s,%s\n", event.getDone() ? 1 : 0, event.getTask(),
-                    event.getFrom(), event.getTo());
-        } else if (task instanceof Deadline) {
-            Deadline dl = (Deadline) task;
+        } else if (task instanceof Event event) {
+            temp =
+                    String.format(
+                            "E,%s,%s,%s,%s\n",
+                            event.getDone() ? 1 : 0,
+                            event.getTask(),
+                            event.getFrom(),
+                            event.getTo());
+        } else if (task instanceof Deadline dl) {
             temp = String.format("D,%s,%s,%s\n", dl.getDone() ? 1 : 0, dl.getTask(), dl.getBy());
         }
         return temp;
@@ -95,5 +106,4 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
 }

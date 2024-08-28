@@ -1,14 +1,14 @@
+package tissue;
+
 import java.time.format.DateTimeParseException;
 
 public class Ui {
-    Parser parser;
-    TaskList taskList;
-    Storage storage;
-
     private static final String LINE =
             "--------------------------------------------------------------";
     private static final String INDENT = "       ";
-
+    Parser parser;
+    TaskList taskList;
+    Storage storage;
 
     public Ui(Parser parser, TaskList taskList, Storage storage) {
         this.parser = parser;
@@ -94,8 +94,6 @@ public class Ui {
                 System.out.println("OOPS! Please enter a date in the format YYYY-MM-DD");
             }
 
-
-
         } else if (in.equals("event")) {
             String item = parser.scanUntil("/from");
             String from = parser.scanUntil("/to");
@@ -110,7 +108,6 @@ public class Ui {
 
             System.out.println(
                     "Invalid input. Possible inputs are deadline, todo, event, list, mark, and unmark.");
-
         }
     }
 }

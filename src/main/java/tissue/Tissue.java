@@ -1,5 +1,7 @@
+package tissue;
+
 public class Tissue {
-    private Ui ui;
+    private final Ui ui;
 
     public Tissue(String filePath) {
         Storage storage = new Storage(filePath);
@@ -13,5 +15,4 @@ public class Tissue {
     public void run() {
         ui.run();
     }
-
 }
