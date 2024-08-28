@@ -14,7 +14,7 @@ public class LevelHundred {
     public LevelHundred() {
         this.ui = new Ui();
         this.storage = new Storage(pathToTaskFile);
-        this.taskList = new TaskList(this.storage);
+        this.taskList = new TaskList();
     }
 
     private Task createTask(String[] words, String command) throws LevelHundredException {
@@ -128,7 +128,18 @@ public class LevelHundred {
         }
     }
 
+    private void initialiseTaskList() {
+        try {
+            ArrayList<Task> tasks = this.storage.load();
+            tasks.forEach(t -> this.taskList.addTask(t));
+        } catch (InvalidStorageFileException e) {
+            this.ui.printException(e);
+        }
+    }
+
     private void run() {
+        this.initialiseTaskList();
+
         this.ui.greet(this.name);
 
         Scanner sc = new Scanner(System.in);

@@ -2,11 +2,9 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    private Storage storage;
 
-    public TaskList(Storage storage) {
-        this.taskList = new ArrayList<Task>();
-        this.storage = storage;
+    public TaskList() {
+        this.taskList = new ArrayList<>();
     }
 
     public ArrayList<Task> getTaskList() {
