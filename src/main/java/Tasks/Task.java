@@ -9,15 +9,23 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    // Does not consider previous state handling
+    /**
+     * Toggles isDone as true.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Toggles isDone as true.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns string representation of the isDone status.
+     */
     public String getTaskStatus() {
         return (isDone ? "X" : " ");
     }

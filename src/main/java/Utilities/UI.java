@@ -2,8 +2,8 @@ package utilities;
 
 import tasks.Task;
 
+// Handles all system interactions
 public class UI {
-    // Handles System Interactions
     public static void updateUserOnAddition(String name, int size) {
         System.out.println("I've added: " + name);
         System.out.println(String.format("Now you have %d in the list!", size));

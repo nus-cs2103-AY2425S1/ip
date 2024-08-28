@@ -19,6 +19,9 @@ public class Storage {
         this.file = new File(path);
     }
 
+    /**
+     * Reads from file and returns the resulting TaskList.
+     */
     public ArrayList<Task> loadTaskListFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -58,6 +61,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Updates status for specific task in the file.
+     *
+     * @param index Index of task to be updated.
+     * @param status Status of isDone to determine update information.
+     */
     public void updateFileStatus(int index, boolean status) {
         ArrayList<String> fileContents = new ArrayList<>();
 
@@ -81,6 +90,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Removes specific task from the file.
+     *
+     * @param index Index of task to be removed.
+     */
     public void removeFileTask(int index) {
         ArrayList<String> fileContents = new ArrayList<>();
 
@@ -102,6 +116,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds the newly created task into the file.
+     *
+     * @param details String containing details for the new task.
+     */
     public void updateFileTasks(String details) {
         try {
             FileWriter fw = new FileWriter(this.file, true);

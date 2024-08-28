@@ -11,17 +11,34 @@ public class TaskList {
         this.taskList = s.loadTaskListFromFile();
     }
 
+    /**
+     * Adds new task into the TaskList.
+     *
+     * @param t Task to be added.
+     * @param name Name of the task to be added.
+     */
     public void addToTaskList(Task t, String name) {
         this.taskList.add(t);
         UI.updateUserOnAddition(name, this.taskList.size());
     }
 
+    /**
+     * Removes task from the TaskList.
+     *
+     * @param index Index of task to be removed.
+     */
     public void removeFromTaskList(int index) {
         Task t = this.taskList.get(index);
         this.taskList.remove(index);
         UI.updateUserOnDeletion(t);
     }
 
+    /**
+     * Updates task status in the TaskList.
+     *
+     * @param index Index of task to be updated.
+     * @param status Boolean status to update.
+     */
     public void updateTaskListStatus(int index, boolean status) {
         Task t = this.taskList.get(index);
         if (status) {

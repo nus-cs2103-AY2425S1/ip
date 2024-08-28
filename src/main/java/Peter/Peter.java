@@ -17,6 +17,9 @@ public class Peter {
         this.tl = new TaskList(this.s);
     }
 
+    /**
+     * Run driver logic for the program.
+     */
     public void run() {
         UI.greetUserOnEntry();
         Scanner scanner = new Scanner(System.in);
