@@ -1,12 +1,12 @@
-package Command;
+package command;
 
 /* My import */
-import Blitz.Storage;
-import Blitz.TaskList;
-import Blitz.Ui;
-import Exception.BlitzException;
-import Task.Deadline;
-import Task.Task;
+import blitz.Storage;
+import blitz.TaskList;
+import blitz.Ui;
+import exception.BlitzException;
+import task.Deadline;
+import task.Task;
 
 public class CommandDeadline extends Command {
     private String[] params;

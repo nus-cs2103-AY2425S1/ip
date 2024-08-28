@@ -1,12 +1,12 @@
-package Command;
+package command;
 
 /* My import */
-import Blitz.Storage;
-import Blitz.TaskList;
-import Blitz.Ui;
-import Exception.BlitzEmptyTaskListException;
-import Exception.BlitzException;
-import Task.Task;
+import blitz.Storage;
+import blitz.TaskList;
+import blitz.Ui;
+import exception.BlitzEmptyTaskListException;
+import exception.BlitzException;
+import task.Task;
 
 public class CommandList extends Command {
     public CommandList(String command) {

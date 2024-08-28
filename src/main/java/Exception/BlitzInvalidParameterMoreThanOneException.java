@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class BlitzInvalidParameterMoreThanOneException extends BlitzInvalidParameterFormatException {
     public BlitzInvalidParameterMoreThanOneException(String format) {

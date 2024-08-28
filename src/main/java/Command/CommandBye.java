@@ -1,10 +1,10 @@
-package Command;
+package command;
 
 /* My import */
-import Blitz.Storage;
-import Blitz.TaskList;
-import Blitz.Ui;
-import Exception.BlitzException;
+import blitz.Storage;
+import blitz.TaskList;
+import blitz.Ui;
+import exception.BlitzException;
 
 public class CommandBye extends Command {
     public CommandBye(String command) {

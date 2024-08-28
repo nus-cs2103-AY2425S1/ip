@@ -1,7 +1,7 @@
-package Blitz;
+package blitz;
 
 public enum Instruction {
-    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
+    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND;
 
     private static boolean contains(String command) {
         for (Instruction c : Instruction.values()) {

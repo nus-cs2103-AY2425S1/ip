@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class BlitzNoParameterException extends BlitzException {
     @Override

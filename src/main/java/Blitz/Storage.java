@@ -1,9 +1,9 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Exception.BlitzException;
-import Exception.BlitzIOException;
-import Task.Task;
+import exception.BlitzException;
+import exception.BlitzIOException;
+import task.Task;
 
 /* System import */
 import java.io.File;

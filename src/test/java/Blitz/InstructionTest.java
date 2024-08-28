@@ -1,4 +1,4 @@
-package Blitz;
+package blitz;
 
 /* System import */
 import org.junit.jupiter.api.Test;
