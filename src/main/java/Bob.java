@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.time.*;
 import exceptions.*;
 
 public class Bob {
@@ -23,11 +24,6 @@ public class Bob {
 
         // starting
         System.out.println(skeleton);
-
-        // initial check for file
-
-        
-
         boolean exit = false;
 
         // main logic loop
@@ -37,6 +33,8 @@ public class Bob {
             String cmd = input.split(" ", 2)[0];
             String rest = input.split(" ", 2).length > 1 ? input.split(" ", 2)[1] : "";
             String[] splitString;
+            LocalDate d1;
+            LocalDate d2;
 
             // check for the input case
             try {
@@ -76,16 +74,28 @@ public class Bob {
                         break;
 
                     case "event":
-                        splitString = rest.split("/from|/to");
-                        if (Objects.equals(splitString[0], "") || Objects.equals(splitString[1], "")) {
+                        System.out.println("here");
+                        splitString = rest.split("/from|/to", 3);
+                        System.out.println("here");
+
+                        // error handling
+                        if (splitString.length != 3 || Objects.equals(splitString[0].trim(), "") 
+                            || Objects.equals(splitString[1].trim(), "") || Objects.equals(splitString[2].trim(), "")) {
                             throw new MissingParamsException("event");
                         }
-                        taskList.add(new Event(splitString[0], "from:" + splitString[1]
-                                + "to:" + splitString[2]));
-                        System.out.println(String.format(" Got it. I've added this task:" + "\n"
-                                + taskList.get(taskList.size() - 1) + "\n"
-                                + "Now you have %s tasks in the list", taskList.size()) + "\n" + blankline);
-                        updateDataFile(getList(taskList));
+
+                        try {
+                            d1 = LocalDate.parse(splitString[1].trim());
+                            d2 = LocalDate.parse(splitString[2].trim());
+                            taskList.add(new Event(splitString[0], d1, d2));
+                            System.out.println(String.format(" Got it. I've added this task:" + "\n"
+                            + taskList.get(taskList.size() - 1) + "\n"
+                            + "Now you have %s tasks in the list", taskList.size()) + "\n" + blankline);
+                            updateDataFile(getList(taskList));
+                        } catch (DateTimeException e) {
+                            System.out.println("Error parsing date: " + e.getMessage() + ". Please enter your dates in yyyy-mm-dd format");
+                        }
+
                         break;
 
                     case "deadline":
@@ -93,11 +103,18 @@ public class Bob {
                         if (Objects.equals(splitString[0], "") || Objects.equals(splitString[1], "")) {
                             throw new MissingParamsException("deadline");
                         }
-                        taskList.add(new Deadline(splitString[0], splitString[1]));
-                        System.out.println(String.format(" Got it. I've added this task:" + "\n"
-                                + taskList.get(taskList.size() - 1) + "\n"
-                                + "Now you have %s tasks in the list", taskList.size()) + "\n" + blankline);
-                        updateDataFile(getList(taskList));
+
+                        try {
+                            d1 = LocalDate.parse(splitString[1].trim());
+                            taskList.add(new Deadline(splitString[0], d1));
+                            System.out.println(String.format(" Got it. I've added this task:" + "\n"
+                                    + taskList.get(taskList.size() - 1) + "\n"
+                                    + "Now you have %s tasks in the list", taskList.size()) + "\n" + blankline);
+                            updateDataFile(getList(taskList));
+                        } catch (DateTimeException e) {
+                            System.out.println("Error parsing date: " + e.getMessage() + ". Please enter your dates in yyyy-mm-dd format");
+                        }
+
                         break;
 
                     case "delete":
@@ -134,6 +151,10 @@ public class Bob {
         return retString;
     }
 
+    /**
+     * Updates the data file whenever tasklist is updated
+     * @param s The string to write to the data file
+     */
     public static void updateDataFile(String s) {
         try {
             File dataFile = new File("src/main/data/dataFile.txt");
@@ -154,7 +175,6 @@ public class Bob {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
     }
 
 }
