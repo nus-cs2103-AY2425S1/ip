@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 // Serializable so that i am able to save and restore information
-abstract class Task implements Serializable {
+public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 

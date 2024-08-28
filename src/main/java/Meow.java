@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Meow {
+    /*
     private final String name = "Meow";
     private final ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
@@ -154,7 +155,7 @@ public class Meow {
                                 System.out.println(e.getMessage());
                             }
                         } else {
-                            throw new MeowException("Invalid event format. Example: event gym workout /from Mon 1pm /to 2.30pm");
+//                            throw new MeowException("Invalid event format. Example: event gym workout /from Mon 1pm /to 2.30pm");
                         }
                     } else {
                         throw new MeowException("Invalid event format. Example: event gym workout /from Mon 1pm /to 2.30pm");
@@ -202,4 +203,45 @@ public class Meow {
             }
         }
     }
+    */
+
+    private final Ui ui = new Ui();
+    private final Storage storage = new Storage("tasks.ser");
+    private TaskList taskList;
+    private final Parser parser = new Parser();
+    public Meow() {
+        try {
+            ArrayList<Task> tasks = storage.loadTasks();
+            taskList = new TaskList(tasks);
+        } catch (IOException | ClassNotFoundException e) {
+            ui.showMessage("Error loading tasks: " + e.getMessage());
+            taskList = new TaskList(new ArrayList<>());
+        }
+    }
+
+
+    public void run() {
+        ui.showWelcomeMessage();
+        while (true) {
+            String input = ui.readCommand();
+            try {
+                parser.parse(input, taskList, ui, storage);
+                if (input.equals("bye")) {
+                    ui.showGoodbyeMessage();
+                    break;
+                }
+            } catch (IOException e) {
+                ui.showMessage("Error: " + e.getMessage());
+            } catch (MeowException e) {
+                ui.showMessage("Error: " + e.getMessage());
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        new Meow().run();
+    }
+
+
 }
