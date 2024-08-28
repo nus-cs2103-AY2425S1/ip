@@ -29,7 +29,6 @@ public abstract class Task {
         return description;
     }
 
-
     @Override
     public String toString() {
         // Display the task type using the first character of the enum value

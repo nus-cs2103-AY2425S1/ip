@@ -39,8 +39,10 @@ find cook
 ## quitting gradle
 :q!
 
+# BEFORE RUNNING ANYTHING IN GRADLE, YOU MUST BE IN ip
 ## running build for gradle
 ./gradlew build 
 
 ## running tests for gradle
+./gradlew compileJava
 ./gradlew test
