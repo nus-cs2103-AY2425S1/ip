@@ -75,7 +75,7 @@ public class TaskList {
                     this.taskList.add(new ToDo(parsedCommand.get(1)));
                     break;
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SoraException("\tPlease Enter - Todo (Description)");
+                    throw new SoraException("\tPlease Enter - Todo (Description)\n" + Ui.HORIZONTAL_LINE);
                 }
             case "deadline":
                 String by = parsedCommand.get(2).substring(3);
@@ -88,7 +88,7 @@ public class TaskList {
                     }
                     break;
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SoraException("\tPlease Enter - Sora.Deadline (Description) /by (dd/MM/yy HHmm)");
+                    throw new SoraException("\tPlease Enter - Sora.Deadline (Description) /by (dd/MM/yy HHmm)\n" + Ui.HORIZONTAL_LINE);
                 }
             case "event":
                 String from = parsedCommand.get(2).substring(5);
@@ -107,7 +107,7 @@ public class TaskList {
                     }
                     break;
                 } catch (IndexOutOfBoundsException e) {
-                    throw new SoraException("\tPlease Enter - Event (Description) /from (dd/MM/yy HHmm) /to (dd/MM/yy HHmm)");
+                    throw new SoraException("\tPlease Enter - Event (Description) /from (dd/MM/yy HHmm) /to (dd/MM/yy HHmm)\n" + Ui.HORIZONTAL_LINE);
                 }
         }
         System.out.println("\tGot it. Sora has added this task:");
