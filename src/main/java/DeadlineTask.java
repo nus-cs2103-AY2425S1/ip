@@ -15,6 +15,22 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    public DeadlineTask(String name, String deadline, String isCompleted) {
+        super(name);
+        this.deadline = deadline;
+        if (isCompleted.equals("X")) {
+            super.markCompleted();
+        }
+    }
+
+
+    public String getDeadline() {
+        return this.deadline;
+    }
+
+    public String getName() {
+        return super.getName();
+    }
     /**
      * Returns a string representation of the deadline task, including the task name
      * and deadline date formatted as "(by: date)".

@@ -12,6 +12,13 @@ public class ToDoTask extends Task {
         super(name);
     }
 
+    public ToDoTask(String name, String isCompleted) {
+        super(name);
+        if (isCompleted.equals("X")) {
+            super.markCompleted();
+        }
+    }
+
     /**
      * Returns a string representation of the ToDo task, including the task name.
      * The format is "[T][ ] name" if the task is incomplete, or "[T][X] name" if the task is completed.

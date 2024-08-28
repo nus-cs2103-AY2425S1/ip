@@ -1,6 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.File;
+import java.io.FileWriter;
 
 
 /**
@@ -21,6 +25,7 @@ public class Derek implements Bot {
             + "  /      \\\n";
 
 
+    private static String dataFilePathName = "./data/derek.txt";
     private String user;
 
     private static String leavingMessage = String.format("Ok...\n" + sadLogo);
@@ -29,9 +34,42 @@ public class Derek implements Bot {
 
 
     public static void main(String[] args) {
-        Derek instance = new Derek();
-        instance.introduction();
+        try {
+            Derek instance = new Derek();
+            File tasks = new File(dataFilePathName);
+            if (!tasks.exists()) {
+                throw new FileNotFoundException("Data file not found");
+            } else if (tasks.isDirectory()) {
+                throw new FileNotFoundException("Path is a directory");
+            }
+            Scanner getList = new Scanner(tasks);
+            while (getList.hasNext()) {
+                String task = getList.nextLine();
+                instance.populateTaskList(task);
+            }
+            instance.overrideFile();
+            instance.introduction();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
+    public void populateTaskList(String task) {
+        String[] components = task.split("\\|");
+        if (components[0].equals("D")) {
+            Task newTask = Task.deadlineTask(components[2], components[3], components[1]);
+            taskList.add(newTask);
+        } else if (components[0].equals("E")) {
+            Task newTask = Task.eventTask(components[2], components[3], components[4], components[1]);
+            taskList.add(newTask);
+        } else {
+            Task newTask = Task.toDoTask(components[2], components[1]);
+            taskList.add(newTask);
+        }
+    }
+
 
     /**
      * Introduces Derek and initiates user interaction to become friends.
@@ -88,6 +126,25 @@ public class Derek implements Bot {
 
                 if (command.isLeavingCommand()) {
                     System.out.println(leavingMessage);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        Task task = taskList.get(i);
+                        String isCompleted = task.isCompleted();
+                        if (task instanceof DeadlineTask) {
+                            DeadlineTask deadlineTask = (DeadlineTask) task;
+                            String deadline = deadlineTask.getDeadline();
+                            String taskName = deadlineTask.getName();
+                            writeToFile("D|" + isCompleted  + "|" + taskName + "|" + deadline + "\n");
+                        } else if (task instanceof EventTask) {
+                            EventTask eventTask = (EventTask) task;
+                            String startTime = eventTask.getStartTime();
+                            String endTime = eventTask.getEndTime();
+                            String taskName = eventTask.getName();
+                            writeToFile("E|" + isCompleted + "|" + taskName + "|" + startTime + "|" + endTime + "\n");
+                        } else {
+                            String taskName = task.getName();
+                            writeToFile("T|" + isCompleted + "|" + taskName + "\n");
+                        }
+                    }
                     break;  // Exit the loop and end the program
                 } else if (command.isListCommand()) {
                     this.returnList();
@@ -108,6 +165,8 @@ public class Derek implements Bot {
 
             } catch (IncorrectCommandException e) {
                 System.out.println(e.getMessage() + "\n");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -172,6 +231,21 @@ public class Derek implements Bot {
         } catch (IncorrectCommandException e) {
             System.out.println("C'mon, I can't understand what you're saying! Help me out here!\n" + sadLogo + "\n" + e.getMessage());
         }
+    }
+
+    @Override
+    public void writeToFile(String textToAdd) throws IOException{
+        FileWriter writer = new FileWriter(dataFilePathName, true);
+        writer.write(textToAdd);
+        writer.close();
+
+    }
+
+    public void overrideFile() throws IOException{
+        FileWriter writer = new FileWriter(dataFilePathName);
+        writer.write("");
+        writer.close();
+
     }
 
     /**
