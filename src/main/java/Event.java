@@ -31,6 +31,14 @@ public class Event extends Task {
         }
     }
 
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + " to: " + to.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + ")";

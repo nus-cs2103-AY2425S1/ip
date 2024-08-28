@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,9 +29,13 @@ public class Deadline extends Task{
         }
     }
 
+    public LocalDateTime getDate() {
+        return this.by;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + ")";
     }
 
     @Override
