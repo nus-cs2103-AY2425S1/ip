@@ -7,7 +7,6 @@ import java.time.format.DateTimeParseException;
 public class Task {
     private String desc;
     private String isDone;
-    private static int totalTasks = 0;
 
     private static String[] timeFormats = {
             "HHmm",
@@ -28,7 +27,6 @@ public class Task {
     public Task(String desc) {
         this.desc = desc;
         this.isDone = "[ ]";
-        totalTasks++;
     }
 
     public void mark() {
@@ -63,10 +61,6 @@ public class Task {
             }
         }
         return time;
-    }
-
-    public static int getTotalTasks() {
-        return totalTasks;
     }
 
     public String getDesc() {

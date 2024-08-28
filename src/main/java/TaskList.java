@@ -17,8 +17,9 @@ public class TaskList {
         String[] texts = {
                 "Task has been added:",
                 "  " + task,
-                "A total of " + Task.getTotalTasks() + " " + taskPlural() + " are on the list."
+                "A total of " + getSize() + " " + taskPlural() + " are on the list."
         };
+        writeToFile();
         Ui.wrapText(texts);
     }
 
@@ -40,7 +41,7 @@ public class TaskList {
 
     public void listTasks() {
         Ui.showLine();
-        System.out.println("Your task list currently has " + Task.getTotalTasks() + " tasks");
+        System.out.println("Your task list currently has " + getSize() + " tasks");
         for (int i = 1; i <= getSize(); i++) {
             System.out.println(i + "." + getTask(i - 1));
         }

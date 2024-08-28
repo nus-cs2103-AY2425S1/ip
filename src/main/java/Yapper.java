@@ -1,13 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.Scanner;
-import java.util.ArrayList;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-
 public class Yapper {
 
     private static String divider = "------------------------------------------------------------------";
@@ -15,28 +5,26 @@ public class Yapper {
     private static String relativePath = "./YappingData/YappingSession.txt";
 
     private Storage storage;
+    private Parser parser;
     private TaskList taskList;
     private Ui ui;
 
     public Yapper(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        taskList = new TaskList(storage.readFile(), filePath);
+        this.ui = new Ui();
+        this.parser = new Parser();
+        this.storage = new Storage(filePath);
+        this.taskList = new TaskList(storage.readFile(), filePath);
     }
 
     public void run() {
         ui.intro();
-        Scanner sc = new Scanner(System.in);
         while (true) {
             try {
-                String input = "";
-                if (sc.hasNextLine()) {
-                    input = sc.nextLine();
-                } else {
-                    break;
+                String[] parsedLine = parser.parseLine();
+                for (String s: parsedLine) {
+                    System.out.println(s);
                 }
-                String[] split = input.split(" ");
-                String command = split[0];
+                String command = parsedLine[0];
 
                 if (command.equals("bye")) {
                     Ui.wrapText("Bye bye! :)");
@@ -46,14 +34,20 @@ public class Yapper {
                 } else if (command.equals("list")) {
                     taskList.listTasks();
                 } else if (command.equals("mark") || command.equals("unmark")) {
-                    String taskNumber = split[1];
+                    if (parsedLine.length < 2) {
+                        throw new YapperException("Format error: mark/unmark [TASK_NUMBER]");
+                    }
+                    String taskNumber = parsedLine[1];
                     taskList.markTask(command, taskNumber);
                 } else if (command.equals("delete")) {
-                    String taskNumber = split[1];
+                    if (parsedLine.length < 2) {
+                        throw new YapperException("Format error: delete [TASK_NUMBER]");
+                    }
+                    String taskNumber = parsedLine[1];
                     taskList.deleteTask(taskNumber);
                 } else if (command.equals("todo")) {
                     try {
-                        String desc = StringJoiner.join(split, 1, split.length, YapperConcern.DESC);
+                        String desc = StringJoiner.join(parsedLine, 1, parsedLine.length, YapperConcern.DESC);
                         Task task = new ToDo(desc);
                         taskList.addTask(task);
                     } catch (YapperException e) {
@@ -62,16 +56,16 @@ public class Yapper {
                 } else if (command.equals("deadline")) {
                     try {
                         int byIndex = -1;
-                        for (int i = 0; i < split.length; i++) {
-                            if (split[i].equals("/by")) {
+                        for (int i = 0; i < parsedLine.length; i++) {
+                            if (parsedLine[i].equals("/by")) {
                                 byIndex = i;
                             }
                         }
                         if (byIndex == -1) {
                             throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE])");
                         }
-                        String desc = StringJoiner.join(split, 1, byIndex, YapperConcern.DESC);
-                        String deadline = StringJoiner.join(split, byIndex + 1, split.length, YapperConcern.DEADLINE);
+                        String desc = StringJoiner.join(parsedLine, 1, byIndex, YapperConcern.DESC);
+                        String deadline = StringJoiner.join(parsedLine, byIndex + 1, parsedLine.length, YapperConcern.DEADLINE);
                         Task task = new Deadline(desc, deadline);
                         taskList.addTask(task);
                     } catch (YapperException e) {
@@ -81,19 +75,19 @@ public class Yapper {
                     try {
                         int fromIndex = -1;
                         int toIndex = -1;
-                        for (int i = 0; i < split.length; i++) {
-                            if (split[i].equals("/from")) {
+                        for (int i = 0; i < parsedLine.length; i++) {
+                            if (parsedLine[i].equals("/from")) {
                                 fromIndex = i;
-                            } else if (split[i].equals("/to")) {
+                            } else if (parsedLine[i].equals("/to")) {
                                 toIndex = i;
                             }
                         }
                         if (fromIndex == -1 || toIndex == -1) {
                             throw new YapperFormatException("(Format: event [DESC] /from [FROM] /to [TO])");
                         }
-                        String desc = StringJoiner.join(split, 1, fromIndex, YapperConcern.DESC);
-                        String from = StringJoiner.join(split, fromIndex + 1, toIndex, YapperConcern.FROM);
-                        String to = StringJoiner.join(split, toIndex + 1, split.length, YapperConcern.TO);
+                        String desc = StringJoiner.join(parsedLine, 1, fromIndex, YapperConcern.DESC);
+                        String from = StringJoiner.join(parsedLine, fromIndex + 1, toIndex, YapperConcern.FROM);
+                        String to = StringJoiner.join(parsedLine, toIndex + 1, parsedLine.length, YapperConcern.TO);
                         Task task = new Event(desc, from, to);
                         taskList.addTask(task);
                     } catch (YapperException e) {
