@@ -1,0 +1,3 @@
+[D][_] return book /by: June 6th
+[T][_] read book
+[E][X] project meeting /from: Aug 6th 2pm /to: 4pm

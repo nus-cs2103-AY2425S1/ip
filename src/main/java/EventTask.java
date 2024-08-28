@@ -16,6 +16,6 @@ public class EventTask extends Task{
     @Override
     public String toString() {
         return "[E]" + "[" + getStatusIcon() + "] " + super.description +
-                "(from: " + startTime + "to: " + endTime + ")";
+                "/from: " + startTime + "/to: " + endTime;
     }
 }

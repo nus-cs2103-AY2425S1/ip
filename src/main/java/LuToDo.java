@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 public class LuToDo {
@@ -13,7 +14,11 @@ public class LuToDo {
                 System.out.println(e.getMessage());
             }
         }
-
+        try {
+            Utility.fileToTaskList(taskListFile);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         Utility.greeting();
         while (true) {
             String message = sc.nextLine();
