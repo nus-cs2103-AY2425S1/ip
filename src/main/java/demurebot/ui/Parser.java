@@ -1,3 +1,9 @@
+package demurebot.ui;
+
+import demurebot.DemureBotException;
+import demurebot.command.*;
+import demurebot.task.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,78 +14,38 @@ public abstract class Parser {
      *
      * @param command User command.
      * @param list List of tasks the user has.
-     * @param ui Ui object to interact with user.
+     * @param ui demure.Ui object to interact with user.
      * @throws DemureBotException If the user command is invalid.
      */
-    public static void parse(String command, TaskList list, Ui ui) throws DemureBotException {
-        if (command.startsWith("mark")) {
+    public static Command parse(String command, TaskList list, Ui ui) throws DemureBotException {
+        if (command.trim().equals("bye")) {
+            return new EndCommand();
+        } else if (command.trim().equals("list")) {
+            return new ListCommand();
+        } else if (command.startsWith("mark")) {
             String remainder = command.substring(4).trim();
-            try {
-                int index = Integer.parseInt(remainder) - 1;
-                Task task = list.getTask(index);
-                task.markAsDone();
-                ui.displayMarkTask(task);
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a positive integer after mark.\n");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid index: " +
-                        (Integer.parseInt(remainder)) +
-                        "\n" +
-                        "Please enter a number within 1 to number of current tasks.\n"
-                );
-            }
+            return new MarkCommand(remainder);
         } else if (command.startsWith("unmark")) {
             String remainder = command.substring(6).trim();
-            try {
-                int index = Integer.parseInt(remainder) - 1;
-                Task task = list.getTask(index);
-                task.unmark();
-                ui.displayUnmarkTask(task);
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a positive integer after unmark.\n");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid index: " +
-                        (Integer.parseInt(remainder)) +
-                        "\n" +
-                        "Please enter a number within 1 to number of current tasks.\n"
-                );
-            }
+            return new UnmarkCommand(remainder);
         } else if (command.startsWith("delete")) {
             String remainder = command.substring(6).trim();
-            try {
-                int index = Integer.parseInt(remainder) - 1;
-                Task task = list.getTask(index);
-                list.removeTask(index);
-                ui.displayDeleteTask(task, list.getSize());
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a positive integer after delete.\n");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid index: " +
-                        (Integer.parseInt(remainder)) +
-                        "\n" +
-                        "Please enter a number within 1 to number of current tasks.\n"
-                );
-            }
+            return new DeleteCommand(remainder);
         } else if (command.startsWith("todo")) {
             String description = command.substring(4).trim();
             // check that there is a task description
             if (description.isEmpty()) {
                 throw new DemureBotException("The description of a todo cannot be empty.\nAdd description after todo.\n");
             }
-            Todo todo = new Todo(description, false);
-            list.addTask(todo);
-            ui.displayAddTask(todo, list.getSize());
+            return new TodoCommand(description);
         } else if (command.startsWith("deadline")) {
             Deadline deadline = getDeadline(command);
-            list.addTask(deadline);
-            ui.displayAddTask(deadline, list.getSize());
+            return new DeadlineCommand(deadline);
         } else if (command.startsWith("event")) {
             Event event = getEvent(command);
-            list.addTask(event);
-            ui.displayAddTask(event, list.getSize());
+            return new EventCommand(event);
         } else {
-            // throw invalid command exception
-            throw new DemureBotException("Invalid command\nCreate a new task starting with the command todo, deadline or event.\n");
+            return new InvalidCommand();
         }
     }
 
@@ -107,10 +73,10 @@ public abstract class Parser {
     }
 
     /**
-     * Returns an Event created from the user command.
+     * Returns a demure.Event created from the user command.
      *
      * @param command User command.
-     * @return Event created from the user command.
+     * @return demure.Event created from the user command.
      * @throws DemureBotException If the user command is invalid.
      */
     private static Event getEvent(String command) throws DemureBotException {

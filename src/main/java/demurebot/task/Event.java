@@ -1,3 +1,5 @@
+package demurebot.task;
+
 public class Event extends Task {
 
     protected String start;

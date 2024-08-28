@@ -1,3 +1,12 @@
+package demurebot;
+
+import demurebot.command.Command;
+import demurebot.storage.Storage;
+import demurebot.task.Task;
+import demurebot.task.TaskList;
+import demurebot.ui.Parser;
+import demurebot.ui.Ui;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -42,35 +51,24 @@ public class DemureBot {
             }
         }
 
-        if (list == null) {
+        if (this.list == null) {
             this.list = new TaskList(new ArrayList<>());
         }
 
         // while user hasn't ended session
         while (!isFinished) {
             String command = scanner.nextLine();
-
-            if (command.equals("bye")) {
-                // end session
-                isFinished = true;
-            } else if (command.equals("list")) {
-                // list all tasks
-                for (int i = 0; i < list.getSize(); i++) {
-                    Task task = list.getTask(i);
-                    System.out.println((i + 1) + "." + task);
-                }
-            } else {
-                try {
-                    Parser.parse(command, list, this.ui);
-                } catch (DemureBotException e) {
-                    System.out.println(e.getMessage());
-                }
+            try {
+                Command c = Parser.parse(command, list, this.ui);
+                c.execute(this.list, this.ui);
+                isFinished = c.isExit();
+            } catch (DemureBotException e) {
+                System.out.println(e.getMessage());
             }
         }
 
         // close scanner and end session
         scanner.close();
-        this.ui.displayEnd();
 
         // save task list
         this.storage.save(filePath, this.list);
