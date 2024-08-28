@@ -9,16 +9,23 @@ public class Bro {
     private TaskList tasks;
     private Parser parser;
 
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        int len = tasks.size();
-        for (int i = 0; i < len; i++) {
-            s.append(String.format("%d.%s\n", i + 1, tasks.get(i).toLoad()));
-        }
-        return s.toString();
-    }
-
+    /**
+     * Initializes the application components and starts the main event loop to handle user input.
+     * It sets up the user interface, parser, task list, and storage, then continuously listens for user commands
+     * until the user decides to exit by typing "bye".
+     *
+     * The method handles various commands:
+     * - "list" to display all tasks.
+     * - "mark <task number>" to mark a task as completed.
+     * - "unmark <task number>" to mark a task as not completed.
+     * - "delete <task number>" to delete a task.
+     * - "todo <task description>" to add a new to-do task.
+     * - "deadline <task description> /by <date time>" to add a task with a deadline.
+     * - "event <task description> /from <start date time> /to <end date time>" to add an event.
+     *
+     * The state of tasks is saved to a file after every change.
+     * Handles exceptions for file loading errors, command format errors, and task index out-of-bounds.
+     */
     public void run() {
         ui = new Ui();
         parser = new Parser(ui);

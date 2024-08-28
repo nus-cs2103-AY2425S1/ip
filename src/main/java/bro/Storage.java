@@ -14,6 +14,11 @@ public class Storage {
         this.PATH = path;
         this.tasks = tasks;
     }
+
+    /**
+     * Saves the current state of tasks to a file specified by the PATH constant.
+     * The tasks are saved as a string representation.
+     */
     public void saveToFile() {
         try {
             FileWriter f = new FileWriter(PATH);
@@ -24,6 +29,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a file specified by the PATH constant. The tasks are read line by line
+     * and added to the task list. Each task's type and completion status are determined by the
+     * contents of each line.
+     *
+     * @throws FileNotFoundException If the file specified by PATH does not exist.
+     * @throws BroException          If there is an error in parsing the task details.
+     */
     public void loadIn() throws FileNotFoundException, BroException {
         File f = new File(PATH);
         Scanner s = new Scanner(f);
@@ -52,5 +65,22 @@ public class Storage {
                     System.out.println("Error");
             }
         }
+    }
+
+    /**
+     * Returns a string representation of the task list. Each task is represented on a new line
+     * with its index and details formatted for saving/loading.
+     *
+     * @return A string that represents the current state of the task list, with each task formatted
+     *         for storage.
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        int len = tasks.size();
+        for (int i = 0; i < len; i++) {
+            s.append(String.format("%d.%s\n", i + 1, tasks.get(i).toLoad()));
+        }
+        return s.toString();
     }
 }
