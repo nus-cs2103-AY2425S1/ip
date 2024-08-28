@@ -1,3 +1,5 @@
+package bro;
+
 public class Ui {
     static final String line = "   ______________________________________________________\n";
 

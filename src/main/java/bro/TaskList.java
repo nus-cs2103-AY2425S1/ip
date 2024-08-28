@@ -1,3 +1,5 @@
+package bro;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -38,7 +40,7 @@ public class TaskList {
         if (s.trim().isEmpty()) {
             throw new BroException("Please provide the name of the task!!!");
         } else if (!s.contains(" /by ")) {
-            throw new BroException("Please include \"/by\" in Deadline!!!");
+            throw new BroException("Please include \"/by\" in bro.Deadline!!!");
         }
         parser.parseDeadline(s, this);
     }
@@ -47,7 +49,7 @@ public class TaskList {
         if (s.trim().isEmpty()) {
             throw new BroException("Please provide the name of the task!!!");
         } else if (!s.contains(" /from ") || !s.contains(" /to ")) {
-            throw new BroException("Please include \"/from\" and \"/to\" in Event!!!");
+            throw new BroException("Please include \"/from\" and \"/to\" in bro.Event!!!");
         }
         parser.parseEvent(s, this);
     }
