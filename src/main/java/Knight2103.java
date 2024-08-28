@@ -9,14 +9,13 @@ import java.util.Optional;
 public class Knight2103 {
 
     public static Optional<Task> formatToTask(String lineInFile) {
-        //System.out.println(lineInFile);
         String[] inputArray = lineInFile.split(" \\| ");
         try {
             Task taskToAdd;
             switch (inputArray[0]) {
                 case "T":
                     if (inputArray.length != 3) {
-                        throw new InstructionInvalid();
+                        throw new FileContentsInvalid("Number of columns mismatch. There should be 3 for Todo");
                     }
                     taskToAdd = new Todo(inputArray[2]);
                     if (inputArray[1].equals("0")) {
@@ -25,13 +24,11 @@ public class Knight2103 {
                         taskToAdd.markDone();
                         return Optional.of(taskToAdd);
                     } else {
-                        System.out.println(lineInFile);
-                        throw new InstructionInvalid();
+                        throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
                     }
                 case "D":
                     if (inputArray.length != 4) {
-                        System.out.println(lineInFile);
-                        throw new InstructionInvalid();
+                        throw new FileContentsInvalid("Number of columns mismatch. There should be 4 for Deadline");
                     }
                     taskToAdd = new Deadline(inputArray[2], inputArray[3]);
                     if (inputArray[1].equals("0")) {
@@ -40,15 +37,13 @@ public class Knight2103 {
                         taskToAdd.markDone();
                         return Optional.of(taskToAdd);
                     } else {
-                        System.out.println(lineInFile);
-                        throw new InstructionInvalid();
+                        throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
                     }
                     // break;
 
                 case "E":
                     if (inputArray.length != 5) {
-                        System.out.println(lineInFile);
-                        throw new InstructionInvalid();
+                        throw new FileContentsInvalid("Number of columns mismatch. There should be 5 for Events");
                     }
                     taskToAdd = new Event(inputArray[2], inputArray[3], inputArray[4]);
                     if (inputArray[1].equals("0")) {
@@ -57,16 +52,14 @@ public class Knight2103 {
                         taskToAdd.markDone();
                         return Optional.of(taskToAdd);
                     } else {
-                        System.out.println(lineInFile);
-                        throw new InstructionInvalid();
+                        throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
                     }
                     // break;
                 default:
-                    System.out.println(lineInFile);
-                    throw new InstructionInvalid();
+                    throw new FileContentsInvalid("Only T, E, D accepted but others found");
             }
-        } catch (InstructionInvalid e) { // need to change type of Exception
-            System.out.println("cannot read line");
+        } catch (FileContentsInvalid e) {
+            System.out.println(e);
         }
         return Optional.empty(); // code will be problematic
     }
@@ -125,7 +118,6 @@ public class Knight2103 {
                 System.out.println("ya");
                 taskList = loadTaskList(savedTaskList);
             }
-            FileWriter taskListWriter = new FileWriter("./savedTaskList.txt", true);
 
             // Enable Input
             Scanner scanObject = new Scanner(System.in);
@@ -135,6 +127,7 @@ public class Knight2103 {
                 String[] inputArray = input.split(" ", 2);
                 Task taskToAdd;
                 try {
+                    FileWriter taskListWriter;
                     switch (inputArray[0]) {
                         case "list":
                             String listContents = printList(taskList, taskList.size());
@@ -145,8 +138,9 @@ public class Knight2103 {
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                             System.out.println(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
-                            taskListWriter.flush();
+                            taskListWriter.close();
                             break;
                         case "deadline":
                             String[] deadlineArray = inputArray[1].split(" /by ");
@@ -154,8 +148,9 @@ public class Knight2103 {
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                             System.out.println(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
-                            taskListWriter.flush();
+                            taskListWriter.close();
                             break;
                         case "event":
                             String[] eventArray = inputArray[1].split(" /from | /to ");
@@ -163,24 +158,27 @@ public class Knight2103 {
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                             System.out.println(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
-                            taskListWriter.flush();
+                            taskListWriter.close();
                             break;
                         case "mark":
                             int taskMarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
                             taskList.get(taskMarkIndex).markDone(); // need to check if it works
                             System.out.println(horiLine + "\nNice! I've marked this task as done:\n" + taskList.get(taskMarkIndex) + "\n" + horiLine);
                             System.out.println(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
-                            taskListWriter.flush();
+                            taskListWriter.close();
                             break;
                         case "unmark":
                             int taskUnmarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
                             taskList.get(taskUnmarkIndex).unmarkDone();
                             System.out.println(horiLine + "\nOK, I've marked this task as not done yet:\n" + taskList.get(taskUnmarkIndex) + "\n" + horiLine);
                             System.out.println(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
-                            taskListWriter.flush();
+                            taskListWriter.close();
                             break;
                         case "delete":
                             int taskDeleteIndex = Integer.parseInt(inputArray[1]) - 1; // can try
@@ -188,8 +186,9 @@ public class Knight2103 {
                             taskList.remove(taskDeleteIndex);
                             System.out.println(horiLine + "\nNoted. I've removed this task:\n" + taskToDelete + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                             System.out.println(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
-                            taskListWriter.flush(); // ensure data is written on the spot
+                            taskListWriter.close(); // ensure data is written on the spot
                             break;
 
                         default:
@@ -203,15 +202,16 @@ public class Knight2103 {
                     System.out.println("There aren't so many tasks. Please if the task number is keyed in correctly. To see all tasks, type list");
                 } catch (NumberFormatException e) {
                     System.out.println("Please state the task number in INTEGER. Definitely not the task name");
+                } catch (IOException e) {
+                    System.out.println("Problems creating an instance of FileWriter");
                 }
                 input = scanObject.nextLine();
             }
             System.out.println(horiLine + "\n" + "Bye. Hope to see you again soon!" + "\n" + horiLine);
             scanObject.close();
-            taskListWriter.close();
 
         } catch (IOException e) {
-                System.out.println("I/O went wrong");
+                System.out.println("issues executing createNewFile()");
             }
 
     }
