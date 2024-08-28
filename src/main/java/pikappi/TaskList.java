@@ -79,4 +79,14 @@ public class TaskList {
         tasks.get(taskNumber - 1).unmarkAsDone();
         System.out.println("Okie, I've unmarked this task as not done yet:\n" + tasks.get(taskNumber - 1));
     }
+
+    public TaskList findTask(String keyword) {
+        TaskList matches = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
+    }
 }

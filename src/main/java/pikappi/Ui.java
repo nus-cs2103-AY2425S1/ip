@@ -27,4 +27,15 @@ public class Ui {
     public void showErrorMessage(String message) {
         System.out.println(message);
     }
+
+    public void showMatchingTasks(TaskList matchingTasks) {
+        if (matchingTasks.getTasks().isEmpty()) {
+            System.out.println("Pika..? No matching tasks found..");
+        } else {
+            System.out.println("Pika! Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.getTasks().size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.getTasks().get(i));
+            }
+        }
+    }
 }
