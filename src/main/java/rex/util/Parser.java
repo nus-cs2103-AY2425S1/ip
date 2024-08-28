@@ -108,7 +108,7 @@ public class Parser {
         case EVENT:
             if (inputTokens.length == 1) {
                 String usageMessage = Command.usageMessage(command);
-                throw new InvalidInputException("tasks.Task description cannot be empty!\nUsage: " + usageMessage);
+                throw new InvalidInputException("Task description cannot be empty!\nUsage: " + usageMessage);
             }
             break;
         case LIST:
