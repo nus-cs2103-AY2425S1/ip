@@ -1,22 +1,20 @@
 package delta.util;
 
-import delta.command.Command;
-import delta.command.AddCommand;
-import delta.command.MarkCommand;
-import delta.command.UnmarkCommand;
-import delta.command.DeleteCommand;
-import delta.command.PrintCommand;
-import delta.command.ExitCommand;
-
-import delta.task.Todo;
-import delta.task.Deadline;
-import delta.task.Event;
-
-import delta.exception.DeltaException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import delta.command.AddCommand;
+import delta.command.Command;
+import delta.command.DeleteCommand;
+import delta.command.ExitCommand;
+import delta.command.MarkCommand;
+import delta.command.PrintCommand;
+import delta.command.UnmarkCommand;
+import delta.exception.DeltaException;
+import delta.task.Deadline;
+import delta.task.Event;
+import delta.task.Todo;
 
 /**
  * Deals with making sense of user input.
@@ -33,8 +31,7 @@ public class Parser {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(input, formatter);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new DeltaException("""
                     OOPS!!! The format used for date/time is wrong!
                     \t Please follow the proper format:
@@ -66,7 +63,7 @@ public class Parser {
         } else if (task.equalsIgnoreCase("todo")) {
             if (description.length == 2) {
                 String taskName = description[1].strip();
-                 return new AddCommand(new Todo(taskName));
+                return new AddCommand(new Todo(taskName));
             } else {
                 throw new DeltaException("""
                         OOPS!!! Description of todo cannot be left blank!
@@ -156,8 +153,7 @@ public class Parser {
             try {
                 int taskIdx = Integer.parseInt(description[1].strip());
                 return new MarkCommand(taskIdx);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new DeltaException("""
                         OOPS!!! The index of task to mark must be an integer!
                         \t Please follow the proper format:
@@ -175,8 +171,7 @@ public class Parser {
             try {
                 int taskIdx = Integer.parseInt(description[1].strip());
                 return new UnmarkCommand(taskIdx);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new DeltaException("""
                         OOPS!!! The index of task to unmark must be an integer!
                         \t Please follow the proper format:
@@ -194,8 +189,7 @@ public class Parser {
             try {
                 int taskIdx = Integer.parseInt(description[1].strip());
                 return new DeleteCommand(taskIdx);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new DeltaException("""
                         OOPS!!! The index of task to delete must be an integer!
                         \t Please follow the proper format:

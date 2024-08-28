@@ -1,12 +1,10 @@
 package delta.command;
 
+import delta.exception.DeltaException;
+import delta.task.Task;
+import delta.util.Storage;
 import delta.util.TaskList;
 import delta.util.Ui;
-import delta.util.Storage;
-
-import delta.exception.DeltaException;
-
-import delta.task.Task;
 
 /**
  * Concrete subclass of Command abstract class.
@@ -15,6 +13,11 @@ import delta.task.Task;
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Creates a AddCommand instance.
+     *
+     * @param task Task to be added into list.
+     */
     public AddCommand(Task task) {
         super(CommandType.Add);
         this.task = task;
@@ -37,9 +40,9 @@ public class AddCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         tasks.addTask(task);
-        ui.showCommand("Got it. I've added this task:\n" +
-                "\t   " + task.toString() + "\n" +
-                "\t Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.");
+        ui.showCommand("Got it. I've added this task:\n"
+                + "\t   " + task.toString() + "\n"
+                + "\t Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.");
         storage.save(tasks);
     }
 }

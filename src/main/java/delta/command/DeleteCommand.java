@@ -1,12 +1,10 @@
 package delta.command;
 
+import delta.exception.DeltaException;
+import delta.task.Task;
+import delta.util.Storage;
 import delta.util.TaskList;
 import delta.util.Ui;
-import delta.util.Storage;
-
-import delta.task.Task;
-
-import delta.exception.DeltaException;
 
 /**
  * Concrete subclass of Command abstract class.
@@ -15,6 +13,11 @@ import delta.exception.DeltaException;
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Creates a DeleteCommand instance.
+     *
+     * @param index Index of task to be deleted from list.
+     */
     public DeleteCommand(int index) {
         super(CommandType.Delete);
         this.index = index;
@@ -37,9 +40,9 @@ public class DeleteCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.deleteTask(index);
-        ui.showCommand("Noted. I've removed this task:\n" +
-                "\t   " + task + "\n" +
-                "\t Now you have " + tasks.getSize() + " tasks" + " in the list.");
+        ui.showCommand("Noted. I've removed this task:\n"
+                + "\t   " + task + "\n"
+                + "\t Now you have " + tasks.getSize() + " tasks" + " in the list.");
         storage.save(tasks);
     }
 }

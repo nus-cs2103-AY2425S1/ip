@@ -1,10 +1,10 @@
 package delta.task;
 
-import delta.exception.DeltaException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import delta.exception.DeltaException;
 
 /**
  * Subclass of Task class.
@@ -16,7 +16,7 @@ public class Event extends Task {
     protected LocalDateTime end;
 
     /**
-     * Constructor for event instance.
+     * Creates an Event instance.
      * Only used by load method in Storage class to load up saved tasks.
      *
      * @param description Name of event task.
@@ -29,8 +29,7 @@ public class Event extends Task {
         try {
             this.start = LocalDateTime.parse(start, FORMATTER);
             this.end = LocalDateTime.parse(end, FORMATTER);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new DeltaException("""
                     OOPS!!! Save File has been corrupted!
                     \t Please delete the save file.

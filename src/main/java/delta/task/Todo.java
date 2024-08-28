@@ -6,7 +6,7 @@ package delta.task;
  */
 public class Todo extends Task {
     /**
-     * Constructor for Todo instance.
+     * Creates a Todo instance.
      *
      * @param description Name of todo task.
      */

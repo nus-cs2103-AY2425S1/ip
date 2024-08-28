@@ -1,12 +1,10 @@
 package delta.command;
 
+import delta.exception.DeltaException;
+import delta.task.Task;
+import delta.util.Storage;
 import delta.util.TaskList;
 import delta.util.Ui;
-import delta.util.Storage;
-
-import delta.task.Task;
-
-import delta.exception.DeltaException;
 
 /**
  * Concrete subclass of Command abstract class.
@@ -15,6 +13,11 @@ import delta.exception.DeltaException;
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Creates a UnmarkCommand instance.
+     *
+     * @param index Index of task to be unmarked in list.
+     */
     public UnmarkCommand(int index) {
         super(CommandType.Unmark);
         this.index = index;
@@ -37,8 +40,8 @@ public class UnmarkCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.unmarkTask(index);
-        ui.showCommand("Nice! I've marked this task as not done yet:\n" +
-                "\t   " + task);
+        ui.showCommand("Nice! I've marked this task as not done yet:\n"
+                + "\t   " + task);
         storage.save(tasks);
     }
 }
