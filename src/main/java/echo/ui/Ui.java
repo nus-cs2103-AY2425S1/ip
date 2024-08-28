@@ -138,7 +138,7 @@ public class Ui {
         case "DateTimeParseException":
             System.out.println(LINE_BREAK);
             System.out.println("Sorry! You have provided an invalid date and time.");
-            System.out.println("Try again in this format dd-MM-yyyy hhmm");
+            System.out.println("Try again in this format dd-MM-yyyy HHmm");
             System.out.println(LINE_BREAK);
             break;
         case "FileNotFoundException":
@@ -167,5 +167,19 @@ public class Ui {
             System.out.println(LINE_BREAK);
             break;
         }
+    }
+
+    public void showValidCommands() {
+        System.out.println(LINE_BREAK);
+        System.out.println("List of valid commands:\n"
+                + "list --> list\n"
+                + "mark --> mark [index]\n"
+                + "unmark --> unmark [index]\n"
+                + "todo --> todo [task description]\n"
+                + "deadline --> deadline [task description] /by[dd-MM-yyyy HHmm]\n"
+                + "event --> event [task description] /from [dd-MM-yyyy HHmm] /to [dd-MM-yyyy HHmm]\n"
+                + "delete --> delete [index]\n"
+                + "find --> find [keyword]\n"
+                + "bye --> bye");
     }
 }

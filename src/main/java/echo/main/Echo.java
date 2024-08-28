@@ -177,7 +177,8 @@ public class Echo {
                 handleFindCommand(description);
                 break;
             default:
-                throw new EchoException("Sorry! I don't get what you mean");
+                ui.showValidCommands();
+                throw new EchoException("Sorry! I don't get what you mean. Try again with the list of commands above.");
             }
         } catch (EchoException | DateTimeParseException | NumberFormatException e) {
             ui.printErrorMessage(e);
