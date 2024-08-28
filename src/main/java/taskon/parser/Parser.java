@@ -1,13 +1,28 @@
 package taskon.parser;
 
-import taskon.commands.*;
+import static taskon.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static taskon.common.Messages.MESSAGE_INVALID_INTEGER;
+import static taskon.common.Messages.MESSAGE_DESCRIPTION_MISSING;
+import static taskon.common.Messages.MESSAGE_INVALID_DATE_FORMAT;
+import static taskon.common.Messages.MESSAGE_DATE_MISSING;
+
+import taskon.commands.ByeCommand;
+import taskon.commands.Command;
+import taskon.commands.DeadlineCommand;
+import taskon.commands.DeleteCommand;
+import taskon.commands.EventCommand;
+import taskon.commands.IncorrectCommand;
+import taskon.commands.ListCommand;
+import taskon.commands.MarkCommand;
+import taskon.commands.OnCommand;
+import taskon.commands.TodoCommand;
+import taskon.commands.UnmarkCommand;
+
 import taskon.exception.TaskonException;
 
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static taskon.common.Messages.*;
 
 /**
  * Parses user input into commands for execution.

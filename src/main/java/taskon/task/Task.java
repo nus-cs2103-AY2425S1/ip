@@ -1,19 +1,19 @@
 package taskon.task;
 
-import taskon.exception.TaskonException;
-
 import java.time.LocalDate;
+
+import taskon.exception.TaskonException;
 
 /**
  * The Task class represents a task with a description and a completion status.
  * It provides methods to mark the task as done or undone, and to retrieve the task's status icon.
  */
 public class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
-     * Constructs a new task.Task with the given description.
+     * Constructs a new Task with the given description.
      * The task is initially not completed.
      *
      * @param description The description of the task.
@@ -21,6 +21,22 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Returns the description of the task
+     * @return String of the description of the task
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns whether the task is completed or not
+     * @return true if task is done, false otherwise
+     */
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     /**

@@ -137,16 +137,16 @@ public class Storage {
      * @return A formatted string representing the Task.
      */
     private static String taskToFileString(Task task) {
-        String taskStatus = task.isDone ? "1" : "0";
+        String taskStatus = task.getIsDone() ? "1" : "0";
 
         String taskDescription = "";
         if (task instanceof Todo) {
-            taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.description;
+            taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription();
         } else if (task instanceof Deadline) {
-            taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.description
+            taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription()
                     + SEPARATOR + ((Deadline) task).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else {
-            taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.description
+            taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription()
                     + SEPARATOR + ((Event) task).getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
                     + SEPARATOR + ((Event) task).getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
