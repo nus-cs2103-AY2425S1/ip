@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Kafka {
 
     public static String[] list = new String[100];
+
     public void greet() {
         String message = """
               Hello. Kafka here.
@@ -16,9 +17,16 @@ public class Kafka {
         System.out.println(message);
     }
 
-    public void notes(String task, int taskNumber) {
+    public void add(String task, int taskNumber) {
         list[taskNumber] = task;
         System.out.println("  added: " + task);
+    }
+
+    public void setList(int taskNumber) {
+        for (int i = 1; i <= taskNumber; i++) {
+            String listMessage = "  " + i + ". " + list[i];
+            System.out.println(listMessage);
+        }
     }
     public static void main(String[] args) {
         String logo = """
@@ -41,13 +49,10 @@ public class Kafka {
             if (task.trim().equalsIgnoreCase("Bye")) {
                 exitChat = true;
             } else if (task.trim().equalsIgnoreCase("list")) {
-                for (int i = 1; i <= taskNumber; i++) {
-                    String listMessage = "  " + i + ". " + list[i];
-                    System.out.println(listMessage);
-                }
+                kafka.setList(taskNumber);
             } else {
                 taskNumber++;
-                kafka.notes(task, taskNumber);
+                kafka.add(task, taskNumber);
             }
         }
         kafka.goodbye();
