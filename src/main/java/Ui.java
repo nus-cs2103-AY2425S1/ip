@@ -24,7 +24,7 @@ public class Ui {
         System.out.println("_____________________________________________");
     }
 
-    public void showExceptionMessage(String message) {
+    public void showMessage(String message) {
         System.out.println(message);
     }
 
