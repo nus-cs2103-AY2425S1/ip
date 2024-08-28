@@ -1,12 +1,12 @@
 public class Task {
-    public static enum TYPE { TODO, DEADLINE, EVENT };
+    public enum TYPE { TODO, DEADLINE, EVENT };
 
     private final String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
@@ -24,5 +24,13 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String getSimpleStatusIcon() {
+        return this.isDone ? "1" : "0";
+    }
+
+    public String simpleFormat() {
+        return this.getSimpleStatusIcon() + " | " + this.description;
     }
 }
