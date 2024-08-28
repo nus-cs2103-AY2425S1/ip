@@ -1,11 +1,6 @@
-import java.io.FileNotFoundException;
-import java.util.*;
-import java.io.FileWriter;
+import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
-import java.io.File;
-
 /**
  * Represents a list of tasks. The TaskList class manages the creation,
  * manipulation, and display of tasks, including Todos, Deadlines, and Events.
@@ -14,35 +9,13 @@ import java.io.File;
  */
 public class TaskList {
     private final List<Task> tasks;
+    Storage s;
     /**
      * Constructs an empty TaskList.
      */
-    public TaskList() {
+    public TaskList(Storage s) {
         tasks = new ArrayList<>();
-    }
-
-    public class HardDisk {
-
-        public static void writeToHardDisk(String filePath, List<Task> tasks) {
-            try {
-                // Clear the file contents by overwriting it
-                try (FileWriter writer = new FileWriter(filePath, false)) {
-                    // Opening in overwrite mode clears existing content
-                }
-
-                // Write new content to the file
-                try (FileWriter writer1 = new FileWriter(filePath, true)) {
-                    for (Task line : tasks) {
-                        writer1.write(line.toString());
-                        writer1.write(System.lineSeparator()); // Ensure each line appears on a new line
-                    }
-                    writer1.flush();
-                    //writer.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace(); // Print stack trace for debugging
-            }
-        }
+        this.s = s;
     }
 
     /**
@@ -61,10 +34,8 @@ public class TaskList {
                     tsk = new Todo("");
                 }
                 tasks.add(tsk);
-                HardDisk.writeToHardDisk("ip/src/main/HardDisk.txt", this.tasks); // this line
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + tsk);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                s.writeToHardDisk(this.tasks); // this line
+                UI.taskMessage(tsk, tasks.size());
             } else if (Parser.checkStringPrefix(task, 8, "deadline")) {
                 Task tsk;
                 if (task.length() > 8) {
@@ -73,10 +44,8 @@ public class TaskList {
                     tsk = new Todo("");
                 }
                 tasks.add(tsk);
-                HardDisk.writeToHardDisk("ip/src/main/HardDisk.txt", this.tasks);
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + tsk);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                s.writeToHardDisk(this.tasks); // this line
+                UI.taskMessage(tsk, tasks.size());
             } else if (Parser.checkStringPrefix(task, 5, "event")) {
                 Task tsk;
                 if (task.length() > 5) {
@@ -85,10 +54,8 @@ public class TaskList {
                     tsk = new Event("");
                 }
                 tasks.add(tsk);
-                HardDisk.writeToHardDisk("ip/src/main/HardDisk.txt", this.tasks);
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + tsk);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                s.writeToHardDisk(this.tasks); // this line
+                UI.taskMessage(tsk, tasks.size());
             } else {
                 throw new InvalidInputException();
             }
@@ -97,57 +64,59 @@ public class TaskList {
         }
     }
 
-    public void loadHardDriveToTasks(File f) {
+    public void loadStorageToTasks() {
         try {
-            Scanner sc = new Scanner(f);
-            while (sc.hasNextLine()) {
-                String s = sc.nextLine();
-                if (Parser.checkStringPrefix(s, 6, "[T][ ]")) {
+            List<String> readTasks = s.readFromHardDisk();
+            int counter = 0;
+            while (counter < readTasks.size()) {
+                String line = readTasks.get(counter);
+                if (Parser.checkStringPrefix(line, 6, "[T][ ]")) {
                     try {
-                        tasks.add(new Todo(s.substring(7)));
+                        tasks.add(new Todo(line.substring(7)));
                     } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(s, 6, "[T][X]")) {
+                } else if (Parser.checkStringPrefix(line, 6, "[T][X]")) {
                     try {
-                        tasks.add(new Todo(s.substring(7)));
+                        tasks.add(new Todo(line.substring(7)));
                         markTaskAsDone(tasks.size());
                     } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(s, 6, "[D][ ]")) {
+                } else if (Parser.checkStringPrefix(line, 6, "[D][ ]")) {
                     try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(s.substring(7))));
-                    } catch (DelphiException e)  {
+                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7))));
+                    } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(s, 6, "[D][X]")) {
+                } else if (Parser.checkStringPrefix(line, 6, "[D][X]")) {
                     try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(s.substring(7))));
+                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7))));
                         markTaskAsDone(tasks.size());
-                    } catch (DelphiException e)  {
+                    } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(s, 6, "[E][ ]")) {
+                } else if (Parser.checkStringPrefix(line, 6, "[E][ ]")) {
                     try {
-                        tasks.add(new Event(Parser.formatStringEvent(s.substring(7))));
-                    } catch (DelphiException e)  {
+                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7))));
+                    } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(s, 6, "[E][X]")) {
+                } else if (Parser.checkStringPrefix(line, 6, "[E][X]")) {
                     try {
-                        tasks.add(new Event(Parser.formatStringEvent(s.substring(7))));
+                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7))));
                         markTaskAsDone(tasks.size());
-                    } catch (DelphiException e)  {
+                    } catch (DelphiException e) {
                         //empty
                     }
                 }
+                counter++;
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("hard disk not found");
-        }
-        if (tasks.size() == 0) {
-            System.out.println("no tasks in drive");
+            if (readTasks.size()==0) {
+                System.out.println("    no tasks in hard drive");
+            }
+        } catch (IOException e) {
+            System.out.println("    could not find hard disk!");
         }
     }
 
@@ -161,7 +130,7 @@ public class TaskList {
         if (i <= tasks.size()) {
             Task t = tasks.get(i - 1);
             tasks.remove(i - 1);
-            HardDisk.writeToHardDisk("ip/src/main/HardDisk.txt", this.tasks);
+            s.writeToHardDisk(this.tasks); // this line
             return t;
         } else {
             throw new InvalidListItemException(i);
@@ -186,7 +155,7 @@ public class TaskList {
         if (i <= tasks.size()) {
             tasks.get(i - 1).complete();
         }
-        HardDisk.writeToHardDisk("ip/src/main/HardDisk.txt", this.tasks);
+        s.writeToHardDisk(this.tasks); // this line
         //may want to add error handling for invalid indexes here
     }
 
@@ -199,7 +168,7 @@ public class TaskList {
         if (i <= tasks.size()) {
             tasks.get(i - 1).uncomplete();
         }
-        HardDisk.writeToHardDisk("ip/src/main/HardDisk.txt", this.tasks);
+        s.writeToHardDisk(this.tasks); // this line
         //may want to add error handling for invalid indexes here
     }
 
@@ -209,11 +178,11 @@ public class TaskList {
      * @param i The index of the task.
      * @return The string representation of the task, or an empty string if the index is invalid.
      */
-    public String getTask(int i) {
+    public Task getTask(int i) {
         if (i <= tasks.size()) {
-            return tasks.get(i - 1).toString();
+            return tasks.get(i - 1);
         } else {
-            return "";
+            return null;
         }
     }
 

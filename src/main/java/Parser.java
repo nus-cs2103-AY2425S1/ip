@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 public class Parser {
+    TaskList t;
     public class DateParser {
         /**
          * list of possible date-time formats
@@ -114,6 +115,36 @@ public class Parser {
                 }
             }
         }
+    }
+    public Parser(TaskList t) {
+        this.t = t;
+    }
+
+    public boolean parseInput(String input) {
+        if (input.equals("bye")) {
+            return true;
+        }
+        if (checkStringPrefix(input, 4, "mark")) {
+            t.markTaskAsDone(Integer.parseInt(String.valueOf(input.charAt(5))));
+            UI.markingTask(true, t.getTask(Integer.parseInt(String.valueOf(input.charAt(5)))));
+        } else if (checkStringPrefix(input, 6, "unmark")) {
+            t.markTaskAsUndone(Integer.parseInt(String.valueOf(input.charAt(7))));
+            UI.markingTask(false, t.getTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
+        } else if (checkStringPrefix(input, 6, "delete")) {
+            try {
+                UI.removingTask(this.t, Integer.parseInt(String.valueOf(input.charAt(7))), t.getSize());
+            } catch (InvalidListItemException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else {
+            try {
+                t.addTask(input);
+            } catch (DelphiException e){
+                System.out.println("    " + e.getMessage());
+            }
+        }
+        return false;
     }
     /**
      * Checks if the first part of the input matches a certain string up to a given number of characters
