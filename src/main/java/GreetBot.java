@@ -1,8 +1,8 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 
 public class GreetBot {
     public static void main(String[] args) {
@@ -14,17 +14,32 @@ public class GreetBot {
     */
     private void run() {
         try {
-            String filePath = "data/greetbot.txt";
+            //assume that the user open from ip directory
+            String workingDir = System.getProperty("user.dir");
+            Path dataPath = java.nio.file.Paths.get(workingDir, "data", "greetbot.txt");
+            if (!Files.exists(dataPath)) {
+                FileWriter createFileWriter = new FileWriter(dataPath.toString(), false);
+                createFileWriter.close();
+            }
+
+
+            /*
+            String filePath2 = "data/test.txt";
+            FileWriter testWriter = new FileWriter(filePath2, false);
+            testWriter.write("jdafnkj");
+            testWriter.close();
+            BufferedWriter bw = new BufferedWriter(testWriter);
+            bw.write("1234");
+            bw.write(System.lineSeparator());
 
             File storage = new File(filePath);
-
+            //FileWriter writer = new FileWriter(filePath, false);
             try {
                 Scanner fileScanner = new Scanner(storage);
-
             } catch (FileNotFoundException e) {
                 storage.createNewFile();
             }
-
+*/
             System.out.println("Hello! I'm GreetBot");
             System.out.println("What can I do for you?");
             Scanner scanner = new Scanner(System.in);
@@ -62,13 +77,13 @@ public class GreetBot {
                     }
                 }
 
-
             }
 
 
             scanner.close();
 
         } catch (IOException e) {
+            System.out.println("reached");
             e.printStackTrace();
         }
     }
