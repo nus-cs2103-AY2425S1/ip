@@ -1,3 +1,7 @@
+package Alfred.task;
+
+import Alfred.exception.AlfredException;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +17,7 @@ abstract public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done Alfred.task with X
     }
 
     public void markAsDone() {
@@ -47,7 +51,7 @@ abstract public class Task {
         return null;
     }
 
-    abstract String toFileFormat();
+    public abstract String toFileFormat();
 
     public static Task fromFileFormat(String fileFormat) throws AlfredException {
         String[] parts = fileFormat.split("\\|");

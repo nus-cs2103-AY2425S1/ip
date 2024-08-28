@@ -1,3 +1,8 @@
+package Alfred.task;
+
+import Alfred.ui.Ui;
+import Alfred.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.List;
 

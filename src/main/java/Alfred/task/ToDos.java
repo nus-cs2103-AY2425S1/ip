@@ -1,3 +1,7 @@
+package Alfred.task;
+
+import Alfred.exception.AlfredException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
