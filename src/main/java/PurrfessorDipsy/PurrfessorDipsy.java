@@ -27,7 +27,7 @@ public class PurrfessorDipsy {
      */
     public PurrfessorDipsy() {
         this.ui = new Ui();
-        this.taskList = new TaskList();
+        this.taskList = Storage.load();  // Load tasks from local disk when the application starts
     }
 
     /**
