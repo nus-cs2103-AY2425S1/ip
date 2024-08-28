@@ -2,16 +2,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FileWriting {
+public class FileWriting extends Storage {
     private static final String SEPARATOR = " | ";
-    protected static void saveTasks(String filePath, ArrayList<Task> updatedList) throws IOException {
+
+    public FileWriting(String filePath) {
+        super(filePath);
+    }
+
+    public static void saveTasks(TaskList updatedList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task t : updatedList) {
             fw.write(formatTasks(t) + "\n");
         }
         fw.close();
     }
-
     protected static String formatTasks(Task t) {
         String type = t.getType();
         int status = t.isDone? 1 : 0;
