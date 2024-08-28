@@ -1,7 +1,5 @@
 package bro.task;
 
-import bro.task.Task;
-
 public class EventTask extends Task {
     private String startTime;
     private String endTime;
@@ -11,6 +9,13 @@ public class EventTask extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    public EventTask(String content, String startTime, String endTime, boolean isCompleted) {
+        super(content, isCompleted);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
 
     @Override
     public String toString() {

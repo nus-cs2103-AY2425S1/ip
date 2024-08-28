@@ -14,6 +14,14 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public ArrayList<Task> getTasks () {
+        return this.tasks;
+    }
+
     public Task addTask(Task task) {
         tasks.add(task);
         return task;

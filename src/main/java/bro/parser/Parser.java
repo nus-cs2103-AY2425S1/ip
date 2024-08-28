@@ -2,6 +2,7 @@ package bro.parser;
 
 import bro.BroException;
 import bro.command.*;
+import bro.storage.Storage;
 import bro.task.*;
 
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class Parser {
     // Desired output format
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm");
 
-    public Command parse(String fullCommand, TaskList taskList) throws BroException {
+    public static Command parse(String fullCommand, TaskList taskList, Storage storage) throws BroException {
         // Parse command
         String[] inputArgs = fullCommand.split(" ", 2);
         ChatCommand cmd;
@@ -54,14 +55,14 @@ public class Parser {
             case mark:
                 try {
                     int taskId = Integer.parseInt(secondArg) - 1;
-                    return new EditCommand(taskList, true, taskId);
+                    return new EditCommand(taskList, true, taskId, storage);
                 } catch (Exception e) {
                     throw new BroException("Error marking task");
                 }
             case unmark:
                 try {
                     int taskId = Integer.parseInt(secondArg) - 1;
-                    return new EditCommand(taskList, false, taskId);
+                    return new EditCommand(taskList, false, taskId, storage);
                 } catch (Exception e) {
                     throw new BroException("Error unmarking task");
                 }
@@ -70,7 +71,7 @@ public class Parser {
                     throw new BroException("bro.Bro I can't add a empty task");
                 }
                 Task todoTask = new TodoTask(secondArg);
-                return new CreateCommand(taskList, todoTask);
+                return new CreateCommand(taskList, todoTask, storage);
             case deadline:
                 // Input validation
                 if (secondArg.isEmpty()) {
@@ -94,7 +95,7 @@ public class Parser {
                     }
                 }
                 Task deadlineTask = new DeadlineTask(taskContent, parsedDeadline);
-                return new CreateCommand(taskList, deadlineTask);
+                return new CreateCommand(taskList, deadlineTask, storage);
             case event:
                 // Input validation
                 if (secondArg.isEmpty()) {
@@ -112,14 +113,14 @@ public class Parser {
                     String startTime = durationInputs[0].trim();
                     String endTime = durationInputs[1].trim();
                     Task eventTask = new EventTask(eventName, startTime, endTime);
-                    return new CreateCommand(taskList, eventTask);
+                    return new CreateCommand(taskList, eventTask, storage);
                 } catch (Exception e) {
                     throw new BroException("Usage: event <task> /from <startTime> /to <endTime>");
                 }
             case delete:
                 try {
                     int taskId = Integer.parseInt(secondArg) - 1;
-                    return new DeleteCommand(taskList, taskId);
+                    return new DeleteCommand(taskList, taskId, storage);
                 } catch (Exception e) {
                     throw new BroException("Deletion Error.");
                 }

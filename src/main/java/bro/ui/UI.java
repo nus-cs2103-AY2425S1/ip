@@ -2,6 +2,8 @@ package bro.ui;
 
 import bro.task.Task;
 
+import java.util.Scanner;
+
 // This class encapsulates user interactions with bro.Bro
 public class UI {
     final static String GREETING_MESSAGE = """
@@ -9,7 +11,11 @@ public class UI {
                  What can I do for you?""";
     final static String GOODBYE_MESSAGE = "Goodbye.";
 
-    public UI(){}
+    private final Scanner scanner;
+
+    public UI(){
+        this.scanner = new Scanner(System.in);
+    }
 
     public void showWelcome() {
         reply(GREETING_MESSAGE);
@@ -17,6 +23,10 @@ public class UI {
 
     public void showGoodbye() {
         reply(GOODBYE_MESSAGE);
+    }
+
+    public String readCommand() {
+        return scanner.nextLine();
     }
 
     public void showCreateTaskSuccess(Task task, int numberOfTasks) {
@@ -35,7 +45,7 @@ public class UI {
         reply("Noted. Removed this task:\n" + task);
     }
 
-    private static void showLine() {
+    public static void showLine() {
         String line = """
                 ____________________________________________________________
                 """;

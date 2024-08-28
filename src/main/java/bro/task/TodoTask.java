@@ -1,10 +1,12 @@
 package bro.task;
 
-import bro.task.Task;
-
 public class TodoTask extends Task {
     public TodoTask(String content) {
         super(content);
+    }
+
+    public TodoTask(String content, boolean isCompleted) {
+        super(content, isCompleted);
     }
 
     @Override

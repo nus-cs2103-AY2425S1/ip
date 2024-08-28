@@ -1,6 +1,7 @@
 package bro.command;
 
 import bro.BroException;
+import bro.storage.Storage;
 import bro.task.Task;
 import bro.task.TaskList;
 import bro.ui.UI;
@@ -10,11 +11,13 @@ public class EditCommand implements Command {
     private final TaskList taskList;
     private final boolean isMark;
     private final int taskId;
+    private final Storage storage;
 
-    public EditCommand(TaskList taskList, boolean isMark, int taskId) {
+    public EditCommand(TaskList taskList, boolean isMark, int taskId, Storage storage) {
         this.taskList = taskList;
         this.isMark = isMark;
         this.taskId = taskId;
+        this.storage = storage;
     }
 
     public void execute(UI ui) throws BroException{
@@ -27,7 +30,7 @@ public class EditCommand implements Command {
                 ui.showUnmarkTaskSuccess(task);
             }
 
-            //TODO: Storage
+            this.storage.writeToStorage(this.taskList.getTasks());
 
         } catch (Exception e) {
             throw new BroException("Error Marking task");
