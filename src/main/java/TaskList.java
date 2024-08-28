@@ -64,7 +64,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String listOfTasks = "Here are the tasks in your list: \n";
+        String listOfTasks = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             listOfTasks += (i + 1) + ". " + tasks.get(i) + "\n";
         }

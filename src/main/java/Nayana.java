@@ -18,18 +18,18 @@ public class Nayana {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String logo =
-              "                                                            \n" +
-                    " ___ .-.     .---.   ___  ___    .---.   ___ .-.     .---.  \n" +
-                    "(   )   \\   / .-, \\ (   )(   )  / .-, \\ (   )   \\   / .-, \\ \n" +
-                    " |  .-. .  (__) ; |  | |  | |  (__) ; |  |  .-. .  (__) ; | \n" +
-                    " | |  | |    .'`  |  | |  | |    .'`  |  | |  | |    .'`  | \n" +
-                    " | |  | |   / .'| |  | '  | |   / .'| |  | |  | |   / .'| | \n" +
-                    " | |  | |  | /  | |  '  `-' |  | /  | |  | |  | |  | /  | | \n" +
-                    " | |  | |  ; |  ; |   `.__. |  ; |  ; |  | |  | |  ; |  ; | \n" +
-                    " | |  | |  ' `-'  |   ___ | |  ' `-'  |  | |  | |  ' `-'  | \n" +
-                    "(___)(___) `.__.'_.  (   )' |  `.__.'_. (___)(___) `.__.'_. \n" +
-                    "                      ; `-' '                               \n" +
-                    "                       .__.'                                ";
+              "\n" +
+                    " ___ .-.     .---.   ___  ___    .---.   ___ .-.     .---.\n" +
+                    "(   )   \\   / .-, \\ (   )(   )  / .-, \\ (   )   \\   / .-,\\\n" +
+                    " |  .-. .  (__) ; |  | |  | |  (__) ; |  |  .-. .  (__) ; |\n" +
+                    " | |  | |    .'  |  | |  | |    .'  |  | |  | |    .'  |\n" +
+                    " | |  | |   / .'| |  | '  | |   / .'| |  | |  | |   / .'| |\n" +
+                    " | |  | |  | /  | |  '  -' |  | /  | |  | |  | |  | /  | |\n" +
+                    " | |  | |  ; |  ; |   .__. |  ; |  ; |  | |  | |  ; |  ; |\n" +
+                    " | |  | |  ' -'  |   ___ | |  ' -'  |  | |  | |  ' -'  |\n" +
+                    "(___)(___) .__.'_.  (   )' |  .__.'_. (___)(___) .__.'_.\n" +
+                    "                      ; -' '\n" +
+                    "                       .__.'";
 
         System.out.println("Hello from" + logo);
         System.out.println("____________________________________________________________");
@@ -40,42 +40,36 @@ public class Nayana {
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             try {
-                command = checkCommand(command, taskList.getSize(),scanner);
-            }catch(NayanaException e){
+                command = checkCommand(command, taskList.getSize(), scanner);
+            } catch (NayanaException e) {
                 command = "-1";
                 System.out.println("____________________________________________________________");
                 System.out.println("OOPS!!! " + e.getMessage());
                 System.out.println("____________________________________________________________");
             }
             if (command.equals("bye")) {
-                System.out.println("Bye!!! Hope to help you again soon!");
-                System.out.println("____________________________________________________________");
+                System.out.print("Bye!!! Hope to help you again soon!\n");
+                System.out.print("____________________________________________________________\n");
                 break;
-            } else if (command.equals("list")){
-                System.out.println(taskList);
-                System.out.println("____________________________________________________________");
+            } else if (command.equals("list")) {
+                System.out.print(taskList);
+                System.out.print("____________________________________________________________\n");
             } else if (command.startsWith("mark")) {
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
                 taskList.markAsDone(index);
-
-            } else if (command.startsWith("unmark")){
+            } else if (command.startsWith("unmark")) {
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
                 taskList.markAsNotDone(index);
-
-
-            } else if (command.startsWith("delete")){
+            } else if (command.startsWith("delete")) {
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
                 taskList.delete(index);
-
-            }else if (command.startsWith("deadline")){
+            } else if (command.startsWith("deadline")) {
                 String[] parts = command.split(" /by ");
                 String description = parts[0].substring(8).trim();
                 String deadline = parts[1].trim();
 
-                Deadlines nextTask = new Deadlines(description,deadline);
+                Deadlines nextTask = new Deadlines(description, deadline);
                 taskList.addTask(nextTask);
-
-
             } else if (command.startsWith("event")) {
                 String[] fromParts = command.split(" /from ");
                 String description = fromParts[0].substring(5).trim();
@@ -83,28 +77,36 @@ public class Nayana {
                 String startTime = toParts[0].trim();
                 String endTime = toParts[1].trim();
 
-                Event nextTask = new Event(description,startTime,endTime);
+                Event nextTask = new Event(description, startTime, endTime);
                 taskList.addTask(nextTask);
-
-
-
             } else if (command.startsWith("todo")) {
                 String[] parts = command.split("todo ");
                 String description = parts[1].trim();
                 ToDos nextTask = new ToDos(description);
                 taskList.addTask(nextTask);
             } else if (command.equals("-1")) {
-
+                // Do nothing on error to prevent trailing newlines
             }
-
         }
         scanner.close();
     }
 
-    private static String checkCommand(String command, int size, Scanner scanner) throws NayanaException{
+
+    /**
+     * Validates and processes the command entered by the user.
+     * It checks the format of the command and ensures that it meets the expected criteria.
+     * If the command is invalid, a NayanaException is thrown with an appropriate error message.
+     *
+     * @param command The command entered by the user.
+     * @param size The current number of tasks in the TaskList.
+     * @param scanner The scanner used to read user input.
+     * @return The validated command to be executed.
+     * @throws NayanaException If the command is invalid or if required fields are missing.
+     */
+    private static String checkCommand(String command, int size, Scanner scanner) throws NayanaException {
         if (command.isBlank()) {
             throw new NayanaException("tasks cannot be empty :(");
-        } else if (command.equals("bye") || command.equals("list")){
+        } else if (command.equals("bye") || command.equals("list")) {
             return command;
         } else if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
@@ -120,7 +122,6 @@ public class Nayana {
                 throw new NayanaException("description and deadline cannot be empty.");
             }
             return command;
-
         } else if (command.startsWith("event")) {
             String[] fromParts = command.split(" /from ");
             if (fromParts.length != 2) {
@@ -147,7 +148,5 @@ public class Nayana {
             throw new NayanaException("Please use the correct format and start your prompts \nwith " +
                   "deadline, event, todo, mark, unmark, delete, list, bye ");
         }
-
     }
-
 }
