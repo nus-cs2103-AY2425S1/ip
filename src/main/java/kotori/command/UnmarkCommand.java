@@ -5,6 +5,11 @@ import kotori.taskList.IncorrectStateException;
 
 import static kotori.Ui.Ui.printMessage;
 
+/**
+ * This class represents a command trying to delete a
+ * specific task from the list.
+ * */
+
 public class UnmarkCommand extends Command{
     private Storage storage;
     private TaskList list;
@@ -15,6 +20,10 @@ public class UnmarkCommand extends Command{
         this.index = index;
         this.storage = storage;
     }
+
+    /**
+     * Activates the command and try to delete the task.
+     * */
 
     @Override
     public void execute() {

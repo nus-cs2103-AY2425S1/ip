@@ -11,6 +11,10 @@ import java.util.Scanner;
 
 import kotori.Ui.Ui;
 
+/**
+ * This class represent the Storage of the chatbot.
+ * */
+
 public class Storage {
     private File file;
 
@@ -19,6 +23,11 @@ public class Storage {
         this.file = makeFile(directoryName, fileName);
     }
 
+    /**
+     * Loads from the memory file and create a TaskList Object.
+     *
+     * @return The TaskList loaded from the hard disk file.
+     * */
     public TaskList load() {
         try {
             try {
@@ -46,6 +55,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Update the hard disk file with the current TaskList.
+     *
+     * @param list the current TaskList.
+     * */
     public void updateFile(TaskList list) {
         try {
         FileWriter writer = new FileWriter(file);
@@ -64,6 +78,16 @@ public class Storage {
 
 
 }
+
+/**
+ * makes a file with specific directory name and file name
+ *
+ * @param directoryName name of directory.
+ * @param fileName name of the file
+ * @return the file produced
+ * @throws Error if the file does not exist and
+ * can not create one.
+ * */
 
 private static File makeFile (String directoryName, String fileName) {
     File directory = new File(directoryName);

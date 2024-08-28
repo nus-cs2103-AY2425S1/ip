@@ -7,6 +7,11 @@ import kotori.taskList.TaskList;
 import static kotori.Ui.Ui.printMessage;
 import static kotori.Ui.Ui.printMessages;
 
+/**
+ * This class represents a command of trying to
+ * delete the task at a certain position of the task list.
+ * */
+
 public class DeleteCommand extends Command{
     private Storage storage;
     private TaskList list;
@@ -17,6 +22,10 @@ public class DeleteCommand extends Command{
         this.index = index;
         this.storage = storage;
     }
+
+    /**
+     * Activates the command and try to delete the task.
+     * */
 
     @Override
     public void execute() {

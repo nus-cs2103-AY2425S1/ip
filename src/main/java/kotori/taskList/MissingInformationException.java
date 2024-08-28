@@ -1,5 +1,9 @@
 package kotori.taskList;
 
+/**
+ * This class is thrown when the certain commands miss some information.
+ * */
+
 public class MissingInformationException extends Exception{
     private String missingInfo;
     private String type;
@@ -9,6 +13,11 @@ public class MissingInformationException extends Exception{
         this.type = type;
     }
 
+    /**
+     * return the error message.
+     *
+     * @return the error message.
+     * */
     public String getMessage() {
         return String.format("Sorry~ Please enter the %s for %s",missingInfo, type);
     }

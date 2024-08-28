@@ -4,6 +4,10 @@ import kotori.command.*;
 import kotori.storage.Storage;
 import kotori.taskList.*;
 
+/**
+ * This class represents a parser that will
+ * parse a String of command line into a command Object
+ */
 
 public class Parser {
     private Storage storage;
@@ -15,6 +19,12 @@ public class Parser {
         this.list = list;
     }
 
+    /**
+     * Parses a string and produce a command Object.
+     *
+     * @param input the input command line.
+     * @return the command going to be execute later
+     * */
     public Command parse(String input) {
         if (input.equals("bye")) {
             return new ExitCommand(list);
@@ -30,8 +40,8 @@ public class Parser {
             int index = Integer.parseInt(input.split(" ")[1]);
             return new DeleteCommand(storage, list, index);
 
-        } else if (input.startsWith("find ")) {
-            return new FindCommand(list,input.substring(5));
+        } else if (input.startsWith("search ")) {
+            return new searchCommand(list,input.substring(5));
         } else {
             return new AddCommand(storage, list, input);
             }

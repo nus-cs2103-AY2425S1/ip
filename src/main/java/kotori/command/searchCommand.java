@@ -7,14 +7,23 @@ import java.time.format.DateTimeParseException;
 
 import static kotori.Ui.Ui.*;
 
-public class FindCommand extends Command{
+/**
+ * This class represents a command of searching
+ * all the task that is related to a specific date.
+ * */
+
+public class searchCommand extends Command{
     private TaskList list;
     private String date;
 
-    public FindCommand (TaskList list, String date) {
+    public searchCommand (TaskList list, String date) {
         this.list = list;
         this.date = date;
     }
+
+    /**
+     * Activates the command and start searching.
+     * */
 
     @Override
     public void execute() {

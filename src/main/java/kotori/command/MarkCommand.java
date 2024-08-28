@@ -5,6 +5,11 @@ import kotori.taskList.IncorrectStateException;
 
 import static kotori.Ui.Ui.printMessage;
 
+/**
+ * This represents a command of trying to mark a task
+ * as complete.
+ * */
+
 public class MarkCommand extends Command{
     private Storage storage;
     private TaskList list;
@@ -15,6 +20,10 @@ public class MarkCommand extends Command{
         this.index = index;
         this.storage = storage;
     }
+
+    /***
+     * Activate the command and try to mark the task.
+     */
 
     @Override
     public void execute() {

@@ -140,7 +140,7 @@ public class KotoriTest {
     }
 
     @Test
-    public void findTest() {
+    public void searchTest() {
         TaskList list = new TaskList();
         try {
             list.add(Task.of("deadline something /by 2020-10-11") );
@@ -149,7 +149,7 @@ public class KotoriTest {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         final PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        new FindCommand(list, "2020-10-10").execute();
+        new searchCommand(list, "2020-10-10").execute();
         System.setOut(originalOut);
         assertEquals("    ___________________________________________\n" +
                 "    These are the tasks related to this date 2020-10-10\n" +
@@ -186,18 +186,18 @@ public class KotoriTest {
     public void parseTest() {
         Parser parser = new Parser(new Storage("testData", "parse.txt"), new TaskList());
         Command command1 = parser.parse("bye");
-        assertEquals((command1 instanceof ExitCommand),true);
+        assertEquals(true, (command1 instanceof ExitCommand));
         Command command2 = parser.parse("list");
-        assertEquals((command2 instanceof PrintListCommand),true);
+        assertEquals(true, (command2 instanceof PrintListCommand));
         Command command3 = parser.parse("todo something");
-        assertEquals((command3 instanceof AddCommand),true);
+        assertEquals(true, (command3 instanceof AddCommand));
         Command command4 = parser.parse("mark 1");
-        assertEquals((command4 instanceof MarkCommand),true);
+        assertEquals(true,(command4 instanceof MarkCommand));
         Command command5 = parser.parse("unmark 1");
-        assertEquals((command5 instanceof UnmarkCommand),true);
-        Command command6 = parser.parse("find 2020-11-11");
-        assertEquals((command6 instanceof FindCommand),true);
+        assertEquals(true, (command5 instanceof UnmarkCommand));
+        Command command6 = parser.parse("search 2020-11-11");
+        assertEquals(true, (command6 instanceof searchCommand));
         Command command7 = parser.parse("delete 1");
-        assertEquals((command7 instanceof DeleteCommand),true);
+        assertEquals(true, (command7 instanceof DeleteCommand));
     }
 }

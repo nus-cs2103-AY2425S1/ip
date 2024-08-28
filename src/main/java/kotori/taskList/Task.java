@@ -5,11 +5,22 @@ import kotori.storage.CorruptedFileException;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * This class represents a task list.
+ * */
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-
+    /**
+     * Produce a corresponding task item based on the input string
+     *
+     * @param descriptions description of the task.
+     * @return the task item produced.
+     * @throws MissingInformationException if some required information is missing.
+     * @throws InvalidInputException if the input is invalid.
+     * */
     public static Task of(String descriptions) throws MissingInformationException, InvalidInputException {
         if (descriptions.equals("todo") || descriptions.equals("deadline") || descriptions.equals("event")){
             throw new MissingInformationException("description", descriptions);
@@ -44,6 +55,14 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Reads the task from a string array.
+     *
+     * @param strings strings that represent a task in a hard disk file.
+     * @return the task read form the file
+     * @throws CorruptedFileException if the file is corrupted.
+     * */
+
     public static Task read(String[] strings) throws CorruptedFileException {
         if (strings.length <= 2) {
             throw new CorruptedFileException("");
@@ -58,6 +77,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Gets the storage message of the task.
+     *
+     * @return the storage message.
+     * */
+
     public abstract String getStorageMessage();
 
     private Task(boolean isDone, String description) {
@@ -65,15 +90,28 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    private static boolean parseIcon(String s) throws CorruptedFileException {
-        if (s.equals("X")) {
+    /**
+     * reads the status from a Icon.
+     *
+     * @param icon the status icon.
+     * @return the status of task
+     * @throws CorruptedFileException if the file is corrupted
+     * */
+    private static boolean parseIcon(String icon) throws CorruptedFileException {
+        if (icon.equals("X")) {
             return true;
-        } else if (s.equals(" ")) {
+        } else if (icon.equals(" ")) {
             return false;
         } else {
             throw new CorruptedFileException("");
         }
     }
+
+    /**
+     * Gets the icon for complete status.
+     *
+     * @return status icon.
+     * */
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -84,7 +122,9 @@ public abstract class Task {
         return String.format("[%s] %s", getStatusIcon(),description);
     }
 
-
+    /**
+     * Marks this task.
+     * */
 
     public void mark() throws IncorrectStateException {
         if (this.isDone) {
@@ -93,12 +133,24 @@ public abstract class Task {
         this.isDone = true;
     }
 
+
+    /**
+     * Unmarks this task.
+     * */
+
     public void unmark() throws IncorrectStateException {
         if (!this.isDone) {
             throw new IncorrectStateException("unmark");
         }
         this.isDone = false;
     }
+
+    /**
+     * Checks if a task is related to a time.
+     *
+     * @param date the date.
+     * @return is related or not.
+     * */
 
     public abstract boolean isRelatedToDate(LocalDate date);
 
@@ -113,10 +165,23 @@ public abstract class Task {
             return String.format("[T][%s] %s", getStatusIcon(), description);
         }
 
+        /**
+         * Gets the storage message of the task.
+         *
+         * @return the storage message.
+         * */
+
         @Override
         public String getStorageMessage() {
             return String.format("T | %s | %s", getStatusIcon(), description);
         }
+
+        /**
+         * Checks if a task is related to a time.
+         *
+         * @param date the date.
+         * @return is related or not  .
+         * */
 
         @Override
         public boolean isRelatedToDate(LocalDate date) {
@@ -137,10 +202,23 @@ public abstract class Task {
             return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, deadLine);
         }
 
+        /**
+         * Gets the storage message of the task.
+         *
+         * @return the storage message.
+         * */
+
         @Override
         public String getStorageMessage() {
             return String.format("D | %s | %s | %s", getStatusIcon(), description, deadLine);
         }
+
+        /**
+         * Checks if a task is related to a time.
+         *
+         * @param date the date.
+         * @return is related or not  .
+         * */
 
         @Override
         public boolean isRelatedToDate(LocalDate date) {
@@ -166,10 +244,23 @@ public abstract class Task {
             return String.format("[E][%s] %s (from: %s to: %s)",getStatusIcon(),description,from,to);
         }
 
+        /**
+         * Gets the storage message of the task.
+         *
+         * @return the storage message.
+         * */
+
         @Override
         public String getStorageMessage() {
             return String.format("E | %s | %s | %s | %s", getStatusIcon(), description, from, to);
         }
+
+        /**
+         * Checks if a task is related to a time.
+         *
+         * @param date the date.
+         * @return is related or not  .
+         * */
 
         public boolean isRelatedToDate(LocalDate date) {
             return date.isAfter(from) && date.isBefore(to);

@@ -1,16 +1,18 @@
 package kotori.command;
 
+import java.time.format.DateTimeParseException;
 import kotori.storage.Storage;
 import kotori.taskList.InvalidInputException;
 import kotori.taskList.MissingInformationException;
 import kotori.taskList.Task;
 import kotori.taskList.TaskList;
-
-
-import java.time.format.DateTimeParseException;
-
 import static kotori.Ui.Ui.printMessage;
 import static kotori.Ui.Ui.printMessages;
+
+/**
+ * This class represents a command of trying to create
+ * a task and add it into the task list.
+ * */
 
 public class AddCommand extends Command{
     private Storage storage;
@@ -22,6 +24,11 @@ public class AddCommand extends Command{
         this.input = input;
         this.storage = storage;
     }
+
+    /**
+     * Activates the command the try to create
+     * and add a new task to the task list.
+     * */
 
     @Override
     public void execute() {

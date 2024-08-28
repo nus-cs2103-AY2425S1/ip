@@ -1,7 +1,10 @@
 package kotori.taskList;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+/**
+ * This class represent a list of task
+ * */
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
@@ -9,6 +12,12 @@ public class TaskList {
     public TaskList () {
 
     }
+
+    /**
+     * returns the size of the list.
+     *
+     * @return size of list.
+     * */
 
     public int size() {
         return list.size();
@@ -18,21 +27,53 @@ public class TaskList {
         return list.get(i);
      }
 
+     /**
+      * Adds a task into the list.
+      *
+      * @param t the task to be added.
+      * @return if the action is success.
+      * */
+
      public boolean add(Task t) {
         return list.add(t);
      }
+
+    /**
+     * Removes a task into the list.
+     *
+     * @param i index of the target.
+     * @return the removed task.
+     * */
 
      public Task remove(int i) {
         return list.remove(i);
      }
 
+    /**
+     * Marks a task into the list.
+     *
+     * @param i the index of target.
+     * */
+
      public void mark(int i) throws IncorrectStateException {
         list.get(i).mark();
      }
 
+    /**
+     * Unmarks a task into the list.
+     *
+     * @param i the index of target.
+     * */
+
      public void unmark(int i) throws IncorrectStateException {
         list.get(i).unmark();
      }
+
+     /**
+      * checks if a list is empty.
+      *
+      * @return if the list is empty.
+      * */
 
      public boolean isEmpty() {
         return list.isEmpty();

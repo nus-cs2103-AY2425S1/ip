@@ -9,6 +9,10 @@ import kotori.command.GreetCommand;
 
 import java.util.Scanner;
 
+/**
+ * This class represents the bot.
+ * */
+
 public class Kotori {
     private Storage storage;
     private TaskList list;
@@ -19,6 +23,10 @@ public class Kotori {
         this.list = storage.load();
         this.parser = new Parser(storage, list);
     }
+
+    /**
+     * Let the bot start running.
+     * */
 
     public void run() {
         Scanner s = new Scanner(System.in);
