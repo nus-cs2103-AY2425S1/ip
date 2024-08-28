@@ -1,7 +1,7 @@
 package fishman.exception;
 
 /**
- * Base exception class for Fishman bot custom exception
+ * Represents the base exception class for Fishman bot custom exception
  */
 public class FishmanException extends Exception {
 
