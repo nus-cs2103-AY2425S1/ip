@@ -288,7 +288,6 @@ public class YappingBot {
         }
     }
     private static void saveListToFile() throws YappingBotSaveFileIOException {
-
     }
     // end of class methods
 
