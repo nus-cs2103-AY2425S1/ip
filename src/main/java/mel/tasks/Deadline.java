@@ -1,10 +1,10 @@
 package mel.tasks;
 
+import mel.exceptions.ParseException;
 import mel.exceptions.TaskException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private final String task;
@@ -15,7 +15,7 @@ public class Deadline extends Task {
             String[] temp = str.split("/by ");
             task = temp[0].split(" ", 2)[1];
             by = super.parseDateTime(temp[1]);
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new TaskException("deadline <task> /by <date> <time>");
         }
     }

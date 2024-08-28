@@ -1,5 +1,6 @@
 package mel.tasks;
 
+import mel.exceptions.ParseException;
 import mel.utils.Parser;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ public class Task {
         task = "";
     }
 
-    protected LocalDateTime parseDateTime(String str) {
+    protected LocalDateTime parseDateTime(String str) throws ParseException {
         return new Parser().parseDateTime(str);
     }
 

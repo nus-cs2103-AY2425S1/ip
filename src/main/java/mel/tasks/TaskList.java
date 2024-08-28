@@ -22,9 +22,9 @@ public class TaskList {
     public void taskAction(String input) throws MelException, TaskException {
         if (Objects.equals(input, "list")) {
             printAll();
-        } else if (input.contains("mark")) {
+        } else if (input.split(" ", 2)[0].equals("mark")) {
             mark(input);
-        } else if (input.contains("delete")) {
+        } else if (input.split(" ", 2)[0].equals("delete")) {
             delete(input);
         } else {
             mel.println("Mel remembers...");
@@ -34,13 +34,17 @@ public class TaskList {
 
     private void add(String str) throws MelException, TaskException {
         Task task;
-        if (str.contains("todo")) {
+        switch (str.split(" ", 2)[0]) {
+        case "todo":
             task = new ToDo(str);
-        } else if (str.contains("deadline")) {
+            break;
+        case "deadline":
             task = new Deadline(str);
-        } else if (str.contains("event")) {
+            break;
+        case "event":
             task = new Event(str);
-        } else {
+            break;
+        default:
             throw new MelException("Mel is confused... " +
                     "Mel doesn't understand you :((");
         }

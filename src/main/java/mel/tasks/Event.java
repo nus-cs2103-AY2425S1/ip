@@ -1,10 +1,10 @@
 package mel.tasks;
 
+import mel.exceptions.ParseException;
 import mel.exceptions.TaskException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private final String task;
@@ -22,7 +22,7 @@ public class Event extends Task {
             if (from.isAfter(to)) {
                 throw new TaskException("Mel wonders if you control time..?");
             }
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new TaskException("event <task> "
                     + "/from <date> <time> /to <date> <time>");
         }

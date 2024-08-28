@@ -1,5 +1,7 @@
 package mel.utils;
 
+import mel.exceptions.ParseException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +37,7 @@ public class Parser {
             "u-M-d",
     };
 
-    public LocalDateTime parseDateTime(String str) {
+    public LocalDateTime parseDateTime(String str) throws ParseException {
         for (String s : FORMAT_DATE) {
             try {
                 return LocalDate.parse(str, DateTimeFormatter.ofPattern(s))
@@ -51,6 +53,6 @@ public class Parser {
                 //Fallthrough
             }
         }
-        throw new DateTimeParseException("", str, 0);
+        throw new ParseException(str);
     }
 }
