@@ -8,7 +8,8 @@ public enum Commands {
     DELETE("delete"),
     TODO("todo"),
     DEADLINE("deadline"),
-    EVENT("event");
+    EVENT("event"),
+    FIND("find");
     
     private String command;
     

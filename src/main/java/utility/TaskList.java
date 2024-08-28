@@ -6,6 +6,9 @@ import exception.AlphaException;
 
 import java.util.ArrayList;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 /**
  * The {@code TaskList} class manages a list of tasks, providing functionality to
  * store, modify, delete, and retrieve tasks.
@@ -71,7 +74,7 @@ public class TaskList {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             result.append(i + 1).append(". ")
-                    .append(this.tasks.get(i).toString()).append("\n");
+                .append(this.tasks.get(i).toString()).append("\n");
         }
         return result.toString();
     }
@@ -125,5 +128,18 @@ public class TaskList {
      */
     public ArrayList<Task> getTaskLists() {
         return this.tasks;
+    };
+    
+    public ArrayList<Task> findLists(String searchParameter) {
+        System.out.println(searchParameter);
+        Pattern pattern = Pattern.compile(searchParameter.trim(), Pattern.CASE_INSENSITIVE);
+        ArrayList<Task> result = new ArrayList<Task>();
+        for (Task task : this.tasks) {
+            if (pattern.matcher(task.getDescription()).find()) {
+                result.add(task);
+            }
+        }
+        return result;
     }
+    
 }

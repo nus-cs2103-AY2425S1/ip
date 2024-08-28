@@ -3,6 +3,7 @@ package alpha;
 import tasktypes.Deadline;
 import tasktypes.Event;
 import tasktypes.ToDo;
+import tasktypes.Task;
 
 import exception.AlphaException;
 
@@ -14,8 +15,10 @@ import utility.Parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Alpha {
     
@@ -57,6 +60,10 @@ public class Alpha {
                 break;  // Exit the loop
             } else if (input.equalsIgnoreCase(Commands.LIST.getCommand())) {
                 ui.listTask(tasks);
+            } else if (inputCommand.equalsIgnoreCase(Commands.FIND.getCommand())) {
+                String searchParam = input.split(" ")[1];
+                ArrayList<Task> searchResult = tasks.findLists(searchParam);
+                ui.searchTask(searchResult);
             } else if (inputCommand.equalsIgnoreCase(Commands.MARK.getCommand())) {
                 try {
                     Integer indexInvolved = Integer.valueOf(input.split(" ")[1]);

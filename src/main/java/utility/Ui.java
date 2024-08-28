@@ -1,5 +1,9 @@
 package utility;
 
+import tasktypes.Task;
+
+import java.util.ArrayList;
+
 /**
  * The {@code Ui} class handles the user interface messages, displaying
  * various responses to the user based on their interactions with the application.
@@ -83,6 +87,23 @@ public class Ui {
         String echoResponse = "____________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
                 + modifiedRecord + "\n"
+                + "____________________________________________________________\n";
+        System.out.println(echoResponse);
+    }
+    
+    public String listSearchResult(ArrayList<Task> taskList) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            result.append(i + 1).append(". ")
+                    .append(taskList.get(i).toString()).append("\n");
+        }
+        return result.toString();
+    }
+    
+    public void searchTask(ArrayList<Task> taskList) {
+        String echoResponse = "____________________________________________________________\n"
+                + "Here are the matching tasks in your list:\n"
+                + listSearchResult(taskList) + "\n"
                 + "____________________________________________________________\n";
         System.out.println(echoResponse);
     }
