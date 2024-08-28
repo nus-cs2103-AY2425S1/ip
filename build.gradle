@@ -15,17 +15,22 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging.showStandardStreams=true
 }
 
-application {
-    mainClass.set("seedu.duke.Duke")
-}
+mainClassName = 'src.main.java.Gutti.Gutti'
+
+
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-}
+    manifest {
+        attributes 'Main-Class': 'Gutti.Gutti'
+    }
+    }
+
 
 run{
     standardInput = System.in
 }
+
+
