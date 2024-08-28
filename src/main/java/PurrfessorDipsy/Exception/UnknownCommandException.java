@@ -1,12 +1,28 @@
 package PurrfessorDipsy.Exception;
 
+/**
+ * Represents an exception that is thrown when an unrecognized or unknown command is encountered.
+ * This exception provides the user with a helpful usage guide for valid commands.
+ */
 public class UnknownCommandException extends Exception {
 
+    /**
+     * Returns a detailed error message indicating that the command is unrecognized.
+     * The message includes usage instructions for valid commands.
+     *
+     * @return The error message with usage instructions for valid commands.
+     */
     @Override
     public String getMessage() {
         return "Unrecognized command.\n\n" + getUsage();
     }
 
+    /**
+     * Provides a usage guide for valid commands that can be executed in the application.
+     * This guide includes descriptions and examples of various commands.
+     *
+     * @return A string containing the usage guide for valid commands.
+     */
     private static String getUsage() {
         return "Usage: <command> [options]\n" +
                 "\nCommands:\n" +
