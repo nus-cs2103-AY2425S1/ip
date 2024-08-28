@@ -33,6 +33,7 @@ list
 todo Finish homework
 deadline Return library book /by Friday
 event Family gathering /from 2024-12-12 1800 /to 2024-12-13 0900
+event wrong event /from 2019-12-12 1800 /to 2019-12-12 1700
 mark 1
 mark 2
 mark 3
