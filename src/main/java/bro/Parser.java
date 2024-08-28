@@ -11,7 +11,7 @@ public class Parser {
         this.ui = ui;
     }
 
-    private LocalDateTime parseDate(String s) {
+    public LocalDateTime parseDate(String s) {
         try {
             return LocalDateTime.parse(s, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException dte) {
