@@ -19,6 +19,8 @@ import duke.storage.Storage;
 public class TaskList {
     private static TaskList taskList;
     private final List<Task> taskStore;
+    private final DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs a new TaskList object.
@@ -117,7 +119,6 @@ public class TaskList {
      */
     public void createTask(String type, String input) throws DukeException {
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             if (input.isEmpty()) {
                 throw new DukeException("Empty Task description provided.");
             }
@@ -132,7 +133,8 @@ public class TaskList {
                     throw new DukeException("Invalid deadline description provided.");
                 }
                 String[] deadlineInput = input.split("/by", 2);
-                task = new Deadline(deadlineInput[0].trim(), LocalDateTime.parse(deadlineInput[1].trim(), dtf));
+                task = new Deadline(deadlineInput[0].trim(),
+                        LocalDateTime.parse(deadlineInput[1].trim(), formatter));
                 break;
             case "event":
                 if (
@@ -145,8 +147,10 @@ public class TaskList {
                 }
                 String[] eventInput = input.split("/from", 2);
                 String[] eventTimeInput = eventInput[1].trim().split("/to", 2);
-                task = new Event(eventInput[0].trim(), LocalDateTime.parse(eventTimeInput[0].trim(), dtf),
-                        LocalDateTime.parse(eventTimeInput[1].trim(), dtf));
+                task = new Event(eventInput[0].trim(),
+                        LocalDateTime.parse(eventTimeInput[0].trim(), formatter),
+                        LocalDateTime.parse(eventTimeInput[1].trim(), formatter)
+                );
                 break;
             default:
                 throw new DukeException("Invalid Task type.");
@@ -154,7 +158,10 @@ public class TaskList {
             this.taskStore.add(task);
             Storage.saveData();
             System.out.println(task);
-            System.out.printf("Now you have %d tasks in the list.\n", this.taskStore.size());
+            System.out.printf(
+                    "Now you have %d tasks in the list.\n",
+                    this.taskStore.size()
+            );
         } catch (DateTimeParseException | DukeException e) {
             System.out.println(e.getMessage());
         }
@@ -186,7 +193,10 @@ public class TaskList {
         Storage.saveData();
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.taskStore.size());
+        System.out.printf(
+                "Now you have %d tasks in the list.\n",
+                this.taskStore.size()
+        );
     }
 
     /**

@@ -34,6 +34,7 @@ public class Parser {
         TaskList taskList = TaskList.getInstance();
         while (scan.hasNext()) {
             String[] input = preprocess(scan.nextLine());
+            assert input.length == 2;
             String cmd = input[0];
             String args = input[1];
             try {
@@ -88,6 +89,7 @@ public class Parser {
         System.setOut(pstream);
 
         String[] temp = preprocess(input);
+        assert temp.length == 2;
         String cmd = temp[0];
         String args = temp[1];
         try {

@@ -3,7 +3,6 @@ package duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,7 +40,6 @@ public class Storage {
     public void readData() {
         String fileName = isTestMode ? TEST_FILE : MAIN_FILE;
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             File filedir = new File(DATA_DIR);
             if (!filedir.exists()) {
                 boolean success = filedir.mkdir();

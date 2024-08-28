@@ -6,7 +6,6 @@ import duke.exceptions.DukeException;
 import duke.gui.Launcher;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
@@ -14,7 +13,6 @@ import duke.ui.Ui;
  * It initializes the UI, storage, and task list, and handles the main program loop.
  */
 public class Duke {
-    private TaskList taskList;
     private final Ui ui;
     private final Storage storage;
     private boolean isRunning;
@@ -27,7 +25,6 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
-        this.taskList = new TaskList();
         this.storage.readData();
         this.isRunning = true;
         this.parser = new Parser(new Scanner(System.in));
@@ -66,6 +63,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             String response = parser.handleGuiInput(input);
+            assert !response.isEmpty();
             if (response.equals("Bye. Hope to see you again soon!")) {
                 isRunning = false;
             }

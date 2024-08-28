@@ -1,7 +1,6 @@
 package duke.tasks;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event task with a start and end time.
@@ -26,13 +25,14 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + " to: "
-                + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+                + this.from.format(printFormatter) + " to: "
+                + this.to.format(printFormatter) + ")";
     }
 
     @Override
     public String saveFormat() {
-        return "E | " + super.saveFormat() + " | " + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                + " | " + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return "E | " + super.saveFormat() + " | "
+                + this.from.format(saveFormatter)
+                + " | " + this.to.format(saveFormatter);
     }
 }
