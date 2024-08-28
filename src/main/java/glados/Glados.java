@@ -28,9 +28,13 @@ public class Glados {
     }
 
     private void run() {
+        // Greet the user
         Ui.greet();
 
+        // Initialise a scanner for detecting input
         Scanner sc = new Scanner(System.in);
+
+        // Run a loop indefinitely to execute commands until program exits through bye
         while(true) {
             String input = sc.nextLine().toLowerCase();
             if (input.equals("bye")) {

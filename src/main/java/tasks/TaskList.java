@@ -49,7 +49,8 @@ public class TaskList {
         switch (taskType) {
         case TODO:
             ParsedInfo parsedTodoInputs = Parser.parseTask(taskType, input);
-            taskList.add(new Todo(parsedTodoInputs.getDescription()));
+            taskList.add(new Todo(
+                    parsedTodoInputs.getDescription()));
             break;
         case EVENT:
             ParsedInfo parsedEventInputs = Parser.parseTask(taskType, input);
@@ -69,7 +70,9 @@ public class TaskList {
             break;
         }
         listIndex++;
+
         Storage.saveTasks(taskList);
+
         return new String[]{taskList.get(listIndex - 1).toString(), String.valueOf(listIndex)};
     }
 
@@ -85,9 +88,12 @@ public class TaskList {
         if (index - 1 < 0 || index - 1 >= listIndex) {
             throw new TaskNotFoundException();
         }
+
         Task task = taskList.remove(index - 1);
         listIndex--;
+
         Storage.saveTasks(taskList);
+
         return new String[]{task.toString(), String.valueOf(listIndex)};
     }
 
@@ -109,9 +115,12 @@ public class TaskList {
         if (index < 0 || index - 1 >= listIndex) {
             throw new TaskNotFoundException();
         }
+
         Task task = taskList.get(index - 1);
         task.mark();
+
         Storage.saveTasks(taskList);
+
         return task.toString();
     }
 
@@ -126,9 +135,12 @@ public class TaskList {
         if (index < 0 || index - 1>= listIndex) {
             throw new TaskNotFoundException();
         }
+
         Task task = taskList.get(index - 1);
         task.unmark();
+
         Storage.saveTasks(taskList);
+        
         return task.toString();
     }
 }

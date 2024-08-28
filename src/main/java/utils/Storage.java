@@ -31,6 +31,7 @@ public class Storage {
     public static void saveTasks(ArrayList<Task> taskList) {
         File file = new File(FILE_PATH);
         File directory = file.getParentFile();
+
         if (!directory.exists() && directory != null) {
             directory.mkdirs();
         }
@@ -38,8 +39,8 @@ public class Storage {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : taskList) {
                 writer.write(task.getTaskTypeIcon() + " | " 
-                            + (task.getIsDone() ? "1" : "0") + " | " 
-                            + task.getSaveFormat() + "\n");
+                        + (task.getIsDone() ? "1" : "0") + " | " 
+                        + task.getSaveFormat() + "\n");
             }
         } catch (IOException e) {
             Ui.error(e);
@@ -63,15 +64,15 @@ public class Storage {
                 Task task = null;
 
                 switch (taskType) {
-                    case "[T]":
-                        task = new Todo(inputs[2]);
-                        break;
-                    case "[D]":
-                        task = new Deadline(inputs[2], LocalDate.parse(inputs[3]));
-                        break;
-                    case "[E]":
-                        task = new Event(inputs[2], LocalDate.parse(inputs[3]), LocalDate.parse(inputs[4]));
-                        break;
+                case "[T]":
+                    task = new Todo(inputs[2]);
+                    break;
+                case "[D]":
+                    task = new Deadline(inputs[2], LocalDate.parse(inputs[3]));
+                    break;
+                case "[E]":
+                    task = new Event(inputs[2], LocalDate.parse(inputs[3]), LocalDate.parse(inputs[4]));
+                    break;
                 }
 
                 if (task != null) {
