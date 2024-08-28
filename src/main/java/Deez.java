@@ -1,14 +1,18 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
-public class Deez {
-    protected static ArrayList<Task> tasks = new ArrayList<>();
-    protected static boolean isActive = true;
-    static void say(String... msgs) {
+public class Deez implements Serializable {
+    private static final long serialVersionUID = 1L;
+    // Path to write to
+    private static final String filePath = "./data";
+    // Name of data file
+    private static final String fileName = filePath + "/deez.txt";
+    protected ArrayList<Task> tasks = new ArrayList<>();
+    protected boolean isActive = true;
+
+    private void say(String... msgs) {
         System.out.println("____________________________________________________________");
-        for (String msg: msgs) {
+        for (String msg : msgs) {
             System.out.println("> " + msg);
         }
         System.out.println("____________________________________________________________");
@@ -22,11 +26,11 @@ public class Deez {
         }
     }
 
-    public static void exit() {
+    private void exit() {
         isActive = false;
     }
 
-    public static void listTasks() {
+    private void listTasks() {
         if (tasks.isEmpty()) {
             say("<No items in list>");
             return;
@@ -34,18 +38,18 @@ public class Deez {
         // Print list
         int cnt = 1;
         System.out.println("____________________________________________________________");
-        for (Task t: tasks) {
+        for (Task t : tasks) {
             System.out.println(cnt + ". " + t.toString());
-            cnt+=1;
+            cnt += 1;
         }
         System.out.println("____________________________________________________________");
     }
 
-    public static void invalidCommand() throws DeezException {
-       throw new DeezException("Please enter a valid command.");
+    private void invalidCommand() throws DeezException {
+        throw new DeezException("Please enter a valid command.");
     }
 
-    public static void addTodo(String param) throws DeezException {
+    private void addTodo(String param) throws DeezException {
         if (param.isBlank()) {
             throw new DeezException("Please provide a description for the todo.");
         }
@@ -56,7 +60,8 @@ public class Deez {
                 "You have " + tasks.size() + " tasks in the " +
                         "list");
     }
-    public static void addDeadline(String params) throws DeezException {
+
+    private void addDeadline(String params) throws DeezException {
         if (params.isEmpty() || !params.contains("/by")) {
             throw new DeezException("Please provide a description and deadline.", "Usage:", "deadline " +
                     "return book" +
@@ -75,7 +80,8 @@ public class Deez {
                 "You have " + tasks.size() + " tasks in the " +
                         "list");
     }
-    public static void addEvent(String params) throws DeezException {
+
+    private void addEvent(String params) throws DeezException {
         if (params.isEmpty() || !params.contains("/from") || !params.contains("/to")) {
             throw new DeezException("Please provide a description, start date, and end date.", "Usage:", "event " +
                     "project meeting /from Mon 2pm /to 4pm");
@@ -93,10 +99,10 @@ public class Deez {
                         "list");
     }
 
-    public static void handleMarkUnmarkDone(boolean isMarkDone, String param) throws DeezException {
+    private void handleMarkUnmarkDone(boolean isMarkDone, String param) throws DeezException {
         int taskIdx = parseInt(param);
         try {
-            Task t = tasks.get(taskIdx-1);
+            Task t = tasks.get(taskIdx - 1);
             if (isMarkDone && !t.isDone()) {
                 t.toggleDone();
             } else if (!isMarkDone && t.isDone()) {
@@ -108,10 +114,10 @@ public class Deez {
         }
     }
 
-    public static void deleteTask(String param) throws DeezException {
+    private void deleteTask(String param) throws DeezException {
         int taskIdx = parseInt(param);
         try {
-            Task t = tasks.get(taskIdx-1);
+            Task t = tasks.get(taskIdx - 1);
             tasks.remove(t);
             say("Deleted task:", t.toString(), tasks.size() + " tasks remain.");
         } catch (Exception e) {
@@ -119,7 +125,7 @@ public class Deez {
         }
     }
 
-    public static void handleCommand(Command cmd, String params) {
+    private void handleCommand(Command cmd, String params) {
         switch (cmd) {
             case EXIT -> exit();
             case LIST -> listTasks();
@@ -129,10 +135,32 @@ public class Deez {
             case MARK -> handleMarkUnmarkDone(true, params);
             case UNMARK -> handleMarkUnmarkDone(false, params);
             case DELETE -> deleteTask(params);
+            case SAVE -> save();
             case UNKNOWN -> invalidCommand();
         }
     }
-    public static void main(String[] args) throws IOException {
+
+    private static boolean fileExists() {
+        File file = new File(fileName);
+        return file.exists();
+    }
+
+    private void save() {
+        if (!fileExists()) {
+            File dir = new File(filePath);
+            dir.mkdirs();
+        }
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this);
+            say("Saved successfully!");
+        } catch (Exception e) {
+            throw new DeezException("Failed to save.");
+        }
+    }
+
+    public void run() throws IOException {
         say("Hello! I'm Deez!", "What can I do you for?");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -147,7 +175,7 @@ public class Deez {
 
             String[] inputStringSplit = inputStr.split(" ", 2);
             String cmdString = inputStringSplit[0];
-            String params = inputStringSplit.length == 2 ? inputStringSplit[1]: "";
+            String params = inputStringSplit.length == 2 ? inputStringSplit[1] : "";
 
             Command cmd = switch (cmdString) {
                 case "bye" -> Command.EXIT;
@@ -158,6 +186,7 @@ public class Deez {
                 case "deadline" -> Command.DEADLINE;
                 case "event" -> Command.EVENT;
                 case "delete" -> Command.DELETE;
+                case "save" -> Command.SAVE;
                 default -> Command.UNKNOWN;
             };
             try {
@@ -167,5 +196,24 @@ public class Deez {
             }
         }
         say("Bye. Hope to see you soon!");
+    }
+
+    public static Deez load() throws Exception {
+        FileInputStream fileInputStream = new FileInputStream(fileName);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        return (Deez) objectInputStream.readObject();
+    }
+
+    public static void main(String[] args) throws IOException {
+        Deez deez = new Deez();
+        if (fileExists()) {
+            try {
+                deez = load();
+                deez.say("Restored session. Welcome back!");
+            } catch (Exception e) {
+                System.out.println("ERROR: Failed to load save-file, it might possibly be corrupted!");
+            }
+        }
+        deez.run();
     }
 }
