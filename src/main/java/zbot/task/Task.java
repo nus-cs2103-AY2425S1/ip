@@ -1,3 +1,5 @@
+package zbot.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -21,6 +23,10 @@ public class Task {
 
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

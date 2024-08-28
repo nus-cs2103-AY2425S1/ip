@@ -1,3 +1,5 @@
+package zbot;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,6 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import zbot.task.Task;
+import zbot.task.ToDo;
+import zbot.task.Deadline;
+import zbot.task.Event;
 
 public class Storage {
     private String filePath;
@@ -48,14 +54,14 @@ public class Storage {
             char taskType = task instanceof ToDo ? 'T' : task instanceof Deadline ? 'D' : 'E';
             int taskStatus = task.getStatus() ? 1 : 0;
             sb.append(taskType).append(",").append(taskStatus)
-                    .append(",").append(task.description);
+                    .append(",").append(task.getDescription());
 
             // Append task-specific details
             if (taskType == 'D') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).by));
+                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getBy()));
             } else if (taskType == 'E') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).from))
-                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).to));
+                sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).getFrom()))
+                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getTo()));
             }
             sb.append("\n");
         }

@@ -1,4 +1,7 @@
+package zbot;
+
 import java.util.Scanner;
+import zbot.task.Task;
 
 public class Ui {
     private Scanner sc = new Scanner(System.in);
