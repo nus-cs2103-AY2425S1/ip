@@ -1,23 +1,36 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private String date;
+    private String time;
 
-    public Event(String name, String startTime, String endTime) {
+    public Event(String name, String date, String time) {
         super(name);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.date = date;
+        this.time = time;
     }
 
-    public String getStartTime() {
-        return this.startTime;
+    public String getDate() {
+        return this.date;
     }
 
-    public String getEndTime() {
-        return this.endTime;
+    public String getTime() {
+        return this.time;
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.getName() + "(" + this.startTime + this.endTime + ")";
+        try {
+            this.compareDate = LocalDate.parse(this.date);
+            return "[E] " + super.getName() + "(" + this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + " from " + LocalTime.parse(this.time.substring(0, 2) + ":" + this.time.substring(2, 4)).format(DateTimeFormatter.ofPattern("HH:mm")) + " to "
+                    + LocalTime.parse(this.time.substring(8, 10) + ":" + this.time.substring(10, 12)).format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
+        } catch (Exception e) {
+            this.compareDate = LocalDate.parse(this.date, DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return "[E] " + super.getName() + "(" + this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " from " + this.time + ")";
+        }
+
     }
 }

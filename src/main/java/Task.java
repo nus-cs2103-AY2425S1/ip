@@ -1,10 +1,15 @@
-public class Task {
+import java.time.LocalDate;
+import java.util.*;
+
+public class Task implements Comparable<Task> {
     private boolean isDone;
     private String name;
+    protected LocalDate compareDate;
 
     public Task(String name) {
         this.isDone = false;
         this.name = name;
+        this.compareDate = LocalDate.MIN;
     }
 
     public boolean getIsDone() {
@@ -29,5 +34,9 @@ public class Task {
         } else {
             this.isDone = false;
         }
+    }
+    @Override
+    public int compareTo(Task t) {
+        return this.compareDate.compareTo(t.compareDate);
     }
 }
