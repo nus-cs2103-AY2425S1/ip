@@ -24,14 +24,22 @@ public class TaskList {
         this.tasks = storage.load();
     }
 
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
+    /**
+     * Returns the list of tasks.
+     *
+     * @return the list of tasks
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Adds a Todo task to the list.
+     *
+     * @param split an array containing the task description split by space
+     * @return the added Todo task
+     * @throws SlothingWafflerException if the task description is empty
+     */
     public Task addTodoTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of a Todo Task cannot be empty!");
@@ -41,6 +49,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Adds an Event task to the list.
+     *
+     * @param split an array containing the task description and times
+     * @return the added Event task
+     * @throws SlothingWafflerException if the task description, start time, or end time is missing
+     */
     public Task addEventTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of an Event Task cannot be empty.");
@@ -54,6 +69,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Adds a Deadline task to the list.
+     *
+     * @param split an array containing the task description and due date
+     * @return the added Deadline task
+     * @throws SlothingWafflerException if the task description or due date is missing
+     */
     public Task addDeadlineTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of a Deadline Task cannot be empty.");
@@ -67,6 +89,9 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Displays the list of tasks to the console.
+     */
     public void displayTaskList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -90,6 +115,11 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    /**
+     * Finds and displays tasks that match a search term.
+     *
+     * @param split an array containing the search term
+     */
     public void findMatchingTasks(String[] split) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
