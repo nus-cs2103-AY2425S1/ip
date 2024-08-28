@@ -22,7 +22,9 @@ public class Ui {
     for (int i = 0; i < strArr.length - 1; i++) {
       sb.append(Utility.INDENT + strArr[i] + Utility.NEW_LINE);
     }
-    sb.append(Utility.INDENT + strArr[strArr.length - 1]);
+    if (strArr.length >= 1) {
+      sb.append(Utility.INDENT + strArr[strArr.length - 1]);
+    }
     Utility.prettyPrint(sb.toString());
   }
 

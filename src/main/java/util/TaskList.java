@@ -80,6 +80,10 @@ public class TaskList {
     return this.tasks.size();
   }
 
+  public Task[] toArray() {
+    return this.tasks.toArray(new Task[this.tasks.size()]);
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
