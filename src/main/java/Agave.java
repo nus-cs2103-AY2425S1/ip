@@ -100,14 +100,14 @@ public class Agave {
             String description = split[0].substring(8).trim();
             String by = split[1].trim();
             if (description.isEmpty() || by.isEmpty()) {
-                throw new AgaveException("The description and deadline of a task cannot be empty");
+                throw new AgaveException("The description and deadline of a task cannot be empty.");
             }
             taskManager.addTask(new Deadline(description, by));
             System.out.println("Added deadline:");
             System.out.println("  [D][ ] " + description + " (by: " + by + ")");
             taskManager.showNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the deadline in the correct format: 'deadline <description> /by <date/time>'.");
+            throw new AgaveException("Please enter the deadline in the correct format: 'deadline <description> /by <yyyy-MM-dd HHmm>'.");
         }
     }
 
@@ -125,9 +125,10 @@ public class Agave {
             System.out.println("  [E][ ] " + description + " (from: " + from + " to: " + to + ")");
             taskManager.showNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <start time> /to <end time>'.");
+            throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>'.");
         }
     }
+
 
     private void handleDelete(String userInput) throws AgaveException {
         try {

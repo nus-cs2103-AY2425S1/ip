@@ -1,23 +1,25 @@
-public class Event extends Task {
-    private String start;
-    private String end;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event (String description, String start, String end) {
+public class Event extends Task {
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+
+    public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start, INPUT_FORMAT);
+        this.end = LocalDateTime.parse(end, INPUT_FORMAT);
     }
 
     @Override
     public String getCorrectFormat() {
-        return String.format("%s | %s | %s",
-                getDescription(), start, end);
+        return String.format("%s | %s | %s", getDescription(), start.format(INPUT_FORMAT), end.format(INPUT_FORMAT));
     }
 
     @Override
     public String toString() {
-        return " [E] " + super.toString() + " (at: " + start + " to " + end + ")";
+        return " [E] " + super.toString() + " (from: " + start.format(OUTPUT_FORMAT) + " to: " + end.format(OUTPUT_FORMAT) + ")";
     }
-
-
 }
