@@ -6,7 +6,7 @@ import ollie.task.Task;
 import java.util.ArrayList;
 
 /**
- * Manages a list of tasks.
+ * The TaskList manages a list of tasks.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -24,6 +24,7 @@ public class TaskList {
     /**
      * Constructs a ollie.TaskList and loads tasks from storage.
      * If the storage file does not exist, an empty list is created.
+     *
      * @param tasks The list of tasks.
      * @param storage The storage object for saving and loading tasks.
      */
@@ -44,6 +45,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
+     *
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {

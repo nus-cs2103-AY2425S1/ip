@@ -8,22 +8,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a ollie.task.Deadline task with a description and a due date.
+ * Deadline is a type of Task.
+ * It represents a task with a description and a due date.
  */
 public class Deadline extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Constructs a ollie.task.Deadline task with the specified description and due date.
+     * Constructs a Deadline task with the specified description and due date.
      *
-     * @param description The description of the ollie.task.Deadline task.
-     * @param deadline The due date of the ollie.task.Deadline task.
+     * @param description The description of the Deadline task.
+     * @param deadline The due date of the Deadline task.
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description, TaskType.DEADLINE);
         this.deadline = deadline;
     }
 
+    /**
+     * Validates the description of the Deadline task.
+     *
+     * @param command The command entered by the user.
+     * @throws OllieException If the description is empty or the deadline is not provided.
+     */
     @Override
     public void validateDescription(String command) throws OllieException {
         String[] parts = command.split(" /by ");
@@ -38,6 +45,13 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Creates a Deadline task from the specified command.
+     *
+     * @param command The command entered by the user.
+     * @return The Deadline task created from the command.
+     * @throws OllieException If the command is in the wrong format or the date is invalid.
+     */
     public static Deadline createTask(String command) throws OllieException {
         String[] parts = command.substring(8).split(" /by:");
         if (parts.length != 2) {
@@ -54,20 +68,26 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the due date of the ollie.task.Deadline task.
+     * Returns the due date of the Deadline task.
      *
-     * @return deadline of the ollie.task.Deadline task.
+     * @return deadline of the Deadline task.
      */
     public LocalDateTime getDeadline() {
         return deadline;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String saveAsString() {
         DateTimeFormatter formatDate = Task.getFormatDate();
         return String.format("%s | %s", super.saveAsString(), deadline.format(formatDate));
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatDate = Task.getFormatDate();
