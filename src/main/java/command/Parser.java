@@ -9,10 +9,23 @@ import storage.Storage;
 
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Handles the parsing and execution of user commands in the ChatterBox chatbot.
+ * It processes the input commands and delegates the execution to the respective
+ * methods, modifying the tasklist and updating the storage as necessary.
+ */
 public class Parser {
+    //Formatter for displaying dates in the desired format
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
+    /**
+     * Parses and executes user command based on the input string.
+     *
+     * @param input The command input from the user.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     public void parseExecute(String input, TaskList taskList, Storage storage, Ui ui) {
         if(input.startsWith("mark")) {
             markCommand(input, taskList, storage, ui);
@@ -35,6 +48,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks task as done based on the user command.
+     *
+     * @param input The command input specifying the task to mark.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui  The user interface handler for displaying messages.
+     */
     private void markCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         try {
             int indexSpace = input.indexOf(" ");
@@ -51,6 +72,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks task as not done based on the user command.
+     *
+     * @param input The command input specifying the task to unmark.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     private void unmarkCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         try {
             int indexSpace = input.indexOf(" ");
@@ -67,6 +96,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a ToDo task based on the user command.
+     *
+     * @param input The command input specifying the ToDo task.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     private void todoCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         if (input.length() <= 4) {
             ui.showErrorEmptyTodoDescription();
@@ -79,6 +116,14 @@ public class Parser {
         ui.showTaskAdded(task, taskList.size());
     }
 
+    /**
+     * Adds a Deadline task based on the user command.
+     *
+     * @param input The command input specifying the Deadline task.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     private void deadlineCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         if (!input.contains("/by")) {
             ui.showError("task.Deadline format should be: deadline DESCRIPTION /by DATE");
@@ -97,6 +142,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds an Event task based on the user command.
+     *
+     * @param input The command input specifying the Event task.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     private void eventCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         if (!input.contains("/from") || !input.contains("/to")) {
             ui.showError("event format should be: event DESCRIPTION /from DATE/to DATE");
@@ -118,6 +171,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task based on user command.
+     *
+     * @param input The command input specifying the task to delete.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     private void deleteCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         try {
             int indexSpace = input.indexOf(" ");
@@ -135,10 +196,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Displays the list of tasks currently in the task list.
+     *
+     * @param input The command input from the user.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     private void listCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         ui.showTaskList(taskList.getTasks());
     }
 
+    /**
+     * Handles the bye command, ending the chatbot session.
+     *
+     * @param input The command input from the user.
+     * @param taskList The list of tasks managed by the chatbot.
+     * @param storage The storage handler responsible for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     */
     private void byeCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         ui.showGoodbye();
     }

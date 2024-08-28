@@ -1,1 +1,2 @@
-task.ToDo | Done | sample task
+task.ToDo | Not Done | return book
+task.ToDo | Not Done | make my bed

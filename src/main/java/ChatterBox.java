@@ -6,6 +6,10 @@ import task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Represents the main class for the ChatterBox application.
+ * This class initializes the application, handles user input, and manages tasks.
+ */
 public class ChatterBox{
     private final TaskList taskList;
     private final Storage storage;
@@ -13,6 +17,11 @@ public class ChatterBox{
     private final Parser parser;
 
 
+    /**
+     * Constructs a ChatterBox instance with the specified file path for storage.
+     *
+     * @param filePath The path to the file where tasks will be saved and loaded.
+     */
     public ChatterBox(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
@@ -21,6 +30,10 @@ public class ChatterBox{
         storage.saveTasks(taskList.getTasks());
     }
 
+    /**
+     * Starts the ChatterBox application, greeting the user and entering the main input loop.
+     * The loop continues until the user types "bye".
+     */
     public void run() {
         ui.greetUser();
         Scanner sc = new Scanner(System.in);
@@ -37,6 +50,11 @@ public class ChatterBox{
         }
     }
 
+    /**
+     * Main method to start the ChatterBox application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         String filePath = "./data/chatterbox.txt";
         ChatterBox chatterBox = new ChatterBox(filePath);

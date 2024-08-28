@@ -4,14 +4,24 @@ import task.Task;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Handles all user interactions for the chatbot,
+ * including displaying messages and reading commands.
+ */
 public class Ui {
     private static final String LINE_SEPARATOR = "\t\t" + "_".repeat(50);
     private final Scanner scanner;
 
+    /**
+     * Constructs a new Ui object with a Scanner to read user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Displays a greeting message to the user.
+     */
     public void greetUser() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tHey there! I'm ChatterBox");
@@ -19,10 +29,20 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Reads a command from the user input.
+     *
+     * @return The trimmed command entered by the user.
+     */
     public String readCommand() {
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Displays the current list of tasks to the user
+     *
+     * @param taskList The list of tasks to be displayed.
+     */
     public void showTaskList(ArrayList<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tHere's what you've got on your to-do list so far:");
@@ -32,6 +52,12 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a message when task is added to the list.
+     *
+     * @param task The task that was added.
+     * @param taskCount The current number of tasks in the list.
+     */
     public void showTaskAdded(Task task, int taskCount) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\t" + task.getDescription() + " is added to your list");
@@ -40,6 +66,11 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a message when a task is marked as done.
+     *
+     * @param task The task that was marked done.
+     */
     public void showTaskMarkedAsDone(Task task) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tSuper! task.Task marked as done:");
@@ -47,6 +78,11 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a message when task is marked as not done.
+     *
+     * @param task The task that was marked as not done.
+     */
     public void showTaskMarkedAsNotDone(Task task) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tSure, task has been marked as not done:");
@@ -54,6 +90,12 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a message when a task is removed from the list.
+     *
+     * @param task The task that was removed.
+     * @param taskCount The current number of tasks remaining in the list.
+     */
     public void showTaskRemoved(Task task, int taskCount) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tNoted. I've removed this task:");
@@ -62,42 +104,65 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays error message for an unknown command.
+     */
     public void showErrorUnknownCommand() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tOOPS!!! I'm sorry, but I don't know what that means :-(");
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays error message for an invalid task number.
+     */
     public void showErrorInvalidTaskNumber() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tInvalid task number.");
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays error message when the description of a ToDo task is empty.
+     */
     public void showErrorEmptyTodoDescription() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tOOPS!!! The description of a todo cannot be empty");
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays error message when the description of a Deadline task is empty.
+     */
     public void showErrorEmptyDeadlineDescription() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tOOPS!!! The description of a deadline cannot be empty");
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays error message when the description of a Event task is empty.
+     */
     public void showErrorEmptyEventDescription() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tOOPS!!! The description of an event cannot be empty");
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a goodbye message to the user.
+     */
     public void showGoodbye() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\tTake care! Looking forward to helping you again soon!");
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a custom error message.
+     *
+     * @param message The error message to be displayed.
+     */
     public void showError(String message) {
         System.out.println(LINE_SEPARATOR);
         System.out.println("\t\t" +message);

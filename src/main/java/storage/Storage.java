@@ -16,17 +16,35 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import task.Task;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with specified file path.
+     * If the file or its directories does not exist, it creates them.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         createFileIfNotExists(filePath);
     }
 
+    /**
+     * Created the file and its parent directories if they do not already exist.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     private void createFileIfNotExists(String filePath) {
         File file = new File(filePath);
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
@@ -41,6 +59,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the file specified by the file path.
+     * Each task is saved in a format suitable for loading later.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
             for (Task task : taskList) {
@@ -52,6 +76,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * Tasks are raad line by line and converted to their corresponding tasks object.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
