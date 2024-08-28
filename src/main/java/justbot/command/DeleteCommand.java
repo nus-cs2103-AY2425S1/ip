@@ -1,3 +1,10 @@
+package justbot.command;
+
+import justbot.task.TaskList;
+import justbot.ui.Ui;
+import justbot.storage.Storage;
+import justbot.exception.JustbotException;
+
 public class DeleteCommand extends Command {
     private int deleteNumber;
 

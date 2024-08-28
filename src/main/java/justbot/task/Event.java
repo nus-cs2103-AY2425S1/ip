@@ -1,3 +1,5 @@
+package justbot.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,16 +21,6 @@ public class Event extends Task {
         String formattedEnd = this.end.format(formatter).replace("AM", "hrs").replace("PM", "hrs");
 
         return "[E]" + super.toString() + " (from: " + formattedStart + " to: " + formattedEnd + ")";
-    }
-
-    @Override
-    public String getTaskType() {
-        return "Event";
-    }
-
-    @Override
-    public String getTimeConstraint() {
-        return "start: " + this.start + " end: " + this.end;
     }
 
     public LocalDateTime getStart() {

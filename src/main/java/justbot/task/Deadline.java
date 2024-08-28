@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+package justbot.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,6 +10,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDateTime getDeadline() {
+        return this.by;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy, hhmma");
@@ -17,18 +22,4 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + formattedBy + ")";
     }
 
-
-    @Override
-    public String getTaskType() {
-        return "Deadline";
-    }
-
-    @Override
-    public String getTimeConstraint() {
-        return "by: " + this.by;
-    }
-
-    public LocalDateTime getDeadline() {
-        return this.by;
-    }
 }

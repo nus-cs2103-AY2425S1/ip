@@ -1,3 +1,9 @@
+package justbot.ui;
+
+import justbot.exception.JustbotException;
+import justbot.task.Task;
+import justbot.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

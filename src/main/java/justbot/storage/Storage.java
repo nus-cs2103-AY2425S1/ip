@@ -1,8 +1,17 @@
+package justbot.storage;
+
+import justbot.exception.JustbotException;
+import justbot.command.CommandType;
+import justbot.task.Task;
+import justbot.task.TaskList;
+import justbot.task.Todo;
+import justbot.task.Event;
+import justbot.task.Deadline;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -106,6 +115,7 @@ public class Storage {
                             task = new Event(description, start, end);
                             break;
                         default:
+                            System.out.println(line);
                             System.out.println("Skipping unknown task type: " + type);
                             continue;
                     }

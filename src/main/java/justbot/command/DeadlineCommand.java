@@ -1,4 +1,11 @@
+package justbot.command;
+
 import java.time.LocalDateTime;
+
+import justbot.storage.Storage;
+import justbot.task.Deadline;
+import justbot.task.TaskList;
+import justbot.ui.Ui;
 
 public class DeadlineCommand extends Command {
     private Deadline deadlineTask;

@@ -1,9 +1,8 @@
+package justbot.task;
+
 public abstract class Task {
     private String description;
     private boolean isDone;
-
-    abstract String getTaskType();
-    abstract String getTimeConstraint();
 
     public Task(String description) {
         this.description = description;

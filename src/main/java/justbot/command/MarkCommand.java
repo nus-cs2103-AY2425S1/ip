@@ -1,3 +1,11 @@
+package justbot.command;
+
+import justbot.task.TaskList;
+import justbot.task.Task;
+import justbot.ui.Ui;
+import justbot.storage.Storage;
+import justbot.exception.JustbotException;
+
 public class MarkCommand extends Command {
     private int markNumber;
 

@@ -1,3 +1,7 @@
+package justbot.task;
+
+import justbot.exception.JustbotException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 

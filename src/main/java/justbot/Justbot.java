@@ -1,8 +1,11 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
+package justbot;
+
+import justbot.command.Command;
+import justbot.exception.JustbotException;
+import justbot.parser.Parser;
+import justbot.storage.Storage;
+import justbot.task.TaskList;
+import justbot.ui.Ui;
 
 public class Justbot {
     private Ui ui;
