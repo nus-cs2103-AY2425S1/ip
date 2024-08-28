@@ -4,18 +4,31 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * A deadline task
+ * A deadline task.
  *
  * @author dwsc37
  */
 public class Deadline extends Task {
     private final LocalDate deadline;
 
+    /**
+     * Constructor for a <code>Deadline</code>.
+     *
+     * @param description Description of the deadline.
+     * @param deadline End date of the deadline
+     */
     public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
 
+    /**
+     * Constructor for a <code>Deadline</code>, with <code>isDone</code> included.
+     *
+     * @param description Description of the deadline.
+     * @param isDone Completion status of the deadline.
+     * @param deadline End date of the deadline.
+     */
     public Deadline(String description, boolean isDone, LocalDate deadline) {
         super(description, isDone);
         this.deadline = deadline;

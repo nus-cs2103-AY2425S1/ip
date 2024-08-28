@@ -2,6 +2,9 @@ package enums;
 
 import exception.InvalidCommandException;
 
+/**
+ * Enum representing the different commands available.
+ */
 public enum Command {
     LIST("list", "list", "list all tasks"),
     TODO("todo", "todo <name>", "Add a todo with name"),
@@ -32,6 +35,13 @@ public enum Command {
         return usage;
     }
 
+    /**
+     * Converts an input string into the corresponding <code>Command</code>
+     *
+     * @param input Input string from the user.
+     * @return Corresponding <code>Command</code> enum.
+     * @throws InvalidCommandException If the input string does not correspond to any <code>Command</code>.
+     */
     public static Command getCommandFromInput(String input) throws InvalidCommandException {
         for (Command command : Command.values()) {
             if (command.input.equals(input)) {
@@ -50,6 +60,11 @@ public enum Command {
         return maxUsageLenth;
     }
 
+    /**
+     * Returns a help message based on all commands available.
+     *
+     * @return Help message.
+     */
     public String getHelpMessage() {
         return String.format("%-" + getMaxUsageLength() + "s    %s", usage, description);
     }

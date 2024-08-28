@@ -9,7 +9,7 @@ import exception.BotException;
 import task.TaskList;
 
 /**
- * Entry point for the BotManager Chatbot
+ * Entry point for the BotManager Chatbot.
  *
  * @author dwsc37
  */
@@ -18,12 +18,19 @@ public class BotManager {
     private final Parser parser;
     private final Storage storage;
 
+    /**
+     * Constructor for a BotManager.
+     * Initialises the helper classes needed.
+     */
     public BotManager() {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage();
     }
 
+    /**
+     * Runs BotManager.
+     */
     public void run() {
         TaskList taskList = new TaskList();
         try {
@@ -36,7 +43,7 @@ public class BotManager {
         while (true) {
             // read user input
             String input = ui.readUserInput();
-            if (input.strip().equals(Command.EXIT.getInput())) {
+            if (input.equals(Command.EXIT.getInput())) {
                 break;
             }
 
