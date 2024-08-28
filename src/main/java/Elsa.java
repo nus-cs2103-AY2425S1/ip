@@ -5,7 +5,8 @@ public class Elsa {
         System.out.println("Hi! I'm Elsa");
         System.out.println("It's nice to meet you.\nHow can I help you?");
         addLine();
-        processUserInput();
+        String[] thingsToDo = new String[100];
+        processUserInput(thingsToDo);
     }
 
     /**
@@ -25,7 +26,7 @@ public class Elsa {
     /**
      * This method creates a new scanner object to process user input.
      */
-    private static void processUserInput() {
+    private static void processUserInput(String[] tasks) {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
@@ -34,11 +35,31 @@ public class Elsa {
             goodbye();
             addLine();
             scanner.close();
+        } else if (userInput.toLowerCase().startsWith("list")) {
+            addLine();
+            int i = 0;
+            while (tasks[i] != null) {
+                System.out.println(tasks[i]);
+                i++;
+            }
+            addLine();
+            // Continue to process any additional userInput
+            processUserInput(tasks);
         } else {
+            // Add the userInput to the thingsToDo array
+            int i = 0;
+            while (tasks[i] != null) {
+                i++;
+            }
+            tasks[i] = i + 1 + ". " + userInput;
+
+            // Inform the user that the task has been added
             addLine();
-            System.out.println(userInput);
+            System.out.println("added: " + userInput);
             addLine();
-            processUserInput();
+
+            // Continue to process any additional userInput
+            processUserInput(tasks);
         }
     }
 }
