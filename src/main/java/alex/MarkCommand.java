@@ -1,8 +1,8 @@
 package alex;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.io.IOException;
 
 public class MarkCommand extends Command{
     private Scanner lineScanner;

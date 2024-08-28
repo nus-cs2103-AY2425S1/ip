@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import alex.task.Task;
 
 public class AddCommand extends Command {
     private Scanner lineScanner;

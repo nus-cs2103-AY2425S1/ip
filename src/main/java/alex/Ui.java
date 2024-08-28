@@ -1,7 +1,8 @@
 package alex;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import alex.task.Task;
 
 public class Ui {
     //Greet user

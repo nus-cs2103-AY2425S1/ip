@@ -1,4 +1,4 @@
-package alex;
+package alex.task;
 
 public class Todo extends Task {
     public Todo(String taskName, boolean taskCompletionStatus) {
