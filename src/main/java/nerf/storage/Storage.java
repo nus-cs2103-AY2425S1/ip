@@ -7,9 +7,12 @@ package nerf.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.List;
+
 import nerf.error.FilePermissionsException;
 
 public class Storage {
@@ -18,7 +21,7 @@ public class Storage {
     /** name of save file */
     private final String saveFileName;
 
-    public Storage(String pathString){
+    public Storage(String pathString) {
         int lastSlash = pathString.lastIndexOf("/");
         String dirString = pathString.substring(0,lastSlash);
         String fileString = pathString.substring(lastSlash);
@@ -31,8 +34,8 @@ public class Storage {
      * 
      * @return path to save file.
      */
-    private String getFullPath(){
-        return this.saveDirectory+this.saveFileName;
+    private String getFullPath() {
+        return this.saveDirectory + this.saveFileName;
     }
 
     /**
@@ -42,7 +45,7 @@ public class Storage {
      * @return list of tasks.
      * @throws FilePermissionsException If unable to read file.
      */
-    public List<String> load() throws FilePermissionsException{
+    public List<String> load() throws FilePermissionsException {
         File directory = new File(this.saveDirectory);
         File saveFile = new File(this.getFullPath());
         if (!directory.exists()) {
@@ -51,7 +54,7 @@ public class Storage {
         if (!saveFile.exists()) {
             try {
                 saveFile.createNewFile();
-            } catch (IOException  e) {
+            } catch (IOException e) {
                 throw new FilePermissionsException("No permission to write to directory");
             }
         }

@@ -8,11 +8,11 @@ import java.time.LocalDate;
 
 import nerf.io.Parser;
 
-public class Events extends Task{
+public class Events extends Task {
     private final LocalDate  fromDate;
     private final LocalDate  toDate;
 
-    public Events(String description,LocalDate fromDate, LocalDate toDate){
+    public Events(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
         if (fromDate == null || toDate == null) {
             throw new IllegalArgumentException("Dates cannot be null");
@@ -21,8 +21,8 @@ public class Events extends Task{
         this.toDate = toDate;
     }
 
-    public Events(String description, boolean status, LocalDate fromDate, LocalDate toDate){
-        super(description,status);
+    public Events(String description, boolean status, LocalDate fromDate, LocalDate toDate) {
+        super(description, status);
         if (fromDate == null || toDate == null) {
             throw new IllegalArgumentException("Dates cannot be null");
         }
@@ -37,9 +37,9 @@ public class Events extends Task{
      */
     @Override
     public String getSaveFormat(){
-        String fromDate = Parser.dateToString(this.fromDate,true);
-        String toDate = Parser.dateToString(this.toDate,true);
-        return String.format("E | %s | %s | %s", super.getSaveFormat(),fromDate, toDate);
+        String fromDate = Parser.dateToString(this.fromDate, true);
+        String toDate = Parser.dateToString(this.toDate, true);
+        return String.format("E | %s | %s | %s", super.getSaveFormat(), fromDate, toDate);
     }
 
     /**
@@ -49,8 +49,8 @@ public class Events extends Task{
      */
     @Override
     public String toString(){
-        String fromDate = Parser.dateToString(this.fromDate,true);
-        String toDate = Parser.dateToString(this.toDate,true);
-        return String.format("[E]%s (from: %s to: %s)",super.toString(),fromDate, toDate);
+        String fromDate = Parser.dateToString(this.fromDate, false);
+        String toDate = Parser.dateToString(this.toDate, false);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), fromDate, toDate);
     }
 }

@@ -9,10 +9,10 @@ import java.time.LocalDate;
 import nerf.io.Parser;
 
 
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     private final LocalDate dueDate;
 
-    public Deadlines(String description,LocalDate dueDate){
+    public Deadlines(String description, LocalDate dueDate) {
         super(description);
         if (dueDate == null) {
             throw new IllegalArgumentException("Due date cannot be null");
@@ -20,8 +20,8 @@ public class Deadlines extends Task{
         this.dueDate = dueDate;
     }
 
-    public Deadlines(String description,boolean status,LocalDate dueDate){
-        super(description,status);
+    public Deadlines(String description, boolean status, LocalDate dueDate) {
+        super(description, status);
         if (dueDate == null) {
             throw new IllegalArgumentException("Due date cannot be null");
         }
@@ -35,8 +35,8 @@ public class Deadlines extends Task{
      * @return string format of task.
      */
     @Override
-    public String getSaveFormat(){
-        return String.format("D | %s | %s", super.getSaveFormat(),Parser.dateToString(this.dueDate,true));
+    public String getSaveFormat() {
+        return String.format("D | %s | %s", super.getSaveFormat(), Parser.dateToString(this.dueDate, true));
     }
 
     /**
@@ -46,6 +46,6 @@ public class Deadlines extends Task{
      */
     @Override
     public String toString(){
-        return String.format("[D]%s (by: %s)",super.toString(),Parser.dateToString(this.dueDate,false));
+        return String.format("[D]%s (by: %s)",super.toString(), Parser.dateToString(this.dueDate, false));
     }
 }

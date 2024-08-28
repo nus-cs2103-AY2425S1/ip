@@ -7,24 +7,23 @@ package nerf.io;
 public class Ui {
     private final int LINE_LENGTH = 60;
     private final String LOGO = """
-                                       ##  ##   ######   #####    ######
-                                       ### ##   ##       ##  ##   ##    
-                                       ######   ##       ##  ##   ##    
-                                       ######   ####     #####    ####  
-                                       ## ###   ##       ####     ##    
-                                       ##  ##   ##       ## ##    ##    
-                                       ##  ##   ######   ##  ##   ##    
-                                       """;
-    private final Parser parser;  
-
-    public Ui(){
+                                ##  ##   ######   #####    ######
+                                ### ##   ##       ##  ##   ##    
+                                ######   ##       ##  ##   ##    
+                                ######   ####     #####    ####  
+                                ## ###   ##       ####     ##    
+                                ##  ##   ##       ## ##    ##    
+                                ##  ##   ######   ##  ##   ##    
+                                """;
+    private final Parser parser;                                   
+    public Ui() {
         this.parser = new Parser();
     }
 
     /**
      * Prints out initial welcome banner.
      */
-    public void greetings(){
+    public void greetings() {
         printDivider();
         System.out.println("Hello there! I am Nerf, your personal chatbot assistant.\n");
         printLogo();
@@ -35,21 +34,21 @@ public class Ui {
     /**
      * Prints out the nerf logo.
      */
-    public void printLogo(){
+    public void printLogo() {
         System.out.println(this.LOGO);
     }
 
     /**
      * Prints out divider line.
      */
-    public void printDivider(){
+    public void printDivider() {
         System.out.println("_".repeat(this.LINE_LENGTH));
     }
 
     /**
      * Prints out warning regarding file I/O issues.
      */
-    public void showLoadingError(){
+    public void showLoadingError() {
         System.out.println("Unable to open save file, starting application with empty database");
     }
 
@@ -58,14 +57,14 @@ public class Ui {
      * 
      * @return user input string.
      */
-    public String getInput(){
+    public String getInput() {
         return this.parser.getInput();
     }
 
     /**
      * Prints out goodbye banner.
      */
-    public void exit(){
+    public void exit() {
         System.out.println("Goodbye. Hope to see you soon!");
         printDivider();
     }

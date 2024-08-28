@@ -30,7 +30,7 @@ public class Nerf {
      * 
      * @return string format of task.
      */
-    public Nerf(String filePath){
+    public Nerf(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         TaskList temp;
@@ -46,7 +46,7 @@ public class Nerf {
     /**
      * Main loop
      */
-    public void run(){
+    public void run() {
         this.ui.greetings();
         String input;
         do {

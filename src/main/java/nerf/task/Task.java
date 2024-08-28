@@ -4,14 +4,14 @@ package nerf.task;
  * Task superclass
  */
 
-public abstract class Task{
+public abstract class Task {
     private final String description;
     private boolean isDone = false;
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
     }
-    public Task(String description,boolean status){
+    public Task(String description,boolean status) {
         this.description = description;
         this.isDone = status;
     }
@@ -19,14 +19,14 @@ public abstract class Task{
     /** 
      * Set task completion to true.
      */
-    public void setDone(){
+    public void setDone() {
         this.isDone = true;
     }
 
     /** 
      * Set task completion to false.
      */
-    public void setUndone(){
+    public void setUndone() {
         this.isDone = false;
     }
 
@@ -39,8 +39,8 @@ public abstract class Task{
      * 
      * @return string format of task.
      */
-    public String getSaveFormat(){
-        return String.format("%d | %s", this.isDone?1:0, this.description);
+    public String getSaveFormat() {
+        return String.format("%d | %s", this.isDone ? 1 : 0, this.description);
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Task{
      * @return string format of task.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("[%s] %s", getStatusIcon(), this.description);
     }
 
