@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;  // Import the Scanner class
 import java.util.ArrayList; // import the ArrayList class
 
@@ -54,25 +53,60 @@ public class Spiderman {
             // Store users input into tasks
             // Check what kind of tasks to add
             if (splitInput[0].equals("deadline")) {
-                String description = splitInputByCommand[0].replaceAll("deadline ", "");
-                String by = splitInputByCommand[1].replaceAll("by ", "");
+                String description = splitInputByCommand[0].replaceFirst("deadline", "").trim();
+                if (description.isEmpty()) {
+                    System.out.println("The description of a deadline cannot be empty.");
+                    continue;
+                }
 
-                taskList.add(new Deadline(description, by));
-            } else if (splitInput[0].equals("event")) {
-                String description = splitInputByCommand[0].replaceAll("deadline ", "");
-                String from = splitInputByCommand[1].replaceAll("from ", "");
-                String to = splitInputByCommand[2].replaceAll("to ", "");
+                try {
+                    String by = splitInputByCommand[1].replaceFirst("by", "").trim();
+                    taskList.add(new Deadline(description, by));
+                }
+                catch (Exception e) {
+                    System.out.println("The stated deadline should have a date");
+                    continue;
+                }
 
-                taskList.add(new Event(description, from, to));
-            } else if (splitInput[0].equals("todo")) {
-                taskList.add(new Todo(splitInputByCommand[0].replaceAll("todo ", "")));
+                System.out.println("You now have " + taskList.size() + " tasks in your task list.");
             }
+            else if (splitInput[0].equals("event")) {
+                String description = splitInputByCommand[0].replaceFirst("event", "").trim();
 
-            System.out.println("Cool! I'll add this to your task list!");
-            System.out.println("You now have " + taskList.size() + " tasks in your task list.");
+                if (description.isEmpty()) {
+                    System.out.println("The description of an event cannot be empty.");
+                    continue;
+                }
+
+                try {
+                    String from = splitInputByCommand[1].replaceFirst("from", "").trim();
+                    String to = splitInputByCommand[2].replaceFirst("to", "").trim();
+                    taskList.add(new Event(description, from, to));
+                }
+                catch (Exception e) {
+                    System.out.println("The from and/or to cannot be empty");
+                    continue;
+                }
+
+                System.out.println("You now have " + taskList.size() + " tasks in your task list.");
+            }
+            else if (splitInput[0].equals("todo")) {
+                String description = splitInputByCommand[0].replaceFirst("todo", "").trim();
+                if (description.isEmpty()) {
+                    System.out.println("The description of a todo cannot be empty.");
+                    continue;
+                }
+
+                taskList.add(new Todo(description));
+                System.out.println("You now have " + taskList.size() + " tasks in your task list.");
+            }
+            else {
+                System.out.println("Sorry, I do not understand what you mean. Check the README file for the list of known actions!");
+            }
         }
 
         // Exit program message
         System.out.println("Bye. Hope to see you again soon!");
+        scan.close();
     }
 }
