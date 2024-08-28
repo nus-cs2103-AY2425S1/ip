@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Storage {
     private static Path filePath;
     private String line;
-    private final DateTimeFormatter display_format = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
+    private final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
     public Storage(String filePath) throws DukeException {
         Storage.filePath = Paths.get(filePath);
         createFile();
@@ -107,10 +107,10 @@ public class Storage {
         if(words[0].equals("T")){
             return new Todo(words[2]);
         } else if(words[0].equals("D")){
-            return new Deadline(words[2], LocalDateTime.parse(words[3], display_format));
+            return new Deadline(words[2], LocalDateTime.parse(words[3], DISPLAY_FORMAT));
         } else if(words[0].equals("E")){
-            return new Event(words[2], LocalDateTime.parse(words[3], display_format),
-                    LocalDateTime.parse(words[4], display_format));
+            return new Event(words[2], LocalDateTime.parse(words[3], DISPLAY_FORMAT),
+                    LocalDateTime.parse(words[4], DISPLAY_FORMAT));
         } else {
             return null;
         }

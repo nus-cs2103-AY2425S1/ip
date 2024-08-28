@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  * A class that run main program
  */
 public class Nameless {
-    private final DateTimeFormatter parse_format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+    private final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
     private Storage storage;
     private TaskList tasks;
     private TypeOfException exception;
@@ -97,7 +97,7 @@ public class Nameless {
             exception.deadlineFormatError();
         }
         try {
-            LocalDateTime date = LocalDateTime.parse(words[1], parse_format);
+            LocalDateTime date = LocalDateTime.parse(words[1], PARSE_FORMAT);
             tasks.addTask(new Deadline(words[0], date));
             ui.showAddTask(tasks);
         } catch (DateTimeParseException e) {
@@ -115,8 +115,8 @@ public class Nameless {
             exception.eventFormatError();
         }
         try {
-            LocalDateTime from = LocalDateTime.parse(words[1], parse_format);
-            LocalDateTime to = LocalDateTime.parse(words[2], parse_format);
+            LocalDateTime from = LocalDateTime.parse(words[1], PARSE_FORMAT);
+            LocalDateTime to = LocalDateTime.parse(words[2], PARSE_FORMAT);
             tasks.addTask(new Event(words[0], from, to));
             ui.showAddTask(tasks);
         } catch (DateTimeParseException e) {
