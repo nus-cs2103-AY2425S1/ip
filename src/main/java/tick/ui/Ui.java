@@ -1,5 +1,6 @@
 package tick.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import tick.tasks.Task;
@@ -117,6 +118,22 @@ public class Ui {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < tasks.getSize(); i++) {
                 System.out.printf("%d.%s\n", i + 1, tasks.getTask(i));
+            }
+        }
+    }
+
+    /**
+     * Displays the tasks that match the search criteria.
+     *
+     * @param tasks The list of tasks that match the search criteria.
+     */
+    public void showMatchingTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d.%s\n", i + 1, tasks.get(i));
             }
         }
     }

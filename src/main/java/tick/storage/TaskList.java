@@ -98,6 +98,22 @@ public class TaskList {
     }
 
     /**
+     * Finds and returns a list of tasks that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that contain the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(keyword)) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        return tasksWithKeyword;
+    }
+
+    /**
      * Checks if the TaskList is empty.
      *
      * @return True if the TaskList is empty, false otherwise.
