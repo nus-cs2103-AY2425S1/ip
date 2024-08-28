@@ -1,5 +1,7 @@
 package janet;
 
+import java.util.Arrays;
+
 public class Parser {
 
     public static CommandType getCommand(String[] commandDetails) {
@@ -54,10 +56,8 @@ public class Parser {
      */
     public static void checkInaccurateCommand(String[] commandDetails) throws JanetException {
         // checks for inaccurate commands 1. rubbish, 2. without any task description, 3. no number for mark/unmark/delete.
-        if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event")
-                || commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete") ||
-                commandDetails[0].equals("bye") || commandDetails[0].equals("list"))) {
-            // when the command is gibberish and NOT one of the commands (todo, deadline, event, mark, unmark, delete)
+        if (!Arrays.asList(CommandType.values()).contains(getCommand(commandDetails))) {
+            // when the command is gibberish and NOT one of the commands in CommandType
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (commandDetails.length == 1 && !(commandDetails[0].equals("bye") || commandDetails[0].equals("list"))) {
             if (commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete")) {
