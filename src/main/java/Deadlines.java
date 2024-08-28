@@ -33,7 +33,7 @@ public class Deadlines extends Task {
     }
 
     public static Task createTask(String input) throws AlfredException {
-        String regex = "^deadline\\s+(.+?)\\s+/by\\s+(([0-9]{4})-([0-9]{2})-([0-9]{2}))$";
+        String regex = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
