@@ -1,13 +1,17 @@
+import java.util.Scanner;  // For user inputs
+import java.util.ArrayList; //To create the to-do list
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
+
 /**
 * SirPotato is the name of the chatbot 
 * that we will be using in this project
 * @author Rahul Agarwal
 */
-
-
-import java.util.Scanner;  // For user inputs
-import java.util.ArrayList; //To create the to-do list
-
 public class SirPotato {
 
     private Scanner scanner;
@@ -91,11 +95,87 @@ public class SirPotato {
         System.out.println(horizontal_line);
     }
 
+    /**
+     * Populates the toDoList using data file 
+     * @param filePath the path of the data file to read
+     */
+    private void readFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] sectionedString = line.split(" \\| ");
+            String type = sectionedString[0];
+            boolean isDone = sectionedString[1].equals("1");
+            String description = sectionedString[2];
+            Task task = null;
+            if (type.equals("T")) {
+                task = new Todo(description);
+            } else if (type.equals("D")) {
+                String dl = sectionedString[3];
+                task = new Deadline(description, dl);
+            } else if (type.equals("E")) {
+                String from = sectionedString[3];
+                String to = sectionedString[4];
+                task = new Event(description, from, to);
+            }
+            System.out.println(task);
+            toDoList.add(task);
+        }
+        
+    }
+
+    /**
+     * Saves the toDoList and writes it to the data file
+     * @param filePath the path of data file to write to
+     * @param toDoList the toDoList that will be saved 
+     */
+    private static void writeToFile(String filePath, ArrayList<Task> toDoList) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+
+        for (Task task : toDoList) {
+            String type = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
+            String isDone = task.isDone ? "1" : "0";
+            String textToAdd = type + " | " + isDone + " | " + task.description;
+            if (task instanceof Deadline) {
+                textToAdd += " | " + ((Deadline) task).by;
+            } else if (task instanceof Event) {
+                textToAdd += " | " + ((Event) task).from + " | " + ((Event) task).to;
+            }
+            fw.write(textToAdd + System.lineSeparator());
+        }
+        fw.close();
+    }
+
 
     /**
      * Starts the chat with the bot. Keeps accepting user input until the user types 'bye'.
+     * Saves the data to a file as you go / creates a file if one doesn't exist 
      */
     public void startChat() {
+
+        //Check to see if the data.txt file exists 
+        //If it doesn't, it will create the file and inform the user
+        try {
+            File f = new File("../../../data/list.txt"); 
+            if (f.createNewFile()) {
+                System.out.println("Creating your data file");
+            } else {
+                System.out.println("Initializing your data file");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        //Use the data file to populate the toDoList.
+        try {
+            System.out.println("Loading your data file");
+            readFile("../../../data/list.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
         displayWelcomeMessage();
 
         while (true) {
@@ -103,6 +183,11 @@ public class SirPotato {
             try {
                 checkForErrors(userInput);
                 if (userInput.equals("bye")) {
+                    try {
+                        writeToFile("../../../data/list.txt", toDoList);
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
                     System.out.println(horizontal_line + "\n" + indent + "Bye. Thanks mate." + "\n" + horizontal_line + "\n");
                     return;
                 } else if (userInput.equals("list")) {
@@ -166,6 +251,10 @@ public class SirPotato {
 
     public static void main(String[] args) {
         
+        
+
+        
+
         SirPotato potato = new SirPotato();
         potato.startChat();
     }
