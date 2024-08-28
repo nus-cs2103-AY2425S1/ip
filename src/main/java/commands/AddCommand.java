@@ -26,6 +26,15 @@ public class AddCommand implements Command {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public AddCommand(String remaining, TaskType taskType) {
+        if (remaining.isBlank()) {
+            if (taskType == TaskType.TODO) {
+                throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
+            } else if (taskType == TaskType.DEADLINE) {
+                throw new LlamaException("Empty Deadline?!? What's the point of keeping track of nothing?");
+            } else if (taskType == TaskType.EVENT) {
+                throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
+            }
+        }
         this.remaining = remaining;
         this.taskType = taskType;
     }
@@ -33,18 +42,10 @@ public class AddCommand implements Command {
     @Override
     public boolean execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         if (taskType == TaskType.TODO) {
-            if (remaining.isBlank()) {
-                throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
-            }
-
             Task newTask = new Todo(remaining, false);
             taskList.addTask(newTask , ui);
             storage.save(taskList);
         } else if (taskType == TaskType.DEADLINE) {
-            if (remaining.isBlank()) {
-                throw new LlamaException("Empty Deadline?!? What's the point of keeping track of nothing?");
-            }
-
             String[] substringArr = remaining.split("/by ");
             LocalDateTime deadline;
             try {
@@ -53,15 +54,10 @@ public class AddCommand implements Command {
                 throw new LlamaException("Invalid date given, please give in the format " +
                         "`deadline <name>/by yyyy-mm-dd HH:mm'");
             }
-
             Task newTask = new Deadline(substringArr[0], deadline, false);
             taskList.addTask(newTask, ui);
             storage.save(taskList);
         } else if (taskType == TaskType.EVENT) {
-            if (remaining.isBlank()) {
-                throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
-            }
-
             String[] substringArr = remaining.split("/");
             String desc = substringArr[0];
             String startTimeStr = substringArr[1].substring(substringArr[1].indexOf(" ") + 1).trim();
