@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -10,7 +11,11 @@ public class XBot {
     private static List<Task> list = new ArrayList<>();
     private static final Path DATA_PATH = Paths.get("data", "XBot.txt");
     public static void main(String[] args) {
-        loadTask();
+        try {
+            loadTask();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
@@ -27,12 +32,53 @@ public class XBot {
         scanner.close();
     }
 
-    private static void loadTask() {
+    private static void loadTask() throws IOException {
         if (Files.exists(DATA_PATH)) {
             //Add all task in data/XBot.txt to the list
+            try (Scanner scanner = new Scanner(DATA_PATH.toFile())) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    if (parts.length >= 3) {
+                        String type = parts[0].trim();
+                        boolean isDone = parts[1].trim().equals("1");
+                        String description = parts[2].trim();
+                        switch (type) {
+                            case "T":
+                                Task todo = new ToDo(description);
+                                if (isDone) todo.markAsDone();
+                                list.add(todo);
+                                break;
+                            case "D":
+                                String deadline = parts[3].trim();
+                                Task deadlineTask = new Deadline(description, deadline);
+                                if (isDone) deadlineTask.markAsDone();
+                                list.add(deadlineTask);
+                                break;
+                            case "E":
+                                String from = parts[3].trim();
+                                String to = parts[4].trim();
+                                Task eventTask = new Event(description, from, to);
+                                if (isDone) eventTask.markAsDone();
+                                list.add(eventTask);
+                                break;
+                            default:
+                                System.out.println("Unknown task type: " + type);
+                        }
+                    }
+                    // Depending on format, create tasks and add to list
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found: " + e.getMessage());
+                throw new IOException("File not found", e);
+            }
         } else {
             addFile();
         }
+    }
+
+    private static void saveTask() {
+        //Save the task to XBot.txt when there is no more update
     }
 
     private static void addFile() {
