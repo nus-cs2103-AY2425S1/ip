@@ -1,7 +1,12 @@
 package PurrfessorDipsy.Exception;
 
+/**
+ * Represents an exception that is thrown when an invalid command is encountered.
+ * The exception provides detailed error messages based on the type of invalid command.
+ */
 public class InvalidCommandException extends Exception {
-    private final ErrorType errorType;
+
+    /** Enum representing different types of invalid commands. */
     public enum ErrorType {
         INVALID_TODO,
         INVALID_DEADLINE,
@@ -12,11 +17,24 @@ public class InvalidCommandException extends Exception {
         INVALID_DELETE_INDEX
     }
 
+    /** The specific type of invalid command that caused the exception. */
+    private final ErrorType errorType;
+
+    /**
+     * Constructs an InvalidCommandException with the specified error type.
+     *
+     * @param errorType The specific type of invalid command that caused the exception.
+     */
     public InvalidCommandException(ErrorType errorType) {
         super();
         this.errorType = errorType;
     }
 
+    /**
+     * Returns a detailed error message based on the specific error type.
+     *
+     * @return The detailed error message associated with the error type.
+     */
     @Override
     public String getMessage() {
         return switch (errorType) {
