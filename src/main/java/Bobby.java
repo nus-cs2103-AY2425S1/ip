@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +11,7 @@ public class Bobby {
 
     private static final String FILE_PATH = "./src/main/data/Bobby.txt";
     enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND;
 
         public static Command fromString(String input) {
             String command = input.split(" ")[0].toLowerCase();
@@ -29,6 +32,8 @@ public class Bobby {
                     return DEADLINE;
                 case "event":
                     return EVENT;
+                case "find":
+                    return FIND;
                 default:
                     return UNKNOWN;
             }
@@ -134,19 +139,30 @@ public class Bobby {
                 throw new EmptyDeadlineException();
             }
             String description = parts[0];
-            String by = parts[1];
-            Task task = new Deadline(description, by);
-            addTask(task);
+            String byString = parts[1];
+            try {
+                LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                Task task = new Deadline(description, by);
+                addTask(task);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use yyyy-MM-dd");
+            }
         } else if (userInput.startsWith("event ")) {
             String[] parts = userInput.substring(6).split(" /from | /to ");
             if (parts.length < 3) {
                 throw new EmptyEventException();
             }
             String description = parts[0];
-            String from = parts[1];
-            String to = parts[2];
-            Task task = new Event(description, from, to);
-            addTask(task);
+            String fromString = parts[1];
+            String toString = parts[2];
+            try {
+                LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                Task task = new Event(description, from, to);
+                addTask(task);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use yyyy-MM-dd");
+            }
         } else {
             throw new InvalidInputException();
         }
@@ -193,12 +209,15 @@ public class Bobby {
                         task = new Todo(description);
                         break;
                     case "D":
-                        String by = parts[3];
+                        String byString = parts[3];
+                        LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         task = new Deadline(description, by);
                         break;
                     case "E":
-                        String from = parts[3];
-                        String to = parts[4];
+                        String fromString = parts[3];
+                        String toString = parts[4];
+                        LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         task = new Event(description, from, to);
                         break;
                     default:
@@ -215,6 +234,40 @@ public class Bobby {
             System.out.println("Tasks successfully loaded from file Bobby.txt.");
         } catch (IOException e) {
             System.out.println("Error reading from file: " + e.getMessage());
+        }
+    }
+
+    private static void findTasksByDate(String userInput) {
+        String[] parts = userInput.split(" ");
+        if (parts.length < 2) {
+            System.out.println("Please provide a date in the format yyyy-MM-dd.");
+            return;
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            System.out.println("Tasks on " + date + ":");
+            boolean found = false;
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask.isOnDate(date)) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                } else if (task instanceof Event) {
+                    Event eventTask = (Event) task;
+                    if (eventTask.isOnDate(date)) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                System.out.println("No tasks found for the given date.");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
         }
     }
 
@@ -248,6 +301,9 @@ public class Bobby {
                     case DEADLINE:
                     case EVENT:
                         handleTask(userInput);
+                        break;
+                    case FIND:
+                        findTasksByDate(userInput);
                         break;
                     default:
                         throw new InvalidInputException();
