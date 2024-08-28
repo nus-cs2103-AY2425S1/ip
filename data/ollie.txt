@@ -1,0 +1,2 @@
+T | 1 | sleep
+D | 0 | sleep tonight | 1am

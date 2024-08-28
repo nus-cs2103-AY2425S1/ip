@@ -1,13 +1,25 @@
-import java.security.spec.RSAOtherPrimeInfo;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ollie {
+    // Constants
+    private static final String filepath = "./data/ollie.txt";
     // Private Types
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // Load data
+        try {
+            tasks = FileRead.loadFileContents(filepath);
+        } catch (FileNotFoundException | CorruptFileException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
 
         // Greet
         Ollie.greet();
@@ -34,6 +46,14 @@ public class Ollie {
             } finally {
                 input = scanner.nextLine();
             }
+        }
+
+        // Save data
+        try {
+            FileWrite.saveFileContents(filepath, tasks);
+        } catch (IOException e) {
+            System.out.println("Unable to save disk to file (database)!");
+            return;
         }
 
         // Exit
