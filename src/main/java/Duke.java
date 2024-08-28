@@ -50,6 +50,8 @@ public class Duke {
                 Reply.printMessage(e.toString());
             } catch (TaskNotFoundException e) {
                 Reply.printMessage(e.toString());
+            } catch (InvalidDateException e) {
+            Reply.printMessage(e.toString());
             }
 
         }
@@ -99,7 +101,8 @@ public class Duke {
      *
      * @param message input of user
      */
-    public static void handleAddDeadline(String message) throws MissingDateException, MissingTaskNameException {
+    public static void handleAddDeadline(String message) throws MissingDateException,
+            MissingTaskNameException, InvalidDateException {
 
         String[] parts = message.split(" /by ");
         String taskName = parts[0].replace("deadline", "").trim();
@@ -109,8 +112,9 @@ public class Duke {
         if (parts.length != 2) {
             throw new MissingDateException("deadline");
         }
-        String by = parts[1].trim();
-        taskList.addTask(new Deadline(taskName, by));
+            String by = parts[1].trim();
+            taskList.addTask(new Deadline(taskName, by));
+
     }
 
     /**
@@ -118,7 +122,8 @@ public class Duke {
      *
      * @param message input of user
      */
-    public static void handleAddEvent(String message) throws MissingDateException, MissingTaskNameException{
+    public static void handleAddEvent(String message) throws MissingDateException,
+            MissingTaskNameException, InvalidDateException {
         String[] parts = message.split(" /from | /to ");
         String taskName = parts[0].replace("event", "").trim();
         if (taskName.isEmpty()) {

@@ -2,24 +2,26 @@
  * This class represents tasks that start at a specific date/time
  * and ends at a specific date/time
  */
-public class Event extends Task {
-    private String from;
-    private String to;
 
-    public Event(String name, String from, String to) {
+public class Event extends Task {
+    private Time from;
+    private Time to;
+
+    public Event(String name, String from, String to) throws InvalidDateException{
         super(name);
-        this.from = from;
-        this.to = to;
+        this.from = new Time(from);
+        this.to = new Time(to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.toString() + " to: "
+                + to.toString() + ")";
     }
 
     @Override
     public String toDataFormat() {
-        return "E" + super.toDataFormat() + "|" +
-                from + "|" + to;
+        return "E" + super.toDataFormat() + "|" + from.toString() + "|"
+                + to.toString();
     }
 }

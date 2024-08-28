@@ -10,7 +10,7 @@ public class TaskDataBase {
      * @return a list of Task.
      * @throws IOException when error reading from file
      */
-    public static List<Task> load() throws IOException {
+    public static List<Task> load() throws IOException, InvalidDateException {
         List<Task> tasks = new ArrayList<>();
         File file = new File("data/tasklist.txt");
 

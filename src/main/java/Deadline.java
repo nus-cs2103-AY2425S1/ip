@@ -2,18 +2,18 @@
  * tasks that need to be done before a specific date/time
  */
 public class Deadline extends Task {
-    private String by;
-    public Deadline(String name, String by) {
+    private Time by;
+    public Deadline(String name, String by) throws InvalidDateException {
         super(name);
-        this.by = by;
+        this.by = new Time(by);
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.toString() + ")";
     }
 
     @Override
     public String toDataFormat() {
-        return "D" + super.toDataFormat() + "|" + by;
+        return "D" + super.toDataFormat() + "|" + by.toString();
     }
 }
