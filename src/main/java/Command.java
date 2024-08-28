@@ -19,28 +19,19 @@ public class Command {
     /**
      * Optional keyword parameters specified using '/key value' format.
      */
-    private final Map<String, String> keywordParams = new HashMap<>();
+    private final Map<String, String> keywordParams;
 
     /**
-     * The constructor. Splits input into command and paramString.
+     * The constructor.
      *
-     * @param input A full line of command together with all parameters.
+     * @param name          The name of the command.
+     * @param param         The parameter of the command.
+     * @param keywordParams The keyword parameters of the command.
      */
-    public Command(String input) {
-        String[] commandAndParams = input.split(" +", 2); // split command and params
-        name = commandAndParams[0];
-        if (commandAndParams.length == 1) { // no params at all
-            param = null;
-        } else {
-            String paramString = commandAndParams[1];
-            String[] paramAndKeywordParams = paramString.split(" +(?=\\/)"); // split params
-            param = paramAndKeywordParams[0]; // extract param
-            for (int i = 1; i < paramAndKeywordParams.length; i++) { // extract keyword params
-                String keywordParamString = paramAndKeywordParams[i];
-                String[] keyAndValue = keywordParamString.split(" +", 2);  // split key and value
-                keywordParams.put(keyAndValue[0].substring(1), keyAndValue[1]);
-            }
-        }
+    public Command(String name, String param, Map<String, String> keywordParams) {
+        this.name = name;
+        this.param = param;
+        this.keywordParams = keywordParams;
     }
 
     public String getName() {
@@ -60,9 +51,5 @@ public class Command {
      */
     public String getKeywordParam(String key) {
         return keywordParams.get(key);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Command("ddl meet /by 8/29").keywordParams);
     }
 }

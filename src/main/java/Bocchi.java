@@ -1,6 +1,4 @@
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -8,106 +6,60 @@ import java.util.Scanner;
  */
 public class Bocchi {
     /**
-     * The name of this chatbot.
+     * The list of tasks.
      */
-    static private final String NAME = "Bocchi";
-
-    /**
-     * The list to store all tasks.
-     */
-    private List<Task> tasks = null;
+    private TaskList taskList;
 
     /**
      * The loader and saver for the task list.
      */
-    private TaskListLoaderSaver loaderSaver = new TaskListLoaderSaver();
+    private Storage storage = new Storage();
 
+    /**
+     * The user interface.
+     */
+    private Ui ui = new Ui();
 
     /**
      * The constructor.
      */
     public Bocchi() {
-        tasks = loaderSaver.load();
-        if (tasks == null) {
-            tasks = new ArrayList<>();
-        }
+        taskList = new TaskList(storage);
     }
 
-    /**
-     * Prints a greeting with an ASCII art.
-     */
-    private void printLogo() {
-        String logo = """
-                 ____                 _     _\s
-                |  _ \\               | |   (_)
-                | |_) | ___   ___ ___| |__  _\s
-                |  _ < / _ \\ / __/ __| '_ \\| |
-                | |_) | (_) | (_| (__| | | | |
-                |____/ \\___/ \\___\\___|_| |_|_|
-                                             \s
-                                             \s""";
-        System.out.println("Hello from\n" + logo);
-    }
-
-    /**
-     * Prints a horizontal line.
-     */
-    private void printSeparator() {
-        System.out.println("_____________________________________________________________");
-    }
 
     /**
      * Ends the conversation.
      */
     private void exit() {
-        printSeparator();
-        System.out.println("Oh no you are leaving.. It was a great time talking to you ::>_<::");
-        printSeparator();
-        loaderSaver.save(tasks);  // save the task list for persistence
+        ui.printSeparator();
+        ui.printMessage("Oh no you are leaving.. It was a great time talking to you ::>_<::");
+        ui.printSeparator();
+        taskList.saveTasks();
     }
 
-    /**
-     * Greets the user.
-     */
-    private void greet() {
-        printSeparator();
-        System.out.println("Hi! I'm " + NAME + "! Nice to see you!");
-        System.out.println("Wha..what can I do for you today? o(*//▽//*)q");
-        printSeparator();
-    }
-
-    /**
-     * Reads a command.
-     *
-     * @param scanner The scanner to use.
-     * @return The command.
-     */
-    private Command readCommand(Scanner scanner) {
-        System.out.print(">> ");
-        return new Command(scanner.nextLine());
-    }
 
     /**
      * Prints all items in the item list.
      */
     private void list() {
-        printSeparator();
-        System.out.println("No...no problem! This is your task list! (/▽＼)");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+        ui.printSeparator();
+        ui.printMessage("No...no problem! This is your task list! (/▽＼)");
+        for (int i = 0; i < taskList.size(); i++) {
+            ui.printMessage((i + 1) + ". " + taskList.getTask(i));
         }
-        printSeparator();
+        ui.printSeparator();
     }
 
     /**
      * Adds a task to the list.
      */
     private void task(Task task) {
-        printSeparator();
-        tasks.add(task);
-        System.out.println("Only if I can be as diligent as you... (っ °Д °;)っ An..anyway, task added!");
-        System.out.println(task);
-        printSeparator();
+        ui.printSeparator();
+        taskList.addTask(task);
+        ui.printMessage("Only if I can be as diligent as you... (っ °Д °;)っ An..anyway, task added!");
+        ui.printMessage(task);
+        ui.printSeparator();
     }
 
     /**
@@ -117,18 +69,18 @@ public class Bocchi {
      */
     private void mark(int index) throws BocchiException {
         index--;
-        if (index >= tasks.size() || index < 0) {
+        if (index >= taskList.size() || index < 0) {
             throw new BocchiException("Sorry but ... erm maybe it is better to double check the index you entered? " +
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
-        Task task = tasks.get(index);
+        Task task = taskList.getTask(index);
         task.markAsDone();
 
-        printSeparator();
-        System.out.println("I have marked the task as done! You are doing such a good job! (*/ω＼*)");
-        System.out.println(task);
-        printSeparator();
+        ui.printSeparator();
+        ui.printMessage("I have marked the task as done! You are doing such a good job! (*/ω＼*)");
+        ui.printMessage(task);
+        ui.printSeparator();
     }
 
     /**
@@ -138,18 +90,18 @@ public class Bocchi {
      */
     private void unmark(int index) throws BocchiException {
         index--;
-        if (index >= tasks.size() || index < 0) {
+        if (index >= taskList.size() || index < 0) {
             throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? " +
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
-        Task task = tasks.get(index);
+        Task task = taskList.getTask(index);
         task.markAsUnDone();
 
-        printSeparator();
-        System.out.println("I have marked the task as not done. You will do it better next time! (*/ω＼*)");
-        System.out.println(task);
-        printSeparator();
+        ui.printSeparator();
+        ui.printMessage("I have marked the task as not done. You will do it better next time! (*/ω＼*)");
+        ui.printMessage(task);
+        ui.printSeparator();
     }
 
     /**
@@ -159,23 +111,23 @@ public class Bocchi {
      */
     private void delete(int index) throws BocchiException {
         index--;
-        if (index >= tasks.size() || index < 0) {
+        if (index >= taskList.size() || index < 0) {
             throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? " +
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
-        Task task = tasks.remove(index);
+        Task task = taskList.removeTask(index);
 
-        printSeparator();
-        System.out.println("I have removed the task!");
-        System.out.println(task);
-        printSeparator();
+        ui.printSeparator();
+        ui.printMessage("I have removed the task!");
+        ui.printMessage(task);
+        ui.printSeparator();
     }
 
     private void printError(Exception e) {
-        printSeparator();
-        System.out.println(e.getMessage());
-        printSeparator();
+        ui.printSeparator();
+        ui.printMessage(e.getMessage());
+        ui.printSeparator();
     }
 
     /**
@@ -192,11 +144,11 @@ public class Bocchi {
      * - del/delete [index]: delete the task in the specified index.
      */
     public void start() {
-        greet();
+        ui.greet();
         // try-with-resources code optimisation done by IntelliJ
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                Command command = readCommand(scanner);
+                Command command = ui.readCommand(scanner);
                 // optimized from if statements to switch by IntelliJ
                 try {
                     switch (command.getName()) {
@@ -224,9 +176,9 @@ public class Bocchi {
                     }
                 } catch (NumberFormatException e) {
                     printError(new BocchiException("So sorry... I can't understand the number you entered. ( T_T )"));
-                } catch (DateTimeParseException e){
+                } catch (DateTimeParseException e) {
                     printError(new BocchiException("So sorry... I can't understand the date/time format you entered. ( T_T )"));
-                } catch (BocchiException e){
+                } catch (BocchiException e) {
                     printError(e);
                 }
             }
