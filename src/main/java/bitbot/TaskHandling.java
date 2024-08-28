@@ -10,6 +10,7 @@ public class TaskHandling {
     /**
      * Handles the event task. It takes in the input
      * and extract out the description, the "from" time and the "to" time.
+     *
      * @param arrayList the list of tasks
      * @param textPart the description of the input
      * @param partsOfInput the String[] of the split input
@@ -200,13 +201,14 @@ public class TaskHandling {
                 + "          ____________________________________");
     }
 
-    public static Task handleDeadlineFromFile (String description, String by) {
+    public static Task handleDeadlineFromFile(String description, String by) {
         Task deadline = new Deadline(description, by);
         return deadline;
     }
 
     /**
      * Handles the todo by extracting the description.
+     *
      * @param arrayList the list of tasks
      * @param textPart the description of the input
      * @param partsOfInput the String[] of the split input
@@ -214,7 +216,7 @@ public class TaskHandling {
      * @param task This helps to determine if I need to add "task" or "tasks"
      * @throws BitBotException if input is invalid
      */
-    public static void handleTodo (ArrayList<Task> arrayList, String textPart,
+    public static void handleTodo(ArrayList<Task> arrayList, String textPart,
                                    String[] partsOfInput, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! Need to add a description for a todo activity\n " +
@@ -232,15 +234,16 @@ public class TaskHandling {
                 + "          ____________________________________\n");
     }
 
-    public static Task handleTodoFromFile (String description) {
+    public static Task handleTodoFromFile(String description) {
         Task todo = new ToDos(description);
         return todo;
     }
     /**
      * Handles the displaying of the list in order
+     *
      * @param arrayList the list of tasks
      */
-    public static void handleList (ArrayList<Task> arrayList) {
+    public static void handleList(ArrayList<Task> arrayList) {
         System.out.println("          ____________________________________\n          Here are the tasks in your list:");
         for (int i = 1; i < arrayList.size() + 1; i++) {
             System.out.println("          " + i + ". " + arrayList.get(i - 1).finalString());

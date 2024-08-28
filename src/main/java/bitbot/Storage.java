@@ -68,56 +68,55 @@ public class Storage {
 
                 // trims the trailing whitespace
                 switch (partsOfLineFromFile[0].trim()) {
-                    case "D":
-
-                        String descriptionOfDeadline = partsOfLineFromFile[2].trim();
-                        String deadlineBy = partsOfLineFromFile[3].trim();
+                case "D":
+                    String descriptionOfDeadline = partsOfLineFromFile[2].trim();
+                    String deadlineBy = partsOfLineFromFile[3].trim();
+                    try {
+                        LocalDateTime localDateTime = LocalDateTime.parse(deadlineBy, dateTimeFormatter);
+                        task = new Deadline(descriptionOfDeadline, localDateTime);
+                    } catch (DateTimeParseException e) {
                         try {
-                            LocalDateTime localDateTime = LocalDateTime.parse(deadlineBy, dateTimeFormatter);
-                            task = new Deadline(descriptionOfDeadline, localDateTime);
-                        } catch (DateTimeParseException e) {
+                            LocalDate localDate = LocalDate.parse(deadlineBy, dateFormatter);
+                            task = new Deadline(descriptionOfDeadline, localDate);
+                        } catch (DateTimeParseException err) {
                             try {
-                                LocalDate localDate = LocalDate.parse(deadlineBy, dateFormatter);
-                                task = new Deadline(descriptionOfDeadline, localDate);
-                            } catch (DateTimeParseException err) {
-                                try {
-                                    LocalTime localTime = LocalTime.parse(deadlineBy, timeFormatter);
-                                    task = new Deadline(descriptionOfDeadline, localTime);
-                                } catch (DateTimeParseException error) {
-                                    task = new Deadline(descriptionOfDeadline, deadlineBy);
-                                }
+                                LocalTime localTime = LocalTime.parse(deadlineBy, timeFormatter);
+                                task = new Deadline(descriptionOfDeadline, localTime);
+                            } catch (DateTimeParseException error) {
+                                task = new Deadline(descriptionOfDeadline, deadlineBy);
                             }
                         }
-                        break;
+                    }
+                    break;
 
-                    case "T":
-                        task = new ToDos(partsOfLineFromFile[2]);
-                        break;
+                case "T":
+                    task = new ToDos(partsOfLineFromFile[2]);
+                    break;
 
-                    case "E":
-                        String descriptionOfEvent = partsOfLineFromFile[2].trim();
-                        String eventFrom = partsOfLineFromFile[3].trim();
-                        String eventTo = partsOfLineFromFile[4].trim();
+                case "E":
+                    String descriptionOfEvent = partsOfLineFromFile[2].trim();
+                    String eventFrom = partsOfLineFromFile[3].trim();
+                    String eventTo = partsOfLineFromFile[4].trim();
+                    try {
+                        LocalDateTime localDateTime = LocalDateTime.parse(eventFrom, dateTimeFormatter);
+                        LocalDateTime localDateTime1 = LocalDateTime.parse(eventTo, dateTimeFormatter);
+                        task = new Events(descriptionOfEvent, localDateTime, localDateTime1);
+                    } catch (DateTimeParseException e) {
                         try {
-                            LocalDateTime localDateTime = LocalDateTime.parse(eventFrom, dateTimeFormatter);
-                            LocalDateTime localDateTime1 = LocalDateTime.parse(eventTo, dateTimeFormatter);
-                            task = new Events(descriptionOfEvent, localDateTime, localDateTime1);
-                        } catch (DateTimeParseException e) {
+                            LocalDate localDate = LocalDate.parse(eventFrom, dateFormatter);
+                            LocalDate localDate1 = LocalDate.parse(eventTo, dateFormatter);
+                            task = new Events(descriptionOfEvent, localDate, localDate1);
+                        } catch (DateTimeParseException err) {
                             try {
-                                LocalDate localDate = LocalDate.parse(eventFrom, dateFormatter);
-                                LocalDate localDate1 = LocalDate.parse(eventTo, dateFormatter);
-                                task = new Events(descriptionOfEvent, localDate, localDate1);
-                            } catch (DateTimeParseException err) {
-                                try {
-                                    LocalTime localTime = LocalTime.parse(eventFrom, timeFormatter);
-                                    LocalTime localTime1 = LocalTime.parse(eventTo, timeFormatter);
-                                    task = new Events(descriptionOfEvent, localTime, localTime1);
-                                } catch (DateTimeParseException error) {
-                                    task = new Events(descriptionOfEvent, eventFrom, eventTo);
-                                }
+                                LocalTime localTime = LocalTime.parse(eventFrom, timeFormatter);
+                                LocalTime localTime1 = LocalTime.parse(eventTo, timeFormatter);
+                                task = new Events(descriptionOfEvent, localTime, localTime1);
+                            } catch (DateTimeParseException error) {
+                                task = new Events(descriptionOfEvent, eventFrom, eventTo);
                             }
                         }
-                        break;
+                    }
+                    break;
                 }
 
                 if (partsOfLineFromFile[1].trim().equals("X")) {

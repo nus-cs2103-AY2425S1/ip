@@ -11,6 +11,7 @@ public class BitBot {
 
     /**
      * Checks if the string is a string or whether it is an integer wrapped in a string.
+     *
      * @param str the input string
      * @return true if it is a string and false if it is an integer wrapped in a string.
      */
@@ -103,34 +104,28 @@ public class BitBot {
                                 "          There are only " + arrayList.size() + " item(s) in your list so far.");
                         }
 
-                    }
-                    // this is to check if the keyword is "event".
-                    // if so, get the different parts accurately.
-                    else if (Objects.equals(keyWord, "event")) {
+
+                    } else if (Objects.equals(keyWord, "event")) {
+                        // this is to check if the keyword is "event".
+                        // if so, get the different parts accurately.
                         TaskHandling.handleEvent(arrayList, textPart, partsOfInput, indexFrom, from, to, sb, task);
-                    }
-                    // the same concept as above for the keyword "deadline"
-                    else if (Objects.equals(keyWord, "deadline")) {
+                    } else if (Objects.equals(keyWord, "deadline")) {
+                        // the same concept as above for the keyword "deadline"
                         TaskHandling.handleDeadline(arrayList, textPart, partsOfInput, indexBy, by, sb, task);
-                    }
-                    // the same concept as above for the keyword "todo"
-                    else if (Objects.equals(keyWord, "todo")) {
+                    } else if (Objects.equals(keyWord, "todo")) {
+                        // the same concept as above for the keyword "todo"
                         TaskHandling.handleTodo(arrayList, textPart, partsOfInput, sb, task);
-                    }
-                    // the same concept as above for the keyword "list"
-                    else if (Objects.equals(keyWord, "list")) {
+                    } else if (Objects.equals(keyWord, "list")) {
+                        // the same concept as above for the keyword "list"
                        TaskHandling.handleList(arrayList);
-                    }
-                    else if (Objects.equals(keyWord, "bye")) {
+                    } else if (Objects.equals(keyWord, "bye")) {
                         // once the user types in bye,
                         // add all the tasks in the list into BitBot.txt
                         // and then do nothing else.
                         Storage.saveTasksToFile(arrayList);
-
-                    }
-                    // if it does not fall in any of this keyword,
-                    // throw an error saying there is no such keyword.
-                    else {
+                    } else {
+                        // if it does not fall in any of this keyword,
+                        // throw an error saying there is no such keyword.
                         throw new BitBotException("OOPS!!! I do not know what this keyword is!\n" +
                             "          Please key in only one of these:\n          " +
                             "\n          " +
