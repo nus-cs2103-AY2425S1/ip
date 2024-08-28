@@ -136,6 +136,7 @@ public class Alex {
         if (description.isEmpty()) {
             System.out.println("You missed out the details of the deadline task. Try again");
         } else {
+            try {
                 String[] details = description.split("/", 2);
                 String task = details[0].trim();
                 String dueInter = details[1].substring(2).trim();
@@ -150,6 +151,10 @@ public class Alex {
                             + "\n Now you have " + list.size() + " tasks in the list.");
                     System.out.println(LINE);
                 }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date entered. Use this format: YYYY-MM-DD");
+                System.out.println(LINE);
+            }
         }
         saveTasksToFile();
         scan();
@@ -159,20 +164,25 @@ public class Alex {
         if (description.isEmpty()) {
             System.out.println("You missed out the details of the event task. Try again");
         } else {
-            String[] details = description.split("/", 3);
-            String task = details[0].trim();
-            String startInter = details[1].substring(4).trim();
-            LocalDate startDate = LocalDate.parse(startInter);
-            String endInter = details[2].substring(2).trim();
-            LocalDate endDate = LocalDate.parse(endInter);
-            if (task.isEmpty() || startInter.isEmpty() || endInter.isEmpty()) {
-                System.out.println("You missed out some details. Try again");
-            } else {
-                Event event = new Event(task, startDate, endDate);
-                list.add(event);
-                System.out.println(LINE);
-                System.out.println("Got it. I've added this task: \n" + event.toString()
-                        + "\n Now you have " + list.size() + " tasks in the list.");
+            try {
+                String[] details = description.split("/", 3);
+                String task = details[0].trim();
+                String startInter = details[1].substring(4).trim();
+                LocalDate startDate = LocalDate.parse(startInter);
+                String endInter = details[2].substring(2).trim();
+                LocalDate endDate = LocalDate.parse(endInter);
+                if (task.isEmpty() || startInter.isEmpty() || endInter.isEmpty()) {
+                    System.out.println("You missed out some details. Try again");
+                } else {
+                    Event event = new Event(task, startDate, endDate);
+                    list.add(event);
+                    System.out.println(LINE);
+                    System.out.println("Got it. I've added this task: \n" + event.toString()
+                            + "\n Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(LINE);
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date(s) entered. Use this format: YYYY-MM-DD");
                 System.out.println(LINE);
             }
         }
