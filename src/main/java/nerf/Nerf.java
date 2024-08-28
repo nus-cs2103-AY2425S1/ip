@@ -51,12 +51,12 @@ public class Nerf {
         String input;
         do {
             input = ui.getInput();
-            this.ui.printDivider();
+            Ui.printDivider();
             switch(input){
             case "bye" -> this.ui.exit();
             case "list" -> {
                 this.taskList.printList();
-                this.ui.printDivider();
+                Ui.printDivider();
             }
             default -> {
                 try {
@@ -72,17 +72,19 @@ public class Nerf {
                         this.taskList.addEvent(input);
                     } else if (input.startsWith("delete ")){
                         this.taskList.deleteTask(input);
+                    } else if (input.startsWith("find ")) {
+                        this.taskList.findTasks(input);
                     } else {
                         System.out.println("""
                                            Sorry, I dont understand what u are asking of me.
-                                           You may use list/bye or mark/unmark/todo/deadline/event/delete + required syntax
+                                           You may use list/bye or mark/unmark/todo/deadline/event/delete/find + required syntax
                                            """);
                     }
                     this.storage.save(this.taskList.getSaveable());
                 } catch (InvalidDataException e) {
                     System.out.println("Sorry, your input is seems to be missing some data.");
                 } finally{
-                    this.ui.printDivider();
+                    Ui.printDivider();
                 }
                 }
             }

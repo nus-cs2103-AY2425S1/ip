@@ -99,6 +99,26 @@ public class TaskList {
     }
 
     /**
+     * Filter and find task based on keyword.
+     * 
+     * @param input keyword to filter by.
+     */
+    public void findTasks(String input) {
+        String keyword = input.substring(4).trim();
+        List<Task> filteredList = new ArrayList<>();
+        for (Task i : this.listings) {
+            if (i.matchSearch(keyword)) {
+                filteredList.add(i);
+            }
+        }
+        
+        System.out.println("Here are the matching task(s) in your list:");
+        for (int i = 0; i < filteredList.size(); i++) {
+            System.out.println(String.format("%d. %s", i + 1, filteredList.get(i)));
+        }
+    }
+
+    /**
      * Add new task to list.
      * 
      * @param input Task object to be added.
