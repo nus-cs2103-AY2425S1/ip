@@ -208,7 +208,7 @@ public class Gutti {
     public static void createsDeadline(String input) throws GuttiException {
         String[] parts = input.split(" /by ");
         if (parts.length == 2) {
-            Task task = new Deadline(parts[0], parts[1],false);
+            Task task = new Deadline(parts[0].trim(), parts[1].trim(),false);
             taskAdder(task);
         } else {
             throw new GuttiException("Invalid format. Use: deadline <task description> /by <date/time>");
@@ -226,7 +226,7 @@ public class Gutti {
     public static void createsEvent(String input) throws GuttiException{
         String[] parts = input.split(" /from | /to ");
         if (parts.length == 3) {
-            Task task = new Event(parts[0], parts[1], parts[2],false);
+            Task task = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim(),false);
             taskAdder(task);
         } else {
             throw new GuttiException("Invalid format. Use: event <task description> /from <start time> /to <end time>");

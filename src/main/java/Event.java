@@ -1,3 +1,9 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * The {@code Event} class represents a task that spans a specific period of time, starting and ending at particular dates/times.
  * <p>
@@ -6,9 +12,15 @@
  */
 public class Event extends Task {
     /** The start date/time of the event. */
-    protected String from;
+    protected LocalDateTime  from;
     /** The end date/time of the event. */
-    protected String to;
+    protected LocalDateTime  to;
+
+    private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("MMM dd yyyy h.mma")
+    );
 
     /**
      * Constructs a new {@code Event} task with the specified description, start date/time, and end date/time.
@@ -20,8 +32,20 @@ public class Event extends Task {
 
     public Event(String description, String from, String to,boolean isDone) {
         super(description,isDone);
-        this.from = from;
-        this.to = to;
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) {
+        for (DateTimeFormatter formatter : FORMATTERS) {
+            try {
+                return LocalDateTime.parse(dateTime, formatter);
+            } catch (DateTimeParseException e) {
+                // Continue trying other formats
+            }
+        }
+        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm or dd/MM/yyyy HHmm format.");
+        return null; // Return null if no format matched
     }
 
     /**
@@ -35,6 +59,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " + (from != null ? from.format(formatter) : "Invalid date") + " to: " + (to != null ? to.format(formatter) : "Invalid date") + ")";
     }
 }
