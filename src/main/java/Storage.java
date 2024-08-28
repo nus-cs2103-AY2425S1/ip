@@ -49,23 +49,37 @@ public class Storage {
         if (typeOfTask == 'T') {
             String command = "todo" + fields[2];
             Task.decideTask(command, taskList);
-            if (fields[1].equals(" 1")) {
+            if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
+                System.out.println("marked!");
             }
         } else if (typeOfTask == 'D') {
             String command = "deadline" + fields[2] + "/by" + fields[3];
             Task.decideTask(command, taskList);
-            if (fields[1].equals(" 1")) {
+            if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
             }
         } else if (typeOfTask == 'E') {
             String command = "event" + fields[2] + "/from" + fields[3] + " /to" + fields[4];
             Task.decideTask(command, taskList);
-            if (fields[1].equals(" 1")) {
+            System.out.println(fields[1]);
+            System.out.println(fields[1].length());
+            if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
             }
         }
     }
 
+    public void saveData(TaskList taskList) {
+        Path dataPath = java.nio.file.Paths.get(this.workingDir, this.filePath);
+        try (FileWriter databaseWriter = new FileWriter(dataPath.toString(), false)) {
+            for (int i = 0; i < taskList.getLength(); i++) {
+                databaseWriter.write(taskList.get(i).transferToDatabaseString());
+                databaseWriter.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
