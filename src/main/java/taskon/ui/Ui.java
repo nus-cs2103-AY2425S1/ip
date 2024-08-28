@@ -1,14 +1,20 @@
 package taskon.ui;
 
-import taskon.task.Task;
-import taskon.task.TaskList;
+import static taskon.common.Messages.MESSAGE_GREETING;
+import static taskon.common.Messages.MESSAGE_EXIT;
+import static taskon.common.Messages.MESSAGE_MARK;
+import static taskon.common.Messages.MESSAGE_UNMARK;
+import static taskon.common.Messages.MESSAGE_NO_TASKS;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import static taskon.common.Messages.*;
+import taskon.task.Task;
+import taskon.task.TaskList;
+
+
 
 
 public class Ui {
@@ -59,7 +65,7 @@ public class Ui {
         out.println("Here's what we've got on your to-do list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.getTask(i);
-            System.out.println(i+1 + "." + t.toString());
+            System.out.println(i + 1 + "." + t.toString());
         }
     }
 

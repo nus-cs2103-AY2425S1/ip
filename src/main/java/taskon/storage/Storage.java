@@ -1,12 +1,5 @@
 package taskon.storage;
 
-import taskon.exception.TaskonException;
-import taskon.task.Deadline;
-import taskon.task.Event;
-import taskon.task.Task;
-import taskon.task.TaskList;
-import taskon.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,10 +10,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import taskon.exception.TaskonException;
+import taskon.task.Deadline;
+import taskon.task.Event;
+import taskon.task.Task;
+import taskon.task.TaskList;
+import taskon.task.Todo;
+
 public class Storage {
     private static final String FILE_PATH = "./data/taskon.txt";
-    public final Path path;
     public static final String SEPARATOR = "|";
+    public final Path path;
 
     public Storage(String filePath) {
         path = Paths.get(filePath);
@@ -104,16 +104,16 @@ public class Storage {
     }
 
     private static String taskToFileString(Task task) {
-        String taskStatus = task.isDone ? "1" : "0";
+        String taskStatus = task.getIsDone() ? "1" : "0";
 
         String taskDescription = "";
         if (task instanceof Todo) {
-            taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.description;
+            taskDescription = "T" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription();
         } else if (task instanceof Deadline) {
-            taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.description
+            taskDescription = "D" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription()
                     + SEPARATOR + ((Deadline) task).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else {
-            taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.description
+            taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + task.getDescription()
                     + SEPARATOR + ((Event) task).getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
                     + SEPARATOR + ((Event) task).getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
