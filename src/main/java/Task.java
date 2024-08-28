@@ -70,39 +70,49 @@ public abstract class Task {
      * @return the created Task object.
      */
     public static Task parse(String[] details) {
+        if (details.length < 3) {
+            throw new IllegalArgumentException("Invalid task format in file. Expected at least 3 parts.");
+        }
+
         String type = details[0];
         boolean isDone = details[1].equals("1");
         String description = details[2];
 
-        Task task = null;
+        Task task;
 
         switch (type) {
         case "T":
+            if (details.length != 3) {
+                throw new IllegalArgumentException("Invalid ToDo task format. Expected exactly 3 parts.");
+            }
             task = new ToDo(description);
             break;
         case "D":
-            if (details.length < 4) {
-                return null;
+            if (details.length != 4) {
+                throw new IllegalArgumentException("Invalid Deadline task format. Expected exactly 4 parts.");
             }
             LocalDateTime by = LocalDateTime.parse(details[3], formatter);
             task = new Deadline(description, by);
             break;
         case "E":
-            if (details.length < 5) {
-                return null;
+            if (details.length != 5) {
+                throw new IllegalArgumentException("Invalid Event task format. Expected exactly 5 parts.");
             }
             LocalDateTime from = LocalDateTime.parse(details[3], formatter);
             LocalDateTime to = LocalDateTime.parse(details[4], formatter);
             task = new Event(description, from, to);
             break;
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + type);
         }
 
-        if (task != null && isDone) {
+        if (isDone) {
             task.markAsDone();
         }
 
         return task;
     }
+
 
     /**
      * Returns a string representation of a task when saving to file.

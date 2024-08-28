@@ -34,7 +34,7 @@ public class Deadline extends Task{
         if (input.equalsIgnoreCase("deadline")) {
             throw new InputException("To add a Deadline task, use the following format: deadline <task description> /by <DD/MM/YYYY HHmm>");
         }
-        String[] details = input.substring(9).split(" /by ");
+        String[] details = input.split(" /by ");
         if (details.length == 2) {
             String description = details[0].trim();
             LocalDateTime by = parseDateTime(details[1].trim());

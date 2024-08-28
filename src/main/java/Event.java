@@ -40,7 +40,7 @@ public class Event extends Task {
         if (input.equalsIgnoreCase("event")) {
             throw new InputException("To add an Event, use: event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>");
         }
-        String[] details = input.substring(6).split(" /from | /to ");
+        String[] details = input.split(" /from | /to ");
         if (details.length == 3) {
             String description = details[0].trim();
             LocalDateTime from = parseDateTime(details[1].trim());
