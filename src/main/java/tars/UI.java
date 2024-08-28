@@ -1,6 +1,7 @@
 package tars;
 
 import java.util.Scanner;
+import java.util.List;
 
 public class UI {
     private final Scanner scanner;
@@ -79,6 +80,25 @@ public class UI {
         printResponse("Noted. I've removed this task:\n" + taskDescription + "\n" + "Now you have "
                 + size + " tasks in the list\n");
     }
+
+    /**
+     * Prints the tasks that match the search keyword. If no tasks match, a message indicating
+     * that no matching tasks were found is printed instead.
+     *
+     * @param foundTasks The list of tasks that match the search keyword.
+     */
+    public void printFoundTasks(List<Task> foundTasks) {
+        if (foundTasks.isEmpty()) {
+            printResponse("No matching tasks found.");
+        } else {
+            StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                response.append(i + 1).append(". ").append(foundTasks.get(i)).append("\n");
+            }
+            printResponse(response.toString().trim());
+        }
+    }
+
 
     /**
      * Prints a welcome message when the application starts.

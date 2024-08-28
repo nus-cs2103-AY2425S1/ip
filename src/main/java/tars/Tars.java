@@ -1,5 +1,7 @@
 package tars;
 
+import java.util.List;
+
 public class Tars {
     private final TaskList tasks;
     private final UI ui;
@@ -75,6 +77,10 @@ public class Tars {
                         int removeIndex = Integer.parseInt(arguments.trim()) - 1;
                         tasks.removeTask(removeIndex);
                         ui.printResponse("Noted. I've removed this task.");
+                        break;
+                    case "find":
+                        List<Task> foundTasks = tasks.findTasks(arguments.trim());
+                        ui.printFoundTasks(foundTasks);
                         break;
                     default:
                         ui.printResponse("I'm sorry, I can't quite help you with that.");

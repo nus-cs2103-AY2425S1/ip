@@ -63,7 +63,7 @@ public class TaskList {
         try {
             storage.saveTasks(this.tasks);
         } catch (TarsException e) {
-            throw new TarsException("Error saving tasks: " + e.getMessage(), e);
+            throw new TarsException("Error saving tasks: " + e.getMessage());
         }
     }
 
@@ -113,6 +113,24 @@ public class TaskList {
         }
         return result.toString().trim();
     }
+
+    /**
+     * Finds all tasks in the task list that contain the specified keyword in their description.
+     * The search is case-insensitive.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A list of tasks that contain the keyword in their descriptions.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
 
     public int getSize() {
         return tasks.size();
