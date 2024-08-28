@@ -1,5 +1,6 @@
 package TaskType;
 
+import Bot.DateConverter;
 import Bot.Duke;
 
 import java.util.Objects;
@@ -21,7 +22,7 @@ public class TaskBuilder {
         if (Objects.equals(by, "")) {
             System.out.println("by cannot be empty");
         }
-        this.by = by;
+        this.by = DateConverter.convertDate(by);
         return this;
     }
 
@@ -29,7 +30,7 @@ public class TaskBuilder {
         if (Objects.equals(from, "")) {
             System.out.println("from cannot be empty");
         }
-        this.from = from;
+        this.from = DateConverter.convertDate(from);
         return this;
     }
 
@@ -37,7 +38,7 @@ public class TaskBuilder {
         if (Objects.equals(to, "")) {
             System.out.println("to cannot be empty");
         }
-        this.to = to;
+        this.to = DateConverter.convertDate(to);
         return this;
     }
 
