@@ -12,9 +12,285 @@ import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 public class Chatterbox {
-    final static String HISTFILE = Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
-    final static String BOTNAME = "Chatterbox";
-    final static String LINESEPERATOR = "____________________________________________________________";
+
+
+
+    public static class ChatterBoxError extends Exception {
+        public ChatterBoxError (String message) {
+            super(message);
+        }
+    }
+    public static class ChatterBoxNoInput extends ChatterBoxError {
+        public ChatterBoxNoInput (String message) {
+            super(message);
+        }
+    }
+
+    public static class ChatterBoxUnknownCommand extends ChatterBoxError {
+        public ChatterBoxUnknownCommand (String message) {
+            super(message);
+        }
+    }
+
+    public static class ChatterBoxMissingParameter extends ChatterBoxError {
+        public ChatterBoxMissingParameter(String para) {
+            super("Missing parameter: " + para);
+        }
+    }
+    public static void checkMessage(String msg) throws ChatterBoxUnknownCommand{
+        throw new ChatterBoxUnknownCommand("Error: Unknown command");
+    }
+
+
+
+    /**
+     * Class UI used to handle the printing and formatting of text in the UI
+     */
+
+    protected static class TaskList {
+        private final ArrayList<Task> userTasks;
+
+        public TaskList(ArrayList <Task> userTasks) {
+            this.userTasks = userTasks;
+        }
+
+        /**
+         * used to retrieve the users task list
+         * @return an ArrayList<Task>
+         */
+        public ArrayList<Task> getTasks() {
+            return userTasks;
+        }
+
+        /**
+         * Marks task at index to be complete
+         * @param index of task to be marked complete
+         * @return returns the task that was marked
+         */
+        public Task markTask(int index) {
+            userTasks.get(index).setStatus(true);
+            return userTasks.get(index);
+        }
+
+        /**
+         * Marks task at index to be not complete
+         * @param index to be mark incomplete
+         * @return the task that was unmarked
+         */
+        public Task unmarkTask(int index) {
+            userTasks.get(index).setStatus(false);
+            return userTasks.get(index);
+        }
+
+        public Todo addTodo(String desc) throws ChatterBoxNoInput{
+            Todo nextTodo = new Todo(desc);
+            userTasks.add(nextTodo);
+            return nextTodo;
+        }
+
+        /**
+         * Gets the task at index
+         * @param index
+         * @return Task at index
+         */
+        public Task getTask(int index) {
+            return userTasks.get(index);
+        }
+
+        /**
+         * returns the description of a task
+         * @param index
+         * @return
+         */
+        public String getTaskDescription(int index) {
+            return userTasks.get(index).getDescription();
+        }
+
+        /**
+         * Get size of task list
+         * @return size of task list
+         */
+        public int size() {
+            return userTasks.size();
+        }
+
+
+    }
+    protected static class UI {
+        private final static String LINE_SEPARATOR = "____________________________________________________________";
+        private final static String BOTNAME = "Chatterbox";
+
+
+        private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+        public UI() {
+
+        }
+
+        /**
+         * greeting() used to display the default greeting when running the bot
+         * @return string format of default greeting
+         */
+        public void greeting() {
+            System.out.println(String.format("""
+____________________________________________________________
+ Hello! I'm %s
+ What can I do for you?""", Chatterbox.BOTNAME));
+        }
+
+        /**
+         * Displays the default goodbye message
+         *
+         */
+        public void goodBye() {
+            System.out.println("""
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+""");
+        }
+
+
+
+        /** Returns the default line separator used
+         *
+         * @return a line separator
+         */
+        protected static String getLineseperator() {
+            return UI.LINE_SEPARATOR;
+        }
+
+        /**
+         * Takes in the current List of Task objects and prints them in list format
+         * @param userList is a List of Tasks
+         *
+         */
+        protected void displayList(ArrayList <Task> userList) {
+            System.out.println(UI.getLineseperator());
+            System.out.println("Current Tasks in List: ");
+            for (int i = 0; i < userList.size(); i++) {
+                System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", userList.get(i).getTaskSymbol(), userList.get(i).getStatus() ? "X" : " ", userList.get(i).getDescription()));
+            }
+
+        }
+
+        protected void displayTaskDescription(Task task) {
+            System.out.println(task.getDescription());
+        }
+
+        /**
+         * Displays the text for marking task as done
+         * @param task marked done
+         */
+        protected void markMsg(Task task) {
+            System.out.println(UI.getLineseperator());
+            System.out.println("Marked Task as done");
+            System.out.println(task.getDescription());
+        }
+
+        /**
+         * Displays text for unmarking a task
+         * @param task marked as undone
+         */
+        protected void unmarkMsg(Task task) {
+            System.out.println(UI.getLineseperator());
+            System.out.println("Marked Task as undone");
+            System.out.println(task.getDescription());
+        }
+
+        protected void addTaskMsg(String type, int size) {
+            System.out.println(UI.getLineseperator());
+            System.out.println(String.format("Added %s to Tasks", type));
+            System.out.println(String.format("Currently %d Tasks in List", size));
+        }
+
+
+    }
+
+    /**
+     * Handles the storage of Task history
+     */
+    private static class Storage {
+        private String HISTFILE = Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
+
+
+        public Storage() {
+
+        }
+
+        /**
+         * Initializes with path to txt file containing commands
+         * @param filePath path to a file with command inputs
+         */
+        public Storage(String filePath) {
+            this.HISTFILE = filePath;
+        }
+
+
+        public ArrayList<Task> load() throws FileNotFoundException{
+            File f = new File(this.HISTFILE);
+            Scanner s = new Scanner(f);
+            ArrayList <Task> loadedTasks = new ArrayList<>();
+            while (s.hasNext()) {
+                String nextLine = s.nextLine();
+                //parse the Line for task
+                char type = nextLine.charAt(0);
+                
+
+
+            }
+        }
+
+
+        /**
+         * Used to check for directory used to store data and create if not present,
+         * @param None
+         */
+        private static void checkDirectory() {
+
+            try {
+                Files.createDirectories(Paths.get(System.getProperty("user.dir"), "data"));
+            } catch (IOException e) {
+                System.out.println("Error creating data directory: " + e.getMessage());
+            }
+        }
+
+        /** Saves the tasks to a file based on the userList, creates a new directory data
+         *
+         * @param userList contains a list of Task objects
+         */
+        private  void saveHistory(ArrayList<Task> userList) {
+
+
+
+            checkDirectory();
+
+            File file = new File(HISTFILE);
+            try {
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                FileWriter writer = new FileWriter(file);
+
+                StringBuilder history = new StringBuilder();
+                for (int i = 0; i < userList.size(); i++) {
+
+                    Task currentTask = userList.get(i);
+//                System.out.println(currentTask.getDescription());
+                    String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(), currentTask.getStatus()? "X" : " ", currentTask.getDescription());
+                    history.append(taskStr);
+                    history.append(System.lineSeparator());
+                }
+                writer.write(history.toString());
+                writer.close();
+
+            } catch (IOException e) {
+                System.out.println("Error has occurred " + e.getMessage());
+
+            }
+        }
+
+    }
+
 
     private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter SLASHFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -24,6 +300,7 @@ public class Chatterbox {
     private static final DateTimeFormatter[] DATE_TIME_FORMATTERS = new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER};
     private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS = new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE};
     private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+
 
 
     private static LocalDateTime parseDateTime(String dateTimeString) {
@@ -57,97 +334,81 @@ public class Chatterbox {
         return null;
     }
 
-    public enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+    public static class Parser {
+        public enum VALID_COMMAND {
+            BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+        }
 
-        public static Command parseCommand(String text) {
+
+        public VALID_COMMAND parseCommand(String text) {
 
 
             if (text.startsWith("bye")) {
-                return BYE;
+                return VALID_COMMAND.BYE;
             } else if (text.startsWith("list")) {
-                return LIST;
+                return VALID_COMMAND.LIST;
             } else if (text.startsWith("mark")) {
-                return MARK;
+                return VALID_COMMAND.MARK;
             } else if (text.startsWith("unmark")) {
-                return UNMARK;
+                return VALID_COMMAND.UNMARK;
             } else if (text.startsWith("todo")) {
-                return TODO;
+                return VALID_COMMAND.TODO;
             } else if (text.startsWith("deadline")) {
-                return DEADLINE;
+                return VALID_COMMAND.DEADLINE;
             } else if (text.startsWith("event")) {
-                return EVENT;
+                return VALID_COMMAND.EVENT;
             } else if (text.startsWith("delete")) {
-                return DELETE;
+                return VALID_COMMAND.DELETE;
             } else {
-                return INVALID;
+                return VALID_COMMAND.INVALID;
             }
 
         }
-    }
 
-    public static class ChatterBoxError extends Exception {
-        public ChatterBoxError (String message) {
-            super(message);
-        }
-    }
-    public static class ChatterBoxNoInput extends ChatterBoxError {
-        public ChatterBoxNoInput (String message) {
-            super(message);
-        }
-    }
-
-    public static class ChatterBoxUnknownCommand extends ChatterBoxError {
-        public ChatterBoxUnknownCommand (String message) {
-            super(message);
-        }
-    }
-
-    public static class ChatterBoxMissingParameter extends ChatterBoxError {
-        public ChatterBoxMissingParameter(String para) {
-            super("Missing parameter: " + para);
-        }
-    }
-    public static void checkMessage(String msg) throws ChatterBoxUnknownCommand{
-        throw new ChatterBoxUnknownCommand("Error: Unknown command");
-    }
-
-
-    public static String greeting() {
-        return String.format("""
-____________________________________________________________
- Hello! I'm %s
- What can I do for you?""", Chatterbox.BOTNAME);
-    }
-
-    public static String goodBye() {
-        return """
-____________________________________________________________
- Bye. Hope to see you again soon!
-____________________________________________________________
-""";
-    }
-
-
-    //used to get the index number for mark and unmark
-    private static int extractNum(String input) {
-        int length = input.length();
-        StringBuilder numberBuild = new StringBuilder();
-        for (int i = length - 1; i >= 0; i--) {
-            char currentChar = input.charAt(i);
-            if (Character.isDigit(currentChar)) {
-                numberBuild.insert(0, currentChar);
-            } else {
-                break;
+        /**
+         * Extracts the index for mark and unmark
+         * @param input of format mark/unmark {int}
+         * @return the int in the input string
+         */
+        public int extractNum(String input) {
+            int length = input.length();
+            StringBuilder numberBuild = new StringBuilder();
+            for (int i = length - 1; i >= 0; i--) {
+                char currentChar = input.charAt(i);
+                if (Character.isDigit(currentChar)) {
+                    numberBuild.insert(0, currentChar);
+                } else {
+                    break;
+                }
             }
+            return Integer.parseInt(numberBuild.toString());
         }
-        return Integer.parseInt(numberBuild.toString());
+
+        /**
+         * Used to parse a string for the description of a task
+         * @param desc of format todo {text}
+         * @return the text description
+         */
+        protected String parseTODO(String desc) {
+            return desc.substring(4).trim();
+        }
+
+
     }
 
 
 
 
-    private static class Task {
+
+
+
+
+
+
+
+
+
+    private abstract static class Task {
         private Boolean status;
         private String desc;
 
@@ -178,14 +439,12 @@ ____________________________________________________________
         }
     }
 
-    protected static String parseTODO(String desc) {
-        return desc.substring(4).trim();
-    }
+
     private static class Todo extends Task {
 
 
         public Todo(String desc) throws ChatterBoxNoInput{
-            super(parseTODO(desc));
+            super(desc);
 
         }
 
@@ -247,7 +506,7 @@ ____________________________________________________________
         @Override
         public String getDescription() {
             if (this.dueDateObj != null) {
-                return super.getDescription() + String.format("( by %s) ", this.dueDateObj.format(PRINTDATEFORMATTER));
+                return super.getDescription() + String.format("( by %s ) ", this.dueDateObj.format(PRINTDATEFORMATTER));
             }
             return super.getDescription() + String.format(" ( %s )", this.dueDate);
         }
@@ -341,104 +600,48 @@ ____________________________________________________________
         }
     }
 
-    /**
-     * Used to check for directory used to store data and create if not present,
-     * @param None
-     */
-    private static void checkDirectory() {
-
-        try {
-            Files.createDirectories(Paths.get(System.getProperty("user.dir"), "data"));
-        } catch (IOException e) {
-            System.out.println("Error creating data directory: " + e.getMessage());
-        }
-    }
-
-    /** Saves the tasks to a file based on the userList, creates a new directory data
-     *
-     * @param userList contains a list of Task objects
-     */
-    private static void saveHistory(ArrayList<Task> userList) {
-
-
-
-        checkDirectory();
-
-        File file = new File(HISTFILE);
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter writer = new FileWriter(file);
-
-            StringBuilder history = new StringBuilder();
-            for (int i = 0; i < userList.size(); i++) {
-
-                Task currentTask = userList.get(i);
-//                System.out.println(currentTask.getDescription());
-                String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(), currentTask.getStatus()? "X" : " ", currentTask.getDescription());
-                history.append(taskStr);
-                history.append(System.lineSeparator());
-            }
-            writer.write(history.toString());
-            writer.close();
-
-        } catch (IOException e) {
-            System.out.println("Error has occurred " + e.getMessage());
-
-        }
-    }
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
+
+        UI ui = new Chatterbox.UI();
+        Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
-        System.out.println(greeting());
-        ArrayList<Task> userList = new ArrayList<Task>();
-        int current  = 0;
+        ui.greeting();
+        TaskList tasks = new TaskList(new ArrayList<Task>());
+
         try {
             while (true) {
                 String response = scanner.nextLine();
-                Command command = Command.parseCommand(response);
+                Parser.VALID_COMMAND command = parser.parseCommand(response);
                 int index;
                 switch (command){
 
                     case BYE: return;
 
                     case LIST:
-                        System.out.println(Chatterbox.LINESEPERATOR);
-                        System.out.println("Current Tasks in List: ");
-                        for (int i = 0; i < userList.size(); i++) {
-                            System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", userList.get(i).getTaskSymbol(), userList.get(i).getStatus() ? "X" : " ", userList.get(i).getDescription()));
-                        }
+                        ui.displayList(tasks.getTasks());
                         break;
 
                     case MARK:
                         response = response.trim();
-                        index = Chatterbox.extractNum(response) - 1; // -1 as the display  start from 1
-                        userList.get(index).setStatus(true);
-                        System.out.println(Chatterbox.LINESEPERATOR);
-                        System.out.println("Marked task as done");
-                        System.out.println(String.format("[X] %s", userList.get(index).getDescription()));
+                        index = parser.extractNum(response) - 1; // -1 as the display  start from 1
+                        ui.markMsg(tasks.markTask(index));
+
                         break;
 
                     case UNMARK:
                         response = response.trim();
-                        index = Chatterbox.extractNum(response) - 1; // -1 as the display  start from 1
-                        userList.get(index).setStatus(false);
-                        System.out.println(Chatterbox.LINESEPERATOR);
-                        System.out.println("Marked task as undone");
-                        System.out.println(String.format("[ ] %s", userList.get(index).getDescription()));
+                        index = parser.extractNum(response) - 1; // -1 as the display  start from 1
+                        ui.unmarkMsg(tasks.unmarkTask(index));
+
                         break;
 
                     case TODO:
-                        userList.add(new Todo(response));
-                        current++;
-                        System.out.println(Chatterbox.LINESEPERATOR);
-                        System.out.println("Added Task to Todo");
-                        System.out.println(String.format("Currently %d tasks in list", userList.size()));
+
+
+
+                        tasks.addTodo(parser.parseTODO(response.trim()));
+                        ui.addTaskMsg("Todo", tasks.size());
+
                         break;
 
                     case DEADLINE:
@@ -479,7 +682,7 @@ ____________________________________________________________
                         break;
                     case DELETE:
                         response = response.trim();
-                        int delIndex = Chatterbox.extractNum(response) - 1;
+                        int delIndex = parser.extractNum(response) - 1;
                         System.out.println(LINESEPERATOR);
                         System.out.println("Removing Task: ");
                         System.out.println(userList.get(delIndex).toString());
@@ -497,7 +700,7 @@ ____________________________________________________________
         } catch (ChatterBoxError e){
             System.out.println(e.getMessage());
         } finally {
-            System.out.println(goodBye());		
+            ui.goodBye();
             scanner.close();
         }
 
