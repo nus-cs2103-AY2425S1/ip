@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class WenJigglyBot {
     private TaskList tasks;
     private final Ui ui;
-    private Parser parser;
 
     public WenJigglyBot() {
         tasks = new TaskList();
@@ -143,7 +142,7 @@ public class WenJigglyBot {
 
     private void addTask(Task task) {
         tasks.addTask(task);
-        saveTasksToFile();
+        Storage.saveTasksToFile(tasks);
         ui.showLine();
         ui.showAddedTask(task);
         ui.showTaskCount(tasks);
@@ -151,31 +150,4 @@ public class WenJigglyBot {
     }
 
 
-    private String tasksToString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
-        }
-        return sb.toString();
-    }
-
-    private void saveTasksToFile() {
-        String tasksString = tasksToString();
-        // Create a File object for the directory
-        File directory = new File("./data");
-
-        // If the directory doesn't exist, create it
-        if (!directory.exists()) {
-            boolean mkdirs = directory.mkdirs();// This will create the directory and any necessary but nonexistent parent directories
-            if (!mkdirs) {
-                System.out.println("Failed to make directory!");
-            }
-        }
-        try (FileWriter writer = new FileWriter("./data/data.txt")) {
-            writer.write(tasksString);
-            System.out.println("Tasks saved to " + "data.txt");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
-        }
-    }
 }

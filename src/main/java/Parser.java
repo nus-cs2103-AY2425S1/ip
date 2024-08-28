@@ -30,6 +30,7 @@ public class Parser {
         return parts;
     }
 
+
     public static Command parseCommand(String command) throws InvalidCommandException {
         for (Command cmd : Command.values()) {
             if (command.startsWith(cmd.name().toLowerCase())) {
