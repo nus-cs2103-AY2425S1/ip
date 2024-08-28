@@ -1,4 +1,4 @@
-package demurebot;
+package demurebot.task;
 
 public class Todo extends Task {
 

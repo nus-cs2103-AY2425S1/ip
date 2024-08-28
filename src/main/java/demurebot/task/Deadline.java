@@ -1,4 +1,4 @@
-package demurebot;
+package demurebot.task;
 
 public class Deadline extends Task {
 

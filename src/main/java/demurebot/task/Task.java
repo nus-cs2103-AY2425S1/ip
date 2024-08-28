@@ -1,4 +1,4 @@
-package demurebot;
+package demurebot.task;
 
 abstract public class Task {
     protected String description;

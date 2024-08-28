@@ -1,4 +1,7 @@
-package demurebot;
+package demurebot.storage;
+
+import demurebot.DemureBotException;
+import demurebot.task.*;
 
 import java.io.File;
 import java.io.FileWriter;

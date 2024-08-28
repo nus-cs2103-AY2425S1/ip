@@ -1,4 +1,4 @@
-package demurebot;
+package demurebot.task;
 
 import java.util.ArrayList;
 

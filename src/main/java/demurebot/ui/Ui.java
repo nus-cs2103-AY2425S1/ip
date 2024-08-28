@@ -1,4 +1,6 @@
-package demurebot;
+package demurebot.ui;
+
+import demurebot.task.Task;
 
 public class Ui {
     public void displayEnd() {

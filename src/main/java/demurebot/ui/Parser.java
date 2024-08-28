@@ -1,4 +1,7 @@
-package demurebot;
+package demurebot.ui;
+
+import demurebot.DemureBotException;
+import demurebot.task.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
