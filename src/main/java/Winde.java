@@ -4,27 +4,41 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Winde {
     public static void main(String[] args) {
-        /* String logo =
-                  " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
 
-         */
-        // System.out.println("Hello from\n" + "Winde");
+        System.out.println("__        __              _");
+        System.out.println("\\ \\      / /(_) _ __   __| | ___ ");
+        System.out.println(" \\ \\ /\\ / / | || '_  \\/ _` |/ _ \\ ");
+        System.out.println("  \\ V  V /  | || | | || (_ || __/ ");
+        System.out.println("   \\_/\\_/   |_||_| |_|\\__,_|\\___| ");
+
         greet();
         loadTasks();
+        run();
+        exit();
+    }
 
+
+    private final static List<Task> reminder = new ArrayList<Task>();
+    private final static Hashtable<LocalDate, ArrayList<Task>> calendar = new Hashtable<LocalDate, ArrayList<Task>>();
+    private static final String WINDE_FILE = "./src/main/java/WindeTasks.txt";
+
+    enum Commands {
+        TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, UNKNOWN
+    }
+
+    private static void run() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!(input.equals("bye"))) {
@@ -50,6 +64,9 @@ public class Winde {
                     case EVENT -> {
                         handleEventCommand(input);
                     }
+                    case DATE -> {
+                        tasksOnDate(input);
+                    }
                     default -> {
                         throw new UnsupportedCommandException("TYPE /HELP FOR HELP STOOPIDD");
                     }
@@ -63,15 +80,27 @@ public class Winde {
             }
             input = scanner.nextLine();
         }
-        exit();
     }
 
-
-    private final static List<Task> reminder = new ArrayList<Task>();
-    private static final String WINDE_FILE = "./src/main/java/WindeTasks.txt";
-
-    enum Commands {
-        TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, UNKNOWN
+    public static void tasksOnDate (String input) throws EmptyDescriptionException, TooManyParametersException {
+        String[] command = input.split(" ");
+        if (command.length == 2) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate date = LocalDate.parse(command[1], formatter);
+            System.out.println("These are the tasks you have for " + date.toString());
+            ArrayList<Task> taskList = calendar.get(date);
+            if (taskList != null) {
+                for (Task task : taskList) {
+                    System.out.println(task.toString());
+                }
+            } else {
+                System.out.println("Hurray! No tasks on: " + date.toString());
+            }
+        } else if (command.length < 2) {
+            throw new EmptyDescriptionException("I NEED TO KNOW THE DATE!");
+        } else {
+            throw new TooManyParametersException("ONE AT A TIME!");
+        }
     }
 
     private static void loadTasks() {
@@ -95,11 +124,33 @@ public class Winde {
                         task = new Todos(instr[2], (complete.equals(instr[1]) ? true : false));
                     } else if (line.startsWith("D")) {
                         String[] instr = line.split(" \\| ");
-                        task = new Deadline(instr[2], (complete.equals(instr[1]) ? true : false), instr[3]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                        LocalDateTime deadline = LocalDateTime.parse(instr[3], formatter);
+                        task = new Deadline(instr[2], (complete.equals(instr[1]) ? true : false), deadline);
+                        ArrayList<Task> taskList;
+                        if (calendar.containsKey(deadline.toLocalDate())) {
+                            taskList = calendar.get(deadline.toLocalDate());
+                        } else {
+                            taskList = new ArrayList<Task>();
+                        }
+                        taskList.add(task);
+                        calendar.put(deadline.toLocalDate(), taskList);
                     } else {
                         String[] instr = line.split(" \\| ");
-                        String[] when = instr[3].split("-");
-                        task = new Event(instr[2], (complete.equals(instr[1]) ? true : false), when[0], when[1]);
+                        String[] when = instr[3].split(" - ");
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                        LocalDateTime start = LocalDateTime.parse(when[0], dateFormatter);
+                        LocalDateTime end = LocalDateTime.parse(when[1], dateFormatter);
+                        task = new Event(instr[2], (complete.equals(instr[1]) ? true : false), start, end);
+                        ArrayList<Task> taskList;
+                        if (calendar.containsKey(start.toLocalDate())) {
+                            taskList = calendar.get(start.toLocalDate());
+                        } else {
+                            taskList = new ArrayList<Task>();
+                        }
+                        taskList.add(task);
+                        calendar.put(start.toLocalDate(), taskList);
                     }
                     reminder.add(task);
                     line = br.readLine();
@@ -139,6 +190,8 @@ public class Winde {
             return Commands.MARK;
         } else if (input.startsWith("unmark")) {
             return Commands.UNMARK;
+        } else if (input.startsWith("date")) {
+            return Commands.DATE;
         } else {
             return Commands.UNKNOWN;
         }
@@ -150,6 +203,11 @@ public class Winde {
             Task deleted = reminder.remove(Integer.parseInt(command[1]) - 1);
             System.out.print("Noted. I've removed this task:\n" + "    " + deleted.toString() + "\n");
             System.out.println("Now you have " + reminder.size() + " tasks in the list.");
+            if (deleted.getClass() != Todos.class) {
+                ArrayList<Task> taskList = calendar.get(deleted.getDate());
+                taskList.remove(deleted);
+                calendar.put(deleted.getDate(), taskList);
+            }
         } else if (command.length < 2) {
             throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M DELETING!");
         } else {
@@ -163,11 +221,23 @@ public class Winde {
             String[] order = command[1].split(" /from ");
             if (order.length == 2) {
                 String[] fillerName = order[1].split(" /to ");
-                Event e = new Event(order[0], fillerName[0], fillerName[1]);
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                LocalDateTime start = LocalDateTime.parse(fillerName[0], dateFormatter);
+                LocalDateTime end = LocalDateTime.parse(fillerName[1], dateFormatter);
+                Event e = new Event(order[0], start, end);
                 reminder.add(e);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("    " + e.toString());
                 System.out.println("Now you have " + reminder.size() + " tasks in the list.");
+                ArrayList<Task> taskList;
+                if (calendar.containsKey(start.toLocalDate())) {
+                    taskList = calendar.get(start.toLocalDate());
+                } else {
+                    taskList = new ArrayList<Task>();
+                }
+                taskList.add(e);
+                calendar.put(start.toLocalDate(), taskList);
             } else {
                 throw new EmptyDescriptionException("WHEN EVENT DATE!");
             }
@@ -180,11 +250,21 @@ public class Winde {
         if (command.length == 2) {
             String[] order = command[1].split(" /by ");
             if (order.length == 2) {
-                Deadline d = new Deadline(order[0], order[1]);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                LocalDateTime deadline = LocalDateTime.parse(order[1], formatter);
+                Deadline d = new Deadline(order[0], deadline);
                 reminder.add(d);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("    " + d.toString());
                 System.out.println("Now you have " + reminder.size() + " tasks in the list.");
+                ArrayList<Task> taskList;
+                if (calendar.containsKey(deadline.toLocalDate())) {
+                    taskList = calendar.get(deadline.toLocalDate());
+                } else {
+                    taskList = new ArrayList<Task>();
+                }
+                taskList.add(d);
+                calendar.put(deadline.toLocalDate(), taskList);
             } else {
                 throw new EmptyDescriptionException("WHEN DEADLINE END!");
             }
@@ -304,6 +384,10 @@ class Task {
         complete = false;
     }
 
+    public LocalDate getDate() {
+        return LocalDate.now();
+    }
+
     @Override
     public String toString() {
         return (complete ? "X" : "O") + " | " + action;
@@ -328,43 +412,57 @@ class Todos extends Task {
 
 class Deadline extends Task {
 
-    protected String date;
+    protected LocalDateTime date;
 
-    public Deadline(String action, String date) {
+    public Deadline(String action, LocalDateTime date) {
         super(action);
         this.date = date;
     }
 
-    public Deadline(String action, boolean complete, String date) {
+    public Deadline(String action, boolean complete, LocalDateTime date) {
         super(action, complete);
         this.date = date;
     }
 
     @Override
+    public LocalDate getDate() {
+        return this.date.toLocalDate();
+    }
+
+    @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return "D | " + super.toString() + " | " + date.format(formatter);
     }
 }
 
 class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
-    public Event(String action, String start, String end) {
+    public Event(String action, LocalDateTime start, LocalDateTime end) {
         super(action);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String action, boolean complete, String start, String end) {
+    public Event(String action, boolean complete, LocalDateTime start, LocalDateTime end) {
         super(action, complete);
         this.start = start;
         this.end = end;
     }
 
     @Override
+    public LocalDate getDate() {
+        return this.start.toLocalDate();
+    }
+
+    @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + start + "-" + end;
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        return "E | " + super.toString() + " | " + start.format(dateFormatter)
+                + " - " + end.format(dateFormatter);
     }
 }
