@@ -1,7 +1,14 @@
+package commands;
+
 import java.io.IOException;
 
+import exceptions.InvalidTaskException;
+import data.TaskList;
+import data.Storage;
+import ui.Ui;
+
 public class EditCommand implements Command {
-    enum Instruction {
+    public enum Instruction {
         MARK,
         UNMARK
     }

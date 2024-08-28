@@ -1,4 +1,10 @@
+package commands;
+
 import java.io.IOException;
+
+import data.TaskList;
+import data.Storage;
+import ui.Ui;
 
 public class ExitCommand implements Command {
     @Override
