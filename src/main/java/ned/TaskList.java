@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import ned.exceptions.NedException;
 import ned.tasks.Task;
+
 public class TaskList {
     private ArrayList<Task> listOfTasks;
 
     /**
      * Constructs a TaskList instance with an instance of an Arraylist
+     *
      * @param listOfTasks ArrayList parameterized with Task class
      */
     public TaskList(ArrayList<Task> listOfTasks) {
@@ -16,7 +18,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param index
      * @param uiInstance
      * @throws NedException
@@ -42,7 +43,8 @@ public class TaskList {
                     "size");
         }
     }
-    public void addTask(Task newTask, Ui uiInstance){
+
+    public void addTask(Task newTask, Ui uiInstance) {
         this.listOfTasks.add(newTask);
         uiInstance.print("Aye, I've added this task m'lord:");
         uiInstance.print(Ui.INDENTATIONS + newTask);
@@ -56,13 +58,14 @@ public class TaskList {
         }
     }
 
-    public void markTaskAsDone(int index, Ui uiInstance) throws NedException{
+    public void markTaskAsDone(int index, Ui uiInstance) throws NedException {
         Task selectedTask = getTask(index);
         selectedTask.markAsDone();
         uiInstance.print("Good work. One down, more to go!");
         uiInstance.print(selectedTask.toString());
     }
-    public void markTaskAsUndone(int index, Ui uiInstance) throws NedException{
+
+    public void markTaskAsUndone(int index, Ui uiInstance) throws NedException {
         Task selectedTask = getTask(index);
         selectedTask.markAsNotDone();
         uiInstance.print("Oh no. One back up, more to go!");
@@ -73,7 +76,7 @@ public class TaskList {
         return this.listOfTasks.size();
     }
 
-    public String getTaskTextForm(int index) throws NedException{
+    public String getTaskTextForm(int index) throws NedException {
         return getTask(index).toTextForm();
     }
 

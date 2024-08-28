@@ -7,14 +7,18 @@ import ned.exceptions.NedException;
 
 public class UnmarkCommand implements Command {
     private final String REGEX = "^unmark.*";
-    public UnmarkCommand() {}
+
+    public UnmarkCommand() {
+    }
+
     /**
      * Unmarks a task in the list of tasks, making it not done
-     * @param taskList An object which contains the ArrayList that stores the list of tasks. In addition, also
-     *                 handles modifications and reading from the ArrayList
-     * @param uiInstance An object which handles output that is displayed to users and input from users
+     *
+     * @param taskList        An object which contains the ArrayList that stores the list of tasks. In addition, also
+     *                        handles modifications and reading from the ArrayList
+     * @param uiInstance      An object which handles output that is displayed to users and input from users
      * @param storageInstance An object which handles loading in and modifications to the cached list of tasks
-     * @param userInput A string which represents input from users into Ned
+     * @param userInput       A string which represents input from users into Ned
      * @throws NedException Thrown if the index is not a number or a valid index
      */
     @Override
@@ -39,6 +43,7 @@ public class UnmarkCommand implements Command {
     /**
      * Returns the regex expression used to identify the mark command
      * Used in Parser class to find the associated command
+     *
      * @return The regex pattern associated with this command
      */
     @Override

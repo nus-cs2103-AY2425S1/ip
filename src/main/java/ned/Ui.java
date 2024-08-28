@@ -33,6 +33,7 @@ public class Ui {
 
     /**
      * Adds 1 tab of indentation and prints out provided input lines.
+     *
      * @param line - String to be printed with 1 tab indentation.
      */
     public void print(String line) {
@@ -67,6 +68,7 @@ public class Ui {
     /**
      * Displays an overview of all the available commands and the parameters needed to execute each command, when
      * users use a command wrongly
+     *
      * @return An overview of all commands as a string.
      */
     public String getCommandMessage() {
@@ -75,6 +77,7 @@ public class Ui {
 
     /**
      * Uses the associated scanner instance to read the next line.
+     *
      * @return The next line as a string.
      */
     public String readCommand() {
