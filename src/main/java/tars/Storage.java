@@ -13,10 +13,26 @@ import java.time.format.DateTimeParseException;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object that manages tasks stored at the specified file path.
+     *
+     * @param filePath the file path where tasks will be loaded from and saved to.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * <p>Reads the file line by line, parses each line into a task object,
+     * and adds it to the list. Supports three types of tasks: Todo, Deadline,
+     * and Event. If the file does not exist, an empty list is returned.
+     *
+     * @return a list of tasks loaded from the file.
+     * @throws TarsException if the file contains corrupt data, invalid date formats,
+     *         or if there is an error reading the file.
+     */
     public List<Task> loadTasks() throws TarsException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -67,6 +83,15 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the file specified by the file path.
+     *
+     * <p>Each task is converted to a string in a specific format and written
+     * to the file. If the file's directory does not exist, it will be created.
+     *
+     * @param tasks the list of tasks to save to the file.
+     * @throws TarsException if there is an error writing to the file.
+     */
     public void saveTasks(List<Task> tasks) throws TarsException {
         File file = new File(filePath);
         File directory = file.getParentFile();
@@ -88,6 +113,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a Task object into a formatted string for saving to a file.
+     *
+     * @param task the task to convert to a string.
+     * @return a string representation of the task in the save file format.
+     */
     private String taskToFileString(Task task) {
         String type = "";
         String additionalInfo = "";

@@ -4,6 +4,12 @@ public class Tars {
     private final TaskList tasks;
     private final UI ui;
 
+    /**
+     * Constructs a Tars object, initializing the user interface and loading tasks from storage.
+     *
+     * <p>The constructor attempts to load tasks from the specified file. If an error occurs
+     * during loading, an empty task list is created, and an error message is displayed.
+     */
     public Tars() {
         ui = new UI();
         Storage storage = new Storage("./data/tars.txt");
@@ -17,6 +23,9 @@ public class Tars {
         tasks = loadedTasks;
     }
 
+    /**
+     * Starts the main loop of the Tars application, which listens for and processes user commands.
+     */
     public void run() {
         ui.printWelcome();
         boolean isRunning = true;
