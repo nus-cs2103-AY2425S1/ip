@@ -80,4 +80,12 @@ public class ShrimpException extends Exception {
             super(errorMessage, errorCode);
         };
     }
+
+    public static class InvalidDateTimeException extends ShrimpException {
+        private static final String errorCode = "ERR006";
+        private static final String errorMessage = "Oh nyoo~ The datetime format you inserted is wrong (DD/MM/YYYY)... ";
+        public InvalidDateTimeException() {
+            super(errorMessage, errorCode);
+        };
+    }
 }
