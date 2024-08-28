@@ -1,8 +1,8 @@
 package evan.main;
 
 import evan.command.Command;
-import evan.exception.EvanException;
 import evan.exception.InvalidUserInputException;
+import evan.exception.LoadingException;
 import evan.exception.NoSuchTaskException;
 
 public class Evan {
@@ -19,8 +19,9 @@ public class Evan {
 
         try {
             taskList = new TaskList(storage.load());
-        } catch (EvanException e) {
-            ui.showError("An error occurred while loading the tasks from '" + filePath + "'.");
+        } catch (LoadingException e) {
+            ui.showLine();
+            ui.showError(e.getMessage());
             taskList = new TaskList();
         }
 
