@@ -1,22 +1,39 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static TaskList taskList = TaskList.init();
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+    private TaskList taskList;
+    private Ui ui;
+    private Parser parser;
 
-        Reply.printGreeting();
-
-        handleUserInput();
-
-        Reply.printGoodbye();
-
+    public Duke() {
+        ui = new Ui();
+        taskList = TaskList.init(ui);
+        parser = new Parser(taskList, ui);
     }
 
+    public void run() {
+        ui.printGreeting();
+        while (true) {
+            try {
+                String fullCommand = ui.readCommand();
+                if (parser.parse(fullCommand)) {
+                    break;
+                }
+            } catch (InvalidInputException | MissingTaskNameException |
+                     MissingDateException | TaskNotFoundException |
+                     InvalidDateException e) {
+                ui.printMessage(e.toString());
+            }
+        }
+        ui.close();
+        ui.printGoodbye();
+    }
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.run();
+    }
+
+    /*
     public static void handleUserInput() {
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -57,103 +74,6 @@ public class Duke {
         }
         scanner.close();
     }
-
-    /**
-     * mark or mark specific task
-     *
-     * @param message input of user
-     * @param mark boolean to mark or unmark task
-     */
-    public static void handleMarkTask(String message, boolean mark) throws InvalidInputException,
-            TaskNotFoundException {
-        String[] split = message.split(" ");
-        if (split.length > 2) {
-           throw new InvalidInputException();
-        }
-        try {
-            if (mark) {
-                taskList.markTask(Integer.parseInt(split[1]));
-            } else {
-                taskList.unmarkTask(Integer.parseInt(split[1]));
-            }
-        } catch (NumberFormatException e ) {
-            Reply.printMessage("Invalid number");
-        } catch (IndexOutOfBoundsException e) {
-            Reply.printMessage("Index number does not exist");
-        }
-    }
-
-    /**
-     * add todo
-     *
-     * @param message input of user
-     */
-    public static void handleAddTodo(String message) throws MissingTaskNameException {
-        String taskName = message.replace("todo", "").trim();
-        if (taskName.isEmpty()) {
-            throw new MissingTaskNameException("todo");
-        }
-        taskList.addTask(new Todo(taskName));
-    }
-
-    /**
-     * add deadline
-     *
-     * @param message input of user
-     */
-    public static void handleAddDeadline(String message) throws MissingDateException,
-            MissingTaskNameException, InvalidDateException {
-
-        String[] parts = message.split(" /by ");
-        String taskName = parts[0].replace("deadline", "").trim();
-        if (taskName.isEmpty()) {
-            throw new MissingTaskNameException("deadline");
-        }
-        if (parts.length != 2) {
-            throw new MissingDateException("deadline");
-        }
-            String by = parts[1].trim();
-            taskList.addTask(new Deadline(taskName, by));
-
-    }
-
-    /**
-     * add event to list of Tasks
-     *
-     * @param message input of user
-     */
-    public static void handleAddEvent(String message) throws MissingDateException,
-            MissingTaskNameException, InvalidDateException {
-        String[] parts = message.split(" /from | /to ");
-        String taskName = parts[0].replace("event", "").trim();
-        if (taskName.isEmpty()) {
-            throw new MissingTaskNameException("deadline");
-        }
-        if (parts.length != 3) {
-            throw new MissingDateException("event");
-        }
-        String from = parts[1].trim();
-        String to = parts[2].trim();
-        taskList.addTask(new Event(taskName, from, to));
-    }
-
-    /**
-     * delete specific event to list of Tasks
-     *
-     * @param message input of user
-     */
-    public static void handleDeleteTask(String message) throws InvalidInputException, TaskNotFoundException {
-        String[] split = message.split(" ");
-        if (split.length > 2) {
-            throw new InvalidInputException();
-        }
-        try {
-            taskList.deleteTask(Integer.parseInt(split[1]));
-        } catch (NumberFormatException e ) {
-            Reply.printMessage("Invalid number");
-        } catch (IndexOutOfBoundsException e) {
-            Reply.printMessage("Index number does not exist");
-        }
-    }
+*/
 }
 

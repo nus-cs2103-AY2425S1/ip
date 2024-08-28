@@ -56,7 +56,7 @@ public class TaskDataBase {
      * @param tasks a list of Task.
      * @throws IOException when error reading from file
      */
-    public static void save(List<Task> tasks) {
+    public static void save(List<Task> tasks, Ui ui) {
         File file = new File("data/tasklist.txt");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -68,7 +68,7 @@ public class TaskDataBase {
 
             writer.close();
         } catch (IOException e) {
-            Reply.printMessage("Oops! There is a issue with file database.");
+            ui.printMessage("Oops! There is a issue with file database.");
         }
     }
 

@@ -8,20 +8,22 @@ import java.util.List;
 public class TaskList {
     private static TaskList tasks;
     private List<Task> listOfTasks;
+    private Ui ui;
 
-    private TaskList() {
+    private TaskList(Ui ui) {
         try {
             listOfTasks = TaskDataBase.load();
+            this.ui = ui;
         } catch (IOException e) {
-            Reply.printMessage("Oops! There is a issue with file database.");
+            ui.printMessage("Oops! There is a issue with file database.");
         } catch (InvalidDateException e) {
-            Reply.printMessage(e.toString());
+            ui.printMessage(e.toString());
         }
     }
 
-    public static TaskList init() {
+    public static TaskList init(Ui ui) {
         if (tasks == null) {
-            tasks = new TaskList();
+            tasks = new TaskList(ui);
         }
         return tasks;
     }
@@ -33,8 +35,8 @@ public class TaskList {
      */
     public void addTask(Task task) {
         listOfTasks.add(task);
-        TaskDataBase.save(listOfTasks);
-        Reply.printMessage("Got it. I've added this task:" + "\n" +
+        TaskDataBase.save(listOfTasks, ui);
+        ui.printMessage("Got it. I've added this task:" + "\n" +
                 "  " + task.toString() + "\n" +
                 "Now you have "  + listOfTasks.size() + " tasks in the list.");
     }
@@ -48,8 +50,8 @@ public class TaskList {
         if (index > 0 && index <= listOfTasks.size()) {
             Task task = listOfTasks.get(index - 1);
             task.markAsDone();
-            TaskDataBase.save(listOfTasks);
-            Reply.printMessage("Nice! I've marked this task as done:\n" + "  " + task.toString());
+            TaskDataBase.save(listOfTasks, ui);
+            ui.printMessage("Nice! I've marked this task as done:\n" + "  " + task.toString());
         } else {
             throw new TaskNotFoundException();
         }
@@ -63,9 +65,9 @@ public class TaskList {
     public void unmarkTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
             Task task = listOfTasks.get(index - 1);
-            TaskDataBase.save(listOfTasks);
+            TaskDataBase.save(listOfTasks, ui);
             task.markAsNotDone();
-            Reply.printMessage("OK, I've marked this task as not done yet:\n" + "  " + task.toString());
+            ui.printMessage("OK, I've marked this task as not done yet:\n" + "  " + task.toString());
         } else {
             throw new TaskNotFoundException();
         }
@@ -74,8 +76,8 @@ public class TaskList {
     public void deleteTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
             Task removedTask = listOfTasks.remove(index - 1);
-            TaskDataBase.save(listOfTasks);
-            Reply.printMessage("Noted. I've removed this task:" + "\n" + "  "
+            TaskDataBase.save(listOfTasks, ui);
+            ui.printMessage("Noted. I've removed this task:" + "\n" + "  "
                     + removedTask + "\n" + "Now you have "
                     + listOfTasks.size() + " tasks in the list." );
         } else {
