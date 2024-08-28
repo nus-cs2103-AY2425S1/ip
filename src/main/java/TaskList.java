@@ -20,10 +20,16 @@ public class TaskList {
         list.remove(index);
     }
 
-    public void print() {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d. %s\n", (i + 1), list.get(i).toStringDetails());
-        }
+    public void markTask(int index) {
+        list.get(index).markAsDone();
+    }
+
+    public void unmarkTask(int index) {
+        list.get(index).unmarkAsDone();
+    }
+
+    public Task getTask(int index) {
+        return list.get(index);
     }
 
     public String toFileFormat() {
@@ -33,4 +39,13 @@ public class TaskList {
         }
         return text;
     }
+
+    public String toUiFormat() {
+        String string = "";
+        for (int i = 0; i < list.size(); i++) {
+            string += String.format("%d. %s\n", (i + 1), list.get(i).toStringDetails());
+        }
+        return string;
+    }
+
 }

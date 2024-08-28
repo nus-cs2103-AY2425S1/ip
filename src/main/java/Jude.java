@@ -23,44 +23,53 @@ import java.io.IOException;
  * @author Judy Park
  **/
 public class Jude {
+
+    String name = "Jude";
+    private TaskList tasks;
+    private Storage storage;
+    private Ui ui;
+
+    public Jude(String filePath) {
+        try {
+            this.tasks = new TaskList(storage.load());
+        } catch (JudeException je) {
+            ui.showError(je);
+            tasks = new TaskList();
+        }
+    }
+
     public static void main(String[] args) {
+        new Jude("data/jude.txt").run();
+    }
+
+    public void run() {
 
         // Initialize the variables
-        String name = "Jude";
-        List<Task> list = new ArrayList<>();
         BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
         Parser parser = new Parser();
-        String filePath = "data/jude.txt";
 
-        // Load from the save file
-        try {
-            loadFile(filePath, list);
-        } catch (JudeException je) {
-            System.out.println(je.getMessage());
-            je.printStackTrace();
-            return;
-        }
+        ui.startChat();
+        boolean isExit = false;
 
-        // Initiate the chat
-        System.out.println("Hello I'm " + name);
-        System.out.println("What can I do for you, poyo?");
-
-        while (true) {
+        while (!isExit) {
             String userInput;
 
             // Save the file
             try {
-                saveFile(filePath, createTaskListText(list));
+                storage.save(tasks);
             } catch (JudeException je) {
-                System.out.println(je);
+                ui.showError(je);
                 continue;
             }
 
             // Read an input from the user
             try {
-                userInput = bi.readLine();
-            } catch (IOException ie) {
-                System.out.println("IO operation was failed or interrupted. Please try again, poyo...");
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (JudeException je) {
+                ui.showError(je);
                 continue;
             }
 
@@ -178,6 +187,7 @@ public class Jude {
         // Terminate the chat
         System.out.println("Poyo. Hope to see you again soon!");
     }
+
 
     private static void printTaskList(List<Task> list) {
         for (int i = 0; i < list.size(); i++) {

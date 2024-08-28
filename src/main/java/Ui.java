@@ -14,6 +14,10 @@ public class Ui {
         e.printStackTrace();
     }
 
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
     public void startChat() {
         // Initiate the chat
         System.out.println("Hello I'm Jude");
