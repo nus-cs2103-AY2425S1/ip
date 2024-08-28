@@ -22,6 +22,10 @@ public class Ui {
         System.out.println("janet.txt not found! Creating janet.txt for you...");
     }
 
+    public void showSavingError() {
+        System.out.println("WHOOPS! Having problems with saving your tasks...");
+    }
+
     public void showSuccessfulTaskAddition(Task task, int numberOfTasks) {
         // when janet.TaskList.addTaskToList is called (addition of task into listOfTasks)
         // task = newly added janet.Task object
