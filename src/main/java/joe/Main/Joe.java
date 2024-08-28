@@ -1,6 +1,7 @@
 package joe.Main;
 
 import joe.exceptions.CorruptedFileException;
+import joe.tasks.Task;
 import joe.tasks.TaskList;
 
 import java.io.FileNotFoundException;
@@ -15,13 +16,20 @@ public class Joe {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = initializeTasks();
         } catch (FileNotFoundException | CorruptedFileException e) {
             ui.showLoadingError(e);
             tasks = new TaskList();
         }
     }
 
+    public TaskList initializeTasks() throws FileNotFoundException, CorruptedFileException {
+        return new TaskList(storage.load());
+    }
+
+    public TaskList getTasks() {
+        return tasks;
+    }
 
     public void run() {
         ui.runProgramme(tasks);
