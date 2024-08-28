@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * TaskParser is responsible for parsing tasks from strings in save file format
  * It provides static methods for parsing tasks.
@@ -64,8 +66,8 @@ public class TaskDecoder {
             throw new IllegalArgumentException("Invalid event task string: " + taskMetadata);
         }
         String description = parts[0];
-        String eventStartTime = parts[1];
-        String eventEndTime = parts[2];
+        LocalDate eventStartTime = LocalDate.parse(parts[1]);
+        LocalDate eventEndTime = LocalDate.parse(parts[2]);
         return new EventTask(description, eventStartTime, eventEndTime, isDone);
     }
 }

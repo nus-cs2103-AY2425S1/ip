@@ -1,35 +1,38 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that has a start and end time.
  */
 public class EventTask extends Task {
-    private String startTime;
-    private String endTime;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter SAVE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    /**
-     * Creates an event task with the specified description, start time and end time.
-     *
-     * @param description The description of the task.
-     * @param startTime The start time of the task.
-     * @param endTime The end time of the task.
-     */
-    public EventTask(String description, String startTime, String endTime) {
-        super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
 
     /**
      * Creates an event task with the specified description, start time, end time and done status.
-     *
      * @param description The description of the task.
-     * @param startTime The start time of the task.
-     * @param endTime The end time of the task.
+     * @param startDate The start time of the task.
+     * @param endDate The end time of the task.
      * @param isDone The done status of the task.
      */
-    public EventTask(String description, String startTime, String endTime, boolean isDone) {
+    public EventTask(String description, LocalDate startDate, LocalDate endDate, boolean isDone) {
         super(description, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
+     * Creates an event task with the specified description, start time, end time.
+     * @param description The description of the task.
+     * @param startDate The start time of the task.
+     * @param endDate The end time of the task.
+     */
+    public EventTask(String description, LocalDate startDate, LocalDate endDate) {
+        super(description);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -47,7 +50,8 @@ public class EventTask extends Task {
      * @return The timing label of the task.
      */
     private String getTimingLabel() {
-        return String.format("(from: %s to: %s)", this.startTime, this.endTime);
+        return String.format("(from: %s to: %s)", this.startDate.format(DATE_TIME_FORMATTER),
+            this.endDate.format(DATE_TIME_FORMATTER));
     }
 
     /**
@@ -67,6 +71,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toDataString() {
-        return String.format("%s|%s|%s|%s", this.getTypeLabel(), super.toDataString(), this.startTime, this.endTime);
+        return String.format("%s|%s|%s|%s", this.getTypeLabel(), super.toDataString(),
+            this.startDate.format(SAVE_DATE_TIME_FORMATTER), this.endDate.format(SAVE_DATE_TIME_FORMATTER));
     }
 }
