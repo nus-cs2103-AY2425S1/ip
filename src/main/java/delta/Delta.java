@@ -13,9 +13,11 @@ import delta.util.Ui;
  *      * todo [description]
  *      * deadline [description] /by [date/time]
  *      * event [description] /from [start] /to [end]
+ *      * find [description]
  *      * mark [index of task]
  *      * unmark [index of task]
  *      * delete [index of task]
+ *      * bye
  */
 public class Delta {
     private Storage storage;
@@ -61,6 +63,9 @@ public class Delta {
         }
     }
 
+    /**
+     * Serves as main entry point of Delta ChatBot.
+     */
     public static void main(String[] args) {
         new Delta("data/tasks.txt").run();
     }
