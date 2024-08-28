@@ -8,9 +8,23 @@ import ned.exceptions.NedException;
 public class DeleteCommand implements Command {
     private final String REGEX = "^delete.*";
 
-    public DeleteCommand() {
+    /**
+     * Returns an instance of the delete command
+     */
+    public DeleteCommand(){
     }
 
+    /**
+     * Executes the delete command, by checking first for whether the specified task exists, by searching for its
+     * index. It then removes the task and calls the Storage::save method
+     * @param taskList An object which contains the ArrayList that stores the list of tasks. In addition, also
+     *                 handles modifications and reading from the ArrayList
+     * @param uiInstance An object which handles output that is displayed to users and input from users
+     * @param storageInstance An object which handles loading in and modifications to the cached list of tasks
+     * @param userInput A string which represents input from users into Ned
+     * @throws NedException Thrown if the number specified in the delete command is not a valid number or if the
+     * number is not a valid index
+     */
     @Override
     public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
         String[] words = userInput.split(" ");

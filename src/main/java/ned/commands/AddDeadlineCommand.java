@@ -11,15 +11,20 @@ public class AddDeadlineCommand implements Command {
     private final String REGEX = "^deadline.*";
 
     /**
-     * Will carry out the adding of a new Deadline object with information parsed from the command to the taskList of
+     * This method carries out the adding of a new Deadline object with information parsed from the command to the
+     * taskList of
      * the Ned instance's tasklist
      * The NedException is thrown if the user does not specify a description for the task
      * and if there is no deadline specified in the command using /by
-     * @param taskList
-     * @param uiInstance
-     * @param storageInstance
-     * @param userInput
-     * @throws NedException
+     * @param taskList The TaskList instance associated with the Ned instance, used to store the list of tasks and
+     *                 to modify them
+     * @param uiInstance The Ui instance associated with the Ned instance, used to display user output, and take in
+     *                  user input
+     * @param storageInstance The storage instance associated with the Ned instance, used to load in saved tasks
+     *                        from the cache file as well as to modify the cache file when the list of tasks are changed
+     * @param userInput The string of user input, is parsed for relevant information needed to execute commands
+     * @throws NedException A generic exception associated with the Ned class. It is caught and its message shown
+     * to the user
      */
     public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
         String[] parsed_inputs = userInput.split("deadline|/by", 3);
@@ -36,8 +41,8 @@ public class AddDeadlineCommand implements Command {
 
     /**
      * Returns the regex expression used to identify the deadline command
-     *  Used in
-     * @return
+     * Used in Parser class to find the associated command
+     * @return The regex pattern associated with this command
      */
     @Override
     public String getRegex() {

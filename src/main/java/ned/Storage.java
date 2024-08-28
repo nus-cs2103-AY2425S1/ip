@@ -15,12 +15,22 @@ public class Storage {
     private File cacheFile;
 
     private String cacheFilePath;
-    public Storage(String filePath) throws NedException {
+
+    /**
+     * Constructs a storage instance which handles loading and saving to the cached list of tasks
+     * @param filePath The path of the cached list of tasks
+     */
+    public Storage(String filePath) {
             this.cacheFilePath = filePath;
             File f = new File(filePath);
             this.cacheFile = f;
     }
 
+    /**
+     * Loads in the cached list of tasks
+     * @return An ArrayList with parameterized type Task that can be used to instantiate a TaskList instance
+     * @throws NedException If the cached file does not exist
+     */
     public ArrayList<Task> load() throws NedException{
         //returns the arraylist which TaskList will save
         ArrayList<Task> newListOfTasks = new ArrayList<>();
@@ -36,6 +46,14 @@ public class Storage {
         }
         return newListOfTasks;
     };
+
+    /**
+     * Saves the list of tasks into the cached list of tasks
+     * @param listOfTasks The current TaskList instance to be cached
+     * @throws NedException If the cached file path cannot be written too. Usual reasons include protected folders or
+     * if the existing parent folders to the cached list of tasks does not exist, as this method does not create
+     * those directories
+     */
 
     public void save(TaskList listOfTasks) throws NedException{
         int sizeOfList = listOfTasks.getSize();

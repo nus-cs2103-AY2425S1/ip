@@ -7,10 +7,20 @@ import ned.tasks.Task;
 public class TaskList {
     private ArrayList<Task> listOfTasks;
 
+    /**
+     * Constructs a TaskList instance with an instance of an Arraylist
+     * @param listOfTasks ArrayList parameterized with Task class
+     */
     public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
     }
 
+    /**
+     *
+     * @param index
+     * @param uiInstance
+     * @throws NedException
+     */
     public void removeTask(int index, Ui uiInstance) throws NedException {
         try {
             Task selectedTask = getTask(index);
