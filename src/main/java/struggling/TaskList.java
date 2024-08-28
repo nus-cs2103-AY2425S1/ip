@@ -13,7 +13,7 @@ public class TaskList {
     ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<String> input) {
@@ -43,21 +43,18 @@ public class TaskList {
     }
 
     public Task deleteTask(int i) {
-        int index = i - 1;
-        Task t = this.tasks.remove(index);
+        Task t = this.tasks.remove(i);
         return t;
     }
 
     public Task markTask(int i) {
-        int index = i - 1;
-        Task t = this.tasks.get(index);
+        Task t = this.tasks.get(i);
         t.mark();
         return t;
     }
 
     public Task unmarkTask(int i) {
-        int index = i - 1;
-        Task t = this.tasks.get(index);
+        Task t = this.tasks.get(i);
         t.unmark();
         return t;
     }
