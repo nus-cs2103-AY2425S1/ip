@@ -26,7 +26,7 @@ public class ToDoTest {
      * Tests mark() and unmark() methods and checks for correct string returned + correct isDone value.
      */
     @Test
-    public void markUnmark_void_correctStatus() {
+    public void markUnmark_noParams_correctStatus() {
         ToDo toDo = new ToDo("A todo");
         toDo.mark();
         assertEquals("[T][X] A todo", toDo.toString());
