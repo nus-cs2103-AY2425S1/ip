@@ -5,7 +5,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Blitz{
-    public static void main(String[] args) {
+
+    ArrayList<Task> inputHistory;
+
+    public Blitz() {
+        inputHistory = new ArrayList<>();
+    }
+
+    public void start() {
         System.out.println("---------------\n" +
                 "Hello! I'm BLITZ \n" +
                 "What can I do for you?");
@@ -26,7 +33,7 @@ public class Blitz{
         }
     }
 
-    public static void actionBasedOnInput(ArrayList<Task> inputHistory, String userInput) {
+    public void actionBasedOnInput(ArrayList<Task> inputHistory, String userInput) {
         String strippedInput = userInput.toLowerCase().trim();
         if (strippedInput.isEmpty()) {
             return;
@@ -68,7 +75,7 @@ public class Blitz{
         }
     }
 
-    public static void changeTaskStatus(String action, Task task) {
+    public void changeTaskStatus(String action, Task task) {
         System.out.println("---------------");
         if (action.equals("mark")) {
             task.changeStatus(true);
@@ -82,11 +89,16 @@ public class Blitz{
         System.out.println("---------------");
     }
 
-    public static void displayList(ArrayList<Task> inputHistory) {
+    public void displayList(ArrayList<Task> inputHistory) {
         System.out.println("---------------");
         inputHistory.forEach(task -> System.out.println((inputHistory.indexOf(task) + 1) +
                 ". " +
                 task));
         System.out.println("---------------\n");
+    }
+
+    public static void main(String[] args) {
+        Blitz blitz_jr = new Blitz();
+        blitz_jr.start();
     }
 }
