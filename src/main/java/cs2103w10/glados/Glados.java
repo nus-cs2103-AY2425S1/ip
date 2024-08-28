@@ -37,7 +37,7 @@ public class Glados {
         // Run a loop indefinitely to execute commands until program exits through bye
         while(true) {
             String input = sc.nextLine().toLowerCase();
-            if (input.equals("bye")) {
+            if (Parser.parseCommand(input).equals("bye")) {
                 Ui.exit();
                 break;
             } else {
@@ -75,6 +75,10 @@ public class Glados {
                         String deleteArgs = Parser.parseArguments(input);
                         delete(Integer.valueOf(deleteArgs));
                         break;
+                    case "find":
+                        String findArgs = Parser.parseArguments(input);
+                        find(findArgs);
+                        break;
                     default:
                         throw new CommandNotFoundException();
                     
@@ -99,7 +103,7 @@ public class Glados {
 
     private void list() {
         ArrayList<Task> res = taskList.list();
-        Ui.list(res);
+        Ui.list(res, false);
     }
 
     private void mark(int index) throws TaskNotFoundException {
@@ -110,6 +114,11 @@ public class Glados {
     private void unmark(int index) throws TaskNotFoundException {
         String res = taskList.unmark(index);
         Ui.unmark(res);
+    }
+
+    private void find(String input) {
+        ArrayList<Task> res = taskList.find(input);
+        Ui.list(res, true);
     }
 
     /**

@@ -16,29 +16,29 @@ import cs2103w10.glados.utils.Storage;
 public class TaskList {
 
     /* ArrayList to keep track of all tasks */
-    private ArrayList<Task> taskList;  
-    /* Integer to keep track of taskList length */
+    private ArrayList<Task> tasks;  
+    /* Integer to keep track of tasks length */
     private int listIndex;
 
     /**
      * Constructs a new TaskList object.
      * Tasks are loaded depending on argument.
      * 
-     * @param areTasksLoaded Boolean denoting whether tasks should be loaded.
+     * @param shouldLoadTasks Boolean denoting whether tasks should be loaded.
      */
-    public TaskList(boolean areTasksLoaded) {
-        if (areTasksLoaded) {
-            this.taskList = Storage.loadTasks();
-            this.listIndex = this.taskList.size();
+    public TaskList(boolean shouldLoadTasks) {
+        if (shouldLoadTasks) {
+            this.tasks = Storage.loadTasks();
+            this.listIndex = this.tasks.size();
         } else {
-            this.taskList = new ArrayList<>();
+            this.tasks = new ArrayList<>();
             this.listIndex = 0;
         }
     }
 
     /**
-     * Adds a new task to the task list based on taskType.
-     * Saves taskList to data memory.
+     * Adds a new task to tasks based on taskType.
+     * Saves tasks to data memory.
      * 
      * @param taskType Type of task to be added.
      * @param input Arguments after add comand.
@@ -49,20 +49,20 @@ public class TaskList {
         switch (taskType) {
         case TODO:
             ParsedInfo parsedTodoInputs = Parser.parseTask(taskType, input);
-            taskList.add(new Todo(
+            tasks.add(new Todo(
                     parsedTodoInputs.getDescription()));
             break;
         case EVENT:
             ParsedInfo parsedEventInputs = Parser.parseTask(taskType, input);
             LocalDate[] eventDates = parsedEventInputs.getDates();
-            taskList.add(new Event(
+            tasks.add(new Event(
                     parsedEventInputs.getDescription(), 
                     eventDates[0], 
                     eventDates[1]));
             break;
         case DEADLINE:
             ParsedInfo parsedDeadlineInputs = Parser.parseTask(taskType, input);
-            taskList.add(new Deadline(
+            tasks.add(new Deadline(
                     parsedDeadlineInputs.getDescription(), 
                     parsedDeadlineInputs.getDates()[0]));
             break;
@@ -71,13 +71,13 @@ public class TaskList {
         }
         listIndex++;
 
-        Storage.saveTasks(taskList);
+        Storage.saveTasks(tasks);
 
-        return new String[]{taskList.get(listIndex - 1).toString(), String.valueOf(listIndex)};
+        return new String[]{tasks.get(listIndex - 1).toString(), String.valueOf(listIndex)};
     }
 
     /**
-     * Deletes task in taskList based on index.
+     * Deletes task in tasks based on index.
      * If index is non applicable, exception is thrown.
      * 
      * @param index Index of task to be deleted.
@@ -89,10 +89,10 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
 
-        Task task = taskList.remove(index - 1);
+        Task task = tasks.remove(index - 1);
         listIndex--;
 
-        Storage.saveTasks(taskList);
+        Storage.saveTasks(tasks);
 
         return new String[]{task.toString(), String.valueOf(listIndex)};
     }
@@ -101,13 +101,13 @@ public class TaskList {
      * Returns list of tasks.
      */
     public ArrayList<Task> list() {
-        return this.taskList;
+        return this.tasks;
     }
 
     /**
-     * Marks tasks as done based on index in taskList.
+     * Marks tasks as done based on index in tasks.
      * 
-     * @param index Index of task to be marked in taskList.
+     * @param index Index of task to be marked in tasks.
      * @return Task description.
      * @throws TaskNotFoundException If index is not in array.
      */
@@ -116,18 +116,18 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
 
-        Task task = taskList.get(index - 1);
+        Task task = tasks.get(index - 1);
         task.mark();
 
-        Storage.saveTasks(taskList);
+        Storage.saveTasks(tasks);
 
         return task.toString();
     }
 
     /**
-     * Unmarks tasks based on index in taskList.
+     * Unmarks tasks based on index in tasks.
      * 
-     * @param index Index of task to be unmarked in taskList.
+     * @param index Index of task to be unmarked in tasks.
      * @return Task description.
      * @throws TaskNotFoundException If index is not in array.
      */
@@ -136,11 +136,23 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
 
-        Task task = taskList.get(index - 1);
+        Task task = tasks.get(index - 1);
         task.unmark();
 
-        Storage.saveTasks(taskList);
+        Storage.saveTasks(tasks);
         
         return task.toString();
+    }
+
+    public ArrayList<Task> find(String input) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(input)) {
+                foundTasks.add(task);
+            }
+        }
+
+        return foundTasks;
     }
 }
