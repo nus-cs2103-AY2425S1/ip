@@ -68,5 +68,20 @@ public class Ui {
         tasks.get(index).unMarkTask();
         System.out.println(LINE);
     }
+
+    /**
+     * Returns the task that matches the keyword
+     */
+    public void showFindTask (TaskList tasks, String keyword) {
+        int count = 0;
+        System.out.println(LINE + "\n Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(keyword)) {
+                count++;
+                System.out.println(count + ". " + tasks.get(i).toString());
+            }
+        }
+        System.out.println(LINE);
+    }
 }
 

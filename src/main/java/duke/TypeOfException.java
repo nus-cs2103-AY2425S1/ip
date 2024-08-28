@@ -29,4 +29,8 @@ public class TypeOfException {
         throw new DukeException("incorrect format must be in yyyy-mm-dd hh:mm am/pm");
     }
 
+    public void findFormatError() throws DukeException {
+        throw new DukeException("incorrect format use 'find <keyword>'");
+    }
+
 }

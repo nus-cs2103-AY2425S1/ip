@@ -58,8 +58,9 @@ public class Nameless {
                     event(input);
                 } else if(input.matches("delete \\d+")) {
                     ui.showDeleteTask(tasks, Parser.splitGetNum(input));
-                }
-                else {
+                } else if (input.matches("find(?: .+)?")) {
+                    find(input);
+                } else {
                     exception.noIdea();
                 }
 
@@ -122,6 +123,14 @@ public class Nameless {
         } catch (DateTimeParseException e) {
             exception.timeFormatError();
         }
+    }
+
+    private void find(String input) throws DukeException {
+        String word = Parser.splitGetWords(input);
+        if (word.isEmpty()) {
+            exception.findFormatError();
+        }
+        ui.showFindTask(tasks, word);
     }
 
     public static void main(String[] args) throws DukeException {
