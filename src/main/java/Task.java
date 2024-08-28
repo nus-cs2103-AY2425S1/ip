@@ -26,4 +26,12 @@ public abstract class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public String getTaskType() {
+        return this.taskType;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
 }

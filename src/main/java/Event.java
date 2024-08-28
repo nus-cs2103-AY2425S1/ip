@@ -15,4 +15,12 @@ public class Event extends Task {
         String dueDate = String.format(" (from: %s to: %s)", this.start, this.end);
         return superString + dueDate;
     }
+
+    public String getStart() {
+        return this.start;
+    }
+
+    public String getEnd() {
+        return this.end;
+    }
 }

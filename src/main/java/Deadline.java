@@ -13,4 +13,8 @@ public class Deadline extends Task {
         String dueDate = String.format(" (by: %s)", this.deadline);
         return superString + dueDate;
     }
+
+    public String getDeadline() {
+        return this.deadline;
+    }
 }
