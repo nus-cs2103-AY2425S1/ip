@@ -35,7 +35,7 @@ public class DeadlineTest {
     public void createTask_validCommand_deadlineTaskCreated() throws OllieException {
         String command = "deadline Submit report /by: 2023-09-30 23:59";
         Deadline task = Deadline.createTask(command);
-        assertEquals("Submit report", task.description);
+        assertEquals("Submit report", task.getDescription());
         assertEquals(LocalDateTime.of(2023, 9, 30, 23, 59), task.getDeadline());
     }
 

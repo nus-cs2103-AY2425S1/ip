@@ -29,7 +29,7 @@ public class TodoTest {
     public void createTask_validCommand_todoTaskCreated() throws EmptyDescriptionException {
         String command = "todo Read book";
         Todo task = Todo.createTask(command);
-        assertEquals("Read book", task.description);
+        assertEquals("Read book", task.getDescription());
     }
 
     @Test

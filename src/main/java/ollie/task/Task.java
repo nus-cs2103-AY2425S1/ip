@@ -1,22 +1,23 @@
 package ollie.task;
 
 import ollie.exception.OllieException;
+
 import ollie.TaskType;
 
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a generic task with a description and completion status.
+ * The Task class represents a generic task with a description and completion status.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-    protected TaskType taskType;
-    private static final DateTimeFormatter inputDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private String description;
+    private boolean isDone;
+    private TaskType taskType;
+    private static final DateTimeFormatter INPUT_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
-     * Constructs a ollie.task.Task with the specified description and type.
+     * Constructs a Task with the specified description and type.
      *
      * @param description The description of the task.
      * @param taskType The type of the task.
@@ -37,6 +38,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns a boolean indicating if the task is done.
+     *
+     * @return true if the task is done, false otherwise.
+     */
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    /**
      * Returns the status icon of the task.
      *
      * @return "X" if the task is done, otherwise " ".
@@ -51,7 +61,7 @@ public abstract class Task {
      * @return inputDate the DateTimeFormatter instance with the pattern "yyyy-MM-dd HH:mm".
      */
     public static DateTimeFormatter getInputDate() {
-        return inputDate;
+        return INPUT_DATE;
     }
 
     /**
@@ -60,7 +70,7 @@ public abstract class Task {
      * @return formatDate the DateTimeFormatter instance with the pattern "MMM dd yyyy HH:mm".
      */
     public static DateTimeFormatter getFormatDate() {
-        return formatDate;
+        return FORMAT_DATE;
     }
 
     /**
@@ -88,6 +98,11 @@ public abstract class Task {
         return String.format("%s | %s | %s", taskType, getStatusIcon(), description);
     }
 
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + "[" + taskType + "] " + description;

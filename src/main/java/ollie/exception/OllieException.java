@@ -1,13 +1,15 @@
 package ollie.exception;
 
 /**
- * Represents a general exception in the ollie.Ollie chatbot.
+ * OllieException is an exception that is thrown when an error occurs.
  */
 public class OllieException extends Exception {
+
     /**
-     * Constructs an ollie.exception.OllieException with the specified detail message.
+     * Constructs an ollie.exception.OllieException
+     * The message can be specified to describe the error.
      *
-     * @param message the detail message
+     * @param message the message describing the error
      */
     public OllieException(String message) {
         super(message);
