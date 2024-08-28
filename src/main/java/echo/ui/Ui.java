@@ -62,7 +62,7 @@ public class Ui {
      */
     public void printMarkMessage(Task task) {
         System.out.println(LINE_BREAK);
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Meow-velous! I've marked this task as done:");
         System.out.println(task.toString());
         System.out.println(LINE_BREAK);
     }
@@ -74,7 +74,7 @@ public class Ui {
      */
     public void printUnmarkMessage(Task task) {
         System.out.println(LINE_BREAK);
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("Meow-nificent! I've marked this task as not done yet:");
         System.out.println(task.toString());
         System.out.println(LINE_BREAK);
     }
@@ -88,7 +88,7 @@ public class Ui {
     public void printAddTaskMessage(Task task, TaskList taskList) {
         int numOfTask = taskList.sizeOfTaskList();
         System.out.println(LINE_BREAK);
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it! I've added this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + numOfTask + " tasks in the list.");
         System.out.println(LINE_BREAK);
@@ -104,7 +104,7 @@ public class Ui {
     public void printDeleteMessage(Task task, TaskList taskList) {
         int numOfTask = taskList.sizeOfTaskList();
         System.out.println(LINE_BREAK);
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Got it!. I've removed this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + numOfTask + " tasks in the list.");
         System.out.println(LINE_BREAK);
@@ -148,7 +148,7 @@ public class Ui {
             break;
         case "IOException":
             System.out.println(LINE_BREAK);
-            System.out.println("Sorry! There has been and invalid input or output found.");
+            System.out.println("Sorry! There has been an invalid input or output found.");
             System.out.println(LINE_BREAK);
             break;
         case "EchoException":

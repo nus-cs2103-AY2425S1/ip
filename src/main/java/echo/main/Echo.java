@@ -126,7 +126,6 @@ public class Echo {
     public void handleDeleteCommand(String index) {
         Task deletedTask = taskList.getTaskAndDelete(index);
         ui.printDeleteMessage(deletedTask, taskList);
-
     }
 
     /**
