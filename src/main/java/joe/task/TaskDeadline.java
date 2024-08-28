@@ -1,4 +1,5 @@
 package joe.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +9,7 @@ public class TaskDeadline extends Task {
     public TaskDeadline(String task, String by) {
         super(task);
         this.by = LocalDate.parse(by);
-  }
+    }
 
     @Override
     public String toString() {

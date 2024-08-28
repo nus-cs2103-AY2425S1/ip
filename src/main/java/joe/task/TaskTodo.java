@@ -1,7 +1,7 @@
 package joe.task;
 
 public class TaskTodo extends Task {
-    public TaskTodo (String task) {
+    public TaskTodo(String task) {
         super(task);
     }
 
