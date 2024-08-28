@@ -6,5 +6,5 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return " [T] " + super.toString();
-    }
+    }//no need correct format as no date involved
 }
