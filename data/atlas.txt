@@ -1,2 +1,1 @@
-T | 0 | return book
-E | 1 | play football | Sunday 5pm-7pm
+D | 0 | return book | 2024-05-30 1700
