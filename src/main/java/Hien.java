@@ -43,6 +43,8 @@ public class Hien {
                     addDeadline(input);
                 } else if (input.startsWith("event")) {
                     addEvent(input);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input);
                 } else {
                     throw new HienException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -105,18 +107,37 @@ public class Hien {
             }
         }
     }
-
-    private void markTask(String input, boolean isDone) throws HienException {
-        String index = isDone ? input.substring(4).trim() : input.substring(6).trim();
+    private boolean isValidIndex(String index) throws HienException {
         if (index.isEmpty() || !index.matches("-?(0|[1-9]\\d*)")) {
-            throw new HienException("☹ OOPS!!! The index of the task to remove is either empty or not integer. Please try again!");
+            throw new HienException("☹ OOPS!!! The index of the task is either empty or not integer. Please try again!");
         }
         int i = Integer.parseInt(index);
         if (i < 1) {
             throw new HienException("☹ OOPS!!! Task index cannot be less than 1");
         } else if (i > tasks.size()) {
-            throw new HienException("☹ OOPS!!! Task index cannot be greater than current number of tasks");
+            throw new HienException("☹ OOPS!!! Task index cannot be greater than current number of tasks. You currently only have " + tasks.size() + " tasks.");
         } else {
+            return true;
+        }
+    }
+    private void deleteTask(String input) throws HienException {
+        String index = input.substring(6).trim();
+        if (isValidIndex(index)) {
+            int i = Integer.parseInt(index);
+            Task removedTask = tasks.get(i - 1);
+            tasks.remove(i - 1);
+            System.out.println(" Got it. I've deleted this task:");
+            System.out.println("   " + removedTask);
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        }
+    }
+
+
+    private void markTask(String input, boolean isDone) throws HienException {
+        String index = isDone ? input.substring(4).trim() : input.substring(6).trim();
+        boolean isValidIndex = isValidIndex(index);
+        if (isValidIndex) {
+            int i = Integer.parseInt(index);
             Task task = tasks.get(i - 1);
             if (isDone) {
                 task.markAsDone();
