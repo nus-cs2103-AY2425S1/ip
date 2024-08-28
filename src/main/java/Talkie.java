@@ -1,3 +1,10 @@
+import talkie.command.Command;
+import talkie.components.Parser;
+import talkie.components.Storage;
+import talkie.components.Ui;
+import talkie.exception.TalkieException;
+import talkie.task.TaskList;
+
 public class Talkie {
 
     private Ui ui;

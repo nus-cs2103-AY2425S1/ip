@@ -1,3 +1,5 @@
+package talkie.exception;
+
 public class TalkieUnknownCommandException extends TalkieException {
 
     protected String command;

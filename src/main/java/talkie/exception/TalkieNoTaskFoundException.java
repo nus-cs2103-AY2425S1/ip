@@ -1,3 +1,5 @@
+package talkie.exception;
+
 public class TalkieNoTaskFoundException extends TalkieException {
 
     @Override

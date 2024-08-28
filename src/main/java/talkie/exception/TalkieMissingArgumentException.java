@@ -1,3 +1,5 @@
+package talkie.exception;
+
 public class TalkieMissingArgumentException extends TalkieException {
 
     protected String command;

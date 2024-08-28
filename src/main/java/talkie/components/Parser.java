@@ -1,3 +1,5 @@
+package talkie.components;
+
 import talkie.command.*;
 import talkie.exception.TalkieUnknownCommandException;
 

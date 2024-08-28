@@ -1,3 +1,5 @@
+package talkie.components;
+
 import talkie.exception.TalkieException;
 import talkie.task.Task;
 import talkie.task.TaskList;

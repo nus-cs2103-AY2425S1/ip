@@ -1,3 +1,9 @@
+package talkie.command;
+
+import talkie.components.Storage;
+import talkie.components.Ui;
+import talkie.task.TaskList;
+
 import java.io.IOException;
 
 public class ByeCommand extends Command {

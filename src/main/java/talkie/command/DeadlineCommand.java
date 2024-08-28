@@ -1,3 +1,12 @@
+package talkie.command;
+
+import talkie.components.Storage;
+import talkie.components.Ui;
+import talkie.exception.TalkieMissingArgumentException;
+import talkie.task.Deadline;
+import talkie.task.Task;
+import talkie.task.TaskList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

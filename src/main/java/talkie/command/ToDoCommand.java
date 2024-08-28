@@ -1,6 +1,10 @@
-import talkie.command.Command;
+package talkie.command;
+
+import talkie.components.Storage;
+import talkie.components.Ui;
 import talkie.exception.TalkieMissingArgumentException;
 import talkie.task.Task;
+import talkie.task.TaskList;
 import talkie.task.ToDo;
 
 public class ToDoCommand extends Command {
