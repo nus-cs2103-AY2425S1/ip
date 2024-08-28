@@ -1,6 +1,8 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -74,28 +76,10 @@ public class GreetBot {
             }
             databaseReader.close();
 
-            /*
-            String filePath2 = "data/test.txt";
-            FileWriter testWriter = new FileWriter(filePath2, false);
-            testWriter.write("jdafnkj");
-            testWriter.close();
-            BufferedWriter bw = new BufferedWriter(testWriter);
-            bw.write("1234");
-            bw.write(System.lineSeparator());
 
-            File storage = new File(filePath);
-            //FileWriter writer = new FileWriter(filePath, false);
-            try {
-                Scanner fileScanner = new Scanner(storage);
-            } catch (FileNotFoundException e) {
-                storage.createNewFile();
-            }
-*/
             System.out.println("Hello! I'm GreetBot");
             System.out.println("What can I do for you?");
             Scanner scanner = new Scanner(System.in);
-
-
 
             while (scanner.hasNext()) {
 
@@ -133,6 +117,8 @@ public class GreetBot {
                         System.out.println(e.getMessage());
                     } catch (RandomInputException e) {
                         System.out.println(e.getMessage());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("すみません，Your date time format is invalid!!!");
                     }
                 }
                 FileWriter databaseWriter = new FileWriter(dataPath.toString(), false);
@@ -142,9 +128,9 @@ public class GreetBot {
                     if (typeOfTask == 'T') {
                         databaseWriter.write(String.format("%s | %d |%s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6)));
                     } else if (typeOfTask == 'D') {
-                        databaseWriter.write(String.format("%s | %d |%s |%s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6, currentTask.toString().indexOf("(")), currentTask.toString().substring(currentTask.toString().indexOf("(") + 4, currentTask.toString().indexOf(")"))));
+                        databaseWriter.write(String.format("%s | %d |%s | %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6, currentTask.toString().indexOf("(")), currentTask.getBy()));
                     } else {
-                        databaseWriter.write(String.format("%s | %d | %s | %s | %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.description, currentTask.getFrom(), currentTask.getTo()));
+                        databaseWriter.write(String.format("%s | %d | %s | %s| %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.description, currentTask.getFrom(), currentTask.getTo()));
 
                     }
                     databaseWriter.write(System.lineSeparator());

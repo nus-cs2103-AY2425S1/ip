@@ -1,11 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 abstract class Task {
     protected String description;
     protected boolean isDone;
-    abstract String getFrom();
+    abstract public String getFrom();
     abstract public String getTo();
-    abstract public String getBy();
+    abstract public LocalDate getBy();
 
     public static void decideTask(String currentCommand, ArrayList<Task> list) throws EmptyDescriptionException, RandomInputException {
 
@@ -83,15 +85,15 @@ abstract class Task {
 
     /* the subclass of Task */
     private static class Deadline extends Task {
-        protected String by;
+        protected LocalDate by;
 
         public Deadline(String description, String by) {
             super(description);
-            this.by = by.substring(by.indexOf(" ") + 1);
-
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.by = LocalDate.parse(by.substring(by.indexOf(" ") + 1), formatter);
         }
 
-        public String getBy() {
+        public LocalDate getBy() {
             return this.by;
         }
 
@@ -105,7 +107,7 @@ abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[D]%s(by: %s)", super.toString(), this.by);
+            return String.format("[D]%s(by: %s)", super.toString(), this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
     }
 
@@ -121,8 +123,8 @@ abstract class Task {
         }
 
         @Override
-        public String getBy() {
-            return "";
+        public LocalDate getBy() {
+            return LocalDate.now();
         }
         public Todo(String description) {
             super(description);
@@ -155,8 +157,8 @@ abstract class Task {
         }
 
         @Override
-        public String getBy() {
-            return "";
+        public LocalDate getBy() {
+            return LocalDate.now();
         }
 
         @Override
