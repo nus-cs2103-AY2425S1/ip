@@ -5,14 +5,12 @@ public class Ui {
                     + "What can I do for you?";
     private static final String GOODBYE_GREETING = "Bye. Hope to see you again soon! :)\n";
     public static void displayForm(String phrase) {
-        System.out.println("_______________________________________________\n"
+        System.out.println("_________________________________________________________\n"
                         + phrase
-                        + "\n_______________________________________________\n");
+                        + "\n_________________________________________________________\n");
     }
 
-    public Ui() {
-
-    }
+    public Ui() {}
 
     public void greet() {
         Ui.displayForm(HELLO_GREETING);
