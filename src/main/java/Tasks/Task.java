@@ -1,3 +1,7 @@
+package Tasks;
+
+import ChatterBoxErrors.ChatterBoxMarkError;
+
 public class Task {
     private String name;
     private Boolean isCompleted;

@@ -1,3 +1,5 @@
+package ChatterBoxErrors;
+
 public class ChatterBoxInvalidDateError extends ChatterBoxError {
     public ChatterBoxInvalidDateError() {
         super("____________________________________________________________\n"

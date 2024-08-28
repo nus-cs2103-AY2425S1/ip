@@ -1,3 +1,5 @@
+package ChatterBoxErrors;
+
 public class ChatterBoxDataFileError extends ChatterBoxError {
     public ChatterBoxDataFileError(String fileName) {
         super("____________________________________________________________\n"

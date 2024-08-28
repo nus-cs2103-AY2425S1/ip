@@ -1,13 +1,8 @@
-enum Commands {
-    BYE,
-    LIST,
-    MARK,
-    UNMARK,
-    DELETE,
-    TODO,
-    DEADLINE,
-    EVENT,
-}
+import ChatterBoxErrors.ChatterBoxError;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.ToDo;
+import Utils.*;
 
 public class Chatterbox {
     private final StoredList taskList;

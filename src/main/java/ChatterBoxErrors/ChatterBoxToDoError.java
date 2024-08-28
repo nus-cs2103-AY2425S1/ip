@@ -1,3 +1,5 @@
+package ChatterBoxErrors;
+
 public class ChatterBoxToDoError extends ChatterBoxError {
     public ChatterBoxToDoError() {
         super("____________________________________________________________\n"

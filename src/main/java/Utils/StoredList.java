@@ -1,3 +1,7 @@
+package Utils;
+
+import Tasks.Task;
+
 import java.util.ArrayList;
 
 public class StoredList {

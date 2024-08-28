@@ -1,29 +1,36 @@
+package Tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
+public class Event extends Task {
+    private LocalDateTime start;
     private LocalDateTime end;
 
-    public Deadline(String name, LocalDateTime by) {
+    public Event (String name, LocalDateTime start, LocalDateTime end) {
         super(name);
-        this.end = by;
-
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public String storeTask() {
         StringBuilder saveTaskInfo = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        String startDate = this.start.format(formatter);
+        String endDate = this.end.format(formatter);
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
         }
         else {
             saveTaskInfo.append("undone, ");
         }
-        saveTaskInfo.append("deadline ");
+        saveTaskInfo.append("event ");
         saveTaskInfo.append(this.getName());
-        saveTaskInfo.append(" /by ");
-        saveTaskInfo.append(this.end.format(formatter));
+        saveTaskInfo.append(" /from ");
+        saveTaskInfo.append(startDate);
+        saveTaskInfo.append(" /to ");
+        saveTaskInfo.append(endDate);
         saveTaskInfo.append("\n");
         return saveTaskInfo.toString();
     }
@@ -31,7 +38,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
-        String date = this.end.format(formatter);
-        return "[D] " + super.toString() + " (by: " + date + ")";
+        String startDate = this.start.format(formatter);
+        String endDate = this.end.format(formatter);
+        return "[E] " + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
     }
 }

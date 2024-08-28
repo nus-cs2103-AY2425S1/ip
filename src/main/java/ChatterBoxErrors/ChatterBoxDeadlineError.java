@@ -1,3 +1,5 @@
+package ChatterBoxErrors;
+
 public class ChatterBoxDeadlineError extends ChatterBoxError {
     public ChatterBoxDeadlineError() {
         super("____________________________________________________________\n"
