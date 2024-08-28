@@ -1,10 +1,10 @@
-package Tasks;
+package tasks;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class DeadlineTest {
-    
     @Test
     public void constructor_validInputWithoutFormattedDate_success() {
         Deadline deadline = new Deadline("test method", "9 aug 6pm");
@@ -19,7 +19,6 @@ public class DeadlineTest {
         assertEquals(expected, deadline.toString());
     }
 
-
     @Test
     public void toString_validInputWithFormattedDateTime_success() {
         Deadline deadline = new Deadline("test method", "2024-08-31 1832");
@@ -27,7 +26,6 @@ public class DeadlineTest {
         assertEquals(expected, deadline.toString());
     }
 
- 
     @Test
     public void toString_validInputWithoutFormattedDateTime_success() {
         Deadline deadline = new Deadline("test method", "sunday 5am");

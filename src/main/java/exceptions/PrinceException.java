@@ -7,7 +7,6 @@ public class PrinceException extends Exception {
 
     /**
      * A constructor for PrinceException.
-     * 
      * @param msg String representing the error message.
      */
     public PrinceException(String msg) {

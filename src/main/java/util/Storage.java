@@ -11,46 +11,45 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.TaskList;
-import Tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.Todo;
 
 /**
  * Storage handles the reading and writing of user input to text files.
  */
 public class Storage {
 
-    private static Path FILE_PATH;
+    private static Path filePath;
 
     /**
      * A constructor for the storage class.
      */
-    public Storage(Path filePath) {
-        FILE_PATH = filePath;
+    public Storage(Path path) {
+        filePath = path;
     }
 
     /**
      * Returns a TaskList that is read from storage.
      * If storage is empty, then it returns an empty TaskList.
-     * 
      * @return A TaskList.
      */
     public TaskList loadFromFile() {
         TaskList taskList = new TaskList();
 
         try {
-            if (Files.notExists(FILE_PATH.getParent())) {
-                Files.createDirectories(FILE_PATH.getParent());
+            if (Files.notExists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent());
             }
 
-            if (Files.notExists(FILE_PATH)) {
-                Files.createFile(FILE_PATH);
+            if (Files.notExists(filePath)) {
+                Files.createFile(filePath);
             }
 
             // read from file path
-            List<String> lines = Files.readAllLines(FILE_PATH);
+            List<String> lines = Files.readAllLines(filePath);
 
             // for each line, need to splice it according to the format
             // create new tasks in taskarray based on each line
@@ -114,22 +113,21 @@ public class Storage {
 
     /**
      * Saves newly created tasks by writing to storage.
-     * 
      * @param task Task that is created based on user input.
-     * @param taskList List of tasks. 
+     * @param taskList List of tasks.
      */
     public void saveToFile(Task task, TaskList taskList) {
         try {
 
-            if (Files.notExists(FILE_PATH.getParent())) {
-                Files.createDirectories(FILE_PATH.getParent());
+            if (Files.notExists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent());
             }
 
-            if (Files.notExists(FILE_PATH)) {
-                Files.createFile(FILE_PATH);
+            if (Files.notExists(filePath)) {
+                Files.createFile(filePath);
             }
 
-            BufferedWriter bw = Files.newBufferedWriter(FILE_PATH, StandardOpenOption.APPEND);
+            BufferedWriter bw = Files.newBufferedWriter(filePath, StandardOpenOption.APPEND);
 
             String taskString = task.toFileFormat();
             bw.write(taskString);
@@ -143,7 +141,6 @@ public class Storage {
 
     /**
      * Deletes the task from storage.
-     * 
      * @param input Input of the user.
      * @param taskList List of tasks.
      */
@@ -152,7 +149,7 @@ public class Storage {
             int index = getIndex(input);
             Task task = taskList.get(index);
             // open the old file for reading
-            BufferedReader reader = Files.newBufferedReader(FILE_PATH);
+            BufferedReader reader = Files.newBufferedReader(filePath);
             // open a new (temporary) file for writing
             Path tempPath = Paths.get("data", "temp.txt");
             BufferedWriter writer = Files.newBufferedWriter(tempPath);
@@ -174,9 +171,9 @@ public class Storage {
             writer.close();
 
             // delete the old file
-            Files.delete(FILE_PATH);
+            Files.delete(filePath);
             // move temp file to old file path
-            Files.move(tempPath, FILE_PATH);
+            Files.move(tempPath, filePath);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -185,7 +182,6 @@ public class Storage {
 
     /**
      * Updates storage when user marks or unmarks tasks.
-     * 
      * @param input Input of the user.
      * @param taskList List of tasks.
      */
@@ -195,7 +191,7 @@ public class Storage {
             Task task = taskList.get(index);
             String desc = task.getDescription();
             // open the old file for reading
-            BufferedReader reader = Files.newBufferedReader(FILE_PATH);
+            BufferedReader reader = Files.newBufferedReader(filePath);
             // open a new (temporary) file for writing
             Path tempPath = Paths.get("data", "temp.txt");
             BufferedWriter writer = Files.newBufferedWriter(tempPath);
@@ -222,9 +218,9 @@ public class Storage {
             writer.close();
 
             // delete the old file
-            Files.delete(FILE_PATH);
+            Files.delete(filePath);
             // move temp file to old file path
-            Files.move(tempPath, FILE_PATH);
+            Files.move(tempPath, filePath);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -233,7 +229,6 @@ public class Storage {
 
     /**
      * Returns an integer representing the index of a task in an array.
-     * 
      * @param input Input by the user.
      * @return Index of the task.
      */

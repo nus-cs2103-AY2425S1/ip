@@ -2,11 +2,11 @@ package util;
 
 import java.util.Scanner;
 
-import Tasks.Task;
-import Tasks.TaskList;
+import tasks.Task;
+import tasks.TaskList;
 
 /**
- * Ui deals with interactions with the user by displaying the relevant information. 
+ * Ui deals with interactions with the user by displaying the relevant information.
  */
 public class Ui {
 
@@ -24,6 +24,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays welcome message to user.
+     */
     public void showWelcome() {
         showLine();
         System.out.println("    Hello! I'm Prince");
@@ -31,13 +34,16 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Moves the scanner to the next line.
+     * @return User input.
+     */
     public String readInput() {
         return sc.nextLine();
     }
 
     /**
      * Displays all tasks in a numbered list format.
-     * 
      * @param taskList List of tasks.
      */
     public void showTaskList(TaskList taskList) {
@@ -62,6 +68,9 @@ public class Ui {
         System.out.println("No tasks were found in storage!");
     }
 
+    /**
+     * Closes the scanner.
+     */
     public void showBye() {
         sc.close();
         System.out.println("Bye. Hope to see you again soon!");

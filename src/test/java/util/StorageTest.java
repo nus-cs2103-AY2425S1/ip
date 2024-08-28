@@ -2,26 +2,22 @@ package util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.TaskList;
-import Tasks.Todo;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-public class StorageTest {
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.TaskList;
+import tasks.Todo;
+
+public class StorageTest {
     private static final Path FILE_PATH = (Paths.get("testFile", "temp.txt"));
 
     private Storage storage;
@@ -100,8 +96,6 @@ public class StorageTest {
         taskList.add(deadlineTask);
         storage.saveToFile(todoTask, taskList);
         storage.saveToFile(deadlineTask, taskList);
-        
-
         TaskList testTaskList = storage.loadFromFile();
         assertEquals(2, testTaskList.size());
         assertEquals("T .. 0 .. play tennis", testTaskList.get(0).toFileFormat());

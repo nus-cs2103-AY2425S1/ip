@@ -1,15 +1,12 @@
 package prince;
-import Tasks.TaskList;
 
-import exceptions.PrinceException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import tasks.TaskList;
 import util.Parser;
 import util.Storage;
 import util.Ui;
-
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.io.IOException;
-
 
 /**
  * Prince is a chatbot that interacts with users.
@@ -25,7 +22,6 @@ public class Prince {
 
     /**
      * A constructor for Prince.
-     * 
      * @param filePath Path that represents a relative path to the storage file.
      */
     public Prince(Path filePath) {

@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * Task is a class that represents tasks that a user may input.
@@ -10,10 +10,9 @@ public class Task {
 
     /**
      * A constructor for Task.
-     * 
      * @param description
      */
-    public Task (String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -55,7 +54,6 @@ public class Task {
 
     /**
      * Returns a string representing the format used for storage of input in files.
-     * 
      * @return String.
      */
     public String toFileFormat() {
