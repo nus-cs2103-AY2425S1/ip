@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GreetBot {
@@ -14,14 +15,54 @@ public class GreetBot {
     */
     private void run() {
         try {
-            //assume that the user open from ip directory
+            ArrayList<Task> list = new ArrayList<>();
+
+            //create file and directory for data storage
             String workingDir = System.getProperty("user.dir");
             Path dataPath = java.nio.file.Paths.get(workingDir, "data", "greetbot.txt");
+            File dir = new File(dataPath.getParent().toString());
+            dir.mkdir();
             if (!Files.exists(dataPath)) {
                 FileWriter createFileWriter = new FileWriter(dataPath.toString(), false);
                 createFileWriter.close();
             }
 
+            //read and load from database
+            Scanner databaseReader = new Scanner(dataPath);
+            while (databaseReader.hasNextLine()) {
+                String[] data = databaseReader.nextLine().split(" \\|");
+                if (data[0].equals("T")) {
+                    String command = "todo" + data[2];
+                    try {
+                        Task.decideTask(command, list);
+
+                    } catch (EmptyDescriptionException e) {
+                        System.out.println(e.getMessage());
+                    } catch (RandomInputException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    if (data[1].equals(" 1")) {
+                        list.get(list.size() - 1).mark();
+                    }
+                } else if (data[0].equals("D")) {
+                    System.out.println("reach here");
+                    String command = "deadline" + data[2] + "/by" + data[3];
+                    try {
+                        Task.decideTask(command, list);
+
+                    } catch (EmptyDescriptionException e) {
+                        System.out.println(e.getMessage());
+                    } catch (RandomInputException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    if (data[1].equals(" 1")) {
+                        list.get(list.size() - 1).mark();
+                    }
+                } else {
+
+                }
+            }
+            databaseReader.close();
 
             /*
             String filePath2 = "data/test.txt";
@@ -44,7 +85,7 @@ public class GreetBot {
             System.out.println("What can I do for you?");
             Scanner scanner = new Scanner(System.in);
 
-            ArrayList<Task> list = new ArrayList<>();
+
 
             while (scanner.hasNext()) {
 
@@ -61,15 +102,23 @@ public class GreetBot {
                 } else if (currentCommand.startsWith("mark")) {
                     int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
                     list.get(index - 1).mark();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(list.get(index - 1).toString());
                 } else if (currentCommand.startsWith("unmark")) {
                     int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
                     list.get(index - 1).unmark();
+                    System.out.println("Ok, I've marked this task as not done yet:");
+                    System.out.println(list.get(index - 1).toString());
                 } else {
 
                     try {
+                        int before = list.size();
                         Task.decideTask(currentCommand, list);
-
-                        System.out.println(String.format("Now you have %s tasks in the list.", list.size()));
+                        if (before < list.size()) {
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(list.get(list.size() - 1).toString());
+                            System.out.println(String.format("Now you have %s tasks in the list.", list.size()));
+                        }
                     } catch (EmptyDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (RandomInputException e) {

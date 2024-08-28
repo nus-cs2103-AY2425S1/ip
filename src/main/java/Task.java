@@ -59,14 +59,11 @@ public class Task {
 
     public void mark() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
     }
 
     public void unmark(){
         this.isDone = false;
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(this.toString());
+
     }
     public String getDescription() {
         return this.description;
@@ -84,8 +81,7 @@ public class Task {
         public Deadline(String description, String by) {
             super(description);
             this.by = by.substring(by.indexOf(" ") + 1);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(this.toString());
+
         }
 
         @Override
@@ -98,8 +94,6 @@ public class Task {
 
         public Todo(String description) {
             super(description);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(this.toString());
         }
 
         @Override
@@ -116,8 +110,6 @@ public class Task {
             super(description);
             this.from = from.substring(from.indexOf(" ") + 1);
             this.to = to.substring(to.indexOf(" ") + 1);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(this.toString());
         }
 
         @Override
