@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.FileWriter;
 
 public class TaskList {
 
@@ -6,6 +8,10 @@ public class TaskList {
 
     public TaskList() {
         this.tasklist = new ArrayList<>();
+    }
+
+    public TaskList(Scanner fileReader) {
+        this.tasklist = readFile(fileReader);
     }
 
     // public void executeCommand(String command) {
@@ -120,6 +126,30 @@ public class TaskList {
         }
     }
     
+    private ArrayList<Task> readFile(Scanner fileReader) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        while (fileReader.hasNext()) {
+            String task = fileReader.nextLine();
+            String[] taskParts = task.split(",");
+            String taskType = taskParts[0];
+            boolean isDone = taskParts[1].equals("1");
+            String taskDescription = taskParts[2];
+            Task newTask = null;
+            switch (taskType) {
+                case "T":
+                    newTask = new Todo(taskDescription, isDone);
+                    break;
+                case "D":
+                    newTask = new Deadline(taskDescription, taskParts[3], isDone);
+                    break;
+                case "E":
+                    newTask = new Event(taskDescription, taskParts[3], taskParts[4], isDone);
+                    break;
+            }
+            tasks.add(newTask);
+        }
+        return tasks;
+    }
 
     public void executeCommand(String command) {
         String[] splitWords = command.split(" ", 2);
@@ -132,30 +162,49 @@ public class TaskList {
                     break;
                 case MARK:
                     handleMarkCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case UNMARK:
                     handleUnmarkCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case DELETE:
                     handleDeleteCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case TODO:
                     handleTodoCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case DEADLINE:
                     handleDeadlineCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case EVENT:
                     handleEventCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case BYE:
                     System.out.println("Bye. Hope to see you again soon!");
+                    handleSaveTaskListToFile();
                     break;
                 default:
                     throw new InvalidCommandException();
             }
         } catch (ScheduloException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void handleSaveTaskListToFile() {
+        try {
+            FileWriter fileWriter = new FileWriter("./data/data.txt");
+            for (Task task : tasklist) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred while saving the task list to file.");
         }
     }
     
