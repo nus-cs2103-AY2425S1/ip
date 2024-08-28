@@ -1,4 +1,4 @@
-package main.java.chatbot.tasks;
+package chatsy.tasks;
 
 public abstract class Task {
     protected String description;

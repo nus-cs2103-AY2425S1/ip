@@ -1,11 +1,11 @@
-package main.java.chatbot;
+package chatsy;
 
-import main.java.chatbot.exceptions.EmptyDescriptionException;
-import main.java.chatbot.exceptions.InvalidCommandException;
-import main.java.chatbot.exceptions.InvalidTaskIndexException;
-import main.java.chatbot.tasks.DeadlineTask;
-import main.java.chatbot.tasks.EventTask;
-import main.java.chatbot.tasks.TodoTask;
+import chatsy.exceptions.EmptyDescriptionException;
+import chatsy.exceptions.InvalidCommandException;
+import chatsy.exceptions.InvalidTaskIndexException;
+import chatsy.tasks.DeadlineTask;
+import chatsy.tasks.EventTask;
+import chatsy.tasks.TodoTask;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

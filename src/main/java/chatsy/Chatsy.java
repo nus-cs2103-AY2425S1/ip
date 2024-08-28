@@ -1,7 +1,7 @@
-package main.java.chatbot;
+package chatsy;
 
-import main.java.chatbot.exceptions.ChatsyException;
-import main.java.chatbot.exceptions.LocalFileException;
+import chatsy.exceptions.ChatsyException;
+import chatsy.exceptions.LocalFileException;
 
 public class Chatsy {
     static final String name = "Chatsy";
@@ -30,7 +30,7 @@ public class Chatsy {
             try {
                 commandHandler.handle(ui.readCommand());
             } catch (ChatsyException e) {
-                ui.output("OOPS!!! " + e.getMessage());
+                ui.output("Oops! " + e.getMessage());
             } catch (Exception e) {
                 ui.output("An unexpected error occurred: " + e.getMessage());
             }

@@ -1,7 +1,7 @@
-package main.java.chatbot;
+package chatsy;
 
-import main.java.chatbot.exceptions.InvalidTaskIndexException;
-import main.java.chatbot.tasks.Task;
+import chatsy.exceptions.InvalidTaskIndexException;
+import chatsy.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;

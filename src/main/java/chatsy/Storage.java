@@ -1,13 +1,13 @@
-package main.java.chatbot;
+package chatsy;
 
-import main.java.chatbot.exceptions.FileCorruptedException;
-import main.java.chatbot.exceptions.FilePermissionException;
-import main.java.chatbot.exceptions.InvalidTaskStringException;
-import main.java.chatbot.exceptions.LocalFileException;
-import main.java.chatbot.tasks.DeadlineTask;
-import main.java.chatbot.tasks.EventTask;
-import main.java.chatbot.tasks.Task;
-import main.java.chatbot.tasks.TodoTask;
+import chatsy.exceptions.FileCorruptedException;
+import chatsy.exceptions.FilePermissionException;
+import chatsy.exceptions.InvalidTaskStringException;
+import chatsy.exceptions.LocalFileException;
+import chatsy.tasks.DeadlineTask;
+import chatsy.tasks.EventTask;
+import chatsy.tasks.Task;
+import chatsy.tasks.TodoTask;
 
 import java.io.File;
 import java.io.FileWriter;

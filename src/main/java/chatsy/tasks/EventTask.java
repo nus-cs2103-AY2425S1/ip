@@ -1,4 +1,4 @@
-package main.java.chatbot.tasks;
+package chatsy.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

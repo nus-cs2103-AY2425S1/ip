@@ -1,4 +1,4 @@
-package main.java.chatbot.exceptions;
+package chatsy.exceptions;
 
 public class FilePermissionException extends LocalFileException {
     private String filePath;

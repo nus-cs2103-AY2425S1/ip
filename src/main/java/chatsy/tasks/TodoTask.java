@@ -1,4 +1,4 @@
-package main.java.chatbot.tasks;
+package chatsy.tasks;
 
 public class TodoTask extends Task {
 

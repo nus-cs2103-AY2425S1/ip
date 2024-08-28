@@ -1,4 +1,4 @@
-package main.java.chatbot;
+package chatsy;
 
 import java.util.Scanner;
 
