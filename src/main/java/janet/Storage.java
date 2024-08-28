@@ -21,22 +21,25 @@ public class Storage {
      * symbol | isDone | description | startDate (if deadline/event)-endDate (if event)
      *
      * @param listOfTasks the list of tasks (ArrayList<janet.Task>) that Janet has.
-     * @throws IOException
      */
-    public void saveToJanetTextFile(ArrayList<Task> listOfTasks) throws IOException {
+    public void saveToJanetTextFile(ArrayList<Task> listOfTasks) throws JanetException {
         // using FileWriter to write text into a text file (janet.txt).
-        FileWriter fileWriter = new FileWriter(this.filePath);
-        for (Task task : listOfTasks) {
-            String marked = (task.isDone()) ? "1" : "0";
-            String entry = task.getSymbol() + " | " + marked + " | " + task.getDescription();
-            if (task instanceof Deadline) {
-                entry = entry + " | " + ((Deadline) task).getDueDate();
-            } else if (task instanceof Event) {
-                entry = entry + " | " + ((Event) task).getStartDate() + "-" + ((Event) task).getEndDate();
+        try {
+            FileWriter fileWriter = new FileWriter(this.filePath);
+            for (Task task : listOfTasks) {
+                String marked = (task.isDone()) ? "1" : "0";
+                String entry = task.getSymbol() + " | " + marked + " | " + task.getDescription();
+                if (task instanceof Deadline) {
+                    entry = entry + " | " + ((Deadline) task).getDueDate();
+                } else if (task instanceof Event) {
+                    entry = entry + " | " + ((Event) task).getStartDate() + "-" + ((Event) task).getEndDate();
+                }
+                fileWriter.write(entry + "\n");     // write the entry into the text file and save it
             }
-            fileWriter.write(entry + "\n");     // write the entry into the text file and save it
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new JanetException("");
         }
-        fileWriter.close();
     }
 
 
@@ -44,7 +47,6 @@ public class Storage {
      * Returns an ArrayList<janet.Task> listOfTasks,
      * each janet.Task object is created based on each line read from janet.txt.
      *
-     * reads the content in janet.txt and loads them into an ArrayList<janet.Task>, returns this ArrayList<janet.Task>
      * @return an ArrayList<janet.Task> listOfTasks, that contains janet.Task objects
      */
     public ArrayList<Task> textFileToArrayList() throws JanetException {
