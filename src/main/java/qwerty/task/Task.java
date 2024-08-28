@@ -69,4 +69,14 @@ public abstract class Task {
      * @return List of strings.
      */
     public abstract List<String> getAllDetails();
+
+    /**
+     * Returns true if the task's description contains the given string.
+     *
+     * @param string String to check for in the description.
+     * @return True if the description contains the string.
+     */
+    public boolean descriptionContainsString(String string) {
+        return this.description.contains(string);
+    }
 }

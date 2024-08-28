@@ -7,6 +7,7 @@ import qwerty.command.ByeCommand;
 import qwerty.command.Command;
 import qwerty.command.DeadlineCommand;
 import qwerty.command.DeleteCommand;
+import qwerty.command.FindCommand;
 import qwerty.command.EmptyCommand;
 import qwerty.command.EventCommand;
 import qwerty.command.ListCommand;
@@ -77,6 +78,7 @@ public class Parser {
             case "deadline" -> new DeadlineCommand(args);
             case "event" -> new EventCommand(args);
             case "delete" -> new DeleteCommand(args);
+            case "find" -> new FindCommand(args);
             default -> new UnknownCommand(args);
         };
     }

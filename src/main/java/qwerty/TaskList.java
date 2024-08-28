@@ -78,6 +78,24 @@ public class TaskList {
     }
 
     /**
+     * Returns a string representing the list of tasks containing the specified substring.
+     *
+     * @param substring The substring to search for.
+     * @return String describing the matching tasks.
+     */
+    public String findAndListTasks(String substring) {
+        int taskNumber = 1;
+        StringBuilder out = new StringBuilder();
+        for (Task task: tasks) {
+            if (task.descriptionContainsString(substring)) {
+                out.append("\n").append(taskNumber).append(".").append(task);
+                taskNumber++;
+            }
+        }
+        return out.toString();
+    }
+
+    /**
      * Marks a task as done.
      *
      * @param index The index of the task to be marked, starting from 1.
