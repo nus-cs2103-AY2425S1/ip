@@ -1,6 +1,6 @@
 package evan.task;
 
-public class Task {
+public abstract class Task {
     protected final String description;
     protected boolean isDone;
 
@@ -8,6 +8,8 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public abstract String encodeAsString();
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // Mark done task with X
