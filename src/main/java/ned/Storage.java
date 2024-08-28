@@ -18,44 +18,49 @@ public class Storage {
 
     /**
      * Constructs a storage instance which handles loading and saving to the cached list of tasks
+     *
      * @param filePath The path of the cached list of tasks
      */
     public Storage(String filePath) {
-            this.cacheFilePath = filePath;
-            File f = new File(filePath);
-            this.cacheFile = f;
+        this.cacheFilePath = filePath;
+        File f = new File(filePath);
+        this.cacheFile = f;
     }
 
     /**
      * Loads in the cached list of tasks
+     *
      * @return An ArrayList with parameterized type Task that can be used to instantiate a TaskList instance
      * @throws NedException If the cached file does not exist
      */
-    public ArrayList<Task> load() throws NedException{
+    public ArrayList<Task> load() throws NedException {
         //returns the arraylist which TaskList will save
         ArrayList<Task> newListOfTasks = new ArrayList<>();
         try {
             Scanner s = new Scanner(this.cacheFile);
-            while (s.hasNext()){
+            while (s.hasNext()) {
                 Task newTask = Parser.parseSavedTask(s.nextLine());
                 newListOfTasks.add(newTask);
             }
-        } catch (FileNotFoundException  e) {
+        } catch (FileNotFoundException e) {
             throw new NedException("M'lord, do not be alarmed, but it appears that there was no previous saved task " +
                     "file. Not to worry, we'll sort this out yet...");
         }
         return newListOfTasks;
-    };
+    }
+
+    ;
 
     /**
      * Saves the list of tasks into the cached list of tasks
+     *
      * @param listOfTasks The current TaskList instance to be cached
      * @throws NedException If the cached file path cannot be written too. Usual reasons include protected folders or
-     * if the existing parent folders to the cached list of tasks does not exist, as this method does not create
-     * those directories
+     *                      if the existing parent folders to the cached list of tasks does not exist, as this method does not create
+     *                      those directories
      */
 
-    public void save(TaskList listOfTasks) throws NedException{
+    public void save(TaskList listOfTasks) throws NedException {
         int sizeOfList = listOfTasks.getSize();
         try {
             FileWriter fw = new FileWriter(this.cacheFilePath);

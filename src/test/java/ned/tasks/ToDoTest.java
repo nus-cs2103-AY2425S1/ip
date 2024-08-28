@@ -1,8 +1,10 @@
 package ned.tasks;
+
 import ned.exceptions.NedException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ToDoTest {
     @Test
     public void createToDo_validDescription_ToDoCreated() throws NedException {
@@ -15,7 +17,7 @@ public class ToDoTest {
     }
 
     @Test
-    public void createToDo_blankDescription_NedExceptionThrown(){
+    public void createToDo_blankDescription_NedExceptionThrown() {
         try {
             ToDo.createToDo("", false);
         } catch (NedException e) {

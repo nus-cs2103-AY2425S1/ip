@@ -3,18 +3,18 @@ package ned;
 import ned.commands.Command;
 import ned.exceptions.NedException;
 
-import java.util.ArrayList;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+
 public class Ned {
-    private Storage storage;
-
-    private Ui ui;
-
-    private TaskList tasks;
     public static final String cachedTasksPath = Paths.get("src", "data", "cachedTasks.txt").toString();
+    private Storage storage;
+    private Ui ui;
+    private TaskList tasks;
 
     /**
      * Creates an instance of the Ned chatbot
+     *
      * @param filePath The address of the cache file, relative to the project folder
      */
     public Ned(String filePath) {
@@ -22,10 +22,14 @@ public class Ned {
         try {
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(this.storage.load());
-        } catch (NedException e){
+        } catch (NedException e) {
             ui.showLoadingError();
             this.tasks = new TaskList(new ArrayList<>());
         }
+    }
+
+    public static void main(String[] args) {
+        new Ned(Ned.cachedTasksPath).run();
     }
 
     /**
@@ -45,8 +49,5 @@ public class Ned {
                 ui.print(e.getMessage());
             }
         }
-    };
-    public static void main(String[] args) {
-        new Ned(Ned.cachedTasksPath).run();
     }
 }
