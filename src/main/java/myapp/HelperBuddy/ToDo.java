@@ -1,4 +1,4 @@
-package com.example.YourHelperBuddy;
+package myapp.HelperBuddy;
 
 public class ToDo extends Task {
     public ToDo(String description) {

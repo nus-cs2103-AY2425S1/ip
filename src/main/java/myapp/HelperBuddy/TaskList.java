@@ -1,4 +1,4 @@
-package com.example.YourHelperBuddy;
+package myapp.HelperBuddy;
 
 import java.util.ArrayList;
 

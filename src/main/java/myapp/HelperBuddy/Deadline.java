@@ -1,4 +1,4 @@
-package com.example.YourHelperBuddy;
+package myapp.HelperBuddy;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

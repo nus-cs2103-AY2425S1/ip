@@ -1,4 +1,4 @@
-package com.example.YourHelperBuddy;
+package myapp.HelperBuddy;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +26,8 @@ public class Parser {
                 LocalDateTime deadline = parseDateTime(parts[1].trim());
                 if (description.isEmpty() || deadline == null) {
                     System.out.println("________________________________________________");
-                    System.out.println("Sorry! The description or the deadline cannot be empty.");
+                    System.out.println("Sorry! The description cannot be empty");
+                    System.out.println("The deadline timing should be in dd/MM/yyyy HHmm format.");
                     System.out.println("________________________________________________");
                 }
                 else {
@@ -47,7 +48,8 @@ public class Parser {
                 LocalDateTime to = parseDateTime(subParts[1].trim());
                 if (description.isEmpty() || from == null || to == null) {
                     System.out.println("________________________________________________");
-                    System.out.println("Sorry! The description or the timing cannot be empty.");
+                    System.out.println("Sorry! The description cannot be empty");
+                    System.out.println("The from and to timings should be in dd/MM/yyyy HHmm format.");
                     System.out.println("________________________________________________");
                 }
                 else {
@@ -68,7 +70,7 @@ public class Parser {
         return null;
     }
 
-    private static LocalDateTime parseDateTime(String dateTimeStr) {
+    public static LocalDateTime parseDateTime(String dateTimeStr) {
         try {
             return LocalDateTime.parse(dateTimeStr, FORMATTER);
         }
