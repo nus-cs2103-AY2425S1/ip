@@ -10,6 +10,12 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
 
     private String keyword;
+
+    /**
+     * Finds all task with a matching keyword and displays them on the console, in a list format.
+     *
+     * @param keyword The keyword that the user wants to use to find specific tasks.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

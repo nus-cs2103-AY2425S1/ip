@@ -41,6 +41,8 @@ public class Parser {
             }
             break;
 
+        case("find"):
+            return new FindCommand(parts[1]);
 
         case("delete"):
             return new DeleteCommand(Integer.parseInt(parts[1]) - 1);
@@ -84,9 +86,6 @@ public class Parser {
                 System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
             }
             break;
-
-        case("find"):
-            return new FindCommand(parts[1]);
 
         default:
             return new InvalidCommand();

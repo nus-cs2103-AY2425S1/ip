@@ -129,7 +129,11 @@ public class Ui {
                 "or \"event\".\nDouble check your spelling for other common commands like \"unmark\" or \"list\".");
     }
 
-
+    /**
+     * Prints list of tasks that having description matching the keyword entered by user.
+     *
+     * @param tasks List of all of user's tasks.
+     */
     public void showFoundTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list: ");
         for (int i = 0; i < tasks.size(); i++) {

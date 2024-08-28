@@ -9,6 +9,12 @@ public class Deadline extends Task {
     protected LocalDateTime deadline;
     private String formattedDeadline;
 
+    /**
+     * Creates a new deadline task.
+     *
+     * @param description Task description.
+     * @param by Deadline of the task, given in the form of YYYY-MM-DD HHMM.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -18,7 +24,12 @@ public class Deadline extends Task {
         this.formattedDeadline = this.deadline.format(outputFormat);
     }
 
-
+    /**
+     * Formats the task in a consistent format to be saved in the bestie.txt file.
+     * Allows for easier retrieval and converting tasks stored in bestie.txt into the TaskList.
+     *
+     * @return Formatted tasks to be saved in bestie.txt.
+     */
     @Override
     public String toSaveFormat() {
         String storeCompleted = "";
@@ -32,6 +43,11 @@ public class Deadline extends Task {
         return "D | " + storeCompleted + " | " + this.description + " | " + this.by;
     }
 
+    /**
+     * Formats the task to be displayed on the console.
+     *
+     * @return String representation of the deadline task on the console.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.formattedDeadline + ")";
