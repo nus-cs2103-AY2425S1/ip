@@ -1,11 +1,11 @@
 package evan.task;
 
 public class Deadline extends Task {
-    protected final String by;
+    protected final DateTime by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = DateTime.parseInput(by);
     }
 
     @Override

@@ -1,13 +1,13 @@
 package evan.task;
 
 public class Event extends Task {
-    protected final String from;
-    protected final String to;
+    protected final DateTime from;
+    protected final DateTime to;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = DateTime.parseInput(from);
+        this.to = DateTime.parseInput(to);
     }
 
     @Override
