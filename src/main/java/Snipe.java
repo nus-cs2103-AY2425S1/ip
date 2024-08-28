@@ -28,6 +28,8 @@ public class Snipe {
     /** The list of tasks managed by the application. */
     private static ArrayList<Task> list = new ArrayList<Task>();
 
+    private static final Storage taskListStorage = new Storage("src/main/txt/taskList.txt");
+
     /**
      * Enumeration of command types that can be executed by the application.
      */
@@ -46,7 +48,9 @@ public class Snipe {
     /**
      * Initializes the chat, greeting the user and handling user input.
      */
-    public void initChat() {
+    public void initChat() throws IOException, SnipeException {
+        taskListStorage.initialise();
+        list = taskListStorage.readTaskList();
         greetUser();
         handleUserInput();
     }
@@ -145,7 +149,8 @@ public class Snipe {
             default:
                 throw new SnipeException("Unknown command. Type 'help' for a list of commands.");
             }
-        } catch (SnipeException e) {
+            taskListStorage.saveTaskList(list);
+        } catch (SnipeException | IOException e) {
             printWithLines(e.getMessage());
         }
     }
@@ -308,7 +313,7 @@ public class Snipe {
      *
      * @param args Command-line arguments (not used).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SnipeException {
         Snipe snipe = new Snipe();
         snipe.initChat();
     }

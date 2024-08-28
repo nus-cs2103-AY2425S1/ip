@@ -56,15 +56,18 @@ public class Storage {
             switch (taskType) {
             case "T":
                 task = new ToDo(taskDescription);
+                break;
             case "D":
                 task = new Deadline(taskDescription, split[3]);
+                break;
             case "E":
                 task = new Event(taskDescription, split[3], split[4]);
+                break;
             }
             if (task == null) {
                 throw new SnipeException("Task type must be T, D or E");
             }
-            if (split[1] == "1") {
+            if (split[1].equals("1")) {
                 task.changeStatus();
             }
             return task;
