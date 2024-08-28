@@ -22,10 +22,18 @@ public class Asta {
         }
     }
 
+    /**
+     * The entry point of the application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Asta(FILE_PATH).run();
     }
 
+    /**
+     * Runs the main logic of the application. Reads user input and processes commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -85,7 +93,8 @@ public class Asta {
                     storage.save(tasks.getTasks());
                     break;
                 default:
-                    ui.showError("Unfortunately, Asta.Asta doesn't know what that means...");
+                    AstaException.handleInvalidCommand();
+                    break;
                 }
             } catch (AstaException e) {
                 ui.showError(e.getMessage());
