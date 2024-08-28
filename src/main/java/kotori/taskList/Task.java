@@ -1,8 +1,9 @@
-package Kotori.TaskList;
+package kotori.taskList;
 
-import Kotori.Storage.CorruptedFileException;
+import kotori.storage.CorruptedFileException;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class Task {
     protected String description;
@@ -145,6 +146,7 @@ public abstract class Task {
         public boolean isRelatedToDate(LocalDate date) {
             return date.isBefore(deadLine);
         }
+
     }
 
     private static class Event extends Task {
@@ -173,7 +175,20 @@ public abstract class Task {
             return date.isAfter(from) && date.isBefore(to);
 
         }
-    }
 
+
+
+
+
+
+    }
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Task) {
+            return this.toString().equals(object.toString());
+        } else {
+            return false;
+        }
+    }
     //...
 }

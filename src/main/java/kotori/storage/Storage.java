@@ -1,7 +1,7 @@
-package Kotori.Storage;
+package kotori.storage;
 
-import Kotori.TaskList.TaskList;
-import Kotori.TaskList.Task;
+import kotori.taskList.TaskList;
+import kotori.taskList.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,13 +9,14 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import Kotori.Ui.Ui;
+import kotori.Ui.Ui;
 
 public class Storage {
     private File file;
 
-    public Storage () {
-        this.file = makeFile("data", "Kotori.Kotori.txt");
+    public Storage (String directoryName, String fileName) {
+
+        this.file = makeFile(directoryName, fileName);
     }
 
     public TaskList load() {

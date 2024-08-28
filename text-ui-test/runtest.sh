@@ -13,7 +13,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ~/Desktop/CS2103T/ip/src/main/java -Xlint:none -d ~/Desktop/CS2103T/ip/bin ../src/main/java/*.java
+if ! javac -cp ~/Desktop/CS2103T/ip/src/main/java -Xlint:none -d ~/Desktop/CS2103T/ip/bin ../src/main/java/kotori/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1

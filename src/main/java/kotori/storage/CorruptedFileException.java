@@ -1,4 +1,4 @@
-package Kotori.Storage;
+package kotori.storage;
 
 public class CorruptedFileException extends Exception {
     public CorruptedFileException(String message) {

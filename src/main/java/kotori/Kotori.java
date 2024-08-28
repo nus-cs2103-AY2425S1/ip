@@ -1,11 +1,11 @@
-package Kotori;
+package kotori;
 
-import Kotori.Command.Command;
-import Kotori.Parser.Parser;
-import Kotori.Storage.Storage;
-import Kotori.TaskList.TaskList;
-import Kotori.Command.ExitCommand;
-import Kotori.Command.GreetCommand;
+import kotori.command.Command;
+import kotori.parser.Parser;
+import kotori.storage.Storage;
+import kotori.taskList.TaskList;
+import kotori.command.ExitCommand;
+import kotori.command.GreetCommand;
 
 import java.util.Scanner;
 
@@ -15,7 +15,7 @@ public class Kotori {
     private Parser parser;
 
     public Kotori () {
-        this.storage = new Storage();
+        this.storage = new Storage("data", "Kotori.txt");
         this.list = storage.load();
         this.parser = new Parser(storage, list);
     }

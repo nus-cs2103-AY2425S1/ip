@@ -1,6 +1,6 @@
-package Kotori.Command;
+package kotori.command;
 
-import Kotori.Ui.Ui;
+import kotori.Ui.Ui;
 
 public class GreetCommand extends Command{
     @Override

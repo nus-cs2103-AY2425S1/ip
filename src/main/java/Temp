@@ -1,6 +1,6 @@
 public static void main(String[] args) {
         printGreeting();
-        File file = makeFile("data","Kotori.Kotori.txt");
+        File file = makeFile("data","kotori.kotori.txt");
         ArrayList<Task> list = readFile(file);
         Scanner s = new Scanner(System.in);
         while (s.hasNext()){
@@ -90,7 +90,7 @@ public static void main(String[] args) {
             writer.close();
         } catch (FileNotFoundException e) {
             printMessages("Sorry~ I can not find the storage file", "Please ensure there is a file with path" +
-                    "data/Kotori.Kotori.txt");
+                    "data/kotori.kotori.txt");
         } catch (IOException e) {
             printMessage(String.format("There is something wrong about: %s", e.getMessage()));
         }
@@ -190,7 +190,7 @@ public static void main(String[] args) {
     }
 
     private static void printGreeting() {
-        printMessage("Hello! I'm Kotori.Kotori.\n    What can I do for you?");
+        printMessage("Hello! I'm kotori.kotori.\n    What can I do for you?");
     }
 
     protected static void printExit() {

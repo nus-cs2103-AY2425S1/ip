@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("Kotori.Kotori")
+    mainClass.set("kotori.Kotori")
 }
 
 shadowJar {
-    archiveBaseName = "Kotori.Kotori"
+    archiveBaseName = "kotori.Kotori"
     archiveClassifier = null
 }
 

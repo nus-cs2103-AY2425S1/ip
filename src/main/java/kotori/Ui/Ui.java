@@ -1,6 +1,6 @@
-package Kotori.Ui;
+package kotori.Ui;
 
-import Kotori.TaskList.TaskList;
+import kotori.taskList.TaskList;
 
 public class Ui {
     public static void printLine() {
@@ -30,7 +30,7 @@ public class Ui {
     }
 
     public static void printGreeting() {
-        printMessage("Hello! I'm Kotori.Kotori.\n    What can I do for you?");
+        printMessage("Hello! I'm Kotori.\n    What can I do for you?");
     }
 
     public static void printExit() {

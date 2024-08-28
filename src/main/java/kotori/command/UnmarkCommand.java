@@ -1,9 +1,9 @@
-package Kotori.Command;
-import Kotori.Storage.Storage;
-import Kotori.TaskList.TaskList;
-import Kotori.TaskList.IncorrectStateException;
+package kotori.command;
+import kotori.storage.Storage;
+import kotori.taskList.TaskList;
+import kotori.taskList.IncorrectStateException;
 
-import static Kotori.Ui.Ui.printMessage;
+import static kotori.Ui.Ui.printMessage;
 
 public class UnmarkCommand extends Command{
     private Storage storage;

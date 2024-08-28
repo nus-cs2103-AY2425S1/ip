@@ -1,4 +1,4 @@
-package Kotori.Command;
+package kotori.command;
 
 
 

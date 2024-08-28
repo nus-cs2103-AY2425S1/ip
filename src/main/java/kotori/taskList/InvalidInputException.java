@@ -1,4 +1,4 @@
-package Kotori.TaskList;
+package kotori.taskList;
 
 public class InvalidInputException extends Exception {
     public InvalidInputException() {

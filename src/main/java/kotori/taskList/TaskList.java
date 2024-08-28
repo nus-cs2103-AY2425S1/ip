@@ -1,6 +1,7 @@
-package Kotori.TaskList;
+package kotori.taskList;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
@@ -37,7 +38,16 @@ public class TaskList {
         return list.isEmpty();
      }
 
-     @Override
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TaskList) {
+            return this.list.equals(((TaskList)obj).list);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
      public String toString() {
         String result = "";
         for (int i = 0; i < list.size(); i++) {
@@ -45,5 +55,6 @@ public class TaskList {
         }
         return result;
      }
+
 
 }

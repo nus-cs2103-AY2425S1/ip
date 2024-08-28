@@ -1,4 +1,4 @@
-package Kotori.TaskList;
+package kotori.taskList;
 
 public class MissingInformationException extends Exception{
     private String missingInfo;
