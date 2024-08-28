@@ -90,13 +90,12 @@ public class Cloud {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        printHorizLine();
-        greet();
+        Ui ui = new Ui();
+        ui.showGreeting();
         loadData();
         while (true) {
-            printHorizLine();
-            System.out.print(">> ");
-            String userInput = sc.nextLine().strip();
+            ui.showLine();
+            String userInput = ui.readCommand();
             // exit chat if user enters exit command
             if (userInput.equals(EXIT_COMMAND)) {
                 break;
@@ -109,24 +108,24 @@ public class Cloud {
                 query = Parser.parse(userInput);
                 command = query.getCommand();
             } catch (CloudException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             }
             int taskNum;
             switch (command) {
                 case "list":
-                    System.out.println(tasks);
+                    ui.showList(tasks.toString());
                     break;
                 case "mark":
                     taskNum = Integer.parseInt(query.getDetails());
                     tasks.mark(taskNum);
-                    System.out.println("Task marked as done!");
-                    System.out.println(tasks.getTaskStatus(taskNum));
+                    ui.showMarked(tasks.getTaskStatus(taskNum));
+                    storage.saveData(tasks);
                     break;
                 case "unmark":
                     taskNum = Integer.parseInt(query.getDetails());
                     tasks.unmark(taskNum);
-                    System.out.println("Task marked as not done");
-                    System.out.println(tasks.getTaskStatus(taskNum));
+                    ui.showUnmarked(tasks.getTaskStatus(taskNum));
+                    storage.saveData(tasks);
                     break;
                 // case fallthrough for tasks
                 case ("event"):
