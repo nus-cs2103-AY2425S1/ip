@@ -54,4 +54,8 @@ listDate 2002-09-18
 listDate 2024-09-18
 listDate 2024-09-19
 listDate
+find tODo
+find 2002
+find mEmoRy
+find dATetImE
 bye

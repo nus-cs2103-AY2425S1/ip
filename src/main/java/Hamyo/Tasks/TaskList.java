@@ -126,6 +126,35 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
+     * List all the users' tasks with the specified keyword onto the terminal.
+     *
+     * @param str Trailing String after find command, (e.g. " apple").
+     * @throws HamyoException If the command is incomplete/invalid.
+     */
+    public void listTasksByKeyword(String str) throws HamyoException {
+        try {
+        if (str.length() <= 1) {
+            throw new HamyoException("Usage: find [index]");
+        }
+        String keyword = str.substring(1);
+        StringBuilder tasksList = new StringBuilder();
+        int counter = 1;
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).toString().toLowerCase().contains(keyword.toLowerCase())) {
+            if (!tasksList.isEmpty()) {
+                tasksList.append("\n");
+            }
+            tasksList.append(counter++).append(". ").append(this.get(i).toString());
+            }
+        }
+
+        UI.printListTasksByKeyword(tasksList.toString(), keyword);
+        } catch (Exception e) {
+            throw new HamyoException("Usage: listDate yyyy-MM-dd.");
+        }
+    }
+
+    /**
      * Mark a task in the list of users' tasks.
      *
      * @param str Trailing String after mark command, (e.g. " 1", " 2", " 3").

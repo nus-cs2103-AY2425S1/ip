@@ -98,6 +98,19 @@ public class UI {
     }
 
     /**
+     * Pushes text to users' terminal after successful listing of task with the
+     * specified keyword.
+     *
+     * @param tasksList The list of the users' tasks in String format.
+     * @param keyword The keyword to filter users' tasks by.
+     */
+    public static void printListTasksByKeyword(String tasksList, String keyword) {
+        System.out.println("Here are the matching tasks in your list for " + keyword.toUpperCase() + ".");
+        System.out.println(tasksList);
+        UI.printLine();
+    }
+
+    /**
      * Pushes text to users' terminal after successful marking of task.
      *
      * @param task The marked task.
