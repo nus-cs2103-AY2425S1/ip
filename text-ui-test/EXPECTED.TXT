@@ -1,6 +1,7 @@
 _________________________________________
 Hello! I'm PandaBot.
 What can I do for you?
+Type 'help' if you are unsure of how to get started!
 _________________________________________
 _________________________________________
 Got it. I've added this task:
