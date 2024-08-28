@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -83,6 +85,18 @@ public class Stobberi {
         displayLastAdded();
     }
 
+    private String getFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        String list = "";
+
+        while (s.hasNext()) {
+            list += s.nextLine() + "\n";
+        }
+
+        return list;
+    }
+
     private void createList() {
         Scanner scanner = new Scanner(System.in);
         String temp = scanner.nextLine();
@@ -121,6 +135,15 @@ public class Stobberi {
     }
 
     public void run() {
+        String list = "";
+
+        try {
+            list = getFileContents("data/list.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        System.out.println(list);
+
         System.out.println(displayForm(HELLO_GREETING));
         createList();
         System.out.println(displayForm(GOODBYE_GREETING));
