@@ -1,11 +1,8 @@
 public class Task {
     private String taskName;
 
-    private int taskNumber;
-
     private boolean taskCompletionStatus;
-    public Task(int taskNumber, String taskName, boolean taskCompletionStatus) {
-        this.taskNumber = taskNumber;
+    public Task(String taskName, boolean taskCompletionStatus) {
         this.taskName = taskName;
         this.taskCompletionStatus = taskCompletionStatus;
     }

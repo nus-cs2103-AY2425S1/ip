@@ -3,8 +3,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private LocalDateTime deadline;
-    public Deadline (int taskNumber, String taskName, boolean taskCompletionStatus, LocalDateTime deadline) {
-        super(taskNumber, taskName, taskCompletionStatus);
+    public Deadline (String taskName, boolean taskCompletionStatus, LocalDateTime deadline) {
+        super(taskName, taskCompletionStatus);
         this.deadline = deadline;
     }
 
