@@ -1,4 +1,3 @@
-
 Hello from
        _____   _    _  _   _  _   _  __     __
       / ____| | |  | || \ | || \ | | \ \   / /
@@ -11,8 +10,3 @@ Hello from
      How can I help you?
      ────────────────────
 
-     ────────────────────
-     Got it! added the task:
-     [T][] buy lunch
-     Now you have 1 tasks in the list
-     ────────────────────

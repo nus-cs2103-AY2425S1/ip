@@ -1,21 +1,19 @@
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Contains the main loop of the program, initialise java scanner objects and replies objects
+ */
 public class Sunny {
-
-    // Chatbot messages
-    public static final String logo = "       _____   _    _  _   _  _   _  __     __  \n" +
-            "      / ____| | |  | || \\ | || \\ | | \\ \\   / /  \n" +
-            "     | (___   | |  | ||  \\| ||  \\| |  \\ \\_/ /   \n" +
-            "      \\___ \\  | |  | || . ` || . ` |   \\   /    \n" +
-            "      ____) | | |__| || |\\  || |\\  |    | |     \n" +
-            "     |_____/   \\____/ |_| \\_||_| \\_|    |_|     \n";
-
     private static Replies toUser = new Replies();
 
+
+    /**
+     * Executes main loop of the program
+     * @param args
+     */
     public static void main(String[] args) {
         // WELCOME MESSAGE
-        System.out.println("Hello from\n" + logo);
         System.out.println(toUser.welcome());
 
         // USER INTERACTION

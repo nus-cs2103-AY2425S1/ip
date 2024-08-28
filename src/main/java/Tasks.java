@@ -1,17 +1,25 @@
+/**
+ * Represents information of tasks specified by user
+ */
 public class Tasks {
     // FIELDS-----------------------------
     String name;
-    Boolean done;
+    Boolean isDone;
+
+    /**
+     * Initialises name of task and set as not done
+     * @param name
+     */
     public Tasks (String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     public void setter (boolean x) {
-        this.done = x;
+        this.isDone = x;
     }
     public String toString() {
-        if (done) {
+        if (isDone) {
             return String.format("[X] %s", name);
         } else {
             return String.format("[] %s", name);
