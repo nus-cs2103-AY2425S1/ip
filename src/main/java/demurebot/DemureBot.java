@@ -2,7 +2,6 @@ package demurebot;
 
 import demurebot.command.Command;
 import demurebot.storage.Storage;
-import demurebot.task.Task;
 import demurebot.task.TaskList;
 import demurebot.ui.Parser;
 import demurebot.ui.Ui;
