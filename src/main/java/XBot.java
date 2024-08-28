@@ -1,10 +1,24 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class XBot {
     private static List<Task> list = new ArrayList<>();
+    private static final Path DATA_PATH = Paths.get("data", "XBot.txt");
     public static void main(String[] args) {
+        try {
+            loadTask();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
         String input = scanner.nextLine().trim();
@@ -18,6 +32,99 @@ public class XBot {
         }
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
+    }
+
+    public static void loadTask() throws IOException {
+        if (Files.exists(DATA_PATH)) {
+            //Add all task in data/XBot.txt to the list
+            try (Scanner scanner = new Scanner(DATA_PATH.toFile())) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    if (parts.length >= 3) {
+                        String type = parts[0].trim();
+                        boolean isDone = parts[1].trim().equals("1");
+                        String description = parts[2].trim();
+                        switch (type) {
+                            case "T":
+                                Task todo = new ToDo(description);
+                                if (isDone) todo.setIsDone();
+                                list.add(todo);
+                                break;
+                            case "D":
+                                String deadline = parts[3].trim();
+                                Task deadlineTask = new Deadline(description, deadline);
+                                if (isDone) deadlineTask.setIsDone();
+                                list.add(deadlineTask);
+                                break;
+                            case "E":
+                                String from = parts[3].trim();
+                                String to = parts[4].trim();
+                                Task eventTask = new Event(description, from, to);
+                                if (isDone) eventTask.setIsDone();
+                                list.add(eventTask);
+                                break;
+                            default:
+                                System.out.println("Unknown task type: " + type);
+                        }
+                    }
+                    // Depending on format, create tasks and add to list
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found: " + e.getMessage());
+                throw new IOException("File not found", e);
+            }
+        } else {
+            addFile();
+        }
+    }
+
+    public static void saveTask() {
+        //Save all task to XBot.txt
+        try (FileWriter writer = new FileWriter(DATA_PATH.toFile())) {
+            for (Task task : list) {
+                writer.write(taskToFileString(task) + System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    public static String taskToFileString(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(task.type + " | ");
+        sb.append(task.isDone() ? "1 | " : "0 | ");
+        sb.append(task.description);
+        if (task instanceof Deadline) {
+            sb.append(" | ").append(((Deadline) task).by);
+        } else if (task instanceof Event) {
+            sb.append(" | ").append(((Event) task).from)
+                    .append(" | ").append(((Event) task).to);
+        }
+        return sb.toString();
+    }
+    /*
+        To add a storage File to store the memory if the file do no exist
+    */
+    public static void addFile() {
+        Path directoryPath = Paths.get("./data");
+        Path filePath = directoryPath.resolve("XBot.txt");
+
+        try {
+            // Check if the directory exists, and create it if it doesn't
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectory(directoryPath);
+            }
+
+            // Check if the file exists, and create it if it doesn't
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void processInput(String input) throws XBotException {
@@ -76,9 +183,10 @@ public class XBot {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 System.out.println("Noted. I've removed this task:");
-                System.out.print(list.get(taskNumber).toString() + "\n");
-                list.remove(taskNumber);
+                System.out.print(list.get(taskNumber - 1).toString() + "\n");
+                list.remove(taskNumber - 1);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+                saveTask();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -93,6 +201,7 @@ public class XBot {
         list.add(newTask);
         System.out.println(newTask.toString());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+        saveTask();
     }
     public static void addDeadline(String rest) throws XBotException {
         String[] parts = rest.split("/by", 2);
@@ -104,6 +213,7 @@ public class XBot {
             list.add(newTask);
             System.out.println(newTask.toString());
             System.out.println("Now you have " + list.size() + " tasks in the list.");
+            saveTask();
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'deadline <task> /by <date>'");
         }
@@ -123,6 +233,7 @@ public class XBot {
                 list.add(newTask);
                 System.out.println(newTask.toString());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+                saveTask();
             }
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
@@ -135,6 +246,7 @@ public class XBot {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 list.get(taskNumber - 1).markAsDone();
+                saveTask();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -148,6 +260,7 @@ public class XBot {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 list.get(taskNumber - 1).markAsUndone();
+                saveTask();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
