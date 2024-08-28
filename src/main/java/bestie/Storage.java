@@ -1,10 +1,8 @@
-package bestie;// deals with loading objects from the file and saving tasks in the file
-// means it is connected, linked to the bestie.txt file
-
-// CHECK: DONE
+package bestie;
 
 import bestie.task.Deadline;
 import bestie.task.Event;
+import bestie.task.Task;
 import bestie.task.Todo;
 
 import java.io.File;
@@ -13,15 +11,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with loading objects from the file and saving tasks in the bestie.txt file.
+ */
 public class Storage {
 
     private String filePath;
 
-
+    /**
+     * Creates an instance of the storage class for user throughout the programme.
+     *
+     * @param filePath path of the bestie.txt file where users' tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Writes tasks in the TaskList to the bestie.txt file.
+     *
+     * @param tasks contains tasks to be saved into the bestie.txt file.
+     */
     public void saveTasksToFile(TaskList tasks) {
         // want to save tasks to bestie.txt file
         try {
@@ -41,6 +51,11 @@ public class Storage {
 
     }
 
+    /**
+     * Loads tasks from bestie.txt file into an ArrayList.
+     *
+     * @return list of tasks already stored in the bestie.txt file.
+     */
     public ArrayList<Task> loadTasksFromFile() {
 
         // create the array list of tasks that will be returned
@@ -89,7 +104,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("An error occured.");
+            System.out.println("An error occured loading tasks from the file.");
         }
         return tasks;
 
