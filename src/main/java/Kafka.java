@@ -27,17 +27,17 @@ public class Kafka {
         System.out.println("  Here are the tasks in your list:");
         for (int i = 0; i < this.tasks.size(); i++) {
             Task t = this.tasks.get(i);
-            String listMessage = "  " + (i + 1) + ".[" + t.getStatusIcon() + "] " + t.description;
+            String listMessage = "  " + (i + 1) + "." + t;
             System.out.println(listMessage);
         }
+        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void mark(int taskNumber) {
         Task t = this.tasks.get(taskNumber - 1);
         t.markAsDone();
         String message = "  Nice! I've marked this task as done:\n"
-                + "    [" + t.getStatusIcon() + "] "
-                + t.description;
+                + "    " + t;
         System.out.println(message);
     }
 
@@ -45,8 +45,7 @@ public class Kafka {
         Task t = this.tasks.get(taskNumber - 1);
         t.markAsNotDone();
         String message = "  OK, I've marked this task as not done yet:\n"
-                + "    [" + t.getStatusIcon() + "] "
-                + t.description;
+                + "    " + t;
         System.out.println(message);
     }
 
