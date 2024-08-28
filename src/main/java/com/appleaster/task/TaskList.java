@@ -60,6 +60,33 @@ public class TaskList {
     }
   }
 
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+          if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+            matchingTasks.add(task);
+          }
+        }
+        return matchingTasks;
+    }
+    
+  /**
+   * Displays tasks that contain the given keyword in their description.
+   *
+   * @param keyword The keyword to search for.
+   */
+  public void displayMatchingTasks(String keyword) {
+    List<Task> matchingTasks = findTasks(keyword);
+    if (matchingTasks.isEmpty()) {
+      System.out.println("No matching tasks found.");
+    } else {
+      System.out.println("Here are the matching tasks in your list:");
+      for (int i = 0; i < matchingTasks.size(); i++) {
+        System.out.printf("%d.%s%n", i + 1, matchingTasks.get(i));
+      }
+    }
+  }    
+
     /**
      * Marks a task as done or not done.
      *

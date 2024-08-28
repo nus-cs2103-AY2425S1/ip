@@ -45,6 +45,8 @@ public class Parser {
         return parseDelete(arguments);
       case "date":
         return parseDate(arguments);
+      case "find":
+        return parseFind(arguments);                
       case "bye":
         return new Command(CommandType.BYE);
       default:
@@ -73,6 +75,21 @@ public class Parser {
             throw new AppleasterException("The task number should be a valid integer. You provided: " + arguments);
         }
     }
+
+    /**
+     * Parses a find command.
+     *
+     * @param keyword The keyword to search for.
+     * @return A Command object representing a find action.
+     * @throws AppleasterException If the keyword is empty.
+     */
+
+    private static Command parseFind(String keyword) throws AppleasterException {
+        if (keyword.trim().isEmpty()) {
+          throw new AppleasterException("The search keyword cannot be empty.");
+        }
+        return new Command(CommandType.FIND, keyword.trim());
+      }    
 
     /**
      * Parses a todo command.

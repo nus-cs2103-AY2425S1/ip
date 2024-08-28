@@ -8,10 +8,16 @@ public class Command {
     private Task task;
     private int taskIndex;
     private LocalDate date;
+    private String keyword;    
 
     public Command(CommandType type) {
         this.type = type;
     }
+
+    public Command(CommandType type, String keyword) {
+        this.type = type;
+        this.keyword = keyword;
+    }    
 
     public Command(CommandType type, Task task) {
         this.type = type;
@@ -43,4 +49,8 @@ public class Command {
     public LocalDate getDate() {
         return date;
     }
+
+    public String getKeyword() {
+        return keyword;
+    }    
 }
