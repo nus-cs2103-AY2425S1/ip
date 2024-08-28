@@ -1,4 +1,4 @@
-package BotimusPrime.Tasks;
+package botimusprime.tasks;
 
 public class ToDo extends Task {
     public ToDo(String description, boolean isDone) {

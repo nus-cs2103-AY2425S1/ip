@@ -1,7 +1,7 @@
-package BotimusPrime.Tasks;
+package botimusprime.tasks;
 
-import BotimusPrime.Parser.Parser;
-import BotimusPrime.Storage.Storage;
+import botimusprime.parser.Parser;
+import botimusprime.storage.Storage;
 
 import java.util.ArrayList;
 
