@@ -78,7 +78,8 @@ public class BitBot {
                 if (partsOfInput.length > 0) {
                     keyWord = partsOfInput[0];
 
-                    if (Objects.equals(keyWord, "mark") || Objects.equals(keyWord, "unmark") || Objects.equals(keyWord, "delete")) {
+                    if (Objects.equals(keyWord, "mark") || Objects.equals(keyWord, "unmark")
+                            || Objects.equals(keyWord, "delete")) {
                         if (partsOfInput.length < 2) {
                             throw new BitBotException("OOPS!! Add the task number to mark/ unmark / delete the event.\n" +
                                 "          Please do not leave it blank");
@@ -88,7 +89,8 @@ public class BitBot {
                                 "          For example: delete 1");
                         }
                         if (arrayList.isEmpty()) {
-                            throw new BitBotException("You cannot mark / unmark / delete anything yet since the list is empty.\n" +
+                            throw new BitBotException("You cannot mark / unmark / delete anything yet "
+                                    + "since the list is empty.\n" +
                                 "          Add something into the list first!");
                         }
 
@@ -96,7 +98,8 @@ public class BitBot {
                         numberPart = Integer.parseInt(lastPart);
 
                         if (numberPart - 1 >= arrayList.size()) {
-                            throw new BitBotException("OOPS!!! You cannot mark / unmark / delete something that is outside the length of the list.\n" +
+                            throw new BitBotException("OOPS!!! You cannot mark / unmark / delete something "
+                                    + "that is outside the length of the list.\n" +
                                 "          There are only " + arrayList.size() + " item(s) in your list so far.");
                         }
 
@@ -157,21 +160,24 @@ public class BitBot {
 
                 case "mark":
                     arrayList.get(numberPart - 1).markAsDone();
-                    System.out.println("          ____________________________________\n          Nice! I've marked this task as done:");
+                    System.out.println("          ____________________________________\n          "
+                            + "Nice! I've marked this task as done:");
                     System.out.println("             " + arrayList.get(numberPart - 1).finalString());
                     System.out.println("          ____________________________________\n");
                     break;
 
                 case "unmark":
                     arrayList.get(numberPart - 1).markAsUndone();
-                    System.out.println("          ____________________________________\n          OK, I've marked this task as not done yet:");
+                    System.out.println("          ____________________________________\n          "
+                            + "OK, I've marked this task as not done yet:");
                     System.out.println("             " + arrayList.get(numberPart - 1).finalString());
                     System.out.println("          ____________________________________\n");
                     break;
 
                 case "delete":
                     Task task1 = arrayList.remove(numberPart - 1);
-                    System.out.println("          ____________________________________\n          Noted. I've removed this task:\n"
+                    System.out.println("          ____________________________________\n          "
+                            + "Noted. I've removed this task:\n"
                             + "             " + task1.finalString() + "\n"
                             + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
                             + "          ____________________________________");

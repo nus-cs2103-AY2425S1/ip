@@ -20,9 +20,12 @@ public class TaskHandling {
      * @param task This helps to determine if I need to add "task" or "tasks"
      * @throws BitBotException if input is invalid
      */
-    public static void handleEvent (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, int indexFrom, StringBuilder from, StringBuilder to, StringBuilder sb, String task) throws BitBotException {
+    public static void handleEvent (ArrayList<Task> arrayList, String textPart,
+                                    String[] partsOfInput, int indexFrom, StringBuilder from,
+                                    StringBuilder to, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
-            throw new BitBotException("OOPS!!! The description and timings of an event should not be empty.\n          Please add a description to the event you wish to add to the list.\n" +
+            throw new BitBotException("OOPS!!! The description and timings of an event should not be empty.\n          "
+                    + "Please add a description to the event you wish to add to the list.\n" +
                     "          For example: \"event return book /from Mon 4pm /to 6pm\"\n" +
                     "          Or \"event return book /from 29-04-2021 18:00 /to 29-04-2021 18:30\"");
 
@@ -127,7 +130,9 @@ public class TaskHandling {
      * @throws BitBotException if input is invalid
      */
 
-    public static void handleDeadline (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, int indexBy, StringBuilder by, StringBuilder sb, String task) throws BitBotException {
+    public static void handleDeadline (ArrayList<Task> arrayList, String textPart,
+                                       String[] partsOfInput, int indexBy, StringBuilder by,
+                                       StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! You need to add the \"by\" details.\n" +
                     "          For example: deadline homework /by Aug 6th");
@@ -209,7 +214,8 @@ public class TaskHandling {
      * @param task This helps to determine if I need to add "task" or "tasks"
      * @throws BitBotException if input is invalid
      */
-    public static void handleTodo (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, StringBuilder sb, String task) throws BitBotException {
+    public static void handleTodo (ArrayList<Task> arrayList, String textPart,
+                                   String[] partsOfInput, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! Need to add a description for a todo activity\n " +
                     "         For example: todo borrow book");
