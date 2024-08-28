@@ -20,7 +20,7 @@ public class Event extends Task {
      */
     @Override
     public String toFile() {
-        return toString();
+        return "E|" + getStatusIcon() + "|" + description + "|" + from + "|" + to ;
     }
 
     /**

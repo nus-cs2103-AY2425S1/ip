@@ -16,7 +16,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFile() {
-        return toString();
+        return "T|" + getStatusIcon() + "|" + description;
     }
 
     /**

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -7,7 +8,9 @@ public class Reminderebot {
     private static final String name = "Reminderebot";
     private static final String topBuffer = "____________________________________________________________\n";
     private static final String bottomBuffer = "____________________________________________________________";
-    private static final TaskList tasklist = new TaskList();
+    private Storage storage;
+    private TaskList tasklist;
+
 
     private static final String greetingText = topBuffer +
             " Hello! I'm [" + name + "]\n" +
@@ -18,11 +21,21 @@ public class Reminderebot {
             " Bye. Hope to see you again soon!";
 
     public static void main(String[] args) {
-        Reminderebot reminderebot = new Reminderebot();
+        String filePath = "./data/Reminderebot.txt";
+        Reminderebot reminderebot = new Reminderebot(filePath);
         reminderebot.greeting();
         reminderebot.chat();
     }
 
+    public Reminderebot(String filePath) {
+        this.storage =  new Storage(filePath);
+        this.tasklist = new TaskList(new ArrayList<Task>());    // in case file not found
+        try {
+            this.tasklist = new TaskList(storage.readFileContents());
+        } catch (ReminderebotException e) {
+            System.out.println(e);
+        }
+    }
     /**
      * Prints greeting message.
      */
@@ -34,6 +47,7 @@ public class Reminderebot {
      * Prints goodbye message.
      */
     private void goodbye() {
+        this.storage.saveData(this.tasklist);
         System.out.println(goodbyeText);
     }
 

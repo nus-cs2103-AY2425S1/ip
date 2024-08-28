@@ -18,7 +18,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFile() {
-        return toString();
+        return "D|" + getStatusIcon() + "|" + description + "|" + by;
     }
 
     /**

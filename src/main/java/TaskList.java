@@ -4,11 +4,14 @@ import java.util.ArrayList;
  * TaskList represents the task manager for Reminderebot.
  */
 public class TaskList {
-    private static final String filePath = "./data/Reminderebot.txt";
     protected ArrayList<Task> tasks = new ArrayList<Task>();
     static int index = 0;
 
-    // Actual TaskList Operations below
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        index = tasks.size();
+    }
+
     /**
      * Prints all tasks as a tasklist.
      */
@@ -23,13 +26,29 @@ public class TaskList {
     }
 
     /**
+     * Get Task at index.
+     * @param idx
+     * @return task
+     */
+    public Task getTask(int idx) {
+        return tasks.get(idx);
+    }
+
+    /**
+     * Get number of tasks.
+     * @return length
+     */
+    public int length() {
+        return tasks.size();
+    }
+
+    /**
      * Add a to-do, deadline or event to the tasklist.
      * @param task
      */
     public void addTask(Task task) {
         tasks.add(task);
         index++;
-        Storage.writeToFile(filePath, task.toFile());
     }
 
     /**
