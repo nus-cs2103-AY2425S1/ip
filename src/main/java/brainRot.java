@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.RandomAccessFile;
 public class brainRot {
 
     static String home = System.getProperty("user.home");
@@ -15,9 +14,6 @@ public class brainRot {
 
         //creating an arraylist
         File myData = new File(home + "/ip/data/brainRot.txt");
-        FileWriter dataW = new FileWriter(myData, true);
-        RandomAccessFile file = new RandomAccessFile(home + "/ip/data/brainRot.txt", "rw");
-
         BufferedReader dataR = new BufferedReader(new FileReader(myData));
 
 
