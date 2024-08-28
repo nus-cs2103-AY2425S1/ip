@@ -29,63 +29,41 @@ public class Winde {
         String input = scanner.nextLine();
         while (!(input.equals("bye"))) {
             Commands command = getCommandType(input);
-            switch (command) {
-                case LIST -> list();
-                case DELETE -> {
-                    try {
+            try {
+                switch (command) {
+                    case LIST -> list();
+                    case DELETE -> {
                         handleDeleteException(input);
-                    } catch (EmptyDescriptionException | TooManyParametersException e) {
-                        throw new RuntimeException(e);
                     }
-                }
-                case MARK -> {
-                    try {
+                    case MARK -> {
                         handleMarkException(input);
-                    } catch (EmptyDescriptionException | TooManyParametersException e) {
-                        throw new RuntimeException(e);
                     }
-                }
-                case UNMARK -> {
-                    try {
+                    case UNMARK -> {
                         handleUnmarkException(input);
-                    } catch (EmptyDescriptionException | TooManyParametersException e) {
-                        throw new RuntimeException(e);
                     }
-                }
-                case TODO -> {
-                    try {
+                    case TODO -> {
                         handleTodoCommand(input);
-                    } catch (EmptyDescriptionException e) {
-                        throw new RuntimeException(e);
                     }
-                }
-                case DEADLINE -> {
-                    try {
+                    case DEADLINE -> {
                         handleDeadlineCommand(input);
-                    } catch (EmptyDescriptionException e) {
-                        throw new RuntimeException(e);
                     }
-                }
-                case EVENT -> {
-                    try {
+                    case EVENT -> {
                         handleEventCommand(input);
-                    } catch (EmptyDescriptionException e) {
-                        throw new RuntimeException(e);
                     }
-                }
-                default -> {
-                    try {
+                    default -> {
                         throw new UnsupportedCommandException("TYPE /HELP FOR HELP STOOPIDD");
-                    } catch (UnsupportedCommandException e) {
-                        throw new RuntimeException(e);
                     }
                 }
+            } catch (EmptyDescriptionException ede) {
+                System.out.println("I NEED TO KNOW WHAT I'M ADDING! " + ede.getMessage());
+            } catch (TooManyParametersException tmp) {
+                System.out.println("ONE AT A TIME! " + tmp.getMessage());
+            } catch (UnsupportedCommandException uce) {
+                System.out.println("TYPE /HELP FOR HELP STOOPIDD: " + uce.getMessage());
             }
             input = scanner.nextLine();
-
         }
         exit();
-
     }
 
 
