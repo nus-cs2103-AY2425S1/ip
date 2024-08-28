@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
 * SirPotato is the name of the chatbot 
@@ -19,6 +20,7 @@ public class SirPotato {
     private String horizontal_line = "___________________________ \n";
     private String indent = "   ";
     private ArrayList<Task> toDoList;
+    DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Constructor for the chatbot, named SirPotato
@@ -27,6 +29,11 @@ public class SirPotato {
     public SirPotato() {
         this.scanner = new Scanner(System.in);
         this.toDoList = new ArrayList<Task>();
+    }
+
+    private LocalDate parseData(String dateToParse) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(dateToParse, formatter);
     }
 
     /**
@@ -56,6 +63,19 @@ public class SirPotato {
         System.out.println(horizontal_line);
     }
 
+    private void validateDateFormat(String date) throws DukeException {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        try {
+            LocalDate.parse(date, dateFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Mate, the date must be in the format dd-MM-yyyy.");
+        }
+    }
+
+    /**
+     * Validates user input
+     * @param userInput The user's input to the chatbot
+     */
     public void checkForErrors(String userInput) throws DukeException {
         if (userInput.startsWith("todo")) {
             if (userInput.length() <= 5 || userInput.substring(5).isEmpty()) {
@@ -68,12 +88,15 @@ public class SirPotato {
                 sectionedString[1].isEmpty()) {
                 throw new DukeException("Mate, a deadline must include a task, and the deadline");
             }
+            validateDateFormat(sectionedString[1].trim());
         } else if (userInput.startsWith("event")) {
             String[] sectionedString = userInput.split(" /from | /to ");
             if (sectionedString.length < 3 || sectionedString[0].substring(6).isEmpty() ||
                 sectionedString[1].isEmpty() || sectionedString[2].isEmpty()) {
                 throw new DukeException("Mate, an event should have the description, the start, and the end.");
             }
+            validateDateFormat(sectionedString[1].trim());
+            validateDateFormat(sectionedString[2].trim());
         } else if (userInput.startsWith("delete")) {
             if (userInput.length() <= 7) {
                 throw new DukeException("You need to say which item to delete");
@@ -112,11 +135,11 @@ public class SirPotato {
             if (type.equals("T")) {
                 task = new Todo(description);
             } else if (type.equals("D")) {
-                String dl = sectionedString[3];
+                LocalDate dl = parseData(sectionedString[3]);
                 task = new Deadline(description, dl);
             } else if (type.equals("E")) {
-                String from = sectionedString[3];
-                String to = sectionedString[4];
+                LocalDate from = parseData(sectionedString[3]);
+                LocalDate to = parseData(sectionedString[4]);
                 task = new Event(description, from, to);
             }
             System.out.println(task);
@@ -130,7 +153,7 @@ public class SirPotato {
      * @param filePath the path of data file to write to
      * @param toDoList the toDoList that will be saved 
      */
-    private static void writeToFile(String filePath, ArrayList<Task> toDoList) throws IOException {
+    private void writeToFile(String filePath, ArrayList<Task> toDoList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
         for (Task task : toDoList) {
@@ -138,9 +161,10 @@ public class SirPotato {
             String isDone = task.isDone ? "1" : "0";
             String textToAdd = type + " | " + isDone + " | " + task.description;
             if (task instanceof Deadline) {
-                textToAdd += " | " + ((Deadline) task).by;
+                textToAdd += " | " + ((Deadline) task).by.format(saveFormatter);
             } else if (task instanceof Event) {
-                textToAdd += " | " + ((Event) task).from + " | " + ((Event) task).to;
+                textToAdd += " | " + ((Event) task).from.format(saveFormatter) + " | " + 
+                ((Event) task).to.format(saveFormatter);
             }
             fw.write(textToAdd + System.lineSeparator());
         }
@@ -221,15 +245,15 @@ public class SirPotato {
                 } else if (userInput.startsWith("deadline")) {
                     String[] sectionedString = userInput.split("/by ");
                     String description = sectionedString[0].substring(9);
-                    String by = sectionedString[1];
+                    LocalDate by = parseData(sectionedString[1]);
                     Deadline dl = new Deadline(description, by);
                     toDoList.add(dl);
                     displayAddedTask(dl);
                 } else if (userInput.startsWith("event")) {
                     String[] sectionedString = userInput.split(" /from | /to ");
                     String description = sectionedString[0].substring(6); 
-                    String from = sectionedString[1]; 
-                    String to = sectionedString[2]; 
+                    LocalDate from = parseData(sectionedString[1]); 
+                    LocalDate to = parseData(sectionedString[2]); 
                     Event ev = new Event(description, from, to);
                     toDoList.add(ev);
                     displayAddedTask(ev);
@@ -250,12 +274,9 @@ public class SirPotato {
     }
 
     public static void main(String[] args) {
-        
-        
-
-        
 
         SirPotato potato = new SirPotato();
         potato.startChat();
+
     }
 }

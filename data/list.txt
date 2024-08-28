@@ -1,0 +1,4 @@
+T | 0 | Borrow book
+D | 0 | return book  | 10-10-2024
+E | 0 | fintechmeeting | 10-10-2024 | 11-10-2024
+D | 1 | return book  | 10-10-2024
