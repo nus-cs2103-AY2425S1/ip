@@ -8,10 +8,36 @@ import java.io.IOException;
 
 public class XBot {
     private static List<Task> list = new ArrayList<>();
+    private static final Path DATA_PATH = Paths.get("data", "XBot.txt");
     public static void main(String[] args) {
+        loadTask();
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
+        String input = scanner.nextLine().trim();
+        while(!input.equalsIgnoreCase("bye")) {
+            try {
+                processInput(input);
+            } catch (XBotException e) {
+                System.out.println("Oh No!! " + e.getMessage());
+            }
+            input = scanner.nextLine().trim();
+        }
+        System.out.println("Bye. Hope to see you again soon!");
+        scanner.close();
+    }
+
+    private static void loadTask() {
+        if (Files.exists(DATA_PATH)) {
+            //Add all task in data/XBot.txt to the list
+        } else {
+            addFile();
+        }
+    }
+
+    private static void addFile() {
         /*
-        Create a space to store data
+        To add a storage File to store the memory if the file do no exist
          */
         Path directoryPath = Paths.get("./data");
         Path filePath = directoryPath.resolve("XBot.txt");
@@ -30,20 +56,6 @@ public class XBot {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
-        String input = scanner.nextLine().trim();
-        while(!input.equalsIgnoreCase("bye")) {
-            try {
-                processInput(input);
-            } catch (XBotException e) {
-                System.out.println("Oh No!! " + e.getMessage());
-            }
-            input = scanner.nextLine().trim();
-        }
-        System.out.println("Bye. Hope to see you again soon!");
-        scanner.close();
     }
 
     public static void processInput(String input) throws XBotException {
