@@ -18,4 +18,9 @@ public class UnmarkCommand extends Command {
         ui.showMessage("jude.task.Task " + list.getTask(index) + " been unmarked.");
         storage.save(list);
     }
+
+    @Override
+    public String toString() {
+        return "UnmarkCommand";
+    }
 }

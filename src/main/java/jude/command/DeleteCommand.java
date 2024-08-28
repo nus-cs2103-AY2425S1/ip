@@ -19,4 +19,8 @@ public class DeleteCommand extends Command {
         storage.save(list);
     }
 
+    @Override
+    public String toString() {
+        return "DeleteCommand";
+    }
 }

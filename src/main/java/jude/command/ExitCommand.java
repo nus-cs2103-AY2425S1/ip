@@ -10,4 +10,8 @@ public class ExitCommand extends Command {
         exit();
     }
 
+    @Override
+    public String toString() {
+        return "ExitCommand";
+    }
 }

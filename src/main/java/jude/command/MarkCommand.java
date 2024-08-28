@@ -17,4 +17,9 @@ public class MarkCommand extends Command {
         ui.showMessage("jude.task.Task " + list.getTask(index) + " has been marked.");
         storage.save(list);
     }
+
+    @Override
+    public String toString() {
+        return "MarkCommand";
+    }
 }
