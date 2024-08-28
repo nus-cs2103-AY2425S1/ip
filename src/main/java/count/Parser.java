@@ -6,6 +6,7 @@ import count.action.Action;
 import count.action.AddTask;
 import count.action.Deactivate;
 import count.action.Delete;
+import count.action.Find;
 import count.action.Greet;
 import count.action.Help;
 import count.action.ListReply;
@@ -20,6 +21,8 @@ import count.task.ToDo;
 import count.exception.CountException;
 import count.exception.IncorrectFormatException;
 import count.exception.InvalidCommandException;
+
+
 
 /**
  * Parser contains methods which accept Strings to determine what action to take
@@ -106,6 +109,8 @@ public class Parser {
                 String commandSplitE[] = rest.split(" /from ", 2);
                 String startEndTime[] = commandSplitE[1].split(" /to ", 2);
                 return new AddTask(this.ls, new Event(commandSplitE[0], startEndTime[1], startEndTime[0]));
+            case "find":
+                return new Find(this.ls, rest);
             default:
                 throw new InvalidCommandException();
             }
