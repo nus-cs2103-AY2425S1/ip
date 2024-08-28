@@ -11,7 +11,9 @@ import utility.TaskList;
 import java.io.*;
 import java.util.ArrayList;
 
-/** Main class of the application. */
+/**
+ * Main class of the application.
+ */
 public class Luke {
     private final Storage storage;
     private final Parser parser;
@@ -20,6 +22,7 @@ public class Luke {
 
     /**
      * Returns an instance of Luke object.
+     *
      * @param filePath Where data is stored.
      * @throws IOException If filePath direct to a non *.txt file.
      */
@@ -30,7 +33,9 @@ public class Luke {
         this.ui = new Ui();
     }
 
-    /** Runs the Luke application */
+    /**
+     * Runs the Luke application
+     */
     public void run() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ui.greetDialog();
@@ -44,14 +49,13 @@ public class Luke {
                 System.out.println(e.getMessage());
                 continue;
             }
-
             switch (parser.getCommand()) {
             case list -> {
                 ui.listTaskDialog();
                 this.taskList.listTasks();
             }
             case find -> {
-                ui.findDialog(taskList.findTasks(parser.description));
+                ui.findDialog(taskList.findTasks(parser.getDescription()));
             }
             case mark -> {
                 Task t = taskList.markTask(parser.getIndex() - 1);
@@ -87,6 +91,7 @@ public class Luke {
         ui.closingDialog();
         br.close();
     }
+
     public static void main(String[] args) throws IOException {
         new Luke("./data/Luke.txt").run();
     }
