@@ -1,62 +1,35 @@
-____________________________________________________________
+     /\_/\
+   =( °w° )=
+     )   (   //
+    (__ __)//
+
+ *~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+ |                                                    |
+ |     Welcome to the Purr-fect Java Program!         |
+ |   Where every line of code is simply claw-some!    |
+ |                                                    |
+ *~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+       |\_/|
+       |q p|   /}
+       ( 0 )""""\
+       |"^"`    |
+       ||_/=\\__|
+
+Get ready to have a purr-ific time coding!
 Hello! I'm TheOrangeRatchetCat
 What can I do for you?
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[T][ ] borrow book
-Now you have 1 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] selling seashells by the seashore (by: Monday)
-Now you have 3 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[E][ ] Helix Board Games (from: 7pm Wed to: 9pm)
-Now you have 4 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[T][ ] Advance Readings
-Now you have 5 tasks in the list.
-____________________________________________________________
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 Here are the tasks in your list:
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[D][ ] selling seashells by the seashore (by: Monday)
-4.[E][ ] Helix Board Games (from: 7pm Wed to: 9pm)
-5.[T][ ] Advance Readings
-____________________________________________________________
-Nice! I've marked this task as done:
-[X] borrow book
-____________________________________________________________
-____________________________________________________________
-OK, I've marked this task as not done yet:
-[ ] borrow book
-____________________________________________________________
-Here are the tasks in your list:
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[D][ ] selling seashells by the seashore (by: Monday)
-4.[E][ ] Helix Board Games (from: 7pm Wed to: 9pm)
-5.[T][ ] Advance Readings
-____________________________________________________________
-Noted. I've removed this task:
-[T][ ] borrow book
-Now you have 4 tasks in the list.
-____________________________________________________________
-Here are the tasks in your list:
-1.[D][ ] return book (by: Sunday)
-2.[D][ ] selling seashells by the seashore (by: Monday)
-3.[E][ ] Helix Board Games (from: 7pm Wed to: 9pm)
-4.[T][ ] Advance Readings
-____________________________________________________________
-Bye. Hope to see you again soon!
-____________________________________________________________
+1.[T][ ] CS2100
+2.[T][ ] CS2103
+3.[T][ ] CS2101
+      /\_____/\
+     /  o   o  \
+    ( ==  ^  == )
+     )         (
+    (           )
+   ( (  )   (  ) )
+  (__(__)___(__)__)
+
+    Goodbye, and have a purr-fect day!
