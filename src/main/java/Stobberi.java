@@ -1,3 +1,5 @@
+import StobberiException.StobberiException;
+
 public class Stobberi {
     private TaskList taskList;
     private Ui ui;

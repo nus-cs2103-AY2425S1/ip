@@ -1,3 +1,5 @@
+import StobberiException.StobberiException;
+
 public class Command {
     private boolean isExit;
     public Command() {
