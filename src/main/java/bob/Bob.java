@@ -1,3 +1,10 @@
+package bob;
+
+import bob.task.Task;
+import bob.task.ToDo;
+import bob.task.Deadline;
+import bob.task.Event;
+
 import java.io.File;
 import java.time.LocalDateTime;
 
@@ -110,7 +117,7 @@ public class Bob {
         }
         try {
             int taskNum = Integer.parseInt(taskDetails);
-            Task currTask = taskList.getTask(taskNum);
+            bob.task.Task currTask = taskList.getTask(taskNum);
             currTask.markAsDone();
             storage.saveTasks(taskList);
             ui.showMessage("Good Job! Marking this task as done:\n " + currTask);

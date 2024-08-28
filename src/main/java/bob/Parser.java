@@ -1,3 +1,10 @@
+package bob;
+
+import bob.task.Task;
+import bob.task.ToDo;
+import bob.task.Deadline;
+import bob.task.Event;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
