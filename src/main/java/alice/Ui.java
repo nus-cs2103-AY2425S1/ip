@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package alice;
 
 public class Ui {
     private static final String name = "Alice";
