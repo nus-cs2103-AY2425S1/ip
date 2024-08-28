@@ -19,7 +19,7 @@ public class Janet {
         }
     }
 
-    public void run() throws IOException {
+    public void run() {
         ui.showWelcome();
         Scanner input = new Scanner(System.in);
         boolean hasTypedBye = false;
