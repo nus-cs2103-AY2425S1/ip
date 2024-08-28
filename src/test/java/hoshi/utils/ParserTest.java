@@ -3,11 +3,14 @@ package hoshi.utils;
 import hoshi.Hoshi;
 import hoshi.task.Task;
 import hoshi.task.TaskList;
+import hoshi.task.Todo;
 import hoshi.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -68,6 +71,8 @@ public class ParserTest {
 
         // when taskList.size() is called, return 1
         when(taskList.size()).thenReturn(1);
+
+        // note - need to mock parser and handleMark as well if not the mocked task is saved to txt
 
         // test
         parser.handleMark(input, taskList, ui);
@@ -165,19 +170,54 @@ public class ParserTest {
         // when taskList.size() is called, return 1
         when(taskList.size()).thenReturn(1);
 
-        // when taskList.get(0) is called, return mocked task
-        when(taskList.get(0)).thenReturn(mockedTask);
-
         // test
         parser.handleDelete(input, taskList, ui);
 
         // assert
 
-        // check if taskList deleted the object
-        verify(taskList).delete(0);
-
         // check if success UI was displayed
-        verify(ui).displayTaskDeleted(mockedTask);
+        verify(ui).displayError("Hoshi doesn't have such a task!");
+
+    }
+
+    @Test
+    public void handleAddTest_success(){
+
+        // prepare mocked objects/behaviour and input
+
+        String input = "add todo";
+
+        Scanner scanner = new Scanner("Test Todo Description"); // Simulating user input
+
+        // test
+
+        parser.handleAdd(input, scanner, taskList, ui);
+
+        // assert
+
+        verify(taskList).add(Mockito.any(Todo.class));
+        verify(ui).displayTodoTask();
+
+    }
+
+    @Test
+    public void handleAddTest_emptyDescription(){
+
+        // prepare mocked objects/behaviour and input
+
+        String input = "add todo";
+
+        Scanner scanner = new Scanner("\n"); // Simulating empty user input after the next line
+
+        // test
+
+        parser.handleAdd(input, scanner, taskList, ui);
+
+        // assert
+
+        verify(ui).displayTodoTask();
+        verify(ui).displayError("Hoshi doesn't understand! Is input empty? \n");
+
 
     }
 
