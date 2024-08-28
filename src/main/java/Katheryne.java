@@ -1,10 +1,17 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+
 
 public class Katheryne {
     private Scanner sc;
     private ArrayList<Task> list;
+    private static final String PATH = "./data/Katheryne.txt";
 
     public Katheryne() {
         this.sc= new Scanner(System.in);
@@ -21,6 +28,20 @@ public class Katheryne {
         return output;
     }
 
+    public void save() {
+        try {
+            String str = "";
+            BufferedWriter bw = new BufferedWriter(new FileWriter(PATH));
+            for (Task t : list) {
+                str = str + t.toSaveString() + '\n';
+            }
+            bw.write(str);
+            bw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void run() {
         System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
         System.out.println("Katheryne: " +
@@ -28,6 +49,7 @@ public class Katheryne {
 
         String userInput;
         boolean finish = false;
+        String saveStr = "";
         while (!finish) {
             System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
             userInput = sc.nextLine();
@@ -42,6 +64,7 @@ public class Katheryne {
                     int id = Integer.parseInt(input[1]) - 1;
                     Task target = list.get(id);
                     target.mark();
+                    this.save();
                     System.out.println("Katheryne: " +
                             "Nice! I've marked this task as done:" + '\n' + target.toString());
                 } else if (userInput.startsWith("unmark")) {
@@ -52,6 +75,7 @@ public class Katheryne {
                     int id = Integer.parseInt(input[1]) - 1;
                     Task target = list.get(id);
                     target.unmark();
+                    this.save();
                     System.out.println("Katheryne: OK, I've marked this task as not done yet:" + '\n' + target.toString());
                 } else if (userInput.startsWith("todo")) {
                     String[] input = userInput.split(" ", 2);
@@ -61,6 +85,7 @@ public class Katheryne {
                     String des = input[1];
                     ToDo task = new ToDo(des);
                     list.add(task);
+                    this.save();
                     String str = String.format("Katheryne: " +
                             "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), list.size());
                     System.out.println(str);
@@ -85,6 +110,7 @@ public class Katheryne {
 
                     Event task = new Event(description, fromTime, toTime);
                     list.add(task);
+                    this.save();
                     String str = String.format("Katheryne: " +
                             "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), list.size());
                     System.out.println(str);
@@ -108,6 +134,7 @@ public class Katheryne {
 
                     Deadline task = new Deadline(description, byTime);
                     list.add(task);
+                    this.save();
                     String str = String.format("Katheryne:" +
                             " Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), list.size());
                     System.out.println(str);
@@ -126,6 +153,7 @@ public class Katheryne {
                     int id = Integer.parseInt(input[1]) - 1;
                     Task target = list.get(id);
                     list.remove(id);
+                    this.save();
                     String str = String.format("Katheryne: OK, I've deleted this task from your list:\n%s\nNow you have %d tasks in the list.",target.toString(),list.size());
                     System.out.println(str);
                 } else {
@@ -143,6 +171,8 @@ public class Katheryne {
                 System.out.println("Katheryne: An unexpected error occurred: " + e.getMessage());
             }
         }
+
+
     }
 
 
