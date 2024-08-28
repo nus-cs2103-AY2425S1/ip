@@ -10,24 +10,25 @@ public class TaskCreator {
      * @return
      * @throws Exception
      */
-    public static Tasks create(String message) throws Exception{
-        String m1 = message.split(" ", 2)[0];
+    public static Task create(String message) throws Exception{
+        Parser p = new Parser(message);
+        String m1 = p.getCommand();
 
         if (Objects.equals(m1, "todo")) {
             if (message.split(" ", 2).length == 1) {
                 throw new EmptyTextException();
             }
-            return new TodoTasks(message.split(" ", 2)[1]);
+            return new TodoTask(message.split(" ", 2)[1]);
         } else if (Objects.equals(m1, "deadline")) {
             if (message.split(" ", 2).length == 1) {
                 throw new EmptyTextException();
             }
-            return new DeadlineTasks(message.split(" ", 2)[1]);
+            return new DeadlineTask(message.split(" ", 2)[1]);
         } else if (Objects.equals(m1, "event")) {
             if (message.split(" ", 2).length == 1) {
                 throw new EmptyTextException();
             }
-            return new EventTasks(message.split(" ", 2)[1]);
+            return new EventTask(message.split(" ", 2)[1]);
         } else {
             throw new WrongMessageException();
         }
