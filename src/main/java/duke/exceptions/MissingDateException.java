@@ -5,6 +5,8 @@
  * It is used to indicate that a deadline or event task is missing required date or time details.
  * </p>
  */
+
+package duke.exceptions;
 public class MissingDateException extends Exception {
     private String taskType;
 

@@ -5,6 +5,7 @@
  * It is used to indicate that a task is missing name.
  * </p>
  */
+package duke.exceptions;
 public class MissingTaskNameException extends Exception {
     private String taskType;
 

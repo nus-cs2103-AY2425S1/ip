@@ -5,6 +5,7 @@
  * It is used to indicate that the user's input could not be interpreted as a valid command.
  * </p>
  */
+package duke.exceptions;
 public class InvalidInputException extends Exception {
     @Override
     public String toString() {

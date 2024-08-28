@@ -1,6 +1,7 @@
 /**
  * This class represents tasks without any date/time attached to it
  */
+package duke.tasks;
 public class Todo extends Task {
 
     public Todo(String name) {

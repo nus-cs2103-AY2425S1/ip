@@ -5,7 +5,8 @@
  * It is used to indicate that the user's input for date is not accepted by the program.
  * </p>
  */
-public class InvalidDateException extends Exception{
+package duke.exceptions;
+public class InvalidDateException extends Exception {
     public String toString() {
         return "OOPS!!! Please ensure that date format are in dd/MM/yyyy HH:mm or dd/MM/yyyy";
     }

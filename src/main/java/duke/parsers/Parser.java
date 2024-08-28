@@ -1,3 +1,15 @@
+package duke.parsers;
+import duke.tasks.Todo;
+import duke.tasks.Event;
+import duke.tasks.Deadline;
+import duke.tasks.TaskList;
+import duke.exceptions.MissingDateException;
+import duke.exceptions.InvalidDateException;
+import duke.exceptions.TaskNotFoundException;
+import duke.exceptions.MissingTaskNameException;
+import duke.exceptions.InvalidInputException;
+import duke.ui.Ui;
+
 public class Parser {
     private TaskList taskList;
     private Ui ui;

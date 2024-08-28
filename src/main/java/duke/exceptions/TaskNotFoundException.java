@@ -5,6 +5,7 @@
  * It is used to indicate that a task does not exist in task list created.
  * </p>
  */
+package duke.exceptions;
 public class TaskNotFoundException extends Exception {
     @Override
     public String toString() {

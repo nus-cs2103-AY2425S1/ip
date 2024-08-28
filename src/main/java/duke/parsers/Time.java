@@ -1,10 +1,12 @@
+package duke.parsers; /**
+ * This class converts string format of date to local date time
+ */
+import duke.exceptions.InvalidDateException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-/**
- * This class converts string format of date to local date time
- */
+
 public class Time {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");

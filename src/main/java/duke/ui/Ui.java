@@ -1,9 +1,10 @@
-import java.util.Scanner;
-
-/**
+package duke.ui; /**
  * This class represents a reply from the chatbot.
  * It provides methods to print a reply, such as greeting.
  */
+
+import java.util.Scanner;
+
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String INDENT = "    ";
