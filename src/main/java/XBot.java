@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.List;
@@ -6,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.io.IOException;
+import java.io.FileWriter;
 
 public class XBot {
     private static List<Task> list = new ArrayList<>();
@@ -32,7 +34,7 @@ public class XBot {
         scanner.close();
     }
 
-    private static void loadTask() throws IOException {
+    public static void loadTask() throws IOException {
         if (Files.exists(DATA_PATH)) {
             //Add all task in data/XBot.txt to the list
             try (Scanner scanner = new Scanner(DATA_PATH.toFile())) {
@@ -46,20 +48,20 @@ public class XBot {
                         switch (type) {
                             case "T":
                                 Task todo = new ToDo(description);
-                                if (isDone) todo.markAsDone();
+                                if (isDone) todo.setIsDone();
                                 list.add(todo);
                                 break;
                             case "D":
                                 String deadline = parts[3].trim();
                                 Task deadlineTask = new Deadline(description, deadline);
-                                if (isDone) deadlineTask.markAsDone();
+                                if (isDone) deadlineTask.setIsDone();
                                 list.add(deadlineTask);
                                 break;
                             case "E":
                                 String from = parts[3].trim();
                                 String to = parts[4].trim();
                                 Task eventTask = new Event(description, from, to);
-                                if (isDone) eventTask.markAsDone();
+                                if (isDone) eventTask.setIsDone();
                                 list.add(eventTask);
                                 break;
                             default:
@@ -77,14 +79,35 @@ public class XBot {
         }
     }
 
-    private static void saveTask() {
-        //Save the task to XBot.txt when there is no more update
+    public static void saveTask() {
+        //Save all task to XBot.txt
+        try (FileWriter writer = new FileWriter(DATA_PATH.toFile())) {
+            for (Task task : list) {
+                writer.write(taskToFileString(task) + System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
     }
 
-    private static void addFile() {
-        /*
+    public static String taskToFileString(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(task.type + " | ");
+        sb.append(task.isDone() ? "1 | " : "0 | ");
+        sb.append(task.description);
+        if (task instanceof Deadline) {
+            sb.append(" | ").append(((Deadline) task).by);
+        } else if (task instanceof Event) {
+            sb.append(" | ").append(((Event) task).from)
+                    .append(" | ").append(((Event) task).to);
+        }
+        return sb.toString();
+    }
+    /*
         To add a storage File to store the memory if the file do no exist
-         */
+    */
+    public static void addFile() {
         Path directoryPath = Paths.get("./data");
         Path filePath = directoryPath.resolve("XBot.txt");
 
@@ -163,6 +186,7 @@ public class XBot {
                 System.out.print(list.get(taskNumber).toString() + "\n");
                 list.remove(taskNumber);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+                saveTask();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -177,6 +201,7 @@ public class XBot {
         list.add(newTask);
         System.out.println(newTask.toString());
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+        saveTask();
     }
     public static void addDeadline(String rest) throws XBotException {
         String[] parts = rest.split("/by", 2);
@@ -188,6 +213,7 @@ public class XBot {
             list.add(newTask);
             System.out.println(newTask.toString());
             System.out.println("Now you have " + list.size() + " tasks in the list.");
+            saveTask();
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'deadline <task> /by <date>'");
         }
@@ -207,6 +233,7 @@ public class XBot {
                 list.add(newTask);
                 System.out.println(newTask.toString());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+                saveTask();
             }
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
@@ -219,6 +246,7 @@ public class XBot {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 list.get(taskNumber - 1).markAsDone();
+                saveTask();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -232,6 +260,7 @@ public class XBot {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 list.get(taskNumber - 1).markAsUndone();
+                saveTask();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
