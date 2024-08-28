@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Nixy {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -92,7 +93,7 @@ public class Nixy {
                 // index 0 is task name, index 1 is deadline
                 try {
                     String[] taskParts = taskMeta.split(" /by ");
-                    store(new DeadlineTask(taskParts[0], taskParts[1]));
+                    store(new DeadlineTask(taskParts[0], LocalDate.parse(taskParts[1])));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The deadline of a deadline task must be specified.");
                 }
@@ -115,7 +116,7 @@ public class Nixy {
                     String taskName = taskParts[0];
                     // index 0 is start time, index 1 is end time
                     taskParts = taskParts[1].split(" /to ");
-                    store(new EventTask(taskName, taskParts[0], taskParts[1]));
+                    store(new EventTask(taskName, LocalDate.parse(taskParts[0]), LocalDate.parse(taskParts[1])));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The start and end time of an event must be specified.");
                 }
