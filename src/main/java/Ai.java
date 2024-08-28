@@ -3,8 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;  // Import the Scanner class
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Ai {
     ArrayList<Task> tasks = new ArrayList<>();
@@ -89,6 +90,23 @@ public class Ai {
             fw.close();
         } catch (IOException e) {
         }
+    }
+
+    public void isDue(String inputDate) {
+        LocalDate date = LocalDate.parse(inputDate);
+
+        for(int i = 0; i < tasks.size(); i++) {
+            Task temp = tasks.get(i);
+            if(temp instanceof Deadline) {
+                Deadline tempDeadline = (Deadline) temp;
+
+                if(tempDeadline.isEqual(date)) {
+                    System.out.println(temp);
+                }
+            }
+        }
+
+        System.out.println(line);
     }
 
     public void list() {
@@ -190,7 +208,12 @@ public class Ai {
                         throw new AiException("Whoopsies, deadline cannot be empty >.<\n " +
                                 "Try something like \"deadline date w Ai <3 /by Wed\" instead!\n");
                     }
-                    ai.add(new Deadline(arguments));
+
+                    String[] parsedInput = arguments.split(" /by ", 2);
+                    String desc = parsedInput[0];
+                    String date = parsedInput[1];
+
+                    ai.add(new Deadline(desc, date));
                     break;
                 case "event":
                     if (arguments.length() <= 0) {
@@ -198,6 +221,13 @@ public class Ai {
                                 "Try something like \"event birthday w Ai <3333 /from 5am /to 6pm\" instead!\n");
                     }
                     ai.add(new Event(arguments));
+                    break;
+                case "due":
+                    if (arguments.length() <= 0) {
+                        throw new AiException("Oh! due cannot be empty!!\n"
+                                + "Try something like \"due 2019-12-02\" instead!!!\n");
+                    }
+                    ai.isDue(arguments);
                     break;
                 case "delete":
                     ai.delete(arguments);
