@@ -1,4 +1,6 @@
-package main.java;
+package main.java.tasks;
+
+import main.java.exceptions.*;
 
 import static java.lang.Integer.parseInt;
 

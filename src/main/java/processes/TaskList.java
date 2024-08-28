@@ -1,4 +1,10 @@
-package main.java;
+package main.java.processes;
+
+import main.java.exceptions.*;
+import main.java.tasks.DeadLine;
+import main.java.tasks.Event;
+import main.java.tasks.Task;
+import main.java.tasks.ToDo;
 
 import java.util.ArrayList;
 

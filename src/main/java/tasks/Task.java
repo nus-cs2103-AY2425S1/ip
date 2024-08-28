@@ -1,6 +1,5 @@
-package main.java;
+package main.java.tasks;
 
-import static java.lang.Integer.parseInt;
 
 public abstract class Task {
     protected String name;
