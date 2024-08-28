@@ -1,10 +1,36 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Bob {
     private static List<Task> memory = new ArrayList<Task>();
     public static void main(String[] args) {
+
+        // memory is an array list.
+        File f = new File(STORAGE_FILE_PATH);
+        if (!f.exists()) {
+            try {
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+            } catch (IOException e) {
+                Bob.print("I'm having trouble initialising my memory :(");
+            }
+        }
+        try {
+            Scanner fileReader = new Scanner(f);
+            while (fileReader.hasNext()) {
+                String record = fileReader.nextLine();
+                Task task = Task.from(record);
+                memory.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            Bob.print("Seems like I'm missing my memory (still)");
+        }
+
         Bob.print("Hello! I'm your chatbot, Bob.\n" +
                 "How may I assist you?\n\n" +
                 Bob.HELP_MESSAGE);
@@ -32,6 +58,7 @@ public class Bob {
                         int taskNumber = Integer.parseInt(arg);
                         Task task = memory.get(taskNumber - 1);
                         task.mark();
+                        Bob.remember();
                         Bob.print(String.format("Nice! I've marked this task as done:\n\t%s", task));
                     } catch (IndexOutOfBoundsException e) {
                         Bob.print("Nice try but there's no such task.");
@@ -48,6 +75,7 @@ public class Bob {
                         int taskNumber = Integer.parseInt(arg);
                         Task task = memory.get(taskNumber - 1);
                         task.unmark();
+                        Bob.remember();
                         Bob.print(String.format("Oh well, this task has been marked undone:\n\t%s", task));
                     } catch (IndexOutOfBoundsException e) {
                         Bob.print("There's no such task!");
@@ -76,6 +104,7 @@ public class Bob {
                         }
                         int taskNumber = Integer.parseInt(arg);
                         Task task = Bob.memory.remove(taskNumber - 1);
+                        Bob.remember();
                         Bob.print(String.format("""
                                 Oof. I have removed the requested task:
                                 \t%s
@@ -120,6 +149,7 @@ public class Bob {
                     throw new InvalidCommandException();
                 }
                 Bob.memory.add(task);
+                Bob.remember();
                 Bob.print(
                         String.format("Here's the added task:\n" +
                         "\t%s\n" +
@@ -138,9 +168,11 @@ public class Bob {
                         "the information was given is correct.\n" + Bob.HELP_MESSAGE);
             } catch(EmptyFieldException e) {
                 Bob.print("Field(s) may not be blank." + "\n" + Bob.HELP_MESSAGE);
+            } catch(IOException e) {
+                Bob.print("I can't remember that for some reason T T");
             }
-        }
-        Bob.print("Bye.");
+        }        Bob.print("Bye.");
+
     }
 
     private static String readUserInput(Scanner s) {
@@ -166,5 +198,20 @@ public class Bob {
         return list.isEmpty() ? "No tasks :(" : list;
     }
 
+    private static void writeToFile(String filePath, String text) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(text);
+        fw.close();
+    }
+
+    private static void remember() throws IOException {
+        StringBuilder text = new StringBuilder();
+        for (int i = 0; i < Bob.memory.size(); i++) {
+            text.append(Bob.memory.get(i).toText()).append("\n");
+        }
+        writeToFile(STORAGE_FILE_PATH, text.toString());
+    }
+
     private static final String HELP_MESSAGE = "Key in \"I need help.\" for additional help.";
+    private static final String STORAGE_FILE_PATH = "./data/bob.txt";
 }
