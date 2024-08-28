@@ -20,16 +20,11 @@ public class Parser {
      * @return A Command object corresponding to the parsed command, or null if an exception occurs.
      */
     public static Command parse(String command, TaskList tasks) {
-        String firstWord;
-        String restOfString = "";
         command = command.trim();
 
-        if (command.contains(" ")) {
-            firstWord = command.substring(0, command.indexOf(" "));
-            restOfString = command.split(" ", 2)[1];
-        } else {
-            firstWord = command;
-        }
+        String[] parts = command.split(" ", 2);
+        String firstWord = parts[0];
+        String restOfString = parts.length > 1 ? parts[1] : "";
 
         try {
             if (command.equalsIgnoreCase("bye")) {

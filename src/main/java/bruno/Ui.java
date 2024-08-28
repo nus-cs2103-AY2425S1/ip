@@ -129,6 +129,9 @@ public class Ui {
         return input.nextLine();
     }
 
+    /**
+     * Prints the tasks found by the find command.
+     */
     public static void printFoundTasks(ArrayList<Task> tasks) {
         printLine();
         System.out.println("Here are the matching tasks in your list:");
@@ -138,6 +141,9 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints that no matching task was found by the find command.
+     */
     public static void printNoTaskFound() {
         printLine();
         System.out.println("No matching tasks found");
