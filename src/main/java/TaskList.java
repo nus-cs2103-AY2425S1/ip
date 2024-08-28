@@ -27,12 +27,18 @@ public class TaskList {
         this.listOfTasks.add(t);
     }
 
-    public void mark(int x) {
+    public void mark(int x) throws BobbyException {
+        if (x > this.listOfTasks.size() || x <= 0) {
+            throw new BobbyException("My apologies. There is no task at that number!");
+        }
         Task t = this.listOfTasks.get(x - 1);
         t.indComplete();
     }
 
-    public void unmark(int x) {
+    public void unmark(int x) throws BobbyException {
+        if (x > this.listOfTasks.size() || x <= 0) {
+            throw new BobbyException("My apologies. There is no task at that number!");
+        }
         Task t = this.listOfTasks.get(x - 1);
         t.indIncomplete();
     }
