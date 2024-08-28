@@ -1,7 +1,11 @@
 import java.io.File;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Yapper {
     public static ArrayList<Task> listOfTask;
@@ -53,6 +57,36 @@ public class Yapper {
         }
     }
 
+    public static LocalDate convertStringToDate(String date) throws YapperException {
+        long numberOfDash = date.chars().filter(c -> c == '/').count();
+        LocalDate returnDate = null;
+
+        if (numberOfDash != 2) { // If there is not 2 / in date format
+            throw new YapperException("Invalid date format\n" +
+                    "Date Format: Year/Month/Day or Year/Month/Day Time");
+        } else {
+            String[] timeSplit = date.split(" ");
+            String[] dayMonthYearSplit = timeSplit[0].split("/");
+            try {
+                String year = dayMonthYearSplit[0];
+                String month = dayMonthYearSplit[1];
+                String day = dayMonthYearSplit[2];
+
+                if (timeSplit.length == 2) { // Date includes a time
+                    String time = timeSplit[1];
+                    returnDate = LocalDate.parse(String.format("%s-%s-%sT%s", year, month, day, time));
+                } else { // Date does not include a time
+                    returnDate = LocalDate.parse(String.format("%s-%s-%s", year, month, day));
+                }
+            } catch (NumberFormatException | DateTimeParseException e) {
+                throw new YapperException("Invalid date\n" +
+                        "Date Format: Year/Month/Day or Year/Month/Day Time");
+            }
+        }
+
+        return returnDate;
+    }
+
     public static void deleteTask(String command) throws YapperException
     {
         if (command.length() == 6) { // If command is only "delete"
@@ -70,7 +104,7 @@ public class Yapper {
             Task task = listOfTask.get(order - 1);
             listOfTask.remove(order - 1);
             System.out.println("Noted. I've removed this task: \n" +
-                    task + "\nNow you have " + listOfTask.size() + " tasks in the list");;
+                    task + "\nNow you have " + listOfTask.size() + " tasks in the list");
         }
         yapperHistory.writeHistory(listOfTask);
     }
@@ -91,7 +125,7 @@ public class Yapper {
             throw new YapperException("Description for Deadline cannot be empty!");
         }
         String input = command.substring(9);
-        String[] split = input.split("/by ");
+        String[] split = input.split(" /by ");
         if (split.length == 1) { // If command is deadline not followed /by
             throw new YapperException("Deadline require /by command with Deadline Time");
         } else if (split[0].isEmpty()) { // If command is "deadline /by something"
@@ -99,7 +133,8 @@ public class Yapper {
         } else if (split[1].isEmpty()) { // If command is "deadline something /by"
             throw new YapperException("Deadline Time is empty!");
         } else {
-            Deadline deadline = new Deadline(split[0], split[1]);
+            LocalDate deadlineDate = convertStringToDate(split[1]);
+            Deadline deadline = new Deadline(split[0], deadlineDate);
             addTask(deadline);
         }
     }
@@ -110,8 +145,8 @@ public class Yapper {
             throw new YapperException("Event Task cannot be empty!");
         }
         String input = command.substring(6);
-        String[] split = input.split("/from ");
-        String[] split2 = split[1].split("/to ");
+        String[] split = input.split(" /from ");
+        String[] split2 = split[1].split(" /to ");
         if (split.length == 1) { // If command does not have /from
             throw new YapperException("Event require /from command with Start Time");
         } else if (split2.length == 1) { // If command does not have /to
@@ -123,7 +158,9 @@ public class Yapper {
         } else if (split2[1].isEmpty()) { // If command does not have an End Time
             throw new YapperException("Event End Time is empty!");
         } else {
-            Event event = new Event(split[0], split2[0], split2[1]);
+            LocalDate fromDate = convertStringToDate(split2[0]);
+            LocalDate toDate = convertStringToDate(split2[1]);
+            Event event = new Event(split[0], fromDate, toDate);
             addTask(event);
         }
     }
