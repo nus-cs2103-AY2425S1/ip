@@ -19,6 +19,16 @@ public class Task {
         this.isDone = false;
     }
 
+    public String markTask() {
+        this.setTrue();
+        return this.toString();
+    }
+
+    public String unmarkTask() {
+        this.setFalse();
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
