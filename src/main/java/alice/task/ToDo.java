@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import alice.parser.TaskParser;
+
 /** Basic task with no time constraints. */
 public class ToDo extends Task {
     public ToDo(String line) throws InvalidTaskException {
@@ -25,7 +27,7 @@ public class ToDo extends Task {
     }
 
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
-        Map<String, String> arguments = Parser.parseJsonString(jsonString);
+        Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
         String inputLine = String.format("toDo %s", arguments.get("description"));
         ToDo toDo = new ToDo(inputLine);
         toDo.isCompleted = arguments.get("isCompleted").compareTo("true") == 0;

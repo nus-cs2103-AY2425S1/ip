@@ -1,22 +1,12 @@
-package alice.task;
+package alice.parser;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Handles input logic. */
-public class Parser {
-    private static final DateTimeFormatter[] DATETIME_FORMATTERS = new DateTimeFormatter[]{
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
-        DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
-        DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
-    };
-
+/** Handles task command inputs. */
+public class TaskParser {
     /**
      * Parses the description argument in a command.
      * This refers to the text after the command verb
@@ -76,35 +66,5 @@ public class Parser {
             arguments.put(key, value);
         }
         return arguments;
-    }
-
-    /**
-     * Parses a datetime in yyyy-MM-dd HH:mm, yyyy-MM-dd HHmm,
-     * dd-MM-yyyy HH:mm or dd-MM-yyyy HHmm format.
-     * 
-     * @param  dateString             the date string to parse
-     * @throws DateTimeParseException if the date string is not well=formed
-     * @return                        the parsed LocalDateTime
-     */
-    protected static LocalDateTime parseDateString(String dateString) throws DateTimeParseException {
-        for (DateTimeFormatter formatter :  DATETIME_FORMATTERS) {
-            try {
-                return LocalDateTime.parse(dateString, formatter);
-            } catch (DateTimeParseException exception) {
-                // try another format
-            }
-        }
-        return LocalDateTime.parse(dateString);
-    }
-
-    /**
-     * Converts a datetime to string 
-     * in yyyy-MM-dd HH:mm format.
-     * 
-     * @param  datetime the datetime to convert
-     * @return          the formatted datetime string
-     */
-    protected static String toDateString(LocalDateTime datetime) {
-        return DATETIME_FORMATTERS[0].format(datetime);
     }
 }

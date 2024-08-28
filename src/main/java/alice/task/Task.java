@@ -2,6 +2,8 @@ package alice.task;
 
 import java.util.Map;
 
+import alice.parser.TaskParser;
+
 /** Represents tasks. */
 public abstract class Task {
     protected String description;
@@ -15,7 +17,7 @@ public abstract class Task {
     }
 
     public Task(String line) throws InvalidTaskException {
-        this.description = Parser.parseDescription(line);
+        this.description = TaskParser.parseDescription(line);
         this.isCompleted = false;
     }
 
@@ -35,7 +37,7 @@ public abstract class Task {
      * @return            the parsed task
      */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
-        Map<String, String> arguments = Parser.parseJsonString(jsonString);        
+        Map<String, String> arguments = TaskParser.parseJsonString(jsonString);        
         switch (TaskType.valueOf(arguments.get("taskType").toUpperCase())) {
         case TODO:
             return ToDo.fromJsonString(jsonString);

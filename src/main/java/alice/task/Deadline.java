@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import alice.parser.DateParser;
+import alice.parser.TaskParser;
+
 /** Task with a /by field. */
 public class Deadline extends Task {
     private LocalDateTime by;
@@ -13,13 +16,13 @@ public class Deadline extends Task {
     public Deadline(String line) throws InvalidTaskException {
         super(line);
 
-        Map<String, String> flags = Parser.parseFlags(line);
+        Map<String, String> flags = TaskParser.parseFlags(line);
         if (!flags.containsKey("by")) {
             throw new InvalidTaskException("Missing /by flag.");
         }
 
         try {
-            this.by = Parser.parseDateString(flags.get("by"));
+            this.by = DateParser.parseDateString(flags.get("by"));
         } catch (DateTimeParseException exception) {
             throw new InvalidTaskException("Invalid /by datetime. Should be yyyy-mm-dd hh:mm`");
         }
@@ -36,12 +39,12 @@ public class Deadline extends Task {
         keyValuePairs.add("\"taskType\": \"deadline\"");
         keyValuePairs.add(String.format("\"description\": \"%s\"", description));
         keyValuePairs.add(String.format("\"isCompleted\": \"%s\"", isCompleted));
-        keyValuePairs.add(String.format("\"by\": \"%s\"", Parser.toDateString(by)));
+        keyValuePairs.add(String.format("\"by\": \"%s\"", DateParser.toDateString(by)));
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
-        Map<String, String> arguments = Parser.parseJsonString(jsonString);
+        Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
         String inputLine = String.format(
             "deadline %s /by %s",
             arguments.get("description"),
