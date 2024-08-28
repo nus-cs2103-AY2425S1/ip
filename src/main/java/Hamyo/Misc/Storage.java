@@ -1,7 +1,14 @@
+package Hamyo.Misc;
+
+import Hamyo.Tasks.Deadline;
+import Hamyo.Tasks.Event;
+import Hamyo.Tasks.Task;
+import Hamyo.Tasks.TaskList;
+import Hamyo.Tasks.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -25,7 +32,7 @@ public class Storage {
     }
   }
 
-  public void loadData(Hamyo hamyo, TaskList tasks) throws HamyoException {
+  public void loadData(TaskList tasks) throws HamyoException {
     try {
       Scanner scannedTasks = new Scanner(this.file);
       int currTask = 0;
@@ -64,7 +71,7 @@ public class Storage {
     }
   }
 
-  public void saveData(Hamyo hamyo, ArrayList<Task> tasks) throws HamyoException {
+  public void saveData(TaskList tasks) throws HamyoException {
     try {
       FileWriter fileWriter = new FileWriter(this.path);
       StringBuilder newData = new StringBuilder();

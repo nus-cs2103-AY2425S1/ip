@@ -1,3 +1,7 @@
+package Hamyo.Tasks;
+
+import Hamyo.Misc.HamyoException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +10,7 @@ public class Deadline extends Task {
   private final LocalDate deadlineDate;
   private final LocalDateTime deadlineDateTime;
 
-  public Deadline(String[] task) throws HamyoException{
+  public Deadline(String[] task) throws HamyoException {
     super(task);
     try {
       LocalDateTime deadlineDateTimeTemp;

@@ -1,13 +1,12 @@
+package Hamyo.Misc;
+
+import Hamyo.Tasks.TaskList;
+import Hamyo.Tasks.TaskType;
+
 /**
  * Parser - deals with loading tasks from the file and saving tasks in the file.
  */
 public class Parser {
-
-  public enum TaskType {
-    TODO,
-    DEADLINE,
-    EVENT
-  }
 
   public static boolean parse(String fullCommand, TaskList tasks) {
     String commandType = fullCommand.split(" ")[0];

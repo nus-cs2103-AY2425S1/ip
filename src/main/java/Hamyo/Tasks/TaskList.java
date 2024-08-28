@@ -1,3 +1,8 @@
+package Hamyo.Tasks;
+
+import Hamyo.Misc.HamyoException;
+import Hamyo.Misc.UI;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,13 +16,13 @@ public class TaskList extends ArrayList<Task> {
     super();
   }
 
-  public void addTask (Parser.TaskType taskType, String task) throws HamyoException {
-    if (taskType.equals(Parser.TaskType.TODO)) {
+  public void addTask (TaskType taskType, String task) throws HamyoException {
+    if (taskType.equals(TaskType.TODO)) {
       if (task.length() <= 1) {
         throw new HamyoException("Usage: todo [task description]");
       }
       this.add(new ToDo(new String[]{task.substring(1)}));
-    } else if (taskType.equals(Parser.TaskType.DEADLINE)) {
+    } else if (taskType.equals(TaskType.DEADLINE)) {
       if (task.length() <= 1) {
         throw new HamyoException("Usage: deadline [task description] /by [deadline]");
       }
@@ -26,7 +31,7 @@ public class TaskList extends ArrayList<Task> {
         throw new HamyoException("Usage: deadline [task description] /by [deadline]");
       }
       this.add(new Deadline(split));
-    } else if (taskType.equals(Parser.TaskType.EVENT)) {
+    } else if (taskType.equals(TaskType.EVENT)) {
       if (task.length() <= 1) {
         throw new HamyoException("Usage: event [task description] /from [start timestamp] /to [end timestamp]");
       }
