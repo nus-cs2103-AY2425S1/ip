@@ -8,9 +8,8 @@ import barney.data.task.DeadlineTask;
 import barney.ui.Ui;
 
 /**
- * Represents a command for creating a deadline task.
- * 
- * This command is used to create a deadline task with the specified arguments.
+ * Represents a command for creating a deadline task. Extends the
+ * {@link Command} class.
  */
 public class DeadlineCommand extends Command {
     HashMap<String, String> argumentMap;

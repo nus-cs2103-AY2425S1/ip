@@ -8,9 +8,8 @@ import barney.data.task.Task;
 import barney.ui.Ui;
 
 /**
- * Represents a command to unmark a task. Extends the Command class.
- *
- * @param argumentMap A HashMap containing the command arguments.
+ * Represents a command for unmarking a task as incomplete. Extends the
+ * {@link Command} class.
  */
 public class UnmarkCommand extends Command {
     HashMap<String, String> argumentMap;

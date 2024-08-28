@@ -9,13 +9,7 @@ import barney.data.exception.MissingFlagException;
 import barney.ui.Ui;
 
 /**
- * Represents an abstract command that can be executed.
- * 
- * This class provides a base implementation for different types of commands.
- * Subclasses must implement the {@link #execute(TaskList, Ui)} method to define
- * the specific behavior of the command.
- * 
- * @param name The name of the command.
+ * Represents a command that can be executed by the user.
  */
 public abstract class Command {
     private final String name;

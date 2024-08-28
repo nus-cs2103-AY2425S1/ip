@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import barney.data.datetime.BarneyDateTime;
 
+/**
+ * Represents a task with a deadline.
+ * 
+ * This class extends the Task class and adds functionality to handle tasks with
+ * deadlines.
+ */
 public class DeadlineTask extends Task {
     private String byString;
     private LocalDate byDate;

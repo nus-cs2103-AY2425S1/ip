@@ -8,7 +8,8 @@ import barney.data.task.TodoTask;
 import barney.ui.Ui;
 
 /**
- * Represents a command to add a new todo task. Extends the Command class.
+ * Represents a command for creating a todo task. Extends the {@link Command}
+ * class.
  */
 public class TodoCommand extends Command {
     HashMap<String, String> argumentMap;

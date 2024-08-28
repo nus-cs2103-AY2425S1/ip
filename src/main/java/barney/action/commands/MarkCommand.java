@@ -8,16 +8,8 @@ import barney.data.task.Task;
 import barney.ui.Ui;
 
 /**
- * Represents a command to mark a task as completed. This command takes in an
- * argument map containing the index of the task to be marked. The task will be
- * marked as completed and the updated task will be printed to the user
- * interface.
- *
- * @param argumentMap The argument map containing the index of the task to be
- *                    marked.
- * @throws InvalidArgumentException If the index is not a valid task number or
- *                                  is out of range.
- * @return True if the command is executed successfully, false otherwise.
+ * Represents a command for marking a task as completed. Extends the
+ * {@link Command} class.
  */
 public class MarkCommand extends Command {
     HashMap<String, String> argumentMap;

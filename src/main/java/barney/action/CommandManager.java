@@ -14,9 +14,9 @@ import barney.data.exception.BarneyException;
 import barney.data.exception.InvalidCommandException;
 
 /**
- * The CommandManager class is responsible for managing commands in the
- * application. It provides methods to parse user input, determine the command
- * type, and create the corresponding command object.
+ * The CommandManager class is responsible for managing the execution of
+ * commands in the Barney application. It provides functionality to parse
+ * commands and create the corresponding command objects.
  */
 public class CommandManager {
 
