@@ -1,3 +1,5 @@
+package orion;
+
 import java.util.Scanner;
 
 import orion.orionExceptions.FileInitializationException;
