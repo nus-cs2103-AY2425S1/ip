@@ -98,4 +98,21 @@ public class TaskList {
     public void addTask(Task userTask) {
         this.taskList.add(userTask);
     }
+
+    /**
+     * Finds task in taskList with keyword in the description and return it as an ArrayList of task
+     *
+     * @param keyword word to search for in the list of task
+     * @return an arrayList of all the task with description containing the keyword
+     */
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> resultArray = new ArrayList<>();
+        for (Task task : this.taskList) {
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
+                resultArray.add(task);
+            }
+        }
+        return resultArray;
+    }
 }

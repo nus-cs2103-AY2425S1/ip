@@ -3,6 +3,8 @@ package echo.ui;
 import echo.task.Task;
 import echo.tasklist.TaskList;
 
+import java.util.ArrayList;
+
 public class Ui {
     private static final String LINE_BREAK = "-------------------------------------";
 
@@ -90,6 +92,24 @@ public class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + numOfTask + " tasks in the list.");
+        System.out.println(LINE_BREAK);
+    }
+
+    /**
+     * Prints the list of task found in an arrayList of Task
+     *
+     * @param arrayList arrayList containing a list of task
+     */
+    public void printFoundTask(ArrayList<Task> arrayList) {
+        System.out.println(LINE_BREAK);
+        if (arrayList.isEmpty()) {
+            System.out.println("There are no task found with the keyword");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < arrayList.size(); i++) {
+                System.out.println((i + 1) + "." + arrayList.get(i).toString());
+            }
+        }
         System.out.println(LINE_BREAK);
     }
 
