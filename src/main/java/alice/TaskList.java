@@ -2,17 +2,29 @@ package alice;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ * Manages the tasks, including adding, marking as done/undone, deleting, and retrieving tasks.
+ */
 public class TaskList {
     ArrayList<Task> list;
     Ui ui;
     private static final String line =
             "____________________________________________________________";
 
+    /**
+     * Constructs a TaskList with an empty list of tasks and a new Ui instance.
+     */
     public TaskList() {
         this.list = new ArrayList<>();
         this.ui = new Ui();
     }
 
+    /**
+     * Adds a task to the list and informs the user of the addition.
+     *
+     * @param task The task to be added to the list.
+     */
     public void addToList(Task task) {
         try {
             this.list.add(task);
@@ -22,6 +34,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task in the list as done.
+     *
+     * @param num The index of the task to be marked as done.
+     */
     public void markTask(int num) {
         if (num <= list.size() && num > 0) {
             Task currTask = list.get(num - 1);
@@ -32,6 +49,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task in the list as undone.
+     *
+     * @param num The index of the task to be marked as undone.
+     */
     public void unmarkTask(int num) {
         if (num <= list.size() && num > 0) {
             Task currTask = list.get(num - 1);
@@ -42,6 +64,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param num The index of the task to be deleted.
+     */
     public void delete(int num) {
         if (num <= list.size() && num > 0) {
             Task currTask = list.get(num - 1);
@@ -52,10 +79,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return An ArrayList containing all tasks.
+     */
     public ArrayList<Task> getTask() {
         return this.list;
     }
 
+    /**
+     * Returns a string representation of the task list.
+     * Each task is listed with its index and description.
+     *
+     * @return A string representing the task list.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
