@@ -1,4 +1,4 @@
-package Exception;
+package Bob.Exception;
 
 public class BobException extends Exception {
     public BobException(String msg) {
