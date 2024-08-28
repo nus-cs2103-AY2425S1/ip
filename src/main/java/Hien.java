@@ -27,23 +27,27 @@ public class Hien {
 
             System.out.println("____________________________________________________________");
 
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                listTasks();
-            } else if (input.startsWith("mark ")) {
-                markTask(input, true);
-            } else if (input.startsWith("unmark ")) {
-                markTask(input, false);
-            } else if (input.startsWith("todo ")) {
-                addTodo(input);
-            } else if (input.startsWith("deadline ")) {
-                addDeadline(input);
-            } else if (input.startsWith("event ")) {
-                addEvent(input);
-            } else {
-                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    listTasks();
+                } else if (input.startsWith("mark")) {
+                    markTask(input, true);
+                } else if (input.startsWith("unmark")) {
+                    markTask(input, false);
+                } else if (input.startsWith("todo")) {
+                    addTodo(input);
+                } else if (input.startsWith("deadline")) {
+                    addDeadline(input);
+                } else if (input.startsWith("event")) {
+                    addEvent(input);
+                } else {
+                    throw new HienException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (HienException e) {
+                System.out.println(e.getMessage());
             }
 
             System.out.println("____________________________________________________________");
@@ -52,8 +56,12 @@ public class Hien {
         scanner.close();
     }
 
-    private void addTodo(String input) {
-        String description = input.substring(5).trim();
+    private void addTodo(String input) throws HienException {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
+            throw new HienException("☹ OOPS!!! The description of todo cannot be empty");
+        }
+        System.out.printf("description: %s", description);
         Todo todo = new Todo(description);
         tasks.add(todo);
         System.out.println(" Got it. I've added this task:");
@@ -61,8 +69,8 @@ public class Hien {
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private void addDeadline(String input) {
-        String[] parts = input.substring(9).split(" /by ");
+    private void addDeadline(String input) throws HienException {
+        String[] parts = input.substring(8).split(" /by ");
         if (parts.length == 2) {
             Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
             tasks.add(deadline);
@@ -70,12 +78,12 @@ public class Hien {
             System.out.println("   " + deadline);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         } else {
-            System.out.println(" ☹ OOPS!!! The deadline format is incorrect. Please use: deadline <description> /by <date>");
+            throw new HienException(" ☹ OOPS!!! The deadline format is incorrect. Please use: deadline <description> /by <date>");
         }
     }
 
-    private void addEvent(String input) {
-        String[] parts = input.substring(6).split(" /from | /to ");
+    private void addEvent(String input) throws HienException {
+        String[] parts = input.substring(5).split(" /from | /to ");
         if (parts.length == 3) {
             Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
             tasks.add(event);
@@ -83,7 +91,7 @@ public class Hien {
             System.out.println("   " + event);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         } else {
-            System.out.println(" ☹ OOPS!!! The event format is incorrect. Please use: event <description> /from <start-date> /to <end-date>");
+            throw new HienException("☹ OOPS!!! The event format is incorrect. Please use: event <description> /from <start-date> /to <end-date>");
         }
     }
 
@@ -98,24 +106,26 @@ public class Hien {
         }
     }
 
-    private void markTask(String input, boolean isDone) {
-        try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (index >= 0 && index < tasks.size()) {
-                Task task = tasks.get(index);
-                if (isDone) {
-                    task.markAsDone();
-                    System.out.println(" Nice! I've marked this task as done:");
-                } else {
-                    task.markAsUndone();
-                    System.out.println(" OK, I've marked this task as not done yet:");
-                }
-                System.out.println("   " + task);
+    private void markTask(String input, boolean isDone) throws HienException {
+        String index = isDone ? input.substring(4).trim() : input.substring(6).trim();
+        if (index.isEmpty() || !index.matches("-?(0|[1-9]\\d*)")) {
+            throw new HienException("☹ OOPS!!! The index of the task to remove is either empty or not integer. Please try again!");
+        }
+        int i = Integer.parseInt(index);
+        if (i < 1) {
+            throw new HienException("☹ OOPS!!! Task index cannot be less than 1");
+        } else if (i > tasks.size()) {
+            throw new HienException("☹ OOPS!!! Task index cannot be greater than current number of tasks");
+        } else {
+            Task task = tasks.get(i - 1);
+            if (isDone) {
+                task.markAsDone();
+                System.out.println(" Nice! I've marked this task as done:");
             } else {
-                System.out.println(" ☹ OOPS!!! The task number is invalid.");
+                task.markAsUndone();
+                System.out.println(" OK, I've marked this task as not done yet:");
             }
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println(" ☹ OOPS!!! The command format is incorrect. Please use 'mark <task number>' or 'unmark <task number>'.");
+            System.out.println("   " + task);
         }
     }
 }
