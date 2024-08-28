@@ -3,7 +3,6 @@ package barney;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -15,6 +14,9 @@ import barney.data.exception.InvalidArgumentException;
 import barney.data.task.TodoTask;
 import barney.ui.Ui;
 
+/**
+ * This class contains unit tests for the TodoCommand class.
+ */
 public class TodoCommandTest {
 
     @Test
@@ -36,7 +38,6 @@ public class TodoCommandTest {
             // Verify the task was added
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof TodoTask);
-            TodoTask task = (TodoTask) tasks.get(0);
             // Verify the output
             String expectedOutput = "Got it. I've added this task:\r\n" + //
                     "[T][ ] borrow book\r\n" + //
