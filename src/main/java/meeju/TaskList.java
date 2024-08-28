@@ -198,4 +198,20 @@ public class TaskList {
 
     }
 
+    public void findTask(String keyword) throws MeejuException{
+        if (keyword.isEmpty()) {
+            throw new MeejuException("Meow! Please tell me what should i find");
+        }
+        int count = 1;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            if (this.taskList.get(i).getTaskDescription().contains(keyword)) {
+                System.out.println("\t" + count + ". " + this.taskList.get(i));
+                count++;
+            }
+        }
+        if (count == 1) {
+            System.out.println("Meow! No such tasks can be found.");
+        }
+    }
+
 }
