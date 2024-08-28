@@ -9,29 +9,13 @@ public class Stelle {
     static final String FILE_PATH = "./data/stelle.txt";
 
     private Ui ui;
-    private Parser parser;
 
     public Stelle(String name, String filePath) {
-        ui = new Ui(name);
-        parser = new Parser(ui, filePath);
+        ui = new Ui(name, filePath);
     }
 
     public void run() {
-        ui.printGreeting();
-
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            String input = scanner.nextLine();
-
-            ui.showLine();
-            try {
-                parser.processInput(input);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            ui.showLine();
-        }
+        ui.run();
     }
 
     public static void main(String[] args) {
