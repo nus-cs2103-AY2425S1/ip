@@ -61,6 +61,9 @@ public class Appleaster {
                 case DATE:
                     tasks.listTasksOnDate(c.getDate());
                     break;
+                case FIND:
+                    tasks.displayMatchingTasks(c.getKeyword());
+                break;                    
                 case BYE:
                     storage.save(tasks.getTasks());
                     ui.showGoodbye();
