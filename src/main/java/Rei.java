@@ -19,39 +19,62 @@ public class Rei {
 
         while (!scanner.hasNext("annyeong") && !scanner.hasNext("Annyeong")) {
             if (scanner.hasNext("list")) {
+                System.out.println("-----------REI♥-----------");
                 System.out.println("Here are the tasks in your list: ");
                 for (int i = 1; i < count; i++) {
-                    System.out.println(i + ". " + list[i].printTask());
+                    System.out.println(i + ". " + list[i]);
                 }
                 scanner.next();
             } else if (scanner.hasNext("mark")) {
+                System.out.println("-----------REI♥-----------");
                 scanner.next();
                 int id = scanner.nextInt();
                 if (id < count) {
                     list[id].markAsDone();
                     System.out.println("Okay! I've marked this task as done: ");
-                    System.out.println(list[id].printTask());
+                    System.out.println(list[id]);
                 } else {
                     System.out.println("No task found. Please retry!");
                 }
 
             } else if (scanner.hasNext("unmark")) {
+                System.out.println("-----------REI♥-----------");
                 scanner.next();
                 int id = scanner.nextInt();
                 if (id < count) {
                     list[id].markAsUndone();
                     System.out.println("Okay! I've marked this task as not done yet: ");
-                    System.out.println(list[id].printTask());
+                    System.out.println(list[id]);
                 } else {
                     System.out.println("No task found. Please retry!");
                 }
-            } else {
+            } else if (scanner.hasNext("todo")
+                        || scanner.hasNext("deadline")
+                        || scanner.hasNext("event")) {
+
                 String prompt = scanner.nextLine();
+
                 System.out.println("-----------REI♥-----------");
-                System.out.println("added: " + prompt);
-                System.out.println("-----------YOU------------");
-                list[count++] = new Task(prompt);
+                System.out.println("Got it. I've added this task:");
+
+                if (prompt.startsWith("todo")) {
+                    list[count++] = Task.createToDo(prompt.substring(5));
+                } else if (prompt.startsWith("deadline")) {
+                    list[count++] = Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
+                                                        prompt.substring(prompt.indexOf("/by") + 4));
+                } else { // event
+                    list[count++] = Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
+                                                     prompt.substring(prompt.indexOf("/from") + 6, prompt.indexOf("/to")),
+                                                     prompt.substring(prompt.indexOf("/to") + 4));
+                }
+
+                System.out.println("    " + list[count - 1]);
+                System.out.println(String.format("Now you have %d tasks in the list.", count - 1));
+
+            } else {
+
             }
+            System.out.println("-----------YOU------------");
         }
 
         scanner.close();
