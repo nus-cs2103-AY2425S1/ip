@@ -1,3 +1,7 @@
+package Task.TaskType;
+
+import Task.TaskType.TaskType;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
