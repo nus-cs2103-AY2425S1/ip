@@ -45,7 +45,7 @@ public class DateConverter {
         LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
 
         String dayWithSuffix = getDayWithSuffix(dateTime.getDayOfMonth());
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM yyyy, h a");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM yyyy, h:mm a");
         String formattedDate = dateTime.format(outputFormatter);
 
         return dayWithSuffix + " of " + formattedDate.toLowerCase();
