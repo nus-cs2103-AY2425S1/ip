@@ -1,3 +1,5 @@
-D |   | sadfasdf  ( by tmr )
-T | X | asdfasdf
-E |   |  asdfasdfa ( from Feb 15 2002, 00:00 to Feb 16 2002, 00:00 )
+E |   | sasas ( from now to then )
+E |   | sasas2 ( from Apr 12 2002, 00:00 to Apr 12 2002, 00:00 )
+T |   | sadfasdf
+D | X | asdfsadf ( by tmr )
+D |   | saasdfasf2( by Sept 15 2019, 00:00 ) 
