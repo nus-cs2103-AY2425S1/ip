@@ -1,7 +1,7 @@
 package nerf.io;
 
 public class Ui {
-    private final int LINE_LENGTH = 60;
+    private static final int LINE_LENGTH = 60;
     private final String LOGO = """
                                        ##  ##   ######   #####    ######
                                        ### ##   ##       ##  ##   ##    
@@ -28,8 +28,8 @@ public class Ui {
         System.out.println(this.LOGO);
     }
 
-    public void printDivider(){
-        System.out.println("_".repeat(this.LINE_LENGTH));
+    public static void printDivider(){
+        System.out.println("_".repeat(Ui.LINE_LENGTH));
     }
 
     public void showLoadingError(){

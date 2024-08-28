@@ -19,6 +19,17 @@ public abstract class Task{
         this.isDone = false;
     }
 
+    /**
+     * Returns true if description has keyword in it.
+     * Returns false otherwise.
+     * 
+     * @param keyword to check.
+     * @return true if keyword in description.
+     */
+    public boolean matchSearch(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     private String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }
