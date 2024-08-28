@@ -11,7 +11,8 @@ public abstract class Command {
         DELETE,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        FIND,
     }
 
     protected final Ui ui;
@@ -44,6 +45,10 @@ public abstract class Command {
 
         if (input.startsWith(Action.DELETE.name())) {
             return new DeleteTask(ui, taskList);
+        }
+
+        if (input.startsWith(Action.FIND.name())) {
+            return new FindTask(ui, taskList);
         }
 
         throw new IllegalArgumentException("Unsupported command.");
