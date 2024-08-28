@@ -17,7 +17,6 @@ public class Event extends Task {
         super(description);
         this.start = start;
         this.end = end;
-
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.parsedStart = LocalDateTime.parse(start, inputFormat);
         this.parsedEnd = LocalDateTime.parse(end, inputFormat);

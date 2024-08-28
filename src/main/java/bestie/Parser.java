@@ -86,9 +86,9 @@ public class Parser {
             break;
 
         default:
-
             return new InvalidCommand();
         }
+
         return new EmptyCommand();
 
     }

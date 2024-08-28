@@ -75,6 +75,7 @@ public class Storage {
                 boolean isCompleted = parts[1].equals("1");
                 String description = parts[2]; // description of task
                 Task newTask = null;
+
                 switch (taskType) {
 
                 case ("T"): // next task is a todo
@@ -82,19 +83,19 @@ public class Storage {
                     tasks.add(newTask);
                     break;
 
-                    case ("D"):
+                case ("D"):
 
-                        String deadline = parts[3];
-                        newTask = new Deadline(description, deadline);
-                        tasks.add(newTask);
-                        break;
+                    String deadline = parts[3];
+                    newTask = new Deadline(description, deadline);
+                    tasks.add(newTask);
+                    break;
 
-                    case ("E"):
-                        String start = parts[3];
-                        String end = parts[4];
-                        newTask = new Event(description, start, end);
-                        tasks.add(newTask);
-                        break;
+                case ("E"):
+                    String start = parts[3];
+                    String end = parts[4];
+                    newTask = new Event(description, start, end);
+                    tasks.add(newTask);
+                    break;
                 }
 
                 if (newTask != null) {

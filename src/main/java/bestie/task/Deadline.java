@@ -12,13 +12,10 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.deadline = LocalDateTime.parse(by, inputFormat);
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
         this.formattedDeadline = this.deadline.format(outputFormat);
-
-
     }
 
 
