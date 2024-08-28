@@ -51,6 +51,10 @@ public class Task implements Serializable {
         return description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Message printed when task is marked as done.
      */
