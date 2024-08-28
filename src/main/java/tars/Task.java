@@ -2,7 +2,7 @@ package tars;
 
 public class Task {
     private String name;
-    private Boolean done;
+    private boolean done;
 
     /**
      * Constructs a new Task with the specified name and completion status.
