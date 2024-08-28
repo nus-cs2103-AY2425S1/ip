@@ -6,12 +6,20 @@ import bro.storage.Storage;
 import bro.task.TaskList;
 import bro.ui.UI;
 
+/**
+ * Represents a CLI chatbot named bro that helps you track your tasks
+ */
 public class Bro {
 
     private Storage storage;
     private TaskList tasks;
     private UI ui;
 
+    /**
+     * Returns a Bro instance which loads its initial task from a given file path
+     *
+     * @param filePath The file path containing the initial state of the task list tracked by Bro
+     */
     public Bro(String filePath) {
         this.ui = new UI();
         this.storage = new Storage(filePath);
@@ -23,6 +31,9 @@ public class Bro {
         }
     }
 
+    /**
+     * Begins running the Bro chatbot on the CLI
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

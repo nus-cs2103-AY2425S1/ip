@@ -10,7 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-// This class encapsulates the command parser
+/**
+ * Represents a Command parser that reads from the terminal and the Command represented
+ */
 public class Parser {
     private enum ChatCommand {
         bye,
