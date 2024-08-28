@@ -1,8 +1,9 @@
 package command;
 
-import task.Task;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import task.Task;
 
 /**
  * Handles all user interactions for the chatbot,

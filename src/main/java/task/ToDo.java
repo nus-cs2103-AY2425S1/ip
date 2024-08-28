@@ -42,7 +42,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "task.ToDo | " + (isDone ? "Done" : "Not Done") + " | " + description;
+        return "task.ToDo | " + (isDone ? "Done" : "Not Done") +
+                " | " + description;
     }
 }
 

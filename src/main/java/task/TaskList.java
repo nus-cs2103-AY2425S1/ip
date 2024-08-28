@@ -45,7 +45,7 @@ public class TaskList {
      * @param index The index of the task to be marked done.
      * @return True if tas was marked as done, false otherwise.
      */
-    public boolean markTaskAsDone(int index) {
+    public boolean markedTaskAsDone(int index) {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).markAsDone();
             return true;
@@ -59,7 +59,7 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      * @return True if tas was marked as not done, false otherwise.
      */
-    public boolean markTaskAsNotDone(int index) {
+    public boolean markedTaskAsNotDone(int index) {
         if (index >= 0 && index < tasks.size()) {
             tasks.get(index).markAsNotDone();
             return true;

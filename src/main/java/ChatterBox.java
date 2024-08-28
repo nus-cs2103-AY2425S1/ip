@@ -1,10 +1,10 @@
 
+import java.util.Scanner;
+
 import command.Parser;
 import command.Ui;
 import storage.Storage;
 import task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Represents the main class for the ChatterBox application.

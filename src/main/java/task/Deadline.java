@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task with a deadline. A Deadline task has a description and a specific date and time by which it needs to be completed.
+ * Represents a task with a deadline.
+ * A Deadline task has a description and a specific date and time
+ * by which it needs to be completed.
  */
 public class Deadline extends Task{
 
@@ -59,7 +61,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 
     /**
@@ -70,6 +73,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toSaveFormat() {
-        return "task.Deadline | " + (isDone ? "Done" : "Not Done") + " | " + description + " | " +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
+        return "task.Deadline | " + (isDone ? "Done" : "Not Done") + " | " + description + " | "
+                +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 }
