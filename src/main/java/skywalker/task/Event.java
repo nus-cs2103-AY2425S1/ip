@@ -1,9 +1,10 @@
+package skywalker.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    public LocalDateTime from;
+    public LocalDateTime to;
 
 
     public Event(String description, String from, String to) {

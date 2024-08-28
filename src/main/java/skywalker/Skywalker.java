@@ -1,3 +1,11 @@
+package skywalker;
+
+import skywalker.command.Command;
+import skywalker.parser.Parser;
+import skywalker.storage.Storage;
+import skywalker.task.TaskList;
+import skywalker.ui.Ui;
+
 import java.io.IOException;
 
 public class Skywalker {

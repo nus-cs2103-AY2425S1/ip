@@ -1,6 +1,9 @@
+package skywalker.task;
+
+
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
     protected TaskType taskType;
 
     public Task(String description, TaskType taskType) {

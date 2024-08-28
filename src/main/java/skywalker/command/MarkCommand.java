@@ -1,3 +1,9 @@
+package skywalker.command;
+import skywalker.storage.Storage;
+import skywalker.task.Task;
+import skywalker.task.TaskList;
+import skywalker.ui.Ui;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {

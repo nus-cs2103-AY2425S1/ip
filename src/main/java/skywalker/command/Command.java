@@ -1,3 +1,8 @@
+package skywalker.command;
+import skywalker.storage.Storage;
+import skywalker.task.TaskList;
+import skywalker.ui.Ui;
+
 import java.io.IOException;
 
 public abstract class Command {

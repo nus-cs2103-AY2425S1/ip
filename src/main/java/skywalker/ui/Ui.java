@@ -1,3 +1,6 @@
+package skywalker.ui;
+import skywalker.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
