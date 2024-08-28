@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import henry.Ui;
-import henry.TaskList;
-import henry.Storage;
+import henry.util.Ui;
+import henry.util.TaskList;
+import henry.util.Storage;
 import henry.HenryException;
 import henry.task.Todo;
 import henry.task.Deadline;

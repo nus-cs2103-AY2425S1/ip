@@ -1,6 +1,10 @@
 package henry;
 
 import henry.command.Command;
+import henry.util.Storage;
+import henry.util.TaskList;
+import henry.util.Ui;
+import henry.util.Parser;
 
 /**
  * a Personal Assistant Chatbot that helps a person

@@ -1,8 +1,8 @@
 package henry.command;
 
-import henry.Ui;
-import henry.TaskList;
-import henry.Storage;
+import henry.util.Ui;
+import henry.util.TaskList;
+import henry.util.Storage;
 import henry.HenryException;
 
 /**
