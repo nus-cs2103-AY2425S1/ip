@@ -35,9 +35,11 @@ public class ListSaver {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e);
+            System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("IO Error found: " + e);
+            System.out.println("IO Error found: " + e.getMessage());
+        } catch (NotPossibleDurationStobberiException e) {
+            System.out.println(e.getMessage());
         }
 
         return taskList;
@@ -54,14 +56,14 @@ public class ListSaver {
                 } else if (task instanceof Deadlines deadline) {
                     taskLine += "D | ";
                     taskLine += task.description;
-                    taskLine += "| ";
+                    taskLine += " | ";
                     taskLine += deadline.getDeadlineOfTask();
                 } else if (task instanceof Events event) {
                     taskLine += "E | ";
                     taskLine += task.description;
-                    taskLine += "| ";
+                    taskLine += " | ";
                     taskLine += event.getStartOfEvent();
-                    taskLine += "| ";
+                    taskLine += " | ";
                     taskLine += event.getEndOfEvent();
                 }
                 if (task.getDone()) {
@@ -73,9 +75,9 @@ public class ListSaver {
             }
             writer.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e);
+            System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("IO Error found: " + e);
+            System.out.println("IO Error found: " + e.getMessage());
         }
     }
 }

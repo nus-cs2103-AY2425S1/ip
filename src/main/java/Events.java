@@ -1,32 +1,47 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Events extends Task {
-    private String startOfEvent;
-    private String endOfEvent;
+    private LocalDateTime startOfEvent;
+    private LocalDateTime endOfEvent;
 
-    public Events(String description, String startOfEvent, String endOfEvent) {
+    public Events(String description, String startOfEvent, String endOfEvent) throws NotPossibleDurationStobberiException {
         super(description);
-        this.startOfEvent = startOfEvent;
-        this.endOfEvent = endOfEvent;
+        this.startOfEvent = LocalDateTime.parse(startOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+        this.endOfEvent = LocalDateTime.parse(endOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+        if (this.startOfEvent.isAfter(this.endOfEvent)) {
+            throw new NotPossibleDurationStobberiException("Not possible! Start time should be BEFORE end time.");
+        }
     }
 
-    public Events(String description, String startOfEvent, String endOfEvent, String done) {
+    public Events(String description, String startOfEvent, String endOfEvent, String done) throws NotPossibleDurationStobberiException{
         super(description);
-        this.startOfEvent = startOfEvent;
-        this.endOfEvent = endOfEvent;
+        this.startOfEvent = LocalDateTime.parse(startOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+        this.endOfEvent = LocalDateTime.parse(endOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
         if (done.equals("1")) {super.setDone();}
+        if (this.startOfEvent.isAfter(this.endOfEvent)) {
+            throw new NotPossibleDurationStobberiException("Not possible! Start should be BEFORE end time.");
+        }
+    }
+
+    public boolean isDuring(String date) {
+        LocalDateTime start = LocalDateTime.parse(date + " 0000hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+        LocalDateTime end = LocalDateTime.parse(date + " 2359hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+
+        return (endOfEvent.isAfter(start) || endOfEvent.isEqual(start)) &&
+                (startOfEvent.isBefore(end) || startOfEvent.isEqual(end));
     }
 
     public String getStartOfEvent() {
-        return startOfEvent;
+        return startOfEvent.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
     }
 
     public String getEndOfEvent() {
-        return endOfEvent;
+        return endOfEvent.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + "(from: " + startOfEvent + "to: " + endOfEvent + ")";
+        return "[E] " + super.toString() + " (from: " + startOfEvent.format(DateTimeFormatter.ofPattern("d MMMM yyyy ha"))
+                + " to: " + endOfEvent.format(DateTimeFormatter.ofPattern("d MMMM yyyy ha")) + ")";
     }
 }

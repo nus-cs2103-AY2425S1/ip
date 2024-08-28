@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -60,6 +61,25 @@ public class Stobberi {
                         + listOfTasks.get(listOfTasks.size() - 1))
                 + "Now you have " + listOfTasks.size() + " in the list.");
     }
+    private void filterListByDate(String date) {
+        String list = "Here are the tasks in your list that you have to do on " + date + ":\n";
+        int n = 1;
+        for (int i = 1; i < listOfTasks.size() + 1; i++) {
+            Task task = listOfTasks.get(i - 1);
+            if (task instanceof Deadlines deadline) {
+                if (deadline.isDuring(date)) {
+                    list += n + ". " + listOfTasks.get(i - 1) + "\n";
+                    n++;
+                }
+            } else if (task instanceof Events event) {
+                if (event.isDuring(date)) {
+                    list += n + ". " + listOfTasks.get(i - 1) + "\n";
+                    n++;
+                }
+            }
+        }
+        System.out.println(displayForm(list));
+    }
 
     private void addTask(String firstWord, String task) throws StobberiException {
         if (task.isEmpty()) {
@@ -73,11 +93,11 @@ public class Stobberi {
         if (firstWord.equals("todo")) {
             listOfTasks.add(new ToDos(task));
         } else if (firstWord.equals("deadline")) {
-            String[] parts = task.split("/by ");
+            String[] parts = task.split(" /by ");
             listOfTasks.add(new Deadlines(parts[0], parts[1]));
         } else if (firstWord.equals("event")) {
-            String[] parts = task.split("/from ");
-            String[] secondParts = parts[1].split("/to ");
+            String[] parts = task.split(" /from ");
+            String[] secondParts = parts[1].split(" /to ");
             listOfTasks.add(new Events(parts[0], secondParts[0], secondParts[1]));
         }
         displayLastAdded();
@@ -110,10 +130,21 @@ public class Stobberi {
                         continue;
                     }
                 }
+                if (parts.length == 2 && firstWord.equals("date")) {
+                    try {
+                        filterListByDate(parts[1]);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n" + e.getMessage());
+                    }
+                    temp = scanner.nextLine();
+                    continue;
+                }
                 try {
                     addTask(firstWord, restOfTask);
                 } catch (StobberiException e) {
                     System.out.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n" + e.getMessage());
                 }
             }
             temp = scanner.nextLine();
