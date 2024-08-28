@@ -1,9 +1,19 @@
 package Bot;
 import TaskType.TaskBuilder;
 
+/**
+ * The Parser class is responsible for interpreting user commands and invoking
+ * the appropriate methods to handle tasks such as creating, marking, unmarking,
+ * deleting, and listing tasks. It interacts with the ListManager to manage the tasks
+ * and FileManager to handle file operations.
+ */
 public class Parser {
     private ListManager dukeManager;
     private FileManager dukeFileManager;
+
+    /**
+     * Enumeration representing the types of tasks that can be handled by the Parser.
+     */
     public enum TaskType {
         TODO,EVENT,DEADLINE
     }
@@ -12,6 +22,11 @@ public class Parser {
         this.dukeFileManager = dukeFileManager;
     }
 
+    /**
+     * Parses the user's command and calls the appropriate method to handle it.
+     *
+     * @param command The user's input command.
+     */
     public void parseCommand(String command) {
         String commandLowerCase = command.toLowerCase();
         String[] parts = command.split(" ");
@@ -52,6 +67,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "mark" and "unmark" commands to mark or unmark tasks as done.
+     *
+     * @param command The full input string from the user.
+     * @param action  The action to perform ("mark" or "unmark").
+     */
     private void handleMarkUnmark(String command, String action) {
         String[] parts = command.split(" ");
         if (parts.length == 2) {
