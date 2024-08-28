@@ -4,8 +4,8 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime by;
 
-    public Deadline(String description, LocalDateTime by) {
-        super(description);
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
+        super(description, isDone);
         this.by = by;
     }
 
@@ -18,6 +18,6 @@ public class Deadline extends Task {
     @Override
     public String formatted() {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
-        return "D | " + super.formatted() + "| " + by.format(fileFormat);
+        return "D | " + super.formatted() + " | " + by.format(fileFormat);
     }
 }

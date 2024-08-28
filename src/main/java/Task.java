@@ -3,9 +3,9 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    protected Task(String description) {
+    protected Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
         numberOfTasks++;
     }
 

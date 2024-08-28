@@ -5,8 +5,8 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description);
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
@@ -21,7 +21,7 @@ public class Event extends Task {
     @Override
     public String formatted() {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
-        return "E | " + super.formatted() + "| " + from.format(fileFormat)
+        return "E | " + super.formatted() + " | " + from.format(fileFormat)
                 + " | " + to.format(fileFormat);
     }
 }
