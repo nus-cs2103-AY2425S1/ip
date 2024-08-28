@@ -64,4 +64,19 @@ public class Ui {
     public static String readCommand() {
         return input.nextLine();
     }
+
+    public static void printFoundTasks(ArrayList<Task> tasks) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
+        printLine();
+    }
+
+    public static void printNoTaskFound() {
+        printLine();
+        System.out.println("No matching tasks found");
+        printLine();
+    }
 }
