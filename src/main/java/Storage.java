@@ -6,10 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ListSaver {
+public class Storage {
     private final String filePath;
 
-    public ListSaver(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
