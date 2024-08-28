@@ -44,6 +44,11 @@ public enum CommandType {
      * Command to delete an item.
      */
     DELETE("delete "),
+
+    /**
+     * Command to find an item.
+     */
+    FIND("find "),
     
     /**
      * Unknown command type.

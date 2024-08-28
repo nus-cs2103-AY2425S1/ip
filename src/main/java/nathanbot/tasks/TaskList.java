@@ -71,6 +71,22 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks that contain the specified string in their description.
+     *
+     * @param searchString The string to search for in task descriptions.
+     * @return A list of tasks that contain the specified string in their description.
+     */
+    public TaskList find(String searchString) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : taskList) {
+            if (task.toString().contains(searchString)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
+
+    /**
      * Returns a string representation of the task list.
      *
      * @return A string representation of the task list.

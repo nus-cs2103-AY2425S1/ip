@@ -173,6 +173,22 @@ public abstract class CommandHandler {
     }
 
     /**
+     * Handles the find command by finding a task based on the search string.
+     * 
+     * @param input The user input containing the command.
+     * @param taskList The list of tasks.
+     */
+    public static void handleFindCommand(String input, TaskList taskList) {
+        String searchString = input.substring(CommandType.FIND.getCommand().length()).trim();
+        TaskList tasksFound = taskList.find(searchString);
+        if (tasksFound.listLength() == 0) {
+            System.out.println(LINE + "No tasks found containing: " + searchString + "\n" + LINE);
+        } else {
+            System.out.println(LINE + "Here are the matching tasks in your list:\n" + tasksFound + LINE);
+        }
+    }
+
+    /**
      * Handles unknown commands.
      * Prints Unknown Command, womp womp..
      */

@@ -45,6 +45,7 @@ public class UserInterface {
                     case DEADLINE -> CommandHandler.handleDeadlineCommand(input, taskList);
                     case EVENT -> CommandHandler.handleEventCommand(input, taskList);
                     case DELETE -> CommandHandler.handleDeleteCommand(input, taskList);
+                    case FIND  -> CommandHandler.handleFindCommand(input, taskList);
                     default -> CommandHandler.handleUnknownCommand();
                 }
             }
