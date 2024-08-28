@@ -17,7 +17,7 @@ public class Nerf {
         new Nerf("data/taskStorage.txt").run();
     }
 
-    public Nerf(String filePath){
+    public Nerf(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         TaskList temp;
@@ -30,7 +30,7 @@ public class Nerf {
         this.taskList = temp;
     }
 
-    public void run(){
+    public void run() {
         this.ui.greetings();
         String input;
         do {

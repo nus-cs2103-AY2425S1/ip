@@ -7,18 +7,18 @@ import java.util.Scanner;
 public class Parser {
     private final Scanner scanner;
 
-    public Parser(){
+    public Parser() {
         this.scanner = new Scanner(System.in);
     }
 
-    public String getInput(){
+    public String getInput() {
         return this.scanner.nextLine();
     }
 
-    public static LocalDate parseStringToDate(String dateTimeString){
+    public static LocalDate parseStringToDate(String dateTimeString) {
         try {
             return LocalDate.parse(dateTimeString);
-        } catch (DateTimeParseException  e) {
+        } catch (DateTimeParseException e) {
             System.out.println("Please use the format yyyy-MM-dd for datetime inputs");
             return null;
         }
