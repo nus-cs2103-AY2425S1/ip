@@ -1,8 +1,8 @@
-// import libraries necessary for bestie to understand the dates
-import java.time.LocalDate;
+package bestie.task;// import libraries necessary for bestie to understand the dates
+import bestie.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 

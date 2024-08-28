@@ -1,4 +1,4 @@
-// deals with interactions with the user
+package bestie;// deals with interactions with the user
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +18,7 @@ public class Ui {
 
     public void welcome() {
         // greet user at the start
-        System.out.println("Hello! I'm Bestie, your personal assistant chatbot.");
+        System.out.println("Hello! I'm bestie.Bestie, your personal assistant chatbot.");
         System.out.println("Let's get ready to have a productive day!");
         System.out.println("What can I do for you today :)?");
     }

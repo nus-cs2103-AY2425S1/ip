@@ -1,8 +1,12 @@
-// deals with loading objects from the file and saving tasks in the file
+package bestie;// deals with loading objects from the file and saving tasks in the file
 // means it is connected, linked to the bestie.txt file
 
-
 // CHECK: DONE
+
+import bestie.task.Deadline;
+import bestie.task.Event;
+import bestie.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

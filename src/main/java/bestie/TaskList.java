@@ -1,4 +1,4 @@
-// tasklist class should contain the task list, and have operations to add/delete tasks in the lsit
+package bestie;// tasklist class should contain the task list, and have operations to add/delete tasks in the lsit
 
 import java.util.ArrayList;
 // mostly done?????????????????

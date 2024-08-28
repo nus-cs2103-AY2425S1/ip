@@ -1,3 +1,9 @@
+package bestie.command;
+
+import bestie.Storage;
+import bestie.TaskList;
+import bestie.Ui;
+
 public class DeleteCommand extends Command {
     // delete tasks from list
     private int index; // item to be deleted

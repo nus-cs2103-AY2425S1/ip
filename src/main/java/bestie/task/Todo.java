@@ -1,4 +1,8 @@
-public class Todo extends Task{
+package bestie.task;
+
+import bestie.Task;
+
+public class Todo extends Task {
 
     public Todo(String description) throws IllegalArgumentException {
         super(description);

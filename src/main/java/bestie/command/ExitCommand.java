@@ -1,3 +1,9 @@
+package bestie.command;
+
+import bestie.Storage;
+import bestie.TaskList;
+import bestie.Ui;
+
 public class ExitCommand extends Command {
 
     @Override

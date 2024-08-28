@@ -1,9 +1,11 @@
-import java.time.LocalDate;
+package bestie.task;
+
+import bestie.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
 
     protected String start;
     protected String end;
