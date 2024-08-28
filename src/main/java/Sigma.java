@@ -8,20 +8,66 @@ import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-//import java.io.FileReader;
-//import java.time.LocalDateTime;
 
 public class Sigma {
-    public static ArrayList<Task> items;
+    public static ArrayList<Task> items = new ArrayList<>();
 
-    public static String toPrettyList(List<Task> itemsArray) {
+    public static String getItemsFromFile(String path) throws IOException {
+        // there's gotta be a better way to do this
+        StringBuilder itemsFromFile = new StringBuilder();
+        int i = 1;
+        for (String line: Files.readAllLines(Paths.get(path))) {
+            itemsFromFile.append(i).append(". ").append(line).append("\n");
+            i++;
+        }
+        return itemsFromFile.toString();
+    }
+
+    // convert lines read from file to Task objects
+    public static void readTasksFromFile() {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("data/sigma.txt"));
+            // handle empty file case
+            if (lines.isEmpty()) {
+                return;
+            }
+            for (String line : lines) {
+                // parse each line
+                String[] parts = line.split(" ", 2); // Split at the first space
+                String status = parts[0];
+                String taskName = parts[1];
+                boolean isDone = status.equals("[X]");
+                Task task = new Task(taskName, isDone);
+                items.add(task);
+            }
+        } catch (IOException e) {
+            System.err.println("error reading lines from file: " + e.getMessage());
+        }
+    }
+
+    public static String toPrettyList(List<Task> itemsArray) throws IOException {
+//        StringBuilder itemsFromFile = new StringBuilder();
+//        for (String line: Files.readAllLines(Paths.get("data/sigma.txt"))) {
+//            itemsFromFile.append(line);
+//        }
+//        StringBuilder itemsFromFile = new StringBuilder();
+        int i = 1;
+//        for (String line: Files.readAllLines(Paths.get("data/sigma.txt"))) {
+//            itemsFromFile.append(i).append(". ").append(line).append("\n");
+//            i++;
+//        }
+//        if (itemsArray.isEmpty()) {
+//            return "";
+//        }
         StringBuilder result = new StringBuilder(); // this is a terrible time complexity
-        for (int i = 0; i < itemsArray.size(); i++) {
-            result.append(i + 1).append(". ").append(itemsArray.get(i).toString()).append("\n");
+        for (Task item : itemsArray) {
+            result.append(i).append(". ").append(item.toString()).append("\n");
+            i++;
         }
         return result.toString();
     }
 
+    // update this also
     public static void handleMarkUnmark(String userInput) {
         Pattern pattern = Pattern.compile("(mark|unmark) (\\d+)");
         Matcher matcher = pattern.matcher(userInput);
@@ -43,6 +89,7 @@ public class Sigma {
         }
     }
 
+    // need to update this
     public static void handleDelete(String userInput) {
         Pattern pattern = Pattern.compile("(delete) (\\d+)");
         Matcher matcher = pattern.matcher(userInput);
@@ -58,7 +105,7 @@ public class Sigma {
     }
 
     public static void main(String[] args) throws IOException {
-        items = new ArrayList<>();
+//        items = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         FileWriter writer = new FileWriter("data/sigma.txt", true);
 
@@ -71,31 +118,38 @@ public class Sigma {
             if (file.createNewFile()) {
                 System.out.println("New file created: " + file.getName());
             } else {
-                 // file already exists, open the file
-                for (String line: Files.readAllLines(Paths.get("data/sigma.txt"))) {
-                    System.out.println(line);
-                    // extra: handle situation of file being corrupted
-                }
+//                 // file already exists, open the file
+//                for (String line: Files.readAllLines(Paths.get("data/sigma.txt"))) {
+//                    System.out.println(line);
+//                    // extra: handle situation of file being corrupted
+//                }
+//                System.out.println(getItemsFromFile("data/sigma.txt"));
+//                System.out.println(toPrettyList(items));
             }
         } catch (IOException e) {
-            System.out.println("error occurred creating file");
+            System.err.println("error occurred creating file or reading from file: " + e.getMessage());
         }
+
+        // on start, transfer everything from the file to dynamic array
+        // if its stupid but it works then its not stupid
+        readTasksFromFile();
+        System.out.println(toPrettyList(items));
+        // this will update the 'items' ArrayList
 
         // run program
         while (scanner.hasNext()) {
             // could probably replace this with switch
             String userInput = scanner.nextLine();
             if (userInput.contains("list")) {
-                if (items.isEmpty()) {
-                    System.out.println("no tasks for today! good job!");
-                }
+//                if (items.isEmpty()) {
+//                    System.out.println("no tasks for today! good job!");
+//                }
                 System.out.println("Here are your sussy amogus tasks:\n" + toPrettyList(items));
                 continue;
             }
             if (userInput.contains("bye")) {
                 System.out.println("leaving so soon? dattebayo!");
                 // save the file contents
-
                 writer.flush();
                 writer.close();
                 break;
@@ -103,7 +157,6 @@ public class Sigma {
 
             if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
                 handleMarkUnmark(userInput);
-//                writer.write(userInput);
                 continue;
             }
 
