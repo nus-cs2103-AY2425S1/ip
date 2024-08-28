@@ -24,6 +24,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(int done, String task, String from, String to) {
+        super(done == 1 ? true : false, task);
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String toString() {
         String task = super.getTask() + " " + String.format("(from: %s to: %s)", from, to);

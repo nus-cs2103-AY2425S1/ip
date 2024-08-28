@@ -18,6 +18,11 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    public Deadline(int done, String task, String by) {
+        super(done == 1 ? true : false, task);
+        this.by = LocalDate.parse(by);
+    }
+
     @Override
     public String toString() {
 

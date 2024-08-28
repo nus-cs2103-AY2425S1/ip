@@ -4,6 +4,10 @@ public class ToDo extends Task {
         super(done, task);
     }
 
+    public ToDo(int done, String task) {
+        super(done == 1 ? true : false, task);
+    }
+
     @Override
     public String toString() {
         return super.getDone() ? "[T][X] " + super.getTask() : "[T][ ] " + super.getTask();
