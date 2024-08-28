@@ -24,7 +24,6 @@ dos2unix ACTUAL.TXT EXPECTED.TXT 2>/dev/null
 
 # Compare the output to the expected output
 diff ACTUAL.TXT EXPECTED.TXT
-diff_exit_code=$?
 
 if [ $diff_exit_code -eq 0 ]; then
     echo "Test result: PASSED"
