@@ -8,18 +8,24 @@
 	You now have 1 tasks.
 	____________________________________________________________
 	____________________________________________________________
-	Added: [D][ ] return book (by: Tuesday)
+	Invalid date given, please give in the format `deadline <name>/by yyyy-mm-dd HH:mm'
+	____________________________________________________________
+	____________________________________________________________
+	Added: [D][ ] return book (by: 2024-08-25 12:00)
 	You now have 2 tasks.
 	____________________________________________________________
 	____________________________________________________________
-	Added: [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
+	Invalid date given, please give in the format `event <name> /from yyyy-MM-dd HH:mm /to  yyyy-MM-dd HH:mm'
+	____________________________________________________________
+	____________________________________________________________
+	Added: [E][ ] hang out with da boys (from: 2024-08-26 14:00|to: 2024-08-26 20:00)
 	You now have 3 tasks.
 	____________________________________________________________
 	____________________________________________________________
 	You currently have 3 tasks.
 	1. [T][ ] borrow book
-	2. [D][ ] return book (by: Tuesday)
-	3. [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
+	2. [D][ ] return book (by: 2024-08-25 12:00)
+	3. [E][ ] hang out with da boys (from: 2024-08-26 14:00|to: 2024-08-26 20:00)
 	____________________________________________________________
 	____________________________________________________________
 	Good Job! The task is now marked as done: 
@@ -28,12 +34,12 @@
 	____________________________________________________________
 	You currently have 3 tasks.
 	1. [T][X] borrow book
-	2. [D][ ] return book (by: Tuesday)
-	3. [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
+	2. [D][ ] return book (by: 2024-08-25 12:00)
+	3. [E][ ] hang out with da boys (from: 2024-08-26 14:00|to: 2024-08-26 20:00)
 	____________________________________________________________
 	____________________________________________________________
 	Good Job! The task is now marked as done: 
-	Marked task: [D][X] return book (by: Tuesday)
+	Marked task: [D][X] return book (by: 2024-08-25 12:00)
 	____________________________________________________________
 	____________________________________________________________
 	Alright, the task is marked as not done: 
@@ -42,8 +48,8 @@
 	____________________________________________________________
 	You currently have 3 tasks.
 	1. [T][ ] borrow book
-	2. [D][X] return book (by: Tuesday)
-	3. [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
+	2. [D][X] return book (by: 2024-08-25 12:00)
+	3. [E][ ] hang out with da boys (from: 2024-08-26 14:00|to: 2024-08-26 20:00)
 	____________________________________________________________
 	____________________________________________________________
 	Empty Todo Task?!? Might as well ask me to not add it in!
@@ -55,7 +61,7 @@
 	Empty Event?!? You're planning to go nowhere with no one?
 	____________________________________________________________
 	____________________________________________________________
-	Deleted: [D][X] return book (by: Tuesday)
+	Deleted: [D][X] return book (by: 2024-08-25 12:00)
 	You now have 2 tasks.
 	____________________________________________________________
 	____________________________________________________________
@@ -70,7 +76,7 @@
 	____________________________________________________________
 	You currently have 2 tasks.
 	1. [T][ ] borrow book
-	2. [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
+	2. [E][ ] hang out with da boys (from: 2024-08-26 14:00|to: 2024-08-26 20:00)
 	____________________________________________________________
 	____________________________________________________________
 	Baaaaaa byeeee. Come baaaaack soon!
