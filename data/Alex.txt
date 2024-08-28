@@ -1,5 +1,6 @@
-[T][ ] borrow book from the Jurong East Regional library
 [T][X] sing a song
-[D][ ] borrow a book /by 2024-10-15 1925
-[D][ ] go to mall /by 2024-05-06 1812
-[E][X] go to mall /from 2024-07-24 1700 /to 2024-07-24 1730
+[D][X] go to mall /by 2024-05-06 1812
+[E][ ] go to mall /from 2024-07-24 1700 /to 2024-07-24 1730
+[T][ ] water
+[D][ ] water the plants /by 2024-10-07 1400
+[E][ ] sleep tonigh /from 2024-10-09 1400 /to 2024-10-10 1300

@@ -4,8 +4,8 @@ public class Event extends Task {
     private LocalDateTime start;
 
     private LocalDateTime end;
-    public Event (int taskNumber, String taskName, boolean taskCompletionStatus, LocalDateTime start, LocalDateTime end) {
-        super(taskNumber, taskName, taskCompletionStatus);
+    public Event (String taskName, boolean taskCompletionStatus, LocalDateTime start, LocalDateTime end) {
+        super(taskName, taskCompletionStatus);
         this.start = start;
         this.end = end;
     }
