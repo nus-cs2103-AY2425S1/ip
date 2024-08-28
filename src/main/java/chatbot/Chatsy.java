@@ -1,3 +1,14 @@
+package main.java.chatbot;
+
+import main.java.chatbot.exceptions.ChatsyException;
+import main.java.chatbot.exceptions.EmptyDescriptionException;
+import main.java.chatbot.exceptions.InvalidCommandException;
+import main.java.chatbot.exceptions.InvalidTaskNumberException;
+import main.java.chatbot.tasks.DeadlineTask;
+import main.java.chatbot.tasks.EventTask;
+import main.java.chatbot.tasks.Task;
+import main.java.chatbot.tasks.TodoTask;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,6 +17,7 @@ public class Chatsy {
     static final String line = "\t____________________________________________________________";
     static final Scanner scanner = new Scanner(System.in);
     static final ArrayList<Task> tasks = new ArrayList<>();
+    static boolean isRunning = true;
 
     public static void greet() {
         System.out.println(line);
@@ -20,9 +32,9 @@ public class Chatsy {
     }
 
     public static void exit() {
-        System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println(line);
-        scanner.close(); // Close the scanner to prevent resource leaks
+        output("\tBye. Hope to see you again soon!");
+        scanner.close();
+        isRunning = false;
     }
 
     public static void addTask(Task task) {
@@ -108,75 +120,53 @@ public class Chatsy {
                     break;
                 case "todo":
                     if (parts.length > 1) {
-                        addTask(new Todo(parts[1]));
+                        addTask(new TodoTask(parts[1]));
                     } else {
-                        throw new EmptyDescriptionException("todo");
+                        throw new EmptyDescriptionException();
                     }
                     break;
                 case "deadline":
                     if (parts.length > 1) {
                         String[] deadlineParts = parts[1].split(" /by ", 2);
                         if (deadlineParts.length > 1) {
-                            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                            addTask(new DeadlineTask(deadlineParts[0], deadlineParts[1]));
                         } else {
                             output("\tPlease specify the deadline in the format: description /by deadline");
                         }
                     } else {
-                        throw new EmptyDescriptionException("deadline");
+                        throw new EmptyDescriptionException();
                     }
                     break;
                 case "event":
                     if (parts.length > 1) {
                         String[] eventParts = parts[1].split(" /from | /to ", 3);
                         if (eventParts.length == 3) {
-                            addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                            addTask(new EventTask(eventParts[0], eventParts[1], eventParts[2]));
                         } else {
                             output("\tPlease specify the event in the format: description /from start_time /to end_time");
                         }
                     } else {
-                        throw new EmptyDescriptionException("event");
+                        throw new EmptyDescriptionException();
                     }
                     break;
                 default:
                     throw new InvalidCommandException();
             }
         } catch (ChatsyException e) {
-            output("\tOOPS!!! " + e.getMessage());
+            output("\tOOPS!!! " + e.toString());
         } catch (NumberFormatException e) {
             output("\tPlease enter a valid number for task selection.");
         } catch (Exception e) {
             output("\tAn unexpected error occurred: " + e.getMessage());
         } finally {
-            nextCommand();
+            if (isRunning) {
+                nextCommand();
+            }
         }
     }
 
     public static void main(String[] args) {
         greet();
         nextCommand();
-    }
-}
-
-class ChatsyException extends Exception {
-    public ChatsyException(String message) {
-        super(message);
-    }
-}
-
-class EmptyDescriptionException extends ChatsyException {
-    public EmptyDescriptionException(String taskType) {
-        super("The description of a " + taskType + " cannot be empty.");
-    }
-}
-
-class InvalidCommandException extends ChatsyException {
-    public InvalidCommandException() {
-        super("I'm sorry, but I don't know what that means :-(");
-    }
-}
-
-class InvalidTaskNumberException extends ChatsyException {
-    public InvalidTaskNumberException() {
-        super("The task number you provided is invalid.");
     }
 }
