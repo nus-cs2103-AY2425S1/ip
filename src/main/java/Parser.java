@@ -35,8 +35,7 @@ public class Parser {
                 LocalDateTime to = parseDateTime(toStr);
                 return new Event(description, isDone, from, to);
             default:
-                System.out.println("Unknown task type: " + type);
-                return new ToDo(description, isDone);
+                throw new BobException("Unknown task type: " + type);
         }
     }
 

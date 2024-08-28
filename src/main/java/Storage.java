@@ -33,7 +33,6 @@ public class Storage {
                 Task task = Parser.parseTask(taskLine);
                 taskList.add(task);
             }
-            System.out.println("Saved tasks has been successfully loaded.");
             return taskList;
         } catch (FileNotFoundException e) {
             throw new BobException("No saved tasks found.");
