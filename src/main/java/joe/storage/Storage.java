@@ -1,4 +1,5 @@
 package joe.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,12 +8,13 @@ import java.util.Scanner;
 
 import joe.task.Task;
 import joe.task.TaskTodo;
-import joe.task.TaskEvent; 
+import joe.task.TaskEvent;
 import joe.task.TaskDeadline;
 
 public class Storage {
     private static final String FILE_NAME = "./data/store.txt";
-        public void saveTasks(ArrayList<Task> store) {
+
+    public void saveTasks(ArrayList<Task> store) {
         try {
             System.out.println("Saving tasks...");
             File file = new File(FILE_NAME);

@@ -1,4 +1,5 @@
 package joe.task;
+
 public class Task {
 
     private String task;
@@ -10,13 +11,13 @@ public class Task {
 
     @Override
     public String toString() {
-      String status = isDone ? "[X]" : "[ ]";
-      return String.format("%s %s", status, this.task);
+        String status = isDone ? "[X]" : "[ ]";
+        return String.format("%s %s", status, this.task);
     }
 
     public void printTask() {
-      String status = isDone ? "[X]" : "[ ]";
-      System.out.printf("%s %s", status, this.task);
+        String status = isDone ? "[X]" : "[ ]";
+        System.out.printf("%s %s", status, this.task);
     }
 
     public void toggleDone() {

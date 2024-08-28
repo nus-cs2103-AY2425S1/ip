@@ -1,4 +1,5 @@
 package joe.ui;
+
 import java.util.ArrayList;
 
 import joe.task.Task;
@@ -9,12 +10,17 @@ public class Ui {
     public static final String TASK_COUNT_MESSAGE = "Now you have %d tasks in the list.\n";
 
     private final String CHATBOT_NAME;
+
     public Ui(String chatbotName) {
         this.CHATBOT_NAME = chatbotName;
     }
 
     public void greet() {
-        System.out.printf("%s\nHello! I'm %s\nWhat can I do for you?\n%s\n", HORIZONTAL_LINE, CHATBOT_NAME, HORIZONTAL_LINE);
+        System.out.printf(
+                "%s\nHello! I'm %s\nWhat can I do for you?\n%s\n",
+                HORIZONTAL_LINE,
+                CHATBOT_NAME,
+                HORIZONTAL_LINE);
     }
 
     public void farewell() {
