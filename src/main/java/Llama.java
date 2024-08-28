@@ -6,14 +6,6 @@ import java.time.format.DateTimeParseException;
 public class Llama {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static void displayString(String str) {
-        System.out.println("\t" + str);
-    }
-
-    public static void displayTask(int num, Task task) {
-        System.out.println("\t" + num + ". " + task);
-    }
-
     public static void addTodo(String remaining, TaskStorage tasks) {
         if (remaining.isBlank()) {
             throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
@@ -57,26 +49,17 @@ public class Llama {
     }
 
     public static void main(String[] args) {
-        String logo = "";
-        String hr = "____________________________________________________________" ;
         Scanner sc = new Scanner(System.in);
-
+        Ui userInterface = new Ui();
         TaskStorage tasks = new TaskStorage();
 
         // Initializing message
-        displayString(hr);
-        displayString("Hello! I'm Llama!");
-        displayString(logo);
-        displayString("What can I do for you?");
-
-
+        userInterface.displayWelcome();
 
         // Get user input
         boolean shouldContinue = true;
         while (shouldContinue) {
-            displayString(hr);
-            String input = sc.nextLine();
-            displayString(hr);
+            String input = userInterface.getUserInput(sc);
 
             // Split input into command and remaining
             String command = input;
@@ -96,52 +79,52 @@ public class Llama {
                 try {
                     tasks.markTask(index);
                 } catch (InvalidTaskException e) {
-                    displayString(e.getMessage());
+                    userInterface.displayString(e.getMessage());
                 }
             } else if (command.equals("unmark")) {                  // unmark task
                 int index = Integer.parseInt(remaining);
                 try {
                     tasks.unmarkTask(index);
                 } catch (InvalidTaskException e) {
-                    displayString(e.getMessage());
+                    userInterface.displayString(e.getMessage());
                 }
             } else if (command.equals("delete")) {
                 int index = Integer.parseInt(remaining);
                 try {
                     tasks.deleteTask(index);
                 } catch (InvalidTaskException e) {
-                    displayString(e.getMessage());
+                    userInterface.displayString(e.getMessage());
                 }
             } else {
                 if (command.equals("todo")) {                       // add todo
                     try {
                         addTodo(remaining, tasks);
                     } catch(LlamaException e) {
-                        displayString(e.getMessage());
+                        userInterface.displayString(e.getMessage());
                     }
                 } else if (command.equals("deadline")) {            // add deadline
                     try {
                         addDeadline(remaining, tasks);
                     } catch(LlamaException e) {
-                        displayString(e.getMessage());
+                        userInterface.displayString(e.getMessage());
                     }
                 } else if (command.equals("event")) {               // add event
                     try {
                         addEvent(remaining, tasks);
                     } catch(LlamaException e) {
-                        displayString(e.getMessage());
+                        userInterface.displayString(e.getMessage());
                     }
                 } else {
                     try {
                         throw new LlamaException("Command not found, try again."); // really?
                     } catch (LlamaException e){
-                        displayString(e.getMessage());
+                        userInterface.displayString(e.getMessage());
                     }
                 }
             }
         }
 
         // Exit message
-        displayString("Baaaaaa byeeee. Come baaaaack soon!");
+        userInterface.displayBye();
     }
 }
