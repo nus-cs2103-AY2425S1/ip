@@ -1,3 +1,5 @@
+package com.example.YourHelperBuddy;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -73,12 +75,6 @@ public class Ui {
             System.out.println("Oops! There seems to be an issue with the task number you provided.");
             System.out.println("________________________________________________");
         }
-    }
-
-    public void showErrorMessage(String message) {
-        System.out.println("________________________________________________");
-        System.out.println("Error: " + message);
-        System.out.println("________________________________________________");
     }
 
     public String readUserInput() {

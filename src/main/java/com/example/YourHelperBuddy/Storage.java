@@ -1,3 +1,5 @@
+package com.example.YourHelperBuddy;
+
 import java.io.*;
 import java.util.ArrayList;
 

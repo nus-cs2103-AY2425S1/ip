@@ -1,3 +1,5 @@
+package com.example.YourHelperBuddy;
+
 abstract class Task {
     private final String description;
     private boolean isDone;
