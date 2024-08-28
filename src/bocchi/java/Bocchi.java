@@ -1,3 +1,13 @@
+import command.Command;
+import exception.BocchiException;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
+import ui.Ui;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
@@ -27,6 +37,9 @@ public class Bocchi {
         taskList = new TaskList(storage);
     }
 
+    public static void main(String[] args) {
+        new Bocchi().start();
+    }
 
     /**
      * Ends the conversation.
@@ -37,7 +50,6 @@ public class Bocchi {
         ui.printSeparator();
         taskList.saveTasks();
     }
-
 
     /**
      * Prints all items in the item list.
@@ -183,9 +195,5 @@ public class Bocchi {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Bocchi().start();
     }
 }

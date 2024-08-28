@@ -1,3 +1,7 @@
+package task;
+
+import exception.BocchiException;
+
 import java.io.Serializable;
 
 /**
@@ -17,7 +21,7 @@ public abstract class Task implements Serializable {
     /**
      * The constructor.
      *
-     * @param description Task description.
+     * @param description tasks.Task description.
      * @throws BocchiException If the description is empty.
      */
     public Task(String description) throws BocchiException {
