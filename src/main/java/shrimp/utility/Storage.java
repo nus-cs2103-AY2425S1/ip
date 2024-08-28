@@ -1,5 +1,6 @@
 package shrimp.utility;
 
+import shrimp.exception.ShrimpException;
 import shrimp.task.*;
 
 import java.io.File;
@@ -7,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Storage {
@@ -26,7 +29,7 @@ public class Storage {
         }
     }
 
-    public static TaskList loadTasks() throws IOException {
+    public static TaskList loadTasks() throws IOException, ShrimpException {
         TaskList tasks = new TaskList();
         File file = new File(FILE_PATH);
 
@@ -58,7 +61,7 @@ public class Storage {
         return "";
     }
 
-    private static Task parseTask(String line) {
+    private static Task parseTask(String line) throws ShrimpException {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -68,14 +71,22 @@ public class Storage {
             case "T":
                 return new Todo(description, isDone);
             case "D":
-                String by = parts[3];
+                LocalDateTime by = getDateTime(parts[3]);
                 return new Deadline(description, by, isDone);
             case "E":
-                String from = parts[3];
-                String to = parts[4];
+                LocalDateTime from = getDateTime(parts[3]);
+                LocalDateTime to = getDateTime(parts[4]);
                 return new Event(description, from, to, isDone);
             default:
                 throw new IllegalStateException("Unexpected value: " + taskType);
+        }
+    }
+
+    private static LocalDateTime getDateTime(String input) throws ShrimpException {
+        try {
+            return LocalDateTime.parse(input, Parser.PATTERN);
+        } catch (DateTimeParseException e) {
+            throw new ShrimpException.InvalidDateTimeException();
         }
     }
 }

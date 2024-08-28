@@ -1,9 +1,12 @@
 package shrimp.task;
 
-public class Deadline extends Task {
-    private final String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by, boolean isDone) {
+public class Deadline extends Task {
+    private final LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
@@ -22,12 +25,13 @@ public class Deadline extends Task {
         return "[D]";
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 
     @Override
     public String toString() {
-        return getType() + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return getType() + super.toString() + " (by: " + by.format(pattern) + ")";
     }
 }

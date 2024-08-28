@@ -7,6 +7,8 @@ import shrimp.utility.Parser;
 import shrimp.utility.Storage;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Shrimp {
@@ -43,7 +45,7 @@ public class Shrimp {
 
         try {
             taskList = Storage.loadTasks();
-        } catch (IOException e) {
+        } catch (IOException | ShrimpException e) {
             System.out.println("Oh nyoo~ Couldn't load tasks... Starting with an empty list.");
             taskList = new TaskList();
         }
@@ -138,7 +140,7 @@ public class Shrimp {
                         }
                         String[] deadlineDetails = userInput.split("/by ");
                         String deadlineDescription = deadlineDetails[0].substring(9); // Extracting the task description
-                        String by = deadlineDetails[1];
+                        LocalDateTime by = getDateTime(deadlineDetails[1].trim());
                         Task newDeadline = new Deadline(deadlineDescription, by, NEW_EVENT_NOT_DONE);
                         taskList.addTask(newDeadline);
                         System.out.println("Gotchaa~ I've added this shrimp.task:");
@@ -152,8 +154,8 @@ public class Shrimp {
                         }
                         String[] eventDetails = userInput.split("/from | /to ");
                         String eventDescription = eventDetails[0].substring(6); // Extracting the task description
-                        String from = eventDetails[1];
-                        String to = eventDetails[2];
+                        LocalDateTime from = getDateTime(eventDetails[1].trim());
+                        LocalDateTime to = getDateTime(eventDetails[2].trim());
                         Task newEvent = new Event(eventDescription, from, to, NEW_EVENT_NOT_DONE);
                         taskList.addTask(newEvent);
                         System.out.println("Gotchaa~ I've added this task:");
@@ -189,6 +191,14 @@ public class Shrimp {
             throw new ShrimpException.MissingArgumentException(type);
         } catch (NumberFormatException e) {
             throw new ShrimpException.NumberFormatException();
+        }
+    }
+
+    private static LocalDateTime getDateTime(String input) throws ShrimpException {
+        try {
+            return LocalDateTime.parse(input, Parser.PATTERN);
+        } catch (DateTimeParseException e) {
+            throw new ShrimpException.InvalidDateTimeException();
         }
     }
 }
