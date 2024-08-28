@@ -12,7 +12,8 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public void saveTasks(TaskList taskList) throws IOException {
+        ArrayList<Task> tasks = taskList.getTasks();
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {
             if (task != null) {
@@ -23,7 +24,7 @@ public class Storage {
 
     }
 
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws FileNotFoundException, HueException{
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
@@ -51,7 +52,7 @@ public class Storage {
         return tasks;
     }
 
-    public void loadTasksFromData(ArrayList<Task> tasks, String[] data) {
+    public void loadTasksFromData(ArrayList<Task> tasks, String[] data) throws HueException{
         String type = data[0];
         boolean isDone = data[1].equals("1");
         String descritpion = data[2];
@@ -82,8 +83,7 @@ public class Storage {
             tasks.add(eventTask);
             break;
         default:
-            System.out.println("unknwon task type in file: " + type);
-            break;
+            throw new HueException("Unknown task type in file:" + type);
         }
 
 
