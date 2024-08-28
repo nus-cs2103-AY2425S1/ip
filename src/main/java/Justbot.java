@@ -29,13 +29,12 @@ public class Justbot {
             try {
                 String userInput = ui.readCommand();
                 Command command = parser.parseCommand(userInput);
-                command.execute(taskList, ui, storage);
+                command.execute(this.taskList, this.ui, this.storage);
                 isExit = command.isExit();
             } catch (JustbotException e) {
                 ui.getJustBotExceptionMessage(e);
             }
         }
-        ui.byeMessage();
     }
 
     public static void main(String[] args) {

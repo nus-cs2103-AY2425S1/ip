@@ -72,7 +72,7 @@ public class Storage {
 
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
+                String line = scanner.nextLine().toLowerCase();
                 String[] parts = line.split("\\|");
 
                 if (parts.length < 4) {
@@ -110,10 +110,9 @@ public class Storage {
                             continue;
                     }
 
-                    if (isDoneString.equals("X")) {
+                    if (isDoneString.equals("x")) {
                         task.setIsDone(true);
                     }
-
                     tasks.add(task);
                 } catch (DateTimeParseException | IllegalArgumentException e) {
                     System.out.println("Skipping malformed task due to error: " + e.getMessage());

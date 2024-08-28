@@ -20,13 +20,29 @@ public class Ui {
 
     public void invalidCommandMessage() {
         System.out.println("------------------------------------------");
-        System.out.println("Hey man please use one of these valid commands\n" + "list\n" + "delete [task number]\n" + "mark [task number]\n" + "unmark [task number]\n" + "todo [description]\n" + "deadline [description] /by DD/MM/YYYY HHmm\n" + "event [description] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\n");
+        System.out.println("Hey man you provided me with an invalid command. Here is a list of my commands:");
+        System.out.println("1. list");
+        System.out.println("2. mark [task number]");
+        System.out.println("3. unmark [task number]");
+        System.out.println("4. delete [task number]");
+        System.out.println("5. todo [task description]");
+        System.out.println("6. deadline [task description] /by [dd/MM/yyyy HH:mm]");
+        System.out.println("7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
+        System.out.println("What can I do for you?");
         System.out.println("------------------------------------------");
     }
 
     public void botIntro() {
         System.out.println("------------------------------------------");
-        System.out.println("Hello I'm Justbot");
+        System.out.println("Hello I'm Justbot!");
+        System.out.println("Here is a list of my commands:");
+        System.out.println("1. list");
+        System.out.println("2. mark [task number]");
+        System.out.println("3. unmark [task number]");
+        System.out.println("4. delete [task number]");
+        System.out.println("5. todo [task description]");
+        System.out.println("6. deadline [task description] /by [dd/MM/yyyy HH:mm]");
+        System.out.println("7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
         System.out.println("What can I do for you?");
         System.out.println("------------------------------------------");
     }
@@ -75,7 +91,7 @@ public class Ui {
     }
     public void byeMessage() {
         System.out.println("------------------------------------------");
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Hey man, I'll miss you. See you soon!");
         System.out.println("------------------------------------------");
     }
 }

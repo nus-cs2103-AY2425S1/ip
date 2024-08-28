@@ -26,8 +26,8 @@ public class TaskList implements Iterable<Task> {
         this.tasks.add(task);
     }
 
-    public void delete(int index) {
-        tasks.remove(index);
+    public void delete(int deleteNumber) {
+        tasks.remove(deleteNumber -1);
     }
 
     public boolean isEmpty() {
