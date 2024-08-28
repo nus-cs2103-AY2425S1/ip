@@ -1,10 +1,10 @@
-package Commands;
+package commands;
 
-import Main.TaskList;
-import UI.Ui;
-import Tasks.Task;
-import Tasks.ToDo;
-import Storage.Storage;
+import main.TaskList;
+import ui.Ui;
+import tasks.Task;
+import tasks.ToDo;
+import storage.Storage;
 
 /**
  * Represents a command to create a to-do task.

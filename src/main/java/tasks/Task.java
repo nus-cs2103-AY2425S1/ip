@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * Represents a task with a description and a completion status.

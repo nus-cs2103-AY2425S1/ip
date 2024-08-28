@@ -1,10 +1,10 @@
-package Main;
+package main;
 
-import Commands.Command;
-import Commands.ExitCommand;
-import Storage.Storage;
-import UI.Ui;
-import Tasks.Task;
+import commands.Command;
+import commands.ExitCommand;
+import storage.Storage;
+import ui.Ui;
+import tasks.Task;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import java.util.List;
  * This class initializes the application, processes user input, and manages the task list.
  */
 public class ProYapper {
-    private Ui ui;
-    private Storage storage;
-    private TaskList taskList;
-    private Parser parser;
+    private final Ui ui;
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Parser parser;
 
     /**
      * Constructs a {@code ProYapper} instance with the specified file path for storage.

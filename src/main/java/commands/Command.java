@@ -1,7 +1,7 @@
-package Commands;
-import Main.TaskList;
-import UI.Ui;
-import Storage.Storage;
+package commands;
+import main.TaskList;
+import ui.Ui;
+import storage.Storage;
 
 /**
  * The {@code Command} class represents an abstract command that can be executed.

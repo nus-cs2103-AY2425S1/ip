@@ -1,10 +1,10 @@
-package Commands;
+package commands;
 
-import Main.TaskList;
-import UI.Ui;
-import Tasks.Task;
-import Tasks.Event;
-import Storage.Storage;
+import main.TaskList;
+import ui.Ui;
+import tasks.Task;
+import tasks.Event;
+import storage.Storage;
 
 import java.time.LocalDateTime;
 

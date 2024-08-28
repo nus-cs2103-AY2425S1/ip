@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Main.TaskList;
-import UI.Ui;
-import Tasks.Task;
-import Storage.Storage;
+import main.TaskList;
+import ui.Ui;
+import tasks.Task;
+import storage.Storage;
 
 /**
  * Represents a command to mark a task as completed in the task list.

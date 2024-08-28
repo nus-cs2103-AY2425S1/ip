@@ -1,9 +1,9 @@
-package UI;
+package ui;
 
 import java.util.Scanner;
 
-import Main.TaskList;
-import Tasks.Task;
+import main.TaskList;
+import tasks.Task;
 
 /**
  * The {@code Ui} class handles interactions with the user, including

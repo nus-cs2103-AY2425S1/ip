@@ -1,8 +1,8 @@
-package Commands;
+package commands;
 
-import Main.TaskList;
-import UI.Ui;
-import Storage.Storage;
+import main.TaskList;
+import ui.Ui;
+import storage.Storage;
 
 /**
  * Represents a command to list all tasks in the task list.

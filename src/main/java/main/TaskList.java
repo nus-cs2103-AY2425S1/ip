@@ -1,30 +1,31 @@
-package Main;
+package main;
 
-import Tasks.Task;
+import tasks.Task;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Represents a list of tasks and provides methods to manipulate the tasks.
- * This class acts as a wrapper around a List<Task>, allowing for easy task management.
+ * This class acts as a wrapper around a {@code List<Task>}, allowing for easy task management.
  */
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty {@code TaskList}.
      */
     public TaskList() {
-        this.tasks = tasks;
+        this.tasks = new ArrayList<>(); // Initialize with an empty list
     }
 
     /**
-     * Constructs a TaskList with the specified list of tasks.
+     * Constructs a {@code TaskList} with the specified list of tasks.
      *
      * @param tasks the list of tasks to initialize the task list with
      */
     public TaskList(List<Task> tasks) {
-        this.tasks = tasks;
+        this.tasks = tasks != null ? tasks : new ArrayList<>(); // Initialize with provided tasks or an empty list
     }
 
     /**

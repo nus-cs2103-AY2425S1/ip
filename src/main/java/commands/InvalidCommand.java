@@ -1,15 +1,15 @@
-package Commands;
+package commands;
 
-import Main.TaskList;
-import UI.Ui;
-import Storage.Storage;
+import main.TaskList;
+import ui.Ui;
+import storage.Storage;
 
 /**
  * Represents a command that is invalid or unrecognized by the application.
  * This command displays an error message to the user, indicating that the input was not valid.
  */
 public class InvalidCommand extends Command {
-    private String errorMessage;
+    private final String errorMessage;
 
     /**
      * Constructs an {@code InvalidCommand} with the specified error message.

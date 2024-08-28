@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Main.TaskList;
-import UI.Ui;
-import Tasks.Task;
-import Storage.Storage;
+import main.TaskList;
+import ui.Ui;
+import tasks.Task;
+import storage.Storage;
 
 /**
  * Represents a command to unmark a task as not completed in the task list.

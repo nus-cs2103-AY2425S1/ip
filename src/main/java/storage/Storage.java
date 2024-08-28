@@ -1,10 +1,10 @@
-package Storage;
+package storage;
 
-import Tasks.Task;
-import Tasks.ToDo;
-import Tasks.Deadline;
-import Tasks.Event;
-import Main.Parser;
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
+import main.Parser;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import java.io.*;
  * This class ensures that task data is persistent between application runs.
  */
 public class Storage {
-    private String filepath;
+    private final String filepath;
 
     public Storage(String filepath) {
         this.filepath = filepath;
