@@ -1,3 +1,4 @@
+package User;
 
 import java.util.Scanner;
 
@@ -10,29 +11,29 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    void showWelcome() {
+    public void showWelcome() {
         System.out.println("Hello! I'm " + this.name);
         System.out.println("What can I do for you?");
     }
 
-    void showError(String error) {
+    public void showError(String error) {
         System.err.println(error);
     }
 
-    void showExit() {
+    public void showExit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    void showResult(String result) {
+    public void showResult(String result) {
         System.out.println(result);
     }
 
-    String readInput() {
+    public String readInput() {
         String nextLine = this.scanner.nextLine();
         return nextLine;
     }
 
-    boolean isOpen() {
+    public boolean isOpen() {
         return this.scanner.hasNext();
     }
 }

@@ -1,6 +1,6 @@
 Hello! I'm Revir
 What can I do for you?
-Todo task added: borrow book
+Task added: [T][ ] borrow book
 List:
 [T][ ] borrow book
 Task added: [D][ ] return book (by: 12/11/2020 0000)

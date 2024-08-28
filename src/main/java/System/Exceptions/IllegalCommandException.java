@@ -1,4 +1,4 @@
-package Exceptions;
+package System.Exceptions;
 
 public class IllegalCommandException extends Exception{
     public IllegalCommandException(String command) {

@@ -1,3 +1,4 @@
+package System;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,11 +13,12 @@ import Tasks.Task;
 public class Storage {
     private Path path;
 
-    Storage(Path path) {
+    public Storage(Path path) {
         this.path = path;
     }
 
     @SuppressWarnings("unchecked")
+    public
     ArrayList<Task> loadFromFile() throws IOException, ClassNotFoundException {
         if (Files.exists(this.path)) {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.path.toString()));
@@ -28,7 +30,7 @@ public class Storage {
     }
 
     // save to file
-    void saveToFile(ArrayList<Task> tasks) throws IOException {
+    public void saveToFile(ArrayList<Task> tasks) throws IOException {
 
         // Create directories if they don't exist
         Files.createDirectories(this.path.getParent());

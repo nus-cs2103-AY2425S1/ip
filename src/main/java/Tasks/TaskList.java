@@ -1,14 +1,16 @@
+package Tasks;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Tasks.Task;
+import System.Storage;
+import User.Ui;
 
 
-class TaskList {
+public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
-    TaskList(Storage storage, Ui ui) {
+    public TaskList(Storage storage, Ui ui) {
         this.tasks = new ArrayList<Task>();
         this.storage = storage;
         try {
@@ -19,12 +21,12 @@ class TaskList {
         }
     }
 
-    void add(Task task) throws IOException {
+    public void add(Task task) throws IOException {
         tasks.add(task);
         storage.saveToFile(this.tasks);
     }
 
-    String remove(int index) throws IndexOutOfBoundsException, IOException {
+    public String remove(int index) throws IndexOutOfBoundsException, IOException {
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException(
                     "Invalid task index. Expected index between 1 and " + tasks.size());
@@ -35,7 +37,7 @@ class TaskList {
         return "Task deleted: " + task.toString();
     }
 
-    String list() {
+    public String list() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             str.append(tasks.get(i).toString() + '\n');
@@ -44,7 +46,7 @@ class TaskList {
         return str.toString();
     }
 
-    String setCompleted(int index, boolean status) throws IndexOutOfBoundsException, IOException {
+    public String setCompleted(int index, boolean status) throws IndexOutOfBoundsException, IOException {
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException(
                     "Invalid task index. Expected index between 1 and " + tasks.size());
