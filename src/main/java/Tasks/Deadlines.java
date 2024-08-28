@@ -14,6 +14,9 @@ public class Deadlines extends Task {
         this.deadlineInfo = LocalDateTime.parse(details, READ_PATTERN);
     }
 
+    /**
+     * Returns event start/end period as a writeable string.
+     */
     @Override
     public String getWriteTaskInfo() {
         return this.deadlineInfo.format(READ_PATTERN);

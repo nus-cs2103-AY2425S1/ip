@@ -15,6 +15,9 @@ public class Event extends Task {
         this.endPeriod = LocalDateTime.parse(endDetails, READ_PATTERN);
     }
 
+    /**
+     * Returns event start/end period as a writeable string.
+     */
     @Override
     public String getWriteTaskInfo() {
         return this.startPeriod.format(READ_PATTERN) + "," + this.endPeriod.format(READ_PATTERN);

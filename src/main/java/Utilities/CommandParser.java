@@ -13,7 +13,16 @@ import exceptions.DateTimeException;
 import exceptions.UnknownCommandException;
 
 public class CommandParser {
-    public static boolean parseCommand(String input, TaskList tl, Storage s) {
+    /**
+     * Parses and performs actions for the given command.
+     * Returns false only if the "bye" command is given.
+     *
+     * @param input String command for processing.
+     * @param tl TaskList class for maintaining tasks.
+     * @param s Storage class for writing to files.
+     * @return Boolean value for termination of program.
+     */
+    public static boolean parseCommand(String input, TaskList tl, Storage store) {
         if (input.startsWith("bye")) {
             UI.updateUserOnExit();
             return false;
@@ -25,13 +34,13 @@ public class CommandParser {
             String intValue = input.replaceAll("[^0-9]", "");
             int index = Integer.parseInt(intValue) - 1;
             tl.updateTaskListStatus(index, input.startsWith("mark"));
-            s.updateFileStatus(index, input.startsWith("mark"));
+            store.updateFileStatus(index, input.startsWith("mark"));
         } else if (input.startsWith("delete")) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
             int index = Integer.parseInt(intValue) - 1;
             tl.removeFromTaskList(index);
-            s.removeFileTask(index);
+            store.removeFileTask(index);
         } else {
             try {
                 String name = "";
@@ -42,7 +51,7 @@ public class CommandParser {
                     }
                     Task t = new ToDos(name);
                     tl.addToTaskList(t, name);
-                    s.updateFileTasks(String.format("T, %d, %s", 0, name));
+                    store.updateFileTasks(String.format("T, %d, %s", 0, name));
                 } else if (input.startsWith("deadline")) {
                     String[] splits = input.split("/");
                     name = splits[0].substring(8).strip();
@@ -54,7 +63,7 @@ public class CommandParser {
                     try {
                         Task t = new Deadlines(name, details.strip());
                         tl.addToTaskList(t, name);
-                        s.updateFileTasks(String.format("D, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
+                        store.updateFileTasks(String.format("D, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
                     }
@@ -70,7 +79,7 @@ public class CommandParser {
                     try {
                         Task t = new Event(name, startDetails.strip(), endDetails.strip());
                         tl.addToTaskList(t, name);
-                        s.updateFileTasks(String.format("E, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
+                        store.updateFileTasks(String.format("E, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
                     }
