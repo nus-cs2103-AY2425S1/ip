@@ -9,19 +9,19 @@ Now you have 1 task in the list.
 ________________________________
 ________________________________
 Got it. I've added this task:
-  [D][ ] finish ip (by: Friday)
+  [D][ ] finish ip (by: Aug 28 2024 9:30 am)
 Now you have 2 tasks in the list.
 ________________________________
 ________________________________
 Got it. I've added this task:
-  [E][ ] meeting (from: Mon 2pm to: 4pm)
+  [E][ ] meeting (from: Aug 28 2024 8:00 am to: Aug 28 2024 8:15 am)
 Now you have 3 tasks in the list.
 ________________________________
 ________________________________
 Here are the tasks in your list:
 1. [T][ ] play valorant
-2. [D][ ] finish ip (by: Friday)
-3. [E][ ] meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] finish ip (by: Aug 28 2024 9:30 am)
+3. [E][ ] meeting (from: Aug 28 2024 8:00 am to: Aug 28 2024 8:15 am)
 ________________________________
 ________________________________
 Nice! I've marked this task as done:
@@ -30,8 +30,8 @@ ________________________________
 ________________________________
 Here are the tasks in your list:
 1. [T][X] play valorant
-2. [D][ ] finish ip (by: Friday)
-3. [E][ ] meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] finish ip (by: Aug 28 2024 9:30 am)
+3. [E][ ] meeting (from: Aug 28 2024 8:00 am to: Aug 28 2024 8:15 am)
 ________________________________
 ________________________________
 OK, I've marked this task as not done yet:
@@ -40,8 +40,8 @@ ________________________________
 ________________________________
 Here are the tasks in your list:
 1. [T][ ] play valorant
-2. [D][ ] finish ip (by: Friday)
-3. [E][ ] meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] finish ip (by: Aug 28 2024 9:30 am)
+3. [E][ ] meeting (from: Aug 28 2024 8:00 am to: Aug 28 2024 8:15 am)
 ________________________________
 ________________________________
 Bye. Hope to see you again soon!
