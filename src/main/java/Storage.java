@@ -14,28 +14,21 @@ public class Storage {
         this.filePath = Paths.get(filePath);
     }
 
-    public List<Task> loadTasks() {
+    public List<Task> loadTasks() throws IOException, AlfredException {
         List<Task> taskList = new ArrayList<>();
 
         if (!Files.exists(filePath)) {
             return taskList; // Start with an empty list if file does not exist
         }
 
-        try {
-            BufferedReader reader = Files.newBufferedReader(filePath);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.fromFileFormat(line);
-                taskList.add(task);
-            }
-            reader.close();
-            return taskList;
-        } catch (IOException e) {
-            Ui.showLoadingError(e);
-        } catch (AlfredException e) {
-            handleCorruptedSave(e);
+        BufferedReader reader = Files.newBufferedReader(filePath);
+        String line;
+        while ((line = reader.readLine()) != null) {
+            Task task = Task.fromFileFormat(line);
+            taskList.add(task);
         }
-        return new ArrayList<>();
+        reader.close();
+        return taskList;
     }
 
     public void saveTasks(List<Task> taskList) {
@@ -52,8 +45,7 @@ public class Storage {
         }
     }
 
-    public void handleCorruptedSave(AlfredException err) {
-        Ui.showCorruptedSaveError(err);
+    public void clearStorage() {
         try {
             Files.delete(filePath);
         } catch (IOException e) {
