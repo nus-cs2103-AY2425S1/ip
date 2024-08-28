@@ -11,7 +11,8 @@ public class TaskCreator {
      * @throws Exception
      */
     public static Task create(String message) throws Exception{
-        String m1 = message.split(" ", 2)[0];
+        Parser p = new Parser(message);
+        String m1 = p.getCommand();
 
         if (Objects.equals(m1, "todo")) {
             if (message.split(" ", 2).length == 1) {

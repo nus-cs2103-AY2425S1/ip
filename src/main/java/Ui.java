@@ -45,30 +45,31 @@ public class Ui {
      * @return String to be printed out in Sunny class
      */
     public String reply(String message) {
-        String m1 = message.split(" ", 2)[0];
+        Parser p = new Parser(message);
+        String command = p.getCommand();
 
-        if (Objects.equals(message,"bye")) {
+        if (Objects.equals(command,"bye")) {
             store.write(ls);
             return line + "\n" + goodbye;
-        } else if (Objects.equals(message,"list")){
+        } else if (Objects.equals(command,"list")){
             String s = "";
             for (int i = 1; i <= ls.size(); i++) {
                 s = s + String.format("     %h. %s \n", i, ls.get(i - 1));
             }
             return line + "\n" + s + "\n" + line;
-        } else if (Objects.equals(message,"")) {
+        } else if (Objects.equals(command,"")) {
             return line;
-        } else if (Objects.equals(m1, "mark")) {
+        } else if (Objects.equals(command, "mark")) {
              String m2 = message.split(" ", 2)[1];
              int i2 = Integer.parseInt(m2);
              ls.get(i2 - 1).setter(true);
              return "     Marked the task as done! \n     " + ls.get(i2 - 1);
-        } else if (Objects.equals(m1, "unmark")) {
+        } else if (Objects.equals(command, "unmark")) {
             String m2 = message.split(" ", 2)[1];
             int i2 = Integer.parseInt(m2);
             ls.get(i2 - 1).setter(false);
             return "     Task undone \n     " + ls.get(i2 - 1);
-        } else if (Objects.equals(m1, "delete")) {
+        } else if (Objects.equals(command, "delete")) {
             String m2 = message.split(" ", 2)[1];
             int i2 = Integer.parseInt(m2);
             String s = ls.get(i2 - 1).toString();

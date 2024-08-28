@@ -2,7 +2,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Contains the main loop of the program, initialise java scanner objects and replies objects
+ * Contains the main loop of the program, initialise java scanner objects and Ui objects
  */
 public class Sunny {
     private static Ui toUser = new Ui();
@@ -10,7 +10,7 @@ public class Sunny {
 
     /**
      * Executes main loop of the program
-     * @param args
+     * @param args original input
      */
     public static void main(String[] args) {
         // WELCOME MESSAGE
