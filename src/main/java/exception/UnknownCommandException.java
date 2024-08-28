@@ -6,6 +6,6 @@ public class UnknownCommandException extends EchoBotException {
     }
 
     public UnknownCommandException(String message) {
-        super(message);
+        super("OOPS!!! I don't know what \"" + message + "\" means...");
     }
 }
