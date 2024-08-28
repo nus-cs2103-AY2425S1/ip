@@ -1,5 +1,6 @@
 package janet;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
@@ -10,6 +11,14 @@ public class Parser {
 
     public static String[] getCommandDetails(String inputLine) {
         return inputLine.split(" ");   // an array containing each word of the command
+    }
+
+    public static ArrayList<String> getCommandTypes(ArrayList<CommandType> commandTypes) {
+        ArrayList<String> acceptableCommands = new ArrayList<String>();
+        for (CommandType commandType : commandTypes) {
+            acceptableCommands.add(commandType.name());
+        }
+        return acceptableCommands;
     }
 
 
