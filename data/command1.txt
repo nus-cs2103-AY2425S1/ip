@@ -1,4 +1,5 @@
-T |   | asdlfkjsadf
-D |   | asdfkljsadf ( by Mar 15 2002, 00:00 ) 
-E |   | saodfijasdfo ( from sadoifjasdf  to osdakfjas )
-E |   | hello( from Apr 15 2003, 00:00 to Feb 16 2004, 00:00 )
+E |   | sasas ( from now to then )
+E |   | sasas2 ( from Apr 12 2002, 00:00 to Apr 12 2002, 00:00 )
+T |   | sadfasdf
+D | X | asdfsadf ( by tmr )
+D |   | saasdfasf2( by Sept 15 2019, 00:00 ) 
