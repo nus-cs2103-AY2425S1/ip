@@ -1,3 +1,8 @@
+package yapbot.tasks;
+
+/**
+ * Child class of Task with no additional fields.
+ */
 public class ToDo extends Task {
 
     public ToDo(String description) {
@@ -6,6 +11,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-       return "[T]" + super.toString();
+        return "[T]" + super.toString();
     }
 }
