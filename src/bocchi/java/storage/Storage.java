@@ -1,3 +1,9 @@
+package storage;
+
+import exceptions.BocchiException;
+import tasks.Deadline;
+import tasks.Task;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,7 +50,6 @@ public class Storage {
      */
     public List<Task> load() throws BocchiException {
         List<Task> savedTasks = new ArrayList<>();
-
         try (FileInputStream fileIn = new FileInputStream(FILE_PATH.toString());
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
             Object savedObject = in.readObject();

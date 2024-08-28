@@ -1,3 +1,5 @@
+package exceptions;
+
 /**
  * This class is used to throw exceptions in the Bocchi application.
  */

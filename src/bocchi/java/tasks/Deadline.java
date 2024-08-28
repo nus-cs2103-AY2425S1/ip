@@ -1,7 +1,10 @@
+package tasks;
+
+import exceptions.BocchiException;
+import utils.BocchiDateTimeFormatter;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Formatter;
 
 /**
  * Represents a deadline task.
@@ -15,9 +18,9 @@ public class Deadline extends Task {
     /**
      * The constructor.
      *
-     * @param description Deadline description.
+     * @param description tasks.Deadline description.
      * @param dueDateTime Due date/time of this deadline.
-     * @throws BocchiException If any parameter is empty.
+     * @throws BocchiException        If any parameter is empty.
      * @throws DateTimeParseException If the date/time format is invalid.
      */
     public Deadline(String description, String dueDateTime) throws BocchiException, DateTimeParseException {

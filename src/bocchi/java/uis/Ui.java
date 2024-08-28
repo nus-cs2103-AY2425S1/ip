@@ -1,3 +1,8 @@
+package uis;
+
+import command.Command;
+import command.Parser;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -52,8 +57,9 @@ public class Ui {
 
     /**
      * Prints a message.
+     *
      * @param message The message to print.
-     * @param <T> The type of the message.
+     * @param <T>     The type of the message.
      */
     public <T> void printMessage(T message) {
         System.out.println(message);

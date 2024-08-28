@@ -1,4 +1,8 @@
-import java.io.*;
+package tasks;
+
+import exceptions.BocchiException;
+import utils.BocchiDateTimeFormatter;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -7,7 +11,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     /**
-     * The start date/time of this Event.
+     * The start date/time of this tasks.Event.
      */
     protected LocalDateTime fromDateTime;
     /**
@@ -18,7 +22,7 @@ public class Event extends Task {
     /**
      * The constructor.
      *
-     * @param description  Event description.
+     * @param description  tasks.Event description.
      * @param fromDateTime Start date/time of this event.
      * @param toDateTime   End date/time of this event.
      * @throws BocchiException        If any parameter is empty.

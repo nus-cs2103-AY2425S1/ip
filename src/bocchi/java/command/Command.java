@@ -1,5 +1,5 @@
-import java.util.Arrays;
-import java.util.HashMap;
+package command;
+
 import java.util.Map;
 
 /**
