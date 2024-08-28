@@ -12,6 +12,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public String getSaveVersion() {
+        return "NIL";
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
