@@ -20,7 +20,7 @@ public class ToDoTest {
     }
 
     @Test
-    public void markUnmark_void_correctStatus() {
+    public void markUnmark_noParams_correctStatus() {
         ToDo toDo = new ToDo("A todo");
         toDo.mark();
         assertEquals("[T][X] A todo", toDo.toString());
