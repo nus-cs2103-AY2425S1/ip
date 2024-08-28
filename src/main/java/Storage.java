@@ -14,12 +14,12 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {
-            writer.write(task.toFileFormat() + System.lineSeparator())
+            writer.write(task.toFileFormat() + System.lineSeparator());
         }
         writer.close();
 
     }
 
-   
+
 
 }
