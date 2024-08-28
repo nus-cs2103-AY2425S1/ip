@@ -37,8 +37,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "beeboo"
-    archiveClassifier = null
+    archiveBaseName = "beeboo.jar"
 }
 
 run{
