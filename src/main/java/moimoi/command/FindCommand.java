@@ -9,7 +9,7 @@ import moimoi.Ui;
  */
 public class FindCommand extends Command {
 
-    String keyword;
+    private String keyword;
 
     /**
      * Constructs a command to filter the task list, by the specified description keyword.

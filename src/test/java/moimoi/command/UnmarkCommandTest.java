@@ -1,6 +1,13 @@
 package moimoi.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import moimoi.Storage;
 import moimoi.TaskList;
 import moimoi.Ui;
@@ -8,17 +15,13 @@ import moimoi.exception.InvalidIndexException;
 import moimoi.exception.MoiMoiException;
 import moimoi.task.Task;
 import moimoi.task.Todo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class UnmarkCommandTest {
 
-    Storage storage;
-    Task task = new Todo("dummy");
-    TaskList tasks = new TaskList(new ArrayList<Task>());
-    Ui ui = new Ui();
+    private Storage storage;
+    private Task task = new Todo("dummy");
+    private TaskList tasks = new TaskList(new ArrayList<Task>());
+    private Ui ui = new Ui();
 
     @Test
     public void testisExit() {

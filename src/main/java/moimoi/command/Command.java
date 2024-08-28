@@ -12,7 +12,7 @@ public abstract class Command {
 
     private boolean isExit;
 
-    public Command(boolean isExit){
+    public Command(boolean isExit) {
         this.isExit = isExit;
     }
 

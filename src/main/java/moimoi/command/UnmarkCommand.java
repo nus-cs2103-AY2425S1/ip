@@ -11,7 +11,7 @@ import moimoi.task.Task;
  */
 public class UnmarkCommand extends Command {
 
-    String indexString;
+    private String indexString;
 
     /**
      * Constructs a command to unmark the task of specified index.

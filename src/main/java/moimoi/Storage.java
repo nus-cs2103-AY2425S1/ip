@@ -9,9 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import moimoi.exception.MoiMoiException;
 import moimoi.exception.StorageCorruptedException;
-import moimoi.exception.StorageIOException;
+import moimoi.exception.StorageIoException;
 import moimoi.task.Deadline;
 import moimoi.task.Event;
 import moimoi.task.Task;
@@ -58,9 +59,9 @@ public class Storage {
      * Saves the specified list of tasks into the storage data file.
      *
      * @param tasks List of tasks to be saved.
-     * @throws StorageIOException If an I/O error occurs.
+     * @throws StorageIoException If an I/O error occurs.
      */
-    public void save(TaskList tasks) throws StorageIOException {
+    public void save(TaskList tasks) throws StorageIoException {
         try {
             FileWriter fileWriter = new FileWriter(this.path);
             for (int i = 1; i <= tasks.getSize(); i = i + 1) {
@@ -69,7 +70,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new StorageIOException();
+            throw new StorageIoException();
         }
     }
 
@@ -117,16 +118,16 @@ public class Storage {
     /**
      * Creates a data file for storage.
      *
-     * @throws StorageIOException If an I/O error occurs.
+     * @throws StorageIoException If an I/O error occurs.
      */
-    private void createFile() throws StorageIOException {
+    private void createFile() throws StorageIoException {
         try {
             File file = new File(this.path);
             File folder = new File(file.getParent());
             folder.mkdir();
             file.createNewFile();
         } catch (IOException e) {
-            throw new StorageIOException();
+            throw new StorageIoException();
         }
     }
 

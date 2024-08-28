@@ -11,7 +11,7 @@ import moimoi.task.Task;
  */
 public class MarkCommand extends Command {
 
-    String indexString;
+    private String indexString;
 
     /**
      * Constructs a command to mark the task of specified index.

@@ -3,7 +3,6 @@ package moimoi.command;
 import moimoi.Storage;
 import moimoi.TaskList;
 import moimoi.Ui;
-import moimoi.exception.InvalidDateTimeException;
 
 /**
  * Represents a command to list all existing tasks.

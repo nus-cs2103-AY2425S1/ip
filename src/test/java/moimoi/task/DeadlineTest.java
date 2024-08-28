@@ -1,17 +1,19 @@
 package moimoi.task;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
 public class DeadlineTest {
 
-    String description = "dummy";
-    LocalDateTime datetime = LocalDateTime.parse("2024-08-24 12:00",
+    private String description = "dummy";
+    private LocalDateTime datetime = LocalDateTime.parse("2024-08-24 12:00",
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
     @Test
@@ -48,7 +50,6 @@ public class DeadlineTest {
 
     @Test
     public void hasKeyword() {
-        
         Deadline deadlineWithoutWhiteSpace = new Deadline(this.description, this.datetime);
         Deadline deadlineWithWhiteSpace = new Deadline(this.description + " " + this.description,
                 this.datetime);
@@ -61,7 +62,6 @@ public class DeadlineTest {
         assertFalse(deadlineWithoutWhiteSpace.hasKeyword("?"));
         assertFalse(deadlineWithoutWhiteSpace.hasKeyword("dummy "));
         assertFalse(deadlineWithoutWhiteSpace.hasKeyword(" "));
-        
     }
 
     @Test

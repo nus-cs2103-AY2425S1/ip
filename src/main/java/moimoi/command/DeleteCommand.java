@@ -11,7 +11,7 @@ import moimoi.task.Task;
  */
 public class DeleteCommand extends Command {
 
-    String indexString;
+    private String indexString;
 
     /**
      * Constructs a command to delete the task of specified index.

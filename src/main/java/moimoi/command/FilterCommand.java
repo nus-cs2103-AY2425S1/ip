@@ -2,18 +2,18 @@ package moimoi.command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
 import moimoi.Storage;
 import moimoi.TaskList;
 import moimoi.Ui;
 import moimoi.exception.InvalidDateTimeException;
-import moimoi.exception.InvalidIndexException;
 
 /**
  * Represents a command to filter the task list, by a specific occurring date.
  */
 public class FilterCommand extends Command {
 
-    String dateString;
+    private String dateString;
 
     /**
      * Constructs a command to filter the task list, by the specified occurring date.
