@@ -1,10 +1,15 @@
+package joe.main;
+
+import joe.exceptions.CorruptedFileException;
+import joe.tasks.TaskList;
+
 import java.io.FileNotFoundException;
 
 public class Joe {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Joe(String filePath) {
         ui = new Ui();
@@ -23,7 +28,7 @@ public class Joe {
     }
 
     public static void main(String[] args) {
-        new Joe("../src/main/data/joe.txt").run(); // remove ../ if running from the root directory
+        new Joe("src/main/data/joe.txt").run(); // remove ../ if running from the root directory
     }
 
 }

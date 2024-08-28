@@ -1,8 +1,11 @@
+package joe.exceptions;
+
 public class InvalidIndexException extends RuntimeException {
-    private int index;
+    private final int index;
 
     /**
      * Constructor for InvalidIndexException.
+     *
      * @param index an integer representing the invalid index
      */
     public InvalidIndexException(int index) {
@@ -12,6 +15,7 @@ public class InvalidIndexException extends RuntimeException {
     /**
      * Returns a detailed message of the invalid index from the user
      * and how to look for the list of valid indexes
+     *
      * @return a String message to help users
      */
     @Override

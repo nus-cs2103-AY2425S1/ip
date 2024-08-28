@@ -1,3 +1,9 @@
+package joe.main;
+
+import joe.exceptions.InvalidCommandException;
+import joe.exceptions.InvalidIndexException;
+import joe.tasks.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

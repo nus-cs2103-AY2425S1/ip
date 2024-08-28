@@ -1,8 +1,13 @@
+package joe.tasks;
+
+import joe.exceptions.InvalidIndexException;
+import joe.main.Parser;
+import joe.utils.Formatter;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +26,7 @@ public class TaskList {
     public TaskList(String[] lines) {
         taskList = new ArrayList<>();
 
-        for (String line: lines) {
+        for (String line : lines) {
             if (line == null) {
                 break;
             }
@@ -34,6 +39,7 @@ public class TaskList {
 
     /**
      * Adds a task to the user's list.
+     *
      * @param t the Task to be added
      */
     public void addTask(Task t) {
@@ -47,6 +53,7 @@ public class TaskList {
 
     /**
      * Deletes a task at a specific index.
+     *
      * @param index the index of the Task the user wants to delete
      */
     public void deleteTask(int index) throws InvalidIndexException {
@@ -63,6 +70,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
+     *
      * @param index the index of the Task the user wants to mark
      */
     public void markDone(int index) throws InvalidIndexException {
@@ -79,6 +87,7 @@ public class TaskList {
 
     /**
      * Unmarks a task.
+     *
      * @param index the index of the Task the user wants to unmark
      */
     public void unmark(int index) throws InvalidIndexException {

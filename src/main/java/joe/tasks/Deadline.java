@@ -1,15 +1,18 @@
+package joe.tasks;
+
+import joe.utils.Formatter;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 public class Deadline extends Task {
     private final LocalDateTime due;
 
     /**
      * Constructor for Deadline.
+     *
      * @param description a String describing the Deadline
-     * @param due a String describing the due date/time
+     * @param due         a String describing the due date/time
      */
     public Deadline(String description, String due) {
         super(description.strip());
@@ -18,6 +21,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the number of days until the deadline.
+     *
      * @param dateTime the date/time provided by the user
      * @return the number of days until the deadline
      */
@@ -27,6 +31,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a formatted String representing the Deadline object and its fields for saving to file
+     *
      * @return a String saved representation of the Deadline object
      */
     @Override
@@ -39,6 +44,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a formatted String that represents the Deadline object and its fields
+     *
      * @return a String representation of the Deadline object
      */
     @Override

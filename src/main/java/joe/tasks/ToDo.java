@@ -1,7 +1,12 @@
+package joe.tasks;
+
+import joe.tasks.Task;
+
 public class ToDo extends Task {
 
     /**
      * Constructor for ToDo.
+     *
      * @param description a String describing the ToDo
      */
     public ToDo(String description) {
@@ -10,6 +15,7 @@ public class ToDo extends Task {
 
     /**
      * Returns a formatted String representing the ToDo object and its fields for saving to file
+     *
      * @return a String saved representation of the ToDo object
      */
     @Override
@@ -19,6 +25,7 @@ public class ToDo extends Task {
 
     /**
      * Returns a formatted String representing the ToDo object and its fields
+     *
      * @return a String representation of the ToDo object
      */
     @Override

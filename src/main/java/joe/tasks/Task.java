@@ -1,12 +1,14 @@
+package joe.tasks;
+
 public class Task {
     private final String description;
     private boolean done;
 
     /**
      * Constructor for Task.
+     *
      * @param description a String describing the Task
      * @throws IllegalArgumentException if description.isEmpty()
-     *
      */
     public Task(String description) throws IllegalArgumentException {
         if (description.isEmpty()) {
@@ -19,6 +21,7 @@ public class Task {
 
     /**
      * Returns the description of the task.
+     *
      * @return a String representing the description of the task
      */
     public String saveRepr() {
@@ -28,6 +31,7 @@ public class Task {
 
     /**
      * Sets the status of the task.
+     *
      * @param done a boolean that determines whether a task is done
      */
     public void setDone(boolean done) {
@@ -37,6 +41,7 @@ public class Task {
 
     /**
      * Returns a formatted String that represents the done and description fields of the Task
+     *
      * @return a String representation of the Task object
      */
     @Override

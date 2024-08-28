@@ -1,5 +1,8 @@
+package joe.tasks;
+
+import joe.utils.Formatter;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
@@ -8,9 +11,10 @@ public class Event extends Task {
 
     /**
      * Constructor for Event class.
+     *
      * @param description a String describing the Event
-     * @param start a String describing the start date/time
-     * @param end a String describing the end date/time
+     * @param start       a String describing the start date/time
+     * @param end         a String describing the end date/time
      */
     public Event(String description, String start, String end) {
         super(description.strip());
@@ -20,6 +24,7 @@ public class Event extends Task {
 
     /**
      * Returns the number of days until the event.
+     *
      * @param dateTime the date/time provided by the user
      * @return the number of days until the event
      */
@@ -29,6 +34,7 @@ public class Event extends Task {
 
     /**
      * Returns a formatted String representing the Event object and its fields for saving to file
+     *
      * @return a String saved representation of the Event object
      */
     @Override
@@ -41,6 +47,7 @@ public class Event extends Task {
 
     /**
      * Returns a formatted String that represents the Event object and its fields
+     *
      * @return a String representation of the Event object
      */
     @Override

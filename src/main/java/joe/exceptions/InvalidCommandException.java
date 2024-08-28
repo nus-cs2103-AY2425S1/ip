@@ -1,8 +1,11 @@
+package joe.exceptions;
+
 public class InvalidCommandException extends RuntimeException {
-    private String userCmd;
+    private final String userCmd;
 
     /**
      * Constructor for InvalidCommandException.
+     *
      * @param userCmd a String representation of the user command
      */
     public InvalidCommandException(String userCmd) {
@@ -12,6 +15,7 @@ public class InvalidCommandException extends RuntimeException {
     /**
      * Returns a detailed message of the invalid command from the user
      * and how to look for the list of valid commands
+     *
      * @return a String message to help users
      */
     @Override
