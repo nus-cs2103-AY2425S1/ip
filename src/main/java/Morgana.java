@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,9 +7,20 @@ public class Morgana {
     private static final String NAME = "Morgana";
     private static final String HORIZONTAL_LINE = "============================================================\n";
 
-    private static final List<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private List<Task> tasks;
 
-    public static void main(String[] args) {
+    public Morgana(String filePath) {
+        try {
+            storage = new Storage(filePath);
+            tasks = storage.loadTasks();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            tasks = new ArrayList<>();
+        }
+    }
+
+    public void run() {
         System.out.print(HORIZONTAL_LINE);
         System.out.printf("Hello! I'm %s.%n", NAME);
         System.out.println("What can I do for you?");
@@ -20,7 +32,10 @@ public class Morgana {
             String[] input = line.trim().split(" ", 2);
             try {
                 switch (input[0]) {
-                    case "list" -> listTasks();
+                    case "list" -> {
+                        listTasks();
+                        continue;
+                    }
                     case "mark" -> updateTaskStatus(parseTaskIndex(input),
                             "Nice! I've marked this task as done:", true);
                     case "unmark" -> updateTaskStatus(parseTaskIndex(input),
@@ -28,7 +43,8 @@ public class Morgana {
                     case "delete" -> deleteTask(parseTaskIndex(input));
                     default -> addTask(input);
                 }
-            } catch (MorganaException e) {
+                storage.saveTasks(tasks);
+            } catch (MorganaException | IOException e) {
                 System.out.print(HORIZONTAL_LINE);
                 System.out.println(e.getMessage());
                 System.out.println(HORIZONTAL_LINE);
@@ -40,7 +56,11 @@ public class Morgana {
         System.out.print(HORIZONTAL_LINE);
     }
 
-    private static void listTasks() {
+    public static void main(String[] args) {
+        new Morgana("./data/morgana.txt").run();
+    }
+
+    private void listTasks() {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -49,7 +69,7 @@ public class Morgana {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static int parseTaskIndex(String[] input) throws MorganaException {
+    private int parseTaskIndex(String[] input) throws MorganaException {
         if (input.length < 2) {
             throw new MorganaException("Please specify a task number.");
         }
@@ -64,7 +84,7 @@ public class Morgana {
         }
     }
 
-    private static void updateTaskStatus(int index, String message, boolean isDone) {
+    private void updateTaskStatus(int index, String message, boolean isDone) {
         Task task = tasks.get(index);
         task.markAsDone(isDone);
 
@@ -74,7 +94,7 @@ public class Morgana {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void deleteTask(int index) {
+    private void deleteTask(int index) {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Noted. I've removed this task:");
         System.out.printf("%d. %s%n", index + 1, tasks.remove(index));
@@ -83,7 +103,7 @@ public class Morgana {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addTask(String[] input) throws MorganaException {
+    private void addTask(String[] input) throws MorganaException {
         Task task = createTask(input[0], input.length > 1 ? input[1].trim() : "");
         tasks.add(task);
 
@@ -95,7 +115,7 @@ public class Morgana {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static Task createTask(String command, String args) throws MorganaException {
+    private Task createTask(String command, String args) throws MorganaException {
         return switch (command) {
             case "todo" -> {
                 if (args.isEmpty()) {
