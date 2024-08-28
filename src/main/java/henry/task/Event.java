@@ -10,13 +10,27 @@ public class Event extends Task {
     protected String startTime;
     protected String endTime;
 
-
+    /**
+     * Sets up the instance
+     *
+     * @param description description of the task
+     * @param startTime start time of the task
+     * @param endTime end time of the task
+     */
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
+    /**
+     * Sets up the instance
+     *
+     * @param description description of the task
+     * @param startTime start time of the task
+     * @param endTime end time of the task
+     * @param isDone whether the task is completed
+     */
     public Event(String description, String startTime, String endTime,
                  boolean isDone) {
         super(description, isDone);

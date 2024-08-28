@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import henry.HenryException;
-import henry.task.Task;
-import henry.task.Todo;
 import henry.task.Deadline;
 import henry.task.Event;
+import henry.task.Task;
+import henry.task.Todo;
 
 /**
  * Deals with loading tasks from the file
@@ -62,11 +62,9 @@ public class Storage {
                 String input = scanner1.nextLine();
                 String[] words = input.split(" \\| ");
                 if (words[0].equals("T")) {
-                    recordedTasks.add(new Todo(words[2],
-                            (Integer.parseInt(words[1]) != 0)));
+                    recordedTasks.add(new Todo(words[2], (Integer.parseInt(words[1]) != 0)));
                 } else if (words[0].equals("D")) {
-                    recordedTasks.add(new Deadline(words[2], words[3],
-                            (Integer.parseInt(words[1]) != 0)));
+                    recordedTasks.add(new Deadline(words[2], words[3], (Integer.parseInt(words[1]) != 0)));
                 } else if (words[0].equals("E")) {
                     String[] duration = words[3].split("-");
                     String startTime = duration[0];

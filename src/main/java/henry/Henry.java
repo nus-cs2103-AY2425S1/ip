@@ -1,10 +1,10 @@
 package henry;
 
 import henry.command.Command;
+import henry.util.Parser;
 import henry.util.Storage;
 import henry.util.TaskList;
 import henry.util.Ui;
-import henry.util.Parser;
 
 /**
  * a Personal Assistant Chatbot that helps a person
@@ -16,6 +16,11 @@ public class Henry {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Sets up the chat
+     *
+     * @param filePath path of the file where it is saved
+     */
     public Henry(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,6 +32,9 @@ public class Henry {
         }
     }
 
+    /**
+     * Runs the chat program
+     */
     public void run() {
         ui.greetings();
         boolean isExit = false;

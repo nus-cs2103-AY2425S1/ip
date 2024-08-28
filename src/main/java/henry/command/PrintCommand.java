@@ -1,14 +1,13 @@
 package henry.command;
 
-import henry.util.Ui;
-import henry.util.TaskList;
-import henry.util.Storage;
 import henry.HenryException;
+import henry.util.TaskList;
+import henry.util.Ui;
 
 /**
  * Deals with printing tasks recorded in TaskList
  */
-public class PrintCommand extends Command{
+public class PrintCommand extends Command {
 
     /**
      * Prints all the tasks recorded

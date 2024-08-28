@@ -1,9 +1,9 @@
 package henry.command;
 
-import henry.util.Ui;
-import henry.util.TaskList;
 import henry.HenryException;
 import henry.task.Task;
+import henry.util.TaskList;
+import henry.util.Ui;
 
 /**
  * Deals with marking and unmarking tasks
@@ -38,7 +38,7 @@ public class ChangeStatusCommand extends Command {
             } else if (number <= 0) {
                 throw new HenryException("Number must be greater than zero!");
             }
-            Task task = taskList.getTasks().get(number-1);
+            Task task = taskList.getTasks().get(number - 1);
             if ((this.inputList)[0].equals("mark")) {
                 //check if task is already marked
                 if (task.isDone()) {
@@ -58,7 +58,7 @@ public class ChangeStatusCommand extends Command {
                         + task.toString()
                         + "\n");
             }
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new HenryException("This is not a number!!");
         }
     }

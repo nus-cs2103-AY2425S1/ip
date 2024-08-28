@@ -9,11 +9,24 @@ public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * Sets up the instance
+     *
+     * @param description description of the task
+     * @param by date to finish the task
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Sets up the instance
+     *
+     * @param description description of the task
+     * @param by date to finish the task
+     * @param isDone whether the task is completed
+     */
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;
