@@ -35,8 +35,8 @@ public class Event extends Task {
 
         return task + " | " + (this.isDone ? "1" : "0") + " | "
                 + this.description + " | " +
-                this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"))
+                this.from.format(DateUtils.DATE_TIME_FORMATTER)
                 + " | "
-                + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) ;
+                + this.to.format(DateUtils.DATE_TIME_FORMATTER);
     }
 }
