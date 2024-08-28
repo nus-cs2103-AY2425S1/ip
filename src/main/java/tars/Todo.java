@@ -1,3 +1,5 @@
+package tars;
+
 public class Todo extends Task{
 
     public Todo (String name, boolean done) {
