@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -102,8 +105,56 @@ public class Neuro {
         return task;
     }
 
-    public static void main(String[] args) {
+    private static Task getTaskToAdd(String taskType, String[] taskComponents, String taskIsDone) {
+        Task taskToAdd = null;
+
+        switch (taskType) {
+            case ("T"):
+                taskToAdd = new Todo(taskComponents[2]);
+                break;
+            case ("D"):
+                taskToAdd = new Deadline(taskComponents[2], taskComponents[3]);
+                break;
+            case ("E"):
+                taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                break;
+            default:
+
+                break;
+        }
+
+        if (taskIsDone.equals("1") && taskToAdd != null) {
+            taskToAdd.markDone();
+        }
+        return taskToAdd;
+    }
+
+    private static ArrayList<Task> loadTaskFile(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
         ArrayList<Task> taskList = new ArrayList<>();
+
+        while (s.hasNext()) {
+            String nextLine = s.nextLine();
+            String[] taskComponents = nextLine.split(" \\| ");
+            String taskType = taskComponents[0];
+            String taskIsDone = taskComponents[1];
+            Task taskToAdd = getTaskToAdd(taskType, taskComponents, taskIsDone);
+
+            taskList.add(taskToAdd);
+        }
+
+        return taskList;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Task> taskList;
+        try {
+            taskList = loadTaskFile("./data/Neuro.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("NO FILE");
+            return;
+        }
 
         // Scanner creation format inspired by https://www.w3schools.com/java/java_user_input.asp
         Scanner scanner = new Scanner(System.in);
