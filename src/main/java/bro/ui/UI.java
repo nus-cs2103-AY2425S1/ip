@@ -4,6 +4,7 @@ import bro.BroException;
 import bro.task.Task;
 import bro.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // This class encapsulates user interactions with bro.Bro
@@ -49,6 +50,18 @@ public class UI {
 
     public void showDeleteTaskSuccess(Task task) {
         reply("Noted. Removed this task:\n" + task);
+    }
+
+    public void showTaskFind(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            reply("No tasks found.");
+            return;
+        }
+        StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
+        for (Task task : tasks) {
+            message.append(task.toString()).append("\n");
+        }
+        reply(message.toString());
     }
 
     public static void showLine() {

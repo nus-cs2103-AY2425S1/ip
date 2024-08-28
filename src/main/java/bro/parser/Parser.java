@@ -17,6 +17,7 @@ public class Parser {
     private enum ChatCommand {
         bye,
         list,
+        find,
         mark,
         unmark,
         todo,
@@ -54,6 +55,11 @@ public class Parser {
                 return new ExitCommand();
             case list:
                 return new ReadCommand(taskList);
+            case find:
+                if (secondArg.isEmpty()) {
+                    throw new BroException("Empty find query");
+                }
+                return new FindCommand(taskList, secondArg);
             case mark:
                 try {
                     int taskId = Integer.parseInt(secondArg) - 1;

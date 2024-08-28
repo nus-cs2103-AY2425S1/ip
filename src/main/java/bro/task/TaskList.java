@@ -48,4 +48,14 @@ public class TaskList {
     public int getNumberOfTask() {
         return tasks.size();
     }
+
+    public ArrayList<Task> findTasks(String query) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().toLowerCase().contains(query.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

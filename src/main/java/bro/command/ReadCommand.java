@@ -5,7 +5,7 @@ import bro.ui.UI;
 
 public class ReadCommand implements Command {
 
-    private final TaskList taskList;
+    final TaskList taskList;
 
     public ReadCommand(TaskList taskList) {
         this.taskList = taskList;
