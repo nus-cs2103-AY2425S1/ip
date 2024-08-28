@@ -26,7 +26,8 @@ public class Storage {
                 String line = sc.nextLine();
                 tasks.add(Parser.parseStorageFileLine(line));
             }
-            
+            sc.close();
+
             return tasks;
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
