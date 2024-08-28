@@ -1,22 +1,24 @@
 package TaskType;
 
 import Bot.DateConverter;
-import Bot.Duke;
+import Bot.Parser;
 
 import java.util.Objects;
 
 // All kinds of error handlings of invalid task format can be done here instead of Bot.Duke class
 public class TaskBuilder {
     private String description;
-    private Duke.TaskType taskType;
+    private Parser.TaskType taskType;
     private String by;
     private String from;
     private String to;
 
-    public TaskBuilder(String description, Duke.TaskType taskType) {
+    public TaskBuilder(String description, Parser.TaskType taskType) {
         this.description = description;
         this.taskType = taskType;
     }
+
+
 
     public TaskBuilder by(String by) {
         if (Objects.equals(by, "")) {
