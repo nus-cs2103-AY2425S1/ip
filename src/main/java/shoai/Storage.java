@@ -5,13 +5,28 @@ import shoai.ShoAIException; // Imports the ShoAIException class for handling ex
 import java.io.*; // Imports classes for file handling (BufferedReader, BufferedWriter, File, FileReader, FileWriter, IOException)
 import java.util.ArrayList; // Imports ArrayList to store and manipulate the task list
 
+
+/**
+ * Handles the storage and retrieval of tasks to and from a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws ShoAIException If there is an error reading from the file.
+     */
     public ArrayList<Task> loadTasks() throws ShoAIException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -30,6 +45,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the specified tasks to the file.
+     *
+     * @param tasks The ArrayList of tasks to save.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         File file = new File(filePath);
         file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
