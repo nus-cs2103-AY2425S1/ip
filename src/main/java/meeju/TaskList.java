@@ -1,5 +1,7 @@
 package meeju;
+
 import java.util.ArrayList;
+
 public class TaskList {
     private ArrayList<Task> taskList;
 
