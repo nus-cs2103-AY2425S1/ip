@@ -1,3 +1,4 @@
-[E][_] make meeting /from: today 12:00 /to: 14:00
-[D][_] quiz2 /by: Friday
-[T][_] a
+[E][_] E4 /from: 12:00 /to: 15:00
+[T][_] A2
+[E][_] E /from: 12:00 /to: 15:00
+[D][_] D1 /by: 2024-08-31

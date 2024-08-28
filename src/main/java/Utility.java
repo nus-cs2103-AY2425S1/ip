@@ -54,7 +54,7 @@ public class Utility {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Failed to read file, so the task list is empty now." + e.getMessage());
+            System.out.println("Failed to read file, so the task list may lost data. " + e.getMessage());
         }
 
     }
@@ -165,8 +165,12 @@ public class Utility {
                         "\nNow you have " + toDo.size() + " tasks in the list.\n");
                 return;
             } catch (IndexOutOfBoundsException e) {
-                System.out.print("The description of the deadline task must include the ddl time, please try again.\n" +
-                        "Tips: use /by to enter the ddl time.\n e.g. deadline quiz1 /by today 23:59\n");
+                System.out.print("""
+                        The description of the deadline task must include the ddl time, please try again.
+                        Tips: use '/by' to enter the ddl date.
+                        Supported format: yyyy-MM-dd
+                         e.g. deadline quiz1 /by 2024-12-31
+                        """);
                 return;
             }
         }
@@ -186,10 +190,11 @@ public class Utility {
                         "\nNow you have " + toDo.size() + " tasks in the list.\n");
                 return;
             } catch (IndexOutOfBoundsException e) {
-                System.out.print("The description of the event task must include" +
-                        " the start time and the end time, please try again.\n" +
-                        "Tips: use /from and /to to enter the start and end time.\n" +
-                        " e.g. event meeting1 /from today 12:00 /to 14:00\n");
+                System.out.print("""
+                        The description of the event task must include the start time and the end time, please try again.
+                        Tips: use '/from' and '/to' to enter the start and end time.
+                        Supported time format: HH:mm, HH:mm:ss
+                        e.g. event meeting1 /from 12:00 /to 14:00""");
                 return;
             }
         }
