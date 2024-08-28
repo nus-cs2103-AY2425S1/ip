@@ -1,6 +1,4 @@
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -13,25 +11,21 @@ public class Bocchi {
     static private final String NAME = "Bocchi";
 
     /**
-     * The list to store all tasks.
+     * The list of tasks.
      */
-    private List<Task> tasks = null;
+    private TaskList taskList;
 
     /**
      * The loader and saver for the task list.
      */
-    private Storage loaderSaver = new Storage();
+    private Storage storage = new Storage();
 
 
     /**
      * The constructor.
      */
     public Bocchi() {
-        try {
-            tasks = loaderSaver.load();
-        } catch (BocchiException e) {
-            tasks = new ArrayList<>();
-        }
+        taskList = new TaskList(storage);
     }
 
     /**
@@ -64,11 +58,7 @@ public class Bocchi {
         printSeparator();
         System.out.println("Oh no you are leaving.. It was a great time talking to you ::>_<::");
         printSeparator();
-        try {
-            loaderSaver.save(tasks);  // save the task list for persistence
-        } catch (BocchiException e) {
-            // Do nothing.
-        }
+        taskList.saveTasks();
     }
 
     /**
@@ -98,8 +88,8 @@ public class Bocchi {
     private void list() {
         printSeparator();
         System.out.println("No...no problem! This is your task list! (/▽＼)");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.getTask(i));
         }
         printSeparator();
     }
@@ -109,7 +99,7 @@ public class Bocchi {
      */
     private void task(Task task) {
         printSeparator();
-        tasks.add(task);
+        taskList.addTask(task);
         System.out.println("Only if I can be as diligent as you... (っ °Д °;)っ An..anyway, task added!");
         System.out.println(task);
         printSeparator();
@@ -122,12 +112,12 @@ public class Bocchi {
      */
     private void mark(int index) throws BocchiException {
         index--;
-        if (index >= tasks.size() || index < 0) {
+        if (index >= taskList.size() || index < 0) {
             throw new BocchiException("Sorry but ... erm maybe it is better to double check the index you entered? " +
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
-        Task task = tasks.get(index);
+        Task task = taskList.getTask(index);
         task.markAsDone();
 
         printSeparator();
@@ -143,12 +133,12 @@ public class Bocchi {
      */
     private void unmark(int index) throws BocchiException {
         index--;
-        if (index >= tasks.size() || index < 0) {
+        if (index >= taskList.size() || index < 0) {
             throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? " +
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
-        Task task = tasks.get(index);
+        Task task = taskList.getTask(index);
         task.markAsUnDone();
 
         printSeparator();
@@ -164,12 +154,12 @@ public class Bocchi {
      */
     private void delete(int index) throws BocchiException {
         index--;
-        if (index >= tasks.size() || index < 0) {
+        if (index >= taskList.size() || index < 0) {
             throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? " +
                     "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
-        Task task = tasks.remove(index);
+        Task task = taskList.removeTask(index);
 
         printSeparator();
         System.out.println("I have removed the task!");
