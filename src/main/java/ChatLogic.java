@@ -5,7 +5,6 @@ import java.io.IOException;
  */
 
 public class ChatLogic {
-    static final String HORIZONTAL_LINE = "____________________________________________________________";
     static final String BYE_COMMAND = "bye";
     static final String LIST_COMMAND = "list";
     static final String MARK_COMMAND = "mark";
@@ -22,19 +21,17 @@ public class ChatLogic {
         EVENT
     }
 
-    private final String name;
+    private final Ui ui;
     private final String filePath;
-    private final Storage storage;
-    private TaskList taskList;
+    private final TaskList taskList;
 
     /** Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
-     * @param name The name used by the chatbot.
+     * @param ui The Ui used by the chatbot.
      * @param filePath The file path used for data storage.
      */
-    public ChatLogic(String name, String filePath) throws IOException {
-        this.name = name;
+    public ChatLogic(Ui ui, String filePath) {
+        this.ui = ui;
         this.filePath = filePath;
-        this.storage = new Storage(this.filePath);
         this.taskList = new TaskList(this.filePath);
     }
 
@@ -46,7 +43,7 @@ public class ChatLogic {
     public void processInput(String input) throws StelleException, IOException {
         if (input.equals(BYE_COMMAND)) {
             taskList.writeToFile();
-            printBye();
+            ui.printBye();
             System.exit(0);
         } else if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
             processMarkUnmarkInput(input);
@@ -72,10 +69,8 @@ public class ChatLogic {
             throw new NoSuchTaskException();
         }
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Alright. Removed the task:");
         System.out.println(this.taskList.get(possibleTaskNum - 1));
-        System.out.println(HORIZONTAL_LINE);
 
         this.taskList.remove(possibleTaskNum - 1);
         this.taskList.writeToFile();
@@ -97,9 +92,7 @@ public class ChatLogic {
 
     private void processAddTaskInput(String input) throws IOException {
         if (input.isEmpty()) {
-            System.out.println(HORIZONTAL_LINE);
             System.out.println("Please specify a task name!");
-            System.out.println(HORIZONTAL_LINE);
             return;
         }
 
@@ -128,11 +121,9 @@ public class ChatLogic {
                 break;
         }
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println(this.taskList.get(taskList.size() - 1).toString());
         System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
     }
 
     private void addToDo(String input) throws TaskException, IOException {
@@ -186,10 +177,8 @@ public class ChatLogic {
 
         this.taskList.writeToFile();
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /** Unmarks a certain task (makes it not done).
@@ -206,10 +195,8 @@ public class ChatLogic {
 
         this.taskList.writeToFile();
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString());
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
@@ -218,31 +205,10 @@ public class ChatLogic {
     private void listTasks() throws IOException {
         this.taskList.readFromFile();
 
-        System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
             String output = " " + (i + 1) + ". " + this.taskList.get(i).toString();
             System.out.println(output);
         }
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Prints a greeting message for the chatbot.
-     */
-    public void printGreeting() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(" Hello! I'm " + name + ".");
-        System.out.println(" What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Prints a goodbye / ending message for the chatbot.
-     */
-    private void printBye() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(HORIZONTAL_LINE);
     }
 }
