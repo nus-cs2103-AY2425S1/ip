@@ -48,12 +48,20 @@ public class DeadlineTest {
 
     @Test
     public void hasKeyword() {
-        Todo todo = new Todo(this.description);
-        assertTrue(todo.hasKeyword("dum"));
-        assertTrue(todo.hasKeyword(""));
-        assertFalse(todo.hasKeyword("dummies"));
-        assertFalse(todo.hasKeyword("?"));
-        assertFalse(todo.hasKeyword("dummy "));
+        
+        Deadline deadlineWithoutWhiteSpace = new Deadline(this.description, this.datetime);
+        Deadline deadlineWithWhiteSpace = new Deadline(this.description + " " + this.description,
+                this.datetime);
+
+        assertTrue(deadlineWithoutWhiteSpace.hasKeyword("dummy"));
+        assertTrue(deadlineWithoutWhiteSpace.hasKeyword("Dum"));
+        assertTrue(deadlineWithWhiteSpace.hasKeyword(" "));
+
+        assertFalse(deadlineWithoutWhiteSpace.hasKeyword("dummies"));
+        assertFalse(deadlineWithoutWhiteSpace.hasKeyword("?"));
+        assertFalse(deadlineWithoutWhiteSpace.hasKeyword("dummy "));
+        assertFalse(deadlineWithoutWhiteSpace.hasKeyword(" "));
+        
     }
 
     @Test

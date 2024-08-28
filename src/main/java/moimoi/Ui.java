@@ -127,7 +127,8 @@ public class Ui {
     }
 
     /**
-     * Displays all tasks containing the specified keyword in their descriptions, from the given task list.
+     * Displays all tasks containing the specified keyword (case-insensitive) in their descriptions,
+     * from the given task list.
      *
      * @param tasks List of tasks to be filtered.
      * @param keyword Keyword to be checked within tasks' descriptions.

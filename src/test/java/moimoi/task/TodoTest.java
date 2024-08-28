@@ -38,12 +38,19 @@ public class TodoTest {
 
     @Test
     public void hasKeyword() {
-        Todo todo = new Todo(this.description);
-        assertTrue(todo.hasKeyword("dum"));
-        assertTrue(todo.hasKeyword(""));
-        assertFalse(todo.hasKeyword("dummies"));
-        assertFalse(todo.hasKeyword("?"));
-        assertFalse(todo.hasKeyword("dummy "));
+
+        Todo todoWithoutWhiteSpace = new Todo(this.description);
+        Todo todoWithWhiteSpace = new Todo(this.description + " " + this.description);
+
+        assertTrue(todoWithoutWhiteSpace.hasKeyword("dummy"));
+        assertTrue(todoWithoutWhiteSpace.hasKeyword("Dum"));
+        assertTrue(todoWithWhiteSpace.hasKeyword(" "));
+
+        assertFalse(todoWithoutWhiteSpace.hasKeyword("dummies"));
+        assertFalse(todoWithoutWhiteSpace.hasKeyword("?"));
+        assertFalse(todoWithoutWhiteSpace.hasKeyword("dummy "));
+        assertFalse(todoWithoutWhiteSpace.hasKeyword(" "));
+
     }
 
     @Test

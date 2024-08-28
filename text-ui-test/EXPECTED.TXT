@@ -89,25 +89,25 @@ _._._User_._._
 
 _._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
-** Pro-tip: double-check your slash command(s) ;)
+** Pro-tip: double-check your slash command(s), if any ;)
 
 _._._User_._._
 
 _._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
-** Pro-tip: double-check your slash command(s) ;)
+** Pro-tip: double-check your slash command(s), if any ;)
 
 _._._User_._._
 
 _._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
-** Pro-tip: double-check your slash command(s) ;)
+** Pro-tip: double-check your slash command(s), if any ;)
 
 _._._User_._._
 
 _._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
-** Pro-tip: double-check your slash command(s) ;)
+** Pro-tip: double-check your slash command(s), if any ;)
 
 _._._User_._._
 
@@ -244,6 +244,32 @@ _._._MoiMoi_._._
 Here's your list of tasks, containing 'meeting' in their descriptions!
 2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 3. [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+
+_._._User_._._
+
+_._._MoiMoi_._._
+Here's your list of tasks, containing 'Meet' in their descriptions!
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+3. [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+
+_._._User_._._
+
+_._._MoiMoi_._._
+Here's your list of tasks, containing ' ' in their descriptions!
+1. [T][X] borrow book
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+
+_._._User_._._
+
+_._._MoiMoi_._._
+Uh-oh :'( I need more information to help you out! Pass me some more arguments~
+** Pro-tip: double-check your slash command(s), if any ;)
+
+_._._User_._._
+
+_._._MoiMoi_._._
+Here's your list of tasks, containing 'meetings' in their descriptions!
+(No such tasks found...)
 
 _._._User_._._
 
