@@ -2,6 +2,9 @@ package main.java;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -199,7 +202,8 @@ public class MrTracker {
                 // /from, /to'. Each field is separated by a |
                 String input = sc.nextLine();
                 String type = input.substring(0, 1);
-                String[] args = input.substring(1).split("|");
+                String[] args = input.substring(2).trim().split("\\|");
+
                 Task newTask = null;
                 switch (type){
                 case "T":
@@ -230,6 +234,7 @@ public class MrTracker {
             FileWriter file = new FileWriter(MrTracker.FILEPATH);
             for (Task item: taskList) {
                 file.write(item.toSave());
+                file.write("\n");
             }
             file.close();
         } catch (IOException ex) {
