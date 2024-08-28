@@ -26,4 +26,12 @@ public class Event extends Task {
         return String.format("E | %d | %s | %s to %s", this.done ? 1 : 0, this.description, 
           this.start, this.end);
     }
+
+    public LocalDate getStart() {
+        return this.start;
+    }
+
+    public LocalDate getEnd() {
+        return this.end;
+    }
 }
