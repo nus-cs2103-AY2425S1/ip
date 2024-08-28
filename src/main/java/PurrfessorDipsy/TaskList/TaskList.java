@@ -39,6 +39,23 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Filters the task list and returns a new list of tasks that contain the specified keyword
+     * in their description. The search is case-insensitive.
+     *
+     * @param keyword The keyword to filter tasks by.
+     * @return A list of tasks that contain the keyword in their description.
+     */
+    public ArrayList<Task> filterListByKeyword(String keyword) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (Task task: tasks) {
+            if (task.hasKeywordInDescription(keyword)) {
+                filteredList.add(task);
+            }
+        }
+        return filteredList;
+    }
+
     public void saveToLocalDisk() {
         Storage.save(tasks);
     }
