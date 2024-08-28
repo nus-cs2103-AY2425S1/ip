@@ -11,4 +11,13 @@ public class Event extends Task{
     public String toString() {
         return String.format("[E]%s(from: %s to: %s)",super.toString(),this.from,this.to);
     }
+
+    @Override
+    public String toSaveString() {
+        if (isDone) {
+            return String.format("E | %d | %s",1,this.getDescription());
+        } else {
+            return String.format("E | %d | %s",0,this.getDescription());
+        }
+    }
 }

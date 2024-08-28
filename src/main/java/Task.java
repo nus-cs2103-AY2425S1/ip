@@ -30,4 +30,13 @@ public class Task {
             return "[" + this.getStatusIcon() + "] " + this.getDescription();
         }
     }
+
+    public String toSaveString() {
+        if (isDone) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
 }

@@ -9,4 +9,13 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("[D]%s(by: %s)",super.toString(),this.by);
     }
+
+    @Override
+    public String toSaveString() {
+        if (isDone) {
+            return String.format("D | %d | %s",1,this.getDescription());
+        } else {
+            return String.format("D | %d | %s",0,this.getDescription());
+        }
+    }
 }
