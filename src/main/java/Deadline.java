@@ -9,6 +9,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    public String getFormattedString() { return "D | " + super.getFormattedString() + " | " + this.by;}
 }
