@@ -1,3 +1,6 @@
+import talkie.command.*;
+import talkie.exception.TalkieUnknownCommandException;
+
 public class Parser {
 
     public static Command getCommand(String input) throws TalkieUnknownCommandException {

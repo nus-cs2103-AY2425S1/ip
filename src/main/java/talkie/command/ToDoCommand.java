@@ -1,3 +1,8 @@
+import talkie.command.Command;
+import talkie.exception.TalkieMissingArgumentException;
+import talkie.task.Task;
+import talkie.task.ToDo;
+
 public class ToDoCommand extends Command {
 
     private String fullCommand;
