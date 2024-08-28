@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -39,6 +40,10 @@ public class Event extends Task {
         }
     }
 
+    @Override
+    public LocalDate getDate() {
+        return from.toLocalDate();
+    }
     @Override
     public String getFrom() {
         return from.toString();

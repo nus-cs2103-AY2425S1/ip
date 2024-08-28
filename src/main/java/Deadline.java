@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
@@ -14,6 +15,11 @@ public class Deadline extends Task {
     @Override
     public String getType() {
         return "D";
+    }
+
+    @Override
+    public LocalDate getDate() {
+        return by.toLocalDate();
     }
 
     public static LocalDateTime parseDateTime(String dateTimeInput) {

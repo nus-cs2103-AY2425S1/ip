@@ -1,13 +1,14 @@
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bob {
     enum Command {
-        LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, INVALID
+        LIST, UNMARK, MARK, DELETE, ON, TODO, DEADLINE, EVENT, BYE, INVALID
     }
 
     private static final String DIR_PATH = "./data";
@@ -37,6 +38,15 @@ public class Bob {
                     case MARK:
                         markTask(list, input);
                         break;
+                    case ON:
+                        String date;
+                        try {
+                            date = scanner.nextLine();
+                            listTasksOnDate(date, list);
+                        } catch (DateTimeParseException e) {
+                            throw new BobException("Invalid date. Please enter a valid date in the format: dd/MM/yyyy");
+                        }
+                        break;
                     case DELETE:
                         deleteTask(list, input);
                         break;
@@ -50,7 +60,7 @@ public class Bob {
                         addEventTask(list, input);
                         break;
                     case INVALID:
-                        throw new BobException("Invalid command. Please enter a valid command. Valid commands are: list, unmark, mark, delete, todo, deadline, event, and bye.");
+                        throw new BobException("Invalid command. Please enter a valid command. Valid commands are: list, unmark, mark, delete, on, todo, deadline, event, and bye.");
                 }
             } catch (BobException e) {
                 System.out.println(e.getMessage());
@@ -136,7 +146,7 @@ public class Bob {
         if (description.isEmpty()) {
             throw new BobException("The description of a deadline cannot be empty.");
         }
-        Task t = null;
+        Task t;
         try {
             LocalDateTime by = Deadline.parseDateTime(date);
             t = new Deadline(description, by);
@@ -158,7 +168,7 @@ public class Bob {
         if (description.isEmpty()) {
             throw new BobException("The description of an event cannot be empty.");
         }
-        Task t = null;
+        Task t;
         try {
             LocalDateTime fromTime = Event.parseDateTime(from);
             t = new Event(description, fromTime, to);
@@ -172,5 +182,24 @@ public class Bob {
     private static void taskAdded(ArrayList<Task> list, Task t) {
         System.out.println("Got it. I've added this task:\n" + t);
         System.out.println("Now you have " + list.size() + (list.size() == 1 ? " task in the list." : " tasks in the list."));
+    }
+
+    private static void listTasksOnDate(String date, ArrayList<Task> list) {
+        int count = 0;
+        LocalDate d = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String dateFormatted = d.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        StringBuilder taskOnDate = new StringBuilder("Here are the tasks on " + dateFormatted + ":");
+        for (Task t : list) {
+            LocalDate taskDate = t.getDate();
+            if (t.getDate()!=(null) && taskDate.equals(d)) {
+                taskOnDate.append("\n").append(++count).append(". ").append(t);
+            }
+        }
+        if (count == 0) {
+            System.out.println("There are no tasks on " + dateFormatted + ".");
+            return;
+        }
+        System.out.println(taskOnDate);
     }
 }

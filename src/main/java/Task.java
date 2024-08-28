@@ -1,4 +1,7 @@
-public class Task {
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -39,11 +42,11 @@ public class Task {
         isDone = false;
     }
 
+    public abstract LocalDate getDate();
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-
-
 }
 
