@@ -347,6 +347,8 @@ class Ui {
             this.parser.handleTodo(input, isSilent);
         } else if (input.startsWith("event ")) {
             this.parser.handleEvent(input, isSilent);
+        } else if (input.startsWith("find ")) {
+            this.parser.handleFind(input);
         } else {
             System.out.println("Sorry, I am not sure what task this is! Please enter a valid task.");
         }
@@ -414,6 +416,19 @@ class CommandParser {
             this.storage.writeTasks();
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number!");
+        }
+    }
+
+    public void handleFind(String input) {
+        String search = input.replaceFirst("find ","").trim();
+        System.out.println("Here are the matching tasks in your list: ");
+        int counter = 1;
+        for (Task task : taskManager.tasks) {
+            if (task.toString().contains(search)) {
+                System.out.print(counter + ". ");
+                System.out.println(task.toString());
+                counter++;
+            }
         }
     }
     /**
@@ -512,105 +527,4 @@ public class Genesis {
         }
     }
 }
-/*public class main.genesis.Genesis {
 
-    public static void main(String[] args) {
-
-
-        System.out.println("Hello! I'm main.genesis.Genesis!\n"
-                + "What can I do for you?\n");
-        Scanner sc = new Scanner(System.in);
-        ArrayList<main.genesis.Task> items = new ArrayList<>();
-        while (true) {
-            String input = sc.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                for (int i = 0; i < items.size(); i++) {
-                    System.out.println(i + 1 + ". " + items.get(i));
-                }
-            } else if (input.startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                if (index >= items.size()) {
-                    System.out.println("No such task exists!");
-                    continue;
-                }
-                main.genesis.Task current = items.get(index);
-                current.mark();
-                System.out.println("Nice! I've marked this as done:\n" +
-                                    current.description);
-            } else if (input.startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= items.size()) {
-                    System.out.println("No such task exists!");
-                    continue;
-                }
-                main.genesis.Task current = items.get(index);
-                current.unmark();
-                System.out.println("Ok. I've marked this task as not done yet:\n" +
-                        current.description);
-            } else if (input.startsWith("delete ")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= items.size()) {
-                    System.out.println("No such task exists!");
-                    continue;
-                }
-                main.genesis.Task current = items.get(index);
-                items.remove(index);
-                System.out.println("Noted. I have removed the following task: \n"
-                                   + current.toString()
-                                   + "\nNow you have " + items.size() + " items in the list.");
-            } else if (input.startsWith("deadline ")){
-                if (!input.contains("/by ")) {
-                    System.out.println("You need a deadline to add this task!");
-                    continue;
-                }
-                String[] parts = input.split("/by ");
-                String taskName = parts[0].replaceFirst("deadline ", "").trim();
-                if (taskName.equals("")) {
-                    System.out.println("You need a task description!");
-                    continue;
-                }
-                String deadline = parts[1].trim();
-                main.genesis.Deadline current = new main.genesis.Deadline(taskName, deadline);
-                items.add(current);
-                System.out.println("Got it. I've added this task:\n" + current.toString()
-                                    + "\nYou now have " + items.size() + " items in the list.");
-            } else if (input.startsWith("todo ")) {
-                String taskName = input.replaceFirst("todo ", "").trim();
-                if (taskName.equals("")) {
-                    System.out.println("You need a task description!");
-                    continue;
-                }
-                main.genesis.Todo current = new main.genesis.Todo(taskName);
-                items.add(current);
-                System.out.println("Got it. I've added this task:\n" + current.toString()
-                        + "\nYou now have " + items.size() + " items in the list.");
-            } else if (input.startsWith("event ")) {
-                if (!input.contains("/from ")) {
-                    System.out.println("You need a starting date to add this task!");
-                    continue;
-                } else if (!input.contains("/ to")) {
-                    System.out.println("You need an ending date to add this task!");
-                }
-                String[] parts = input.split("/from ");
-                String[] parts2 = parts[1].split("/to ");
-                String taskName = parts[0].replaceFirst("event ", "").trim();
-                if (taskName.equals("")) {
-                    System.out.println("You need a task description!");
-                    continue;
-                }
-                String startDate = parts2[0].trim();
-                String endDate = parts2[1].trim();
-                main.genesis.Event current = new main.genesis.Event(taskName, startDate, endDate);
-                items.add(current);
-                System.out.println("Got it. I've added this task:\n" + current.toString()
-                        + "\nYou now have " + items.size() + " items in the list.");
-            } else {
-                System.out.println("Sorry, I am not sure what task this is! Please enter a valid task.");
-            }
-        }
-
-    }
-}*/
