@@ -6,7 +6,6 @@ import java.util.Random;
 import java.io.File;
 import java.io.FileWriter;
 
-
 /**
  * Derek is a bot that interacts with the user, manages tasks, and provides functionalities like
  * adding tasks, marking them as complete or incomplete, deleting tasks, and more.
@@ -95,8 +94,8 @@ public class Derek implements Bot {
                         + "----------------------------------------------------------------------\n"
                         + "Please enter your commands correctly for Derek (he's a little slow):\n"
                         + "todo (task)\n"
-                        + "event (task) /from (start time) /to (end time)\n"
-                        + "deadline (task) /by (date)\n"
+                        + "event (task) /from (DD/MM/YYYY HH:MM) /to (DD/MM/YYYY HH:MM))\n"
+                        + "deadline (task) /by (DD/MM/YYYY HH:MM)\n"
                         + "mark (task number)\n"
                         + "unmark (task number)\n"
                         + "delete (task number)\n"
@@ -214,11 +213,12 @@ public class Derek implements Bot {
             String name = command.getTask();
             Task task;
             if (command.isDeadlineTask()) {
-                String[] information = name.split("/");
+                String[] information = name.split("/by");
                 task = Task.deadlineTask(information[0], information[1]);
             } else if (command.isEventTask()) {
-                String[] information = name.split("/");
-                task = Task.eventTask(information[0], information[1], information[2]);
+                String[] information = name.split("/from");
+                String[] time = information[1].split("/to");
+                task = Task.eventTask(information[0], time[0], time[1]);
             } else if (command.isToDoTask()) {
                 task = Task.toDoTask(name);
             } else {
