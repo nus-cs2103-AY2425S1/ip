@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class Parser {
 
     public static Command parse(String command) throws Exception {
+        String desc;
         String[] split;
         int taskNumber;
 
@@ -28,7 +29,7 @@ public class Parser {
                 yield new IntegerCommand(Command.IntegerCommands.Unmark, taskNumber);
             }
             case "todo" -> {
-                String desc = parseTodoCommand();
+                desc = parseTodoCommand();
                 yield new TodoCommand(desc);
             }
             case "deadline" -> {
@@ -42,6 +43,10 @@ public class Parser {
             case "delete" -> {
                 taskNumber = parseIntegerCommand(Command.IntegerCommands.Delete);
                 yield new IntegerCommand(Command.IntegerCommands.Delete, taskNumber);
+            }
+            case "find" -> {
+                desc = parseFindCommand();
+                yield new FindCommand(desc);
             }
             default -> {
                 parseNonExistentCommand();
@@ -129,6 +134,17 @@ public class Parser {
             throw new Exception(errorMessage);
         }
         return split;
+    }
+
+    private static String parseFindCommand() throws Exception {
+        String desc = Applemazer.sc.nextLine().trim();
+        if (desc.isEmpty()) {
+            throw new Exception("""
+                                OOPS!!! The description of find cannot be empty.
+                                Try find <description>.
+                                """);
+        }
+        return desc;
     }
 
     private static void parseNonExistentCommand() throws Exception {
