@@ -7,6 +7,11 @@ import Hamyo.Tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Main class of the Hamyo Chatbot.
+ *
+ * @author Han Yu.
+ */
 public class Hamyo {
 
     private final UI ui;
@@ -14,6 +19,11 @@ public class Hamyo {
     private final TaskList tasks;
     private boolean active;
 
+    /**
+     * Constructor of Hamyo instance. Consists of UI for user interactions,
+     * TaskList to store users' tasks, Storage to load and save users' list of
+     * tasks.
+     */
     public Hamyo() {
         this.ui = new UI();
         this.tasks = new TaskList();
@@ -23,6 +33,11 @@ public class Hamyo {
         this.ui.greet();
     }
 
+    /**
+     * Continuously scans for user input and execute commands while it is
+     * active, and terminates once this.active is set to false using the bye
+     * command.
+     */
     public void run() {
         try {
             Scanner scanner = new Scanner(System.in);
@@ -43,6 +58,10 @@ public class Hamyo {
         }
     }
 
+    /**
+     * Main of Hamyo chatbot. Instantiates and runs chatbot upon application startup.
+     * @param args No arguments required.
+     */
     public static void main(String[] args) {
         new Hamyo().run();
     }
