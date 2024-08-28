@@ -1,4 +1,6 @@
-public class UnknownCommandException extends MoniqueException{
+package monique.exception;
+
+public class UnknownCommandException extends MoniqueException {
 
     public UnknownCommandException(){
         super("Unknown Command Exception");

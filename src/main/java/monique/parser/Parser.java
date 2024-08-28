@@ -1,6 +1,15 @@
+package monique.parser;
+
+import monique.command.*;
+import monique.exception.IllegalDateFormatException;
+import monique.exception.ParseException;
+import monique.task.Deadline;
+import monique.task.Event;
+import monique.task.Task;
+import monique.task.ToDo;
+
 import java.util.Arrays;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 public class Parser {
 

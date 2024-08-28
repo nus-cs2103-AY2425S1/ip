@@ -1,12 +1,16 @@
-//imports for user input
-import java.io.BufferedReader;
+package monique;//imports for user input
+import monique.command.Command;
+import monique.exception.MarkException;
+import monique.exception.MoniqueException;
+import monique.exception.ParseException;
+import monique.exception.UnknownCommandException;
+import monique.parser.Parser;
+import monique.storage.Storage;
+import monique.tasklist.TaskList;
+import monique.ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.IntStream;
-import java.util.Set;
 
 public class Monique {
     //Create array to store tasks

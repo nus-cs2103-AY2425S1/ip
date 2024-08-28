@@ -1,3 +1,5 @@
+package monique.task;
+
 public class ToDo extends Task {
     private static final String formatString = "[T][%s] %s";
     public ToDo(String description) {

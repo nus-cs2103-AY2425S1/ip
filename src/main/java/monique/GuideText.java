@@ -1,3 +1,5 @@
+package monique;
+
 public class GuideText {
     //this file is created to store the long string message to inform users how to use the commands
 

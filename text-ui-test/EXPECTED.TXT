@@ -1,6 +1,6 @@
 _____________________________________________
 
-Hello, I am Monique,
+Hello, I am monique.monique,
 What can I do for you today?
 _____________________________________________
 
@@ -41,5 +41,5 @@ user:
 ok... I've unmarked:
 2.[E][ ] school (from:tomorrow 1pm to: 5pm evening)
 user:
-Monique: Goodbye! Have a great day!
+monique.monique: Goodbye! Have a great day!
 Ciao!

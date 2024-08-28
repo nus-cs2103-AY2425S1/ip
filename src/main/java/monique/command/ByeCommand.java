@@ -1,3 +1,9 @@
+package monique.command;
+
+import monique.storage.Storage;
+import monique.tasklist.TaskList;
+import monique.ui.Ui;
+
 public class ByeCommand extends Command {
 
     public ByeCommand(){

@@ -1,3 +1,5 @@
+package monique.exception;
+
 public class ParseException extends  MoniqueException{
     public ParseException() {
         super("Error parsing, missing arguments");

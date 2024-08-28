@@ -15,7 +15,7 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Monique < input.txt > ACTUAL.TXT
+java -classpath ..\bin monique.monique < input.txt > ACTUAL.TXT
 
 REM remove trailing spaces from both files
 powershell -command "(Get-Content ACTUAL.TXT) | ForEach-Object { $_.TrimEnd() } | Set-Content ACTUAL.TXT"
