@@ -1,8 +1,7 @@
 package storage;
 
-import exceptions.BocchiException;
-import tasks.Deadline;
-import tasks.Task;
+import exception.BocchiException;
+import task.Task;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

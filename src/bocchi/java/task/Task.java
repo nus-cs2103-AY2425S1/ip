@@ -1,6 +1,6 @@
-package tasks;
+package task;
 
-import exceptions.BocchiException;
+import exception.BocchiException;
 
 import java.io.Serializable;
 

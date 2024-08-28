@@ -1,12 +1,12 @@
 import command.Command;
-import exceptions.BocchiException;
+import exception.BocchiException;
 import storage.Storage;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.Todo;
-import uis.Ui;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
+import ui.Ui;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;

@@ -1,8 +1,7 @@
-package tasks;
+package task;
 
-import exceptions.BocchiException;
+import exception.BocchiException;
 import storage.Storage;
-import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
