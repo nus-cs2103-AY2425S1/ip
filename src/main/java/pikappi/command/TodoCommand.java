@@ -14,6 +14,5 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
         tasks.addTask(new TodoTask(description));
-        storage.save(tasks);
     }
 }
