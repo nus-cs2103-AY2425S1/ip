@@ -10,9 +10,12 @@ public class Dave {
                 + "| |_| / ___ \\   \\ V / | |___\n"
                 + "|____/_/   \\_\\   \\_/  |_____|\n";
         String horizontal = "__________________________________________________________";
+        enum Command {
+            bye, list, mark, unmark, todo, deadline, event, delete
+        }
+        Command command;
         ArrayList<Task> dataList  = new ArrayList<>();
         String statement;
-
         System.out.println("Hello from\n" + logo);
         System.out.println(horizontal);
         System.out.println("Hello! I'm Dave.");
@@ -31,8 +34,14 @@ public class Dave {
                     continue;
                 }
 
-                switch (userInput) {
-                    case "bye":
+                try {
+                    command = Command.valueOf(userInput);  // Match directly with enum
+                } catch (IllegalArgumentException e) {
+                    throw new InvalidCommandException("I'm not sure what you mean. Here are the commands I understand: todo, deadline, event, list, mark, unmark, delete, bye");
+                }
+
+                switch (command) {
+                    case bye:
                         try {
                             System.out.println(horizontal);
                             System.out.println("Bye. Hope to see you again soon!");
@@ -46,7 +55,7 @@ public class Dave {
                         }
                         break;
 
-                    case "list":
+                    case list:
                         try {
                             System.out.println(horizontal);
                             for (int i = 0; i < dataList.size(); i++) {
@@ -61,7 +70,7 @@ public class Dave {
                         }
                         break;
 
-                    case "mark":
+                    case mark:
                         try {
                             int taskNumber = Integer.parseInt(reply[1]);
                             if (dataList.get(taskNumber - 1) == null) {
@@ -81,7 +90,7 @@ public class Dave {
                         System.out.println(horizontal);
                         break;
 
-                    case "unmark":
+                    case unmark:
                         try {
                             int taskNumber = Integer.parseInt(reply[1]);
                             if (dataList.get(taskNumber - 1) == null) {
@@ -101,7 +110,7 @@ public class Dave {
                         System.out.println(horizontal);
                         break;
 
-                    case "todo":
+                    case todo:
                         try {
                             if (reply.length < 2 || reply[1].trim().isEmpty()) {
                                 throw new InvalidDescriptionException("Oh No! Please provide a todo task in the format: todo <task>");
@@ -121,7 +130,7 @@ public class Dave {
                         System.out.println(horizontal);
                         break;
 
-                    case "deadline":
+                    case deadline:
                         try {
                             if (reply.length < 2 || reply[1].trim().isEmpty()) {
                                 throw new InvalidDescriptionException("Oh No! Please provide a deadline task in the format: deadline <task> /by <date>");
@@ -145,7 +154,7 @@ public class Dave {
                         System.out.println(horizontal);
                         break;
 
-                    case "event":
+                    case event:
                         try {
                             if (reply.length < 2 || reply[1].trim().isEmpty()) {
                                 throw new InvalidDescriptionException("Please provide an event task in the format: event <task> /from <start> /to <end>");
@@ -169,7 +178,7 @@ public class Dave {
                         System.out.println(horizontal);
                         break;
 
-                    case "delete":
+                    case delete:
                         try {
                             int taskNumber = Integer.parseInt(reply[1]) - 1;
                             if (taskNumber < 0 || taskNumber >= dataList.size()) {
