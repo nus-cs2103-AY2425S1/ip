@@ -1,5 +1,5 @@
 ____________________________________________________________
-Hello! I'm bob.Bob!
+Hello! I'm Bob!
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
@@ -9,19 +9,19 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Aug 29 2024, 1:00 am)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [E][ ] project meeting (from: Aug 29 2024, 6:00 am to: Aug 29 2024, 10:00 am)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: Aug 29 2024, 1:00 am)
+3.[E][ ] project meeting (from: Aug 29 2024, 6:00 am to: Aug 29 2024, 10:00 am)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -29,32 +29,32 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [D][X] return book (by: Sunday)
+  [D][X] return book (by: Aug 29 2024, 1:00 am)
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Aug 29 2024, 1:00 am)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: Aug 29 2024, 1:00 am)
+3.[E][ ] project meeting (from: Aug 29 2024, 6:00 am to: Aug 29 2024, 10:00 am)
 ____________________________________________________________
 ____________________________________________________________
  Error: The description of a todo cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
- Error: Invalid format for deadline. Correct format: deadline <description> /by <date>
+ Error: Invalid format for deadline. Correct format: deadline <description> /by <yyyy-MM-dd HHmm>
 ____________________________________________________________
 ____________________________________________________________
- Error: Invalid format for event. Correct format: event <description> /from <start> /to <end>
+ Error: Invalid format for event. Correct format: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: Aug 29 2024, 1:00 am)
+3.[E][ ] project meeting (from: Aug 29 2024, 6:00 am to: Aug 29 2024, 10:00 am)
 ____________________________________________________________
 ____________________________________________________________
  Error: Invalid task number for marking.
@@ -66,8 +66,8 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[D][ ] return book (by: Sunday)
-2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[D][ ] return book (by: Aug 29 2024, 1:00 am)
+2.[E][ ] project meeting (from: Aug 29 2024, 6:00 am to: Aug 29 2024, 10:00 am)
 ____________________________________________________________
 ____________________________________________________________
  Error: Invalid task number for deleting.

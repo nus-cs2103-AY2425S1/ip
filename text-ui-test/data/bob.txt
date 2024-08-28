@@ -1,2 +1,2 @@
-T | 1 | read book
-T | 0 | read book
+D | 0 | return book | 2024-08-29 0100
+E | 0 | project meeting | 2024-08-29 0600 | 2024-08-29 1000

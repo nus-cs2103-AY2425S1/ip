@@ -7,7 +7,7 @@ public class Bob {
     private static Ui ui = new Ui();
     private static Storage storage;
     private static TaskList taskList;
-    private static final String NAME = "bob.Bob";
+    private static final String NAME = "Bob";
 
     public static void main(String[] args) {
         storage = new Storage("./data/bob.txt");
