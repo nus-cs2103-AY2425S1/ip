@@ -1,3 +1,7 @@
+package ekud.components;
+
+import ekud.task.Task;
+
 import java.io.*;
 
 public class Storage {
@@ -35,13 +39,13 @@ public class Storage {
             // read tasks and add to list
             while (currLine != null) {
                 String taskSave = currLine.trim();
-                Task task = Task.getTaskFromSave(taskSave);
+                Task task = Task.getTaskFromSave(taskSave, ui);
                 if (task != null) {
                     // preserve tasks
                     writer.write(taskSave);
                     writer.newLine();
 
-                    // add valid task to list
+                    // add valid ekud.task to list
                     tasks.addTask(task);
                 }
 

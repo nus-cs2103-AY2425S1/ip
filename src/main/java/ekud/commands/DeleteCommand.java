@@ -1,3 +1,11 @@
+package ekud.commands;
+
+import ekud.exceptions.EkudException;
+import ekud.components.Storage;
+import ekud.components.Ui;
+import ekud.task.Task;
+import ekud.components.TaskList;
+
 public class DeleteCommand extends Command {
     private final int index;
 
@@ -9,8 +17,8 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
         Task removed = tasks.removeTask(index);
         String completeResponse = removed.isDone()
-                ? "Great work on completing your task!"
-                : "I'm going to assume that task wasn't meant to be there...";
+                ? "Great work on completing your ekud.task!"
+                : "I'm going to assume that ekud.task wasn't meant to be there...";
 
         String listStatus;
         if (tasks.isEmpty()) {
@@ -27,7 +35,7 @@ public class DeleteCommand extends Command {
 
         String message = String.format("""
                         %s
-                        Proceeding with task removal directive...
+                        Proceeding with ekud.task removal directive...
                           deleted: %s
                         %s
                         """,

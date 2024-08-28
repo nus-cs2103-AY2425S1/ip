@@ -1,18 +1,27 @@
+package ekud;
+
+import ekud.commands.Command;
+import ekud.components.Parser;
+import ekud.components.Storage;
+import ekud.components.TaskList;
+import ekud.components.Ui;
+import ekud.exceptions.EkudException;
+
 import java.util.Scanner;
 
 public class Ekud {
     public static final String TASK_DATA_PATH = "data/tasks.txt";
     public static final String OUTPUT_PREFIX = "\t ";
-    public static Scanner sc;
-
 
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
+    private final Scanner sc;
 
-    public Ekud(String outputPrefix, String filePath) {
-        ui = new Ui(outputPrefix);
-        storage = new Storage(filePath);
+    public Ekud(Scanner sc) {
+        this.sc = sc;
+        ui = new Ui(OUTPUT_PREFIX);
+        storage = new Storage(TASK_DATA_PATH);
         tasks = storage.loadTasks(ui);
     }
 
@@ -34,9 +43,4 @@ public class Ekud {
         }
     }
 
-    public static void main(String[] args) {
-        sc = new Scanner(System.in);
-        new Ekud(OUTPUT_PREFIX, TASK_DATA_PATH).run();
-        sc.close();
-    }
 }

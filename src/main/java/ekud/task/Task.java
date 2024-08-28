@@ -1,4 +1,9 @@
-import java.text.Normalizer;
+package ekud.task;
+
+import ekud.Ekud;
+import ekud.components.Ui;
+import ekud.exceptions.EkudException;
+
 import java.util.HashMap;
 
 public abstract class Task {
@@ -13,7 +18,7 @@ public abstract class Task {
         isDone = false;
     }
 
-    public static Task getTaskFromSave(String taskSaveString) {
+    public static Task getTaskFromSave(String taskSaveString, Ui ui) {
         try {
             taskSaveString = taskSaveString.trim(); // removes extra new lines
             String[] args = taskSaveString.split("(\\s\\|\\s)"); // splits string along < | > delimiter
@@ -34,12 +39,11 @@ public abstract class Task {
             return task;
 
         } catch (IndexOutOfBoundsException | EkudException e) {
-            FormatPrinter.printIndent(
-                    String.format(
-                            "Warning: Task entry { %s } is missing required arguments or is incorrectly formatted"
-                                    + "\nRemoving task entry...",
-                            taskSaveString),
-                    Ekud.OUTPUT_PREFIX);
+            String message = String.format(
+                        "Warning: ekud.task.Task entry { %s } is missing required arguments or is incorrectly formatted"
+                                + "\nRemoving ekud.task entry...",
+                        taskSaveString);
+            ui.printOutput(message);
             return null;
         }
     }
@@ -52,7 +56,7 @@ public abstract class Task {
             case "todo" -> new TodoTask(argument);
             case "deadline" -> new DeadlineTask(argument, tokens.get("/by"));
             case "event" -> new EventTask(argument, tokens.get("/from"), tokens.get("/to"));
-            default -> throw new EkudException("Wow! What is this type of task?\nI'm not sure how to process this");
+            default -> throw new EkudException("Wow! What is this type of ekud.task?\nI'm not sure how to process this");
         };
     }
 
@@ -81,7 +85,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        // formats task as "[statusIcon] description"
+        // formats ekud.task as "[statusIcon] description"
         return String.format("[%s] %s", getStatusIcon(), description);
     }
 }
