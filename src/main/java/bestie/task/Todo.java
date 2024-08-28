@@ -22,7 +22,6 @@ public class Todo extends Task {
             storeCompleted = "0";
         }
         // store format: T | 1 | tutorial
-
         return "T | " + storeCompleted + " | " + this.description;
     }
 

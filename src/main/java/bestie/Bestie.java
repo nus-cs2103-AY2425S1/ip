@@ -18,7 +18,6 @@ public class Bestie {
         this.ui = new Ui(sc);
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.loadTasksFromFile());
-
     }
 
     public void run() {

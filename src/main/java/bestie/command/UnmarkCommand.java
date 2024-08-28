@@ -20,7 +20,5 @@ public class UnmarkCommand extends Command {
         } else {
             ui.showIndexOutOfBoundsMessage(this.index);
         }
-
-
     }
 }
