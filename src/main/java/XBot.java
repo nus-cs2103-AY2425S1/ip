@@ -183,8 +183,8 @@ public class XBot {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 System.out.println("Noted. I've removed this task:");
-                System.out.print(list.get(taskNumber).toString() + "\n");
-                list.remove(taskNumber);
+                System.out.print(list.get(taskNumber - 1).toString() + "\n");
+                list.remove(taskNumber - 1);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 saveTask();
             } else {
