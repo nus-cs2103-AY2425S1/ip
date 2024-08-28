@@ -37,6 +37,8 @@ public class Gopher {
         try {
             Task newTask = Task.of(input);
             taskList.add(newTask);
+            TaskManager.saveTasks(taskList);
+
             System.out.println(horizontalSeparator);
             System.out.println("Got it! I have added this task:\n" + newTask);
             System.out.println(String.format("Now you have %d %s in the list",
