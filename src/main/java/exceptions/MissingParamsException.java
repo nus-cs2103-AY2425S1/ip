@@ -1,7 +1,7 @@
 package exceptions;
 public class MissingParamsException extends Exception {
-
     String command;
+    
     public MissingParamsException(String command) {
         this.command = command;
     }
