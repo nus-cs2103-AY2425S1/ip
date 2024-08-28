@@ -1,3 +1,10 @@
+package puke.storage;
+
+import puke.tasks.Deadline;
+import puke.tasks.Event;
+import puke.tasks.Task;
+import puke.tasks.Todo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

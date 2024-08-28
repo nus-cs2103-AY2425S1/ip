@@ -1,4 +1,4 @@
-package exceptions;
+package puke.exceptions;
 
 public class EmptyDescriptionException extends PukeException {
     public EmptyDescriptionException(String taskType) {

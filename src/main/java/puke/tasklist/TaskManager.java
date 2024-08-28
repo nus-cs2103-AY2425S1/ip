@@ -1,5 +1,12 @@
+package puke.tasklist;
+
+import puke.storage.Storage;
+import puke.tasks.Deadline;
+import puke.tasks.Event;
+import puke.tasks.Task;
+import puke.tasks.Todo;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
