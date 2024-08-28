@@ -1,11 +1,3 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hamyo {
@@ -73,14 +65,12 @@ public class Hamyo {
                     }
                     storage.saveData(hamyo, hamyo.tasks);
                 } catch (HamyoException e) {
-                    System.out.println(e.toString());
-                    UI.printLine();
+                    UI.printException(e);
                 }
             }
             scanner.close();
         } catch (HamyoException e) {
-            System.out.println(e.toString());
-            UI.printLine();
+            UI.printException(e);
         }
     }
 }

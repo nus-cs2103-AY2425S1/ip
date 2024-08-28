@@ -36,32 +36,56 @@ public class TaskList extends ArrayList<Task> {
       }
       this.add(new Event(split));
     }
-    System.out.println("Got it. I've added this task:");
-    System.out.println(this.get(this.size() - 1).toString());
-    System.out.printf("There are %d tasks in the list now.\n", this.size());
-    UI.printLine();
+
+    UI.printAddTask(this.get(this.size() - 1), this.size());
+  }
+
+  public void deleteTask(Hamyo hamyo, String str) throws HamyoException {
+    try {
+      if (str.length() <= 1) {
+        throw new HamyoException("Usage: delete [index]");
+      }
+      int index = Integer.parseInt(str.substring(1)) - 1;
+      if (index < 0 || index >= this.size()) {
+        throw new HamyoException("Usage: delete [index]");
+      }
+      Task deletedTask = this.remove(index);
+
+      UI.printDeleteTask(deletedTask, this.size());
+    } catch (NumberFormatException e) {
+      throw new HamyoException("Usage: delete [index]");
+    }
   }
 
   public void listTasks(Hamyo hamyo) throws HamyoException {
-    System.out.println("These are your tasks:");
-    for (int i = 0; i < this.size(); i++) {
-      System.out.println((i + 1) + ". " + this.get(i).toString());
+    StringBuilder tasksList = new StringBuilder();
+    for (int i = 1; i < this.size() + 1; i++) {
+      if (!tasksList.isEmpty()) {
+        tasksList.append("\n");
+      }
+      tasksList.append(i).append(". ").append(this.get(i - 1).toString());
     }
-    UI.printLine();
+
+    UI.printListTasks(tasksList.toString());
   }
+
   public void listTasksByDate(Hamyo hamyo, String str) throws HamyoException {
     try {
       LocalDate date = LocalDate.parse(str.substring(1));
-      System.out.println("These are your tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ".");
+      StringBuilder tasksList = new StringBuilder();
       int counter = 1;
       for (int i = 0; i < this.size(); i++) {
         if (this.get(i) instanceof Deadline || this.get(i) instanceof Event) {
           if (this.get(i).occursToday(date)) {
-            System.out.println(counter++ + ". " + this.get(i).toString());
+            if (!tasksList.isEmpty()) {
+              tasksList.append("\n");
+            }
+            tasksList.append(counter++).append(". ").append(this.get(i).toString());
           }
         }
       }
-      UI.printLine();
+
+      UI.printListTasksByDate(tasksList.toString(), date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     } catch (Exception e) {
       throw new HamyoException("Usage: listDate yyyy-MM-dd.");
     }
@@ -94,25 +118,6 @@ public class TaskList extends ArrayList<Task> {
       this.get(index).unmark(true);
     } catch (NumberFormatException e) {
       throw new HamyoException("Usage: unmark [index]");
-    }
-  }
-
-  public void deleteTask(Hamyo hamyo, String str) throws HamyoException {
-    try {
-      if (str.length() <= 1) {
-        throw new HamyoException("Usage: delete [index]");
-      }
-      int index = Integer.parseInt(str.substring(1)) - 1;
-      if (index < 0 || index >= this.size()) {
-        throw new HamyoException("Usage: delete [index]");
-      }
-      System.out.println("Noted. I've removed this task:");
-      System.out.println(this.get(index).toString());
-      this.remove(index);
-      System.out.printf("There are %d tasks in the list now.\n", this.size());
-      UI.printLine();
-    } catch (NumberFormatException e) {
-      throw new HamyoException("Usage: delete [index]");
     }
   }
 }
