@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -157,6 +158,16 @@ public class Neuro {
         return taskList;
     }
 
+    private static void updateTaskFile(String filePath, ArrayList<Task> taskList) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+
+        for (Task task : taskList) {
+            fileWriter.write(task.toSaveData() + System.lineSeparator());
+        }
+
+        fileWriter.close();
+    }
+
     public static void main(String[] args) {
         ArrayList<Task> taskList;
         try {
@@ -177,6 +188,11 @@ public class Neuro {
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
+                try {
+                    updateTaskFile("./data/Neuro.txt", taskList);
+                } catch (IOException e) {
+                    System.out.println("Error encountered: " + e);
+                }
                 break;
             } else if (input.equals("list")) {
                 System.out.println("    ___________________________________________________");
@@ -193,7 +209,7 @@ public class Neuro {
                 System.out.println("    ___________________________________________________");
             } else if (input.startsWith("mark")) {
                 // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
-                String[] inputComponents = input.split("[\s]");
+                String[] inputComponents = input.split(" ");
 
                 System.out.println("    ___________________________________________________");
                 try {
