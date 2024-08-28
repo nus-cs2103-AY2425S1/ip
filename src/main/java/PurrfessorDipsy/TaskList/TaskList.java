@@ -46,7 +46,7 @@ public class TaskList {
      * @param keyword The keyword to filter tasks by.
      * @return A list of tasks that contain the keyword in their description.
      */
-    public ArrayList<Task> filterListByKeyword(String keyword) {
+    public ArrayList<Task> getTasksByKeyword(String keyword) {
         ArrayList<Task> filteredList = new ArrayList<>();
         for (Task task: tasks) {
             if (task.hasKeywordInDescription(keyword)) {
