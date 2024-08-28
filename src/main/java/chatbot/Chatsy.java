@@ -3,7 +3,8 @@ package main.java.chatbot;
 import main.java.chatbot.exceptions.ChatsyException;
 import main.java.chatbot.exceptions.EmptyDescriptionException;
 import main.java.chatbot.exceptions.InvalidCommandException;
-import main.java.chatbot.exceptions.InvalidTaskNumberException;
+import main.java.chatbot.exceptions.InvalidTaskIndexException;
+import main.java.chatbot.exceptions.LocalFileException;
 import main.java.chatbot.tasks.DeadlineTask;
 import main.java.chatbot.tasks.EventTask;
 import main.java.chatbot.tasks.Task;
@@ -14,10 +15,24 @@ import java.util.Scanner;
 
 public class Chatsy {
     static final String name = "Chatsy";
+    static final String LOCAL_DIRECTORY_PATH = "./data";
+    static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatsy.txt";
     static final String line = "\t____________________________________________________________";
     static final Scanner scanner = new Scanner(System.in);
-    static final ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<Task> tasks = new ArrayList<>();
     static boolean isRunning = true;
+    static Storage storage;
+
+    public static void main(String[] args) {
+        storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
+        try {
+            tasks = storage.loadTasks();
+        } catch (LocalFileException e) {
+            output("\tFailed to load tasks: " + e.getMessage());
+        }
+        greet();
+        nextCommand();
+    }
 
     public static void greet() {
         System.out.println(line);
@@ -32,6 +47,11 @@ public class Chatsy {
     }
 
     public static void exit() {
+        try {
+            storage.saveTasks(tasks);
+        } catch (LocalFileException e) {
+            output("\tFailed to save tasks: " + e.getMessage());
+        }
         output("\tBye. Hope to see you again soon!");
         scanner.close();
         isRunning = false;
@@ -40,6 +60,7 @@ public class Chatsy {
     public static void addTask(Task task) {
         tasks.add(task);
         output("\tGot it. I've added this task:\n\t  " + task + "\n\tNow you have " + tasks.size() + " tasks in the list.");
+        saveTasks();
     }
 
     public static void listTasks() {
@@ -54,30 +75,33 @@ public class Chatsy {
         }
     }
 
-    public static void markTask(int index) throws InvalidTaskNumberException {
+    public static void markTask(int index) throws InvalidTaskIndexException {
         if (index >= 1 && index <= tasks.size()) {
             tasks.get(index - 1).markAsDone();
             output("\tNice! I've marked this task as done:\n\t  " + tasks.get(index - 1));
+            saveTasks();
         } else {
-            throw new InvalidTaskNumberException();
+            throw new InvalidTaskIndexException();
         }
     }
 
-    public static void unmarkTask(int index) throws InvalidTaskNumberException {
+    public static void unmarkTask(int index) throws InvalidTaskIndexException {
         if (index >= 1 && index <= tasks.size()) {
             tasks.get(index - 1).markAsNotDone();
             output("\tOK, I've marked this task as not done yet:\n\t  " + tasks.get(index - 1));
+            saveTasks();
         } else {
-            throw new InvalidTaskNumberException();
+            throw new InvalidTaskIndexException();
         }
     }
 
-    public static void deleteTask(int index) throws InvalidTaskNumberException {
+    public static void deleteTask(int index) throws InvalidTaskIndexException {
         if (index >= 1 && index <= tasks.size()) {
             Task removedTask = tasks.remove(index - 1);
             output("\tNoted. I've removed this task:\n\t  " + removedTask + "\n\tNow you have " + tasks.size() + " tasks in the list.");
+            saveTasks();
         } else {
-            throw new InvalidTaskNumberException();
+            throw new InvalidTaskIndexException();
         }
     }
 
@@ -153,7 +177,7 @@ public class Chatsy {
                     throw new InvalidCommandException();
             }
         } catch (ChatsyException e) {
-            output("\tOOPS!!! " + e.toString());
+            output("\tOOPS!!! " + e.getMessage());
         } catch (NumberFormatException e) {
             output("\tPlease enter a valid number for task selection.");
         } catch (Exception e) {
@@ -165,8 +189,11 @@ public class Chatsy {
         }
     }
 
-    public static void main(String[] args) {
-        greet();
-        nextCommand();
+    private static void saveTasks() {
+        try {
+            storage.saveTasks(tasks);
+        } catch (LocalFileException e) {
+            output("\tFailed to save tasks: " + e.getMessage());
+        }
     }
 }

@@ -21,6 +21,16 @@ public abstract class Task {
         return (isDone ? "[X] " : "[ ] ");
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public abstract String toSaveFormat();
+
     @Override
-    public abstract String toString();  // Abstract method to be implemented by subclasses
+    public abstract String toString();  
 }
