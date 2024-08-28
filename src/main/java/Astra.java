@@ -9,10 +9,18 @@ public class Astra {
     }
 
     private final Ui ui;
-    private final TaskList tasks = new TaskList();
+    private final Storage storage;
+    private TaskList tasks;
 
-    public Astra() {
+    public Astra(String path) {
         this.ui = new Ui();
+        this.storage = new Storage(path);
+        try {
+            this.tasks = new TaskList(this.storage.load());
+        } catch (AstraException e) {
+            ui.showError(e);
+            this.tasks = new TaskList();
+        }
     }
 
     /**
@@ -98,6 +106,7 @@ public class Astra {
         }
 
         tasks.add(t);
+        storage.save(tasks.toText());
         String msg = "Got it. I've added this task: \n  " +
                     t + "\n" +
                     "Now you have " + tasks.length() + " tasks in the list. \n";
@@ -107,18 +116,21 @@ public class Astra {
 
     public void delete(int index) throws AstraException {
         Task t = tasks.delete(index);
+        storage.save(tasks.toText());
         String msg = " Noted. I've removed this task: \n  " + t + "\n";
         ui.display(msg);
     }
 
     public void mark(int index) throws AstraException {
         Task t = tasks.markAsDone(index, true);
+        storage.save(tasks.toText());
         String msg = " Nice! I've marked this task as done: \n  " + t + "\n";
         ui.display(msg);
     }
 
     public void unmark(int index) throws AstraException {
         Task t = tasks.markAsDone(index, false);
+        storage.save(tasks.toText());
         String msg = " OK, I've marked this task as not done yet: \n  " + t + "\n";
         ui.display(msg);
     }
@@ -159,6 +171,6 @@ public class Astra {
     }
 
     public static void main(String[] args) {
-        new Astra().run();
+        new Astra("./data").run();
     }
 }
