@@ -3,10 +3,7 @@ package Gutti;
 public class TodoCommand extends Command {
     private final String description;
 
-    public TodoCommand(String input) throws GuttiException {
-        if (input.length() <= 5) {
-            throw new GuttiException("Invalid format. Use: todo <task description>");
-        }
+    public TodoCommand(String input) {
         this.description = input.substring(0).trim();
     }
 
