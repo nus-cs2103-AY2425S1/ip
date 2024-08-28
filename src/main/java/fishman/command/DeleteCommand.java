@@ -5,7 +5,7 @@ import fishman.task.TaskList;
 import fishman.utils.Ui;
 
 /**
- * Represent the command to delete a task in the task list.
+ * Represents the command to delete a task in the task list.
  * This command implements the Command interface and is for
  * deleting a single task in the task list and displaying the confirmation message
  * that the task has been successfully deleted to the user.

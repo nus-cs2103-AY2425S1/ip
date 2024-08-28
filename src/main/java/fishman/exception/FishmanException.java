@@ -1,7 +1,7 @@
 package fishman.exception;
 
 /**
- * Base exception class for Fishman bot custom exception
+ * Represents the base exception class for Fishman bot custom exception
  */
 public class FishmanException extends Exception {
 
@@ -112,17 +112,33 @@ public class FishmanException extends Exception {
         }
     }
 
+    /**
+     *  The exception thrown when a line in the data file contains invalid information.
+     */
     public static class InvalidArgumentsException extends FishmanException {
         private static final String MESSAGE = "Insufficient/Extra information retrieved from line: ";
 
+        /**
+         * Constructs a new InvalidArgumentException with message.
+         *
+         * @param line The line containing the invalid information.
+         */
         public InvalidArgumentsException(String line) {
             super(MESSAGE + line + " Skipping.....\n" );
         }
     }
 
+    /**
+     * The exception thrown when the DateTime format provided is wrong.
+     */
     public static class InvalidDateFormatException extends FishmanException {
         private static final String MESSAGE = "Invalid Date format here: ";
 
+        /**
+         * Constructs a new InvalidDateFormatException with message.
+         *
+         * @param dateTimeStr The datetime argument that is in the wrong format.
+         */
         public InvalidDateFormatException(String dateTimeStr) {
             super(MESSAGE + dateTimeStr);
         }

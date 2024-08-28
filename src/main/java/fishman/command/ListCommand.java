@@ -4,7 +4,7 @@ import fishman.task.TaskList;
 import fishman.utils.Ui;
 
 /**
- * Represent the command to display the task list.
+ * Represents the command to display the task list.
  * This command implements the Command interface and is for
  * displaying the tasks currently in the task list.
  */

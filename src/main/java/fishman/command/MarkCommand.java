@@ -4,7 +4,7 @@ import fishman.task.TaskList;
 import fishman.utils.Ui;
 
 /**
- * Represent the command to mark a task in the task list.
+ * Represents the command to mark a task in the task list.
  * This command implements the Command interface and is for
  * marking a single task to the task list and displaying the confirmation message
  * that the task has been successfully marked or unmarked to the user.
