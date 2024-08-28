@@ -58,6 +58,7 @@ public class Parser {
             return new ListOnCommand(userInput);
         case HELP:
             return new HelpCommand();
+
         default:
             throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
         }
