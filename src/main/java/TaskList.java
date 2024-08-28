@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 public class TaskList {
 
@@ -179,13 +180,25 @@ public class TaskList {
                     break;
                 case BYE:
                     System.out.println("Bye. Hope to see you again soon!");
-                    // write a handle command to save the tasks to the file
+                    handleSaveTaskListToFile();
                     break;
                 default:
                     throw new InvalidCommandException();
             }
         } catch (ScheduloException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void handleSaveTaskListToFile() {
+        try {
+            FileWriter fileWriter = new FileWriter("./data/data.txt");
+            for (Task task : tasklist) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred while saving the task list to file.");
         }
     }
     

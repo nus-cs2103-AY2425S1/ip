@@ -3,14 +3,27 @@ public class Task {
     private boolean done;
     private String taskName;
 
-    public Task(String name) {
+    protected Task(String name) {
         this.done = false;
         this.taskName = name.trim();
     }
 
-    public Task(String name, boolean isDone) {
+    protected Task(String name, boolean isDone) {
         this.done = isDone;
         this.taskName = name.trim();
+    }
+
+    public boolean isDone() {
+        return this.done;
+    }
+
+    public String getName() {
+        return this.taskName;
+    }
+
+    public String toFileString() {
+        String done = this.isDone() ? "1" : "0";
+        return "T," + done + "," + this.getName();
     }
 
     public void mark() {
