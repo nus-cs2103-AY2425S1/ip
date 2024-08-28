@@ -1,6 +1,8 @@
 package evan.main;
 
+import evan.exception.FileCreationException;
 import evan.exception.LoadingException;
+import evan.exception.SavingException;
 import evan.task.Deadline;
 import evan.task.Event;
 import evan.task.Task;
@@ -15,8 +17,17 @@ import java.util.List;
 public class Storage {
     private final Path filePath;
 
-    public Storage(String filePath) {
+    public Storage(String filePath) throws FileCreationException {
         this.filePath = Path.of(filePath);
+
+        try {
+            // Create the file if it doesn't exist
+            if (!Files.exists(this.filePath)) {
+                Files.createFile(this.filePath);
+            }
+        } catch (IOException e) {
+            throw new FileCreationException(filePath);
+        }
     }
 
     // The ExtractMethodRecommender warning is suppressed because the logic for decoding the task from a file line
@@ -64,6 +75,7 @@ public class Storage {
         }
     }
 
+
     public ArrayList<Task> load() throws LoadingException {
         ArrayList<Task> taskList = new ArrayList<>(); // Create the ArrayList that will eventually be returned
 
@@ -78,5 +90,14 @@ public class Storage {
         }
 
         return taskList;
+    }
+
+    public void save(TaskList taskList) throws SavingException {
+        try {
+            String data = taskList.encodeAsString();
+            Files.writeString(filePath, data);
+        } catch (IOException e) {
+            throw new SavingException("Error occurred while saving to the file.");
+        }
     }
 }
