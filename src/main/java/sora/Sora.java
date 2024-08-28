@@ -1,12 +1,8 @@
 package sora;
 
-import sora.Tasks.Task;
 import sora.Tasks.TaskList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Sora {
