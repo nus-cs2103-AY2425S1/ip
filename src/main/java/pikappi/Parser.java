@@ -8,9 +8,6 @@ public class Parser {
     protected TaskList tasks;
     protected Ui ui;
     protected boolean isExit;
-    enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
-    }
 
     public Parser(Storage storage, TaskList tasks, Ui ui) {
         this.storage = storage;

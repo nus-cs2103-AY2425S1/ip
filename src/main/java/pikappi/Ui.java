@@ -3,7 +3,7 @@ package pikappi;
 import java.util.Scanner;
 
 public class Ui {
-    static Scanner reader = new Scanner(System.in);
+    protected static Scanner reader = new Scanner(System.in);
 
     public Ui() {
     }
