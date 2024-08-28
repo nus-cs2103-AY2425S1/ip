@@ -45,7 +45,6 @@ public class GreetBot {
                         list.get(list.size() - 1).mark();
                     }
                 } else if (data[0].equals("D")) {
-                    System.out.println("reach here");
                     String command = "deadline" + data[2] + "/by" + data[3];
                     try {
                         Task.decideTask(command, list);
@@ -59,7 +58,18 @@ public class GreetBot {
                         list.get(list.size() - 1).mark();
                     }
                 } else {
+                    String command = "event" + data[2] + "/from" + data[3] + " /to" + data[4];
+                    try {
+                        Task.decideTask(command, list);
 
+                    } catch (EmptyDescriptionException e) {
+                        System.out.println(e.getMessage());
+                    } catch (RandomInputException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    if (data[1].equals(" 1")) {
+                        list.get(list.size() - 1).mark();
+                    }
                 }
             }
             databaseReader.close();
