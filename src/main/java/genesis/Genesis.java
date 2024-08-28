@@ -8,22 +8,44 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a generic task.
+ */
+
+
 class Task {
+
     protected String description;
     protected boolean isComplete;
 
     protected String input;
+
+    /**
+     * Constructs a Task with the specified description and input.
+     *
+     * @param description The description of the task.
+     * @param input The input used to create the task.
+     */
 
     public Task (String description, String input) {
         this.description = description;
         this.isComplete = false;
         this.input = input;
     }
-
+    /**
+     * Returns the original input used to create the task.
+     *
+     * @return The input string of the task.
+     */
     public String getInput() {
         return this.input;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         String marked;
@@ -34,67 +56,131 @@ class Task {
         }
         return marked + this.description;
     }
-
+    /**
+     * Marks the task as complete.
+     */
     public void mark() {
         this.isComplete = true;
     }
+
+    /**
+     * Unmarks the task as incomplete.
+     */
     public void unmark() {
         this.isComplete = false;
     }
 }
-
+/**
+ * Represents a Todo task.
+ */
 class Todo extends Task {
+    /**
+     * Constructs a Todo with the specified description and input.
+     *
+     * @param description The description of the todo task.
+     * @param input The input used to create the todo task.
+     */
     public Todo (String description, String input) {
         super(description, input);
     }
 
+    /**
+     * Returns a string representation of the todo task.
+     *
+     * @return The string representation of the todo task.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 }
-
+/**
+ * Represents a Deadline task with a specific due date.
+ */
 class Deadline extends Task {
     protected LocalDate deadline;
+    /**
+     * Constructs a Deadline task with the specified description, deadline, and input.
+     *
+     * @param description The description of the deadline task.
+     * @param deadline The due date of the deadline task.
+     * @param input The input used to create the deadline task.
+     */
     public Deadline (String description, LocalDate deadline, String input) {
         super(description, input);
         this.deadline = deadline;
     }
 
+    /**
+     * Returns a string representation of the deadline task.
+     *
+     * @return The string representation of the deadline task.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
 
+/**
+ * Represents an Event task with a specific start and end time.
+ */
 class Event extends Task {
     protected LocalDate startTime;
     protected LocalDate endTime;
+    /**
+     * Constructs an Event task with the specified description, start time, end time, and input.
+     *
+     * @param description The description of the event task.
+     * @param startTime The start time of the event.
+     * @param endTime The end time of the event.
+     * @param input The input used to create the event task.
+     */
     public Event (String description, LocalDate startTime, LocalDate endTime, String input) {
         super(description, input);
         this.startTime = startTime;
         this.endTime = endTime;
     }
+    /**
+     * Returns a string representation of the event task.
+     *
+     * @return The string representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
-
+/**
+ * Manages a list of tasks.
+ */
 class TaskManager {
     protected ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskManager.
+     */
     public TaskManager() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
 
-
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to add.
+     * @param silent If true, suppress output messages.
+     */
     public void addTask(Task task, boolean silent) {
         tasks.add(task);
         if (!silent) {
@@ -102,6 +188,9 @@ class TaskManager {
                     + " tasks in the list.");
         }
     }
+    /**
+     * Lists all the tasks in the task list.
+     */
 
     public void listTasks() {
         if (tasks.isEmpty()) {
@@ -112,21 +201,33 @@ class TaskManager {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
-
+    /**
+     * Marks the task with the given index.
+     *
+     * @param index Index of the task to mark.
+     */
     public void markTask(int index) {
         if (isValidIndex(index)) {
             tasks.get(index).mark();
             System.out.println("Nice! I've marked this task as done:\n" + tasks.get(index).description);
         }
     }
-
+    /**
+     * Unmarks the task with the given index.
+     *
+     * @param index Index of the task to unmark.
+     */
     public void unmarkTask(int index) {
         if (isValidIndex(index)) {
             tasks.get(index).unmark();
             System.out.println("Ok. I've marked this task as not done yet:\n" + tasks.get(index).description);
         }
     }
-
+    /**
+     * Deletes the task with the given index.
+     *
+     * @param index Index of the task to delete.
+     */
     public void deleteTask(int index) {
         if (isValidIndex(index)) {
             Task removedTask = tasks.remove(index);
@@ -134,6 +235,12 @@ class TaskManager {
                     "\nNow you have " + tasks.size() + " tasks in the list.");
         }
     }
+
+    /**
+     * Checks if index given is valid.
+     *
+     * @param index Index of the task to check.
+     */
 
     private boolean isValidIndex(int index) {
         if (index < 0 || index >= tasks.size()) {
@@ -143,14 +250,29 @@ class TaskManager {
         return true;
     }
 }
+/**
+ * Handles loading tasks from and writing tasks to a file.
+ */
 class Storage {
     protected TaskManager taskManager;
     protected CommandParser commandParser;
+
+    /**
+     * Constructs a Storage object with the specified TaskManager.
+     *
+     * @param taskManager The TaskManager associated with this storage.
+     */
 
     public Storage(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
 
+    /**
+     * Loads tasks from a file and populates the TaskManager.
+     *
+     * @param commandParser The command parser used to handle commands.
+     * @param ui The UI component to handle user inputs.
+     */
     public void loadTasks(CommandParser commandParser, Ui ui) {
         File f = new File("data/tasks.txt");
         if (f.exists()) {
@@ -167,6 +289,9 @@ class Storage {
         }
     }
 
+    /**
+     * Writes the current list of tasks to a file.
+     */
     public void writeTasks() {
         try (FileWriter fw = new FileWriter("data/tasks.txt")) {
             ArrayList<Task> tasks = this.taskManager.tasks;
@@ -181,16 +306,29 @@ class Storage {
 
     }
 }
-
+/**
+ * Handles user input and interaction with the task management system.
+ */
 class Ui {
     protected TaskManager taskManager;
     protected CommandParser parser;
 
+    /**
+     * Constructs a Ui with the specified TaskManager and CommandParser.
+     *
+     * @param taskManager The TaskManager to manage tasks.
+     * @param commandParser The CommandParser to handle commands.
+     */
     public Ui (TaskManager taskManager, CommandParser commandParser) {
         this.taskManager = taskManager;
         this.parser = commandParser;
     }
-
+    /**
+     * Processes user input and delegates to the appropriate command handler.
+     *
+     * @param input The user input to process.
+     * @param silent If true, suppress output messages.
+     */
     public void handleInput(String input, boolean silent) {
         if (input.equalsIgnoreCase("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
@@ -217,17 +355,28 @@ class Ui {
 
 
 }
+/**
+ * Parses and executes user commands for task management.
+ */
 class CommandParser {
     protected TaskManager taskManager;
     protected Storage storage;
+    /**
+     * Constructs a CommandParser with the specified TaskManager and Storage.
+     *
+     * @param taskManager The TaskManager to manage tasks.
+     * @param storage The Storage to handle task persistence.
+     */
     public CommandParser(TaskManager taskManager, Storage storage) {
         this.taskManager = taskManager;
         this.storage = storage;
     }
 
-
-
-
+    /**
+     * Marks a task as complete based on user input.
+     *
+     * @param input The user input containing the task index to mark.
+     */
     public void handleMark(String input) {
         try {
             int index = Integer.parseInt(input.substring(5)) - 1;
@@ -238,6 +387,11 @@ class CommandParser {
         }
     }
 
+    /**
+     * Unmarks a task as incomplete based on user input.
+     *
+     * @param input The user input containing the task index to unmark.
+     */
     public void handleUnmark(String input) {
         try {
             int index = Integer.parseInt(input.substring(7)) - 1;
@@ -248,6 +402,11 @@ class CommandParser {
         }
     }
 
+    /**
+     * Deletes a task based on user input.
+     *
+     * @param input The user input containing the task index to delete.
+     */
     public void handleDelete(String input) {
         try {
             int index = Integer.parseInt(input.substring(7)) - 1;
@@ -257,7 +416,12 @@ class CommandParser {
             System.out.println("Invalid task number!");
         }
     }
-
+    /**
+     * Adds a deadline task based on user input.
+     *
+     * @param input The user input containing the task description and deadline.
+     * @param silent If true, suppress output messages.
+     */
     public void handleDeadline(String input, boolean silent) {
         if (!input.contains("/by ")) {
             System.out.println("You need a deadline to add this task!");
@@ -276,6 +440,12 @@ class CommandParser {
         this.storage.writeTasks();
     }
 
+    /**
+     * Adds a todo task based on user input.
+     *
+     * @param input The user input containing the task description.
+     * @param silent If true, suppress output messages.
+     */
     public void handleTodo(String input, boolean silent) {
         String taskName = input.replaceFirst("todo ", "").trim();
         if (taskName.isEmpty()) {
@@ -287,6 +457,12 @@ class CommandParser {
         this.storage.writeTasks();
     }
 
+    /**
+     * Adds an event task based on user input.
+     *
+     * @param input The user input containing the task description, start, and end time.
+     * @param silent If true, suppress output messages.
+     */
     public void handleEvent(String input, boolean silent) {
         if (!input.contains("/from ") || !input.contains("/to ")) {
             System.out.println("You need a starting and ending date to add this task!");
@@ -309,8 +485,16 @@ class CommandParser {
     }
 }
 
+/**
+ * The main class for running the Genesis task management application.
+ */
 public class Genesis {
 
+    /**
+     * The entry point of the Genesis application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         System.out.println("Hello! I'm Genesis!\nWhat can I do for you?\n");
 
