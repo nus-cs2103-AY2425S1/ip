@@ -135,14 +135,13 @@ public class BuddyBot {
     }
 
     public static String writtenList(ArrayList<Task> arr) {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < arr.size(); i++) {
-            if (arr.get(i) == null) {
-                break;
-            } else {
-                return arr.get(i).toString() + "\n";
+            if (arr.get(i) != null) {
+                result.append(arr.get(i).toString()).append("\n");
             }
         }
-        return "";
+        return result.toString();
     }
 
     public static void write(String tasks) { //Using this method
