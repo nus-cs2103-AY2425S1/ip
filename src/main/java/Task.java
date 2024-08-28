@@ -9,6 +9,15 @@ public class Task {
         this.isDone = false;
     }
 
+    public void parseState(String state) throws InvalidStateException {
+        try {
+            int stateInt = Integer.parseInt(state);
+            if (stateInt == 1) this.setDone();
+        } catch (NumberFormatException e) {
+            throw new InvalidStateException(state);
+        }
+    }
+
     @Override
     public String toString() {
         return description;
@@ -28,6 +37,10 @@ public class Task {
 
     public void setUndo() {
         this.isDone = false;
+    }
+
+    public String toFileRecord() {
+        return "type" + " | " + "state" + " | " + description;
     }
 
     public void addToList(ArrayList<Task> list) {

@@ -2,6 +2,7 @@
 /.idea/
 /out/
 /*.iml
+/text-ui-test/ACTUAL.TXT
 
 # Gradle build files
 /.gradle/

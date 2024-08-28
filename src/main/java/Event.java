@@ -14,6 +14,13 @@ public class Event extends Task {
     }
 
     @Override
+    public  String toFileRecord() {
+        Integer status = isDone ? 1 : 0;
+        return "E" + " | " + status + " | " + this.description
+                + " | " + this.from + " | " + this.to;
+    }
+
+    @Override
     public String getStatus() {
         return "[E]" + "[" + super.getStatusIcon() + "]" + " " + super.toString() + " (from: " + from + " to: " + to + ")";
     }

@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -6,10 +7,12 @@ import java.util.regex.Pattern;
 public class Topaz {
 
     private static ArrayList<Task> taskList = new ArrayList<>(100);
+    private static String PATH = "data/topaz.txt";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greetUser();
+        readTaskFile();
 
         while (true) {
             String prompt = scanner.nextLine();
@@ -44,9 +47,65 @@ public class Topaz {
             } catch (InvalidTaskException | TopazException e) {
                 handleException(e);
             }
+            saveTask();
         }
 
         scanner.close();
+    }
+
+    private static void readTaskFile() {
+        File f = new File(PATH);
+        try {
+            File parentDir = f.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdir();
+            }
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String nextLine = s.nextLine();
+                String[] parts = nextLine.split(" \\| ");
+                Task task;
+                try {
+                    switch (parts[0]) {
+                        case "T":
+                            task = new Todo(parts[2]);
+                            break;
+                        case "D":
+                            task = new Deadline(parts[2], parts[3]);
+                            break;
+                        case "E":
+                            task = new Event(parts[2], parts[3], parts[4]);
+                            break;
+                        default:
+                            // Change to error
+                            System.out.println("Invalid file content!");
+                            return;
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Invalid input task file format: " + e
+                            + " Remove the file and try again!");
+                    System.out.println("____________________________________________________________");
+                    return;
+                }
+
+                try {
+                    task.parseState(parts[1]);
+                } catch (InvalidStateException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e);
+                    System.out.println("____________________________________________________________");
+                }
+                taskList.add(task);
+            }
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Error in ininializing lists: " + e + " Try again!");
+            System.out.println("____________________________________________________________");
+        }
     }
 
     private static void greetUser() {
@@ -86,6 +145,18 @@ public class Topaz {
             System.out.println((i + 1) + ". " + taskList.get(i).getStatus());
         }
         System.out.println("____________________________________________________________");
+    }
+
+    private static void saveTask() {
+        try {
+            FileWriter fw = new FileWriter(PATH);
+            for (Task t: taskList) {
+                fw.write(t.toFileRecord() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error in creating file for current list: " + e);
+        }
     }
 
     private static void markTask(int index) {
