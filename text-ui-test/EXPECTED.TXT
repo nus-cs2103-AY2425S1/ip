@@ -5,15 +5,15 @@ What can I do for you?
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 I have added the task [T][ ] Read korean textbook
-You now have 1 tasks
+You now have 1 main.java.tasks
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 I have added the task [D][ ] Complete CS2103T ip (by: Friday 1600)
-You now have 2 tasks
+You now have 2 main.java.tasks
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 I have added the task [E][ ] have fun this weekend (from: tomorrow night  to: Sunday night)
-You now have 3 tasks
+You now have 3 main.java.tasks
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 1.[ ] Read korean textbook

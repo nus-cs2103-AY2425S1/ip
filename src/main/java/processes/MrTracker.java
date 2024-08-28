@@ -1,6 +1,5 @@
-package main.java;
+package main.java.processes;
 
-import java.util.ArrayList;
 
 public class MrTracker {
 
@@ -66,8 +65,11 @@ public class MrTracker {
                     ui.showMessage("I am sorry, but I don't know what that means :-(");
                     break;
                 }
+            } else {
+                ui.showMessage("I am sorry, but I don't know what that means :-(");
             }
             storage.save(taskList.getTasks());
+            ui.printLine();
 
         }
 

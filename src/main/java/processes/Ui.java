@@ -1,4 +1,6 @@
-package main.java;
+package main.java.processes;
+
+import main.java.tasks.Task;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    private void printLine() {
+    public void printLine() {
         int length = 75;
         for (int i = 0; i < length; i++) {
             System.out.print('-');

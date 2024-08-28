@@ -1,4 +1,4 @@
-package main.java;
+package main.java.processes;
 
 public enum PrefixString {
     BYE("bye"),

@@ -1,12 +1,12 @@
-package main.java;
+package main.java.tasks;
+
+import main.java.exceptions.InvalidDateException;
+import main.java.exceptions.InvalidTaskNameException;
 
 import static java.lang.Integer.parseInt;
-import java.time.DateTimeException;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 
 public class Event extends Task {
