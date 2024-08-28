@@ -27,9 +27,9 @@ public class FindCommand extends Command {
     public void execute(TaskList taskList, Ui ui) throws HenryException {
         ArrayList<Task> tasks = taskList.getTasks();
         System.out.println("\nHere are the matching tasks in your list:");
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            if(task.getDescription().contains(this.input)) {
+            if (task.getDescription().contains(this.input)) {
                 System.out.println(i + 1 + "." + task.toString());
             }
         }
