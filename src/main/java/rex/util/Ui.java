@@ -31,7 +31,7 @@ public class Ui {
 
     public void greeting() {
         divider();
-        System.out.println("Hello! I'm rex.Rex! " + rawr);
+        System.out.println("Hello! I'm Rex! " + rawr);
         System.out.println("What can I do for you? " + rawr);
     }
 
@@ -47,26 +47,26 @@ public class Ui {
 
     public void addTask(Task task) {
         divider();
-        System.out.println("Got it. I've added this rex.task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
     public void markTask(Task task) {
         divider();
-        System.out.println("Nice! I've marked this rex.task as done:");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
     public void unmarkTask(Task task) {
         divider();
-        System.out.println("OK, I've marked this rex.task as not done yet:");
+        System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
 
     public void deleteTask(Task task) {
         divider();
-        System.out.println("Noted. I've removed this rex.task:");
+        System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
