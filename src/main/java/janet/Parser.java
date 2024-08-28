@@ -13,9 +13,9 @@ public class Parser {
         return inputLine.split(" ");   // an array containing each word of the command
     }
 
-    public static ArrayList<String> getCommandTypes(ArrayList<CommandType> commandTypes) {
+    public static ArrayList<String> getCommandTypes() {
         ArrayList<String> acceptableCommands = new ArrayList<String>();
-        for (CommandType commandType : commandTypes) {
+        for (CommandType commandType : CommandType.values()) {
             acceptableCommands.add(commandType.name());
         }
         return acceptableCommands;
@@ -65,7 +65,7 @@ public class Parser {
      */
     public static void checkInaccurateCommand(String[] commandDetails) throws JanetException {
         // checks for inaccurate commands 1. rubbish, 2. without any task description, 3. no number for mark/unmark/delete.
-        if (!Arrays.asList(CommandType.values()).contains(getCommand(commandDetails))) {
+        if (!getCommandTypes().contains(commandDetails[0].toUpperCase())) {
             // when the command is gibberish and NOT one of the commands in CommandType
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (commandDetails.length == 1 && !(commandDetails[0].equals("bye") || commandDetails[0].equals("list"))) {
