@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task {
     // todo: use java LocalDateTime
     private String startTime;

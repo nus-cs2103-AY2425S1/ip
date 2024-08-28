@@ -1,3 +1,5 @@
+package tasks;
+
 public abstract class Task {
     private String taskName;
     private boolean taskDone;

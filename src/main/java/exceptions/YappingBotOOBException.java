@@ -1,3 +1,6 @@
+package exceptions;
+import stringconstants.ReplyTextMessages;
+
 public class YappingBotOOBException extends YappingBotException {
 
     public YappingBotOOBException(int i) {
