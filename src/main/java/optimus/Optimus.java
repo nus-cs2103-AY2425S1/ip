@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
 // Let ChatGPT check and suggest exceptions to catch
+// Utilised ChatGPT to suggest better ways of doing OOP and which methods to pass
 /**
  * Optimus class represents a simple task management system
  * that allows users to add, list, mark, and delete tasks.
