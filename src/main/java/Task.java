@@ -16,6 +16,10 @@ public abstract class Task {
         return this.taskName;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     /**
      * Returns an icon representing the status of the task
      * a cross "X" for DONE and "empty" " " for UNDONE
