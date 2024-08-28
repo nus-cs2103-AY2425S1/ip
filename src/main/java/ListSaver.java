@@ -56,11 +56,10 @@ public class ListSaver {
                     taskLine += task.description;
                     taskLine += "| ";
                     taskLine += deadline.getDeadlineOfTask();
-                } else if (task instanceof Events) {
+                } else if (task instanceof Events event) {
                     taskLine += "E | ";
                     taskLine += task.description;
                     taskLine += "| ";
-                    Events event = (Events) task;
                     taskLine += event.getStartOfEvent();
                     taskLine += "| ";
                     taskLine += event.getEndOfEvent();
