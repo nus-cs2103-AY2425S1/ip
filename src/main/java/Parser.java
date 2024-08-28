@@ -34,7 +34,7 @@ public class Parser {
             String inputWithoutCommand = input.substring(commandLength).trim();
             return Integer.parseInt(inputWithoutCommand);
         } catch (NumberFormatException e) {
-            throw new BobbyException("My apologies. I cannot decipher what is that number!")
+            throw new BobbyException("My apologies. I cannot decipher what is that number!");
         }
     }
 }
