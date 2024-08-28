@@ -17,9 +17,8 @@ bin/
 /text-ui-test/ACTUAL.TXT
 
 # Data
-/src/main/data/tasks.txt
-tasks.txt
-text-ui-test/tasks.txt
+/src/main/data
+text-ui-test/data
 
 # Class Files
 /src/main/java/*.class
