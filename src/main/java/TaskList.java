@@ -6,16 +6,23 @@ public class TaskList {
     // Call this method after any operation that modifies the task list
     public void addTask(Task task) {
         tasks.add(task);
-        Storage.saveTasksToFile(tasks); // Save after adding a task
+        // to save after adding a task
     }
 
     public Task removeTask(int index) {
-        Task removedTask = tasks.remove(index);
-        Storage.saveTasksToFile(tasks); // Save after removing a task
-        return removedTask;
+        // to save after removing a task
+        return tasks.remove(index);
     }
 
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+
+    public Task get(int index) {
+        return this.tasks.get(index);
+    }
+
+    public int size() {
+        return this.tasks.size();
     }
 }

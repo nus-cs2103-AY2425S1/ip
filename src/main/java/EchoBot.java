@@ -1,15 +1,4 @@
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,19 +6,6 @@ import java.time.format.DateTimeParseException;
 
 public class EchoBot {
     private static final TaskList tasks = new TaskList();
-
-
-    // Call this method after any operation that modifies the task list
-    private static void addTask(Task task) {
-        tasks.add(task);
-        Storage.saveTasksToFile(tasks); // Save after adding a task
-    }
-
-    private static Task removeTask(int index) {
-        Task removedTask = tasks.remove(index);
-        Storage.saveTasksToFile(tasks); // Save after removing a task
-        return removedTask;
-    }
 
     public static void main(String[] args) {
         Storage.loadTasksFromFile(tasks); // Load tasks when starting
@@ -59,19 +35,23 @@ public class EchoBot {
                     break;
                 case "mark": {
                     handleMarkCommand(inputParts);
+                    Storage.saveTasksToFile(tasks);
                     break;
                 }
                 case "unmark": {
                     handleUnmarkCommand(inputParts);
+                    Storage.saveTasksToFile(tasks);
                     break;
                 }
                 case "todo": {
                     handleTodoCommand(inputParts);
+                    Storage.saveTasksToFile(tasks);
                     break;
                 }
                 case "deadline": {
                     try {
                         handleDeadlineCommand(inputParts);
+                        Storage.saveTasksToFile(tasks);
                     } catch (IllegalArgumentException e) {
                         System.out.println("____________________________________________________________");
                         System.out.println(" " + e.getMessage());
@@ -83,6 +63,7 @@ public class EchoBot {
                 case "event": {
                     try {
                         handleEventCommand(inputParts);
+                        Storage.saveTasksToFile(tasks);
                     } catch (IllegalArgumentException e) {
                         System.out.println("____________________________________________________________");
                         System.out.println(" " + e.getMessage());
@@ -93,10 +74,13 @@ public class EchoBot {
                 }
                 case "delete": {
                     handleDeleteCommand(inputParts);
+                    Storage.saveTasksToFile(tasks);
                     break;
                 }
                 case "findbydate":
                     handleFindByDateCommand(inputParts);
+                    Storage.saveTasksToFile(tasks);
+                    break;
                 default:
                     System.out.println("____________________________________________________________");
                     System.out.println(" I'm sorry, I don't recognize that command.");
@@ -164,7 +148,7 @@ public class EchoBot {
             System.out.println(" The description of a todo cannot be empty.");
             System.out.println("____________________________________________________________");
         } else {
-            addTask(new Todo(inputParts[1]));
+            tasks.addTask(new Todo(inputParts[1]));
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + tasks.get(tasks.size() - 1));
@@ -185,7 +169,7 @@ public class EchoBot {
                 System.out.println(" The description of a deadline cannot be empty.");
                 System.out.println("____________________________________________________________");
             } else {
-                addTask(new Deadline(details[0], details[1]));
+                tasks.addTask(new Deadline(details[0], details[1]));
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + tasks.get(tasks.size() - 1));
@@ -207,7 +191,7 @@ public class EchoBot {
                 System.out.println(" The description of an event cannot be empty.");
                 System.out.println("____________________________________________________________");
             } else {
-                addTask(new Event(details[0], details[1], details[2]));
+                tasks.addTask(new Event(details[0], details[1], details[2]));
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + tasks.get(tasks.size() - 1));
@@ -224,7 +208,7 @@ public class EchoBot {
         } else {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             if (taskNumber < tasks.size() && taskNumber >= 0) {
-                Task removedTask = removeTask(taskNumber);
+                Task removedTask = tasks.removeTask(taskNumber);
                 System.out.println("____________________________________________________________");
                 System.out.println(" Noted. I've removed this task:");
                 System.out.println("   " + removedTask);
@@ -248,7 +232,7 @@ public class EchoBot {
             LocalDate queryDate = LocalDate.parse(dateString);
             System.out.println("Tasks occurring on " + queryDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
             boolean hasTasks = false;
-            for (Task task : tasks) {
+            for (Task task : tasks.getTasks()) {
                 if (task instanceof Deadline && ((Deadline) task).by.equals(queryDate)) {
                     System.out.println(task);
                     hasTasks = true;
