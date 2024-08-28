@@ -37,4 +37,18 @@ public class CommonFunctions {
                 "   %s\n %d tasks left!!" , t, list.size()));
     }
 
+    /**
+     * Public method that extracts the first word from a string and returns it in uppercase
+     * @param s the string to be extracted from
+     * @return the first word in the line
+     */
+    public static String getFirstWord(String s) {
+        int index = s.indexOf(' ');
+        if (index > -1) { // Check if there is more than one word.
+            return s.substring(0, index).trim(); // Extract first word.
+        } else {
+            return s; // Text is the first word itself.
+        }
+    }
+
 }

@@ -5,43 +5,76 @@ public class Julie {
     private static final String NAME = "Julie";
     private static boolean run = true;
     private static final List<Task> taskList = new ArrayList<>();
+    public enum Command {
+        MARK, UNMARK, LIST, DELETE,
+        DEADLINE, TODO, EVENT,
+        BYE;
+
+        public static Command fromString(String s) throws InvalidCommandException {
+            try {
+                return Command.valueOf(s.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new InvalidCommandException(s);
+            }
+        }
+    }
     public static void main(String[] args) {
         CommonFunctions.wrappedLinePrint("Hi!! My name is: " + NAME + "!\nHow may I help?");
         Scanner sc = new Scanner(System.in);
         while (run) {
             String input = sc.nextLine();
-            if (input.startsWith("mark")) {
-                String[] tokens = input.split(" ");
-                int x = Integer.parseInt(tokens[1]) - 1;
-                Task t = taskList.get(x);
-                t.mark();
-                CommonFunctions.wrappedLinePrint(String.format("Ooh, this task is done!\n%s",t));
-            } else if (input.startsWith("unmark")) {
-                String[] tokens = input.split(" ");
-                int x = Integer.parseInt(tokens[1]) - 1;
-                Task t = taskList.get(x);
-                t.unmark();
-                CommonFunctions.wrappedLinePrint(String.format("Oop, this task is not yet done\n%s",t));
-            } else if (input.equals("bye")) {
-                run = false;
-            } else if (input.equals("list")) {
-                CommonFunctions.printList(taskList);
-            } else if (input.startsWith("todo")) {
-                Task t = new ToDo(input.substring(5));
-                taskList.add(t);
-                CommonFunctions.addedPrompt(t, taskList);
-            } else if (input.startsWith("deadline")) {
-                String[] tokens = input.split(" /by ");
-                Task t = new Deadline(tokens[0].substring(9), tokens[1]);
-                taskList.add(t);
-                CommonFunctions.addedPrompt(t, taskList);
-            } else if (input.startsWith("event")) {
-                String[] tokens = input.split(" /from | /to ");
-                Task t = new Event(tokens[0].substring(6), tokens[1], tokens[2]);
-                taskList.add(t);
-                CommonFunctions.addedPrompt(t, taskList);
-            } else {
-                // For now do nothing
+            try {
+                String commandToken = CommonFunctions.getFirstWord(input);
+                Command cmd = Command.fromString(commandToken);
+                Task t = null;
+                int x = 0;
+                String[] tokens = null;
+
+                switch (cmd) {
+                    case BYE:
+                        run = false;
+                        break;
+                    case LIST:
+                        CommonFunctions.printList(taskList);
+                        break;
+                    case MARK:
+                        tokens = input.split(" ");
+                        x = Integer.parseInt(tokens[1]) - 1;
+                        t = taskList.get(x);
+                        t.mark();
+                        CommonFunctions.wrappedLinePrint(String.format("Ooh, this task is done!\n%s",t));
+                        break;
+                    case UNMARK:
+                        tokens = input.split(" ");
+                        x = Integer.parseInt(tokens[1]) - 1;
+                        t = taskList.get(x);
+                        t.unmark();
+                        CommonFunctions.wrappedLinePrint(String.format("Oop, this task is not yet done\n%s",t));
+                        break;
+                    case TODO:
+                        t = new ToDo(input.substring(5));
+                    case DEADLINE:
+                        if (t == null) {
+                            tokens = input.split(" /by ");
+                            if (tokens.length != 2) {
+                                throw new InvalidInputException(commandToken);
+                            }
+                            t = new Deadline(tokens[0].substring(9), tokens[1]);
+                        }
+                    case EVENT:
+                        if (t == null) {
+                            tokens = input.split(" /from | /to ");
+                            if (tokens.length != 3) {
+                                throw new InvalidInputException(commandToken);
+                            }
+                            t = new Event(tokens[0].substring(6), tokens[1], tokens[2]);
+                        }
+                        taskList.add(t);
+                        CommonFunctions.addedPrompt(t, taskList);
+                }
+
+            } catch (JulieException e) { // The command is not recognised
+                CommonFunctions.wrappedLinePrint(e.getMessage());
             }
         }
         CommonFunctions.wrappedLinePrint("Bye!! See you soon!!");
