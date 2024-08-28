@@ -1,4 +1,10 @@
 import java.util.Scanner;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class Tissue {
@@ -66,14 +72,48 @@ public class Tissue {
         System.out.println(INDENT + "Now you have " + taskArray.size() + " tasks in the list.");
     }
 
+    private static void saveTaskToDisk(Task task) {
+        String pathStr = "./data/";
+
+        String parsedTask = parseTask(task);
+        try {
+            Files.createDirectories(Paths.get(pathStr));
+            Files.write(Paths.get(pathStr + "tissue.txt"),
+                    parsedTask.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+    }
+
+
+    private static String parseTask(Task task) {
+        String temp = "";
+        if (task instanceof ToDo) {
+            temp = String.format("T | %s | %s\n", task.getDone() ? 1 : 0, task.getTask());
+
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            temp = String.format("E | %s | %s | %s | %s\n", event.getDone() ? 1 : 0,
+                    event.getTask(), event.getFrom(), event.getTo());
+        } else if (task instanceof Deadline) {
+            Deadline dl = (Deadline) task;
+            temp = String.format("D | %s | %s | %s\n", dl.getDone() ? 1 : 0, dl.getTask(),
+                    dl.getBy());
+        }
+        return temp;
+    }
+
     private static void storeTask(String in) {
         if (in.equals("todo")) {
 
-            String item = scanner.nextLine();
+            String item = scanner.next();
             if (item.equals("")) {
                 System.out.println("Decription of TODO cannot be empty.");
             } else {
                 Task task = new ToDo(false, item);
+                saveTaskToDisk(task);
                 taskArray.add(task);
                 System.out.println(INDENT + "Got it. I've added this task:");
                 System.out.println(INDENT + "  " + task);
@@ -87,6 +127,7 @@ public class Tissue {
             String item = scanUntil("/by");
             String by = scanner.nextLine().strip();
             Task task = new Deadline(false, item, by);
+            saveTaskToDisk(task);
             taskArray.add(task);
             System.out.println(INDENT + "Got it. I've added this task:");
             System.out.println(INDENT + "  " + task);
@@ -97,6 +138,7 @@ public class Tissue {
             String from = scanUntil("/to");
             String to = scanner.nextLine().strip();
             Task task = new Event(false, item, from, to);
+            saveTaskToDisk(task);
             taskArray.add(task);
             System.out.println(INDENT + "Got it. I've added this task:");
             System.out.println(INDENT + "  " + task);
