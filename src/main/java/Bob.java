@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.time.format.DateTimeFormatter;
 import java.time.*;
 import exceptions.*;
 
@@ -24,11 +25,6 @@ public class Bob {
 
         // starting
         System.out.println(skeleton);
-
-        // initial check for file
-
-        
-
         boolean exit = false;
 
         // main logic loop
@@ -135,6 +131,10 @@ public class Bob {
         return retString;
     }
 
+    /**
+     * Updates the data file whenever tasklist is updated
+     * @param s The string to write to the data file
+     */
     public static void updateDataFile(String s) {
         try {
             File dataFile = new File("src/main/data/dataFile.txt");
