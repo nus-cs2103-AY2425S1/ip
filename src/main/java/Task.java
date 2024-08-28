@@ -1,4 +1,6 @@
-public abstract class Task {
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
     protected boolean done;
     protected String description;
 
@@ -6,18 +8,22 @@ public abstract class Task {
         this.description = description;
         this.done = done;
     }
+
     public Task(String description) {
         this.description = description;
         this.done = false;
     }
+
     public boolean toggleDone() {
         this.done = !this.done;
         return this.done;
     }
+
     @Override
     public String toString() {
-        return (this.done ? "[X] " :"[ ] ") +  this.description;
+        return (this.done ? "[X] " : "[ ] ") + this.description;
     }
+
     public boolean isDone() {
         return this.done;
     }

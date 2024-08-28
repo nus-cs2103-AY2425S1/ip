@@ -1,5 +1,6 @@
 public class Deadline extends Task {
     protected String by;
+    private static final long serialVersionUID = 1L;
 
     public Deadline(String description, String by) {
         super(description);
