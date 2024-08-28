@@ -6,12 +6,8 @@ import mel.utils.Parser;
 import java.time.LocalDateTime;
 
 public class Task {
-    protected final String task;
     protected boolean isDone;
 
-    public Task() {
-        task = "";
-    }
 
     protected LocalDateTime parseDateTime(String str) throws ParseException {
         return new Parser().parseDateTime(str);
@@ -30,6 +26,6 @@ public class Task {
     @Override
     public String toString() {
         String s = isDone ? "X" : " ";
-        return "[" + s + "] " + task;
+        return "[" + s + "] ";
     }
 }
