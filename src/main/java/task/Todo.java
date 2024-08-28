@@ -1,9 +1,11 @@
+package task;
+
 /**
- * Represents a Todo task, which has only a description.
+ * Represents a task.Todo task, which has only a description.
  */
 public class Todo extends Task {
     /**
-     * Creates a Todo task with the given description.
+     * Creates a task.Todo task with the given description.
      *
      * @param description The description of the task.
      */
@@ -12,9 +14,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns the string representation of the Todo task.
+     * Returns the string representation of the task.Todo task.
      *
-     * @return The string representation of the Todo task.
+     * @return The string representation of the task.Todo task.
      */
     @Override
     public String toString() {

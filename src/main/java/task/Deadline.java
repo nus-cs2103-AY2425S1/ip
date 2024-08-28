@@ -1,10 +1,12 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a deadline task which has a deadline.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     /**
      * The deadline of the task.
      */

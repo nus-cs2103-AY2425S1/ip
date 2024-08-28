@@ -1,3 +1,5 @@
+package task;
+
 /**
  * Represents a task that can be marked done.
  */
@@ -35,6 +37,15 @@ public abstract class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns if the task is done.
+     *
+     * @return The status of the task.
+     */
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**

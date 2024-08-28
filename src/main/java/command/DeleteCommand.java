@@ -1,35 +1,39 @@
-public class MarkCommand extends Command{
+package command;
+
+import exception.DudeException;
+import storage.Storage;
+import storage.TaskList;
+import task.Task;
+import ui.Ui;
+
+public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Creates a MarkCommand with the given task number.
+     * Creates a command.DeleteCommand with the given index.
      *
-     * @param index The task number to be marked.
+     * @param index The index of the task to be deleted.
      */
-    public MarkCommand(int index) {
+    public DeleteCommand(int index) {
         this.index = index;
     }
 
     /**
-     * Marks the task in the task list and updates the storage file.
+     * Deletes the task from the task list and updates the storage file.
      *
-     * @param tasks The task list in which the task is to be marked.
+     * @param tasks The task list from which the task is to be deleted.
      * @param ui The user interface to interact with the user.
      * @param storage The storage file to be updated.
-     * @throws DudeException If there is an error marking the task.
+     * @throws DudeException If there is an error deleting the task.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new DudeException("There is no such task!");
         }
-
-        if (tasks.getTask(index).isDone) {
-            throw new DudeException("This task is already marked as done!");
-        }
-        tasks.markDone(index);
+        Task task = tasks.deleteTask(index);
         storage.saveTasks(tasks);
-        ui.showMarked(tasks.getTask(index));
+        ui.showDeleted(task, tasks);
     }
 
     /**

@@ -1,6 +1,13 @@
-public class ExitCommand extends Command{
+package command;
+
+import exception.DudeException;
+import storage.Storage;
+import storage.TaskList;
+import ui.Ui;
+
+public class ListCommand extends Command {
     /**
-     * Exits the program.
+     * Lists all the tasks in the task list.
      *
      * @param tasks The task list to be listed.
      * @param ui The user interface to interact with the user.
@@ -9,16 +16,16 @@ public class ExitCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
-        ui.showGoodbye();
+        ui.showList(tasks);
     }
 
     /**
-     * Returns true because this is an exit command.
+     * Returns false because this is not an exit command.
      *
-     * @return true.
+     * @return false.
      */
     @Override
     public boolean isExit() {
-        return true;
+        return false;
     }
 }

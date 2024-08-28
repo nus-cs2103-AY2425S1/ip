@@ -1,8 +1,16 @@
-public class UnmarkCommand extends Command{
+package command;
+
+import command.Command;
+import exception.DudeException;
+import storage.Storage;
+import storage.TaskList;
+import ui.Ui;
+
+public class UnmarkCommand extends Command {
     private int index;
 
     /**
-     * Creates an UnmarkCommand with the given task number.
+     * Creates a command.UnmarkCommand with the given task number.
      *
      * @param index The task number to be unmarked.
      */
@@ -23,7 +31,7 @@ public class UnmarkCommand extends Command{
         if (index < 0 || index >= tasks.getSize()) {
             throw new DudeException("There is no such task!");
         }
-        if (!tasks.getTask(index).isDone) {
+        if (!tasks.getTask(index).isDone()) {
             throw new DudeException("This task is already marked as undone!");
         }
         tasks.markUndone(index);

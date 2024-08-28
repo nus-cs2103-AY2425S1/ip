@@ -1,8 +1,16 @@
-public class AddCommand extends Command{
+package command;
+
+import exception.DudeException;
+import storage.Storage;
+import storage.TaskList;
+import task.Task;
+import ui.Ui;
+
+public class AddCommand extends Command {
     private Task task;
 
     /**
-     * Creates an AddCommand with the given task.
+     * Creates an command.AddCommand with the given task.
      *
      * @param task The task to be added.
      */
