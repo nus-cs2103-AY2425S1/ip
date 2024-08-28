@@ -37,6 +37,7 @@ public class MarkTask extends Command {
         try {
             int index = taskNumber - 1;
             Task markedTask = taskList.markTask(index);
+
             String[] lines = new String[]{
                 "Nice! I've marked this task as done:",
                 markedTask.toString()

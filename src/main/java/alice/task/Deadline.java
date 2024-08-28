@@ -17,6 +17,7 @@ public class Deadline extends Task {
         if (!flags.containsKey("by")) {
             throw new InvalidTaskException("Missing /by flag.");
         }
+
         try {
             this.by = Parser.parseDateString(flags.get("by"));
         } catch (DateTimeParseException exception) {
