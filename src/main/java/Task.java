@@ -1,6 +1,6 @@
-public class Task {
-    protected String taskDescription;
-    protected boolean isDone;
+public abstract class Task {
+    private String taskDescription;
+    private boolean isDone;
 
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -22,4 +22,12 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + taskDescription;
     }
+
+    public String getFileStatus() { return (isDone ? "1" : "0"); }
+
+    public String getTask() {
+        return this.taskDescription;
+    }
+
+    public abstract String toFileString();
 }

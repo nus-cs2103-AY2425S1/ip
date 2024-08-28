@@ -7,7 +7,13 @@ public class Alisa {
         String divider = "------------------------------------------------------------------------------------";
         String exitCommand = "bye";
         String input = "";
+        Storage storage = new Storage("data/alisa.txt");
         ArrayList<Task> taskList = new ArrayList<>();
+        try {
+            taskList = storage.loadFile();
+        } catch (AlisaException e) {
+            e.getMessage();
+        }
 
         System.out.println("Hey, Alisa here! What do you need help with?");
         System.out.println("BTW Say the word bye to get out of this conversation");
@@ -32,6 +38,7 @@ public class Alisa {
                     } else {
                         int index = Integer.parseInt(inputArray[1]) - 1;
                         taskList.get(index).markAsDone();
+                        storage.syncFile(taskList.get(index).toFileString());
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(taskList.get(index));
                         System.out.println(divider);
@@ -45,6 +52,7 @@ public class Alisa {
                     } else {
                         int index = Integer.parseInt(inputArray[1]) - 1;
                         taskList.get(index).markAsNotDone();
+                        storage.syncFile(taskList.get(index).toFileString());
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(taskList.get(index));
                         System.out.println(divider);
@@ -55,6 +63,7 @@ public class Alisa {
                     }
                     Todo newTodo = new Todo(input.substring(5));
                     taskList.add(newTodo);
+                    storage.syncFile(newTodo.toFileString());
                     System.out.println("Got it. I've added this task:");
                     System.out.println(newTodo);
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -70,6 +79,7 @@ public class Alisa {
                     }
                     Deadline newDeadline = new Deadline(inputArray[0], inputArray[1]);
                     taskList.add(newDeadline);
+                    storage.syncFile(newDeadline.toFileString());
                     System.out.println("Got it. I've added this task:");
                     System.out.println(newDeadline);
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -85,6 +95,7 @@ public class Alisa {
                     }
                     Event newEvent = new Event(inputArray[0], fromToArray[0], fromToArray[1]);
                     taskList.add(newEvent);
+                    storage.syncFile(newEvent.toFileString());
                     System.out.println("Got it. I've added this task:");
                     System.out.println(newEvent);
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -109,6 +120,7 @@ public class Alisa {
                     } else {
                         int index = Integer.parseInt(inputArray[1]) - 1;
                         Task removedTask = taskList.remove(index);
+                        storage.syncFile(removedTask.toFileString());
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(removedTask);
                         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
