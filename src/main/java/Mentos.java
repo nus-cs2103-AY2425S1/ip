@@ -1,22 +1,29 @@
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.BufferedReader;
+
 
 public class Mentos
 {
-    private String MARKED = "mark";
-    private String UNMARKED = "unmark";
-    private String TODO = "todo";
-    private String DEADLINE = "deadline";
-    private String EVENT = "event";
-    private String DELETE = "delete";
+    private static final String FILE_PATH = System.getProperty("user.dir")+"/data/Mentos.txt";
+    private final String MARKED = "mark";
+    private final String UNMARKED = "unmark";
+    private final String TODO = "todo";
+    private final String DEADLINE = "deadline";
+    private final String EVENT = "event";
+    private final String DELETE = "delete";
     private ArrayList<Task> tasks = new ArrayList<>();
-    private int noTasks = 0;
+
 
     public static void main(String[] args) {
         Mentos mentos = new Mentos();
         mentos.startConversation();
+        mentos.loadTasksFromFile();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()){
             String input = scanner.nextLine();
@@ -52,6 +59,8 @@ public class Mentos
         System.out.println("____________________________");
     }
 
+
+
     public Matcher regexHandler(String input,String regex){
         /*
          * Handles regular expression matching on a given input string.
@@ -71,6 +80,8 @@ public class Mentos
         }
         return null;
     }
+
+
 
     public void taskHandler(String input) {
         /*
@@ -107,7 +118,7 @@ public class Mentos
                 }
                 String extracted = match.group(1);
                 int index = Integer.parseInt(extracted);
-                if (index > noTasks || index == 0) {
+                if (index > tasks.size() || index == 0) {
                     throw new MentosException("No Such Tasks!");
                 }
                 tasks.get(index-1).markAsDone();
@@ -122,7 +133,7 @@ public class Mentos
                 }
                 String extracted = match.group(1);
                 int index = Integer.parseInt(extracted);
-                if (index > noTasks || index == 0) {
+                if (index > tasks.size() || index == 0) {
                     throw new MentosException("No Such Tasks!");
                 }
                 tasks.get(index-1).markAsNotDone();
@@ -136,14 +147,13 @@ public class Mentos
                 }
                 String extracted = match.group(1);
                 int index = Integer.parseInt(extracted);
-                if (index > noTasks || index ==0){
+                if (index > tasks.size() || index ==0){
                     throw new MentosException("No Such Tasks!");
                 }
                 System.out.println("____________________________");
                 System.out.printf("Alrights I have removed the following task!\n%s%n",tasks.get(index-1).toString());
                 tasks.remove(index-1);
-                noTasks--;
-                System.out.printf("%d remaining tasks%n",noTasks);
+                System.out.printf("%d remaining tasks%n",tasks.size());
             }
             else if (input.startsWith(TODO)) {
                 Matcher match = regexHandler(input, "todo (.+)");
@@ -151,7 +161,7 @@ public class Mentos
                     throw new MentosException("Todo cannot be empty!");
                 }
                 String extracted = match.group(1);
-                noTasks++;
+
                 Task newTodo = new ToDo(extracted);
                 tasks.add(newTodo);
                 print_event(TODO,newTodo);
@@ -160,7 +170,6 @@ public class Mentos
                 if (match == null){
                     throw new MentosException("Invalid deadline input! usage:deadline <desc> /by <datetime>");
                 }
-                noTasks++;
                 String deadline_desc = match.group(1);
                 String by = match.group(2);
                 Task newDeadline = new Deadline(deadline_desc,by);
@@ -171,7 +180,7 @@ public class Mentos
                 if (match == null){
                     throw new MentosException("Invalid Event input! usage:event <desc> /from <datetime> /to <datetime>" );
                 }
-                noTasks++;
+
                 String eventDesc = match.group(1);
                 String from = match.group(2);
                 String to = match.group(3);
@@ -185,6 +194,7 @@ public class Mentos
                 System.out.println("Sorry me no understand");
                 System.out.println("____________________________");
             }
+            saveTasksToFile();
         } catch (MentosException err){
             System.out.println(err);
         }
@@ -200,7 +210,7 @@ public class Mentos
          * After displaying all tasks, a separator line is printed.
          */
 
-        for (int i = 0; i < noTasks; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             String task_out = String.format("%d. %s",i+1,tasks.get(i).toString());
             System.out.println(task_out);
         }
@@ -221,8 +231,102 @@ public class Mentos
          */
 
         System.out.println("____________________________");
-        System.out.printf(event+" Added\n%s\n%d remaining tasks%n",task.toString(),noTasks);
+        System.out.printf(event+" Added\n%s\n%d remaining tasks%n",task.toString(),tasks.size());
         System.out.println("____________________________");
+    }
+
+    public void saveTasksToFile() {
+        /*
+         * Saves the list of tasks to a file specified by {@code FILE_PATH}.
+         * This method writes each task in the {@code tasks} list to the file, with each task on a new line.
+         * If the file specified by {@code FILE_PATH} does not exist, an error message will be printed to the console.
+         * Note: The method uses a hard-coded file path. Ensure that the directory structure exists before calling this method.
+         *
+         * @throws IOException if an I/O error occurs while writing to the file.
+         */
+        try{
+            FileWriter file = new FileWriter(FILE_PATH,false);
+            for (Task task: tasks){
+                file.write(task.toString()+"\n");
+            }
+            file.close();
+        } catch (IOException exception){
+            System.out.println("Please create a /data/Mentos.txt file in "+ System.getProperty("user.dir"));
+        }
+    }
+
+    public void loadTasksFromFile(){
+        /*
+         * Loads the list of tasks from a file specified by {@code FILE_PATH}.
+         * This method reads each line from the file and attempts to parse it into a {@code Task} object,
+         * depending on the task type identified in the line. The supported task types are:
+         * To-Do (T)
+         * Event (E)
+         * Deadline (D)
+         * If a line is not in the expected format, it will be skipped, and a warning message will be printed to the console.
+         * If the file does not exist or an I/O error occurs, an error message will be printed instead.
+
+         * Note: The method expects the file content to be in a specific format for parsing.
+         *
+         * @throws IOException if an I/O error occurs while reading the file.
+         */
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Matcher matcher = regexHandler(line,"^\\[([T|E|D])\\] \\[(.)\\] (?:.*)$");
+                if (matcher == null){
+                    System.out.println("Content not in the right format! Skipping....");
+                    continue;
+                }
+                String eventType = matcher.group(1);
+                String isDone = matcher.group(2);
+                if (eventType.equals("T")){
+                    //todo
+                    Matcher toDoMatcher = regexHandler(line,"^\\[(?:[T])\\] \\[(?:.)\\] (.*)$");
+                    if (toDoMatcher == null){
+                        System.out.println("Content not in the right format! Skipping....");
+                        continue;
+                    }
+                    String desc = toDoMatcher.group(1);
+                    Task toDoEvent = new ToDo(desc);
+                    if (isDone.equals("X")){
+                        toDoEvent.markAsDone();
+                    }
+                    tasks.add(toDoEvent);
+                } else if (eventType.equals("E")) {
+                    //event
+                    Matcher eventMatcher = regexHandler(line,"^\\[(?:[E])\\] \\[(?:.)\\] (.*) \\(from: (.*) to: (.*)\\)$");
+                    if (eventMatcher == null){
+                        System.out.println("Content not in the right format! Skipping....");
+                        continue;
+                    }
+                    String desc = eventMatcher.group(1);
+                    String fromDate = eventMatcher.group(2);
+                    String toDate = eventMatcher.group(3);
+                    Task eventEvent = new Event(desc,fromDate,toDate);
+                    if (isDone.equals("X")){
+                        eventEvent.markAsDone();
+                    }
+                    tasks.add(eventEvent);
+                } else if (eventType.equals("D")){
+                    //deadline
+                    Matcher deadlineMatcher = regexHandler(line,"^\\[(?:[D])\\] \\[(?:.)\\] (.*) \\(by: (.*)\\)$");
+                    if (deadlineMatcher == null){
+                        System.out.println("Content not in the right format! Skipping....");
+                        continue;
+                    }
+                    String desc = deadlineMatcher.group(1);
+                    String byDate = deadlineMatcher.group(2);
+                    Task deadlineEvent = new Deadline(desc,byDate);
+                    if (isDone.equals("X")){
+                        deadlineEvent.markAsDone();
+                    }
+                    tasks.add(deadlineEvent);
+                }
+            }
+        } catch (IOException exception){
+            System.out.println("No Configuration found in "+ FILE_PATH);
+        }
     }
 
 }
