@@ -7,8 +7,10 @@ import java.util.ArrayList;
 public class ListManager {
     private ArrayList<Task> ItemList = new ArrayList<>();
 
-    public void createItem(TaskBuilder builder) {
+    public Task createItem(TaskBuilder builder) {
+        Task task = builder.build();
         ItemList.add(builder.build());
+        return task;
     }
 
     public String listItems() {

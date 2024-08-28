@@ -5,10 +5,14 @@ import TaskType.TaskBuilder;
 import java.util.Objects;
 import java.util.Scanner;
 
+
 //
 public class Duke {
     private static String name = "Bot.Duke";
     private ListManager DukeManager = new ListManager();
+
+    private FileManager DukeFileManager = new FileManager("src/main/java/data");
+
     // Possible use of Task
     public enum TaskType {
         TODO,EVENT,DEADLINE
@@ -19,10 +23,12 @@ public class Duke {
         System.out.println("Bye! Hope to see you again my G");
     }
 
+
     private void greet() {
         boolean endChat = false;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm " + name + " aka ChatGPT on Crack!\nWhat assistance are you in need of today?");
+        DukeFileManager.readFile();
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             String commandLowerCase = command.toLowerCase();
@@ -65,12 +71,14 @@ public class Duke {
                 String by = part.length > 1 ? part[1].trim() : "";
 
                 TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.DEADLINE);
-                DukeManager.createItem(taskBuilder.by(by));
+                String task = DukeManager.createItem(taskBuilder.by(by)).toString();
+                DukeFileManager.writeFile(task);
 
             } else if (Objects.equals(firstWord, "todo")) {
                 String description = command.substring("todo".length()).trim();
                 TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.TODO);
-                DukeManager.createItem(taskBuilder);
+                String task = DukeManager.createItem(taskBuilder).toString();
+                DukeFileManager.writeFile(task);
 
             } else if (Objects.equals(firstWord, "event")) {
                 // Remove the word 'event' and split by '/from'
@@ -87,7 +95,9 @@ public class Duke {
                 String to = dateParts.length > 1 ? dateParts[1].trim() : "";
 
                 TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.EVENT);
-                DukeManager.createItem(taskBuilder.from(from).to(to));
+
+                String task = DukeManager.createItem(taskBuilder.from(from).to(to)).toString();
+                DukeFileManager.writeFile(task);
 
             } else if (Objects.equals(firstWord, "delete")) {
                 String index = command.substring("delete".length()).trim();
