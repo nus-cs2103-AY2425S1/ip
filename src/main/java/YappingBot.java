@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s;
+import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+
 
 public class YappingBot {
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
@@ -47,6 +50,9 @@ public class YappingBot {
     }
     private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
+        if (text == null) {
+            return quoteSinglelineText("");
+        }
         String[] lines = text.split("\n");
         StringBuilder sb = new StringBuilder();
         for (String l : lines) {
@@ -247,14 +253,35 @@ public class YappingBot {
             }
         }
     }
-
     private static void loadListFromFile() throws YappingBotSaveFileNotFoundException, YappingBotInvalidSaveFileException{
         try {
             File saveFile = new File(LIST_SAVE_PATH);
             Scanner scanner = new Scanner(saveFile);
             while (scanner.hasNext()) {
-                String s = scanner.nextLine();
-                ;
+                String[] s = scanner.nextLine().split(":");
+                Task t;
+                try {
+                    switch (TaskTypes.valueOf(s[0])) {
+                        case TODO:
+                            t = new Todo();
+                            t.deserialiaze(s);
+                            break;
+                        case DEADLINE:
+                            t = new Deadline();
+                            t.deserialiaze(s);
+                            break;
+                        case EVENT:
+                            t = new Event();
+                            t.deserialiaze(s);
+                            break;
+                        default:
+                            throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, s[0]));
+                    }
+                } catch (IllegalArgumentException e) {
+                    // todo: add line number
+                    throw new YappingBotInvalidSaveFileException(String.format(INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, e.getMessage()));
+                }
+                userList.add(t);
             }
         } catch (FileNotFoundException e) {
             throw new YappingBotSaveFileNotFoundException();
@@ -267,8 +294,13 @@ public class YappingBot {
 
     public static void main(String[] args) {
         // start
-        System.out.println(quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
+        try {
+            loadListFromFile();
+        } catch (YappingBotException e) {
+            System.out.println(quoteMultilineText(e.getMessage()));
+        }
 
+        System.out.println(quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
         programmeLoop: // to break out of loop
         while (userInputScanner.hasNextLine()) {
             String userInput = userInputScanner.nextLine();
