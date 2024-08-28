@@ -1,5 +1,9 @@
 package nerf.task;
 
+/**
+ * Task superclass
+ */
+
 public abstract class Task{
     private final String description;
     private boolean isDone = false;
@@ -12,9 +16,16 @@ public abstract class Task{
         this.isDone = status;
     }
 
+    /** 
+     * Set task completion to true.
+     */
     public void setDone(){
         this.isDone = true;
     }
+
+    /** 
+     * Set task completion to false.
+     */
     public void setUndone(){
         this.isDone = false;
     }
@@ -23,10 +34,20 @@ public abstract class Task{
         return (this.isDone ? "X" : " ");
     }
 
+    /**
+     * Return format for saving to file.
+     * 
+     * @return string format of task.
+     */
     public String getSaveFormat(){
         return String.format("%d | %s", this.isDone?1:0, this.description);
     }
 
+    /**
+     * Return format for printing.
+     * 
+     * @return string format of task.
+     */
     @Override
     public String toString(){
         return String.format("[%s] %s", getStatusIcon(), this.description);

@@ -1,5 +1,8 @@
 package nerf.task;
 
+/**
+ * Class to storing and manipulating tasks
+ */
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +11,19 @@ import nerf.io.Parser;
 
 public class TaskList {
     private final List<Task> listings;
+
+    /**
+     * Default constructor if save file is unable to read.
+     */
     public TaskList(){
         this.listings = new ArrayList<>();
     }
     
+    /**
+     * Constructor for loading tasks from save file into task objects.
+     * 
+     * @param taskList list of strings retrieved from file.
+     */
     public TaskList(List<String> taskList){
         this.listings = new ArrayList<>();
         for (String taskLine: taskList){
@@ -32,6 +44,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Print current list of tasks.
+     */
     public void printList(){
         System.out.println("Here are the task(s) in your list:");
         for (int i = 0; i < listings.size();i++){
@@ -39,6 +54,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Set task completion on specified task.
+     * 
+     * @param input specific index of task.
+     */
     public void markTask(String input){
         String number = input.substring(4).trim();
         try {
@@ -55,6 +75,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unset task completion on specified task.
+     * 
+     * @param input specific index of task.
+     */
     public void unmarkTask(String input){
         String number = input.substring(6).trim();
         try {
@@ -71,6 +96,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add new task to list.
+     * 
+     * @param input Task object to be added.
+     */
     private void addToList(Task input){
         listings.add(input);
         System.out.println("Understood. I've added the following task:");
@@ -79,6 +109,12 @@ public class TaskList {
         System.out.println(String.format("You now have %d task(s) in total.",listings.size()));
     }
 
+    /**
+     * Convert given string to Todo object.
+     * 
+     * @param input string command.
+     * @throws InvalidDataException if command is missing taskDesc parameter.
+     */
     public void addTodo(String input) throws InvalidDataException{
         String taskDesc = input.substring(4).trim();
         if (taskDesc.equals("")) {
@@ -88,6 +124,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Convert given string to Deadline object.
+     * 
+     * @param input string command.
+     * @throws InvalidDataException if command is missing taskDesc or duedate parameter.
+     */
     public void addDeadline(String input) throws InvalidDataException{
         input = input.substring(8).trim();
         String[] parts = input.split("/by",2);
@@ -103,6 +145,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Convert given string to Event object.
+     * 
+     * @param input string command.
+     * @throws InvalidDataException if command is missing taskDesc or fromDate or toDate parameter.
+     */
     public void addEvent(String input) throws InvalidDataException{
         input = input.substring(5).trim();
         String[] part1 = input.split("/from",2);
@@ -125,6 +173,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Delete specific task.
+     * 
+     * @param input specific index of task.
+     */
     public void deleteTask(String input) {
         String number = input.substring(6).trim();
         try {
@@ -142,6 +195,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Return list of Task as strings ready to be saved to file.
+     * 
+     * @return list of tasks as strings.
+     */
     public List<String> getSaveable(){
         List<String> res = new ArrayList<>();
         for (Task i:listings){
