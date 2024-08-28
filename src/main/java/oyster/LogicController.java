@@ -2,14 +2,13 @@ package oyster;
 
 import oyster.commands.Command;
 import oyster.tasks.TaskList;
-import oyster.utils.FileHandler;
+import oyster.utils.Storage;
 import oyster.utils.Parser;
 
-import java.io.File;
 import java.util.Scanner;
 
 public class LogicController {
-    private static final Display display = new Display();
+    private static final Ui display = new Ui();
     private static boolean isRunning = false;
     private static boolean isAwaitingInput = false;
 
@@ -19,14 +18,14 @@ public class LogicController {
 
     public static void begin() {
         try {
-            taskList = FileHandler.loadTaskList();
+            taskList = Storage.loadTaskList();
         } catch (Exception e) {
             display.output(new String[]{
                     e.getMessage(),
                     "Save file deleted..."
             });
             taskList = new TaskList();
-            FileHandler.saveTaskList(taskList);
+            Storage.saveTaskList(taskList);
         }
 
         display.output(new String[]{
@@ -58,7 +57,7 @@ public class LogicController {
             if (!input.trim().isEmpty()) {
                 Command command = Parser.parseCommand(input);
                 command.execute();
-                FileHandler.saveTaskList(taskList);
+                Storage.saveTaskList(taskList);
                 display.output(command.getMessage());
             }
         }

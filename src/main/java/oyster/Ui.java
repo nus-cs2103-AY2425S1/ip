@@ -1,6 +1,6 @@
 package oyster;
 
-public class Display {
+public class Ui {
     private int LINE_LENGTH = 50;
 
     public void output(String message) {

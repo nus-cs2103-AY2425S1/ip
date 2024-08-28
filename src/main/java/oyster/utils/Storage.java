@@ -5,12 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import oyster.commands.Command;
 import oyster.exceptions.ParseException;
-import oyster.tasks.Task;
 import oyster.tasks.TaskList;
 
-public class FileHandler {
+public class Storage {
     private static final String SAVE_FILE_NAME = "oyster.txt";
     private static final Path SAVE_PATH = Paths.get(".","save-data", SAVE_FILE_NAME);
 

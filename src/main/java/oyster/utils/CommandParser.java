@@ -1,7 +1,7 @@
 package oyster.utils;
 
 import oyster.commands.Command;
-import oyster.commands.ByeCommand;
+import oyster.commands.ExitCommand;
 import oyster.commands.ListCommand;
 import oyster.commands.ToDoCommand;
 import oyster.commands.ErrorCommand;
@@ -9,10 +9,8 @@ import oyster.commands.DeadlineCommand;
 import oyster.commands.EventCommand;
 import oyster.exceptions.DateFormatException;
 import oyster.exceptions.TaskFieldException;
-import oyster.tasks.DeadlineTask;
 
 import java.util.Scanner;
-import java.util.zip.DataFormatException;
 
 public class CommandParser {
     public static Command parse(String line) {
@@ -23,7 +21,7 @@ public class CommandParser {
 
         switch (input) {
         case "bye":
-            command = new ByeCommand();
+            command = new ExitCommand();
             break;
         case "list":
             command = new ListCommand();
