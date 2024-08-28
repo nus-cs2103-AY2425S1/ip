@@ -1,10 +1,10 @@
 public class Task {
-    private boolean status;
-    private String desc;
+    protected boolean status;
+    protected String name;
 
     public Task(String desc) {
-        this.desc = desc;
-        this.status = false; // default not completed
+        this.name = desc;
+        this.status = false; // default: task not completed
     }
 
     // mark as donw
@@ -19,12 +19,12 @@ public class Task {
 
     // get task name
     public String getDesc() {
-        return this.desc;
+        return this.name;
     }
 
     @Override
     public String toString() {
-        String prepend = this.status ? "[X] " : "[] ";
-        return prepend + this.desc;
+        String prepend = this.status ? "[X] " : "[ ] ";
+        return prepend + this.name;
     }
 }
