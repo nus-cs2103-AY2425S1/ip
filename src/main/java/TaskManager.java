@@ -32,22 +32,27 @@ public class TaskManager {
             String taskName = tokens[2];
 
             try {
+                Task newTask = null;
                 switch (taskType) {
                     case "T":
-                        tasks.add(Task.of("todo " + taskName));
+                        newTask = Task.of("todo " + taskName);
                         break;
                     case "D":
-                        tasks.add(Task.of(String.format("deadline %s /by %s",
+                        newTask = Task.of(String.format("deadline %s /by %s",
                                 taskName,
-                                tokens[3])));
+                                tokens[3]));
                         break;
                     case "E":
-                        tasks.add(Task.of(String.format("event %s /from %s /to %s",
+                        newTask = Task.of(String.format("event %s /from %s /to %s",
                                 taskName,
                                 tokens[3],
-                                tokens[4])));
+                                tokens[4]));
                         break;
                 }
+                if (newTask != null && taskStatus.equals("X")) {
+                    newTask.markAsDone();
+                }
+                tasks.add(newTask);
             } catch (UnknownCommandException
             | EmptyTaskDescriptionException
             | MissingTokenException e) {
