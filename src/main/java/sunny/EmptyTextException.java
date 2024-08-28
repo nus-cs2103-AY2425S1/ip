@@ -1,3 +1,4 @@
+package sunny;
 public class EmptyTextException extends Exception{
     public EmptyTextException() {
         super("Please specify a task");
