@@ -5,14 +5,25 @@ import task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the application.
+ */
 public class Ui {
     private final Scanner scanner;
     private static final String LINE = "____________________________________________________________";
 
+    /**
+     * Creates a user interface.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads the command entered by the user.
+     *
+     * @return The command entered by the user.
+     */
     public String readCommand() {
         return this.scanner.nextLine();
     }
@@ -21,18 +32,29 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Shows the greeting message.
+     */
     public void showGreeting() {
         printLine();
         System.out.println("Hello! I'm Dude!\nWhat can I do for you?");
         printLine();
     }
 
+    /**
+     * Shows the goodbye message.
+     */
     public void showGoodbye() {
         printLine();
         System.out.println("Bye. Hope to see you again!");
         printLine();
     }
 
+    /**
+     * Shows the list of tasks.
+     *
+     * @param tasks The list of tasks to be shown.
+     */
     public void showList(TaskList tasks) {
         printLine();
         if (tasks.isEmpty()) {
@@ -46,6 +68,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Shows the task that was deleted.
+     *
+     * @param task The task that was deleted.
+     * @param tasks The list of tasks.
+     */
     public void showDeleted(Task task, TaskList tasks) {
         printLine();
         System.out.println("Noted. I've removed this task:");
@@ -54,6 +82,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Shows the task that was added.
+     *
+     * @param task The task that was added.
+     * @param tasks The list of tasks.
+     */
     public void showAdded(Task task, TaskList tasks) {
         printLine();
         System.out.println("Got it. I've added this task:");
@@ -62,6 +96,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Shows the task that was marked as done.
+     *
+     * @param task The task that was marked as done.
+     */
     public void showMarked(Task task) {
         printLine();
         System.out.println("Nice! I've marked this task as done:");
@@ -69,6 +108,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Shows the task that was marked as not done.
+     *
+     * @param task The task that was marked as not done.
+     */
     public void showUnmarked(Task task) {
         printLine();
         System.out.println(("OK, I've marked this task as not done yet:"));
@@ -76,18 +120,20 @@ public class Ui {
         printLine();
     }
 
-    public void invalidCommand() {
-        printLine();
-        System.out.println("Sorry! I don't know that command!");
-        printLine();
-    }
-
+    /**
+     * Shows an error message.
+     *
+     * @param e The error message.
+     */
     public void showError(String e) {
         printLine();
         System.out.println("Error! " + e);
         printLine();
     }
 
+    /**
+     * Shows an error message when loading data.
+     */
     public void showLoadingError() {
         printLine();
         System.out.println("Error! An error occurred while loading data from your file!");

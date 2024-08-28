@@ -1,5 +1,8 @@
 package command;
 
+/**
+ * Represents the type of command that can be executed by the user.
+ */
 public enum CommandType {
     BYE,
     LIST,

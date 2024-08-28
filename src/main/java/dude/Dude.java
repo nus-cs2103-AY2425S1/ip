@@ -34,6 +34,9 @@ public class Dude {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         this.ui.showGreeting();
         boolean isExit = false;
@@ -48,6 +51,7 @@ public class Dude {
             }
         }
     }
+
     public static void main(String[] args) {
         new Dude("data.txt").run();
     }

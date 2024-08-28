@@ -13,14 +13,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Represents a storage file that stores the tasks.
+ */
 public class Storage {
     private final String filePath;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Creates a storage file with the given file path.
+     *
+     * @param filePath The file path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the storage file.
+     *
+     * @param tasks The tasks to be saved.
+     * @throws DudeException If there is an error saving the tasks.
+     */
     public void saveTasks(TaskList tasks) throws DudeException {
         try {
             File file = new File(this.filePath);
@@ -34,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Initializes the tasks from the storage file.
+     *
+     * @return The task list with the tasks from the storage file.
+     * @throws IOException If there is an error initializing the tasks.
+     */
     public TaskList initTasks() throws IOException {
         TaskList tasks = new TaskList();
         File file = new File(this.filePath);

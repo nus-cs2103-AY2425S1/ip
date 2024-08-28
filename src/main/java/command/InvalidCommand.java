@@ -5,6 +5,9 @@ import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command that is invalid.
+ */
 public class InvalidCommand extends Command {
     /**
      * Throws a DudeException to indicate that the command is invalid.
