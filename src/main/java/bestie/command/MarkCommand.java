@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
-   /**
+    /**
      * Marks a task as done when user specifies the task that is completed.
      * Displays message indicating the task has been successfully completed, or an error message
      * if index is out of bounds.
@@ -29,7 +29,6 @@ public class MarkCommand extends Command {
         } else {
             ui.showIndexOutOfBoundsMessage(this.index);
         }
-
 
     }
 }
