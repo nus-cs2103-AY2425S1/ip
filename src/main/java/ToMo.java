@@ -27,6 +27,44 @@ public class ToMo {
         }
     }
     
+    public static class ToDo extends Task {
+        ToDo(String description) {
+            super(description);
+        }
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public static class Deadline extends Task {
+        private String deadline;
+        Deadline(String description, String deadline) {
+            super(description);
+            this.deadline = deadline;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + "(by: " + deadline + ")";
+        }
+    }
+
+    public static class Event extends Task {
+        private String start;
+        private String end;
+        Event(String description, String start, String end) {
+            super(description);
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + "(from: " + start + "to: " + end + ")";
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("What's up, it's ToMo here!");
         Scanner sc = new Scanner(System.in);
@@ -59,9 +97,24 @@ public class ToMo {
                     System.out.println("Your task is unmarked");
                     System.out.println(newTask);
                 } else {
-                    Task newTask = new Task(cmd);
+                    Task newTask;
+                    if (words[0].equals("todo")) {
+                        String description = cmd.substring(5); // remove "todo "
+                        newTask = new ToDo(description);
+                    } else if (words[0].equals("deadline")) {
+                        words = cmd.split("/");
+                        String description = words[0].substring(9); // remove "deadline "
+                        String deadline = words[1].substring(3); // remove "by "
+                        newTask = new Deadline(description, deadline);
+                    } else {
+                        words = cmd.split("/");
+                        String description = words[0].substring(6); // remove "event "
+                        String start = words[1].substring(5); // remove "from "
+                        String end = words[2].substring(3); // remove "to "
+                        newTask = new Event(description, start, end);
+                    }
                     tasks.add(newTask);
-                    System.out.println("Your task is added");
+                    System.out.println("A new task is added");
                     System.out.println(newTask);
                 }
             }
