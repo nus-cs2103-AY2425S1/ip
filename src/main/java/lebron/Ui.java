@@ -67,4 +67,16 @@ public class Ui {
         }
         this.showLine();
     }
+
+    public void showMatchingTasks(TaskList taskList, String keyword) throws LeBronException {
+        System.out.println("Here's what I've got bro");
+        this.showLine();
+        for (int i = 1; i <= taskList.size(); i++) {
+            Task task = taskList.getTask(i);
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(String.format("%d. %s", i, task.toString()));
+            }
+        }
+        this.showLine();
+    }
 }
