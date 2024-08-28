@@ -114,7 +114,7 @@ public class Command {
     public boolean isDeadlineTask() throws IncorrectCommandException{
         String[] words = command.split("\\s+");
         if (words[0].equals("deadline")) {
-            String[] parts = command.split("/");
+            String[] parts = command.split("/by");
             if (parts.length != 2) {
                 throw new IncorrectCommandException("Please enter your commands correctly for Derek (deadline (task) /by (date))");
             }
@@ -148,8 +148,9 @@ public class Command {
     public boolean isEventTask() throws IncorrectCommandException {
         String[] words = command.split("\\s+");
         if (words[0].equals("event")) {
-            String[] parts = command.split("/");
-            if (parts.length != 3) {
+            String[] parts = command.split("/from");
+            String[] time = command.split("/to");
+            if (parts.length != 2 && time.length != 2) {
                 throw new IncorrectCommandException("Please enter your commands correctly for Derek (event (task) /from (time) /to (time)");
             }
             return true;
