@@ -57,14 +57,6 @@ public class Bobby {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    /**
-     * This function takes in the user input and prints out the input.
-     *
-     * @param String input
-     */
-    private static void echo(String input) {
-        System.out.println(input);
-    }
 
     private static ArrayList<Task> tasks = new ArrayList<>();
 

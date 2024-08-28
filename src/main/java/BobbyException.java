@@ -37,3 +37,9 @@ class InvalidInputException extends BobbyException {
         super("I am sorry, but I do not know what that means!");
     }
 }
+
+class InvalidDateException extends BobbyException {
+    public InvalidDateException() {
+        super("Invalid date format. Please use yyyy-MM-dd.");
+    }
+}
