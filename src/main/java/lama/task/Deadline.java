@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Subclass of Task, that is represented by [D].
  */
 public class Deadline extends Task {
+
     /** Date for the deadline */
     protected LocalDate by;
 
