@@ -1,3 +1,9 @@
+package katheryne;
+
+import katheryne.exceptions.InvalidInputException;
+import katheryne.exceptions.MissingInformationException;
+
+
 public class Katheryne {
     private Storage storage;
     private TaskList taskList;
@@ -14,12 +20,12 @@ public class Katheryne {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MissingInformationException {
         Katheryne k = new Katheryne("./data/Katheryne.txt");
         k.run();
     }
 
-    public void run() {
+    public void run() throws MissingInformationException {
         System.out.println(ui.getDivide());
         System.out.println(ui.getGreeting());
 
@@ -55,8 +61,6 @@ public class Katheryne {
                     throw new InvalidInputException("Katheryne: " + "I'm sorry, Katheryne is unable to comprehend your request.");
                 }
                 storage.save(taskList);
-            } catch (MissingInformationException e) {
-                System.out.println("Katheryne: " + e.getMessage());
             } catch (InvalidInputException e) {
                 System.out.println("Katheryne: " + e.getMessage());
             }

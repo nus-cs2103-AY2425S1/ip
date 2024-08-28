@@ -1,3 +1,8 @@
+package katheryne;
+
+import katheryne.exceptions.InvalidInputException;
+import katheryne.exceptions.MissingInformationException;
+
 public class Command {
     protected Ui ui;
     protected TaskList taskList;

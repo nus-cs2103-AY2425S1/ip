@@ -1,3 +1,7 @@
+package katheryne;
+
+import katheryne.exceptions.InvalidInputException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;

@@ -1,3 +1,5 @@
+package katheryne;
+
 public class Message {
     public static final String DIVIDE  = "✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧";
     public static final String MESSAGE_GOODBYE = "Katheryne: " +
