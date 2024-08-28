@@ -1,3 +1,5 @@
+package janet;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -26,7 +28,7 @@ public class Janet {
             String userCommand = input.nextLine();
             String[] commandDetails = Parser.getCommandDetails(userCommand);
             try {
-                // validateCommand and checkInaccurateCommand will throw out a JanetException
+                // validateCommand and checkInaccurateCommand will throw out a janet.JanetException
                 Parser.validateCommand(commandDetails, tasks.getNumberOfTasks());
                 Parser.checkInaccurateCommand(commandDetails);
 

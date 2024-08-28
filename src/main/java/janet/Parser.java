@@ -1,3 +1,5 @@
+package janet;
+
 public class Parser {
 
     public static CommandType getCommand(String[] commandDetails) {
@@ -10,7 +12,7 @@ public class Parser {
 
 
     /**
-     * Throws JanetException when,
+     * Throws janet.JanetException when,
      * 1. mark/unmark/delete X, where X cannot be parsed into an Integer.
      * 2. mark/unmark/delete X, where X can be parsed into an Integer but, is <= 0 or > number of tasks in list.
      *
@@ -42,7 +44,7 @@ public class Parser {
 
 
     /**
-     * Throws JanetException when,
+     * Throws janet.JanetException when,
      * 1. first word in command is not todo/event/deadline/mark/unmark/delete.
      * 2. mark/unmark/delete and the task number is not specified.
      * 3. todo/event/deadline and the description is not stated.

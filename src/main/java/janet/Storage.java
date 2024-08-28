@@ -1,3 +1,5 @@
+package janet;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,10 +17,10 @@ public class Storage {
 
     /**
      * Saves the elements in Janet's listOfTasks into a text file (janet.txt).
-     * Each Task object is saved in the format,
+     * Each janet.Task object is saved in the format,
      * symbol | isDone | description | startDate (if deadline/event)-endDate (if event)
      *
-     * @param listOfTasks the list of tasks (ArrayList<Task>) that Janet has.
+     * @param listOfTasks the list of tasks (ArrayList<janet.Task>) that Janet has.
      * @throws IOException
      */
     public void saveToJanetTextFile(ArrayList<Task> listOfTasks) throws IOException {
@@ -39,11 +41,11 @@ public class Storage {
 
 
     /**
-     * Returns an ArrayList<Task> listOfTasks,
-     * each Task object is created based on each line read from janet.txt.
+     * Returns an ArrayList<janet.Task> listOfTasks,
+     * each janet.Task object is created based on each line read from janet.txt.
      *
-     * reads the content in janet.txt and loads them into an ArrayList<Task>, returns this ArrayList<Task>
-     * @return an ArrayList<Task> listOfTasks, that contains Task objects
+     * reads the content in janet.txt and loads them into an ArrayList<janet.Task>, returns this ArrayList<janet.Task>
+     * @return an ArrayList<janet.Task> listOfTasks, that contains janet.Task objects
      */
     public ArrayList<Task> textFileToArrayList() throws JanetException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
@@ -85,12 +87,12 @@ public class Storage {
 
 
     /**
-     * Returns a ToDo object,
-     * based on a line, containing information about a ToDo, read from janet.txt.
+     * Returns a janet.ToDo object,
+     * based on a line, containing information about a janet.ToDo, read from janet.txt.
      *
      * @param line a line of text from the janet.txt file.
      * @param isDone isDone = true if task has been marked else false.
-     * @return a new ToDo object created using the parameters.
+     * @return a new janet.ToDo object created using the parameters.
      */
     public ToDo createToDoFromJanetTextFile(String line, boolean isDone) {
         // get description from text file
@@ -102,12 +104,12 @@ public class Storage {
 
 
     /**
-     * Returns a Deadline object,
-     * based on a line, containing information about a Deadline, read from janet.txt.
+     * Returns a janet.Deadline object,
+     * based on a line, containing information about a janet.Deadline, read from janet.txt.
      *
      * @param line a line of text from the janet.txt file.
      * @param isDone isDone = true if task has been marked else false.
-     * @return a new Deadline object created using the parameters.
+     * @return a new janet.Deadline object created using the parameters.
      */
     public Deadline createDeadlineFromJanetTextFile(String line, boolean isDone) {
         // get description from text file
@@ -125,12 +127,12 @@ public class Storage {
 
 
     /**
-     * Returns an Event object,
-     * based on a line, containing information about an Event, read from janet.txt.
+     * Returns an janet.Event object,
+     * based on a line, containing information about an janet.Event, read from janet.txt.
      *
      * @param line a line of text from the janet.txt file
      * @param isDone isDone = true if task has been marked else false.
-     * @return a new Event object created using the parameters.
+     * @return a new janet.Event object created using the parameters.
      */
     public Event createEventFromJanetTextFile(String line, boolean isDone) {
         // get description from text file

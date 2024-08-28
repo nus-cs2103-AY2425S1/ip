@@ -1,3 +1,5 @@
+package janet;
+
 public class Task {
     private final String description;
     private final String symbol;

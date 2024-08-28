@@ -1,3 +1,5 @@
+package janet;
+
 public class Ui {
     // handles the interaction with the user
     // receives inputs (readline) and printing outputs to the command line
@@ -21,8 +23,8 @@ public class Ui {
     }
 
     public void showSuccessfulTaskAddition(Task task, int numberOfTasks) {
-        // when TaskList.addTaskToList is called (addition of task into listOfTasks)
-        // task = newly added Task object
+        // when janet.TaskList.addTaskToList is called (addition of task into listOfTasks)
+        // task = newly added janet.Task object
         System.out.println(horizontalLine + "\nGot it. I've added this task:\n" +
                 "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", numberOfTasks) + horizontalLine);
     }
@@ -47,7 +49,7 @@ public class Ui {
 
     public void showMarkedMessage(String markResult, Task task) {
         // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be marked as done
-        // task = newly marked Task object
+        // task = newly marked janet.Task object
         if (markResult.equals("already marked")) {
             // the desired task is already marked as done
             System.out.println(horizontalLine + "\nThis task is already done!\n" + horizontalLine);
@@ -59,7 +61,7 @@ public class Ui {
 
     public void showUnmarkedMessage(String markResult, Task task) {
         // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be unmarked
-        // task = newly unmarked Task object
+        // task = newly unmarked janet.Task object
         if (markResult.equals("already unmarked")) {
             // the desired task is already marked as done
             System.out.println(horizontalLine + "\nThis task is not already done!\n" + horizontalLine);
