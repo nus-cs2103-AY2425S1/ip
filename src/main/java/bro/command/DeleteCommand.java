@@ -1,6 +1,8 @@
 package bro.command;
 
+import bro.task.Task;
 import bro.task.TaskList;
+import bro.ui.UI;
 
 public class DeleteCommand implements Command {
 
@@ -12,8 +14,9 @@ public class DeleteCommand implements Command {
         this.taskId = taskId;
     }
 
-    public void execute() {
-        this.taskList.deleteTask(taskId);
+    public void execute(UI ui) {
+        Task task = this.taskList.deleteTask(taskId);
+        ui.showDeleteTaskSuccess(task);
     }
 
     public boolean isExit() {

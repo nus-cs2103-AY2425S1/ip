@@ -1,6 +1,7 @@
 package bro.command;
 
 import bro.task.TaskList;
+import bro.ui.UI;
 
 public class ReadCommand implements Command {
 
@@ -10,7 +11,7 @@ public class ReadCommand implements Command {
         this.taskList = taskList;
     }
 
-    public void execute() {
+    public void execute(UI ui) {
         taskList.printAllTasks();
     }
 

@@ -9,15 +9,52 @@ public class UI {
                  What can I do for you?""";
     final static String GOODBYE_MESSAGE = "Goodbye.";
 
+    public UI(){}
+
+    public void showWelcome() {
+        reply(GREETING_MESSAGE);
+    }
+
+    public void showGoodbye() {
+        reply(GOODBYE_MESSAGE);
+    }
+
+    public void showCreateTaskSuccess(Task task, int numberOfTasks) {
+        addTaskReply(task, numberOfTasks);
+    }
+
+    public void showMarkTaskSuccess(Task task) {
+        reply("Nice bro! I've marked this task as done:\n" + task);
+    }
+
+    public void showUnmarkTaskSuccess(Task task) {
+        reply("Ok bro! I've marked this task as undone:\n" + task);
+    }
+
+    public void showDeleteTaskSuccess(Task task) {
+        reply("Noted. Removed this task:\n" + task);
+    }
+
+    private static void showLine() {
+        String line = """
+                ____________________________________________________________
+                """;
+        System.out.print(line);
+    }
+
+    public void showError(String errorMessage) {
+        reply(errorMessage);
+    }
+
+
     // Prints an adds to list on standard output
-    public static void reply(String content) {
+    private static void reply(String content) {
         String replyStr = String.format("""
-                ____________________________________________________________
                 %s
-                bro.Bro
-                ____________________________________________________________
+                bro.
                 """, content);
         System.out.print(replyStr);
+        showLine();
     }
 
     // Prints an add task reply

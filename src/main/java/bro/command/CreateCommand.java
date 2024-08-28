@@ -2,6 +2,7 @@ package bro.command;
 
 import bro.task.Task;
 import bro.task.TaskList;
+import bro.ui.UI;
 
 public class CreateCommand implements Command {
 
@@ -13,8 +14,9 @@ public class CreateCommand implements Command {
         this.task = task;
     }
 
-    public void execute() {
-        this.taskList.addTask(this.task);
+    public void execute(UI ui) {
+        Task task = this.taskList.addTask(this.task);
+        ui.showCreateTaskSuccess(task, this.taskList.getNumberOfTask());
     }
 
     public boolean isExit() {

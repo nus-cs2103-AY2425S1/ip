@@ -1,7 +1,9 @@
 package bro.command;
 
 import bro.BroException;
+import bro.task.Task;
 import bro.task.TaskList;
+import bro.ui.UI;
 
 public class EditCommand implements Command {
 
@@ -15,12 +17,14 @@ public class EditCommand implements Command {
         this.taskId = taskId;
     }
 
-    public void execute() throws BroException{
+    public void execute(UI ui) throws BroException{
         try {
             if (this.isMark) {
-                this.taskList.markTask(this.taskId);
+                Task task = this.taskList.markTask(this.taskId);
+                ui.showMarkTaskSuccess(task);
             } else {
-                this.taskList.unmarkTask(this.taskId);
+                Task task = this.taskList.unmarkTask(this.taskId);
+                ui.showUnmarkTaskSuccess(task);
             }
 
             //TODO: Storage

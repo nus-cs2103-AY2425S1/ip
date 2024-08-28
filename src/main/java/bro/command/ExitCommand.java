@@ -1,9 +1,11 @@
 package bro.command;
 
+import bro.ui.UI;
+
 public class ExitCommand implements Command {
 
-    public void execute() {
-        // Do nothing
+    public void execute(UI ui) {
+        ui.showGoodbye();
     }
 
     public boolean isExit() {
