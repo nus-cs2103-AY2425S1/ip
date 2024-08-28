@@ -2,14 +2,23 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Storage class handles the loading and saving of tasks to a file
+ */
 public class Storage {
     private final String filePath;
 
+    // Constructor to initialise the storage with the given file path
     public Storage(String filepath) {
         this.filePath = filepath;
     }
 
-    //Method to load tasks from file
+    /**
+     * Loads tasks from the file at the specified file path
+     *
+     * @return Lists of tasks loaded from the file
+     * @throws IOException if an I/O error occurs during file reading
+     */
     public List<Task> loadTasks() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -59,7 +68,11 @@ public class Storage {
         return tasks;
     }
 
-    // Method to save tasks to file
+    /**
+     * Save the lists of tasks to the file at the specified file path
+     *
+     * @param tasks the list of tasks to be saved
+     */
     public void saveTasks(List<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
