@@ -11,7 +11,7 @@ You dingus. This task was already done:
 [T] [X] break something
 Consider picking a number that's actually in range.
 Fine. Added this lousy task:
-2. [D] [ ] whack table (by: 2024-09-01 12:00)
+[D] [ ] whack table (by: 2024-09-01 12:00)
 That's 2 tasks for your ass to handle.
 Fine. Added this lousy task:
 [E] [ ] malding (from: 2024-09-02 11:00 to: 2024-09-04 19:00)
