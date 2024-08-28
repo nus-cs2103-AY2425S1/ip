@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -30,17 +31,20 @@ public class Knight2103 {
                     if (inputArray.length != 4) {
                         throw new FileContentsInvalid("Number of columns mismatch. There should be 4 for Deadline");
                     }
-                    taskToAdd = new Deadline(inputArray[2], inputArray[3]);
-                    if (inputArray[1].equals("0")) {
-                        return Optional.of(taskToAdd);
-                    } else if (inputArray[1].equals("1")) {
-                        taskToAdd.markDone();
-                        return Optional.of(taskToAdd);
-                    } else {
-                        throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
+                    try {
+                        taskToAdd = new Deadline(inputArray[2], inputArray[3]);
+                        if (inputArray[1].equals("0")) {
+                            return Optional.of(taskToAdd);
+                        } else if (inputArray[1].equals("1")) {
+                            taskToAdd.markDone();
+                            return Optional.of(taskToAdd);
+                        } else {
+                            throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Deadline format is wrong in the file contents");
                     }
-                    // break;
-
+                    break;
                 case "E":
                     if (inputArray.length != 5) {
                         throw new FileContentsInvalid("Number of columns mismatch. There should be 5 for Events");
@@ -54,7 +58,7 @@ public class Knight2103 {
                     } else {
                         throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
                     }
-                    // break;
+                    //break;
                 default:
                     throw new FileContentsInvalid("Only T, E, D accepted but others found");
             }
@@ -143,13 +147,20 @@ public class Knight2103 {
                             break;
                         case "deadline":
                             String[] deadlineArray = inputArray[1].split(" /by ");
-                            taskToAdd = new Deadline(deadlineArray[0], deadlineArray[1]);
-                            taskList.add(taskToAdd);
-                            System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
-                            taskListWriter = new FileWriter("./savedTaskList.txt", true);
-                            taskListWriter.write(taskToAdd.saveToFileFormat());
-                            taskListWriter.close();
-                            break;
+                            try {
+                                taskToAdd = new Deadline(deadlineArray[0], deadlineArray[1]);
+                                taskList.add(taskToAdd);
+                                System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
+                                taskListWriter = new FileWriter("./savedTaskList.txt", true);
+                                taskListWriter.write(taskToAdd.saveToFileFormat());
+                                taskListWriter.close();
+                                break;
+                            } catch (IOException e) {
+                                System.out.println("Problems creating an instance of FileWriter");
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Deadline format is wrong during input. Please follow yyyy-mm-dd format");
+                            }
+                        break;
                         case "event":
                             String[] eventArray = inputArray[1].split(" /from | /to ");
                             taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);

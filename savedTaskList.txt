@@ -1,6 +1,6 @@
 T | 0 | book fair
 T | 1 | book fair
-D | 0 | return book | Sunday
+D | 0 | return book | 2007-12-03T10:15:30
 E | 0 | race car | Sun | Fri
 T | 0 | jumping jack
-D | 0 | A2 | Sunday
+D | 0 | A2 | 2007-12-03D | 0 | haha | 2007-12-03D | 0 | haha | 2007-03-12D | 0 | return book | 2007-12-03D | 0 | rt | 2007-12-03D | 0 | er | 2007-12-14D | 0 | er | 2007-12-13
