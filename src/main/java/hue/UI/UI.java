@@ -1,7 +1,8 @@
 package hue.UI;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-import hue.task.TaskList;
+import hue.task.*;
 
 
 /**
@@ -57,4 +58,19 @@ public class UI {
         }
     }
 
+    /**
+     * Finds the tasks in the ArrayList of Tasks that have descriptions which match the input keyword
+     *
+     * @param tasks The task list to be displayed.
+     * @param keyword The keyword input by the user for the ArrayList to be filtered by
+     */
+    public void showMatchingTasks(ArrayList<Task> tasks, String keyword) {
+        showLine();
+        System.out.println("Here are the tasks in your list that match the keyword \"" + keyword + "\": ");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i+1) + "." + tasks.get(i));
+        }
+    }
+
 }
+
