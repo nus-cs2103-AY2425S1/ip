@@ -1,4 +1,4 @@
-package joe.main;
+package joe.Main;
 
 import joe.exceptions.CorruptedFileException;
 import joe.tasks.TaskList;

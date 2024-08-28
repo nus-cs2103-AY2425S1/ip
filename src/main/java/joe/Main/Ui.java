@@ -1,4 +1,4 @@
-package joe.main;
+package joe.Main;
 
 import joe.exceptions.InvalidCommandException;
 import joe.exceptions.InvalidIndexException;

@@ -1,4 +1,4 @@
-package joe.main;
+package joe.Main;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,7 +1,7 @@
 package joe.tasks;
 
 import joe.exceptions.InvalidIndexException;
-import joe.main.Parser;
+import joe.Main.Parser;
 import joe.utils.Formatter;
 
 import java.io.FileWriter;
