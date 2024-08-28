@@ -12,11 +12,19 @@ public class Ui {
     private final Scanner reader;
     private TaskList tasks;
 
+    /**
+     * Constructor for Ui.
+     */
     public Ui() {
         reader = new Scanner(System.in);
         showWelcome();
     }
 
+    /**
+     * Runs the programme.
+     *
+     * @param tasks the TaskList object containing the tasks
+     */
     public void runProgramme(TaskList tasks) {
         this.tasks = tasks;
         responseToCommand(receiveCommand());
@@ -29,6 +37,11 @@ public class Ui {
         return reader.nextLine().strip();
     }
 
+    /**
+     * Responds to the user's command.
+     *
+     * @param userCmd the user's command
+     */
     public void responseToCommand(String userCmd) {
         Parser parser = new Parser(tasks);
         boolean isExit = false;

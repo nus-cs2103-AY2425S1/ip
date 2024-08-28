@@ -1,7 +1,7 @@
 package joe.tasks;
 
-import joe.exceptions.InvalidIndexException;
 import joe.Main.Parser;
+import joe.exceptions.InvalidIndexException;
 import joe.utils.Formatter;
 
 import java.io.FileWriter;
@@ -141,6 +141,13 @@ public class TaskList {
         System.out.println(line);
     }
 
+    /**
+     * Queries the tasks in the user's list by a specific date
+     * and prints out the tasks that are due on that date for deadlines
+     * and start on that date for events.
+     *
+     * @param date the date to query the tasks by
+     */
     public void queryTasksByDate(String date) {
         System.out.println(line);
 
@@ -171,10 +178,21 @@ public class TaskList {
         System.out.println(line);
     }
 
+    /**
+     * Returns the number of tasks in the user's list.
+     *
+     * @return the number of tasks in the user's list
+     */
     public int size() {
         return taskList.size();
     }
 
+    /**
+     * Returns the task at a specific index.
+     *
+     * @param index the index of the task
+     * @return the task at the index
+     */
     public Task get(int index) {
         return taskList.get(index);
     }

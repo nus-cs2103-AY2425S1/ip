@@ -1,7 +1,5 @@
 package joe.tasks;
 
-import joe.tasks.Task;
-
 public class ToDo extends Task {
 
     /**

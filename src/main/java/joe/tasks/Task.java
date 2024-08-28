@@ -50,10 +50,20 @@ public class Task {
         return String.format("[%c] %s", mark, description);
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return a String representing the description of the task
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Returns the status of the task.
+     *
+     * @return a boolean representing the status of the task
+     */
     public boolean isDone() {
         return done;
     }
