@@ -1,5 +1,4 @@
 package juno.ui;
-// class to deal with user interaction
 
 public class JunoUi {
     private String logo;
@@ -48,5 +47,4 @@ public class JunoUi {
         return "The input you provided is invalid! " +
                 "(\uD83D\uDCA1 Tip: You can use the following commands \"add\", \"list\",\"mark\", \"unmark\".)";
     }
-
 }

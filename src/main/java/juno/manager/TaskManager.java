@@ -19,7 +19,7 @@ public class TaskManager {
         return this.tasks;
     }
 
-    public boolean checkDuplicateTask(String taskDescription) {
+    public boolean isDuplicateTask(String taskDescription) {
         for (Task task : this.tasks) {
             if (task.getDescription().equalsIgnoreCase(taskDescription)) {
                 return true;

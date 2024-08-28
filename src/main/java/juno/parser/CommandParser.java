@@ -1,5 +1,13 @@
 package juno.parser;
-import juno.command.*;
+
+import juno.command.Command;
+import juno.command.ExitCommand;
+import juno.command.ListCommand;
+import juno.command.MarkCommand;
+import juno.command.DeleteCommand;
+import juno.command.AddTodoCommand;
+import juno.command.AddDeadlineCommand;
+import juno.command.AddEventCommand;
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
@@ -12,6 +20,7 @@ public class CommandParser {
             JunoUi junoUi,
             FileManager fileManager,
             TaskManager taskManager) throws TaskManagerException {
+
         String markTaskString = "mark";
         String unmarkTaskString = "unmark";
         String deleteTaskString = "delete";
@@ -20,6 +29,7 @@ public class CommandParser {
         String addEventTaskString = "add event";
         String listTaskString = "list";
         String exitString = "bye";
+
         if (userInput.equalsIgnoreCase(exitString)) {
             return new ExitCommand(junoUi);
         } else if (userInput.equalsIgnoreCase(listTaskString)) {

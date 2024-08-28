@@ -1,4 +1,5 @@
 package juno.command;
+
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.task.Task;
@@ -6,7 +7,6 @@ import juno.task.Task;
 import java.util.ArrayList;
 
 public abstract class AddCommand extends Command {
-
     TaskManager taskManager;
     FileManager fileManager;
     String userInput;

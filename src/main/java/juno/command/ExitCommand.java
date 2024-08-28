@@ -8,6 +8,7 @@ public class ExitCommand extends Command {
     public ExitCommand(JunoUi junoUi) {
         this.junoUi = junoUi;
     }
+
     @Override
     public void runCommand() {
         this.junoUi.displayFarewellMessage();

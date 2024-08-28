@@ -18,8 +18,8 @@ public class ListCommand extends Command {
     @Override
     public void runCommand() throws TaskManagerException {
         if (this.tasks.isEmpty()) {
-            throw new TaskManagerException("\uD83C\uDF31 No tasks added yet! Why not plant the first seed? \uD83C\uDF31",
-                    TaskManagerException.ErrorType.EMPTY_LIST);
+            throw new TaskManagerException("\uD83C\uDF31 No tasks added yet! " +
+                    "Why not plant the first seed? \uD83C\uDF31", TaskManagerException.ErrorType.EMPTY_LIST);
         } else {
             System.out.println("Here's a rundown of all your tasks! \uD83D\uDE0A");
             for (int i = 0; i < this.tasks.size(); i++) {

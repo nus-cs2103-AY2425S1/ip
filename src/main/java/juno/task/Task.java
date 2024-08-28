@@ -3,13 +3,10 @@ package juno.task;
 import com.google.gson.annotations.Expose;
 
 public class Task {
-
     @Expose
     protected String description;
-
     @Expose
     protected boolean isDone;
-
     @Expose
     protected String taskType;
 

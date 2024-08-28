@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
 import juno.task.Task;
 
 import java.io.File;
@@ -20,10 +21,10 @@ public class FileManager {
 
     public FileManager() {
          this.gsonInstance = new GsonBuilder()
-                .registerTypeAdapter(Task.class, new TaskAdapter())
-                .setPrettyPrinting()
+                 .registerTypeAdapter(Task.class, new TaskAdapter())
+                 .setPrettyPrinting()
                  .excludeFieldsWithoutExposeAnnotation()
-                .create();
+                 .create();
     }
 
     public void writeTasksToFile(ArrayList<Task> tasks) {
@@ -74,8 +75,5 @@ public class FileManager {
             System.out.println("Seems like we can't delete the file either, maybe try deleting it manually " +
                     "and run me again!");
         }
-
-
     }
-
 }

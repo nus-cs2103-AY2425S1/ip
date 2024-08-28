@@ -11,10 +11,8 @@ import java.util.Scanner;
 
 public class Juno {
     private TaskManager taskManager;
-
     private FileManager fileManager;
     private JunoUi junoUi;
-
     private CommandParser commandParser;
 
     public Juno() {
@@ -48,24 +46,20 @@ public class Juno {
 
     public void detectUserInput() {
         Scanner scanner = new Scanner(System.in);
-        boolean inWhileLoop = true;
+        boolean isInWhileLoop = true;
 
-
-        while (inWhileLoop) {
+        while (isInWhileLoop) {
             String userInput = scanner.nextLine().trim();
             try {
                 Command command = this.commandParser.parse(userInput, this.junoUi, this.fileManager, this.taskManager);
                 command.runCommand();
-                inWhileLoop = command.isInWhileLoop();
+                isInWhileLoop = command.isInWhileLoop();
             } catch (TaskManagerException e) {
                 System.out.println(e.getMessage());
             }
         }
-
         scanner.close();
     }
-
-
 
     public static void main(String[] args) {
         Juno junoChatBot = new Juno();

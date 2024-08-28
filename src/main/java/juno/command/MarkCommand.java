@@ -26,7 +26,6 @@ public class MarkCommand extends Command {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
-
                 Task taskToMark = this.tasks.get(taskNumber);
                 if (this.markAsDone) {
                     if (taskToMark.getIsDone()) {

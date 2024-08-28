@@ -20,7 +20,6 @@ public class DeleteCommand extends Command {
     }
     @Override
     public void runCommand() throws TaskManagerException {
-
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
@@ -43,5 +42,4 @@ public class DeleteCommand extends Command {
             this.fileManager.writeTasksToFile(this.tasks);
         }
     }
-
 }

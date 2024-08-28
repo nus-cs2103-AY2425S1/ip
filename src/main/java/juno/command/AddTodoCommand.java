@@ -25,8 +25,9 @@ public class AddTodoCommand extends AddCommand {
                     "/ {Input task description here}\" to add a task)",
                     TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
         }
+
         // Check if the task already exists
-        if (this.taskManager.checkDuplicateTask(taskInfo)) {
+        if (this.taskManager.isDuplicateTask(taskInfo)) {
             throw new TaskManagerException("This task is already in your list! " +
                     "Maybe you can try renaming it and input again?",
                     TaskManagerException.ErrorType.DUPLICATE_TASK);

@@ -3,6 +3,7 @@ package juno.manager;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
 import juno.manager.exception.TaskManagerException;
 import juno.task.Deadline;
 import juno.task.Event;
@@ -25,53 +26,52 @@ public class TaskAdapter extends TypeAdapter<Task> {
         while (reader.hasNext()) {
             String name = reader.nextName();
             switch (name) {
-                case "taskType":
-                    taskType = reader.nextString();
-                    break;
-                case "description":
-                    description = reader.nextString();
-                    break;
-                case "isDone":
-                    isDone = reader.nextBoolean();
-                    break;
-                case "endTimeString":
-                    endTimeString = reader.nextString();
-                    break;
-                case "startTimeString":
-                    startTimeString = reader.nextString();
-                    break;
-                default:
-                    reader.skipValue();
-                    break;
+            case "taskType":
+                taskType = reader.nextString();
+                break;
+            case "description":
+                description = reader.nextString();
+                break;
+            case "isDone":
+                isDone = reader.nextBoolean();
+                break;
+            case "endTimeString":
+                endTimeString = reader.nextString();
+                break;
+            case "startTimeString":
+                startTimeString = reader.nextString();
+                break;
+            default:
+                reader.skipValue();
+                break;
             }
         }
         reader.endObject();
 
         Task task = null;
         switch (taskType) {
-            case "todo":
-                task = new Todo(description, taskType);
-                break;
-            case "deadline":
-                try {
-                    task = new Deadline(description, endTimeString, taskType);
-                } catch (TaskManagerException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-            case "event":
-                try {
-                    task = new Event(description, startTimeString, endTimeString, taskType);
-                } catch (TaskManagerException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
+        case "todo":
+            task = new Todo(description, taskType);
+            break;
+        case "deadline":
+            try {
+                task = new Deadline(description, endTimeString, taskType);
+            } catch (TaskManagerException e) {
+                throw new RuntimeException(e);
+            }
+            break;
+        case "event":
+            try {
+                task = new Event(description, startTimeString, endTimeString, taskType);
+            } catch (TaskManagerException e) {
+                throw new RuntimeException(e);
+            }
+            break;
         }
 
         if (task != null && isDone) {
             task.markAsDone();
         }
-
         return task;
     }
 
