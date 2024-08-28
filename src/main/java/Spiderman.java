@@ -19,8 +19,6 @@ public class Spiderman {
             String input = scan.nextLine();
             String[] splitInput = input.split("\\s+");
             String[] splitInputByCommand = input.split("/");
-//            System.out.println("User input: " + Arrays.toString(splitInput));
-//            System.out.println("User input split by /: " + Arrays.toString(splitInputByCommand));
 
             // User types bye; program terminates
             if (input.equals("bye")) {
