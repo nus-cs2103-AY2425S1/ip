@@ -20,4 +20,15 @@ public class Deadline extends Task {
         //return "[D] " + super.toString() + " (by: " + this.deadline + ")";
         return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
     }
+
+    @Override
+    public String getTaskType() {
+        return "D";
+    }
+
+    @Override
+    public String taskInFile() {
+        return String.format("D | %s | %s | /by %s", this.getStatusIcon(), this.getDescription(),
+                this.deadline);
+    }
 }

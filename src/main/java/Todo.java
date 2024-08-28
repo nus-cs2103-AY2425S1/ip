@@ -16,4 +16,14 @@ public class Todo extends Task {
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
+
+    @Override
+    public String getTaskType() {
+        return "T";
+    }
+
+    @Override
+    public String taskInFile() {
+        return String.format("T | %s | %s ", this.getStatusIcon(), this.getDescription());
+    }
 }
