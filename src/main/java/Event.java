@@ -1,11 +1,18 @@
 package main.java;
 
 import static java.lang.Integer.parseInt;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 
 public class Event extends Task {
 
-    protected String fromDate;
-    protected String toDate;
+    protected LocalDate fromDate;
+    protected LocalDate toDate;
 
     public Event (String inputString) throws InvalidTaskNameException, InvalidDateException {
 
@@ -29,8 +36,21 @@ public class Event extends Task {
                     throw new InvalidDateException("To date not provided");
                 }
                 this.name = taskName;
-                this.fromDate = fromDate;
-                this.toDate = toDate;
+                try {
+                    this.fromDate = LocalDate.parse(fromDate.trim());
+                } catch (DateTimeParseException ex) {
+                    throw new InvalidDateException("Invalid from date format given");
+                }
+
+                try {
+                    this.toDate = LocalDate.parse(toDate.trim());
+                } catch (DateTimeParseException ex) {
+                    throw new InvalidDateException("Invalid to date format given");
+                }
+
+                if (this.toDate.isBefore(this.fromDate)) {
+                    throw new InvalidDateException("To date is before from date");
+                }
             } else {
                 throw new InvalidDateException("To date is not provided!");
             }
@@ -47,8 +67,8 @@ public class Event extends Task {
             this.isDone = true;
         }
         this.name = input[1];
-        this.fromDate = input[2];
-        this.toDate = input[3];
+        this.fromDate = LocalDate.parse(input[2].trim());
+        this.toDate = LocalDate.parse(input[3].trim());
     }
 
     @Override
@@ -65,9 +85,9 @@ public class Event extends Task {
         res = res.concat(this.isDone ? "1|" : "0|");
         res = res.concat(this.name);
         res = res.concat("|");
-        res = res.concat(this.fromDate);
+        res = res.concat(this.fromDate.toString());
         res = res.concat("|");
-        res = res.concat(this.toDate);
+        res = res.concat(this.toDate.toString());
         return res;
     }
 }
