@@ -18,5 +18,5 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toSave() { return String.format("D | %s | %s", super.toSave(), by); }
+    public String toSave() { return String.format("D | %s | %s", super.toSave(), by.format(inputFormatter)); }
 }
