@@ -31,6 +31,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getType() {
+        return "Deadline";
+    }
+
+    @Override
     public String toString() {
         String deadline;
         if (hasTime) {
