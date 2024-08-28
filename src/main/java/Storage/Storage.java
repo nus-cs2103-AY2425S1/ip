@@ -15,6 +15,11 @@ public class Storage {
     public Storage(String s) {
         this.file = new File(s);
     }
+    /**
+     * Loads tasks from a file and returns them as a list of tasks.
+     *
+     * @return a list of tasks loaded from the file. If the file is not found, returns an empty list
+     */
     public List<Task> loadFile() {
         try {
             Scanner s = new Scanner(file);
@@ -41,7 +46,11 @@ public class Storage {
         }
         return new ArrayList<>();
     }
-
+    /**
+     * Writes a list of tasks to a file.
+     *
+     * @param array the list of tasks to be written to the file
+     */
     public void writeFile(List<Task> array) {
         try {
             FileWriter fw = new FileWriter(file);
@@ -53,6 +62,10 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Creates a new file if it does not already exist.
+     *
+     */
     public void createFile() {
         if (!file.exists()) {
             try {
@@ -62,7 +75,10 @@ public class Storage {
             }
         }
     }
-
+    /**
+     * Creates a directory ./data
+     *
+     */
     public void createFolder() {
         File newFolder = new File("./data");
         newFolder.mkdirs();
