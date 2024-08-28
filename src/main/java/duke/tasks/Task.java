@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a generic task.
  */
@@ -7,6 +9,10 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType taskType;
+    protected final DateTimeFormatter printFormatter = DateTimeFormatter
+            .ofPattern("MMM d yyyy HH:mm");
+    protected final DateTimeFormatter saveFormatter = DateTimeFormatter
+            .ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs a new Task.
