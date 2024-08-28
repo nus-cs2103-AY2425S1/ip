@@ -1,16 +1,16 @@
-public class TodoTask extends Task {
-    public TodoTask(String name) {
+public class ToDoTask extends Task {
+    public ToDoTask(String name) {
         super(name);
     }
 
-    public TodoTask fromInput(String name) {
+    public ToDoTask fromInput(String name) {
         name = name.trim();
 
         if (name == "") {
             throw new TaskFieldException("Description");
         }
 
-        return new TodoTask(name);
+        return new ToDoTask(name);
     }
 
     @Override

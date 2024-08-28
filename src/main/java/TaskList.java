@@ -13,7 +13,7 @@ public class TaskList {
 
         switch (type) {
             case TODO:
-                task = new TodoTask(input);
+                task = new ToDoTask(input);
                 break;
             case DEADLINE:
                 task = DeadlineTask.fromInput(input);
