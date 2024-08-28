@@ -1,4 +1,6 @@
-import StobberiException.StobberiException;
+package Stobberi;
+
+import Stobberi.StobberiException.StobberiException;
 
 import java.util.ArrayList;
 
@@ -25,9 +27,9 @@ public class TaskList {
     }
 
     public void displayList() {
-        String list = "Here are the tasks in your list:\n";
+        String list = "Here are the tasks in your list:";
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
-            list += i + ". " + listOfTasks.get(i - 1) + "\n";
+            list += "\n" + i + ". " + listOfTasks.get(i - 1);
         }
         Ui.displayForm(list);
     }

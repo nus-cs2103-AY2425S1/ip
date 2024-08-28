@@ -1,3 +1,5 @@
+package Stobberi;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -6,7 +8,8 @@ public class Ui {
     private final String HELLO_GREETING =
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
                     + "What can I do for you?";
-    private final String GOODBYE_GREETING = "Bye. Hope to see you again soon! :)\n";
+    private final String GOODBYE_GREETING = "Byeeeeeeeeeeeeeeee! :)\n" +
+            "Hope to see you soon!";
     public static void displayForm(String phrase) {
         System.out.println("_________________________________________________________\n"
                         + phrase

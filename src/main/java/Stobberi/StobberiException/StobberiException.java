@@ -1,4 +1,4 @@
-package StobberiException;
+package Stobberi.StobberiException;
 
 public class StobberiException extends Exception {
     // Work in progress

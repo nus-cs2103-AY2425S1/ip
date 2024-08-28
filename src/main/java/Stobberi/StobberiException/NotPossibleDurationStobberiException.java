@@ -1,4 +1,4 @@
-package StobberiException;
+package Stobberi.StobberiException;
 
 public class NotPossibleDurationStobberiException extends StobberiException {
     // Work in progress

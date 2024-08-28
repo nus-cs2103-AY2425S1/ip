@@ -1,4 +1,6 @@
-import StobberiException.StobberiException;
+package Stobberi;
+
+import Stobberi.StobberiException.StobberiException;
 
 public class Stobberi {
     private TaskList taskList;

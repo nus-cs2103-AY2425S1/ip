@@ -1,4 +1,6 @@
-import StobberiException.NotPossibleDurationStobberiException;
+package Stobberi;
+
+import Stobberi.StobberiException.NotPossibleDurationStobberiException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

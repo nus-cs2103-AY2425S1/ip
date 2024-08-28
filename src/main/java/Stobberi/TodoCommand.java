@@ -1,5 +1,7 @@
-import StobberiException.EmptyStobberiException;
-import StobberiException.StobberiException;
+package Stobberi;
+
+import Stobberi.StobberiException.EmptyStobberiException;
+import Stobberi.StobberiException.StobberiException;
 
 public class TodoCommand extends Command {
     private TaskList taskList;

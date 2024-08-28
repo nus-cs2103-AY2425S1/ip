@@ -1,6 +1,8 @@
-import StobberiException.NoNumberStobberiException;
-import StobberiException.NoSuchTaskStobberiException;
-import StobberiException.StobberiException;
+package Stobberi;
+
+import Stobberi.StobberiException.NoNumberStobberiException;
+import Stobberi.StobberiException.NoSuchTaskStobberiException;
+import Stobberi.StobberiException.StobberiException;
 
 public class Parser {
     private Parser() {}

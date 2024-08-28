@@ -1,13 +1,15 @@
-import StobberiException.EmptyStobberiException;
-import StobberiException.StobberiException;
-import StobberiException.WrongDateTimeStobberiException;
+package Stobberi;
+
+import Stobberi.StobberiException.EmptyStobberiException;
+import Stobberi.StobberiException.StobberiException;
+import Stobberi.StobberiException.WrongDateTimeStobberiException;
 
 import java.time.format.DateTimeParseException;
 
-public class DeadlineCommand extends Command {
+public class EventCommand extends Command {
     private TaskList taskList;
     private String descriptions;
-    public DeadlineCommand(TaskList taskList, String descriptions) {
+    public EventCommand(TaskList taskList, String descriptions) {
         this.taskList = taskList;
         this.descriptions = descriptions;
     }
@@ -17,9 +19,12 @@ public class DeadlineCommand extends Command {
         if (descriptions.isEmpty()) {
             throw new EmptyStobberiException("Where is the task?");
         }
-        String[] parts = descriptions.split(" /by ");
+
+        String[] eventParts = descriptions.split(" /from ");
+        String[] secondParts = eventParts[1].split(" /to ");
+
         try {
-            taskList.addTask(new Deadline(parts[0], parts[1]));
+            taskList.addTask(new Event(eventParts[0], secondParts[0], secondParts[1]));
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeStobberiException("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n");
         }

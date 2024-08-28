@@ -1,5 +1,7 @@
-import StobberiException.StobberiException;
-import StobberiException.WrongDateTimeStobberiException;
+package Stobberi;
+
+import Stobberi.StobberiException.StobberiException;
+import Stobberi.StobberiException.WrongDateTimeStobberiException;
 
 import java.time.format.DateTimeParseException;
 
