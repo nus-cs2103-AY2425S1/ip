@@ -51,4 +51,6 @@ public final class ReplyTextMessages {
     public static final String INVALID_SAVE_FILE_EXCEPTION_1s = "Error Reading save file! The following error was encountered: %s";
     public static final String INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES = "Missing Data Values";
     public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse value - %s";
+    public static final String SAVEFILE_IO_EXCEPTION_1s = "Unable to save list to disk - %s";
+
 }

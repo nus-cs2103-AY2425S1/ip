@@ -2,8 +2,7 @@ import exceptions.*;
 import stringconstants.ReplyTextMessages;
 import tasks.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s;
@@ -288,6 +287,13 @@ public class YappingBot {
         }
     }
     private static void saveListToFile() throws YappingBotSaveFileIOException {
+        try (FileWriter fw = new FileWriter(LIST_SAVE_PATH)) {
+            for (Task t : userList) {
+                fw.write(t.serialiaze());
+            }
+        } catch (IOException e) {
+            throw new YappingBotSaveFileIOException(e.getMessage());
+        }
     }
     // end of class methods
 
@@ -342,6 +348,11 @@ public class YappingBot {
             }
         }
         // exit
+        try {
+            saveListToFile();
+        } catch (YappingBotException e) {
+            System.out.println(quoteMultilineText(e.getMessage()));
+        }
         System.out.println(quoteMultilineText(ReplyTextMessages.EXIT_TEXT));
     }
 }
