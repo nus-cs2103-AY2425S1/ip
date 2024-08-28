@@ -80,7 +80,6 @@ public class Storage {
             bufferedReader.close();
         } catch (IOException e) {
             throw new JanetException("");
-            // System.out.println("Error reading file");
         }
         return listOfTasks;
     }
