@@ -1,11 +1,11 @@
-import java.util.Scanner;
+package stelle;
 
 /** Represents the main chatbot class.
  * @author Lee Ze Hao (A0276123J)
  */
 
 public class Stelle {
-    static final String NAME = "Stelle";
+    static final String NAME = "stelle";
     static final String FILE_PATH = "./data/stelle.txt";
 
     private Ui ui;

@@ -1,4 +1,6 @@
-/** Exception thrown when there is no description given during creation of an Event. Child of TaskException.
+package stelle.exception;
+
+/** Exception thrown when there is no description given during creation of an stelle.task.Event. Child of stelle.exception.TaskException.
  * @author Lee Ze Hao (A0276123J)
  */
 

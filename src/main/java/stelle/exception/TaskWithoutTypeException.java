@@ -1,5 +1,7 @@
+package stelle.exception;
+
 /**
- * Exception thrown when a Task's taskType is null, or is of Task.UNSET.
+ * Exception thrown when a stelle.task.Task's taskType is null, or is of stelle.task.Task.UNSET.
  * @author Lee Ze Hao (A0276123J)
  */
 

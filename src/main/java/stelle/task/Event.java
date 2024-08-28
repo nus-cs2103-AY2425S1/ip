@@ -1,7 +1,11 @@
+package stelle.task;
+
+import stelle.exception.WrongDateFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/** This class represents an Event. It is child of the Task class.
+/** This class represents an stelle.task.Event. It is child of the stelle.task.Task class.
  * @author Lee Ze Hao (A0276123J)
  */
 
@@ -15,8 +19,8 @@ public class Event extends Task{
     private LocalDateTime from;
     private LocalDateTime to;
 
-    /** Constructor for an Event object. Sets name upon creation.
-     * @param name Name of Event object.
+    /** Constructor for an stelle.task.Event object. Sets name upon creation.
+     * @param name Name of stelle.task.Event object.
      * @param from A string indicating starting date and time of event.
      * @param to A string indicating end date and time of event.
      */
@@ -46,8 +50,8 @@ public class Event extends Task{
         return this.to.format(dateTimeInputFormatter);
     }
 
-    /** Returns string representation of the Event.
-     * @return String containing indication of Event class, and string representation of parent Task class.
+    /** Returns string representation of the stelle.task.Event.
+     * @return String containing indication of stelle.task.Event class, and string representation of parent stelle.task.Task class.
      */
     @Override
     public String toString() {

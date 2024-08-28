@@ -1,4 +1,6 @@
-/** Exception thrown when something goes wrong while writing data to local file. Child of StelleException.
+package stelle.exception;
+
+/** Exception thrown when something goes wrong while writing data to local file. Child of stelle.exception.StelleException.
  * @author Lee Ze Hao (A0276123J)
  */
 
