@@ -18,6 +18,10 @@ public class Parser {
             return new ExitCommand();
         } else if (command.equals("list")) {
             return new ListCommand();
+        } else if (command.equals("mark")) {
+            return new EditCommand(remaining, EditCommand.Instruction.MARK);
+        } else if (command.equals("unmark")) {
+            return new EditCommand(remaining, EditCommand.Instruction.UNMARK);
         }
 
         throw new LlamaException("Command not found, try again.");
