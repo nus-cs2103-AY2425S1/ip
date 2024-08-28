@@ -75,7 +75,7 @@ public class Skywalker {
                     String description = information[0];
                     String by = information[1];
                     // Parse the date and time string to a LocalDateTime object
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate parsedDate = LocalDate.parse(by, formatter);
                     //empty exception catching
                     if (information.length < 2 || description.isEmpty() || by.isEmpty()) {
@@ -92,7 +92,7 @@ public class Skywalker {
                     String description = information[0];
                     String from = information[1];
                     String to = information[2];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HHmm");
                     LocalDateTime startTime = LocalDateTime.parse(from, formatter);
                     LocalDateTime endTime = LocalDateTime.parse(to, formatter);
                     if (information.length < 3 || from.isEmpty() || to.isEmpty()) {

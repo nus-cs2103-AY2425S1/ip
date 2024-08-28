@@ -6,13 +6,13 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.by = LocalDate.parse(by, formatter);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return "[D]" + super.toString() + "(by: " + by.format(formatter) + ")";
     }
 }
