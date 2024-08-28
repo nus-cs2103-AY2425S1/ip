@@ -1,14 +1,14 @@
 package delta.util;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Test;
+
 import delta.task.Task;
 import delta.task.Todo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     /**
