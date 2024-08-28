@@ -1,3 +1,5 @@
+package puke.ui;
+
 public class MessageBuilder {
     private void buildMessage(String message) {
         System.out.println("______________________________________________________________________");
