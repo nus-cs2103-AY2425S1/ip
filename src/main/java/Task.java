@@ -1,4 +1,4 @@
-public class Task {
+abstract class Task {
     private boolean completed;
     private String description;
 
@@ -29,4 +29,16 @@ public class Task {
     public void indIncomplete() {
         this.completed = false;
     }
+
+
+    public String getStatusIcon() {
+        if(this.completed) {
+            return "X";
+        }
+        return "";
+    }
+
+    public abstract String getTaskType();
+
+    public abstract String taskInFile();
 }

@@ -22,4 +22,15 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)" , super.toString(), this.start, this.end);
     }
+
+    @Override
+    public String getTaskType() {
+        return "E";
+    }
+
+    @Override
+    public String taskInFile() {
+        return String.format("E | %s | %s | /from %s /to %s", this.getStatusIcon(), this.getDescription(),
+                this.start, this.end);
+    }
 }

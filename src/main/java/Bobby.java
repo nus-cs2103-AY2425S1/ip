@@ -1,17 +1,28 @@
+import java.io.BufferedReader;
 import java.io.File;
-
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Bobby {
     private static List<Task> storage = new ArrayList<>();
+    private static File dataFile;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         greet();
+        try {
+            loadData();
+        } catch (IOException e) {
+            System.out.println("Uh oh something bad happen");
+        }
+
         while (true) {
             System.out.println();
             String input = scanner.nextLine();
@@ -141,6 +152,11 @@ public class Bobby {
         System.out.println(t.toString());
         System.out.printf("Now you have %d tasks.%n", storage.size());
         horizontalLine(35);
+        try {
+            writeData(dataFile.getPath(), t.taskInFile());
+        } catch (IOException e) {
+            System.out.println("Error processing the file: " + e.getMessage());
+        }
     }
 
     public static void listOutTasks() {
@@ -187,21 +203,92 @@ public class Bobby {
         File data = new File("data.txt");
 
         if (data.createNewFile()) {
+            dataFile = data;
+            System.out.println();
             System.out.println("A new data file has been created");
+            horizontalLine(35);
         } else {
             try {
+                dataFile = data;
                 printFileContent((data.getPath()));
-            } catch (FileNotFoundException) {
+                loadDataIntoStorage(data.getPath());
+            } catch (FileNotFoundException e) {
                 System.out.println("The file cannot be found, please check again.");
             }
         }
     }
 
+    public static void loadDataIntoStorage(String filePath) {
+        File f = new File(filePath);
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                processLines(s.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("The file cannot be found, please check again.");
+        }
+    }
+
+    public static void processLines(String line) {
+        String[] lineParts = line.split(" \\| ");
+        switch (lineParts[0]) {
+        case "T":
+            try {
+                Task t = Todo.createTodo("todo " + lineParts[2]);
+                if (lineParts[1].equals("X")) {
+                    t.indIncomplete();
+                }
+                Bobby.storage.add(t);
+            } catch (EmptyDescriptionException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+
+        case "D":
+            try {
+                Task t = Deadline.createDeadline("deadline " + lineParts[2] + " " + lineParts[3]);
+                if (lineParts[1].equals("X")) {
+                    t.indIncomplete();
+                }
+                Bobby.storage.add(t);
+            } catch (EmptyDescriptionException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+
+        case "E":
+            try {
+                Task t = Event.createEvent("event " + lineParts[2] + " " + lineParts[3]);
+                if (lineParts[1].equals("X")) {
+                    t.indIncomplete();
+                }
+                Bobby.storage.add(t);
+            } catch (EmptyDescriptionException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        }
+    }
+
+    public static void writeData(String filePath, String input) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        File f = new File(filePath);
+
+        if (f.exists() && f.length() > 0) {
+            fw.write(System.lineSeparator());
+        }
+        fw.write(input);
+        fw.close();
+    }
+
     public static void printFileContent(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        System.out.println();
         while (s.hasNext()) {
             System.out.println(s.nextLine());
         }
+        horizontalLine(35);
     }
 }
