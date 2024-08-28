@@ -1,5 +1,5 @@
 ------------------------
-Hello! I'm LeBron
+Hello! I'm lebron.LeBron
 What can I do for you?
 ------------------------
 Gotchu, I added the task: 
@@ -27,5 +27,5 @@ Alright bro, great work
 Let's get it done soon!
 [D][ ] return book (by: Sunday)
 ------------------------
-LeBron: Bye! I'm leaving now.
+lebron.LeBron: Bye! I'm leaving now.
 ------------------------

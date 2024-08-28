@@ -1,4 +1,6 @@
 T | 0 | buy beer
-D | 1 | buy eggs | 2021-11-09
-E | 0 | meeting | 2020-10-10 to 2022-10-11
+E | 1 | meeting | 2020-10-10 to 2022-10-11
 D | 0 | buy things | 2029-10-10
+E | 0 | drinks | 2010-11-11 to 2012-10-11
+T | 0 | study
+T | 0 | buy beer
