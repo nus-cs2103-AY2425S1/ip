@@ -5,29 +5,42 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 public class Storage {
-    private Storage(){}
+    private String filePath;
 
-    public static void saveData() {
-        try {
-            FileWriter saveFile = new FileWriter("src/main/Data/save.txt");
-            int numTask = Task.getNumTask();
+    // Constructor to initialize filePath
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    // Method to set the file path
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    // Method to get the current file path
+    public String getFilePath() {
+        return filePath;
+    }
+
+    // Method to save data to the file
+    public void saveData() {
+        try (FileWriter saveFile = new FileWriter(filePath)) {
+            int numTask = TaskList.mainTaskList.getNumTasks();
             for (int i = 0; i < numTask; i++) {
-                saveFile.write(Task.taskFileFormatGet(i));
-                if (i != numTask-1) {
+                saveFile.write(TaskList.mainTaskList.getTaskFileFormat(i));
+                if (i != numTask - 1) {
                     saveFile.write("\n");
                 }
             }
-            saveFile.close();
         } catch (IOException e) {
             System.out.println("There was an error saving your data. Details can be found below.");
             System.out.println(e.getMessage());
         }
     }
 
-    public static void loadData() {
-        try {
-            File savedData = new File("src/main/Data/save.txt");
-            Scanner reader = new Scanner(savedData);
+    // Method to load data from the file
+    public void loadData() {
+        try (Scanner reader = new Scanner(new File(filePath))) {
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 String taskType = data.substring(0, 1);
@@ -38,7 +51,6 @@ public class Storage {
                     case "T" -> ToDo.load(taskDetails);
                 }
             }
-            reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred while loading the data.");
             System.out.println(e.getMessage());

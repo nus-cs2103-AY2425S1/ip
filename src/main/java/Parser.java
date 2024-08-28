@@ -1,7 +1,10 @@
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public static boolean parse(String input) throws BotException {
+
+    public static Storage storage;
+    public static boolean parse(String input, Storage storage) throws BotException {
+        Parser.storage = storage;
         int spaceIndex = input.indexOf(" ");
         String command = (spaceIndex != -1) ? input.substring(0, spaceIndex).toLowerCase() : input.toLowerCase();
         String arguments = (spaceIndex != -1) ? input.substring(spaceIndex + 1).trim() : "";
@@ -39,21 +42,21 @@ public class Parser {
     private static void handleMarkUnmark(String command, String arguments) throws BotException {
         if (arguments.isEmpty()) throw new BotException("Please provide a task number.");
         int taskIndex = Integer.parseInt(arguments) - 1;
-        if (taskIndex < 0 || taskIndex >= Task.taskNum()) throw new BotException("That task does not exist!");
+        if (taskIndex < 0 || taskIndex >= TaskList.mainTaskList.getNumTasks()) throw new BotException("That task does not exist!");
 
         if (command.equals("mark")) {
-            Task.mark(taskIndex);
+            TaskList.mainTaskList.markTask(taskIndex);
             System.out.println("Nicely done! Keep it up!\n");
             Parser.handleList();
         } else {
-            Task.unmark(taskIndex);
+            TaskList.mainTaskList.unmarkTask(taskIndex);
             System.out.println("Sure, I'll uncheck that task!\n");
             Parser.handleList();
         }
     }
 
     private static void taskAddedMsg() {
-        System.out.println("Sure! I'll add that in for you.\n");
+        System.out.println("Sure! I'll add that in for you.");
         Parser.handleList();
     }
     private static void handleToDo(String arguments) throws BotException {
@@ -98,22 +101,22 @@ public class Parser {
     }
 
     private static void handleList() {
-        Task.printList();
-        System.out.printf("You have %s tasks in your list.\n", Task.getNumTask());
+        TaskList.mainTaskList.printList();
+        System.out.printf("You have %s tasks in your list.\n", TaskList.mainTaskList.getNumTasks());
     }
 
     private static void handleDelete(String arguments) throws BotException {
         if (arguments.isEmpty()) throw new BotException("Please provide a task number.");
         int taskIndex = Integer.parseInt(arguments) - 1;
-        if (taskIndex < 0 || taskIndex >= Task.taskNum()) throw new BotException("That task does not exist!");
-        Task.deleteTask(taskIndex);
+        if (taskIndex < 0 || taskIndex >= TaskList.mainTaskList.getNumTasks()) throw new BotException("That task does not exist!");
+        TaskList.mainTaskList.deleteTask(taskIndex);
         System.out.println("Got it! I've removed that task for you.");
-        System.out.printf("You now have %s tasks in your list.\n\n", Task.getNumTask());
+        System.out.printf("You now have %s tasks in your list.\n", TaskList.mainTaskList.getNumTasks());
     }
 
     private static void handleBye() {
         System.out.println("Bye. Hope to see you again soon!");
-        Storage.saveData();
+        storage.saveData();
     }
 }
 

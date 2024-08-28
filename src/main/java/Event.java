@@ -12,10 +12,10 @@ public class Event extends Task {
         LocalDateTime start;
         LocalDateTime end;
         try {
-            start = LocalDateTime.parse(s, Task.inputFormatter);
-            end = LocalDateTime.parse(e, Task.inputFormatter);
+            start = LocalDateTime.parse(s, Task.toSelfFormatter);
+            end = LocalDateTime.parse(e, Task.toSelfFormatter);
         } catch (DateTimeParseException exception) {
-            Task.deleteTask(Task.getNumTask() - 1);
+            TaskList.mainTaskList.deleteTask(TaskList.mainTaskList.getNumTasks() - 1);
             throw exception;
         }
         this.type = "[E]";
@@ -45,19 +45,19 @@ public class Event extends Task {
 
     private String getStart(String type) {
         if (type.equalsIgnoreCase("in")) {
-            return this.start.format(Task.inputFormatter);
+            return this.start.format(Task.toSelfFormatter);
         } else if (type.equalsIgnoreCase("out")) {
-            return this.start.format(Task.outputFormatter);
+            return this.start.format(Task.toUserFormatter);
         } else {
-            return "";
+            return "something went wrong; event time formatter";
         }
     }
 
     private String getEnd(String type) {
         if (type.equalsIgnoreCase("in")) {
-            return this.end.format(Task.inputFormatter);
+            return this.end.format(Task.toSelfFormatter);
         } else if (type.equalsIgnoreCase("out")) {
-            return this.end.format(Task.outputFormatter);
+            return this.end.format(Task.toUserFormatter);
         } else {
             return "";
         }

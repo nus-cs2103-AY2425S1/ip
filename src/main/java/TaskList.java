@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+
+public class TaskList {
+
+    public static final TaskList mainTaskList = new TaskList();
+    private final ArrayList<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
+    public int getNumTasks() {
+        return this.tasks.size();
+    }
+
+    public void printList() {
+        int idx = 1;
+        System.out.println();
+        for (Task task : this.tasks) {
+            System.out.printf("     %s. %s\n", idx, task.toString());
+            idx++;
+        }
+        System.out.println();
+    }
+
+    public void markTask(int i) {
+        this.tasks.get(i).done();
+    }
+
+    public void unmarkTask(int i) {
+        this.tasks.get(i).undone();
+    }
+
+    public void deleteTask(int i) {
+        this.tasks.remove(i);
+    }
+
+    public String getTaskFileFormat(int i) {
+        return tasks.get(i).saveFileFormat();
+    }
+}

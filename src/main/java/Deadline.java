@@ -10,9 +10,9 @@ public class Deadline extends Task {
         LocalDateTime deadline;
 
         try {
-            deadline = LocalDateTime.parse(d, Task.inputFormatter);
+            deadline = LocalDateTime.parse(d, Task.toSelfFormatter);
         } catch (DateTimeParseException exception) {
-            Task.deleteTask(Task.getNumTask() - 1);
+            TaskList.mainTaskList.deleteTask(TaskList.mainTaskList.getNumTasks() - 1);
             throw exception;
         }
         this.type = "[D]";
@@ -29,11 +29,11 @@ public class Deadline extends Task {
 
     private String getDeadline(String type) {
         if (type.equals("in")) {
-            return this.deadline.format(Task.inputFormatter);
+            return this.deadline.format(Task.toSelfFormatter);
         } else if (type.equals("out")) {
-            return this.deadline.format(Task.outputFormatter);
+            return this.deadline.format(Task.toUserFormatter);
         } else {
-            return "";
+            return "something went wrong; deadline time formatter";
         }
     }
 
