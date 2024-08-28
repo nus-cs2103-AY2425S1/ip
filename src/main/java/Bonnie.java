@@ -1,8 +1,11 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import src.main.java.*;
@@ -16,10 +19,12 @@ public class Bonnie {
     public static void main(String[] args) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException, IOException {
         System.out.println("Hello I'm Bonnie, what is your name?");
 
-        File f = new File("ip/src/main/java/Files/conversation.txt");
+        File f = new File("ip/src/main/java/Files/tasks.txt");
         try {
             if (!f.exists()) {
                 f.createNewFile();
+            } else {
+                initialiseFile(f);
             }
         } catch (IOException e) {
             System.out.println("An error occurred when creating file..");
@@ -130,7 +135,7 @@ public class Bonnie {
             tasklist.add(new Todo(taskName));
             name = taskName;
         } else if (splitString[0].equals("deadline")) {
-            String[] components = splitString[1].split("/by", 2);
+            String[] components = splitString[1].split(" /by ", 2);
             if (components.length < 2) {
                 throw new DeadlineFormatException();
             }
@@ -140,8 +145,8 @@ public class Bonnie {
             // Idea is that original string is in the form {event_name} /from {start} /to {end}
             // Hence first split will get event name and the {start} /to {end}
             // Second split will split the {start} /to {end} to get the actual start and end
-            String[] component1 = splitString[1].split("/from", 2);
-            String[] component2 = component1[1].split("/to", 2);
+            String[] component1 = splitString[1].split(" /from ", 2);
+            String[] component2 = component1[1].split(" /to ", 2);
             tasklist.add(new Event(component1[0], component2[0], component2[1]));
             name = component1[0];
         } else {
@@ -157,13 +162,46 @@ public class Bonnie {
      */
     public static void updateFile() {
         try {
-            FileWriter writer = new FileWriter("ip/src/main/java/Files/conversation.txt");
+            FileWriter writer = new FileWriter("ip/src/main/java/Files/tasks.txt");
             for (int i = 0; i < tasklist.size(); i++) {
                 writer.write(String.format("%s\n", tasklist.get(i).toString()));
             }
             writer.close();
         } catch (IOException e) {
             System.out.println("Error updating tasks file!");
+            e.printStackTrace();
+        }
+    }
+
+    public static void initialiseFile(File file) {
+        try {
+            // Idea is to copy the stuff from the tasks.txt to populate the tasklist array (so the app has the tasks)
+            Scanner myReader = new Scanner(file);
+            ArrayList<ArrayList<String>> results = new ArrayList<>();
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                ArrayList<String> subresult = new ArrayList<>();
+                Pattern pattern = Pattern.compile("\\[(.*?)\\]");
+                Matcher matcher = pattern.matcher(data);
+
+                while (matcher.find()) {
+                    subresult.add(matcher.group(1));
+                }
+                results.add(subresult);
+            }
+            myReader.close();
+
+            for (ArrayList<String> lst : results) {
+                if (lst.get(0).equals("ToDo")) {
+                    tasklist.add(new Todo(lst.get(2)));
+                } else if (lst.get(0).equals("Deadline")) {
+                    tasklist.add(new Deadline(lst.get(2), lst.get(3)));
+                } else if (lst.get(0).equals("Event")) {
+                    tasklist.add(new Event(lst.get(2), lst.get(3), lst.get(4)));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred when starting the app.");
             e.printStackTrace();
         }
     }

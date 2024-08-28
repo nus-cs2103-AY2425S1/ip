@@ -26,7 +26,7 @@ abstract public class Task {
 
     @Override
     public String toString() {
-        return isDone ? String.format("[X]: %s", this.description)
-                : String.format("[ ]: %s", this.description);
+        return isDone ? String.format("[X]: [%s] ", this.description)
+                : String.format("[ ]: [%s] ", this.description);
     }
 }
