@@ -4,13 +4,7 @@ public class Event extends Task {
     private final String from;
     private final String to;
 
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    private Event(String description, String from, String to, Boolean hasCompleted) {
+    public Event(String description, String from, String to, Boolean hasCompleted) {
         super(description, hasCompleted);
         this.from = from;
         this.to = to;

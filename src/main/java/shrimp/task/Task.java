@@ -2,29 +2,28 @@ package shrimp.task;
 
 public abstract class Task {
     private final String description;
-    private final Boolean hasCompleted;
-
-    Task(String description) {
-        this.description = description;
-        this.hasCompleted = false;
-    }
+    private final Boolean isDone;
 
     Task(String description, Boolean isDone) {
         this.description = description;
-        this.hasCompleted = isDone;
+        this.isDone = isDone;
     }
 
-    private String getHasCompleted() {
-        return (hasCompleted ? "X" : " "); // mark done shrimp.task with X
+    private String getIsDone() {
+        return (isDone ? "X" : " "); // mark done shrimp.task with X
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return description;
+    }
+
+    public Boolean isDone() {
+        return isDone;
     }
 
     @Override
     public String toString() {
-        return "[" + getHasCompleted() + "] " + description;
+        return "[" + getIsDone() + "] " + description;
     }
 
     public abstract Task markAsDone();
