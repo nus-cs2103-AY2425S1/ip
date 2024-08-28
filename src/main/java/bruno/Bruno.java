@@ -19,6 +19,7 @@ public class Bruno {
 
     public static void main(String[] args) {
         Bruno bruno = new Bruno("src/main/data/", "src/main/data/bruno.txt");
+        
         bruno.run();
     }
 
