@@ -1,17 +1,6 @@
 package Assistinator;
 
-enum Command {
-    BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, UNKNOWN;
 
-    static Command fromString(String input) {
-        String commandString = input.toUpperCase();
-        try {
-            return valueOf(commandString);
-        } catch (IllegalArgumentException e) {
-            return UNKNOWN;
-        }
-    }
-}
 public class Assistinator {
     private Storage storage;
     private Ui ui;
@@ -65,14 +54,14 @@ public class Assistinator {
                 Task newTask = parser.parseTask(command, fullCommand);
                 tasks.addTask(newTask);
                 storage.saveTasks(tasks.getTasks());
-                return "Assistinator.Assistinator.Task added successfully\nNumber of Tasks: " + tasks.size();
+                return "Task added successfully\nNumber of Tasks: " + tasks.size();
             case DELETE:
                 int deleteIndex = parser.parseIndex(fullCommand);
                 tasks.deleteTask(deleteIndex);
                 storage.saveTasks(tasks.getTasks());
-                return "Assistinator.Assistinator.Task " + (deleteIndex + 1) + " deleted successfully. Number of Tasks: " + tasks.size();
+                return "Task " + (deleteIndex + 1) + " deleted successfully. Number of Tasks: " + tasks.size();
             default:
-                throw new AssitinatorExceptions("Assistinator.Command does not exist");
+                throw new AssitinatorExceptions("Command does not exist");
         }
     }
     public static void main(String[] args) {

@@ -43,7 +43,7 @@ public class Storage {
         }
     }
 
-    private Task getTask(String[] parts, String type) {
+    public Task getTask(String[] parts, String type) {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
 
