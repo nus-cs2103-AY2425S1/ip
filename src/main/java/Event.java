@@ -18,6 +18,6 @@ public class Event extends Task {
         String task = "E";
 
         return task + " | " + (this.isDone ? "1" : "0") + " | "
-                + this.description;
+                + this.description + " | " + from + " | " + to;
     }
 }

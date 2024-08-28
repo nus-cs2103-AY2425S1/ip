@@ -15,6 +15,6 @@ public class Deadline extends Task {
         String task = "D";
 
         return task + " | " + (this.isDone ? "1" : "0") + " | "
-                + this.description;
+                + this.description + " | " + by;
     }
 }
