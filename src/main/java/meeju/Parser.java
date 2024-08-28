@@ -7,6 +7,12 @@ public class Parser {
             return -1;
         } else if (instruction.equals("list")) {
             taskList.printList();
+        } else if (instruction.startsWith("find ")) {
+            try {
+                taskList.findTask(instruction.substring(5));
+            } catch (MeejuException e) {
+                System.out.println(e);
+            }
         } else if (instruction.startsWith("mark ")) {
             try {
                 taskList.markTask(instruction.substring(5));
