@@ -1,6 +1,5 @@
 package action;
 
-import exception.BotException;
 import task.Task;
 import task.TaskList;
 
