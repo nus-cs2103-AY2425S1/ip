@@ -17,18 +17,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from a storage file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/taskon.txt";
-    public final Path path;
-    public static final String SEPARATOR = "|";
+    private final String path;
+    private static final String SEPARATOR = "|";
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where the tasks are stored.
+     */
     public Storage(String filePath) {
-        path = Paths.get(filePath);
+        this.path = filePath;
     }
 
+    /**
+     * Saves the list of tasks to the storage file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     */
     public void saveTasks(TaskList tasks) {
         try {
-            FileWriter fw = new FileWriter(FILE_PATH);
+            FileWriter fw = new FileWriter(this.path);
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.getTask(i);
                 fw.write(taskToFileString(task) + System.lineSeparator());
@@ -39,10 +52,16 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> load() throws TaskonException {
+    /**
+     * Loads the list of tasks from the storage file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws TaskonException If the file cannot be loaded or parsed.
+     */
+    public ArrayList<Task> load() throws TaskonException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(this.path);
 
             // check if directory or file do not exist
             if (!file.getParentFile().exists()) {
@@ -67,6 +86,14 @@ public class Storage {
         return tasks;
     }
 
+
+    /**
+     * Converts a line from the storage file into a Task object.
+     *
+     * @param line The line from the file representing a task.
+     * @return The Task object created from the line.
+     * @throws TaskonException If the line cannot be parsed into a valid Task.
+     */
     private static Task parseTask(String line) throws TaskonException {
         Task task = null;
         String[] taskDescription = line.trim().split("\\s*\\" + SEPARATOR + "\\s*");
@@ -103,6 +130,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Converts a Task object into a formatted string suitable for saving to the file.
+     *
+     * @param task The Task object to convert.
+     * @return A formatted string representing the Task.
+     */
     private static String taskToFileString(Task task) {
         String taskStatus = task.isDone ? "1" : "0";
 

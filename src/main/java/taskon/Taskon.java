@@ -7,12 +7,21 @@ import taskon.storage.Storage;
 import taskon.task.TaskList;
 import taskon.ui.Ui;
 
+/**
+ * The main class for the Taskon application.
+ * This class handles the initialization of the application, the main loop, and the interaction between the components.
+ */
 public class Taskon {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Taskon object and initializes the application with the specified storage file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Taskon(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +33,9 @@ public class Taskon {
         }
     }
 
+    /**
+     * Runs the Taskon application. This method handles the main loop where commands are read, parsed, and executed.
+     */
     public void run() {
         ui.greet();
         ui.showLine();

@@ -9,13 +9,26 @@ import java.util.regex.Pattern;
 
 import static taskon.common.Messages.*;
 
+/**
+ * Parses user input into commands for execution.
+ *
+ * The `Parser` class interprets the user's input and translates it
+ * into the appropriate command that the application can execute.
+ */
 public class Parser {
 
     /**
-     * Used for initial separation of command word and args.
+     * Regex pattern used for initial separation of command word and args.
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    /**
+     * Parses the given user input and returns the corresponding command.
+     *
+     * @param input Full user input string.
+     * @return The command based on the user input.
+     * @throws TaskonException If the user input does not conform to the expected format.
+     */
     public static Command parse(String input) throws TaskonException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
@@ -45,14 +58,11 @@ public class Parser {
         case TodoCommand.COMMAND_WORD:
             return prepareTodo(arguments);
 
-
         case DeadlineCommand.COMMAND_WORD:
             return prepareDeadline(arguments);
 
-
         case EventCommand.COMMAND_WORD:
             return prepareEvent(arguments);
-
 
         case OnCommand.COMMAND_WORD:
             return new OnCommand(arguments);
@@ -63,6 +73,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares the delete command by parsing the user input.
+     *
+     * @param arguments User input for the delete command.
+     * @return The delete command.
+     * @throws TaskonException If the task number is not a valid integer.
+     */
     private static Command prepareDelete(String arguments) throws TaskonException {
         try {
             int index = Integer.parseInt(arguments.trim());
@@ -72,6 +89,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares the unmark command by parsing the user input.
+     *
+     * @param arguments User input for the unmark command.
+     * @return The unmark command.
+     * @throws TaskonException If the task number is not a valid integer.
+     */
     private static Command prepareUnmark(String arguments) throws TaskonException {
         try {
             int index = Integer.parseInt(arguments.trim());
@@ -81,6 +105,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares the mark command by parsing the user input.
+     *
+     * @param arguments User input for the mark command.
+     * @return The mark command.
+     * @throws TaskonException If the task number is not a valid integer.
+     */
     private static Command prepareMark(String arguments) throws TaskonException {
         try {
             int index = Integer.parseInt(arguments.trim());
@@ -90,6 +121,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares the todo command by parsing the user input.
+     *
+     * @param args User input for the todo command.
+     * @return The todo command.
+     * @throws TaskonException If the description is missing.
+     */
     private static Command prepareTodo(String args) throws TaskonException {
         if (args.trim().isEmpty()) {
             throw new TaskonException(MESSAGE_DESCRIPTION_MISSING);
@@ -97,6 +135,13 @@ public class Parser {
         return new TodoCommand(args.trim());
     }
 
+    /**
+     * Prepares the deadline command by parsing the user input.
+     *
+     * @param args User input for the deadline command.
+     * @return The deadline command.
+     * @throws TaskonException If the date is missing or invalid.
+     */
     private static Command prepareDeadline(String args) throws TaskonException {
         if (!args.contains("/by")) {
             throw new TaskonException(MESSAGE_DATE_MISSING);
@@ -105,12 +150,22 @@ public class Parser {
             String[] parts = args.split("/by", 2);
             String description = parts[0].trim();
             String date = parts[1].trim();
+            if (description.isEmpty()) {
+                throw new TaskonException(MESSAGE_DESCRIPTION_MISSING);
+            }
             return new DeadlineCommand(description, date);
         } catch (DateTimeParseException e) {
             throw new TaskonException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
+    /**
+     * Prepares the event command by parsing the user input.
+     *
+     * @param args User input for the event command.
+     * @return The event command.
+     * @throws TaskonException If the command format is incorrect or if the date is invalid.
+     */
     private static Command prepareEvent(String args) throws TaskonException {
         String[] partsFrom = args.split("/from", 2);
         if (partsFrom.length < 2) {
