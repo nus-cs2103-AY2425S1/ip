@@ -26,12 +26,13 @@ public class Jeriel {
 
         while (true) {
             input = scanner.nextLine(); 
-            System.out.println("____________________________________________________________");
-            System.out.println(" " + input);
-            System.out.println("____________________________________________________________");
+            // System.out.println("____________________________________________________________");
+            // System.out.println(" " + input);
+            // System.out.println("____________________________________________________________");
 
 
             if (input.equals("bye")) {
+                System.out.println("____________________________________________________________");
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
 
@@ -39,13 +40,14 @@ public class Jeriel {
 
             } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println(" " + (i + 1) + ". " + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
 
 
-            } else if (input.startsWith("mark ")) {
+            } else if (input.startsWith("mark")) {
                 int taskNumber = Integer.parseInt(input.substring(5)) - 1;
                 tasks[taskNumber].markAsDone();
                 System.out.println("____________________________________________________________");
@@ -54,7 +56,7 @@ public class Jeriel {
                 System.out.println("____________________________________________________________");
 
 
-            } else if (input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(input.substring(7)) - 1;
                 tasks[taskNumber].markAsNotDone();
                 System.out.println("____________________________________________________________");
@@ -63,9 +65,43 @@ public class Jeriel {
                 System.out.println("____________________________________________________________");
 
 
-            } else {
-                tasks[taskCount] = new Task(input);
+            } else if (input.startsWith("todo")) {
+                tasks[taskCount] = new Todo(input.substring(5));
                 taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            
+            } else if (input.startsWith("event")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            
+            } else {
+                // tasks[taskCount] = new Task(input);
+                // taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println(" added: " + input);
                 System.out.println("____________________________________________________________");
