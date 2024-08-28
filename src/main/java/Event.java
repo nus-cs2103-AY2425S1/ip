@@ -14,6 +14,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    @Override
+    public String toStringSave() {
+        int indicator = this.isDone ? 1 : 0;
+        return "E | " + indicator + " | " + this.description
+                + " | " + this.from + " | " + this.to;
+    }
+
     /**
      * Returns a string representation of the task.
      * @return task description with status and event period

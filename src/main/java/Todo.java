@@ -7,6 +7,12 @@ public class Todo extends Task {
         super(description);
     }
 
+    @Override
+    public String toStringSave() {
+        int indicator = this.isDone ? 1 : 0;
+        return "T | " + indicator + " | " + this.description;
+    }
+
     /**
      * Returns a string representation of the task.
      * @return task description with status

@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -33,11 +33,12 @@ public class Task {
         this.isDone = false;
     }
 
+    public abstract String toStringSave();
+
     /**
      * Returns a string representation of the task.
      * @return task description with status
      */
-    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }

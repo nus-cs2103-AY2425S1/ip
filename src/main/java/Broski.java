@@ -1,19 +1,27 @@
+import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Broski {
-    private final static String line = "_________________________________________";
+    private static final String LINE = "_________________________________________";
     private final Scanner scanner = new Scanner(System.in);
-    private final ArrayList<Task> list = new ArrayList<>(100);
+    private ArrayList<Task> list = new ArrayList<>(100);
+
+    private final TaskManager manager = new TaskManager();
+
+    private static void printLine() {
+        System.out.println(LINE);
+    }
 
     /**
      * Starts the chatbot with the initial prompts.
      */
     public void start() {
-        System.out.println(line);
+        printLine();
         System.out.println("Wassup! I'm Broski!");
         System.out.println("What can I do for you bro?");
-        System.out.println(line);
+        printLine();
+        this.list = this.manager.loadTasks();
     }
 
     /**
@@ -23,42 +31,45 @@ public class Broski {
             EventException, WrongInputException {
         String reply = scanner.nextLine();
         if (reply.equals("list")) {
-            System.out.println(line);
+            printLine();
             for (int i = 1; i <= list.size(); i++) {
                 System.out.println(i + ". " + list.get(i - 1));
             }
-            System.out.println(line);
+            printLine();
             this.chatbot();
         } else if (reply.equals("bye")) {
-            System.out.println(line);
+            printLine();
             this.exit();
         } else if (reply.length() > 5 && reply.startsWith("mark")) {
-            System.out.println(line);
+            printLine();
             int i = Integer.parseInt(reply.split(" ")[1]);
             list.get(i).mark();
             System.out.println("Solid! Marked as done for you:");
             System.out.println(list.get(i));
-            System.out.println(line);
+            printLine();
+            this.save();
             this.chatbot();
         } else if (reply.length() > 7 && reply.startsWith("unmark")) {
-            System.out.println(line);
+            printLine();
             int i = Integer.parseInt(reply.split(" ")[1]);
             list.get(i).unmark();
             System.out.println("Alright, I've marked the task as undone:");
             System.out.println(list.get(i));
-            System.out.println(line);
+            printLine();
+            this.save();
             this.chatbot();
         } else if (reply.length() > 7 && reply.startsWith("delete")) {
-            System.out.println(line);
+            printLine();
             int i = Integer.parseInt(reply.split(" ")[1]);
             String temp = list.get(i).toString();
             list.remove(i);
             System.out.println("Gotcha, I've removed this task:");
             System.out.println(temp);
             System.out.println("Now you have " + list.size() + " tasks in the list.");
+            this.save();
             this.chatbot();
         } else {
-            System.out.println(line);
+            printLine();
             if (reply.length() == 4 && reply.startsWith("todo")) {
                 throw new TodoException();
             }
@@ -99,7 +110,8 @@ public class Broski {
                 System.out.println("  " + event);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             }
-            System.out.println(line);
+            printLine();
+            this.save();
             this.chatbot();
         }
     }
@@ -109,7 +121,11 @@ public class Broski {
      */
     public void exit() {
         System.out.println("Bye, bro. See ya around!");
-        System.out.println(line);
+        printLine();
+    }
+
+    public void save() {
+        this.manager.saveTasks(this.list);
     }
 
     public static void main(String[] args) throws TodoException, DeadlineException,
@@ -120,15 +136,15 @@ public class Broski {
             bot.chatbot();
         } catch (TodoException e) {
             System.out.println("Hey, your task description is empty bro.");
-            System.out.println(line);
+            printLine();
         } catch (DeadlineException e) {
             System.out.println("Hey, your task description" +
                     " is either empty or missing a deadline bro.");
-            System.out.println(line);
+            printLine();
         } catch (EventException e) {
             System.out.println("Hey, your task description" +
                     " is either empty or missing a duration bro.");
-            System.out.println(line);
+            printLine();
         } catch (WrongInputException e) {
             System.out.println("I'm sorry but I can't understand you bro." +
                     " Use task, deadline or event please!");
