@@ -6,11 +6,11 @@ public class Schedulo {
     public static void main(String[] args) {
         File file = new File("./data/data.txt");
         Scanner sc = new Scanner(System.in);
+        Scanner fileReader = null;
         try {
-            Scanner fileReader = new Scanner(file);
+            fileReader = new Scanner(file);
             String horizontalLine = "---------------";
-            TaskList taskList = new TaskList();
-            // read from file and add to task list
+            TaskList taskList = new TaskList(fileReader);
             System.out.println(horizontalLine);
             System.out.println("Hello I am Schedulo!");
             System.out.println("What can I do for you?");
@@ -28,12 +28,14 @@ public class Schedulo {
                 
                 System.out.println(horizontalLine);
             }
-            fileReader.close(); // see if this is the correct place
         } catch (FileNotFoundException e) {
             System.out.println("File not found, please create a new file data.txt under data folder outside src");
         } catch (Exception e) {
             System.err.println("Something went wrong, please try again");
         } finally {
+            if (fileReader != null) {
+                fileReader.close();
+            }
             sc.close();
         }
     }

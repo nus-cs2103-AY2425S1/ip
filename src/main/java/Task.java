@@ -8,6 +8,11 @@ public class Task {
         this.taskName = name.trim();
     }
 
+    public Task(String name, boolean isDone) {
+        this.done = isDone;
+        this.taskName = name.trim();
+    }
+
     public void mark() {
         this.done = true;
     }
