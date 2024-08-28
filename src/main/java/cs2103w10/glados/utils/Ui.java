@@ -78,9 +78,10 @@ public class Ui {
      * 
      * @param taskList Task list to be printed.
      */
-    public static void list(ArrayList<Task> taskList) {
+    public static void list(ArrayList<Task> taskList, boolean shouldFindMatching) {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("GLaDOS: Here is the list...\n");
+        String findMatchingString = shouldFindMatching ? " that matches input...\n" : "...\n";
+        System.out.println("GLaDOS: Here is the list" + findMatchingString);
 
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(i + 1 + ". " + taskList.get(i).toString()); 
