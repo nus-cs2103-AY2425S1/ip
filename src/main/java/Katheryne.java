@@ -1,185 +1,68 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.InputMismatchException;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-
-
 public class Katheryne {
-    private Scanner sc;
-    private ArrayList<Task> list;
-    private static final String PATH = "./data/Katheryne.txt";
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-    public Katheryne() {
-        this.sc= new Scanner(System.in);
-        this.list = new ArrayList<Task>();
-    }
-
-    private String getList() {
-        String output = "";
-        for (int i = 0; i < list.size(); i++) {
-            int index = i+1;
-            String item = index + ". " + list.get(i).toString() + '\n';
-            output = output + item;
-        }
-        return output;
-    }
-
-    public void save() {
+    public Katheryne(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            String str = "";
-            BufferedWriter bw = new BufferedWriter(new FileWriter(PATH));
-            for (Task t : list) {
-                str = str + t.toSaveString() + '\n';
-            }
-            bw.write(str);
-            bw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            taskList = new TaskList(storage.load());
+        } catch (Exception e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        Katheryne k = new Katheryne("./data/Katheryne.txt");
+        k.run();
     }
 
     public void run() {
-        System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
-        System.out.println("Katheryne: " +
-                "Ad astra abyssosque! I'm Katheryne, the receptionist here at the Adventurers' Guild. Welcome!");
+        System.out.println(ui.getDivide());
+        System.out.println(ui.getGreeting());
 
-        String userInput;
-        boolean finish = false;
-        String saveStr = "";
-        while (!finish) {
-            System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
-            userInput = sc.nextLine();
+        boolean isFinish = false;
+
+        while (!isFinish) {
+            System.out.println(ui.getDivide());
             try {
-                if (userInput.equals("list")) {
-                    System.out.println(this.getList());
-                } else if (userInput.startsWith("mark")) {
-                    String[] input = userInput.split(" ");
-                    if (input.length < 2) {
-                        throw new MissingInformationException("You need to specify the task number to mark.");
-                    }
-                    int id = Integer.parseInt(input[1]) - 1;
-                    Task target = list.get(id);
-                    target.mark();
-                    this.save();
-                    System.out.println("Katheryne: " +
-                            "Nice! I've marked this task as done:" + '\n' + target.toString());
-                } else if (userInput.startsWith("unmark")) {
-                    String[] input = userInput.split(" ");
-                    if (input.length < 2) {
-                        throw new MissingInformationException("You need to specify the task number to unmark.");
-                    }
-                    int id = Integer.parseInt(input[1]) - 1;
-                    Task target = list.get(id);
-                    target.unmark();
-                    this.save();
-                    System.out.println("Katheryne: OK, I've marked this task as not done yet:" + '\n' + target.toString());
-                } else if (userInput.startsWith("todo")) {
-                    String[] input = userInput.split(" ", 2);
-                    if (input.length < 2 || input[1].isEmpty()) {
-                        throw new MissingInformationException("You need to specify the description of the todo task.");
-                    }
-                    String des = input[1];
-                    ToDo task = new ToDo(des);
-                    list.add(task);
-                    this.save();
-                    String str = String.format("Katheryne: " +
-                            "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), list.size());
-                    System.out.println(str);
-                } else if (userInput.startsWith("event")) {
-                    int fromIndex = userInput.indexOf("/from");
-                    int toIndex = userInput.indexOf("/to");
+                Command c = new Command(ui, taskList);
+                String str = ui.getLine();
+                String commandWord = ui.getCommand(str);
+                if (commandWord.equals("list")) {
+                    System.out.println(c.executeList(taskList));
+                } else if (commandWord.equals("mark")) {
+                    System.out.println(c.executeMark(str));
 
-                    if (fromIndex == -1) {
-                        throw  new MissingInformationException("You need to specify FROM time for an event.");
-                    }
-                    if (toIndex == -1) {
-                        throw new MissingInformationException("You need to specify TO time for an event.");
-                    }
-
-                    String fromTime = userInput.substring(fromIndex + "/from".length(), toIndex).trim();
-                    String toTime = userInput.substring(toIndex + "/to".length()).trim();
-                    int firstSpaceIndex = userInput.indexOf(" ");
-                    String description = userInput.substring(firstSpaceIndex + 1, fromIndex).trim();
-                    if (description.isEmpty()) {
-                        throw new MissingInformationException("You need to specify the description of the todo task.");
-                    }
-
-                    Event task = new Event(description, fromTime, toTime);
-                    list.add(task);
-                    this.save();
-                    String str = String.format("Katheryne: " +
-                            "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), list.size());
-                    System.out.println(str);
-                } else if (userInput.startsWith("deadline")) {
-                    String[] input = userInput.split(" /by ", 2);
-                    if (input.length < 2) {
-                        throw new MissingInformationException("You need to specify both the description and the deadline time.");
-                    }
-                    String des = input[0];
-                    int firstSpaceIndex = des.indexOf(" ");
-                    String description = des.substring(firstSpaceIndex + 1).trim();
-                    String byTime = input[1].trim();
-
-                    if (description.isEmpty()) {
-                        throw new MissingInformationException("You need to specify description of task.");
-                    }
-
-                    if (byTime.isEmpty()) {
-                        throw new MissingInformationException("You need to specify deadline time of task.");
-                    }
-
-                    Deadline task = new Deadline(description, byTime);
-                    list.add(task);
-                    this.save();
-                    String str = String.format("Katheryne:" +
-                            " Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task.toString(), list.size());
-                    System.out.println(str);
-                } else if (userInput.equals("bye")) {
-                    finish = true;
-                    System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
-                    System.out.println("Katheryne: " +
-                            "Farewell, Adventurer, and thank you for supporting the Adventurers' Guild.");
-                    System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
-                    sc.close();
-                } else if (userInput.startsWith("delete")) {
-                    String[] input = userInput.split(" ");
-                    if (input.length < 2) {
-                        throw new MissingInformationException("You need to specify the task number to delete.");
-                    }
-                    int id = Integer.parseInt(input[1]) - 1;
-                    Task target = list.get(id);
-                    list.remove(id);
-                    this.save();
-                    String str = String.format("Katheryne: OK, I've deleted this task from your list:\n%s\nNow you have %d tasks in the list.",target.toString(),list.size());
-                    System.out.println(str);
+                } else if (commandWord.equals("unmark")) {
+                    System.out.println(c.executeUnmark(str));
+                } else if (commandWord.equals("todo")) {
+                    System.out.println(c.executeAddToDo(str));
+                } else if (commandWord.equals("event")) {
+                    System.out.println(c.executeAddEvent(str));
+                } else if (commandWord.equals("deadline")) {
+                    System.out.println(c.executeAddDeadline(str));
+                } else if (commandWord.equals("bye")) {
+                    isFinish = true;
+                    System.out.println(ui.getDivide());
+                    System.out.println(ui.getBye());
+                    System.out.println(ui.getDivide());
+                } else if (commandWord.equals("delete")) {
+                    System.out.println(c.executeDelete(str));
                 } else {
                     throw new InvalidInputException("Katheryne: " + "I'm sorry, Katheryne is unable to comprehend your request.");
                 }
+                storage.save(taskList);
             } catch (MissingInformationException e) {
                 System.out.println("Katheryne: " + e.getMessage());
             } catch (InvalidInputException e) {
                 System.out.println("Katheryne: " + e.getMessage());
-            } catch (NumberFormatException e) {
-                System.out.println("Katheryne: The task number must be a valid integer. Please try again.");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Katheryne: That task number doesn't exist. Please try again.");
-            } catch (Exception e) {
-                System.out.println("Katheryne: An unexpected error occurred: " + e.getMessage());
             }
         }
-
-
-    }
-
-
-    public static void main(String[] args) {
-        Katheryne k = new Katheryne();
-        k.run();
     }
 }
+
 
 
