@@ -9,6 +9,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String saveFullDetails() {
+        return String.format("T | %b | %s | %s", isDone(), getDescription(), this.deadline);
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + String.format(" (by: %s)", deadline);
     }
