@@ -19,7 +19,6 @@ public class Parser {
     public static Command parse(String fullCommand) throws InputException {
         String[] commandParts = fullCommand.trim().split(" ", 2);
         String command = commandParts[0].toLowerCase();
-
         return switch (command) {
             case "bye" -> new ExitCommand();
             case "list" -> new ListCommand();
