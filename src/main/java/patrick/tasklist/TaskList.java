@@ -14,7 +14,7 @@ public class TaskList {
         if (!taskList.isEmpty()) {
             this.taskList = taskList;
         } else {
-            throw new Parser.PatrickException("Something wrong!");
+            throw new Parser.PatrickException("Your Task List is empty!\n");
         }
     }
 
