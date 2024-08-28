@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +11,18 @@ public class Asura {
         String formattedMsg = startBorder + msg + endBorder;
         return formattedMsg.indent(3);
     }
+    public static void initializeData(String pathname) {
+        File data = new File(pathname);
+        data.getParentFile().mkdirs();
+        try {
+            data.createNewFile();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-    public static void main(String[] args) throws AsuraException {
+
+        public static void main(String[] args) throws AsuraException {
         Scanner scanner = new Scanner(System.in);
         String introduction = """
                 Hello! I'm Asura!
@@ -19,6 +30,7 @@ public class Asura {
         String goodbye = """
                 Bye. Hope to see you again soon!""";
         List<Task> tasks = new ArrayList<>();
+        initializeData("./data/asura.txt");
 
         System.out.println(formatResponse(introduction));
         List<String> input = Arrays.asList(scanner.nextLine().split(" "));
