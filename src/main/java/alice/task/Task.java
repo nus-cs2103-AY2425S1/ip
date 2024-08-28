@@ -24,14 +24,14 @@ public abstract class Task {
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = Parser.parseJsonString(jsonString);        
         switch (TaskType.valueOf(arguments.get("taskType").toUpperCase())) {
-            case TODO:
-                return ToDo.fromJsonString(jsonString);
-            case DEADLINE:
-                return Deadline.fromJsonString(jsonString);
-            case EVENT:
-                return Event.fromJsonString(jsonString);
-            default:
-                throw new InvalidTaskException();
+        case TODO:
+            return ToDo.fromJsonString(jsonString);
+        case DEADLINE:
+            return Deadline.fromJsonString(jsonString);
+        case EVENT:
+            return Event.fromJsonString(jsonString);
+        default:
+            throw new InvalidTaskException();
         }
     }
 

@@ -20,6 +20,7 @@ public class Event extends Task {
         if (!flags.containsKey("to")) {
             throw new InvalidTaskException("Missing /to flag.");
         }
+
         try {
             this.from = Parser.parseDateString(flags.get("from"));
         } catch (DateTimeParseException exception) {

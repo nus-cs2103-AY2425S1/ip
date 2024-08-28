@@ -31,6 +31,7 @@ public class DeleteTask extends Command {
         try {
             int index = taskNumber - 1;
             removedTask = taskList.deleteTask(index);
+
             String[] lines = new String[]{
                 "Noted. I've removed this task:",
                 removedTask.toString()

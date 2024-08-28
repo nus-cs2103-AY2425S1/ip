@@ -30,6 +30,7 @@ public class UnmarkTask extends Command {
         try {
             int index = taskNumber - 1;
             Task unmarkedTask = taskList.unmarkTask(index);
+
             String[] lines = new String[]{
                 "OK, I've marked this task as not done yet:",
                 unmarkedTask.toString()

@@ -21,20 +21,21 @@ public class AddTask extends Command {
         Task task;
         try {
             switch (taskType) {
-                case TODO:
-                    task = new ToDo(line);
-                    break;
-                case DEADLINE:
-                    task = new Deadline(line);
-                    break;
-                case EVENT:
-                    task = new Event(line);
-                    break;
-                default:
-                    // not possible
-                    throw new InvalidTaskException();
+            case TODO:
+                task = new ToDo(line);
+                break;
+            case DEADLINE:
+                task = new Deadline(line);
+                break;
+            case EVENT:
+                task = new Event(line);
+                break;
+            default:
+                // not possible
+                throw new InvalidTaskException();
             }
             taskList.addTask(task);
+
             String[] lines = new String[]{
                 "Got it. I've added this task:",
                 task.toString()
