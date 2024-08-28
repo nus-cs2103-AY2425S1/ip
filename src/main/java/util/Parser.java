@@ -24,7 +24,7 @@ public class Parser {
     String[] entries = storage.toArray();
 
     for (String entry : entries) {
-      if (entry.length() < 7) {
+      if (entry.length() < 7 || entry.length() < 1) {
         throw new MizzException("Incomplete entry!:" + entry);
       }
       String[] parts = entry.substring(7).split("\\s+");
