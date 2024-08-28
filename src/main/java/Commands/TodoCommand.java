@@ -1,7 +1,9 @@
 package commands;
 
-import applemazer.*;
-import tasks.*;
+import applemazer.Storage;
+import applemazer.TaskList;
+import tasks.Task;
+import tasks.Todo;
 
 /**
  * Class that represents the "to-do" command.

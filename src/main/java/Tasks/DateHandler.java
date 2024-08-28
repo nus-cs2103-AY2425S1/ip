@@ -1,9 +1,9 @@
 package tasks;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.DateTimeException;
 
 /**
  * Class that parses an input string into a {@code LocalDateTime} or {@code LocalDate}.

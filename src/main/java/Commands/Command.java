@@ -1,6 +1,7 @@
 package commands;
 
-import applemazer.*;
+import applemazer.TaskList;
+import applemazer.Storage;
 
 /**
  * Abstract class that represents a user command.

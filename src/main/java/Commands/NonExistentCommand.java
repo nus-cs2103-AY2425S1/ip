@@ -1,6 +1,7 @@
 package commands;
 
-import applemazer.*;
+import applemazer.Storage;
+import applemazer.TaskList;
 
 /**
  * Class that represents a non-existent command.

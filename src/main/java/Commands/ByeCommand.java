@@ -1,12 +1,12 @@
 package commands;
 
-import applemazer.*;
+import applemazer.Storage;
+import applemazer.TaskList;
 
 /**
  * Class that represents the "bye" command.
  */
 public class ByeCommand extends Command {
-
     /**
      * Does not do anything as the purpose of the "bye" command is to set the processing state to false
      * to shut down the chatbot.

@@ -1,8 +1,8 @@
 package tasks;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.DateTimeException;
 
 /**
  * Class that represents an {@code Event} with a start and end date.

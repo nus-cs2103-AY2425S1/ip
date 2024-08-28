@@ -1,6 +1,6 @@
 package tasks;
 
-import applemazer.*;
+import applemazer.Applemazer;
 import java.io.Serializable;
 
 /**

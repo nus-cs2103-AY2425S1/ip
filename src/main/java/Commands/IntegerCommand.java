@@ -1,7 +1,8 @@
 package commands;
 
-import applemazer.*;
-import tasks.*;
+import applemazer.Storage;
+import applemazer.TaskList;
+import tasks.Task;
 
 /**
  * Class that represents either the "mark", "unmark", or "delete" command.
