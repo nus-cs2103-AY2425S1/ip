@@ -1,9 +1,9 @@
-package Revir.Tasks;
+package revir.tasks;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Revir.System.Storage;
-import Revir.User.Ui;
+import revir.system.Storage;
+import revir.user.Ui;
 
 public class TaskList {
     private ArrayList<Task> tasks;

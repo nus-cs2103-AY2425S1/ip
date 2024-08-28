@@ -1,7 +1,7 @@
-package Revir.User.Command;
+package revir.user.command;
 
-import Revir.Tasks.TaskList;
-import Revir.User.Ui;
+import revir.tasks.TaskList;
+import revir.user.Ui;
 
 public class ListTasks extends Command {
     public ListTasks() {

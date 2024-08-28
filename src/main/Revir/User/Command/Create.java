@@ -1,10 +1,10 @@
-package Revir.User.Command;
+package revir.user.command;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import Revir.Tasks.*;
-import Revir.User.Ui;
+import revir.tasks.*;
+import revir.user.Ui;
 
 public class Create extends Command {
     private String taskDescription;

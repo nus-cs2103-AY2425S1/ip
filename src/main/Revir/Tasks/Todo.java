@@ -1,4 +1,4 @@
-package Revir.Tasks;
+package revir.tasks;
 
 public class Todo extends Task {
     public static String format = "todo <description>";

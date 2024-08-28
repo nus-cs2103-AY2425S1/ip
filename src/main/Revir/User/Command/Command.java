@@ -1,9 +1,9 @@
-package Revir.User.Command;
+package revir.user.command;
 
 import java.io.IOException;
 
-import Revir.Tasks.TaskList;
-import Revir.User.Ui;
+import revir.tasks.TaskList;
+import revir.user.Ui;
 
 abstract public class Command {
     private boolean isExit = false;

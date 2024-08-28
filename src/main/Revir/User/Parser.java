@@ -1,14 +1,14 @@
-package Revir.User;
+package revir.user;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-import Revir.System.Exceptions.IllegalCommandException;
-import Revir.System.Exceptions.InvalidFormatException;
-import Revir.Tasks.*;
-import Revir.User.Command.*;
+import revir.system.Exceptions.IllegalCommandException;
+import revir.system.Exceptions.InvalidFormatException;
+import revir.tasks.*;
+import revir.user.command.*;
 
 public class Parser {
     // use java enum to define command types

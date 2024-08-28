@@ -1,12 +1,12 @@
-package Revir;
+package revir;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import Revir.System.Storage;
-import Revir.Tasks.*;
-import Revir.User.*;
-import Revir.User.Command.Command;
+import revir.system.Storage;
+import revir.tasks.*;
+import revir.user.*;
+import revir.user.command.Command;
 
 public class Revir {
     static TaskList taskList;

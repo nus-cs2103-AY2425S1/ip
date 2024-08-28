@@ -1,4 +1,4 @@
-package Revir.Tasks;
+package revir.tasks;
 import java.io.Serializable;
 
 public class Task implements Serializable {
