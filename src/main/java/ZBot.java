@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
 public class ZBot {
@@ -21,15 +20,13 @@ public class ZBot {
     public void run() {
         ui.intro();
         storage.createFileIfNotExists();
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
+        String input = ui.readCommand();
         while (!input.equals("bye")) {
             processInput(input, ui);
-            input = sc.nextLine();
+            input = ui.readCommand();
         }
 
         storage.save(tasks);
-        sc.close();
         ui.outro();
     }
 

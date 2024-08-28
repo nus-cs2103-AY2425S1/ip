@@ -1,4 +1,7 @@
+import java.util.Scanner;
+
 public class Ui {
+    private Scanner sc = new Scanner(System.in);
 
     public void intro() {
         System.out.println("Hello! I'm ZBot!");
@@ -7,6 +10,7 @@ public class Ui {
 
     public void outro() {
         System.out.println("Bye. Hope to see you again soon!");
+        sc.close();
     }
 
     public void printAddTaskMsg(Task task, int size) {
@@ -35,5 +39,9 @@ public class Ui {
 
     public void printLoadingError() {
         System.out.println("No saved data found. Starting with an empty task list...\n");
+    }
+
+    public String readCommand() {
+        return sc.nextLine();
     }
 }
