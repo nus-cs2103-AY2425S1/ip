@@ -6,7 +6,9 @@ public class Parser {
         return command;
     }
 
-    //public static String[] parse
+    public static int parseMarkUnmark(String input) {
+        return Integer.parseInt(input.trim());
+    }
 
 
 }

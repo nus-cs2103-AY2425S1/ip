@@ -42,14 +42,16 @@ public class NewGreetBot {
         String keyword = segment[0];
         if (keyword.equals("BYE")) {
             isRunning = false;
+            ui.closeInput();
+            storage.saveData(tasks);
             return ui.farewellUser();
         } else if (keyword.equals("LIST")) {
             return ui.showList(this.tasks);
-        } /*else if (keyword.equals("MARK")) {
-            return ui.markTask(Parser.parseMarkUnmark());
+        } else if (keyword.equals("MARK")) {
+            return this.markAsDone(Parser.parseMarkUnmark(segment[1]) - 1);
         } else if (keyword.equals("UNMARK")) {
-            return ui.unmarkTask(Parser.parseMarkUnmark());
-        } else if (keyword.equals("TODO")) {
+            return this.markAsNotDone(Parser.parseMarkUnmark(segment[1]) - 1);
+        } /*else if (keyword.equals("TODO")) {
             return ui.addTodo()
         } else if (keyword.equals("EVENT")) {
             return ui.addEvent()
@@ -60,6 +62,16 @@ public class NewGreetBot {
         }*/ else {
             return "";
         }
+    }
+
+    private String markAsDone(int position) {
+        this.tasks.get(position).mark();
+        return ui.showMarked(tasks.get(position), tasks.getLength());
+    }
+
+    private String markAsNotDone(int position) {
+        this.tasks.get(position).unmark();
+        return ui.showUnmarked(tasks.get(position), tasks.getLength());
     }
 
     public static void main(String[] args) {

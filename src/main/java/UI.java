@@ -17,6 +17,20 @@ public class Ui {
         );
     }
 
+    public String showMarked(Task task, int total) {
+        return String.format("Got it. I've added this task:\n" +
+                "%s\n" +
+                "Now you have %d tasks in the list.", task.toString(), total);
+    }
+
+    public String showUnmarked(Task task, int total) {
+        return String.format("Noted. I've removed this task:\n" +
+                "%s\n" +
+                "Now you have %d tasks in the list.", task.toString(), total);
+    }
+
+
+
     public String readInput() {
         return this.commandLineReader.nextLine();
     }
