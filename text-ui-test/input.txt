@@ -1,0 +1,10 @@
+todo todo1
+deadline deadline1 /by Sunday
+event buy a kite event /from Tuesday /to Saturday
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+bye
