@@ -1,5 +1,7 @@
-package joe;
+package joe.parser;
 import java.util.Scanner;
+
+import joe.controller.Controller;
 
 public class Parser {
     private Controller controller;

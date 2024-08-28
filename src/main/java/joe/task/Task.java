@@ -1,4 +1,4 @@
-package joe;
+package joe.task;
 public class Task {
 
     private String task;

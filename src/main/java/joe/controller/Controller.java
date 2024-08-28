@@ -1,6 +1,13 @@
-package joe;
+package joe.controller;
 
 import java.util.ArrayList;
+
+import joe.storage.Storage;
+import joe.task.Task;
+import joe.task.TaskDeadline;
+import joe.task.TaskEvent;
+import joe.task.TaskTodo;
+import joe.ui.Ui;
 
 public class Controller {
     private Ui ui;

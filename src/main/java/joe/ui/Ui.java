@@ -1,5 +1,7 @@
-package joe;
+package joe.ui;
 import java.util.ArrayList;
+
+import joe.task.Task;
 
 public class Ui {
     public static final String HORIZONTAL_LINE = "____________________________________________________________";

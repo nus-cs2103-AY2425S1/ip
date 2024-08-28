@@ -1,9 +1,14 @@
-package joe;
+package joe.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import joe.task.Task;
+import joe.task.TaskTodo;
+import joe.task.TaskEvent; 
+import joe.task.TaskDeadline;
 
 public class Storage {
     private static final String FILE_NAME = "./data/store.txt";

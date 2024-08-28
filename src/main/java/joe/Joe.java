@@ -1,5 +1,8 @@
 package joe;
 
+import joe.controller.Controller;
+import joe.parser.Parser;
+
 public class Joe {
     public static final String CHATBOT_NAME = "Joe";
 
