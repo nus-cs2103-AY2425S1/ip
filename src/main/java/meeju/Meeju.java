@@ -1,5 +1,8 @@
 package meeju;
 
+/**
+ * Main class of the program. It serves as the entry point to the program.
+ */
 public class Meeju {
 
     public static String LINE_BREAK = "____________________________________________________________";
