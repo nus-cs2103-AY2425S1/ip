@@ -1,10 +1,16 @@
 package main.java;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 import static java.lang.Integer.parseInt;
 
 public class DeadLine extends Task {
 
-    protected String endDate;
+    protected LocalDate endDate;
 
     public DeadLine (String inputString) throws InvalidTaskNameException, InvalidDateException {
         if (inputString.contains("/by ")) {
@@ -20,7 +26,11 @@ public class DeadLine extends Task {
             }
 
             this.name = taskName;
-            this.endDate = byDate;
+            try {
+                this.endDate = LocalDate.parse(byDate);
+            } catch (DateTimeParseException ex) {
+                throw new InvalidDateException("Invalid date format given");
+            }
 
         } else {
             throw new InvalidDateException();
@@ -35,24 +45,24 @@ public class DeadLine extends Task {
             this.isDone = true;
         }
         this.name = input[1];
-        this.endDate = input[2];
+        this.endDate = LocalDate.parse(input[2]);
     }
 
     @Override
     public String toString() {
         String res = "[D]";
         res += super.toString();
-        res += "(by: " + this.endDate + ")";
+        res += "(by: " + this.endDate.toString() + ")";
         return res;
     }
 
     @Override
     public String toSave() {
         String res = "D|";
-        res.concat(this.isDone ? "1|" : "0|");
-        res.concat(this.name);
-        res.concat("|");
-        res.concat(this.endDate);
+        res = res.concat(this.isDone ? "1|" : "0|");
+        res = res.concat(this.name);
+        res = res.concat("|");
+        res = res.concat(this.endDate.toString());
         return res;
     }
 }

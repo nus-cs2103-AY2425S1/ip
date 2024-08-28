@@ -32,8 +32,8 @@ public class ToDo extends Task{
     @Override
     public String toSave() {
         String res = "T|";
-        res.concat(this.isDone ? "1|" : "0|");
-        res.concat(this.name);
+        res = res.concat(this.isDone ? "1|" : "0|");
+        res = res.concat(this.name);
         return res;
     }
 }

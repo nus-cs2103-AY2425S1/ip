@@ -55,19 +55,19 @@ public class Event extends Task {
     public String toString() {
         String res = "[E]";
         res += super.toString();
-        res += "(from: " + this.fromDate + " to: " + this.toDate + ")";
+        res += "(from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
         return res;
     }
 
     @Override
     public String toSave() {
-        String res = "D|";
-        res.concat(this.isDone ? "1|" : "0|");
-        res.concat(this.name);
-        res.concat("|");
-        res.concat(this.fromDate);
-        res.concat("|");
-        res.concat(this.toDate);
+        String res = "E|";
+        res = res.concat(this.isDone ? "1|" : "0|");
+        res = res.concat(this.name);
+        res = res.concat("|");
+        res = res.concat(this.fromDate);
+        res = res.concat("|");
+        res = res.concat(this.toDate);
         return res;
     }
 }
