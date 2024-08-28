@@ -1,7 +1,9 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Friday {
     enum CommandType {
@@ -22,10 +24,84 @@ public class Friday {
         }
     }
 
+    enum TaskType {
+        T, D, E;
+    }
+
+    public static void handleInput(String input, List<Task> toDoList) {
+        String taskType = input.split(" ")[0];
+        switch (taskType) {
+            case "T":
+                toDoList.add(new Todo(input.substring(4), input.split(" ")[1].equals("0")));
+                break;
+            case "D":
+                toDoList.add(new Deadline(input.substring(4), input.split(" ")[1].equals("0")) );
+                break;
+            case "E":
+                toDoList.add(new Event(input.substring(4), input.split(" ")[1].equals("0")));
+                break;
+
+        }
+    }
+
+    public static boolean isFileUncorrupted(File file) {
+        Pattern TODO_PATTERN = Pattern.compile("^T\\s+\\d\\s+\\w+.*$");
+        Pattern EVENT_PATTERN = Pattern.compile("^E\\s+\\d\\s+\\w+.*\\s+/from\\s+\\w+.*\\s+/to\\s+\\w+.*$");
+        Pattern DEADLINE_PATTERN = Pattern.compile("^D\\s+\\d\\s+\\w+.*\\s+/by\\s+\\w+.*$");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!TODO_PATTERN.matcher(line).matches() &&
+                        !EVENT_PATTERN.matcher(line).matches() &&
+                        !DEADLINE_PATTERN.matcher(line).matches()) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Scanner scannerObj = new Scanner(System.in);
         boolean endScanner = false;
         List<Task> toDoList = new ArrayList<>();
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            System.out.println("___________________________________________________________");
+            if (directory.mkdirs()) {
+                System.out.println(" Directory created successfully.");
+            } else {
+                System.out.println(" Failed to create directory.");
+                return;
+            }
+        }
+        File fridayTaskList = new File(directory,"fridayTaskList.txt");
+        System.out.println("___________________________________________________________");
+        if (fridayTaskList.exists()) {
+            if (isFileUncorrupted(fridayTaskList)) {
+                System.out.println(" File is not corrupted.");
+                try (Scanner scanner = new Scanner(fridayTaskList)) {
+                    while (scanner.hasNextLine()) {
+                        String line = scanner.nextLine();
+                        handleInput(line, toDoList);
+                    }
+                } catch (FileNotFoundException e) {
+                    System.out.println(" An error occurred while reading the file.");
+                }
+            } else {
+                System.out.println(" The file is corrupted.");
+            }
+
+        } else {
+            try {
+                fridayTaskList.createNewFile();
+                System.out.println(" File created successfully to store tasks.");
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file.");
+            }
+        }
         System.out.println("___________________________________________________________");
         System.out.println(" Hello! I'm Friday");
         System.out.println(" What can I do for you?");
@@ -129,6 +205,15 @@ public class Friday {
 
                     default:
                         throw new InvalidFridayCommand(toDo);
+                }
+                try ( FileWriter fw = new FileWriter("data/fridayTaskList.txt")){
+                    for (Task task : toDoList) {
+                        fw.write(task.writeToFile());
+                        fw.write("\n");
+                        fw.flush();
+                    }
+                } catch (IOException e) {
+                    System.out.println(" An error occurred while writing to the file.");
                 }
             } catch (FridayException e) {
                 System.out.println("    _______________________________________________________");
