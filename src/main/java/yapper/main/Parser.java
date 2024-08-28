@@ -1,3 +1,7 @@
+package yapper.main;
+
+import yapper.exceptions.YapperException;
+
 import java.util.Scanner;
 
 public class Parser {

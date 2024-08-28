@@ -1,7 +1,11 @@
+package yapper.main;
+
+import yapper.exceptions.YapperException;
+import yapper.exceptions.YapperFileFormatException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -66,12 +70,12 @@ public class Storage {
                     task = new Event(taskDesc, timeRange[0], timeRange[1]);
                     break;
                 default:
-                    throw new YapperFileFormatException("Task type not recognised: " + taskType);
+                    throw new YapperFileFormatException("yapper.main.Task type not recognised: " + taskType);
                 }
                 if ("X".equals(taskStatus)) {
                     task.mark();
                 } else if (!taskStatus.isEmpty()) {
-                    throw new YapperFileFormatException("Task status not recognised: " + taskStatus);
+                    throw new YapperFileFormatException("yapper.main.Task status not recognised: " + taskStatus);
                 }
                 taskList.add(task);
             }

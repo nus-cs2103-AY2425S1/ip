@@ -1,5 +1,7 @@
+package yapper.exceptions;
+
 public class TaskLimitException extends YapperException {
     public TaskLimitException() {
-        super("Task list at full capacity");
+        super("yapper.main.Task list at full capacity");
     }
 }

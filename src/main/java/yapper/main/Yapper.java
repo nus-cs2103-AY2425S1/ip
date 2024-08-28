@@ -1,7 +1,12 @@
+package yapper.main;
+
+import yapper.exceptions.YapperException;
+import yapper.exceptions.YapperFormatException;
+
 public class Yapper {
 
     private static String divider = "------------------------------------------------------------------";
-    private static String name = "Yapper";
+    private static String name = "yapper.main.Yapper";
     private static String relativePath = "./YappingData/YappingSession.txt";
 
     private Storage storage;
@@ -21,9 +26,6 @@ public class Yapper {
         while (true) {
             try {
                 String[] parsedLine = parser.parseLine();
-                for (String s: parsedLine) {
-                    System.out.println(s);
-                }
                 String command = parsedLine[0];
 
                 if (command.equals("bye")) {
@@ -106,7 +108,7 @@ public class Yapper {
         new Yapper("./YappingData/YappingSession.txt").run();
     }
 
-    // in TaskList
+    // in yapper.main.TaskList
     public static String taskPlural(int taskCount) {
         String taskMessage = "task";
         if (taskCount != 1) {

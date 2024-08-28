@@ -1,10 +1,12 @@
+package yapper.main;
+
 /**
  * UI class
  */
 public class Ui {
 
     private static final String DIVIDER = "-------------------------------------------------";
-    private static final String NAME = "Yapper";
+    private static final String NAME = "yapper.main.Yapper";
 
     public Ui() {
     }

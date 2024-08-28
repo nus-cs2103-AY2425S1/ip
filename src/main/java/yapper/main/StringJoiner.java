@@ -1,3 +1,7 @@
+package yapper.main;
+
+import yapper.exceptions.*;
+
 public class StringJoiner {
     public static String join(String[] s, int start, int end, YapperConcern timeType) throws YapperException {
         StringBuilder sb = new StringBuilder();

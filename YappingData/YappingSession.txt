@@ -6,7 +6,6 @@
 | D |   | return book | Dec 2 2019
 | D |   | return book | Dec 2 2019
 | D |   | return book | Dec 2 2019
-| D |   | return book | Dec 2 2019
 | D |   | that | May 2 2002
 | D | X | something | 06:00 pm
 | D |   | return book | Dec 2 2019
@@ -14,3 +13,5 @@
 | D |   | return book | Dec 2 2019
 | D | X | p | May 5 1995
 | T |   | this
+| E |   | y | x-----z
+| T |   | timeskip

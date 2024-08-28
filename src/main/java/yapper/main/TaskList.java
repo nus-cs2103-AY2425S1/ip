@@ -1,7 +1,8 @@
+package yapper.main;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.FileWriter;
 
 public class TaskList {
     private ArrayList<Task> taskList;
