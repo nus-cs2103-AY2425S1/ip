@@ -18,13 +18,17 @@ public class Schedulo {
             while (true) {
                 String command = sc.nextLine();
                 System.out.println(horizontalLine);
+                // if (command.equals("bye")) {
+                //     System.out.println("Bye. Hope to see you again soon!");
+                //     System.out.println(horizontalLine);
+                //     break;
+                // }
+
+                taskList.executeCommand(command);
                 if (command.equals("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
                     System.out.println(horizontalLine);
                     break;
                 }
-
-                taskList.executeCommand(command);
                 
                 System.out.println(horizontalLine);
             }

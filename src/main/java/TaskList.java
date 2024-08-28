@@ -162,21 +162,27 @@ public class TaskList {
                     break;
                 case MARK:
                     handleMarkCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case UNMARK:
                     handleUnmarkCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case DELETE:
                     handleDeleteCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case TODO:
                     handleTodoCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case DEADLINE:
                     handleDeadlineCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case EVENT:
                     handleEventCommand(splitWords);
+                    handleSaveTaskListToFile();
                     break;
                 case BYE:
                     System.out.println("Bye. Hope to see you again soon!");
