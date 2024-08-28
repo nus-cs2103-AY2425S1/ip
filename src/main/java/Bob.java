@@ -10,15 +10,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Bob {
     private static final String DATA_DIR = "data";
     private static final String FILE_PATH = DATA_DIR + File.separator + "Bob.txt";
-    private static final List<Task> taskList = new ArrayList<>();
-    private static int numTasks = 0;
+    private static final TaskList taskList = new TaskList();
 
     public enum Command {
         BYE, LIST, RELEVANT, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
@@ -95,7 +92,7 @@ public class Bob {
             while (s.hasNext()) {
                 String taskLine = s.nextLine();
                 Task task = parseTask(taskLine);
-                addTask(task);
+                taskList.addTask(task);
             }
             return "Saved tasks has been successfully loaded.";
         } catch (FileNotFoundException e) {
@@ -158,42 +155,42 @@ public class Bob {
         return args[1].trim();
     }
 
-    static Task getTask(int taskNum) throws BobException {
-        try {
-            return taskList.get(taskNum - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new BobException("No such task number found. Please provide a valid task number.");
-        }
-    }
+//    static Task getTask(int taskNum) throws BobException {
+//        try {
+//            return taskList.get(taskNum - 1);
+//        } catch (IndexOutOfBoundsException e) {
+//            throw new BobException("No such task number found. Please provide a valid task number.");
+//        }
+//    }
 
-    static void addTask(Task task) {
-        taskList.add(task);
-        numTasks++;
-    }
+//    static void addTask(Task task) {
+//        taskList.add(task);
+//        numTasks++;
+//    }
+//
+//    static void delTask(int taskNum) {
+//        taskList.remove(taskNum - 1);
+//        numTasks--;
+//    }
 
-    static void delTask(int taskNum) {
-        taskList.remove(taskNum - 1);
-        numTasks--;
-    }
-
-    static String getTaskList() {
-        StringBuilder tasks = new StringBuilder();
-        for (int i = 1; i <= numTasks; i++) {
-            Task currTask = taskList.get(i - 1);
-            if (i == numTasks) {
-                tasks.append(i).append(". ").append(currTask);
-                continue;
-            }
-            tasks.append(i).append(". ").append(currTask).append("\n");
-        }
-        return tasks.toString();
-    }
+//    static String getTaskList() {
+//        StringBuilder tasks = new StringBuilder();
+//        for (int i = 1; i <= numTasks; i++) {
+//            Task currTask = taskList.get(i - 1);
+//            if (i == numTasks) {
+//                tasks.append(i).append(". ").append(currTask);
+//                continue;
+//            }
+//            tasks.append(i).append(". ").append(currTask).append("\n");
+//        }
+//        return tasks.toString();
+//    }
 
     static void saveTasks() throws BobException {
         try {
             ensureDataDirectoryExists();
             FileWriter fw = new FileWriter(FILE_PATH);
-            for (Task task : taskList) {
+            for (Task task : taskList.getTasks()) {
                 fw.write(task.getTaskLine() + System.lineSeparator());
             }
             fw.close();
@@ -209,7 +206,7 @@ public class Bob {
 
             StringBuilder tasks = new StringBuilder();
             int numRelevantTasks = 0;
-            for (Task currTask : taskList) {
+            for (Task currTask : taskList.getTasks()) {
                 if (currTask.isRelevant(date)) {
                     numRelevantTasks++;
                     tasks.append(numRelevantTasks).append(". ").append(currTask).append("\n");
@@ -229,7 +226,10 @@ public class Bob {
     }
 
     static String commandList() {
-        return "Your list of tasks:\n" + getTaskList();
+        if (taskList.isEmpty()) {
+            return "There are 0 tasks in your list now. Start adding them!";
+        }
+        return "Your list of tasks:\n" + taskList.printTasks();
     }
 
     static String commandRelevant(String dateStr) throws BobException {
@@ -242,7 +242,7 @@ public class Bob {
         }
         try {
             int taskNum = Integer.parseInt(taskDetails);
-            Task currTask = getTask(taskNum);
+            Task currTask = taskList.getTask(taskNum);
             currTask.markAsDone();
             saveTasks();
             return "Good Job! Marking this task as done:\n " + currTask;
@@ -257,7 +257,7 @@ public class Bob {
         }
         try {
             int taskNum = Integer.parseInt(taskDetails);
-            Task currTask = getTask(taskNum);
+            Task currTask = taskList.getTask(taskNum);
             currTask.markAsUndone();
             saveTasks();
             return "Okay, marking this task as not done yet:\n " + currTask;
@@ -272,10 +272,10 @@ public class Bob {
             throw new BobException("Missing details!\n" + format);
         }
         ToDo task = new ToDo(taskDetails);
-        addTask(task);
+        taskList.addTask(task);
         saveTasks();
         return "Adding ToDo task:\n " + task
-                + "\nTotal number of tasks in your list: " + numTasks;
+                + "\nTotal number of tasks in your list: " + taskList.getNumTasks();
     }
 
     static String commandDeadline(String taskDetails) throws BobException {
@@ -296,10 +296,10 @@ public class Bob {
                         + "Kindly provide a future date.");
             }
             Deadline task = new Deadline(description, by);
-            addTask(task);
+            taskList.addTask(task);
             saveTasks();
             return "Adding Deadline task:\n " + task
-                    + "\nTotal number of tasks in your list: " + numTasks;
+                    + "\nTotal number of tasks in your list: " + taskList.getNumTasks();
         } catch (IndexOutOfBoundsException e) {
             throw new BobException("You may have missing details or wrong format!\n" + format);
         }
@@ -329,10 +329,10 @@ public class Bob {
                         "Please try again.");
             }
             Event task = new Event(description, from, to);
-            addTask(task);
+            taskList.addTask(task);
             saveTasks();
             return "Adding Event task:\n " + task
-                    + "\nTotal number of tasks in your list: " + numTasks;
+                    + "\nTotal number of tasks in your list: " + taskList.getNumTasks();
         } catch (IndexOutOfBoundsException e) {
             throw new BobException("You may have missing details or wrong format!\n" + format);
         }
@@ -342,16 +342,13 @@ public class Bob {
         if (taskDetails.isEmpty()) {
             throw new BobException("Please provide a task number.");
         }
-        try {
-            int taskNum = Integer.parseInt(taskDetails);
-            Task currTask = getTask(taskNum);
-            delTask(taskNum);
-            saveTasks();
-            return "Noted, removing this task:\n " + currTask
-                    + "\nTotal number of tasks in your list: " + numTasks ;
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new BobException("The task number provided is invalid.");
-        }
+
+        int taskNum = Integer.parseInt(taskDetails);
+        Task currTask = taskList.getTask(taskNum);
+        taskList.delTask(taskNum);
+        saveTasks();
+        return "Noted, removing this task:\n " + currTask
+                + "\nTotal number of tasks in your list: " + taskList.getNumTasks() ;
     }
 
     // Method to ensure the data directory exists
