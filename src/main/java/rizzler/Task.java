@@ -1,5 +1,8 @@
 package rizzler;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 class Task {
     protected final String name;
     protected boolean isDone;
@@ -19,6 +22,16 @@ class Task {
 
     void unmark() {
         this.isDone = false;
+    }
+
+    boolean matches(String keyword) {
+        Pattern pattern = Pattern.compile(keyword);
+        Matcher matcher = pattern.matcher(this.name);
+        boolean isMatched = false;
+        while (matcher.find()) {
+            isMatched = true;
+        }
+        return isMatched;
     }
 
     @Override

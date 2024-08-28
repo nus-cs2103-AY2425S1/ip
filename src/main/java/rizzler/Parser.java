@@ -19,6 +19,8 @@ class Parser {
             return new MarkCommand(parsedCommand);
         case "unmark":
             return new UnmarkCommand(parsedCommand);
+        case "find":
+            return new FindCommand(parsedCommand);
         case "bye":
             return new ExitCommand();
         default:
