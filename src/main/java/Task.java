@@ -1,10 +1,19 @@
 import java.util.function.Function;
 
 public abstract class Task {
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT,
+    }
+
     private boolean done;
     private final String name;
 
-    public Task(String name) {
+    public Task(String name) throws AstraException {
+        if (name.isBlank()) {
+            throw new AstraException("Task description cannot be empty.");
+        }
         this.name = name;
         this.done = false;
     }

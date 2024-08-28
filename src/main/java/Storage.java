@@ -31,7 +31,9 @@ public class Storage {
         return tasks;
     }
 
-    public void save(String text) {
+    public void save(TaskList tasks) {
+        String text = tasks.toText();
+
         try {
             File dir = new File(PATH);
             dir.mkdirs();

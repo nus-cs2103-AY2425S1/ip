@@ -1,22 +1,22 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private final LocalDate from;
+    private final LocalDate to;
 
-    public Event(String name, String from, String to) {
+    public Event(String name, String from, String to) throws AstraException {
         super(name);
-        this.from = LocalDateTime.parse(from, inputFormatter);
-        this.to = LocalDateTime.parse(to, inputFormatter);
+        this.from = LocalDate.parse(from, inputFormatter);
+        this.to = LocalDate.parse(to, inputFormatter);
     }
 
     public Event(boolean done, String name, String from, String to) {
         super(done, name);
-        this.from = LocalDateTime.parse(from, inputFormatter);
-        this.to = LocalDateTime.parse(to, inputFormatter);
+        this.from = LocalDate.parse(from, inputFormatter);
+        this.to = LocalDate.parse(to, inputFormatter);
     }
 
     @Override
