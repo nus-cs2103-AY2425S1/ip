@@ -6,10 +6,10 @@ import xizi.chatbot.Storage;
 import xizi.chatbot.Ui;
 import xizi.chatbot.XiziException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
+import java.io.IOException;
 
 /**
  * Represents a command to find tasks that contain a specified keyword.
@@ -31,6 +31,17 @@ public class FindCommand implements Command {
         }
     }
 
+    /**
+     * Executes the find command, searching for tasks that contain the specified keyword.
+     * If matching tasks are found, they are displayed to the user. If no matches are found,
+     * a message indicating the absence of matches is displayed.
+     *
+     * @param tasks   The task list containing all tasks.
+     * @param storage The storage handler (not used in this command).
+     * @param ui      The user interface for interacting with the user.
+     * @throws XiziException If any errors occur during execution.
+     * @throws IOException   If an I/O error occurs (though unlikely in this command).
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws XiziException, IOException {
         List<Task> matchingTasks = new ArrayList<>();

@@ -21,13 +21,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Parser} class provides utility methods for parsing user input,
+ * validating task numbers, and converting date-time strings to {@code LocalDateTime} objects.
+ * It also interprets user commands and creates the corresponding {@code Command} instances.
+ */
 public class Parser {
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    /**
+     * Parses a date-time string into a {@code LocalDateTime} object.
+     *
+     * @param dateTimeStr The date-time string to parse.
+     * @return The parsed {@code LocalDateTime} object.
+     * @throws DateTimeParseException If the date-time string cannot be parsed.
+     */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws DateTimeParseException {
         return LocalDateTime.parse(dateTimeStr, INPUT_DATE_FORMAT);
     }
 
+    /**
+     * Validates the given task number to ensure it is within the valid range of tasks.
+     *
+     * @param taskNumber The task number to validate.
+     * @param actions    The task list containing all tasks.
+     * @throws XiziException If the task number is invalid.
+     */
     public static void validateTaskNumber(int taskNumber, TaskList actions) throws XiziException {
         if (taskNumber < 0 || taskNumber >= actions.getSize()) {
             throw new XiziException("The task number does not exist. You have " + actions.getSize() + " tasks in total.");
@@ -35,9 +54,16 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the user input to create the appropriate {@code Command} instance.
+     *
+     * @param userInput The user input string to parse.
+     * @return The corresponding {@code Command} instance.
+     * @throws IOException   If an I/O error occurs during command creation.
+     * @throws XiziException If the user input does not match any known command format.
+     */
     public Command parse(String userInput) throws IOException, XiziException {
         CommandType commandType = CommandType.fromInput(userInput);
-
         switch (commandType) {
         case DELETE:
             return new DeleteCommand(userInput);

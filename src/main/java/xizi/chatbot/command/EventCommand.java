@@ -12,11 +12,22 @@ import java.util.regex.Matcher;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command to add an event task to the task list.
+ * An event is defined by a description, a start time, and an end time.
+ */
 public class EventCommand implements Command {
     private final String taskDescription;
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Constructs an EventCommand based on the user input.
+     * Parses the input to extract the event description, start time, and end time.
+     *
+     * @param userInput The user input containing the event details.
+     * @throws XiziException If the input format is invalid or if any field is empty.
+     */
     public EventCommand(String userInput) throws XiziException {
         Matcher matcher = CommandType.EVENT.matcher(userInput);
         if (matcher.matches()) {
@@ -33,6 +44,16 @@ public class EventCommand implements Command {
         }
     }
 
+    /**
+     * Executes the event command, adding a new event task to the task list.
+     * The task is then saved to storage, and the user is notified of the successful addition.
+     *
+     * @param actions The task list where the event will be added.
+     * @param storage The storage handler responsible for saving the new task.
+     * @param ui      The user interface for interacting with the user.
+     * @throws IOException   If an I/O error occurs during saving.
+     * @throws XiziException If any validation error occurs.
+     */
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) throws IOException, XiziException {
         Task task = new Event(taskDescription, from, to);

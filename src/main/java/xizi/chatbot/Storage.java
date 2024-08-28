@@ -5,6 +5,9 @@ import xizi.chatbot.task.Event;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.Todo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,8 +21,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Handles the loading and saving of tasks from/to a file.

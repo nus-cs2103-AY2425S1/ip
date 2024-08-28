@@ -9,12 +9,23 @@ import xizi.chatbot.Storage;
 import xizi.chatbot.Ui;
 import xizi.chatbot.task.Task;
 
-import java.time.LocalDateTime;
 import java.util.regex.Matcher;
+import java.time.LocalDateTime;
 
+/**
+ * Represents a command to list all tasks that are scheduled on a specific date and time.
+ * This command filters tasks to show only those that are relevant to the given date.
+ */
 public class ListOnCommand implements Command {
     private final LocalDateTime date;
 
+    /**
+     * Constructs a ListOnCommand based on the user input.
+     * Parses the input to extract the date and time for which tasks should be listed.
+     *
+     * @param userInput The user input containing the date and time.
+     * @throws XiziException If the input format is invalid or the date and time cannot be parsed.
+     */
     public ListOnCommand(String userInput) throws XiziException {
         Matcher matcher = CommandType.LIST_ON.matcher(userInput);
         if (matcher.matches()) {
@@ -25,6 +36,14 @@ public class ListOnCommand implements Command {
         }
     }
 
+    /**
+     * Executes the list on command, displaying all tasks that are scheduled on the specified date.
+     * This includes events that overlap with the date and deadlines that are due on that date.
+     *
+     * @param actions The task list containing all tasks.
+     * @param storage The storage handler (not used in this command).
+     * @param ui      The user interface for interacting with the user.
+     */
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) {
         ui.showLine();

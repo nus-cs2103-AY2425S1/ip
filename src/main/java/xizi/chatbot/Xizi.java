@@ -4,8 +4,8 @@ import xizi.chatbot.command.Command;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
 
-import java.io.IOException;
 import java.util.List;
+import java.io.IOException;
 
 /**
  * The main class for the Xizi chatbot application. This class handles the initialization and
