@@ -1,8 +1,10 @@
-import skd.CommandType;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+package skd;
+
+import skd.task.Deadline;
+import skd.task.Event;
+import skd.task.Task;
+import skd.task.ToDo;
+import skd.task.TaskType;
 
 import java.util.List;
 

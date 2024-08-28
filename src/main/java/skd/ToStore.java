@@ -1,9 +1,16 @@
-import skd.Parser;
-import task.Task;
+package skd;
 
-import java.nio.file.*;
-import java.util.*;
+import skd.task.Deadline;
+import skd.task.Event;
+import skd.task.Task;
+import skd.task.ToDo;
+import skd.task.TaskType;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToStore {
     private final Path filePath;
