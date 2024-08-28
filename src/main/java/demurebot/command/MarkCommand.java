@@ -4,14 +4,28 @@ import demurebot.task.Task;
 import demurebot.task.TaskList;
 import demurebot.ui.Ui;
 
+/**
+ * Represents a command to mark a task as done in the task list.
+ */
 public class MarkCommand extends Command {
     private final String remainder;
 
+    /**
+     * Constructs a MarkCommand object.
+     *
+     * @param remainder Index of task to mark.
+     */
     public MarkCommand(String remainder) {
         super(false);
         this.remainder = remainder;
     }
 
+    /**
+     * Marks a task as done in the task list.
+     *
+     * @param list Task list to mark task in.
+     * @param ui Ui to display the marked task.
+     */
     @Override
     public void execute(TaskList list, Ui ui) {
         try {

@@ -11,17 +11,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main class for the DemureBot application.
+ * This class handles the initialization and execution of the chatbot.
+ */
 public class DemureBot {
     private TaskList list;
     private final Storage storage;
     private final Ui ui;
 
+    /**
+     * Constructs a new DemureBot instance.
+     * Initializes the storage and UI components.
+     */
     public DemureBot() {
         this.storage = new Storage();
         this.ui = new Ui();
         this.list = null;
     }
 
+    /**
+     * Runs the main loop of the DemureBot application.
+     * Handles user input, command execution, and data persistence.
+     */
     private void run() {
         Scanner scanner = new Scanner(System.in);
 
@@ -74,6 +86,11 @@ public class DemureBot {
         this.storage.save(filePath, this.list);
     }
 
+    /**
+     * Main method to start the DemureBot application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new DemureBot().run();
     }

@@ -9,9 +9,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of tasks in the DemureBot application.
+ * A Storage object is responsible for loading tasks from a file and saving tasks to a file.
+ */
 public class Storage {
     private final ArrayList<Task> list;
 
+    /**
+     * Constructs a new Storage object with an empty list of tasks.
+     */
     public Storage() {
         this.list = new ArrayList<>();
     }
@@ -58,7 +65,7 @@ public class Storage {
      *
      * @param filePath Path of file containing saved data
      * @return List of tasks loaded from the file
-     * @throws IOException If an I/O error occurs
+     * @throws IOException        If an I/O error occurs
      * @throws DemureBotException If the saved task has invalid format
      */
     public ArrayList<Task> load(String filePath) throws IOException, DemureBotException {
@@ -110,7 +117,7 @@ public class Storage {
     /**
      * Throws an exception if the array length is less than the expected length.
      *
-     * @param split Array of strings.
+     * @param split          Array of strings.
      * @param expectedLength Expected length of array.
      * @throws DemureBotException If the array length is less than the expected length.
      */
@@ -124,9 +131,9 @@ public class Storage {
      * Saves the list of tasks to the file.
      *
      * @param filePath Path of file to save the list of tasks.
-     * @param list List of tasks to be saved.
+     * @param list     List of tasks to be saved.
      */
-    public void save(String filePath, TaskList list){
+    public void save(String filePath, TaskList list) {
         FileWriter writer = null;
         try {
             writer = new FileWriter(filePath);

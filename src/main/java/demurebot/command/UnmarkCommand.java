@@ -4,14 +4,28 @@ import demurebot.task.Task;
 import demurebot.task.TaskList;
 import demurebot.ui.Ui;
 
+/**
+ * Represents a command to unmark a task in the task list.
+ */
 public class UnmarkCommand extends Command {
     private final String remainder;
 
+    /**
+     * Constructs an UnmarkCommand object.
+     *
+     * @param remainder Index of the task to unmark.
+     */
     public UnmarkCommand(String remainder) {
         super(false);
         this.remainder = remainder;
     }
 
+    /**
+     * Unmarks a task in the task list.
+     *
+     * @param list Task list to unmark task from.
+     * @param ui Ui to display the unmarked task.
+     */
     @Override
     public void execute(TaskList list, Ui ui) {
         try {
