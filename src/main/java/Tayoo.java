@@ -332,5 +332,33 @@ public class Tayoo {
         }
     }
 
+    private static void deleteTxt(int taskNumber) {
+        List<String> lines = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            logger.warning("Cannot find tasklist.txt");
+        } catch (IOException e) {
+            logger.warning("An error occurred while reading the file");
+        }
+
+        String line = lines.remove(taskNumber);
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
+            for (String updatedLine : lines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            logger.warning("An error occurred while deleting the task");
+        }
 
 }
