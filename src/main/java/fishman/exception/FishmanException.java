@@ -28,11 +28,9 @@ public class FishmanException extends Exception {
 
         /**
          * Constructs a new InvalidCommandException with the invalid command.
-         *
-         * @param command The invalid command entered.
          */
-        public InvalidCommandException(String command) {
-            super(MESSAGE + command);
+        public InvalidCommandException() {
+            super(MESSAGE);
         }
     }
 
@@ -40,12 +38,9 @@ public class FishmanException extends Exception {
      * The exception thrown when a command is missing arguments.
      */
     public static class MissingArgumentException extends FishmanException {
-        private static final String MESSAGE_MARK = "Mark command requires an index";
-        private static final String MESSAGE_UNMARK = "Unmark command requires an index";
-        private static final String MESSAGE_TODO = "Todo command requires a description";
-        private static final String MESSAGE_DEADLINE = "Deadline command requires a description and a /by date";
-        private static final String MESSAGE_EVENT = "Event command requires a description, /from, and /to dates";
-        private static final String MESSAGE_DELETE = "Delete command requires an index";
+        private static final String MESSAGE_DEADLINE = "Deadline command requires a description or a /by date";
+        private static final String MESSAGE_EVENT = "Event command requires a description or /from and /to dates";
+
 
         /**
          * Constructs a new InvalidCommandException with a message specific to the command type.
@@ -64,13 +59,9 @@ public class FishmanException extends Exception {
          */
         private static String getMessageForCommandType(String commandType) {
             return switch (commandType) {
-                case "mark" -> MESSAGE_MARK;
-                case "unmark" -> MESSAGE_UNMARK;
-                case "todo" -> MESSAGE_TODO;
                 case "deadline" -> MESSAGE_DEADLINE;
                 case "event" -> MESSAGE_EVENT;
-                case "delete" -> MESSAGE_DELETE;
-                default -> "Missing argument for command";
+                default -> "Missing argument for " + commandType + " command.";
             };
         }
     }
@@ -130,7 +121,7 @@ public class FishmanException extends Exception {
     }
 
     public static class InvalidDateFormatException extends FishmanException {
-        private static final String MESSAGE = "Invalid Date format: ";
+        private static final String MESSAGE = "Invalid Date format here: ";
 
         public InvalidDateFormatException(String dateTimeStr) {
             super(MESSAGE + dateTimeStr);

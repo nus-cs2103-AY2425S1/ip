@@ -12,8 +12,8 @@ public interface Command {
     /**
      * Executes the command, performing actions on the tasklist and user interface.
      *
-     * @param tasks
-     * @param ui
+     * @param tasks The tasks to be added.
+     * @param ui The Ui object used when displaying the message.
      */
     void execute(TaskList tasks, Ui ui);
 
