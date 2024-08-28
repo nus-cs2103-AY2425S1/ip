@@ -1,8 +1,0 @@
-T | 1 | call mom
-T | 0 | Buy groceries
-T | 0 | Finish homework
-D | 0 | Submit report | 2023-09-01 1400
-D | 0 | Pay bills | 2023-08-15 0900
-D | 1 | Return library books | 2023-08-20 1800
-E | 1 | Team meeting | 2023-08-10 1000 | 2023-08-10 1200
-E | 0 | Birthday party | 2023-09-15 1800 | 2023-09-15 2200
