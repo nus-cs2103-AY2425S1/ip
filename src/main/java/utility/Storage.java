@@ -81,17 +81,17 @@ public class Storage {
                 String task = scanner.nextLine();
                 String[] taskProcessed = task.split("\\|");
                 switch (taskProcessed[0].trim()) {
-                    case "T":
-                        taskList.add(new ToDo(taskProcessed[2], Integer.parseInt(taskProcessed[1].trim()) == 1));
-                        break;
-                    case "E":
-                        taskList.add(new Event(taskProcessed[2], LocalDate.parse(taskProcessed[3].trim()),  LocalDate.parse(taskProcessed[4].trim()),
-                            Integer.parseInt(taskProcessed[1].trim()) == 1));
-                        break;
-                    case "D":
-                        taskList.add(new Deadline(taskProcessed[2],  LocalDate.parse(taskProcessed[3].trim()),
+                case "T":
+                    taskList.add(new ToDo(taskProcessed[2], Integer.parseInt(taskProcessed[1].trim()) == 1));
+                    break;
+                case "E":
+                    taskList.add(new Event(taskProcessed[2], LocalDate.parse(taskProcessed[3].trim()),  LocalDate.parse(taskProcessed[4].trim()),
                         Integer.parseInt(taskProcessed[1].trim()) == 1));
-                        break;
+                    break;
+                case "D":
+                    taskList.add(new Deadline(taskProcessed[2],  LocalDate.parse(taskProcessed[3].trim()),
+                    Integer.parseInt(taskProcessed[1].trim()) == 1));
+                    break;
                 }
             }
             return taskList;
@@ -108,7 +108,7 @@ public class Storage {
      */
     public void synchronizeTasks(ArrayList<Task> TaskLists) {
         String updatedTaskList = TaskLists.stream().map(Task::storageFormat)
-                .reduce("", (firstLine, secondLine) -> firstLine + secondLine);
+            .reduce("", (firstLine, secondLine) -> firstLine + secondLine);
         this.writeToFile(updatedTaskList);
     }
 }
