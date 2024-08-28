@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -28,17 +31,18 @@ public abstract class Task {
         String description = parts[2];
 
         Task task;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         switch (type) {
             case "T":
                 task = new Todo(description);
                 break;
             case "D":
-                String by = parts[3];
+                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
                 task = new Deadline(description, by);
                 break;
             case "E":
-                String from = parts[3];
-                String to = parts[4];
+                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
                 task = new Event(description, from, to);
                 break;
             default:

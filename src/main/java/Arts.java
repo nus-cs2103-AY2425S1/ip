@@ -1,11 +1,18 @@
-import java.awt.*;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Arts {
     private static final String FILE_PATH = "./data/tasks.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final DateTimeFormatter[] INPUT_FORMATTERS = new DateTimeFormatter[]{
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm")
+    };
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     public static void main(String[] args) {
         loadTasksFromFile();
@@ -23,9 +30,6 @@ public class Arts {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        int taskCount = 0;
 
         while (true) {
             try {
@@ -111,7 +115,19 @@ public class Arts {
                         if (deadlineParts.length < 2) {
                             throw new ArtsException("The deadline must have a /by date.");
                         }
-                        tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                        LocalDateTime deadlineDate = null;
+                        for (DateTimeFormatter formatter : INPUT_FORMATTERS) {
+                            try {
+                                deadlineDate = LocalDateTime.parse(deadlineParts[1], formatter);
+                                break;
+                            } catch (DateTimeParseException e) {
+                                // Continue to the next formatter
+                            }
+                        }
+                        if (deadlineDate == null) {
+                            throw new ArtsException("Invalid date format for deadline. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.");
+                        }
+                        tasks.add(new Deadline(deadlineParts[0], deadlineDate));
                         saveTasksToFile();
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
@@ -128,7 +144,21 @@ public class Arts {
                         if (eventParts.length < 3) {
                             throw new ArtsException("The event must have /from and /to times.");
                         }
-                        tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                        LocalDateTime eventFromDate = null;
+                        LocalDateTime eventToDate = null;
+                        for (DateTimeFormatter formatter : INPUT_FORMATTERS) {
+                            try {
+                                eventFromDate = LocalDateTime.parse(eventParts[1], formatter);
+                                eventToDate = LocalDateTime.parse(eventParts[2], formatter);
+                                break;
+                            } catch (DateTimeParseException e) {
+                                // Continue to the next formatter
+                            }
+                        }
+                        if (eventFromDate == null || eventToDate == null) {
+                            throw new ArtsException("Invalid date format for event. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm for both /from and /to.");
+                        }
+                        tasks.add(new Event(eventParts[0], eventFromDate, eventToDate));
                         saveTasksToFile();
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
@@ -181,5 +211,3 @@ public class Arts {
         }
     }
 }
-
-
