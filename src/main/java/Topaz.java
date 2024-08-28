@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -8,6 +11,8 @@ public class Topaz {
 
     private static ArrayList<Task> taskList = new ArrayList<>(100);
     private static String PATH = "data/topaz.txt";
+    public static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+    private static DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 
     public enum TaskType {
         E, // Event
@@ -81,16 +86,21 @@ public class Topaz {
                             task = new Todo(parts[2]);
                             break;
                         case D:
-                            task = new Deadline(parts[2], parts[3]);
+                            task = new Deadline(parts[2], LocalDateTime.parse(parts[3]));
                             break;
                         case E:
-                            task = new Event(parts[2], parts[3], parts[4]);
+                            task = new Event(parts[2], LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
                             break;
                         default:
                             // Change to error
                             System.out.println("Invalid file content!");
                             return;
                     }
+                } catch (DateTimeParseException dateTimeParseException) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Invalid input date time: " + dateTimeParseException);
+                    System.out.println("____________________________________________________________");
+                    return;
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("____________________________________________________________");
                     System.out.println("Invalid input task file format: " + e
@@ -199,7 +209,7 @@ public class Topaz {
             Todo todo = new Todo(description);
             addTasks(todo);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskException("todo");
+            throw new InvalidTaskException(TaskType.T);
         }
     }
 
@@ -216,10 +226,14 @@ public class Topaz {
         if (deadlineMatcher.find() && byMatcher.find()) {
             String description = deadlineMatcher.group(1).trim();
             String by = byMatcher.group(1).trim();
-            Deadline deadline = new Deadline(description, by);
-            addTasks(deadline);
+            try {
+                Deadline deadline = new Deadline(description, LocalDateTime.parse(by, dateTimeFormatter));
+                addTasks(deadline);
+            } catch (DateTimeParseException dateTimeParseException) {
+                throw new InvalidTaskException(TaskType.D);
+            }
         } else {
-            throw new InvalidTaskException("deadline");
+            throw new InvalidTaskException(TaskType.D);
         }
     }
 
@@ -240,10 +254,16 @@ public class Topaz {
             String description = eventMatcher.group(1).trim();
             String from = fromMatcher.group(1).trim();
             String to = toMatcher.group(1).trim();
-            Event event = new Event(description, from, to);
-            addTasks(event);
+            try {
+                Event event = new Event(description,
+                        LocalDateTime.parse(from, dateTimeFormatter),
+                        LocalDateTime.parse(to, dateTimeFormatter));
+                addTasks(event);
+            } catch (DateTimeParseException dateTimeParseException) {
+                throw new InvalidTaskException(TaskType.E);
+            }
         } else {
-            throw new InvalidTaskException("event");
+            throw new InvalidTaskException(TaskType.E);
         }
     }
 
