@@ -35,6 +35,7 @@ application {
 shadowJar {
     archiveBaseName = "downy"
     archiveClassifier = null
+    archiveFileName = "downy.jar"
 }
 
 run{
