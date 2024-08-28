@@ -1,9 +1,11 @@
+package duke;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class AddDeadLineCommand extends Command{
+public class AddDeadLineCommand extends Command {
 
     AddDeadLineCommand(String input) {
         this.input = input;

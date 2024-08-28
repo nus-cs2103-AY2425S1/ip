@@ -1,3 +1,5 @@
+package duke;
+
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class AddEventCommand extends Command{
         commands.add("/from");
         commands.add("/to");
 
-        String[] eventItems = Arrays.stream(Parser.ParseString(input, commands)).map(String::trim).toArray(String[]::new);;
+        String[] eventItems = Arrays.stream(Parser.ParseString(input, commands)).map(String::trim).toArray(String[]::new);
 
         if(eventItems.length == 0 || Objects.equals(eventItems[1], "")) {
             throw new DukeException("Task must be specified!");

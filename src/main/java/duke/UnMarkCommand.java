@@ -1,9 +1,10 @@
+package duke;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class MarkCommand extends Command{
-
-    MarkCommand(String input) {
+public class UnMarkCommand extends Command{
+    UnMarkCommand(String input) {
         this.input = input;
     }
 
@@ -22,8 +23,8 @@ public class MarkCommand extends Command{
             throw new DukeException("Invalid index inputted");
         }
 
-        Task mark = tasks.get(index);
-        mark.mark();
-        ui.show("Nice! I've marked this task as done:" + mark);
+        Task unmark = tasks.get(index);
+        unmark.unMark();
+        ui.show("Ok I've unmarked this task as done:" + unmark);
     }
 }
