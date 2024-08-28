@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Storage {
     private final String filePath;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -48,7 +48,7 @@ public class Storage {
                 case "D":
                     String[] deadlineArr = arr[2].split(" \\(by: ");
                     tasks.addTask(new Deadline(deadlineArr[0].substring(1),
-                            LocalDateTime.parse(deadlineArr[1].substring(0, deadlineArr[1].length() - 1), formatter)));
+                            LocalDateTime.parse(deadlineArr[1].substring(0, deadlineArr[1].length() - 1), FORMATTER)));
                     if (markedDone) {
                         tasks.markDone(tasks.getSize() - 1);
                     }
@@ -57,9 +57,9 @@ public class Storage {
                     String[] eventArr = arr[2].split(" \\(from: ");
                     String[] eventArrDetails = eventArr[1].split(" to: ");
                     tasks.addTask(new Event(eventArr[0].substring(1),
-                            LocalDateTime.parse(eventArrDetails[0], formatter),
+                            LocalDateTime.parse(eventArrDetails[0], FORMATTER),
                             LocalDateTime.parse(eventArrDetails[1].substring(0, eventArrDetails[1].length() - 1),
-                                    formatter)));
+                                    FORMATTER)));
                     if (markedDone) {
                         tasks.markDone(tasks.getSize() - 1);
                     }

@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static Command parse(String input) throws DudeException {
         String[] tokens = input.split(" ", 2);
@@ -34,7 +34,7 @@ public class Parser {
                     throw new DudeException("The deadline of a deadline cannot be empty!");
                 }
                 try {
-                    LocalDateTime by = LocalDateTime.parse(deadlineArgs[1], formatter);
+                    LocalDateTime by = LocalDateTime.parse(deadlineArgs[1], FORMATTER);
                     return new AddCommand(new Deadline(deadlineArgs[0], by));
                 } catch (DateTimeException e) {
                     throw new DudeException("Try using this format for deadline: yyyy-mm-dd HH:mm");
@@ -47,8 +47,8 @@ public class Parser {
                     throw new DudeException("The format of timings of the event is wrong!");
                 }
                 try {
-                    LocalDateTime from = LocalDateTime.parse(eventArgs[1], formatter);
-                    LocalDateTime to = LocalDateTime.parse(eventArgs[2], formatter);
+                    LocalDateTime from = LocalDateTime.parse(eventArgs[1], FORMATTER);
+                    LocalDateTime to = LocalDateTime.parse(eventArgs[2], FORMATTER);
                     return new AddCommand(new Event(eventArgs[0], from, to));
                 } catch (Exception e) {
                     throw new DudeException("Try using this format for the dates: yyyy-mm-dd HH:mm");

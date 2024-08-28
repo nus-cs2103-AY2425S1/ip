@@ -9,7 +9,7 @@ public class Deadline extends Task{
      * The deadline of the task.
      */
     protected LocalDateTime by;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Creates a deadline task with the given description and deadline.
@@ -29,6 +29,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(FORMATTER) + ")";
     }
 }

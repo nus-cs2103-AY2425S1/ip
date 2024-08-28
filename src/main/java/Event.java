@@ -14,7 +14,7 @@ public class Event extends Task{
      * The end time of the event.
      */
     protected LocalDateTime to;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Creates an event task with the given description, start time and end time.
@@ -36,6 +36,6 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(FORMATTER) + " to: " + to.format(FORMATTER) + ")";
     }
 }
