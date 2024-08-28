@@ -6,15 +6,35 @@ import juno.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A class to list all tasks currently in the list.
+ * Retrieves and displays a formatted list of tasks currently managed
+ * by the TaskManager.
+ */
 public class ListCommand extends Command {
     private TaskManager taskManager;
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a ListCommand instance which takes in a TaskManager instance.
+     * Initialises the task list from the TaskManager by calling <code>getTasksArray()</code> method.
+     *
+     * @param taskManager The TaskManager instance to retrieve the tasks from.
+     */
     public ListCommand(TaskManager taskManager) {
         this.taskManager = taskManager;
         this.tasks = taskManager.getTasksArray();
     }
 
+    /**
+     * Executes the command to list all tasks that the user has now.
+     * If the task list is empty, throws a TaskManagerException.
+     * Otherwise, prints each task in a formatted list and the total
+     * number of tasks.
+     * Can be executed with the "list" input prompt.
+     *
+     * @throws TaskManagerException If no tasks are present in the list.
+     */
     @Override
     public void runCommand() throws TaskManagerException {
         if (this.tasks.isEmpty()) {

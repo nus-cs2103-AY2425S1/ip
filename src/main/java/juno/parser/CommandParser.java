@@ -5,8 +5,23 @@ import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
 import juno.ui.JunoUi;
 
+/**
+ * Class to parse user input to determine which command should be executed.
+ * Based on the input string, it returns the appropriate command object to Juno chat bot.
+ */
 public class CommandParser {
 
+    /**
+     * Parses the user's input and returns the command to be executed.
+     * Needs to pass in these parameters for use in creating the command.
+     *
+     * @param userInput The input entered by the user.
+     * @param junoUi The user interface instance to interact with the user.
+     * @param fileManager The FileManager instance for handling file operations.
+     * @param taskManager The TaskManager instance for handling task specific operations.
+     * @return The Command object corresponding to the user's input.
+     * @throws TaskManagerException If the input is invalid or an error occurs while parsing.
+     */
     public Command parse(
             String userInput,
             JunoUi junoUi,

@@ -6,13 +6,38 @@ import juno.manager.exception.TaskManagerException;
 import juno.task.Deadline;
 import juno.task.Task;
 
+/**
+ * A class to add a new Deadline task to the task list.
+ * Handles the creation and addition of a Deadline task based on user input.
+ */
 public class AddDeadlineCommand extends AddCommand {
 
     private final String TASK_TYPE = "deadline";
+
+    /**
+     * Constructs an AddDeadlineCommand instance that takes in a specified user input, TaskManager instance,
+     * and FileManager instance.
+     * Initialises an AddDeadlineCommand instance with the provided parameters below.
+     *
+     * @param userInput The input provided by the user to specify the task to add.
+     * @param taskManager The TaskManager instance to handle all task specific operations.
+     * @param fileManager The FileManager to handle file operations related to tasks.
+     */
     public AddDeadlineCommand(String userInput, TaskManager taskManager, FileManager fileManager) {
         super(userInput, taskManager, fileManager);
     }
 
+    /**
+     * Executes the command to add a new Deadline task.
+     * Based on the user input, extract the task description and end time, checks for duplicates, and then
+     * create a new Deadline task, adds it to the task list, and updates the file.
+     *
+     * <p>Handle cases such as missing task description and duplicate tasks by throwing TaskManagerException.
+     * Writes the updated task list to the file after addition.</p>
+     *
+     * @throws TaskManagerException If an error occurs during task addition, such as missing task description
+     * or a duplicate task.
+     */
     @Override
     public void runCommand() throws TaskManagerException {
         String taskInfo;

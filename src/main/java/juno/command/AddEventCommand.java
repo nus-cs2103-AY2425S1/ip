@@ -6,12 +6,38 @@ import juno.manager.exception.TaskManagerException;
 import juno.task.Event;
 import juno.task.Task;
 
+/**
+ * A class to add a new Event task to the task list.
+ * Handles the creation and addition of an Event task based on user input.
+ */
 public class AddEventCommand extends AddCommand {
     private final String TASK_TYPE = "event";
+
+    /**
+     * Constructs a AddEventCommand instance that takes in a specified user input, TaskManager instance, and FileManager
+     * instance.
+     * Initialises an AddEventCommand instance with the provided parameters below.
+     *
+     * @param userInput The input provided by the user to specify the task to add.
+     * @param taskManager The TaskManager instance to handle all task specific operations.
+     * @param fileManager The FileManager to handle file operations related to tasks.
+     */
     public AddEventCommand(String userInput, TaskManager taskManager, FileManager fileManager) {
         super(userInput, taskManager, fileManager);
     }
 
+
+    /**
+     * Executes the command to add a new Event task.
+     * Based on the user input, extract the task description, start time and end time, checks for duplicates, and then
+     * create a new Event task, adds it to the task list, and updates the file.
+     *
+     * <p>Handle cases such as missing task description and duplicate tasks by throwing TaskManagerException.
+     * Writes the updated task list to the file after addition.</p>
+     *
+     * @throws TaskManagerException If an error occurs during task addition, such as missing task description
+     * or a duplicate task.
+     */
     @Override
     public void runCommand() throws TaskManagerException {
         String taskInfo;

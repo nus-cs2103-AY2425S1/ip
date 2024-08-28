@@ -13,11 +13,18 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * A class that handles the reading and writing to the file, task.json, which stores tasks in JSON format.
+ */
 public class FileManager {
 
     private static final String FILE_PATH = "task.json";
     private Gson gsonInstance;
 
+    /**
+     * Constructs a FileManager instance which when initialised, will initialise a custom Gson instance as well.
+     * The Gson instance will handle Task objects and exclude fields without @Expose annotation.
+     */
     public FileManager() {
          this.gsonInstance = new GsonBuilder()
                 .registerTypeAdapter(Task.class, new TaskAdapter())
@@ -26,6 +33,11 @@ public class FileManager {
                 .create();
     }
 
+    /**
+     * Writes the list of tasks to the file task.json in JSON format.
+     *
+     * @param tasks The tasks to be written to the file.
+     */
     public void writeTasksToFile(ArrayList<Task> tasks) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             this.gsonInstance.toJson(tasks, writer);
@@ -35,6 +47,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Reads the list of tasks from the file task.json.
+     *
+     * @return The tasks read from the file, in ArrayList.
+     */
     public ArrayList<Task> readTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try (FileReader reader = new FileReader(FILE_PATH)) {
@@ -51,6 +68,9 @@ public class FileManager {
         return tasks;
     }
 
+    /**
+     * Ensures that the file exists. If the file does not exist, create a new one.
+     */
     public void ensureFileExist() {
 
         File f = new File(FILE_PATH);
@@ -64,6 +84,9 @@ public class FileManager {
         }
     }
 
+    /**
+     * Handles the issue when file is corrupted by deleting the corrupted file and creating a new one.
+     */
     public void handleCorruptedFile() {
         File f = new File(FILE_PATH);
         if (f.delete()) {
@@ -74,8 +97,5 @@ public class FileManager {
             System.out.println("Seems like we can't delete the file either, maybe try deleting it manually " +
                     "and run me again!");
         }
-
-
     }
-
 }

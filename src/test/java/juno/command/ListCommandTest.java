@@ -64,10 +64,12 @@ public class ListCommandTest {
         this.listCommand.runCommand();
 
         // Expected output
-        String expectedOutput = "Here's a rundown of all your tasks! \uD83D\uDE0A\n" +
-                "1. [todo] Mock Task 1\n" +
-                "2. [deadline] Mock Task 2\n" +
-                "\uD83C\uDFAF You have 2 tasks in the list. Keep going!\n";
+        String expectedOutput = """
+                Here's a rundown of all your tasks! \uD83D\uDE0A
+                1. [todo] Mock Task 1
+                2. [deadline] Mock Task 2
+                \uD83C\uDFAF You have 2 tasks in the list. Keep going!
+                """;
 
         verify(this.mockTaskManager, times(1)).getTasksArray();
         assertEquals(expectedOutput, outputStreamCaptor.toString());

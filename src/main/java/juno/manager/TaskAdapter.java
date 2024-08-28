@@ -11,8 +11,22 @@ import juno.task.Todo;
 
 import java.io.IOException;
 
+/**
+ * A class to customise the Gson TypeAdapter for serialising and deserialising Task objects.
+ * Required as reading and writing takes in an ArrayList, so this class will help in reading the writing correctly
+ * into the task.json file.
+ * Handles different Task subclasses (Todo, Deadline, Event) during the JSON read/write process.
+ */
 public class TaskAdapter extends TypeAdapter<Task> {
 
+    /**
+     * Deserialises JSON into a Task object.
+     * Identifies the task type and creates the appropriate Task subclass using switch statement.
+     *
+     * @param reader The JsonReader to read the JSON data from.
+     * @return The deserialised Task object.
+     * @throws IOException If there is an error reading the JSON data.
+     */
     @Override
     public Task read(JsonReader reader) throws IOException {
         reader.beginObject();
@@ -75,6 +89,13 @@ public class TaskAdapter extends TypeAdapter<Task> {
         return task;
     }
 
+    /**
+     * Serialises a Task object into JSON.
+     *
+     * @param writer The JsonWriter to write the JSON data to.
+     * @param task   The Task object to be serialised.
+     * @throws IOException If there is an error writing the JSON data.
+     */
     @Override
     public void write(JsonWriter writer, Task task) throws IOException {
         writer.beginObject();
