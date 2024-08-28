@@ -8,7 +8,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
         list.deleteTask(index);
-        ui.showMessage("Task" + list.getTask(index) + "has been added.");
+        ui.showMessage("Task " + list.getTask(index) + " has been deleted.");
         storage.save(list);
     }
+
 }

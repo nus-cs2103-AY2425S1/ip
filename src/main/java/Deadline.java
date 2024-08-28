@@ -23,7 +23,7 @@ public class Deadline extends Task {
             this.dateTime = LocalDateTime.parse(deadline, format);
 
         } catch (DateTimeParseException de) {
-            throw new JudeException("wrong date or time format was provided.");
+            throw new JudeException("wrong date or time format was provided. Provide: 11/11/2024 0600");
         }
     }
 

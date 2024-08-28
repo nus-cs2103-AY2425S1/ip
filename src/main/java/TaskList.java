@@ -16,20 +16,28 @@ public class TaskList {
         list.add(task);
     }
 
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws JudeException {
+        validateIndex(index);
         list.remove(index);
     }
 
-    public void markTask(int index) {
+    public void markTask(int index) throws JudeException {
+        validateIndex(index);
         list.get(index).markAsDone();
     }
 
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws JudeException {
+        validateIndex(index);
         list.get(index).unmarkAsDone();
     }
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws JudeException {
+        validateIndex(index);
         return list.get(index);
+    }
+
+    public int size() {
+        return list.size();
     }
 
     public String toFileFormat() {
@@ -48,4 +56,9 @@ public class TaskList {
         return string;
     }
 
+    private void validateIndex(int index) throws JudeException {
+        if (index < 0 || index >= list.size()) {
+            throw new JudeException("You are trying to get an element of index out of the list size.");
+        }
+    }
 }

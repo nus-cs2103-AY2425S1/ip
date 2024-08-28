@@ -24,11 +24,19 @@ public class Ui {
         System.out.println("What can I do for you, poyo?");
     }
 
+    public void endChat() {
+        System.out.println("Poyo. Hope to see you again soon!");
+    }
+
     public String readCommand() throws JudeException {
         try {
             return bi.readLine();
         } catch (IOException ie) {
             throw new JudeException("IO operation was failed or interrupted. Please try again, poyo...");
         }
+    }
+
+    public void showLine() {
+        System.out.println("----------------------------------------------------------------------------------");
     }
 }
