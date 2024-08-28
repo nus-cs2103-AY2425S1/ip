@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import PurrfessorDipsy.Exception.InvalidCommandException;
 import PurrfessorDipsy.Exception.InvalidDateException;
-import PurrfessorDipsy.Parser.DateTimeParser;
+import PurrfessorDipsy.Parser.DateParser;
 import PurrfessorDipsy.Task.Deadline;
 import PurrfessorDipsy.TaskList.TaskList;
 import PurrfessorDipsy.Ui.Ui;
@@ -25,7 +25,7 @@ public class DeadlineCommand extends Command {
             String description = matcher.group(1);
             String by = matcher.group(2);
             try {
-                LocalDate parsedBy = DateTimeParser.parseDate(by);
+                LocalDate parsedBy = DateParser.parseDate(by);
                 Deadline deadline = new Deadline(description, parsedBy);
                 tasks.addTask(deadline);
                 ui.printTaskAddedMessage(deadline, tasks.getSize());

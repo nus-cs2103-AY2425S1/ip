@@ -1,6 +1,6 @@
 package PurrfessorDipsy.Task;
 
-import PurrfessorDipsy.Parser.DateTimeParser;
+import PurrfessorDipsy.Parser.DateParser;
 
 import java.time.LocalDate;
 
@@ -30,12 +30,12 @@ public class Deadline extends Task {
     @Override
     public String formatToCSV() {
         String res = super.formatToCSV();
-        res += DELIMITER + wrapInQuotes(DateTimeParser.formatDateForStorage(by));
+        res += DELIMITER + wrapInQuotes(DateParser.formatDateForStorage(by));
         return res;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + DateTimeParser.formatDateForDisplay(by) + ")";
+        return "[D]" + super.toString() + " (by: " + DateParser.formatDateForDisplay(by) + ")";
     }
 }

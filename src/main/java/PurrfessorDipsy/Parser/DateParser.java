@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DateTimeParser {
+public class DateParser {
 
     private static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -19,16 +19,8 @@ public class DateTimeParser {
         return LocalDate.parse(dateStr, INPUT_DATE_FORMATTER);
     }
 
-    public static LocalDateTime parseDateTime(String dateTimeStr) throws DateTimeParseException {
-        return LocalDateTime.parse(dateTimeStr, INPUT_DATE_TIME_FORMATTER);
-    }
-
     public static String formatDateForDisplay(LocalDate date) {
         return date.format(DISPLAY_DATE_FORMATTER);
-    }
-
-    public static String formatDateTimeForDisplay(LocalDateTime dateTime) {
-        return dateTime.format(DISPLAY_DATE_TIME_FORMATTER);
     }
 
     public static String formatDateForStorage(LocalDate date) {

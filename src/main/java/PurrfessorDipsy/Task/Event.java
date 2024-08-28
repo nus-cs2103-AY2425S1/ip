@@ -2,7 +2,7 @@ package PurrfessorDipsy.Task;
 
 import java.time.LocalDate;
 
-import static PurrfessorDipsy.Parser.DateTimeParser.*;
+import static PurrfessorDipsy.Parser.DateParser.*;
 
 public class Event extends Task {
     LocalDate start;

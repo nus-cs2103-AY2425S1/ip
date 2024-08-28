@@ -2,7 +2,7 @@ package PurrfessorDipsy.Command;
 
 import PurrfessorDipsy.Exception.InvalidCommandException;
 import PurrfessorDipsy.Exception.InvalidDateException;
-import PurrfessorDipsy.Parser.DateTimeParser;
+import PurrfessorDipsy.Parser.DateParser;
 import PurrfessorDipsy.Task.Event;
 import PurrfessorDipsy.TaskList.TaskList;
 import PurrfessorDipsy.Ui.Ui;
@@ -26,8 +26,8 @@ public class EventCommand extends Command {
             String start = matcher.group(2);
             String end = matcher.group(3);
             try {
-                LocalDate parsedStart = DateTimeParser.parseDate(start);
-                LocalDate parsedEnd = DateTimeParser.parseDate(end);
+                LocalDate parsedStart = DateParser.parseDate(start);
+                LocalDate parsedEnd = DateParser.parseDate(end);
                 Event event = new Event(description, parsedStart, parsedEnd);
                 tasks.addTask(event);
                 ui.printTaskAddedMessage(event, tasks.getSize());

@@ -113,7 +113,7 @@ public class Storage {
                     return null;
                 }
                 String by = parts.get(3);
-                LocalDate parsedBy = DateTimeParser.parseDate(by);
+                LocalDate parsedBy = DateParser.parseDate(by);
                 return new Deadline(description, isDone, parsedBy);
             case "Event":
                 if (parts.size() < 5) {
@@ -122,8 +122,8 @@ public class Storage {
                 }
                 String start = parts.get(3);
                 String end = parts.get(4);
-                LocalDate parsedStart = DateTimeParser.parseDate(start);
-                LocalDate parsedEnd = DateTimeParser.parseDate(end);
+                LocalDate parsedStart = DateParser.parseDate(start);
+                LocalDate parsedEnd = DateParser.parseDate(end);
                 return new Event(description, isDone, parsedStart, parsedEnd);
             default:
                 System.out.println("Unknown task type: " + taskType);
