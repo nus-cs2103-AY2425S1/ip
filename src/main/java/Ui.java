@@ -4,6 +4,21 @@ public class Ui {
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
                     + "What can I do for you?";
     private static final String GOODBYE_GREETING = "Bye. Hope to see you again soon! :)\n";
+    public static void displayForm(String phrase) {
+        System.out.println("_______________________________________________\n"
+                        + phrase
+                        + "\n_______________________________________________\n");
+    }
 
+    public Ui() {
 
+    }
+
+    public void greet() {
+        Ui.displayForm(HELLO_GREETING);
+    }
+
+    public void goodbye() {
+        Ui.displayForm(GOODBYE_GREETING);
+    }
 }
