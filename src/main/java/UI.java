@@ -1,51 +1,36 @@
-import task.Task;
+import command.CommandResponse;
 
-import java.util.List;
+import java.util.Scanner;
 
 public class UI {
+    private final Scanner scan;
+
+    public UI() {
+        this.scan = new Scanner(System.in);
+    }
+
     private String addMsgWithOutline(String msg) {
         return "\t\t\t---------------------------------------------------------------\n" + "\t\t\t" + msg + "\n" + "\t\t\t---------------------------------------------------------------";
+    }
+
+    public String getUserInput() {
+        return this.scan.nextLine();
     }
 
     public void greeting() {
         System.out.println(this.addMsgWithOutline("Hello! I'm EchoChat\n\t\t\tWhat can I do for you?"));
     }
 
-    public void printTaskList(List<? extends Task> tasks) {
-        StringBuilder output = new StringBuilder();
-        output.append("Here are the tasks in your list:\n\t\t\t");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            output.append(i + 1);
-            output.append(".");
-            output.append(task);
-            output.append("\n\t\t\t");
-        }
-
-        if (!output.isEmpty()) {
-            output.delete(output.length() - 4, output.length());
-        }
-        System.out.println(this.addMsgWithOutline(output.toString()));
-    }
-
-    public void printAddTaskFeedback(Task task, int noOfTasksInList) {
-        System.out.println(this.addMsgWithOutline("Got it. I've added this task:\n\t\t\t\t" + task + "\n\t\t\tNow you have " + noOfTasksInList + " task(s) in the list."));
-    }
-
-    public void printTaskMarkedDone(Task task) {
-        System.out.println(this.addMsgWithOutline("Nice! I've marked this task as done:\n\t\t\t\t" + task));
-    }
-
-    public void printTaskMarkedUndone(Task task) {
-        System.out.println(this.addMsgWithOutline("OK, I've marked this task as not done yet:\n\t\t\t\t" + task));
-    }
-
-    public void printTaskRemoved(Task taskRemoved, int noOfTasksInList) {
-        System.out.println(this.addMsgWithOutline("Noted. I've removed this task: \n\t\t\t\t" + taskRemoved + "\n\t\t\tNow you have " + noOfTasksInList + " task(s) in the list."));
-    }
-
     public void printErrorMessage(Exception e) {
         System.out.println(this.addMsgWithOutline(e.getMessage()));
+    }
+
+    // TODO: print command
+    public void printCommandResponse(CommandResponse commandResponse) {
+        if (commandResponse.isExitCommand()) {
+            return;
+        }
+        System.out.println(this.addMsgWithOutline(commandResponse.getResponse()));
     }
 
     public void exit() {

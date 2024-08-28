@@ -21,7 +21,7 @@ public class TaskList implements Saveable {
 
     public Task deleteTaskByIndex(int index) throws TaskNotFoundException {
         try {
-            return this.taskList.remove(index - 1);
+            return this.taskList.remove(index);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNotFoundException();
         }
@@ -31,9 +31,21 @@ public class TaskList implements Saveable {
         return this.taskList;
     }
 
-    public Task getTaskByIndex(int index) throws TaskNotFoundException {
+    public Task markTaskByIndex(int index) throws TaskNotFoundException {
         try {
-            return this.taskList.get(index - 1);
+            Task task = this.taskList.get(index);
+            task.markDone();
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNotFoundException();
+        }
+    }
+
+    public Task unmarkTaskByIndex(int index) throws TaskNotFoundException {
+        try {
+            Task task = this.taskList.get(index);
+            task.markUndone();
+            return task;
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNotFoundException();
         }
@@ -49,6 +61,10 @@ public class TaskList implements Saveable {
         }
 
         return taskList1;
+    }
+
+    public int size() {
+        return this.taskList.size();
     }
 
     @Override

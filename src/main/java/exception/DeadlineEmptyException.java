@@ -1,6 +1,6 @@
 package exception;
 
-public class DeadlineEmptyException extends EchoBotException{
+public class DeadlineEmptyException extends EchoBotException {
     public DeadlineEmptyException() {
         super("Deadline cannot be left empty!");
     }
