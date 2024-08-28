@@ -7,6 +7,10 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to unmark a task as not done in the task list.
+ * This command handles the unmarking of a task at a specified index, indicating it is not completed.
+ */
 public class UnmarkCommand implements Command {
     private final int taskIndex;
 

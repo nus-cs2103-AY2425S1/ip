@@ -12,10 +12,20 @@ import ui.Ui;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command to add a new task to the task list.
+ * This command handles the creation of ToDo, Deadline, and Event tasks and adds them to the task list.
+ */
 public class AddCommand implements Command {
     private final String taskType;
     private final String taskDescription;
 
+    /**
+     * Constructs an AddCommand with the specified task type and description.
+     *
+     * @param taskType the type of task to be added (e.g., "todo", "deadline", "event").
+     * @param taskDescription the description of the task to be added.
+     */
     public AddCommand(String taskType, String taskDescription) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;

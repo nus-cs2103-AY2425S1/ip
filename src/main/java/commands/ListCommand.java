@@ -4,6 +4,10 @@ import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to list all tasks in the task list.
+ * This command displays the current tasks in the list to the user.
+ */
 public class ListCommand implements Command {
 
     @Override

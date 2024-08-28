@@ -7,9 +7,20 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to mark a task as done in the task list.
+ * This command handles the marking of a task at a specified index as completed.
+ */
 public class MarkCommand implements Command {
     private final int taskIndex;
 
+    /**
+     * Constructs a MarkCommand with the specified task index.
+     * The index is derived from the user input and validated to ensure it is a valid number.
+     *
+     * @param taskIndex the index of the task to be marked as done, as provided by the user.
+     * @throws InputException if the task index is invalid, missing, or cannot be parsed into an integer.
+     */
     public MarkCommand(String taskIndex) throws InputException {
         if (taskIndex.trim().isEmpty()) {
             throw new InputException("Please specify which task number to mark.");

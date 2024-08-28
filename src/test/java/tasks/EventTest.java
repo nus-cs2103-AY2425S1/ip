@@ -7,8 +7,17 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the Event class.
+ * This class tests the functionality of the Event class, including creating tasks,
+ * handling invalid input, and encoding tasks to a string format.
+ */
 class EventTest {
 
+    /**
+     * Tests the createTask method with valid input.
+     * Ensures that a valid Event task is created and its string representation is as expected.
+     */
     @Test
     void testCreateTaskValid() throws InputException {
         Task task = new Event("", LocalDateTime.now(), LocalDateTime.now()).createTask("Meeting /from 01/01/2024 0900 /to 01/01/2024 1700");
@@ -16,11 +25,19 @@ class EventTest {
         assertEquals("[E][ ] Meeting (from: Jan 1 2024, 9:00 am to: Jan 1 2024, 5:00 pm)", task.toString());
     }
 
+    /**
+     * Tests the createTask method with invalid input (missing or incomplete description).
+     * Ensures that an InputException is thrown when trying to create a task with invalid input.
+     */
     @Test
     void testCreateTaskInvalid() {
         assertThrows(InputException.class, () -> new Event("", LocalDateTime.now(), LocalDateTime.now()).createTask("event"));
     }
 
+    /**
+     * Tests the encode method.
+     * Ensures that the Event task is correctly encoded into a string format suitable for storage.
+     */
     @Test
     void testEncode() {
         LocalDateTime from = LocalDateTime.of(2024, 1, 1, 9, 0);
