@@ -97,7 +97,7 @@ public class Neuro {
 
         if (task == null) {
             throw new IllegalArgumentException("UH OH! I'm sorry but I don't recognise that command. Try the following:" +
-                    " 'todo', 'deadline', 'event', 'list', 'mark', 'unmark', 'bye'.");
+                    " 'todo', 'deadline', 'event', 'list', 'mark', 'unmark', 'delete', 'bye'.");
         }
         return task;
     }
