@@ -29,6 +29,8 @@ public class Parser {
             return Command.EVENT;
         } else if (input.startsWith("delete ")) {
             return Command.DELETE;
+        } else if (input.startsWith("find ")) {
+            return Command.FIND;
         } else {
             return Command.UNKNOWN;
         }

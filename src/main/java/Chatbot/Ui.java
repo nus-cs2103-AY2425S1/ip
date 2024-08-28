@@ -1,7 +1,7 @@
 package Chatbot;
 
-import Chatbot.TaskStorage;
 import Tasks.Task;
+import java.util.Map;
 
 /**
  * The {@code Ui} class handles the user interface for the chatbot, providing methods
@@ -106,6 +106,24 @@ public class Ui {
     public void showTaskList(TaskStorage taskStorage) {
         System.out.println("    ____________________________________________________________");
         taskStorage.listTasks();
+        System.out.println("    ____________________________________________________________");
+    }
+
+    /**
+     * Displays a list of tasks that match a given keyword.
+     *
+     * @param foundTasks a map of tasks that match the search keyword.
+     */
+    public void showFoundTasks(Map<Integer, Task> foundTasks) {
+        System.out.println("    ____________________________________________________________");
+        if (foundTasks.isEmpty()) {
+            System.out.println("    No matching tasks found.");
+        } else {
+            System.out.println("    Here are the matching tasks in your list:");
+            for (Map.Entry<Integer, Task> entry : foundTasks.entrySet()) {
+                System.out.println("     " + entry.getKey() + ". " + entry.getValue());
+            }
+        }
         System.out.println("    ____________________________________________________________");
     }
 }

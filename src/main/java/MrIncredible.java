@@ -12,6 +12,8 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Map;
+
 
 public class MrIncredible {
     private static final Scanner scanner = new Scanner(System.in);
@@ -61,6 +63,9 @@ public class MrIncredible {
                     break;
                 case DELETE:
                     deleteTask(input);
+                    break;
+                case FIND:
+                    findTask(input);
                     break;
                 default:
                     ui.handleError("Sorry, I don't recognize that command. Please try again.");
@@ -132,5 +137,12 @@ public class MrIncredible {
 
     public static void listTasks() {
         ui.showTaskList(taskStorage);
+    }
+
+    public static void findTask(String input) {
+        String[] parts = input.split(" ", 2);
+        String keyword = parts[1];
+        Map<Integer, Task> foundTasks = taskStorage.findTasks(keyword);
+        ui.showFoundTasks(foundTasks);
     }
 }
