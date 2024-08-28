@@ -1,7 +1,5 @@
 package bestie.task;
 
-import bestie.Task;
-
 public class Todo extends Task {
 
     public Todo(String description) throws IllegalArgumentException {

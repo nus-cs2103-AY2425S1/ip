@@ -7,11 +7,13 @@ import bestie.task.Todo;
 
 import java.time.format.DateTimeParseException;
 
-// deals with making sense of the user command
-// purpose is to parse whatever the user keys in and then call the corresponding commands
-// catche rrors here??????????????????????????????????
 public class Parser {
-
+    /**
+     * Parses user input to understand command and execute the corresponding command.
+     *
+     * @param userInput user input through CLI
+     * @return command object corresponding to user's command input
+     */
     public static Command parse (String userInput) {
         String[] parts = userInput.split(" ");
         String commandWord = parts[0];// first word only!!!

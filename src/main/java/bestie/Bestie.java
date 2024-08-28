@@ -14,6 +14,12 @@ public class Bestie {
     private Ui ui;
     Scanner sc = new Scanner(System.in);
 
+
+    /**
+     * Creates an instance of the Bestie chatbot, initialising the ui, storage and tasklist
+     *
+     * @param filePath path of the bestie.txt file where tasks are stored.
+     */
     public Bestie(String filePath) {
         this.ui = new Ui(sc);
         this.storage = new Storage(filePath);
@@ -21,6 +27,11 @@ public class Bestie {
 
     }
 
+
+    /**
+     * Starts execution of the Bestie chatbot.
+     *  Terminates chatbot when the user keys in an exit command.
+     */
     public void run() {
 
         // greet the user

@@ -12,6 +12,15 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Marks a task as undone when user specifies the task that is incomplete.
+     * Displays message indicating the task has been successfully unmarked, or an error message
+     * if index is out of bounds.
+     *
+     * @param tasks User's list of tasks.
+     * @param ui User Interface object that executes printing of message to console.
+     * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index >= 0 && this.index < tasks.size()) {
