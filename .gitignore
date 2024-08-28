@@ -15,4 +15,5 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-data/
+data/mira.txt
+test-ui-test/data/mira.txt
