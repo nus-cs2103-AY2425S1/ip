@@ -171,6 +171,7 @@ public class Pebble {
         }
     }
 
+    // convert strings into command type
     private static CommandType getCommandType(String input) {
         if (input.equals("bye")) {
             return CommandType.BYE;
