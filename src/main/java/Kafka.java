@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Kafka {
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public ArrayList<Task> tasks = new ArrayList<>();
 
     public void greet() {
         String message = """
@@ -19,17 +19,37 @@ public class Kafka {
     }
 
     public void addTask(Task task) {
-        tasks.add(task);
+        this.tasks.add(task);
         System.out.println("  added: " + task.description);
     }
 
     public void createList() {
-        for (int i = 0; i < tasks.size(); i++) {
-            Task t = tasks.get(i);
+        System.out.println("  Here are the tasks in your list:");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task t = this.tasks.get(i);
             String listMessage = "  " + (i + 1) + ".[" + t.getStatusIcon() + "] " + t.description;
             System.out.println(listMessage);
         }
     }
+
+    public void mark(int taskNumber) {
+        Task t = this.tasks.get(taskNumber - 1);
+        t.markAsDone();
+        String message = "  Nice! I've marked this task as done:\n"
+                + "    [" + t.getStatusIcon() + "] "
+                + t.description;
+        System.out.println(message);
+    }
+
+    public void unmark(int taskNumber) {
+        Task t = this.tasks.get(taskNumber - 1);
+        t.markAsNotDone();
+        String message = "  OK, I've marked this task as not done yet:\n"
+                + "    [" + t.getStatusIcon() + "] "
+                + t.description;
+        System.out.println(message);
+    }
+
     public static void main(String[] args) {
         String logo = """
                    __  __            __     _
@@ -46,13 +66,20 @@ public class Kafka {
         kafka.greet();
         System.out.println("  What do you need me for?");
         while (!exitChat) {
-            String description = scanner.nextLine();
-            Task task =  new Task(description);
-            if (task.description.trim().equalsIgnoreCase("Bye")) {
+            String[] userInput = scanner.nextLine().trim().split(" ", 2);
+            if (userInput[0].equalsIgnoreCase("bye")) {
                 exitChat = true;
-            } else if (task.description.trim().equalsIgnoreCase("list")) {
+            } else if (userInput[0].equalsIgnoreCase("list")) {
                 kafka.createList();
+            } else if (userInput[0].equalsIgnoreCase("mark")) {
+                int taskNumber = Integer.parseInt(userInput[1]);
+                kafka.mark(taskNumber);
+            } else if (userInput[0].equalsIgnoreCase("unmark")) {
+                int taskNumber = Integer.parseInt(userInput[1]);
+                kafka.unmark(taskNumber);
             } else {
+                String description = String.join(" ", userInput);
+                Task task = new Task(description);
                 kafka.addTask(task);
             }
         }

@@ -8,10 +8,20 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (this.isDone ? "X" : " ");
     }
 
-    public void maskAsDone() {
-        isDone = true;
+    public void markAsDone() {
+        if (this.isDone) {
+            return;
+        }
+        this.isDone = true;
+    }
+
+    public void markAsNotDone() {
+        if (!this.isDone) {
+            return;
+        }
+        this.isDone = false;
     }
 }
