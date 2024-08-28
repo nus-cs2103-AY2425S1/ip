@@ -206,6 +206,23 @@ public class Alex {
         saveTasksToFile();
         scan();
     }
+    public void handleDate(String input) {
+        try {
+            LocalDate dateToFind = LocalDate.parse(input.substring(9).trim());
+            ArrayList<Task> newList = list;
+            newList.removeIf(task -> task.dueDate == null);
+            System.out.println(LINE);
+            for (Task task : list) {
+                if (task.dueDate.isEqual(dateToFind)) {
+                    System.out.println(task);
+                }
+            }
+            System.out.println(LINE);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date(s) entered. Use this format: YYYY-MM-DD");
+        }
+        scan();
+    }
     public void scan() {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -229,6 +246,8 @@ public class Alex {
             handleEvent(userInput);
         } else if (userInput.startsWith("delete")) {
             handleDelete(userInput);
+        } else if (userInput.startsWith("tasks on")) {
+            handleDate(userInput);
         } else {
             System.out.println(LINE);
             System.out.println("Sorry, I don't understand that command. Did you make a typo?");
