@@ -18,7 +18,7 @@ public class Storage {
         this.filePath = "./";
     }
 
-    // MichaelScott.task.Todo: Can add loadTask functionality later
+    // MichaelScott.MichaelScott.task.Todo: Can add loadTask functionality later
 
     public void saveTasks(ArrayList<Task> todo) throws MichaelScottException {
         try {

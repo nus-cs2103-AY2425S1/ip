@@ -10,7 +10,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        println("Running MichaelScott.exe");
+        println("Running MichaelScott.MichaelScott.exe");
         printLine();
         println("Hello! I'm Michael Scott");
         println("What can I do for you?");

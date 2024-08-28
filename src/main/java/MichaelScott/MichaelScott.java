@@ -1,3 +1,5 @@
+package MichaelScott;
+
 import MichaelScott.Storage.Storage;
 import MichaelScott.Parser.Parser;
 import MichaelScott.Task.TaskList;

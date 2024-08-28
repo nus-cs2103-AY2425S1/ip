@@ -1,2 +1,1 @@
-D | 0 | read book
-D | 0 | borrow book
+D | 0 | stuff
