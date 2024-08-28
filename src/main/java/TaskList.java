@@ -11,13 +11,13 @@ public class TaskList extends ArrayList<Task> {
     super();
   }
 
-  public void addTask (Hamyo hamyo, Hamyo.TaskType taskType, String task) throws HamyoException {
-    if (taskType.equals(Hamyo.TaskType.TODO)) {
+  public void addTask (Parser.TaskType taskType, String task) throws HamyoException {
+    if (taskType.equals(Parser.TaskType.TODO)) {
       if (task.length() <= 1) {
         throw new HamyoException("Usage: todo [task description]");
       }
       this.add(new ToDo(new String[]{task.substring(1)}));
-    } else if (taskType.equals(Hamyo.TaskType.DEADLINE)) {
+    } else if (taskType.equals(Parser.TaskType.DEADLINE)) {
       if (task.length() <= 1) {
         throw new HamyoException("Usage: deadline [task description] /by [deadline]");
       }
@@ -26,7 +26,7 @@ public class TaskList extends ArrayList<Task> {
         throw new HamyoException("Usage: deadline [task description] /by [deadline]");
       }
       this.add(new Deadline(split));
-    } else if (taskType.equals(Hamyo.TaskType.EVENT)) {
+    } else if (taskType.equals(Parser.TaskType.EVENT)) {
       if (task.length() <= 1) {
         throw new HamyoException("Usage: event [task description] /from [start timestamp] /to [end timestamp]");
       }
@@ -40,7 +40,7 @@ public class TaskList extends ArrayList<Task> {
     UI.printAddTask(this.get(this.size() - 1), this.size());
   }
 
-  public void deleteTask(Hamyo hamyo, String str) throws HamyoException {
+  public void deleteTask(String str) throws HamyoException {
     try {
       if (str.length() <= 1) {
         throw new HamyoException("Usage: delete [index]");
@@ -57,7 +57,7 @@ public class TaskList extends ArrayList<Task> {
     }
   }
 
-  public void listTasks(Hamyo hamyo) throws HamyoException {
+  public void listTasks() throws HamyoException {
     StringBuilder tasksList = new StringBuilder();
     for (int i = 1; i < this.size() + 1; i++) {
       if (!tasksList.isEmpty()) {
@@ -69,7 +69,7 @@ public class TaskList extends ArrayList<Task> {
     UI.printListTasks(tasksList.toString());
   }
 
-  public void listTasksByDate(Hamyo hamyo, String str) throws HamyoException {
+  public void listTasksByDate(String str) throws HamyoException {
     try {
       LocalDate date = LocalDate.parse(str.substring(1));
       StringBuilder tasksList = new StringBuilder();
@@ -91,7 +91,7 @@ public class TaskList extends ArrayList<Task> {
     }
   }
 
-  public void markTask(Hamyo hamyo, String str) throws HamyoException {
+  public void markTask(String str) throws HamyoException {
     try {
       if (str.length() <= 1) {
         throw new HamyoException("Usage: mark [index]");
@@ -106,7 +106,7 @@ public class TaskList extends ArrayList<Task> {
     }
   }
 
-  public void unmarkTask(Hamyo hamyo, String str) throws HamyoException {
+  public void unmarkTask(String str) throws HamyoException {
     try {
       if (str.length() <= 1) {
         throw new HamyoException("Usage: unmark [index]");

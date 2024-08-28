@@ -3,74 +3,40 @@ import java.util.Scanner;
 public class Hamyo {
 
     private final UI ui;
-    private boolean active;
+    private final Storage storage;
     private final TaskList tasks;
-    public enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT
-    }
+    private boolean active;
 
     public Hamyo() {
         this.ui = new UI();
-        this.active = true;
         this.tasks = new TaskList();
+        this.active = true;
+        this.storage = new Storage("./savedTasks.txt");
 
         this.ui.greet();
     }
 
-    public static void main(String[] args) {
+    public void run() {
         try {
-            Hamyo hamyo = new Hamyo();
-            Storage storage = new Storage("./savedTasks.txt");
             Scanner scanner = new Scanner(System.in);
+            storage.loadData(this, this.tasks);
 
-            storage.loadData(hamyo, hamyo.tasks);
-            while (hamyo.active) {
+            while (this.active) {
                 try {
-                    String command = scanner.nextLine();
-                    String commandType = command.split(" ")[0];
-                    String commandFields = command.substring(commandType.length());
-                    switch (commandType) {
-                    case "todo":
-                        hamyo.tasks.addTask(hamyo, TaskType.TODO, commandFields);
-                        break;
-                    case "deadline":
-                        hamyo.tasks.addTask(hamyo, TaskType.DEADLINE, commandFields);
-                        break;
-                    case "event":
-                        hamyo.tasks.addTask(hamyo, TaskType.EVENT, commandFields);
-                        break;
-                    case "list":
-                        hamyo.tasks.listTasks(hamyo);
-                        break;
-                    case "listDate":
-                        hamyo.tasks.listTasksByDate(hamyo, commandFields);
-                        break;
-                    case "mark":
-                        hamyo.tasks.markTask(hamyo, commandFields);
-                        break;
-                    case "unmark":
-                        hamyo.tasks.unmarkTask(hamyo, commandFields);
-                        break;
-                    case "delete":
-                        hamyo.tasks.deleteTask(hamyo, commandFields);
-                        break;
-                    case "bye":
-                        hamyo.active = false;
-                        hamyo.ui.terminate();
-                        break;
-                    default:
-                        throw new HamyoException("Invalid Command!");
-                    }
-                    storage.saveData(hamyo, hamyo.tasks);
+                    this.active = Parser.parse(scanner.nextLine(), this.tasks);
+                    storage.saveData(this, this.tasks);
                 } catch (HamyoException e) {
                     UI.printException(e);
                 }
             }
+            ui.terminate();
             scanner.close();
         } catch (HamyoException e) {
             UI.printException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        new Hamyo().run();
     }
 }

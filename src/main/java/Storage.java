@@ -12,16 +12,16 @@ public class Storage {
   private final String path;
   private File file;
 
-  public Storage(String path) throws HamyoException {
+  public Storage(String path) {
+    this.path = path;
     try {
-      this.path = path;
       File tempFile = new File("./savedTasks.txt");
       if (!tempFile.exists()) {
         tempFile.createNewFile();
       }
       this.file = tempFile;
     } catch (IOException e) {
-      throw new HamyoException(e.getMessage());
+      UI.printException(e);
     }
   }
 
