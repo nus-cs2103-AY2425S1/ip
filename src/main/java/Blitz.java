@@ -88,9 +88,9 @@ public class Blitz{
         System.out.println("---------------");
     }
 
-    public void displayList(ArrayList<Task> inputHistory) {
+    public void displayList() {
         System.out.println("---------------");
-        inputHistory.forEach(task -> System.out.println((inputHistory.indexOf(task) + 1) +
+        inputHistory.forEach(task -> System.out.println((this.inputHistory.indexOf(task) + 1) +
                 ". " +
                 task));
         System.out.println("---------------\n");
