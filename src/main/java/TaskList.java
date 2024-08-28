@@ -1,3 +1,9 @@
+import command.InvalidCommandException;
+import storage.DataIOException;
+import storage.InvalidDataFormatException;
+import storage.Storage;
+import task.Task;
+
 import java.util.ArrayList;
 
 
@@ -14,6 +20,7 @@ public class TaskList {
         try {
             this.loadTasks();
         } catch (DataIOException | InvalidDataFormatException e) {
+            System.out.println(e.getMessage());
             this.tasks.clear();
             this.taskCount = 0;
         }

@@ -1,3 +1,8 @@
+package parser;
+
+import command.Command;
+import task.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -42,7 +47,7 @@ public class Parser {
             }
         } catch (InvalidDateException e) {
             throw new InvalidTaskException("OOPS!!! Please enter a valid " +
-                    "date and time in the format yyyy-mm-dd.");
+                    "date and time in the format dd-mm-yyyy.");
         }
         catch (InvalidTimeException e) {
             throw new InvalidTaskException("OOPS!!! Please enter a valid " +
@@ -60,6 +65,14 @@ public class Parser {
 
     public static String dateToString(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+
+    public static String dateToStorageString(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
+
+    public static String timeToString(LocalTime time) {
+        return time.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
     public static LocalTime parseTime(String time) throws InvalidTimeException {

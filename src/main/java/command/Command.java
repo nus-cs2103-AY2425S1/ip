@@ -1,3 +1,7 @@
+package command;
+
+import task.Task;
+
 public class Command {
     public enum CommandType {
         List, Add, Mark, Unmark, Delete, Exit

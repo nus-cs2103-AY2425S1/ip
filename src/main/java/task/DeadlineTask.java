@@ -1,3 +1,8 @@
+package task;
+
+import parser.InvalidDateException;
+import parser.Parser;
+
 import java.time.LocalDate;
 
 public class DeadlineTask extends Task {
@@ -15,6 +20,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String simpleFormat() {
-        return "D | " + super.simpleFormat() + " | " + date;
+        return "D | " + super.simpleFormat() + " | " + Parser.dateToStorageString(date);
     }
 }

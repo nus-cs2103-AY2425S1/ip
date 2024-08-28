@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     public enum TYPE { TODO, DEADLINE, EVENT, UNKNOWN };
 

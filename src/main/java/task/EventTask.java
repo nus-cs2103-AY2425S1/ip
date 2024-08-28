@@ -1,3 +1,9 @@
+package task;
+
+import parser.InvalidDateException;
+import parser.InvalidTimeException;
+import parser.Parser;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -22,7 +28,7 @@ public class EventTask extends Task {
 
     @Override
     public String simpleFormat() {
-        return "E | " + super.simpleFormat() + " | " + Parser.dateToString(this.date)
-                + " | " + this.startTime + " | " + this.endTime;
+        return "E | " + super.simpleFormat() + " | " + Parser.dateToStorageString(this.date)
+                + " | " + Parser.timeToString(this.startTime) + " | " + Parser.timeToString(this.endTime);
     }
 }
