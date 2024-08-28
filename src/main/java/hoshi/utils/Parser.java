@@ -27,9 +27,8 @@ public class Parser {
      * @param scanner scanner object that scans user input
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui Ui that handles all user interaction
-     * @param storage Storage that handles all I/O operations
      */
-    public void parseCommand(String input, Scanner scanner, TaskList taskList, Ui ui, Storage storage) {
+    public void parseCommand(String input, Scanner scanner, TaskList taskList, Ui ui) {
 
         switch (input.split(" ")[0].toLowerCase()) {
         case "bye":
