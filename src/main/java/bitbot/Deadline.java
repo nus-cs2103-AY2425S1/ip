@@ -1,4 +1,5 @@
 package bitbot;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -62,13 +63,17 @@ public class Deadline extends Task {
 
         String byOrDateTimeString;
         if (localDateTime != null) {
-            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + localDateTime.format(dateTimeFormatter) + "|" + "NIL";
+            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
+                    + localDateTime.format(dateTimeFormatter) + "|" + "NIL";
         } else if (localDate != null) {
-            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + localDate.format(dateFormatter) + "|" + "NIL";
+            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
+                    + localDate.format(dateFormatter) + "|" + "NIL";
         } else if (localTime != null){
-            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + localTime.format(timeFormatter) + "|" + "NIL";
+            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
+                    + localTime.format(timeFormatter) + "|" + "NIL";
         } else {
-            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + by + "|" + "NIL";
+            byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
+                    + by + "|" + "NIL";
         }
 
         return byOrDateTimeString;

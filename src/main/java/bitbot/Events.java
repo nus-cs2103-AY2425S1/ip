@@ -1,4 +1,5 @@
 package bitbot;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -44,11 +45,14 @@ public class Events extends Task {
     @Override
     public String finalString() {
         if (localDateTime != null) {
-            return "[E]" + super.finalString() + " (from: " + localDateTime.format(dateTimeFormatter) + " to: " + localDateTime1.format(dateTimeFormatter) + ")";
+            return "[E]" + super.finalString() + " (from: " + localDateTime.format(dateTimeFormatter) + " to: "
+                    + localDateTime1.format(dateTimeFormatter) + ")";
         } else if (localDate != null) {
-            return "[E]" + super.finalString() + " (from: " + localDate.format(dateFormatter) + " to: " + localDate1.format(dateFormatter) + ")";
+            return "[E]" + super.finalString() + " (from: " + localDate.format(dateFormatter) + " to: "
+                    + localDate1.format(dateFormatter) + ")";
         } else if (localTime != null){
-            return "[E]" + super.finalString() + " (from: " + localTime.format(timeFormatter) + " to: " + localTime1.format(timeFormatter) + ")";
+            return "[E]" + super.finalString() + " (from: " + localTime.format(timeFormatter) + " to: "
+                    + localTime1.format(timeFormatter) + ")";
         } else {
             return "[E]" + super.finalString() + " (from: " + from + " to: " + to + ")";
         }
@@ -63,11 +67,14 @@ public class Events extends Task {
         String fromToTimeString;
 
         if (localDateTime != null) {
-            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + localDateTime.format(dateTimeFormatter) + "|" + localDateTime1.format(dateTimeFormatter);
+            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
+                    + localDateTime.format(dateTimeFormatter) + "|" + localDateTime1.format(dateTimeFormatter);
         } else if (localDate != null) {
-            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + localDate.format(dateFormatter) + "|" + localDate1.format(dateFormatter);
+            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
+                    + localDate.format(dateFormatter) + "|" + localDate1.format(dateFormatter);
         } else if (localTime != null){
-            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + localTime.format(timeFormatter) + "|" + localTime1.format(timeFormatter);
+            fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
+                    + localTime.format(timeFormatter) + "|" + localTime1.format(timeFormatter);
         } else {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + from + "|" + to;
         }

@@ -2,7 +2,9 @@ package bitbot;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Objects;
 
 
 public class BitBot {
@@ -11,6 +13,7 @@ public class BitBot {
 
     /**
      * Checks if the string is a string or whether it is an integer wrapped in a string.
+     *
      * @param str the input string
      * @return true if it is a string and false if it is an integer wrapped in a string.
      */
@@ -78,17 +81,19 @@ public class BitBot {
                 if (partsOfInput.length > 0) {
                     keyWord = partsOfInput[0];
 
-                    if (Objects.equals(keyWord, "mark") || Objects.equals(keyWord, "unmark") || Objects.equals(keyWord, "delete")) {
+                    if (Objects.equals(keyWord, "mark") || Objects.equals(keyWord, "unmark")
+                            || Objects.equals(keyWord, "delete")) {
                         if (partsOfInput.length < 2) {
                             throw new BitBotException("OOPS!! Add the task number to mark/ unmark / delete the event.\n" +
-                                "          Please do not leave it blank.");
+                                "          Please do not leave it blank");
                         }
                         if (isAString(partsOfInput[partsOfInput.length - 1])) {
                             throw new BitBotException("OOPS!!! The second character should be a number.\n" +
                                 "          For example: delete 1");
                         }
                         if (arrayList.isEmpty()) {
-                            throw new BitBotException("You cannot mark / unmark / delete anything yet since the list is empty.\n" +
+                            throw new BitBotException("You cannot mark / unmark / delete anything yet "
+                                    + "since the list is empty.\n" +
                                 "          Add something into the list first!");
                         }
 
@@ -96,54 +101,50 @@ public class BitBot {
                         numberPart = Integer.parseInt(lastPart);
 
                         if (numberPart - 1 >= arrayList.size()) {
-                            throw new BitBotException("OOPS!!! You cannot mark / unmark / delete something that is outside the length of the list.\n" +
+                            throw new BitBotException("OOPS!!! You cannot mark / unmark / delete something "
+                                    + "that is outside the length of the list.\n" +
                                 "          There are only " + arrayList.size() + " item(s) in your list so far.");
                         }
 
+
                     } else if (Objects.equals(keyWord, "find")) {
-                       TaskHandling.handleFind(partsOfInput, arrayList);
-                    }
-                    // this is to check if the keyword is "event".
-                    // if so, get the different parts accurately.
-                    else if (Objects.equals(keyWord, "event")) {
+                      TaskHandling.handleFind(partsOfInput, arrayList);
+                    } else if (Objects.equals(keyWord, "event")) {
+                        // this is to check if the keyword is "event".
+                        // if so, get the different parts accurately.
                         TaskHandling.handleEvent(arrayList, textPart, partsOfInput, indexFrom, from, to, sb, task);
-                    }
-                    // the same concept as above for the keyword "deadline"
-                    else if (Objects.equals(keyWord, "deadline")) {
+                    } else if (Objects.equals(keyWord, "deadline")) {
+                        // the same concept as above for the keyword "deadline"
                         TaskHandling.handleDeadline(arrayList, textPart, partsOfInput, indexBy, by, sb, task);
-                    }
-                    // the same concept as above for the keyword "todo"
-                    else if (Objects.equals(keyWord, "todo")) {
+                    } else if (Objects.equals(keyWord, "todo")) {
+                        // the same concept as above for the keyword "todo"
                         TaskHandling.handleTodo(arrayList, textPart, partsOfInput, sb, task);
-                    }
-                    // the same concept as above for the keyword "list"
-                    else if (Objects.equals(keyWord, "list")) {
+                    } else if (Objects.equals(keyWord, "list")) {
+                        // the same concept as above for the keyword "list"
                        TaskHandling.handleList(arrayList);
-                    }
-                    else if (Objects.equals(keyWord, "bye")) {
+                    } else if (Objects.equals(keyWord, "bye")) {
                         // once the user types in bye,
                         // add all the tasks in the list into BitBot.txt
                         // and then do nothing else.
                         Storage.saveTasksToFile(arrayList);
-                    }
-                    // if it does not fall in any of this keyword,
-                    // throw an error saying there is no such keyword.
-                    else {
-                        throw new BitBotException("OOPS!!! I do not know what this keyword is!\n" +
-                            "          Please key in only one of these:\n          " +
-                            "\n          " +
-                            "mark \n          " +
-                            "unmark \n          " +
-                            "todo \n          " +
-                            "deadline \n          " +
-                            "event\n          " +
-                            "list\n          " +
-                            "delete\n          " +
-                            "bye\n          " +
-                            "find\n          " +
-                            "\n          " +
-                            "Please key in in this format:\n          " +
-                            "todo ... / deadline ... ");
+                    } else {
+                        // if it does not fall in any of this keyword,
+                        // throw an error saying there is no such keyword.
+                        throw new BitBotException("OOPS!!! I do not know what this keyword is!\n"
+                                + "          Please key in only one of these:\n          "
+                                + "\n          "
+                                + "mark \n          "
+                                + "unmark \n          "
+                                + "todo \n          "
+                                + "deadline \n          "
+                                + "event\n          "
+                                + "list\n          "
+                                + "delete\n          "
+                                + "bye\n          "
+                                + "find\n          "
+                                + "\n          "
+                                + "Please key in in this format:\n          "
+                                + "todo ... / deadline ... ");
                     }
                 } else {
                     textPart = inputData.trim();
@@ -157,26 +158,26 @@ public class BitBot {
                 case "bye":
                     break;
 
-                case "find":
-                    break;
-
                 case "mark":
                     arrayList.get(numberPart - 1).markAsDone();
-                    System.out.println("          ____________________________________\n          Nice! I've marked this task as done:");
+                    System.out.println("          ____________________________________\n          "
+                            + "Nice! I've marked this task as done:");
                     System.out.println("             " + arrayList.get(numberPart - 1).finalString());
                     System.out.println("          ____________________________________\n");
                     break;
 
                 case "unmark":
                     arrayList.get(numberPart - 1).markAsUndone();
-                    System.out.println("          ____________________________________\n          OK, I've marked this task as not done yet:");
+                    System.out.println("          ____________________________________\n          "
+                            + "OK, I've marked this task as not done yet:");
                     System.out.println("             " + arrayList.get(numberPart - 1).finalString());
                     System.out.println("          ____________________________________\n");
                     break;
 
                 case "delete":
                     Task task1 = arrayList.remove(numberPart - 1);
-                    System.out.println("          ____________________________________\n          Noted. I've removed this task:\n"
+                    System.out.println("          ____________________________________\n          "
+                            + "Noted. I've removed this task:\n"
                             + "             " + task1.finalString() + "\n"
                             + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
                             + "          ____________________________________");

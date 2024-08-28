@@ -1,15 +1,18 @@
 package bitbot;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 
 public class TaskHandling {
     /**
      * Handles the event task. It takes in the input
      * and extract out the description, the "from" time and the "to" time.
+     *
      * @param arrayList the list of tasks
      * @param textPart the description of the input
      * @param partsOfInput the String[] of the split input
@@ -20,11 +23,14 @@ public class TaskHandling {
      * @param task This helps to determine if I need to add "task" or "tasks"
      * @throws BitBotException if input is invalid
      */
-    public static void handleEvent (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, int indexFrom, StringBuilder from, StringBuilder to, StringBuilder sb, String task) throws BitBotException {
+    public static void handleEvent (ArrayList<Task> arrayList, String textPart,
+                                    String[] partsOfInput, int indexFrom, StringBuilder from,
+                                    StringBuilder to, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
-            throw new BitBotException("OOPS!!! The description and timings of an event should not be empty.\n          Please add a description to the event you wish to add to the list.\n" +
-                    "          For example: \"event return book /from Mon 4pm /to 6pm\"\n" +
-                    "          Or \"event return book /from 29-04-2021 18:00 /to 29-04-2021 18:30\"");
+            throw new BitBotException("OOPS!!! The description and timings of an event should not be empty.\n"
+                    + "          Please add a description to the event you wish to add to the list.\n"
+                    + "          For example: \"event return book /from Mon 4pm /to 6pm\"\n"
+                    + "          Or \"event return book /from 29-04-2021 18:00 /to 29-04-2021 18:30\"");
 
         }
         for (int i = 0; i < partsOfInput.length; i++) {
@@ -113,7 +119,8 @@ public class TaskHandling {
 
     /**
      * Takes in the description, the "from" and "to" string from the file
-     * and converts them into a Event.
+     * and converts them into an Event.
+     *
      * @param description the string that tells the user what the task is about
      * @param from the time when the task is supposed to start
      * @param to the time when the task is supposed to be completed
@@ -125,6 +132,7 @@ public class TaskHandling {
     }
     /**
      * Handles the deadline task by helping to extract the "by" time
+     *
      * @param arrayList the list of tasks
      * @param textPart the description of the input
      * @param partsOfInput the String[] of the split input
@@ -135,7 +143,9 @@ public class TaskHandling {
      * @throws BitBotException if input is invalid
      */
 
-    public static void handleDeadline (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, int indexBy, StringBuilder by, StringBuilder sb, String task) throws BitBotException {
+    public static void handleDeadline (ArrayList<Task> arrayList, String textPart,
+                                       String[] partsOfInput, int indexBy, StringBuilder by,
+                                       StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! You need to add the \"by\" details.\n" +
                     "          For example: deadline homework /by Aug 6th");
@@ -206,6 +216,7 @@ public class TaskHandling {
     /**
      * Takes in the description and the "by" string from the file
      * and converts them into a Deadline.
+     *
      * @param description the string that tells the user what the task is about
      * @param by the time by when the task is supposed to be completed.
      * @return a Deadline
@@ -217,6 +228,7 @@ public class TaskHandling {
 
     /**
      * Handles the todo by extracting the description.
+     *
      * @param arrayList the list of tasks
      * @param textPart the description of the input
      * @param partsOfInput the String[] of the split input
@@ -224,7 +236,8 @@ public class TaskHandling {
      * @param task This helps to determine if I need to add "task" or "tasks"
      * @throws BitBotException if input is invalid
      */
-    public static void handleTodo (ArrayList<Task> arrayList, String textPart, String[] partsOfInput, StringBuilder sb, String task) throws BitBotException {
+    public static void handleTodo(ArrayList<Task> arrayList, String textPart,
+                                   String[] partsOfInput, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! Need to add a description for a todo activity\n " +
                     "         For example: todo borrow book");
@@ -252,9 +265,10 @@ public class TaskHandling {
     }
     /**
      * Handles the displaying of the list in order
+     *
      * @param arrayList the list of tasks
      */
-    public static void handleList (ArrayList<Task> arrayList) {
+    public static void handleList(ArrayList<Task> arrayList) {
         System.out.println("          ____________________________________\n          Here are the tasks in your list:");
         for (int i = 1; i < arrayList.size() + 1; i++) {
             System.out.println("          " + i + ". " + arrayList.get(i - 1).finalString());
@@ -262,6 +276,13 @@ public class TaskHandling {
         System.out.println("          ____________________________________\n");
     }
 
+    /**
+     * Finds the related tasks and returns a list of tasks for the user to see.
+     *
+     * @param partsOfInput the String[] of the split input
+     * @param arrayList the list of tasks
+     * @throws BitBotException when the user does not key in any text after "find"
+     */
     public static void handleFind (String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!! Add a string of words you want to find.\n" +
