@@ -60,7 +60,7 @@ public class Parser {
             }
             return args.split(" ");
         default:
-            throw new TalkyException("Invalid command");
+            throw new TalkyException("Invalid Command");
         }
         String[] empty = {};
         return empty;
