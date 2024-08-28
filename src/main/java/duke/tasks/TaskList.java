@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import duke.exceptions.DukeException;
@@ -87,9 +86,25 @@ public class TaskList {
      * Filters and prints all tasks containing the input.
      */
     public void filter(String input) {
+        String lowercaseInput = input.toLowerCase();
         List<Task> filtered = this.taskStore.stream()
-                .filter(t -> t.toString().contains(input))
-                .collect(Collectors.toList());
+                .filter(task -> {
+                    String lowercaseDescription = task.description.toLowerCase();
+                    if (lowercaseDescription.contains(lowercaseInput)) {
+                        return true;
+                    }
+                    if (task instanceof Deadline deadline) {
+                        String deadlineStr = deadline.by.format(formatter).toLowerCase();
+                        return deadlineStr.contains(lowercaseInput);
+                    }
+                    if (task instanceof Event event) {
+                        String fromStr = event.from.format(formatter).toLowerCase();
+                        String toStr = event.to.format(formatter).toLowerCase();
+                        return fromStr.contains(lowercaseInput) || toStr.contains(lowercaseInput);
+                    }
+                    return false;
+                })
+                .toList();
 
         if (filtered.isEmpty()) {
             System.out.println("No matching tasks found in your list.");
