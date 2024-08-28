@@ -1,5 +1,7 @@
 import java.io.IOException;
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -10,6 +12,7 @@ public class Lexi {
     private final static String LINE_BREAK = "____________________________________________________________";
     private final static File directory = new File("./data");
     private static File data = null;
+    private static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     public static void main(String[] args) throws IOException {
         Scanner userInput = new Scanner(System.in);
         greet();
@@ -63,20 +66,27 @@ public class Lexi {
         Scanner contents = new Scanner(data);
         while (contents.hasNextLine()) {
             String[] parts = contents.nextLine().split(" !- ");
+            String taskName = parts[2];
             if (parts[0].equals("T")) {
-                Todo task = new Todo(parts[2]);
+                Todo task = new Todo(taskName);
                 if (parts[1].equals("1")) {
                     task.doTask();
                 }
                 tasks.add(task);
             } else if (parts[0].equals("D")) {
-                Deadline task = new Deadline(parts[2], parts[3]);
+                String deadline = parts[3];
+                LocalDateTime by = LocalDateTime.parse(deadline, Lexi.inputFormatter);
+                Deadline task = new Deadline(taskName, by);
                 if (parts[1].equals("1")) {
                     task.doTask();
                 }
                 tasks.add(task);
             } else if (parts[0].equals("E")) {
-                Event task = new Event(parts[2], parts[3], parts[4]);
+                String start = parts[3];
+                String end = parts[4];
+                LocalDateTime from = LocalDateTime.parse(start, Lexi.inputFormatter);
+                LocalDateTime to = LocalDateTime.parse(end, Lexi.inputFormatter);
+                Event task = new Event(taskName, from, to);
                 if (parts[1].equals("1")) {
                     task.doTask();
                 }
@@ -110,50 +120,64 @@ public class Lexi {
 
     private static void handleEvent(String response) throws LexiException {
         String[] parts = response.split(" /from ");
+        String errorMessage = "Please key in the command in this format\n"
+                + "\"event <task> /from <date and time> /to <date and time>\"\n"
+                + "\"<date> in format DD/MM/YYYY HHmm like 13/01/2002 1700\"\n";
         // If only command "event" is present
         if(parts[0].equals(response)) {
-            throw new LexiException("Please key in the command in this format\n"
-                    + "\"event <task> /from <start> /to <end>\"\n");
+            throw new LexiException(errorMessage);
         }
         String taskName = parts[0].substring(6);
         if(parts.length < 2) {
-            throw new LexiException("Please key in the command in this format\n"
-                    + "\"event <task> /from <start> /to <end>\"\n");
+            throw new LexiException(errorMessage);
         }
         String[] range = parts[1].split(" /to ");
         // No "to" command entered
         if(parts[1].equals(range[0])) {
-            throw new LexiException("Please key in the command in this format\n"
-                    + "\"event <task> /from <start> /to <end>\"\n");
+            throw new LexiException(errorMessage);
         }
-        String from  = range[0];
-        String to = range[1];
-        addTask(new Event(taskName, from, to));
+        String start  = range[0];
+        String end = range[1];
+        try {
+            LocalDateTime from = LocalDateTime.parse(start, Lexi.inputFormatter);
+            LocalDateTime to = LocalDateTime.parse(end, Lexi.inputFormatter);
+            addTask(new Event(taskName, from, to));
+        } catch (DateTimeParseException e) {
+            throw new LexiException("You have entered the date/time in the incorrect format\n"
+                    + "Please follow this format: DD/MM/YYYY HHmm like 13/01/2002 1700");
+        }
     }
 
-    private static void handleDeadline(String response) throws LexiException, IOException {
+    private static void handleDeadline(String response) throws LexiException {
         String[] parts = response.split(" /by ");
+        String errorMessage = "Please key in the command in this format\n"
+                + "\"deadline <task> /by <date>\"\n"
+                + "\"date and time in format DD/MM/YYYY HHmm like 13/01/2002 1700\"\n";
         if (parts[0].equals(response) || parts.length != 2) {
-            throw new LexiException("Please key in the command in this format\n"
-            + "\"deadline <task> /by <deadline>\"\n");
+            throw new LexiException(errorMessage);
         }
         String taskName = parts[0].substring(9);
-        System.out.println(parts[1]);
-        String by = parts[1];
-        addTask(new Deadline(taskName, by));
+        String dateTime = parts[1];
+        try {
+            LocalDateTime by = LocalDateTime.parse(dateTime, Lexi.inputFormatter);
+            addTask(new Deadline(taskName, by));
+        } catch (DateTimeParseException e) {
+            throw new LexiException("You have entered the date/time in the incorrect format\n"
+            + "Please follow this format: DD/MM/YYYY HHmm like 13/01/2002 1700");
+        }
     }
 
-    private static void handleTodo(String response) throws LexiException, IOException{
+    private static void handleTodo(String response) throws LexiException{
+        String errorMessage = "Sorry! The description of a todo cannot be empty\n" +
+                "Please write in this format \"todo <description>\"\n";
         if(response.length() < 6) {
-            throw new LexiException("Sorry! The description of a todo cannot be empty\n" +
-                    "Please write in this format \"todo <description>\"\n");
+            throw new LexiException(errorMessage);
         }
 
         String taskName = response.substring(5);
 
         if(taskName.isBlank()) {
-            throw new LexiException("Sorry! The description of a todo cannot be blank\n" +
-                    "Please write in this format \"todo <description>\"\n");
+            throw new LexiException(errorMessage);
         }
         addTask(new Todo(taskName));
     }
@@ -228,6 +252,7 @@ public class Lexi {
     public static void handleChangeInData(ArrayList<Task> tasks) throws LexiException {
         try {
             FileWriter fw = new FileWriter(data);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             for (Task task: tasks) {
                 char taskType = task.toString().split(" ")[0].charAt(1);
                 if (taskType == 'T') {
@@ -236,12 +261,14 @@ public class Lexi {
                 } else if (taskType == 'D') {
                     Deadline obj = (Deadline) task;
                     fw.write(String.format("%c !- %d !- %s !- %s", taskType,
-                            obj.getIsDone() ? 1 : 0, obj.getTaskName(), obj.getBy()) + System.lineSeparator());
+                            obj.getIsDone() ? 1 : 0, obj.getTaskName(), obj.getBy().format(formatter))
+                            + System.lineSeparator());
                 } else if (taskType == 'E') {
                     Event obj = (Event) task;
                     fw.write(String.format("%c !- %d !- %s !- %s !- %s", taskType,
                             obj.getIsDone() ? 1 : 0, obj.getTaskName(),
-                            obj.getFrom(), obj.getTo()) + System.lineSeparator());
+                            obj.getFrom().format(formatter),
+                            obj.getTo().format(formatter)) + System.lineSeparator());
                 }
             }
             fw.close();
