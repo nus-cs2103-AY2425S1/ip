@@ -1,8 +1,12 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    String deadline;
+    LocalDate deadline;
     public Deadline(String s, String deadline) {
         super(s);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     public static Deadline createDeadline(String input) throws EmptyDescriptionException {
@@ -17,8 +21,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        //return "[D] " + super.toString() + " (by: " + this.deadline + ")";
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+        return String.format("[D]%s (by: %s)", super.toString(),
+                this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     @Override
