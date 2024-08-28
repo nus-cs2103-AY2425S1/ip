@@ -31,7 +31,7 @@ public class Ui {
     }
 
     public String getUserCommand() {
-        out.print(HORIZONTAL_LINE + "What do you want to do: ");
+        out.print(HORIZONTAL_LINE + "What do you want to do: \n");
         return in.nextLine();
     }
 
