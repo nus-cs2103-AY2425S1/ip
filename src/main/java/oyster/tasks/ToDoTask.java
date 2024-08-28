@@ -12,7 +12,7 @@ public class ToDoTask extends Task {
     public ToDoTask fromInput(String description) {
         description = description.trim();
 
-        if (description == "") {
+        if (description.isEmpty()) {
             throw new TaskFieldException("Description");
         }
 

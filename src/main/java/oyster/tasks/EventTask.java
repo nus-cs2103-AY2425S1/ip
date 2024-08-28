@@ -1,5 +1,6 @@
 package oyster.tasks;
 
+import oyster.exceptions.DateFormatException;
 import oyster.exceptions.OysterException;
 import oyster.exceptions.TaskFieldException;
 import oyster.utils.DateTimeFormatter;
@@ -53,13 +54,13 @@ public class EventTask extends Task {
 
         scanner.close();
 
-        if (name == "") {
+        if (name.isEmpty()) {
             throw new TaskFieldException("Description");
         }
-        if (from == "") {
+        if (from.isEmpty()) {
             throw new TaskFieldException("From");
         }
-        if (to == "") {
+        if (to.isEmpty()) {
             throw new TaskFieldException("To");
         }
 
@@ -67,7 +68,7 @@ public class EventTask extends Task {
         LocalDateTime toDate = DateTimeFormatter.readInput(to);
 
         if (fromDate.isAfter(toDate)) {
-            throw new OysterException("Time period is invalid!");
+            throw new DateFormatException();
         }
 
         return new EventTask(name.trim(), fromDate, toDate);

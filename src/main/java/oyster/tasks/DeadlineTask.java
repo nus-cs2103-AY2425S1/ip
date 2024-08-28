@@ -42,10 +42,10 @@ public class DeadlineTask extends Task {
 
         scanner.close();
 
-        if (name == "") {
+        if (name.isEmpty()) {
             throw new TaskFieldException("Description");
         }
-        if (deadline == "") {
+        if (deadline.isEmpty()) {
             throw new TaskFieldException("Deadline");
         }
 

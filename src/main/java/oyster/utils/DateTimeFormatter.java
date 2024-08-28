@@ -46,8 +46,12 @@ public class DateTimeFormatter {
             }
         }
 
-        return LocalDateTime.parse(
-                String.format("%s-%s-%sT%s:%s:%s", date[2], date[1], date[0], "00", "00", "00"));
+        try {
+            return LocalDateTime.parse(
+                    String.format("%s-%s-%sT%s:%s:%s", date[2], date[1], date[0], "00", "00", "00"));
+        } catch (Exception e) {
+            throw new DateFormatException();
+        }
     }
 
     public static String format(LocalDateTime date) {
