@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -34,12 +35,15 @@ public class FileReading {
                     list.add(todo);
                 }
                 case "D" -> {
-                    Task deadline = new Deadline(parts[2], parts[3]);
+                    LocalDateTime by = LocalDateTime.parse(parts[3]);
+                    Task deadline = new Deadline(parts[2], by);
                     deadline.isDone = isDone(Integer.parseInt(parts[1]));
                     list.add(deadline);
                 }
                 case "E" -> {
-                    Task event = new Event(parts[2], parts[3], parts[4]);
+                    LocalDateTime from = LocalDateTime.parse(parts[3]);
+                    LocalDateTime to = LocalDateTime.parse(parts[4]);
+                    Task event = new Event(parts[2], from, to);
                     event.isDone = isDone(Integer.parseInt(parts[1]));
                     list.add(event);
                 }
