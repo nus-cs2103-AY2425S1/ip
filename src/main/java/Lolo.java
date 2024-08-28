@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class Lolo {
 
@@ -36,11 +40,32 @@ public class Lolo {
                 addTask(new ToDo(userCommand.substring(5)));
             } else if (userCommand.startsWith("deadline ")) {
                 String[] parts = userCommand.split(" /by ");
-                addTask(new Deadline(parts[0].substring(9), parts[1]));
+                if (parts.length == 2) {
+                    try {
+                        String description = parts[0].substring(9);
+                        LocalDateTime by = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        addTask(new Deadline(description, by));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("    OOPS!!! The date and time format should be yyyy-mm-dd HHmm.");
+                    }
+                } else {
+                    System.out.println("    OOPS!!! The deadline command should include a /by clause.");
+                }
             } else if (userCommand.startsWith("event ")) {
                 String[] parts = userCommand.split(" /from ");
-                String[] fromTo = parts[1].split(" /to ");
-                addTask(new Event(parts[0].substring(6), fromTo[0], fromTo[1]));
+                if (parts.length == 2) {
+                    try {
+                        String description = parts[0].substring(6);
+                        String[] fromTo = parts[1].split(" /to ");
+                        LocalDateTime from = LocalDateTime.parse(fromTo[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime to = LocalDateTime.parse(fromTo[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        addTask(new Event(description, from, to));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("    OOPS!!! The date and time format should be yyyy-mm-dd HHmm.");
+                    }
+                } else {
+                    System.out.println("    OOPS!!! The event command should include /from and /to clauses.");
+                }
             } else if (userCommand.startsWith("mark ")) {
                 int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
                 markTaskAsDone(taskNumber);
@@ -50,6 +75,13 @@ public class Lolo {
             } else if (userCommand.startsWith("delete ")) {
                 int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
                 deleteTask(taskNumber);
+            } else if (userCommand.startsWith("on ")) {
+                try {
+                    LocalDateTime date = LocalDateTime.parse(userCommand.substring(3) + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    listTasksOnDate(date);
+                } catch (DateTimeParseException e) {
+                    System.out.println("    OOPS!!! The date format should be yyyy-mm-dd.");
+                }
             } else {
                 System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -123,6 +155,19 @@ public class Lolo {
             storage.save(tasks);
         } catch (LoloException e) {
             System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+    public static void listTasksOnDate(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String dateStr = date.toLocalDate().format(formatter);
+
+        System.out.println("    Here are the tasks on " + dateStr + ":");
+        for (Task task : tasks) {
+            if (task instanceof Deadline && ((Deadline) task).by.toLocalDate().equals(date.toLocalDate())) {
+                System.out.println("    " + task);
+            } else if (task instanceof Event && (((Event) task).from.toLocalDate().equals(date.toLocalDate()) || ((Event) task).to.toLocalDate().equals(date.toLocalDate()))) {
+                System.out.println("    " + task);
+            }
         }
     }
 }
