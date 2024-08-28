@@ -1,3 +1,5 @@
+package bob;
+
 import java.util.Scanner;
 
 public class Bob {
@@ -5,7 +7,7 @@ public class Bob {
     private static Ui ui = new Ui();
     private static Storage storage;
     private static TaskList taskList;
-    private static final String NAME = "Bob";
+    private static final String NAME = "bob.Bob";
 
     public static void main(String[] args) {
         storage = new Storage("./data/bob.txt");

@@ -1,3 +1,5 @@
+package bob;
+
 public class Parser {
 
     public static void handleInput(String phrase, TaskList taskList, Ui ui) throws ChatBotException {
