@@ -1,7 +1,4 @@
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+package Assistinator;
 
 enum Command {
     BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, UNKNOWN;
@@ -68,14 +65,14 @@ public class Assistinator {
                 Task newTask = parser.parseTask(command, fullCommand);
                 tasks.addTask(newTask);
                 storage.saveTasks(tasks.getTasks());
-                return "Task added successfully\nNumber of Tasks: " + tasks.size();
+                return "Assistinator.Assistinator.Task added successfully\nNumber of Tasks: " + tasks.size();
             case DELETE:
                 int deleteIndex = parser.parseIndex(fullCommand);
                 tasks.deleteTask(deleteIndex);
                 storage.saveTasks(tasks.getTasks());
-                return "Task " + (deleteIndex + 1) + " deleted successfully. Number of Tasks: " + tasks.size();
+                return "Assistinator.Assistinator.Task " + (deleteIndex + 1) + " deleted successfully. Number of Tasks: " + tasks.size();
             default:
-                throw new AssitinatorExceptions("Command does not exist");
+                throw new AssitinatorExceptions("Assistinator.Command does not exist");
         }
     }
     public static void main(String[] args) {

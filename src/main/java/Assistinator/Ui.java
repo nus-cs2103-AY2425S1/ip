@@ -1,3 +1,5 @@
+package Assistinator;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -9,7 +11,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("______________________________________________");
-        System.out.println("Hello! I'm Assistinator");
+        System.out.println("Hello! I'm Assistinator.Assistinator");
         System.out.println("What can I do for you?");
         System.out.println("______________________________________________");
     }

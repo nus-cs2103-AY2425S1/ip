@@ -1,9 +1,9 @@
 ______________________________________________
-Hello! I'm Assistinator
+Hello! I'm Assistinator.Assistinator
 What can I do for you?
 ______________________________________________
 ______________________________________________
-Task added successfully
+Assistinator.Assistinator.Task added successfully
 Number of Tasks: 1
 ______________________________________________
 ______________________________________________

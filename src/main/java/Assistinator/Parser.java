@@ -1,3 +1,5 @@
+package Assistinator;
+
 public class Parser {
     public Command parseCommand(String input) {
         String commandType = input.split(" ")[0].toUpperCase();
