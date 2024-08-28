@@ -32,6 +32,7 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
     public void addTask(String str, Bruno.TaskType type) throws BrunoException {
         if (str.trim().isEmpty()) {
             throw new EmptyTaskException();
@@ -85,6 +86,7 @@ public class TaskList {
             throw new UnknownCommandException();
         }
     }
+
     public void markTask(String num) throws BrunoException {
         try {
             Task task = tasks.get(Integer.parseInt(num) - 1);

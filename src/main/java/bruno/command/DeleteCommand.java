@@ -6,10 +6,12 @@ import bruno.exceptions.BrunoException;
 
 public class DeleteCommand extends Command {
     private String taskNum;
+
     public DeleteCommand(TaskList tasks, String taskNum) {
         super(tasks);
         this.taskNum = taskNum;
     }
+
     @Override
     public void execute() {
         try {

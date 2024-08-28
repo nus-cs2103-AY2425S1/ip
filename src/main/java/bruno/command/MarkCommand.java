@@ -6,11 +6,13 @@ import bruno.exceptions.BrunoException;
 
 public class MarkCommand extends Command {
     private String taskNum;
+
     public MarkCommand(TaskList tasks, String taskNum) {
         super(tasks);
         this.taskNum = taskNum;
 
     }
+
     @Override
     public void execute() {
         try {

@@ -35,8 +35,8 @@ public class Storage {
                 if (line.trim().isEmpty()) {
                     continue;
                 }
-                String[] lineParts = line.split("\\|");
 
+                String[] lineParts = line.split("\\|");
                 String type = lineParts[0].trim();
                 boolean done = lineParts[1].trim().charAt(1) == 'X';
                 String description = lineParts[2].trim();

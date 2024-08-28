@@ -14,11 +14,14 @@ public abstract class Command {
     public TaskList getTasks() {
         return this.tasks;
     }
+
     public void exit() {
         this.isExit = true;
     }
+
     public boolean isExit() {
         return this.isExit;
     }
+
     public abstract void execute();
 }

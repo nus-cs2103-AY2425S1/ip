@@ -8,6 +8,7 @@ public class ExitCommand extends Command {
         super(tasks);
         super.exit();
     }
+
     @Override
     public void execute() {
         Ui.printByeMessage();
