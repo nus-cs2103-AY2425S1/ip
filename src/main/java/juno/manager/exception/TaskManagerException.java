@@ -18,7 +18,9 @@ public class TaskManagerException extends Exception {
         INVALID_DATETIME_ARGUMENT,
         INVALID_FUNCTION,
         EMPTY_INPUT,
-        INVALID_DELETE_TASK_NUMBER
+        INVALID_DELETE_TASK_NUMBER,
+        NO_TASK_FOUND,
+        INVALID_FIND_TASK
     }
 
     /**

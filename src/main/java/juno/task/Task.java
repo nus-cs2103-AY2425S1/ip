@@ -70,11 +70,19 @@ public class Task {
     }
 
     /**
+     * Returns the task type.
+     *
+     * @return The task type.
+     */
+    public String getTaskType() {
+        return this.taskType;
+    }
+
+    /**
      * Returns the string representation of the task.
      *
      * @return The string representation of the task.
      */
-
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
