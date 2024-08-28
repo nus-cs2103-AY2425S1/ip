@@ -1,3 +1,5 @@
+package lebron;
+
 public class LeBronException extends Exception {
     
     public LeBronException(String message) {

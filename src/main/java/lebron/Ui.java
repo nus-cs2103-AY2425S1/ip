@@ -1,5 +1,7 @@
+package lebron;
 
 import java.util.Scanner;
+
 
 public class Ui {
 
@@ -19,7 +21,7 @@ public class Ui {
 
     public void showWelcomeMessage() {
         this.showLine();
-        System.out.println("Wassup! I'm LeBron");
+        System.out.println("Wassup! I'm lebron");
         System.out.println("What can I do for you?");
         this.showLine();
     }

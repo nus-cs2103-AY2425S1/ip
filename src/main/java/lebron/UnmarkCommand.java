@@ -1,16 +1,18 @@
-public class MarkCommand extends Command {
-    
+package lebron;
+
+public class UnmarkCommand extends Command {
+
     private int index;
 
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws LeBronException {
         Task task = taskList.getTask(index);
-        taskList.markTask(index);
-        ui.showTaskMarked(task);
+        taskList.unmarkTask(index);
+        ui.showTaskUnmarked(task);
         storage.saveTasks(taskList);
     }
 
