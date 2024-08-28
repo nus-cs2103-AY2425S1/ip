@@ -1,4 +1,4 @@
-abstract class Task {
+public abstract class Task {
     private final TaskType type;
     private final String description;
     private boolean isDone = false;
@@ -8,16 +8,16 @@ abstract class Task {
         this.description = description;
     }
 
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
+    public void markAsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
     public String toString() {
-        return "[%s][%s] %s".formatted(type, isDone ? "X" : " ", description);
+        return "[%s][%s] %s".formatted(type, getStatusIcon(), description);
+    }
+
+    private String getStatusIcon() {
+        return isDone ? "X" : " ";
     }
 }

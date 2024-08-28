@@ -16,4 +16,7 @@ todo
 deadline
 event
 blah
+mark x
+unmark 7
+delete
 bye

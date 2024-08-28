@@ -16,14 +16,22 @@ public class Morgana {
 
         Scanner sc = new Scanner(System.in);
         String line;
-        while (!(line = sc.nextLine()).equals("bye")) {
+        while (!(line = sc.nextLine()).startsWith("bye")) {
             String[] input = line.trim().split(" ", 2);
-            switch (input[0]) {
-                case "list" -> listTasks();
-                case "mark" -> markTaskAsDone(Integer.parseInt(input[1]) - 1);
-                case "unmark" -> markTaskAsNotDone(Integer.parseInt(input[1]) - 1);
-                case "delete" -> deleteTask(Integer.parseInt(input[1]) - 1);
-                default -> addTask(input);
+            try {
+                switch (input[0]) {
+                    case "list" -> listTasks();
+                    case "mark" -> updateTaskStatus(parseTaskIndex(input),
+                            "Nice! I've marked this task as done:", true);
+                    case "unmark" -> updateTaskStatus(parseTaskIndex(input),
+                            "OK, I've marked this task as not done yet:", false);
+                    case "delete" -> deleteTask(parseTaskIndex(input));
+                    default -> addTask(input);
+                }
+            } catch (MorganaException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println(e.getMessage());
+                System.out.println(HORIZONTAL_LINE);
             }
         }
 
@@ -41,22 +49,27 @@ public class Morgana {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void markTaskAsDone(int index) {
-        Task task = tasks.get(index);
-        task.markAsDone();
-
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("%d. %s%n", index + 1, task);
-        System.out.println(HORIZONTAL_LINE);
+    private static int parseTaskIndex(String[] input) throws MorganaException {
+        if (input.length < 2) {
+            throw new MorganaException("Please specify a task number.");
+        }
+        try {
+            int index = Integer.parseInt(input[1].trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new IndexOutOfBoundsException();
+            }
+            return index;
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new MorganaException("Please specify a valid task number.");
+        }
     }
 
-    private static void markTaskAsNotDone(int index) {
+    private static void updateTaskStatus(int index, String message, boolean isDone) {
         Task task = tasks.get(index);
-        task.markAsNotDone();
+        task.markAsDone(isDone);
 
         System.out.print(HORIZONTAL_LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(message);
         System.out.printf("%d. %s%n", index + 1, task);
         System.out.println(HORIZONTAL_LINE);
     }
@@ -70,22 +83,16 @@ public class Morgana {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addTask(String[] input) {
-        try {
-            Task task = createTask(input[0], input.length > 1 ? input[1].trim() : "");
-            tasks.add(task);
+    private static void addTask(String[] input) throws MorganaException {
+        Task task = createTask(input[0], input.length > 1 ? input[1].trim() : "");
+        tasks.add(task);
 
-            System.out.print(HORIZONTAL_LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.printf("%s%n", task);
-            System.out.printf("Now you have %d task%s in the list.%n",
-                    tasks.size(), tasks.size() > 1 ? "s" : "");
-            System.out.println(HORIZONTAL_LINE);
-        } catch (MorganaException e) {
-            System.out.print(HORIZONTAL_LINE);
-            System.out.println(e.getMessage());
-            System.out.println(HORIZONTAL_LINE);
-        }
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.printf("%s%n", task);
+        System.out.printf("Now you have %d task%s in the list.%n",
+                tasks.size(), tasks.size() > 1 ? "s" : "");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     private static Task createTask(String command, String args) throws MorganaException {
@@ -94,7 +101,7 @@ public class Morgana {
                 if (args.isEmpty()) {
                     throw new MorganaException("""
                             Invalid todo format.
-                            Usage: todo <description>.
+                            Usage: todo <description>
                             Example: todo borrow book""");
                 }
                 yield new Todo(args);
