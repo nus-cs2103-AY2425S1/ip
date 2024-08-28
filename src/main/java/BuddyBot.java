@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class BuddyBot {
 
+    //testing
     static FileStorage store = new FileStorage("BuddyBot.txt");
     public static void main(String[] args) {
         //Scanner object
