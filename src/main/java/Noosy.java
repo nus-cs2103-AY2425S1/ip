@@ -47,6 +47,11 @@ public class Noosy {
                     break;
 
                 case "todo":
+                    if (desc.equals("")) {
+                        System.out.println("I think you forgot the description?");
+                        break;
+                    }
+
                     Todo todo = new Todo(desc);
                     tasks.add(todo);
                     System.out.println("I added it to the list! \n" + todo);
@@ -55,8 +60,14 @@ public class Noosy {
                     break;
 
                 case "deadline":
-                    String[] deadlineParts = desc.split(" /by ");
-                    Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    String[] withDue = desc.split(" /by ");
+                    if (withDue.length < 2) {
+                        // error msg
+                        System.out.println("I think you forgot the description / deadline?");
+                        break;
+                    }
+
+                    Deadline deadline = new Deadline(withDue[0], withDue[1]);
                     tasks.add(deadline);
                     System.out.println("I added it to the list! \n" + deadline);
                     totalTasks = tasks.size();
@@ -64,8 +75,14 @@ public class Noosy {
                     break;
 
                 case "event":
-                    String[] eventParts = desc.split(" /from | /to ");
-                    Event event = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                    String[] withDuration = desc.split(" /from | /to ");
+                    if (withDuration.length < 3) {
+                        // error msg
+                        System.out.println("I think you forgot the description / duration?");
+                        break;
+                    }
+
+                    Event event = new Event(withDuration[0], withDuration[1], withDuration[2]);
                     tasks.add(event);
                     System.out.println("I added it to the list! \n" + event);
                     totalTasks = tasks.size();
@@ -73,7 +90,7 @@ public class Noosy {
                     break;
 
                 default:
-                    System.out.println("Huh what are you saying... idgi");
+                    System.out.println("Huh? idgi...");
                     break;
             }
             userInput = scanner.nextLine();
