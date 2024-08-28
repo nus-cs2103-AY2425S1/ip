@@ -1,10 +1,36 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.io.IOException;
 
 public class XBot {
     private static List<Task> list = new ArrayList<>();
     public static void main(String[] args) {
+
+        /*
+        Create a space to store data
+         */
+        Path directoryPath = Paths.get("./data");
+        Path filePath = directoryPath.resolve("XBot.txt");
+
+        try {
+            // Check if the directory exists, and create it if it doesn't
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectory(directoryPath);
+            }
+
+            // Check if the file exists, and create it if it doesn't
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
         String input = scanner.nextLine().trim();
