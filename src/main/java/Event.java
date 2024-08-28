@@ -40,8 +40,8 @@ public class Event extends Task {
             throw new IllegalDateFormatException();
         }
 
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        this.from = parsedFromDate;
+        this.to = parsedToDate;
 
     }
 

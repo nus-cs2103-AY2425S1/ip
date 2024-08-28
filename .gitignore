@@ -17,7 +17,7 @@ bin/
 *.class
 
 # Exclude database file
-/data/db.txt
+/data/tasks.txt
 
 
 /text-ui-test/ACTUAL.TXT
