@@ -1,11 +1,15 @@
 import exceptions.*;
 import stringconstants.ReplyTextMessages;
 import tasks.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 
 public class YappingBot {
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
+    private static final String LIST_SAVE_PATH = "savefile";
     private static final HashMap<String, Commands> COMMANDS_HASH_MAP;
     private static final Scanner userInputScanner;
     private static final ArrayList<Task> userList;
@@ -244,10 +248,16 @@ public class YappingBot {
         }
     }
 
-    private static void loadListFromFile() throws YappingBotFileNotFoundException, YappingBotInvalidSaveFileException{
-
+    private static void loadListFromFile() throws YappingBotSaveFileNotFoundException, YappingBotInvalidSaveFileException{
+        try {
+            File saveFile = new File(LIST_SAVE_PATH);
+            Scanner scanner = new Scanner(saveFile);
+            // userList.add();
+        } catch (FileNotFoundException e) {
+            throw new YappingBotSaveFileNotFoundException();
+        }
     }
-    private static void saveListToFile() throws YappingBotSaveFileException{
+    private static void saveListToFile() throws YappingBotSaveFileIOException {
 
     }
     // end of class methods

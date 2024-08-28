@@ -1,5 +1,9 @@
 package tasks;
 
+import exceptions.YappingBotInvalidSaveFileException;
+
+import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+
 public class Deadline extends Task {
     public String getDeadline() {
         return deadline;
@@ -39,6 +43,19 @@ public class Deadline extends Task {
                 super.serialiaze(),
                 deadline.replaceAll(":", "/colon")
         );
+    }
+    @Override
+    public String[] deserialiaze(String sString) throws YappingBotInvalidSaveFileException {
+        String[] split_data = super.deserialiaze(sString);
+        if (split_data.length != 5) {
+            throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
+        }
+        try {
+            deadline = split_data[3].replaceAll("/colon", ":");
+        } catch (IllegalArgumentException e) {
+            throw new YappingBotInvalidSaveFileException(e.getMessage());
+        }
+        return split_data;
     }
 }
 

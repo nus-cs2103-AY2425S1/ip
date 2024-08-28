@@ -1,4 +1,5 @@
 package exceptions;
 
-public class YappingBotFileNotFoundException extends YappingBotException {
+public class YappingBotSaveFileNotFoundException extends YappingBotException {
+
 }

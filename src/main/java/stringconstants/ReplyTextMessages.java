@@ -7,7 +7,6 @@ public final class ReplyTextMessages {
             "Hello! I'm %s\nWhat can I do for you?",
             BOT_NAME
     );
-    // TODO: turn error messages into exceptions
     public static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, deadline.";
     public static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n";
     public static final String LIST_TEXT = "Here are the tasks in your list:";
@@ -47,4 +46,8 @@ public final class ReplyTextMessages {
                                                                                                     "\n    unmark TASK_NUMBER\n\n" +
                                                                                                     "where TASK_NUMBER is the task number in the task list";
     public static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
+
+    public static final String INVALID_SAVE_FILE_EXCEPTION_1s = "Error Reading save file! The following error was encountered: %s";
+    public static final String INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES = "Missing Data Values";
+    public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse value - %s";
 }
