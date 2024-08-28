@@ -50,7 +50,11 @@ public class Eli {
         String taskIdxStr = inputParts[1];
         int taskIdx = Integer.valueOf(taskIdxStr);
         taskList.unmark(taskIdx);
-      } else {
+      } else if (instruction.equalsIgnoreCase("delete")) {
+        String taskIdxStr = inputParts[1];
+        int taskIdx = Integer.valueOf(taskIdxStr);
+        taskList.delete(taskIdx);
+      }else {
         taskList.addTask(input);
       }
     }
