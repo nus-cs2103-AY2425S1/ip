@@ -84,12 +84,12 @@ public class BitBot {
                     if (Objects.equals(keyWord, "mark") || Objects.equals(keyWord, "unmark")
                             || Objects.equals(keyWord, "delete")) {
                         if (partsOfInput.length < 2) {
-                            throw new BitBotException("OOPS!! Add the task number to mark/ unmark / delete the event.\n" +
-                                "          Please do not leave it blank");
+                            throw new BitBotException("OOPS!! Add the task number to mark/ unmark / delete the event.\n"
+                                    + "          Please do not leave it blank.");
                         }
                         if (isAString(partsOfInput[partsOfInput.length - 1])) {
-                            throw new BitBotException("OOPS!!! The second character should be a number.\n" +
-                                "          For example: delete 1");
+                            throw new BitBotException("OOPS!!! The second character should be a number.\n"
+                                    + "          For example: delete 1");
                         }
                         if (arrayList.isEmpty()) {
                             throw new BitBotException("You cannot mark / unmark / delete anything yet "
@@ -102,8 +102,8 @@ public class BitBot {
 
                         if (numberPart - 1 >= arrayList.size()) {
                             throw new BitBotException("OOPS!!! You cannot mark / unmark / delete something "
-                                    + "that is outside the length of the list.\n" +
-                                "          There are only " + arrayList.size() + " item(s) in your list so far.");
+                                    + "that is outside the length of the list.\n"
+                                    + "          There are only " + arrayList.size() + " item(s) in your list so far.");
                         }
 
 
