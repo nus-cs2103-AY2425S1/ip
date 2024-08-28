@@ -27,7 +27,7 @@ public class Parser {
         checkInaccurateCommand(commandDetails);
         validateDeadline(commandDetails);
         validateEvent(commandDetails);
-
+        validateByeAndList(commandDetails);
     }
 
 
@@ -128,6 +128,14 @@ public class Parser {
                 fromOrToKeywordNotFound(commandDetails)
         ) {
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
+        }
+    }
+
+    public static void validateByeAndList(String[] commandDetails) throws JanetException {
+        if ((commandDetails[0].equals("bye") || commandDetails[0].equals("list")) &&
+                commandDetails.length > 1
+        ) {
+            throw new JanetException("WHOOPS! Please ensure command is correct!");
         }
     }
 
