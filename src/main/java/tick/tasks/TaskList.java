@@ -1,4 +1,4 @@
-package Tick.tasks;
+package tick.tasks;
 
 import java.util.ArrayList;
 

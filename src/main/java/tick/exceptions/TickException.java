@@ -1,4 +1,4 @@
-package Tick.exceptions;
+package tick.exceptions;
 
 public class TickException extends Exception {
     public TickException(String message) {

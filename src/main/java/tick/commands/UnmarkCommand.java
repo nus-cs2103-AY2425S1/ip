@@ -1,10 +1,10 @@
-package Tick.commands;
+package tick.commands;
 
-import Tick.exceptions.TickException;
-import Tick.storage.Storage;
-import Tick.tasks.Task;
-import Tick.tasks.TaskList;
-import Tick.ui.Ui;
+import tick.exceptions.TickException;
+import tick.storage.Storage;
+import tick.tasks.Task;
+import tick.tasks.TaskList;
+import tick.ui.Ui;
 
 public class UnmarkCommand extends Command {
     private int toUnmark;

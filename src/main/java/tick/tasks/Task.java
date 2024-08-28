@@ -1,4 +1,4 @@
-package Tick.tasks;
+package tick.tasks;
 
 public abstract class Task {
     private String description;

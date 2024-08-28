@@ -1,13 +1,13 @@
-package Tick.parser;
-
-import Tick.commands.*;
-import Tick.exceptions.TickException;
-import Tick.tasks.Deadline;
-import Tick.tasks.Event;
-import Tick.tasks.ToDo;
+package tick.parser;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+
+import tick.commands.*;
+import tick.exceptions.TickException;
+import tick.tasks.Deadline;
+import tick.tasks.Event;
+import tick.tasks.ToDo;
 
 public class Parser {
     public static Command parse(String input) throws TickException {

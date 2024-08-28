@@ -1,10 +1,4 @@
-package Tick.storage;
-
-import Tick.exceptions.TickException;
-import Tick.tasks.Deadline;
-import Tick.tasks.Event;
-import Tick.tasks.Task;
-import Tick.tasks.ToDo;
+package tick.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,6 +6,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tick.exceptions.TickException;
+import tick.tasks.Deadline;
+import tick.tasks.Event;
+import tick.tasks.Task;
+import tick.tasks.ToDo;
 
 public class Storage {
     private final String filePath;

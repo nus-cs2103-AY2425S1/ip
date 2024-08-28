@@ -1,8 +1,8 @@
-package Tick.commands;
+package tick.commands;
 
-import Tick.storage.Storage;
-import Tick.tasks.TaskList;
-import Tick.ui.Ui;
+import tick.storage.Storage;
+import tick.tasks.TaskList;
+import tick.ui.Ui;
 
 public class ExitCommand extends Command {
 

@@ -1,13 +1,13 @@
-package Tick;
-
-import Tick.commands.Command;
-import Tick.exceptions.TickException;
-import Tick.parser.Parser;
-import Tick.storage.Storage;
-import Tick.tasks.TaskList;
-import Tick.ui.Ui;
+package tick;
 
 import java.io.IOException;
+
+import tick.commands.Command;
+import tick.exceptions.TickException;
+import tick.parser.Parser;
+import tick.storage.Storage;
+import tick.tasks.TaskList;
+import tick.ui.Ui;
 
 public class Tick {
     private TaskList tasks;

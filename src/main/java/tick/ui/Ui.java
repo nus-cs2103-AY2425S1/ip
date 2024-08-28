@@ -1,9 +1,9 @@
-package Tick.ui;
-
-import Tick.tasks.Task;
-import Tick.tasks.TaskList;
+package tick.ui;
 
 import java.util.Scanner;
+
+import tick.tasks.Task;
+import tick.tasks.TaskList;
 
 public class Ui {
     public static final String separator = "____________________________________________________________";
