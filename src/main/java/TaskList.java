@@ -147,7 +147,8 @@ public class TaskList {
                         this.tasks.add(new DeadlineTask(description, isDone, taskDetails[3].trim()));
                         break;
                     case EVENT:
-                        this.tasks.add(new EventTask(description, isDone, taskDetails[3].trim(), taskDetails[4].trim()));
+                        this.tasks.add(new EventTask(description, isDone, taskDetails[3].trim(),
+                                taskDetails[4].trim(), taskDetails[5].trim()));
                         break;
                     default:
                         throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
@@ -157,6 +158,9 @@ public class TaskList {
             this.taskCount = tasksStr.length;
         } catch (IOException e) {
             throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
+        } catch (InvalidDateException e) {
+            throw new InvalidDataFormatException("OOPS!!! There was an error loading the tasks from the file." +
+                    " Please check the date and time format.");
         }
     }
 }
