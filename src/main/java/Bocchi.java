@@ -117,7 +117,8 @@ public class Bocchi {
     private void mark(int index) throws BocchiException {
         index--;
         if (index >= tasks.size() || index < 0) {
-            throw new BocchiException("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
+            throw new BocchiException("Sorry but ... erm maybe it is better to double check the index you entered? " +
+                    "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
         Task task = tasks.get(index);
@@ -137,7 +138,8 @@ public class Bocchi {
     private void unmark(int index) throws BocchiException {
         index--;
         if (index >= tasks.size() || index < 0) {
-            throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
+            throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? " +
+                    "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
         Task task = tasks.get(index);
@@ -157,7 +159,8 @@ public class Bocchi {
     private void delete(int index) throws BocchiException {
         index--;
         if (index >= tasks.size() || index < 0) {
-            throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
+            throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? " +
+                    "Cause it seems to be out of bounds. ＞﹏＜");
         }
 
         Task task = tasks.remove(index);
@@ -218,6 +221,8 @@ public class Bocchi {
                                 "Wh..what did you say? I'm soooo sorry I did't understand that ( T﹏T )"
                         );
                     }
+                } catch (NumberFormatException e) {
+                    printError(new BocchiException("So sorry... I can't understand the number you entered. ( T_T )"));
                 } catch (BocchiException e) {
                     printError(e);
                 }
