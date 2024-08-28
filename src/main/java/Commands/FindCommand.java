@@ -1,7 +1,7 @@
 package commands;
 
-import java.util.ArrayList;
 import applemazer.Storage;
+import applemazer.TaskList;
 import tasks.Task;
 
 public class FindCommand extends Command {
@@ -12,10 +12,10 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         int taskNumber = 1;
         System.out.println("Here are the matching tasks in your list:");
-        for (Task task : tasks) {
+        for (Task task : tasks.getList()) {
             if (task.getDescription().contains(desc)) {
                 System.out.println(taskNumber + "." + task.getStatusIcon() + task);
             }
