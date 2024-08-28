@@ -9,18 +9,19 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = LocalDateTime.parse(from, Task.dtf1);
-        this.to = LocalDateTime.parse(to, Task.dtf1);
+        this.from = LocalDateTime.parse(from, Task.DTF1);
+        this.to = LocalDateTime.parse(to, Task.DTF1);
     }
 
     @Override
     public String toFileFormat() {
-        return "E" + super.toFileFormat() + " | " + this.from.format(Task.dtf1) + "-" + this.to.format(Task.dtf1);
+        return "E" + super.toFileFormat() + " | " + this.from.format(Task.DTF1) + "-" + this.to.format(Task.DTF1);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(Task.dtf2) + " to: " + this.to.format(Task.dtf2) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(Task.DTF2)
+                + " to: " + this.to.format(Task.DTF2) + ")";
     }
 
 }
