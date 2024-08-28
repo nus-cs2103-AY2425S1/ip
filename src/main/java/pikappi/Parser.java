@@ -72,7 +72,17 @@ public class Parser {
                 throw new PikappiException("Pika..? What is the task?");
             }
         case "DELETE":
-            return new DeleteCommand(Integer.parseInt(command.split(" ")[1]));
+            try {
+                return new DeleteCommand(Integer.parseInt(command.split("delete ")[1]));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new PikappiException("Pika..? Which task do you want to delete?");
+            }
+        case "FIND":
+            try {
+                return new FindCommand(command.split("find ")[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new PikappiException("Pika..? What do you want to find?");
+            }
         default:
             throw new PikappiException("Pika..?? I don't understand..");
         }

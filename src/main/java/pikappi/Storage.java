@@ -20,6 +20,7 @@ import java.util.Scanner;
 public class Storage {
     protected String path;
     protected TaskList tasks;
+    protected Ui ui;
 
     /**
      * Returns a Storage object that saves and loads tasks.
@@ -66,7 +67,7 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (Exception e) {
-                System.out.println("Error creating file!");
+                ui.showErrorMessage("Error creating file!");
             }
         }
         try {
@@ -77,7 +78,7 @@ public class Storage {
                 loadCurrentTask(task);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            ui.showErrorMessage("File not found!");
         }
     }
 
@@ -139,7 +140,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file!");
+            ui.showErrorMessage("Error writing to file!");
         }
 
     }

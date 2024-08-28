@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /** Represents a list of tasks. */
 public class TaskList {
     private ArrayList<Task> tasks;
+    private Ui ui = new Ui();
 
     /** Returns a TaskList object that contains no tasks. */
     public TaskList() {
@@ -51,19 +52,8 @@ public class TaskList {
         if (task == null) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
         }
-        if (task instanceof TodoTask) {
-            tasks.add(task);
-            System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
-                    "\nNow you have " + tasks.size() + " tasks in the list.");
-        } else if (task instanceof DeadlineTask) {
-            tasks.add(task);
-            System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
-                    "\nNow you have " + tasks.size() + " tasks in the list.");
-        } else if (task instanceof EventTask) {
-            tasks.add(task);
-            System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
-                    "\nNow you have " + tasks.size() + " tasks in the list.");
-        }
+        tasks.add(task);
+        ui.showAddedTask(task, tasks.size());
     }
 
     /** Deletes a task from the list of tasks.
@@ -75,34 +65,39 @@ public class TaskList {
         if (taskNum > tasks.size() || taskNum < 1) {
             throw new PikappiException("Pi-ka..?? Task does not exist..");
         }
+        Task task = tasks.get(taskNum - 1);
         tasks.remove(taskNum - 1);
-        System.out.println("Pipi-ka-pi! I've removed this task:\n " + tasks.get(tasks.size() - 1) +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+        ui.showDeletedTask(task, tasks.size());
     }
 
     /** Lists all tasks in the list of tasks. */
     public void listTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("Pika-ka! You have no tasks!");
+            ui.showNoTasks();
             return;
         }
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i) != null) {
-                System.out.println((i + 1) + "." + tasks.get(i));
-            } else {
-                break;
-            }
-        }
+        ui.showAllTasks(this.tasks);
     }
 
     public void markTask(int taskNumber) {
-        tasks.get(taskNumber - 1).markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n" + tasks.get(taskNumber - 1));
+        Task task = tasks.get(taskNumber - 1);
+        task.markAsDone();
+        ui.showMarkedTask(task);
     }
 
     public void unmarkTask(int taskNumber) {
-        tasks.get(taskNumber - 1).unmarkAsDone();
-        System.out.println("Okie, I've unmarked this task as not done yet:\n" + tasks.get(taskNumber - 1));
+        Task task = tasks.get(taskNumber - 1);
+        task.unmarkAsDone();
+        ui.showUnmarkedTask(task);
+    }
+
+    public TaskList findTask(String keyword) {
+        TaskList matches = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
     }
 }
