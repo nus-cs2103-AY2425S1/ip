@@ -16,10 +16,18 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Test class for Storage.
+ * Contains unit test cases for verifying the functionality of the Storage class in handling file operations
+ * related to task management.
+ */
 public class StorageTest {
     private static final String PATH = "./test.txt";
     private Storage storage;
 
+    /**
+     * Sets up the Storage instance and deletes the test file if it exists.
+     */
     @BeforeEach
     public void setUp() {
         this.storage = new Storage(PATH);
@@ -30,6 +38,12 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Tests loading tasks from a file with valid data.
+     * Verifies that tasks are correctly loaded and represented in the TaskList.
+     *
+     * @throws Exception If there is an error in loading tasks from the file.
+     */
     @Test
     public void loadTaskTest() throws Exception {
         FileWriter fileWriter = new FileWriter(PATH);
@@ -46,6 +60,12 @@ public class StorageTest {
 
     }
 
+    /**
+     * Tests loading tasks from a file with invalid data.
+     * Verifies that a LamaException is thrown when the data format is incorrect.
+     *
+     * @throws Exception If there is an error in loading tasks from the file.
+     */
     @Test
     public void loadTaskInvalidDataSetTest() throws Exception {
         FileWriter fileWriter = new FileWriter(PATH);
@@ -55,6 +75,12 @@ public class StorageTest {
         assertThrows(LamaException.class, () -> storage.loadTask());
     }
 
+    /**
+     * Tests saving tasks to a file.
+     * Verifies that tasks are correctly saved and loaded.
+     *
+     * @throws Exception If there is an error in saving or loading tasks.
+     */
     @Test
     public void saveTasksTest() throws Exception {
         TaskList taskList = new TaskList();
@@ -69,6 +95,12 @@ public class StorageTest {
         assertEquals("[D][ ] Return Book (by: Aug 31 2024)", tasks.get(1).toString());
     }
 
+    /**
+     * Tests adding a task to the storage.
+     * Verifies that a task is correctly added and saved to the file.
+     *
+     * @throws Exception If there is an error in adding or loading tasks.
+     */
     @Test
     public void addTaskTest() throws Exception {
         TaskList taskList = new TaskList();
@@ -81,6 +113,9 @@ public class StorageTest {
         assertEquals("[T][ ] Read Book", tasks.get(0).toString());
     }
 
+    /**
+     * Cleans up the test file after each test.
+     */
     @AfterEach
     public void reset() {
         try {

@@ -11,6 +11,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+/**
+ * Test class for Ui class.
+ * Contains unit test case for Ui class.
+ */
 public class UiTest {
     private static final String BAR = "____________________________________________________________";
     private Ui ui;
@@ -18,6 +22,9 @@ public class UiTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+    /**
+     * Sets up the test environment before each test case.
+     */
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStream));
@@ -26,6 +33,10 @@ public class UiTest {
         taskList.add(new Todo("Read Book"));
     }
 
+    /**
+     * Tests the readCommand method of Ui.
+     * Verifies that the method correctly reads input from the user.
+     */
     @Test
     public void readCommandTest() {
         String input = "test" + System.lineSeparator();
@@ -35,6 +46,10 @@ public class UiTest {
         assertEquals("test", output);
     }
 
+    /**
+     * Tests the showWelcome method of Ui.
+     * Verifies that the method correctly displays the welcome message.
+     */
     @Test
     public void showWelcomeTest() {
         ui.showWelcome();
@@ -42,6 +57,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showAddCommand method of Ui.
+     * Verifies that the method correctly displays the message.
+     */
     @Test
     public void showAddCommandTest() {
         ui.showAddCommand(taskList);
@@ -50,6 +69,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showDeleteCommandHeader method of Ui.
+     * Verifies that the method correctly displays the header message.
+     */
     @Test
     public void showDeleteCommandHeaderTest() {
         ui.showDeleteCommandHeader();
@@ -57,6 +80,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showDeleteCommandHeader method of Ui.
+     * Verifies that the method correctly displays the footer message.
+     */
     @Test
     public void showDeleteCommandFooterTest() {
         ui.showDeleteCommandFooter(taskList);
@@ -64,6 +91,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showExitCommand method of Ui.
+     * Verifies that the method correctly displays the message.
+     */
     @Test
     public void showExitCommandTest() {
         ui.showExitCommand();
@@ -71,6 +102,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showMarkCommand method of Ui.
+     * Verifies that the method correctly displays the message.
+     */
     @Test
     public void showMarkCommandTest() {
         taskList.get(0).markAsDone();
@@ -80,6 +115,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showUnmarkCommand method of Ui.
+     * Verifies that the method correctly displays the message.
+     */
     @Test
     public void showUnmarkCommandTest() {
         taskList.get(0).markAsUnDone();
@@ -89,6 +128,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showListCommand method of Ui.
+     * Verifies that the method correctly displays the message.
+     */
     @Test
     public void showListCommandTest() {
         ui.showListCommand(taskList);
@@ -97,6 +140,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showLoading method of Ui.
+     * Verifies that the method correctly displays the message.
+     */
     @Test
     public void showLoadingErrorTest() {
         ui.showLoadingError();
@@ -104,6 +151,10 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Tests the showError method of Ui.
+     * Verifies that the method correctly displays the message.
+     */
     @Test
     public void showErrorTest() {
         ui.showError("Error");
@@ -111,6 +162,9 @@ public class UiTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Sets up the test environment before each test case.
+     */
     @AfterEach
     public void reset() {
         System.setOut(standardOut);

@@ -14,10 +14,20 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for ListCommand
+ * Contains unit test case for ListCommand class
+ */
 public class ListCommandTest {
     private static final String BAR = "____________________________________________________________";
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+    /**
+     * Test the run method.
+     * Verifies that the task is being listed.
+     *
+     * @throws LamaException Thrown if there is an error in running command.
+     */
     @Test
     public void runTest() throws LamaException {
 

@@ -14,11 +14,21 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for ExitCommand
+ * Contains unit test case for ExitCommand class
+ */
 public class ExitCommandTest {
 
     private static final String BAR = "____________________________________________________________";
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+    /**
+     * Test the run method.
+     * Verifies that the loop is exited and output as expected.
+     *
+     * @throws LamaException Thrown if there is an error in running command.
+     */
     @Test
     public void runTest() throws LamaException {
 
@@ -38,6 +48,10 @@ public class ExitCommandTest {
         assertEquals(output, outputStream.toString());
     }
 
+    /**
+     * Test the isExit() method.
+     * Verifies that calling isExit() will return true.
+     */
     @Test
     public void isExitTest() {
         Command exitCommand = new ExitCommand();

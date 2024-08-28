@@ -17,12 +17,21 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * Test class for AddCommand
+ * Contains unit test case for AddCommand class
+ */
 public class AddCommandTest {
 
     private static final String BAR = "____________________________________________________________";
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+    /**
+     * Set up the testing environment before each test.
+     * Deletes any existing file to ensure a clean state.
+     */
     @BeforeEach
     public void setup() {
         try {
@@ -31,6 +40,14 @@ public class AddCommandTest {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Test the run method.
+     * Verifies that the task is correctly added into task list, output
+     * as expected, save properly to the storage.
+     *
+     * @throws LamaException Thrown if there is an error in running command.
+     */
     @Test
     public void runTest() throws LamaException {
 
@@ -56,6 +73,10 @@ public class AddCommandTest {
         assertEquals("[T][ ] Read Book", storageTaskList.get(0).toString());
     }
 
+    /**
+     * Set up the testing environment after each test.
+     * Deletes any existing file to ensure a clean state.
+     */
     @AfterEach
     public void reset() {
         try {
