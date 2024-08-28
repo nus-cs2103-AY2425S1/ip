@@ -2,7 +2,7 @@
  * TaskParser is responsible for parsing tasks from strings in save file format
  * It provides static methods for parsing tasks.
  */
-public static class TaskDecoder {
+public class TaskDecoder {
     /**
      * Parses a task from the specified string.
      *
@@ -22,10 +22,8 @@ public static class TaskDecoder {
             case "T":
                 // Metadata for todo tasks is just the description
                 return new TodoTask(taskMetadata);
-                break;
             case "D":
                 return parseDeadlineTask(taskMetadata);
-                break;
             case "E":
                 return parseEventTask(taskMetadata);
             default:
@@ -63,7 +61,8 @@ public static class TaskDecoder {
             throw new IllegalArgumentException("Invalid event task string: " + taskMetadata);
         }
         String description = parts[0];
-        String eventTime = parts[1];
-        return new EventTask(description, eventTime);
+        String eventStartTime = parts[1];
+        String eventEndTime = parts[2];
+        return new EventTask(description, eventStartTime, eventEndTime);
     }
 }

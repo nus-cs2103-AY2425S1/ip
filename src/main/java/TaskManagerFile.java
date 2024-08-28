@@ -1,5 +1,8 @@
-import java.util.FileWriter;
-import java.util.IOException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class TaskManagerFile {
     public static void saveTasksToFile(TaskManager taskManager, String filePath) {
@@ -9,7 +12,9 @@ public class TaskManagerFile {
                 file.createNewFile();
             }
             FileWriter fileWriter = new FileWriter(filePath);
-            for (Task task : taskManager.getTasks()) {
+            Iterator<Task> taskIterator = taskManager.getTasksIterator();
+            for (int i = 0; taskIterator.hasNext(); i++) {
+                Task task = taskIterator.next();
                 fileWriter.write(String.format("%s%n", task.toDataString()));
             }
             fileWriter.close();
@@ -20,7 +25,7 @@ public class TaskManagerFile {
 
     public static void loadTasksFromFile(TaskManager taskManager, String filePath) {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             if (!file.exists()) {
                 return;
             }

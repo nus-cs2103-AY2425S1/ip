@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * Class that manages tasks as a collection.
@@ -9,12 +10,30 @@ public class TaskManager {
     private static final String FILE_PATH = "../../../data/tasks.txt";
     private List<Task> tasks = new ArrayList<>();
 
+    private class TaskIterator implements Iterator<Task> {
+        private int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return index < tasks.size();
+        }
+
+        @Override
+        public Task next() {
+            return tasks.get(index++);
+        }
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
     }
 
     public int getTaskCount() {
         return tasks.size();
+    }
+
+    public Iterator<Task> getTasksIterator() {
+        return new TaskIterator();
     }
 
     /**
@@ -80,7 +99,6 @@ public class TaskManager {
      * Saves the tasks to hardcoded file location.
      */
     public void saveTasksToFile() {
-        TaskManagerFile.saveTasksToFile(this, filePath);
-
+        TaskManagerFile.saveTasksToFile(this, FILE_PATH);
     }
 }
