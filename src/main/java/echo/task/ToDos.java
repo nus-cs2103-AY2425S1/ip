@@ -1,4 +1,10 @@
 package echo.task;
+
+/**
+ * Represents a to-do task with descriptions
+ *
+ * @author Ernest Lim
+ */
 public class ToDos extends Task {
 
     /**

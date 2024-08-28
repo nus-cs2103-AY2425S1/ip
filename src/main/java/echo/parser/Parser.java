@@ -6,6 +6,11 @@ import echo.task.Events;
 import echo.task.Task;
 import echo.task.ToDos;
 
+/**
+ * Represents a parser to parse inputs given by users
+ *
+ * @author Ernest Lim
+ */
 public class Parser {
     /**
      * Splits the input string into and array of 2 Strings containing command and description

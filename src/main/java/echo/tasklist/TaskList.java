@@ -5,6 +5,12 @@ import echo.task.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+/**
+ * Represents a list of task
+ *
+ * @author Ernest Lim
+ */
 public class TaskList {
 
     /** ArrayList of the tasks added to TaskList by the user*/

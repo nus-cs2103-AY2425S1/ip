@@ -3,6 +3,11 @@ package echo.ui;
 import echo.task.Task;
 import echo.tasklist.TaskList;
 
+/**
+ * Represents user's user interface when using the Chat Bot Echo
+ *
+ * @author Ernest Lim
+ */
 public class Ui {
     private static final String LINE_BREAK = "-------------------------------------";
 

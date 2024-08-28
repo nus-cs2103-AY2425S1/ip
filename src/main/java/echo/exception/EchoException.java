@@ -1,4 +1,10 @@
 package echo.exception;
+
+/**
+ * Represents Exception thrown while using Echo
+ *
+ * @author Ernest Lim
+ */
 public class EchoException extends RuntimeException {
 
     /**

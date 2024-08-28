@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+/**
+ * Represents a Task with description about the task
+ *
+ * @author Ernest Lim
+ */
 public abstract class Task {
     private boolean isCompleted;
     private String description;
