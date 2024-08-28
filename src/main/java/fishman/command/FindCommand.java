@@ -15,10 +15,23 @@ public class FindCommand implements Command{
     /** The keyword of the task in the task list to be found. */
     private final String keyword;
 
+    /**
+     * Constructs a FindCommand with the specified keyword to be matched.
+     *
+     * @param keyword The keyword to be matched to the tasks in the task list.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * @inheritDoc
+     *
+     * Filters the task matched based on the keyword and displays matched tasks in the list.
+     *
+     * @param tasks The Task List in which the task is matched from.
+     * @param ui The Ui object used to display the tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) {
         List<Task> matchedTask = tasks.getTasks().stream()

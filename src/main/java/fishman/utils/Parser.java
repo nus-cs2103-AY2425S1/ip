@@ -37,6 +37,7 @@ public class Parser {
      * - "deadline": Creates an AddCommand which creates a new Deadline task with the information provided by the user.
      * - "event": Creates an AddCommand which creates a new Event task with the information provided by the user.
      * - "delete": Creates a DeleteCommand which deletes the task.
+     * - "find": Creates a FindCommand which matches the tasks based on the keyword provided by the user.
      * - Any other input: Creates a Command which will terminate the program.
      *
      * @param userInput The string input by the user.
