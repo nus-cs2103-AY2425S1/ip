@@ -44,7 +44,7 @@ public class TaskList {
 
   public void list() {
     System.out.println("____________________________________________________________");
-    System.out.println("Here are the tasks in your list:");
+    System.out.println(" Here are the tasks in your list:");
     for (int i = 0; i < tasks.size(); i++) {
       System.out.println((i + 1) + ". " + tasks.get(i));
     }
@@ -71,7 +71,7 @@ public class TaskList {
   public void delete(int taskIdx) {
     Task removedTask = tasks.remove(taskIdx - 1);
     System.out.println("____________________________________________________________");
-    System.out.println(" Noted. I've removed this task:");
+    System.out.println(" OK. I've removed this task:");
     System.out.println("   " + removedTask);
     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     System.out.println("____________________________________________________________");

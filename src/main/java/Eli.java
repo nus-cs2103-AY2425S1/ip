@@ -20,7 +20,7 @@ public class Eli {
     // Greeting
     System.out.println("____________________________________________________________");
     System.out.println(" Hello! I'm Eli");
-    System.out.println(" What can I do for you?");
+    System.out.println(" What is your tasks today?");
     System.out.println("____________________________________________________________");
 
     while (true) {
@@ -30,7 +30,7 @@ public class Eli {
       String instruction = inputParts[0];
 
       if (instruction.equalsIgnoreCase("bye")) {
-        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(" Bye. Come back soon!");
         System.out.println("____________________________________________________________");
         break;
       }
