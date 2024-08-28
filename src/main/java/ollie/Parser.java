@@ -1,4 +1,13 @@
+package ollie;
+
+import ollie.command.*;
+import ollie.task.*;
+import ollie.exception.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.DateTimeException;
 public class Parser {
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static Command parse(String input) throws OllieException{
         if (input.matches("list")) {
             return new ListCommand();
@@ -43,9 +52,16 @@ public class Parser {
                 throw new OllieException("Description of deadline cannot be empty!");
             }
 
-            String by = splitString[1].trim();
-            if (by.isEmpty()) {
+            String byInString = splitString[1].trim();
+            if (byInString.isEmpty()) {
                 throw new OllieException("Date/Time of deadline cannot be empty!");
+            }
+
+            LocalDate by;
+            try {
+                by = LocalDate.parse(byInString, Parser.formatter);
+            } catch (DateTimeException e) {
+                throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
             }
 
             task = new Deadline(desc, by);
@@ -66,14 +82,21 @@ public class Parser {
                 throw new OllieException("Description of event cannot be empty!");
             }
 
-            String from = splitString[1].trim();
-            if (from.isEmpty()) {
+            String fromInString = splitString[1].trim();
+            if (fromInString.isEmpty()) {
                 throw new OllieException("Date/Time after /from cannot be empty!");
             }
-
-            String to = splitString[2].trim();
-            if (to.isEmpty()) {
+            String toInString = splitString[2].trim();
+            if (toInString.isEmpty()) {
                 throw new OllieException("Date/Time after /to cannot be empty!");
+            }
+
+            LocalDate from,to;
+            try {
+                from = LocalDate.parse(fromInString, Parser.formatter);
+                to = LocalDate.parse(toInString, Parser.formatter);
+            } catch (DateTimeException e) {
+                throw new OllieException("Date must be valid and strictly formatted as yyyy-mm-dd !");
             }
 
             task = new Event(desc, from, to);

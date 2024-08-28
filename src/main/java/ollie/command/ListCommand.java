@@ -1,4 +1,6 @@
-package ollie;
+package ollie.command;
+
+import ollie.*;
 
 public class ListCommand extends Command{
 

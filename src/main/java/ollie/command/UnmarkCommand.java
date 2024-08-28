@@ -1,5 +1,8 @@
-package ollie;
+package ollie.command;
 
+import ollie.*;
+import ollie.task.*;
+import ollie.exception.*;
 public class UnmarkCommand extends Command{
     int index;
 

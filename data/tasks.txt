@@ -1,3 +1,1 @@
-T | 1 | sleep
-D | 0 | sleep tonight | 1am
-E | 0 | hi | 2pm | 8pm
+E | 0 | party | 2001-12-01 | 2001-12-15

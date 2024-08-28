@@ -1,12 +1,18 @@
+package ollie;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import ollie.task.*;
+import ollie.exception.*;
 public class Storage {
-    String filePath;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -19,43 +25,38 @@ public class Storage {
             ArrayList<Task> output = new ArrayList<>();
 
             // Parse file
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                String[] splitString = input.split(" \\| ", 3); // Type | 1 | Content
-                if (splitString.length < 3) {
-                    throw new CorruptFileException(filePath);
-                }
+            try {
+                while (s.hasNext()) {
+                    String input = s.nextLine();
+                    String[] splitString = input.split(" \\| ", 3); // Type | 1 | Content
 
-                Task task;
-                switch (splitString[0]) {
-                    case "D" -> {
-                        // Save as deadline
-                        String[] details = splitString[2].split(" \\| ", 2);
-                        if (details.length < 2) {
-                            throw new CorruptFileException(filePath);
+                    Task task;
+                    switch (splitString[0]) {
+                        case "D" -> {
+                            // Save as deadline
+                            String[] details = splitString[2].split(" \\| ", 2);
+                            task = new Deadline(details[0], LocalDate.parse(details[1], formatter));
                         }
-                        task = new Deadline(details[0], details[1]);
-                    }
-                    case "E" -> {
-                        // Save as event
-                        String[] details = splitString[2].split(" \\| ", 3);
-                        if (details.length < 3) {
-                            throw new CorruptFileException(filePath);
+                        case "E" -> {
+                            // Save as event
+                            String[] details = splitString[2].split(" \\| ", 3);
+                            task = new Event(details[0], LocalDate.parse(details[1], formatter), LocalDate.parse(details[2], formatter));
                         }
-                        task = new Event(details[0], details[1], details[2]);
+                        case "T" ->
+                            // Save as todo
+                                task = new Todo(splitString[2]);
+                        default -> throw new CorruptFileException(filePath);
                     }
-                    case "T" ->
-                        // Save as todo
-                            task = new Todo(splitString[2]);
-                    default -> throw new CorruptFileException(filePath);
-                }
 
-                // Check for mark
-                if (Integer.parseInt(splitString[1]) != 0) {
-                    task.markAsDone();
-                }
+                    // Check for mark
+                    if (Integer.parseInt(splitString[1]) != 0) {
+                        task.markAsDone();
+                    }
 
-                output.add(task);
+                    output.add(task);
+                }
+            } catch (Exception e) {
+                throw new CorruptFileException(filePath);
             }
             return output;
         } catch (FileNotFoundException | CorruptFileException e) {

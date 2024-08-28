@@ -1,5 +1,7 @@
-package ollie;
+package ollie.command;
 
+import ollie.*;
+import ollie.exception.*;
 public class ExitCommand extends Command {
     public ExitCommand() {
         super.isExit = true;

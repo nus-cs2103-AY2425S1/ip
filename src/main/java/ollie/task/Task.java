@@ -1,5 +1,6 @@
-package ollie;
+package ollie.task;
 
+import ollie.*;
 public class Task {
     protected String description;
     protected boolean isDone;

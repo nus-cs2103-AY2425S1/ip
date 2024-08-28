@@ -1,4 +1,4 @@
-package ollie;
+package ollie.exception;
 
 public class OllieException extends Exception{
     public OllieException(String errorMessage) {

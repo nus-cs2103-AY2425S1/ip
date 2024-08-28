@@ -1,4 +1,7 @@
-package ollie;
+package ollie.command;
+
+import ollie.*;
+import ollie.exception.*;
 
 public abstract class Command {
     protected boolean isExit = false;

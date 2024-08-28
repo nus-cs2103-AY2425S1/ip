@@ -1,4 +1,7 @@
-package src.main.java.ollie;
+package ollie;
+
+import ollie.command.*;
+import ollie.exception.*;
 
 public class Ollie {
     // Constants
