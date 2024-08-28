@@ -3,10 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 public class LuToDo {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        File taskListFile = new File("docs/taskListFile.txt");
+        File taskListFile = new File(Utility.FILE_PATH);
         if (!taskListFile.exists()) {
             try {
                 taskListFile.createNewFile();
@@ -30,6 +30,7 @@ public class LuToDo {
             }
             Utility.handleMessage(message);
             System.out.print(Utility.LINE);
+            Utility.taskListToFile();
         }
     }
 }

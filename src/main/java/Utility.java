@@ -1,10 +1,13 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Utility {
 
+    public static final String FILE_PATH = "docs/taskListFile.txt";
     public static final String LINE = "____________________________________________________________\n";
     public static final Task EMPTY_TASK = new Task("default");
 
@@ -52,7 +55,15 @@ public class Utility {
     }
 
     public static void taskListToFile() {
-
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (int i = 1; i <= toDo.size(); i++) {
+                fileWriter.write(toDo.get(i - 1) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static String[] divideMessage(String message) {
@@ -93,6 +104,7 @@ public class Utility {
             for (int i = 1; i <= toDo.size(); i++) {
                 System.out.println(i + "." + toDo.get(i - 1));
             }
+            System.out.println("Tips: Tasks marked as [X] are already completed ～(∠・ω< )⌒★");
             return;
         }
         if (taskType.equals("mark")) {
