@@ -51,6 +51,9 @@ public class Storage {
                 System.out.println(currTask);
             }
         }
+        if (taskList.isEmpty()) {
+            System.out.println("Your current list does not have any tasks");
+        }
         return taskList;
     }
 
