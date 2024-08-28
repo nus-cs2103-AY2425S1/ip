@@ -17,54 +17,57 @@ public class Mylo {
         System.out.println(opening_query);
 
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+
+        String input = "bye";
+
+        if (scanner.hasNext()) input = scanner.nextLine();
 
         while (!input.equals("bye")) {
             String[] keys = input.split(" ");
             try {
                 switch (keys[0]) {
-                    case "list":
-                        separator();
-                        System.out.println(list);
-                        separator();
-                        break;
-                    case "delete":
-                        separator();
-                        list.deleteTask(Integer.parseInt(keys[1]));
-                        separator();
-                        break;
-                    case "mark":
-                        separator();
-                        list.markTaskAsDone(Integer.parseInt(keys[1]));
-                        separator();
-                        break;
-                    case "unmark":
-                        separator();
-                        list.markTaskAsUndone(Integer.parseInt(keys[1]));
-                        separator();
-                        break;
-                    case "todo":
-                        separator();
-                        list.addTask(input.substring(4), TaskType.TODO);
-                        separator();
-                        break;
-                    case "deadline":
-                        separator();
-                        list.addTask(input.substring(8), TaskType.DEADLINE);
-                        separator();
-                        break;
-                    case "event":
-                        separator();
-                        list.addTask(input.substring(5), TaskType.EVENT);
-                        separator();
-                        break;
-                    case "who are you":
-                        separator();
-                        System.out.println("I'm " + name);
-                        separator();
-                        break;
-                    default:
-                        throw new NoSuchCommandException(input);
+                case "list":
+                    separator();
+                    System.out.println(list);
+                    separator();
+                    break;
+                case "delete":
+                    separator();
+                    list.deleteTask(Integer.parseInt(keys[1]));
+                    separator();
+                    break;
+                case "mark":
+                    separator();
+                    list.markTaskAsDone(Integer.parseInt(keys[1]));
+                    separator();
+                    break;
+                case "unmark":
+                    separator();
+                    list.markTaskAsUndone(Integer.parseInt(keys[1]));
+                    separator();
+                    break;
+                case "todo":
+                    separator();
+                    list.addTask(input.substring(4), TaskType.TODO);
+                    separator();
+                    break;
+                case "deadline":
+                    separator();
+                    list.addTask(input.substring(8), TaskType.DEADLINE);
+                    separator();
+                    break;
+                case "event":
+                    separator();
+                    list.addTask(input.substring(5), TaskType.EVENT);
+                    separator();
+                    break;
+                case "who are you":
+                    separator();
+                    System.out.println("I'm " + name);
+                    separator();
+                    break;
+                default:
+                    throw new NoSuchCommandException(input);
                 }
             } catch (Exception e) {
                 System.out.println(e.toString());
