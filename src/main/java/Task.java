@@ -7,7 +7,9 @@ public class Task {
         this.isDone = false;
         this.type = "";
     }
-
+    public String getDescription() {
+        return this.description;
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -22,6 +24,8 @@ public class Task {
     public void setType(String type) {
         this.type = type;
     }
+
+    public boolean isDone(){return this.isDone;}
 
     public String toString() {
         return "[" + (isDone? "X":" ") + "] " + this.description;
