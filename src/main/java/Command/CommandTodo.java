@@ -1,12 +1,12 @@
-package Command;
+package command;
 
 /* My import */
-import Blitz.Storage;
-import Blitz.TaskList;
-import Blitz.Ui;
-import Exception.BlitzException;
-import Task.Task;
-import Task.Todo;
+import blitz.Storage;
+import blitz.TaskList;
+import blitz.Ui;
+import exception.BlitzException;
+import task.Task;
+import task.Todo;
 
 public class CommandTodo extends Command {
     private String param;

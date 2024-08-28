@@ -1,7 +1,7 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Task.Task;
+import task.Task;
 
 /* System import */
 import java.util.ArrayList;

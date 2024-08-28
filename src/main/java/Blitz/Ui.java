@@ -1,8 +1,8 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Exception.BlitzException;
-import Task.Task;
+import exception.BlitzException;
+import task.Task;
 
 public class Ui {
     private String divider, tab;

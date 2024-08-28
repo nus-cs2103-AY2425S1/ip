@@ -1,10 +1,10 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Exception.BlitzNoParameterException;
+import exception.BlitzNoParameterException;
 
 /* System import */
-import Task.Todo;
+import task.Todo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

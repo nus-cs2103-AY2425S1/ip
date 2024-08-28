@@ -1,20 +1,12 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Command.Command;
-import Command.CommandBye;
-import Command.CommandDeadline;
-import Command.CommandDelete;
-import Command.CommandEvent;
-import Command.CommandList;
-import Command.CommandMark;
-import Command.CommandTodo;
-import Command.CommandUnmark;
-import Exception.BlitzCommandDoesNotExistException;
-import Exception.BlitzException;
-import Exception.BlitzInvalidParameterMoreThanOneException;
-import Exception.BlitzInvalidParameterRegexException;
-import Exception.BlitzNoParameterException;
+import command.*;
+import exception.BlitzCommandDoesNotExistException;
+import exception.BlitzException;
+import exception.BlitzInvalidParameterMoreThanOneException;
+import exception.BlitzInvalidParameterRegexException;
+import exception.BlitzNoParameterException;
 
 /* System import */
 import java.util.regex.Matcher;
@@ -80,6 +72,8 @@ public class Parser {
                 }
 
                 return new CommandDelete(command, deleteParam[0]);
+            case "find":
+                return new CommandFind(command, cont[1]);
             default:
                 throw new BlitzCommandDoesNotExistException();
             }

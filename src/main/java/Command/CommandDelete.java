@@ -1,14 +1,14 @@
-package Command;
+package command;
 
 /* My import */
-import Blitz.Storage;
-import Blitz.TaskList;
-import Blitz.Ui;
-import Exception.BlitzEmptyTaskListException;
-import Exception.BlitzException;
-import Exception.BlitzIndexOutOfBoundsException;
-import Exception.BlitzNumberFormatException;
-import Task.Task;
+import blitz.Storage;
+import blitz.TaskList;
+import blitz.Ui;
+import exception.BlitzEmptyTaskListException;
+import exception.BlitzException;
+import exception.BlitzIndexOutOfBoundsException;
+import exception.BlitzNumberFormatException;
+import task.Task;
 
 public class CommandDelete extends Command {
     private String param;

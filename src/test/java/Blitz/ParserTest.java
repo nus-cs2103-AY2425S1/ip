@@ -1,14 +1,14 @@
-package Blitz;
+package blitz;
 
 /* My import */
-import Command.CommandBye;
-import Command.CommandDeadline;
-import Command.CommandDelete;
-import Command.CommandEvent;
-import Command.CommandList;
-import Command.CommandMark;
-import Command.CommandTodo;
-import Command.CommandUnmark;
+import command.CommandBye;
+import command.CommandDeadline;
+import command.CommandDelete;
+import command.CommandEvent;
+import command.CommandList;
+import command.CommandMark;
+import command.CommandTodo;
+import command.CommandUnmark;
 
 /* System import */
 import org.junit.jupiter.api.Test;
