@@ -26,7 +26,7 @@ class ClearlistCommandTest {
     @Test
     void testExecute_clearList() {
         String result = clearlistCommand.execute(tasks);
-       assertEquals(0, tasks.size(), "Task list should be empty after clearing.");
+        assertEquals(0, tasks.size(), "Task list should be empty after clearing.");
         assertEquals("Okay, the list has been cleared", result, "Message after clearing list is incorrect.");
     }
 
@@ -34,7 +34,7 @@ class ClearlistCommandTest {
     void testExecute_emptyList() {
         tasks.clearList();
         String result = clearlistCommand.execute(tasks);
-       assertEquals(0, tasks.size(), "Task list should be empty.");
-       assertEquals("Okay, the list has been cleared", result, "Message after clearing an empty list is incorrect.");
+        assertEquals(0, tasks.size(), "Task list should be empty.");
+        assertEquals("Okay, the list has been cleared", result, "Message after clearing an empty list is incorrect.");
     }
 }

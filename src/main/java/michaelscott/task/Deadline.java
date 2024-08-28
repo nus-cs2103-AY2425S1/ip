@@ -3,15 +3,15 @@ package michaelscott.task;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private final LocalDateTime deadlineDate;
 
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime deadlineDate) {
         super(description);
-        this.by = by;
+        this.deadlineDate = deadlineDate;
     }
 
     public LocalDateTime getDeadlineDate() {
-        return by;
+        return deadlineDate;
     }
 
     public String getDescription() {
@@ -20,11 +20,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + (isDone ? "[X] " : "[ ] ") + desc + " (by: " + this.by + ")";
+        return "[D]" + (isDone ? "[X] " : "[ ] ") + desc + " (by: " + this.deadlineDate + ")";
     }
 
     @Override
     public String toFile() {
-        return "D | " + (isDone ? "1" : "0") + " | " + desc + " | " + this.by + ")";
+        return "D | " + (isDone ? "1" : "0") + " | " + desc + " | " + this.deadlineDate + ")";
     }
 }

@@ -1,8 +1,8 @@
 package michaelscott.task;
 
+import java.util.ArrayList;
 import michaelscott.exception.MichaelScottException;
 
-import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;

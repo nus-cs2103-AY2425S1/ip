@@ -1,11 +1,10 @@
 package michaelscott.storage;
 
-import michaelscott.exception.MichaelScottException;
-import michaelscott.task.Task;
-
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.FileWriter;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.Task;
 
 public class Storage {
     private final String filePath;

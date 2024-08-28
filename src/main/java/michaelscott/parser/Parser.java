@@ -1,6 +1,15 @@
 package michaelscott.parser;
 
-import michaelscott.command.*;
+import michaelscott.command.ClearlistCommand;
+import michaelscott.command.Command;
+import michaelscott.command.DeadlineCommand;
+import michaelscott.command.DeleteCommand;
+import michaelscott.command.EventCommand;
+import michaelscott.command.ExitCommand;
+import michaelscott.command.ListCommand;
+import michaelscott.command.MarkCommand;
+import michaelscott.command.TodoCommand;
+import michaelscott.command.UnmarkCommand;
 import michaelscott.exception.MichaelScottException;
 
 public class Parser {
@@ -9,7 +18,7 @@ public class Parser {
         String command = parts[0];
         String args = parts.length > 1 ? parts[1] : "";
 
-//        michaelscott.MichaelScott.task.Todo think enums
+        //michaelscott.MichaelScott.task.Todo think enums
         return switch (command.toLowerCase()) {
             case "list" -> new ListCommand();
             case "bye" -> new ExitCommand();

@@ -4,9 +4,9 @@ public abstract class Task {
     protected Boolean isDone;
     protected String desc;
 
-    public Task(String Desc) {
-        this.isDone = false ;
-        this.desc = Desc;
+    public Task(String desc) {
+        this.isDone = false;
+        this.desc = desc;
     }
 
     public Boolean isDone() {

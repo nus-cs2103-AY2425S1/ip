@@ -26,11 +26,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + (isDone ? "[X] " : "[ ] ") + desc +" (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + (isDone ? "[X] " : "[ ] ")
+                + desc + " (from: " + this.from + " to: " + this.to + ")";
     }
 
     @Override
     public String toFile() {
-        return "D | " + (isDone ? "1" : "0") + " | " + desc + " | " + this.from + " | " + this.to;
+        return "D | " + (isDone ? "1" : "0") + " | "
+                + desc + " | " + this.from + " | " + this.to;
     }
 }

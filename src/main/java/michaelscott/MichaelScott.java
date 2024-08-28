@@ -1,11 +1,11 @@
 package michaelscott;
 
-import michaelscott.storage.Storage;
 import michaelscott.parser.Parser;
+import michaelscott.storage.Storage;
 import michaelscott.task.TaskList;
-import michaelscott.ui.Ui;
 import michaelscott.command.Command;
 import michaelscott.exception.MichaelScottException;
+import michaelscott.ui.Ui;
 
 public class MichaelScott {
     private final Storage storage;
@@ -28,6 +28,7 @@ public class MichaelScott {
                 String fullCommand = ui.readCommand();
                 Command cmd = parser.parse(fullCommand);
                 String response = cmd.execute(tasks);
+
                 ui.showResponse(response);
                 storage.saveTasks(tasks.getTasks());
                 isRunning = !cmd.isExit();

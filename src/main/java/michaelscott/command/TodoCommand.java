@@ -19,7 +19,8 @@ public class TodoCommand implements Command {
     public String execute(TaskList tasks) {
         Task newTask = new Todo(description);
         tasks.addTask(newTask);
-        return "Got it. I've added this task:\n" + newTask.toString() +
-                "\nNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
+        return "Got it. I've added this task:\n" + newTask.toString()
+                + "\nNow you have " + tasks.size()
+                + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
     }
 }
