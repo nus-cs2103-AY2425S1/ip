@@ -11,6 +11,7 @@ import delta.exception.DeltaException;
  * Includes the name of the task and a deadline for the task to be completed by.
  */
 public class Deadline extends Task {
+    // Date/time format used for printing.
     protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy ha");
     protected LocalDateTime by;
 
@@ -20,17 +21,14 @@ public class Deadline extends Task {
      *
      * @param description Name of deadline task.
      * @param by Deadline for task.
-     * @throws DeltaException If save file is corrupted and time/date retrieved has the wrong format.
+     * @throws DeltaException If time/date retrieved has the wrong format (i.e. save file corrupted).
      */
     public Deadline(String description, String by) throws DeltaException {
         super(description, TaskType.Deadline);
         try {
             this.by = LocalDateTime.parse(by, FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DeltaException("""
-                    OOPS!!! Save File has been corrupted!
-                    \t Please delete the save file.
-                    \t Location: ./data/DeltaList.txt""");
+            throw new DeltaException("OOPS!!! Save File has been corrupted!");
         }
     }
 
@@ -57,7 +55,7 @@ public class Deadline extends Task {
     /**
      * Formats Deadline for saving.
      *
-     * @return String Formatted details of Deadline.
+     * @return Formatted string containing details of Deadline.
      */
     @Override
     public String saveDetails() {

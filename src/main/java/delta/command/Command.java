@@ -6,7 +6,7 @@ import delta.util.TaskList;
 import delta.util.Ui;
 
 /**
- * Includes method to determine if current command is exiting command,
+ * Includes method to determine if current command is the exiting command,
  * and method to execute specific commands according to subclass.
  * Serves as the parent class for subclasses AddCommand, MarkCommand,
  * UnmarkCommand, DeleteCommand, PrintCommand and ExitCommand.

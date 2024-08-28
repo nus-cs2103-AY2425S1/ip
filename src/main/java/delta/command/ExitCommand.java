@@ -9,9 +9,13 @@ import delta.util.Ui;
  * Exits Delta ChatBot.
  */
 public class ExitCommand extends Command {
+    /**
+     * Creates a ExitCommand instance.
+     */
     public ExitCommand() {
         super(CommandType.Exit);
     }
+
     /**
      * Returns that ExitCommand is the exit command.
      */
