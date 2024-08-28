@@ -61,5 +61,21 @@ public class Storage {
         }
     }
 
+    public ArrayList<Task> returnTaskList() throws IOException, BobbyException {
+        File f = new File(this.filePath);
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        if (f.createNewFile()) {
+            System.out.println(filePath + " not found, allow me to create it for you");
+            return tasks;
+        } else {
+            Scanner s = new Scanner(f);
+            while(s.hasNextLine()) {
+                processFileLines(tasks, s.nextLine());
+            }
+            return tasks;
+        }
+    }
+
 
 }

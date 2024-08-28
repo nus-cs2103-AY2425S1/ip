@@ -1,17 +1,17 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
     static int lengthOfLine = 35;
-    TaskList listOfTasks;
 
-    public Ui(TaskList listOfTasks) {
-        this.listOfTasks = listOfTasks;
-    }
 
     public void horizontalLine(int x) {
         for (int i = 0; i < x; i++) {
             System.out.print("_");
         }
+        System.out.println();
     }
 
     public void showGreeting() {
@@ -27,15 +27,11 @@ public class Ui {
         horizontalLine(lengthOfLine);
     }
 
-    public void showCreationOfFile() {
-        System.out.println("data.txt is not found, allow me to create it for you.");
-        horizontalLine(lengthOfLine);
-    }
-
     public void showTaskCreated(Task t, ArrayList<Task> taskList) {
         horizontalLine(lengthOfLine);
         System.out.println("Alright! I have added a new task.");
         System.out.printf("You have a total of %d tasks now.%n", taskList.size());
+        horizontalLine(lengthOfLine);
     }
 
     public void showMarked() {
@@ -70,54 +66,6 @@ public class Ui {
                 System.out.println(number + ". " + taskList.get(i));
             }
             horizontalLine(lengthOfLine);
-        }
-    }
-
-    public void run(String input) {
-        try {
-            Command command = Parser.parse(input);
-
-            switch (command) {
-            case BYE:
-                showBye();
-                break;
-            case LIST:
-                showTaskList(this.listOfTasks.getListOfTasks());
-                break;
-            case TODO:
-                Task t = Todo.createTodo(input);
-                listOfTasks.addTask(t);
-                showTaskCreated(t, listOfTasks.getListOfTasks());
-                break;
-            case DEADLINE:
-                Task d = Deadline.createDeadline(input);
-                listOfTasks.addTask(d);
-                showTaskCreated(d, listOfTasks.getListOfTasks());
-                break;
-            case EVENT:
-                Task e = Event.createEvent(input);
-                listOfTasks.addTask(e);
-                showTaskCreated(e, listOfTasks.getListOfTasks());
-                break;
-            case MARK:
-                int indexMarked = Parser.parseNumber(input, 4);
-                listOfTasks.mark(indexMarked);
-                showMarked();
-                break;
-            case UNMARK:
-                int indexUnmark = Parser.parseNumber(input, 6);
-                listOfTasks.unmark(indexUnmark);
-                showUnmarked();
-                break;
-            case DELETE:
-                int indexDelete = Parser.parseNumber(input, 6);
-                Task taskToBeDeleted = listOfTasks.getTask(indexDelete);
-                listOfTasks.deleteTask(indexDelete);
-                showTaskDeleted(taskToBeDeleted, listOfTasks.getNumberOfTasks());
-                break;
-            }
-        } catch (BobbyException e) {
-            System.out.println(e.getMessage());
         }
     }
 }
