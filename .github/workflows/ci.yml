@@ -30,19 +30,25 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
+      - name: Print Java version
+        run: java -version
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build and check with Gradle
-        run: ./gradlew check
+        run: ./gradlew check --info
 
 #      - name: Perform IO redirection test (*NIX)
 #        if: runner.os == 'Linux'
 #        working-directory:  ${{ github.workspace }}/text-ui-test
 #        run: ./runtest.sh
-#
+
 #      - name: Perform IO redirection test (MacOS)
 #        if: always() && runner.os == 'macOS'
 #        working-directory:  ${{ github.workspace }}/text-ui-test
 #        run: ./runtest.sh
-#
+
 #      - name: Perform IO redirection test (Windows)
 #        if: always() && runner.os == 'Windows'
 #        working-directory:  ${{ github.workspace }}/text-ui-test
