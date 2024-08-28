@@ -9,6 +9,10 @@ public abstract class Task {
     private boolean taskDone;
     private TaskTypes taskType;
 
+    public Task() {
+        this("Untitled", false);
+    }
+
     public TaskTypes getTaskType() {
         return taskType;
     }

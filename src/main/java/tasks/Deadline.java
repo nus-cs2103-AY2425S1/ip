@@ -5,6 +5,11 @@ import exceptions.YappingBotInvalidSaveFileException;
 import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
 public class Deadline extends Task {
+    public Deadline() {
+        super();
+        this.deadline = "";
+    }
+
     public String getDeadline() {
         return deadline;
     }

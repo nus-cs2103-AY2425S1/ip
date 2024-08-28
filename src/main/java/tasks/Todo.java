@@ -6,6 +6,10 @@ public class Todo extends Task {
         super.setTaskType(TaskTypes.TODO);
     }
 
+    public Todo() {
+        super();
+    }
+
     @Override
     public String getTaskTypeSymbol() {
         return "T";

@@ -22,6 +22,12 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public Event() {
+        super();
+        this.startTime = "";
+        this.endTime = "";
+    }
+
     public String getStartTime() {
         return startTime;
     }
