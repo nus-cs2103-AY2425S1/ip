@@ -12,6 +12,7 @@ import echo.ui.Ui;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -129,6 +130,17 @@ public class Echo {
     }
 
     /**
+     * Handles the command when user types in "find"
+     * Prints a list of all the task with the keyword
+     *
+     * @param keyword keyword contained in the task description
+     */
+    public void handleFindCommand(String keyword) {
+        ArrayList<Task> arrayList = taskList.findTask(keyword);
+        ui.printFoundTask(arrayList);
+    }
+
+    /**
      * Determines which command the user is giving and calls the respective functions to handle the command
      *
      * @param input command and description entered by users e.g. deadline work /by 11-12-2024 2345
@@ -161,6 +173,9 @@ public class Echo {
                 break;
             case "delete":
                 handleDeleteCommand(description);
+                break;
+            case "find":
+                handleFindCommand(description);
                 break;
             default:
                 throw new EchoException("Sorry! I don't get what you mean");
