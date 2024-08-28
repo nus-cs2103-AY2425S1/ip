@@ -271,6 +271,10 @@ public class Colress {
     }
 
     public static String printTasks(boolean printsAll) {
+        if (Colress.TASKS.isEmpty()) {
+            return Colress.MESSAGE_LIST_EMPTY;
+        }
+
         String result = "";
         if (printsAll) {
             for(int i = 0; i < Colress.TASKS.size(); i++) {
@@ -313,46 +317,48 @@ public class Colress {
             String[] strings;
             String currLine;
 
-            while (reader.hasNextLine()) {
-                currLine = reader.nextLine();
-                strings = currLine.split(" \\| ");
-                boolean isChecked;
-                if (Objects.equals(strings[0], "[X]")) {
-                    isChecked = true;
-                } else if (Objects.equals(strings[0], "[ ]")) {
-                    isChecked = false;
-                } else {
-                    Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
-                    continue;
-                }
-
-                switch (strings[1]) {
-                case "To-Do":
-                    Colress.TASKS.add(new ToDo(strings[2], isChecked));
-                    break;
-                case "Deadline":
-                    LocalDate deadline = readDate(strings[3]);
-                    if (deadline == null) {
-                        print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+            if (reader.hasNextLine()) {
+                while (reader.hasNextLine()) {
+                    currLine = reader.nextLine();
+                    strings = currLine.split(" \\| ");
+                    boolean isChecked;
+                    if (Objects.equals(strings[0], "[X]")) {
+                        isChecked = true;
+                    } else if (Objects.equals(strings[0], "[ ]")) {
+                        isChecked = false;
+                    } else {
+                        Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
                         continue;
                     }
 
-                    Colress.TASKS.add(new Deadline(strings[2], deadline, isChecked));
-                    break;
-                case "Event":
-                    LocalDate eventDate = readDate(strings[3]);
-                    String[] times = strings[4].split(" to ");
-                    LocalTime from = readTime(times[0]);
-                    LocalTime to = readTime(times[1]);
-                    if (eventDate == null || from == null || to == null) {
-                        print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
-                        continue;
-                    }
+                    switch (strings[1]) {
+                    case "To-Do":
+                        Colress.TASKS.add(new ToDo(strings[2], isChecked));
+                        break;
+                    case "Deadline":
+                        LocalDate deadline = readDate(strings[3]);
+                        if (deadline == null) {
+                            print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+                            continue;
+                        }
 
-                    Colress.TASKS.add(new Event(strings[2], eventDate, from, to, isChecked));
-                    break;
-                default:
-                    Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+                        Colress.TASKS.add(new Deadline(strings[2], deadline, isChecked));
+                        break;
+                    case "Event":
+                        LocalDate eventDate = readDate(strings[3]);
+                        String[] times = strings[4].split(" to ");
+                        LocalTime from = readTime(times[0]);
+                        LocalTime to = readTime(times[1]);
+                        if (eventDate == null || from == null || to == null) {
+                            print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+                            continue;
+                        }
+
+                        Colress.TASKS.add(new Event(strings[2], eventDate, from, to, isChecked));
+                        break;
+                    default:
+                        Colress.print(Colress.MESSAGE_FILE_CORRUPTED_ERROR);
+                    }
                 }
             }
         } catch (FileNotFoundException e) {

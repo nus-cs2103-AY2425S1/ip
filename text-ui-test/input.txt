@@ -2,32 +2,66 @@ hello
 check
 uncheck
 list
+date
+delete
 add
 todo
 go jogging
 add
 event
 lecture
-aug 22
+aug 29
+2024-08-29
 1400
+14:00
 1600
+16:00
+list
 check
+3
 1
 list
 add
 deadline
 assignment
-aug 23
+aug 30
+2024-08-30
+list
 check
 4
 3
+list
 uncheck
 4
 1
 list
+date
+aug 29
+2024-08-29
+date
+2024-08-27
+add
+deadline
+assignment1
+2024-08-29
+date
+2024-08-29
+list
 delete
 5
 2
+list
 delete
+5
 1
+list
+delete
+5
+1
+list
+delete
+5
+1
+list
+delete
 bye
