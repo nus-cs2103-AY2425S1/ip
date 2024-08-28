@@ -1,4 +1,4 @@
-package System.Exceptions;
+package Revir.System.Exceptions;
 
 public class InvalidFormatException extends Exception {
     public InvalidFormatException(String format) {

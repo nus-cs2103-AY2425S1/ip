@@ -13,7 +13,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/ -Xlint:none -d ../bin ../src/main/Revir/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
@@ -23,7 +23,7 @@ fi
 for testNo in {1..3}
 do
     # run the program, feed commands from input file and redirect the output to the ACTUAL.TXT
-    java -classpath ../bin Revir < "testcases/TEST-$testNo.txt" > ACTUAL.txt 2>&1
+    java -classpath ../bin Revir.Revir < "testcases/TEST-$testNo.txt" > ACTUAL.txt 2>&1
 
     # compare the output to the expected output
     diff ACTUAL.txt testcases/EXPECTED-$testNo.txt

@@ -1,7 +1,7 @@
-package User.Command;
+package Revir.User.Command;
 
-import Tasks.TaskList;
-import User.Ui;
+import Revir.Tasks.TaskList;
+import Revir.User.Ui;
 
 public class Nop extends Command {
     public Nop(boolean isExit) {

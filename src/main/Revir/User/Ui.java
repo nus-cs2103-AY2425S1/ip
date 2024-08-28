@@ -1,4 +1,4 @@
-package User;
+package Revir.User;
 
 import java.util.Scanner;
 

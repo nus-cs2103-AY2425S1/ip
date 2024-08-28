@@ -1,9 +1,9 @@
-package User.Command;
+package Revir.User.Command;
 
 import java.io.IOException;
 
-import Tasks.TaskList;
-import User.Ui;
+import Revir.Tasks.TaskList;
+import Revir.User.Ui;
 
 public class Delete extends Command{
     private int taskIndex;
