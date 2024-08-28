@@ -19,6 +19,9 @@ public class Parser {
      */
     public static void validateCommand(String[] commandDetails, int numOfTasksInList) throws JanetException {
         // when mark/unmark/delete X, where X is too big (out or bounds) OR <= 0 OR when the list is empty.
+        if (commandDetails.length == 0) {
+            throw new JanetException("Please do not leave any empty lines!");
+        }
         if ((commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") ||
                 commandDetails[0].equals("delete")) && commandDetails.length > 1) {
             // when the command is mark/unmark X OR delete, where X is an invalid num (too big or <= 0)
