@@ -1,4 +1,4 @@
-package exceptions;
+package cs2103w10.glados.exceptions;
 
 public class TaskNotFoundException extends GladosException {
     /**

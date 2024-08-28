@@ -1,16 +1,16 @@
-package utils;
+package cs2103w10.glados.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import enums.TaskType;
+import cs2103w10.glados.enums.TaskType;
 
-import exceptions.DateNotFoundException;
-import exceptions.DateNotParsedException;
-import exceptions.DateRangeNotFoundException;
-import exceptions.DescriptionNotFoundException;
-import exceptions.GladosException;
-import exceptions.TaskNotFoundException;
+import cs2103w10.glados.exceptions.DateNotFoundException;
+import cs2103w10.glados.exceptions.DateNotParsedException;
+import cs2103w10.glados.exceptions.DateRangeNotFoundException;
+import cs2103w10.glados.exceptions.DescriptionNotFoundException;
+import cs2103w10.glados.exceptions.GladosException;
+import cs2103w10.glados.exceptions.TaskNotFoundException;
 
 public class Parser {
     
@@ -28,29 +28,37 @@ public class Parser {
             String todoDescription = input.trim();
             checkDescription(todoDescription);
             return new ParsedInfo(todoDescription, new LocalDate[0]);
+
         case DEADLINE:
             checkDescription(input.trim());
             String[] deadlineInputs = input.split("/by");
             String deadlineDescription = deadlineInputs[0].trim();
             checkDescription(deadlineDescription);
+
             if (deadlineInputs.length != 2 || deadlineInputs[1].trim().equals("")) {
                 throw new DateNotFoundException();
             }
+
             return new ParsedInfo(
                     deadlineInputs[0].trim(), 
-                    new LocalDate[]{parseDate(deadlineInputs[1].trim())});
+                    new LocalDate[]{ 
+                            parseDate(deadlineInputs[1].trim())});
+
         case EVENT:
             checkDescription(input.trim());
             String[] eventInputs = input.split("/from");
             String eventDescription = eventInputs[0].trim();
             checkDescription(eventDescription);
+            
             if (eventInputs.length != 2) {
                 throw new DateRangeNotFoundException();
             }
+
             String[] dateRange = eventInputs[1].split("/to");
             if (dateRange.length != 2 || dateRange[0].trim().equals("") || dateRange[1].trim().equals("")) {
                 throw new DateRangeNotFoundException();
             }
+            
             return new ParsedInfo(
                     eventInputs[0].trim(), 
                     new LocalDate[]{
