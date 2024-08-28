@@ -154,8 +154,9 @@ public class Deez implements Serializable {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this);
+            say("Saved successfully!");
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DeezException("Failed to save.");
         }
     }
 
