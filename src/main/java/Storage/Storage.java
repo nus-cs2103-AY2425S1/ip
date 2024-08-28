@@ -25,12 +25,12 @@ public class Storage {
         this.filePath = filePath;
         this.file = new File(this.filePath);
         if (file.isFile()) {
-            System.out.println("Task.Task file found.");
+            System.out.println("Task file found.");
         } else {
-            System.out.println("Task.Task file not found, creating task file.");
+            System.out.println("Task file not found, creating task file.");
             try {
                 file.createNewFile();
-                System.out.println("Task.Task file created");
+                System.out.println("Task file created");
             } catch (IOException e) {
                 System.out.println("Unable to create task file.");
             }
@@ -73,7 +73,7 @@ public class Storage {
             fileReader.close();
             bufferedReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Task.Task file not found.");
+            System.out.println("Task file not found.");
         } catch (IOException e) {
             System.out.println("Error reading file.");
         }
@@ -120,7 +120,7 @@ public class Storage {
 
             }
             fileWriter.close();
-            System.out.println("Written to file successfully");
+            System.out.println("Written to file successfully.");
         } catch (IOException e) {
             System.out.println("ERROR! Could not write to file.");
         }
