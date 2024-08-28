@@ -1,8 +1,10 @@
-import java.io.File;
-import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Cook {
     public static void main(String[] args) {
@@ -60,7 +62,8 @@ public class Cook {
                     if (isSuccessful) {
                         formatting("Alright, I've marked this task as " + done + ":\n   " + taskToMark);
                     } else {
-                        formatting("Oh no! The task is already marked as " + done + ":\nDid you intend to do something else?");
+                        formatting("Oh no! The task is already marked as " + done + ":\n" +
+                                "Did you intend to do something else?");
                     }
 
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -88,6 +91,7 @@ public class Cook {
                         continue;
                     }
 
+                    // 5 to get everything after "todo "
                     String taskName = userInput.substring(5);
                     newTask = new ToDo(taskName);
                 }
@@ -109,19 +113,16 @@ public class Cook {
                     }
                     deadlineDesc.deleteCharAt(deadlineDesc.length() - 1);
 
-
-                    StringBuilder deadlineDate = new StringBuilder();
-                    for (int i = indexOfBy + 1; i < commands.length; i++) {
-                        deadlineDate.append(commands[i]).append(" ");
-                    }
-
-                    if (deadlineDate.isEmpty()) {
-                        formatting("Oh no! The deadline date cannot be empty. Please try again!");
+                    // Solution below inspired by https://www.baeldung.com/java-8-date-time-intro
+                    try {
+                        LocalDateTime deadlineDateTime = LocalDateTime.parse(commands[indexOfBy + 1] + "T" +
+                                commands[indexOfBy + 2]);
+                        newTask = new Deadline(deadlineDesc.toString(), deadlineDateTime);
+                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                        formatting("Oh no! The deadline date and time must be " +
+                                "in a valid format such as YYYY-MM-DD HH:mm. Please try again!");
                         continue;
                     }
-                    deadlineDate.deleteCharAt(deadlineDate.length() - 1);
-
-                    newTask = new Deadline(deadlineDesc.toString(), deadlineDate.toString());
                 }
                 else if (commands[0].equalsIgnoreCase("event")) {
                     int indexOfFrom = findFirstCommand(commands, "/from");
@@ -142,30 +143,24 @@ public class Cook {
                     }
                     eventDesc.deleteCharAt(eventDesc.length() - 1);
 
-                    StringBuilder startDateTime = new StringBuilder();
-                    for (int i = indexOfFrom + 1; i < indexOfTo; i++) {
-                        startDateTime.append(commands[i]).append(" ");
-                    }
-
-                    if (startDateTime.isEmpty()) {
-                        formatting("Oh no! The starting date and time of an event cannot be empty. Please try again!");
+                    // Solution below inspired by https://www.baeldung.com/java-8-date-time-intro
+                    try {
+                        LocalDateTime startDateTime = LocalDateTime.parse(commands[indexOfFrom + 1] + "T" +
+                                commands[indexOfFrom + 2]);
+                        LocalDateTime endDateTime = LocalDateTime.parse(commands[indexOfTo + 1] + "T" +
+                                commands[indexOfTo + 2]);
+                        if (startDateTime.isAfter(endDateTime)) {
+                            formatting("Oh no! Your starting date and time cannot be " +
+                                    "after your ending date and time of the event.");
+                            continue;
+                        }
+                        newTask = new Event(eventDesc.toString(), startDateTime, endDateTime);
+                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                        formatting("Oh no! The starting and end date of an event must be " +
+                                "in a valid format such as YYYY-MM-DD HH:mm. Please try again!");
                         continue;
                     }
-                    startDateTime.deleteCharAt(startDateTime.length() - 1);
 
-                    StringBuilder endDateTime = new StringBuilder();
-                    for (int i = indexOfTo + 1; i < commands.length; i++) {
-                        endDateTime.append(commands[i]).append(" ");
-                    }
-
-                    if (startDateTime.isEmpty()) {
-                        formatting("Oh no! The ending date and time of an event cannot be empty. Please try again!");
-                        continue;
-                    }
-                    endDateTime.deleteCharAt(endDateTime.length() - 1);
-
-                    newTask = new Event(eventDesc.toString(), startDateTime.toString(),
-                            endDateTime.toString().stripTrailing());
                 }
                 else {
                     formatting("I don't understand what you mean... Could you say it again?");
@@ -199,8 +194,8 @@ public class Cook {
                     }
 
                 } catch (IOException e) {
-                    formatting("Oh no! I can't find save the task list at the specified path... perhaps its elsewhere?\n"
-                            + "Your latest task has not been saved.");
+                    formatting("Oh no! I can't find save the task list at the specified path... " +
+                            "perhaps its elsewhere?\nYour latest task has not been saved.");
                     taskList.remove(newTask);
                 }
             }

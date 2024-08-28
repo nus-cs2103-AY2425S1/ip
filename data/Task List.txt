@@ -1,3 +1,1 @@
-[T][ ] test
-[D][ ] sleep (by: tomorrow)
-[E][ ] hello world (from: today to: tomorrow)
+[E][ ] i'm feeling lucky (from: 2022-02-14 23:59 to: 2084-12-24 22:00)
