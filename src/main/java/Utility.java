@@ -92,7 +92,7 @@ public class Utility {
             try {
                 int taskIndex = divideMessage(message)[1].charAt(0) - 49;
                 System.out.println("Noted. I've removed this task:\n" + toDo.get(taskIndex) +
-                        "\nNow you have " + toDo.size() + " tasks in the list.\n");
+                        "\nNow you have " + (toDo.size() - 1) + " tasks in the list.");
                 toDo.remove(taskIndex);
                 return;
             } catch(IndexOutOfBoundsException e) {

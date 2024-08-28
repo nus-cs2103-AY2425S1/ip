@@ -1,4 +1,3 @@
-[T][_] a
-[T][_] b
 [E][_] make meeting /from: today 12:00 /to: 14:00
 [D][_] quiz2 /by: Friday
+[T][_] a
