@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public abstract class Task {
+public abstract class TaskList {
     private String name;
 
     enum status {
@@ -12,21 +12,21 @@ public abstract class Task {
     }
 
     status current_status;
-    public static Response r = new Response();
+    public static Ui r = new Ui();
     public String tag;
-    public static ArrayList<Task> task_list = new ArrayList<>();
-    static FileSystem fs;
+    public static ArrayList<TaskList> task_List_list = new ArrayList<>();
+    static Storage fs;
     static DateTimeSystem ds = new DateTimeSystem();
 
     static {
         try {
-            fs = new FileSystem();
+            fs = new Storage();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Task(String name, String tag) throws IOException {
+    public TaskList(String name, String tag) throws IOException {
         this.name = name;
         current_status = status.UNMARKED;
         this.tag = tag;
@@ -44,13 +44,13 @@ public abstract class Task {
                 }
 
 
-                Task t = new ToDos(name.toString());
+                TaskList t = new ToDos(name.toString());
                 if (s.contains("[X]")) {
                     t.setCurrent_status(status.MARKED);
                 } else {
                     t.setCurrent_status(status.UNMARKED);
                 }
-                task_list.add(t);
+                task_List_list.add(t);
 //                System.out.println("===INIT=== " + t.getName());
 
             } else if (s.contains("[D]")) {
@@ -76,13 +76,13 @@ public abstract class Task {
 
                 LocalDateTime ldt = ds.createDate(date_token[0],date_token[1],date_token[2],time_token[0],time_token[1]);
 
-                Task d = new Deadlines(name.toString(), ldt);
+                TaskList d = new Deadlines(name.toString(), ldt);
                 if (s.contains("[X]")) {
                     d.setCurrent_status(status.MARKED);
                 } else {
                     d.setCurrent_status(status.UNMARKED);
                 }
-                task_list.add(d);
+                task_List_list.add(d);
 //                System.out.println("===INIT=== " + d.getName());
 
             } else if (s.contains("[E]")){
@@ -127,13 +127,13 @@ public abstract class Task {
 
                 LocalDateTime ldt_end = ds.createDate(date_token_end[0],date_token_end[1],date_token_end[2],time_token_end[0],time_token_end[1]);
 
-                Task e = new Events(name.toString(), ldt_start, ldt_end);
+                TaskList e = new Events(name.toString(), ldt_start, ldt_end);
                 if (s.contains("[X]")) {
                     e.setCurrent_status(status.MARKED);
                 } else {
                     e.setCurrent_status(status.UNMARKED);
                 }
-                task_list.add(e);
+                task_List_list.add(e);
 //                System.out.println("===INIT=== " + e.getName());
 
             }
@@ -170,12 +170,12 @@ public abstract class Task {
 //        }
 //    }
     public static void delete_task(int index) throws IOException {
-        if (task_list.isEmpty()) {
+        if (task_List_list.isEmpty()) {
             r.emptyList();
         } else {
-            if (task_list.size() > index) {
-                Task temp = task_list.get(index - 1);
-                task_list.remove(temp);
+            if (task_List_list.size() > index) {
+                TaskList temp = task_List_list.get(index - 1);
+                task_List_list.remove(temp);
                 fs.delete(index);
                 r.delete_message(temp);
             } else {
@@ -191,11 +191,11 @@ public abstract class Task {
     }
 
     public static void mark_task(int index) throws IOException {
-        if (task_list.isEmpty()) {
+        if (task_List_list.isEmpty()) {
             r.emptyList();
         } else {
-            if (task_list.size() > index) {
-                Task temp = task_list.get(index - 1);
+            if (task_List_list.size() >= index) {
+                TaskList temp = task_List_list.get(index - 1);
                 System.out.println("CURRENT STATUS IS : " + temp.getCurrent_status());
                 if (temp.getCurrent_status()==status.MARKED) {
                     r.alreadyMarked();
@@ -211,11 +211,11 @@ public abstract class Task {
     }
 
     public static void unmark_task(int index) throws IOException {
-        if (task_list.isEmpty()) {
+        if (task_List_list.isEmpty()) {
             r.emptyList();
         } else {
-            if (task_list.size() > index) {
-                Task temp = task_list.get(index - 1);
+            if (task_List_list.size() > index) {
+                TaskList temp = task_List_list.get(index - 1);
                 if (temp.getCurrent_status() == status.UNMARKED) {
                     r.alreadyUnmarked();
                 } else {
@@ -246,7 +246,7 @@ public abstract class Task {
     }
 
     public int get_list_size() {
-        return task_list.size();
+        return task_List_list.size();
     }
 
     public abstract LocalDateTime getDate();

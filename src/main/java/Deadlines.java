@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class Deadlines extends Task{
+public class Deadlines extends TaskList {
     LocalDateTime date;
 
     public Deadlines(String name, LocalDateTime date) throws IOException {
@@ -10,7 +10,7 @@ public class Deadlines extends Task{
     }
 
     public void add_task(Deadlines d) throws IOException {
-        task_list.add(d);
+        task_List_list.add(d);
 //        super.update_saved_tasklist();
         System.out.println("Got it. I've added this task:");
         System.out.println("[D][_] " + d.getName() + "(by: " + ds.format(date) + ")");
@@ -21,7 +21,7 @@ public class Deadlines extends Task{
     private void update_tasklist(Deadlines d) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = task_list.size();
+        int index = task_List_list.size();
         StringBuilder information;
         if (d.getCurrent_status()==status.MARKED) {
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + marked + " " + d.getName());

@@ -4,14 +4,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FileSystem {
+public class Storage {
     private final String path = "src/main/data/task_list.txt";
     File f;
     Scanner sc;
     FileWriter fwA;
     FileWriter fw;
 
-    public FileSystem() throws IOException {
+    public Storage() throws IOException {
         f = new File(path);
     }
 

@@ -1,4 +1,4 @@
-public class Response {
+public class Ui {
     public void greet() {
         line();
         System.out.println("Hello! I'm Tanjiro!");
@@ -34,22 +34,22 @@ public class Response {
     //    public void added_task_message(String s) {
 //        System.out.println("added: " + s);
 //    }
-    public void delete_message(Task t) {
+    public void delete_message(TaskList t) {
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {
-            if (t.getCurrent_status()== Task.status.MARKED) {
+            if (t.getCurrent_status()== TaskList.status.MARKED) {
                 System.out.println("[T][X] " + t.getName());
             } else {
                 System.out.println("[T][ ] " + t.getName());
             }
         } else if (t instanceof Deadlines) {
-            if (t.getCurrent_status()== Task.status.MARKED) {
+            if (t.getCurrent_status()== TaskList.status.MARKED) {
                 System.out.println("[D][X] " + t.getName() + "(by: " + t.getDate() + ")");
             } else {
                 System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDate() + ")");
             }
         } else if (t instanceof Events) {
-            if (t.getCurrent_status()== Task.status.MARKED) {
+            if (t.getCurrent_status()== TaskList.status.MARKED) {
                 System.out.println("[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
             } else {
                 System.out.println("[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");

@@ -1,13 +1,13 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class ToDos extends Task{
+public class ToDos extends TaskList {
     public ToDos(String name) throws IOException {
         super(name, "T");
     }
 
     public void add_task(ToDos t) throws IOException {
-        task_list.add(t);
+        task_List_list.add(t);
 //        super.update_saved_tasklist();
         System.out.println("Got it. I've added this task:");
         System.out.println("[T][_] " + t.getName());
@@ -19,7 +19,7 @@ public class ToDos extends Task{
     private void update_tasklist(ToDos t) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = task_list.size();
+        int index = task_List_list.size();
         StringBuilder information;
         if (t.getCurrent_status()==status.MARKED) {
             information = new StringBuilder(index + ". [" + t.getTag() + "]" + marked + " " + t.getName());
