@@ -31,6 +31,8 @@ public class Parser {
                 return Parser.prepareDeadline(tokens[1]);
             case EVENT:
                 return Parser.prepareEvent(tokens[1]);
+            case FIND:
+                return Parser.prepareFind(tokens[1]);
             default:
                 return new IncorrectCommand();
             }
@@ -78,5 +80,12 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new TickException("Please specify the dates in this format: yyyy-mm-dd.");
         }
+    }
+
+    private static Command prepareFind(String args) throws TickException {
+        if (args.isEmpty()) {
+            throw new TickException("The keyword to search for cannot be empty.");
+        }
+        return new FindCommand(args);
     }
 }
