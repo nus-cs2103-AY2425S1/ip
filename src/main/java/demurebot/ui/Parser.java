@@ -43,6 +43,8 @@ public abstract class Parser {
         } else if (command.startsWith("delete")) {
             String remainder = command.substring(6).trim();
             return new DeleteCommand(remainder);
+        } else if (command.startsWith("find")) {
+            return new FindCommand(command.substring(4).trim());
         } else if (command.startsWith("todo")) {
             String description = command.substring(4).trim();
             // check that there is a task description
