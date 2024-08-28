@@ -3,6 +3,10 @@ package ollie;
 import ollie.command.Command;
 import ollie.exception.OllieException;
 
+/**
+ * Main Class. Ollie is the name of our chatbot. It contains the method
+ * main and is executable.
+ */
 public class Ollie {
     // Constants
     private static final String filepath = "./data/tasks.txt";
@@ -21,6 +25,10 @@ public class Ollie {
         }
     }
 
+    /**
+     * Starts the chatbot.
+     *
+     */
     public void run() {
         ui.showGreeting();
         boolean isExit = false;
