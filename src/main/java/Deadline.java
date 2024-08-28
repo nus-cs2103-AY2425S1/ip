@@ -1,16 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, String by) throws EmptyDescriptionException, EmptyDeadlineException {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
-        if (description == null) {
-            throw new EmptyDescriptionException("Description of deadline cannot be empty.");
-        }
-        if (by == null) {
-            throw new EmptyDeadlineException("Deadline cannot be empty");
-        }
     }
 
     public String getTypeIcon() {
@@ -19,10 +17,16 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return this.getTypeIcon() + super.toString() + " (by: " + by + ")";
+        int day = this.by.getDayOfMonth();
+        Month month = this.by.getMonth();
+        int year = this.by.getYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String time12HourFormat = this.by.format(formatter);
+        String date = day + " " + month + " " + year + " " + time12HourFormat;
+        return this.getTypeIcon() + super.toString() + " (by: " + date + ")";
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return this.by;
     }
 }
