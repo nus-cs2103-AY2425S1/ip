@@ -40,18 +40,22 @@ public class Storage {
                 String[] splits = line.split(" \\s*\\|\\s* ");
                 // split[1] is reserved for the marked indicator
                 String description = splits[2];
-                switch (splits[0]) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    task = new Deadline(description, splits[3]);
-                    break;
-                case "E":
-                    task = new Event(description, splits[3], splits[4]);
-                    break;
-                default:
-                    break;
+                try {
+                    switch (splits[0]) {
+                    case "T":
+                        task = new Todo(description);
+                        break;
+                    case "D":
+                        task = new Deadline(description, splits[3]);
+                        break;
+                    case "E":
+                        task = new Event(description, splits[3], splits[4]);
+                        break;
+                    default:
+                        break;
+                    }
+                } catch (CloudException e) {
+                    System.out.println("Error reading from file");
                 }
                 if (task != null) {
                     if (splits[1].equals("1")) {
