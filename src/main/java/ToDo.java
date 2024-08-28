@@ -8,6 +8,21 @@ public class ToDo extends Task {
     }
 
     @Override
+    public boolean isEvent() {
+        return false;
+    }
+
+    @Override
+    public boolean isToDo() {
+        return true;
+    }
+
+    @Override
+    public boolean isDeadline() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
