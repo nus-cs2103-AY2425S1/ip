@@ -10,7 +10,6 @@ import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 
 public class Tecna {
@@ -180,9 +179,9 @@ public class Tecna {
      */
     private static ArrayList<Task> taskParser(String taskData) {
         try {
-            Object o = new org.json.simple.parser.JSONParser().parse(new java.io.FileReader(taskData));
-            org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) o;
-            org.json.simple.JSONArray jsonTasks = (org.json.simple.JSONArray) jsonObject.get("taskList");
+            Object o = new JSONParser().parse(new java.io.FileReader(taskData));
+            JSONObject jsonObject = (JSONObject) o;
+            JSONArray jsonTasks = (JSONArray) jsonObject.get("taskList");
 
             ArrayList<Task> tasks = new ArrayList<>();
             for (int i = 0 ; i < jsonTasks.size(); ++i) {

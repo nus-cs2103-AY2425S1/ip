@@ -11,7 +11,7 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public Event(String taskName, boolean isDone, String from, String to) {
+    public Event(String taskName, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(taskName);
         this.from = from;
         this.to = to;
@@ -20,11 +20,11 @@ public class Event extends Task {
         }
     }
 
-    public String getFrom() {
+    public LocalDateTime getFrom() {
         return this.from;
     }
 
-    public String getTo() {
+    public LocalDateTime getTo() {
         return this.to;
     }
 
