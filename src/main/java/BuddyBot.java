@@ -129,4 +129,15 @@ public class BuddyBot {
     public static void delete(ArrayList<Task> arr, int num) {
         arr.remove(num - 1);
     }
+
+    public static String writtenList(ArrayList<Task> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) == null) {
+                break;
+            } else {
+                return arr.get(i).toString() + "\n";
+            }
+        }
+        return "";
+    }
 }
