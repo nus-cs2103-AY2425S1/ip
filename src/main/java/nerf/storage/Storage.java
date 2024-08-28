@@ -1,5 +1,9 @@
 package nerf.storage;
 
+/**
+ * Class for handling file I/O.
+ */
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +13,9 @@ import java.util.List;
 import nerf.error.FilePermissionsException;
 
 public class Storage {
+    /** path to save file */
     private final String saveDirectory;
+    /** name of save file */
     private final String saveFileName;
 
     public Storage(String pathString){
@@ -20,10 +26,22 @@ public class Storage {
         this.saveFileName = fileString;
     }
 
+    /**
+     * Returns the path string of the save file.
+     * 
+     * @return path to save file.
+     */
     private String getFullPath(){
         return this.saveDirectory+this.saveFileName;
     }
 
+    /**
+     * Returns list of tasks as strings found in save file.
+     * If a file I/O-related error occurs, throw an exception.
+     * 
+     * @return list of tasks.
+     * @throws FilePermissionsException If unable to read file.
+     */
     public List<String> load() throws FilePermissionsException{
         File directory = new File(this.saveDirectory);
         File saveFile = new File(this.getFullPath());
@@ -45,6 +63,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to save file.
+     * 
+     * @param taskList list of task in string format.
+     */
     public void save(List<String> taskList){
         try (FileWriter fileWriter = new FileWriter(getFullPath())) {
             for (String i:taskList){
