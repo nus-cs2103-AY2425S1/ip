@@ -27,11 +27,11 @@ abstract public class Task {
     public String getDescription() {
         return this.description;
     }
-
     public abstract String toSaveFormat();
 
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() +"] " + this.description;
     }
+
 }

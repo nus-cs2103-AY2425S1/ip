@@ -83,6 +83,9 @@ public class Parser {
             }
             break;
 
+        case("find"):
+            return new FindCommand(parts[1]);
+
         default:
 
             return new InvalidCommand();

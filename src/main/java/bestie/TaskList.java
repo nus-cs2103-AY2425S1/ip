@@ -1,5 +1,6 @@
 package bestie;// tasklist class should contain the task list, and have operations to add/delete tasks in the lsit
 
+import java.sql.Array;
 import java.util.ArrayList;
 // mostly done?????????????????
 public class TaskList {
@@ -34,4 +35,13 @@ public class TaskList {
         return tasks;
     }
 
+    public ArrayList<Task> findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keyword)) {
+                matchingTasks.add(tasks.get(i));
+            }
+        }
+        return matchingTasks;
+    }
 }
