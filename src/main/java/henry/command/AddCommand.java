@@ -12,6 +12,9 @@ import henry.task.Todo;
 import henry.task.Deadline;
 import henry.task.Event;
 
+/**
+ * Deals with adding task into TaskList
+ */
 public class AddCommand extends Command {
     private String input;
 
