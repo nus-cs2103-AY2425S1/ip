@@ -15,6 +15,10 @@ public class Parser<C extends Controller> {
         this.ui = ui;
     }
     
+    /**
+     * Parses the input and calls the appropriate controller method.
+     * @param input The input from the user.
+     */
     public boolean parse(String input) {
         if (input.equals("bye")) {
             scanner.close();

@@ -12,7 +12,12 @@ import joe.task.TaskDeadline;
 
 public class Storage {
     private static final String FILE_NAME = "./data/store.txt";
-        public void saveTasks(ArrayList<Task> store) {
+
+
+    /**
+     * Saves the tasks in store to FILE_NAME.
+     */
+    public void saveTasks(ArrayList<Task> store) {
         try {
             System.out.println("Saving tasks...");
             File file = new File(FILE_NAME);
@@ -30,6 +35,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from FILE_NAME and returns them as an ArrayList.
+     */
     public ArrayList<Task> loadTasks() {
         try {
             ArrayList<Task> store = new ArrayList<>();
