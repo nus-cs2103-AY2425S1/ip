@@ -17,6 +17,17 @@ public abstract class Task {
     }
 
     /**
+     * Creates a task with the specified description and done status.
+     *
+     * @param description The description of the task.
+     * @param isDone      The done status of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
      * Returns the status label of the task. (X if done, empty string otherwise)
      *
      * @return The status label of the task.
@@ -57,5 +68,14 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusLabel(), this.description);
+    }
+
+    /**
+     * Returns the string representation of the task in data format (for saving to file)
+     *
+     * @return The data string.
+     */
+    public String toDataString() {
+        return String.format("%s|%s", this.getStatusLabel(), this.description);
     }
 }
