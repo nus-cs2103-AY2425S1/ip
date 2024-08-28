@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The Ui class handles all interactions with the user. It manages input and output, displaying messages, and reading user commands.
+ * The Ui class handles all interactions with the user.
+ * It manages input and output, displaying messages, and reading user commands.
  */
 public class Ui {
     private Scanner scanner;

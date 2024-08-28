@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Represents a list of tasks. The TaskList class manages the addition, removal, and modification of tasks in the list.
+ * Represents a list of tasks.
+ * The TaskList class manages the addition, removal, and modification of tasks in the list.
  */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -22,7 +23,7 @@ public class TaskList {
      * Constructs a TaskList by loading tasks from the provided storage.
      *
      * @param storage The storage from which tasks are loaded.
-     * @throws IOException If an I/O error occurs while loading tasks.
+     * @throws IOException  If an I/O error occurs while loading tasks.
      * @throws JarException If the data in the storage is corrupted.
      */
     public TaskList(Storage storage) throws IOException, JarException {

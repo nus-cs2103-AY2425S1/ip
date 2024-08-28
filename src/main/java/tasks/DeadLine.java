@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task with a deadline. A DeadLine task has a description and a specific date and time by which it must be completed.
+ * Represents a task with a deadline.
+ * A DeadLine task has a description and a specific date and time by which it must be completed.
  */
 public class DeadLine extends Task {
     private LocalDateTime by;
@@ -13,7 +14,7 @@ public class DeadLine extends Task {
      * Constructs a DeadLine task with the specified description and deadline.
      *
      * @param description The description of the task.
-     * @param by The date and time by which the task must be completed.
+     * @param by          The date and time by which the task must be completed.
      */
     public DeadLine(String description, LocalDateTime by) {
         super(description);

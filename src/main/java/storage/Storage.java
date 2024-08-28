@@ -35,7 +35,8 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the specified file. If the file does not exist, it creates a new file and returns an empty task list.
+     * Loads tasks from the specified file.
+     * If the file does not exist, it creates a new file and returns an empty task list.
      *
      * @return A list of tasks loaded from the file.
      * @throws IOException  If an I/O error occurs while reading the file.

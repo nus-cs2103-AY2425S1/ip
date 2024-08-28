@@ -1,7 +1,8 @@
 package tasks;
 
 /**
- * Represents a "To Do" task. A ToDo task is a simple task with a description but no specific date or time associated with it.
+ * Represents a "To Do" task.
+ * A ToDo task is a simple task with a description but no specific date or time associated with it.
  */
 public class ToDo extends Task {
 
