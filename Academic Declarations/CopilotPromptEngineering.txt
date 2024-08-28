@@ -1,0 +1,8 @@
+Follow the Coding Standard as documented in Java Coding Standard. Keep the logic intact. Include a declaration at the top that says 
+/**
+ * Cleaned up with Copilot to adhere to the Java Style Guide.
+ * For more details, please refer to the Academic Declarations.
+ */
+
+For methods which were assisted by Copilot, as declared, change the declaration to say
+// Logic implemented by me; syntax and formatting recommended by Copilot.
