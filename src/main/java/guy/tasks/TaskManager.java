@@ -1,11 +1,11 @@
-package tasks;
+package guy.tasks;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import exception.GuyException;
+import guy.exception.GuyException;
 import java.util.*;
 
-import storage.Storage;
+import guy.storage.Storage;
 
 public class TaskManager {
     private static TaskManager tm;

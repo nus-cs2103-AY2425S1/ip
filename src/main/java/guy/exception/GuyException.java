@@ -1,4 +1,4 @@
-package exception;
+package guy.exception;
 
 public class GuyException extends Exception{
     public GuyException(String e) {

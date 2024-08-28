@@ -1,9 +1,11 @@
+package guy;
+
 import java.util.*;
 
-import parser.Parser;
-import tasks.*;
-import storage.Storage;
-import ui.Ui;
+import guy.parser.Parser;
+import guy.tasks.TaskManager;
+import guy.storage.Storage;
+import guy.ui.Ui;
 
 public class ThatOneGuy {
     private TaskManager tm;
