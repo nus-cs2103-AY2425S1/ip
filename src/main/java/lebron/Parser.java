@@ -23,6 +23,9 @@ public class Parser {
             case "unmark":
                 index = Integer.parseInt(words[1]);
                 return new UnmarkCommand(index);
+            case "find":
+                String keyword = words[1].trim();
+                return new FindCommand(keyword);
             case "todo":
                 ToDos todo = new ToDos(words[1].trim());
                 return new AddCommand(todo);
