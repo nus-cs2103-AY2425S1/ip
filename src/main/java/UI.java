@@ -1,4 +1,6 @@
-import java.util.Scanner;
+import Exceptions.InvalidListItemException;
+import Tasks.Task;
+
 public class UI {
 
 
@@ -23,7 +25,7 @@ public class UI {
             System.out.println("      " + tsk);
         }
     }
-    public static void removingTask(TaskList t, int index, int num) throws InvalidListItemException{
+    public static void removingTask(TaskList t, int index, int num) throws InvalidListItemException {
         System.out.println("    Noted. I've removed this task:");
         System.out.println("      " + t.removeTask(index));
         System.out.println("    Now you have " + t.getSize() + " tasks in the list");
