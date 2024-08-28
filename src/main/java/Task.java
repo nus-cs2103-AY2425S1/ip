@@ -24,23 +24,23 @@ public class Task {
     return task;
   }
 
-  public void mark() throws HamyoException {
+  public void mark(boolean showText) throws HamyoException {
     if (!marked) {
       marked = true;
-      System.out.println("Yay! This task has been marked as completed.");
-      System.out.println(this.toString());
-      Hamyo.printLine();
+      if (showText) {
+        UI.markTask(this);
+      }
     } else {
       throw new HamyoException("This task was already marked as completed!");
     }
   }
 
-  public void unmark() throws HamyoException {
+  public void unmark(boolean showText) throws HamyoException {
     if (this.marked) {
       marked = false;
-      System.out.println("Oki! This task has been marked as incomplete.");
-      System.out.println(this.toString());
-      Hamyo.printLine();
+      if (showText) {
+        UI.unmarkTask(this);
+      }
     } else {
       throw new HamyoException("This task was already marked as incomplete!");
     }
