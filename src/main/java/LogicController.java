@@ -1,4 +1,3 @@
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class LogicController {
@@ -6,7 +5,7 @@ public class LogicController {
         NOTHING
     }
 
-    private static final DisplayHandler display = new DisplayHandler();
+    private static final Display display = new Display();
     private Actions currentAction = Actions.NOTHING;
     private boolean isRunning = false;
     private boolean isAwaitingInput = false;

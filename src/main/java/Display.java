@@ -1,4 +1,4 @@
-public class DisplayHandler {
+public class Display {
     private int LINE_LENGTH = 50;
 
     public void output(String message) {
