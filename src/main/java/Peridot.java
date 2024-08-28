@@ -14,13 +14,13 @@ public class Peridot {
         while (!userResponse.equals("bye")) {
             try {
                 list.answer(userResponse);
+                list.write();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             } finally {
                 userResponse = scanner.nextLine();
             }
         }
-        list.write();
         botSay("Bye!");
     }
 }
