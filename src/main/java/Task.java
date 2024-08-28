@@ -10,6 +10,7 @@ public abstract class Task {
     public String tickBox() {
         return (isDone ? "[X]" : "[ ]");
     }
+
     public void markAsDone() {
         isDone = true;
     }
@@ -22,4 +23,13 @@ public abstract class Task {
     public String toString() {
         return tickBox() + " " + description;
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public abstract String toFileFormat();
 }
