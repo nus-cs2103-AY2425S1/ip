@@ -1,8 +1,14 @@
+package bro;
+
+import bro.task.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import static bro.ui.UI.reply;
 
 enum ChatCommand {
     bye,
@@ -15,9 +21,9 @@ enum ChatCommand {
     delete
 }
 
-public class Bro {
+public class bro.Bro {
     final static String GREETING_MESSAGE = """
-                 Hello! I'm Bro
+                 Hello! I'm bro.Bro
                  What can I do for you?""";
     final static String GOODBYE_MESSAGE = "Goodbye.";
 
@@ -46,7 +52,7 @@ public class Bro {
             try {
                 cmd = ChatCommand.valueOf(inputArgs[0]);
             } catch (IllegalArgumentException e) {
-                reply("Bro. I don't understand that");
+                reply("bro.Bro. I don't understand that");
                 continue;
             }
             String secondArg = "";
@@ -85,7 +91,7 @@ public class Bro {
                     }
                 case todo:
                     if (secondArg.isEmpty()) {
-                        reply("Bro I can't add a empty task");
+                        reply("bro.Bro I can't add a empty task");
                         break;
                     }
                     Task todoTask = taskList.addTask(new TodoTask(secondArg));
@@ -95,7 +101,7 @@ public class Bro {
                 case deadline:
                     // Input validation
                     if (secondArg.isEmpty()) {
-                        reply("Bro I Can't add a empty task");
+                        reply("bro.Bro I Can't add a empty task");
                         break;
                     }
                     if (!secondArg.contains("/by")) {
@@ -124,7 +130,7 @@ public class Bro {
                 case event:
                     // Input validation
                     if (secondArg.isEmpty()) {
-                        reply("Bro I Can't add a empty task");
+                        reply("bro.Bro I Can't add a empty task");
                         break;
                     }
                     if (!secondArg.contains("/from") || !secondArg.contains("/to")) {
@@ -170,7 +176,7 @@ public class Bro {
         String replyStr = String.format("""
                 ____________________________________________________________
                 %s
-                Bro
+                bro.Bro
                 ____________________________________________________________
                 """, content);
         System.out.print(replyStr);
@@ -183,7 +189,7 @@ public class Bro {
                 Got it. I've added this task:
                 %s
                 You now have %d tasks in the list.
-                Bro
+                bro.Bro
                 ____________________________________________________________
                 """, task.toString(), numberOfTasks);
         System.out.print(replyStr);

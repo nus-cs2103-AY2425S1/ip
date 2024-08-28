@@ -1,3 +1,5 @@
+package bro.task;
+
 // This class encapsulates a task
 public class Task {
     private final String content;

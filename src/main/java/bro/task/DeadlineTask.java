@@ -1,4 +1,6 @@
-public class DeadlineTask extends Task{
+package bro.task;
+
+public class DeadlineTask extends Task {
     private final String deadline;
 
     public DeadlineTask(String content, String deadline) {

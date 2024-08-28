@@ -1,10 +1,12 @@
+package bro.task;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// TaskList class encapsulates a task list tracked by Bro Bot
+// bro.task.TaskList class encapsulates a task list tracked by bro.Bro Bot
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -18,17 +20,17 @@ public class TaskList {
     }
 
     public Task deleteTask(int taskId) {
-        return tasks.remove(taskId - 1);
+        return tasks.remove(taskId);
     }
 
     public Task markTask(int taskId) throws Exception {
-        Task task = tasks.get(taskId - 1);
+        Task task = tasks.get(taskId);
         task.markTask();
         return task;
     }
 
     public Task unmarkTask(int taskId) throws Exception {
-        Task task = tasks.get(taskId - 1);
+        Task task = tasks.get(taskId);
         task.unmarkTask();
         return task;
     }
@@ -42,7 +44,7 @@ public class TaskList {
     public void writeAllTasks() {
         File file = new File("data/BroData.txt");
 
-        file.getParentFile().mkdirs(); // Create directory if does not exists
+        file.getParentFile().mkdirs(); // Create directory if it does not exist
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));

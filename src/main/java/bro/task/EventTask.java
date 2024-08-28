@@ -1,4 +1,8 @@
-public class EventTask extends Task{
+package bro.task;
+
+import bro.task.Task;
+
+public class EventTask extends Task {
     private String startTime;
     private String endTime;
 
