@@ -1,6 +1,7 @@
 package bro.ui;
 
 import bro.task.Task;
+import bro.task.TaskList;
 
 import java.util.Scanner;
 
@@ -80,4 +81,7 @@ public class UI {
         System.out.print(replyStr);
     }
 
+    public void printTasks(TaskList taskList) {
+        taskList.printAllTasks();
+    }
 }

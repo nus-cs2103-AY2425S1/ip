@@ -12,7 +12,7 @@ public class ReadCommand implements Command {
     }
 
     public void execute(UI ui) {
-        taskList.printAllTasks();
+        ui.printTasks(this.taskList);
     }
 
     public boolean isExit() {
