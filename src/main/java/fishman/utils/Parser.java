@@ -49,12 +49,12 @@ public class Parser {
      */
     public static Command parse(String userInput, TaskList tasks) throws FishmanException {
         if (userInput == null || userInput.trim().isEmpty()) {
-            throw new FishmanException.InvalidCommandException("");
+            throw new FishmanException.InvalidCommandException();
         }
         String[] inputs = userInput.split(" ", 2);
         String commandPhrase = inputs[0].toLowerCase();
 
-        if (inputs.length == 1 && !(commandPhrase.equals("list") || commandPhrase.equals("bye"))) {
+        if (inputs.length == 1 && commandPhrase.matches("mark|unmark|todo|deadline|event|delete")) {
             throw new FishmanException.MissingArgumentException(commandPhrase);
         }
 
@@ -109,7 +109,7 @@ public class Parser {
                 }
                 return new DeleteCommand(deleteIndex);
             default:
-                throw new FishmanException.InvalidCommandException(commandPhrase);
+                throw new FishmanException.InvalidCommandException();
             }
         } catch (NumberFormatException e) {
             throw new FishmanException.NumberFormatException(e.getMessage());
