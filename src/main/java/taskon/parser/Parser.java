@@ -57,6 +57,9 @@ public class Parser {
         case OnCommand.COMMAND_WORD:
             return new OnCommand(arguments);
 
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(arguments.trim());
+
         default:
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
 
