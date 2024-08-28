@@ -3,7 +3,7 @@ package MichaelScott.Task;
 import java.time.LocalDateTime;
 
 /**
- * Represents an event task in the MichaelScott task-tracking program.
+ * Represents an event task in the MichaelScott.MichaelScott task-tracking program.
  * An event has a start time and an end time in addition to a description.
  */
 public class Event extends Task {

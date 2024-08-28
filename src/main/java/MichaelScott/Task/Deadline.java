@@ -3,7 +3,7 @@ package MichaelScott.Task;
 import java.time.LocalDateTime;
 
 /**
- * Represents a task with a deadline in the MichaelScott task-tracking program.
+ * Represents a task with a deadline in the MichaelScott.MichaelScott task-tracking program.
  * Extends the Task class and includes a deadline date and time.
  */
 public class Deadline extends Task {

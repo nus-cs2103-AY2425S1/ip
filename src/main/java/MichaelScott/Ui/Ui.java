@@ -18,7 +18,7 @@ public class Ui {
      * Displays the welcome message to the user when the program starts.
      */
     public void showWelcome() {
-        println("Running MichaelScott.exe");
+        println("Running MichaelScott.MichaelScott.exe");
         printLine();
         println("Hello! I'm Michael Scott");
         println("What can I do for you?");
