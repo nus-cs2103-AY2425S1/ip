@@ -24,9 +24,9 @@ public class Parser {
             case list:
                 return new ListCommand();
             case mark:
-                return new MarkCommand(Integer.parseInt(args[1]));
+                return new MarkCommand(Integer.parseInt(args[1]) - 1);
             case unmark:
-                return new UnmarkCommand(Integer.parseInt(args[1]));
+                return new UnmarkCommand(Integer.parseInt(args[1]) - 1);
             case todo:
                 try {
                     Task todo = new ToDo(cmd.substring(5));
@@ -49,7 +49,7 @@ public class Parser {
                 Task event = new Event(eDescription, eFrom, eTo);
                 return new AddCommand(event);
             case delete:
-                return new DeleteCommand(Integer.parseInt(args[1]));
+                return new DeleteCommand(Integer.parseInt(args[1]) - 1);
         }
 
         return new InvalidCommand();
