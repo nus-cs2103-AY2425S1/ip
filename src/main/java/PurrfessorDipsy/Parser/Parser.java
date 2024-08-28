@@ -17,6 +17,7 @@ public class Parser {
             case "event" -> new EventCommand(userInput, tasks, ui);
             case "delete" -> new DeleteCommand(userInput, tasks, ui);
             case "list" -> new ListCommand(userInput, tasks, ui);
+            case "find" -> new FindCommand(userInput, tasks, ui);
             case "bye" -> new ByeCommand(userInput, tasks, ui);
             default -> throw new UnknownCommandException();
         };
