@@ -1,6 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.format.DateTimeFormatter;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -29,12 +31,16 @@ public class TaskWriter {
                 } else if (task instanceof Deadline) {
                     taskObj.put("taskName", task.getTaskName());
                     taskObj.put("isDone", task.isDone());
-                    taskObj.put("by", ((Deadline) task).getBy());
+
+                    DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    taskObj.put("by", ((Deadline) task).getBy().format(pattern));
                 } else if (task instanceof Event) {
                     taskObj.put("taskName", task.getTaskName());
                     taskObj.put("isDone", task.isDone());
-                    taskObj.put("from", ((Event) task).getFrom());
-                    taskObj.put("to", ((Event) task).getTo());
+
+                    DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    taskObj.put("from", ((Event) task).getFrom().format(pattern));
+                    taskObj.put("to", ((Event) task).getTo().format(pattern));
                 }
                 taskListArr.add(taskObj);
             }

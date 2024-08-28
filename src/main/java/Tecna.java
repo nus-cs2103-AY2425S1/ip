@@ -1,6 +1,8 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +10,6 @@ import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 
 public class Tecna {
@@ -44,7 +45,7 @@ public class Tecna {
      * Repeats the input entered by the user
      */
     public void echo() {
-        java.util.Scanner sc = new java.util.Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
 
         if (input.equalsIgnoreCase("bye")) {
@@ -62,7 +63,7 @@ public class Tecna {
      * Accepts string input and processes accordingly.
      */
     public void getRequest() {
-        java.util.Scanner sc = new java.util.Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         String[] input_words = input.split(" ");
         while (!input.equalsIgnoreCase("bye")) {
@@ -139,10 +140,14 @@ public class Tecna {
             return new ToDo(des);
         } else if (category.equalsIgnoreCase("deadline")) {
             String[] description = input.substring(boundary + 1).split("/by");
-            return new Deadline(description[0].trim(), description[1].trim());
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime by = LocalDateTime.parse(description[1].trim(), pattern);
+
+            return new Deadline(description[0].trim(), by);
         } else if (category.equalsIgnoreCase("event")) {
             String[] description = input.substring(boundary + 1).split("/from | /to ");
-            return new Event(description[0].trim(), description[1].trim(), description[2].trim());
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return new Event(description[0].trim(), LocalDateTime.parse(description[1].trim(), pattern), LocalDateTime.parse(description[2].trim(), pattern));
         } else {
             throw new InvalidRequestException();
         }
@@ -174,9 +179,9 @@ public class Tecna {
      */
     private static ArrayList<Task> taskParser(String taskData) {
         try {
-            Object o = new org.json.simple.parser.JSONParser().parse(new java.io.FileReader(taskData));
-            org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) o;
-            org.json.simple.JSONArray jsonTasks = (org.json.simple.JSONArray) jsonObject.get("taskList");
+            Object o = new JSONParser().parse(new java.io.FileReader(taskData));
+            JSONObject jsonObject = (JSONObject) o;
+            JSONArray jsonTasks = (JSONArray) jsonObject.get("taskList");
 
             ArrayList<Task> tasks = new ArrayList<>();
             for (int i = 0 ; i < jsonTasks.size(); ++i) {

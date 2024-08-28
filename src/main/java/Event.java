@@ -1,14 +1,17 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
-    public Event(String taskName, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String taskName, LocalDateTime from, LocalDateTime to) {
         super(taskName);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String taskName, boolean isDone, String from, String to) {
+    public Event(String taskName, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(taskName);
         this.from = from;
         this.to = to;
@@ -17,16 +20,17 @@ public class Event extends Task {
         }
     }
 
-    public String getFrom() {
+    public LocalDateTime getFrom() {
         return this.from;
     }
 
-    public String getTo() {
+    public LocalDateTime getTo() {
         return this.to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+        return "[E]" + super.toString() + " (from: " + this.from.format(pattern) + " to: " + this.to.format(pattern) + ")";
     }
 }

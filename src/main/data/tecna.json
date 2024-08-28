@@ -9,14 +9,14 @@
     "type": "deadline",
     "isDone": false,
     "taskName": "return a book",
-    "by": "Wednesday 12th"
+    "by": "2023-12-01 1200"
   },
   {
     "type": "event",
     "isDone": false,
     "taskName": "project meeting",
-    "from": "Thursday 13th 2PM",
-    "to": "Thursday 13th 4PM"
+    "from": "2024-03-04 1500",
+    "to": "2024-03-04 1600"
   }
 ]
 }
