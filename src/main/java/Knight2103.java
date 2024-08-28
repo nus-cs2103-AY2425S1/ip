@@ -137,9 +137,8 @@ public class Knight2103 {
                             taskToAdd = new Todo(inputArray[1]);
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
-                            System.out.println(writeToFile(taskList, taskList.size()));
-                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
-                            taskListWriter.write(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", true);
+                            taskListWriter.write(taskToAdd.saveToFileFormat());
                             taskListWriter.close();
                             break;
                         case "deadline":
@@ -147,9 +146,8 @@ public class Knight2103 {
                             taskToAdd = new Deadline(deadlineArray[0], deadlineArray[1]);
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
-                            System.out.println(writeToFile(taskList, taskList.size()));
-                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
-                            taskListWriter.write(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", true);
+                            taskListWriter.write(taskToAdd.saveToFileFormat());
                             taskListWriter.close();
                             break;
                         case "event":
@@ -157,16 +155,14 @@ public class Knight2103 {
                             taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
                             taskList.add(taskToAdd);
                             System.out.println(horiLine + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
-                            System.out.println(writeToFile(taskList, taskList.size()));
-                            taskListWriter = new FileWriter("./savedTaskList.txt", false);
-                            taskListWriter.write(writeToFile(taskList, taskList.size()));
+                            taskListWriter = new FileWriter("./savedTaskList.txt", true);
+                            taskListWriter.write(taskToAdd.saveToFileFormat());
                             taskListWriter.close();
                             break;
                         case "mark":
                             int taskMarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
                             taskList.get(taskMarkIndex).markDone(); // need to check if it works
                             System.out.println(horiLine + "\nNice! I've marked this task as done:\n" + taskList.get(taskMarkIndex) + "\n" + horiLine);
-                            System.out.println(writeToFile(taskList, taskList.size()));
                             taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
                             taskListWriter.close();
@@ -175,7 +171,6 @@ public class Knight2103 {
                             int taskUnmarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
                             taskList.get(taskUnmarkIndex).unmarkDone();
                             System.out.println(horiLine + "\nOK, I've marked this task as not done yet:\n" + taskList.get(taskUnmarkIndex) + "\n" + horiLine);
-                            System.out.println(writeToFile(taskList, taskList.size()));
                             taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
                             taskListWriter.close();
@@ -185,7 +180,6 @@ public class Knight2103 {
                             Task taskToDelete = taskList.get(taskDeleteIndex);
                             taskList.remove(taskDeleteIndex);
                             System.out.println(horiLine + "\nNoted. I've removed this task:\n" + taskToDelete + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
-                            System.out.println(writeToFile(taskList, taskList.size()));
                             taskListWriter = new FileWriter("./savedTaskList.txt", false);
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
                             taskListWriter.close(); // ensure data is written on the spot
