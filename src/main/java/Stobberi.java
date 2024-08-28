@@ -122,12 +122,11 @@ public class Stobberi {
 
     public void run() {
         ListSaver listSaver = new ListSaver("data/list.txt");
-        String list = listSaver.getList();
-        System.out.println(list); //remove
-
+        listOfTasks = listSaver.getList();
         System.out.println(displayForm(HELLO_GREETING));
         createList();
         System.out.println(displayForm(GOODBYE_GREETING));
+        listSaver.saveList(listOfTasks);
     }
 
     public static void main(String[] args) {

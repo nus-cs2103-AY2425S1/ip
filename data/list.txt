@@ -1,4 +1,2 @@
-Successful!
-This is list.txt
-line 3
-line 4
+T | dooo | 1
+T | doooo | 0
