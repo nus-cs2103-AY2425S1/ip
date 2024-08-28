@@ -14,7 +14,6 @@ import duke.ui.Ui;
  * It initializes the UI, storage, and task list, and handles the main program loop.
  */
 public class Duke {
-    private TaskList taskList;
     private final Ui ui;
     private final Storage storage;
     private boolean isRunning;
@@ -27,7 +26,6 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
-        this.taskList = new TaskList();
         this.storage.readData();
         this.isRunning = true;
         this.parser = new Parser(new Scanner(System.in));
