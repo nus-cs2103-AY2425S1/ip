@@ -9,6 +9,12 @@ public class Topaz {
     private static ArrayList<Task> taskList = new ArrayList<>(100);
     private static String PATH = "data/topaz.txt";
 
+    public enum TaskType {
+        E, // Event
+        D, // Deadline
+        T, // Todo
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greetUser();
@@ -68,15 +74,16 @@ public class Topaz {
                 String nextLine = s.nextLine();
                 String[] parts = nextLine.split(" \\| ");
                 Task task;
+                TaskType type = TaskType.valueOf(parts[0]);
                 try {
-                    switch (parts[0]) {
-                        case "T":
+                    switch (type) {
+                        case T:
                             task = new Todo(parts[2]);
                             break;
-                        case "D":
+                        case D:
                             task = new Deadline(parts[2], parts[3]);
                             break;
-                        case "E":
+                        case E:
                             task = new Event(parts[2], parts[3], parts[4]);
                             break;
                         default:
