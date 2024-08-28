@@ -12,15 +12,17 @@ import java.util.List;
  */
 public class Event extends Task {
     /** The start date/time of the event. */
-    protected LocalDateTime  from;
+    protected LocalDateTime from;
     /** The end date/time of the event. */
     protected LocalDateTime  to;
 
     private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
-            DateTimeFormatter.ofPattern("MMM dd yyyy h.mma")
+            DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")
     );
+
 
     /**
      * Constructs a new {@code Event} task with the specified description, start date/time, and end date/time.
@@ -44,7 +46,7 @@ public class Event extends Task {
                 // Continue trying other formats
             }
         }
-        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm or dd/MM/yyyy HHmm format.");
+        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm,d/MM/yyyy HHmm, dd/MM/yyyy HHmm format or MMM dd yyyy h:mma.");
         return null; // Return null if no format matched
     }
 

@@ -15,7 +15,8 @@ public class Deadline extends Task {
     private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
             DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
-            DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")
+            DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"),
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")
     );
 
     /** The deadline by which the task should be completed. */
@@ -39,7 +40,7 @@ public class Deadline extends Task {
                 // Continue trying other formats
             }
         }
-        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm or dd/MM/yyyy HHmm format.");
+        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm,d/MM/yyyy HHmm, dd/MM/yyyy HHmm format or MMM dd yyyy h:mma.");
         return null; // Return null if no format matched
     }
 
