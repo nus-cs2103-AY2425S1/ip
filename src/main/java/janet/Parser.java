@@ -22,6 +22,15 @@ public class Parser {
     }
 
 
+    public static void checkUserInput(String[] commandDetails, int numOfTasksInList) throws JanetException {
+        validateCommand(commandDetails, numOfTasksInList);
+        checkInaccurateCommand(commandDetails);
+        validateDeadline(commandDetails);
+        validateEvent(commandDetails);
+
+    }
+
+
     /**
      * Throws janet.JanetException when,
      * 1. mark/unmark/delete X, where X cannot be parsed into an Integer.
