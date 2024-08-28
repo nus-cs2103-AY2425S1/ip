@@ -138,10 +138,13 @@ public class Command {
             ui.printHorizontalLine();
             if (!args.matches("\\d+")) {
                 ui.printInvalidSyntaxMessage("Please use \"remove <index>\"");
-            } else if ((index = Integer.parseInt(args)) > tasks.getTaskCount() || index <= 0) {
-                System.out.println("Invalid task index");
             } else {
-                ui.printTaskRemovedMessage(tasks.removeFromTaskList(index), tasks.getTaskCount());
+                Task t = tasks.removeFromTaskList(Integer.parseInt(args));
+                if (t == null) {
+                    System.out.println("Invalid task index");
+                } else {
+                    ui.printTaskRemovedMessage(t, tasks.getTaskCount());
+                }
             }
             ui.printHorizontalLine();
 

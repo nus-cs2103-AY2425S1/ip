@@ -18,7 +18,11 @@ public class TaskList {
     }
 
     public Task removeFromTaskList(int index) {
-        return tasks.remove(index - 1);
+        if (index > tasks.size() || index <= 0) {
+            return null;
+        } else {
+            return tasks.remove(index - 1);
+        }
     }
 
     public void addToTaskList(Task t) {
