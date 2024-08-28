@@ -95,4 +95,22 @@ public class TaskList {
     public void writeToFile() {
         storage.writeTasksToFile(taskList);
     }
+
+    /**
+     * Returns an ArrayList containing all tasks with names that contain the query.
+     * @param query The string being searched for.
+     * @return ArrayList<Task> ArrayList containing all tasks with names that contain the query.
+     */
+    public ArrayList<Task> search(String query) {
+        ArrayList<Task> result = new ArrayList<Task>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (task.getTaskName().contains(query)) {
+                result.add(task);
+            }
+        }
+
+        return result;
+    }
 }
