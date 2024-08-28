@@ -2,6 +2,7 @@ package xizi.chatbot.command;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 // Enums for command types
 public enum CommandType {
     MARK("^mark (\\d+)$"),
