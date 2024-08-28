@@ -1,23 +1,16 @@
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.ArrayList;
 
-import java.time.LocalDateTime;
+import java.util.Scanner;
+
 import java.time.DateTimeException;
 
-import java.io.FileNotFoundException;
 
 
 
 public class Rasputin {
 
-    private static void printText(String text) {
-        System.out.println(lineBreak);
-        System.out.println(text);
-        System.out.println(lineBreak + "\n");
-    }
     private Storage storage;
     private TaskList tasks;
+
 
     public Rasputin(String filePath) {
         this.storage = new Storage(filePath);
@@ -25,21 +18,16 @@ public class Rasputin {
 
     }
 
-
-    private static final String lineBreak = "____________________________________";
-
     public static void main(String[] args) {
-        String name = "Rasputin";
+
         Rasputin rasputin = new Rasputin("src/main/data/rasputin.txt");
         boolean isTerminated = false;
-        // initialize task list
-
 
         // scanner to read user input
         Scanner scanner = new Scanner(System.in);
 
         // greeting
-        printText("Hello, I'm " + name + "!\nWhat can I do for you?");
+        Ui.printGreeting();
 
         while (!isTerminated) {
             String input = scanner.nextLine().trim();
@@ -50,11 +38,11 @@ public class Rasputin {
                     isTerminated = true;
                     break;
                 case "list":
-                    printText(rasputin.tasks.toString());
+                    Ui.printList(rasputin.tasks);
                     break;
                 case "mark":
                     if (rasputin.tasks.isEmpty()) {
-                        printText("No tasks in list!");
+                        Ui.printText("No tasks in list!");
                         break;
                     }
 
@@ -63,17 +51,17 @@ public class Rasputin {
                         rasputin.tasks.mark(index);
                         String output = "Marked that as done for you.\n" +
                                 rasputin.tasks.get(index).toString();
-                        printText(output);
+                        Ui.printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
-                        printText("ERROR! Task to be marked not specified.");
+                        Ui.printText("ERROR! Task to be marked not specified.");
                     } catch (IndexOutOfBoundsException e) {
-                        printText("ERROR! Task not found.");
+                        Ui.printText("ERROR! Task not found.");
                     }
                     break;
 
                 case "unmark":
                     if (rasputin.tasks.isEmpty()) {
-                        printText("No tasks in list!");
+                        Ui.printText("No tasks in list!");
                         break;
                     }
                     try {
@@ -81,11 +69,11 @@ public class Rasputin {
                         rasputin.tasks.unmark(index);
                         String output = "Task has been unmarked.\n" +
                                 rasputin.tasks.get(index).toString();
-                        printText(output);
+                        Ui.printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
-                        printText("ERROR! Task to be unmarked not specified.");
+                        Ui.printText("ERROR! Task to be unmarked not specified.");
                     } catch (IndexOutOfBoundsException e) {
-                        printText("ERROR! Task not found.");
+                        Ui.printText("ERROR! Task not found.");
                     }
                     break;
 
@@ -96,9 +84,9 @@ public class Rasputin {
                         rasputin.tasks.add(task);
                         String output = "Added Todo task:\n" + task.toString();
                         output += "\nYou currently have " + rasputin.tasks.size() + " task/s in your list.";
-                        printText(output);
+                        Ui.printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
-                        printText("ERROR! The description of a todo cannot be empty.");
+                        Ui.printError("ERROR! The description of a todo cannot be empty.");
                     } finally {
                         break;
                     }
@@ -111,16 +99,16 @@ public class Rasputin {
                         rasputin.tasks.add(task);
                         String output = "Added Deadline task:\n" + task.toString();
                         output += "\nYou currently have " + rasputin.tasks.size() + " task/s in your list.";
-                        printText(output);
+                        Ui.printText(output);
 
                     } catch (StringIndexOutOfBoundsException e) {
-                        printText("ERROR! The description of a deadline cannot be empty.");
+                        Ui.printError("ERROR! The description of a deadline cannot be empty.");
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        printText("ERROR! Deadline tasks require a deadline to be completed by.");
+                        Ui.printError("ERROR! Deadline tasks require a deadline to be completed by.");
                     } catch (IllegalArgumentException e) {
-                        printText(e.getMessage());
+                        Ui.printError("ERROR! Invalid deadline format.");
                     } catch (DateTimeException e) {
-                        printText("ERROR! Invalid deadline format.");
+                        Ui.printError("ERROR! Invalid deadline format.");
                     } finally {
                         break;
                     }
@@ -137,15 +125,15 @@ public class Rasputin {
                         rasputin.tasks.add(task);
                         String output = "Added Event task:\n" + task.toString();
                         output += "\nYou currently have " + rasputin.tasks.size() + " task/s in your list.";
-                        printText(output);
+                        Ui.printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
-                        printText("ERROR! The description of an event cannot be empty.");
+                        Ui.printError("ERROR! The description of an event cannot be empty.");
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        printText("ERROR! Event tasks require a duration for the event.");
+                        Ui.printError("ERROR! Event tasks require a duration for the event.");
                     } catch (IllegalArgumentException e) {
-                        printText(e.getMessage());
+                        Ui.printError(e.getMessage());
                     } catch (DateTimeException e) {
-                        printText("ERROR! Invalid deadline format.");
+                        Ui.printError("ERROR! Invalid deadline format.");
                     }finally {
                         break;
                     }
@@ -155,22 +143,22 @@ public class Rasputin {
                         String output = "Done, removed that task for you.\n" +
                                 rasputin.tasks.get(index).toString();
                         rasputin.tasks.remove(index);
-                        printText(output);
+                        Ui.printText(output);
                     } catch (StringIndexOutOfBoundsException e) {
-                        printText("ERROR! Task to be deleted not specified.");
+                        Ui.printError("ERROR! Task to be deleted not specified.");
                     } catch (IndexOutOfBoundsException e) {
-                        printText("ERROR! Task not found.");
+                        Ui.printError("ERROR! Task not found.");
                     } finally {
                         break;
                     }
                 default:
-                    printText("I'm sorry, I don't understand that command.");
+                    Ui.printInvalidCommand();
                     break;
             }
 
         }
 
         rasputin.storage.writeFile(rasputin.tasks);
-        printText("Bye. See you later!");
+        Ui.printFarewell();
     }
 }
