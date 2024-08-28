@@ -4,6 +4,10 @@ import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to display the help message in the application.
+ * This command provides the user with a list of all available commands and their descriptions.
+ */
 public class HelpCommand implements Command {
 
     @Override

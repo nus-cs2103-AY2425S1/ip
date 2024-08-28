@@ -8,9 +8,20 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to delete a task from the task list.
+ * This command handles the removal of a task at a specified index in the task list.
+ */
 public class DeleteCommand implements Command {
     private final int taskIndex;
 
+    /**
+     * Constructs a DeleteCommand with the specified task index.
+     * The index is derived from the user input and validated to ensure it is a valid number.
+     *
+     * @param taskIndex the index of the task to be deleted, as provided by the user.
+     * @throws InputException if the task index is invalid, missing, or cannot be parsed into an integer.
+     */
     public DeleteCommand(String taskIndex) throws InputException {
         if (taskIndex.trim().isEmpty()) {
             throw new InputException("Please specify which task number to delete.");
