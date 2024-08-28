@@ -47,7 +47,7 @@ public class Azir {
             try {
                 String fullCommand = ui.readCommand(obj);
                 ui.showLine();
-                String[] result = Parser.parse(fullCommand);
+                String[] result = Parser.parse(fullCommand, tasks.getSize());
                 switch (result[0]) {
                 case "list":
                     ui.showCommandEndMessage();
@@ -56,36 +56,17 @@ public class Azir {
                     }
                     break;
                 case "mark":
-                    if (result.length == 1) {
-                        throw new AzirException("Input the task number you would like to mark.");
-                    }
-                    if (Integer.valueOf(result[1]) < 1 || (Integer.valueOf(result[1]) > tasks.getSize())) {
-                        throw new AzirException("Invalid value");
-                    }
                     Task chosenTask = tasks.getTask(Integer.valueOf(result[1]) - 1);
                     chosenTask.setDone();
                     ui.showCommandEndMessage(result[0], chosenTask.toString());
                     break;
-
                 case "unmark":
-                    if (result.length == 1) {
-                        throw new AzirException("Input the task number you would like to unmark.");
-                    }
-                    if (Integer.valueOf(result[1]) < 1 || (Integer.valueOf(result[1]) > tasks.getSize())) {
-                        throw new AzirException("Invalid value");
-                    }
                     Task task = tasks.getTask(Integer.valueOf(result[1]) - 1);
                     task.setNotDone();
                     ui.showCommandEndMessage(result[0], task.toString());
                     break;
 
                 case "delete":
-                    if (result.length == 1) {
-                        throw new AzirException("Input the task number you would like to delete.");
-                    }
-                    if (Integer.valueOf(result[1]) < 1 || (Integer.valueOf(result[1]) > tasks.getSize())) {
-                        throw new AzirException("Invalid value");
-                    }
                     Task deletedTask = tasks.getTask(Integer.valueOf(result[1]) - 1);
                     tasks.DeleteTask(Integer.valueOf(result[1]) - 1);
                     ui.showCommandEndMessage(result[0], deletedTask.toString());
@@ -104,19 +85,6 @@ public class Azir {
                     break;
 
                 case "deadline":
-                    int byIndex = fullCommand.indexOf("/by");
-                    if (byIndex == -1) {
-                        throw new AzirException("deadline needs a /by date. " +
-                                "Format: deadline [description] /by [date]");
-                    }
-                    if (fullCommand.substring(8, byIndex).trim().isEmpty()) {
-                        throw new AzirException("deadline needs a description. " +
-                                "Format: deadline [description] /by [date]");
-                    }
-                    if (fullCommand.trim().endsWith("/by")) {
-                        throw new AzirException("You need a deadline day. " +
-                                "Format: deadline [description] /by [date]");
-                    }
                     String dateFormat = "yyyy-MM-dd";
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
                     try {
@@ -130,28 +98,6 @@ public class Azir {
                     break;
 
                 case "event":
-                    int fromIndex = fullCommand.indexOf("/from");
-                    int toIndex = fullCommand.indexOf("/to");
-                    if (fromIndex == -1) {
-                        throw new AzirException("event needs a /from. " +
-                                "Format: event [description] /from [date] /to [date]");
-                    }
-                    if (toIndex == -1) {
-                        throw new AzirException("event needs a /to. " +
-                                "Format: event [description] /from [date] /to [date]");
-                    }
-                    if (fullCommand.substring(fromIndex + 5, toIndex).trim().isEmpty()) {
-                        throw new AzirException("event needs a from date. " +
-                                "Format: event [description] /from [date] /to [date]");
-                    }
-                    if (fullCommand.substring(5, fromIndex).trim().isEmpty()) {
-                        throw new AzirException("event needs a description. " +
-                                "Format: event [description] /from [date] /to [date]");
-                    }
-                    if (fullCommand.trim().endsWith("/to")) {
-                        throw new AzirException("You need an ending date. " +
-                                "Format: event [description] /from [date] /to [date]");
-                    }
                     Task eventTask = new Event(result[1], result[2], result[3]);
                     tasks.addTask(eventTask);
                     ui.showCommandEndMessage(result[0], eventTask.toString());
