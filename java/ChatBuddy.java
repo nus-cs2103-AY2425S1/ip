@@ -21,12 +21,18 @@ public class ChatBuddy {
             while (!userInput.equals("bye")) {
                 try {
                     if (userInput.equals("list")) { // Display all stored tasks
-                        System.out.println("_____________________________________________");
-                        System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println((i + 1) + "." + tasks.get(i));
+                        if (tasks.isEmpty()) {
+                            System.out.println("_____________________________________________");
+                            System.out.println("You don't have any tasks in your list yet.");
+                            System.out.println("_____________________________________________");
+                        } else {
+                            System.out.println("_____________________________________________");
+                            System.out.println("Here are the tasks in your list:");
+                            for (int i = 0; i < tasks.size(); i++) {
+                                System.out.println((i + 1) + "." + tasks.get(i));
+                            }
+                            System.out.println("_____________________________________________");
                         }
-                        System.out.println("_____________________________________________");
 
                     } else if (userInput.startsWith("mark ")) {
                         // Mark a task as done
@@ -54,12 +60,13 @@ public class ChatBuddy {
                             throw new ChatBuddyException("Task number out of range!");
                         }
 
-                    } else if (userInput.startsWith("todo ")) {
+                    } else if (userInput.startsWith("todo")) {
                         // Add a ToDo task
-                        String description = userInput.substring(5).trim();
+                        String description = userInput.substring(4).trim();
                         if (description.isEmpty()) {
                             throw new ChatBuddyException("The description of a todo cannot be empty.");
                         }
+
                         tasks.add(new ToDo(description));
                         System.out.println("_____________________________________________");
                         System.out.println("Got it. I've added this task:");
@@ -67,17 +74,18 @@ public class ChatBuddy {
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("_____________________________________________");
 
-                    } else if (userInput.startsWith("deadline ")) {
+                    } else if (userInput.startsWith("deadline")) {
                         // Add a Deadline task
-                        String[] parts = userInput.split(" /by ");
-                        if (parts.length < 2) {
-                            throw new ChatBuddyException("The deadline must have a description and a due date.");
+                        String[] parts = userInput.substring(8).split(" /by ");
+                        String description = parts[0].trim();
+                        String by = parts.length > 1 ? parts[1].trim() : "";
+
+                        if (description.isEmpty() && by.isEmpty()) {
+                            throw new ChatBuddyException("The description and due date of a deadline cannot be empty. Please provide both.");
+                        } else if (by.isEmpty()) {
+                            throw new ChatBuddyException("The due date of a deadline cannot be empty. Please provide a due date.");
                         }
-                        String description = parts[0].substring(9).trim();
-                        String by = parts[1].trim();
-                        if (description.isEmpty() || by.isEmpty()) {
-                            throw new ChatBuddyException("The description and due date of a deadline cannot be empty.");
-                        }
+
                         tasks.add(new Deadline(description, by));
                         System.out.println("_____________________________________________");
                         System.out.println("Got it. I've added this task:");
@@ -85,18 +93,19 @@ public class ChatBuddy {
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("_____________________________________________");
 
-                    } else if (userInput.startsWith("event ")) {
+                    } else if (userInput.startsWith("event")) {
                         // Add an Event task
-                        String[] parts = userInput.split(" /from | /to ");
-                        if (parts.length < 3) {
-                            throw new ChatBuddyException("The event must have a description, start time, and end time.");
+                        String[] parts = userInput.substring(5).split(" /from | /to ");
+                        String description = parts[0].trim();
+                        String from = parts.length > 1 ? parts[1].trim() : "";
+                        String to = parts.length > 2 ? parts[2].trim() : "";
+
+                        if (description.isEmpty() && from.isEmpty() && to.isEmpty()) {
+                            throw new ChatBuddyException("The description, start time, and end time of an event cannot be empty. Please provide all details.");
+                        } else if (from.isEmpty() || to.isEmpty()) {
+                            throw new ChatBuddyException("The start time or end time of an event cannot be empty. Please provide both.");
                         }
-                        String description = parts[0].substring(6).trim();
-                        String from = parts[1].trim();
-                        String to = parts[2].trim();
-                        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                            throw new ChatBuddyException("The description, start time, and end time of an event cannot be empty.");
-                        }
+
                         tasks.add(new Event(description, from, to));
                         System.out.println("_____________________________________________");
                         System.out.println("Got it. I've added this task:");
