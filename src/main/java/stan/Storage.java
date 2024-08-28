@@ -1,3 +1,4 @@
+package stan;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -65,7 +66,7 @@ public class Storage {
      *
      * @param tasks The list of tasks to be saved.
      */
-    public static void saveTasks(List<Task> tasks) {
+    public void saveTasks(List<Task> tasks) {
         String tempFilePath = FILE_PATH + ".tmp";
         try (FileWriter fw = new FileWriter(createFile(DIR_PATH, tempFilePath))) {
             for (Task task : tasks) {
@@ -88,11 +89,11 @@ public class Storage {
     private static File createFile(String dirPath, String filePath) throws IOException {
         File directory = new File(dirPath);
         if (!directory.exists()) {
-            directory.mkdirs();  // Create directory if it doesn't exist
+            directory.mkdirs();
         }
         File file = new File(filePath);
         if (!file.exists()) {
-            file.createNewFile();  // Create file if it doesn't exist
+            file.createNewFile();
         }
         return file;
     }

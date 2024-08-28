@@ -1,3 +1,7 @@
+package stan;
+
+import stan.Task;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
