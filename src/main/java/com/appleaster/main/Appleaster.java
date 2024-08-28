@@ -14,9 +14,9 @@ import com.appleaster.ui.Ui;
  */
 
 public class Appleaster {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+  private final Storage storage;
+  private TaskList tasks;
+  private final Ui ui;
 
     /**
      * Constructs an Appleaster instance with the specified file path for storage.
