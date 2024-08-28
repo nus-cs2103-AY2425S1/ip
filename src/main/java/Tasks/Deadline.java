@@ -1,4 +1,5 @@
-package Tasks;
+package tasks;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +14,6 @@ public class Deadline extends Task {
 
     /**
      * A constructor for Deadline.
-     * 
      * @param description Description of the task as inputted by the user.
      * @param by Date and/ or time representing the end of the event.
      */
@@ -26,7 +26,6 @@ public class Deadline extends Task {
      * Returns a formatted date and/or time.
      * Converts date to dd mmm yyy, eg. 15 Aug 2024.
      * Converts time to h:mm, eg. 6:00 pm.
-     * 
      * @param input A String representing a date and/or time.
      * @return A formatted date and/or time.
      */
@@ -48,8 +47,6 @@ public class Deadline extends Task {
     /**
      * Returns a boolean if the inputted date is in the specified format.
      * Checks if the date is in a particular format yyyy-mm-dd.
-     *
-     * 
      * @param input String representing a date.
      * @return Boolean.
      */
@@ -66,7 +63,6 @@ public class Deadline extends Task {
     /**
      * Returns a boolean if the inputted date and time is in the specified format.
      * Checks if the time is in a particular format yyyy-mm-dd hhmm.
-     * 
      * @param input String representig a date.
      * @return Boolean.
      */

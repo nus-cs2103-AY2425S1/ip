@@ -1,11 +1,11 @@
 package util;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.TaskList;
-import Tasks.Todo;
 import exceptions.PrinceException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.Todo;
 
 /**
  * Parser handles user input and executes commands based on them.
@@ -15,11 +15,10 @@ public class Parser {
     /**
      * Returns a boolean that is used to determine if program terminates
      * Parses user input and executes related commands.
-     * 
-     * @param input Input by the user.
+     * @param input    Input by the user.
      * @param taskList List of tasks.
-     * @param storage Storage that was inialised in main.
-     * @param ui Ui that was initialised in main.
+     * @param storage  Storage that was inialised in main.
+     * @param ui       Ui that was initialised in main.
      * @return Boolean.
      */
     public static boolean parse(String input, TaskList taskList, Storage storage, Ui ui) {
@@ -38,12 +37,12 @@ public class Parser {
             } else if (input.contains("delete")) {
                 delete(input, taskList, storage);
                 ui.showLine();
-            } else if (input.equals("todo") || input.equals("deadline") ||
-                    input.equals("event")) {
-                throw new PrinceException("    Please describe your '" + input +
-                        "' task in more detail!");
-            } else if (input.contains("todo") || input.contains("deadline") ||
-                    input.contains("event")) {
+            } else if (input.equals("todo") || input.equals("deadline")
+                    || input.equals("event")) {
+                throw new PrinceException("    Please describe your '" + input
+                        + "' task in more detail!");
+            } else if (input.contains("todo") || input.contains("deadline")
+                    || input.contains("event")) {
                 if (input.contains("todo")) {
                     handleTodo(input, taskList, storage);
                 }
@@ -55,8 +54,8 @@ public class Parser {
                 }
                 ui.showLine();
             } else {
-                throw new PrinceException("    Sorry, I am not sure what '" + input +
-                        "' means. Please try again!");
+                throw new PrinceException("    Sorry, I am not sure what '" + input
+                        + "' means. Please try again!");
             }
         } catch (PrinceException err) {
             System.out.println(err.toString());
@@ -67,7 +66,6 @@ public class Parser {
 
     /**
      * Returns the string "todo".
-     * 
      * @param input Input of the user.
      * @return "todo".
      */
@@ -79,7 +77,6 @@ public class Parser {
 
     /**
      * Returns the string "deadline".
-     * 
      * @param input Input of the user.
      * @return "deadline".
      */
@@ -91,8 +88,7 @@ public class Parser {
 
     /**
      * Returns a String representing the date of the deadline.
-     * 
-     * @param input Input of the user.
+     * @parsm input Input of the user.
      * @return Date of deadline.
      */
     private static String getBy(String input) {
@@ -102,8 +98,7 @@ public class Parser {
     }
 
     /**
-     * Returns the string "event".
-     * 
+     * Returns the string "event"
      * @param input Input of the user.
      * @return "event".
      */
@@ -115,7 +110,6 @@ public class Parser {
 
     /**
      * Returns a String representing the start of the event.
-     * 
      * @param input Input of the user.
      * @return Date of start of event.
      */
@@ -127,7 +121,6 @@ public class Parser {
 
     /**
      * Returns a String representing the end of the event.
-     * 
      * @param input Input of the user.
      * @return Date of end of event.
      */
@@ -143,10 +136,9 @@ public class Parser {
      * Adds it to the list of tasks.
      * Saves task to storage.
      * Display output for user.
-     * 
-     * @param input Input by the user.
+     * @param input    Input by the user.
      * @param taskList List of tasks.
-     * @param storage Storage.
+     * @param storage  Storage.
      */
     private static void handleTodo(String input, TaskList taskList, Storage storage) {
         System.out.println("    Got it. I've added this task:");
@@ -154,8 +146,8 @@ public class Parser {
         Todo todo = new Todo(desc);
         taskList.add(todo);
         System.out.println("      " + todo.toString());
-        System.out.println("    Now you have " + taskList.size() +
-                " tasks in the list.");
+        System.out.println("    Now you have " + taskList.size()
+                + " tasks in the list.");
 
         storage.saveToFile(todo, taskList);
     }
@@ -166,10 +158,9 @@ public class Parser {
      * Adds it to the list of tasks.
      * Saves task to storage.
      * Display output for user.
-     * 
-     * @param input Input by the user.
+     * @param input    Input by the user.
      * @param taskList List of tasks.
-     * @param storage Storage.
+     * @param storage  Storage.
      */
     private static void handleDeadline(String input, TaskList taskList, Storage storage) {
         System.out.println("    Got it. I've added this task:");
@@ -178,8 +169,8 @@ public class Parser {
         Deadline deadlineTask = new Deadline(desc, by);
         taskList.add(deadlineTask);
         System.out.println("      " + deadlineTask.toString());
-        System.out.println("    Now you have " + taskList.size() +
-                " tasks in the list.");
+        System.out.println("    Now you have " + taskList.size()
+                + " tasks in the list.");
         storage.saveToFile(deadlineTask, taskList);
     }
 
@@ -189,10 +180,9 @@ public class Parser {
      * Adds it to the list of tasks.
      * Saves task to storage.
      * Display output for user.
-     * 
-     * @param input Input by the user.
+     * @param input    Input by the user.
      * @param taskList List of tasks.
-     * @param storage Storage.
+     * @param storage  Storage.
      */
     private static void handleEvent(String input, TaskList taskList, Storage storage) {
         System.out.println("    Got it. I've added this task:");
@@ -202,8 +192,8 @@ public class Parser {
         Event event = new Event(desc, from, to);
         taskList.add(event);
         System.out.println("      " + event.toString());
-        System.out.println("    Now you have " + taskList.size() +
-                " tasks in the list.");
+        System.out.println("    Now you have " + taskList.size()
+                + " tasks in the list.");
         storage.saveToFile(event, taskList);
     }
 
@@ -211,10 +201,9 @@ public class Parser {
      * Marks task as incomplete.
      * Update storage with correct boolean status.
      * Displays input for user.
-     * 
-     * @param input Input by the user.
+     * @param input    Input by the user.
      * @param taskList List of tasks.
-     * @param storage Storage.
+     * @param storage  Storage.
      */
     private static void unmark(String input, TaskList taskList, Storage storage) {
         // extra check to make sure the start of input is "unmark"
@@ -232,10 +221,9 @@ public class Parser {
      * Marks task as complete.
      * Update storage with correct boolean status.
      * Displays input for user.
-     * 
-     * @param input Input by the user.
+     * @param input    Input by the user.
      * @param taskList List of tasks.
-     * @param storage Storage.
+     * @param storage  Storage.
      */
     private static void mark(String input, TaskList taskList, Storage storage) {
         // extra check to make sure the start of input is "mark"
@@ -252,10 +240,9 @@ public class Parser {
     /**
      * Deletes tasks from taskList and storage.
      * Displays input for user.
-     * 
-     * @param input Input by the user.
+     * @param input    Input by the user.
      * @param taskList List of tasks.
-     * @param storage Storage.
+     * @param storage  Storage.
      */
     private static void delete(String input, TaskList taskList, Storage storage) {
 
@@ -269,14 +256,13 @@ public class Parser {
             task.delete(); // prints "the noted i removed this task" string
             taskList.remove(index);
             System.out.println("      " + task.toString());
-            System.out.println("    Now you have " + taskList.size() +
-                    " tasks in the list.");
+            System.out.println("    Now you have " + taskList.size()
+                    + " tasks in the list.");
         }
     }
 
     /**
      * Returns an integer representing the index of a task in an array.
-     * 
      * @param input Input by the user.
      * @return Index of the task.
      */

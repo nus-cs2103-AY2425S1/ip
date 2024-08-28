@@ -1,11 +1,10 @@
-package Tasks;
+package tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 public class EventTest {
-
     @Test
     public void constructor_validInputWithoutFormattedDate_success() {
         Event event = new Event("test method", "9 aug 6pm", "12am");
@@ -21,7 +20,6 @@ public class EventTest {
         assertEquals(expected, event.toString());
     }
 
-
     @Test
     public void toString_validInputWithFormattedDateTime_success() {
         Event event = new Event("test method", "2024-08-31 1832", "2024-08-31 2111");
@@ -29,7 +27,6 @@ public class EventTest {
         assertEquals(expected, event.toString());
     }
 
- 
     @Test
     public void toString_validInputWithoutFormattedDateTime_success() {
         Event event = new Event("test method", "sunday 5am", "12pm");
@@ -43,5 +40,4 @@ public class EventTest {
         String expected = "E .. 0 .. test method .. sunday 5am .. 12pm";
         assertEquals(expected, event.toFileFormat());
     }
-    
 }
