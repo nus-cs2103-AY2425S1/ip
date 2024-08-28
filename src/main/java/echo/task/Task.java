@@ -17,7 +17,8 @@ public abstract class Task {
     protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     /** Output formatter when the ChatBot prints the deadline of the tasks*/
-    protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+    protected static final DateTimeFormatter OUTPUT_FORMATTER
+            = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 
     /**
      * Constructor for Task
