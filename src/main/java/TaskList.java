@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,12 +7,11 @@ public class TaskList {
     private List<Task> tasks;
 
     public TaskList() {
-        try {
-            this.tasks = FileHandler.loadTaskList();
-        } catch (IOException e) {
-            System.out.println("Error loading tasks: " + e.getMessage());
-            this.tasks = new ArrayList<>();
-        }
+        this.tasks = new ArrayList<>();
+    }
+
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void addTask(Task task) {
@@ -21,7 +19,6 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.printf("Now you have %d task%s in the list.%n", tasks.size(), tasks.size() == 1 ? "" : "s");
-        saveTaskList();
     }
 
     public void listTasks() {
@@ -43,28 +40,20 @@ public class TaskList {
         task.setCompleted(isDone);
         System.out.printf("Nice! I've marked this task as %s:%n", isDone ? "done" : "not done");
         System.out.println("  " + task);
-        saveTaskList();
     }
 
-    public Task deleteTask(int index) throws AppleasterException {
+    public void deleteTask(int index) throws AppleasterException {
         if (index < 0 || index >= tasks.size()) {
             throw new AppleasterException("Invalid task number.");
         }
         Task deletedTask = tasks.remove(index);
-        saveTaskList();
-        return deletedTask;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + deletedTask);
+        System.out.printf("Now you have %d task%s in the list.%n", tasks.size(), tasks.size() == 1 ? "" : "s");
     }
 
     public int getTaskCount() {
         return tasks.size();
-    }
-
-    private void saveTaskList() {
-        try {
-            FileHandler.saveTaskList(tasks);
-        } catch (IOException e) {
-            System.out.println("Error saving tasks: " + e.getMessage());
-        }
     }
 
     public void listTasksOnDate(LocalDate date) {
@@ -91,5 +80,9 @@ public class TaskList {
                 System.out.printf("%d.%s%n", i + 1, tasksOnDate.get(i));
             }
         }
-    }    
+    }
+
+    public List<Task> getTasks() {
+        return new ArrayList<>(tasks);
+    }
 }

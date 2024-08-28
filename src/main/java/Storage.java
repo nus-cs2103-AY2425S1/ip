@@ -5,43 +5,54 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileHandler {
+public class Storage {
     private static final String DATA_DIRECTORY = "data";
-    private static final String FILE_NAME = "appleaster.txt";
-    private static final Path FILE_PATH = Paths.get(DATA_DIRECTORY, FILE_NAME);
+    private final Path filePath;
     private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-    public static void saveTaskList(List<Task> tasks) throws IOException {
-        createDataDirectoryIfNotExists();
-        try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
-            for (Task task : tasks) {
-                writer.write(taskToString(task));
-                writer.newLine();
+    public Storage(String filePath) {
+        this.filePath = Paths.get(filePath);
+    }
+
+    public List<Task> load() throws AppleasterException {
+        try {
+            createDataDirectoryIfNotExists();
+            if (!Files.exists(filePath)) {
+                return new ArrayList<>();
             }
-        }
-    }
 
-    public static List<Task> loadTaskList() throws IOException {
-        createDataDirectoryIfNotExists();
-        if (!Files.exists(FILE_PATH)) {
-            return new ArrayList<>();
-        }
-
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(FILE_PATH)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                tasks.add(stringToTask(line));
+            List<Task> tasks = new ArrayList<>();
+            try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    tasks.add(parseTask(line));
+                }
             }
+            return tasks;
+        } catch (IOException e) {
+            throw new AppleasterException("Error loading tasks: " + e.getMessage());
         }
-        return tasks;
     }
 
-    private static void createDataDirectoryIfNotExists() throws IOException {
-        Files.createDirectories(Paths.get(DATA_DIRECTORY));
+    public void save(List<Task> tasks) throws AppleasterException {
+        try {
+            createDataDirectoryIfNotExists();
+            try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+                for (Task task : tasks) {
+                    writer.write(formatTask(task));
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            throw new AppleasterException("Error saving tasks: " + e.getMessage());
+        }
     }
 
-    private static String taskToString(Task task) {
+    private void createDataDirectoryIfNotExists() throws IOException {
+        Files.createDirectories(filePath.getParent());
+    }
+
+    private String formatTask(Task task) {
         if (task instanceof Todo) {
             return String.format("T | %d | %s", task.isCompleted() ? 1 : 0, task.getDescription());
         } else if (task instanceof Deadline) {
@@ -55,7 +66,7 @@ public class FileHandler {
         throw new IllegalArgumentException("Unknown task type");
     }
 
-    private static Task stringToTask(String line) {
+    private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isCompleted = parts[1].equals("1");
