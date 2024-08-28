@@ -49,8 +49,9 @@ public class Controller {
     }
 
     public void handleDelete(int index) {
+        Task deletedTask = store.get(index);
         store.remove(index);
-        ui.printDeleteMessage(store.get(index), store.size());
+        ui.printDeleteMessage(deletedTask, store.size());
     }
 
     public void handleTodo(String task) {
@@ -68,7 +69,7 @@ public class Controller {
             return;
         }
 
-        if (TaskDeadline.isValidFormat(by)) {
+        if (!TaskDeadline.isValidFormat(by)) {
             ui.printInvalidDateFormatErrorMessage();
             return;
         }
@@ -82,7 +83,7 @@ public class Controller {
             return;
         }
 
-        if (TaskEvent.isValidFormat(from, to)) {
+        if (!TaskEvent.isValidFormat(from, to)) {
             ui.printInvalidDateFormatErrorMessage();
             return;
         }
