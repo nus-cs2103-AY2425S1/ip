@@ -21,13 +21,16 @@ public class Ui {
     }
 
     public void printTaskAddedWithDivider(String type, int size, Task task) {
-        String[] toPrint = {"Got it. I've added this task:", "  [" + type + "][ ] " + task,
+        String[] toPrint = {"Got it. I've added this task:",
+                "  [" + type + "][ ] " + task,
                 "Now you have " + size + " tasks in the list."};
+
         printInDivider(toPrint);
     }
 
     public void printError(BlitzException err) {
         String[] toPrint = {err.toString()};
+
         printInDivider(toPrint);
     }
 }

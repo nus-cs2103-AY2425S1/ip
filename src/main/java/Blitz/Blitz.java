@@ -17,7 +17,8 @@ public class Blitz {
     }
 
     public void run() {
-        String[] greet = {"Hello! I'm Blitz.", "What can I do for you?"};
+        String[] greet = {"Hello! I'm Blitz.",
+                "What can I do for you?"};
         String[] end = {"Bye. Hope to see you again soon!"};
 
         ui.printInDivider(greet);
@@ -28,11 +29,13 @@ public class Blitz {
 
             try {
                 Command c = Parser.parse(inp);
+
                 if (c.isExit()) {
                     break;
                 }
 
                 this.taskList = storage.readFromFile(this.ui);
+
                 c.execute(this.taskList, this.ui, this.storage);
             } catch (BlitzException e) {
                 ui.printError(e);
