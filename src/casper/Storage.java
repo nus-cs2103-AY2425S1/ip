@@ -1,4 +1,4 @@
-package main.java;
+package casper;
 
 import exception.CasperBotIOException;
 import exception.CasperBotOutOfBoundsException;
