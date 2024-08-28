@@ -1,13 +1,16 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    private String deadline;
+    private LocalDate deadline;
     
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
     }
 
-    public Deadline(String name, String deadline, boolean isDone) {
+    public Deadline(String name, LocalDate deadline, boolean isDone) {
         super(name, isDone);
         this.deadline = deadline;
     }
@@ -15,12 +18,14 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         String done = this.isDone() ? "1" : "0";
-        return "D," + done + "," + this.getName() + "," + this.deadline;
+        String stringDeadline = this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return "D," + done + "," + this.getName() + "," + stringDeadline;
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + this.deadline + ")";
+        String stringDeadline = this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[D] " + super.toString() + " (by: " + stringDeadline + ")";
     }
 
 }

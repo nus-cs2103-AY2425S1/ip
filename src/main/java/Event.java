@@ -1,15 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
     
-    public Event(String name, String from, String to) {
+    public Event(String name, LocalDate from, LocalDate to) {
         super(name);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String name, String from, String to, boolean isDone) {
+    public Event(String name, LocalDate from, LocalDate to, boolean isDone) {
         super(name, isDone);
         this.from = from;
         this.to = to;
@@ -18,11 +21,15 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         String done = this.isDone() ? "1" : "0";
-        return "E," + done + "," + this.getName() + "," + this.from + "," + this.to;
+        String stringFrom = this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String stringTo = this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return "E," + done + "," + this.getName() + "," + stringFrom + "," + stringTo;
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        String stringFrom = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String stringTo = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[E] " + super.toString() + " (from: " + stringFrom + " to: " + stringTo + ")";
     }
 }
