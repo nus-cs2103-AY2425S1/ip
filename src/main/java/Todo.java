@@ -10,7 +10,7 @@ public class Todo extends Task{
      * @param description The description of the Todo task.
      * @throws EmptyInputException if the description is empty.
      */
-    public Todo(String description) throws EmptyInputException {
+    public Todo(String description) throws DelphiException {
         super(description);
     }
 

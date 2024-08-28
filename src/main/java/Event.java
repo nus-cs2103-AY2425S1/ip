@@ -10,24 +10,39 @@ public class Event extends Task {
      * @param description The description of the Event task.
      * @throws EmptyInputException if the description is empty.
      */
-    public Event(String description) throws EmptyInputException {
+    public Event(String description) throws DelphiException {
         super(description);
 
-        String[] parts = description.split("/");
+        int fromIndex = description.indexOf("/from");
+        int toIndex = description.indexOf("/to");
 
-        this.name = parts[0].trim();
+        // Validate the positions
+        if (fromIndex == -1 || toIndex == -1 || toIndex <= fromIndex) {
+            throw new InvalidInputException();
+        }
 
-        // Extract the first and second parts after the backslashes, if they exist
-        String fromPart = parts.length > 1 ? parts[1].trim() : "";
-        String toPart = parts.length > 2 ? parts[2].trim() : "";
+        // Extract the event description
+        this.name = description.substring(0, fromIndex).trim();
 
-        fromPart = fromPart.replaceFirst("^from\\s*", "").trim();
-        toPart = toPart.replaceFirst("^to\\s*", "").trim();
+        // Extract the start time
+        String fromPart = description.substring(fromIndex + "/from".length(), toIndex).trim();
 
-        // Add "from:" and "to:" labels
-        fromPart = "from: " + fromPart;
-        toPart = "to: " + toPart;
+        // Extract the end time
+        String toPart = description.substring(toIndex + "/to".length()).trim();
 
+        String formattedFromPart = Parser.DateParser.parseAndFormatDateTime(fromPart);
+        if (formattedFromPart != null) {
+            fromPart = "from: " + formattedFromPart;
+        } else {
+            fromPart = "from: " + fromPart;
+        }
+
+        String formattedToPart = Parser.DateParser.parseAndFormatDateTime(toPart);
+        if (formattedFromPart != null) {
+            toPart = "from: " + formattedToPart;
+        } else {
+            toPart = "to: " + toPart;
+        }
         // Reformat the output
         window = "(" + fromPart + " " + toPart + ")";
     }
