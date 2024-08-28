@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.Objects;
@@ -7,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Friday {
     enum CommandType {
-        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE;
+        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, SEARCH;
 
         public static CommandType commandController(String inputCommand) throws InvalidFridayCommand {
             switch (inputCommand.toLowerCase()) {
@@ -18,6 +20,7 @@ public class Friday {
                 case "unmark": return UNMARK;
                 case "delete": return DELETE;
                 case "list": return LIST;
+                case "search": return SEARCH;
                 case "bye": return BYE;
                 default: throw new InvalidFridayCommand(inputCommand);
             }
@@ -91,7 +94,14 @@ public class Friday {
                     System.out.println(" An error occurred while reading the file.");
                 }
             } else {
-                System.out.println(" The file is corrupted.");
+                System.out.println(" The file is corrupted. Recreating FridayTaskList.txt");
+                try {
+                    fridayTaskList.delete();
+                    fridayTaskList.createNewFile();
+                    System.out.println(" File created successfully to store tasks.");
+                } catch (IOException e) {
+                    System.out.println(" An error occurred while creating the file.");
+                }
             }
 
         } else {
@@ -131,9 +141,9 @@ public class Friday {
                         if (toDo.split(" ").length == 1) {
                             throw new InvalidTodoArgument();
                         }
+                        Todo newTodo = new Todo(toDo.substring(5));
                         System.out.println("    _______________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        Todo newTodo = new Todo(toDo.substring(5));
                         toDoList.add(newTodo);
                         System.out.println("       " + newTodo);
                         System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
@@ -144,9 +154,9 @@ public class Friday {
                         if (toDo.split(" ").length <= 3 || !toDo.contains("/by")) {
                             throw new InvalidDeadlineArgument();
                         }
+                        Deadline newDeadline = new Deadline(toDo.substring(9));
                         System.out.println("    _______________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        Deadline newDeadline = new Deadline(toDo.substring(9));
                         toDoList.add(newDeadline);
                         System.out.println("       " + newDeadline);
                         System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
@@ -157,9 +167,9 @@ public class Friday {
                         if (toDo.split(" ").length <= 5 || !toDo.contains("/from") || !toDo.contains("/to")) {
                             throw new InvalidEventArgument();
                         }
+                        Event newEvent = new Event(toDo.substring(6));
                         System.out.println("    _______________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        Event newEvent = new Event(toDo.substring(6));
                         toDoList.add(newEvent);
                         System.out.println("       " + newEvent);
                         System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
@@ -202,6 +212,29 @@ public class Friday {
                         System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
                         System.out.println("    _______________________________________________________");
                         break;
+                    case SEARCH:
+                        if (toDo.split(" ").length == 1) {
+                            throw new InvalidSearchArgument();
+                        }
+                        LocalDate searchDate = LocalDate.parse(toDo.substring(7));
+                        System.out.println("    _______________________________________________________");
+                        System.out.println("     Here are the deadlines/events in your list that's due/occurring :");
+                        for (int i = 0; i < toDoList.size(); i++) {
+                            if (toDoList.get(i) instanceof Deadline deadline) {
+                                if (deadline.getDeadline().equals(searchDate)) {
+                                    System.out.println("     " + (i + 1) + "." + toDoList.get(i));
+                                }
+                            } else if (toDoList.get(i) instanceof Event event) {
+                                if (event.getEndEvent().equals(searchDate)
+                                        || event.getStartEvent().equals(searchDate)
+                                        || (event.getStartEvent().isBefore(searchDate)
+                                        && event.getEndEvent().isAfter(searchDate))) {
+                                    System.out.println("     " + (i + 1) + "." + toDoList.get(i));
+                                }
+                            }
+                        }
+                        System.out.println("    _______________________________________________________");
+                        break;
 
                     default:
                         throw new InvalidFridayCommand(toDo);
@@ -215,10 +248,16 @@ public class Friday {
                 } catch (IOException e) {
                     System.out.println(" An error occurred while writing to the file.");
                 }
-            } catch (FridayException e) {
-                System.out.println("    _______________________________________________________");
-                System.out.println("     " + e.getMessage());
-                System.out.println("    _______________________________________________________");
+            } catch (FridayException | DateTimeParseException e) {
+                if (e instanceof DateTimeParseException) {
+                    System.out.println("    _______________________________________________________");
+                    System.out.println("     OOPS!!! Please enter a valid date in the format yyyy-mm-dd.");
+                    System.out.println("    _______________________________________________________");
+                } else {
+                    System.out.println("    _______________________________________________________");
+                    System.out.println("     " + e.getMessage());
+                    System.out.println("    _______________________________________________________");
+                }
             }
         }
 

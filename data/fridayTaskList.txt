@@ -1,5 +1,4 @@
-T 1 test1
-D 1 test2 /by 2sep
-E 1 test3 /from 3sep /to 5sep
-T 1 test4
-E 0 test5 /from 5sep /to 8sep
+E 0 test2 /from 2024-09-07 /to 2024-09-16
+D 1 test1 /by 2024-09-08
+T 0 test3
+D 1 test4 /by 2025-09-07
