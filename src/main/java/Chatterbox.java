@@ -62,6 +62,7 @@ public class Chatterbox {
             return userTasks;
         }
 
+
         /**
          * Marks task at index to be complete
          * @param index of task to be marked complete
@@ -88,6 +89,30 @@ public class Chatterbox {
             return nextTodo;
         }
 
+        public Deadline addDeadline(String desc, String endDate) throws ChatterBoxNoInput {
+            Deadline nextDead = new Deadline(desc, endDate);
+            userTasks.add(nextDead);
+            return nextDead;
+        }
+
+        public Deadline addDeadline(String desc, LocalDateTime endDate) throws ChatterBoxNoInput {
+            Deadline nextDead = new Deadline(desc, endDate);
+            userTasks.add(nextDead);
+            return nextDead;
+        }
+
+        public Event addEvent(String desc, String startDate, String endDate) throws ChatterBoxNoInput {
+            Event nextEve = new Event(desc, startDate, endDate);
+            userTasks.add(nextEve);
+            return nextEve;
+        }
+
+        public Event addEvent(String desc, LocalDateTime startDate, LocalDateTime endDate) throws ChatterBoxNoInput {
+            Event nextEve = new Event(desc, startDate, endDate);
+            userTasks.add(nextEve);
+            return nextEve;
+        }
+
         /**
          * Gets the task at index
          * @param index
@@ -95,6 +120,15 @@ public class Chatterbox {
          */
         public Task getTask(int index) {
             return userTasks.get(index);
+        }
+
+        /**
+         * Deletes task and index and returns it
+         * @param index of task to be deleted
+         * @return delted Task
+         */
+        public Task deleteTask(int index) {
+            return userTasks.remove(index);
         }
 
         /**
@@ -134,7 +168,7 @@ public class Chatterbox {
             System.out.println(String.format("""
 ____________________________________________________________
  Hello! I'm %s
- What can I do for you?""", Chatterbox.BOTNAME));
+ What can I do for you?""", BOTNAME));
         }
 
         /**
@@ -203,6 +237,13 @@ ____________________________________________________________
             System.out.println(String.format("Currently %d Tasks in List", size));
         }
 
+        protected void delTaskMsg(Task task, int size) {
+            System.out.println("Deleting Task: ");
+            System.out.println(task.getDescription());
+            System.out.println(String.format("%d tasks left", size));
+
+        }
+
 
     }
 
@@ -210,10 +251,13 @@ ____________________________________________________________
      * Handles the storage of Task history
      */
     private static class Storage {
+
         private String HISTFILE = Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
 
 
         public Storage() {
+            checkDirectory();
+
 
         }
 
@@ -225,39 +269,6 @@ ____________________________________________________________
             this.HISTFILE = filePath;
         }
 
-
-        public ArrayList<Task> load() throws FileNotFoundException{
-            File f = new File(this.HISTFILE);
-            Scanner s = new Scanner(f);
-            ArrayList <Task> loadedTasks = new ArrayList<>();
-            while (s.hasNext()) {
-                String nextLine = s.nextLine();
-                //parse the Line for task
-                char type = nextLine.charAt(0);
-                
-
-
-            }
-        }
-
-
-        /**
-         * Used to check for directory used to store data and create if not present,
-         * @param None
-         */
-        private static void checkDirectory() {
-
-            try {
-                Files.createDirectories(Paths.get(System.getProperty("user.dir"), "data"));
-            } catch (IOException e) {
-                System.out.println("Error creating data directory: " + e.getMessage());
-            }
-        }
-
-        /** Saves the tasks to a file based on the userList, creates a new directory data
-         *
-         * @param userList contains a list of Task objects
-         */
         private  void saveHistory(ArrayList<Task> userList) {
 
 
@@ -289,56 +300,150 @@ ____________________________________________________________
             }
         }
 
-    }
+        public ArrayList<Task> load(Parser parser) throws FileNotFoundException{
+            File f = new File(this.HISTFILE);
+            Scanner s = new Scanner(f);
+            ArrayList <Task> loadedTasks = new ArrayList<>();
+            while (s.hasNext()) {
+                String nextLine = s.nextLine();
+                //parse the Line for task
+                char type = nextLine.charAt(0);
+                boolean status = nextLine.charAt(4) == 'X';
+
+                //rest includes text ( deadline/event )
+                String rest = nextLine.substring(8);
+                try {
+                    if (type == 'T') {
+                        Todo currTodo = new Todo(rest.trim());
+                        if (status) {
+                            currTodo.setStatus(true);
+                        }
+                        loadedTasks.add(new Todo(rest.trim()));
+                    } else if (type == 'D') {
+                        int startBracket = rest.indexOf("( by");
+                        String desc = rest.substring(0, startBracket);
+                        String deadline = rest.substring(startBracket + 4);
+                        LocalDateTime deadlineObj = parser.parseDateTime(deadline);
+                        Deadline newDead;
+
+                        if (deadlineObj == null) {
+                            newDead = new Deadline(desc, deadline);
+
+                        } else {
+                            newDead = new Deadline(desc, deadlineObj);
+                        }
+                        if (status) {
+                            newDead.setStatus(true);
+                        }
+                        loadedTasks.add(newDead);
+
+                    } else {
+                        int startBracket = rest.indexOf("( from");
+                        int toStart = rest.indexOf("|to");
+                        String desc = rest.substring(0, startBracket);
+                        String startDate = rest.substring(startBracket + 6, toStart);
+                        LocalDateTime startDateObj = parser.parseDateTime(startDate);
+                        String endDate = rest.substring(toStart + 3, -1);
+                        LocalDateTime endDateObj = parser.parseDateTime(startDate);
+
+                        Event nextEvent;
+                        if (startDateObj != null && endDateObj != null) {
+                            nextEvent = new Event(desc, startDateObj, endDateObj);
+                        } else {
+                            nextEvent = new Event(desc, startDate, endDate);
+                        }
+
+                        if (status) {
+                            nextEvent.setStatus(true);
+                        }
+
+                        loadedTasks.add(nextEvent);
+
+                    }
 
 
-    private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    private static final DateTimeFormatter SLASHFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-    private static final DateTimeFormatter DASHONLYDATE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final DateTimeFormatter SLASHONLYDATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter[] DATE_TIME_FORMATTERS = new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER};
-    private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS = new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE};
-    private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+                } catch (ChatterBoxNoInput e){
+                    System.out.println("No input found in loaded task");
+                }
 
 
+            }
+            return loadedTasks;
+        }
 
-    private static LocalDateTime parseDateTime(String dateTimeString) {
+
         /**
-         * Takes in a string, trims it, and parses LocalDateTime if possible, if not null
-         *
-         * @param dateTimeString String that should contain a date time
-         * @return LocalDateTime representing time in string
-         * @throws None
+         * Used to check for directory used to store data and create if not present,
+         * @param None
          */
-        System.out.println("called");
+        private static void checkDirectory() {
 
-        dateTimeString = dateTimeString.trim();
-        System.out.println(dateTimeString);
-        for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
             try {
-
-
-                return LocalDateTime.parse(dateTimeString, formatter);
-            } catch (DateTimeParseException e) {
-                //do nothing, try next one
+                Files.createDirectories(Paths.get(System.getProperty("user.dir"), "data"));
+            } catch (IOException e) {
+                System.out.println("Error creating data directory: " + e.getMessage());
             }
         }
-        for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
-            try {
-                return LocalDate.parse(dateTimeString, formatter).atStartOfDay();
-            } catch (DateTimeParseException e) {
 
-            }
-        }
-        return null;
+        /** Saves the tasks to a file based on the userList, creates a new directory data
+         *
+         * @param userList contains a list of Task objects
+         */
+
+
     }
+
+
+
+
+
+
+
 
     public static class Parser {
         public enum VALID_COMMAND {
             BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
         }
 
+        private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        private static final DateTimeFormatter SLASHFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
+        private static final DateTimeFormatter DASHONLYDATE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        private static final DateTimeFormatter SLASHONLYDATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        private static final DateTimeFormatter[] DATE_TIME_FORMATTERS = new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER};
+        private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS = new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE};
+        private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+        public LocalDateTime parseDateTime(String dateTimeString) {
+            /**
+             * Takes in a string, trims it, and parses LocalDateTime if possible, if not null
+             *
+             * @param dateTimeString String that should contain a date time
+             * @return LocalDateTime representing time in string
+             * @throws None
+             */
+            System.out.println("called");
+
+            dateTimeString = dateTimeString.trim();
+            System.out.println(dateTimeString);
+            for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
+                try {
+
+
+                    return LocalDateTime.parse(dateTimeString, formatter);
+                } catch (DateTimeParseException e) {
+                    //do nothing, try next one
+                }
+            }
+            for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
+                try {
+                    return LocalDate.parse(dateTimeString, formatter).atStartOfDay();
+                } catch (DateTimeParseException e) {
+
+                }
+            }
+            return null;
+        }
 
         public VALID_COMMAND parseCommand(String text) {
 
@@ -393,6 +498,72 @@ ____________________________________________________________
             return desc.substring(4).trim();
         }
 
+        /** used to parse deadlines
+         *
+         * @param String of format deadline text /by text
+         * @return String[] with the [0] as the description and [1] as by {text}
+         * @throws None, does not throw any exceptions
+         */
+        protected String[] parseDeadline(String desc) throws ChatterBoxMissingParameter{
+
+
+            int endDate = desc.indexOf("/by");
+            if (endDate < 0) {
+                throw new ChatterBoxMissingParameter("Deadline date");
+            }
+            StringBuilder plainDesc = new StringBuilder();
+            StringBuilder deadline = new StringBuilder();
+            for (int i = 9; i < desc.length(); i++) {
+                if (i < endDate) {
+                    plainDesc.append(desc.charAt(i));
+
+                } else {
+                    if (desc.charAt(i) != '/') {
+                        deadline.append(desc.charAt(i));
+                    }
+                }
+            }
+            return new String[] {plainDesc.toString(), deadline.toString()} ;
+        }
+
+        /** Parses the event string for the desc, from and to time
+         *
+         * @param desc takes in a string of format text /from text /to text
+         * @return String[] with 0 being the first text, 1 the from text and 2 being the to text
+         * @throws ChatterBoxMissingParameter if any of parameters not detected
+         */
+        protected String[] parseEvent(String desc) throws ChatterBoxMissingParameter{
+
+
+            int fromStart = desc.indexOf("/from");
+            if (fromStart < 0) {
+                throw new ChatterBoxMissingParameter("Event Start Date");
+            }
+            int toStart = desc.indexOf("/to");
+            if (toStart < 0) {
+                throw new ChatterBoxMissingParameter("Event End Date");
+            }
+            StringBuilder plainDesc = new StringBuilder();
+            StringBuilder startDate = new StringBuilder();
+            StringBuilder endDate = new StringBuilder();
+            //start with 5 to go past event
+            for (int i = 5; i < desc.length(); i++) {
+                if (i < fromStart) {
+                    plainDesc.append(desc.charAt(i));
+                } else if (i < toStart) {
+                    if (desc.charAt(i) != '/') {
+                        startDate.append(desc.charAt(i));
+
+                    }
+                } else {
+                    if (desc.charAt(i) != '/') {
+                        endDate.append(desc.charAt(i));
+
+                    }
+                }
+            }
+            return new String[] {plainDesc.toString(), startDate.toString(), endDate.toString()};
+        }
 
     }
 
@@ -453,33 +624,7 @@ ____________________________________________________________
 
     }
 
-    /** used to parse deadlines
-     *
-     * @param String of format deadline text /by text
-     * @return String[] with the [0] as the description and [1] as by {text}
-     * @throws None, does not throw any exceptions
-     */
-    private static String[] parseDeadline(String desc) throws ChatterBoxMissingParameter{
 
-
-        int endDate = desc.indexOf("/by");
-        if (endDate < 0) {
-            throw new ChatterBoxMissingParameter("Deadline date");
-        }
-        StringBuilder plainDesc = new StringBuilder();
-        StringBuilder deadline = new StringBuilder();
-        for (int i = 9; i < desc.length(); i++) {
-            if (i < endDate) {
-                plainDesc.append(desc.charAt(i));
-
-            } else {
-                if (desc.charAt(i) != '/') {
-                    deadline.append(desc.charAt(i));
-                }
-            }
-        }
-        return new String[] {plainDesc.toString(), deadline.toString()} ;
-    }
 
     private static class Deadline extends Task {
         private final LocalDateTime dueDateObj;
@@ -506,51 +651,14 @@ ____________________________________________________________
         @Override
         public String getDescription() {
             if (this.dueDateObj != null) {
-                return super.getDescription() + String.format("( by %s ) ", this.dueDateObj.format(PRINTDATEFORMATTER));
+                return super.getDescription() + String.format("( by %s ) ", this.dueDateObj.format(Parser.PRINTDATEFORMATTER));
             }
             return super.getDescription() + String.format(" ( %s )", this.dueDate);
         }
 
     }
-    //when response start with event
-    /** Parses the event string for the desc, from and to time
-     *
-     * @param desc takes in a string of format text /from text /to text
-     * @return String[] with 0 being the first text, 1 the from text and 2 being the to text
-     * @throws ChatterBoxMissingParameter if any of parameters not detected
-     */
-    private static String[] parseEvent(String desc) throws ChatterBoxMissingParameter{
 
 
-        int fromStart = desc.indexOf("/from");
-        if (fromStart < 0) {
-            throw new ChatterBoxMissingParameter("Event Start Date");
-        }
-        int toStart = desc.indexOf("/to");
-        if (toStart < 0) {
-            throw new ChatterBoxMissingParameter("Event End Date");
-        }
-        StringBuilder plainDesc = new StringBuilder();
-        StringBuilder startDate = new StringBuilder();
-        StringBuilder endDate = new StringBuilder();
-        //start with 5 to go past event
-        for (int i = 5; i < desc.length(); i++) {
-            if (i < fromStart) {
-                plainDesc.append(desc.charAt(i));
-            } else if (i < toStart) {
-                if (desc.charAt(i) != '/') {
-                    startDate.append(desc.charAt(i));
-
-                }
-            } else {
-                if (desc.charAt(i) != '/') {
-                    endDate.append(desc.charAt(i));
-
-                }
-            }
-        }
-        return new String[] {plainDesc.toString(), startDate.toString(), endDate.toString()};
-    }
     private static class Event extends Task {
 
         private final LocalDateTime startDateObj;
@@ -593,8 +701,8 @@ ____________________________________________________________
         @Override
         public String getDescription() {
             if (this.startDateObj != null && this.endDateObj != null) {
-                return super.getDescription() + String.format("( from %s to %s )", this.startDateObj.format(PRINTDATEFORMATTER)
-                , this.endDateObj.format(PRINTDATEFORMATTER));
+                return super.getDescription() + String.format(" ( from %s to %s )", this.startDateObj.format(Parser.PRINTDATEFORMATTER)
+                , this.endDateObj.format(Parser.PRINTDATEFORMATTER));
             }
             return super.getDescription() + String.format(" ( %s %s )", this.startDate, this.endDate);
         }
@@ -604,8 +712,10 @@ ____________________________________________________________
 
         UI ui = new Chatterbox.UI();
         Parser parser = new Parser();
+        Storage storage = new Storage();
         Scanner scanner = new Scanner(System.in);
         ui.greeting();
+
         TaskList tasks = new TaskList(new ArrayList<Task>());
 
         try {
@@ -645,56 +755,55 @@ ____________________________________________________________
                         break;
 
                     case DEADLINE:
-                        String[] parsed = parseDeadline(response);
+                        String[] parsed = parser.parseDeadline(response);
 
-                        System.out.println(Chatterbox.LINESEPERATOR);
-                        LocalDateTime deadlineDate = parseDateTime(parsed[1].substring(2));
+
+                        LocalDateTime deadlineDate = parser.parseDateTime(parsed[1].substring(2));
+
 
                         if (deadlineDate == null) {
-                            userList.add(new Deadline(parsed[0], parsed[1]));
+
+                            tasks.addDeadline(parsed[0], parsed[1]);
 
                         } else {
                             //add back by for string
 
-                            userList.add(new Deadline(parsed[0], deadlineDate));
+                            tasks.addDeadline(parsed[0], deadlineDate);
                         }
 
-                        current++;
-                        System.out.println("Added Deadline to Todo");
-                        System.out.println(String.format("Currently %d tasks in list", userList.size()));
+                        ui.addTaskMsg("Deadline", tasks.size());
+
                         break;
                     case EVENT:
-                        String[] eventParsed = parseEvent(response);
+                        String[] eventParsed = parser.parseEvent(response);
 
-                        LocalDateTime startDate = parseDateTime(eventParsed[1].substring(4)); //from 4
-                        LocalDateTime endDate = parseDateTime(eventParsed[2].substring(2));
+                        LocalDateTime startDate = parser.parseDateTime(eventParsed[1].substring(4)); //from 4
+                        LocalDateTime endDate = parser.parseDateTime(eventParsed[2].substring(2));
+
                         if (startDate == null || endDate == null) {
-                            userList.add(new Event(eventParsed[0], eventParsed[1], eventParsed[2]));
+
+                            tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
 
                         } else {
-                            userList.add(new Event(eventParsed[0], startDate, endDate));
+                            tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
                         }
-                        current++;
-                        System.out.println(Chatterbox.LINESEPERATOR);
+                        ui.addTaskMsg("Event", tasks.size());
 
-                        System.out.println("Added Event to Todo");
-                        System.out.println(String.format("Currently %d tasks in list", userList.size()));
+
                         break;
                     case DELETE:
                         response = response.trim();
                         int delIndex = parser.extractNum(response) - 1;
-                        System.out.println(LINESEPERATOR);
-                        System.out.println("Removing Task: ");
-                        System.out.println(userList.get(delIndex).toString());
-                        userList.remove(delIndex);
-                        System.out.println(String.format("List has %d tasks", userList.size()));
+                        ui.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
+
+
                         break;
                     case INVALID:
                         checkMessage(response);
                         break;
                 }
 //                System.out.println("saving");
-                saveHistory(userList);
+                storage.saveHistory(tasks.getTasks());
 
             }
         } catch (ChatterBoxError e){
