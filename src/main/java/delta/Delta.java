@@ -33,7 +33,9 @@ public class Delta {
         try {
             tasks = new TaskList(storage.load());
         } catch (DeltaException e) {
+            ui.showLine();
             ui.showError(e.getMessage());
+            ui.showLine();
             tasks = new TaskList();
         }
     }

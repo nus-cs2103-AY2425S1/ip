@@ -29,6 +29,7 @@ public class Parser {
      */
     private static LocalDateTime formatDateTime(String input) throws DeltaException {
         try {
+            // Format to be provided by user input
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(input, formatter);
         } catch (DateTimeParseException e) {
@@ -64,6 +65,7 @@ public class Parser {
             if (description.length == 2) {
                 String taskName = description[1].strip();
                 return new AddCommand(new Todo(taskName));
+            // Only task given, no description
             } else {
                 throw new DeltaException("""
                         OOPS!!! Description of todo cannot be left blank!
@@ -74,10 +76,12 @@ public class Parser {
         // Add Deadline
         } else if (task.equalsIgnoreCase("deadline")) {
             if (description.length == 2) {
+                // Split task name and deadline
                 String[] details = description[1].strip().split(" /by ");
                 if (details.length == 2) {
                     String taskName = details[0].strip();
                     LocalDateTime by = formatDateTime(details[1].strip());
+                    // Check if deadline is in the past
                     if (by.isBefore(LocalDateTime.now())) {
                         throw new DeltaException("""
                                 OOPS!!! The date/time cannot be in the past!
@@ -86,12 +90,14 @@ public class Parser {
                                 \t * deadline [description] /by [date/time]""");
                     }
                     return new AddCommand(new Deadline(taskName, by));
+                // More than one deadline given
                 } else {
                     throw new DeltaException("""
                             OOPS!!! The format for deadline is wrong!
                             \t Please follow the proper format:
                             \t * deadline [description] /by [date/time]""");
                 }
+            // Only task given, no description
             } else {
                 throw new DeltaException("""
                         OOPS!!! Description of deadline cannot be left blank!
@@ -102,19 +108,23 @@ public class Parser {
         // Add Event
         } else if (task.equalsIgnoreCase("event")) {
             if (description.length == 2) {
+                // Split task name and timing details
                 String[] details = description[1].strip().split(" /from ");
                 if (details.length == 2) {
                     String taskName = details[0].strip();
+                    // Split start time and end time
                     String[] timings = details[1].strip().split(" /to ");
                     if (timings.length == 2) {
                         LocalDateTime start = formatDateTime(timings[0].strip());
                         LocalDateTime end = formatDateTime(timings[1].strip());
+                        // Check if timings are in the past
                         if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
                             throw new DeltaException("""
                                     OOPS!!! The date/time cannot be in the past!
                                     \t Please set to a future date/time!
                                     \t Follow the proper format:
                                     \t * event [description] /from [start] /to [end]""");
+                        // Check if end time is before start time
                         } else if (end.isBefore(start)) {
                             throw new DeltaException("""
                                     OOPS!!! The end date cannot be before the start date!
@@ -123,18 +133,21 @@ public class Parser {
                                     \t * event [description] /from [start] /to [end]""");
                         }
                         return new AddCommand(new Event(taskName, start, end));
+                    // More than one end time given
                     } else {
                         throw new DeltaException("""
                                 OOPS!!! The format for event is wrong!
                                 \t Please follow the proper format:
                                 \t * event [description] /from [start] /to [end]""");
                     }
+                // More than one start time given
                 } else {
                     throw new DeltaException("""
                             OOPS!!! The format for event is wrong!
                             \t Please follow the proper format:
                             \t * event [description] /from [start] /to [end]""");
                 }
+            // Only task given, no description
             } else {
                 throw new DeltaException("""
                         OOPS!!! Description of event cannot be left blank!
@@ -144,6 +157,7 @@ public class Parser {
 
         // Mark Task
         } else if (task.equalsIgnoreCase("mark")) {
+            // Only task given, no description
             if (description.length != 2) {
                 throw new DeltaException("""
                         OOPS!!! The format to mark tasks is wrong!
@@ -153,6 +167,7 @@ public class Parser {
             try {
                 int taskIdx = Integer.parseInt(description[1].strip());
                 return new MarkCommand(taskIdx);
+            // Index given not an integer
             } catch (NumberFormatException e) {
                 throw new DeltaException("""
                         OOPS!!! The index of task to mark must be an integer!
@@ -162,6 +177,7 @@ public class Parser {
 
         // Unmark Task
         } else if (task.equalsIgnoreCase("unmark")) {
+            // Only task given, no description
             if (description.length != 2) {
                 throw new DeltaException("""
                         OOPS!!! The format to unmark tasks is wrong!
@@ -171,6 +187,7 @@ public class Parser {
             try {
                 int taskIdx = Integer.parseInt(description[1].strip());
                 return new UnmarkCommand(taskIdx);
+            // Index given not an integer
             } catch (NumberFormatException e) {
                 throw new DeltaException("""
                         OOPS!!! The index of task to unmark must be an integer!
@@ -180,6 +197,7 @@ public class Parser {
 
         // Delete Task
         } else if (task.equalsIgnoreCase("delete")) {
+            // Only task given, no description
             if (description.length != 2) {
                 throw new DeltaException("""
                         OOPS!!! The format to delete tasks is wrong!
@@ -189,6 +207,7 @@ public class Parser {
             try {
                 int taskIdx = Integer.parseInt(description[1].strip());
                 return new DeleteCommand(taskIdx);
+            // Index given is not an integer
             } catch (NumberFormatException e) {
                 throw new DeltaException("""
                         OOPS!!! The index of task to delete must be an integer!

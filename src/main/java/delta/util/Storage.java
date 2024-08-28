@@ -39,12 +39,16 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String[] details = sc.nextLine().replace("\n", "").split(" \\| ");
                 Task task;
+                // Todo Task
                 if (details[0].equals("T") && details.length == 3) {
                     task = new Todo(details[2]);
+                // Deadline Task
                 } else if (details[0].equals("D") && details.length == 4) {
                     task = new Deadline(details[2], details[3]);
+                // Event Task
                 } else if (details[0].equals("E") && details.length == 5) {
                     task = new Event(details[2], details[3], details[4]);
+                // Format for Task stored is wrong (i.e. save file corrupted)
                 } else {
                     throw new DeltaException("OOPS!!! Save File has been corrupted!");
                 }
@@ -79,10 +83,7 @@ public class Storage {
         if (!directory.exists()) {
             boolean directoryCreatedSuccessfully = directory.mkdir();
             if (!directoryCreatedSuccessfully) {
-                throw new DeltaException("""
-                        OOPS!!! Save Directory unable to be created!
-                        \t Please check Save Directory path:
-                        \t """ + directory.getAbsolutePath());
+                throw new DeltaException("OOPS!!! Save Directory unable to be created!");
             }
         }
 
@@ -91,16 +92,10 @@ public class Storage {
             try {
                 boolean fileCreatedSuccessfully = file.createNewFile();
                 if (!fileCreatedSuccessfully) {
-                    throw new DeltaException("""
-                            OOPS!!! Save File unable to be created!
-                            \t Please check Save File path:
-                            \t """ + file.getAbsolutePath());
+                    throw new DeltaException("OOPS!!! Save File unable to be created!");
                 }
             } catch (IOException e) {
-                throw new DeltaException("""
-                        OOPS!!! Save File unable to be created!
-                        \t Please check Save File path:
-                        \t """ + file.getAbsolutePath());
+                throw new DeltaException("OOPS!!! Save File unable to be created!");
             }
         }
 

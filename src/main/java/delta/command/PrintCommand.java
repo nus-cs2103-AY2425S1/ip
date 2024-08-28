@@ -10,9 +10,13 @@ import delta.util.Ui;
  * Prints all tasks from stored list.
  */
 public class PrintCommand extends Command {
+    /**
+     * Creates a PrintCommand instance.
+     */
     public PrintCommand() {
         super(CommandType.Print);
     }
+
     /**
      * Returns that MarkCommand is not the exit command.
      */

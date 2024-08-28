@@ -22,7 +22,7 @@ public class Todo extends Task {
     /**
      * Formats Todo for saving.
      *
-     * @return String Formatted details of Todo.
+     * @return Formatted string containing details of Todo.
      */
     @Override
     public String saveDetails() {

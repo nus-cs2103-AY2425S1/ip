@@ -11,6 +11,7 @@ import delta.exception.DeltaException;
  * Includes the name of the event, start date/time of the event and the date/time when the event ends.
  */
 public class Event extends Task {
+    // Date/time format used for printing.
     protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy ha");
     protected LocalDateTime start;
     protected LocalDateTime end;
@@ -22,7 +23,7 @@ public class Event extends Task {
      * @param description Name of event task.
      * @param start Start date/time of event.
      * @param end End date/time of event.
-     * @throws DeltaException If save file is corrupted and time/date retrieved has the wrong format.
+     * @throws DeltaException If time/date retrieved has the wrong format (i.e. save file corrupted).
      */
     public Event(String description, String start, String end) throws DeltaException {
         super(description, TaskType.Event);
@@ -30,10 +31,7 @@ public class Event extends Task {
             this.start = LocalDateTime.parse(start, FORMATTER);
             this.end = LocalDateTime.parse(end, FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DeltaException("""
-                    OOPS!!! Save File has been corrupted!
-                    \t Please delete the save file.
-                    \t Location: ./data/DeltaList.txt""");
+            throw new DeltaException("OOPS!!! Save File has been corrupted!");
         }
     }
 
@@ -66,7 +64,7 @@ public class Event extends Task {
     /**
      * Formats Event for saving.
      *
-     * @return String Formatted details of Event.
+     * @return Formatted string containing details of Event.
      */
     @Override
     public String saveDetails() {
