@@ -1,3 +1,5 @@
+package deez;
+
 import java.io.*;
 
 public class Storage {

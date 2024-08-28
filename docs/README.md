@@ -1,4 +1,4 @@
-# Deez User Guide
+# deez.Deez User Guide
 
 // Update the title above to match the actual product name
 

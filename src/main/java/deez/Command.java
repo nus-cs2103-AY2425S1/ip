@@ -1,3 +1,5 @@
+package deez;
+
 public enum Command {
     EXIT,
     LIST,

@@ -1,3 +1,4 @@
+package deez;
 
 public class DeezException extends RuntimeException {
     protected String[] errorMessages;
