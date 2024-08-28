@@ -1,3 +1,7 @@
+package Alfred.parser;
+
+import Alfred.ui.Ui;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

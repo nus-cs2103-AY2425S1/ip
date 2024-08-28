@@ -1,3 +1,12 @@
+package Alfred;
+
+import Alfred.parser.Parser;
+import Alfred.storage.Storage;
+import Alfred.task.Task;
+import Alfred.exception.AlfredException;
+import Alfred.task.TaskList;
+import Alfred.ui.Ui;
+
 import java.io.IOException;
 import java.util.Scanner;
 
