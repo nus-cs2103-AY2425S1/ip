@@ -6,6 +6,9 @@ import mira.Event;
 import mira.Savable;
 import mira.Storage;
 
+/**
+ * Represents a command to add an event task to the task list.
+ */
 public class EventCommand extends Command implements Savable {
     private final Event event;
 

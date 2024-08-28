@@ -6,6 +6,9 @@ import mira.Savable;
 import mira.Storage;
 import mira.Task;
 
+/**
+ * Represents a command to delete a task in the task list.
+ */
 public class DeleteCommand extends Command implements Savable {
     private final int index;
 
