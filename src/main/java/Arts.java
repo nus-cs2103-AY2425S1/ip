@@ -1,9 +1,15 @@
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Arts {
+    private static final String FILE_PATH = "./data/tasks.txt";
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
+        loadTasksFromFile();
+
         String logo = "     _    _____  _______  _____  \n"
                 + "    / \\  |  __ \\|__   __|/ ____| \n"
                 + "   / _ \\ | |__) |  | |  | (___   \n"
@@ -137,6 +143,35 @@ public class Arts {
                 System.out.println(" An unexpected error occurred: " + e.getMessage());
                 System.out.println("____________________________________________________________");
             }
+        }
+    }
+
+    private static void saveTasksToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    private static void loadTasksFromFile() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            System.out.println("No existing task file found. Starting fresh.");
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromFileFormat(line);
+                tasks.add(task);
+            }
+        } catch (IOException | ArtsException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
         }
     }
 }
