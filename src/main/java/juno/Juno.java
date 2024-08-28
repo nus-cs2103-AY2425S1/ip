@@ -1,3 +1,5 @@
+package juno;
+
 import juno.command.Command;
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
