@@ -57,6 +57,7 @@ public class Arts {
                         int markIndex = Integer.parseInt(parts[1]) - 1;
                         if (markIndex >= 0 && markIndex < tasks.size()) {
                             tasks.get(markIndex).markAsDone();
+                            saveTasksToFile();
                             System.out.println("____________________________________________________________");
                             System.out.println("Nice! I've marked this task as done.");
                             System.out.println(" " + tasks.get(markIndex));
@@ -68,6 +69,7 @@ public class Arts {
                         int unmarkIndex = Integer.parseInt(parts[1]) - 1;
                         if (unmarkIndex >= 0 && unmarkIndex < tasks.size()) {
                             tasks.get(unmarkIndex).markAsNotDone();
+                            saveTasksToFile();
                             System.out.println("____________________________________________________________");
                             System.out.println("OK, I've marked this task as not done.");
                             System.out.println(" " + tasks.get(unmarkIndex));
@@ -79,6 +81,7 @@ public class Arts {
                         int deleteIndex = Integer.parseInt(parts[1]) - 1;
                         if (deleteIndex >= 0 && deleteIndex < tasks.size()) {
                             Task removedTask = tasks.remove(deleteIndex);
+                            saveTasksToFile();
                             System.out.println("____________________________________________________________");
                             System.out.println("Noted. I've removed this task:");
                             System.out.println(" " + removedTask);
@@ -92,6 +95,7 @@ public class Arts {
                             throw new ArtsException("The description of a todo cannot be empty.");
                         }
                         tasks.add(new Todo(parts[1]));
+                        saveTasksToFile();
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
                         System.out.println(" " + tasks.get(tasks.size() - 1));
@@ -108,6 +112,7 @@ public class Arts {
                             throw new ArtsException("The deadline must have a /by date.");
                         }
                         tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                        saveTasksToFile();
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
                         System.out.println(" " + tasks.get(tasks.size() - 1));
@@ -124,6 +129,7 @@ public class Arts {
                             throw new ArtsException("The event must have /from and /to times.");
                         }
                         tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                        saveTasksToFile();
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
                         System.out.println(" " + tasks.get(tasks.size() - 1));
