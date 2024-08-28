@@ -1,15 +1,26 @@
 package task;
 
 /**
- * A todo task
+ * A todo task.
  *
  * @author dwsc37
  */
 public class Todo extends Task {
+    /**
+     * Constructor for a <code>Todo</code>.
+     *
+     * @param description Description of the todo.
+     */
     public Todo(String description) {
         super(description);
     }
 
+    /**
+     * Constructor for a <code>Todo</code>, with <code>isDone</code> included.
+     *
+     * @param description Description of the todo.
+     * @param isDone Completion status of the todo.
+     */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
     }

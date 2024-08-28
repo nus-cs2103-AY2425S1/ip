@@ -13,10 +13,21 @@ import task.Task;
 import task.TaskList;
 import task.Todo;
 
+/**
+ * Class to handle reading and writing from data file.
+ *
+ * @author dwsc37
+ */
 public class Storage {
     private final String TASK_FILE_PATH = "data/tasks.txt";
     private final String DIRECTORY_PATH = "data";
 
+    /**
+     * Reads tasks from data file and adds them to the given <code>taskList</code>.
+     *
+     * @param taskList Task list to add tasks to.
+     * @throws FileNotFoundException If data file is not found.
+     */
     public void loadTaskList(TaskList taskList) throws FileNotFoundException {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
@@ -39,6 +50,10 @@ public class Storage {
         };
     }
 
+    /**
+     * Initialises data directory and an empty data file.
+     * If the directory/file cannot be initialised, the program exits.
+     */
     public void initFile() {
         try {
             File dir = new File(DIRECTORY_PATH);
@@ -51,6 +66,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks in a <code>taskList</code> to the data file.
+     *
+     * @param taskList Task list to save.
+     * @throws IOException If file cannot be saved.
+     */
     public void saveTaskList(TaskList taskList) throws IOException {
        FileWriter fw = new FileWriter(TASK_FILE_PATH);
        fw.write(taskList.toData());

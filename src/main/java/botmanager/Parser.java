@@ -21,11 +21,18 @@ import task.Event;
 import task.Todo;
 
 /**
- * Handles parsing of user input
+ * Class to handle parsing of user input.
  *
  * @author dwsc37
  */
 public class Parser {
+    /**
+     * Parses a user input string and returns an Action to be executed.
+     *
+     * @param input User input string.
+     * @return Action to be executed by BotManager.
+     * @throws BotException If the command is not recognised or formatted wrongly.
+     */
     public Action parseInput(String input) throws BotException {
         Command command  = Command.getCommandFromInput(input.split(" ")[0]);
         return switch (command) {
@@ -55,7 +62,6 @@ public class Parser {
         if (arr.length != 2) {
             throw new InvalidCommandFormatException(Command.getCommandFromInput(arr[0]));
         }
-
         try {
             int taskIndex = Integer.parseInt(arr[1]);
             if (taskIndex <= 0) {
