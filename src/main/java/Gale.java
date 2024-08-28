@@ -27,28 +27,18 @@ public class Gale {
                     listTasks();
                 } else if (input.startsWith("mark")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-//                    if (taskList.get(taskIndex).status()) {
-//                        System.out.println(HORIZONTAL_LINE);
-//                        System.out.println("Your task is already completed!");
-//                        System.out.println(HORIZONTAL_LINE);
-//                    } else { }
                     markTask(taskIndex, true);
-
                 } else if (input.startsWith("unmark")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-//                    if (!taskList.get(taskIndex).status()) {
-//                        System.out.println(HORIZONTAL_LINE);
-//                        System.out.println("Your task is already unmarked!");
-//                        System.out.println(HORIZONTAL_LINE);
-//                    } else { }
                     markTask(taskIndex, false);
-
                 } else if (input.startsWith("todo")) {
                     addToDo(input);
                 } else if (input.startsWith("deadline")) {
                     addDeadline(input);
                 } else if (input.startsWith("event")) {
                     addEvent(input);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input);
                 } else {
                     throw new GaleException("Oops! That command got lost in the windy realm. Please try again!");
                 }
@@ -120,6 +110,17 @@ public class Gale {
         Task task = new Event(description, from, to);
         taskList.add(task);
         printAddedTask(task);
+    }
+
+    public void deleteTask(String input) {
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        Task task = taskList.get(index);
+        taskList.remove(index);
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Poof! The wind has blown away this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + taskList.size() + " tasks in your windy list.");
+        System.out.println(HORIZONTAL_LINE);
     }
     public void listTasks() {
         System.out.println(HORIZONTAL_LINE);
