@@ -5,5 +5,15 @@ public class Ui {
                     + "What can I do for you?";
     private static final String GOODBYE_GREETING = "Bye. Hope to see you again soon! :)\n";
 
+    public Ui() {
 
+    }
+
+    public void greet() {
+        System.out.println(HELLO_GREETING);
+    }
+
+    public void goodbye() {
+        System.out.println(GOODBYE_GREETING);
+    }
 }

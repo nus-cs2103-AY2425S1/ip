@@ -3,13 +3,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Stobberi {
-    private static final String NAME_OF_CHATBOT = "Stobberi";
-    private static final String HELLO_GREETING =
-            "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
-                    + "What can I do for you?";
-    private static final String GOODBYE_GREETING = "Bye. Hope to see you again soon! :)\n";
-
     private ArrayList<Task> listOfTasks;
+    private Ui ui = new Ui();
 
     public Stobberi() {
         listOfTasks = new ArrayList<>();
@@ -154,14 +149,13 @@ public class Stobberi {
     public void run() {
         Storage storage = new Storage("data/list.txt");
         listOfTasks = storage.getList();
-        System.out.println(displayForm(HELLO_GREETING));
+        ui.greet();
         createList();
-        System.out.println(displayForm(GOODBYE_GREETING));
+        ui.goodbye();
         storage.saveList(listOfTasks);
     }
 
     public static void main(String[] args) {
-        Stobberi stobberi = new Stobberi();
-        stobberi.run();
+        new Stobberi().run();
     }
 }
