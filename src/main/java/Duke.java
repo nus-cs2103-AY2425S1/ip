@@ -1,12 +1,15 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.io.File;
+import java.time.LocalDateTime;
 
 public class Duke {
     public static void main(String[] args) {
@@ -79,8 +82,8 @@ public class Duke {
                             break;
                         case "deadline":
                             try {
-                                splitedBySlash = splitedBySpace[1].split("/");
-                                event = new Deadline(splitedBySlash[0], splitedBySlash[1].replace("by ", ""));
+                                splitedBySlash = splitedBySpace[1].split("/by ");
+                                event = new Deadline(splitedBySlash[0], splitedBySlash[1]);
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 System.out.println("Not enough arguments");
                             } catch (LightException e) {
@@ -90,8 +93,9 @@ public class Duke {
                             break;
                         case "event":
                             try {
-                                splitedBySlash = splitedBySpace[1].split("/");
-                                event = new Event(splitedBySlash[0], splitedBySlash[1].replace("from ", "").stripTrailing(), splitedBySlash[2].replace("to ", ""));
+                                splitedBySlash = splitedBySpace[1].split("/from ");
+                                String[] splitedBySlashTo = splitedBySpace[1].split("/to ");
+                                event = new Event(splitedBySlash[0], splitedBySlash[1].substring(0,splitedBySlash[1].indexOf("/to ")).stripTrailing(), splitedBySlashTo[1]);
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 System.out.println("Not enough arguments");
                             } catch (LightException e) {
@@ -145,6 +149,14 @@ public class Duke {
         ArrayList<Task> list = new ArrayList<>();
         try {
             File fileObj = new File(filePath);
+            if (!fileObj.getParentFile().exists()) {
+                fileObj.getParentFile().mkdirs();
+            }
+            if (fileObj.createNewFile()) {
+                //file created
+            } else {
+                //file already exist
+            }
             Scanner scanner = new Scanner(fileObj);
             Task event = null;
             while (scanner.hasNextLine()) {
@@ -190,13 +202,25 @@ public class Duke {
                     if (marked) {
                         event.markAsDone();
                     }
-                    System.out.println(event);
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(arrayToNumberedString(list));
         return list;
+    }
+
+    public static LocalDateTime dateTimeParser(String input, DateTimeFormatter format) {
+        //Define the input format
+        try {
+            // Parse the input string to a LocalDateTime object
+            // Return the LocalDateTime object
+            return LocalDateTime.parse(input, format);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format! Please use the format: " + format.toString());
+            return null;
+        }
     }
 }
 
