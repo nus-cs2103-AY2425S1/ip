@@ -63,7 +63,7 @@ public class TaskList {
         try {
             storage.saveTasks(this.tasks);
         } catch (TarsException e) {
-            System.out.println("Error saving task: "+ e.getMessage());
+            throw new TarsException("Error saving tasks: " + e.getMessage(), e);
         }
     }
 
