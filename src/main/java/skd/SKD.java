@@ -14,12 +14,21 @@ public class SKD {
     private List<Task> tasks;
     private Ui ui;
 
+    /**
+     * Creates a new SKD instance.
+     *
+     * @param filePath Path to storage file.
+     */
     public SKD(String filePath) {
         ui = new Ui();
         storage = new ToStore(filePath);
         tasks = storage.load();
     }
 
+    /**
+     * Runs the main execution loop of the chatbot.
+     * Continuously reads user input, parses commands, and executes them.
+     */
     public void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
@@ -58,6 +67,10 @@ public class SKD {
                         Parser.parseDelete(input, tasks);
                         storage.save(tasks);
                         break;
+                    case FIND:
+                        String keyword = input.substring(5).trim();
+                        ui.showFoundTasks(tasks, keyword);
+                        break;
                     default:
                         throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -68,6 +81,11 @@ public class SKD {
         scanner.close();
     }
 
+    /**
+     * The main method, start of the SKD chatbot.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new SKD("data/duke.txt").run();
     }

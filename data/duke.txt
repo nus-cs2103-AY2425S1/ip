@@ -1,3 +1,2 @@
 [T][ ] read book
-[T][ ] read book
-[D][ ] submit report (by: Aug 31 2024)
+[E][ ] project meeting (from: Aug 30 2024, 14:00 to: Aug 30 2024, 16:00)

@@ -15,10 +15,21 @@ import java.util.List;
 public class ToStore {
     private final Path filePath;
 
+    /**
+     * Constructs ToStore instance with thefile path.
+     *
+     * @param filePath Path to file where tasks are stored.
+     */
     public ToStore(String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
+    /**
+     * Loads tasks from file.
+     * If the file or directory does not exist, it creates one.
+     *
+     * @return The list of tasks in the file. If the file does not exist, returns an empty list.
+     */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -42,6 +53,11 @@ public class ToStore {
         return tasks;
     }
 
+    /**
+     * Saves current list of tasks to the file.
+     *
+     * @param tasks List of tasks to be saved.
+     */
     public void save(List<Task> tasks) {
         List<String> lines = new ArrayList<>();
         for (Task task : tasks) {

@@ -10,6 +10,12 @@ import java.util.List;
 
 public class Parser {
 
+    /**
+     * Parses user's command and returns the same CommandType.
+     *
+     * @param input The input command from the user.
+     * @return The CommandType matching user's input.
+     */
     public static CommandType parseCommand(String input) {
         if (input.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
@@ -27,11 +33,20 @@ public class Parser {
             return CommandType.EVENT;
         } else if (input.startsWith("delete")) {
             return CommandType.DELETE;
+        } else if (input.startsWith("find")) {
+            return CommandType.FIND;
         } else {
             return CommandType.ETC;
         }
     }
 
+    /**
+     * Parses input to create a new Task object based on command type.
+     *
+     * @param input Input command from the user.
+     * @param type  The CommandType to determine type of task.
+     * @return Task object based on input.
+     */
     public static Task parseAddCommand(String input, CommandType type) {
         switch (type) {
             case TODO:
@@ -57,6 +72,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses line from the file to recreate Task object.
+     *
+     * @param line Line from the saved file representing task.
+     * @return Task object created from the line.
+     */
     public static Task parseTask(String line) {
         try {
             String type = line.substring(1, 2);
@@ -85,6 +106,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks task as done based on the input.
+     *
+     * @param input The input command from user.
+     * @param tasks List of tasks.
+     */
     public static void parseMark(String input, List<Task> tasks) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
@@ -93,6 +120,12 @@ public class Parser {
         tasks.get(index).markAsDone();
     }
 
+    /**
+     * Unmarks task as not done based on input.
+     *
+     * @param input The Input command from user.
+     * @param tasks List of tasks.
+     */
     public static void parseUnmark(String input, List<Task> tasks) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
@@ -101,6 +134,12 @@ public class Parser {
         tasks.get(index).unmark();
     }
 
+    /**
+     * Deletes task from the list based on input.
+     *
+     * @param input The input command from user.
+     * @param tasks List of tasks.
+     */
     public static void parseDelete(String input, List<Task> tasks) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= tasks.size()) {
