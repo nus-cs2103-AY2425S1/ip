@@ -1,12 +1,10 @@
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
+package command;
+
+import task.Deadline;
+import task.Event;
+import task.Todo;
 
 import java.util.Objects;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Parser {
     private TaskList lst;

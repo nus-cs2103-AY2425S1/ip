@@ -1,12 +1,13 @@
-import java.awt.*;
-import java.io.File;
+package command;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.Objects;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class TaskList {
