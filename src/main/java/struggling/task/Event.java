@@ -5,8 +5,9 @@ package struggling.task;
  * the start and end date of a task.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+
+    private final String from;
+    private final String to;
 
     /**
      * Initializes an Event object.

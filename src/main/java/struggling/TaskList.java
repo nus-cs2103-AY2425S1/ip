@@ -1,4 +1,5 @@
 package struggling;
+
 import struggling.task.Deadline;
 import struggling.task.Event;
 import struggling.task.Task;
@@ -14,7 +15,7 @@ import java.util.Objects;
  */
 public class TaskList {
 
-    ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Initializes TaskList with an empty ArrayList.
@@ -30,7 +31,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<String> input) {
         tasks = new ArrayList<>();
-        for(String s: input) {
+        for (String s : input) {
             String[] args = s.split(" \\| ");
             Task task = switch (args[0]) {
                 case "T" -> new ToDo(args[2]);
@@ -102,7 +103,7 @@ public class TaskList {
     public ArrayList<String> getTasksString() {
         ArrayList<String> arr = new ArrayList<>();
 
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             arr.add(t.toString());
         }
 
@@ -116,7 +117,7 @@ public class TaskList {
     public ArrayList<String> getTasksState() {
         ArrayList<String> arr = new ArrayList<>();
 
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             arr.add(t.getState());
         }
 

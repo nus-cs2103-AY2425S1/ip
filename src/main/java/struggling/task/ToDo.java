@@ -4,7 +4,7 @@ package struggling.task;
  * ToDo class stores the description and
  * the completion state of a task.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Initializes a ToDo object.

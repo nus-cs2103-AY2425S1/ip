@@ -1,4 +1,5 @@
 package struggling;
+
 import struggling.command.Command;
 import struggling.task.Task;
 
@@ -11,9 +12,7 @@ import java.util.ArrayList;
  * @author KengHian
  */
 public class Struggling {
-    final private String name = "struggling";
-
-    private ArrayList<Task> taskArr = new ArrayList<>();
+    private final ArrayList<Task> taskArr = new ArrayList<>();
 
     private Storage storage;
     private TaskList tasks;
@@ -41,6 +40,10 @@ public class Struggling {
     /**
      * Starts the chatbot.
      */
+    public static void main(String[] args) {
+        new Struggling("data/Struggling.txt").run();
+    }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -59,10 +62,5 @@ public class Struggling {
             }
         }
     }
-
-    public static void main(String[] args) {
-        new Struggling("data/Struggling.txt").run();
-    }
-
 }
 

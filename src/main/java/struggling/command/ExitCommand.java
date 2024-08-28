@@ -3,6 +3,7 @@ package struggling.command;
 import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
+
 import java.io.IOException;
 
 public class ExitCommand extends Command {
