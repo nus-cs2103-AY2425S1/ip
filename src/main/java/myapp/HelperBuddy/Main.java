@@ -1,38 +1,38 @@
-package com.example.YourHelperBuddy;
+package myapp.HelperBuddy;
 
-import java.io.*;
+import java.lang.System;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
-    private static String home = System.getProperty("user.home");
+    private static final String HOME = System.getProperty("user.home");
 
-    private static String directoryPath = home + "/Documents/";
+    private static final String DIRECTORY_PATH = HOME + "/Documents/";
 
-    private static String filePath = directoryPath + "TaskInfo.txt";
+    private static final String FILE_PATH = DIRECTORY_PATH + "TaskInfo.txt";
 
     public static void main(String[] args) {
         Ui screen = new Ui();
         screen.showWelcomeMessage();
         TaskList taskList = new TaskList();
-
-        File directory = new File(directoryPath);
+        File directory = new File(DIRECTORY_PATH);
         if (!directory.exists()){
             if (directory.mkdirs()) {
-                System.out.println("Directory created: " + directoryPath);
+                System.out.println("Directory created: " + DIRECTORY_PATH);
             }
             else {
-                System.out.println("Failed to create directory: " + directoryPath);
+                System.out.println("Failed to create directory: " + DIRECTORY_PATH);
                 return;
             }
         }
-
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
-                    System.out.println("File created: " + filePath);
+                    System.out.println("File created: " + FILE_PATH);
                 }
                 else {
-                    System.out.println("Failed to create file: " + filePath);
+                    System.out.println("Failed to create file: " + FILE_PATH);
                     return;
                 }
             }
@@ -43,11 +43,11 @@ public class Main {
                 return;
             }
         }
-        Storage storage = new Storage(filePath);
+        Storage storage = new Storage(FILE_PATH);
         storage.loadTasks(taskList.getTasks());
         while (true) {
             String taskDescription = screen.readUserInput();
-            if (taskDescription.equals("")) {
+            if (taskDescription.isEmpty()) {
                 break;
             }
             else if (taskDescription.equals("bye")) {
@@ -72,11 +72,10 @@ public class Main {
                 screen.showTaskUnmarked(currentTask);
             }
             else {
-                Parser parser = new Parser();
-                Task objective = parser.parseCommand(taskDescription);
-                if (objective != null) {
-                    taskList.addTask(objective);
-                    screen.showTaskAdded(objective, taskList.size());
+                Task currentTask = Parser.parseCommand(taskDescription);
+                if (currentTask != null) {
+                    taskList.addTask(currentTask);
+                    screen.showTaskAdded(currentTask, taskList.size());
                 }
             }
         }

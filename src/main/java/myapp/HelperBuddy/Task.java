@@ -1,4 +1,4 @@
-package com.example.YourHelperBuddy;
+package myapp.HelperBuddy;
 
 abstract class Task {
     private final String description;
