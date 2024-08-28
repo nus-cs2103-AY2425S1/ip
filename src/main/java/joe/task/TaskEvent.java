@@ -25,14 +25,26 @@ public class TaskEvent extends Task {
         return String.format("E|%d|%s|%s|%s", isDone() ? 1 : 0, getTask(), from, to);
     }
 
+    /**
+     * @return The start date of the event.
+     */
     public LocalDate getFrom() {
         return from;
     }
 
+    /**
+     * @return The end date of the event.
+     */
     public LocalDate getTo() {
         return to;
     }
 
+    /**
+     * Checks if the dates are in the correct format.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
+     * @return True if the dates are in the correct format, false otherwise.
+     */
     public static boolean isValidFormat(String from, String to) {
         try {
             LocalDate.parse(from);

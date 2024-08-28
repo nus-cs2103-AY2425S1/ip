@@ -20,40 +20,73 @@ public class Controller {
         this.store = storage.loadTasks();
     }
 
+    /**
+     * Starts the program and prints the greeting message.
+     */
     public void startProgram() {
         ui.printHelp();
         ui.greet();
     }
 
+    /**
+     * Ends the program and prints the farewell message.
+     */
     public void endProgram() {
         storage.saveTasks(store);
         ui.farewell();
     }
 
+    /**
+     * Handles list command.
+     */
     public void handleList() {
         ui.printListMessage(store);
     }
 
+    /**
+     * Handles help command.
+     */
     public void handleHelp() {
         ui.printHelp();
     }
 
+    /**
+     * Handles mark command.
+     * Toggles the done status of the task at the specified index.
+     * @param index The index of the task to be marked as done.
+     */
     public void handleDone(int index) {
         store.get(index).toggleDone();
         ui.printDoneMessage(store.get(index));
     }
 
+    /**
+     * Handles unmark command.
+     * Toggles the done status of the task at the specified index.
+     * @param index The index of the task to be marked as undone.
+     */
     public void handleUndone(int index) {
         store.get(index).toggleDone();
         ui.printUndoneMessage(store.get(index));
     }
 
+    /**
+     * Handles delete command. 
+     * Deletes the task at the specified index from the store.
+     * @param index The index of the task to be deleted.
+     */
     public void handleDelete(int index) {
         Task deletedTask = store.get(index);
         store.remove(index);
         ui.printDeleteMessage(deletedTask, store.size());
     }
 
+    /**
+     * Handles todo command. 
+     * Creates a new todo task and adds it to the store.
+     * Prints an error message if the task is empty.
+     * @param task The task description.
+     */
     public void handleTodo(String task) {
         if (task.equals("")) {
             ui.printEmptyTaskErrorMessage();
@@ -63,6 +96,13 @@ public class Controller {
         ui.printTodoMessage(store.get(store.size() - 1), store.size());
     }
 
+    /**
+     * Handles deadline command. 
+     * Creates a new deadline task and adds it to the store.
+     * Prints an error message if the task is empty or the date format is invalid.
+     * @param task The task description.
+     * @param by The deadline date.
+     */
     public void handleDeadline(String task, String by) {
         if (task.equals("")) {
             ui.printEmptyTaskErrorMessage();
@@ -77,6 +117,14 @@ public class Controller {
         ui.printDeadlineMessage(store.get(store.size() - 1), store.size());
     }
 
+    /**
+     * Handles event command. 
+     * Creates a new event task and adds it to the store.
+     * Prints an error message if the task is empty or the date format is invalid.
+     * @param task The task description.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
+     */
     public void handleEvent(String task, String from, String to) {
         if (task.equals("")) {
             ui.printEmptyTaskErrorMessage();

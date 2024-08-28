@@ -21,10 +21,18 @@ public class TaskDeadline extends Task {
         return String.format("D|%d|%s|%s", isDone() ? 1 : 0, getTask(), by);
     }
 
+    /**
+     * @return The date of the deadline.
+     */
     public LocalDate getBy() {
         return by;
     }
 
+    /**
+     * Checks if the date is in the correct format.
+     * @param by The date of the deadline.
+     * @return True if the date is in the correct format, false otherwise.
+     */
     public static boolean isValidFormat(String by) {
         try {
             LocalDate.parse(by);
