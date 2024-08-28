@@ -47,6 +47,7 @@ public final class ReplyTextMessages {
                                                                                                     "where TASK_NUMBER is the task number in the task list";
     public static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
 
+    public static final String SAVE_FILE_NOT_FOUND_EXCEPTION = "Savefile not found...\nBeginning with blank list";
     public static final String INVALID_SAVE_FILE_EXCEPTION_1s = "Error Reading save file! The following error was encountered: %s";
     public static final String INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES = "Missing Data Values";
     public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse value - %s";
