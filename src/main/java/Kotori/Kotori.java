@@ -1,9 +1,11 @@
-import Command.Command;
-import Parser.Parser;
-import Storage.Storage;
-import TaskList.TaskList;
-import Command.ExitCommand;
-import Command.GreetCommand;
+package Kotori;
+
+import Kotori.Command.Command;
+import Kotori.Parser.Parser;
+import Kotori.Storage.Storage;
+import Kotori.TaskList.TaskList;
+import Kotori.Command.ExitCommand;
+import Kotori.Command.GreetCommand;
 
 import java.util.Scanner;
 

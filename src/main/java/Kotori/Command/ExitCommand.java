@@ -1,8 +1,7 @@
-package Command;
+package Kotori.Command;
 
-import Storage.Storage;
-import TaskList.TaskList;
-import static Ui.Ui.printExit;
+import Kotori.TaskList.TaskList;
+import static Kotori.Ui.Ui.printExit;
 public class ExitCommand extends Command{
     TaskList list;
 

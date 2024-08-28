@@ -1,6 +1,6 @@
-package TaskList;
+package Kotori.TaskList;
 
-import Storage.CorruptedFileException;
+import Kotori.Storage.CorruptedFileException;
 
 import java.time.LocalDate;
 

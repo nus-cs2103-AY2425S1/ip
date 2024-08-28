@@ -1,11 +1,11 @@
-package Command;
+package Kotori.Command;
 
-import Storage.Storage;
-import TaskList.Task;
-import TaskList.TaskList;
+import Kotori.Storage.Storage;
+import Kotori.TaskList.Task;
+import Kotori.TaskList.TaskList;
 
-import static Ui.Ui.printMessage;
-import static Ui.Ui.printMessages;
+import static Kotori.Ui.Ui.printMessage;
+import static Kotori.Ui.Ui.printMessages;
 
 public class DeleteCommand extends Command{
     private Storage storage;

@@ -1,4 +1,4 @@
-package TaskList;//A-enum is used here
+package Kotori.TaskList;//A-enum is used here
 
 public class IncorrectStateException extends Exception {
     enum State {mark,unmark}

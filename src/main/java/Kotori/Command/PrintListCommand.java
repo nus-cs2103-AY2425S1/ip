@@ -1,8 +1,8 @@
-package Command;
+package Kotori.Command;
 
-import TaskList.TaskList;
+import Kotori.TaskList.TaskList;
 
-import static Ui.Ui.printList;
+import static Kotori.Ui.Ui.printList;
 
 public class PrintListCommand extends Command {
     private TaskList list;

@@ -1,11 +1,11 @@
-package Command;
+package Kotori.Command;
 
-import TaskList.TaskList;
+import Kotori.TaskList.TaskList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static Ui.Ui.*;
+import static Kotori.Ui.Ui.*;
 
 public class FindCommand extends Command{
     private TaskList list;

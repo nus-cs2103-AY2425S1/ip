@@ -1,8 +1,8 @@
-package Parser;
+package Kotori.Parser;
 
-import Command.*;
-import Storage.Storage;
-import TaskList.*;
+import Kotori.Command.*;
+import Kotori.Storage.Storage;
+import Kotori.TaskList.*;
 
 
 public class Parser {

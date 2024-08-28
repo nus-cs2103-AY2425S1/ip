@@ -1,7 +1,7 @@
-package Storage;
+package Kotori.Storage;
 
-import TaskList.TaskList;
-import TaskList.Task;
+import Kotori.TaskList.TaskList;
+import Kotori.TaskList.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import Ui.Ui;
+import Kotori.Ui.Ui;
 
 public class Storage {
     private File file;
 
     public Storage () {
-        this.file = makeFile("data", "Kotori.txt");
+        this.file = makeFile("data", "Kotori.Kotori.txt");
     }
 
     public TaskList load() {
@@ -56,7 +56,7 @@ public class Storage {
         writer.close();
     } catch (FileNotFoundException e) {
         Ui.printMessages("Sorry~ I can not find the storage file",
-                "Please ensure there is a file with path data/Kotori.txt");
+                "Please ensure there is a file with path data/Kotori.Kotori.txt");
     } catch (IOException e) {
         Ui.printMessage(String.format("There is something wrong about: %s", e.getMessage()));
     }

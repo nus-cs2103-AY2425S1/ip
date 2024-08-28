@@ -1,13 +1,16 @@
-package Command;
+package Kotori.Command;
 
-import Storage.Storage;
-import TaskList.*;
+import Kotori.Storage.Storage;
+import Kotori.TaskList.InvalidInputException;
+import Kotori.TaskList.MissingInformationException;
+import Kotori.TaskList.Task;
+import Kotori.TaskList.TaskList;
 
 
 import java.time.format.DateTimeParseException;
 
-import static Ui.Ui.printMessage;
-import static Ui.Ui.printMessages;
+import static Kotori.Ui.Ui.printMessage;
+import static Kotori.Ui.Ui.printMessages;
 
 public class AddCommand extends Command{
     private Storage storage;

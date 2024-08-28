@@ -1,4 +1,4 @@
-package TaskList;
+package Kotori.TaskList;
 
 import java.util.ArrayList;
 
