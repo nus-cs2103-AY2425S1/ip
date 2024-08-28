@@ -11,26 +11,26 @@ ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: 28 Jul 2024)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: 30 Jul 2024 14:00 to: 16:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] return book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: 28 Jul 2024)
+3. [E][ ] project meeting (from: 30 Jul 2024 14:00 to: 16:00)
 ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+[D][X] return book (by: 28 Jul 2024)
 ____________________________________________________________
 
 ____________________________________________________________
@@ -41,20 +41,20 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] return book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][X] return book (by: 28 Jul 2024)
+3. [E][ ] project meeting (from: 30 Jul 2024 14:00 to: 16:00)
 ____________________________________________________________
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: 28 Jul 2024)
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][X] return book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: 28 Jul 2024)
+3. [E][ ] project meeting (from: 30 Jul 2024 14:00 to: 16:00)
 ____________________________________________________________
 
 ____________________________________________________________
@@ -65,7 +65,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
-1. [D][ ] return book (by: Sunday)
-2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [D][ ] return book (by: 28 Jul 2024)
+2. [E][ ] project meeting (from: 30 Jul 2024 14:00 to: 16:00)
 ____________________________________________________________
 

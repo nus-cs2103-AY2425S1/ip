@@ -1,26 +1,20 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
-    private final LocalDate by;
+    private final LocalDate date;
 
-    public DeadlineTask(String description, boolean isDone, String by) throws InvalidDateException {
+    public DeadlineTask(String description, boolean isDone, String date) throws InvalidDateException {
         super(description, isDone);
-
-        try {
-            this.by = Parser.parseDate(by);
-        } catch (Exception e) {
-            throw new InvalidDateException("Invalid date format. Please use the format dd/MM/yyyy");
-        }
+        this.date = Parser.parseDate(date);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Parser.dateToString(by) + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.dateToString(date) + ")";
     }
 
     @Override
     public String simpleFormat() {
-        return "D | " + super.simpleFormat() + " | " + by;
+        return "D | " + super.simpleFormat() + " | " + date;
     }
 }

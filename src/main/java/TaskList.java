@@ -1,20 +1,14 @@
 import java.util.ArrayList;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+
 
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
     private int taskCount;
-    private final String fileName;
-    private final String folderPath;
+    private final Storage storage;
 
     public TaskList(String fileName) {
         this.tasks = new ArrayList<>();
-        this.fileName = fileName;
-        this.folderPath = "./data";
+        this.storage = new Storage("data", fileName);
         this.taskCount = 0;
 
         try {
@@ -25,19 +19,27 @@ public class TaskList {
         }
     }
 
-    public Task markAsDone(int taskNumber) throws DataIOException {
+    public Task markAsDone(int taskNumber) throws DataIOException, InvalidCommandException {
+        this.isValidTaskNumberCheck(taskNumber);
         this.tasks.get(taskNumber - 1).markAsDone();
         this.saveTasks();
         return this.tasks.get(taskNumber - 1);
     }
 
-    public Task markAsNotDone(int taskNumber) throws DataIOException {
+    public Task markAsNotDone(int taskNumber) throws DataIOException, InvalidCommandException {
+        this.isValidTaskNumberCheck(taskNumber);
         this.tasks.get(taskNumber - 1).markAsNotDone();
         this.saveTasks();
         return this.tasks.get(taskNumber - 1);
     }
 
-    public boolean isValidTaskNumber(int taskNumber) {
+    private void isValidTaskNumberCheck(int taskNumber) throws InvalidCommandException {
+        if (!this.isValidTaskNumber(taskNumber)) {
+            throw new InvalidCommandException("OOPS!!! The task number is invalid.");
+        }
+    }
+
+    private boolean isValidTaskNumber(int taskNumber) {
         return taskNumber >= 1 && taskNumber <= this.taskCount;
     }
 
@@ -51,7 +53,9 @@ public class TaskList {
         this.saveTasks();
     }
 
-    public Task removeTask(int taskNumber) throws DataIOException {
+    public Task removeTask(int taskNumber) throws DataIOException, InvalidCommandException {
+        this.isValidTaskNumberCheck(taskNumber);
+
         Task task = this.tasks.get(taskNumber - 1);
         this.taskCount--;
 
@@ -99,68 +103,11 @@ public class TaskList {
     }
 
     private void saveTasks() throws DataIOException {
-        Path folderPath = Paths.get(this.folderPath);
-        Path filePath = Paths.get(this.folderPath + "/" + this.fileName);
-
-        try {
-            // Create the folder if it does not exist
-            if (Files.notExists(folderPath)) {
-                Files.createDirectories(folderPath);
-            }
-            // Open or create the file if it does not exist
-            Files.write(filePath, this.getSimpleTaskList().getBytes(),
-                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
-            throw new DataIOException("OOPS!!! There was an error saving the tasks to the file.");
-        }
+        this.storage.saveTasks(this.getSimpleTaskList());
     }
 
     private void loadTasks() throws DataIOException, InvalidDataFormatException {
-        Path filePath = Paths.get(this.folderPath + "/" + this.fileName);
-
-        try {
-            if (Files.notExists(filePath)) {
-                throw new DataIOException("OOPS!!! The file does not exist.");
-            }
-
-            String fileContent = Files.readString(filePath);
-            String[] tasksStr = fileContent.split("\n");
-
-            for (String taskStr : tasksStr) {
-                String[] taskDetails = taskStr.split("\\|");
-                Task.TYPE taskType = switch (taskDetails[0].trim()) {
-                    case "T" -> Task.TYPE.TODO;
-                    case "D" -> Task.TYPE.DEADLINE;
-                    case "E" -> Task.TYPE.EVENT;
-                    default ->
-                            throw new InvalidDataFormatException("OOPS!!! " +
-                                    "There was an error loading the tasks from the file.");
-                };
-                boolean isDone = taskDetails[1].trim().equals("1");
-                String description = taskDetails[2].trim();
-
-                switch (taskType) {
-                    case TODO:
-                        this.tasks.add(new ToDoTask(description, isDone));
-                        break;
-                    case DEADLINE:
-                        this.tasks.add(new DeadlineTask(description, isDone, taskDetails[3].trim()));
-                        break;
-                    case EVENT:
-                        this.tasks.add(new EventTask(description, isDone, taskDetails[3].trim(),
-                                taskDetails[4].trim(), taskDetails[5].trim()));
-                        break;
-                    default:
-                        throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
-                }
-            }
-
-            this.taskCount = tasksStr.length;
-        } catch (IOException e) {
-            throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
-        } catch (InvalidDateException e) {
-            throw new InvalidDataFormatException("OOPS!!! There was an error loading the tasks from the file." +
-                    " Please check the date and time format.");
-        }
+        this.tasks = this.storage.loadTasks();
+        this.taskCount = tasks.size();
     }
 }

@@ -6,124 +6,95 @@ public class Jay {
         jay.start();
     }
 
-    private final String name;
     private final TaskList tasks;
+    private final Ui ui;
 
     public Jay(String name) {
-        this.name = name;
         this.tasks = new TaskList("tasks.txt");
+        this.ui = new Ui(name);
     }
 
     public void start() {
-        System.out.println(this.greet());
+        ui.greet();
         Scanner scanner = new Scanner(System.in);
 
         while (scanner.hasNext()) {
             String command = scanner.nextLine();
             if (command.equals("bye")) {
-                System.out.println(this.quit());
+                ui.quit();
                 break;
             } else {
-                System.out.println(this.processCommand(command));
+               ui.output(this.processCommand(command));
             }
         }
     }
 
-    private String greet() {
-        String greet =
-                " Hello! I'm " + this.name + "\n" +
-                " What can I do for you?";
-        return formattedCommand(greet);
-    }
-
-    private String quit() {
-        return formattedCommand("Bye. Hope to see you again soon!");
-    }
-
-    private String processCommand(String command) {
-        String[] commands = command.split(" ");
+    private String processCommand(String commandStr) {
+        Command command = new Command(commandStr);
+        Command.CommandType commandType = command.getCommandType();
 
         try {
-            if (command.equals("list")) {
-                return this.showTasks();
-            } else if (commands[0].equals("mark") || commands[0].equals("unmark") || commands[0].equals("delete")) {
-                int taskNumber = Integer.parseInt(commands[1]);
-
-                if (!tasks.isValidTaskNumber(taskNumber)) {
-                    return formattedCommand("Invalid task number");
+            switch (commandType) {
+                case List -> {
+                    return this.showTasks();
+                }
+                case Add -> {
+                    Task.TYPE taskType = command.getTaskType();
+                    return this.addTask(Parser.parseTask(taskType, command));
                 }
 
-                switch (commands[0]) {
-                    case "mark" -> {
-                        try {
-                            Task task = this.tasks.markAsDone(taskNumber);
-                            return formattedCommand("Nice! I've marked this task as done:\n" + task);
-                        } catch (DataIOException e) {
-                            return formattedCommand("Sorry! I cannot mark this task " + e.getMessage() + "\n");
-                        }
-                    }
-                    case "unmark" -> {
-                        try {
-                            Task task = this.tasks.markAsNotDone(taskNumber);
-                            return formattedCommand("OK, I've marked this task as not done yet:\n" + task);
-                        } catch (DataIOException e) {
-                            return formattedCommand("Sorry! I cannot unmark this task " + e.getMessage() + "\n");
-                        }
-                    }
-                    case "delete" -> {
-                        return this.deleteTask(taskNumber);
-                    }
-                    default ->
-                            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                case Mark -> {
+                    int taskNumber = command.getTaskNumber();
+                    Task task = this.tasks.markAsDone(taskNumber);
+                    return "Nice! I've marked this task as done:\n" + task;
                 }
-            } else {
-                Task.TYPE taskType = switch (commands[0]) {
-                    case "todo" -> Task.TYPE.TODO;
-                    case "deadline" -> Task.TYPE.DEADLINE;
-                    case "event" -> Task.TYPE.EVENT;
-                    default ->
-                            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                };
 
-                return this.addTask(Parser.parseTask(taskType, command));
+                case Unmark -> {
+                    int taskNumber = command.getTaskNumber();
+                    Task task = this.tasks.markAsNotDone(taskNumber);
+                    return "OK, I've marked this task as not done yet:\n" + task;
+                }
+
+                case Delete -> {
+                    int taskNumber = command.getTaskNumber();
+                    return this.deleteTask(taskNumber);
+                }
+
+                case Exit -> {
+                    return "Bye. Hope to see you again soon!";
+                }
+
+                default ->
+                    throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (InvalidCommandException | InvalidTaskException e) {
-            return formattedCommand(e.getMessage());
-        } catch (NumberFormatException e) {
-            return formattedCommand("OOPS!!! Please enter a valid task number.");
+        } catch (InvalidCommandException | InvalidTaskException | DataIOException e) {
+            return e.getMessage();
         }
     }
 
     private String showTasks() {
         if (this.tasks.isEmpty()) {
-            return formattedCommand("You have no tasks in the list.");
+            return "You have no tasks in the list.";
         } else {
-            return formattedCommand("Here are the tasks in your list:\n" + tasks);
+            return "Here are the tasks in your list:\n" + tasks;
         }
     }
 
     private String addTask(Task task) {
         try {
             this.tasks.addTask(task);
-            return formattedCommand("Got it. I've added this task:\n" + task + "\n" + this.tasks.getTaskCount());
+            return "Got it. I've added this task:\n" + task + "\n" + this.tasks.getTaskCount();
         } catch (DataIOException e) {
-            return formattedCommand(e.getMessage());
+            return e.getMessage();
         }
     }
 
     private String deleteTask(int taskNumber) {
         try {
             Task task = this.tasks.removeTask(taskNumber);
-            return formattedCommand("Noted. I've removed this task:\n" + task + "\n" + this.tasks.getTaskCount());
-        } catch (DataIOException e) {
-            return formattedCommand(e.getMessage());
+            return "Noted. I've removed this task:\n" + task + "\n" + this.tasks.getTaskCount();
+        } catch (DataIOException | InvalidCommandException e) {
+            return e.getMessage();
         }
     }
-
-    private String formattedCommand(String command) {
-        return "____________________________________________________________\n" +
-                command + "\n" +
-                "____________________________________________________________\n";
-    }
-
 }

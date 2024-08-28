@@ -7,15 +7,11 @@ public class EventTask extends Task {
     private final LocalTime endTime;
 
     public EventTask(String description, boolean isDone, String date, String startTime, String endTime)
-            throws InvalidDateException {
+            throws InvalidDateException, InvalidTimeException {
         super(description, isDone);
-        try {
-            this.date = Parser.parseDate(date);
-            this.startTime = Parser.parseTime(startTime);
-            this.endTime = Parser.parseTime(endTime);
-        } catch (Exception e) {
-            throw new InvalidDateException("Invalid date or time format. Please use the format dd/MM/yyyy HHmm");
-        }
+        this.date = Parser.parseDate(date);
+        this.startTime = Parser.parseTime(startTime);
+        this.endTime = Parser.parseTime(endTime);
     }
 
     @Override
