@@ -14,10 +14,25 @@ import PurrfessorDipsy.Parser.*;
 import PurrfessorDipsy.Task.*;
 import PurrfessorDipsy.TaskList.TaskList;
 
+/**
+ * The Storage class handles reading from and writing to a local file that stores tasks, allowing for tasks
+ * to persist when the program is restarted.
+ * It supports saving the task list to a CSV file and loading the tasks from the file on startup.
+ */
 public class Storage {
+
+    /** The file path where tasks are stored. */
     private static final String TASK_FILE_DIRECTORY = "./data/taskTable.csv";
+
+    /** The File object representing the task file. */
     private static final File TASK_FILE = new File(TASK_FILE_DIRECTORY);
 
+    /**
+     * Saves the list of tasks to a local file in CSV format.
+     * If an error occurs during the save, an error message is printed.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public static void save(ArrayList<Task> tasks) {
         try {
             writeToTaskFile(formatTasks(tasks));
@@ -26,6 +41,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from the local file.
+     * If the file does not exist, an empty TaskList is returned.
+     * If an error occurs during loading, an error message is printed.
+     *
+     * @return A TaskList containing the loaded tasks, or an empty TaskList if the file does not exist or an error occurs.
+     */
     public static TaskList load() {
         if (!TASK_FILE.isFile()) {
             return new TaskList();
@@ -46,7 +68,12 @@ public class Storage {
         return new TaskList(tasks);
     }
 
-
+    /**
+     * Formats the list of tasks into a CSV format suitable for saving to a file.
+     *
+     * @param tasks The list of tasks to format.
+     * @return A string representing the tasks in CSV format.
+     */
     private static String formatTasks(ArrayList<Task> tasks) {
         StringBuilder res = new StringBuilder();
         for (Task t: tasks) {
@@ -56,6 +83,11 @@ public class Storage {
         return res.toString();
     }
 
+    /**
+     * Creates the task file and its parent directories if they do not exist.
+     * If the file is created successfully, a success message is printed.
+     * If an error occurs, an error message is printed.
+     */
     private static void createTaskFile() {
         try {
             File parentDir = TASK_FILE.getParentFile();
@@ -70,6 +102,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the formatted tasks to the task file. If the file does not exist, it is created first.
+     *
+     * @param formattedTasks The string representing the formatted tasks to write to the file.
+     * @throws IOException If an I/O error occurs during writing.
+     */
     private static void writeToTaskFile(String formattedTasks) throws IOException {
         if (TASK_FILE.isFile()) {
             try (FileWriter writer = new FileWriter(TASK_FILE_DIRECTORY)) {
@@ -83,6 +121,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the task file into a Task object.
+     * The method identifies the task type (e.g., ToDo, Deadline, Event) and parses the task accordingly.
+     * If the line is in an invalid format or the task type is unknown, the method returns null.
+     *
+     * @param line The line from the task file to parse.
+     * @return The parsed Task object, or null if the line format is invalid or the task type is unknown.
+     */
     private static Task parseTask(String line) {
         // Regex to match quoted strings and handle | as a delimiter outside of quotes
         Pattern pattern = Pattern.compile("\"([^\"]*)\"\\s*\\|?");
