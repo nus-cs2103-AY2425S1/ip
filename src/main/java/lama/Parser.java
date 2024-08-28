@@ -1,6 +1,12 @@
 package lama;
 
-import lama.command.*;
+import lama.command.AddCommand;
+import lama.command.Command;
+import lama.command.DeleteCommand;
+import lama.command.ExitCommand;
+import lama.command.ListCommand;
+import lama.command.MarkCommand;
+import lama.command.UnmarkCommand;
 import lama.task.Deadline;
 import lama.task.Event;
 import lama.task.Todo;
