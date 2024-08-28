@@ -1,4 +1,4 @@
-package myapp.HelperBuddy;
+package myapp.helperbuddy;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +35,7 @@ public class DeadlineTest {
         LocalDateTime deadlineBy = Parser.parseDateTime(parts[3].trim());
         Deadline task = new Deadline(description, deadlineBy);
         String expected = "D | " + (task.getDone() ? "1" : "0") + " | " + task.getDescription()
-        + " | " + deadlineBy.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                + " | " + deadlineBy.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         String actual = "D | 0 | programming assignment | 02/09/2024 2359";
         assertEquals(expected, actual);
     }

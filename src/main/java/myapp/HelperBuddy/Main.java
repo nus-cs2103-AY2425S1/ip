@@ -1,6 +1,5 @@
-package myapp.HelperBuddy;
+package myapp.helperbuddy;
 
-import java.lang.System;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,11 +15,10 @@ public class Main {
         screen.showWelcomeMessage();
         TaskList taskList = new TaskList();
         File directory = new File(DIRECTORY_PATH);
-        if (!directory.exists()){
+        if (!directory.exists()) {
             if (directory.mkdirs()) {
                 System.out.println("Directory created: " + DIRECTORY_PATH);
-            }
-            else {
+            } else {
                 System.out.println("Failed to create directory: " + DIRECTORY_PATH);
                 return;
             }
@@ -30,13 +28,11 @@ public class Main {
             try {
                 if (file.createNewFile()) {
                     System.out.println("File created: " + FILE_PATH);
-                }
-                else {
+                } else {
                     System.out.println("Failed to create file: " + FILE_PATH);
                     return;
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 System.out.println("________________________________________________");
                 System.out.println("An error occurred while creating the file.");
                 System.out.println("________________________________________________");
@@ -49,29 +45,23 @@ public class Main {
             String taskDescription = screen.readUserInput();
             if (taskDescription.isEmpty()) {
                 break;
-            }
-            else if (taskDescription.equals("bye")) {
+            } else if (taskDescription.equals("bye")) {
                 break;
-            }
-            else if (taskDescription.equals("list")) {
+            } else if (taskDescription.equals("list")) {
                 screen.showTaskList(taskList);
-            }
-            else if (taskDescription.startsWith("delete")) {
+            } else if (taskDescription.startsWith("delete")) {
                 int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
                 Task removedTask = taskList.deleteTask(taskLabel);
                 screen.showTaskRemoved(removedTask, taskList);
-            }
-            else if (taskDescription.startsWith("mark")) {
+            } else if (taskDescription.startsWith("mark")) {
                 int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
                 Task currentTask = taskList.getTask(taskLabel);
                 screen.showTaskMarked(currentTask);
-            }
-            else if (taskDescription.startsWith("unmark")) {
+            } else if (taskDescription.startsWith("unmark")) {
                 int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
                 Task currentTask = taskList.getTask(taskLabel);
                 screen.showTaskUnmarked(currentTask);
-            }
-            else {
+            } else {
                 Task currentTask = Parser.parseCommand(taskDescription);
                 if (currentTask != null) {
                     taskList.addTask(currentTask);

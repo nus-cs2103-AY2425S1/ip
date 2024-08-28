@@ -1,4 +1,4 @@
-package myapp.HelperBuddy;
+package myapp.helperbuddy;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class ToDoTest {
         String description = parts[2].trim();
         ToDo task = new ToDo(description);
         task.markDone();
-        String expected =  "T | " + (task.getDone() ? "1" : "0") + " | " + task.getDescription();
+        String expected = "T | " + (task.getDone() ? "1" : "0") + " | " + task.getDescription();
         String actual = "T | 1 | evening workout";
         assertEquals(expected, actual);
     }
