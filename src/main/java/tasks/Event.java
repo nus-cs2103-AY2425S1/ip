@@ -1,9 +1,13 @@
+package tasks;
+
+import exceptions.InputException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an Event task.
- * An Event task is a task that has a specific start and end time, in addition to a description.
+ * Represents an tasks.Event task.
+ * An tasks.Event task is a task that has a specific start and end time, in addition to a description.
  */
 public class Event extends Task {
 
@@ -14,9 +18,9 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Constructs a new Event task with the given description, start time, and end time.
+     * Constructs a new tasks.Event task with the given description, start time, and end time.
      *
-     * @param description the description of the Event task.
+     * @param description the description of the tasks.Event task.
      * @param from the start time of the event.
      * @param to the end time of the event.
      */
@@ -27,18 +31,18 @@ public class Event extends Task {
     }
 
     /**
-     * Creates an Event task from the given input string.
+     * Creates an tasks.Event task from the given input string.
      * The input string must start with the command "event" followed by the task description,
      * the start time, and the end time.
      *
      * @param input the input string containing the task details.
-     * @return the created Event task.
+     * @return the created tasks.Event task.
      * @throws InputException if the input format is incorrect or if the description is missing.
      */
     @Override
-    public Task createTask(String input) throws InputException{
+    public Task createTask(String input) throws InputException {
         if (input.equalsIgnoreCase("event")) {
-            throw new InputException("To add an Event, use: event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>");
+            throw new InputException("To add an tasks.Event, use: event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>");
         }
         String[] details = input.split(" /from | /to ");
         if (details.length == 3) {
@@ -46,7 +50,7 @@ public class Event extends Task {
             LocalDateTime from = parseDateTime(details[1].trim());
             LocalDateTime to = parseDateTime(details[2].trim());
             if (description.isEmpty()) {
-                throw new InputException("You need to describe your Event!");
+                throw new InputException("You need to describe your tasks.Event!");
             }
             return new Event(description, from, to);
         } else {
@@ -71,11 +75,11 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task.
-     * The string includes a "[E]" prefix to indicate that it is an Event task, followed by the task status,
+     * Returns a string representation of the tasks.Event task.
+     * The string includes a "[E]" prefix to indicate that it is an tasks.Event task, followed by the task status,
      * description, start time, and end time.
      *
-     * @return a string representing the Event task.
+     * @return a string representing the tasks.Event task.
      */
 
     @Override
@@ -85,9 +89,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of an Event when saving to file.
+     * Returns a string representation of an tasks.Event when saving to file.
      *
-     * @return a string representation of the Event.
+     * @return a string representation of the tasks.Event.
      */
     @Override
     public String encode() {

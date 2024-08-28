@@ -1,9 +1,13 @@
+package tasks;
+
+import exceptions.InputException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Deadline task.
- * A Deadline task is a task with a description and a specific due date or time by which it should be completed.
+ * Represents a tasks.Deadline task.
+ * A tasks.Deadline task is a task with a description and a specific due date or time by which it should be completed.
  */
 public class Deadline extends Task{
 
@@ -11,9 +15,9 @@ public class Deadline extends Task{
     protected LocalDateTime by;
 
     /**
-     * Constructs a new Deadline task with the given description and due date.
+     * Constructs a new tasks.Deadline task with the given description and due date.
      *
-     * @param description the description of the Deadline task.
+     * @param description the description of the tasks.Deadline task.
      * @param by the due date or time by which the task should be completed.
      */
     public Deadline(String description, LocalDateTime by) {
@@ -22,24 +26,24 @@ public class Deadline extends Task{
     }
 
     /**
-     * Creates a Deadline task from the given input string.
+     * Creates a tasks.Deadline task from the given input string.
      * The input string must start with the command "deadline" followed by the task description and the due date.
      *
      * @param input the input string containing the task details.
-     * @return the created Deadline task.
+     * @return the created tasks.Deadline task.
      * @throws InputException if the input format is incorrect or if the description is missing.
      */
     @Override
-    public Task createTask(String input) throws InputException{
+    public Task createTask(String input) throws InputException {
         if (input.equalsIgnoreCase("deadline")) {
-            throw new InputException("To add a Deadline task, use the following format: deadline <task description> /by <DD/MM/YYYY HHmm>");
+            throw new InputException("To add a tasks.Deadline task, use the following format: deadline <task description> /by <DD/MM/YYYY HHmm>");
         }
         String[] details = input.split(" /by ");
         if (details.length == 2) {
             String description = details[0].trim();
             LocalDateTime by = parseDateTime(details[1].trim());
             if (description.isEmpty()) {
-                throw new InputException("You need to describe your Deadline!");
+                throw new InputException("You need to describe your tasks.Deadline!");
             }
             return new Deadline(description, by);
         } else {
@@ -64,10 +68,10 @@ public class Deadline extends Task{
     }
 
     /**
-     * Returns a string representation of the Deadline task.
-     * The string includes a "[D]" prefix to indicate that it is a Deadline task, followed by the task status, description, and due date.
+     * Returns a string representation of the tasks.Deadline task.
+     * The string includes a "[D]" prefix to indicate that it is a tasks.Deadline task, followed by the task status, description, and due date.
      *
-     * @return a string representing the Deadline task.
+     * @return a string representing the tasks.Deadline task.
      */
     @Override
     public String toString() {
@@ -76,9 +80,9 @@ public class Deadline extends Task{
     }
 
     /**
-     * Returns a string representation of a Deadline when saving to file.
+     * Returns a string representation of a tasks.Deadline when saving to file.
      *
-     * @return a string representation of the Deadline.
+     * @return a string representation of the tasks.Deadline.
      */
     @Override
     public String encode() {

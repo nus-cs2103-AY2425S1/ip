@@ -1,8 +1,12 @@
+package tasks;
+
+import exceptions.InputException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Abstract class representing a generic Task.
+ * Abstract class representing a generic tasks.Task.
  * This class provides basic functionalities for a task,
  * such as marking the task as done, unmarking it, and displaying its status.
  */
@@ -18,7 +22,7 @@ public abstract class Task {
     protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
-     * Constructs a new Task with the given description.
+     * Constructs a new tasks.Task with the given description.
      * The task is initially not marked as done.
      *
      * @param description the description of the task.
@@ -33,7 +37,7 @@ public abstract class Task {
      * This method must be implemented by any subclass.
      *
      * @param input the input string containing the task details.
-     * @return the created Task object.
+     * @return the created tasks.Task object.
      * @throws InputException if the input is invalid or incomplete.
      */
     public abstract Task createTask(String input) throws InputException;
@@ -63,11 +67,11 @@ public abstract class Task {
     }
 
     /**
-     * Creates a Task object from a string representation.
+     * Creates a tasks.Task object from a string representation.
      * This is an abstract method to be implemented by subclasses.
      *
      * @param details an array of string details parsed from the file.
-     * @return the created Task object.
+     * @return the created tasks.Task object.
      */
     public static Task parse(String[] details) {
         if (details.length < 3) {
@@ -83,20 +87,20 @@ public abstract class Task {
         switch (type) {
         case "T":
             if (details.length != 3) {
-                throw new IllegalArgumentException("Invalid ToDo task format. Expected exactly 3 parts.");
+                throw new IllegalArgumentException("Invalid tasks.ToDo task format. Expected exactly 3 parts.");
             }
             task = new ToDo(description);
             break;
         case "D":
             if (details.length != 4) {
-                throw new IllegalArgumentException("Invalid Deadline task format. Expected exactly 4 parts.");
+                throw new IllegalArgumentException("Invalid tasks.Deadline task format. Expected exactly 4 parts.");
             }
             LocalDateTime by = LocalDateTime.parse(details[3], formatter);
             task = new Deadline(description, by);
             break;
         case "E":
             if (details.length != 5) {
-                throw new IllegalArgumentException("Invalid Event task format. Expected exactly 5 parts.");
+                throw new IllegalArgumentException("Invalid tasks.Event task format. Expected exactly 5 parts.");
             }
             LocalDateTime from = LocalDateTime.parse(details[3], formatter);
             LocalDateTime to = LocalDateTime.parse(details[4], formatter);
