@@ -15,7 +15,7 @@ public class DeadlineCommand extends Command {
         }
         String[] parts = descriptions.split(" /by ");
         try {
-            taskList.addTask(new Deadlines(parts[0], parts[1]));
+            taskList.addTask(new Deadline(parts[0], parts[1]));
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeStobberiException("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n");
         }

@@ -1,10 +1,10 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-public class Events extends Task {
+public class Event extends Task {
     private LocalDateTime startOfEvent;
     private LocalDateTime endOfEvent;
 
-    public Events(String description, String startOfEvent, String endOfEvent) throws NotPossibleDurationStobberiException {
+    public Event(String description, String startOfEvent, String endOfEvent) throws NotPossibleDurationStobberiException {
         super(description);
         this.startOfEvent = LocalDateTime.parse(startOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
         this.endOfEvent = LocalDateTime.parse(endOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
@@ -13,7 +13,7 @@ public class Events extends Task {
         }
     }
 
-    public Events(String description, String startOfEvent, String endOfEvent, String done) throws NotPossibleDurationStobberiException{
+    public Event(String description, String startOfEvent, String endOfEvent, String done) throws NotPossibleDurationStobberiException{
         super(description);
         this.startOfEvent = LocalDateTime.parse(startOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
         this.endOfEvent = LocalDateTime.parse(endOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));

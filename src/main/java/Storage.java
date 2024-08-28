@@ -23,13 +23,13 @@ public class Storage {
                 String[] parts = line.split(" \\| ");
                 switch (parts[0]) {
                 case "T":
-                    taskList.add(new ToDos(parts[1], parts[2]));
+                    taskList.add(new Todo(parts[1], parts[2]));
                     break;
                 case "D":
-                    taskList.add(new Deadlines(parts[1], parts[2], parts[3]));
+                    taskList.add(new Deadline(parts[1], parts[2], parts[3]));
                     break;
                 case "E":
-                    taskList.add(new Events(parts[1], parts[2], parts[3], parts[4]));
+                    taskList.add(new Event(parts[1], parts[2], parts[3], parts[4]));
                     break;
                 }
             }
@@ -50,15 +50,15 @@ public class Storage {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (Task task : taskList) {
                 String taskLine = "";
-                if (task instanceof ToDos) {
+                if (task instanceof Todo) {
                     taskLine += "T | ";
                     taskLine += task.description;
-                } else if (task instanceof Deadlines deadline) {
+                } else if (task instanceof Deadline deadline) {
                     taskLine += "D | ";
                     taskLine += task.description;
                     taskLine += " | ";
                     taskLine += deadline.getDeadlineOfTask();
-                } else if (task instanceof Events event) {
+                } else if (task instanceof Event event) {
                     taskLine += "E | ";
                     taskLine += task.description;
                     taskLine += " | ";

@@ -1,15 +1,15 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private LocalDateTime deadlineOfTask;
 
-    public Deadlines(String description, String deadlineOfTask) {
+    public Deadline(String description, String deadlineOfTask) {
         super(description);
         this.deadlineOfTask = LocalDateTime.parse(deadlineOfTask, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
     }
 
-    public Deadlines(String description, String deadlineOfTask, String done) {
+    public Deadline(String description, String deadlineOfTask, String done) {
         super(description);
         this.deadlineOfTask = LocalDateTime.parse(deadlineOfTask, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
         if (done.equals("1")) {super.setDone();}

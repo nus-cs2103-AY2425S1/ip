@@ -50,12 +50,12 @@ public class TaskList {
         int n = 1;
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             Task task = listOfTasks.get(i - 1);
-            if (task instanceof Deadlines deadline) {
+            if (task instanceof Deadline deadline) {
                 if (deadline.isDuring(date)) {
                     list += n + ". " + listOfTasks.get(i - 1) + "\n";
                     n++;
                 }
-            } else if (task instanceof Events event) {
+            } else if (task instanceof Event event) {
                 if (event.isDuring(date)) {
                     list += n + ". " + listOfTasks.get(i - 1) + "\n";
                     n++;

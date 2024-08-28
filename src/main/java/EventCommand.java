@@ -18,7 +18,7 @@ public class EventCommand extends Command {
         String[] secondParts = eventParts[1].split(" /to ");
 
         try {
-            taskList.addTask(new Events(eventParts[0], secondParts[0], secondParts[1]));
+            taskList.addTask(new Event(eventParts[0], secondParts[0], secondParts[1]));
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeStobberiException("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n");
         }

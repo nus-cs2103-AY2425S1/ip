@@ -1,7 +1,4 @@
 public class Parser {
-    private String command;
-    private String restOfCommand;
-    private TaskList taskList;
     private Parser() {}
 
     public static Command parse(String fullCommand, TaskList taskList) throws StobberiException {

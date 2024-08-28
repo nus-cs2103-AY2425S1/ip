@@ -1,9 +1,9 @@
-public class ToDos extends Task {
+public class Todo extends Task {
 
-    public ToDos(String description) {
+    public Todo(String description) {
         super(description);
     }
-    public ToDos(String description, String done) {
+    public Todo(String description, String done) {
         super(description);
         if (done.equals("1")) {super.setDone();}
     }

@@ -1,5 +1,3 @@
-import java.util.EmptyStackException;
-
 public class TodoCommand extends Command {
     private TaskList taskList;
     private String descriptions;
@@ -13,6 +11,6 @@ public class TodoCommand extends Command {
         if (descriptions.isEmpty()) {
             throw new EmptyStobberiException("Where is the task?");
         }
-        taskList.addTask(new ToDos(descriptions));
+        taskList.addTask(new Todo(descriptions));
     }
 }
