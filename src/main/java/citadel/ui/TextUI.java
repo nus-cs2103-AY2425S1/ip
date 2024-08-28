@@ -15,7 +15,7 @@ public class TextUI {
     private static final String NAME = "citadel";
 
     /** The introductory message displayed when the application starts. */
-    private static final String INTRO = "Hello! I'm " + NAME + "\n";
+    private static final String INTRO = "Hello! I'm " + NAME + " :D\n";
 
     /** The prompt message asking what the user wants to do. */
     private static final String QUESTION = "What can I do for you?\n";
