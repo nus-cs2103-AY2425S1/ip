@@ -1,4 +1,6 @@
-class Parser {
+package Chatbot;
+
+public class Parser {
     public Command parseCommand(String input) {
         if (input.equals("bye")) {
             return Command.BYE;
@@ -18,9 +20,4 @@ class Parser {
             return Command.UNKNOWN;
         }
     }
-}
-
-// Enum to represent the different command types
-enum Command {
-    BYE, LIST, MARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
 }

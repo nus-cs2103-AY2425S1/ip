@@ -1,3 +1,10 @@
+package Chatbot;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;

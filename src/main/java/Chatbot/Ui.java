@@ -1,4 +1,9 @@
-class Ui {
+package Chatbot;
+
+import Chatbot.TaskStorage;
+import Tasks.Task;
+
+public class Ui {
     public void greet() {
         System.out.println("    ____________________________________________________________");
         System.out.println("Hello! I'm MrIncredible");
