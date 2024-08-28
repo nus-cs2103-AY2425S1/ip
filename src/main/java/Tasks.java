@@ -18,6 +18,14 @@ public class Tasks {
     public void setter (boolean x) {
         this.isDone = x;
     }
+
+    public String getName () {
+        return name;
+    }
+
+    public String getTimeline() {
+        return null;
+    }
     public String toString() {
         if (isDone) {
             return String.format("[X] %s", name);

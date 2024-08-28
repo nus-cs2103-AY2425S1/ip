@@ -5,7 +5,7 @@ import java.util.Objects;
  */
 public class TaskCreator {
     /**
-     * Creates tasks based on user message
+     * Creates tasks by parsing user message
      * @param message
      * @return
      * @throws Exception

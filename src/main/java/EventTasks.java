@@ -7,8 +7,15 @@ public class EventTasks extends Tasks{
     }
 
     String m1 = super.name.split("/from", 2)[0];
-    String m2 = super.name.split("/from", 2)[1].split("/to ", 2)[0];
-    String m3 = super.name.split("/from", 2)[1].split("/to ", 2)[1];
+    String timeline = super.name.split("/from", 2)[1];
+    String m2 = timeline.split("/to ", 2)[0];
+    String m3 = timeline.split("/to ", 2)[1];
+
+    @Override
+    public String getTimeline() {
+        return timeline;
+    }
+
     @Override
     public String toString() {
         if (isDone) {
