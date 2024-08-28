@@ -1,3 +1,10 @@
+package shrimp;
+
+import shrimp.exception.ShrimpException;
+import shrimp.task.*;
+import shrimp.utility.AnsiCode;
+import shrimp.utility.Parser;
+
 import java.util.Scanner;
 
 public class Shrimp {
@@ -38,7 +45,7 @@ public class Shrimp {
                     throw new ShrimpException.InvalidCommandException();
                 }
 
-                CommandParser.CommandType commandType = CommandParser.parseCommand(userInput);
+                Parser.CommandType commandType = Parser.parseCommand(userInput);
 
                 switch (commandType) {
                     case BYE: //exits the program
@@ -108,7 +115,7 @@ public class Shrimp {
                             throw new ShrimpException.MissingArgumentException(commandType);
                         }
                         String input = userInput.substring(5);
-                        Todo newTodo = new Todo(input); //creates a new Task object
+                        Todo newTodo = new Todo(input); //creates a new Task.Task object
                         taskList.addTask(newTodo);
                         output = "rawr! '" + input + "' has been added to the list~";
                         System.out.println(output);
@@ -123,7 +130,7 @@ public class Shrimp {
                         String by = deadlineDetails[1];
                         Task newDeadline = new Deadline(deadlineDescription, by);
                         taskList.addTask(newDeadline);
-                        System.out.println("Gotchaa~ I've added this task:");
+                        System.out.println("Gotchaa~ I've added this shrimp.task:");
                         System.out.println("    " + newDeadline);
                         System.out.println("You now have " + taskList.getCount() + " task(s) in the list~");
                         break;
@@ -147,7 +154,7 @@ public class Shrimp {
                         throw new ShrimpException.InvalidCommandException();
                 }
             } catch (ShrimpException e) {
-                System.out.println(AnsiCode.RED + e.getMessage() + AnsiCode.CYAN);
+                System.out.println(AnsiCode.RED + e.getMessage() + String.format(" (%s)", e.getErrorCode()) + AnsiCode.CYAN);
             } catch (Exception e) {
                 System.out.println(AnsiCode.RED + "Oh nyoo~ Something went wrong... Try again!" + AnsiCode.CYAN);
             }
@@ -160,8 +167,8 @@ public class Shrimp {
         System.out.println(output);
     }
 
-    // Helper method to extract task number for MARK
-    private static int getTaskNumber(String userInput, CommandParser.CommandType type) throws ShrimpException {
+    // Helper method to extract shrimp.task number for MARK/UNMARK/DELETE
+    private static int getTaskNumber(String userInput, Parser.CommandType type) throws ShrimpException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -169,6 +176,5 @@ public class Shrimp {
         } catch (NumberFormatException e) {
             throw new ShrimpException.NumberFormatException();
         }
-
     }
 }

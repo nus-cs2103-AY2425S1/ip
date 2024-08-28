@@ -1,7 +1,9 @@
+package shrimp.task;
+
 public class Deadline extends Task {
     private final String by;
 
-    Deadline(String description, String by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }

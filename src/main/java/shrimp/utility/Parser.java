@@ -1,4 +1,6 @@
-public class CommandParser {
+package shrimp.utility;
+
+public class Parser {
     public enum CommandType {
         LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE
     }
@@ -20,7 +22,7 @@ public class CommandParser {
             return CommandType.ADD;
         } else if (userInput.startsWith("delete")) {
             return CommandType.DELETE;
-        }else {
+        } else {
             return CommandType.ERROR;
         }
     }

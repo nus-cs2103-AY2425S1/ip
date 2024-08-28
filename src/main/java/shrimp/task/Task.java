@@ -1,3 +1,5 @@
+package shrimp.task;
+
 public abstract class Task {
     private final String description;
     private final Boolean hasCompleted;
@@ -13,7 +15,7 @@ public abstract class Task {
     }
 
     private String getHasCompleted() {
-        return (hasCompleted ? "X" : " "); // mark done task with X
+        return (hasCompleted ? "X" : " "); // mark done shrimp.task with X
     }
 
     protected String getDescription() {
