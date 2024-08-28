@@ -109,4 +109,6 @@ public class Ui {
     public void showLine() {
         out.println(DIVIDER);
     }
+
+    public void showEmptyFind() { out.println(MESSAGE_EMPTY_FIND); }
 }

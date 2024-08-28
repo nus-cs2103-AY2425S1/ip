@@ -19,4 +19,5 @@ public class Messages {
     public static final String MESSAGE_DATE_MISSING = "It looks like you forgot to add a date. Please try again.\n";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date! Please use yyyy-MM-dd HHmm format!\n";
     public static final String MESSAGE_INVALID_INTEGER = "Invalid task number!";
+    public static final String MESSAGE_EMPTY_FIND = "No matching tasks found!";
 }
