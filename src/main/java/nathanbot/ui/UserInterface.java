@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import nathanbot.commands.CommandHandler;
 import nathanbot.commands.CommandType;
-import nathanbot.tasks.TaskList;
+import nathanbot.tasks.TaskListStore;
 
 /**
  * Cleaned up using Copilot to follow Google's Java Style Guide,
@@ -13,14 +13,14 @@ import nathanbot.tasks.TaskList;
  * Javadocs using Copilot
  */
 public class UserInterface {
-    private final TaskList taskList;
+    private final TaskListStore taskList;
 
     /**
      * Constructs a UserInterface with the specified TaskList.
      *
      * @param taskList The TaskList to be managed by the UserInterface.
      */
-    public UserInterface(TaskList taskList) {
+    public UserInterface(TaskListStore taskList) {
         this.taskList = taskList;
     }
 
@@ -59,6 +59,9 @@ public class UserInterface {
                         break;
                     case DELETE:
                         CommandHandler.handleDeleteCommand(input, taskList);
+                        break;
+                    case FIND:
+                        CommandHandler.handleFindCommand(input, taskList);
                         break;
                     default:
                         CommandHandler.handleUnknownCommand();

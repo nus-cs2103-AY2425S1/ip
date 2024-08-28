@@ -2,57 +2,47 @@ package nathanbot.tasks;
 
 import java.util.ArrayList;
 
-import nathanbot.storage.Storage;
-
 /**
 <<<<<<< HEAD
  * Cleaned up using Copilot to follow Google's Java Style Guide,
  * while keeping indentations to be 4 spaces.
  * Manages a list of tasks and handles operations such as adding, marking as done, and deleting tasks.
- * Javadocs using Copilot
  */
 public class TaskList {
-    private final ArrayList<Task> taskList;
-    private final Storage storage;
+    protected final ArrayList<Task> taskList;
 
     /**
-     * Constructs a TaskList with the specified storage.
-     *
-     * @param storage The storage to be used for loading and saving tasks.
+     * Constructs a TaskList.
      */
-    public TaskList(Storage storage) {
-        this.storage = storage;
-        this.taskList = storage.loadTasksFromFile();
+    public TaskList() {
+        this.taskList = new ArrayList<>();
     }
 
     /**
-     * Adds a task to the task list and saves the updated list to storage.
+     * Adds a task to the task list.
      *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
         taskList.add(task);
-        storage.saveTasksToFile(taskList);
     }
 
     /**
-     * Marks the task at the specified index as done and saves the updated list to storage.
+     * Marks the task at the specified index as done.
      *
      * @param index The index of the task to be marked as done.
      */
     public void markAsDone(int index) {
         taskList.get(index).markAsDone();
-        storage.saveTasksToFile(taskList);
     }
 
     /**
-     * Marks the task at the specified index as undone and saves the updated list to storage.
+     * Marks the task at the specified index as undone.
      *
      * @param index The index of the task to be marked as undone.
      */
     public void markAsUndone(int index) {
         taskList.get(index).unmarkAsDone();
-        storage.saveTasksToFile(taskList);
     }
 
     /**
@@ -66,13 +56,12 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task at the specified index and saves the updated list to storage.
+     * Deletes the task at the specified index.
      *
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
         taskList.remove(index);
-        storage.saveTasksToFile(taskList);
     }
 
     /**
@@ -82,6 +71,22 @@ public class TaskList {
      */
     public int listLength() {
         return taskList.size();
+    }
+
+    /**
+     * Finds tasks that contain the specified string in their description.
+     *
+     * @param searchString The string to search for in task descriptions.
+     * @return A list of tasks that contain the specified string in their description.
+     */
+    public TaskList find(String searchString) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : taskList) {
+            if (task.toString().contains(searchString)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
     }
 
     /**
