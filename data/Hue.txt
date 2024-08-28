@@ -1,3 +1,0 @@
-T | 1 | test
-D | 0 | return book | 4pm
-E | 1 | wedding | 2pm | 10 pm
