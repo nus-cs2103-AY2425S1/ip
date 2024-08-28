@@ -31,10 +31,10 @@ public class Parser {
             try {
                 taskNumber = Integer.parseInt(commandDetails[1]);   // commandDetails[1] could be a string
             } catch (NumberFormatException e) {
+                // for eg. mark/unmark/delete SOMETHING, where SOMETHING cannot be parsed into an Integer
                 throw new JanetException("WHOOPS! Please provide an integer value task number!");
             }
             if (taskNumber <= 0) {
-                // still need to handle case when taskNumber >= taskIndex + 1 (unable to access janet.getTaskIndex())
                 throw new JanetException("WHOOPS! Your task number cannot be negative or 0!");
             } else if (taskNumber > numOfTasksInList) {
                 throw new JanetException("WHOOPS! You don't have a task of this number!");
