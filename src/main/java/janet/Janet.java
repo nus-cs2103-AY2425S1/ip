@@ -28,9 +28,7 @@ public class Janet {
             String userCommand = input.nextLine();
             String[] commandDetails = Parser.getCommandDetails(userCommand);
             try {
-                // validateCommand and checkInaccurateCommand will throw out a janet.JanetException
-                Parser.validateCommand(commandDetails, tasks.getNumberOfTasks());
-                Parser.checkInaccurateCommand(commandDetails);
+                Parser.checkUserInput(commandDetails, tasks.getNumberOfTasks());
 
                 CommandType commandType = Parser.getCommand(commandDetails);
                 switch (commandType) {
