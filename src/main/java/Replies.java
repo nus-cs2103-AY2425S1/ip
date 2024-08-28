@@ -1,3 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,24 +28,54 @@ public class Replies {
     // List for tasks
     List<Tasks> ls = new ArrayList<>();
 
+    // File path for external storage
+    String filePath = "/Users/jerryyou/ip/taskslist.txt";
 
     /**
-     * Generate welcome message
+     * Generates welcome message, load in previous files
      * @return
      */
     public String welcome() {
+        try {
+            Path path = Paths.get(filePath);
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                Tasks t = TaskCreator.create(line);
+                ls.add(t);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "Hello from\n" + logo + "\n" + welcome + "\n" + line + "\n";
     }
 
     /**
      * Takes in user replies, parse them, and generate appropriate replies
-     * @param message
-     * @return
+     * @param message passed from user through Sunny class
+     * @return String to be printed out in Sunny class
      */
     public String reply(String message) {
         String m1 = message.split(" ", 2)[0];
 
         if (Objects.equals(message,"bye")) {
+            String str = "";
+            for (Tasks t: ls) {
+                if (t instanceof TodoTasks) {
+                    str += "todo " + t.getName() + "\n";
+                } else if (t instanceof DeadlineTasks) {
+                    str += "deadline " + t.getName() + "\n";
+                } else {
+                    str += "event " + t.getName() + '\n';
+                }
+            }
+            try {
+                Files.write(Paths.get(filePath), str.getBytes());
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found, please create new file with file path: " +
+                        "/Users/jerryyou/ip/taskslist.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return line + "\n" + goodbye;
         } else if (Objects.equals(message,"list")){
             String s = "";
