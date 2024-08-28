@@ -45,9 +45,5 @@ public enum Command {
      * Command to exit the application.
      */
     BYE,
-
-    /**
-     * Command to handle any unrecognized input.
-     */
-    UNKNOWN;
+    UNKNOWN
 }

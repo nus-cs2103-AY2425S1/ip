@@ -38,14 +38,15 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
-
+  
     /**
      * Returns a string representation of the Event task in a format suitable for saving to a file.
      * The format is "E | {status} | {description} | {from} | {to}", where {status} is "1" if the task is done, "0" otherwise.
      *
      * @return A string representing the Event task for file storage.
      */
-    @Override public String toFileFormat() {
+    @Override 
+    public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " +
                 to.format(formatter);
@@ -57,7 +58,8 @@ public class Event extends Task {
      *
      * @return A string representing the Event task.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
         return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
