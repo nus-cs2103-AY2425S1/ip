@@ -6,6 +6,10 @@ import task.EventTask;
 import task.Task;
 import task.TodoTask;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +19,12 @@ public class Ratchet {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        try {
+            load();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         greet();
         String input;
         String command = "";
@@ -23,13 +33,28 @@ public class Ratchet {
             command = input.split(" ")[0].toLowerCase();
             try {
                 switch (command) {
-                    case "list" -> displayList();
-                    case "mark" -> mark(input);
-                    case "unmark" -> unmark(input);
-                    case "todo", "deadline", "event" -> addTask(input);
-                    case "delete" -> delete(input);
-                    case "bye" -> exit();
-                    default -> throw new InvalidCommandException("Ratchet is unable to execute " + command + "!");
+                case "list":
+                    displayList();
+                    break;
+                case "mark":
+                    mark(input);
+                    break;
+                case "unmark":
+                    unmark(input);
+                    break;
+                case "todo", "deadline", "event":
+                    addTask(input);
+                    break;
+                case "delete":
+                    delete(input);
+                    break;
+                case "bye":
+                    exit();
+                    save();
+                    break;
+                default:
+                    throw new InvalidCommandException("Ratchet is unable to " + "execute" + " " + command
+                            + "!");
                 }
             } catch (RatchetException e) {
                 lineBreak();
@@ -40,7 +65,7 @@ public class Ratchet {
     }
 
     private static void lineBreak() {
-        System.out.println("   ________________________________________________________");
+        System.out.println("   " + "________________________________________________________");
     }
 
     private static String taskCount() {
@@ -48,16 +73,63 @@ public class Ratchet {
         return "Now you have " + count + " in the list.";
     }
 
+    private static void load() throws IOException {
+        System.out.println(INDENT + "Attempting to load data...");
+        File file = new File("data/ratchet.txt");
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String[] info = scanner.nextLine().split("\\|");
+                String type = info[0];
+                switch (type) {
+                case "T":
+                    taskList.add(new TodoTask(info[1], Boolean.parseBoolean(info[2])));
+                    break;
+                case "D":
+                    taskList.add(new DeadlineTask(info[1], Boolean.parseBoolean(info[2]), info[3]));
+                    break;
+                case "E":
+                    taskList.add(new EventTask(info[1], Boolean.parseBoolean(info[2]), info[3], info[4]));
+                    break;
+                }
+            }
+            System.out.println(INDENT + "Data loaded!");
+        } catch (FileNotFoundException e) {
+            System.out.println(INDENT + "Data file not found, creating now...");
+            createFile();
+            System.out.println(INDENT + "Data file created!");
+        }
+    }
+
+    private static void createFile() throws IOException {
+        new File("data").mkdir();
+        File f = new File("data/ratchet.txt");
+        f.createNewFile();
+        System.out.println(INDENT + "Save file is created!");
+    }
+
+    private static void save() {
+        System.out.println(INDENT + "Attempting to save data!");
+        try (FileWriter fw = new FileWriter("data/ratchet.txt")) {
+            for (Task task : taskList) {
+                fw.write(task.toSave());
+                fw.write(System.lineSeparator());
+            }
+            System.out.println(INDENT + "Data saved!");
+        } catch (IOException e) {
+            System.out.println(INDENT + "Unable to save data!");
+        }
+    }
+
     private static void greet() {
         lineBreak();
-        System.out.println(INDENT + "Hello! I'm Ratchet\n" +
-                INDENT + "What can I do for you?");
+        System.out.println(INDENT + "Hello! I'm " + "Ratchet\n" + INDENT + "What can I do " + "for" + " you"
+                + "?");
         lineBreak();
     }
 
     private static void exit() {
         lineBreak();
-        System.out.println(INDENT + "Bye. Hope to see you again soon!");
+        System.out.println(INDENT + "Bye. Hope to see " + "you" + " again soon!");
         lineBreak();
     }
 
@@ -73,7 +145,7 @@ public class Ratchet {
         } else if (text.startsWith("deadline")) {
             String[] split = text.split(" /by ");
             String deadline = split[1];
-            String description = split[0].split("deadline ")[1];
+            String description = split[0].split("deadline" + " ")[1];
             task = new DeadlineTask(description, deadline);
         } else {
             String[] split1 = text.split(" /to ");
@@ -85,8 +157,7 @@ public class Ratchet {
         }
         taskList.add(task);
         lineBreak();
-        System.out.println(INDENT + "Got it. I've added this task:\n"
-                + INDENT + "  " + task + "\n"
+        System.out.println(INDENT + "Got it. I've added " + "this task:\n" + INDENT + "  " + task + "\n"
                 + INDENT + taskCount());
         lineBreak();
     }
@@ -94,9 +165,8 @@ public class Ratchet {
     private static void displayList() {
         lineBreak();
         if (taskList.isEmpty()) {
-            System.out.println(INDENT + "You have no tasks currently!");
+            System.out.println(INDENT + "You have no " + "tasks currently!");
         } else {
-
             for (int i = 0; i < taskList.size(); i++) {
                 System.out.println(INDENT + (i + 1) + "." + taskList.get(i));
             }
@@ -108,8 +178,8 @@ public class Ratchet {
         int num = Integer.parseInt(input.split(" ")[1]) - 1;
         taskList.get(num).markAsDone();
         lineBreak();
-        System.out.println(INDENT + "Nice! I've marked this task as done:\n"
-                + INDENT + "  " + taskList.get(num));
+        System.out.println(INDENT + "Nice! I've marked " + "this task as done:\n" + INDENT + "  "
+                + taskList.get(num));
         lineBreak();
     }
 
@@ -117,8 +187,8 @@ public class Ratchet {
         int num = Integer.parseInt(input.split(" ")[1]) - 1;
         taskList.get(num).markAsNotDone();
         lineBreak();
-        System.out.println(INDENT + "OK, I've marked this task as not done yet:\n"
-                + INDENT + "  " + taskList.get(num));
+        System.out.println(INDENT + "OK, I've marked " + "this" + " task as not done yet:\n" + INDENT + "  "
+                + taskList.get(num));
         lineBreak();
     }
 
@@ -126,8 +196,7 @@ public class Ratchet {
         int num = Integer.parseInt(input.split(" ")[1]) - 1;
         Task task = taskList.remove(num);
         lineBreak();
-        System.out.println(INDENT + "Noted. I've removed this task:\n"
-                + INDENT + "  " + task + "\n"
+        System.out.println(INDENT + "Noted. I've removed " + "this task:\n" + INDENT + "  " + task + "\n"
                 + INDENT + taskCount());
         lineBreak();
     }
