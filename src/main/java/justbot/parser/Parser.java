@@ -97,7 +97,7 @@ public class Parser {
         }
     }
 
-    private LocalDateTime parseDateTime(String dateTimeStr) throws JustbotException {
+    public LocalDateTime parseDateTime(String dateTimeStr) throws JustbotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             return LocalDateTime.parse(dateTimeStr.trim(), formatter);

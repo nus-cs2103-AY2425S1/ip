@@ -24,4 +24,9 @@ public class MarkCommand extends Command {
             ui.getJustBotExceptionMessage(e);
         }
     }
+
+    @Override
+    public Task getTask() {
+        return null;
+    }
 }

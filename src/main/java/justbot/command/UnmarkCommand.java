@@ -23,4 +23,9 @@ public class UnmarkCommand extends Command {
             ui.getJustBotExceptionMessage(e);
         }
     }
+
+    @Override
+    public Task getTask() {
+        return null;
+    }
 }

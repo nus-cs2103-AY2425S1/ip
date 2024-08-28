@@ -1,5 +1,6 @@
 package justbot.command;
 
+import justbot.task.Task;
 import justbot.task.Todo;
 import justbot.task.TaskList;
 import justbot.ui.Ui;
@@ -15,5 +16,9 @@ public class TodoCommand extends Command {
         taskList.add(this.todoTask);
         ui.addTaskMessage(taskList, todoTask);
         storage.saveTasks(taskList);
+    }
+    @Override
+    public Task getTask() {
+        return this.todoTask;
     }
 }

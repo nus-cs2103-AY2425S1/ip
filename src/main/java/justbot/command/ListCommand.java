@@ -1,5 +1,6 @@
 package justbot.command;
 
+import justbot.task.Task;
 import justbot.task.TaskList;
 import justbot.ui.Ui;
 import justbot.storage.Storage;
@@ -14,5 +15,10 @@ public class ListCommand extends Command {
         } catch (JustbotException e) {
             ui.getJustBotExceptionMessage(e);
         }
+    }
+
+    @Override
+    public Task getTask() {
+        return null;
     }
 }
