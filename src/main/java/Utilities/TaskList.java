@@ -50,10 +50,11 @@ public class TaskList {
         }
     }
 
-    public int getSize() {
-        return this.taskList.size();
-    }
-
+    /**
+     * Finds and prints matching tasks for given keyword.
+     *
+     * @param input String pattern to be matched for search.
+     */
     public void findTasks(String input) {
         System.out.println("I found some matching tasks in your list:");
         int count = 1;
@@ -63,6 +64,10 @@ public class TaskList {
                 count++;
             }
         }
+    }
+
+    public int getSize() {
+        return this.taskList.size();
     }
 
     @Override
