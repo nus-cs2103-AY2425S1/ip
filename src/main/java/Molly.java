@@ -250,12 +250,9 @@ public class Molly {
                         } else {
                             String[] deadlineDetails = userInput.substring(9).split( " /by ");
                             if (deadlineDetails.length == 2) {
-<<<<<<< HEAD
-=======
                                 String description = deadlineDetails[0].trim();
                                 String by = deadlineDetails[1].trim();
                                 Deadline newDeadline = new Deadline(description, by);
->>>>>>> branch-Level-8
                                 botMemory.add(newDeadline);
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");
@@ -278,14 +275,10 @@ public class Molly {
                         } else {
                             String[] eventDetails = userInput.substring(6).split( " /from | /to ");
                             if (eventDetails.length == 3) {
-<<<<<<< HEAD
-
-=======
                                 String description = eventDetails[0].trim();
                                 String from = eventDetails[1].trim();
                                 String to = eventDetails[2].trim();
                                 Event newEvent = new Event(description, from, to);
->>>>>>> branch-Level-8
                                 botMemory.add(newEvent);
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");

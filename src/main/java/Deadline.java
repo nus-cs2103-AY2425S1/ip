@@ -24,15 +24,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
-
-=======
         if (this.deadlineDateTime != null) {
             return taskIsDone ? "[D][X] " + this.description + " (by: " + this.deadlineDateTime.format(OUTPUT_FORMAT) + ")" : "[D][ ] " + this.description + " (by: " + this.deadlineDateTime.format(OUTPUT_FORMAT) + ")";
         }
 
         return taskIsDone ? "[D][X] " + this.description + " (by: " + deadlineString + ")" : "[D][ ] " + this.description + " (by: " + deadlineString + ")";
 
->>>>>>> branch-Level-8
     }
 }
