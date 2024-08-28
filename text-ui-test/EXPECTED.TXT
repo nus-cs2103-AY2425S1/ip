@@ -18,28 +18,31 @@ How can I help you?
 ----------------------------------------------
 ----------------------------------------------
 Sure! I've added this task:
-[T][ ] borrow book
->> Now you have 1 task in the list.
+[T][ ] be happy
+>> Now you have 4 tasks in the list.
 ----------------------------------------------
 ----------------------------------------------
 Sure! I've added this task:
-[D][ ] return book (by: Aug 02 2022 06:00 PM)
->> Now you have 2 tasks in the list.
+[D][ ] meet a friend (by: Aug 02 2022 06:00 PM)
+>> Now you have 5 tasks in the list.
 ----------------------------------------------
 ----------------------------------------------
 Sure! I've added this task:
 [E][ ] project meeting (from: Nov 12 2021 12:00 PM to: Nov 12 2021 01:00 PM)
->> Now you have 3 tasks in the list.
+>> Now you have 6 tasks in the list.
 ----------------------------------------------
 ----------------------------------------------
 Nice job! I've mark this as done. You deserve a short break <3
-[D][X] return book (by: Aug 02 2022 06:00 PM)
+[D][X] return a book (by: Dec 01 2023 12:00 PM)
 ----------------------------------------------
 ----------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][X] return book (by: Aug 02 2022 06:00 PM)
+2. [D][X] return book (by: Dec 01 2023 12:00 PM)
 3. [E][ ] project meeting (from: Nov 12 2021 12:00 PM to: Nov 12 2021 01:00 PM)
+4. [T][ ] be happy
+5. [D][ ] meet a friend (by: Aug 02 2022 06:00 PM)
+6. [E][ ] sing (from: Nov 12 2021 to: Nov 12 2021 12:00 PM to: Nov 12 2021 01:00 PM)
 ----------------------------------------------
 ----------------------------------------------
 Nice job! I've mark this as done. You deserve a short break <3
@@ -47,7 +50,7 @@ Nice job! I've mark this as done. You deserve a short break <3
 ----------------------------------------------
 ----------------------------------------------
 I've mark this as undone. Keep going, my friend!
-[D][ ] return book (by: Aug 02 2022 06:00 PM)
+[D][ ] return book (by: Dec 01 2023 12:00 PM)
 ----------------------------------------------
 ----------------------------------------------
 Oops! Wrong format of todo: todo description cannot be empty!
@@ -58,7 +61,7 @@ Oops! Wrong format of todo: todo description cannot be empty!
 ----------------------------------------------
 Sure! I've deleted this task:
 [T][X] borrow book
->> Now you have 2 tasks in the list.
+>> Now you have 5 tasks in the list.
 ----------------------------------------------
 ----------------------------------------------
 Pleased to help you! See you again ^_^
