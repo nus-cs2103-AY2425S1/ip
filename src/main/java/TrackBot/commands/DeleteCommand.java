@@ -1,4 +1,10 @@
-import java.io.IOException;
+package TrackBot.commands;
+
+import TrackBot.TrackBotException;
+import TrackBot.TrackBotStorage;
+import TrackBot.TrackList;
+import TrackBot.Ui;
+import TrackBot.commands.Command;
 
 public class DeleteCommand extends Command {
     private int taskIndex;

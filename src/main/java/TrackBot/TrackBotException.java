@@ -1,3 +1,5 @@
+package TrackBot;
+
 public class TrackBotException extends Exception {
     public TrackBotException(String message) {
         super(message);

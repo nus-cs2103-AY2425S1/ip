@@ -1,3 +1,5 @@
+package TrackBot;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -16,7 +18,7 @@ public class TrackBot {
 //            ui.showLoadingError();
         }
         if (trackList == null) {
-            System.out.println("Failed to initialize TrackList.");
+            System.out.println("Failed to initialize TrackBot.TrackBot.TrackList.");
         }
     }
 
@@ -45,7 +47,7 @@ public class TrackBot {
     }
     
     public static void main(String[] args) {
-        String filePath = "src/main/java/data/TrackBot.txt";
+        String filePath = "src/main/java/TrackBot/data/TrackBot.txt";
         new TrackBot(filePath).run();
     }
 }

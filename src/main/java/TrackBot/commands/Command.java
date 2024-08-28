@@ -1,3 +1,10 @@
+package TrackBot.commands;
+
+import TrackBot.TrackBotException;
+import TrackBot.TrackBotStorage;
+import TrackBot.TrackList;
+import TrackBot.Ui;
+
 import java.io.IOException;
 
 public abstract class Command {

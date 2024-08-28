@@ -1,7 +1,9 @@
+package TrackBot;
+
 public class Ui {
     public void showWelcome() {
         System.out.println("************************************************************");
-        System.out.println("Hello from TrackBot!\n" + "How may I assist you?");
+        System.out.println("Hello from TrackBot.TrackBot!\n" + "How may I assist you?");
     }
 
     public void showBye() {

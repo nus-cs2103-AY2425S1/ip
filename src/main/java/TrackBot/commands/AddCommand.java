@@ -1,3 +1,7 @@
+package TrackBot.commands;
+
+import TrackBot.*;
+
 import java.io.IOException;
 
 public class AddCommand extends Command {
