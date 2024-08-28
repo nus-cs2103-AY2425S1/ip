@@ -1,10 +1,10 @@
+package Winde;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Winde {
     public static void main(String[] args) {
@@ -334,7 +333,7 @@ public class Winde {
     }
 
     public static void greet() {
-        System.out.println("Hello! I'm Winde\n" + "What can I do for you?");
+        System.out.println("Hello! I'm Winde.Winde\n" + "What can I do for you?");
     }
 
     public static void exit() {
