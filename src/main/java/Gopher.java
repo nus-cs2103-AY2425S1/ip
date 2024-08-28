@@ -13,11 +13,17 @@ public class Gopher {
             """;
     private final static String horizontalSeparator = "==================================================";
 
-    // Initialize the input reader
-    private final static Scanner inputReader = new Scanner(System.in);
+    // Initialize the necessary components
+    private static Scanner inputReader;
 
     // Tasks ArrayList to store user input tasks
-    private final static ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList;
+
+    private static void initialize() {
+        inputReader = new Scanner(System.in);
+        taskList = new ArrayList<>();
+        TaskManager.initialize();
+    }
 
     // Show greeting message when user first enter the application
     private static void greet () {
@@ -112,6 +118,7 @@ public class Gopher {
     }
 
     public static void main(String[] args) {
+        initialize();
         greet();
 
         // Start the event loop for responding user input and query
