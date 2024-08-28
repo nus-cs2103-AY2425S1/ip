@@ -1,4 +1,11 @@
+package Task;
+
+import Task.Task;
+
 import java.util.List;
+import Exception.*;
+import Ui.Ui;
+import Parse.Parse;
 public class TaskList {
     private List<Task> array;
     public TaskList(List<Task> array) {
@@ -7,7 +14,7 @@ public class TaskList {
     public void handleList(){
         Ui.uiList(array);
     }
-    public void handleTask(String input) throws WrongKeyword, MissingArg{
+    public void handleTask(String input) throws WrongKeyword, MissingArg {
         if (input.startsWith("todo")) {
             try {
                 Todo x = new Todo(Parse.parseTodo(input));
