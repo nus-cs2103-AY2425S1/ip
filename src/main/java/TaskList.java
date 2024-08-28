@@ -111,6 +111,8 @@ public class TaskList {
             String from = parts[1];
             String to = parts[2];
             Task newTask = new Event(description, from, to, TaskType.EVENT);
+            tasks.add(newTask);
+            ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new ChatBotException("Invalid format for event. " +
                     "Correct format: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
