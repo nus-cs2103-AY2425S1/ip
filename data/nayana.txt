@@ -1,4 +1,4 @@
-0. T | 1 |nothing
-1. T | 0 |something
-2. D | 0 |hello| 56 aug
-3. E | 0 |never| 2pm - 4pm
+0. D | 1 | nothing | Dec 1 2019
+1. T | 0 | something 
+2. T | 0 | everything 
+3. E | 0 | blah | Dec 1 2019 - Dec 1 2020
