@@ -19,6 +19,8 @@ public class Event extends Task {
         List<DateTimeFormatter> formatters = new ArrayList<>();
         formatters.add(DateTimeFormatter.ofPattern("d/MM/yyyy"));
         formatters.add(DateTimeFormatter.ofPattern("dd/M/yyyy"));
+        formatters.add(DateTimeFormatter.ofPattern("d/M/yyyy"));
+        formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         // Add more patterns as needed
 
         for (DateTimeFormatter formatter : formatters) {

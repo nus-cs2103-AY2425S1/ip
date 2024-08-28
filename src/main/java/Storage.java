@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
@@ -17,13 +16,14 @@ public class Storage {
     public static void ensureFileExists() {
         File dir = new File(DIR_PATH);
         if (!dir.exists()) {
-            dir.mkdirs(); // Create the directory if it doesn't exist
+            dir.mkdirs();
+            return; // Create the directory if it doesn't exist
         }
 
         File file = new File(FILE_PATH);
         try {
             if (!file.exists()) {
-                file.createNewFile(); // Create the file if it doesn't exist
+                file.createNewFile();
             }
         } catch (IOException e) {
             System.out.println("Error creating file: " + e.getMessage());
@@ -54,24 +54,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    String[] parts = line.split(" \\| ");
-                    Task task = null;
-                    switch (parts[0]) {
-                        case "T":
-                            task = new Todo(parts[2]);
-                            break;
-                        case "D":
-                            task = new Deadline(parts[2], parts[3]);
-                            break;
-                        case "E":
-                            task = new Event(parts[2], parts[3], parts[4]);
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Unknown task type");
-                    }
-                    if (parts[1].equals("1")) {
-                        task.markAsDone();
-                    }
+                    Task task = getTask(line);
                     tasks.addTask(task);
                 } catch (Exception e) {
                     System.out.println("Corrupted line in file: " + line);
@@ -83,5 +66,27 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
+    }
+
+    private static Task getTask(String line) {
+        String[] parts = line.split(" \\| ");
+        Task task = null;
+        switch (parts[0]) {
+            case "T":
+                task = new Todo(parts[2]);
+                break;
+            case "D":
+                task = new Deadline(parts[2], parts[3]);
+                break;
+            case "E":
+                task = new Event(parts[2], parts[3], parts[4]);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown task type");
+        }
+        if (parts[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
     }
 }
