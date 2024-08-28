@@ -2,8 +2,10 @@ package Task;
 
 
 import CommandLine.Line;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import Save.Save;
 
@@ -80,10 +82,12 @@ public class TaskList {
         switch (taskType) {
         case T:
             task = ToDo.of(description, taskType);
+            saveTasks();
             break;
         case D:
             try {
                 task = Deadline.of(description + " /by " + parts[3], taskType);
+                saveTasks();
             } catch (TaskCreationException e) {
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
             }
@@ -91,6 +95,7 @@ public class TaskList {
         case E:
             try {
                 task = Event.of(description + "/from " + parts[3] + " /to " + parts[4], taskType);
+                saveTasks();
             } catch (TaskCreationException e) {
                 System.out.println("Error occurred while parsing task");
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
@@ -106,6 +111,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Creates a task with given string
+     * @param s the string containing information about the task type
+     * @param taskType the type of task
+     * @throws TaskCreationException if error occurs while creating task
+     */
     public void add(String s, Task.TaskType taskType) {
         try {
             Task newTask;
@@ -140,6 +151,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list
+     * @param idx index displayed on the list to be deleted
+     */
     public void delete(int idx) {
         idx = idx - 1;
         if (idx < 0 || idx >= taskListLength) {
@@ -160,7 +175,10 @@ public class TaskList {
             line.drawLine();
         }
     }
-
+    /**
+     * Marks task at given index as completed
+     * @param s index to be marked as done
+     */
     public void markAsDone(String s) {
         int idx = parseInt(s);
         idx -= 1;
@@ -175,7 +193,10 @@ public class TaskList {
         line.drawLine();
     }
 
-
+    /**
+     * Marks task at given index as not completed
+     * @param s index to be marked as undone
+     */
     public void markAsUndone(String s) {
         int idx = parseInt(s);
         idx -= 1;
@@ -190,6 +211,10 @@ public class TaskList {
         line.drawLine();
     }
 
+
+    /**
+     * Prints all tasks in the task list
+     */
     public void list() {
         if (taskListLength == 0) {
             return;
@@ -203,4 +228,26 @@ public class TaskList {
         }
         line.drawLine();
     }
+
+    /**
+     * Prints tasks with matching string in description
+     * @param s the keyword
+     */
+    public void find(String s) {
+        List<Task> tasks = new ArrayList<Task>();
+        for (Task task : taskList) {
+            if (task.readTask().toLowerCase().contains((s.toLowerCase()))) {
+                tasks.add(task);
+            }
+        }
+        line.drawLine();
+        System.out.println("      Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            int counter = i + 1;
+            Task currentTask = tasks.get(i);
+            System.out.println("    " + counter + ". [" + currentTask.getTaskTypeAsString() + "] [" + currentTask.getStatus()  + "] " + currentTask.readTask());
+        }
+        line.drawLine();
+    }
+
 }
