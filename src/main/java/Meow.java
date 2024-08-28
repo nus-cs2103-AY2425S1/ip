@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Meow {
@@ -23,19 +25,29 @@ public class Meow {
     public enum Command {
         TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE
     }
-    public static void main(String[] args) throws Meowception {
+    public static void main(String[] args) throws Meowception, IOException {
         System.out.println(openingMessage);
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         
         // User input cycle is here.
-
+        loadTasksFromFile();
         while (!input.equals("bye")) {
             commandValidation(input);
             input = sc.nextLine();
         }
-
+        saveTasks();
         System.out.println("Fine just leave me like everyone does hmph");
+    }
+
+    static private void loadTasksFromFile() {
+        try {
+            readTasks();
+        } catch (Meowception e) {
+            errorMsg(e.toString());
+        } catch (IOException e) {
+            errorMsg("Meowception 007: meow meow error creating file meow");
+        }
     }
 
     static private void errorMsg(String msg) {
@@ -45,11 +57,8 @@ public class Meow {
     }
 
     private static void commandValidation(String inputType) throws Meowception {
-        try {
-            
+        try {         
             String[] parts = inputType.split(" ");
-
-            System.out.println(parts[0]);
             Command userCommand = Command.valueOf(parts[0].toUpperCase());
             outputTask(userCommand, inputType);
         } catch (StringIndexOutOfBoundsException e) {
@@ -62,8 +71,6 @@ public class Meow {
     }
 
     private static void outputTask(Command cmd,String inputType) throws Meowception {
-        
-
         switch (cmd) {
             case MARK:
                 try {
@@ -104,18 +111,6 @@ public class Meow {
                 break;
     
             case TODO:
-                // Cleaning data so that it identifies todo, "todo " and subsequent "todo         ...   "
-                // if (inputType.length() == 4) {
-                //     errorMsg("Meow meow you need to enter a task in your todo !!!");
-                // } else if (inputType.length() == 5) {
-                //     if (inputType.charAt(4) != ' ') {
-                //         errorMsg("No command exists like that silly goose");
-                //     } else {
-                //         errorMsg("Meow meow you need to enter a task in your todo !!!");
-                //     }
-                // } else {
-                //     addTodoTask(inputType.substring(5)); // adds task but cleans out the "todo "
-                // }
                 try {
                     addTodoTask(inputType.substring(5));
                 } catch (Meowception e) {
@@ -329,4 +324,35 @@ public class Meow {
             taskList.remove(number - 1);
         }
     }
+
+    /*
+     * This function is used to read tasks from a file.
+     * It creates tasks objects from said file.
+     * @param String: The command line containing index.
+     * 
+     */
+    static private void readTasks() throws Meowception, IOException {
+        Save save = new Save();
+        List<String> tasks = save.read();  
+        for (String task : tasks) {
+            String type = task.substring(0, 1);
+            commandValidation(task.substring(2));
+            if (type.equals("1")) {
+                taskList.get(taskList.size() - 1).setDone(true);
+            } 
+        }
+
+    }
+
+    /*
+     * This function is used to save tasks to a file.
+     * @param List<Task>: The list of tasks to be saved.
+     * 
+     */
+    static private void saveTasks() throws IOException {
+        Save save = new Save(taskList);
+        
+        save.saveTasks(taskList);
+    }
+
 }

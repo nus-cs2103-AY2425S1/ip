@@ -10,4 +10,15 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: " + start + " to: "+ end + ")";
     }
+
+    @Override
+    public String getExtra() {
+        return "/from " + start + " /to " + end;
+    }
+
+    @Override
+    public String getType() {
+        return "event";
+    }
+
 }

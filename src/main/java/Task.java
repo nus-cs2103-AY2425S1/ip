@@ -1,6 +1,7 @@
 public class Task {
     private String taskName;
     private boolean isDone;
+    
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
@@ -20,6 +21,14 @@ public class Task {
 
     public String toString() {
         return "[" + getCompetionChar() + "] " + taskName;
+    }
+
+    public String getExtra() {
+        return "";
+    }
+
+    public String getType() {
+        return "";
     }
     
 
