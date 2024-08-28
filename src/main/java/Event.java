@@ -13,4 +13,8 @@ public class Event extends Task {
         String task = super.toString();
         return "[E] " + task + " (from: " + from + " to: " + to + ")";
     }
+    @Override
+    public String toFileString() {
+        return "E | " + this.getFileStatus() + " | " + this.getTask() + " | " + from + "-" + to + "\n";
+    }
 }
