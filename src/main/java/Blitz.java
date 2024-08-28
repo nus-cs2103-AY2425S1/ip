@@ -18,7 +18,6 @@ public class Blitz{
                 "What can I do for you?");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> inputHistory = new ArrayList<>();
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -28,12 +27,12 @@ public class Blitz{
                         "Till we meet again, GOODBYE!");
                 break;
             } else {
-                actionBasedOnInput(inputHistory, userInput);
+                actionBasedOnInput(userInput);
             }
         }
     }
 
-    public void actionBasedOnInput(ArrayList<Task> inputHistory, String userInput) {
+    public void actionBasedOnInput(String userInput) {
         String strippedInput = userInput.toLowerCase().trim();
         if (strippedInput.isEmpty()) {
             return;
@@ -41,7 +40,7 @@ public class Blitz{
 
         String[] words = strippedInput.split(" ");
         if (strippedInput.equals("list")) {
-            displayList(inputHistory);
+            displayList();
         } else if (strippedInput.startsWith("mark") || strippedInput.startsWith("unmark")){
             try {
                 int taskNumber = Integer.parseInt(words[1]);
