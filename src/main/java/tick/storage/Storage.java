@@ -13,13 +13,27 @@ import tick.tasks.Event;
 import tick.tasks.Task;
 import tick.tasks.ToDo;
 
+/**
+ * Storage class handles the loading and saving of data to a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for Storage class.
+     *
+     * @param filePath The file path to save and load data from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the data to the file.
+     *
+     * @param taskList The list of tasks to save.
+     * @throws TickException If an error occurs while saving data to file.
+     */
     public void saveData(ArrayList<Task> taskList) throws TickException {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
@@ -32,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data from the file.
+     *
+     * @return The list of tasks loaded from the file.
+     * @throws IOException If an error occurs while loading data from file.
+     */
     public ArrayList<Task> loadData() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(this.filePath);
