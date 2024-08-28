@@ -1,11 +1,13 @@
 package struggling;
+
 import struggling.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     private final String name = "struggling";
-    private Scanner sc;
+    private final Scanner sc;
 
     public Ui() {
         sc = new Scanner(System.in);
@@ -14,11 +16,11 @@ public class Ui {
     public void show(String str) {
         String line = "____________________________________________________________";
         StringBuilder indent = new StringBuilder();
-        for(String s : str.split("\\R")) {
+        for (String s : str.split("\\R")) {
             indent.append(" ").append(s).append("\n");
         }
         String box = String.format("%s\n%s%s", line, indent, line);
-        for(String s : box.split("\\R")) {
+        for (String s : box.split("\\R")) {
             System.out.printf("\t%s\n", s);
         }
         System.out.println();
@@ -43,11 +45,25 @@ public class Ui {
     public void list(ArrayList<String> arr) {
         StringBuilder ans = new StringBuilder("Here are the tasks in your list:\n");
         int count = 0;
-        for(String s : arr) {
+        for (String s : arr) {
             ans.append(String.format("%d. %s\n", ++count, s));
         }
 
-        if(!ans.isEmpty()) {
+        if (!ans.isEmpty()) {
+            ans.deleteCharAt(ans.length() - 1);
+        }
+
+        show(ans.toString());
+    }
+
+    public void find(ArrayList<String> arr) {
+        StringBuilder ans = new StringBuilder("Here are the matching tasks in your list:\n");
+        int count = 0;
+        for (String s : arr) {
+            ans.append(String.format("%d. %s\n", ++count, s));
+        }
+
+        if (!ans.isEmpty()) {
             ans.deleteCharAt(ans.length() - 1);
         }
 
@@ -55,13 +71,13 @@ public class Ui {
     }
 
     public void showAddTask(Task task, int size) {
-        show(String.format("Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.",
-                task, size));
+        show(String.format("Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.", task,
+                           size));
     }
 
     public void showDeleteTask(Task task, int size) {
-        show(String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.",
-                task, size));
+        show(String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.", task,
+                           size));
     }
 
     public void showMarkTask(Task task) {

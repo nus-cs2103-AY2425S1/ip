@@ -1,7 +1,7 @@
 package struggling.task;
 
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     public Task(String description) {
@@ -25,5 +25,9 @@ public class Task {
 
     public String getState() {
         return String.format("%d | %s", this.isDone ? 1 : 0, this.description);
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }

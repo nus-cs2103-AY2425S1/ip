@@ -1,4 +1,5 @@
 package struggling;
+
 import struggling.task.Deadline;
 import struggling.task.Event;
 import struggling.task.Task;
@@ -18,7 +19,7 @@ public class TaskList {
 
     public TaskList(ArrayList<String> input) {
         tasks = new ArrayList<>();
-        for(String s: input) {
+        for (String s : input) {
             String[] args = s.split(" \\| ");
             Task task = switch (args[0]) {
                 case "T" -> new ToDo(args[2]);
@@ -62,7 +63,7 @@ public class TaskList {
     public ArrayList<String> getTasksString() {
         ArrayList<String> arr = new ArrayList<>();
 
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             arr.add(t.toString());
         }
 
@@ -72,7 +73,7 @@ public class TaskList {
     public ArrayList<String> getTasksState() {
         ArrayList<String> arr = new ArrayList<>();
 
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             arr.add(t.getState());
         }
 
@@ -81,5 +82,17 @@ public class TaskList {
 
     public int getSize() {
         return this.tasks.size();
+    }
+
+    public ArrayList<String> findTask(String str) {
+        ArrayList<String> arr = new ArrayList<>();
+
+        for (Task t : tasks) {
+            if (t.getDescription().contains(str)) {
+                arr.add(t.toString());
+            }
+        }
+
+        return arr;
     }
 }
