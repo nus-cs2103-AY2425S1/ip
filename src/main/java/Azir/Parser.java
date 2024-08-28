@@ -1,3 +1,7 @@
+package Azir;
+
+import Azir.AzirException;
+
 public class Parser {
     public static String[] parse(String command) throws AzirException {
         if (command.equals("list")) {

@@ -1,3 +1,5 @@
+package Azir;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
