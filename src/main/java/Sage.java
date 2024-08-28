@@ -4,43 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sage {
-    public static final String NAME = "Sage";
     public static List<Task> tasksList = new ArrayList<>();
+    public static Ui ui;
     public static Storage storage;
 
     public static void main(String[] args) {
-
+        ui = new Ui();
         storage = new Storage("data/sage.txt");
-        Scanner scanner = new Scanner(System.in);
-        textBox(String.format("Hello! I'm %s\nWhat can i do for you?", NAME));
 
         try {
             tasksList = storage.load();
         } catch (IOException | SageException e) {
-            System.out.println(e.getMessage());
+            ui.showError(e.getMessage());
         }
+
+        ui.showWelcome();
 
         while (true) {
             try {
-                String input = scanner.nextLine();
+                String input = ui.readInput();
                 String[] fullCommand = input.split(" ", 2);
                 String command = fullCommand[0];
 
                 if (input.equalsIgnoreCase("bye")) {
                     storage.save(tasksList);
-                    textBox("Bye. Hope to see you again soon!");
+                    ui.showGoodbye();
                     break;
 
                 } else if (input.equals("list")) {
                     if (tasksList.isEmpty()) {
-                        textBox("There are no task!");
+                        ui.showEmptyList();
                     } else {
                         StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
                         for (int i = 0; i < tasksList.size(); i++) {
                             Task task = tasksList.get(i);
                             result.append(String.format("%d. %s\n", i + 1, task.toString()));
                         }
-                        textBox(String.valueOf(result));
+                        ui.showResponse(String.valueOf(result));
                     }
 
                 } else if ((command.equals("mark") || command.equals("unmark")) && fullCommand.length > 1) {
@@ -62,15 +62,16 @@ public class Sage {
                     Task task = tasksList.get(index);
                     task.setDone(doneStatus);
                     confirmationMessage.append(task);
-                    textBox(String.valueOf(confirmationMessage));
+                    ui.showResponse(String.valueOf(confirmationMessage));
 
                 } else if (command.equals("todo") && fullCommand.length > 1) {
                     String description = fullCommand[1].trim();
                     if (description.isEmpty())
                         throw new SageException("Invalid todo command. Please include a description.");
 
-                    tasksList.add(new ToDo(description));
-                    addedTextBox();
+                    Task toDo = new ToDo(description);
+                    tasksList.add(toDo);
+                    ui.showAddedTask(toDo, tasksList.size());
 
                 } else if (command.equals("deadline") && fullCommand.length > 1) {
                     String[] deadlineCommand = fullCommand[1].split(" /by ", 2);
@@ -80,8 +81,9 @@ public class Sage {
                     String description = deadlineCommand[0].trim();
                     String by = deadlineCommand[1].trim();
 
-                    tasksList.add(new Deadline(description, by));
-                    addedTextBox();
+                    Task deadline = new Deadline(description, by);
+                    tasksList.add(deadline);
+                    ui.showAddedTask(deadline, tasksList.size());
 
                 } else if (command.equals("event") && fullCommand.length > 1) {
                     String[] eventCommand = fullCommand[1].split(" /from | /to ", 3);
@@ -92,8 +94,9 @@ public class Sage {
                     String from = eventCommand[1].trim();
                     String to = eventCommand[2].trim();
 
-                    tasksList.add(new Event(description, from, to));
-                    addedTextBox();
+                    Task event = new Event(description, from, to);
+                    tasksList.add(event);
+                    ui.showAddedTask(event, tasksList.size());
 
                 } else if (command.equals("delete") && fullCommand.length > 1) {
                     int index;
@@ -107,28 +110,15 @@ public class Sage {
                     }
                     Task deletedTask = tasksList.get(index);
                     tasksList.remove(index);
-                    int noOfTasks = tasksList.size();
-                    textBox(String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", deletedTask, noOfTasks));
+                    ui.showDeletedTask(deletedTask, tasksList.size());
 
                 } else {
                     throw new SageException("Invalid command.");
                 }
                 
             } catch (IOException | SageException e) {
-                textBox(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
-        scanner.close();
-    }
-
-    public static void textBox(String text) {
-        String HORIZONTAL_LINE = "_________________________________________________";
-        String indentedText = text.indent(4);
-        System.out.println(HORIZONTAL_LINE + "\n" + indentedText + HORIZONTAL_LINE);
-    }
-
-    public static void addedTextBox() {
-        int noOfTasks = tasksList.size();
-        textBox(String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", tasksList.get(noOfTasks - 1), noOfTasks));
     }
 }
