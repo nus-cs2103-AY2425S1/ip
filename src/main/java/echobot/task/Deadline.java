@@ -1,3 +1,5 @@
+package echobot.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Deadline extends Task {
-    protected LocalDate by;
+    public LocalDate by;
 
 
     public Deadline(String description, String by) {
