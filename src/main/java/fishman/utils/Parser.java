@@ -4,6 +4,7 @@ import fishman.command.AddCommand;
 import fishman.command.Command;
 import fishman.command.DeleteCommand;
 import fishman.command.ExitCommand;
+import fishman.command.FindCommand;
 import fishman.command.ListCommand;
 import fishman.command.MarkCommand;
 import fishman.exception.FishmanException;
@@ -54,7 +55,7 @@ public class Parser {
         String[] inputs = userInput.split(" ", 2);
         String commandPhrase = inputs[0].toLowerCase();
 
-        if (inputs.length == 1 && commandPhrase.matches("mark|unmark|todo|deadline|event|delete")) {
+        if (inputs.length == 1 && commandPhrase.matches("mark|unmark|todo|deadline|event|delete|find")) {
             throw new FishmanException.MissingArgumentException(commandPhrase);
         }
 
@@ -108,6 +109,8 @@ public class Parser {
                     throw new FishmanException.IndexOutOfBoundsException(deleteIndex + 1);
                 }
                 return new DeleteCommand(deleteIndex);
+            case "find":
+                return new FindCommand(inputs[1]);
             default:
                 throw new FishmanException.InvalidCommandException();
             }

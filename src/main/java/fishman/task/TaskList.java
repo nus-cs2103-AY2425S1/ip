@@ -70,6 +70,9 @@ public class TaskList implements Iterable<Task> {
         return tasks.size();
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
     @Override
     public Iterator<Task> iterator() {
         return tasks.iterator();

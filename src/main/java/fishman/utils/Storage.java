@@ -62,52 +62,47 @@ public class Storage {
 
     public TaskList load() throws FishmanException {
         TaskList tasks = new TaskList();
+
         try {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
-                try {
-                    String[] arguments = line.split("\\|", -1);
-                    if (arguments.length < 3) {
+                String[] arguments = line.split("\\|", -1);
+                if (arguments.length < 3) {
+                    throw new FishmanException.InvalidArgumentsException(line);
+                }
+                String type = arguments[0];
+                boolean isDone = arguments[1].equals("1");
+                String description = arguments[2];
+
+                switch (type) {
+                case "T":
+                    if (arguments.length != 3) {
                         throw new FishmanException.InvalidArgumentsException(line);
                     }
-                    String type = arguments[0];
-                    boolean isDone = arguments[1].equals("1");
-                    String description = arguments[2];
-
-                    switch (type) {
-                    case "T":
-                        if (arguments.length != 3) {
-                            throw new FishmanException.InvalidArgumentsException(line);
-                        }
-                        tasks.addTask(new ToDo(description, isDone));
-                        break;
-                    case "D":
-                        if (arguments.length != 4) {
-                            throw new FishmanException.InvalidArgumentsException(line);
-                        }
-                        String deadline = arguments[3];
-                        LocalDateTime deadlineDate = parseDateTime(deadline);
-                        tasks.addTask(new Deadline(description, isDone, deadlineDate));
-                        break;
-                    case "E":
-                        if (arguments.length != 5) {
-                            throw new FishmanException.InvalidArgumentsException(line);
-                        }
-                        String from = arguments[3];
-                        String to = arguments[4];
-                        LocalDateTime fromDate = parseDateTime(from);
-                        LocalDateTime toDate = parseDateTime(to);
-                        tasks.addTask(new Event(description, isDone, fromDate, toDate));
-                        break;
-                    default:
-                        throw new FishmanException.InvalidArgumentsException("Empty line or unknown task type in line: " + "<" + line + ">");
+                    tasks.addTask(new ToDo(description, isDone));
+                    break;
+                case "D":
+                    if (arguments.length != 4) {
+                        throw new FishmanException.InvalidArgumentsException(line);
                     }
-                } catch (FishmanException.InvalidArgumentsException e) {
-                    System.out.print(e.getMessage());
-                    throw e;
+                    String deadline = arguments[3];
+                    LocalDateTime deadlineDate = parseDateTime(deadline);
+                    tasks.addTask(new Deadline(description, isDone, deadlineDate));
+                    break;
+                case "E":
+                    if (arguments.length != 5) {
+                        throw new FishmanException.InvalidArgumentsException(line);
+                    }
+                    String from = arguments[3];
+                    String to = arguments[4];
+                    LocalDateTime fromDate = parseDateTime(from);
+                    LocalDateTime toDate = parseDateTime(to);
+                    tasks.addTask(new Event(description, isDone, fromDate, toDate));
+                    break;
+                default:
+                    throw new FishmanException.InvalidArgumentsException("Empty line or unknown task type in line: " + "<" + line + ">");
                 }
             }
-
         } catch (IOException e) {
             throw new RuntimeException("Error reading file: " + e.getMessage(), e);
         }
