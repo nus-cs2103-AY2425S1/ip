@@ -4,6 +4,10 @@ import MichaelScott.Exception.MichaelScottException;
 import MichaelScott.Task.Task;
 import MichaelScott.Task.TaskList;
 
+/**
+ * Represents a command to mark a task as done.
+ * This command implements the Command interface.
+ */
 public class MarkCommand implements Command {
     private final int TaskIndex;
 

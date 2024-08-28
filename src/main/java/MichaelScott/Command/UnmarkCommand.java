@@ -4,6 +4,9 @@ import MichaelScott.Exception.MichaelScottException;
 import MichaelScott.Task.Task;
 import MichaelScott.Task.TaskList;
 
+/**
+ * Represents a command to unmark a task.
+ */
 public class UnmarkCommand implements Command {
     private final int TaskIndex;
 

@@ -3,6 +3,10 @@ package MichaelScott.Command;
 import MichaelScott.Exception.MichaelScottException;
 import MichaelScott.Task.TaskList;
 
+/**
+ * Represents a command to display the taskList.
+ * This command implements the Command interface.
+ */
 public class ListCommand implements Command {
     @Override
     public String execute(TaskList tasks) throws MichaelScottException {

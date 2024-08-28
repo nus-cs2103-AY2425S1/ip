@@ -2,6 +2,10 @@ package MichaelScott.Command;
 
 import MichaelScott.Task.TaskList;
 
+/**
+ * Represents a command to exit the application.
+ * This command implements the Command interface.
+ */
 public class ExitCommand implements Command {
 
     @Override
