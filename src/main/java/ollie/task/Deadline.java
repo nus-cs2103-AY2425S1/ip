@@ -53,6 +53,15 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the due date of the ollie.task.Deadline task.
+     *
+     * @return deadline of the ollie.task.Deadline task.
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
     @Override
     public String saveAsString() {
         DateTimeFormatter formatDate = Task.getFormatDate();
