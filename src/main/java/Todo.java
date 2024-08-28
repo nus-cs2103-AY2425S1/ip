@@ -1,20 +1,22 @@
-import java.time.LocalDate;
-
-public class Todo extends Task {
+public class Todo extends Command {
+    String description;
     public Todo(String description) {
-        super(description);
+        this.description = description;
+    }
+
+    private static void taskAdded(TaskList list, Task t) {
+        System.out.println("Got it. I've added this task:\n" + t);
+        System.out.println("Now you have " + list.size() + (list.size() == 1 ? " task in the list." : " tasks in the list."));
+    }
+    @Override
+    public void execute(TaskList list, Ui ui, Storage storage) {
+        Task t = new TodoTask(description);
+        list.add(t);
+        taskAdded(list, t);
     }
 
     @Override
-    public LocalDate getDate() {
-        return null;
-    }
-    @Override
-    public String getType() {
-        return "T";
-    }
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public boolean isExit() {
+        return false;
     }
 }

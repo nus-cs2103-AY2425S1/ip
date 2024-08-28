@@ -1,35 +1,26 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-public class Deadline extends Task {
-    protected LocalDateTime by;
 
+public class Deadline extends Command {
+    String description;
+    LocalDateTime by;
     public Deadline(String description, LocalDateTime by) {
-        super(description);
+        this.description = description;
         this.by = by;
     }
-    @Override
-    public String getBy() {
-        return by.toString();
+
+    private static void taskAdded(TaskList list, Task t) {
+        System.out.println("Got it. I've added this task:\n" + t);
+        System.out.println("Now you have " + list.size() + (list.size() == 1 ? " task in the list." : " tasks in the list."));
     }
     @Override
-    public String getType() {
-        return "D";
+    public void execute(TaskList list, Ui ui, Storage storage) {
+        Task t = new DeadlineTask(description, by);
+        list.add(t);
+        taskAdded(list, t);
     }
 
     @Override
-    public LocalDate getDate() {
-        return by.toLocalDate();
-    }
-
-    public static LocalDateTime parseDateTime(String dateTimeInput) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(dateTimeInput, formatter);
-    }
-
-    @Override
-    public String toString() {
-        String byFormatted = by.format(DateTimeFormatter.ofPattern("d MMMM yyyy h:mma"));
-        return "[D]" + super.toString() + " (by: " + byFormatted + ")";
+    public boolean isExit() {
+        return false;
     }
 }

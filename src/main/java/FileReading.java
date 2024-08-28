@@ -3,10 +3,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.ArrayList;
 
-public class FileReading {
+public class FileReading extends Storage {
     private static final String SEPARATOR = " \\| ";
+
+    public FileReading(String filePath) {
+        super(filePath);
+    }
 
     protected static void createDirectory(String dirName) {
         File directory = new File(dirName);
@@ -22,28 +25,28 @@ public class FileReading {
         }
     }
 
-    protected static ArrayList<Task> loadTasks(String filePath) throws FileNotFoundException {
-        ArrayList<Task> list = new ArrayList<>();
+    protected static TaskList loadTasks(String filePath) throws FileNotFoundException {
+        TaskList list = new TaskList();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String[] parts = s.nextLine().split(SEPARATOR);
             switch (parts[0]) {
                 case "T" -> {
-                    Task todo = new Todo(parts[2]);
+                    Task todo = new TodoTask(parts[2]);
                     todo.isDone = isDone(Integer.parseInt(parts[1]));
                     list.add(todo);
                 }
                 case "D" -> {
                     LocalDateTime by = LocalDateTime.parse(parts[3]);
-                    Task deadline = new Deadline(parts[2], by);
+                    Task deadline = new DeadlineTask(parts[2], by);
                     deadline.isDone = isDone(Integer.parseInt(parts[1]));
                     list.add(deadline);
                 }
                 case "E" -> {
                     LocalDateTime from = LocalDateTime.parse(parts[3]);
                     LocalDateTime to = LocalDateTime.parse(parts[4]);
-                    Task event = new Event(parts[2], from, to);
+                    Task event = new EventTask(parts[2], from, to);
                     event.isDone = isDone(Integer.parseInt(parts[1]));
                     list.add(event);
                 }
