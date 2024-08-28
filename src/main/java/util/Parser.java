@@ -2,6 +2,7 @@ package util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,7 @@ public class Parser {
           String description = details.substring(0, byIdx);
           String by = details.substring(byIdx + 6, details.length() - 1);
           try {
-            LocalDate byDate = LocalDate.parse(by);
+            LocalDate byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy"));
             t = new Deadline(description, byDate);
             result.add(t);
           } catch (DateTimeParseException e) {
@@ -59,8 +60,8 @@ public class Parser {
           String from = details.substring(fromIdx + 8, toIdx);
           String to = details.substring(toIdx + 5, details.length() - 1);
           try {
-            LocalDate fromDate = LocalDate.parse(from);
-            LocalDate toDate = LocalDate.parse(to);
+            LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy"));
             t = new Event(description, fromDate, toDate);
             result.add(t);
           } catch (DateTimeParseException e) {
