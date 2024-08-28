@@ -64,4 +64,9 @@ public class Deadline extends Task {
     }
 
 
+    public LocalDate getBy() {
+        return this.by;
+    }
+
+
 }

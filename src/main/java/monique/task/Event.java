@@ -76,5 +76,11 @@ public class Event extends Task {
         return new Event(this.description, false, this.from, this.to);
     }
 
+    public LocalDate getFrom() {
+        return this.from;
+    }
 
+    public LocalDate getTo() {
+        return this.to;
+    }
 }

@@ -1,15 +1,23 @@
 package monique.parser;
 
-import monique.command.*;
+import java.util.Arrays;
+import java.util.Set;
+
+import monique.command.AddCommand;
+import monique.command.ByeCommand;
+import monique.command.Command;
+import monique.command.DeleteCommand;
+import monique.command.GuideCommand;
+import monique.command.ListCommand;
+import monique.command.MarkCommand;
+import monique.command.UnknownCommand;
+import monique.command.UnmarkCommand;
 import monique.exception.IllegalDateFormatException;
 import monique.exception.ParseException;
 import monique.task.Deadline;
 import monique.task.Event;
 import monique.task.Task;
 import monique.task.ToDo;
-
-import java.util.Arrays;
-import java.util.Set;
 
 public class Parser {
 
@@ -44,6 +52,8 @@ public class Parser {
                         pe.advice();
                     } catch (NumberFormatException nfe) {
                         System.out.println("you have tried to use an invalid number");
+                    } finally {
+                        break;
                     }
                 }
                 case "unmark": {

@@ -24,4 +24,8 @@ public class AddCommand extends Command {
     public boolean isActive(){
         return true;
     }
+
+    public Task getTask() {
+        return this.task;
+    }
 }

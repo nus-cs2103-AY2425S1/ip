@@ -22,4 +22,12 @@ public abstract class Task implements java.io.Serializable {
 
     public abstract Task mark();
     public abstract Task unmark();
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean isComplete() {
+        return isComplete;
+    }
 }

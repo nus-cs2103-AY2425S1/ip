@@ -29,4 +29,27 @@ public class DeleteCommand extends Command {
     public boolean isActive(){
         return true;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Check if the object is compared with itself
+        if (this == obj) {
+            return true;
+        }
+
+        // Check if the object is an instance of DeleteCommand
+        if (obj instanceof DeleteCommand) {
+            DeleteCommand other = (DeleteCommand) obj;
+            // Compare taskNum of both objects
+            return this.taskNum == other.taskNum;
+        }
+
+        // If obj is not an instance of DeleteCommand, return false
+        return false;
+    }
+
+
 }
+
+
+
