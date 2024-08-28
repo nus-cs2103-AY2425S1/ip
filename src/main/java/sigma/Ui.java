@@ -1,3 +1,7 @@
+package sigma;
+
+import sigma.exception.SigmaException;
+
 import java.util.Scanner;
 
 public class Ui {

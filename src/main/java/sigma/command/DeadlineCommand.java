@@ -1,3 +1,11 @@
+package sigma.command;
+import sigma.Parser;
+import sigma.Storage;
+import sigma.TaskList;
+import sigma.Ui;
+import sigma.exception.SigmaException;
+import sigma.task.DeadlineTask;
+
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Commands {

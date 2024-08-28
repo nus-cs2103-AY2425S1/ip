@@ -1,5 +1,11 @@
-import java.io.File;
+package sigma;
 
+import sigma.Storage;
+import sigma.Ui;
+import sigma.command.Commands;
+import sigma.exception.SigmaException;
+
+import java.io.File;
 public class Sigma {
 
     private Storage storage;
