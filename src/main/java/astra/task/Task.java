@@ -90,4 +90,11 @@ public abstract class Task {
     public void setDone(boolean status) {
         this.isDone = status;
     }
+
+    /**
+     * Returns true if the task contains the keyword.
+     */
+    public boolean hasKeyword(String keyword) {
+        return name.toLowerCase().contains(keyword.toLowerCase());
+    }
 }

@@ -6,6 +6,7 @@ import astra.command.AddCommand;
 import astra.command.Command;
 import astra.command.DeleteCommand;
 import astra.command.ExitCommand;
+import astra.command.FindCommand;
 import astra.command.ListCommand;
 import astra.command.MarkCommand;
 import astra.task.Task;
@@ -45,7 +46,7 @@ public class Parser {
         String key = "main";
         for (int i = 1; i < len; i++) {
             String word = words[i];
-            if (word.charAt(0) == '/') {
+            if (!word.isEmpty() && word.charAt(0) == '/') {
                 key = word.substring(1);
             } else {
                 if (args.containsKey(key)) {
@@ -84,6 +85,8 @@ public class Parser {
             return new AddCommand(Task.TaskType.DEADLINE, getArgs(fullCommand));
         case "event":
             return new AddCommand(Task.TaskType.EVENT, getArgs(fullCommand));
+        case "find":
+            return new FindCommand(getArgs(fullCommand).getOrDefault("main", ""));
         default:
             throw new AstraException("Unknown command.");
         }
