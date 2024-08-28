@@ -14,19 +14,19 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 > Donezo. I have added your task.
-> [D][ ] Submit assignment (by: Sunday)
+> [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
 > You have 3 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 > Event added
-> [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+> [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 > You have 4 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Buy groceries
 2. [T][ ] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 ____________________________________________________________
 ____________________________________________________________
 > Updated task:
@@ -35,8 +35,8 @@ ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Buy groceries
 2. [T][X] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 ____________________________________________________________
 ____________________________________________________________
 > Updated task:
@@ -45,8 +45,8 @@ ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Buy groceries
 2. [T][ ] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 ____________________________________________________________
 ____________________________________________________________
 > Please provide a description for the todo.
@@ -54,17 +54,17 @@ ____________________________________________________________
 ____________________________________________________________
 > Please provide a description and deadline.
 > Usage:
-> deadline return book /by Sunday
+> deadline return book /by 2019-10-15 1800
 ____________________________________________________________
 ____________________________________________________________
 > Description and deadline must not be blank.
 > Usage:
-> deadline return book /by Sunday
+> deadline return book /by 2019-10-15 1800
 ____________________________________________________________
 ____________________________________________________________
 > Description start date, and end date must not be blank.
 > Usage:
-> event project meeting /from Mon 2pm /to 4pm
+> event project meeting /from 2019-10-15 1800 /to 2019-10-15 1900
 ____________________________________________________________
 ____________________________________________________________
 > Invalid input!
@@ -81,8 +81,8 @@ ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Buy groceries
 2. [T][ ] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 ____________________________________________________________
 ____________________________________________________________
 > Updated task:
@@ -94,8 +94,8 @@ ____________________________________________________________
 ____________________________________________________________
 1. [T][X] Buy groceries
 2. [T][ ] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 ____________________________________________________________
 ____________________________________________________________
 > Easy. I have added your task.
@@ -109,12 +109,12 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 > Donezo. I have added your task.
-> [D][ ] Pay rent (by: 1st of next month)
+> [D][ ] Pay rent (by: Dec 12 2024 06:00pm)
 > You have 7 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 > Event added
-> [E][ ] Birthday party (from: Saturday 6pm) (to: 11pm)
+> [E][ ] Birthday party (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 > You have 8 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
@@ -132,12 +132,12 @@ ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Buy groceries
 2. [T][X] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 5. [T][ ] Read a book
 6. [T][ ] Write a letter
-7. [D][ ] Pay rent (by: 1st of next month)
-8. [E][ ] Birthday party (from: Saturday 6pm) (to: 11pm)
+7. [D][ ] Pay rent (by: Dec 12 2024 06:00pm)
+8. [E][ ] Birthday party (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 ____________________________________________________________
 ____________________________________________________________
 > Easy. I have added your task.
@@ -146,41 +146,40 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 > Donezo. I have added your task.
-> [D][ ] Submit taxes (by: April 15)
+> [D][ ] Submit taxes (by: Dec 12 2024 06:00pm)
 > You have 10 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
-> Event added
-> [E][ ] Conference (from: May 10) (to: May 12)
-> You have 11 tasks in the list
+> Invalid date.
+> Usage:
+> event project meeting /from 2019-10-15 1800 /to 2019-10-15 1900
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Buy groceries
 2. [T][X] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 5. [T][ ] Read a book
 6. [T][ ] Write a letter
-7. [D][ ] Pay rent (by: 1st of next month)
-8. [E][ ] Birthday party (from: Saturday 6pm) (to: 11pm)
+7. [D][ ] Pay rent (by: Dec 12 2024 06:00pm)
+8. [E][ ] Birthday party (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 9. [T][ ] Finish coding project
-10. [D][ ] Submit taxes (by: April 15)
-11. [E][ ] Conference (from: May 10) (to: May 12)
+10. [D][ ] Submit taxes (by: Dec 12 2024 06:00pm)
 ____________________________________________________________
 ____________________________________________________________
 > Easy. I have added your task.
 > [T][ ] Finish homework
-> You have 12 tasks in the list
+> You have 11 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
-> Donezo. I have added your task.
-> [D][ ] Return library book (by: Friday)
-> You have 13 tasks in the list
+> Failed to parse deadline date.
+> Usage:
+> deadline return book /by 2019-10-15 1800
 ____________________________________________________________
 ____________________________________________________________
 > Event added
-> [E][ ] Family gathering (from: Sunday 3pm) (to: 7pm)
-> You have 14 tasks in the list
+> [E][ ] Family gathering (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
+> You have 12 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 > Updated task:
@@ -192,7 +191,7 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 > Updated task:
-> [D][X] Submit assignment (by: Sunday)
+> [D][X] Submit assignment (by: Dec 12 2024 06:00pm)
 ____________________________________________________________
 ____________________________________________________________
 > Updated task:
@@ -204,32 +203,29 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 > Updated task:
-> [D][ ] Submit assignment (by: Sunday)
+> [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Buy groceries
 2. [T][ ] Clean the house
-3. [D][ ] Submit assignment (by: Sunday)
-4. [E][ ] Project meeting (from: Monday 10am) (to: 12pm)
+3. [D][ ] Submit assignment (by: Dec 12 2024 06:00pm)
+4. [E][ ] Project meeting (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 5. [T][ ] Read a book
 6. [T][ ] Write a letter
-7. [D][ ] Pay rent (by: 1st of next month)
-8. [E][ ] Birthday party (from: Saturday 6pm) (to: 11pm)
+7. [D][ ] Pay rent (by: Dec 12 2024 06:00pm)
+8. [E][ ] Birthday party (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 9. [T][ ] Finish coding project
-10. [D][ ] Submit taxes (by: April 15)
-11. [E][ ] Conference (from: May 10) (to: May 12)
-12. [T][ ] Finish homework
-13. [D][ ] Return library book (by: Friday)
-14. [E][ ] Family gathering (from: Sunday 3pm) (to: 7pm)
+10. [D][ ] Submit taxes (by: Dec 12 2024 06:00pm)
+11. [T][ ] Finish homework
+12. [E][ ] Family gathering (from: Dec 12 2024 06:00pm) (to: Dec 13 2024 09:00am)
 ____________________________________________________________
 ____________________________________________________________
 > No task at index 15
 > Please try again.
 ____________________________________________________________
 ____________________________________________________________
-> Deleted task:
-> [E][ ] Family gathering (from: Sunday 3pm) (to: 7pm)
-> 13 tasks remain.
+> No task at index 14
+> Please try again.
 ____________________________________________________________
 ____________________________________________________________
 > Bye. Hope to see you soon!
