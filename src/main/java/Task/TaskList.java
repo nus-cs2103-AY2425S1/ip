@@ -2,6 +2,7 @@ package Task;
 
 import Task.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 import Exception.*;
 import Ui.Ui;
@@ -91,5 +92,15 @@ public class TaskList {
     }
     public List<Task> getArray() {
         return this.array;
+    }
+    public void search(String input) {
+        String matchingWord = Parse.parseFind(input);
+        List<Task> match = new ArrayList<>();
+        for (Task t : this.array) {
+            if (t.description.contains(matchingWord)) {
+                match.add(t);
+            }
+        }
+        Ui.uiList(match);
     }
 }
