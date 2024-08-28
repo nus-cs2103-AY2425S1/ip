@@ -1,11 +1,13 @@
 package count;
 
-import count.task.Task;
-import count.exception.CountException;
 import java.util.ArrayList;
 
+import count.task.Task;
+
+import count.exception.CountException;
+
 public class TaskList {
-    private ArrayList<Task> ls;
+    protected ArrayList<Task> ls;
 
     public TaskList() {
         this.ls = new ArrayList<>();

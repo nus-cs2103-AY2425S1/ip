@@ -1,8 +1,11 @@
 package count.action;
 
-import count.task.Task;
 import count.TaskList;
+
+import count.task.Task;
+
 import count.exception.CountException;
+
 public class Delete extends Action {
     TaskList ls;
     int index;

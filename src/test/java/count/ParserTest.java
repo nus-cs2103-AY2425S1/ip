@@ -1,11 +1,12 @@
 package count;
 
-import count.exception.CountException;
-import count.exception.IncorrectFormatException;
-import count.exception.InvalidCommandException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import count.exception.IncorrectFormatException;
+import count.exception.InvalidCommandException;
 
 public class ParserTest {
     String markIncorrectFormatString = "Use a number after mark/unmark/delete to specify the task targeted!\n" +

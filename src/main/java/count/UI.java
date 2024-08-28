@@ -1,12 +1,9 @@
 package count;
 
-import count.action.Greet;
 import count.action.Deactivate;
+import count.action.Greet;
 
 public class UI {
-    public UI() {
-
-    }
 
     public void reply(String output) {
         String spacer = "\n____________________________________________________________\n";

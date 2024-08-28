@@ -1,11 +1,14 @@
 package count;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+
+import java.util.Scanner;
 
 import count.action.Action;
-import count.exception.*;
+
+import count.exception.CountException;
+import count.exception.IncorrectFormatException;
+
 public class Count {
     private TaskList ls;
     private boolean on;
@@ -19,6 +22,7 @@ public class Count {
         this.sc = new Scanner(System.in);
         this.ui = new UI();
         this.storage = new Storage(filePath);
+
         try {
             this.ls = new TaskList(this.storage.load());
         } catch (FileNotFoundException e) {
