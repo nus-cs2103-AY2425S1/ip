@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     protected String by;
     protected LocalDateTime localDateTime;

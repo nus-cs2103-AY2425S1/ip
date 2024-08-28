@@ -11,7 +11,7 @@ public class Events extends Task {
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected String from, to;
 
     public Events (String description, String from, String to) {
