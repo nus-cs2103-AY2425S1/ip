@@ -5,6 +5,9 @@ import astra.task.Task;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -16,6 +19,11 @@ public class TaskList {
         this.tasks = new ArrayList<>(tasks);
     }
 
+    /**
+     * Returns the list of tasks in text file format.
+     *
+     * @return List of tasks in text file format.
+     */
     public String toText() {
         StringBuilder text = new StringBuilder();
         for (Task task : tasks) {
@@ -46,6 +54,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param index Index of the task to be deleted.
+     * @return Task that was deleted.
+     * @throws AstraException If the index is invalid.
+     */
     public Task delete(int index) throws AstraException {
         try {
             Task t = this.get(index);
@@ -56,6 +71,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done or not done.
+     *
+     * @param index Index of the task to be marked.
+     * @param done Whether the task is done.
+     * @return Task that was marked.
+     * @throws AstraException If the index is invalid.
+     */
     public Task markAsDone(int index, boolean done) throws AstraException {
         try {
             Task t = this.get(index);

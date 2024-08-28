@@ -2,6 +2,9 @@ package astra;
 
 import java.util.Scanner;
 
+/**
+ * Ui class to handle user interface.
+ */
 public class Ui {
     private final Scanner inp;
 
@@ -19,6 +22,9 @@ public class Ui {
         System.out.println(formatMsg(text));
     }
 
+    /**
+     * Greets the user.
+     */
     public void greet() {
         String msg = """
                  Hello! I'm Astra.
@@ -27,19 +33,35 @@ public class Ui {
         display(msg);
     }
 
+    /**
+     * Say goodbye to the user.
+     */
     public void goodbye() {
         String msg = " Bye. Hope to see you again soon!\n";
         display(msg);
     }
 
+    /**
+     * Shows an error message.
+     *
+     * @param error The error message to be displayed.
+     */
     public void showError(AstraException error) {
         display(error.getMessage() + '\n');
     }
 
+    /**
+     * Reads the command from the user input.
+     *
+     * @return The command entered by the user.
+     */
     public String readCommand() {
         return this.inp.nextLine();
     }
 
+    /**
+     * Stops the user interface.
+     */
     public void stop() {
         this.inp.close();
     }

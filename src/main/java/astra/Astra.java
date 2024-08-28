@@ -2,11 +2,19 @@ package astra;
 
 import astra.command.Command;
 
+/**
+ * Astra is a chatbot for task management.
+ */
 public class Astra {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructor for Astra.
+     *
+     * @param path The path to the file where the tasks are stored.
+     */
     public Astra(String path) {
         this.ui = new Ui();
         this.storage = new Storage(path);
@@ -18,6 +26,9 @@ public class Astra {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         boolean isExit = false;
         ui.greet();

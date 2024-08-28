@@ -4,6 +4,9 @@ import astra.Storage;
 import astra.TaskList;
 import astra.Ui;
 
+/**
+ * Represents a command to exit the chatbot.
+ */
 public class ExitCommand extends Command {
     public ExitCommand() {
 

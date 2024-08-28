@@ -10,6 +10,9 @@ import astra.task.Task;
 
 import java.util.HashMap;
 
+/**
+ * Parser class to parse user input into commands.
+ */
 public class Parser {
 
     /**
@@ -55,7 +58,13 @@ public class Parser {
         return args;
     }
 
-
+    /**
+     * Parses the full command into a Command object.
+     *
+     * @param fullCommand Full command text.
+     * @return Command object.
+     * @throws AstraException If command is invalid.
+     */
     public static Command parse(String fullCommand) throws AstraException {
         String commandWord = fullCommand.split(" ")[0];
         switch (commandWord) {

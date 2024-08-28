@@ -6,10 +6,19 @@ import astra.Storage;
 import astra.TaskList;
 import astra.task.Task;
 
+/**
+ * Represents a command to mark a task as done or not done.
+ */
 public class MarkCommand extends Command {
     private final int index;
     private final boolean asDone;
 
+    /**
+     * Constructor for MarkCommand.
+     *
+     * @param index The index of the task to mark.
+     * @param asDone Whether to mark the task as done or not done.
+     */
     public MarkCommand(int index, boolean asDone) {
         this.index = index;
         this.asDone = asDone;
