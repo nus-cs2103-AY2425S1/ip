@@ -3,11 +3,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
     private String filePath;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -40,12 +43,12 @@ public class Storage {
                             task = new ToDo(description);
                             break;
                         case "D":
-                            String by = parts[3];
+                            LocalDateTime by = LocalDateTime.parse(parts[3], FORMATTER);
                             task = new Deadline(description, by);
                             break;
                         case "E":
-                            String from = parts[3];
-                            String to = parts[4];
+                            LocalDateTime from = LocalDateTime.parse(parts[3], FORMATTER);
+                            LocalDateTime to = LocalDateTime.parse(parts[4], FORMATTER);
                             task = new Event(description, from, to);
                             break;
                         default:
@@ -61,6 +64,8 @@ public class Storage {
             }
         } catch (IOException e) {
             throw new LoloException("Error loading tasks from file.");
+        } catch (Exception e) {
+            throw new LoloException("Error parsing date/time format.");
         }
 
         return tasks;
@@ -80,5 +85,3 @@ public class Storage {
         }
     }
 }
-
-
