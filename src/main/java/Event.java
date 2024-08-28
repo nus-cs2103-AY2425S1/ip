@@ -8,6 +8,15 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String taskName, boolean isDone, String from, String to) {
+        super(taskName);
+        this.from = from;
+        this.to = to;
+        if (isDone) {
+            super.markAsDone();
+        }
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
