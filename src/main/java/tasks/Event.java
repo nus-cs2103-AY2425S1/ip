@@ -57,17 +57,15 @@ public class Event extends Task {
         );
     }
     @Override
-    public String[] deserialiaze(String sString) throws YappingBotInvalidSaveFileException {
-        String[] split_data = super.deserialiaze(sString);
-        if (split_data.length != 5) {
+    public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
+        if (sString.length != 5) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
-            startTime = split_data[3].replaceAll("/colon", ":");
-            endTime = split_data[4].replaceAll("/colon", ":");
+            startTime = sString[3].replaceAll("/colon", ":");
+            endTime = sString[4].replaceAll("/colon", ":");
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
-        return split_data;
     }
 }

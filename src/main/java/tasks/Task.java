@@ -50,19 +50,17 @@ public abstract class Task {
                 taskDone
         );
     }
-    public String[] deserialiaze(String sString) throws YappingBotInvalidSaveFileException {
-        String[] split_data = sString.split(":");
-        if (split_data.length != 3) {
+    public void deserialiaze(String[] sString) throws YappingBotInvalidSaveFileException {
+        if (sString.length != 3) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
-            taskType = TaskTypes.valueOf(split_data[0]);
-            taskName = split_data[1].replaceAll("/colon", ":");
-            taskDone = Boolean.parseBoolean(split_data[2]);
+            taskType = TaskTypes.valueOf(sString[0]);
+            taskName = sString[1].replaceAll("/colon", ":");
+            taskDone = Boolean.parseBoolean(sString[2]);
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
-        return split_data;
     }
 }
 

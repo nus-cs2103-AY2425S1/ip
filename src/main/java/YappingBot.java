@@ -252,7 +252,10 @@ public class YappingBot {
         try {
             File saveFile = new File(LIST_SAVE_PATH);
             Scanner scanner = new Scanner(saveFile);
-            // userList.add();
+            while (scanner.hasNext()) {
+                String s = scanner.nextLine();
+                ;
+            }
         } catch (FileNotFoundException e) {
             throw new YappingBotSaveFileNotFoundException();
         }
