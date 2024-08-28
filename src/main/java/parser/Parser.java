@@ -67,7 +67,7 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DudeException("No argument found!");
         } catch (IllegalArgumentException e) {
-            throw new DudeException("I'm sorry, but I don't know what that means :-(");
+            throw new DudeException("I'm sorry, but I don't know what that means :(");
         }
     }
 }
