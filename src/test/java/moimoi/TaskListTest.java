@@ -16,7 +16,7 @@ public class TaskListTest {
         this.tasks.add(new Todo("dummy1"));
         this.tasks.add(new Todo("dummy2"));
         this.tasks.add(new Todo("dummy3"));
-        assertEquals(3, this.tasks.size());
+        assertEquals(3, this.tasks.getSize());
     }
 
     @Test
@@ -26,9 +26,9 @@ public class TaskListTest {
         this.tasks.add(new Todo("dummy2"));
         this.tasks.add(new Todo("dummy3"));
         this.tasks.delete(2);
-        assertEquals(2, this.tasks.size());
+        assertEquals(2, this.tasks.getSize());
         this.tasks.delete(2);
-        assertEquals(1, this.tasks.size());
+        assertEquals(1, this.tasks.getSize());
     }
 
 }

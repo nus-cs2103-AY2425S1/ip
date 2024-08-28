@@ -63,7 +63,7 @@ public class Storage {
     public void save(TaskList tasks) throws StorageIOException {
         try {
             FileWriter fileWriter = new FileWriter(this.path);
-            for (int i = 1; i <= tasks.size(); i = i + 1) {
+            for (int i = 1; i <= tasks.getSize(); i = i + 1) {
                 Task task = tasks.get(i);
                 fileWriter.write(task.stringStorage() + "\n");
             }

@@ -93,7 +93,7 @@ public class AddCommand extends Command {
 
         tasks.add(task);
         ui.showCompletionMessage("Aight! New task added: " + task.stringUI()
-                + "\nWe have " + tasks.size() + " tasks in the bag~");
+                + "\nWe have " + tasks.getSize() + " tasks in the bag~");
 
     }
 

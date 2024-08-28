@@ -4,7 +4,6 @@ import moimoi.Storage;
 import moimoi.TaskList;
 import moimoi.Ui;
 import moimoi.exception.InvalidIndexException;
-import moimoi.exception.MoiMoiException;
 import moimoi.task.Task;
 
 /**
@@ -39,7 +38,7 @@ public class DeleteCommand extends Command {
             Task task = tasks.get(index);
             tasks.delete(index);
             ui.showCompletionMessage("Aju nice! I've got rid of this task: " + task.stringUI()
-                    + "\nWe have " + tasks.size() + " tasks left in the bag~");
+                    + "\nWe have " + tasks.getSize() + " tasks left in the bag~");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }

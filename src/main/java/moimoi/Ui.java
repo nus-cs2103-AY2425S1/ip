@@ -84,7 +84,7 @@ public class Ui {
         boolean isEmpty = true;
 
         print("Here's your list of tasks!");
-        for (int i = 1; i <= tasks.size(); i = i + 1) {
+        for (int i = 1; i <= tasks.getSize(); i = i + 1) {
             isEmpty = false;
             Task task = tasks.get(i);
             print(i + ". " + task.stringUI());
@@ -110,7 +110,7 @@ public class Ui {
 
         print("Here's your list of tasks, occurring on "
                 + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "!");
-        for (int i = 1; i <= tasks.size(); i = i + 1) {
+        for (int i = 1; i <= tasks.getSize(); i = i + 1) {
             Task task = tasks.get(i);
             if (task.occursOn(date)) {
                 isEmpty = false;
@@ -137,7 +137,7 @@ public class Ui {
         boolean isEmpty = true;
 
         print("Here's your list of tasks, containing '" + keyword + "' in their descriptions!");
-        for (int i = 1; i <= tasks.size(); i = i + 1) {
+        for (int i = 1; i <= tasks.getSize(); i = i + 1) {
             Task task = tasks.get(i);
             if (task.hasKeyword(keyword)) {
                 isEmpty = false;
