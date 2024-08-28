@@ -3,7 +3,19 @@ package parser;
 import commands.*;
 import exceptions.InputException;
 
+/**
+ * Parses user input into commands that can be executed by the application.
+ * This class interprets the user's input string and returns the corresponding command object.
+ */
 public class Parser {
+    /**
+     * Parses the full command input string and returns the corresponding Command object.
+     * The method splits the input into the command and its arguments, then creates the appropriate Command object.
+     *
+     * @param fullCommand the full user input string.
+     * @return the corresponding Command object.
+     * @throws InputException if the command is invalid or the input is incomplete.
+     */
     public static Command parse(String fullCommand) throws InputException {
         String[] commandParts = fullCommand.trim().split(" ", 2);
         String command = commandParts[0].toLowerCase();
