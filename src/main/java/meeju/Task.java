@@ -1,9 +1,18 @@
 package meeju;
 
+/**
+ * Represents a generic task with a description and a status indicating whether the task is done.
+ */
 public class Task {
     private String taskDescription;
     private Boolean isDone;
 
+    /**
+     * Constructs a new Task with the specified description and completion status.
+     *
+     * @param taskDescription The description of the task.
+     * @param isDone The status of the task.
+     */
     public Task(String taskDescription, Boolean isDone) {
         this.taskDescription = taskDescription;
         this.isDone = isDone;

@@ -1,7 +1,23 @@
 package meeju;
 
+/**
+ * The Parser class is responsible for interpreting and processing user instructions.
+ * It interacts with the TaskList object to perform various operations like creating, updating, finding and deleting tasks.
+ */
 public class Parser {
 
+    /**
+     * Parses the given user instruction and performs the corresponding action on the <code>TaskList</code>.
+     *
+     * @param taskList    The task list on which the operations are performed.
+     * @param instruction The user instruction to be parsed and executed.
+     * @return An integer representing the result of the parsing:
+     *         <ul>
+     *             <li>{@code -1} if the instruction is "bye", signaling the program to exit.</li>
+     *             <li>{@code 0} if the instruction is successfully executed.</li>
+     *             <li>{@code 5} if the instruction is not recognized.</li>
+     *         </ul>
+     */
     public int parse(TaskList taskList, String instruction) {
         if (instruction.equals("bye")) {
             return -1;

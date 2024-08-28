@@ -6,9 +6,23 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ * This class extends the <code>Task</code> class having deadline as an additional property.
+ */
 public class Deadline extends Task{
-    private LocalDateTime by;
+    /* by stores the date and time of deadline as a LocalDateTime object*/
+    private LocalDateTime deadline;
+    private final String TASK_ICON = "[D]";
 
+    /**
+     * Constructor for a deadline task.
+     * Parses the given deadline and converts it into a LocalDateTime object.
+     *
+     * @param taskDescription The description of the task.
+     * @param taskDeadline The deadline for the task in the format "DD/MM/YYYY HHMM".
+     * @throws MeejuException If the deadline format is incorrect or if parsing the date or time fails.
+     */
     public Deadline(String taskDescription, String taskDeadline) throws MeejuException{
         super(taskDescription, false);
         String[] dateAndTime = taskDeadline.split(" ");
@@ -32,24 +46,34 @@ public class Deadline extends Task{
                     + "The Correct format is -> deadline <desc> /by DD/MM/YYYY HHMM");
         }
 
-        this.by = LocalDateTime.of(date, time);
+        this.deadline = LocalDateTime.of(date, time);
     }
 
-    private final String TASK_ICON = "[D]";
-
+    /**
+     * Returns the deadline of the task in a readable format.
+     * To be used with toString method
+     *
+     * @return A string representing the deadline in the format "MMM d yyyy HHmm HRS".
+     */
     public String getDeadline() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-        String formattedDate = this.by.toLocalDate().format(dateFormatter);
-        LocalTime time = this.by.toLocalTime();
+        String formattedDate = this.deadline.toLocalDate().format(dateFormatter);
+        LocalTime time = this.deadline.toLocalTime();
         return formattedDate + " " + time + "HRS";
     }
 
+    /**
+     * Serializes the task details into a string format suitable for storage.
+     * The delimiter used is "!-".
+     *
+     * @return A string representing the serialized details of the task.
+     */
     @Override
     public String serializeDetails() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedDate = this.by.toLocalDate().format(dateFormatter);
+        String formattedDate = this.deadline.toLocalDate().format(dateFormatter);
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-        String formattedTime = this.by.toLocalTime().format(timeFormatter);
+        String formattedTime = this.deadline.toLocalTime().format(timeFormatter);
         return "D !- " + this.getIsDone() + "!- "
                 + this.getTaskDescription() + "!- "
                 + formattedDate + " " + formattedTime + "\n";

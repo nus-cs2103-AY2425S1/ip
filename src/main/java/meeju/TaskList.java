@@ -1,10 +1,22 @@
 package meeju;
 import java.util.ArrayList;
+
+/**
+ * TaskList class manages a list of tasks using an ArrayList and provides methods to manipulate this list.
+ * It supports adding, marking, unmarking, finding and deleting tasks.
+ * It also interacts with the Storage class to permenantly store the tasks in disk upon every update to the list.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
     private Storage storage;
 
+    /**
+     * Construct for TaskList object.
+     * Creates a new Storage object and initialises the ArrayList with the tasks saved in the disk.
+     *
+     * @param storage The Storage object responsible for loading and saving tasks.
+     */
     public TaskList(Storage storage) {
         this.storage = storage;
         this.taskList = this.storage.initialiseList();
@@ -23,6 +35,13 @@ public class TaskList {
             System.out.println("\t" + (i+1) + ". " + this.taskList.get(i));
         }
     }
+
+    /**
+     * Marks a task as done based on its task number as per the list.
+     *
+     * @param taskNumber The number of the task to mark as done.
+     * @throws MeejuException If the task number is invalid, or the task is already marked.
+     */
     public void markTask(String taskNumber) throws MeejuException{
         Task taskToMark;
         if (taskNumber.isEmpty()) {
@@ -42,6 +61,13 @@ public class TaskList {
         this.storage.updateFile(taskList);
     }
 
+    /**
+     * Unmarks a task as not done based on its task number as per the list.
+     * The undo operation of mark
+     *
+     * @param taskNumber The number of the task to unmark.
+     * @throws MeejuException If the task number is invalid, or the task is not yet marked.
+     */
     public void unmarkTask(String taskNumber) throws MeejuException{
         Task taskToUnmark;
         if (taskNumber.isEmpty()) {
@@ -62,6 +88,12 @@ public class TaskList {
         this.storage.updateFile(taskList);
     }
 
+    /**
+     * Adds a new todo task to the list.
+     *
+     * @param taskInstruction The description of the todo task.
+     * @throws MeejuException If the task description is empty.
+     */
     public void addTodoTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
@@ -73,6 +105,12 @@ public class TaskList {
         this.storage.updateFile(taskList);
     }
 
+    /**
+     * Adds a new deadline task to the list.
+     *
+     * @param taskInstruction The instruction containing the description and deadline of the task.
+     * @throws MeejuException If the task description or deadline is empty, or the format is incorrect.
+     */
     public void addDeadlineTask(String taskInstruction) throws MeejuException{
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
@@ -98,6 +136,12 @@ public class TaskList {
         this.storage.updateFile(taskList);
     }
 
+    /**
+     * Adds a new event task to the list.
+     *
+     * @param taskInstruction The instruction containing the description, start time, and end time of the event task.
+     * @throws MeejuException If the task description, start time, or end time is empty, or the format is incorrect.
+     */
     public void addEventTask(String taskInstruction) throws MeejuException{
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
@@ -127,6 +171,12 @@ public class TaskList {
         this.storage.updateFile(taskList);
     }
 
+    /**
+     * Deletes a task from the list based on its number in the list.
+     *
+     * @param taskNumber The number of the task to delete.
+     * @throws MeejuException If the task number is invalid or does not exist.
+     */
     public void deleteTask(String taskNumber) throws MeejuException {
         Task taskToDelete;
         if (taskNumber.isEmpty()) {

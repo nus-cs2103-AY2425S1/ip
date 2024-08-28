@@ -5,10 +5,24 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+/**
+ * Represents an event task.
+ * This class extends the <code>Task</code> class having from and to as additional properties.
+ */
 public class Event extends Task{
     private LocalDateTime from;
     private LocalDateTime to;
+    private final String TASK_ICON = "[E]";
 
+    /**
+     * Constructor for an event task.
+     * Parses the given from and to, converts it into a LocalDateTime object.
+     *
+     * @param taskDescription The description of the task.
+     * @param from The start date and time for the task in the format "DD/MM/YYYY HHMM".
+     * @param to The end date and time for the task in the format "DD/MM/YYYY HHMM".
+     * @throws MeejuException If the deadline format is incorrect or if parsing the date or time fails.
+     */
     public Event(String taskDescription, String from, String to) throws MeejuException{
         super(taskDescription, false);
         String[] dateAndTimeFrom = from.split(" ");
@@ -45,6 +59,12 @@ public class Event extends Task{
         this.to = LocalDateTime.of(toDate, toTime);
     }
 
+    /**
+     * Serializes the task details into a string format suitable for storage.
+     * The delimiter used is "!-".
+     *
+     * @return A string representing the serialized details of the task.
+     */
     public String serializeDetails() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
@@ -57,8 +77,14 @@ public class Event extends Task{
                 + formattedDateFrom + " " + formattedTimeFrom + "!- "
                 + formattedDateTo + " " + formattedTimeTo + "\n";
     }
-    private final String TASK_ICON = "[E]";
 
+
+    /**
+     * Returns the start date and time of the task in a readable format.
+     * To be used with toString method
+     *
+     * @return A string representing the start date and time in the format "MMM d yyyy HHmm HRS".
+     */
     public String getFrom() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         String formattedDate = this.from.toLocalDate().format(dateFormatter);
@@ -66,6 +92,12 @@ public class Event extends Task{
         return formattedDate + " " + time + "HRS";
     }
 
+    /**
+     * Returns the end date and time of the task in a readable format.
+     * To be used with toString method
+     *
+     * @return A string representing the end date and time in the format "MMM d yyyy HHmm HRS".
+     */
     public String getTo() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         String formattedDate = this.to.toLocalDate().format(dateFormatter);

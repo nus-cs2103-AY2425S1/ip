@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * This class handles the reading and writing of tasks to and from file.
+ */
 public class Storage {
     private File file;
     private Scanner scanner;
@@ -12,6 +15,10 @@ public class Storage {
 
     /* Note - The delimiter used is '!-' */
 
+    /**
+     * Constructor for Storage
+     * If the directory for the storage file does not exist, it creates the data directory.
+     */
     public Storage() {
         this.file = new File(this.path);
         File directory = file.getParentFile();
@@ -20,6 +27,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Initializes the task list by reading from the storage file.
+     *
+     * This method is invoked at the start of the program when TaskList is initialised.
+     * It reads from the file and populates the tasklist with stored data
+     *
+     * @return An ArrayList containing the tasks initialized from the file.
+     */
     public ArrayList<Task> initialiseList() {
         ArrayList<Task> taskList = new ArrayList<>();
         if (file.exists()) {
@@ -56,6 +71,14 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Updates the storage file with the current task list.
+     *
+     * Takes each task in the taskList, serialises it and writes it to the file.
+     *
+     * @param taskList The task list containing the tasks to be saved to the file.
+     * @throws MeejuException If an I/O error occurs while writing to the file.
+     */
     public void updateFile(ArrayList<Task> taskList) throws MeejuException {
         FileWriter fileWriter;
         try {
