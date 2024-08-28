@@ -1,5 +1,15 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 
 public class Tecna {
     private ArrayList<Task> taskList;
@@ -13,10 +23,18 @@ public class Tecna {
         this.todoSize = 0;
     }
 
+    public Tecna(String taskData) {
+        this.taskList = Tecna.taskParser(taskData);
+        assert taskList != null;
+        this.todoSize = taskList.size();
+    }
+
     /**
      * Exits the chatbot by printing the goodbye lines
      */
     public void exitChatBot() {
+        TaskWriter taskWriter = new TaskWriter();
+        taskWriter.saveTasks(this.taskList);
         System.out.println("----------------------------------------------");
         System.out.println("Pleased to help you! See you again ^_^");
         System.out.println("----------------------------------------------");
@@ -26,7 +44,7 @@ public class Tecna {
      * Repeats the input entered by the user
      */
     public void echo() {
-        Scanner sc = new Scanner(System.in);
+        java.util.Scanner sc = new java.util.Scanner(System.in);
         String input = sc.nextLine();
 
         if (input.equalsIgnoreCase("bye")) {
@@ -41,10 +59,10 @@ public class Tecna {
 
     /**
      * Receives requests entered by the user.
-     * Accepts string input and processes accordingly
+     * Accepts string input and processes accordingly.
      */
     public void getRequest() {
-        Scanner sc = new Scanner(System.in);
+        java.util.Scanner sc = new java.util.Scanner(System.in);
         String input = sc.nextLine();
         String[] input_words = input.split(" ");
         while (!input.equalsIgnoreCase("bye")) {
@@ -149,6 +167,40 @@ public class Tecna {
         System.out.println(">> Now you have " + this.todoSize + (todoSize > 1 ? " tasks" : " task") + " in the list." );
     }
 
+    /**
+     * @author: https://dzone.com/articles/how-can-we-read-a-json-file-in-java
+     * Parses the tasks data in the tecna.json file into an ArrayList of Task(s)
+     * @return an ArrayList of Tasks
+     */
+    private static ArrayList<Task> taskParser(String taskData) {
+        try {
+            Object o = new org.json.simple.parser.JSONParser().parse(new java.io.FileReader(taskData));
+            org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) o;
+            org.json.simple.JSONArray jsonTasks = (org.json.simple.JSONArray) jsonObject.get("taskList");
+
+            ArrayList<Task> tasks = new ArrayList<>();
+            for (int i = 0 ; i < jsonTasks.size(); ++i) {
+                org.json.simple.JSONObject rawTask = (org.json.simple.JSONObject) jsonTasks.get(i);
+                if (rawTask.get("type").equals("todo")) {
+                    tasks.add(new ToDoParser().parse(rawTask));
+                } else if (rawTask.get("type").equals("deadline")) {
+                    tasks.add(new DeadlineParser().parse(rawTask));
+                } else if (rawTask.get("type").equals("event")) {
+                    tasks.add(new EventParser().parse(rawTask));
+                } else {
+                    throw new TaskParseException();
+                }
+            }
+
+            return tasks;
+        } catch (java.io.IOException | org.json.simple.parser.ParseException | TaskParseException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return null;
+
+    }
+
     public static void main(String[] args) {
         String logo = " **          **\n" +
                       "*  *        *  *\n" +
@@ -167,7 +219,7 @@ public class Tecna {
         System.out.println(logo);
         System.out.println("I'm Tecna!\nHow can I help you?");
         System.out.println("----------------------------------------------");
-        Tecna tecna = new Tecna();
+        Tecna tecna = new Tecna("src/main/data/tecna.json");
         tecna.getRequest();
         // tecna.echo();
     }
