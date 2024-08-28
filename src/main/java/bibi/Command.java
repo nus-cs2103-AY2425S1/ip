@@ -79,7 +79,7 @@ public class Command {
             if (!args.matches(".+")) {
                 ui.printInvalidSyntaxMessage("Please use \"todo <description>\"");
             } else {
-                ToDo td = new ToDo(cmd.stripIndent());
+                ToDo td = new ToDo(args.stripIndent());
                 tasks.addToTaskList(td);
 
                 ui.printTaskAddedMessage(td, tasks.getTaskCount());

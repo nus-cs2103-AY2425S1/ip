@@ -36,6 +36,6 @@ public class Bibi {
     }
     public static void main(String[] args) {
         // Insert path to saveFile
-        new Bibi("data/list2.txt").run();
+        new Bibi("data/list.txt").run();
     }
 }
