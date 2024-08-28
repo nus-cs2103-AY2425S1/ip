@@ -7,13 +7,32 @@ import PurrfessorDipsy.Task.ToDo;
 import PurrfessorDipsy.TaskList.TaskList;
 import PurrfessorDipsy.Ui.Ui;
 
+/**
+ * Represents a command to add a ToDo task to the task list.
+ * The command follows the format "todo <description>".
+ */
 public class TodoCommand extends Command {
+
+    /** Regular expression pattern to parse the todo command input. */
     private static final Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
 
+    /**
+     * Constructs a TodoCommand with the specified user input, task list, and UI handler.
+     *
+     * @param userInput The user input that triggered this command.
+     * @param tasks The task list associated with this command.
+     * @param ui The UI handler for interacting with the user.
+     */
     public TodoCommand(String userInput, TaskList tasks, Ui ui) {
         super(userInput, tasks, ui);
     }
 
+    /**
+     * Executes the TodoCommand by parsing the user input and adding a new ToDo task to the task list.
+     * If the input is invalid, an exception is thrown.
+     *
+     * @throws InvalidCommandException If the command format is invalid.
+     */
     @Override
     public void execute() throws InvalidCommandException {
         Matcher matcher = TODO_PATTERN.matcher(userInput);

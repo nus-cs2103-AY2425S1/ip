@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class ListCommand extends Command {
 
-
     public ListCommand(String userInput, TaskList tasks, Ui ui) {
         super(userInput, tasks, ui);
     }
@@ -31,7 +30,6 @@ public class ListCommand extends Command {
             }
         }
     }
-
 
     private ArrayList<Task> filterTasksByDate(LocalDate date) {
         ArrayList<Task> res = new ArrayList<>();
