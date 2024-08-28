@@ -1,11 +1,13 @@
 package beeboo.components;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 public class TimeConverter {
-    public static LocalDateTime timeConverter(String date) {
+    public static LocalDateTime timeConverter(String date) throws DateTimeParseException {
         String[] arr = date.split(" ");
         LocalDate res = LocalDate.parse(arr[0]);
         LocalTime time;
