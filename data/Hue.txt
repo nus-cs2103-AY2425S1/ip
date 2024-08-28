@@ -1,0 +1,4 @@
+T | 0 | read book
+T | 0 | read notes
+T | 1 | write notes
+E | 1 | wedding | Jan 2 2020, 12:00 am | Feb 2 2020, 12:00 am
