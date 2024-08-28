@@ -1,25 +1,17 @@
 public class Todo extends Task{
-    public Todo(String description) {
-        super(description);
+    public Todo(String description) throws InputFormatException{
+        super(getDescription(description));
     }
 
+    public String toFileFormatString() {
+        return String.format("T | %s", super.toFileFormatString());
+    }
     @Override
-    public String getTaskString() {
-        return String.format("[T] [%s] %s\n",this.getStatusIcon(), this.getDescription());
+    public String toString() {
+        return String.format("[T] %s\n", super.toString());
     }
 
-    @Override
-    public String markAsDone() {
-        return super.markAsDone() + String.format(" [T] [x] %s", this.getDescription());
-    }
-
-    @Override
-    public String markAsUndone() {
-        return super.markAsUndone() + String.format(" [T] [ ] %s",
-                this.getDescription());
-    }
-
-    public static String checkTodoFormat(String input) throws InputFormatException{
+    public static String getDescription(String input) throws InputFormatException{
         String[] todoSplit = input.split(" ", 2);
         if (todoSplit.length != 2) {
             throw new InputFormatException("Oops!  I need a description to save your task");

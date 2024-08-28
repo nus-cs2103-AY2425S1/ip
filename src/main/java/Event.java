@@ -1,37 +1,52 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task{
-    public Event(String description) {
-        super(description);
+
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
+
+    public Event(String description) throws InputFormatException{
+        super(getDescription(description));
+        LocalDate[] fromTo = getFromAndToDate(description);
+        this.fromDate = fromTo[0];
+        this.toDate = fromTo[1];
+    }
+
+    public String toFileFormatString() {
+        return String.format("D | %s | %s | %s", super.toFileFormatString(), fromDate.toString(), toDate.toString());
     }
 
     @Override
-    public String getTaskString() {
-        return String.format("[E] [%s] %s\n",this.getStatusIcon(), this.getDescription());
+    public String toString() {
+        return String.format("[E] %s (from: %s to: %s)\n",super.toString(), fromDate.toString(), toDate.toString());
     }
 
-    @Override
-    public String markAsDone() {
-        return super.markAsDone() + String.format(" [E] [x] %s", this.getDescription());
-    }
-
-    @Override
-    public String markAsUndone() {
-        return super.markAsUndone() + String.format("OK, I've marked this task as not done yet:\n [E] [ ] %s",
-                this.getDescription());
-    }
-
-    public static String checkEventFormat(String input) throws InputFormatException{
+    public static String getDescription(String input) throws InputFormatException{
         String[] splitDeadline = input.split(" ", 2);
         if (splitDeadline.length != 2) {
             throw new InputFormatException("Oops! I need a description to save your task");
         }
-        String[] splitBySlash = splitDeadline[1].split("/",3);
-        if (splitBySlash.length != 3) {
+
+        String[] splitFromTo = splitDeadline[1].split("/from|/to",3);
+        if (splitFromTo.length != 3) {
             throw new InputFormatException("Oops! I need a /from and a /to regex to save your event task");
         }
-        String[] splitByColon1 = splitBySlash[1].split(" ",2);
-        String[] splitByColon2 = splitBySlash[2].split(" ", 2);
-        return String.format("%s (%s: %s %s: %s)",
-                splitBySlash[0], splitByColon1[0],splitByColon1[1], splitByColon2[0],splitByColon2[1]);
+        return splitFromTo[0];
+    }
+
+    public static LocalDate[] getFromAndToDate(String input) throws InputFormatException{
+        String[] splitFromTo = input.split("/from|/to",3);
+        if (splitFromTo.length != 3) {
+            throw new InputFormatException("Oops! I need a /from and a /to regex to save your event task");
+        }
+        try {
+            LocalDate[] fromTo = {LocalDate.parse(splitFromTo[1].trim()), LocalDate.parse(splitFromTo[2].trim())};
+            return fromTo;
+        } catch (DateTimeParseException e) {
+            throw new InputFormatException("Please input your date in the format of YYYY-MM-DD");
+        }
+
     }
 
     public static boolean matchEvent(String s) {

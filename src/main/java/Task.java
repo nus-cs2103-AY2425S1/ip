@@ -7,21 +7,22 @@ public abstract class Task {
         this.done = false;
     }
 
-    public String getTaskString() {
-        return String.format("[%s] %s\n",done?"x" :" ", description);
+
+
+    public String toFileFormatString() {
+        return String.format("%d | %s", done? 1 : 0, description);
     }
 
-    public String getDescription() {
-        return String.format(description);
+    public String toString() {
+        return String.format("[%s] %s",this.getStatusIcon(), description);
     }
-    public String markAsDone() {
+
+    public void markAsDone() {
         done = true;
-        return "Nice! I've marked this task as done:\n";
     }
 
-    public String markAsUndone() {
+    public void markAsUndone() {
         done = false;
-        return "OK, I've marked this task as not done yet:\n";
     }
 
     public String getStatusIcon() {
