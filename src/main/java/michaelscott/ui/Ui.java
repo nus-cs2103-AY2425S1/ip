@@ -1,4 +1,4 @@
-package MichaelScott.Ui;
+package michaelscott.ui;
 
 import java.util.Scanner;
 
@@ -43,8 +43,6 @@ public class Ui {
     public String readCommand() {
         return this.sc.nextLine();
     }
-
-    // Helper functions for printing
 
     public static void printLine() {
         System.out.println("____________________________________________________________");

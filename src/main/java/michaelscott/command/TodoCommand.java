@@ -1,9 +1,9 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.Task;
-import MichaelScott.Task.TaskList;
-import MichaelScott.Task.Todo;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.Task;
+import michaelscott.task.TaskList;
+import michaelscott.task.Todo;
 
 public class TodoCommand implements Command {
     private final String description;

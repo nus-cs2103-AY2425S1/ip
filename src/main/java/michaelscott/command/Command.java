@@ -1,11 +1,12 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.TaskList;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.TaskList;
 
 public interface Command {
 
     String execute(TaskList tasks) throws MichaelScottException;
+
     default boolean isExit() {
         return false;
     }

@@ -1,4 +1,4 @@
-package MichaelScott.Task;
+package michaelscott.task;
 
 import java.time.LocalDateTime;
 

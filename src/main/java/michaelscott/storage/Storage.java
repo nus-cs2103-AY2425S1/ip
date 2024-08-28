@@ -1,7 +1,7 @@
-package MichaelScott.Storage;
+package michaelscott.storage;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.Task;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,9 +1,8 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import MichaelScott.Task.Event;
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.TaskList;
-
+import michaelscott.task.Event;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.TaskList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

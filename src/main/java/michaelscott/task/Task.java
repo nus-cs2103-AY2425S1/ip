@@ -1,4 +1,4 @@
-package MichaelScott.Task;
+package michaelscott.task;
 
 public abstract class Task {
     protected Boolean isDone;

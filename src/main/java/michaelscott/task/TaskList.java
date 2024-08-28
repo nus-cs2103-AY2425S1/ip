@@ -1,6 +1,6 @@
-package MichaelScott.Task;
+package michaelscott.task;
 
-import MichaelScott.Exception.MichaelScottException;
+import michaelscott.exception.MichaelScottException;
 
 import java.util.ArrayList;
 

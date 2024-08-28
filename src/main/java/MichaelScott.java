@@ -1,9 +1,9 @@
-import MichaelScott.Storage.Storage;
-import MichaelScott.Parser.Parser;
-import MichaelScott.Task.TaskList;
-import MichaelScott.Ui.Ui;
-import MichaelScott.Command.Command;
-import MichaelScott.Exception.MichaelScottException;
+import michaelscott.storage.Storage;
+import michaelscott.parser.Parser;
+import michaelscott.task.TaskList;
+import michaelscott.ui.Ui;
+import michaelscott.command.Command;
+import michaelscott.exception.MichaelScottException;
 
 public class MichaelScott {
     private final Storage storage;

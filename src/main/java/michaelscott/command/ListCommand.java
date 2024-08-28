@@ -1,7 +1,7 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.TaskList;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.TaskList;
 
 public class ListCommand implements Command {
     @Override

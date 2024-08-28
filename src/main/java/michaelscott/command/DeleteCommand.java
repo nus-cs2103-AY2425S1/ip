@@ -1,8 +1,8 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import MichaelScott.Exception.MichaelScottException;
-import MichaelScott.Task.Task;
-import MichaelScott.Task.TaskList;
+import michaelscott.exception.MichaelScottException;
+import michaelscott.task.Task;
+import michaelscott.task.TaskList;
 
 public class DeleteCommand implements Command {
     private final int TaskIndex;

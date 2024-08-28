@@ -1,7 +1,7 @@
-package MichaelScott.Parser;
+package michaelscott.parser;
 
-import MichaelScott.Command.*;
-import MichaelScott.Exception.MichaelScottException;
+import michaelscott.command.*;
+import michaelscott.exception.MichaelScottException;
 
 public class Parser {
     public Command parse(String fullCommand) throws MichaelScottException {
