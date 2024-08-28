@@ -1,6 +1,5 @@
 package demurebot.command;
 
-import demurebot.task.Task;
 import demurebot.task.TaskList;
 import demurebot.ui.Ui;
 

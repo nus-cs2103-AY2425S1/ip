@@ -52,7 +52,9 @@ public class ParserTest {
 
     @Test
     public void testParseEventCommand() throws DemureBotException {
-        Command command = Parser.parse("event project meeting /from 2023-10-10 1400 /to 2023-10-10 1600");
+        Command command = Parser.parse(
+                "event project meeting /from 2023-10-10 1400 /to 2023-10-10 1600"
+        );
         assertInstanceOf(EventCommand.class, command);
     }
 
@@ -74,7 +76,9 @@ public class ParserTest {
 
     @Test
     public void testParseEventCommandWithoutDescription() {
-        assertThrows(DemureBotException.class, () -> Parser.parse("event /from 2023-10-10 1400 /to 2023-10-10 1600"));
+        assertThrows(DemureBotException.class, () -> Parser.parse(
+                "event /from 2023-10-10 1400 /to 2023-10-10 1600"
+        ));
     }
 
 }

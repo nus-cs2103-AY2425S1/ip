@@ -11,7 +11,9 @@ public class InvalidCommand extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui) throws DemureBotException {
-        throw new DemureBotException("Invalid command\nCreate a new task starting with the command todo, deadline or event.\n");
+        throw new DemureBotException(
+                "Invalid command\nCreate a new task starting with the command todo, deadline or event.\n"
+        );
 
     }
 }

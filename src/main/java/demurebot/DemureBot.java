@@ -2,7 +2,6 @@ package demurebot;
 
 import demurebot.command.Command;
 import demurebot.storage.Storage;
-import demurebot.task.Task;
 import demurebot.task.TaskList;
 import demurebot.ui.Parser;
 import demurebot.ui.Ui;
@@ -57,11 +56,11 @@ public class DemureBot {
 
         // while user hasn't ended session
         while (!isFinished) {
-            String command = scanner.nextLine();
+            String input = scanner.nextLine();
             try {
-                Command c = Parser.parse(command);
-                c.execute(this.list, this.ui);
-                isFinished = c.isExit();
+                Command command = Parser.parse(input);
+                command.execute(this.list, this.ui);
+                isFinished = command.isExit();
             } catch (DemureBotException e) {
                 System.out.println(e.getMessage());
             }

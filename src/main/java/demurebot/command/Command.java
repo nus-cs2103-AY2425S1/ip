@@ -5,7 +5,7 @@ import demurebot.task.TaskList;
 import demurebot.ui.Ui;
 
 public abstract class Command {
-    private boolean isExit;
+    private final boolean isExit;
 
     public Command(boolean isExit) {
         this.isExit = isExit;
