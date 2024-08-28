@@ -63,6 +63,9 @@ public class Parser<C extends Controller> {
             controller.handleDelete(Integer.parseInt(input.split(" ")[1]) - 1);
         } else if (input.equals("help")) {
             controller.handleHelp();
+        } else if (input.startsWith("find")) {
+            String keyword = input.substring(5);
+            controller.handleFind(keyword);
         } else {
             System.out.println("Give me a valid command!");
         }

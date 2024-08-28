@@ -53,7 +53,9 @@ public class Controller {
     /**
      * Handles mark command.
      * Toggles the done status of the task at the specified index.
-     * @param index The index of the task to be marked as done.
+     * 
+     * @param index
+     *            The index of the task to be marked as done.
      */
     public void handleDone(int index) {
         store.get(index).toggleDone();
@@ -63,7 +65,9 @@ public class Controller {
     /**
      * Handles unmark command.
      * Toggles the done status of the task at the specified index.
-     * @param index The index of the task to be marked as undone.
+     * 
+     * @param index
+     *            The index of the task to be marked as undone.
      */
     public void handleUndone(int index) {
         store.get(index).toggleDone();
@@ -71,9 +75,11 @@ public class Controller {
     }
 
     /**
-     * Handles delete command. 
+     * Handles delete command.
      * Deletes the task at the specified index from the store.
-     * @param index The index of the task to be deleted.
+     * 
+     * @param index
+     *            The index of the task to be deleted.
      */
     public void handleDelete(int index) {
         Task deletedTask = store.get(index);
@@ -82,10 +88,12 @@ public class Controller {
     }
 
     /**
-     * Handles todo command. 
+     * Handles todo command.
      * Creates a new todo task and adds it to the store.
      * Prints an error message if the task is empty.
-     * @param task The task description.
+     * 
+     * @param task
+     *            The task description.
      */
     public void handleTodo(String task) {
         if (task.equals("")) {
@@ -97,11 +105,14 @@ public class Controller {
     }
 
     /**
-     * Handles deadline command. 
+     * Handles deadline command.
      * Creates a new deadline task and adds it to the store.
      * Prints an error message if the task is empty or the date format is invalid.
-     * @param task The task description.
-     * @param by The deadline date.
+     * 
+     * @param task
+     *            The task description.
+     * @param by
+     *            The deadline date.
      */
     public void handleDeadline(String task, String by) {
         if (task.equals("")) {
@@ -118,12 +129,16 @@ public class Controller {
     }
 
     /**
-     * Handles event command. 
+     * Handles event command.
      * Creates a new event task and adds it to the store.
      * Prints an error message if the task is empty or the date format is invalid.
-     * @param task The task description.
-     * @param from The start date of the event.
-     * @param to The end date of the event.
+     * 
+     * @param task
+     *            The task description.
+     * @param from
+     *            The start date of the event.
+     * @param to
+     *            The end date of the event.
      */
     public void handleEvent(String task, String from, String to) {
         if (task.equals("")) {
@@ -138,5 +153,22 @@ public class Controller {
 
         store.add(new TaskEvent(task, from, to));
         ui.printEventMessage(store.get(store.size() - 1), store.size());
+    }
+
+    /**
+     * Handles find command.
+     * Prints all tasks that contain the keyword.
+     * 
+     * @param keyword
+     *            The keyword to search for.
+     */
+    public void handleFind(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : store) {
+            if (task.getTask().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        ui.printFindMessage(foundTasks);
     }
 }
