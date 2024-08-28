@@ -14,6 +14,8 @@ public class Parser {
             return new AddCommand(remaining, AddCommand.TaskType.DEADLINE);
         } else if (command.equals("event")) {
             return new AddCommand(remaining, AddCommand.TaskType.EVENT);
+        } else if (command.equals("bye")) {
+            return new ExitCommand();
         }
 
         throw new LlamaException("Command not found, try again.");

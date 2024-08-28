@@ -20,7 +20,7 @@ public class AddCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public boolean execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         if (taskType == TaskType.TODO) {
             if (remaining.isBlank()) {
                 throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
@@ -70,5 +70,7 @@ public class AddCommand implements Command {
             taskList.addTask(newTask, ui);
             storage.save(taskList);
         }
+
+        return true;
     }
 }

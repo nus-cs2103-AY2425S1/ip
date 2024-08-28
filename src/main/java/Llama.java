@@ -92,7 +92,8 @@ public class Llama {
 
             try {
                 Command command = Parser.parse(input);
-                command.execute(this.taskList, this.ui, this.storage);
+                // Command returns false if program should stop running
+                shouldContinue = command.execute(this.taskList, this.ui, this.storage);
             } catch (IOException | LlamaException e) {
                 ui.displayString(e.getMessage());
             }
@@ -165,8 +166,7 @@ public class Llama {
             */
         }
 
-        // Exit message
-        this.ui.displayBye();
+        sc.close();
     }
 
     public static void main(String[] args) {
