@@ -1,12 +1,17 @@
 package task;
 
 public abstract class Task {
-    private boolean isDone;
     private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
@@ -25,5 +30,9 @@ public abstract class Task {
     public String toString() {
         String check = "[" + getStatusIcon() + "]";
         return check + " " + description;
+    }
+
+    public String toSave() {
+        return isDone + "|" + description;
     }
 }
