@@ -3,6 +3,10 @@
 /out/
 /*.iml
 
+# User's Data
+/data/
+/text-ui-test/data/
+
 # Gradle build files
 /.gradle/
 /build/
