@@ -1,6 +1,10 @@
 class ToDo extends Task {
+    public ToDo(String taskDescription, boolean isDone) {
+        super(taskDescription, isDone);
+    }
+
     public ToDo(String taskDescription) {
-        super(taskDescription);
+        this(taskDescription, false);
     }
 
     public String toString() {

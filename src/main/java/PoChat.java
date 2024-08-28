@@ -1,10 +1,18 @@
 import java.util.ArrayList;
 
 class PoChat {
-    private final ArrayList<Task> listTasks;
+    private ArrayList<Task> listTasks;
 
     public PoChat() {
         this.listTasks = new ArrayList<Task>();
+    }
+
+    public void load(ChatData chatData) {
+        this.listTasks = chatData.toList();
+    }
+
+    public void save(ChatData chatData) {
+        chatData.save(this.listTasks);
     }
 
     public void sayHello() {
