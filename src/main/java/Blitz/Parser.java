@@ -3,6 +3,7 @@ package blitz;
 /* My import */
 import command.Command;
 import command.CommandBye;
+import command.CommandFind;
 import command.CommandDeadline;
 import command.CommandDelete;
 import command.CommandEvent;

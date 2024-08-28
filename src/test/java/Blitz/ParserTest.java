@@ -5,6 +5,7 @@ import command.CommandBye;
 import command.CommandDeadline;
 import command.CommandDelete;
 import command.CommandEvent;
+import command.CommandFind;
 import command.CommandList;
 import command.CommandMark;
 import command.CommandTodo;
@@ -253,6 +254,26 @@ public class ParserTest {
         try {
             assertEquals(new CommandDelete("delete", ""), Parser.parse("delete"));
             assertEquals(new CommandDelete("delete ", ""), Parser.parse("delete "));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Missing parameter(s) for command!", e.toString());
+        }
+    }
+
+    @Test
+    public void commandValidation_commandFindString_returnCommandFindObject() {
+        try {
+            assertEquals(new CommandFind("find abc", "abc"), Parser.parse("find abc"));
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void commandValidation_commandFindStringNoParameter_exceptionThrown() {
+        try {
+            assertEquals(new CommandFind("find", ""), Parser.parse("find"));
+            assertEquals(new CommandFind("find ", ""), Parser.parse("find "));
             fail();
         } catch (Exception e) {
             assertEquals("Missing parameter(s) for command!", e.toString());

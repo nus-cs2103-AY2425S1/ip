@@ -16,6 +16,7 @@ public class InstructionTest {
         assertTrue(Instruction.isCommandExist("delete"));
         assertTrue(Instruction.isCommandExist("mark"));
         assertTrue(Instruction.isCommandExist("unmark"));
+        assertTrue(Instruction.isCommandExist("find"));
     }
 
     @Test
