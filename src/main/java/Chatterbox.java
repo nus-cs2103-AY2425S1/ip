@@ -34,7 +34,6 @@ public class Chatterbox {
          * @return LocalDateTime representing time in string
          * @throws None
          */
-        System.out.println("called");
 
         dateTimeString = dateTimeString.trim();
         System.out.println(dateTimeString);
