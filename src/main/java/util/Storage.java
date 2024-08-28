@@ -27,14 +27,14 @@ public class Storage {
         Files.createFile(p);
       }
     } catch (IOException e) {
-      System.err.println("Error creating missing file: " + e.getMessage());
+      Utility.prettyPrint("Error creating missing file: " + e.getMessage());
     }
     this.filePath = p;
   }
 
   public void addToStorage(String data) {
     try {
-      Files.write(this.filePath, (data + "\n").getBytes(), StandardOpenOption.APPEND);
+      Files.write(this.filePath, (data + Utility.NEW_LINE).getBytes(), StandardOpenOption.APPEND);
     } catch (IOException e) {
       System.out.println("Error saving to storage!");
     }

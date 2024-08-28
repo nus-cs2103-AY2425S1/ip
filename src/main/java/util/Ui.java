@@ -20,7 +20,7 @@ public class Ui {
     StringBuilder sb = new StringBuilder();
 
     for (int i = 0; i < strArr.length - 1; i++) {
-      sb.append(Utility.INDENT + strArr[i] + "\n");
+      sb.append(Utility.INDENT + strArr[i] + Utility.NEW_LINE);
     }
     sb.append(Utility.INDENT + strArr[strArr.length - 1]);
     Utility.prettyPrint(sb.toString());

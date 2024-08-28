@@ -10,7 +10,7 @@ public class ToDoException extends MizzException {
   @Override
   public String toString() {
     return Utility.INDENT + "Uh oh what did you to the to do?: "
-        + super.getMessage() + "\n"
+        + super.getMessage() + Utility.NEW_LINE
         + Utility.INDENT + "Example usage: todo <description>";
   }
 }
