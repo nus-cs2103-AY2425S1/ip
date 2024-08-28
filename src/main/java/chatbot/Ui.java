@@ -1,18 +1,16 @@
 package chatbot;
 
-import todo.Task;
-
 /**
  * Formats string to standardise chatbot
  * output format
  *
  * @author celeschai
  */
-public class ChatbotOutput {
+public class Ui {
     /**
-     * Print out "Bee" logo in ASCII art
+     * Prints out "Bee" logo in ASCII art
      */
-    public static final String logo = " ____\n"
+    public static final String LOGO = " ____\n"
             + "|  _ \\  ___   ___\n"
             + "| |_/  / _ \\ / _ \\\n"
             + "| |_\\ |  __/|  __/\n"
@@ -23,10 +21,8 @@ public class ChatbotOutput {
                 todo <task name>
                 deadline <task name> /by <time>
                 event <task name> /from <time> /by <time>
-               
             You can view all your tasks and their respective indices by:
                 list
-               
             You edit your tasks by:
                 mark <task index>
                 unmark <task index>
@@ -34,8 +30,8 @@ public class ChatbotOutput {
             """;
 
     /**
-     * Ensure correct indentation for any text
-     * Indent single and multiline strings
+     * Ensures correct indentation for any text
+     * Indents single and multiline strings
      *
      * @param multilineString single or multiline string
      * @return formatted string for chatbot output
@@ -56,7 +52,7 @@ public class ChatbotOutput {
     }
 
     /**
-     * Format standard output to be sandwiched by two lines
+     * Formats standard output to be sandwiched by two lines
      *
      * @param content text to be included between 2 lines
      */
@@ -68,8 +64,8 @@ public class ChatbotOutput {
     }
 
     /**
-     * Format chatbot response after adding a task
-     * Inform user of total number of tasks in todolist
+     * Formats chatbot response after adding a task
+     * Informs user of total number of tasks in todolist
      *
      * @param added string representation of task added
      * @param numOfTasks total number of tasks added
@@ -81,8 +77,8 @@ public class ChatbotOutput {
     }
 
     /**
-     * Format chatbot response after deleting a task
-     * Inform user of total number of tasks in todolist
+     * Formats chatbot response after deleting a task
+     * Informs user of total number of tasks in todolist
      *
      * @param deleted string representation of task deleted
      * @param numOfTasks total number of tasks added

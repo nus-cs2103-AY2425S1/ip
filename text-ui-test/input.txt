@@ -1,5 +1,5 @@
-todo
-todo task 1
+task
+task task 1
 deadline
 deadline task 2 /by today
 list

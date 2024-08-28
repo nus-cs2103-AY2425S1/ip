@@ -1,4 +1,4 @@
-package todo;
+package task;
 
 /**
  * A class representing individual tasks

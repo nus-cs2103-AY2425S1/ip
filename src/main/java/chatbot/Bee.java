@@ -1,6 +1,6 @@
 package chatbot;
 
-import todo.*;
+import task.*;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -15,11 +15,11 @@ import java.util.regex.Pattern;
 public class Bee {
     public static void main(String[] args) {
         // Instantiates a todolist
-        TodoList todoList = new TodoList();
+        TaskList taskList = new TaskList();
 
         // Welcome user
-        System.out.println(ChatbotOutput.logo);
-        ChatbotOutput.printBtnLines("Hello, I'm Bee! What can I do for you?");
+        System.out.println(Ui.LOGO);
+        Ui.printBtnLines("Hello, I'm Bee! What can I do for you?");
 
         // Scan for user input
         Scanner sc = new Scanner(System.in);
@@ -30,13 +30,13 @@ public class Bee {
 
                 // Exit program if user inputs bye
                 if (next.matches("bye.*")) {
-                    ChatbotOutput.printBtnLines("Bye~ Hope to see you again soon!");
+                    Ui.printBtnLines("Bye~ Hope to see you again soon!");
                     break;
 
-                // List tasks in todoList
+                // List tasks in taskList
                 } else if (next.equalsIgnoreCase("list")) {
-                    ChatbotOutput.printBtnLines(
-                            "Here are the tasks in your list:\n".concat(todoList.toString()));
+                    Ui.printBtnLines(
+                            "Here are the tasks in your list:\n".concat(taskList.toString()));
 
                 // Parse input from user to get task index
                 } else if (next.matches("mark (.+)")) {
@@ -50,13 +50,13 @@ public class Bee {
                         int index = Integer.parseInt(num);
 
                         // Mark task as done
-                        if (todoList.isTaskExist(index)) {
-                            todoList.markTaskAsDone(index);
+                        if (taskList.isTaskExist(index)) {
+                            taskList.markTaskAsDone(index);
 
-                            ChatbotOutput.printBtnLines(
+                            Ui.printBtnLines(
                                     String.format(
                                             "Nice! I've marked this task as done:\n    %s",
-                                            todoList.getTask(index)));
+                                            taskList.getTask(index)));
                         }
 
                     // Warn user of invalid task specified
@@ -67,7 +67,7 @@ public class Bee {
                 // Parse input from user to get task index
                 } else if (next.matches("unmark (.+)")) {
                     // Regular expression to capture task index
-                    Pattern pattern = Pattern.compile("mark (\\d+)");
+                    Pattern pattern = Pattern.compile("unmark (\\d+)");
                     Matcher matcher = pattern.matcher(next);
 
                     // If match succeeds, obtain task index
@@ -76,13 +76,13 @@ public class Bee {
                         int index = Integer.parseInt(num);
 
                         // Mark task as incomplete
-                        if (todoList.isTaskExist(index)) {
-                            todoList.markTaskAsIncomplete(index);
+                        if (taskList.isTaskExist(index)) {
+                            taskList.markTaskAsIncomplete(index);
 
-                            ChatbotOutput.printBtnLines(
+                            Ui.printBtnLines(
                                     String.format(
                                             "OK, I've marked this task as not done yet:\n    %s",
-                                            todoList.getTask(index)));
+                                            taskList.getTask(index)));
                         }
 
                     // Warn user of invalid task specified
@@ -93,7 +93,7 @@ public class Bee {
                     // Parse input from user to get task index
                 } else if (next.matches("delete (.+)")) {
                     // Regular expression to capture task index
-                    Pattern pattern = Pattern.compile("mark (\\d+)");
+                    Pattern pattern = Pattern.compile("delete (\\d+)");
                     Matcher matcher = pattern.matcher(next);
 
                     // If match succeeds, obtain task index
@@ -102,11 +102,11 @@ public class Bee {
                         int index = Integer.parseInt(num);
 
                         // Delete task
-                        if (todoList.isTaskExist(index)) {
-                            Task deletedTask = todoList.removeTask(index);
+                        if (taskList.isTaskExist(index)) {
+                            Task deletedTask = taskList.removeTask(index);
 
-                            ChatbotOutput.deleteTaskResponse(
-                                    deletedTask.toString(), todoList.getTotalNumOfTasks());
+                            Ui.deleteTaskResponse(
+                                    deletedTask.toString(), taskList.getTotalNumOfTasks());
                     }
                     // Warn user of invalid task specified
                     } else {
@@ -123,13 +123,13 @@ public class Bee {
                     if (matcher.matches()) {
                         String name = matcher.group(1);
                         Todo todo = new Todo(name);
-                        todoList.addTask(todo);
-                        ChatbotOutput.addTaskResponse(
-                                todo.toString(), todoList.getTotalNumOfTasks());
+                        taskList.addTask(todo);
+                        Ui.addTaskResponse(
+                                todo.toString(), taskList.getTotalNumOfTasks());
 
                     //Throw exception for invalid input
                     } else {
-                        throw new TaskInputException("name", "todo");
+                        throw new TaskInputException("name", "task");
                     }
 
                     // Add deadline
@@ -145,8 +145,8 @@ public class Bee {
 
                         // Instantiate a Task object and add it to todolist
                         Deadline deadline = new Deadline(name, byParam);
-                        todoList.addTask(deadline);
-                        ChatbotOutput.addTaskResponse(deadline.toString(), todoList.getTotalNumOfTasks());
+                        taskList.addTask(deadline);
+                        Ui.addTaskResponse(deadline.toString(), taskList.getTotalNumOfTasks());
 
                     //Throw exception for invalid input
                     } else {
@@ -167,8 +167,8 @@ public class Bee {
 
                         // Instantiate a Task object and add it to todolist
                         Event event = new Event(name, fromParam, toParam);
-                        todoList.addTask(event);
-                        ChatbotOutput.addTaskResponse(event.toString(), todoList.getTotalNumOfTasks());
+                        taskList.addTask(event);
+                        Ui.addTaskResponse(event.toString(), taskList.getTotalNumOfTasks());
 
                         //Throw exception for invalid input
                     } else {
@@ -177,7 +177,7 @@ public class Bee {
 
                 // TODO: display list of commands
                 } else if (next.matches("help")) {
-                    ChatbotOutput.printBtnLines(ChatbotOutput.help);
+                    Ui.printBtnLines(Ui.help);
 
                 } else {
                     // Throw exception when nothing, whitespaces, or no name is provided
@@ -186,7 +186,7 @@ public class Bee {
 
             // Exception message to prompt user for valid input
             } catch (BeeException e){
-                ChatbotOutput.printBtnLines(e.getMessage());
+                Ui.printBtnLines(e.getMessage());
             }
         }
     }

@@ -1,29 +1,29 @@
-package todo;
+package task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents a todolist
+ * Represents a task list
  * with a list of tasks
  *
  * @author celeschai
  */
-public class TodoList {
+public class TaskList {
     private ArrayList<Task> todoList = new ArrayList<>();
 
     /**
-     * Instantiates empty todo list
+     * Instantiates empty task list
      */
-    public TodoList() {}
+    public TaskList() {}
 
     /**
-     * Instantiate new todo list with
+     * Instantiates new task list with
      * existing tasks
      *
      * @param tasks existing tasks to be added
      */
-    public TodoList(Task ...tasks) {
+    public TaskList(Task ...tasks) {
         this.todoList.addAll(Arrays.asList(tasks));
     }
 
