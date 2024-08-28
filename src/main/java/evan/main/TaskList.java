@@ -53,4 +53,12 @@ public class TaskList {
             System.out.printf("%d.%s\n", i + 1, tasks.get(i));
         }
     }
+
+    public String encodeAsString() {
+        StringBuilder result = new StringBuilder();
+        for (Task task : tasks) {
+            result.append(task.encodeAsString()).append("\n");
+        }
+        return result.toString();
+    }
 }

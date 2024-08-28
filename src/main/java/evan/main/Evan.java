@@ -1,29 +1,31 @@
 package evan.main;
 
 import evan.command.Command;
-import evan.exception.EvanException;
-import evan.exception.InvalidUserInputException;
-import evan.exception.NoSuchTaskException;
+import evan.exception.*;
 
 public class Evan {
     private final Ui ui;
-    private final Storage storage;
     private final UserInputParser userInputParser;
+    private Storage storage;
     private TaskList taskList;
 
 
     public Evan(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
         userInputParser = new UserInputParser();
 
         try {
+            storage = new Storage(filePath);
             taskList = new TaskList(storage.load());
-        } catch (EvanException e) {
-            ui.showError("An error occurred while loading the tasks from '" + filePath + "'.");
+        } catch (FileCreationException e) {
+            ui.showLine();
+            ui.showError(e.getMessage());
+            System.exit(1);
+        } catch (LoadingException e) {
+            ui.showLine();
+            ui.showError(e.getMessage());
             taskList = new TaskList();
         }
-
     }
 
     public static void main(String[] args) {
@@ -38,11 +40,12 @@ public class Evan {
                 String userInput = ui.getUserInput();
                 Command command = userInputParser.parse(userInput);
                 command.execute(taskList, ui, storage);
+                storage.save(taskList); // Save the task list after every update
                 isExit = command.isExit();
             } catch (InvalidUserInputException e) {
                 ui.showError(e.getMessage());
                 ui.showValidCommands();
-            } catch (NoSuchTaskException e) {
+            } catch (NoSuchTaskException | SavingException e) {
                 ui.showError(e.getMessage());
             }
         }
