@@ -16,8 +16,8 @@ public abstract class Command {
      * Execute operation specified by Command Object
      * with TaskList, Ui and Storage provided.
      *
-     * @param tasks Class to work with a collection of tasks.
-     * @param ui Class to interact with user.
+     * @param tasks   Class to work with a collection of tasks.
+     * @param ui      Class to interact with user.
      * @param storage Class to load/save to file.
      * @throws IOException If data saved is corrupted while exiting.
      */

@@ -105,7 +105,7 @@ public class Ui {
      */
     public void showDeleteTask(Task task, int size) {
         show(String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.", task,
-                           size));
+                size));
     }
 
     /**

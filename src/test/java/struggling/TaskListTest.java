@@ -14,13 +14,13 @@ public class TaskListTest {
 
     private final ArrayList<String> input = new ArrayList<>(
             Arrays.asList("T | 0 | borrow book", "D | 1 | return book | 2024-08-27",
-                          "E | 0 | project meeting | Mon 2pm | 4pm"));
+                    "E | 0 | project meeting | Mon 2pm | 4pm"));
 
     @Test
     public void loadTask_corruptedSaveFile_throwException() {
         ArrayList<String> corruptedInput = new ArrayList<>(
                 Arrays.asList("T | 0 | borrow book", "Corrupted | 1 | return book | 2024-08-27",
-                              "E | 0 | project meeting | Mon 2pm | 4pm"));
+                        "E | 0 | project meeting | Mon 2pm | 4pm"));
 
         try {
             assertEquals(0, new TaskList(corruptedInput));
@@ -34,7 +34,7 @@ public class TaskListTest {
     public void getTaskString_returnCorrectFormat() {
         ArrayList<String> stringOutput = new ArrayList<>(
                 Arrays.asList("[T][ ] borrow book", "[D][X] return book (by: Aug 27 2024)",
-                              "[E][ ] project meeting (from: Mon 2pm to: 4pm)"));
+                        "[E][ ] project meeting (from: Mon 2pm to: 4pm)"));
 
         assertEquals(stringOutput, new TaskList(input).getTasksString());
     }
@@ -50,7 +50,7 @@ public class TaskListTest {
         tasks.addTask(new ToDo("new task"));
         ArrayList<String> expectedOutput = new ArrayList<>(
                 Arrays.asList("T | 0 | borrow book", "D | 1 | return book | 2024-08-27",
-                              "E | 0 | project meeting | Mon 2pm | 4pm", "T | 0 | new task"));
+                        "E | 0 | project meeting | Mon 2pm | 4pm", "T | 0 | new task"));
 
         assertEquals(expectedOutput, tasks.getTasksState());
     }
@@ -82,7 +82,7 @@ public class TaskListTest {
         tasks.markTask(0);
         ArrayList<String> expectedOutput = new ArrayList<>(
                 Arrays.asList("T | 1 | borrow book", "D | 1 | return book | 2024-08-27",
-                              "E | 0 | project meeting | Mon 2pm | 4pm"));
+                        "E | 0 | project meeting | Mon 2pm | 4pm"));
 
         assertEquals(expectedOutput, tasks.getTasksState());
     }
@@ -98,7 +98,7 @@ public class TaskListTest {
         tasks.unmarkTask(1);
         ArrayList<String> expectedOutput = new ArrayList<>(
                 Arrays.asList("T | 0 | borrow book", "D | 0 | return book | 2024-08-27",
-                              "E | 0 | project meeting | Mon 2pm | 4pm"));
+                        "E | 0 | project meeting | Mon 2pm | 4pm"));
 
         assertEquals(expectedOutput, tasks.getTasksState());
     }
