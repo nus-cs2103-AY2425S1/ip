@@ -121,10 +121,11 @@ public class Knight2103 {
         // Initialise Task list
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
-            FileWriter taskListWriter = new FileWriter("./savedTaskList.txt");
             if (!savedTaskList.createNewFile()) {
+                System.out.println("ya");
                 taskList = loadTaskList(savedTaskList);
             }
+            FileWriter taskListWriter = new FileWriter("./savedTaskList.txt", true);
 
             // Enable Input
             Scanner scanObject = new Scanner(System.in);
@@ -188,7 +189,7 @@ public class Knight2103 {
                             System.out.println(horiLine + "\nNoted. I've removed this task:\n" + taskToDelete + "\n Now you have " + taskList.size() + " tasks in the list.\n" + horiLine);
                             System.out.println(writeToFile(taskList, taskList.size()));
                             taskListWriter.write(writeToFile(taskList, taskList.size()));
-                            taskListWriter.flush();
+                            taskListWriter.flush(); // ensure data is written on the spot
                             break;
 
                         default:
@@ -207,9 +208,10 @@ public class Knight2103 {
             }
             System.out.println(horiLine + "\n" + "Bye. Hope to see you again soon!" + "\n" + horiLine);
             scanObject.close();
+            taskListWriter.close();
 
         } catch (IOException e) {
-                System.out.println("something went wrong");
+                System.out.println("I/O went wrong");
             }
 
     }
