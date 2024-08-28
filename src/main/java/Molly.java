@@ -250,8 +250,12 @@ public class Molly {
                         } else {
                             String[] deadlineDetails = userInput.substring(9).split( " /by ");
                             if (deadlineDetails.length == 2) {
-                                Deadline newDeadline = new Deadline(userInput.substring(9, userInput.indexOf("/by") - 1), userInput.substring(userInput.indexOf("/by") + 4));
-                                System.out.println(newDeadline.deadline);
+<<<<<<< HEAD
+=======
+                                String description = deadlineDetails[0].trim();
+                                String by = deadlineDetails[1].trim();
+                                Deadline newDeadline = new Deadline(description, by);
+>>>>>>> branch-Level-8
                                 botMemory.add(newDeadline);
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");
@@ -263,7 +267,7 @@ public class Molly {
                                 Molly.printLine();
                             } else {
                                 Molly.printLine();
-                                throw new MollyException("Sorry, invalid format for deadline. Please follow the format: deadline (description) /by (end date)");
+                                throw new MollyException("Sorry, invalid format for deadline. Please follow the format: deadline (description) /by (end date). The end date can be in the format DD-MM-YYYY HHmm (24 hour format).");
                             }
                         }
                     } else if (userInput.startsWith("event")) {
@@ -274,11 +278,14 @@ public class Molly {
                         } else {
                             String[] eventDetails = userInput.substring(6).split( " /from | /to ");
                             if (eventDetails.length == 3) {
-                                Event newEvent = new Event(userInput.substring(6, userInput.indexOf("/") - 1),
-                                        userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1),
-                                        userInput.substring(userInput.indexOf("/to") + 4));
-                                System.out.println(newEvent.startTime);
-                                System.out.println(newEvent.endTime);
+<<<<<<< HEAD
+
+=======
+                                String description = eventDetails[0].trim();
+                                String from = eventDetails[1].trim();
+                                String to = eventDetails[2].trim();
+                                Event newEvent = new Event(description, from, to);
+>>>>>>> branch-Level-8
                                 botMemory.add(newEvent);
                                 Molly.printLine();
                                 System.out.println("Got it. I've added this task: ");
@@ -290,7 +297,7 @@ public class Molly {
                                 Molly.printLine();
                             } else {
                                 Molly.printLine();
-                                throw new MollyException("Sorry, invalid format for deadline. Please follow the format: event (description) /from (start date or time) /to (end date or time)");
+                                throw new MollyException("Sorry, invalid format for deadline. Please follow the format: event (description) /from (start date or time) /to (end date or time). The start and end date/times can be in the format DD-MM-YYYY HHmm (24 hour format)");
                             }
                         }
                     } else if (userInput.equals("/help")) {

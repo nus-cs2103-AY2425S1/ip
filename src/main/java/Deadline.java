@@ -1,17 +1,38 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 /**
  * This Deadline class extends Task and represents deadlines with a specified end date.
  */
 
 public class Deadline extends Task {
 
-    public String deadline;
+    public String deadlineString;
+    public LocalDateTime deadlineDateTime;
+    public final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    public final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadlineString = deadline;
+        try {
+            this.deadlineDateTime = LocalDateTime.parse(deadline, INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            this.deadlineDateTime = null;
+        }
     }
 
     @Override
     public String toString() {
-        return taskIsDone ? "[D][X] " + this.description + " (by: " + deadline + ")" : "[D][ ] " + this.description + " (by: " + deadline + ")";
+<<<<<<< HEAD
+
+=======
+        if (this.deadlineDateTime != null) {
+            return taskIsDone ? "[D][X] " + this.description + " (by: " + this.deadlineDateTime.format(OUTPUT_FORMAT) + ")" : "[D][ ] " + this.description + " (by: " + this.deadlineDateTime.format(OUTPUT_FORMAT) + ")";
+        }
+
+        return taskIsDone ? "[D][X] " + this.description + " (by: " + deadlineString + ")" : "[D][ ] " + this.description + " (by: " + deadlineString + ")";
+
+>>>>>>> branch-Level-8
     }
 }
