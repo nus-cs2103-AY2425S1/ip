@@ -13,7 +13,7 @@ import exceptions.DateTimeException;
 import exceptions.UnknownCommandException;
 
 public class CommandParser {
-    public static boolean parseCommand(String input, TaskList tl, Storage s) {
+    public static boolean canParseCommand(String input, TaskList tl, Storage s) {
         if (input.startsWith("bye")) {
             UI.updateUserOnExit();
             return false;
