@@ -243,6 +243,13 @@ public class YappingBot {
             }
         }
     }
+
+    private static void loadListFromFile() throws YappingBotFileNotFoundException, YappingBotInvalidSaveFileException{
+
+    }
+    private static void saveListToFile() throws YappingBotSaveFileException{
+
+    }
     // end of class methods
 
     public static void main(String[] args) {
