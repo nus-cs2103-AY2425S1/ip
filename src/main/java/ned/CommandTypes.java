@@ -15,26 +15,34 @@ public enum CommandTypes {
     UNKNOWN(null);
     private final Command command;
     // Enum constructor
+
+    /**
+     * Constructs an instance which stores an instance of every class that implements the Command interface
+     * @param command The command subclass which is associated with the enum constant
+     */
     CommandTypes(Command command) {
         this.command = command;
     }
 
-    // Getter for command
+    /**
+     * Getter method to return the command instance associated with each command type
+     * @return Command subclass
+     */
     public Command getCommand() {
         return command;
     }
 
-    // Getter for regex
-    public String getRegex() {
-        return this.command.getRegex();
-    }
-
-    // Static method to find the matching command by regex
+    /**
+     * Returns a CommandTypes object by parsing the user input and matching it to each Command subclass's associated
+     * regex. The CommandTypes are a fixed set of values.
+     * @param userInput String representing a line of user input
+     * @return A CommandTypes object, with its associated Command subclass
+     */
     public static CommandTypes findMatchingCommand(String userInput) {
         for (CommandTypes commandType : CommandTypes.values()) {
             if (commandType == CommandTypes.UNKNOWN) {
                 break;
-            } else if (Pattern.matches(commandType.getRegex(), userInput)) {
+            } else if (Pattern.matches(commandType.getCommand().getRegex(), userInput)) {
                 return commandType;
             }
         }

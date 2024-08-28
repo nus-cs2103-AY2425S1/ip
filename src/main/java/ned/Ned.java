@@ -12,6 +12,11 @@ public class Ned {
 
     private TaskList tasks;
     public static final String cachedTasksPath = Paths.get("src", "data", "cachedTasks.txt").toString();
+
+    /**
+     * Creates an instance of the Ned chatbot
+     * @param filePath The address of the cache file, relative to the project folder
+     */
     public Ned(String filePath) {
         this.ui = new Ui();
         try {
@@ -23,6 +28,10 @@ public class Ned {
         }
     }
 
+    /**
+     * Shows the welcome message and then sends input to be parsed
+     * Will exit if the command has a isExit = true
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;

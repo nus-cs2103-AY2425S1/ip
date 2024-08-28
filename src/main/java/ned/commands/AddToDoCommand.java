@@ -10,6 +10,20 @@ import ned.Ui;
 public class AddToDoCommand implements Command{
     private final String REGEX = "^todo.*";
 
+    /**
+     * This method creates a new ToDo object and then adds it to the taskList instance belonging to the Ned instance
+     * . It Will throw NedException if the command is incomplete, be it missing a description, a /from timing or a
+     * /to timing.
+     * @param taskList The TaskList instance associated with the Ned instance, used to store the list of tasks and
+     *                 to modify them.
+     * @param uiInstance The Ui instance associated with the Ned instance, used to display user output, and take in
+     *                  user input.
+     * @param storageInstance The storage instance associated with the Ned instance, used to load in saved tasks
+     *                        from the cache file as well as to modify the cache file when the list of tasks are
+     *                        changed.
+     * @param userInput The string of user input, is parsed for relevant information needed to execute commands
+     * @throws NedException Thrown if a task description is not provided
+     */
     @Override
     public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
         String[] parsed_inputs = userInput.split("todo", 2);
@@ -20,6 +34,11 @@ public class AddToDoCommand implements Command{
         taskList.addTask(newTask, uiInstance);
         storageInstance.save(taskList);
     };
+    /**
+     * Returns the regex expression used to identify the event command
+     * Used in Parser class to find the associated command
+     * @return The regex pattern associated with this command
+     */
     @Override
     public String getRegex() {
         return this.REGEX;
