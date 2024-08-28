@@ -10,7 +10,7 @@ public class Parser {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static Ui ui = new Ui();
-    public static LocalDate parseDateTime(String input) throws DateTimeException {
+    public static LocalDate parseDateTime(String input) throws DateTimeException, DateTimeParseException {
         return LocalDate.parse(input, FORMATTER);
     }
 
@@ -75,7 +75,7 @@ public class Parser {
                             storage.saveTasks(taskList.getTasks());
                             ui.showMessage(taskList.getTaskCount() <= 1 ? "Now you have " + taskList.getTaskCount() + " task in the list."
                                     : "Now you have " + taskList.getTaskCount() + " tasks in the list.");
-                        } catch (MeowException e) {
+                        } catch (DateTimeException | MeowException e) {
                             System.out.println(e.getMessage());
                         }
                     } else {
