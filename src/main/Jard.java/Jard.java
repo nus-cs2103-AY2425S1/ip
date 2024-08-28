@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 public class Jard {
 
@@ -31,6 +32,10 @@ public class Jard {
             this.isDone = false;
         }
 
+        public String toFileString() {
+            return String.format("T | %d | %s", isDone ? 1 : 0, description);
+        }
+
         @Override
         public String toString() {
             return "[" + getStatusIcon() + "] " + description;
@@ -40,6 +45,11 @@ public class Jard {
     public static class Todo extends Task {
         public Todo(String description) {
             super(description);
+        }
+
+        @Override
+        public String toFileString() {
+            return String.format("T | %d | %s", isDone ? 1 : 0, description);
         }
 
         @Override
@@ -54,6 +64,11 @@ public class Jard {
         public Deadline(String description, String by) {
             super(description);
             this.by = by;
+        }
+
+        @Override
+        public String toFileString() {
+            return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, by);
         }
 
         @Override
@@ -73,11 +88,94 @@ public class Jard {
         }
 
         @Override
+        public String toFileString() {
+            return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, from, to);
+        }
+
+        @Override
         public String toString() {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
     }
 
+    public static class Storage {
+        private String filePath;
+
+        public Storage(String filePath) {
+            this.filePath = filePath;
+        }
+
+        public List<Task> loadTasks() {
+            List<Task> tasks = new ArrayList<>();
+            try {
+                File file = new File(filePath);
+                if (file.exists()) {
+                    Scanner scanner = new Scanner(file);
+                    while (scanner.hasNextLine()) {
+                        String taskData = scanner.nextLine();
+                        tasks.add(parseTask(taskData));
+                    }
+                    scanner.close();
+                } else {
+                    createFile();
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("Jartaloon! " + e.getMessage());
+            }
+            return tasks;
+        }
+
+        public void saveTasks(List<Task> tasks) {
+            try {
+                FileWriter writer = new FileWriter(filePath);
+                for (Task task : tasks) {
+                    writer.write(task.toFileString() + System.lineSeparator());
+                }
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Jartaloon! " + e.getMessage());
+            }
+        }
+
+        private Task parseTask(String taskData) {
+            String[] parts = taskData.split(" \\| ");
+            String type = parts[0];
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+
+            Task task;
+            switch (type) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    String by = parts[3];
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    String from = parts[3];
+                    String to = parts[4];
+                    task = new Event(description, from, to);
+                    break;
+                default:
+                    throw new JardException("Jartaloon! " + taskData);
+            }
+            if (isDone) {
+                task.markAsDone();
+            }
+            return task;
+        }
+
+        private void createFile() {
+            try {
+                File file = new File(filePath);
+                file.getParentFile().mkdirs(); 
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Jartaloon! " + e.getMessage());
+            }
+        }
+    }
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -92,8 +190,11 @@ public class Jard {
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
+        String filePath = "./data/jard.txt";
+        Storage storage = new Storage(filePath);
+        List<Task> tasks = storage.loadTasks();
+
         Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
         String input;
 
         while (true) {
@@ -194,6 +295,7 @@ public class Jard {
                 } else {
                     throw new JardException("Invalid command!");
                 }
+                storage.saveTasks(tasks);
             } catch (JardException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Error: Jard! " + e.getMessage());
