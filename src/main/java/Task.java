@@ -1,9 +1,16 @@
 import java.lang.StringBuilder;
 
-public class Task {
+public abstract class Task {
     private static class ToDo extends Task {
         public ToDo(String name) {
             super(name);
+        }
+
+        @Override
+        public String getSaveMessage() {
+            return String.format("T | %s | %s",
+                    getStatusIcon(),
+                    this.name);
         }
 
         @Override
@@ -18,6 +25,14 @@ public class Task {
         public Deadline(String name, String dueDate) {
             super(name);
             this.dueDate = dueDate;
+        }
+
+        @Override
+        public String getSaveMessage() {
+            return String.format("D | %s | %s | %s",
+                    getStatusIcon(),
+                    this.name,
+                    this.dueDate);
         }
 
         @Override
@@ -36,6 +51,15 @@ public class Task {
             super(name);
             this.startDate = startDate;
             this.endDate = endDate;
+        }
+
+        @Override
+        public String getSaveMessage() {
+            return String.format("E | %s | %s | %s | %s",
+                    getStatusIcon(),
+                    this.name,
+                    this.startDate,
+                    this.endDate);
         }
 
         @Override
@@ -156,6 +180,8 @@ public class Task {
             throw new UnknownCommandException(taskType);
         }
     }
+
+    public abstract String getSaveMessage();
 
     public void markAsDone() {
         this.isDone = true;
