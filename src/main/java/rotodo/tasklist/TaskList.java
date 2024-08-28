@@ -2,16 +2,28 @@ package rotodo.tasklist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+
 import rotodo.exception.InvalidInputException;
 
 public class TaskList {
+    public static TaskList taskList;
+
     /**
      * List of tasks.
      */
     private List<Task> list;
 
-    public TaskList() {
+    private TaskList() {
         list = new ArrayList<>();
+    }
+
+    public static TaskList of() {
+        if (taskList != null) {
+            return taskList;
+        }
+        taskList = new TaskList();
+        return taskList;
     }
 
     /**
@@ -72,6 +84,24 @@ public class TaskList {
             + "\n    Now you have " + list.size() + " tasks in the list.";
     }
 
+    public void addTask(String ...value) {
+        Task toAdd = null;
+        switch (value.length) {
+            case 2:
+                toAdd = new Todo(value);
+                 break;
+
+            case 3:
+                toAdd = new Deadline(value);
+                break;
+
+            case 4:
+                toAdd = new Event(value);
+                break;
+        }
+        if (toAdd != null) list.add(toAdd);
+    }
+
     public String deleteTask(int i) throws InvalidInputException {
         if (i >= list.size() || i < 0) {
             throw new InvalidInputException("Task number doesn't exist\n"
@@ -80,6 +110,14 @@ public class TaskList {
         Task removed = list.remove(i);
         return "    Deleting task? That's cheating... but whatever... removed:\n      " + removed
             + "\n    Now you have " + list.size() + " tasks in the list.";
+    }
+
+    public String saveList() throws IOException {
+        String output = "";
+        for (Task t : list) {
+            output += t.saveString() + "\n";
+        }
+        return output.strip();
     }
 
     /**

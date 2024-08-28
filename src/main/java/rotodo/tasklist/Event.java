@@ -13,14 +13,18 @@ public class Event extends Task {
     String from;
     String to;
 
-    public Event(String value, String from, String to) {
-        super(value);
-        this.from = from;
-        this.to = to;
+    public Event(String ...value) {
+        super(value[0], value.length > 3 ? value[3] : "0");
+        this.from = value[1];
+        this.to = value[2];
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    public String saveString() {
+        return "E | " + saveString(from + " | " + to);
     }
 }

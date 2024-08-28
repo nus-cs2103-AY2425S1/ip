@@ -11,13 +11,17 @@ package rotodo.tasklist;
 public class Deadline extends Task {
     String by;
 
-    public Deadline(String value, String by) {
-        super(value);
-        this.by = by;
+    public Deadline(String ...value) {
+        super(value[0], value.length > 2 ? value[2] : "0");
+        this.by = value[1];
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    public String saveString() {
+        return "D | " + saveString(by);
     }
 }
