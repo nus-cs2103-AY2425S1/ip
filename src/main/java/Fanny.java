@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,7 +6,7 @@ import java.util.Scanner;
 public class Fanny {
 
     private static TaskList list;
-    private static Scanner scanner = new Scanner(System.in);
+    private static Ui ui = new Ui();
     private static Storage storage;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -16,17 +15,17 @@ public class Fanny {
         storage = new Storage("./data/fanny.txt");
         list = new TaskList(storage);
 
-        printHello();
+        ui.printHello();
 
         while (true) {
-            System.out.print("User:");
-            String cmd = scanner.nextLine();
+            String cmd = ui.getUserInput();
             String[] cmdParts = cmd.split(" ", 2);
             String action = cmdParts[0];
             try {
                 switch (action) {
                     case "bye":
-                        exitChat();
+                        ui.printBye();
+                        ui.close();
                         return;
                     case "list":
                         printList();
@@ -54,25 +53,12 @@ public class Fanny {
                         break;
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                ui.showExceptionMessage(e.getMessage());
             } finally {}
         }
     }
 
     private static String horizontalLine = "_____________________________________________";
-
-    private static void printHello() {
-        System.out.println(horizontalLine);
-        System.out.println("Hello! I'm Fanny\nWhat can I do for you?");
-        System.out.println(horizontalLine);
-    }
-
-    private static void exitChat() {
-        System.out.println(horizontalLine);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(horizontalLine);
-        scanner.close();
-    }
 
     private static void printList() {
         System.out.println(horizontalLine);
