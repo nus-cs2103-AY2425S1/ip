@@ -1,12 +1,23 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sage {
+    private static final String FILE_PATH = "./data/sage.txt";
     public static void main(String[] args) {
+        Storage storage = new Storage(FILE_PATH);
+
         //Create a scanner object to read user input
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         String input;
+
+        try {
+            tasks = new ArrayList<>(storage.loadTasks());
+        } catch (IOException e) {
+            System.out.println("Unable to load tasks. Starting with an empty list");
+            tasks = new ArrayList<>();
+        }
 
         //Greet the user
         System.out.println("______________________________________________________");
@@ -30,6 +41,7 @@ public class Sage {
                         int taskNumber = Integer.parseInt(input.substring(4).trim()) - 1;
                         if (taskNumber >= 0 && taskNumber < tasks.size()) {
                             tasks.get(taskNumber).markAsDone();
+                            storage.saveTasks(tasks);
                             System.out.println("______________________________________________________");
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(" " + tasks.get(taskNumber));
@@ -41,6 +53,7 @@ public class Sage {
                         int taskNumber = Integer.parseInt(input.substring(6).trim()) - 1;
                         if (taskNumber >= 0 && taskNumber < tasks.size()) {
                             tasks.get(taskNumber).markAsNotDone();
+                            storage.saveTasks(tasks);
                             System.out.println("______________________________________________________");
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println(" " + tasks.get(taskNumber));
@@ -52,6 +65,7 @@ public class Sage {
                         int taskNumber = Integer.parseInt(input.substring(6).trim()) - 1;
                         if (taskNumber >= 0 && taskNumber < tasks.size()) {
                             Task removedTask = tasks.remove(taskNumber);
+                            storage.saveTasks(tasks);
                             System.out.println("______________________________________________________");
                             System.out.println("OK! I will remove this task:");
                             System.out.println(" " + removedTask);
@@ -61,9 +75,10 @@ public class Sage {
                     } else if (input.startsWith("todo")) {
                         String description = input.substring(4).trim();
                         if (description.isEmpty()) {
-                            throw new JiaException("Oh No! Please tell me what task to do :(");
+                            throw new SageException("Oh No! Please tell me what task to do :(");
                         }
                         tasks.add(new ToDo(description));
+                        storage.saveTasks(tasks);
                         System.out.println("______________________________________________________");
                         System.out.println("Got it. I've added this task:");
                         System.out.println(" " + tasks.get(tasks.size() - 1));
@@ -75,13 +90,14 @@ public class Sage {
                             String description = parts[0].trim();
                             String by = parts[1].trim();
                             tasks.add(new Deadline(description, by));
+                            storage.saveTasks(tasks);
                             System.out.println("______________________________________________________");
                             System.out.println("Got it. I've added this task:");
                             System.out.println(" " + tasks.get(tasks.size() - 1));
                             System.out.println("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.");
                             System.out.println("______________________________________________________");
                         } else {
-                            throw new JiaException("You need to add a task and a deadline!! -_-");
+                            throw new SageException("You need to add a task and a deadline!! -_-");
                         }
                     } else if (input.startsWith("event")) {
                         String[] parts = input.substring(5).split(" /from | /to ");
@@ -90,18 +106,19 @@ public class Sage {
                             String from = parts[1].trim();
                             String to = parts[2].trim();
                             tasks.add(new Event(description, from, to));
+                            storage.saveTasks(tasks);
                             System.out.println("______________________________________________________");
                             System.out.println("Got it. I've added this task:");
                             System.out.println(" " + tasks.get(tasks.size() - 1));
                             System.out.println("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.");
                             System.out.println("______________________________________________________");
                         } else {
-                            throw new JiaException("What time is your event?? :o");
+                            throw new SageException("What time is your event?? :o");
                         }
                     } else if (!input.equalsIgnoreCase("bye")) {
-                        throw new JiaException("Sorry what do you mean? :p");
+                        throw new SageException("Sorry what do you mean? :p");
                     }
-                } catch (JiaException e) {
+                } catch (SageException e) {
                 System.out.println("______________________________________________________");
                 System.out.println(e.getMessage());
                 System.out.println("______________________________________________________");
