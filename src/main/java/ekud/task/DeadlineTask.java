@@ -21,7 +21,7 @@ public class DeadlineTask extends Task {
             throw new EkudException(
                     """
                             Whoopsies!! Looks like you forgot your deadline!
-                            I'll say this once: next time mark your deadline with '/deadline'.""");
+                            I'll say this once: next time mark your deadline with '/by'.""");
         }
         try {
             this.deadline = LocalDateTime.parse(deadline, READ_FORMAT);
@@ -35,7 +35,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getEmptyDescriptionErrorMessage() {
-        return "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual ekud.task.";
+        return "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual task.";
     }
 
     @Override
