@@ -1,8 +1,9 @@
 package shoai;
+
 import shoai.Task; // Imports the Task class since Todo extends Task
 
 /**
- * Represents a task that is of type "Todo". This class extends the Task class
+ * Represents a task of type "Todo". This class extends the Task class
  * to represent a task that does not have any specific deadline or time range.
  */
 public class Todo extends Task {
@@ -19,7 +20,7 @@ public class Todo extends Task {
     /**
      * Returns a string representation of the Todo task.
      *
-     * @return A string representation of the Todo task, with the format "[T][done status] description".
+     * @return A string representation of the Todo task, formatted as "[T][done status] description".
      */
     @Override
     public String toString() {

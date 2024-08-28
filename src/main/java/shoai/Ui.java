@@ -1,8 +1,8 @@
 package shoai;
+
 import shoai.TaskList; // Imports TaskList for managing and displaying tasks
 import shoai.Task; // Imports Task for displaying task information
 import java.util.Scanner; // Imports Scanner for reading user input
-
 
 /**
  * Handles user interface interactions, including reading user commands and displaying
@@ -22,10 +22,10 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public void showWelcome() {
-        System.out.println("____________________________________________________________");
+        showLine();
         System.out.println("Hello! I'm ShoAI");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        showLine();
     }
 
     /**
