@@ -1,3 +1,5 @@
+package yapyap;
+
 public enum Commands {
     BYE,
     LIST,
