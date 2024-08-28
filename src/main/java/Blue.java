@@ -1,6 +1,12 @@
 import java.util.Scanner;
 public class Blue {
 
+    public static void greet() {
+        System.out.println("--------------------------------------------");
+        System.out.println("Hello! I'm Blue! Woof Woof! Yap Yap!");
+        System.out.println("What can I do for you?");
+        System.out.println("--------------------------------------------");
+    }
     public static void farewell() {
         System.out.println("Bye Bye! Hope to see you again soon!");
         System.out.println("_     /)---(\\          /~~~\\");
@@ -19,11 +25,7 @@ public class Blue {
         Note note = new Note();
 
         // Greet the user
-        System.out.println("--------------------------------------------");
-        System.out.println("Hello! I'm Blue! Woof Woof! Yap Yap!");
-        System.out.println("What can I do for you?");
-        System.out.println("--------------------------------------------");
-
+        Blue.greet();
         String input = "";
 
         while (true) {

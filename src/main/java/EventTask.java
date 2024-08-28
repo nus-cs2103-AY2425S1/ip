@@ -14,6 +14,6 @@ public class EventTask extends Task {
     }
     @Override
     public String toFileString() {
-        return "E | " + getStatusIcon() + " | " + description + " | " + from + " | " + to;
+        return "E | " + super.getStatusIcon() + " | " + getDescription() + " | " + from + " | " + to;
     }
 }

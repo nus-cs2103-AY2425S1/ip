@@ -10,7 +10,7 @@ public class ToDoTask extends Task {
     }
     @Override
     public String toFileString() {
-        return "T | " + getStatusIcon() + " | " + description;
+        return "T | " + getStatusIcon() + " | " + getDescription();
     }
 
     
