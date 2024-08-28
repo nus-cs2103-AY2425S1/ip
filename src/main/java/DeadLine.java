@@ -45,7 +45,7 @@ public class DeadLine extends Task {
             this.isDone = true;
         }
         this.name = input[1];
-        this.endDate = LocalDate.parse(input[2]);
+        this.endDate = LocalDate.parse(input[2].trim());
     }
 
     @Override
