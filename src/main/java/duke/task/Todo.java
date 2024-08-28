@@ -10,6 +10,10 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns string representation of the task to be saved in the text file.
+     * @return String of Todo
+     */
     @Override
     public String toFileString() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;

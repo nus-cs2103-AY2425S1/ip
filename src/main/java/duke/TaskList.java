@@ -4,6 +4,9 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A class that handle storing and dealing of task in ArrayList.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {

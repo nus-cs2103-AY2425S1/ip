@@ -10,7 +10,9 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * A class that run main program
+ */
 public class Nameless {
     private final DateTimeFormatter parse_format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
     private Storage storage;
@@ -30,6 +32,9 @@ public class Nameless {
         }
     }
 
+    /**
+     * Run the program until user input "bye"
+     */
     public void run() {
         ui.greetings();
         Scanner sc = new Scanner(System.in);
@@ -69,6 +74,10 @@ public class Nameless {
         ui.goodbye();
     }
 
+    /**
+     * Adds a new todo task when input is "todo"
+     * Prints the output of the added task
+     */
     private void todo(String input) throws DukeException {
         String words = Parser.splitGetWords(input);
         if (words.isEmpty()) {
@@ -78,6 +87,10 @@ public class Nameless {
         ui.showAddTask(tasks);
     }
 
+    /**
+     * Adds a new deadline task when input is "deadline"
+     * Prints the output of the added task
+     */
     private void deadline(String input) throws DukeException {
         String[] words = Parser.splitGetWords(input).split(" /by ", 2);
         if(words.length != 2) {
@@ -92,6 +105,10 @@ public class Nameless {
         }
     }
 
+    /**
+     * Adds a new event task when input is "event"
+     * Prints the output of the added task
+     */
     private void event(String input) throws DukeException {
         String[] words = Parser.splitGetWords(input).split(" /from | /to ", 3);
         if (words.length != 3) {

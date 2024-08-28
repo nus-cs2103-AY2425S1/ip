@@ -16,7 +16,9 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
+/**
+ * Storage class to handle reading and writing to file.
+ */
 public class Storage {
     private static Path filePath;
     private String line;
@@ -26,6 +28,10 @@ public class Storage {
         createFile();
     }
 
+    /**
+     * Creates directory if it does not exist.
+     * @throws DukeException if error creating directory
+     */
     private void createDirectory() throws  DukeException {
         Path directory = filePath.getParent();
         if (Files.notExists(directory)) {
@@ -38,6 +44,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if file path have a directory.
+     * If it does not exist, it creates the directory and creates file if it does not exist.
+     * @throws DukeException if error creating file
+     */
     public void createFile() throws DukeException {
         if(Files.notExists(filePath)){
             createDirectory();
@@ -50,6 +61,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes tasks to file.
+     * @param tasks ArrayList of tasks to be written to file
+     * @throws DukeException Error writing to file
+     */
     public void writeFile(ArrayList<Task> tasks) throws DukeException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toString()))) {
             for (Task task : tasks) {
@@ -61,6 +77,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from file to use in Nameless class
+     * @return ArrayList of tasks to be
+     * @throws DukeException Error reading file
+     */
     public ArrayList<Task> loadFile() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         boolean isDone;
@@ -76,6 +97,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts string to Task object.
+     * @param line String to be converted to Task object
+     * @return Task object
+     */
     private Task stringToTask(String line) {
         String[] words = line.split(" \\| ");
         if(words[0].equals("T")){

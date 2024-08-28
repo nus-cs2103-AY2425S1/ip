@@ -19,6 +19,10 @@ public class Event extends Task {
                 "(from: " + from.format(display_format) + " to: " + to.format(display_format) + ")";
     }
 
+    /**
+     * Returns string representation of the task to be saved in the text file.
+     * @return String of Event
+     */
     @Override
     public String toFileString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
