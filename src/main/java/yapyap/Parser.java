@@ -1,3 +1,5 @@
+package yapyap;
+
 public class Parser {
 
     public Commands parseCommand(String userInput) {
