@@ -8,7 +8,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "1" : "0");
     }
 
     public void markAsDone() {
@@ -30,5 +30,34 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
+
+    public static Task fromFileString(String fileString) {
+
+        String[] parts = fileString.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task;
+        switch (type) {
+        case "T":
+            task = new ToDoTask(description);
+            break;
+        case "D":
+            task = new DeadlineTask(description, parts[3]);
+            break;
+        case "E":
+            task = new EventTask(description, parts[3], parts[4]);
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid task type in file: " + type);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
 
 }
