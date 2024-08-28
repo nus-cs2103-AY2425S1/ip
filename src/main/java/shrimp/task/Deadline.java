@@ -1,12 +1,9 @@
+package shrimp.task;
+
 public class Deadline extends Task {
     private final String by;
 
-    Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    private Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
@@ -23,6 +20,10 @@ public class Deadline extends Task {
 
     public String getType() {
         return "[D]";
+    }
+
+    public String getBy() {
+        return by;
     }
 
     @Override
