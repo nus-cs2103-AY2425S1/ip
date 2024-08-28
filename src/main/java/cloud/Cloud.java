@@ -1,3 +1,15 @@
+package cloud;
+
+import cloud.exception.CloudException;
+import cloud.task.Deadline;
+import cloud.task.Event;
+import cloud.task.Todo;
+import cloud.util.Parser;
+import cloud.util.Query;
+import cloud.util.Storage;
+import cloud.util.TaskList;
+import cloud.util.Ui;
+
 import java.util.Scanner;
 
 public class Cloud {
@@ -103,7 +115,7 @@ public class Cloud {
 
             Query query = null;
             String command = "";
-            // parse the user input to a Query object
+            // parse the user input to a cloud.utils.Query object
             try {
                 query = Parser.parse(userInput);
                 command = query.getCommand();

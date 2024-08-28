@@ -1,3 +1,5 @@
+package cloud.util;
+
 public final class Query {
     private final String command;
     private final String details;

@@ -1,3 +1,5 @@
+package cloud.exception;
+
 /**
  * Exception for handling incorrectly structured queries
  */

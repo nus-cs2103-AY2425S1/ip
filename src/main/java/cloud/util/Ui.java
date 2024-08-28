@@ -1,3 +1,5 @@
+package cloud.util;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -29,11 +31,11 @@ public class Ui {
     }
 
     public void showMarked(String taskStatus) {
-        System.out.println("Task marked as done!\n" + taskStatus);
+        System.out.println("cloud.task.Task marked as done!\n" + taskStatus);
     }
 
     public void showUnmarked(String taskStatus) {
-        System.out.println("Task marked as not done\n" + taskStatus);
+        System.out.println("cloud.task.Task marked as not done\n" + taskStatus);
     }
 
     public void showList(String list) {

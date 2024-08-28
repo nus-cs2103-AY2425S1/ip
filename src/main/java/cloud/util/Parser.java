@@ -1,3 +1,9 @@
+package cloud.util;
+
+import cloud.exception.CloudException;
+import cloud.exception.InputException;
+import cloud.exception.UnrecognisedException;
+
 public class Parser {
     public static Query parse(String raw) throws CloudException {
         String[] split = raw.split(" ", 2);

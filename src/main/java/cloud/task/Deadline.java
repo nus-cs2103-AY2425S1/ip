@@ -1,4 +1,9 @@
-public class Deadline extends Task{
+package cloud.task;
+
+import cloud.exception.CloudException;
+import cloud.util.DateTime;
+
+public class Deadline extends Task {
     protected DateTime by;
     public Deadline(String desc, String by) throws CloudException {
         super(desc);

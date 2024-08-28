@@ -1,3 +1,7 @@
+package cloud.util;
+
+import cloud.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -11,7 +15,7 @@ public class TaskList {
     /**
      * Add a task to the end of the list
      *
-     * @param task Task object to be added
+     * @param task cloud.task.Task object to be added
      */
     public void add(Task task) {
         this.tasks.add(task);
@@ -85,6 +89,6 @@ public class TaskList {
         for (int index = 0; index < nTasks; index++) {
             sb.append(String.format("%d: %s\n", index + 1, tasks.get(index)));
         }
-        return "Here are the tasks in your list:\n" + sb.toString();
+        return sb.toString();
     }
 }

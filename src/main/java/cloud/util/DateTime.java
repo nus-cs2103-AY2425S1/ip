@@ -1,7 +1,10 @@
+package cloud.util;
+
+import cloud.exception.CloudException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 public class DateTime {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
@@ -13,7 +16,7 @@ public class DateTime {
         this.dateTime = dateTime;
     }
 
-    public static DateTime of(String input) throws CloudException{
+    public static DateTime of(String input) throws CloudException {
         try {
             return new DateTime(LocalDateTime.parse(input, INPUT_FORMAT));
         } catch (DateTimeParseException e) {

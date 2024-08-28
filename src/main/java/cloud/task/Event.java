@@ -1,3 +1,8 @@
+package cloud.task;
+
+import cloud.exception.CloudException;
+import cloud.util.DateTime;
+
 public class Event extends Task {
     protected DateTime start;
     protected DateTime end;
