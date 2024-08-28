@@ -10,6 +10,7 @@ import barney.action.commands.EventCommand;
 import barney.action.commands.ListCommand;
 import barney.action.commands.MarkCommand;
 import barney.action.commands.TodoCommand;
+import barney.action.commands.FindCommand;
 import barney.data.exception.BarneyException;
 import barney.data.exception.InvalidCommandException;
 
@@ -23,7 +24,7 @@ public class CommandManager {
         EVENT("event", "^event\\s+.+\\s+/from\\s+.+\\s+/to\\s+.+\\s*$", EventCommand.class, "description", "from",
                 "to"),
         DELETE("delete", "^delete\\s+\\d+\\s*$", DeleteCommand.class, "index"),
-        BYE("bye", "^bye\\s*$", EndCommand.class);
+        FIND("find", "^find\\s+.+\\s*$", FindCommand.class, "keyword"), BYE("bye", "^bye\\s*$", EndCommand.class);
 
         public final String commandStr;
         public final String commandRegex;
@@ -84,6 +85,9 @@ public class CommandManager {
             commandMap.put(commandType.commandArgs[0], eventArgs[0].trim());
             commandMap.put(commandType.commandArgs[1], timeArgs[0].trim());
             commandMap.put(commandType.commandArgs[2], timeArgs[1].trim());
+            break;
+        case FIND:
+            commandMap.put(commandType.commandArgs[0], line);
             break;
         case BYE:
             break;

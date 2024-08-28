@@ -82,6 +82,17 @@ public class Ui {
         printLongLine();
     }
 
+    /**
+     * Prints the tasks that match the keyword
+     * 
+     * @param tasks
+     */
+    public void printMatchingTasks(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(tasks.toStringList());
+        printLongLine();
+    }
+
     public void printInvalidCommand() {
         System.out.println("Invalid command, please try again!");
         printLongLine();
