@@ -25,7 +25,8 @@ public class Kafka {
 
     public void createList() {
         for (int i = 0; i < tasks.size(); i++) {
-            String listMessage = "  " + (i + 1) + ". " + tasks.get(i).description;
+            Task t = tasks.get(i);
+            String listMessage = "  " + (i + 1) + ".[" + t.getStatusIcon() + "] " + t.description;
             System.out.println(listMessage);
         }
     }
