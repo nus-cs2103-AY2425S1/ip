@@ -47,7 +47,7 @@ public class Ui {
         System.out.println("____________________________________________________________\n" +
             " Noted. I've removed this task:\n   " +
             task + "\n" +
-            "Now you have " + size + " tasks in the list.\n" +
+            " Now you have " + size + " tasks in the list.\n" +
             "____________________________________________________________\n" +
             "\n"
         );
@@ -64,10 +64,12 @@ public class Ui {
     }
 
     public void displayEmptyList() {
-        System.out.println("____________________________________________________________\n" +
-            "There are no tasks in the list.\n" +
-            "____________________________________________________________\n" +
-            "\n"
+        System.out.println("""
+                ____________________________________________________________
+                There are no tasks in the list.
+                ____________________________________________________________
+
+                """
         );
     }
 

@@ -13,11 +13,9 @@ public abstract class Parser {
      * Checks if user command is valid and executes the command.
      *
      * @param command User command.
-     * @param list List of tasks the user has.
-     * @param ui demure.Ui object to interact with user.
      * @throws DemureBotException If the user command is invalid.
      */
-    public static Command parse(String command, TaskList list, Ui ui) throws DemureBotException {
+    public static Command parse(String command) throws DemureBotException {
         if (command.trim().equals("bye")) {
             return new EndCommand();
         } else if (command.trim().equals("list")) {

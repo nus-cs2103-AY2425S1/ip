@@ -59,7 +59,7 @@ public class DemureBot {
         while (!isFinished) {
             String command = scanner.nextLine();
             try {
-                Command c = Parser.parse(command, list, this.ui);
+                Command c = Parser.parse(command);
                 c.execute(this.list, this.ui);
                 isFinished = c.isExit();
             } catch (DemureBotException e) {
