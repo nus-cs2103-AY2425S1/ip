@@ -1,6 +1,7 @@
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Blitz{
         System.out.println("---------------\n" +
                 "Hello! I'm BLITZ \n" +
                 "What can I do for you?");
-
+        loadData();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -28,6 +29,7 @@ public class Blitz{
                 break;
             } else {
                 actionBasedOnInput(userInput);
+                writeToData();
             }
         }
     }
@@ -95,6 +97,102 @@ public class Blitz{
                 task));
         System.out.println("---------------\n");
     }
+
+
+    public String formatInput(String input) {
+        input = input.substring(input.indexOf("["));
+        char taskType = input.charAt(1);
+        int descriptionStartIndex = input.indexOf("] ", input.indexOf("]") + 1) + 2;
+        String description;
+        String timeDetails;
+        switch (taskType) {
+        case 'T':
+           return "todo " + input.substring(descriptionStartIndex);
+        case 'E':
+            int endIndex = input.indexOf("(");
+            description = input.substring(descriptionStartIndex, endIndex).trim();
+
+            int timeIndex = input.indexOf("(from");
+            timeDetails = input.substring(timeIndex).trim();
+            timeDetails = timeDetails.replace("(from:", "/from");
+            timeDetails = timeDetails.replace("to:", "/to");
+            timeDetails = timeDetails.replace(")", "");
+            return "event " + description + " " + timeDetails;
+        default:
+            int descriptionEndIndex = input.indexOf("(");
+            description = input.substring(descriptionStartIndex, descriptionEndIndex).trim();
+            int deadlineIndex = input.indexOf("(by");
+            timeDetails = input.substring(deadlineIndex);
+            timeDetails = timeDetails.replace("(by", "/by");
+            timeDetails = timeDetails.replace(")", "");
+            return "deadline " + description + " " + timeDetails;
+        }
+    }
+
+    public void loadData() {
+        String path = "src/main/data/blitz.txt";
+        checkAndCreateFile(path);
+        try {
+            File dataFile = new File(path);
+
+            Scanner scanner = new Scanner(dataFile);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                try {
+                    System.out.println("This is the formatted task: " + formatInput(line));
+                    Task newTask = Task.createTask(formatInput(line));
+                    inputHistory.add(newTask);
+                } catch (InvalidTaskException e) {
+                    System.out.println("DATA CONTAINS INVALID TASK LAH");
+                } catch (NoTaskDescriptionException e) {
+                    System.out.println("Wah, no description then I record what?");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error while reading from file");
+        }
+    }
+
+    public void writeToData() {
+        String path = "src/main/data/blitz.txt";
+        checkAndCreateFile(path);
+
+        try {
+
+            File dataFile = new File(path);
+
+            FileWriter writer = new FileWriter(dataFile);
+
+            for (int i = 0; i < inputHistory.size(); i++) {
+                Task task = inputHistory.get(i);
+                writer.write((i + 1) + ". " + task + "\n");
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file");
+            e.printStackTrace();
+        }
+    }
+
+    public static void checkAndCreateFile(String path) {
+        File file = new File(path);
+        File directory = file.getParentFile();
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("error when creating file");
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         Blitz blitz_jr = new Blitz();

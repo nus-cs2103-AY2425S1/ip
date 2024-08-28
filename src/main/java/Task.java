@@ -64,6 +64,8 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
+    public TaskType getTaskType(){return this.type;}
+
     @Override
     public String toString() {
         int firstSpaceIndex = this.description.indexOf(' ');
