@@ -46,11 +46,9 @@ public class EchoBot {
                 commandResponse = this.executeCommand(command);
                 this.ui.printCommandResponse(commandResponse);
             } while (!commandResponse.isExitCommand());
-        } catch (UnknownCommandException e) {
-            this.ui.printErrorMessage(e);
-            this.runUntilExitCommand();
         } catch (EchoBotException e) {
             this.ui.printErrorMessage(e);
+            this.runUntilExitCommand();
         }
     }
 
