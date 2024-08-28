@@ -2,13 +2,13 @@
 [Bob] What can I do for you?
 [Bob] Got it. I've added this task:
 [Bob] [T][ ] borrow book
-[Bob] Now you have 1 tasks in the list.
+[Bob] Now you have 1 task in the list.
 [Bob] Got it. I've added this task:
 [Bob] [D][ ] return book (by: by Sunday)
-[Bob] Now you have 2 tasks in the list.
+[Bob] Now you have 2 task in the list.
 [Bob] Got it. I've added this task:
 [Bob] [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
-[Bob] Now you have 3 tasks in the list.
+[Bob] Now you have 3 task in the list.
 [Bob] 1. [T][ ] borrow book
 [Bob] 2. [D][ ] return book (by: by Sunday)
 [Bob] 3. [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
@@ -29,7 +29,7 @@
 [Bob] OOPS!!! The description/start time/end time of an event cannot be empty.
 [Bob] Noted. I've removed this task:
 [Bob] [D][ ] return book (by: by Sunday)
-[Bob] Now you have 2 tasks in the list.
+[Bob] Now you have 2 task in the list.
 [Bob] 1. [T][ ] borrow book
 [Bob] 2. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
 [Bob] OOPS!!! I'm sorry, but I don't know what that means :-(
