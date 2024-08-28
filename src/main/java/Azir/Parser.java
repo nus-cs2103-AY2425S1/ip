@@ -1,3 +1,5 @@
+package Azir;
+
 import Azir.AzirException;
 
 public class Parser {
