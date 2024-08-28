@@ -2,6 +2,9 @@ package slaveFiles;
 
 import java.io.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -12,7 +15,7 @@ public class Slave {
     private static LinkedList<Task> list = new LinkedList<>();
 
     public static void main(String[] args) {
-//        load();
+        load();
         welcome();
         do {
             getUserInput();
@@ -97,6 +100,12 @@ public class Slave {
                 case "clear":
                     clear();
                     break;
+                case "reload":
+                    reload();
+                    break;
+                case "schedule":
+                    scheduleOn(body);
+                    break;
                 default:
                     System.out.println("You're spouting gibberish...");
                     break;
@@ -117,7 +126,7 @@ public class Slave {
             System.out.println("Good to know that I have less things to remember now...");
             System.out.println("I'll forget about " + list.get(i - 1));
             list.remove(i - 1);
-//            save();
+            save();
         } catch (NumberFormatException nfe) {
             System.out.println("That's not a task number");
         } catch (IllegalArgumentException ile) {
@@ -168,10 +177,13 @@ public class Slave {
                     if (arr.length == 1) {
                         throw new InvalidTaskFormatException("Error with input string format");
                     }
-                    list.add(new Deadline(arr[0], arr[1]));
+                    // only accepts time in format yyyy-mm-dd
+                    LocalDate by = LocalDate.parse(arr[1]);
+                    list.add(new Deadline(arr[0], by));
                     break;
                 case 2:
                     // event
+                    // only accepts time in format yyyy-mm-dd
                     String[] eventArr = s.split(" /from ");
                     if (eventArr.length == 1) {
                         throw new InvalidTaskFormatException("Missing event start date");
@@ -180,7 +192,9 @@ public class Slave {
                     if (startEndDate.length == 1) {
                         throw new InvalidTaskFormatException("Missing event end date");
                     }
-                    list.add(new Event(eventArr[0], startEndDate[0], startEndDate[1]));
+                    LocalDate start = LocalDate.parse(startEndDate[0]);
+                    LocalDate end = LocalDate.parse(startEndDate[1]);
+                    list.add(new Event(eventArr[0], start, end));
                     break;
                 default:
                     System.out.println("invalid Task code");
@@ -190,11 +204,17 @@ public class Slave {
         } catch (InvalidTaskFormatException e) {
             System.out.println("Can you not even tell me all the details for your event? Do you even want my help?");
             insert = false;
+        } catch (DateTimeParseException dtpe) {
+            insert = false;
+            System.out.println("Give me the date in yyyy-mm-dd or I won't remember it for you");
+        } catch (InvalidChronologicalOrderException icoe) {
+            insert = false;
+            System.out.println("How can your event end before it started?");
         } finally {
             if (insert) {
                 System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
                 System.out.println("added: " + list.get(list.size() - 1));
-//                save();
+                save();
             }
         }
 
@@ -216,7 +236,7 @@ public class Slave {
             }
             Task t = list.get(i - 1);
             t.completed();
-//            save();
+            save();
             System.out.println("Finally doing something useful with your life eh...");
             System.out.println(t);
         } catch (NumberFormatException nfe) {
@@ -239,7 +259,7 @@ public class Slave {
             }
             Task t = list.get(i - 1);
             t.incomplete();
-//            save();
+            save();
             System.out.println("Slacking off now, are you?");
             System.out.println(t);
         } catch (NumberFormatException nfe) {
@@ -339,7 +359,7 @@ public class Slave {
         try {
             StringBuilder sb = new StringBuilder();
             for (Task t : list) {
-                sb.append(t);
+                sb.append(t.save());
                 sb.append("\n");
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/data/savefile.txt"));
@@ -364,81 +384,125 @@ public class Slave {
         System.out.println("\n");
     }
 
-//    /**
-//     * attempts to load the pre saved tasks from the save file "./src/main/data/savefile.txt"
-//     * if file does not exist at the path, does nothing
-//     * in the event of corrupted save file, skips the line
-//     *
-//     * save file format: as per toString() function of each task, with one task per line
-//     */
-//    private static void load() {
-//        try {
-//            Scanner sc = new Scanner(new File("./src/main/data/savefile.txt"));
-//            int success = 0;
-//            int failed = 0;
-//            while (sc.hasNextLine()) {
-//                try {
-//                    String task = sc.nextLine();
-//                    char taskType = task.charAt(1);
-//                    char taskCompleted = task.charAt(4);
-//                    int firstSpacePos = task.indexOf(" ");
-//                    boolean completed = false;
-//                    if (taskCompleted == ']') {
-//                        // do nothing
-//                    } else if (taskCompleted == 'X') {
-//                        completed = true;
-//                    } else {
-//                        throw new InvalidSaveFileFormatException("invalid completed status");
-//                    }
-//                    // identify the type of task:
-//                    switch (taskType) {
-//                        case 'T':
-//                            list.add(new Todo(completed, task.substring(firstSpacePos + 1)));
-//                            success++;
-//                            break;
-//                        case 'D':
-//                            // not sure how to get rid of error here for string formatting
-//                            String[] deadlineArray = task.split(" \\(by: ");
-//                            String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
-//                            String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
-//                            list.add(new Deadline(completed, deadlineName, by));
-//                            success++;
-//                            break;
-//                        case 'E':
-//                            // not sure how to get rid of error here for string formatting
-//                            String[] eventArray = task.split(" \\(from: ");
-//                            String eventName = eventArray[0].substring(firstSpacePos + 1);
-//                            String[] eventDetails = eventArray[1].split(" to: ");
-//                            String from = eventDetails[0];
-//                            String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
-//                            list.add(new Event(completed, eventName, from, to));
-//                            success++;
-//                            break;
-//                        default:
-//                            throw new InvalidSaveFileFormatException("invalid Task type");
-//                    }
-//                } catch (InvalidSaveFileFormatException | IndexOutOfBoundsException e) {
-//                    failed++;
-//                    System.out.println("error in event save file format: " + e.getMessage());
-//                }
-//            }
-//            if (success == 0) {
-//                System.out.println("No valid save file found");
-//            }
-//            if (failed > 0) {
-//                System.out.println("Deleting buggy save file");
-//                try {
-//                    BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/data/savefile.txt"));
-//                    writer.write("");
-//                    writer.close();
-//                    System.out.println("Buggy save file deleted");
-//                } catch (IOException e) {
-//                    System.out.println("Failed to purge buggy save file");
-//                }
-//            }
-//        } catch (FileNotFoundException fnfe) {
-//            System.out.println("no save file found");
-//        }
-//    }
+    /**
+     * attempts to load the pre saved tasks from the save file "./src/main/data/savefile.txt"
+     * if file does not exist at the path, does nothing
+     * in the event of corrupted save file, skips the line
+     *
+     * save file format: as per toString() function of each task, with one task per line
+     */
+    private static void load() {
+        try {
+            Scanner sc = new Scanner(new File("./src/main/data/savefile.txt"));
+            int success = 0;
+            int failed = 0;
+            while (sc.hasNextLine()) {
+                try {
+                    String task = sc.nextLine();
+                    char taskType = task.charAt(1);
+                    char taskCompleted = task.charAt(4);
+                    int firstSpacePos = task.indexOf(" ");
+                    boolean completed = false;
+                    if (taskCompleted == ']') {
+                        // do nothing
+                    } else if (taskCompleted == 'X') {
+                        completed = true;
+                    } else {
+                        throw new InvalidSaveFileFormatException("invalid completed status");
+                    }
+                    // identify the type of task:
+                    switch (taskType) {
+                        case 'T':
+                            list.add(new Todo(completed, task.substring(firstSpacePos + 1)));
+                            success++;
+                            break;
+                        case 'D':
+                            // not sure how to get rid of error here for string formatting
+                            String[] deadlineArray = task.split(" \\(by: ");
+                            String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
+                            String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
+                            list.add(new Deadline(completed, deadlineName, LocalDate.parse(by)));
+                            success++;
+                            break;
+                        case 'E':
+                            // not sure how to get rid of error here for string formatting
+                            String[] eventArray = task.split(" \\(from: ");
+                            String eventName = eventArray[0].substring(firstSpacePos + 1);
+                            String[] eventDetails = eventArray[1].split(" to: ");
+                            String from = eventDetails[0];
+                            String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
+                            list.add(new Event(completed, eventName, LocalDate.parse(from), LocalDate.parse(to)));
+                            success++;
+                            break;
+                        default:
+                            throw new InvalidSaveFileFormatException("invalid Task type");
+                    }
+                } catch (InvalidSaveFileFormatException | DateTimeParseException
+                         | IndexOutOfBoundsException | InvalidChronologicalOrderException e) {
+                    // DateTimeParseException for incorrect LocalDate format
+                    // InvalidSaveFileFormatException, IndexOutOfBoundsException for incorrect Task format
+                    failed++;
+                    System.out.println("error in event save file format: " + e.getMessage());
+                }
+            }
+            if (failed > 0) {
+                System.out.println("Deleting buggy save file");
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/data/savefile.txt"));
+                    writer.write("");
+                    writer.close();
+                    System.out.println("Buggy save file deleted");
+                    if (success > 0) {
+                        System.out.println("Saving readable contents");
+                        save();
+                    }
+                } catch (IOException e) {
+                    System.out.println("Failed to purge buggy save file");
+                }
+            }
+            if (success == 0) {
+                System.out.println("No valid save file found");
+            }
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("no save file found");
+        }
+    }
+
+    /**
+     * clears the list and loads tasks from save file
+     */
+    private static void reload() {
+        list.clear();
+        load();
+        System.out.println("Reloaded");
+    }
+
+    /**
+     * prints all deadlines / events occuring on the specified date
+     * @param s
+     */
+    private static void scheduleOn(String s) {
+        if (s.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        System.out.println("Your tasks are :");
+        try {
+            LocalDate target = LocalDate.parse(s);
+            list.forEach(task -> {
+                if (task instanceof Event) {
+                    if (((Event) task).getRawStart().isBefore(target) && ((Event) task).getRawEnd().isAfter(target)) {
+                        System.out.println(task);
+                    }
+                } else if (task instanceof Deadline) {
+                    if (((Deadline) task).getRawDeadline().isAfter(target) || ((Deadline) task).getRawDeadline().isEqual(target)) {
+                        System.out.println(task);
+                    }
+                }
+            });
+            System.out.println("That's all your tasks for " + target.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+        } catch (DateTimeParseException | NoSuchElementException e) {
+            System.out.println("Give me the date in yyyy-mm-dd or I won't check your schedule");
+        }
+    }
 
 }
