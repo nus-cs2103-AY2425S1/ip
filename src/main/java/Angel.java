@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,6 +10,7 @@ import java.util.Scanner;
  * Handles user commands, task management, and data persistence.
  */
 public class Angel {
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final String FILE_PATH = "./data/Angel.txt";
     private Storage storage;
     private ArrayList<Task> tasks;
@@ -57,21 +61,24 @@ public class Angel {
                 case "deadline":
                     if (parts.length < 2 || !parts[1].contains(" /by ")) {
                         throw new InvalidCommandException(
-                                "The description of a deadline task must include a '/by' followed by the due date/time. Example: 'deadline return book /by Sunday'."
+                                "The description of a deadline task must include a '/by' followed by the due date/time. Example: 'deadline return book /by 2019-10-10 1800'."
                         );
                     }
                     String[] deadlineDetails = parts[1].split(" /by ");
-                    addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+                    LocalDateTime deadlineDate = parseDate(deadlineDetails[1]);
+                    addTask(new Deadline(deadlineDetails[0], deadlineDate));
                     break;
                 case "event":
                     if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
                         throw new InvalidCommandException(
-                                "The description of an event must include '/from' and '/to' followed by the start and end times. Example: 'event project meeting /from Mon 2pm /to 4pm'."
+                                "The description of an event must include '/from' and '/to' followed by the start and end times. Example: 'event project meeting /from 2019-10-10 1800 /to 2019-10-10 2000'."
                         );
                     }
                     String[] eventDetails = parts[1].split(" /from ");
                     String[] times = eventDetails[1].split(" /to ");
-                    addTask(new Event(eventDetails[0], times[0], times[1]));
+                    LocalDateTime fromDate = parseDate(times[0]);
+                    LocalDateTime toDate = parseDate(times[1]);
+                    addTask(new Event(eventDetails[0], fromDate, toDate));
                     break;
                 case "mark":
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -139,6 +146,21 @@ public class Angel {
             } catch (AngelException e) {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Parses a string into a LocalDateTime object using the predefined input format.
+     *
+     * @param dateTimeString The string to be parsed.
+     * @return The corresponding LocalDateTime object.
+     * @throws InvalidCommandException If the string cannot be parsed.
+     */
+    private LocalDateTime parseDate(String dateTimeString) throws InvalidCommandException {
+        try {
+            return LocalDateTime.parse(dateTimeString, INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm'.");
         }
     }
 

@@ -1,46 +1,41 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Represents an Event task in the Angel application.
- * An Event task has a description and a time range during which the event occurs.
+ * Represents an event task that has a start and end date/time.
  */
 public class Event extends Task {
-
-    /** The start date/time of the event. */
-    protected String from;
-
-    /** The end date/time of the event. */
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HHmm");
 
     /**
-     * Constructs a new Event task with the specified description, start date/time, and end date/time.
+     * Constructs an Event instance with the given description, start, and end date/time.
      *
-     * @param description The description of the event.
-     * @param from The start date/time of the event.
-     * @param to The end date/time of the event.
+     * @param description Description of the event.
+     * @param from        Start date/time of the event.
+     * @param to          End date/time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    /**
-     * Returns a string representation of the Event task, which includes its type, status,
-     * description, start date/time, and end date/time.
-     *
-     * @return A string representation of the Event task.
-     */
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + description + " (from: " + from + " to: " + to + ")";
+        // Format the date/time strings with commas
+        return "[E][" + getStatusIcon() + "] " + description
+                + " (from: " + from.format(OUTPUT_FORMAT)
+                + ", to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 
-    /**
-     * Returns a string representation of the Event task in a format suitable for saving to a file.
-     *
-     * @return A string in the format "E | status | description | start date/time | end date/time".
-     */
     @Override
     public String toSaveFormat() {
-        return "E | " + super.toSaveFormat() + " | " + from + " | " + to;
+        // Save format includes the date/time in yyyy/MM/dd HHmm format
+        DateTimeFormatter saveFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+        return "E | " + super.toSaveFormat()
+                + " | " + from.format(saveFormat)
+                + " | " + to.format(saveFormat);
     }
 }

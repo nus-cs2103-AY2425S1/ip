@@ -1,41 +1,36 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Represents a Deadline task in the Angel application.
- * A Deadline task has a description and a due date/time by which the task must be completed.
+ * Represents a deadline task that has a due date/time.
  */
 public class Deadline extends Task {
-
-    /** The due date/time by which the task must be completed. */
-    protected String by;
+    protected LocalDateTime by;
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HHmm");
 
     /**
-     * Constructs a new Deadline task with the specified description and due date/time.
+     * Constructs a Deadline instance with the given description and due date/time.
      *
-     * @param description The description of the deadline task.
-     * @param by The due date/time by which the task must be completed.
+     * @param description Description of the task.
+     * @param by          Due date/time of the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    /**
-     * Returns a string representation of the Deadline task, which includes its type,
-     * status, description, and due date/time.
-     *
-     * @return A string representation of the Deadline task.
-     */
     @Override
     public String toString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        // Format the due date/time string with a comma
+        return "[D][" + getStatusIcon() + "] " + description
+                + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
 
-    /**
-     * Returns a string representation of the Deadline task in a format suitable for saving to a file.
-     *
-     * @return A string in the format "D | status | description | due date/time".
-     */
     @Override
     public String toSaveFormat() {
-        return "D | " + super.toSaveFormat() + " | " + by;
+        // Save format includes the date/time in yyyy/MM/dd HHmm format
+        DateTimeFormatter saveFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+        return "D | " + super.toSaveFormat()
+                + " | " + by.format(saveFormat);
     }
 }

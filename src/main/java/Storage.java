@@ -1,33 +1,32 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles the loading and saving of tasks to and from a file.
- * The file path is specified upon instantiation of the Storage object.
+ * Handles loading and saving tasks to a file.
  */
 public class Storage {
-
-    /** The path to the file where tasks are stored. */
     private String filePath;
+    private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     /**
      * Constructs a Storage object with the specified file path.
      *
-     * @param filePath The path to the file where tasks will be saved or loaded from.
+     * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Loads tasks from the file specified by the file path.
-     * If the file does not exist, a new file is created.
+     * Loads tasks from the file and returns them as an ArrayList.
      *
      * @return An ArrayList of tasks loaded from the file.
-     * @throws IOException If an I/O error occurs during file operations.
+     * @throws IOException If an I/O error occurs while reading the file.
      */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -39,22 +38,21 @@ public class Storage {
             return tasks;
         }
 
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNext()) {
-                String[] taskData = scanner.nextLine().split(" \\| ");
-                Task task = parseTaskData(taskData);
-                tasks.add(task);
-            }
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String[] taskData = scanner.nextLine().split(" \\| ");
+            Task task = parseTaskData(taskData);
+            tasks.add(task);
         }
+        scanner.close();
         return tasks;
     }
 
     /**
-     * Parses an array of strings representing task data and creates a Task object.
+     * Parses task data from a string array into a Task object.
      *
-     * @param taskData An array of strings containing task data.
-     * @return A Task object based on the parsed data.
-     * @throws IllegalArgumentException If the task type is unknown.
+     * @param taskData The data to parse, split by " | ".
+     * @return The corresponding Task object.
      */
     private Task parseTaskData(String[] taskData) {
         String type = taskData[0];
@@ -67,10 +65,13 @@ public class Storage {
             task = new ToDo(description);
             break;
         case "D":
-            task = new Deadline(description, taskData[3]);
+            LocalDateTime deadlineDate = LocalDateTime.parse(taskData[3], SAVE_FORMAT);
+            task = new Deadline(description, deadlineDate);
             break;
         case "E":
-            task = new Event(description, taskData[3], taskData[4]);
+            LocalDateTime eventFrom = LocalDateTime.parse(taskData[3], SAVE_FORMAT);
+            LocalDateTime eventTo = LocalDateTime.parse(taskData[4], SAVE_FORMAT);
+            task = new Event(description, eventFrom, eventTo);
             break;
         default:
             throw new IllegalArgumentException("Unknown task type: " + type);
@@ -82,16 +83,16 @@ public class Storage {
     }
 
     /**
-     * Saves the list of tasks to the file specified by the file path.
+     * Saves a list of tasks to the file.
      *
-     * @param tasks An ArrayList of tasks to be saved to the file.
-     * @throws IOException If an I/O error occurs during file operations.
+     * @param tasks The list of tasks to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void save(ArrayList<Task> tasks) throws IOException {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : tasks) {
-                writer.write(task.toSaveFormat() + "\n");
-            }
+        FileWriter writer = new FileWriter(filePath);
+        for (Task task : tasks) {
+            writer.write(task.toSaveFormat() + "\n");
         }
+        writer.close();
     }
 }
