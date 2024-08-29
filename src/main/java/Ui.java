@@ -56,4 +56,12 @@ public class Ui {
         System.out.println("These are your tasks on " + date + ":");
     }
 
+    public void printTaskMarked(String mark) {
+        System.out.println(mark);
+    }
+
+    public void printTaskUnmarked(String unmark) {
+        System.out.println(unmark);
+    }
+
 }

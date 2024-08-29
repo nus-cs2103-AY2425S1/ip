@@ -34,7 +34,7 @@ public class Talker {
         // if command "bye" entered, exit
         while (!input.equals("bye")) {
             try {
-                manageInputs(input);
+                Parser.parseInput(input);
                 storage.writeFile(list);
             } catch (TalkerException e) {
                 ui.printError(e);
@@ -78,50 +78,17 @@ public class Talker {
         }
     }
 
-    private static void manageInputs(String input) throws TalkerException {
-        String[] parsed = input.split(" ");
-        switch (parsed[0]) {
-        case "list":
-            listTasks();
-            break;
-        case "mark":
-            markTaskComplete(parsed);
-            break;
-        case "unmark":
-            unmarkTaskComplete(parsed);
-            break;
-        case "delete":
-            deleteTask(parsed);
-            break;
-        case "todo":
-            createToDo(input);
-            break;
-        case "deadline":
-            createDeadline(input);
-            break;
-        case "event":
-            createEvent(input);
-            break;
-        case "date":
-            printTasksOn(input);
-            break;
-        default:
-            throw new TalkerException("Unknown command!");
-        }
-    }
-
-    private static void listTasks() throws TalkerException {
+    public static void listTasks() throws TalkerException {
         if (list.isEmpty()) {
             throw new TalkerException("List is empty!");
         }
         ui.printTaskList(list);
     }
 
-    private static void markTaskComplete(String[] parsed) throws TalkerException {
+    public static void markTaskComplete(String[] parsed) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            list.get(index).mark();
-            ui.printTask(list.get(index));
+            ui.printTaskMarked(list.get(index).mark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Mark format wrong. Try again with: mark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -129,11 +96,10 @@ public class Talker {
         }
     }
 
-    private static void unmarkTaskComplete(String[] parsed) throws TalkerException {
+    public static void unmarkTaskComplete(String[] parsed) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            list.get(index).unmark();
-            ui.printTask(list.get(index));
+            ui.printTaskUnmarked(list.get(index).unmark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Unmark format wrong. Try again with: unmark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -141,7 +107,7 @@ public class Talker {
         }
     }
 
-    private static void deleteTask(String[] parsed) throws TalkerException {
+    public static void deleteTask(String[] parsed) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
             Task removed = list.remove(index);
@@ -153,7 +119,7 @@ public class Talker {
         }
     }
 
-    private static void createToDo(String input) throws TalkerException {
+    public static void createToDo(String input) throws TalkerException {
         try {
             String desc = input.substring(5);
             Task newTask = new ToDo(desc);
@@ -164,7 +130,7 @@ public class Talker {
         }
     }
 
-    private static void createDeadline(String input) throws TalkerException {
+    public static void createDeadline(String input) throws TalkerException {
         try {
             String contents = input.substring(9);
 
@@ -181,7 +147,7 @@ public class Talker {
         }
     }
 
-    private static void createEvent(String input) throws TalkerException {
+    public static void createEvent(String input) throws TalkerException {
         try {
             String contents = input.substring(6);
 
