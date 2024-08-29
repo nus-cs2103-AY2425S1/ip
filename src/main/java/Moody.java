@@ -1,13 +1,19 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Moody {
     private static final String SPACER = "____________________________________________________________\n";
     private static final String INDENT = "    ";
+    private static final String FILE_PATH = "./data/moody.txt";
     private static final ArrayList<Task> userTasks = new ArrayList<>();
 
     public static void main(String[] args) {
         greetUser();
+        loadTasksFromFile();
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -71,6 +77,7 @@ public class Moody {
         }
 
         userTasks.get(taskNumber).markAsDone();
+        saveTasksToFile();
         System.out.println(SPACER + "Nice! I've marked this task as done:");
         System.out.println(INDENT + userTasks.get(taskNumber).toString());
         System.out.println(SPACER);
@@ -89,6 +96,7 @@ public class Moody {
         }
 
         userTasks.get(taskNumber).markAsNotDone();
+        saveTasksToFile();
         System.out.println(SPACER + "OK, I've marked this task as not done yet:");
         System.out.println(INDENT + userTasks.get(taskNumber).toString());
         System.out.println(SPACER);
@@ -111,6 +119,7 @@ public class Moody {
 
         String description = userInput.substring(5).trim();
         userTasks.add(new Todo(description));
+        saveTasksToFile();
         System.out.println(SPACER + "Got it. I've added this task:\n"
                 + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
                 + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
@@ -143,6 +152,7 @@ public class Moody {
         }
 
         userTasks.add(new Deadline(substrings[0].trim(), substrings[1].trim()));
+        saveTasksToFile();
         System.out.println(SPACER + "Got it. I've added this task:\n"
                 + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
                 + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
@@ -176,6 +186,7 @@ public class Moody {
         }
 
         userTasks.add(new Event(substrings[0].trim(), substrings[1].trim(), substrings[2].trim()));
+        saveTasksToFile();
         System.out.println(SPACER + "Got it. I've added this task:\n"
                 + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
                 + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
@@ -194,6 +205,7 @@ public class Moody {
         }
 
         Task removedTask = userTasks.remove(taskNumber);
+        saveTasksToFile();
         System.out.println(SPACER + "Noted. I've removed this task:\n" + INDENT + removedTask + "\n"
                 + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
 
@@ -205,5 +217,65 @@ public class Moody {
                 
                 Please input a valid command
                 """);
+    }
+
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            // Check if file exists
+            if (!file.exists()) {
+                return;
+            }
+
+            Scanner fs = new Scanner(file);
+            while (fs.hasNextLine()) {
+                String line = fs.nextLine();
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                boolean isTaskDone = parts[1].equals("1");
+                Task task;
+
+                switch (taskType) {
+                case "T":
+                    task = new Todo(parts[2].trim());
+                    break;
+                case "D":
+                    task = new Deadline(parts[2].trim(), parts[3].trim());
+                    break;
+                case "E":
+                    task = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                    break;
+                default:
+                    continue;
+                }
+
+                if (isTaskDone) {
+                    task.markAsDone();
+                }
+
+                userTasks.add(task);
+            }
+
+            fs.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(SPACER + "Error: Unable to load tasks from file" + SPACER);
+        }
+    }
+
+    private static void saveTasksToFile() {
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            FileWriter fileWriter = new FileWriter("./data/moody.txt");
+            for (Task task : userTasks) {
+                fileWriter.write(task.toFileFormat() + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(SPACER + "Error: Unable to save tasks to file" + SPACER);
+        }
     }
 }
