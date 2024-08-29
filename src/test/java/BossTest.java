@@ -54,8 +54,6 @@ public class BossTest {
 
         assertEquals(true, newTask.contains("[X]"));
 
-
-
     }
 
 

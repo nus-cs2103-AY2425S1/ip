@@ -140,5 +140,22 @@ public class TaskList {
         System.out.println("Now you have " + len + " tasks in the list.");
     }
 
+
+    public void find(String word) {
+        int i = 0;
+        for (Task str : tasks) {
+            if (str.getDescription().contains(word)) {
+                if (i == 0) {
+                    System.out.println("Here are the matching tasks in your list: ");
+                    i++;
+                }
+                System.out.println(str);
+            }
+        }
+        if (i == 0) {
+            System.out.println("There are no matching tasks :(");
+        }
+    }
+
 }
 
