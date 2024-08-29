@@ -2,11 +2,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    LocalDate deadline;
+
+    protected LocalDate deadline;
 
 
-    public Deadline(String task, LocalDate deadline, boolean isMarked) {
-        super(task, isMarked);
+    public Deadline(String description, LocalDate deadline, boolean isMarked) {
+        super(description, isMarked);
         this.deadline = deadline;
     }
 
@@ -16,14 +17,14 @@ public class Deadline extends Task{
         String formattedDate = deadline.format(formatter);
 
         if (isMarked) {
-            return "[D][X] " + this.task + " (by: " + formattedDate + ")";
+            return "[D][X] " + this.description + " (by: " + formattedDate + ")";
         } else {
-            return "[D][ ] " + this.task + " (by: " + formattedDate + ")";
+            return "[D][ ] " + this.description + " (by: " + formattedDate + ")";
         }
     }
 
     @Override
     public String toFileFormat() {
-        return "D | " + (this.isMarked ? "1" : "0") + " | " + this.task + " | " + this.deadline;
+        return "D | " + (this.isMarked ? "1" : "0") + " | " + this.description + " | " + this.deadline;
     }
 }

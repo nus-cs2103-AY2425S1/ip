@@ -1,9 +1,9 @@
-public class Task {
-    String task;
+public abstract class Task {
+    String description;
     boolean isMarked;
 
-    public Task(String task, boolean isMarked) {
-        this.task = task;
+    public Task(String description, boolean isMarked) {
+        this.description = description;
         this.isMarked = isMarked;
     }
 
@@ -15,17 +15,12 @@ public class Task {
         this.isMarked = false;
     }
 
-    public String printTaskOnList() {
-        if (isMarked) {
-            return "[X] " + this.task;
-        } else {
-            return "[ ] " + this.task;
-        }
-
+    public boolean isMarked() {
+        return isMarked;
     }
 
-    public String toFileFormat() {
-        return (this.isMarked ? "1" : "0") + " | " + this.task;
-    }
+    public abstract String printTaskOnList();
+
+    public abstract String toFileFormat();
 
 }

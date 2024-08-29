@@ -5,8 +5,8 @@ public class Event extends Task {
     LocalDate startTime;
     LocalDate endTime;
 
-    public Event(String task, LocalDate startTime, LocalDate endTime, boolean isMarked) {
-        super(task, isMarked);
+    public Event(String description, LocalDate startTime, LocalDate endTime, boolean isMarked) {
+        super(description, isMarked);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -18,15 +18,15 @@ public class Event extends Task {
         String formattedEndTime = endTime.format(formatter);
 
         if (isMarked) {
-            return "[E][X] " + this.task + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
+            return "[E][X] " + this.description + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
         } else {
-            return "[E][ ] " + this.task + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
+            return "[E][ ] " + this.description + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
         }
     }
 
     @Override
     public String toFileFormat() {
-        return "E | " + (this.isMarked ? "1" : "0") + " | " + this.task + " | " + this.startTime + " | " + this.endTime;
+        return "E | " + (this.isMarked ? "1" : "0") + " | " + this.description + " | " + this.startTime + " | " + this.endTime;
     }
 
 }
