@@ -12,9 +12,37 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    /**
+     * Parses the user's input to determine the command.
+     * This method takes the input string provided by the user and attempts to
+     * map it to a {@code Command} enum constant.
+     *
+     * @param userInput the input string from the user
+     * @return the {@code Command} enum constant corresponding to the user's input
+     * @see Command#fromString(String)
+     */
     public Command parseCommand(String userInput) {
         return Command.fromString(userInput);
     }
+
+    /**
+     * Parses the user's input to create a specific type of {@code Task}.
+     * This method interprets the input string provided by the user and creates
+     * an appropriate {@code Task} object (e.g., {@code Todo}, {@code Deadline}, or {@code Event}).
+     * It throws specific exceptions if the input is malformed or missing necessary parts.
+     *
+     * @param userInput the input string from the user describing the task
+     * @return a {@code Task} object that represents the user's input
+     * @throws BobbyException if the user's input is invalid or incomplete, causing
+     *                        one of several possible exceptions:
+     *                        <ul>
+     *                          <li>{@code EmptyTodoException} if the description for a "todo" is empty.</li>
+     *                          <li>{@code EmptyDeadlineException} if the "deadline" input is missing parts or malformed.</li>
+     *                          <li>{@code EmptyEventException} if the "event" input is missing parts or malformed.</li>
+     *                          <li>{@code InvalidDateException} if the date format is incorrect.</li>
+     *                          <li>{@code InvalidInputException} if the input does not match any recognized command.</li>
+     *                        </ul>
+     */
 
     public Task parseTask(String userInput) throws BobbyException {
         if (userInput.startsWith("todo ")) {

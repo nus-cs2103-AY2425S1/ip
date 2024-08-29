@@ -20,6 +20,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the list of tasks to a file specified by the {@code filePath}.
+     * This method writes the tasks from the provided {@code TaskList} to the file,
+     * with each task serialized to a specific format to facilitate easy loading later.
+     * If an I/O error occurs during the writing process, an error message is printed to the console.
+     *
+     * @param tasks the {@code TaskList} containing the tasks to be saved
+     */
     public void saveTasks(TaskList tasks) {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
@@ -32,6 +40,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from a file specified by the {@code filePath}.
+     * This method reads the tasks from the file, reconstructs them into their corresponding
+     * {@code Task} objects (e.g., {@code Todo}, {@code Deadline}, {@code Event}), and adds them to a new {@code TaskList}.
+     * If the file does not exist, it will be created and an empty {@code TaskList} is returned.
+     * If an I/O error occurs during the reading process, an error message is printed to the console.
+     *
+     * @return a {@code TaskList} containing the tasks loaded from the file, or an empty {@code TaskList} if the file does not exist
+     */
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
         File file = new File(filePath);

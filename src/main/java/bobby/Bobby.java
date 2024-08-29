@@ -18,7 +18,11 @@ public class Bobby {
     private final Parser parser;
     private TaskList tasks;
 
-
+    /**
+     * Constructs a new {@code Bobby} object, initializing the user interface,
+     * storage, parser, and task list. It also loads any previously saved tasks
+     * from the specified storage file.
+     */
     public Bobby() {
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
@@ -26,6 +30,12 @@ public class Bobby {
         this.tasks = new TaskList();
         tasks = storage.loadTasks();
     }
+
+    /**
+     * Runs the main application loop. It displays a greeting to the user,
+     * continuously reads user input, parses it into commands, and executes
+     * the corresponding actions until the exit command is issued.
+     */
     public void run() {
         ui.showGreeting();
         boolean isRunning = true;
@@ -80,6 +90,12 @@ public class Bobby {
 
     }
 
+    /**
+     * The main method that serves as the entry point of the application.
+     * It creates a new instance of {@code Bobby} and runs the application.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         new Bobby().run();
     }
