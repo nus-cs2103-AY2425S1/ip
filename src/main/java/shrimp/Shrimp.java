@@ -11,7 +11,6 @@ import shrimp.utility.Ui;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Shrimp {
 

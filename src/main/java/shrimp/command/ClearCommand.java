@@ -1,6 +1,5 @@
 package shrimp.command;
 
-import shrimp.task.Task;
 import shrimp.task.TaskList;
 import shrimp.utility.Ui;
 
