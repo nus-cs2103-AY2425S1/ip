@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 abstract class Task {
@@ -8,9 +7,6 @@ abstract class Task {
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
     private final DateTimeFormatter databaseFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected boolean isDone;
-    abstract public String getFrom();
-    abstract public String getTo();
-    abstract public LocalDate getBy();
 
     abstract public String transferToDatabaseString();
 
@@ -103,17 +99,6 @@ abstract class Task {
 
         }
 
-        public LocalDate getBy() {
-            return this.by;
-        }
-
-        public String getFrom() {
-            return "";
-        }
-
-        public String getTo() {
-            return "";
-        }
 
         @Override
         public String transferToDatabaseString() {
@@ -127,20 +112,7 @@ abstract class Task {
     }
 
     public static class Todo extends Task {
-        @Override
-        public String getFrom() {
-            return "";
-        }
 
-        @Override
-        public String getTo() {
-            return "";
-        }
-
-        @Override
-        public LocalDate getBy() {
-            return LocalDate.now();
-        }
         public Todo(String description) {
             super(description);
         }
@@ -166,20 +138,6 @@ abstract class Task {
             this.to = to.substring(to.indexOf(" ") + 1);
         }
 
-        @Override
-        public String getFrom() {
-            return this.from;
-        }
-
-        @Override
-        public String getTo() {
-            return this.to;
-        }
-
-        @Override
-        public LocalDate getBy() {
-            return LocalDate.now();
-        }
 
         @Override
         public String transferToDatabaseString() {

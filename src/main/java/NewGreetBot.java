@@ -32,13 +32,18 @@ public class NewGreetBot {
 
 
         while (this.isRunning) {
-            String input = this.ui.readInput().strip();
-            System.out.println(this.getResponse(input));
+            try {
+
+                String input = this.ui.readInput().strip();
+                System.out.println(this.getResponse(input));
+            } catch (RandomInputException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
     }
 
-    public String getResponse(String input) {
+    public String getResponse(String input) throws RandomInputException{
         String[] segment = Parser.parseCommand(input);
         String keyword = segment[0];
         if (keyword.equals("BYE")) {
@@ -60,8 +65,10 @@ public class NewGreetBot {
             return this.addDeadline(Parser.parseDeadline(segment[1]));
         } else if (keyword.equals("DELETE")) {
             return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[1]));
-        } else {
+        } else if (keyword.isEmpty()){
             return "";
+        } else {
+            throw new RandomInputException("何のことを言っているのか分かりません");
         }
     }
 

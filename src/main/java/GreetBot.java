@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+
 public class GreetBot {
     public static void main(String[] args) {
         new GreetBot().run();
@@ -128,9 +130,9 @@ public class GreetBot {
                     if (typeOfTask == 'T') {
                         databaseWriter.write(String.format("%s | %d |%s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6)));
                     } else if (typeOfTask == 'D') {
-                        databaseWriter.write(String.format("%s | %d |%s | %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6, currentTask.toString().indexOf("(")), currentTask.getBy()));
+                        databaseWriter.write(String.format("%s | %d |%s | %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6, currentTask.toString().indexOf("(")), currentTask.toString()));
                     } else {
-                        databaseWriter.write(String.format("%s | %d | %s | %s| %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.description, currentTask.getFrom(), currentTask.getTo()));
+                        databaseWriter.write(String.format("%s | %d | %s | %s| %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.description, currentTask.toString(), currentTask.toString()));
 
                     }
                     databaseWriter.write(System.lineSeparator());
