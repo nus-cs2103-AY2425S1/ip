@@ -11,7 +11,6 @@ public class Duck {
         System.out.println("Hello! I'm DUCK\n What can I do for you?");
         boolean cont = true;
         while (cont) {
-            //System.out.println(cmds.cmdNum);
             String userCmd = scan.nextLine();
             cont = Parser.parseCmd(cmds, userCmd);
         }

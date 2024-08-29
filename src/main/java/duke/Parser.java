@@ -24,6 +24,11 @@ public class Parser {
             int num = Integer.valueOf(userCmd.substring(7));
             cmds.delete(num);
 
+        } else if ((userCmd.length() >= 4) && (userCmd.substring(0,4).toLowerCase().equals("find"))) {
+            if (userCmd.length() == 4) {
+                throw new DuckException("Cannot find an empty string.");
+            }
+            cmds.find(userCmd.substring(5));
         } else if ((userCmd.length() >= 4) && (userCmd.substring(0,4).toLowerCase().equals("todo"))) {
             if (userCmd.length() == 4) {
                 throw new DuckException("The description of a todo cannot be empty.");

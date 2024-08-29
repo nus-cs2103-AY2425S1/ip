@@ -60,6 +60,25 @@ public class TaskList {
         }
         Ui.printText("OK, I've marked this task as not done yet:\n "+ get(num-1));
     }
+    public void find(String keyword) {
+        Task[] foundTasks = new Task[100];
+        int numOfFoundTasks = 0;
+        for (int i = 0; i < cmdNum; i++) {
+            Task t = tasks[i];
+            if (t.getDescription().contains(keyword)) {
+                foundTasks[numOfFoundTasks] = t;
+                numOfFoundTasks++;
+            }
+        }
+        if (numOfFoundTasks == 0) {
+            Ui.printText("No matching tasks in your list.");
+        } else {
+            Ui.printText("Here are the matching tasks in your list:");
+            for (int n = 1; n < numOfFoundTasks; n++) {
+                System.out.println(n + ". " + foundTasks[n - 1]);
+            }
+        }
+    }
     public void save() throws DuckException {
         Storage.save(allTasks(), cmdNum);
     }

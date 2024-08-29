@@ -62,7 +62,6 @@ public class Storage {
             FileWriter writer = new FileWriter(path);
             writer.write(n + "\n");
             for (int i =0; i<n; i++) {
-                //System.out.println("Saved "+tasks[i].description);
                 writer.write(saveTask(tasks[i]) + "\n");
             }
             writer.close();
@@ -80,7 +79,6 @@ public class Storage {
             }
             return t;
         } else if (Objects.equals(parts[0], "D")) {
-            System.out.println(Arrays.toString(parts));
             Task t = new Deadline(parts[2], parts[3]);
             if (parts[1].equals("1")) {
                 t.mark();
