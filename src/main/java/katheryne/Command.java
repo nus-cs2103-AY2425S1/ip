@@ -13,7 +13,7 @@ public class Command {
     }
 
     public String executeList() {
-        return ui.getListMessage() + '\n' + taskList.toString();
+        return ui.getListMessage() + taskList.toString();
     }
 
 

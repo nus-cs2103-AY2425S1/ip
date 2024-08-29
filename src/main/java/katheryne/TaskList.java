@@ -59,8 +59,12 @@ public class TaskList {
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
             int index = i+1;
-            String item = index + ". " + taskList.get(i).toString() + '\n';
-            output = output + item;
+            String item = index + ". " + taskList.get(i).toString() ;
+            if (i != 0) {
+                output = output + '\n' + item;
+            } else {
+                output = output + item;
+            }
         }
         return output;
     }

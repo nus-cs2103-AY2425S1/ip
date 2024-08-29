@@ -33,7 +33,7 @@ public class Ui {
     }
 
     public String getListMessage() {
-        return Message.MESSAGE_LIST + '\n';
+        return Message.MESSAGE_LIST;
     }
 
     public String getMarkMessage(Task t) {
