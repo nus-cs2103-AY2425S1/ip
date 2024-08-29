@@ -13,7 +13,6 @@ import src.main.java.*;
 
 public class Bonnie {
 
-    // Variables that are
     private static String username;
     private static ArrayList<Task> tasklist = new ArrayList<>();
 
