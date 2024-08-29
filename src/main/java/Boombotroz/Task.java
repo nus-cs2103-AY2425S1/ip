@@ -12,6 +12,10 @@ public abstract class Task {
 
     public abstract void hasDate(Ui ui) throws BoomException;
 
+    public String getDescription() {
+        return this.task;
+    }
+
     @Override
     public String toString() {
         String s;

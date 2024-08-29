@@ -13,6 +13,10 @@ public class TaskList {
         return task_list.size();
     }
 
+    public Task getTask(int index) {
+        return task_list.get(index);
+    }
+
     public void addTaskWithMessage(Task task) {
         task_list.add(task);
         System.out.println("Got it. I've added this task:");
