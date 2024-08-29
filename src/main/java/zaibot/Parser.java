@@ -5,6 +5,11 @@ import zaibot.exception.ZaibotException;
 
 import java.util.HashMap;
 
+/**
+ * The Parser class is responsible for parsing the commands
+ * and creating the Command object responsible for
+ * executing the logic as intended.
+ */
 public class Parser {
     /**
      * This takes a command split by spaces, and processes them into separate commands
