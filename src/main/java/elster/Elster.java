@@ -7,6 +7,7 @@ import elster.tasks.ToDoTask;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class Elster {
@@ -138,7 +139,8 @@ public class Elster {
                 }
 
             } else if (input.startsWith("find")) {
-                taskList.findByDescription(input.substring(5).strip());
+                List<Task> result = taskList.findByDescription(input.substring(5).strip());
+                ui.findByDescriptionMessage(result);
 
             } else {
                 ui.nonsenseErrorMessage();
