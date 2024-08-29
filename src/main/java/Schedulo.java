@@ -1,50 +1,41 @@
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Schedulo {
-    public static void main(String[] args) {
-        File file = new File("./data/data.txt");
-        Scanner sc = new Scanner(System.in);
-        Scanner fileReader = null;
-        try {
-            fileReader = new Scanner(file);
-            String horizontalLine = "---------------";
-            TaskList taskList = new TaskList(fileReader);
-            System.out.println(horizontalLine);
-            System.out.println("Hello I am Schedulo!");
-            System.out.println("What can I do for you?");
-            System.out.println(horizontalLine);
-            while (true) {
-                String command = sc.nextLine();
-                System.out.println(horizontalLine);
-                // if (command.equals("bye")) {
-                //     System.out.println("Bye. Hope to see you again soon!");
-                //     System.out.println(horizontalLine);
-                //     break;
-                // }
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-                taskList.executeCommand(command);
-                if (command.equals("bye")) {
-                    System.out.println(horizontalLine);
-                    break;
-                }
-                
-                System.out.println(horizontalLine);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found, please create a new file data.txt under data folder outside src");
+    public Schedulo(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
         } catch (Exception e) {
-            System.err.println(e + ", Something went wrong, please try again");
-        } finally {
-            if (fileReader != null) {
-                fileReader.close();
-            }
-            sc.close();
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
-}
 
-// Todo
-// testing
-// add enums
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (ScheduloException | IOException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+        ui.close();
+    }
+
+    public static void main(String[] args) {
+        new Schedulo("data/data.txt").run();
+    }
+}
