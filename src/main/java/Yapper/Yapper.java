@@ -1,3 +1,4 @@
+package Yapper;
 import java.io.File;
 
 public class Yapper {
@@ -14,22 +15,18 @@ public class Yapper {
         ui = new UI(parser);
     }
     public static void main(String[] args) {
-        String fileName = "./src/main/java/YapperHistoryFile";
+        String fileName = "./src/main/java/Yapper/YapperHistoryFile";
         new Yapper(fileName).run();
     }
 
     public void run() {
         // greeting message
-        System.out.println("Hello! I'm Yapper\n" +
-                "What can I do for you?\n");
+        System.out.println("""
+                Hello! I'm Yapper
+                What can I do for you?
+                """);
         taskList.returnList();
 
         ui.readInput();
-    }
-
-    // exits when the user types the command "bye"
-    public static void exit()
-    {
-        System.out.println("Yapper shall yap next time!");
     }
 }
