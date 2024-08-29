@@ -116,7 +116,9 @@ public class Colby {
                     }
 
                     String[] temp = task.split("/");
-                    String end = task.split("/")[1].split(" ", 2)[1];
+                    String end = task.split("/", 2)[1].split(" ", 2)[1];
+                    Deadline newDeadline = new Deadline(task, end);
+
                     store.add(new Deadline(task, end));
 
                     String lastWord = "tasks";

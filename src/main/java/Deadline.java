@@ -6,8 +6,10 @@ public class Deadline extends Task {
         this.end = end;
     }
 
+
     @Override
     public String toString() {
-        return "[D][" + super.getStatusIcon() + "] " + super.toString() + " (by: " + end + ")";
+        String formattedEnd = formattedEnd = changeDateTime(end);
+        return "[D][" + super.getStatusIcon() + "] " + super.toString() + " (by: " + formattedEnd + ")";
     }
 }
