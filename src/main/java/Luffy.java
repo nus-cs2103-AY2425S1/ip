@@ -5,9 +5,11 @@ import java.io.FileWriter;
 import static java.lang.String.format;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 
 public class Luffy {
@@ -120,7 +122,7 @@ public class Luffy {
             } else if (echoPhrase.startsWith("deadline ")) {
 
                 showLine();
-                String[] taskAndDeadline = echoPhrase.substring(9).split("/");
+                String[] taskAndDeadline = echoPhrase.substring(9).split("/", 2);
                 try {
                     checkValidArguments(taskAndDeadline, 2);
                 } catch (LuffyException e) {
@@ -128,6 +130,15 @@ public class Luffy {
                     showLine();
                     continue;
                 }
+
+                if (taskAndDeadline[1].startsWith("by") || taskAndDeadline[1].startsWith("By")) {
+                    String dateAndTime = taskAndDeadline[1].substring(3).trim();
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+                    LocalDateTime timeObj = LocalDateTime.parse(dateAndTime, formatter);
+
+                }
+
                 Deadline deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim(), false);
                 textList.add(deadlineTask);
                 System.out.println("Got it. I've added this task:");
