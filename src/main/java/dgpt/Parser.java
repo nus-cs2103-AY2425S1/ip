@@ -1,6 +1,12 @@
+package dgpt;
+
+import dgpt.exception.IncorrectInputException;
+import dgpt.exception.TaskNotFoundException;
+import dgpt.task.TaskList;
+
 public class Parser {
 
-    public static void parse(String input, TaskList taskList,Ui ui) throws IncorrectInputException, TaskNotFoundException {
+    public static void parse(String input, TaskList taskList, Ui ui) throws IncorrectInputException, TaskNotFoundException {
         String[] command = input.split(" ", 2);
 
         switch (command[0]) {

@@ -1,3 +1,10 @@
+package dgpt.task;
+
+import dgpt.task.Deadline;
+import dgpt.task.Event;
+import dgpt.task.Task;
+import dgpt.task.ToDo;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;

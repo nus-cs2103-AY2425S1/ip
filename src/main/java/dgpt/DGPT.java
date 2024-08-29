@@ -1,14 +1,15 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+package dgpt;
+
+import dgpt.exception.DgptFileNotFoundException;
+import dgpt.exception.IncorrectInputException;
+import dgpt.exception.TaskNotFoundException;
+import dgpt.task.TaskList;
+
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
- * The DGPT class represents a simple task management system.
+ * The dgpt.DGPT class represents a simple task management system.
  * It allows users to add tasks, mark them as done, unmark them, and view the list of tasks.
  */
 public class DGPT {
@@ -18,7 +19,7 @@ public class DGPT {
     private Ui ui;
 
     /**
-     * Constructs a DGPT instance with an empty task list.
+     * Constructs a dgpt.DGPT instance with an empty task list.
      */
     public DGPT(String filepath) {
         this.ui = new Ui();
