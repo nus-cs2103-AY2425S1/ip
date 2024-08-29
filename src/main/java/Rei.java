@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 public class Rei {
     public static void main(String[] args) {
@@ -12,20 +14,15 @@ public class Rei {
         System.out.println("What can I do for you?");
         System.out.println("-----------YOU------------");
 
-        /**
-         * stores
-         */
-        Task[] listOfTasks = new Task[100];
-        int count = 1;
+        List<Task> listOfTasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-
 
         while (!scanner.hasNext("annyeong") && !scanner.hasNext("Annyeong")) {
             if (scanner.hasNext("list")) {
                 System.out.println("-----------REI♥-----------");
                 System.out.println("Here are the tasks in your list: ");
-                for (int i = 1; i < count; i++) {
-                    System.out.println(i + ". " + listOfTasks[i]);
+                for (int i = 0; i < listOfTasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + listOfTasks.get(i));
                 }
                 scanner.nextLine();
             } else if (scanner.hasNext("mark")) {
@@ -43,10 +40,10 @@ public class Rei {
                 }
 
                 int id = Integer.parseInt(prompt);
-                if (id < count && id > 0) {
-                    listOfTasks[id].markAsDone();
+                if (id <= listOfTasks.size() && id > 0) {
+                    listOfTasks.get(id - 1).markAsDone();
                     System.out.println("Okay! I've marked this task as done: ");
-                    System.out.println(listOfTasks[id]);
+                    System.out.println(listOfTasks.get(id - 1));
                 } else {
                     System.out.println("No task found. Please retry!");
                 }
@@ -55,7 +52,7 @@ public class Rei {
                 System.out.println("-----------REI♥-----------");
                 scanner.next();
 
-                // Read the rest of the line after "mark"
+                // Read the rest of the line after "unmark"
                 String prompt = scanner.nextLine().trim();
 
                 // Check if the rest of the line is an integer
@@ -66,10 +63,10 @@ public class Rei {
                 }
 
                 int id = Integer.parseInt(prompt);
-                if (id < count && id > 0) {
-                    listOfTasks[id].markAsUndone();
+                if (id <= listOfTasks.size() && id > 0) {
+                    listOfTasks.get(id - 1).markAsUndone();
                     System.out.println("Okay! I've marked this task as not done yet: ");
-                    System.out.println(listOfTasks[id]);
+                    System.out.println(listOfTasks.get(id - 1));
                 } else {
                     System.out.println("No task found. Please retry!");
                 }
@@ -87,7 +84,7 @@ public class Rei {
                         System.out.println("-----------YOU------------");
                         continue;
                     }
-                    listOfTasks[count++] = Task.createToDo(prompt.substring(5));
+                    listOfTasks.add(Task.createToDo(prompt.substring(5)));
                 } else if (prompt.startsWith("deadline")) {
                     if (isAllWhitespace(prompt.substring(8))) {
                         System.out.println("Task is empty. Please state the task and deadline.");
@@ -101,8 +98,8 @@ public class Rei {
                         continue;
                     }
 
-                    listOfTasks[count++] = Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
-                                                        prompt.substring(prompt.indexOf("/by") + 4));
+                    listOfTasks.add(Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
+                                                        prompt.substring(prompt.indexOf("/by") + 4)));
 
                 } else { // event
                     if (isAllWhitespace(prompt.substring(5))) {
@@ -117,16 +114,35 @@ public class Rei {
                         continue;
                     }
 
-                    listOfTasks[count++] = Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
+                    listOfTasks.add(Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
                                                      prompt.substring(prompt.indexOf("/from") + 6, prompt.indexOf("/to")),
-                                                     prompt.substring(prompt.indexOf("/to") + 4));
-
-
+                                                     prompt.substring(prompt.indexOf("/to") + 4)));
                 }
                 System.out.println("Got it. I've added this task:");
-                System.out.println("    " + listOfTasks[count - 1]);
-                System.out.println(String.format("Now you have %d tasks in the list.", count - 1));
+                System.out.println("    " + listOfTasks.get(listOfTasks.size() - 1));
+                System.out.println(String.format("Now you have %d tasks in the list.", listOfTasks.size()));
 
+            } else if (scanner.hasNext("delete")) {
+                System.out.println("-----------REI♥-----------");
+                scanner.next();
+
+                // Read the rest of the line after "delete"
+                String prompt = scanner.nextLine().trim();
+
+                // Check if the rest of the line is an integer
+                if (prompt.isEmpty() || !prompt.matches("\\d+")) {
+                    System.out.println("State the task number.");
+                    System.out.println("-----------YOU------------");
+                    continue;
+                }
+
+                int id = Integer.parseInt(prompt);
+                if (id <= listOfTasks.size() && id > 0) {
+                    listOfTasks.remove(id - 1);
+                    System.out.println("Okay! I've deleted this task.");
+                } else {
+                    System.out.println("No task found. Please retry!");
+                }
             } else {
                 System.out.println("-----------REI♥-----------");
                 System.out.println("I don't understand what you want me to do.");
