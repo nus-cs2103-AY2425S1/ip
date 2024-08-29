@@ -6,6 +6,7 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import tasks.DateAndTime;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import exceptions.UsageException;
 
 public class TaskList {
     private static final ArrayList<Task> LIST = new ArrayList<>();
+    // TODO: Refactor this
     private static final String[] dirPathParts = { "..", "..", "..", "store" };
     private static final String[] filePathParts = { "..", "..", "..", "store", "tasks.csv" };
     private final File SAVE_DIR = new File(String.join(File.separator, dirPathParts));
@@ -50,6 +52,8 @@ public class TaskList {
 
     public void getTaskList() {
         try {
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+
             List<List<String>> records = CSV_HANDLER.getRecords();
             for (List<String> record : records) {
                 String taskType = record.get(0);
@@ -60,9 +64,9 @@ public class TaskList {
                 if (taskType.equals("T")) {
                     task = new Todo(description);
                 } else if (taskType.equals("D")) {
-                    task = new Deadline(description, record.get(3));
+                    task = new Deadline(description, new DateAndTime(record.get(3)));
                 } else if (taskType.equals("E")) {
-                    task = new Event(description, record.get(3), record.get(4));
+                    task = new Event(description, new DateAndTime(record.get(3)), new DateAndTime(record.get(3)));
                 }
 
                 if (isDone) {
@@ -71,6 +75,7 @@ public class TaskList {
                 addTask(task);
             }
         } catch (IOException e) {
+            System.out.println(e.toString());
             System.out.println("File read error!");
         } catch (UsageException e) {
             System.out.println("File format error!");

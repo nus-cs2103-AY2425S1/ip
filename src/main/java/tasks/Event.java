@@ -3,14 +3,14 @@ package tasks;
 import exceptions.EventUsageException;
 
 public class Event extends Task {
-    private final String from, to;
+    private final DateAndTime from, to;
 
-    public Event(String description, String from, String to) throws EventUsageException {
+    public Event(String description, DateAndTime from, DateAndTime to) throws EventUsageException {
         super(description);
 
         if (description == null || description.equals("")
-                || from == null || from.equals("")
-                || to == null || to.equals("")) {
+                || from == null
+                || to == null) {
             throw new EventUsageException();
         }
 
@@ -20,12 +20,12 @@ public class Event extends Task {
 
     @Override
     public String getSaveString() {
-        return String.format("E,%s,%s,%s,%s", isDone, description, from, to);
+        return String.format("E,%s,%s,%s,%s", isDone, description, from.getOriginalString(), to.getOriginalString());
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + String.format(" (from: %s to: %s)", from, to);
+                + String.format(" (from: %s to: %s)", from.toString(), to.toString());
     }
 }

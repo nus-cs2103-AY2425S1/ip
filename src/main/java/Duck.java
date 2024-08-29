@@ -2,6 +2,8 @@ import tasks.Task;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
+import tasks.DateAndTime;
+
 import java.util.Scanner;
 
 import exceptions.DeadlineUsageException;
@@ -128,7 +130,7 @@ public class Duck {
                     String taskPart = lineBuffer.getUntilAndRemovePattern("/by");
                     String deadlinePart = lineBuffer.getRemainingLine();
                     try {
-                        Task task = new Deadline(taskPart, deadlinePart);
+                        Task task = new Deadline(taskPart, new DateAndTime(deadlinePart));
                         handleNewTask(task);
                     } catch (DeadlineUsageException e) {
                         printAsResponse(e.toString());
@@ -138,7 +140,7 @@ public class Duck {
                     String fromPart = lineBuffer.getUntilAndRemovePattern("/to");
                     String toPart = lineBuffer.getRemainingLine();
                     try {
-                        Task task = new Event(taskPart, fromPart, toPart);
+                        Task task = new Event(taskPart, new DateAndTime(fromPart), new DateAndTime(toPart));
                         handleNewTask(task);
                     } catch (EventUsageException e) {
                         printAsResponse(e.toString());

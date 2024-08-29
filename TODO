@@ -7,3 +7,7 @@
 - Check that /from (should?) appear before /to for deadlines
 - Exceptions for mark and unmark (must have second argument, second argument must be a number and number must be in range)
 - Trim trailing whitespace characters
+- Sort imports
+- Fix pathing of data file and run path
+- Error handling for DateTimeParseException
+- add a command to print deadlines/events occurring on a specific date.

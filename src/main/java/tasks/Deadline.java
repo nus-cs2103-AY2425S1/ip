@@ -3,13 +3,13 @@ package tasks;
 import exceptions.DeadlineUsageException;
 
 public class Deadline extends Task {
-    private final String deadline;
+    private final DateAndTime deadline;
 
-    public Deadline(String description, String deadline) throws DeadlineUsageException {
+    public Deadline(String description, DateAndTime deadline) throws DeadlineUsageException {
         super(description);
 
         if (description == null || description.equals("")
-                || deadline == null || deadline.equals("")) {
+                || deadline == null) {
             throw new DeadlineUsageException();
         }
 
@@ -18,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String getSaveString() {
-        return String.format("D,%s,%s,%s", isDone, description, deadline);
+        return String.format("D,%s,%s,%s", isDone, description, deadline.getOriginalString());
     }
 
     @Override
