@@ -11,6 +11,10 @@ public class Task {
         this.taskName = taskName;
         completed = false;
     }
+    
+    public boolean find(String keyword) {
+        return taskName.contains(keyword);
+    }
 
     /**
      * Marks the task as completed.

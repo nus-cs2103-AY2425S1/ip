@@ -19,6 +19,16 @@ public class TaskList {
         }
     }
 
+    public void displayFoundList(String keyword) {
+        int j = 0;
+        for (int i = 0; i < size; i++) {
+            if (listItems[i].find(keyword)) {
+                System.out.println(String.valueOf(j + 1) + ". " + listItems[i]);
+                j++;
+            }
+        }
+    }
+
     /**
      * Informs the user that the item has been added and increases the size of the list.
      */
