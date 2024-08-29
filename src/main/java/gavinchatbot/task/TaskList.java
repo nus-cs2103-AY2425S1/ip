@@ -1,3 +1,7 @@
+package gavinchatbot.task;
+
+import gavinchatbot.util.GavinException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -17,7 +21,7 @@ public class TaskList {
 
     public Task getTask(int index) throws GavinException {
         if (index < 0 || index >= tasks.size()) {
-            throw new GavinException("Task number is invalid!!!");
+            throw new GavinException("gavinchatbot.task.Task number is invalid!!!");
         }
         return tasks.get(index);
     }

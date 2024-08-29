@@ -1,16 +1,22 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package gavinchatbot;
+
+import gavinchatbot.command.Command;
+import gavinchatbot.task.TaskList;
+import gavinchatbot.util.Parser;
+import gavinchatbot.util.Ui;
+import gavinchatbot.util.Storage;
+import gavinchatbot.util.GavinException;
 import java.io.IOException;
 
 /*
-public class GavinChatBot{
-    // array to hold Task objects
-    // static Task[] tasks = new Task[100];
-    static ArrayList<Task> tasks = new ArrayList<>();
-    static Storage storage;
+public class gavinchatbot.GavinChatBot{
+    // array to hold gavinchatbot.task.Task objects
+    // static gavinchatbot.task.Task[] tasks = new gavinchatbot.task.Task[100];
+    static ArrayList<gavinchatbot.task.Task> tasks = new ArrayList<>();
+    static gavinchatbot.util.Storage storage;
     public static void main(String[] args) {
         String filePath = "./data/duke.txt";
-        storage = new Storage(filePath);
+        storage = new gavinchatbot.util.Storage(filePath);
 
         // Load tasks from file
         try {
@@ -41,9 +47,9 @@ public class GavinChatBot{
                     handleInput(input);
                 } else {
                     // throw an error for invalid input
-                    throw new GavinException("Invalid input! Please start with 'todo', 'deadline', or 'event'.");
+                    throw new gavinchatbot.util.GavinException("Invalid input! Please start with 'todo', 'deadline', or 'event'.");
                 }
-            } catch (GavinException e) {
+            } catch (gavinchatbot.util.GavinException e) {
                 System.out.println(horizontalLine);
                 System.out.println("!!!ERROR!!! " + e.getMessage());
                 System.out.println(horizontalLine);
@@ -51,7 +57,7 @@ public class GavinChatBot{
         }
     }
 
-    public static void handleInput(String input) throws GavinException{
+    public static void handleInput(String input) throws gavinchatbot.util.GavinException{
         String horizontalLine = "___________________________________________________________________________________\n";
         if (input.equalsIgnoreCase("bye")) {
             // print exit message
@@ -82,14 +88,14 @@ public class GavinChatBot{
         }
     }
 
-    public static void markTask(String input) throws GavinException {
+    public static void markTask(String input) throws gavinchatbot.util.GavinException {
         String horizontalLine = "___________________________________________________________________________________\n";
         // mark task as done
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
         // throw an error if taskNumber is negative, or greater than the current task count
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new GavinException("Task number is invalid!!!");
+            throw new gavinchatbot.util.GavinException("gavinchatbot.task.Task number is invalid!!!");
         }
 
         tasks.get(taskNumber).markAsDone();
@@ -105,14 +111,14 @@ public class GavinChatBot{
         }
     }
 
-    public static void unmarkTask(String input) throws GavinException {
+    public static void unmarkTask(String input) throws gavinchatbot.util.GavinException {
         String horizontalLine = "___________________________________________________________________________________\n";
         // mark task as undone
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
         // throw an error if taskNumber is negative, or greater than the current task count
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new GavinException("Task number is invalid!!!");
+            throw new gavinchatbot.util.GavinException("gavinchatbot.task.Task number is invalid!!!");
         }
         tasks.get(taskNumber).markAsNotDone();
         System.out.println(horizontalLine);
@@ -127,16 +133,16 @@ public class GavinChatBot{
         }
     }
 
-    public static void toDoTask(String input) throws GavinException {
+    public static void toDoTask(String input) throws gavinchatbot.util.GavinException {
         String[] inputParts = input.split(" ", 2);
 
         // throw an error if description is empty
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
-            throw new GavinException("A ToDo must have a description!!!");
+            throw new gavinchatbot.util.GavinException("A ToDo must have a description!!!");
         }
 
         String taskDescription = inputParts[1];
-        tasks.add(new ToDos(taskDescription));
+        tasks.add(new gavinchatbot.task.ToDos(taskDescription));
         printAddTaskMessage(tasks.get(tasks.size() - 1));
 
         try {
@@ -146,10 +152,10 @@ public class GavinChatBot{
         }
     }
 
-    public static void deadlineTask(String input) throws GavinException {
+    public static void deadlineTask(String input) throws gavinchatbot.util.GavinException {
         // throw an error if there is no description
         if (input.length() <= 9) {
-            throw new GavinException("A deadline must have a description and a /by date!!!");
+            throw new gavinchatbot.util.GavinException("A deadline must have a description and a /by date!!!");
         }
 
         String[] inputParts = input.split("/by", 2); // ["deadline return book" , "Sunday"]
@@ -158,9 +164,9 @@ public class GavinChatBot{
 
         // throw an error if there is no /by date
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
-            throw new GavinException("A deadline must have a /by date!!!");
+            throw new gavinchatbot.util.GavinException("A deadline must have a /by date!!!");
         }
-        tasks.add(new Deadline(taskDescription, deadlineDay));
+        tasks.add(new gavinchatbot.task.Deadline(taskDescription, deadlineDay));
         printAddTaskMessage(tasks.get(tasks.size() - 1));
 
         try {
@@ -170,10 +176,10 @@ public class GavinChatBot{
         }
     }
 
-    public static void eventTask(String input) throws GavinException {
+    public static void eventTask(String input) throws gavinchatbot.util.GavinException {
         // throw an error if there is no taskDescription
         if (input.length() <= 6) {
-            throw new GavinException("An event must have a task description!!!");
+            throw new gavinchatbot.util.GavinException("An event must have a task description!!!");
         }
 
         String[] inputParts = input.split("/from", 2); //["event project meeting" , "Mon 2pm /to 4pm"]
@@ -184,9 +190,9 @@ public class GavinChatBot{
 
         // throw an error if there is either no 'from' or 'to' time
         if (timeParts.length < 2) {
-            throw new GavinException("An event must have a /from and /to time!!!");
+            throw new gavinchatbot.util.GavinException("An event must have a /from and /to time!!!");
         }
-        tasks.add(new Event(taskDescription, fromTime, toTime));
+        tasks.add(new gavinchatbot.task.Event(taskDescription, fromTime, toTime));
         printAddTaskMessage(tasks.get(tasks.size() - 1));
 
         try {
@@ -196,17 +202,17 @@ public class GavinChatBot{
         }
     }
 
-    public static void deleteTask(String input) throws GavinException {
+    public static void deleteTask(String input) throws gavinchatbot.util.GavinException {
         String horizontalLine = "___________________________________________________________________________________\n";
 
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
         // throw an error if taskNumber is negative, or greater than the current task count
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new GavinException("Task number is invalid!!!");
+            throw new gavinchatbot.util.GavinException("gavinchatbot.task.Task number is invalid!!!");
         }
 
-        Task removedTask = tasks.remove(taskNumber);
+        gavinchatbot.task.Task removedTask = tasks.remove(taskNumber);
 
         System.out.println(horizontalLine);
         System.out.println("Noted. I've removed this task:");
@@ -221,7 +227,7 @@ public class GavinChatBot{
         }
     }
 
-    private static void printAddTaskMessage(Task task) {
+    private static void printAddTaskMessage(gavinchatbot.task.Task task) {
         String horizontalLine = "___________________________________________________________________________________\n";
         System.out.println(horizontalLine);
         System.out.println("Got it. I've added this task:");

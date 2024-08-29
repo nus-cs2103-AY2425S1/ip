@@ -1,5 +1,13 @@
+package gavinchatbot.command;
+
 import java.io.IOException;
 import java.time.LocalDate;
+import gavinchatbot.task.Deadline;
+import gavinchatbot.task.Task;
+import gavinchatbot.task.TaskList;
+import gavinchatbot.util.Ui;
+import gavinchatbot.util.Storage;
+import gavinchatbot.util.GavinException;
 
 public class AddDeadlineCommand implements Command {
     private final String description;

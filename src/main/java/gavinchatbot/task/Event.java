@@ -1,4 +1,6 @@
-public class Event extends Task{
+package gavinchatbot.task;
+
+public class Event extends Task {
     protected String fromTime;
     protected String toTime;
 

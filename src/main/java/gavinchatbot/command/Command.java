@@ -1,3 +1,9 @@
+package gavinchatbot.command;
+
+import gavinchatbot.task.TaskList;
+import gavinchatbot.util.GavinException;
+import gavinchatbot.util.Storage;
+import gavinchatbot.util.Ui;
 import java.io.IOException;
 
 public interface Command {

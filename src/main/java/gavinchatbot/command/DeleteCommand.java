@@ -1,4 +1,11 @@
+package gavinchatbot.command;
+
 import java.io.IOException;
+import gavinchatbot.task.Task;
+import gavinchatbot.task.TaskList;
+import gavinchatbot.util.Ui;
+import gavinchatbot.util.Storage;
+import gavinchatbot.util.GavinException;
 
 public class DeleteCommand implements Command {
     private final int index;

@@ -1,3 +1,11 @@
+package gavinchatbot.command;
+
+import java.io.IOException;
+import gavinchatbot.task.TaskList;
+import gavinchatbot.util.Ui;
+import gavinchatbot.util.Storage;
+import gavinchatbot.util.GavinException;
+
 import java.io.IOException;
 
 public class MarkCommand implements Command {

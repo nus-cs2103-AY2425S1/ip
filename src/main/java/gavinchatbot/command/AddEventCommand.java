@@ -1,4 +1,13 @@
+package gavinchatbot.command;
+
 import java.io.IOException;
+
+import gavinchatbot.task.Event;
+import gavinchatbot.task.Task;
+import gavinchatbot.task.TaskList;
+import gavinchatbot.util.Ui;
+import gavinchatbot.util.Storage;
+import gavinchatbot.util.GavinException;
 
 public class AddEventCommand implements Command {
     private final String description;

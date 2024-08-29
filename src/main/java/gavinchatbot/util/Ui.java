@@ -1,3 +1,8 @@
+package gavinchatbot.util;
+
+import gavinchatbot.task.Task;
+import gavinchatbot.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
