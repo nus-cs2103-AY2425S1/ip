@@ -1,4 +1,6 @@
-public class AddTaskCommand implements Command{
+package nugget;
+
+public class AddTaskCommand implements Command {
     private Task task;
 
     public AddTaskCommand(Task task) {

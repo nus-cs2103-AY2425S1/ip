@@ -1,3 +1,7 @@
+package nugget;
+
+import nugget.Task;
+
 public class Ui {
 
     public void line() {
@@ -5,7 +9,7 @@ public class Ui {
     }
     public void printIntro() {
         System.out.println("________________________________________");
-        System.out.println("Hello! I'm Nugget");
+        System.out.println("Hello! I'm nugget.Nugget");
         System.out.println("What can I do for you?");
         System.out.println("________________________________________");
     }

@@ -1,3 +1,5 @@
+package nugget;
+
 import java.util.Scanner;
 
 public class Nugget {

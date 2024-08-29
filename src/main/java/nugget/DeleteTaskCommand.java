@@ -1,7 +1,9 @@
-public class UnmarkTaskCommand implements Command {
+package nugget;
+
+public class DeleteTaskCommand implements Command {
     private int index;
 
-    public UnmarkTaskCommand(int index) {
+    public DeleteTaskCommand(int index) {
         this.index = index;
     }
 
@@ -10,8 +12,9 @@ public class UnmarkTaskCommand implements Command {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }
-        tasks.unmarkTask(index);
+        Task task = tasks.getTask(index);
+        tasks.deleteTask(index);
         storage.saveTasks(tasks.getTasks());
-        ui.showUnmarkedTask(tasks.getTask(index));
+        ui.showTaskRemoved(task, tasks.size());
     }
 }

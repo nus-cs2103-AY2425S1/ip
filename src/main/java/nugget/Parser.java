@@ -1,3 +1,5 @@
+package nugget;
+
 public class Parser {
 
     private TaskList tasks;
