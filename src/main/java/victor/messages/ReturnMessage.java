@@ -17,7 +17,7 @@ public class ReturnMessage {
         return this.message;
     }
 
-    public boolean isEmpty() {
+    public boolean checkIsEmpty() {
         return this.isEmpty;
     }
 }

@@ -31,7 +31,7 @@ public class TaskListTest {
             "  ~  You now have 1 task in your list."};
         assertAll("Verifying task list adding tasks works",
                 () -> assertArrayEquals(response, expectedResponse),
-                () -> assertEquals(taskList.size(), 1));
+                () -> assertEquals(taskList.getSize(), 1));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TaskListTest {
                 "  ~  {D}{X} test deadline (by: Jan 01 2020)"};
         assertAll("Verifying task list marking tasks as done works",
                 () -> assertArrayEquals(response, expectedResponse),
-                () -> assertEquals(taskList.size(), 1));
+                () -> assertEquals(taskList.getSize(), 1));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TaskListTest {
             "  ~  {E}{ } test event (from: Feb 02 2024 to: Feb 03 2024)"};
         assertAll("Verifying task list unmarking tasks as done works",
                 () -> assertArrayEquals(response, expectedResponse),
-                () -> assertEquals(taskList.size(), 2));
+                () -> assertEquals(taskList.getSize(), 2));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class TaskListTest {
                 "  ~  {D}{X} test deadline (by: Jan 01 2020)", "  ~  You now have 1 task in your list."};
         assertAll("Verifying task list deleting tasks works",
                 () -> assertArrayEquals(response, expectedResponse),
-                () -> assertEquals(taskList.size(), 1));
+                () -> assertEquals(taskList.getSize(), 1));
     }
 
     @Test
@@ -96,6 +96,6 @@ public class TaskListTest {
         String[] expectedResponse = new String[] {"  ~  I don't think there's a task with that number!"};
         assertAll("Verifying task list deleting tasks works",
                 () -> assertArrayEquals(response, expectedResponse),
-                () -> assertEquals(taskList.size(), 2));
+                () -> assertEquals(taskList.getSize(), 2));
     }
 }

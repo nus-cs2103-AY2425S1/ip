@@ -33,7 +33,7 @@ public class Main {
         ui = new UI();
         storage = new Storage(filePath);
         taskList = storage.load();
-        ui.welcomeMessage();
+        ui.showWelcomeMessage();
     }
 
     private void runUntilExit() {
@@ -48,7 +48,7 @@ public class Main {
     }
 
     private void exit() {
-        ui.byeMessage();
+        ui.showByeMessage();
         System.exit(0);
     }
 
