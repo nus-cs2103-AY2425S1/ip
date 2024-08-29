@@ -1,3 +1,5 @@
+package nixy.exceptions;
+
 /**
  * NixyException is a runtime exception
  * thrown when an error occurs in Nixy during runtime.

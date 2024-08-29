@@ -1,6 +1,11 @@
+package nixy.task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import nixy.exceptions.TaskNotExistException;
+import nixy.task.Task;
+import nixy.Storage;
 
 /**
  * Class that manages tasks as a collection.

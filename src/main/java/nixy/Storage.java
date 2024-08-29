@@ -1,3 +1,5 @@
+package nixy;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,6 +7,10 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import nixy.exceptions.NixyException;
+import nixy.task.Task;
+import nixy.task.TaskList;
+import nixy.task.TaskDecoder;
 
 public class Storage {
     private String filePath;
