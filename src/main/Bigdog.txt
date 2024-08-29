@@ -1,0 +1,3 @@
+O | D | return book | by Sunday
+O | E | project meeting | from Mon 2pm | to 4pm
+X | D | do homework | by no idea :-p

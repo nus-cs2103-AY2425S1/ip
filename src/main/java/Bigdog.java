@@ -4,11 +4,11 @@ import java.util.ArrayList;
 public class Bigdog {
 
     // Array to store tasks
-    static ArrayList<Task> toDoList = new ArrayList<>();
+    private static ArrayList<Task> toDoList = new ArrayList<>();
 
-    // Counter to keep track of the number of tasks
-
+    private static FileSaver fileSaver = new FileSaver("./src/main/Bigdog.txt");
     private static void editList(String str) throws BigdogException {
+
         if (str.isEmpty()) {
             throw new BigdogException("Please give me something to add!");
         }
@@ -41,6 +41,7 @@ public class Bigdog {
             System.out.println("Got it. I've added this task:\n" + toDoList.get(toDoList.size() - 1));
             System.out.printf("Now you have %s tasks in the list.\n", toDoList.size());
         }
+        fileSaver.saveToFile(toDoList);
     }
 
     public static void main(String[] args) {
@@ -51,6 +52,8 @@ public class Bigdog {
         // Welcome message
         System.out.println("Hello! I'm Bigdog!");
         System.out.println("What can I do for you?\n");
+
+        fileSaver.loadFromFile(toDoList);
 
         while (true) {
 
