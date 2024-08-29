@@ -5,7 +5,7 @@ public class MrTracker {
     public static final String FILEPATH = "./data/tasks.txt";
     public static final String DIRPATH = "./data";
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         Ui ui = new Ui();
         Storage storage = new Storage(DIRPATH, FILEPATH);
         Parser parser = new Parser();

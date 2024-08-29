@@ -1,26 +1,26 @@
 package processes;
 
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 public class Storage {
     private String dirPath;
     private String filePath;
 
-    public Storage(String dirPath, String filePath) {
+    public Storage (String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
     }
 
-    public void loadData(ArrayList<Task> taskList) {
+    public void loadData (ArrayList<Task> taskList) {
         try {
             File dir = new File(dirPath);
             if (!dir.exists()) {
@@ -32,7 +32,7 @@ public class Storage {
                 }
             }
 
-            File file = new File(filePath);
+            File file = new File (filePath);
             if (!file.exists()) {
                 boolean doesFileExists = file.createNewFile();
                 if (doesFileExists) {

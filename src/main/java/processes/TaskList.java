@@ -12,15 +12,15 @@ public class TaskList {
 
     private ArrayList<Task> taskList;
 
-    public TaskList() {
+    public TaskList () {
         this.taskList = new ArrayList<>();
     }
 
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTasks () {
         return taskList;
     }
 
-    public void addTodo(String arg) {
+    public void addTodo (String arg) {
         try {
             ToDo newToDo = new ToDo(arg);
             taskList.add(newToDo);
@@ -31,7 +31,7 @@ public class TaskList {
         }
     }
 
-    public void addDeadline(String arg) {
+    public void addDeadline (String arg) {
         try {
             Task newDeadline = new DeadLine(arg);
             taskList.add(newDeadline);
@@ -42,7 +42,7 @@ public class TaskList {
         }
     }
 
-    public void addEvent(String arg) {
+    public void addEvent (String arg) {
         try {
             Task newEvent = new Event(arg);
             taskList.add(newEvent);
@@ -54,7 +54,7 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(int index) {
+    public void deleteTask (int index) {
         if (index < 1 || index > taskList.size()) {
             System.out.println("Task " + index + " does not exist!");
             return;
@@ -66,7 +66,7 @@ public class TaskList {
                 + taskList.size() + " tasks left.");
     }
 
-    public void markAndUnmark(int index, boolean isMark) {
+    public void markAndUnmark (int index, boolean isMark) {
         if (index == Integer.MAX_VALUE) {
             throw new RuntimeException();
         } else if (index < 1 || index > taskList.size()) {

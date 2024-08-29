@@ -59,7 +59,7 @@ public class Event extends Task {
         }
     }
 
-    public Event(String[] input) {
+    public Event (String[] input) {
         int isDone = parseInt(input[0]);
         if (isDone == 0) {
             this.isDone = false;
@@ -72,7 +72,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
+    public String toString () {
         String res = "[E]";
         res += super.toString();
         res += " (from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
@@ -80,7 +80,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toSave() {
+    public String toSave () {
         String res = "E|";
         res = res.concat(this.isDone ? "1|" : "0|");
         res = res.concat(this.name);

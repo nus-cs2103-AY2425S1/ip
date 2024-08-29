@@ -6,13 +6,13 @@ public abstract class Task {
     protected boolean isDone = false;
 
 
-    public abstract String toSave();
+    public abstract String toSave ();
 
-    public void mark() {
+    public void mark () {
         this.isDone = true;
     }
 
-    public void unMark() {
+    public void unMark () {
         this.isDone = false;
     }
 
