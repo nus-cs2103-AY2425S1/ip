@@ -1,9 +1,15 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Donna {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskNum = 0;
+    private static final String DIRECTORY_PATH = "data";
+    private static final String FILE_PATH = DIRECTORY_PATH + "/donna-tasks.txt";
 
     static private void printDashedLine() {
         System.out.println("____________________________________________________________________");
@@ -16,6 +22,20 @@ public class Donna {
         System.out.println("| |_| | (_) | | | | | | | (_| |");
         System.out.println("|____/ \\___/|_| |_|_| |_|\\__,_|");
         System.out.println();
+    }
+
+    private static void saveTasks() { //writes into a text file
+        try {
+            Files.createDirectories(Paths.get(DIRECTORY_PATH)); //ensure directory exists
+            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(FILE_PATH))) {
+                for (Task task : tasks) {
+                    writer.write(task.toFileFormat());
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error has occurred in saving the tasks: " + e.getMessage());
+        }
     }
 
     private static void addTask(String desc) throws DonnaException {
@@ -170,6 +190,7 @@ public class Donna {
                     printDashedLine();
                     System.out.println("Bye. Hope to see you again soon!");
                     printDashedLine();
+                    saveTasks();
                     break;
                 } else if (input.equals("list")) { //display list
                     printDashedLine();

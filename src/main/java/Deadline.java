@@ -1,5 +1,6 @@
 public class Deadline extends Task {
     private final String by;
+    private final String description;
 
     public Deadline(String description, String by) throws DonnaException {
         super(description);
@@ -7,6 +8,12 @@ public class Deadline extends Task {
             throw DonnaException.emptyDeadline();
         }
         this.by = by;
+        this.description = description;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | " + this.by;
     }
 
     @Override
