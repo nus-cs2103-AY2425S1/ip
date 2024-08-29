@@ -5,7 +5,8 @@ package guy.exception;
  */
 public class GuyException extends Exception{
     /**
-     * Constructs a GuyException with the given message
+     * Constructs a GuyException with the given message.
+     *
      * @param e error message to be saved for retrieval by getMessage()
      */
     public GuyException(String e) {
@@ -14,6 +15,7 @@ public class GuyException extends Exception{
 
     /**
      * Returns the detail message of the exception.
+     *
      * @return detail message of this instance
      */
     @Override

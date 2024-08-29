@@ -7,6 +7,7 @@ package guy.tasks;
 public class ToDo extends Task {
     /**
      * Constructs a new ToDo task.
+     *
      * @param name description of the task
      */
     public ToDo(String name) {

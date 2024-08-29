@@ -1,4 +1,5 @@
 package guy.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new Deadline task.
+     *
      * @param name description of the task
      * @param by the task's deadline
      */

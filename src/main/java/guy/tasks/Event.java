@@ -12,6 +12,7 @@ public class Event extends Task {
 
     /**
      * Constructs a new Event task.
+     *
      * @param name description of the event
      * @param start the event's start time
      * @param end the event's end time
