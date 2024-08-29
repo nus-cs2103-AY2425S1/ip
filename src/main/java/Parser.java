@@ -8,8 +8,9 @@ public class Parser {
     private String remainder;
     private List<Task> allTasks;
     private String description;
+    private Storage storage;
     private boolean carryOn = true;
-    public Parser(String input, List<Task> allTasks) throws EmptyStringException, CommandNotFoundException,  CommandFoundButInvalidException {
+    public Parser(String input, List<Task> allTasks, Storage s) throws EmptyStringException, CommandNotFoundException,  CommandFoundButInvalidException {
         this.allTasks = allTasks;
         if (input.isEmpty()) {
             throw new EmptyStringException();
@@ -29,6 +30,7 @@ public class Parser {
                 ToDos todo = new ToDos(remainder);
                 allTasks.add(todo);
                 // should print the message here
+                s.put(allTasks);
                 System.out.println(todo.message(allTasks));
                 break;
             case DEADLINE:
@@ -36,6 +38,7 @@ public class Parser {
                 Deadlines deadline = new Deadlines(remainder);
                 allTasks.add(deadline);
                 // should print the message here
+                s.put(allTasks);
                 System.out.println(deadline.message(allTasks));
                 break;
             case EVENT:
@@ -43,11 +46,13 @@ public class Parser {
                 Events event = new Events(remainder);
                 allTasks.add(event);
                 // should print the message here
+                s.put(allTasks);
                 System.out.println(event.message(allTasks));
                 break;
             case DELETE:
                 // throw to the Delete class
                 Delete delete = new Delete(remainder, allTasks);
+                s.put(allTasks);
                 System.out.println(delete.message());
                 break;
             case LIST:
@@ -58,11 +63,13 @@ public class Parser {
             case MARK:
                 // throw to the mark class
                 Mark mark = new Mark(remainder, allTasks);
+                s.put(allTasks);
                 System.out.println(mark.message());
                 break;
             case UNMARK:
                 // throw to the unmark class
                 Unmark unmark = new Unmark(remainder, allTasks);
+                s.put(allTasks);
                 System.out.println(unmark.message());
                 break;
             case BYE:
