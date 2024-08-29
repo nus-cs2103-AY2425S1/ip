@@ -31,41 +31,41 @@ public class Parser {
 
         // Handles command
         switch (command) {
-            case UNKNOWN:
-                ui.handleUnknown();
-                break;
-            case LIST:
-                ui.handleList();
-                break;
-            case MARK:
-                ui.handleMark(arg);
-                break;
-            case UNMARK:
-                ui.handleUnmark(arg);
-                break;
-            case TODO:
-                ui.handleTodo(arg);
-                break;
-            case DEADLINE:
-                String[] parsedDeadline = parseDeadline(arg);
-                ui.handleDeadline(
-                        parsedDeadline[0].trim(),
-                        parsedDeadline.length > 1 ? parsedDeadline[1].trim() : ""
-                );
-                break;
-            case EVENT:
-                String[] parsedEvent = parseEventFrom(arg);
-                ui.handleEvent(
-                        parsedEvent[0].trim(),
-                        parsedEvent.length > 1 ? parsedEvent[1] : ""
-                );
-                break;
-            case DELETE:
-                ui.handleDelete(arg);
-                break;
-            case BYE:
-                ui.handleBye();
-                break;
+        case UNKNOWN:
+            ui.handleUnknown();
+            break;
+        case LIST:
+            ui.handleList();
+            break;
+        case MARK:
+            ui.handleMark(arg);
+            break;
+        case UNMARK:
+            ui.handleUnmark(arg);
+            break;
+        case TODO:
+            ui.handleTodo(arg);
+            break;
+        case DEADLINE:
+            String[] parsedDeadline = parseDeadline(arg);
+            ui.handleDeadline(
+                    parsedDeadline[0].trim(),
+                    parsedDeadline.length > 1 ? parsedDeadline[1].trim() : ""
+            );
+            break;
+        case EVENT:
+            String[] parsedEvent = parseEventFrom(arg);
+            ui.handleEvent(
+                    parsedEvent[0].trim(),
+                    parsedEvent.length > 1 ? parsedEvent[1] : ""
+            );
+            break;
+        case DELETE:
+            ui.handleDelete(arg);
+            break;
+        case BYE:
+            ui.handleBye();
+            break;
         }
     }
     private String[] parseEventFrom(String arg) {
