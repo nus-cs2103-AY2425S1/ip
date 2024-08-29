@@ -12,9 +12,10 @@ public class DeadLine extends Task {
     protected LocalDate endDate;
 
     public DeadLine (String inputString) throws InvalidTaskNameException, InvalidDateException {
+        inputString = inputString.trim();
         if (inputString.contains("/by ")) {
             int index = inputString.indexOf("/by ");
-            String taskName = inputString.substring(0, index);
+            String taskName = inputString.substring(0, index).trim();
             String byDate = inputString.substring(index+4);
             if (taskName.length() == 0) {
                 throw new InvalidTaskNameException();
@@ -43,7 +44,7 @@ public class DeadLine extends Task {
         } else {
             this.isDone = true;
         }
-        this.name = input[1];
+        this.name = input[1].trim();
         this.endDate = LocalDate.parse(input[2].trim());
     }
 
@@ -51,7 +52,7 @@ public class DeadLine extends Task {
     public String toString() {
         String res = "[D]";
         res += super.toString();
-        res += "(by: " + this.endDate.toString() + ")";
+        res += " (by: " + this.endDate.toString() + ")";
         return res;
     }
 

@@ -18,7 +18,7 @@ public class Event extends Task {
 
         if (inputString.contains("/from ")) {
             int fromIndex = inputString.indexOf("/from ");
-            String taskName = inputString.substring(0, fromIndex);
+            String taskName = inputString.substring(0, fromIndex).trim();
             if (taskName.length() == 0) {
                 throw new InvalidTaskNameException();
             }
@@ -66,7 +66,7 @@ public class Event extends Task {
         } else {
             this.isDone = true;
         }
-        this.name = input[1];
+        this.name = input[1].trim();
         this.fromDate = LocalDate.parse(input[2].trim());
         this.toDate = LocalDate.parse(input[3].trim());
     }
@@ -75,7 +75,7 @@ public class Event extends Task {
     public String toString() {
         String res = "[E]";
         res += super.toString();
-        res += "(from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
+        res += " (from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
         return res;
     }
 

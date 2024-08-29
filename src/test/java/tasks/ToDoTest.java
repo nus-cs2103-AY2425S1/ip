@@ -23,7 +23,7 @@ public class ToDoTest {
             //test should not reach this line
             fail();
         } catch (InvalidTaskNameException ex) {
-            assertEquals(ex.getMessage(), "Error: The name " + "" + " is invalid!");
+            assertEquals(ex.getMessage(), "Error: Please provide a name!");
         }
 
 
@@ -82,18 +82,18 @@ public class ToDoTest {
     @Test
     public void testStringConversion_wasNotDone_success() throws Exception {
         ToDo test = new ToDo(new String[]{"0", "validName"});
-        assertEquals(test.toString(), "[T][] validName");
+        assertEquals(test.toString(), "[T][ ] validName");
     }
 
     @Test
     public void testStringSaveConversion_wasDone_success() throws Exception {
         ToDo test = new ToDo(new String[]{"1", "validName"});
-        assertEquals(test.toString(), "T|1|validName");
+        assertEquals(test.toSave(), "T|1|validName");
     }
 
     @Test
     public void testStringSaveConversion_wasNotDone_success() throws Exception {
         ToDo test = new ToDo(new String[]{"0", "validName"});
-        assertEquals(test.toString(), "T|0|validName");
+        assertEquals(test.toSave(), "T|0|validName");
     }
 }
