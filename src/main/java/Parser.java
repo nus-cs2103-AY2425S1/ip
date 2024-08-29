@@ -14,9 +14,14 @@ enum Command {
 }
 
 public class Parser {
+    private final Ui ui;
+
+    public Parser() {
+        this.ui = new Ui();
+    }
 
     // This method is suggested by ChatGPT
-    private static String getDayOfMonthSuffix(int day) {
+    private String getDayOfMonthSuffix(int day) {
         if (day >= 11 && day <= 13) {
             return "th";
         }
@@ -28,7 +33,7 @@ public class Parser {
         };
     }
 
-    public static String formatDate(String dateTime) {
+    public String formatDate(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime localDate = LocalDateTime.parse(dateTime, formatter);
         String dayOfMonth = String.valueOf(localDate.getDayOfMonth());
@@ -44,36 +49,36 @@ public class Parser {
     }
 
     // This method will return true if the user wants to exit the program
-    public static boolean checkCommand(String input, TaskList taskList) {
+    public boolean checkCommand(String input, TaskList taskList) {
         if (CommandParser.checkEqualCommand(input, Command.BYE.toString())) {
-            FormattedPrint.bye();
+            ui.bye();
             return true;
 
         } else if (CommandParser.checkCommand(input, Command.MARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsDone(index);
-                FormattedPrint.doneTask(taskList.getTask(index));
+                ui.doneTask(taskList.getTask(index));
             } catch (Exception e) {
-                FormattedPrint.invalidMarkCommand();
+                ui.invalidMarkCommand();
             }
 
         } else if (CommandParser.checkCommand(input, Command.UNMARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsUndone(index);
-                FormattedPrint.undoneTask(taskList.getTask(index));
+                ui.undoneTask(taskList.getTask(index));
             } catch (Exception e) {
-                FormattedPrint.invalidUnmarkCommand();
+                ui.invalidUnmarkCommand();
             }
 
         } else if (CommandParser.checkCommand(input, Command.DELETE.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                FormattedPrint.deleteTask(taskList.getTask(index), taskList.getSize());
+                ui.deleteTask(taskList.getTask(index), taskList.getSize());
                 taskList.deleteItem(index);
             } catch (Exception e) {
-                FormattedPrint.invalidDeleteCommand();
+                ui.invalidDeleteCommand();
             }
 
         } else if (CommandParser.checkCommand(input, Command.DEADLINE.toString())) {
@@ -82,11 +87,11 @@ public class Parser {
                 String description = input.split(" ", 2)[1].split(" /by ")[0];
                 String by = formatDate(input.split(" /by ")[1]);
                 taskList.addItem(new Deadline(description, by));
-                FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+                ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
-                FormattedPrint.invalidDeadlineCommand();
+                ui.invalidDeadlineCommand();
             } catch (DateTimeParseException e) {
-                FormattedPrint.invalidDateFormat();
+                ui.invalidDateFormat();
             }
 
         } else if (CommandParser.checkCommand(input, Command.EVENT.toString())) {
@@ -97,26 +102,26 @@ public class Parser {
                 String from = formatDate(input.split(" /from ")[1].split(" /to ")[0]);
                 String to = formatDate(input.split(" /to ")[1]);
                 taskList.addItem(new Event(description, from, to));
-                FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+                ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
-                FormattedPrint.invalidEventCommand();
+                ui.invalidEventCommand();
             } catch (DateTimeParseException e) {
-                FormattedPrint.invalidDateFormat();
+                ui.invalidDateFormat();
             }
         } else if (CommandParser.checkCommand(input, Command.TODO.toString())) {
             try {
                 String description = input.split(" ", 2)[1];
                 taskList.addItem(new Todo(description));
-                FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+                ui.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
-                FormattedPrint.invalidTodoCommand();
+                ui.invalidTodoCommand();
             }
 
         } else if (CommandParser.checkEqualCommand(input, Command.LIST.toString())) {
-            FormattedPrint.listTasks(taskList.getList());
+            ui.listTasks(taskList.getList());
         } else {
             // Any other command will be considered invalid
-            FormattedPrint.invalidCommand();
+            ui.invalidCommand();
         }
         return false;
     }
