@@ -132,4 +132,13 @@ public class FormattedPrint {
                 -----------------------------------------
                 """);
     }
+
+    public static void invalidDateFormat() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with the date format.
+                Please use the format: d/M/yyyy HHmm
+                -----------------------------------------
+                """);
+    }
 }
