@@ -14,13 +14,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The {@code Storage} class handles reading and writing {@code Task} objects to and from a file.
+ * It supports reading tasks of different types (Todo, Deadline, Event) from a file and saving tasks
+ * back to the file. This class is responsible for the persistence of task data.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a {@code Storage} instance with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads tasks from the file and returns them as an {@code ArrayList} of {@code Task} objects.
+     *
+     * <p>Tasks are read from the file in a specific format and are parsed into their respective types:
+     * Todo, Deadline, or Event. The method handles potential IO errors and specific exceptions related
+     * to task duration.
+     *
+     * @return An {@code ArrayList} containing the tasks read from the file.
+     */
     public ArrayList<Task> getList() {
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -53,6 +72,15 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the specified list of tasks to the file.
+     *
+     * <p>The tasks are written to the file in a format that allows them to be read back correctly. Each
+     * task is written with its type identifier and associated details. The method also includes the
+     * completion status of each task.
+     *
+     * @param taskList The {@code ArrayList} of {@code Task} objects to be saved to the file.
+     */
     public void saveList(ArrayList<Task> taskList) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
