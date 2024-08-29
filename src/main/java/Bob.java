@@ -1,27 +1,28 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileWriter;
 
 public class Bob {
     private static List<Task> memory = new ArrayList<Task>();
     public static void main(String[] args) {
 
-        // memory is an array list.
-        File f = new File(STORAGE_FILE_PATH);
-        if (!f.exists()) {
-            try {
-                f.getParentFile().mkdirs();
-                f.createNewFile();
-            } catch (IOException e) {
-                Bob.print("I'm having trouble initialising my memory :(");
+        try {
+            Files.createDirectories(STORAGE_FILE_PATH.getParent());
+
+            if (!Files.exists(STORAGE_FILE_PATH)) {
+                Files.createFile(STORAGE_FILE_PATH);
             }
+        } catch (IOException e) {
+            Bob.print("I'm having trouble initialising my memory :(");
         }
         try {
-            Scanner fileReader = new Scanner(f);
+            Scanner fileReader = new Scanner(STORAGE_FILE_PATH.toFile());
             while (fileReader.hasNext()) {
                 String record = fileReader.nextLine();
                 Task task = Task.from(record);
@@ -198,8 +199,8 @@ public class Bob {
         return list.isEmpty() ? "No tasks :(" : list;
     }
 
-    private static void writeToFile(String filePath, String text) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    private static void writeToFile(Path filePath, String text) throws IOException {
+        FileWriter fw = new FileWriter(filePath.toFile());
         fw.write(text);
         fw.close();
     }
@@ -213,5 +214,5 @@ public class Bob {
     }
 
     private static final String HELP_MESSAGE = "Key in \"I need help.\" for additional help.";
-    private static final String STORAGE_FILE_PATH = "./data/bob.txt";
+    private static final Path STORAGE_FILE_PATH = Paths.get("./data/bob.txt");
 }
