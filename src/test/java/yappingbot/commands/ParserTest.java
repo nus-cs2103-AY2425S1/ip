@@ -1,16 +1,16 @@
-package yappingbot.tasks;
+package yappingbot.commands;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TodoTest {
+class ParserTest {
 
     @Test
-    void getTaskTypeSymbol() {
+    void parseCommand() {
     }
 
     @Test
-    void testToString() {
+    void parseTaskNumberSelected() {
     }
 }
