@@ -2,7 +2,7 @@ package waterfall.task;
 
 public abstract class Task {
     private boolean isDone;
-    private String title;
+    private final String title;
 
     public Task(String title) {
         this.isDone = false;

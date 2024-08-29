@@ -8,7 +8,7 @@ import waterfall.task.*;
 
 
 public class AddCommand extends Command {
-    private Task task;
+    private final Task task;
 
     public AddCommand(String title) {
         task = new ToDo(title);

@@ -7,7 +7,7 @@ import waterfall.Ui;
 import waterfall.task.*;
 
 public class DeleteCommand extends Command {
-    int index;
+    final int index;
 
     public DeleteCommand(int index) {
         this.index = index;

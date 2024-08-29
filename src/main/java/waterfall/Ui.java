@@ -6,8 +6,8 @@ import waterfall.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
-    String chatBotName = "Waterfall";
-    int indentSpace = 4;
+    private final String chatBotName = "Waterfall";
+    private final int indentSpace = 4;
 
     public void showWelcomeMessage() {
         String welcomeMessage = ("Hualalalalala I'm " + chatBotName + "\n" + "What can I do for you?\n")
