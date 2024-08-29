@@ -2,16 +2,13 @@ import exceptions.InvalidInputException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.InputMismatchException;
-import java.util.Map;
+import java.util.*;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 public class Listing extends Command{
     private LinkedList<Task> lst = new LinkedList<>();
     private String tag;
-
+    private static int index = 1;
     public Listing() {}
 
     public Listing(String tag) {
@@ -52,13 +49,33 @@ public class Listing extends Command{
     }
 
     public void writeListingToFile(File filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
+        // Ensure the parent directory exists
+        if (!filePath.getParentFile().exists()) {
+            filePath.getParentFile().mkdirs();
+        }
+        // Use FileWriter with append mode set to true
+        try (FileWriter writer = new FileWriter(filePath, true)) { // 'true' enables appending mode
             String content = printList() + "\n";
             writer.write(content);
+            System.out.println("File written successfully to " + filePath.getAbsolutePath());
         } catch (IOException e) {
-            System.err.println("Error writing to file " + filePath);
+            System.err.println("Error writing to file: " + filePath.getAbsolutePath());
+            e.printStackTrace();  // Print stack trace for better debugging
         }
     }
+
+    public static void clearCache(String filePath) {
+        File file = new File(filePath);
+        try (FileWriter writer = new FileWriter(file, false)) { // 'false' means do not append
+            // Writing an empty string to clear the file
+            writer.write("");
+            System.out.println("File cleared successfully: " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Error clearing file: " + file.getAbsolutePath());
+            e.printStackTrace(); // Print stack trace for better debugging
+        }
+    }
+
     public Listing readListingFromFile(File filePath) {
         try {
             FileInputStream fin = new FileInputStream(filePath);
@@ -76,13 +93,13 @@ public class Listing extends Command{
     }
     public String printList() {
         if (this.lst.isEmpty()) {
-            return SigmaBot.HR_LINE + "\tNo items found in current List\n" + SigmaBot.HR_LINE;
+            return SigmaBot.HR_LINE + tag + ":\n" + "\tNo items found in current List\n" + SigmaBot.HR_LINE;
         }
         StringBuilder result = new StringBuilder();
         if (tag != null) {
             result.append(tag).append(":\n");
         }
-        int index = 1;
+        index = 1;
 
         for (Task task : lst) {
             result.append(index++).append(". ").append(task.toString()).append("\n");
@@ -103,6 +120,106 @@ public class Listing extends Command{
         }
         lst.clear();
         return result.toString();
+    }
+
+
+    public static void createNewList(Scanner scanner, Map<String, Listing> lsts) throws InvalidInputException {
+        Listing newList = Listing.createListEventChain(scanner, lsts);
+        lsts.put(newList.getTag(), newList);
+        newList.addItemEventChain(scanner);
+    }
+
+    public static void queryExistingList(Scanner scanner, Map<String, Listing> lsts) {
+        if (lsts.isEmpty()) {
+            System.out.println(SigmaBot.HR_LINE + SigmaBot.RED + "\tNo lists available.\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+            return;
+        }
+
+        System.out.println(SigmaBot.HR_LINE + SigmaBot.CYAN + "\tAvailable lists by tag:" + SigmaBot.RESET);
+        lsts.keySet().forEach(tag -> System.out.println("\t\t" + tag));
+        System.out.println(SigmaBot.HR_LINE);
+        System.out.println(SigmaBot.HR_LINE + SigmaBot.CYAN + "\tEnter the tag of the list you want to query:\n" + SigmaBot.RESET + SigmaBot.HR_LINE);
+        String tag = scanner.nextLine().trim();
+
+        if (lsts.containsKey(tag)) {
+            Listing listing = lsts.get(tag);
+            System.out.println(listing.printList());
+
+            System.out.println(SigmaBot.HR_LINE_IN + "\tWould you like to [a] Mark tasks as done or [b] Delete tasks?\n" + SigmaBot.HR_LINE_OUT);
+            String action = scanner.nextLine().trim().toLowerCase();
+
+            if (action.equals("a")) {
+                listing.markDoneEventChain(scanner);
+            } else if (action.equals("b")) {
+                listing.deleteItemEventChain(scanner);
+            } else {
+                System.out.println(SigmaBot.HR_LINE_IN + SigmaBot.RED + "\tInvalid response. Returning to main menu.\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+            }
+        } else {
+            System.out.println(SigmaBot.HR_LINE_IN + SigmaBot.RED + "\tNo list found with the tag \"" + tag + "\".\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+        }
+    }
+
+    public static void handleRemoveList(Scanner scanner, Map<String, Listing> lsts) {
+        if (lsts.isEmpty()) {
+            System.out.println(SigmaBot.HR_LINE_IN + SigmaBot.RED + "\tNo lists available to remove.\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+            return;
+        }
+
+        System.out.println(SigmaBot.HR_LINE + SigmaBot.CYAN + "\tAvailable lists by tag:" + SigmaBot.RESET);
+        lsts.keySet().forEach(tag -> System.out.println("\t\t" + tag));
+
+        System.out.println(SigmaBot.HR_LINE + SigmaBot.CYAN + "\tEnter the tag of the list you want to remove:\n" + SigmaBot.RESET + SigmaBot.HR_LINE);
+        String tag = scanner.nextLine().trim();
+
+        if (lsts.containsKey(tag)) {
+            lsts.remove(tag);
+            System.out.println(SigmaBot.HR_LINE + SigmaBot.CYAN + "\tList with tag \"" + tag + "\" has been removed.\n" + SigmaBot.RESET + SigmaBot.HR_LINE);
+        } else {
+            System.out.println(SigmaBot.HR_LINE + SigmaBot.RED + "\tNo list found with the tag \"" + tag + "\".\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+        }
+    }
+
+    public static Map<String, Listing> handleSortLists(Scanner scanner, Map<String, Listing> lsts) {
+        if (lsts.isEmpty()) {
+            System.out.println(SigmaBot.HR_LINE_IN + SigmaBot.RED + "\tNo lists available to sort.\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+            return lsts; // Return empty map if no lists available
+        }
+
+        System.out.println(SigmaBot.HR_LINE_IN + SigmaBot.CYAN + "\tSort by [a] Tag or [b] Length?\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+        String sortOption = scanner.nextLine().trim();
+
+        List<Map.Entry<String, Listing>> sortedList = new LinkedList<>(lsts.entrySet());
+
+        // Sort the list based on user's choice
+        if (sortOption.equalsIgnoreCase("a")) {
+            sortedList.sort(Map.Entry.comparingByKey());
+        } else if (sortOption.equalsIgnoreCase("b")) {
+            sortedList.sort(Comparator.comparingInt(entry -> entry.getValue().getList().size()));
+        } else {
+            System.out.println(SigmaBot.HR_LINE_IN + SigmaBot.RED + "\tInvalid sorting option.\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+            return lsts; // Return original map if invalid option is provided
+        }
+
+        System.out.println(SigmaBot.HR_LINE_IN + SigmaBot.CYAN + "\tSorted lists:\n" + SigmaBot.RESET + SigmaBot.HR_LINE_OUT);
+
+        // Convert sorted list back to a LinkedHashMap to maintain order
+        Map<String, Listing> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Listing> entry : sortedList) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        // Clear the existing file content
+        clearCache("../data/datafile.txt");
+
+        // Write the sorted list back to the file
+        for (Listing listing : sortedMap.values()) {
+            listing.writeListingToFile(new File("../data/datafile.txt"));
+        }
+
+        System.out.println(SigmaBot.HR_LINE_OUT);
+
+        return sortedMap;
     }
 
     public static Listing createListEventChain(Scanner sc, Map<String, Listing> lsts) {
