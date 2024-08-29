@@ -16,6 +16,12 @@ public class Event extends Task {
     public final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     public final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
+    /**
+     * Event constructor that checks if the startTime and endTime can be parsed as LocalDateTime objects
+     * @param description
+     * @param startTime
+     * @param endTime
+     */
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = startTime;

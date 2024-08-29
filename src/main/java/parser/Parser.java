@@ -16,12 +16,21 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * This handleUserInput takes care of the different user inputs and decides what actions to perform for each of them.
+     * @param userInput
+     * @throws MollyException
+     */
+
     public void handleUserInput(String userInput) throws MollyException {
         if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
             String[] markParts = userInput.split(" ");
             if (markParts.length == 2) {
                 try {
                     int taskToMark = Integer.parseInt(markParts[1]) - 1;
+                    if (taskToMark > taskList.getBotMemory().size()) {
+                        throw new MollyException("Please select a valid task number.");
+                    }
                     taskList.toggleTaskDone(taskToMark);
                     storage.saveTasks(taskList);
 

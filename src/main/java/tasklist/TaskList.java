@@ -12,6 +12,10 @@ public class TaskList {
         this.botMemory = botMemory;
     }
 
+    /**
+     * This function returns all the items in the ArrayList as a task list.
+     * @return String
+     */
     public String listToString() {
         StringBuilder outputString = new StringBuilder();
         if (this.botMemory.isEmpty()) {
@@ -31,11 +35,20 @@ public class TaskList {
     }
 
 
+    /**
+     * This function toggles the boolean value corresponding to whether the task is finished or not.
+     * @param taskNumber
+     */
+
     public void toggleTaskDone(int taskNumber) {
         botMemory.get(taskNumber).toggleTaskDone();
         Ui.printLine();
     }
 
+    /**
+     * This function removes tasks from the ArrayList and informs the user.
+     * @param taskToRemove
+     */
     public void removeTask(int taskToRemove) {
         Ui.printLine();
         System.out.println("Noted. I've removed this task: ");
@@ -45,6 +58,10 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * This function adds tasks to the ArrayList and informs the user.
+     * @param newTask
+     */
     public void addTask(Task newTask) {
         botMemory.add(newTask);
         Ui.printLine();

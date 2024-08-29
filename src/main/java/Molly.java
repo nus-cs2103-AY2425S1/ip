@@ -27,7 +27,7 @@ public class Molly {
 
 
     /**
-     * This is a static method for the Molly bot that processes user inputs and manipulates the task array accordingly.
+     * This is an assistUser method for the Molly bot that processes user inputs and manipulates the task array accordingly.
      */
     public void assistUser() throws MollyException {
         //ArrayList<task.Task> botMemory = new ArrayList<>();
