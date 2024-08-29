@@ -6,12 +6,20 @@ import ai.exception.AiException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Entry point of the programme.
+ */
 public class Ai {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
     private String filePath;
 
+    /**
+     * Initialises Ai, including Ui, Storage, and TaskList.
+     *
+     * @param filePath Path of the .txt file to store the task list.
+     */
     public Ai(String filePath) {
         this.filePath = filePath;
         ui = new Ui();
@@ -24,6 +32,9 @@ public class Ai {
         }
     }
 
+    /**
+     * Obtains user reply using a scanner. Repeat the process until "bye" command is issued.
+     */
     public void run() {
         ui.showGreetings();
         boolean isExit = false;

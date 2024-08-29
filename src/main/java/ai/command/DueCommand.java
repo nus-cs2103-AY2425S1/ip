@@ -11,11 +11,17 @@ public class DueCommand extends Command {
         this.date = LocalDate.parse(arguments);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) {
         tasks.isDue(date);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

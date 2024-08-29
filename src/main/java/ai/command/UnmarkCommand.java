@@ -11,6 +11,9 @@ public class UnmarkCommand extends Command{
         i = Integer.parseInt(index) - 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
@@ -24,6 +27,9 @@ public class UnmarkCommand extends Command{
         System.out.println(temp + "\n");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

@@ -13,6 +13,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with file writing and reading.
+ */
 public class Storage {
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private String filePath;
@@ -21,6 +24,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the file using the given filePath and scans for each line.
+     *
+     * @return ArrayList of type Task.
+     * @throws IOException if .txt file cannot be created successfully.
+     * @throws AiException if the line in the .txt file cannot be read.
+     */
     public ArrayList<Task> load() throws IOException, AiException {
             Path path = Paths.get(filePath);
             Path directory = path.getParent();
@@ -53,7 +63,13 @@ public class Storage {
             return tasks;
     }
 
-
+    /**
+     * Reads the given input, parses it into the correct format to initialise the Task to be returned.
+     *
+     * @param input String of a single line in the .txt file.
+     * @return Task in the correct type.
+     * @throws AiException if the lines cannot be read.
+     */
     public Task readFileLine(String input) throws AiException {
         try {
             String[] parsedInput = input.split(" \\| ", 3);
