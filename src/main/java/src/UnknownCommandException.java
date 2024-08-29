@@ -1,4 +1,6 @@
-public class UnknownCommandException extends DukeException{
+package src;
+
+public class UnknownCommandException extends DukeException {
     UnknownCommandException() {
         super("test");
     }

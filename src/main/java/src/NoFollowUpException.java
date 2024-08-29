@@ -1,3 +1,5 @@
+package src;
+
 public class NoFollowUpException extends DukeException {
     NoFollowUpException() {
         super("test");

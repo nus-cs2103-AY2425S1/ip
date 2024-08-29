@@ -1,5 +1,7 @@
-import java.util.Scanner;
+package src;
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class WenJie {
     public static void main(String[] args) {

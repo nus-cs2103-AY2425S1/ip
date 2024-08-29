@@ -1,3 +1,5 @@
+package src;
+
 public class Event extends Task {
 
     protected String from;
@@ -8,6 +10,13 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+
+    @Override
+    public String toPrettierString() {
+
+        return "E" + super.toPrettierString();
+    }
+
 
     @Override
     public String toString() {
