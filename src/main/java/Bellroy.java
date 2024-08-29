@@ -1,5 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +12,67 @@ public class Bellroy {
                 " Hello! I'm Bellroy\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n";
-
         String userInput = "";
         List<Task> toDoList = new ArrayList<>();
+        File f = new File("Bellroy.txt");
+        try (Scanner fileScanner = new Scanner(f)) {
+            BufferedReader reader = new BufferedReader(new FileReader("Bellroy.txt"));
+            String line = reader.readLine();
+            while (line != null) {
+                char taskType = line.charAt(1);
+                boolean isDone = line.charAt(4) == 'X';
+                String remainder = line.substring(7).trim();
+
+                switch (taskType) {
+                    case('T'):
+                        Task tempToDo = new Todo(remainder);
+                        if (isDone) {
+                            tempToDo.markDone();
+                        }
+                        toDoList.add(tempToDo);
+                        break;
+                    case('D'):
+                        String[] deadlineParts = remainder.split(" \\(by: ");
+                        String deadlineDescription = deadlineParts[0].trim();
+                        String by = deadlineParts[1].replace(")", "").trim();
+                        Task temp = new deadline(deadlineDescription, by);
+                        if (isDone) {
+                            temp.markDone();
+                        }
+                        toDoList.add(temp);
+                        break;
+                    case ('E'):
+                        String[] eventParts = remainder.split(" \\(from: | to: ");
+                        String eventDescription = eventParts[0].trim();
+                        String from = eventParts[1].trim();
+                        String to = eventParts[2].replace(")", "").trim();
+                        Task tempEvent = new Event(eventDescription, from, to);
+                        if (isDone) {
+                            tempEvent.markDone();
+                        }
+                        toDoList.add(tempEvent);
+                        break;
+                }
+
+                line = reader.readLine();
+
+            }
+        } catch (FileNotFoundException e) {
+            try {
+                File newFile = new File("Bellroy.txt");
+                if (newFile.createNewFile()) {
+                    System.out.println("Bellroy.txt file created");
+                };
+
+            } catch (IOException IOexception2) {
+                System.out.println(IOexception2.getMessage());
+            }
+        } catch (IOException IOexception1) {
+            System.out.println(IOexception1.getMessage());
+        };
 
         System.out.println(message);
+
         while (true) {
 
             userInput = scanner.nextLine();
@@ -30,7 +85,7 @@ public class Bellroy {
                     System.out.println("____________________________________________________________\n" +
                         "     Bye. Hope to see you again soon!\n" +
                         "____________________________________________________________\n");
-                    try(FileWriter writer = new FileWriter("Bellroy.txt")) {
+                    try (FileWriter writer = new FileWriter("Bellroy.txt")) {
                         for (Task t: toDoList) {
                             writer.write(t.toString());
                             writer.write("\n");
@@ -44,7 +99,7 @@ public class Bellroy {
                 case "list":
                     System.out.println("____________________________________________________________");
                     for(int i = 0; i < toDoList.size(); i++) {
-                        System.out.println("     " + (i + 1) + ". " + toDoList.get(i));
+                        System.out.println("     " + (i + 1) + ". " + toDoList.get(i).toString());
                     }
                     System.out.println("____________________________________________________________\n");
                     break;
