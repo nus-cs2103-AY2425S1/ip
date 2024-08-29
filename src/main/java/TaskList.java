@@ -13,17 +13,7 @@ public class TaskList {
     }
 
     public void addToList(Task task) {
-        printLine();
-        System.out.println("    The task hath been added");
-        System.out.println("      " + task);
         list.add(task);
-        if (list.size() == 1) {
-            System.out.println("    thou now hath " + list.size() + " task to complete");
-        } else {
-            System.out.println("    thou now hath " + list.size() + " tasks to complete");
-        }
-        printLine();
-        System.out.println();
     }
 
     public Task getTask(int index) throws Elseption {
@@ -38,6 +28,14 @@ public class TaskList {
         return task;
     }
 
+    public Integer getSize() {
+        return list.size();
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
     public boolean markTaskAsDone(int index) throws Elseption {
         Task task = getTask(index);
 
@@ -50,29 +48,16 @@ public class TaskList {
         return task.unmarkAsUndone();
     }
 
-    public void deleteTask(int index) {
-        printLine();
+    public Task  deleteTask(int index) throws Elseption {
         Task task;
 
         try {
             task = list.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Ain't no such task in the middle of these woods");
-            printLine();
-            return;
+            throw new Elseption();
         }
 
-        System.out.println("    Your bidding has been done, removed:");
-        System.out.println("      " + task.toString());
-        if (list.size() == 1) {
-            System.out.println("    thou now hath " + list.size() + " task to complete");
-        } else if (list.isEmpty()) {
-            System.out.println("    thou hath no tasks to be completed");
-        } else {
-            System.out.println("    thou now hath " + list.size() + " tasks to complete");
-        }
-
-        printLine();
+        return task;
     }
 
     @Override

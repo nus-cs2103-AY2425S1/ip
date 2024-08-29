@@ -30,6 +30,13 @@ public class Ui {
         printLine();
     }
 
+    public void loadFileErrorMessage() {
+        printLine();
+        System.out.println("    there hath been a failure in loading your work\n" +
+                "    your list starts empty");
+        printLine();
+    }
+
     public void welcomeMessage() {
         String logo = "___________.__            __\n" +
                 "\\_   _____/|  |   _______/  |_  ___________\n" +
@@ -74,5 +81,34 @@ public class Ui {
         printLine();
         System.out.println("    So uh, the task already is not done");
         printLine();
+    }
+
+    public void deleteTaskMessage(TaskList taskList, Task task) {
+        printLine();
+        System.out.println("    Your bidding has been done, removed:");
+        System.out.println("      " + task.toString());
+
+        if (taskList.getSize() == 1) {
+            System.out.println("    thou now hath " + taskList.getSize() + " task to complete");
+        } else if (taskList.isEmpty()) {
+            System.out.println("    thou hath no tasks to be completed");
+        } else {
+            System.out.println("    thou now hath " + taskList.getSize() + " tasks to complete");
+        }
+        printLine();
+    }
+
+    public void addTaskMessage(TaskList taskList, Task task) {
+        printLine();
+        System.out.println("    The task hath been added");
+        System.out.println("      " + task);
+
+        if (taskList.getSize() == 1) {
+            System.out.println("    thou now hath " + taskList.getSize() + " task to complete");
+        } else {
+            System.out.println("    thou now hath " + taskList.getSize() + " tasks to complete");
+        }
+        printLine();
+        System.out.println();
     }
 }

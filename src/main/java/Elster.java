@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class Elster {
     private TaskList taskList;
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
 
     public Elster(Path filePath) {
         this.ui = new Ui();
@@ -27,6 +27,11 @@ public class Elster {
         boolean byeSentinel = true;
         String input;
         Scanner myScanner = new Scanner(System.in);
+        try {
+            storage.loadFromFile(this.taskList);
+        } catch (Elseption e) {
+            ui.loadFileErrorMessage();
+        }
 
         ui.welcomeMessage();
 
@@ -42,6 +47,7 @@ public class Elster {
                 DeadlineTask task = DeadlineTask.of(input);
                 if (!(task == null)) {
                     taskList.addToList(task);
+                    ui.addTaskMessage(taskList, task);
                 }
 
                 try {
@@ -54,6 +60,7 @@ public class Elster {
                 EventTask task = EventTask.of(input);
                 if (!(task == null)) {
                     taskList.addToList(task);
+                    ui.addTaskMessage(taskList, task);
                 }
 
                 try {
@@ -63,12 +70,22 @@ public class Elster {
                 }
 
             } else if (input.startsWith("delete")) {
-                taskList.deleteTask(Integer.parseInt(input.substring(7).strip()));
+                int index = Integer.parseInt(input.substring(7).strip());
+
+                try{
+                    Task task = taskList.deleteTask(index);
+                    ui.deleteTaskMessage(taskList, task);
+
+                } catch (Elseption e) {
+                    ui.indexOutOfBoundsErrorMessage();
+                }
+
 
             } else if (input.startsWith("todo")) {
                 ToDoTask task = ToDoTask.of(input);
                 if (!(task == null)) {
                     taskList.addToList(task);
+                    ui.addTaskMessage(taskList, task);
                 }
 
                 try {

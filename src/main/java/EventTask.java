@@ -75,10 +75,13 @@ public class EventTask extends Task {
 
     @Override
     public String toFileString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         if (this.status) {
-            return "D | 1 | " + this.description + " | " + this.start + " | " + this.end;
+            return "E | 1 | " + this.description + " | " + this.start.format(formatter)
+                    + " | " + this.end.format(formatter);
         } else {
-            return "D | 0 | " + this.description + " | " + this.start + " | " + this.end;
+            return "E | 0 | " + this.description + " | " + this.start.format(formatter)
+                    + " | " + this.end.format(formatter) ;
         }
     }
 }
