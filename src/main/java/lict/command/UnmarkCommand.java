@@ -6,9 +6,18 @@ import lict.Ui;
 import lict.LictException;
 import lict.task.Task;
 
+/**
+ * The {@code UnmarkCommand} class represents a command to unmark a task as not done.
+ * It extends the {@code Command} class and overrides the {@code execute} method to implement the unmarking functionality.
+ */
 public class UnmarkCommand extends Command {
     private String taskNum;
 
+    /**
+     * Constructs an {@code UnmarkCommand} with the specified task number.
+     *
+     * @param taskNum The task number to be unmarked.
+     */
     public UnmarkCommand(String taskNum) {
         this.taskNum = taskNum;
     }

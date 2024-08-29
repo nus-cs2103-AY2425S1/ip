@@ -32,12 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "lict"
+    archiveBaseName = "Lict"
     archiveClassifier = null
-}
-
-test {
-    useJUnitPlatform()
 }
 
 run{

@@ -6,6 +6,11 @@ package lict.task;
  */
 public class Todo extends Task {
 
+    /**
+     * Constructs a new {@code Todo} task with the specified description.
+     *
+     * @param description The description of the todo task.
+     */
     public Todo(String description) {
         super(description);
     }
@@ -21,6 +26,12 @@ public class Todo extends Task {
         return String.format("TODO | %s | %s\n", status, this.description);
     }
 
+    /**
+     * Loads a {@code Todo} task from a string containing task data.
+     *
+     * @param dataMessage The string containing the data of the todo task.
+     * @return A {@code Todo} object created from the data string.
+     */
     public static Todo loadTask(String dataMessage) {
         return new Todo(dataMessage);
     }

@@ -3,8 +3,16 @@ package lict;
 import lict.command.*;
 import java.util.Arrays;
 
+/**
+ * The {@code Parser} class is responsible for interpreting and converting user input strings into specific {@code Command} objects.
+ * It recognizes various command types and ensures that the input is parsed correctly before creating the corresponding command.
+ */
 public class Parser {
 
+    /**
+     * The {@code Parser} class is responsible for interpreting and converting user input strings into specific {@code Command} objects.
+     * It recognizes various command types and ensures that the input is parsed correctly before creating the corresponding command.
+     */
     enum CommandType {
         TODO,
         DEADLINE,
@@ -16,6 +24,13 @@ public class Parser {
         BYE,
     }
 
+    /**
+     * Parses the user input and returns the corresponding {@code Command} object.
+     *
+     * @param command The full user input string.
+     * @return A {@code Command} object representing the user's command.
+     * @throws LictException If the input does not match any known command types.
+     */
     public static Command parse(String command) throws LictException {
         String[] commandParts = command.split("\\s+", 2);
         Command c = null;

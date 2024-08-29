@@ -20,19 +20,40 @@ public abstract class Task {
         EVENT,
     }
 
+    /**
+     * Constructs a {@code Task} with the specified description.
+     * The task is initially marked as not done.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task.
+     *
+     * @return "X" if the task is done, otherwise a blank space.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Sets the task as marked or unmarked.
+     *
+     * @param b {@code true} if the task should be marked as done, {@code false} otherwise.
+     */
     public void isMarked(boolean b) {
         this.isDone = b;
     }
 
+    /**
+     * Returns a string representation of the task, including its status and description.
+     *
+     * @return A string representation of the task in the format "[status] description".
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
@@ -46,6 +67,12 @@ public abstract class Task {
      */
     public abstract String toData();
 
+    /**
+     * Converts a string of task data back into a {@code Task} object.
+     *
+     * @param data The string containing the task data.
+     * @return The {@code Task} object created from the data string, or {@code null} if the data is invalid.
+     */
     public static Task convertData(String data) {
         String[] dataParts = data.split("\\|", 3);
         if (dataParts.length < 3) {

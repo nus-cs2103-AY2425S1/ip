@@ -6,9 +6,18 @@ import lict.Ui;
 import lict.LictException;
 import lict.task.Task;
 
+/**
+ * The {@code MarkCommand} class represents a command to mark a task as done.
+ * It extends the {@code Command} class and overrides the {@code execute} method to implement the marking functionality.
+ */
 public class MarkCommand extends Command {
     private String taskNum;
 
+    /**
+     * Constructs a {@code MarkCommand} with the specified task number.
+     *
+     * @param taskNum The task number to be marked as done.
+     */
     public MarkCommand(String taskNum) {
         this.taskNum = taskNum;
     }
