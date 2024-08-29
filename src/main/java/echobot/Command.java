@@ -74,10 +74,15 @@ public class Command {
                 Storage.saveTasksToFile(tasks);
                 break;
             }
-            case "findbydate":
+            case "findbydate": {
                 handleFindByDateCommand(inputParts);
                 Storage.saveTasksToFile(tasks);
                 break;
+            }
+            case "find" : {
+                handleFindCommand(inputParts);
+                break;
+            }
             default:
                 System.out.println("____________________________________________________________");
                 System.out.println(" I'm sorry, I don't recognize that command.");
@@ -222,8 +227,10 @@ public class Command {
         }
     }
     private void handleFindByDateCommand(String[] inputParts) {
+        System.out.println("____________________________________________________________");
         if (inputParts.length < 2) {
             System.out.println("Please specify a date in the format yyyy-mm-dd.");
+            System.out.println("____________________________________________________________");
             return;
         }
 
@@ -244,8 +251,42 @@ public class Command {
             if (!hasTasks) {
                 System.out.println("No tasks found on this date.");
             }
+            System.out.println("____________________________________________________________");
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Please use yyyy-mm-dd.");
+            System.out.println("____________________________________________________________");
         }
+    }
+
+    private void handleFindCommand(String[] inputParts) {
+        System.out.println("____________________________________________________________");
+        // Check if the command includes a keyword to search
+        if (inputParts.length < 2) {
+            System.out.println("Please specify a keyword to search for.");
+            System.out.println("____________________________________________________________");
+            return;
+        }
+
+        // Extract the keyword, assuming it is the second element
+        String keyword = inputParts[1].trim();
+        System.out.println("Searching for tasks with keyword: " + keyword);
+
+        // Flag to check if any tasks match the keyword
+        boolean hasMatchingTasks = false;
+
+        // Iterate over the tasks to find matches
+        for (Task task : tasks.getTasks()) {
+            // Check if the task description contains the keyword
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println(task);
+                hasMatchingTasks = true;
+            }
+        }
+
+        // If no tasks match the keyword, display an appropriate message
+        if (!hasMatchingTasks) {
+            System.out.println("No tasks found containing the keyword: " + keyword);
+        }
+        System.out.println("____________________________________________________________");
     }
 }
