@@ -1,5 +1,7 @@
 package bob;
 
+import java.util.ArrayList;
+
 public class Ui {
 
     public void showWelcomeMessage(String botName) {
@@ -40,5 +42,12 @@ public class Ui {
 
     public void showTaskUnmarked(String unmark) {
         System.out.println(unmark);
+    }
+
+    public void showTasksFound(ArrayList<Task> tasksWithKey) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasksWithKey.size(); i++) {
+            System.out.printf("%d.%s\n", i + 1, tasksWithKey.get(i));
+        }
     }
 }

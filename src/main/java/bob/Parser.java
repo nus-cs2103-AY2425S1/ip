@@ -29,6 +29,9 @@ public class Parser {
         case "on":
             taskList.printTasksOnDate(tmp[1], ui);
             break;
+        case "find":
+            taskList.searchKeyword(phrase, ui);
+            break;
         default:
             throw new ChatBotException("I'm sorry, but I don't know what that means.");
         }

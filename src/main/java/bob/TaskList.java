@@ -144,4 +144,28 @@ public class TaskList {
             }
         }
     }
+
+    public void searchKeyword(String phrase, Ui ui) throws ChatBotException {
+        if (phrase.length() <= 5) {
+            throw new ChatBotException("The key of a find command cannot be empty.");
+        }
+
+        String[] tmp = phrase.split(" ", 2);
+        String key = tmp[1];
+        boolean found = false;
+        ArrayList<Task> tasksWithKey = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(key.toLowerCase())) {
+                tasksWithKey.add(task);
+                found = true;
+            }
+        }
+
+        if (found) {
+            ui.showTasksFound(tasksWithKey);
+        } else {
+            ui.showError("No tasks found containing the key: " + key);
+        }
+    }
 }
