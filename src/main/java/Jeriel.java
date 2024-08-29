@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 
-public class Duke {
+public class Jeriel {
     public static void main(String[] args) {  
         String logo = "     _  ____  ___   _  ____  _      \n"
                     + "    | || ___|| _ \\ | || ___|| |     \n"
@@ -54,7 +54,7 @@ public class Duke {
                 } else if (input.startsWith("mark")) {
                     int taskNumber = Integer.parseInt(input.substring(5)) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                        throw new DukeException("Invalid task number. Please enter a valid task number.");
+                        throw new JerielException("Invalid task number. Please enter a valid task number.");
                     }                    System.out.println("____________________________________________________________");
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println("   " + tasks.get(taskNumber));
@@ -64,7 +64,7 @@ public class Duke {
                 } else if (input.startsWith("unmark")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                        throw new DukeException("Invalid task number. Please enter a valid task number.");
+                        throw new JerielException("Invalid task number. Please enter a valid task number.");
                     }
                     System.out.println("____________________________________________________________");
                     System.out.println(" OK, I've marked this task as not done yet:");
@@ -75,7 +75,7 @@ public class Duke {
                 } else if (input.startsWith("todo")) {
                     String description = input.substring(5).trim();
                     if (description.isEmpty()) {
-                        throw new DukeException("The description of a todo cannot be empty.");
+                        throw new JerielException("The description of a todo cannot be empty.");
                     }
                     tasks.add(new Todo(description));
                     System.out.println("____________________________________________________________");
@@ -87,7 +87,7 @@ public class Duke {
                 } else if (input.startsWith("deadline")) {
                     String[] parts = input.substring(9).split(" /by ");
                     if (parts.length < 3 || parts[0].trim().isEmpty()) {
-                        throw new DukeException("The description and due date of a deadline cannot be empty.");
+                        throw new JerielException("The description and due date of a deadline cannot be empty.");
                     }
                     String description = parts[0].trim();
                     String by = parts[1].trim();
@@ -100,7 +100,7 @@ public class Duke {
                 } else if (input.startsWith("event")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
                     if (parts.length < 3 || parts[0].trim().isEmpty()) {
-                        throw new DukeException("The description, start time, and end time of an event cannot be empty.");
+                        throw new JerielException("The description, start time, and end time of an event cannot be empty.");
                     }
                     String description = parts[0].trim();
                     String from = parts[1].trim();
@@ -116,7 +116,7 @@ public class Duke {
                 } else if (input.startsWith("delete ")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                        throw new DukeException("Invalid task number. Please enter a valid task number.");
+                        throw new JerielException("Invalid task number. Please enter a valid task number.");
                     }
                     Task removedTask = tasks.remove(taskNumber);
                     System.out.println("____________________________________________________________");
@@ -126,9 +126,9 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                 
                 } else {
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
+                    throw new JerielException("I'm sorry, but I don't know what that means :-(");
                 }
-            } catch (DukeException e) {
+            } catch (JerielException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" OH NO DIOS MIOS!!! " + e.getMessage());
                 System.out.println("____________________________________________________________");
