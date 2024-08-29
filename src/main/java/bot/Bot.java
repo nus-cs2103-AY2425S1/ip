@@ -1,17 +1,30 @@
 package bot;
 
 import bot.exceptions.*;
+import bot.storage.Storage;
 import bot.tasks.*;
 import bot.utils.Formatter;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Bot {
-    private static final List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
+    private final Storage storage;
+
+    public Bot() {
+        storage = new Storage();
+        try {
+            tasks = storage.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("Failed to load task from disk");
+            System.exit(0);
+        }
+    }
 
     private enum Command {
         LIST("list"),
@@ -24,6 +37,7 @@ public class Bot {
         EVENT("event");
 
         public final String name;
+
         Command(String name) {
             this.name = name;
         }
@@ -39,16 +53,20 @@ public class Bot {
     }
 
     public static void main(String[] args) {
+        // Initialization
+        Bot bot = new Bot();
+        bot.storage.init();
+
         printBotMessage("Hello! I'm ChadGPT. What can I do for you?");
 
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
-            handleInput(sc.nextLine());
+            bot.handleInput(sc.nextLine());
         }
     }
 
-    private static void handleInput(String input) {
+    private void handleInput(String input) {
         Pattern regex = Pattern.compile("(\\w+)\\s*(.*)");
         Matcher matcher = regex.matcher(input);
         if (matcher.matches()) {
@@ -65,27 +83,27 @@ public class Bot {
 
             try {
                 switch (cmdEnum) {
-                    case LIST:
-                        handleList();
-                        break;
-                    case TODO, DEADLINE, EVENT:
-                        handleAddTask(cmd, args);
-                        break;
-                    case MARK:
-                        handleMarkTask(args);
-                        break;
-                    case UNMARK:
-                        handleUnmarkTask(args);
-                        break;
-                    case DELETE:
-                        handleDeleteTask(args);
-                        break;
-                    case BYE:
-                        printBotMessage("Bye. Hope to see you again soon!");
-                        System.exit(0);
-                    default:
-                        // This should never happen
-                        printBotMessage("Command not found");
+                case LIST:
+                    handleList();
+                    break;
+                case TODO, DEADLINE, EVENT:
+                    handleAddTask(cmd, args);
+                    break;
+                case MARK:
+                    handleMarkTask(args);
+                    break;
+                case UNMARK:
+                    handleUnmarkTask(args);
+                    break;
+                case DELETE:
+                    handleDeleteTask(args);
+                    break;
+                case BYE:
+                    printBotMessage("Bye. Hope to see you again soon!");
+                    System.exit(0);
+                default:
+                    // This should never happen
+                    printBotMessage("Command not found");
                 }
             } catch (BotException e) {
                 printBotMessage(e.getMessage());
@@ -96,11 +114,11 @@ public class Bot {
         }
     }
 
-    private static void handleList() {
+    private void handleList() {
         printBotMessage("Here are the tasks in your list:\n" + Formatter.formatList(tasks));
     }
 
-    private static void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException {
+    private void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException {
         if (cmd.equals(Command.TODO.name)) {
             if (args.isEmpty()) {
                 throw new EmptyTodoException();
@@ -129,6 +147,17 @@ public class Bot {
                 throw new InvalidTaskDescriptionException(args);
             }
         }
+
+        // Save tasks to disk
+        try {
+            storage.saveTaskList(tasks);
+        } catch (IOException e) {
+            // Revert add task
+            tasks.remove(tasks.size() - 1);
+            System.out.println("Task failed to be added: " + e.getMessage());
+            return;
+        }
+
         Task newTask = tasks.get(tasks.size()-1);
         String response = String.format(
                 "Got it. I've added this task:\n  %s\nNow you have %d task(s) in the list.",
@@ -138,13 +167,23 @@ public class Bot {
         printBotMessage(response);
     }
 
-    private static void handleDeleteTask(String args) throws InvalidTaskIdException {
+    private void handleDeleteTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
-        if (index < 0 || index > tasks.size()-1) {
-            throw new InvalidTaskIdException(index+1);
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new InvalidTaskIdException(index + 1);
         }
         Task taskToDelete = tasks.get(index);
         tasks.remove(taskToDelete);
+
+        // Save tasks to disk
+        try {
+            storage.saveTaskList(tasks);
+        } catch (IOException e) {
+            // Revert delete task
+            tasks.add(taskToDelete);
+            System.out.println("Task failed to be deleted: " + e.getMessage());
+            return;
+        }
 
         String response = String.format(
                 "Noted. I've removed this task:\n  %s\nNow you have %d task(s) in the list.",
@@ -154,25 +193,57 @@ public class Bot {
         printBotMessage(response);
     }
 
-    private static void handleMarkTask(String args) throws InvalidTaskIdException {
+    private void handleMarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
-        if (index < 0 || index > tasks.size()-1) {
-            throw new InvalidTaskIdException(index+1);
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new InvalidTaskIdException(index + 1);
         }
+        boolean isPrevDone = tasks.get(index).isDone();
         tasks.get(index).markAsDone();
+
+        // Save tasks to disk
+        try {
+            storage.saveTaskList(tasks);
+        } catch (IOException e) {
+            // Revert mark task
+            if (isPrevDone) {
+                tasks.get(index).markAsDone();
+            } else {
+                tasks.get(index).markAsIncomplete();
+            }
+            System.out.println("Task failed to be mark: " + e.getMessage());
+            return;
+        }
+
         printBotMessage("Nice! I've marked this task as done:\n" + tasks.get(index));
     }
 
-    private static void handleUnmarkTask(String args) throws InvalidTaskIdException {
+    private void handleUnmarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
-        if (index < 0 || index > tasks.size()-1) {
-            throw new InvalidTaskIdException(index+1);
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new InvalidTaskIdException(index + 1);
         }
+        boolean isPrevDone = tasks.get(index).isDone();
         tasks.get(index).markAsIncomplete();
+
+        // Save tasks to disk
+        try {
+            storage.saveTaskList(tasks);
+        } catch (IOException e) {
+            // Revert unmark task
+            if (isPrevDone) {
+                tasks.get(index).markAsDone();
+            } else {
+                tasks.get(index).markAsIncomplete();
+            }
+            System.out.println("Task failed to be unmarked: " + e.getMessage());
+            return;
+        }
+
         printBotMessage("OK, I've marked this task as not done yet:\n" + tasks.get(index));
     }
 
-    private static int getTaskIndex(String input) {
+    private int getTaskIndex(String input) {
         return Integer.parseInt(input.split(" ")[0]) - 1;
     }
 
