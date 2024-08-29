@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -140,9 +141,10 @@ public class Krona {
         String extra = "";
 
         if (task instanceof Deadline) {
-            extra = " | " + ((Deadline) task).date;
+            extra = " | " + ((Deadline) task).dateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         } else if (task instanceof Event) {
-            extra = " | " + ((Event) task).from + " to " + ((Event) task).to;
+            extra = " | " + ((Event) task).startDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+                    + " to " + ((Event) task).endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         }
 
         return type + " | " + status + " | " + task.description + extra;
