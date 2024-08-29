@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
 
 
 import src.main.java.*;
@@ -39,7 +40,7 @@ public class Bonnie {
                 "2. list: displays the list of tasks that you have, with the task number\n" +
                 "3. mark/unmark {task number}: marks or unmarks that task as done\n" +
                 "4. todo {task name}: Bonnie adds a todo task into your task list\n" +
-                "5. deadline {task name} /by {deadline}: Bonnie adds a task with a deadline to your task list.\n" +
+                "5. deadline {task name} /by {YYYY-MM-DD}: Bonnie adds a task with a deadline to your task list.\n" +
                 "6. event {task name} /from {start} /to {end}: Bonnie adds an event with a start/end time to your task list.\n" +
                 "7. delete {task number}: Bonnie deletes the task with that number from your task list.\n" +
                 "Bonnie wants to remind you that you should substitute items with curly braces with the actual information.\n" +

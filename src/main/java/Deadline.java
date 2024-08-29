@@ -1,16 +1,28 @@
 package src.main.java;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
-    private String by;
+    private LocalDate by;
+    private String byString;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        try {
+            LocalDate d = LocalDate.parse(by);
+            this.by = d;
+        } catch (DateTimeParseException e) {
+            this.byString = by;
+        }
     }
 
     @Override
     public String toString() {
-        return String.format("[Deadline] " + super.toString() + "By: [%s]", this.by);
+        return this.by == null
+                ? String.format("[Deadline] " + super.toString() + "By: [%s]", this.byString)
+                : String.format("[Deadline] " + super.toString() + "By: [%s]", this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
