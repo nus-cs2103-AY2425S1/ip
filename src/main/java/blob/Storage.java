@@ -49,9 +49,11 @@ public class Storage {
             if (taskType.equals("T")) {
                 Todo t = new Todo(taskName, isChecked == 1);
                 tasks.add(t);
+
             } else if (taskType.equals("D")) {
                 Deadline d = new Deadline(taskName, isChecked == 1, array[3]);
                 tasks.add(d);
+
             } else if (taskType.equals("E")) {
                 Event e = new Event(taskName, isChecked == 1, array[3], array[4]);
                 tasks.add(e);
@@ -71,13 +73,16 @@ public class Storage {
         for (int i = 0; i < database.size(); i++) {
             Task t = database.get(i);
             String isChecked = String.valueOf(t.isDone ? 1 : 0);
+
             if (t.type.equals("T")) {
                 StringBuilder data = new StringBuilder(String.format("%s,%s,%s\n", t.type, isChecked, t.name));
                 allData.append(data);
+
             } else if (t.type.equals("D")) {
                 Deadline d = (Deadline) t;
                 StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s\n", t.type, isChecked, t.name, d.getDeadline()));
                 allData.append(data);
+                
             } else if (t.type.equals("E")) {
                 Event e = (Event) t;
                 StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s\n", t.type, isChecked, t.name, e.getStart(), e.getEnd()));

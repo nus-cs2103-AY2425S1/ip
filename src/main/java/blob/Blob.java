@@ -27,7 +27,6 @@ public class Blob {
         this.ui.converse();
     }
 
-
     public static void main(String[] args) throws IOException {
         new Blob("./src/main/java/database.csv").run();
     }
