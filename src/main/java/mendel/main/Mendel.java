@@ -1,3 +1,5 @@
+package mendel.main;
+
 import java.util.Scanner;
 
 import mendel.frontend.Parser;
