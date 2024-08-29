@@ -24,9 +24,9 @@ public class Parser {
             case LIST:
                 return new ListCommand();
             case MARK:
-                return new MarkCommand(Integer.parseInt(input.strip()));
+                return new MarkCommand(input.strip());
             case UNMARK:
-                return new MarkCommand(Integer.parseInt(input.strip()));
+                return new MarkCommand(input.strip());
             case TODO:
                 Todo todo = new Todo(input);
                 return new AddCommand(todo);
@@ -37,7 +37,7 @@ public class Parser {
                 Event event = new Event(input);
                 return new AddCommand(event);
             case DELETE:
-                return new DeleteCommand(Integer.parseInt(input.strip()) - 1);
+                return new DeleteCommand(input.strip());
             default:
                 throw new TaskException("OH NO!!! I don't understand this! Try Again!");
         }
