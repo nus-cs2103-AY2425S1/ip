@@ -4,7 +4,6 @@ public abstract class Task {
     private String done = " ";
     private String type = "";
 
-
     public Task(String desc) {
         this.desc = desc;
     }
