@@ -28,7 +28,7 @@ public class Mizz {
      * Constructor for Mizz class. Initialises the Mizz object with defualt values
      * 
      * @param greeting The greeting msg to be printed.
-     * @param exitMsg The exit msg to be printed.
+     * @param exitMsg  The exit msg to be printed.
      */
     public Mizz(String greeting, String filePath) {
         this.greeting = greeting;
