@@ -132,6 +132,12 @@ public class SecondMind {
             printErrorMessage(e);
         } catch (UnknownCommandException e) {
             printErrorMessage(e);
+        } catch (DateTimeParseException e) {
+            printLineSeparator();
+            System.out.println("Warning! Invalid dateTime format detected!");
+            System.out.println("Please use the following representation for dateTime strings:");
+            System.out.println("\tyyyy-MM-ddTHH:mm:ss");
+            printLineSeparator();
         }
     }
 
