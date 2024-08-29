@@ -1,5 +1,5 @@
-Peridot: Hello I'm Peridot!
-Peridot: What's up?
+chatbot.Peridot: Hello I'm chatbot.Peridot!
+chatbot.Peridot: What's up?
 I've added the task: 
 [T][ ] 5pm
 Now you have 1 tasks in the list
@@ -21,4 +21,4 @@ You have unmarked the following task!
 1.[T][ ] 5pm
 2.[E][ ] project (from: Mon to: Tues)
 3.[D][X] work (by: next Monday)
-Peridot: Bye!
+chatbot.Peridot: Bye!

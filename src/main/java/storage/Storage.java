@@ -1,3 +1,5 @@
+package storage;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -56,7 +58,7 @@ public class Storage {
             }
             return loadedData;
         } catch (FileNotFoundException e) {
-            System.out.println("Scanner failed in load() method of Storage-type object");
+            System.out.println("Scanner failed in load() method of storage.Storage-type object");
             return null;
         }
     }

@@ -25,6 +25,10 @@ public class Task {
     public boolean isDone() {
         return this.done;
     }
+
+    public boolean containsWord(String word) {
+        return this.name.contains(word);
+    }
     @Override
     public String toString() {
         return "[" + (this.done ? "X" : " ") + "] " + this.name;
