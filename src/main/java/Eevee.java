@@ -1,9 +1,5 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a task management program.
@@ -54,6 +50,7 @@ public class Eevee {
                         throw new EeveeException("Task has already been marked as done.");
                     }
                     t.markAsDone();
+                    storage.saveTasks(tasks);
                     ui.printMessage("Congratulations! I've marked the following task as done:\n  " + t);
                     break;
                 }
@@ -65,6 +62,7 @@ public class Eevee {
                                 + "Needs to be marked done in order to unmark it.");
                     }
                     t.unmarkAsDone();
+                    storage.saveTasks(tasks);
                     ui.printMessage("Ok! Task no longer marked as done:\n  " + t);
                     break;
                 }
@@ -72,6 +70,7 @@ public class Eevee {
                     int taskNumber = parser.parseTaskNumber(input);
                     Task t = tasks.getTask(taskNumber);
                     tasks.removeTask(taskNumber);
+                    storage.saveTasks(tasks);
                     ui.printMessage("As you wish, this task has been removed:\n " + t);
                     break;
                 }
@@ -83,7 +82,7 @@ public class Eevee {
                     }
                     Todo t = new Todo(s);
                     tasks.addTask(t);
-                    storage.appendToFile("T" + "|" + t.getStatus() + "|" + s + "\n");
+                    storage.saveTasks(tasks);
                     ui.printMessage("Added the following task to your list:\n" + t);
                     break;
                 }
@@ -97,7 +96,7 @@ public class Eevee {
                     // Create and store task
                     Deadline d = new Deadline(info[0], info[1]);
                     tasks.addTask(d);
-                    storage.appendToFile("D" + "|" + d.getStatus() + "|" + info[0] + "|" + d.getDeadline() + "\n");
+                    storage.saveTasks(tasks);
                     ui.printMessage("Added the following task to your list:\n" + d);
                     break;
                 }
@@ -112,8 +111,7 @@ public class Eevee {
                     // Create and store task
                     Event e = new Event(info[0], info[1], info[2]);
                     tasks.addTask(e);
-                    storage.appendToFile("E" + "|" + e.getStatus() + "|"
-                            + info[0] + "|" + e.getFrom() + "|" + e.getTo() + "\n");
+                    storage.saveTasks(tasks);
                     ui.printMessage("Added the following task to your list:\n" + e);
                     break;
                 }

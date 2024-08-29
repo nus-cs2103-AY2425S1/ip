@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -12,20 +11,20 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /**
-     * Appends desired String to the file.
-     *
-     * @param textToAppend The String to be appended into the file.
-     * @throws IOException Input / Output exceptions.
-     */
-    public void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAppend);
+    public void saveTasks(TaskList taskList) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task : taskList.getTasks()) {
+            fw.write(task.toFileString() + "\n");
+        }
         fw.close();
     }
 
     public void loadTasks(TaskList tasks) throws FileNotFoundException {
         File f = new File(filePath);
+        if (!f.exists() || f.length() == 0) {
+            System.out.println("No tasks yet, add some!");
+            return;
+        }
         Scanner scanner = new Scanner(f);
 
         while (scanner.hasNextLine()) {

@@ -40,16 +40,13 @@ public class Event extends Task {
         this.to = endDate;
     }
 
-    public String getFrom() {
-        return this.from;
-    }
-
-    public String getTo() {
-        return this.to;
-    }
-
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from " + from + " to " + to + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "E" + super.toFileString() + "|" + from + "|" + to;
     }
 }

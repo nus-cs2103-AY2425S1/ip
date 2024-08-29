@@ -7,6 +7,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public Task getTask(int taskNumber) throws EeveeException {
         if (taskNumber > tasks.size()) {
             throw new EeveeException("No task under the given task number. "

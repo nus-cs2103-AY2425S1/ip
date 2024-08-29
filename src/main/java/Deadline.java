@@ -15,7 +15,7 @@ public class Deadline extends Task {
      * @param by The Deadline of the task.
      */
     public Deadline(String description, String by) {
-        super(description);
+        super(description.trim());
 
         String dueDate = by.trim();
         try {
@@ -27,13 +27,14 @@ public class Deadline extends Task {
         this.by = dueDate;
     }
 
-    public String getDeadline() {
-        return this.by;
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by " + by + ")";
     }
 
     @Override
-    public String toString() {
-        return "[D]" + super.toString() + "(by " + by + ")";
+    public String toFileString() {
+        return "D" + super.toFileString() + "|" + by;
     }
 }
 
