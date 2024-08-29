@@ -5,12 +5,12 @@ import bob.data.TaskList;
 import bob.ui.Ui;
 
 public class List extends Command {
-
     private static void listTasks(TaskList list) {
         if (list.isEmpty()) {
             System.out.println("There are no tasks in your list.");
             return;
         }
+
         System.out.println("Here are the tasks in your list:");
 
         for (int i = 0; i < list.size(); i++) {
@@ -22,6 +22,7 @@ public class List extends Command {
     public void execute(TaskList list, Ui ui, Storage storage) {
         listTasks(list);
     }
+
     @Override
     public boolean isExit() {
         return false;

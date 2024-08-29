@@ -68,6 +68,7 @@ public class Parser {
 
     private static Mark prepareMark(String fullCommand) throws BobException {
         String[] parts = fullCommand.split(" ");
+
         if (parts.length < 2) {
             throw new BobException("PLease provide a task number.");
         }
@@ -82,6 +83,7 @@ public class Parser {
 
     private static Unmark prepareUnmark(String fullCommand) throws BobException {
         String[] parts = fullCommand.split(" ");
+
         if (parts.length < 2) {
             throw new BobException("PLease provide a task number.");
         }
@@ -96,6 +98,7 @@ public class Parser {
 
     private static On prepareOn(String fullCommand) throws BobException {
         String[] parts = fullCommand.split(" ");
+
         if (parts.length < 2) {
             throw new BobException("Please provide a date in the format: dd/MM/yyyy.");
         }
@@ -114,6 +117,7 @@ public class Parser {
 
     private static Delete prepareDelete(String fullCommand) throws BobException {
         String[] parts = fullCommand.split(" ");
+
         if (parts.length < 2) {
             throw new BobException("PLease provide a task number.");
         }
@@ -128,6 +132,7 @@ public class Parser {
 
     private static Todo prepareTodo(String fullCommand) throws BobException {
         String description = fullCommand.substring("todo".length()).trim();
+
         if (description.isEmpty()) {
             throw new BobException("The description of a todo cannot be empty.");
         }
@@ -136,14 +141,18 @@ public class Parser {
 
     private static Deadline prepareDeadline(String fullCommand) throws BobException {
         String[] parts = fullCommand.split("/by");
+
         if (parts.length < 2) {
             throw new BobException("The date of a deadline cannot be empty. Please enter in the format: description /by <date>");
         }
+
         String description = parts[0].substring("deadline".length()).trim();
         String date = parts[1].trim();
+
         if (description.isEmpty()) {
             throw new BobException("The description of a deadline cannot be empty.");
         }
+
         try {
             LocalDateTime by = DeadlineTask.parseDateTime(date);
             return new Deadline(description, by);
@@ -154,15 +163,19 @@ public class Parser {
 
     private static Event prepareEvent(String fullCommand) throws BobException {
         String[] parts = fullCommand.split("/from|/to");
+
         if (parts.length < 3) {
             throw new BobException("The start and end date/time of an event cannot be empty. Please enter in the format: description /from <start> /to <end>");
         }
+
         String description = parts[0].substring("event".length()).trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
+
         if (description.isEmpty()) {
             throw new BobException("The description of an event cannot be empty.");
         }
+
         try {
             LocalDateTime fromTime = EventTask.parseDateTime(from);
             return new Event(description, fromTime, to);

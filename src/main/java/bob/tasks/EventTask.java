@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class EventTask extends Task {
-
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -46,6 +45,7 @@ public class EventTask extends Task {
     public LocalDate getDate() {
         return from.toLocalDate();
     }
+
     @Override
     public String getFrom() {
         return from.toString();

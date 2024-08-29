@@ -3,6 +3,7 @@ package bob.tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class DeadlineTask extends Task {
     protected LocalDateTime by;
 
@@ -10,10 +11,12 @@ public class DeadlineTask extends Task {
         super(description);
         this.by = by;
     }
+
     @Override
     public String getBy() {
         return by.toString();
     }
+
     @Override
     public String getType() {
         return "D";

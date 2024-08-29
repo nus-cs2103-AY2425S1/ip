@@ -16,6 +16,7 @@ public class Delete extends Command {
         list.remove(index);
         System.out.println("Now you have " + list.size() + (list.isEmpty() ? " task in the list." : " tasks in the list."));
     }
+
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         deleteTask(list);

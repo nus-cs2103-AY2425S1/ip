@@ -1,14 +1,15 @@
 package bob.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import bob.data.TaskList;
 import bob.tasks.DeadlineTask;
 import bob.tasks.EventTask;
 import bob.tasks.Task;
 import bob.tasks.TodoTask;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -21,6 +22,7 @@ public class FileReading extends Storage {
 
     protected static void createDirectory(String dirName) {
         File directory = new File(dirName);
+
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -28,6 +30,7 @@ public class FileReading extends Storage {
 
     protected static void createFile(String filePath) throws IOException {
         File file = new File(filePath);
+
         if (!file.exists()) {
             file.createNewFile(); // Creates the file if it does not exist
         }
@@ -37,8 +40,10 @@ public class FileReading extends Storage {
         TaskList list = new TaskList();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+
         while (s.hasNext()) {
             String[] parts = s.nextLine().split(SEPARATOR);
+
             switch (parts[0]) {
                 case "T" -> {
                     Task todo = new TodoTask(parts[2]);

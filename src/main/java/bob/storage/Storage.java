@@ -1,11 +1,11 @@
 package bob.storage;
 
-import bob.data.BobException;
-import bob.data.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import bob.data.BobException;
+import bob.data.TaskList;
 
 public class Storage {
     protected static String filePath;
