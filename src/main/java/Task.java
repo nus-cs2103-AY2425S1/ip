@@ -14,10 +14,20 @@ public abstract class Task {
         isDone = false;
     }
 
+    public int getStatus() {
+        return isDone ? 1 : 0;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    // gets the string data to be written in the data file
+    public abstract String getDataString();
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

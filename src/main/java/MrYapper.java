@@ -1,11 +1,15 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
     private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
     private static final ArrayList<Task> taskList = new ArrayList<>(100);
+    private static final String TASK_DATA_PATH = "src/data/tasks.txt";
 
     // Inserts line indentation in response messages
     private static void say(String message) {
@@ -21,31 +25,38 @@ public class MrYapper {
         String details = processedInput[1];
         Task newTask;
         String[] parameters;
+
         switch (type) {
         case "todo":
             newTask = new Todo(details);
             break;
         case "deadline":
             parameters = details.split("/by");
+            String deadlineDescription = parameters[0].trim();
+            String deadlineTime = parameters[1].trim();
             if (parameters.length != 2) {
                 throw new InvalidTaskException(type, " I'll need you to format your details properly");
-            } else if (parameters[0].trim().isEmpty()) {
+            } else if (deadlineDescription.isEmpty()) {
                 throw new InvalidTaskException(type, " Your description cannot be empty!");
-            } else if (parameters[1].trim().isEmpty()) {
+            } else if (deadlineTime.isEmpty()) {
                 throw new InvalidTaskException(type, " Your deadline cannot be empty!");
             } else {
-                newTask = new Deadline(parameters[0].trim(), parameters[1].trim());
+                newTask = new Deadline(deadlineDescription, deadlineTime);
             }
             break;
         case "event":
             parameters = details.split("/from");
+            String eventDescription = parameters[0].trim();
             if (parameters.length != 2) {
                 throw new InvalidTaskException(type, " I'll need you to format your details properly");
-            } else if (parameters[0].trim().isEmpty()) {
+            } else if (eventDescription.isEmpty()) {
                 throw new InvalidTaskException(type, " Your description cannot be empty!");
             }
 
             String[] timings = parameters[1].trim().split("/to");
+            String eventStart = timings[0].trim();
+            String eventEnd = timings[1].trim();
+
             if (timings.length != 2) {
                 throw new InvalidTaskException(type, " I'll need you to format your details properly");
             } else if (timings[0].trim().isEmpty()) {
@@ -53,7 +64,7 @@ public class MrYapper {
             } else if (timings[1].trim().isEmpty()) {
                 throw new InvalidTaskException(type, " Your end time cannot be empty!");
             } else {
-                newTask = new Event(parameters[0].trim(), timings[0].trim(), timings[1].trim());
+                newTask = new Event(eventDescription, eventStart, eventEnd);
             }
             break;
         default:
@@ -85,12 +96,68 @@ public class MrYapper {
                 deletedTask, taskList.size()));
     }
 
-    public static void main(String[] args) {
-        say(GREETING_MESSAGE);
-        boolean conversationIsOngoing = true;
-        Scanner userInputReader = new Scanner(System.in);
+    // reads the task data from the data file and adds task into the task ArrayList
+    private static void readTaskData(String taskData) throws InvalidDataFormatException {
+        try {
+            String[] processedData = taskData.split(" \\|\\|\\| ");
+            Task task;
+            String taskDescription = processedData[2];
 
-        do {
+            switch (processedData[0]) {
+            case "T":
+                task = new Todo(taskDescription);
+                break;
+            case "D":
+                task = new Deadline(taskDescription, processedData[3]);
+                break;
+            case "E":
+                task = new Event(taskDescription, processedData[3], processedData[4]);
+                break;
+            default:
+                throw new InvalidDataFormatException(taskData);
+            }
+
+            boolean taskIsDone;
+            taskIsDone = Integer.parseInt(processedData[1]) > 0;
+            if (taskIsDone) {
+                task.markAsDone();
+            }
+
+            taskList.add(task);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new InvalidDataFormatException(taskData);
+        }
+    }
+
+    public static void main(String[] args) {
+        boolean conversationIsOngoing = false;
+
+        // check if the tasks data file exists
+        try {
+            File taskData = new File(TASK_DATA_PATH);
+            if (!taskData.exists()) {
+                boolean fileCreationSuccessful = taskData.createNewFile();
+                if (fileCreationSuccessful) {
+                    System.out.println("Data file creation successful");
+                }
+            } else {
+                Scanner dataFileReader = new Scanner(taskData);
+                while (dataFileReader.hasNextLine()) {
+                    readTaskData(dataFileReader.nextLine());
+                }
+                dataFileReader.close();
+            }
+
+            say(GREETING_MESSAGE);
+            conversationIsOngoing = true;
+        } catch (IOException e) {
+            say("It seems something is wrong when creating data file :(");
+        } catch (InvalidDataFormatException e) {
+            say(e.getMessage());
+        }
+
+        Scanner userInputReader = new Scanner(System.in);
+        while (conversationIsOngoing) {
             String userInput = userInputReader.nextLine();
             String[] processedInput = userInput.trim().split("\\s+", 2);
             String command = processedInput[0];
@@ -162,6 +229,17 @@ public class MrYapper {
             default:
                 say("Hmm... I'm not sure what you're trying to do :(");
             }
-        } while (conversationIsOngoing);
+        }
+
+        userInputReader.close();
+        try {
+            FileWriter fw = new FileWriter(TASK_DATA_PATH);
+            for (Task task: taskList) {
+                fw.write(task.getDataString());
+            }
+            fw.close();
+        } catch (IOException e) {
+            say(" Something went wrong when saving your changes to the task list :(");
+        }
     }
 }
