@@ -60,36 +60,60 @@ public class Kafka {
                 """;
         Scanner scanner = new Scanner(System.in);
         Kafka kafka = new Kafka();
-        boolean exitChat = false;
+        boolean isExitChat = false;
 
         System.out.println("  Hello from\n" + logo);
         kafka.greet();
         System.out.println("  What do you need me for?");
-        while (!exitChat) {
+        while (!isExitChat) {
             String[] userInput = scanner.nextLine().trim().split(" ", 2);
-            if (userInput[0].equalsIgnoreCase("bye")) {
-                exitChat = true;
-            } else if (userInput[0].equalsIgnoreCase("list")) {
-                kafka.createList();
-            } else if (userInput[0].equalsIgnoreCase("mark")) {
-                int taskNumber = Integer.parseInt(userInput[1]);
-                kafka.mark(taskNumber);
-            } else if (userInput[0].equalsIgnoreCase("unmark")) {
-                int taskNumber = Integer.parseInt(userInput[1]);
-                kafka.unmark(taskNumber);
-            } else {
-                if (userInput[0].equalsIgnoreCase("todo")) {
-                    Task todo = new Todo(userInput[1]);
-                    kafka.addTask(todo);
-                } else if (userInput[0].equalsIgnoreCase("deadline")) {
-                    String[] deadlineSplit = userInput[1].split("/by");
-                    Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
-                    kafka.addTask(deadline);
-                } else if (userInput[0].equalsIgnoreCase("event")) {
-                    String[] eventSplit = userInput[1].split("/from |/to ");
-                    Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
-                    kafka.addTask(event);
+            try {
+                if (userInput[0] == null) {
+                    continue;
                 }
+                if (userInput[0].equalsIgnoreCase("bye")) {
+                    isExitChat = true;
+                } else if (userInput[0].equalsIgnoreCase("list")) {
+                    kafka.createList();
+                } else if (userInput[0].equalsIgnoreCase("mark")) {
+                    int taskNumber = Integer.parseInt(userInput[1]);
+                    kafka.mark(taskNumber);
+                } else if (userInput[0].equalsIgnoreCase("unmark")) {
+                    int taskNumber = Integer.parseInt(userInput[1]);
+                    kafka.unmark(taskNumber);
+                } else {
+                    if (userInput[0].equalsIgnoreCase("todo")) {
+                        if (userInput.length < 2) {
+                            throw new KafkaException("OOPS!!! The description of a todo cannot be empty.");
+                        }
+                        Task todo = new Todo(userInput[1]);
+                        kafka.addTask(todo);
+                    } else if (userInput[0].equalsIgnoreCase("deadline")) {
+                        if (userInput.length < 2) {
+                            throw new KafkaException("OOPS!!! The description of a deadline cannot be empty.");
+                        }
+                        String[] deadlineSplit = userInput[1].split("/by");
+                        if (deadlineSplit.length < 2) {
+                            throw new KafkaException("OOPS!!! The description of a deadline is wrong.");
+                        }
+                        Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                        kafka.addTask(deadline);
+                    } else if (userInput[0].equalsIgnoreCase("event")) {
+                        if (userInput.length < 2) {
+                            throw new KafkaException("OOPS!!! The description of a event cannot be empty.");
+                        }
+                        String[] eventSplit = userInput[1].split("/from|/to");
+                        if (eventSplit.length < 3) {
+                            throw new KafkaException("OOPS!!! The description of a event is wrong.");
+                        }
+                        Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                        kafka.addTask(event);
+                    } else {
+                        throw new KafkaException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                }
+            } catch (KafkaException e) {
+                System.out.println("  " + e.getMessage());
             }
         }
         kafka.goodbye();
