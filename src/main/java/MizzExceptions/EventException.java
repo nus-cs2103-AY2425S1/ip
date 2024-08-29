@@ -3,14 +3,14 @@ package MizzExceptions;
 import util.Utility;
 
 public class EventException extends MizzException {
-  public EventException(String msg) {
-    super(msg);
-  }
+    public EventException(String msg) {
+        super(msg);
+    }
 
-  @Override
-  public String toString() {
-    return Utility.INDENT + "Oops! My advanced training hasn't prepared me for this event!: "
-        + super.getMessage() + Utility.NEW_LINE
-        + Utility.INDENT + "Example usage: event <description> /from <from> /to <to>";
-  }
+    @Override
+    public String toString() {
+        return Utility.INDENT + "Oops! My advanced training hasn't prepared me for this event!: "
+                + super.getMessage() + Utility.NEW_LINE
+                + Utility.INDENT + "Example usage: event <description> /from <from> /to <to>";
+    }
 }
