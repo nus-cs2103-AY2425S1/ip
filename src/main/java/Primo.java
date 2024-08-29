@@ -35,14 +35,21 @@ public class Primo {
         }
     }
 
-    private static String printList() {
+    private static void printList() {
+        int len = list.size();
+        for (int i = 0; i < len; i++) {
+            String output = String.valueOf(i + 1) + "." + list.get(i);
+            System.out.println(output);
+        }
+    }
+
+    private static String getList() {
         int len = list.size();
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < len; i++) {
             String output = String.valueOf(i + 1) + "." + list.get(i);
             data.append(output);
             data.append("\n");
-            System.out.println(output);
         }
         return data.toString();
     }
