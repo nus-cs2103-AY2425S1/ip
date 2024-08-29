@@ -1,11 +1,15 @@
+package Cook;
+
+import Exceptions.InvalidCommandException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.ToDo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Cook {
 
@@ -92,7 +96,7 @@ public class Cook {
                         this.ui.say("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
                         continue;
                     } catch (NullPointerException e) {
-                        this.ui.say("Deadline command format: deadline [desc] /by [YYYY-MM-DD HH:mm].");
+                        this.ui.say("Tasks.Deadline command format: deadline [desc] /by [YYYY-MM-DD HH:mm].");
                         continue;
                     }
 
@@ -114,7 +118,7 @@ public class Cook {
                         this.ui.say("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
                         continue;
                     } catch (NullPointerException e) {
-                        this.ui.say("Event command format: event [desc] " +
+                        this.ui.say("Tasks.Event command format: event [desc] " +
                                 "/from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm].");
                         continue;
                     }

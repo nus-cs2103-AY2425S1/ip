@@ -1,3 +1,7 @@
+package Cook;
+
+import Tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -12,8 +16,8 @@ public class TaskList {
         return this.taskArrayList.get(indexNo).mark(toMark);
     }
 
-    public boolean addTask(Task task) {
-        return this.taskArrayList.add(task);
+    public void addTask(Task task) {
+        this.taskArrayList.add(task);
     }
 
     public void deleteTask(int taskNo) {
@@ -29,6 +33,6 @@ public class TaskList {
             Task task = this.taskArrayList.get(i);
             taskStringBuilder.append(taskNo).append(".").append(task.toString()).append("\n");
         }
-        return taskStringBuilder.toString();
+        return taskStringBuilder.toString().strip();
     }
 }

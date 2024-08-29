@@ -1,3 +1,7 @@
+package Cook;
+
+import Exceptions.InvalidCommandException;
+
 import java.util.HashMap;
 
 public class Parser {

@@ -1,3 +1,5 @@
+package Cook;
+
 import java.util.Scanner;
 
 public class Ui {

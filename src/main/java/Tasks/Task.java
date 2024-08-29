@@ -1,3 +1,5 @@
+package Tasks;
+
 public abstract class Task {
     protected String description;
     protected boolean isMarked;
@@ -8,7 +10,7 @@ public abstract class Task {
     }
 
     public boolean mark(boolean toMark) {
-        // Task is already marked correctly
+        // Tasks.Task is already marked correctly
         if (this.isMarked == toMark) {
             return false;
         }
