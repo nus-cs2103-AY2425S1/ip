@@ -1,4 +1,4 @@
-package exception;
+package LBot.exception;
 
 // for I/O file error
 public class FileException extends LBotException {

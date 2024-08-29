@@ -1,11 +1,11 @@
-package command;
+package LBot.command;
 
-import exception.FileException;
-import helper.Ui;
-import helper.Storage;
-import helper.TaskList;
+import LBot.exception.FileException;
+import LBot.helper.Ui;
+import LBot.helper.Storage;
+import LBot.helper.TaskList;
 
-import exception.ExecuteCommandException;
+import LBot.exception.ExecuteCommandException;
 
 // role of this task is to create the tasks or run the command
 public abstract class Command {

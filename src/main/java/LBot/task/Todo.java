@@ -1,4 +1,4 @@
-package task;
+package LBot.task;
 
 public class Todo extends Task {
     private final String taskType = "[T]";

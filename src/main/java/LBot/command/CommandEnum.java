@@ -1,4 +1,4 @@
-package command;
+package LBot.command;
 
 public enum CommandEnum {
     TODO,

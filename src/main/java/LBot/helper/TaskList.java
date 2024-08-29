@@ -1,6 +1,6 @@
-package helper;
+package LBot.helper;
 
-import task.Task;
+import LBot.task.Task;
 
 import java.util.ArrayList;
 

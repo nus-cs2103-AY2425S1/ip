@@ -1,4 +1,4 @@
-package exception;
+package LBot.exception;
 
 // used when error encountered from parsing command
 // e.g. datetime issue

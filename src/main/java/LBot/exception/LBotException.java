@@ -1,4 +1,4 @@
-package exception;
+package LBot.exception;
 
 public abstract class LBotException extends Exception {
     public LBotException(String message) {

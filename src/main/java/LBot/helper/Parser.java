@@ -1,8 +1,16 @@
-package helper;
+package LBot.helper;
 
-import command.*;
-import exception.InvalidCommandException;
-import exception.ParseCommandException;
+import LBot.command.Command;
+import LBot.command.ByeCommand;
+import LBot.command.DeleteCommand;
+import LBot.command.DeadlineCommand;
+import LBot.command.EventCommand;
+import LBot.command.ListCommand;
+import LBot.command.MarkCommand;
+import LBot.command.ToDoCommand;
+
+import LBot.exception.InvalidCommandException;
+import LBot.exception.ParseCommandException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,14 +1,13 @@
-import command.Command;
-import exception.*;
-import helper.Storage;
-import helper.TaskList;
-import helper.Ui;
-import task.*;
-import helper.Parser;
+package LBot;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import LBot.command.Command;
+import LBot.exception.*;
+import LBot.helper.Storage;
+import LBot.helper.TaskList;
+import LBot.helper.Ui;
+import LBot.task.*;
+import LBot.helper.Parser;
+
 import java.util.Scanner;
 
 public class LBot {

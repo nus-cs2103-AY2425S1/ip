@@ -1,4 +1,4 @@
-package task;
+package LBot.task;
 
 public abstract class Task {
     protected String type;

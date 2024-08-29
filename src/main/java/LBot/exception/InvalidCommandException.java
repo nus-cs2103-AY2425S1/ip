@@ -1,4 +1,4 @@
-package exception;
+package LBot.exception;
 
 // used when user inputs an invalid command i.e. incorrect number of arguments
 public class InvalidCommandException extends LBotException{

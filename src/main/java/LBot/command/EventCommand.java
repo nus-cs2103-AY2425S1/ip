@@ -1,11 +1,11 @@
-package command;
+package LBot.command;
 
-import exception.ExecuteCommandException;
-import exception.FileException;
-import helper.Storage;
-import helper.TaskList;
-import helper.Ui;
-import task.Event;
+import LBot.exception.ExecuteCommandException;
+import LBot.exception.FileException;
+import LBot.helper.Storage;
+import LBot.helper.TaskList;
+import LBot.helper.Ui;
+import LBot.task.Event;
 
 import java.time.LocalDateTime;
 
