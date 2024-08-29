@@ -15,10 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the reading and writing of tasks to and from a file.
+ * It provides methods for loading tasks from the file, adding new tasks, editing existing
+ * tasks, and deleting tasks from the file.
+ */
 
 public class Storage {
     String filepath;
 
+    /**
+     * Creates a new Storage instance with the specified file path.
+     * If the file or directory does not exist, a new file/directory will be created.
+     *
+     * @param filepath The path to the file where tasks are stored.
+     */
     public Storage (String filepath) {
         try {
             this.filepath = filepath;
@@ -39,6 +50,14 @@ public class Storage {
         }
 
     }
+
+    /**
+     * Loads tasks from the file specified by this.filepath. The file is read line by line
+     * and returned as an ArrayList of Task objects.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws FileNotFoundException If the file at the specified path does not exist.
+     */
 
     public ArrayList<Task> load () throws FileNotFoundException {
 
@@ -80,6 +99,11 @@ public class Storage {
 
     }
 
+    /**
+     * Adds a new task to the storage file.
+     *
+     * @param data The String version of the task to be added to the file.
+     */
     public void addToStorage (String data) {
         try {
             FileWriter writeToFile = new FileWriter(this.filepath, true);
@@ -90,6 +114,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Edits an existing task in the storage file by replacing a line with a new line.
+     *
+     * @param oldData The old line in the file to be replaced.
+     * @param newData The new line that will replace the old line in the file.
+     */
     public void editTask (String oldData, String newData) {
         try {
             // Read the file into an array
@@ -122,6 +152,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the storage file.
+     *
+     * @param oldData The line to be deleted from the file.
+     */
     public void delTaskFromStorage (String oldData) {
         try {
             // Read the file into an array

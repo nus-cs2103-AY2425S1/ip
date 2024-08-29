@@ -9,6 +9,15 @@ public class CommandReader {
         LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE,HELP, DELETE
     }
 
+    /**
+     * Parses through the given input by user and instantiates a new Command Class through the use
+     * of enums and switch case statements.
+     *
+     *
+     * @param input The string input given by the user
+     * @return A Command Object depending on the input given by the user
+     * @throws CypherException Throws a custom exception if an invalid input is given by the user
+     */
     public static Command parse(String input) throws CypherException {
         String[] command = input.split(" ", 2);
         try {
