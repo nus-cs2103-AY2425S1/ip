@@ -1,14 +1,14 @@
-import command.Command;
-import command.StartCommand;
-import exception.DarwinException;
-import parser.InputParser;
+import darwin.command.Command;
+import darwin.command.StartCommand;
+import darwin.exception.DarwinException;
+import darwin.parser.InputParser;
 
-import task.TaskManager;
-import ui.Ui;
+import darwin.task.TaskManager;
+import darwin.ui.Ui;
 
 public class Darwin {
 
-    static final String NAME = "Darwin";
+    static final String NAME = "darwin";
     private final TaskManager taskManager = new TaskManager();
 
     private final Ui ui = new Ui();
