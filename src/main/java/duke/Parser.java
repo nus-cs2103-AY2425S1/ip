@@ -61,7 +61,8 @@ public class Parser {
                         ui.showMessage("Nice! I've marked this task as done:\n" + task);
                         storage.saveTasks(taskList.getTasks());
                     } else {
-                        throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount() + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
+                        throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount()
+                                + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
                     }
                 } else { // "mark"
                     throw new MeowException("Please specify which task to mark. Example: mark 1");
@@ -75,7 +76,8 @@ public class Parser {
                         ui.showMessage("OK, I've marked this task as not done yet:\n" + task);
                         storage.saveTasks(taskList.getTasks());
                     } else {
-                        throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount() + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
+                        throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount()
+                                + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
                     }
                 } else { // "unmark"
                     throw new MeowException("Please specify which task to unmark. Example: unmark 1");
@@ -87,15 +89,18 @@ public class Parser {
                         try {
                             LocalDate by = parseDate(parts[1].trim());
                             taskList.addTask(new Deadline(parts[0], by));
-                            ui.showMessage("Got it. I've added this task:\n" + taskList.getTask(taskList.getTaskCount() - 1));
+                            ui.showMessage("Got it. I've added this task:\n"
+                                    + taskList.getTask(taskList.getTaskCount() - 1));
                             storage.saveTasks(taskList.getTasks());
-                            ui.showMessage(taskList.getTaskCount() <= 1 ? "Now you have " + taskList.getTaskCount() + " task in the list."
+                            ui.showMessage(taskList.getTaskCount() <= 1
+                                    ? "Now you have " + taskList.getTaskCount() + " task in the list."
                                     : "Now you have " + taskList.getTaskCount() + " tasks in the list.");
                         } catch (DateTimeException | MeowException e) {
                             System.out.println(e.getMessage());
                         }
                     } else {
-                        throw new MeowException("Invalid deadline format. Example: deadline return book /by yyyy-mm-dd");
+                        throw new MeowException("Invalid deadline format. "
+                                + "Example: deadline return book /by yyyy-mm-dd");
                     }
                 } else {
                     throw new MeowException("Invalid deadline format. Example: deadline return book /by yyyy-mm-dd");
@@ -109,9 +114,11 @@ public class Parser {
                             LocalDate to = parseDate(parts[2].trim());
                             if (from.isBefore(to)) {
                                 taskList.addTask(new Event(parts[0], from, to));
-                                ui.showMessage("Got it. I've added this task:\n" + taskList.getTask(taskList.getTaskCount() - 1));
+                                ui.showMessage("Got it. I've added this task:\n"
+                                        + taskList.getTask(taskList.getTaskCount() - 1));
                                 storage.saveTasks(taskList.getTasks());
-                                ui.showMessage(taskList.getTaskCount() <= 1 ? "Now you have " + taskList.getTaskCount() + " task in the list."
+                                ui.showMessage(taskList.getTaskCount() <= 1
+                                        ? "Now you have " + taskList.getTaskCount() + " task in the list."
                                         : "Now you have " + taskList.getTaskCount() + " tasks in the list.");
                             } else {
                                 throw new MeowException("GRRR! Start date cannot be after End date");
@@ -120,10 +127,12 @@ public class Parser {
                             System.out.println(e.getMessage());
                         }
                     } else {
-                        throw new MeowException("Invalid event format. Example: event gym workout /from yyyy-mm-dd /to yyyy-mm-dd");
+                        throw new MeowException("Invalid event format. "
+                                + "Example: event gym workout /from yyyy-mm-dd /to yyyy-mm-dd");
                     }
                 } else {
-                    throw new MeowException("Invalid event format. Example: event gym workout /from yyyy-mm-dd /to yyyy-mm-dd");
+                    throw new MeowException("Invalid event format. "
+                            + "Example: event gym workout /from yyyy-mm-dd /to yyyy-mm-dd");
                 }
             } else if (input.startsWith("todo")) {
                 if (input.startsWith("todo ")) {
@@ -131,7 +140,8 @@ public class Parser {
                     taskList.addTask(new ToDo(description));
                     ui.showMessage("Got it. I've added this task:\n" + taskList.getTask(taskList.getTaskCount() - 1));
                     storage.saveTasks(taskList.getTasks());
-                    ui.showMessage(taskList.getTaskCount() <= 1 ? "Now you have " + taskList.getTaskCount() + " task in the list."
+                    ui.showMessage(taskList.getTaskCount() <= 1
+                            ? "Now you have " + taskList.getTaskCount() + " task in the list."
                             : "Now you have " + taskList.getTaskCount() + " tasks in the list.");
                 } else {
                     throw new MeowException("Invalid todo format. Example: todo eat lunch");
@@ -144,10 +154,12 @@ public class Parser {
                         taskList.deleteTask(index);
                         ui.showMessage("Noted. I've removed this task:\n" + removedTask);
                         storage.saveTasks(taskList.getTasks());
-                        ui.showMessage(taskList.getTaskCount() <= 1 ? "Now you have " + taskList.getTaskCount() + " task in the list."
+                        ui.showMessage(taskList.getTaskCount() <= 1
+                                ? "Now you have " + taskList.getTaskCount() + " task in the list."
                                 : "Now you have " + taskList.getTaskCount() + " tasks in the list.");
                     } else {
-                        throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount() + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
+                        throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount()
+                                + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
                     }
                 } else {
                     throw new MeowException("Invalid delete format. Example: delete 1");
