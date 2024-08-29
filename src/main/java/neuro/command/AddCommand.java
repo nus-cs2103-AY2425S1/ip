@@ -8,6 +8,9 @@ import neuro.task.*;
 
 import java.util.Arrays;
 
+/**
+ * The {@code AddCommand} class represents a command to add a task to the task list.
+ */
 public class AddCommand extends Command {
     private final TaskType taskType;
     private final String[] commandComponents;
@@ -17,6 +20,13 @@ public class AddCommand extends Command {
         this.commandComponents = commandComponents;
     }
 
+    /**
+     * Executes the add command to add a task of taskType to the task list.
+     *
+     * @param tasks the task list on which the command operates
+     * @param ui the user interface for interacting with the user
+     * @param storage the storage for saving and loading tasks
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = null;

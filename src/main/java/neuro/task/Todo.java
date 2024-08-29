@@ -1,7 +1,9 @@
 package neuro.task;
 
-import neuro.task.Task;
-
+/**
+ * The {@code Todo} class represents a todo task, which is a type of task with a description.
+ * It extends the {@link Task} class, inheriting its properties and methods.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

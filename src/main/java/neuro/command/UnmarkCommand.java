@@ -5,6 +5,9 @@ import neuro.Ui;
 import neuro.task.Task;
 import neuro.task.TaskList;
 
+/**
+ * The {@code UnmarkCommand} class represents a command to unmark a task in the task list.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
@@ -12,6 +15,13 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Executes the unmark command to unmark a task as not done at the index in the task list.
+     * 
+     * @param tasks the task list on which the command operates
+     * @param ui the user interface for interacting with the user
+     * @param storage the storage for saving and loading tasks
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {
