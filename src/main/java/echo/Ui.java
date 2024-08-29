@@ -65,7 +65,20 @@ public class Ui {
     public void handleList() {
         printList(taskList.getTasksString());
     }
-
+    /**
+     * Handles the "find" command by searching for tasks that contain the specified
+     * substring and printing the matching tasks in a formatted list.
+     *
+     * @param arg The substring to search for within the tasks.
+     */
+    public void handleFind(String arg) {
+        System.out.printf(
+                "____________________________________________________________\n" +
+                "Here are the matching tasks in your list:\n" +
+                "%s" +
+                "____________________________________________________________\n",
+                taskList.getFoundTasks(arg));
+    }
     /**
      * Handles the "mark" command to mark a task as done.
      *

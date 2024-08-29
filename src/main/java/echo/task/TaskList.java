@@ -35,6 +35,27 @@ public class TaskList {
         }
     }
     /**
+     * Searches for tasks in the task list that contain the specified substring
+     * and returns them as a formatted string for printing.
+     *
+     * @param stringToFind The substring to search for within the tasks.
+     * @return A formatted string containing the list of tasks that contain
+     *         the specified substring, each prefixed with its position in the list.
+     *         If no tasks contain the substring, an empty string is returned.
+     */
+    public String getFoundTasks(String stringToFind) {
+        String foundTasks = "";
+        int count = 1;
+        for (Task task: tasks) {
+            String taskString = task.getTaskString();
+            if (taskString.contains(stringToFind)) {
+                foundTasks += count + ". " + taskString + "\n";
+                count++;
+            }
+        }
+        return foundTasks;
+    }
+    /**
      * Returns a formatted string representing the tasks in the list,
      * intended for saving to a file.
      *

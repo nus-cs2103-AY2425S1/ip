@@ -74,6 +74,8 @@ public class Parser {
                     parsedEvent.length > 1 ? parsedEvent[1] : ""
             );
             break;
+        case FIND:
+            ui.handleFind(arg);
         case DELETE:
             ui.handleDelete(arg);
             break;
@@ -139,6 +141,7 @@ public class Parser {
         EVENT,
         DELETE,
         LIST,
+        FIND,
         BYE,
         UNKNOWN;
         /**
