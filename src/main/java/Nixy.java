@@ -10,7 +10,7 @@ public class Nixy {
         try {
             tasks = new TaskList(storage.load());
         } catch (NixyException e) {
-            ui.showLoadingError(e);
+            ui.showNixyException(e);
             tasks = new TaskList();
         }
     }
@@ -24,8 +24,14 @@ public class Nixy {
         Boolean isExit = false;
         while (!isExit) {
             String input = readInput();
-            Parser p =  Parser(input);
-            Command c = p.getCommand();
+            Parser p;
+            try {
+                p = new Parser(input);
+                Command c = p.getCommand();
+            } catch (NixyException e) {
+                ui.showNixyException(e);
+                continue;
+            }
             switch (c) {
             case Command.BYE:
                 isExit = true;

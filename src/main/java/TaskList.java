@@ -55,12 +55,6 @@ public class TaskList {
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
-        // TODO: deprecate this, moving to Ui Class.
-        // PrintUtility.wrapPrintWithHorizontalLines(
-        //     "Nice! I've marked this task as done:",
-        //     "  " + tasks.get(taskNumber - 1)
-        // );
-        //
         return task.toString();
     }
 
@@ -76,11 +70,6 @@ public class TaskList {
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsUndone();
-        // TODO: deprecate this, moving to Ui Class.
-        // PrintUtility.wrapPrintWithHorizontalLines(
-        //     "OK, I've marked this task as not done yet:",
-        //     "  " + tasks.get(taskNumber - 1)
-        // );
         return task.toString();
     }
 
@@ -95,23 +84,6 @@ public class TaskList {
             throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to delete does not exist.", taskNumber));
         }
         Task task = tasks.remove(taskNumber - 1);
-        // TODO: deprecate this, moving to Ui Class.
-        // PrintUtility.wrapPrintWithHorizontalLines(
-        //     "Noted. I've removed this task:",
-        //     "  " + task,
-        //     String.format("Now you have %s tasks in the list.", this.getTaskCount())
-        // );
         return task.toString();
-    }
-
-    /**
-     * TODO: deprecate this, moving to Ui Class.
-     * Prints all tasks numerically in order. (Indented)
-     */
-    public void listTasks() {
-        int taskCount = this.getTaskCount();
-        for (int i = 0; i < taskCount; i++) {
-            PrintUtility.indentPrint((i + 1) + ". " + tasks.get(i));
-        }
     }
 }
