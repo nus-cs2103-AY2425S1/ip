@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 import TaskObj.Deadlines;
@@ -98,7 +99,8 @@ public class Milo {
                         if (deadlineDesc.length != 2) {
                             Printer.printError(TaskType.taskType.DEADLINE, "Invalid deadline command\n Proper formatting: deadline <task description> + /by + <date description>");
                         } else {
-                            Task curDeadline = new Deadlines(deadlineDesc[0].strip(), deadlineDesc[1].strip());
+                            LocalDate curDate = LocalDate.parse(deadlineDesc[1].strip());
+                            Task curDeadline = new Deadlines(deadlineDesc[0].strip(), curDate);
                             todoList.add(curDeadline);
                             Printer.printTask(curDeadline);
                         }
@@ -117,7 +119,9 @@ public class Milo {
                         if (eventDesc.length != 3) {
                             Printer.printError(TaskType.taskType.DEADLINE, "Invalid event command\n Proper formatting: deadline <task description> + /from + <starting date description> + /to + <ending date description");
                         } else {
-                            Task curEvent = new Events(eventDesc[0].strip(), eventDesc[1].strip(), eventDesc[2].strip());
+                            LocalDate fromDate = LocalDate.parse(eventDesc[1].strip());
+                            LocalDate toDate = LocalDate.parse(eventDesc[1].strip());
+                            Task curEvent = new Events(eventDesc[0].strip(), fromDate, toDate);
                             todoList.add(curEvent);
                             Printer.printTask(curEvent);
                         }
