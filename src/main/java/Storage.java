@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    enum TaskType {
+        T, D, E
+    }
     File file;
     ArrayList<Task> tasks = new ArrayList<>();
 
@@ -45,7 +48,7 @@ public class Storage {
             throw new InvalidFormatException("Invalid task type found in file");
         }
         String[] input = line.split("\\|", 3);
-        Dudu.TaskType type = Dudu.TaskType.valueOf(input[0].trim());
+        TaskType type = TaskType.valueOf(input[0].trim());
         boolean marked = Integer.parseInt(input[1].trim()) == 1;
         String content = input[2].trim();
         Task task = null;

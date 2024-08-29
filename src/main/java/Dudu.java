@@ -13,12 +13,7 @@ public class Dudu {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, HELP
     }
 
-    enum TaskType {
-        T, D, E
-    }
-
     private static ArrayList<Task> tasks = new ArrayList<>();
-    public static String filePath = "./data/dudu.txt";
 
     public static void main(String[] args) {
         Storage s = new Storage("./data/dudu.txt");
@@ -186,7 +181,7 @@ public class Dudu {
     }
 
     public static void rewriteFile() throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter("./data/dudu.txt");
         for (Task task : tasks) {
             fw.write(String.format("%s\n", task.formatString()));
         }
