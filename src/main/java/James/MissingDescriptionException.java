@@ -7,7 +7,7 @@ package james;
  * that a task description or related information is incomplete or missing.
  * </p>
  */
-public class MissingDescriptionException extends JamesException {
+class MissingDescriptionException extends JamesException {
     /**
      * Creates a new MissingDescriptionException with the specified message.
      *

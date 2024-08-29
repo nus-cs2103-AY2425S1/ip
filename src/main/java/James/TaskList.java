@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Manages a list of tasks.
  */
-public class TaskList {
+class TaskList {
     private ArrayList<Task> tasks;
 
     /**

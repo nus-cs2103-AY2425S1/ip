@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a start and end time.
  */
-public class Event extends Task {
+class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
     private final String PATTERN = "MMM d yyyy HHmm";
@@ -44,8 +44,8 @@ public class Event extends Task {
      * @return Task details in a format suitable for file storage
      */
     @Override
-    public String toFileFormat() {
-        return String.format("E | %s | %s | %s", super.toFileFormat(),
+    public String convertToFileFormat() {
+        return String.format("E | %s | %s | %s", super.convertToFileFormat(),
                 start,
                 end);
     }

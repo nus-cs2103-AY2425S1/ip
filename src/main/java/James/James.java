@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * and controls the flow of the application.
  * </p>
  */
-public class James {
+class James {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;

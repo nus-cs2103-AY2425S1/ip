@@ -4,7 +4,7 @@ package james;
  * Represents a task with a description and a completion status.
  * Provides methods to mark the task as done or not done, and to format the task for output or storage.
  */
-public abstract class Task {
+abstract class Task {
     private String description;
     private Boolean marked;
 
@@ -55,7 +55,7 @@ public abstract class Task {
      *
      * @return The task in a format suitable for storage.
      */
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         return String.format("%d | %s", marked ? 1 : 0, description);
     }
 }

@@ -3,7 +3,7 @@ package james;
 /**
  * Represents a to-do task.
  */
-public class Todo extends Task {
+class Todo extends Task {
 
     /**
      * Creates a new Todo task with the specified description and mark status.
@@ -29,7 +29,7 @@ public class Todo extends Task {
      * @return A formatted string representing the to-do task.
      */
     @Override
-    public String toFileFormat() {
-        return String.format("T | %s", super.toFileFormat());
+    public String convertToFileFormat() {
+        return String.format("T | %s", super.convertToFileFormat());
     }
 }

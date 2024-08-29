@@ -6,7 +6,7 @@ package james;
  * Used to indicate errors specific to the application's operation.
  * </p>
  */
-public class JamesException extends Exception {
+class JamesException extends Exception {
     /**
      * Creates a new JamesException with the specified message.
      *
