@@ -74,6 +74,7 @@ public class EventTask extends Task {
     public LocalDate getDate() {
         return from.toLocalDate();
     }
+
     @Override
     public String getFrom() {
         return from.toString();

@@ -1,10 +1,10 @@
 package bob.storage;
 
-import bob.data.TaskList;
-import bob.tasks.Task;
-
 import java.io.FileWriter;
 import java.io.IOException;
+
+import bob.data.TaskList;
+import bob.tasks.Task;
 
 /**
  * Writes list of tasks to a file.
@@ -29,6 +29,7 @@ public class FileWriting extends Storage {
      */
     public static void saveTasks(TaskList updatedList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
+
         for (Task t : updatedList) {
             fw.write(formatTasks(t) + "\n");
         }

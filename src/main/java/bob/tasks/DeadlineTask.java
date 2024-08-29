@@ -26,6 +26,7 @@ public class DeadlineTask extends Task {
     public String getBy() {
         return by.toString();
     }
+
     @Override
     public String getType() {
         return "D";

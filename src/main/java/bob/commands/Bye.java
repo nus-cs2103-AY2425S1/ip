@@ -1,17 +1,16 @@
 package bob.commands;
 
+import java.io.IOException;
+
 import bob.storage.FileWriting;
 import bob.storage.Storage;
 import bob.data.TaskList;
 import bob.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Exits the program.
  */
 public class Bye extends Command {
-
     /**
      * Saves the list of tasks to the file.
      * Exits the program.

@@ -10,7 +10,7 @@ import bob.tasks.TodoTask;
  * Represents a command that adds a todo task to the list.
  */
 public class Todo extends Command {
-    String description;
+    private final String description;
     public Todo(String description) {
         this.description = description;
     }
@@ -22,15 +22,16 @@ public class Todo extends Command {
      * @param list The list of tasks.
      * @param task The task to be added.
      */
-    private static void taskAdded(TaskList list, Task task) {
+    private static void addTask(TaskList list, Task task) {
         System.out.println("Got it. I've added this task:\n" + task);
         System.out.println("Now you have " + list.size() + (list.size() == 1 ? " task in the list." : " tasks in the list."));
     }
+
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         Task t = new TodoTask(description);
         list.add(t);
-        taskAdded(list, t);
+        addTask(list, t);
     }
 
     @Override

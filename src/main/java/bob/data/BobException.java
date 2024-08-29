@@ -4,7 +4,6 @@ package bob.data;
  * Exception thrown by the Bob application.
  */
 public class BobException extends Exception {
-
     /**
      * Returns an exception with a message.
      *
@@ -14,5 +13,4 @@ public class BobException extends Exception {
     public BobException(String message) {
         super(message);
     }
-
 }
