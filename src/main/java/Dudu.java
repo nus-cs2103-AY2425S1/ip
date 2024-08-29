@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
-import java.nio.file.Paths;
-import java.nio.file.Files;
 import java.io.File;
 import java.io.FileWriter;
 
@@ -18,8 +16,6 @@ public class Dudu {
     }
 
     private static ArrayList<Task> tasks = new ArrayList<>();
-
-    public static boolean terminate = false;
     public static String filePath = "./data/dudu.txt";
 
     public static void main(String[] args) {
