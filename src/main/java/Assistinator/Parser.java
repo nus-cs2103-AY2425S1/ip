@@ -1,11 +1,25 @@
 package Assistinator;
 
 public class Parser {
+    /**
+     * Parses command from user input
+     * @param input User input from UI
+     * @return Command to be used by
+     */
     public Command parseCommand(String input) {
         String commandType = input.split(" ")[0].toUpperCase();
         return Command.fromString(commandType);
     }
 
+    /**
+     * Parses the input string to extract and return an index.
+     * This method expects the input to be in the format "command index",
+     * where index is a positive integer.
+     *
+     * @param input The input string to parse.
+     * @return The parsed index as an integer, adjusted to be zero-based (subtracts 1 from the parsed number).
+     * @throws AssitinatorExceptions If the input format is invalid or the index cannot be parsed.
+     */
     public int parseIndex(String input) throws AssitinatorExceptions {
         try {
             return Integer.parseInt(input.split(" ")[1]) - 1;
@@ -14,6 +28,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input and creates a Task object based on the specified command type.
+     *
+     * @param type The type of command (TODO, DEADLINE, or EVENT).
+     * @param input The input string containing the task details.
+     * @return A Task object created based on the input and command type.
+     * @throws AssitinatorExceptions If the task type is invalid or if there's an error in parsing the specific task type.
+     */
     public Task parseTask(Command type, String input) throws AssitinatorExceptions {
         switch (type) {
             case TODO:

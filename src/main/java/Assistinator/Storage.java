@@ -10,10 +10,18 @@ import java.util.Scanner;
 public class Storage {
     private final String FILE_PATH;
 
+    /**
+     * Initialise a storage class
+     * @param filePath File path to tasks
+     */
     public Storage(String filePath) {
         this.FILE_PATH = filePath;
     }
 
+    /**
+     * Saves tasks to file in initialised file path
+     * @param tasks Task list
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
@@ -26,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task list from file
+     * @return task list
+     * @throws AssitinatorExceptions If file not in provided file path
+     */
     public ArrayList<Task> loadTasks() throws AssitinatorExceptions {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -43,6 +56,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts lines in files to tasks
+     * @param parts Task information
+     * @param type Type of task
+     * @return Task
+     */
     public Task getTask(String[] parts, String type) {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
