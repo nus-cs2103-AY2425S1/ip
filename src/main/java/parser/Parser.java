@@ -2,7 +2,6 @@ package parser;
 
 
 import exception.TakoException;
-import task.*;
 import task.TaskList;
 import task.ToDo;
 import task.Deadline;
@@ -19,8 +18,6 @@ import java.time.format.DateTimeParseException;
  * being input into Tako chatbot.
  */
 public class Parser {
-<<<<<<< HEAD
-    public static ArrayList<Task> listOfTask = new ArrayList<Task>();
 
     /**
      * Checks whether the input command is recognizable by Tako.
@@ -28,8 +25,6 @@ public class Parser {
      * @param command the string that is being input into Tako.
      * @throws TakoException if the command is not recognized.
      */
-=======
->>>>>>> branch-A-CodingStandard
     public static void parse(String command) {
         try {
             if (command.equalsIgnoreCase("bye")) {
@@ -59,14 +54,13 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
+
     /**
      * Marks the task as complete according to the input
      *
      * @param command
      * @throws TakoException if the mark command is not in the right form
      */
-=======
     public static void parseFind(String command) {
         try {
             if (command.length() > 4 && command.charAt(4) == ' ' && !command.substring(5).isBlank()) {
@@ -80,7 +74,7 @@ public class Parser {
             Ui.promptInput();
         }
     }
->>>>>>> branch-Level-9
+
     public static void parseMark(String command) {
         try {
             if (command.length() > 4 && command.charAt(4) == ' ') {
@@ -250,7 +244,7 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
+
     /**
      * Checks whether the input is of the correct format and if so,
      * whether it is an existing date
@@ -259,10 +253,7 @@ public class Parser {
      * @param date
      * @return boolean of whether the date is valid
      */
-    public static boolean isValidDate(String date) {
-=======
     public static boolean checkValidDate(String date) {
->>>>>>> branch-A-CodingStandard
         try {
             LocalDate.parse(date);
             return true;
@@ -271,17 +262,14 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Changes the date from MONTH DD YYYY to a local date class
      *
      * @param date
      * @return LocalDate object
      */
-    public static LocalDate dateToLocalDate(String date) {
-=======
     public static LocalDate changeDateToLocalDate(String date) {
->>>>>>> branch-A-CodingStandard
+
         int firstSpace = date.indexOf(' ');
         String month = date.substring(0, firstSpace);
         int intMonth = Month.valueOf(month).getValue();
