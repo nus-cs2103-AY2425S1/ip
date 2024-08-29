@@ -1,3 +1,8 @@
+package bob.storage;
+
+import bob.data.BobException;
+import bob.data.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

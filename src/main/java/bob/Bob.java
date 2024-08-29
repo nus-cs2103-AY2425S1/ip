@@ -1,5 +1,13 @@
-public class Bob {
+package bob;
 
+import bob.commands.Command;
+import bob.data.BobException;
+import bob.data.TaskList;
+import bob.parser.Parser;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
+public class Bob {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;

@@ -1,3 +1,19 @@
+package bob.parser;
+
+import bob.data.BobException;
+import bob.commands.Bye;
+import bob.commands.Command;
+import bob.commands.Delete;
+import bob.commands.Event;
+import bob.commands.List;
+import bob.commands.Mark;
+import bob.commands.On;
+import bob.commands.Unmark;
+import bob.commands.Todo;
+import bob.commands.Deadline;
+import bob.tasks.DeadlineTask;
+import bob.tasks.EventTask;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +25,7 @@ public class Parser {
         LIST, UNMARK, MARK, ON, DELETE, TODO, DEADLINE, EVENT, INVALID, BYE
     }
 
-    static Command parse(String fullCommand) throws BobException {
+    public static Command parse(String fullCommand) throws BobException {
         String[] commandParts = fullCommand.split(" "); // Split into command and arguments
         String commandWord = commandParts[0].toUpperCase();
 

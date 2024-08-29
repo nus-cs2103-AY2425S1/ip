@@ -1,3 +1,10 @@
+package bob.commands;
+
+import bob.storage.FileWriting;
+import bob.storage.Storage;
+import bob.data.TaskList;
+import bob.ui.Ui;
+
 import java.io.IOException;
 
 public class Bye extends Command {

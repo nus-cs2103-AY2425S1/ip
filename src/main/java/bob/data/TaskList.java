@@ -1,3 +1,7 @@
+package bob.data;
+
+import bob.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {

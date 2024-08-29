@@ -1,3 +1,9 @@
+package bob.commands;
+
+import bob.storage.Storage;
+import bob.data.TaskList;
+import bob.ui.Ui;
+
 public class Delete extends Command {
     private final int index;
 
