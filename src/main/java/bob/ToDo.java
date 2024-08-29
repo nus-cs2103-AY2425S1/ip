@@ -29,6 +29,7 @@ public class ToDo extends Task {
 
     /**
      * Returns a string representation of the ToDo task.
+     * This method overrides the {@link Task#toString()} method to provide a specific format for ToDo tasks.
      *
      * @return The string representation of the ToDo task.
      * @inheritDoc
@@ -39,7 +40,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string format of the ToDo task suitable for saving to a file.
+     * Formats the todo task for saving to a file.
+     * The format includes the task's description and status in the input format.
+     * This method overrides the {@link Task#formatToSave()} method to provide a specific format for ToDo tasks.
      *
      * @return The string representation of the ToDo task in a format suitable for saving.
      * @inheritDoc

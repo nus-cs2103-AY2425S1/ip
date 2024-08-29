@@ -73,6 +73,7 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the event task, including its description, start time, and end time.
+     * This method overrides the {@link Task#toString()} method to provide a specific format for Event tasks.
      *
      * @return The string representation of the event task.
      * @inheritDoc
@@ -86,6 +87,7 @@ public class Event extends Task {
     /**
      * Formats the event task for saving to a file.
      * The format includes the task's description, status, start time, and end time in the input format.
+     * This method overrides the {@link Task#formatToSave()} method to provide a specific format for Event tasks.
      *
      * @return The formatted string for saving the task.
      * @inheritDoc

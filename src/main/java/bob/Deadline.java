@@ -60,6 +60,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the deadline task, including its description and formatted deadline date/time.
+     * This method overrides the {@link Task#toString()} method to provide a specific format for Deadline tasks.
      *
      * @return The string representation of the deadline task.
      * @inheritDoc
@@ -72,6 +73,7 @@ public class Deadline extends Task {
     /**
      * Formats the deadline task for saving to a file.
      * The format includes the task's description, status, and deadline in the input format.
+     * This method overrides the {@link Task#formatToSave()} method to provide a specific format for Deadline tasks.
      *
      * @return The formatted string for saving the task.
      * @inheritDoc
