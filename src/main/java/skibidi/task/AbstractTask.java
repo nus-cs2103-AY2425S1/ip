@@ -1,6 +1,7 @@
 package skibidi.task;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public abstract class AbstractTask {
     protected String description;
@@ -51,12 +52,12 @@ public abstract class AbstractTask {
             if (args.length != 5) {
                 throw new TaskDeserializationException("Invalid format given for Event!");
             }
-            return new Event(args[1], args[2], args[3], args[4]);
+            return new Event(args[1], args[2], LocalDate.parse(args[3]), LocalDate.parse(args[4]));
         case "D":
             if (args.length != 4) {
                 throw new TaskDeserializationException("Invalid format given for Deadline!");
             }
-            return new Deadline(args[1], args[2], args[3]);
+            return new Deadline(args[1], args[2], LocalDate.parse(args[3]));
         case "T":
             if (args.length != 3) {
                 throw new TaskDeserializationException("Invalid format given for Todo!");
