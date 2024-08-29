@@ -5,22 +5,46 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WenJie {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public WenJie(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
+
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isActive = false;
+        while (!isActive) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
     public static void main(String[] args) {
         String filePath = "./src/main/java/data/wenjie.txt";
         Storage storage = new Storage(filePath);
 
         try {
-            Scanner scanner = new Scanner(System.in);
+
             boolean active = true;
-            ArrayList<Task> taskList = storage.getTasks();
+            ArrayList<Task> taskList = storage.load();
 
-            String greeting =
-                    "____________________________________________________________\n" +
-                            "Eh wassup la bro, my name is Wen Jie.\n" +
-                            "What you want?\n" +
-                            "____________________________________________________________\n";
 
-            System.out.println(greeting);
+
 
             while(active) {
                 String input = scanner.nextLine();
@@ -32,11 +56,6 @@ public class WenJie {
                 switch(firstWord) {
                     case "bye": {
                         active = false;
-                        String farewell =
-                                "____________________________________________________________\n" +
-                                        "  Paiseh bro I zao liao, see you around ah bro.\n" +
-                                        "____________________________________________________________\n";
-                        System.out.println(farewell);
                         storage.writeTasks();
                         break;
                     }

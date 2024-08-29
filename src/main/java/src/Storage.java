@@ -20,22 +20,22 @@ public class Storage {
         this.filePath = filePath;
         try {
             readTasks();
-        } catch (FileNotFoundException e) {
+        } catch (NoFileException e) {
             System.out.println("Bro I can't find a file to retrieve the data, \n" +
                     " can help lobang me and create a file pls");
         }
 
     }
 
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> load() {
         return tasks;
     }
 
-    public void readTasks() throws FileNotFoundException {
+    public void readTasks() throws NoFileException {
         File file = new File(filePath);
 
         if (!file.exists()) {
-            throw new FileNotFoundException();
+            throw new NoFileException();
         } else {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(filePath)));
