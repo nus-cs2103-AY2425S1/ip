@@ -11,11 +11,18 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 
+/**
+ * Handles the storage of tasks by reading from and writing to a file.
+ * Ensures that the file and directory exist and provides methods for saving and loading tasks.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/echo-bot.txt";
     private static final String DIR_PATH = "./data/";
 
-    // Method to ensure the directory and file exist
+    /**
+     * Ensures that the directory and file for storing tasks exist.
+     * Creates the directory and file if they do not already exist.
+     */
     public static void ensureFileExists() {
         File dir = new File(DIR_PATH);
         if (!dir.exists()) {
@@ -33,7 +40,12 @@ public class Storage {
         }
     }
 
-    // Method to save tasks to a file
+    /**
+     * Saves the tasks to the file.
+     * Ensures the file exists before writing and formats each task for storage.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public static void saveTasksToFile(TaskList tasks) {
         ensureFileExists();
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
@@ -45,7 +57,12 @@ public class Storage {
         }
     }
 
-    // Load tasks from file when starting the program
+    /**
+     * Loads tasks from the file into the given TaskList.
+     * Handles any errors that occur during file reading and task parsing.
+     *
+     * @param tasks The list to which the loaded tasks will be added.
+     */
     public static void loadTasksFromFile(TaskList tasks) {
         ensureFileExists();
         Path path = Paths.get(FILE_PATH);
@@ -72,6 +89,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a Task object from a file line.
+     * Parses the line to determine the task type and properties.
+     *
+     * @param line The line from the file to be parsed.
+     * @return The Task object created from the line.
+     * @throws IllegalArgumentException If the task type is unknown or the line format is incorrect.
+     */
     private static Task getTask(String line) {
         String[] parts = line.split(" \\| ");
         Task task = null;
