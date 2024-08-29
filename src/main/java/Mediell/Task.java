@@ -30,7 +30,7 @@ public class Task {
     }
 
     public String taskToStorageFormat() {
-        return completed ? "1" : "0" + "|" + taskName;
+        return (completed ? "1" : "0") + "|" + taskName;
     }
 
     public void initStorageFormat(String format) {
