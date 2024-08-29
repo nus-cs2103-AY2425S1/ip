@@ -145,6 +145,22 @@ public class TaskList {
     }
 
     /**
+     * Finds and prints out the tasks that contain a certain keyword
+     *
+     * @param keyword     the command specifying whether to mark or unmark the task
+     */
+    public void findTasks(String keyword) {
+        Ui.showLine();
+        int taskNumber = 1;
+        for (Task task : this.taskList) {
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println(taskNumber++ + "." + task);
+            }
+        }
+        Ui.showLine();
+    }
+
+    /**
      * Writes the current list of tasks to the file.
      * Each task is written on a new line.
      */
