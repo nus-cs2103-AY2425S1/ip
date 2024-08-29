@@ -1,4 +1,6 @@
-package Stobberi;
+package Stobberi.Command;
+
+import Stobberi.components.TaskList;
 
 public class ListCommand extends Command {
     private TaskList taskList;

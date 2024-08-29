@@ -1,4 +1,4 @@
-package Stobberi;
+package Stobberi.Task;
 
 public class Todo extends Task {
 

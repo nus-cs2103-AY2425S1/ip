@@ -1,4 +1,6 @@
-package Stobberi;
+package Stobberi.Command;
+
+import Stobberi.components.TaskList;
 
 public class DeleteCommand extends Command {
     private TaskList taskList;

@@ -1,7 +1,9 @@
-package Stobberi;
+package Stobberi.Command;
 
 import Stobberi.StobberiException.EmptyStobberiException;
 import Stobberi.StobberiException.StobberiException;
+import Stobberi.components.TaskList;
+import Stobberi.Task.Todo;
 
 public class TodoCommand extends Command {
     private TaskList taskList;

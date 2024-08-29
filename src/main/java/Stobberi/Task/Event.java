@@ -1,4 +1,4 @@
-package Stobberi;
+package Stobberi.Task;
 
 import Stobberi.StobberiException.NotPossibleDurationStobberiException;
 

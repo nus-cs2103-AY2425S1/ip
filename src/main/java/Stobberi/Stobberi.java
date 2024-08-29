@@ -1,6 +1,11 @@
 package Stobberi;
 
+import Stobberi.Command.Command;
 import Stobberi.StobberiException.StobberiException;
+import Stobberi.components.Parser;
+import Stobberi.components.Storage;
+import Stobberi.components.TaskList;
+import Stobberi.components.Ui;
 
 public class Stobberi {
     private TaskList taskList;

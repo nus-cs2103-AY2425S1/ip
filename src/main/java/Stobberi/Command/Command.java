@@ -1,4 +1,4 @@
-package Stobberi;
+package Stobberi.Command;
 
 import Stobberi.StobberiException.StobberiException;
 

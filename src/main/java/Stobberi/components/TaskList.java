@@ -1,6 +1,9 @@
-package Stobberi;
+package Stobberi.components;
 
 import Stobberi.StobberiException.StobberiException;
+import Stobberi.Task.Deadline;
+import Stobberi.Task.Event;
+import Stobberi.Task.Task;
 
 import java.util.ArrayList;
 

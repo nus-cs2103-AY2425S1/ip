@@ -1,4 +1,6 @@
-package Stobberi;
+package Stobberi.Command;
+
+import Stobberi.components.TaskList;
 
 public class MarkCommand extends Command {
     private TaskList taskList;

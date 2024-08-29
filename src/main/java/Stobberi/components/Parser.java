@@ -1,5 +1,15 @@
-package Stobberi;
+package Stobberi.components;
 
+import Stobberi.Command.Command;
+import Stobberi.Command.DateCommand;
+import Stobberi.Command.DeadlineCommand;
+import Stobberi.Command.DeleteCommand;
+import Stobberi.Command.EventCommand;
+import Stobberi.Command.ExitCommand;
+import Stobberi.Command.ListCommand;
+import Stobberi.Command.MarkCommand;
+import Stobberi.Command.TodoCommand;
+import Stobberi.Command.UnmarkCommand;
 import Stobberi.StobberiException.NoNumberStobberiException;
 import Stobberi.StobberiException.NoSuchTaskStobberiException;
 import Stobberi.StobberiException.StobberiException;

@@ -1,6 +1,10 @@
-package Stobberi;
+package Stobberi.components;
 
 import Stobberi.StobberiException.NotPossibleDurationStobberiException;
+import Stobberi.Task.Deadline;
+import Stobberi.Task.Event;
+import Stobberi.Task.Task;
+import Stobberi.Task.Todo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -56,15 +60,15 @@ public class Storage {
                 String taskLine = "";
                 if (task instanceof Todo) {
                     taskLine += "T | ";
-                    taskLine += task.description;
+                    taskLine += task.getDescription();
                 } else if (task instanceof Deadline deadline) {
                     taskLine += "D | ";
-                    taskLine += task.description;
+                    taskLine += task.getDescription();
                     taskLine += " | ";
                     taskLine += deadline.getDeadlineOfTask();
                 } else if (task instanceof Event event) {
                     taskLine += "E | ";
-                    taskLine += task.description;
+                    taskLine += task.getDescription();
                     taskLine += " | ";
                     taskLine += event.getStartOfEvent();
                     taskLine += " | ";
