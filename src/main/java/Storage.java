@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Storage {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final String DIR_PATH;
     private final String FILE_PATH;
 
@@ -148,6 +147,25 @@ public class Storage {
             }
 
             // Write the updated lines back to the file
+            Files.write(file, lines);
+        } catch (IOException e) {
+            System.out.println("Something went wrong updating the file");
+        }
+    }
+
+    public void updateSave(ArrayList<Task> taskList) {
+        Path file = Paths.get(FILE_PATH);
+
+        try {
+            // Create a list of strings to represent the updated file content
+            List<String> lines = new ArrayList<>();
+
+            // Convert each task in the taskList to its CSV representation
+            for (Task task : taskList) {
+                lines.add(task.saveAsCSV());
+            }
+
+            // Write the updated lines back to the file, replacing the entire content
             Files.write(file, lines);
         } catch (IOException e) {
             System.out.println("Something went wrong updating the file");

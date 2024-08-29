@@ -33,6 +33,8 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public void showMessage(String msg) {System.out.println(msg);}
+
     public void showError(String error) {
         System.out.println(RED + "ERROR!" + RESET + " " + error);
     }
