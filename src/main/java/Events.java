@@ -1,17 +1,30 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Events extends Task {
-    private String startDate;
-    private String endDate;
+//    private String startDate;
+//    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     public Events(String description) throws CommandFoundButInvalidException {
         super(description);
         String[] inputs = this.getValidString(description);
         super.description = inputs[0];
-        this.startDate = inputs[1];
-        this.endDate = inputs[2];
+        String start = inputs[1];
+        String end = inputs[2];
+        try {
+            this.startDate = LocalDateTime.parse(start);
+            this.endDate = LocalDateTime.parse(end);
+        } catch (DateTimeParseException e) {
+            throw new InvalidSyntaxException("event, please use yyyy-mm-ddThh:mm. E.g. 2024-09-11T23:59");
+        }
     }
     public String toString() {
-        String str = " (from: " + startDate + " to: " + endDate + ")";
+        String startString = startDate.format(DateTimeFormatter.ofPattern("dd MMM yyy HH:mm"));
+        String endString = endDate.format(DateTimeFormatter.ofPattern("dd MMM yyy HH:mm"));
+        String str = " (from: " + startString + " to: " + endString + ")";
         return "[E]" + super.toString() + str;
     }
     public String[] getValidString(String description) throws CommandFoundButInvalidException{
