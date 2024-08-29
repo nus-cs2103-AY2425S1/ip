@@ -1,9 +1,6 @@
 package shrimp;
 
-import shrimp.command.AddCommand;
-import shrimp.command.DeleteCommand;
-import shrimp.command.ListCommand;
-import shrimp.command.MarkCommand;
+import shrimp.command.*;
 import shrimp.exception.ShrimpException;
 import shrimp.task.*;
 import shrimp.utility.AnsiCode;
@@ -133,6 +130,11 @@ public class Shrimp {
                         Task newEvent = new Event(eventDescription, from, to, NEW_EVENT_NOT_DONE);
                         AddCommand addEvent = new AddCommand(newEvent);
                         addEvent.run(taskList, ui);
+                        break;
+
+                    case CLEAR:
+                        ClearCommand clearCommand = new ClearCommand();
+                        clearCommand.run(taskList, ui);
                         break;
 
                     default:
