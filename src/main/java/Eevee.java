@@ -72,13 +72,16 @@ public class Eevee {
                             // Check the type of task
                             if (task instanceof Todo) {
                                 type = "T";
-                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|" +task.getDescription() + "\n");
+                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|"
+                                        + task.getDescription() + "\n");
                             } else if (task instanceof Deadline) {
                                 type = "D";
-                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|" +task.getDescription() + "|" + ((Deadline) task).getDeadline() + "\n");
+                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|"
+                                        + task.getDescription() + "|" + ((Deadline) task).getDeadline() + "\n");
                             } else if (task instanceof Event) {
                                 type = "E";
-                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|" +task.getDescription() + "|" + ((Event) task).getTimeline() + "\n");
+                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|"
+                                        + task.getDescription() + "|" + ((Event) task).getTimeline() + "\n");
                             } else {
                                 throw new EeveeException("There is a task of unknown type!");
                             }
@@ -100,7 +103,8 @@ public class Eevee {
                 case MARK: {
                     int taskNumber = scanner.nextInt();
                     if (taskNumber > tasks.size()) {
-                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                        throw new EeveeException("No task under the given task number. "
+                                + "Did you type the wrong number?");
                     }
                     Task t = tasks.get(taskNumber - 1);
                     if (t.isDone) {
@@ -113,7 +117,8 @@ public class Eevee {
                 case UNMARK: {
                     int taskNumber = scanner.nextInt();
                     if (taskNumber > tasks.size()) {
-                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                        throw new EeveeException("No task under the given task number. "
+                                + "Did you type the wrong number?");
                     }
                     Task t = tasks.get(taskNumber - 1);
                     if (!t.isDone) {
@@ -127,7 +132,8 @@ public class Eevee {
                 case DELETE: {
                     int taskNumber = scanner.nextInt();
                     if (taskNumber > tasks.size()) {
-                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                        throw new EeveeException("No task under the given task number. "
+                                + "Did you type the wrong number?");
                     }
                     Task t = tasks.get(taskNumber - 1);
                     tasks.remove(taskNumber - 1);
@@ -137,7 +143,8 @@ public class Eevee {
                 case TODO: {
                     String s = scanner.nextLine().trim();
                     if (s.isEmpty()) {
-                        throw new EeveeException("No task found :( Please input the task details and description correctly");
+                        throw new EeveeException("No task found :( "
+                                + "Please input the task details and description correctly");
                     }
                     Todo t = new Todo(s);
                     tasks.add(t);
@@ -147,7 +154,8 @@ public class Eevee {
                 case DEADLINE: {
                     String s = scanner.nextLine().trim();
                     if (s.isEmpty()) {
-                        throw new EeveeException("No task found :( Please input the task details and description correctly");
+                        throw new EeveeException("No task found :( "
+                                + "Please input the task details and description correctly");
                     }
                     String[] info = s.split("/", 2);
                     if (info.length < 2) {
@@ -162,7 +170,8 @@ public class Eevee {
                 case EVENT: {
                     String s = scanner.nextLine().trim();
                     if (s.isEmpty()) {
-                        throw new EeveeException("No task found :( Please input the task details and description correctly");
+                        throw new EeveeException("No task found :( "
+                                + "Please input the task details and description correctly");
                     }
                     String[] info = s.split("/", 3);
                     if (info.length < 3) {
