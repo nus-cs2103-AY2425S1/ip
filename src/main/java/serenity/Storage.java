@@ -1,3 +1,7 @@
+package serenity;
+
+import serenity.SerenityException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

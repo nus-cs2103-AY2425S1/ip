@@ -1,3 +1,4 @@
+package serenity;
 import java.io.IOException;
 
 public class Serenity {
