@@ -9,6 +9,12 @@ public class Events extends Task {
         this.end = end;
     }
 
+    public String infoForFile() {
+        String str = "[E] / " + super.getDetails();
+        str += " / " + start + " / " + end;
+        return str;
+    }
+
     @Override
     public String toString() {
         String str = "";

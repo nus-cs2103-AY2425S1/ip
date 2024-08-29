@@ -7,6 +7,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public String infoForFile() {
+        String str = "[D] / " + super.getDetails() + " / " + deadline;
+        return str;
+    }
+
     @Override
     public String toString() {
         String str = "";

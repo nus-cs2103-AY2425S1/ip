@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String taskname;
     private boolean done;
     public Task(String s) {
@@ -45,6 +45,18 @@ public class Task {
             throw new CommandNotRecognisedException();
         }
     }
+
+    public String getDetails() {
+        String str = "";
+        if (done) {
+            str = "[D] / ";
+        } else {
+            str = "[N] / ";
+        }
+        return str + taskname;
+    }
+
+    public abstract String infoForFile();
 
     public void done() {
         done = true;
