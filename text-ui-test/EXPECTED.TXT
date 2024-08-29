@@ -29,6 +29,12 @@
     UH OH! Index out of bounds! Try calling the command 'list' to verify the index of the desired task.
     ___________________________________________________
     ___________________________________________________
+    UH OH! Invalid index for 'mark' command! Add a valid index for a task to mark, like 'mark 2'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! Invalid index for 'mark' command! Add a valid index for a task to mark, like 'mark 2'.
+    ___________________________________________________
+    ___________________________________________________
     UH OH! The description of a 'todo' cannot be empty! Try adding a description like 'todo read book'.
     ___________________________________________________
     ___________________________________________________
@@ -36,14 +42,11 @@
     1. [T][ ] read book
     ___________________________________________________
     ___________________________________________________
-    Ok, I've added this task:
-        [D][ ] return book (by: June 6th)
-    Now you have 2 tasks in the list.
+    Invalid date string!
     ___________________________________________________
     ___________________________________________________
     Here is a list of all your tasks:
     1. [T][ ] read book
-    2. [D][ ] return book (by: June 6th)
     ___________________________________________________
     ___________________________________________________
     UH OH! The command given is missing the '/by' input for deadline.Try updating the command like 'deadline finish homework /by Mon 2359'.
@@ -57,13 +60,12 @@
     ___________________________________________________
     Ok, I've added this task:
         [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-    Now you have 3 tasks in the list.
+    Now you have 2 tasks in the list.
     ___________________________________________________
     ___________________________________________________
     Here is a list of all your tasks:
     1. [T][ ] read book
-    2. [D][ ] return book (by: June 6th)
-    3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+    2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
     ___________________________________________________
     UH OH! The command given is missing the '/from' input for event.Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.
@@ -84,24 +86,20 @@
     UH OH! The from time/date of an 'event' cannot be empty! Try adding a valid from time/date like 'event project meeting /from Mon 2pm /to 5pm'.
     ___________________________________________________
     ___________________________________________________
-    Nice! I've marked this task as done:
-    [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+    UH OH! Index out of bounds! Try calling the command 'list' to verify the index of the desired task.
     ___________________________________________________
     ___________________________________________________
     Here is a list of all your tasks:
     1. [T][ ] read book
-    2. [D][ ] return book (by: June 6th)
-    3. [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+    2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
     ___________________________________________________
-    Ok, I've marked this task as not done:
-    [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+    UH OH! Index out of bounds! Try calling the command 'list' to verify the index of the desired task.
     ___________________________________________________
     ___________________________________________________
     Here is a list of all your tasks:
     1. [T][ ] read book
-    2. [D][ ] return book (by: June 6th)
-    3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+    2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
     ___________________________________________________
     UH OH! Missing index for 'delete' command! Add a valid index for a task to delete, like 'delete 2'.
@@ -109,21 +107,18 @@
     ___________________________________________________
     Ok, I've removed this task:
     [T][ ] read book
-    Now you have 2 tasks in the list.
-    ___________________________________________________
-    ___________________________________________________
-    Here is a list of all your tasks:
-    1. [D][ ] return book (by: June 6th)
-    2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-    ___________________________________________________
-    ___________________________________________________
-    Ok, I've removed this task:
-    [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     Now you have 1 tasks in the list.
     ___________________________________________________
     ___________________________________________________
     Here is a list of all your tasks:
-    1. [D][ ] return book (by: June 6th)
+    1. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! Index out of bounds! Try calling the command 'list' to verify the index of the desired task.
+    ___________________________________________________
+    ___________________________________________________
+    Here is a list of all your tasks:
+    1. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
     ___________________________________________________
     Goodbyeee!

@@ -5,6 +5,8 @@ mark 1
 mark 2
 unmark 1
 unmark 2
+mark test
+unmark test
 todo
 list
 deadline return book /by June 6th
