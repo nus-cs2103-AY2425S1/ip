@@ -10,8 +10,6 @@ public class Events extends Task {
 
     public Events(String s, String start, String end) {
         super(s);
-        System.out.println(start);
-        System.out.println(end);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
