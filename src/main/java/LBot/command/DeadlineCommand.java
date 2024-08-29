@@ -6,6 +6,7 @@ import LBot.helper.Storage;
 import LBot.helper.TaskList;
 import LBot.helper.Ui;
 import LBot.task.Deadline;
+import LBot.task.Task;
 
 import java.time.LocalDateTime;
 
@@ -20,9 +21,10 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
-        tasks.addTask(new Deadline(description, dueDate));
+        Task deadline = new Deadline(description, dueDate);
+        tasks.addTask(deadline);
         storage.saveTaskToFile(tasks);
-        // TODO: return smt??
+        ui.printTaskAddedMessage(deadline);
     }
 
     @Override

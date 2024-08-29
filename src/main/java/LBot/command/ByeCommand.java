@@ -5,11 +5,10 @@ import LBot.helper.Storage;
 import LBot.helper.TaskList;
 import LBot.helper.Ui;
 
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException {
-        // DO WHAT LMAO
-        // say bye bye
+        ui.printBye();
         System.exit(0);
     }
 

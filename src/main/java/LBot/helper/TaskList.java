@@ -37,6 +37,10 @@ public class TaskList {
         return taskList;
     }
 
+    public Task getTask(int id) {
+        return taskList.get(id - 1);
+    }
+
     @Override
     public String toString() {
         if (taskList.isEmpty()) {

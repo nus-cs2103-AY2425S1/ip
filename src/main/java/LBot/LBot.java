@@ -23,6 +23,7 @@ public class LBot {
         } catch (FileException e) {
             // dk man, do smt
             tasks = new TaskList();
+            ui.printDataLoadFailed();
         }
     }
 
@@ -30,8 +31,7 @@ public class LBot {
         // while loop here
         // try catch here also to catch all the exceptions
         Scanner scanner = new Scanner(System.in);
-        ui.print("Hello, welcome!");
-        ui.print("How can I help you?");
+        ui.printGreeting();
         String userInput = "";
         while (true) {
             try {
@@ -44,7 +44,7 @@ public class LBot {
                 }
             } catch (LBotException e) {
                 // print error
-                ui.print(e.getMessage());
+                ui.printException(e.getMessage());
             }
         }
     }

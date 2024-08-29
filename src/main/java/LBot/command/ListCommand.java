@@ -11,9 +11,7 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException {
-        // print task list idk how
-        // TODO: use ui to print??
-        ui.print(tasks.toString());
+        ui.printTaskList(tasks);
     }
 
     @Override

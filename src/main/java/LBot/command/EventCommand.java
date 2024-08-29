@@ -6,6 +6,7 @@ import LBot.helper.Storage;
 import LBot.helper.TaskList;
 import LBot.helper.Ui;
 import LBot.task.Event;
+import LBot.task.Task;
 
 import java.time.LocalDateTime;
 
@@ -22,9 +23,10 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
-        tasks.addTask(new Event(description, startDateTime, endDateTime));
+        Task event = new Event(description, startDateTime, endDateTime);
+        tasks.addTask(event);
         storage.saveTaskToFile(tasks);
-        // TODO: Add smt??
+        ui.printTaskAddedMessage(event);
     }
 
     @Override

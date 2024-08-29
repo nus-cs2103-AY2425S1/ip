@@ -16,9 +16,10 @@ public class ToDoCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
-        tasks.addTask(new Todo(this.description));
+        Todo todo = new Todo(this.description);
+        tasks.addTask(todo);
         storage.saveTaskToFile(tasks);
-        // TODO: need to print smt?
+        ui.printTaskAddedMessage(todo);
     }
 
     @Override

@@ -29,9 +29,8 @@ public class Parser {
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
         int taskID;
-        // Sponsored by ChatGPT
+        // Adapted from ChatGPT
         // regex edited and tested on regex101.com
-        // TODO: rename this pls
         String regex = "^(todo|td) (.+)|^(deadline|d) (.+?) /by: (.+)|^(event|e) (.+?) /from: (.+?) /to: (.+)|^(list|l)$|^(mark|m) (\\d+)|^(delete|del) (\\d+)|^(bye|bb)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -94,12 +93,12 @@ public class Parser {
 
     private static LocalDateTime parseDateTime(String dateTime) throws ParseCommandException {
         if (dateTime.isEmpty()) {
-            throw new ParseCommandException("Invalid date: " + dateTime);
+            throw new ParseCommandException("Looks like you didn't add a date! How did you get here?!");
         }
         try {
             return LocalDateTime.parse(dateTime, dateTimeFormat);
         } catch (Exception e) {
-            throw new ParseCommandException(e.getMessage());
+            throw new ParseCommandException("Please check your date input: " + dateTime);
         }
     }
 }
