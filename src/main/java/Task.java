@@ -1,10 +1,14 @@
 abstract class Task {
-    private String name;
     private boolean isDone;
+    private String name;
+
+    Task(boolean isDone, String name) {
+        this.isDone = isDone;
+        this.name = name;
+    }
 
     Task(String name) {
-        this.name = name;
-        this.isDone = false;
+        this(false, name);
     }
 
     public void changeStatus(boolean isDone) {
@@ -17,5 +21,9 @@ abstract class Task {
 
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), this.name);
+    }
+
+    public String convertToTxt() {
+        return String.format("%s,%s", this.isDone, this.name);
     }
 }
