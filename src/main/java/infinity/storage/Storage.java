@@ -116,21 +116,28 @@ public class Storage {
      * Saves the tasks into the file.
      * 
      * @param tasks The tasks to be saved in an ArrayList of Task.
-     * @throws IOException If there is an error writing to the file.
+     * @throws InfinityException If there is an error writing to the file.
      */
-    public void saveFile(ArrayList<Task> tasks) throws IOException {
-        createFileIfNotExists();
-
-        FileWriter file = new FileWriter(FILE_PATH);
-
-        for (Task task : tasks) {
-            file.write(task.saveFileFormat(DELIMITER));
-            file.write("\n");
+    public void saveFile(ArrayList<Task> tasks) throws InfinityException {
+                    
+        try {
+            createFileIfNotExists();
+    
+            FileWriter file = new FileWriter(FILE_PATH);
+    
+            for (Task task : tasks) {
+                file.write(task.saveFileFormat(DELIMITER));
+                file.write("\n");
+            }
+    
+            file.close();
+    
+            botUI.botSays("Save Successful, Woohoo!");
+        } catch (IOException e) {
+            throw new InfinityException(
+                    "I'm sorry, I'm a noob at this, I can't save the file, can you help me debug? " 
+                    + e.getMessage());
         }
-
-        file.close();
-
-        botUI.botSays("Save Successful, Woohoo!");
     }
 
     /**
