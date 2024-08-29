@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 abstract class Task {
     private final String taskDescription;
     private boolean isDone;
@@ -5,6 +8,12 @@ abstract class Task {
     protected Task(String taskDescription, boolean isDone) {
         this.taskDescription = taskDescription;
         this.isDone = isDone;
+    }
+
+    private static String formatLoadedDateTime(String dateTime) {
+        DateTimeFormatter originalFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter processedFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return LocalDateTime.parse(dateTime, originalFormatter).format(processedFormatter);
     }
 
     public static Task of(String taskObjectString) {
@@ -21,7 +30,7 @@ abstract class Task {
             String taskDescription = taskObjectString.substring(7, byIndex - 2);
             String deadline = taskObjectString.substring(byIndex + 4, taskObjectString.length() - 1);
 
-            return new Deadline(taskDescription, deadline, isDone);
+            return new Deadline(taskDescription, formatLoadedDateTime(deadline), isDone);
 
         } else if (taskObjectString.startsWith("[E]")) {
             boolean isDone = taskObjectString.charAt(4) == 'X';
@@ -32,7 +41,8 @@ abstract class Task {
             String from = taskObjectString.substring(fromIndex + 6, toIndex - 1);
             String to = taskObjectString.substring(toIndex + 4, taskObjectString.length() - 1);
 
-            return new Event(taskDescription, from, to, isDone);
+            return new Event(taskDescription, formatLoadedDateTime(from),
+                    formatLoadedDateTime(to), isDone);
         } else {
             throw new IllegalArgumentException("Task object string is not a task object.");
         }
@@ -52,6 +62,15 @@ abstract class Task {
 
     public void unmarkAsDone() {
         this.setDone(false);
+    }
+
+    protected LocalDateTime toLocalDateTime(String deadline) {
+        return LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+    }
+
+    protected String formatYearMonthDay(LocalDateTime localDateTime) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return localDateTime.format(dateTimeFormatter);
     }
 
     @Override

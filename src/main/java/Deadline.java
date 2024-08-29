@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+
 class Deadline extends Task {
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     public Deadline(String taskDescription, String deadline, boolean isDone) {
         super(taskDescription, isDone);
-        this.deadline = deadline;
+        this.deadline = toLocalDateTime(deadline);
     }
 
     public Deadline(String taskDescription, String deadline) {
@@ -12,6 +14,6 @@ class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + formatYearMonthDay(this.deadline) + ")";
     }
 }
