@@ -9,24 +9,50 @@ import pixel.task.Task;
 import pixel.task.TaskList;
 import pixel.task.Todo;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddCommand extends Command {
     private Task task;
 
+    /**
+     * Constructs an AddCommand object for adding a deadline task.
+     *
+     * @param deadline The deadline task to be added.
+     */
     public AddCommand(Deadline deadline) {
         super(false);
         this.task = deadline;
     }
 
+    /**
+     * Constructs an AddCommand object for adding a todo task.
+     *
+     * @param todo The todo task to be added.
+     */
     public AddCommand(Todo todo) {
         super(false);
         this.task = todo;
     }
 
+    /**
+     * Constructs an AddCommand object for adding an event task.
+     *
+     * @param event The event task to be added.
+     */
     public AddCommand(Event event) {
         super(false);
         this.task = event;
     }
 
+    /**
+     * Executes the add command by adding the task to the task list.
+     *
+     * @param taskList The task list to add the task to.
+     * @param ui       The user interface for displaying messages.
+     * @param storage  The storage for saving the task list.
+     * @throws PixelException If there is an error executing the command.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException {
         taskList.addTask(this.task);
