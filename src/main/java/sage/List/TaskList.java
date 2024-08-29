@@ -1,8 +1,8 @@
-package List;
+package sage.List;
 
-import Sage.Sage;
-import Sage.SageException;
-import Task.Task;
+import sage.Sage;
+import sage.SageException;
+import sage.Task.Task;
 
 import java.util.ArrayList;
 import java.util.List;

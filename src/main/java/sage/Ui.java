@@ -1,11 +1,11 @@
-package Sage;
+package sage;
 
-import Task.Task;
+import sage.Task.Task;
 
 import java.util.Scanner;
 
 public class Ui {
-    public static final String NAME = "Sage";
+    public static final String NAME = "sage";
     private final Scanner scanner;
 
     public Ui() {

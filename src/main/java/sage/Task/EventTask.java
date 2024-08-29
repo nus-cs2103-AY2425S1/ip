@@ -1,4 +1,4 @@
-package Task;
+package sage.Task;
 
 public class EventTask extends Task {
     protected String from;

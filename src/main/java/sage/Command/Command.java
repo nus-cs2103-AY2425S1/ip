@@ -1,9 +1,9 @@
-package Command;
+package sage.Command;
 
-import List.TaskList;
-import Sage.SageException;
-import Sage.Storage;
-import Sage.Ui;
+import sage.List.TaskList;
+import sage.SageException;
+import sage.Storage;
+import sage.Ui;
 
 public abstract class Command {
     protected boolean isExit;

@@ -1,9 +1,9 @@
-package Command;
+package sage.Command;
 
-import List.TaskList;
-import Sage.SageException;
-import Sage.Ui;
-import Sage.Storage;
+import sage.List.TaskList;
+import sage.SageException;
+import sage.Ui;
+import sage.Storage;
 
 public class MarkCommand extends Command {
 

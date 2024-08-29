@@ -1,4 +1,4 @@
-package Sage;
+package sage;
 
 public class SageException extends Exception {
     public SageException(String message) {

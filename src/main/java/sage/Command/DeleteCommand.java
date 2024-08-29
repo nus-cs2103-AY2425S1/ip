@@ -1,10 +1,10 @@
-package Command;
+package sage.Command;
 
-import List.TaskList;
-import Sage.SageException;
-import Sage.Storage;
-import Sage.Ui;
-import Task.Task;
+import sage.List.TaskList;
+import sage.SageException;
+import sage.Storage;
+import sage.Ui;
+import sage.Task.Task;
 
 public class DeleteCommand extends Command {
     private final String indexString;

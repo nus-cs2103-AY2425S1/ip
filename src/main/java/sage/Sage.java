@@ -1,7 +1,7 @@
-package Sage;
+package sage;
 
-import Command.Command;
-import List.TaskList;
+import sage.Command.Command;
+import sage.List.TaskList;
 
 import java.io.IOException;
 

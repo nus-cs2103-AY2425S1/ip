@@ -1,10 +1,10 @@
-package Sage;
+package sage;
 
-import List.TaskList;
-import Task.DeadlineTask;
-import Task.EventTask;
-import Task.Task;
-import Task.ToDoTask;
+import sage.List.TaskList;
+import sage.Task.DeadlineTask;
+import sage.Task.EventTask;
+import sage.Task.Task;
+import sage.Task.ToDoTask;
 
 import java.io.File;
 import java.io.FileWriter;

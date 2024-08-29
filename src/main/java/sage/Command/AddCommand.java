@@ -1,13 +1,13 @@
-package Command;
+package sage.Command;
 
-import List.TaskList;
-import Sage.SageException;
-import Sage.Storage;
-import Sage.Ui;
-import Task.DeadlineTask;
-import Task.EventTask;
-import Task.Task;
-import Task.ToDoTask;
+import sage.List.TaskList;
+import sage.SageException;
+import sage.Storage;
+import sage.Task.DeadlineTask;
+import sage.Task.EventTask;
+import sage.Task.Task;
+import sage.Task.ToDoTask;
+import sage.Ui;
 
 public class AddCommand extends Command {
     private final String commandType;
