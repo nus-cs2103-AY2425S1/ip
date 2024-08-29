@@ -1,3 +1,0 @@
-T | 1 | asdas
-D | 1 | return book | sunday
-E | 1 | project meeting | Mon 2pm | 4pm
