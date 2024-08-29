@@ -24,7 +24,7 @@ public class ShrimpException extends Exception {
 
     public static class InvalidCommandException extends ShrimpException {
         private static final String errorCode = "ERR001";
-        private static final String errorMessage = "Oh nyoo~ I don't recognise that, can you try again?";
+        private static final String errorMessage = "I don't recognise that, can you try again?";
         public InvalidCommandException() {
             super(errorMessage, errorCode);
         }
@@ -32,13 +32,13 @@ public class ShrimpException extends Exception {
 
     public static class MissingArgumentException extends ShrimpException {
         private static final String errorCode = "ERR002";
-        private static final String errorMessage_toDo = "Oh nyoo~ I need a " + description + " to make a TODO...";
-        private static final String errorMessage_mark = "Oh nyoo~ You didn't indicate which task to mark...";
-        private static final String errorMessage_unmark = "Oh nyoo~ You didn't indicate which task to unmark...";
-        private static final String errorMessage_deadline = "Oh nyoo~ I need a " + description + " and a " + by + " to make a DEADLINE...";
-        private static final String errorMessage_event = "Oh nyoo~ I need a " + description + ", a " + from + " and a " + to + " to make an EVENT...";
-        private static final String errorMessage_delete = "Oh nyoo~ You didn't indicate which task to delete...";
-        private static final String errorMessage_default = "Oh nyoo~ There seems to be an issue somewhere! :<";
+        private static final String errorMessage_toDo = "I need a " + description + " to make a TODO...";
+        private static final String errorMessage_mark = "You didn't indicate which task to mark...";
+        private static final String errorMessage_unmark = "You didn't indicate which task to unmark...";
+        private static final String errorMessage_deadline = "I need a " + description + " and a " + by + " to make a DEADLINE...";
+        private static final String errorMessage_event = "I need a " + description + ", a " + from + " and a " + to + " to make an EVENT...";
+        private static final String errorMessage_delete = "You didn't indicate which task to delete...";
+        private static final String errorMessage_default = "There seems to be an issue somewhere! :<";
 
         public MissingArgumentException(Parser.CommandType command) {
             super(switchErrorMessage(command), errorCode);
@@ -59,7 +59,7 @@ public class ShrimpException extends Exception {
 
     public static class NumberFormatException extends ShrimpException {
         private static final String errorCode = "ERR003";
-        private static final String errorMessage = "Oh nyoo~ Your values seems wrong, maybe try again?";
+        private static final String errorMessage = "Your values seems wrong, maybe try again?";
         public NumberFormatException() {
             super(errorMessage, errorCode);
         };
@@ -67,7 +67,7 @@ public class ShrimpException extends Exception {
 
     public static class EmptyArrayException extends ShrimpException {
         private static final String errorCode = "ERR004";
-        private static final String errorMessage = "Oh nyoo~ There's no tasks for me to interact with...";
+        private static final String errorMessage = "There's no tasks for me to interact with...";
         public EmptyArrayException() {
             super(errorMessage, errorCode);
         };
@@ -75,7 +75,7 @@ public class ShrimpException extends Exception {
 
     public static class ArrayIndexOutOfBoundException extends ShrimpException {
         private static final String errorCode = "ERR005";
-        private static final String errorMessage = "Oh nyoo~ I cannot find the task that you're looking for... ";
+        private static final String errorMessage = "I cannot find the task that you're looking for... ";
         public ArrayIndexOutOfBoundException() {
             super(errorMessage, errorCode);
         };
@@ -83,7 +83,7 @@ public class ShrimpException extends Exception {
 
     public static class InvalidDateTimeException extends ShrimpException {
         private static final String errorCode = "ERR006";
-        private static final String errorMessage = "Oh nyoo~ The datetime format you inserted is wrong (DD/MM/YYYY)... ";
+        private static final String errorMessage = "The datetime format you inserted is wrong (DD/MM/YYYY)... ";
         public InvalidDateTimeException() {
             super(errorMessage, errorCode);
         };
