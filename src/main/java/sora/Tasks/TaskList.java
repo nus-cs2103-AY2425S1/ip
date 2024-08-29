@@ -1,7 +1,6 @@
 package sora.Tasks;
 
 import sora.Parser;
-import sora.Sora;
 import sora.SoraException;
 import sora.Ui;
 
@@ -9,21 +8,42 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TaskList is a List of Tasks.
+ * It has methods to operate the list (e.g. mark, add, delete).
+ */
 public class TaskList {
+    /** List of Tasks */
     private final List<Task> taskList;
 
+    /**
+     * Constructs a new TaskList.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Getter Method to get the task list.
+     *
+     * @return Task List of this instance.
+     */
     public List<Task> getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Returns the number of Tasks in this TaskList instance.
+     *
+     * @return Size of this TaskList instance.
+     */
     public int getSize() {
         return this.taskList.size();
     }
 
+    /**
+     * Prints all tasks of this TaskList instance.
+     */
     public void displayList() {
         if (this.taskList.isEmpty()) {
             System.out.println("\tSeems like there are no tasks!");
@@ -34,6 +54,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done.
+     * Prints the outcome for the user.
+     *
+     * @param value Index of the task to be marked as done. Starting from 1.
+     * @throws SoraException If value is not an integer or out of bounds.
+     */
     public void markTask(String value) throws SoraException {
         try {
             Task task = this.taskList.get(Integer.parseInt(value) - 1);
@@ -51,6 +78,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as not done.
+     * Prints the outcome for the user.
+     *
+     * @param value Index of the task to be marked as not done. Starting from 1.
+     * @throws SoraException If value is not an integer or out of bounds.
+     */
     public void unmarkTask(String value) throws SoraException {
         try {
             Task task = this.taskList.get(Integer.parseInt(value) - 1);
@@ -68,6 +102,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Create a new task and add it to this TaskList instance.
+     * Prints the outcome for the user.
+     *
+     * @param mainCommand Type of task (Todo, Deadline, Event)
+     * @param parsedCommand Details of task in parsed format.
+     * @throws SoraException If parsedCommand is invalid.
+     */
     public void addTask(String mainCommand, ArrayList<String> parsedCommand) throws SoraException {
         switch (mainCommand) {
             case "todo":
@@ -115,6 +157,13 @@ public class TaskList {
         System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
     }
 
+    /**
+     * Delete a task.
+     * Prints the outcome for the user.
+     *
+     * @param value Index of the task to be marked as not done. Starting from 1.
+     * @throws SoraException If value is not an integer or out of bounds.
+     */
     public void deleteTask(String value) throws SoraException {
         try {
             int index = Integer.parseInt(value) - 1;

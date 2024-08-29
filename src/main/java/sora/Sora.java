@@ -5,11 +5,23 @@ import sora.Tasks.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Sora is the main class.
+ * Sora is a ChatBot.
+ */
 public class Sora {
+    /** Storage to save and write tasks to a file */
     private Storage storage;
+    /** List of Tasks */
     private TaskList taskList;
+    /** User Interface */
     private Ui ui;
 
+    /**
+     * Constructs a new Sora.
+     *
+     * @param filePath Path of file to save and write.
+     */
     public Sora(String filePath) {
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
@@ -21,6 +33,9 @@ public class Sora {
         }
     }
 
+    /**
+     * Starts Sora. Begins accepting user input.
+     */
     public void run() {
         Scanner commandScanner = new Scanner(System.in);
         boolean isLive = true;
