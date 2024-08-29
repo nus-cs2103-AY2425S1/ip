@@ -1,4 +1,4 @@
-package Denim.Tasks;
+package denim.tasks;
 
 /**
  * Represents a task with a description and a completion status.
@@ -16,7 +16,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Task {
      * @return True if the task is done, false otherwise.
      */
     public boolean getIsDone() {
-        boolean result = this.isDone;
+        boolean result = isDone;
         return result;
     }
 
@@ -55,7 +55,7 @@ public class Task {
      * @return The task's description.
      */
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**

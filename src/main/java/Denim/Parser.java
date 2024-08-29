@@ -1,6 +1,6 @@
-package Denim;
+package denim;
 
-import Denim.Commands.*;
+import denim.commands.*;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -17,9 +17,11 @@ public class Parser {
 
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     public static final Pattern TODO_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+)");
-    public static final Pattern EVENT_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+) /from (?<startTime>\\d{2}/\\d{2}/\\d{4} \\d{4}) /to (?<endTime>\\d{2}/\\d{2}/\\d{4} \\d{4})");
+    public static final Pattern EVENT_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+) /from "
+            + "(?<startTime>\\d{2}/\\d{2}/\\d{4} \\d{4}) /to (?<endTime>\\d{2}/\\d{2}/\\d{4} \\d{4})");
 
-    public static final Pattern DEADLINE_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+) /by (?<dateTime>\\d{2}/\\d{2}/\\d{4} \\d{4})");
+    public static final Pattern DEADLINE_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+) /by "
+            + "(?<dateTime>\\d{2}/\\d{2}/\\d{4} \\d{4})");
     public static final Pattern MARK_UNMARK_DELETE_ARGUMENT_FORMAT = Pattern.compile("(?<taskNumber>\\d+)");
 
     /**
@@ -32,7 +34,8 @@ public class Parser {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Invalid Denim.Commands.Command", "Denim.Commands.Command for help: help");
+            return new InvalidCommand("Invalid Denim.Commands.Command",
+                    "Denim.Commands.Command for help: help");
         }
 
         final String commandWord = matcher.group("commandWord").trim();
@@ -67,7 +70,8 @@ public class Parser {
             return prepareHelp();
 
         default:
-            return new InvalidCommand("Invalid Denim.Commands.Command", "Denim.Commands.Command for help: help");
+            return new InvalidCommand("Invalid Denim.Commands.Command",
+                    "Denim.Commands.Command for help: help");
         }
     }
 
@@ -81,7 +85,7 @@ public class Parser {
         final Matcher matcher = DEADLINE_ARGUMENT_FORMAT.matcher(args);
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Wrong format for deadline command", DeadlineCommand.USAGE);
+            return new InvalidCommand("Wrong format for deadline command", DeadlineCommand.COMMAND_USAGE);
         }
 
         String taskDescription = matcher.group("taskDescription");
@@ -106,7 +110,7 @@ public class Parser {
         final Matcher matcher = EVENT_ARGUMENT_FORMAT.matcher(args);
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Wrong format for event command", EventCommand.USAGE);
+            return new InvalidCommand("Wrong format for event command", EventCommand.COMMAND_USAGE);
         }
 
         DateTimeFormatter eventFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -135,7 +139,7 @@ public class Parser {
         final Matcher matcher = TODO_ARGUMENT_FORMAT.matcher(args);
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Wrong format for todo command", TodoCommand.USAGE);
+            return new InvalidCommand("Wrong format for todo command", TodoCommand.COMMAND_USAGE);
         }
         String taskDescription = matcher.group("taskDescription");
         return new TodoCommand(taskDescription);
@@ -151,7 +155,7 @@ public class Parser {
         final Matcher matcher = MARK_UNMARK_DELETE_ARGUMENT_FORMAT.matcher(args);
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Wrong format for mark command", MarkCommand.USAGE);
+            return new InvalidCommand("Wrong format for mark command", MarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
         return new MarkCommand(index - Ui.indexOffset);
@@ -167,7 +171,7 @@ public class Parser {
         final Matcher matcher = MARK_UNMARK_DELETE_ARGUMENT_FORMAT.matcher(args);
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Wrong format for unmark command", UnmarkCommand.USAGE);
+            return new InvalidCommand("Wrong format for unmark command", UnmarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
         return new UnmarkCommand(index - Ui.indexOffset);
@@ -192,7 +196,7 @@ public class Parser {
         final Matcher matcher = MARK_UNMARK_DELETE_ARGUMENT_FORMAT.matcher(args);
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Wrong format for delete command", DeleteCommand.USAGE);
+            return new InvalidCommand("Wrong format for delete command", DeleteCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
         return new DeleteCommand(index - Ui.indexOffset);

@@ -1,33 +1,34 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Tasks.Todo;
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
-import Denim.Tasks.Task;
+import denim.tasks.Todo;
+import denim.exceptions.DenimException;
+import denim.TaskList;
+import denim.storage.TaskIo;
+import denim.tasks.Task;
 
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
-    public static final String USAGE = "todo <taskDescription>";
+    public static final String COMMAND_USAGE = "todo <taskDescription>";
     private Task todoTask;
 
     public TodoCommand(String taskDescription) {
-        this.todoTask = new Todo(taskDescription);
+        todoTask = new Todo(taskDescription);
     }
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
         try {
             taskIO.writeTaskData(todoTask);
         } catch (DenimException e) {
             return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }
 
-        taskList.addTask(this.todoTask);
+        taskList.addTask(todoTask);
         int taskListSize = taskList.getTaskListSize();
 
-        String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.", todoTask, taskListSize);
+        String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.",
+                todoTask, taskListSize);
         return new CommandResult(returnMessage);
     }
 

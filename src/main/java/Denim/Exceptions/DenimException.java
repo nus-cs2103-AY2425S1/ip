@@ -1,4 +1,4 @@
-package Denim.Exceptions;
+package denim.exceptions;
 
 /**
  * Represents an exception specific to the Denim application.

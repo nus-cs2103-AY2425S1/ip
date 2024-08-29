@@ -1,26 +1,25 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
+import denim.exceptions.DenimException;
+import denim.TaskList;
+import denim.storage.TaskIo;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
-    public static final String USAGE = "mark <taskNumber>";
+    public static final String COMMAND_USAGE = "mark <taskNumber>";
     private int index;
 
     public MarkCommand(int index) {
         this.index = index;
     }
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
         }
 
         boolean alreadyMarked = taskList.getTask(index).getIsDone();
-
         if (alreadyMarked) {
             return new CommandResult("The task is already marked.");
         }
@@ -32,6 +31,7 @@ public class MarkCommand extends Command {
             taskList.unmarkTask(index);
             return new CommandResult(e.getMessage());
         }
+
         String returnMessage = String.format("Okay, I've marked this task as done: \n %s\n", taskList.getTask(index));
         return new CommandResult(returnMessage);
     }

@@ -1,4 +1,4 @@
-package Denim.Commands;
+package denim.commands;
 
 /**
  * Represents the result of executing a command.
@@ -22,7 +22,7 @@ public class CommandResult {
      * @return The reply message.
      */
     public String getReply() {
-        return this.reply;
+        return reply;
     }
 
 }

@@ -1,13 +1,13 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
-import Denim.Tasks.Task;
+import denim.TaskList;
+import denim.exceptions.DenimException;
+import denim.storage.TaskIo;
+import denim.tasks.Task;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    public static final String USAGE = "delete <taskNumber>";
+    public static final String COMMAND_USAGE = "delete <taskNumber>";
     private int index;
 
     public DeleteCommand(int index) {
@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
@@ -33,7 +33,8 @@ public class DeleteCommand extends Command {
 
         int taskListSize = taskList.getTaskListSize();
 
-        String returnMessage = String.format("Got it. I've deleted this task:%n %s %nNow you have %d tasks in the list.", deletedTask, taskListSize);
+        String returnMessage = String.format("Got it. I've deleted this task:%n %s %n"
+                + "Now you have %d tasks in the list.", deletedTask, taskListSize);
         return new CommandResult(returnMessage);
     }
 

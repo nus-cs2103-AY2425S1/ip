@@ -1,13 +1,13 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
+import denim.exceptions.DenimException;
+import denim.TaskList;
+import denim.storage.TaskIo;
 
 
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
-    public static final String USAGE = "unmark <taskNumber>";
+    public static final String COMMAND_USAGE = "unmark <taskNumber>";
     private int index;
 
     public UnmarkCommand(int index) {
@@ -16,14 +16,13 @@ public class UnmarkCommand extends Command {
 
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
         }
 
         boolean alreadyMarked = taskList.getTask(index).getIsDone();
-
         if (!alreadyMarked) {
             return new CommandResult("The task is already unmarked.");
         }
@@ -35,7 +34,9 @@ public class UnmarkCommand extends Command {
             taskList.markTask(index);
             return new CommandResult(e.getMessage());
         }
-        String returnMessage = String.format("Okay, I've marked this task as not done yet: \n %s\n", taskList.getTask(index));
+
+        String returnMessage = String.format("Okay, I've marked this task as not done yet: "
+                + "\n %s\n", taskList.getTask(index));
         return new CommandResult(returnMessage);
     }
 

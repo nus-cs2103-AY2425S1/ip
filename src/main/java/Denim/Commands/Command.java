@@ -1,7 +1,7 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Storage.TaskIO;
-import Denim.TaskList;
+import denim.TaskList;
+import denim.storage.TaskIo;
 
 /**
  * Represents an abstract command that can be executed.
@@ -19,12 +19,10 @@ public abstract class Command {
      */
     public abstract CommandResult execute(TaskList taskList, TaskIO taskIO);
 
-
     /**
      * Determines whether this command should exit the application.
      *
      * @return True if the command should exit the application, false otherwise.
      */
     public abstract boolean isExit();
-
 }

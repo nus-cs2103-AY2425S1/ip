@@ -1,6 +1,6 @@
-package Denim;
+package denim;
 
-import Denim.Tasks.Task;
+import denim.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        this.taskList.add(task);
+        taskList.add(task);
     }
 
     /**
@@ -37,7 +37,7 @@ public class TaskList {
      * @param task  The task to be added.
      */
     public void addTaskAtIndex(int index, Task task) {
-        this.taskList.add(index, task);
+        taskList.add(index, task);
     }
 
     /**
@@ -47,8 +47,9 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void deleteTaskAtIndex(int index) {
-        this.taskList.remove(index);
+        taskList.remove(index);
     }
+
 
     /**
      * Returns the task at the specified index in the task list.
@@ -57,7 +58,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        return this.taskList.get(index);
+        return taskList.get(index);
     }
 
     /**
@@ -75,7 +76,7 @@ public class TaskList {
      * @param index The index of the task to be unmarked.
      */
     public void unmarkTask(int index) {
-        this.taskList.get(index).setIsDone(false);
+        taskList.get(index).setIsDone(false);
     }
 
     /**
@@ -95,7 +96,7 @@ public class TaskList {
      * @return The number of tasks in the task list.
      */
     public int getTaskListSize() {
-        return this.taskList.size();
+        return taskList.size();
     }
 
     /**
@@ -110,11 +111,12 @@ public class TaskList {
             return "Your Task List is Empty.\n";
         }
 
-        List<String> taskStrings = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
-            taskStrings.add(String.format("%d %s", i + 1, this.getTask(i)));
+            stringList.add(String.format("%d %s", i + 1, this.getTask(i)));
         }
-        String returnListMessage = String.join("\n", taskStrings);
+
+        String returnListMessage = String.join("\n", stringList);
         return returnListMessage;
     }
 }

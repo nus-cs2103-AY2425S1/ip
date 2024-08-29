@@ -1,11 +1,11 @@
-package Denim.Storage;
+package denim.storage;
 
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Tasks.Deadline;
-import Denim.Tasks.Event;
-import Denim.Tasks.Task;
-import Denim.Tasks.Todo;
+import denim.exceptions.DenimException;
+import denim.TaskList;
+import denim.tasks.Deadline;
+import denim.tasks.Event;
+import denim.tasks.Task;
+import denim.tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,12 +14,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+
 /**
  * Handles the input and output operations for task data in the Denim application.
  * This class is responsible for reading tasks from and writing tasks to a file,
  * managing file creation, and processing task data.
  */
-public class TaskIO {
+public class TaskIo {
 
     /**
      * Represents the status of the file or directory during task I/O operations.
@@ -40,8 +41,8 @@ public class TaskIO {
      *
      * @param pathname The path to the file where tasks are stored.
      */
-    public TaskIO(String pathname) {
-        this.taskFile = new File(pathname);
+    public TaskIo(String pathname) {
+        taskFile = new File(pathname);
     }
 
     /**
@@ -130,21 +131,21 @@ public class TaskIO {
     public void readTaskData(TaskList taskList, Scanner sc) throws DenimException {
 
         // Checks for Parent Directory ./data
-        File dataDirectory = this.taskFile.getParentFile();
+        File dataDirectory = taskFile.getParentFile();
         if (dataDirectory == null || !dataDirectory.isDirectory()) {
             createSavePoint(fileStatus.DIRECTORY_DOES_NOT_EXIST, sc);
             return;
         }
 
         //Checks for denim.txt file
-        if (!this.taskFile.exists()) {
+        if (!taskFile.exists()) {
             createSavePoint(fileStatus.FILE_DOES_NOT_EXIST, sc);
             return;
         }
 
         // Both data directory and denim.txt exists. Proceed to read from denim.txt
         try {
-            Scanner fileReader = new Scanner(this.taskFile);
+            Scanner fileReader = new Scanner(taskFile);
             while (fileReader.hasNext()) {
                 String taskDescription = fileReader.nextLine();
                 if (taskDescription.equals("")) {
@@ -166,7 +167,7 @@ public class TaskIO {
      */
     public void writeTaskData(Task task) throws DenimException {
         try {
-            FileWriter taskWriter = new FileWriter(this.taskFile, true);
+            FileWriter taskWriter = new FileWriter(taskFile, true);
             taskWriter.write(task.toSimplifiedString());
             taskWriter.close();
         } catch (IOException e) {

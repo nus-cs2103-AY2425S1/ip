@@ -1,10 +1,7 @@
-package Denim;
+package denim;
 
-import Denim.Commands.*;
-import Denim.Parser;
+import denim.commands.*;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
