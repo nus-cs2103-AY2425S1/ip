@@ -2,7 +2,6 @@ import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,8 +9,8 @@ import java.io.IOException;
 
 
 public class Bimo {
-    public static String name = "Bimo";
-    public static String line = "    " + "___________________________________";
+    public static String NAME = "Bimo";
+    public static String LINE = "    " + "___________________________________";
     public static Scanner scanner = new Scanner(System.in);
 
     public static ArrayList<Task> tasks = new ArrayList<>();
@@ -32,10 +31,10 @@ public class Bimo {
             System.out.println("File not found, unable to run chatbot due to error");
             return;
         }
-        System.out.println(line);
-        System.out.println("    " + String.format("Hello! I'm %s", name));
+        System.out.println(LINE);
+        System.out.println("    " + String.format("Hello! I'm %s", NAME));
         System.out.println("    " + "What can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
         String input = scanner.nextLine();
         boolean botIsActive = true;
         while (botIsActive) {
@@ -44,13 +43,13 @@ public class Bimo {
             try {
                 command = getCommand(action);
             } catch (InvalidCommandException e) {
-                System.out.println(line);
+                System.out.println(LINE);
                 System.out.println(e.getMessage());
-                System.out.println(line);
+                System.out.println(LINE);
                 input = scanner.nextLine();
                 continue;
             }
-            System.out.println(line);
+            System.out.println(LINE);
             switch (command) {
                 case LIST:
                     System.out.println("    Here are the tasks in your tasks:");
@@ -64,7 +63,7 @@ public class Bimo {
                     //need to handle if already marked
                     try {
                         int index1 = updateList(true, input);
-                        updateCompletionInFile();
+                        updateFile();
                         System.out.println("    Good job! I've marked this task as done:");
                         System.out.println("       " + tasks.get(index1).toString());
                     } catch(IllegalArgumentException e) {
@@ -74,7 +73,7 @@ public class Bimo {
                 case UNMARK:
                     try {
                         int index2 = updateList(false, input);
-                        updateCompletionInFile();
+                        updateFile();
                         System.out.println("    OK, I've marked this task as not done yet:");
                         System.out.println("       " + tasks.get(index2).toString());
                     } catch (IllegalArgumentException e) {
@@ -127,6 +126,7 @@ public class Bimo {
                         System.out.println("        " + task.toString());
                         String word = tasks.size() == 1 ? "task" : "tasks";
                         System.out.println(String.format("    Now you have %d %s in the tasks.", tasks.size(), word));
+                        updateFile();
 
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
@@ -137,7 +137,7 @@ public class Bimo {
                     System.out.println("    " +"Bye!!! Thanks for chatting!");
                     break;
             }
-            System.out.println(line);
+            System.out.println(LINE);
             if (botIsActive) {
                 input = scanner.nextLine();
             }
@@ -157,7 +157,7 @@ public class Bimo {
         } else if(complete) {
             tasks.get(index).markCompleted();
         } else {
-            tasks.get(index).markUnCompleted();
+            tasks.get(index).markUncompleted();
         }
         return index;
     }
@@ -309,7 +309,7 @@ public class Bimo {
     /**
      * To re-write file when user marks or unmarks a task
      */
-    public static void updateCompletionInFile() {
+    public static void updateFile() {
         try {
             FileWriter writer = new FileWriter("ip/data/Bimo.txt");
             for (int i = 0; i < tasks.size(); i++) {

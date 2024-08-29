@@ -9,7 +9,7 @@ public class Task {
     public void markCompleted() {
         this.status = true;
     }
-    public void markUnCompleted() {
+    public void markUncompleted() {
         this.status = false;
     }
     @Override
