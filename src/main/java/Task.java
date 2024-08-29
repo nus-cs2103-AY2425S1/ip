@@ -1,35 +1,43 @@
 import java.util.Objects;
 
 public abstract class Task {
-    protected static int COUNT = 0;
     protected boolean done = false;
-    protected String task;
+    protected String description;
+    private String type = "";
 
-    public Task(String task) throws TheBotFatherException{
-        if (Objects.equals(task, "")) throw new TheBotFatherException("No description");
-        this.task = task.substring(0, task.length() - 1);
-        COUNT++;
+    protected Task(String description, String type) throws TheBotFatherException{
+        if (Objects.equals(description, "")) throw new TheBotFatherException("Kid, Learn to read, where is the description??");
+        this.description = description;
+        this.type = type;
     }
 
-    public void markAsDone() {
+    protected void markAsDone() {
         this.done = true;
     }
 
-    public void unmark() {
+    protected void unmark() {
         this.done = false;
     }
 
-    public String getStatusIcon() {
+    protected boolean isDone() {
+        return this.done;
+    }
+
+    protected String getStatusIcon() {
         return (done ? "X" : " "); // mark done task with X
     }
 
-    public static String getCOUNT() {
-        return "Now you have " + COUNT + " tasks in the list.";
+    protected String getType() {
+        return this.type;
     }
 
     @Override
     public String toString(){
-        return "[" + this.getStatusIcon() + "] " + this.task;
+        return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    protected String toFile() {
+        return this.type + " | " + (this.isDone() ? "1" : "0") + " | " + this.description;
     }
 
 }
