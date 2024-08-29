@@ -17,6 +17,16 @@ class Parser {
         return new Parser(taskList);
     }
 
+    /**
+     * This method takes in the input and parses it to determine the
+     * right response from the chatbot. Also updates the TaskList with any
+     * new tasks created.
+     *
+     * @param textInput the String input from the user
+     * @return <code>true</code> if the input is bye and the chat is over, otherwise return
+     * <code>false</code> which means the conversation continues
+     */
+
     public boolean parse(String textInput) throws TaskDescriptionEmptyException {
         boolean isChatOver = false;
 
