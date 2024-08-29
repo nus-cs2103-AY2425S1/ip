@@ -1,6 +1,10 @@
 package friday.util;
 
+import friday.task.Deadline;
+import friday.task.Event;
 import friday.task.Task;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -80,6 +84,31 @@ public class TaskList {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Finds tasks that occur on the specified date. This includes tasks with deadlines on that date
+     * and events that occur on or span across that date.
+     *
+     * @param date The date to filter tasks by.
+     * @return A TaskList containing the tasks that occur on the specified date.
+     */
+    public TaskList findTasksByDate(LocalDate date) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                if (((Deadline) task).getBy().equals(date)) {
+                    matchingTasks.add(task);
+                }
+            } else if (task instanceof Event) {
+                LocalDate from = ((Event) task).getFrom();
+                LocalDate to = ((Event) task).getTo();
+                if ((date.equals(from) || date.equals(to)) || (date.isAfter(from) && date.isBefore(to))) {
+                    matchingTasks.add(task);
+                }
+            }
+        }
+        return new TaskList(matchingTasks);
     }
 
     /**

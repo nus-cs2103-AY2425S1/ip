@@ -1,7 +1,5 @@
 package friday.util;
 
-import friday.task.Deadline;
-import friday.task.Event;
 import friday.task.Task;
 
 import java.time.format.DateTimeFormatter;
@@ -135,34 +133,21 @@ public class Ui {
     }
 
     /**
-     * Displays the tasks that occur on a specific date.
+     * Displays the list of tasks occurring on a specific date.
      *
-     * @param tasks The TaskList containing all tasks.
-     * @param date  The date to filter tasks by.
+     * @param tasks The TaskList containing the tasks to be displayed.
+     * @param date  The date for which tasks need to be listed.
      */
     public void showSpecificTasks(TaskList tasks, LocalDate date) {
         System.out.println("    ____________________________________________________________");
-        System.out.println("     Here are your tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
-        int count = 0;
-
-        for (Task task : tasks.getTasks()) {
-            if (task instanceof Deadline) {
-                if (((Deadline) task).getBy().equals(date)) {
-                    System.out.println("     " + (++count) + ". " + task);
-                }
-            } else if (task instanceof Event) {
-                LocalDate from = ((Event) task).getFrom();
-                LocalDate to = ((Event) task).getTo();
-                if ((date.equals(from) || date.equals(to)) || (date.isAfter(from) && date.isBefore(to))) {
-                    System.out.println("     " + (++count) + ". " + task);
-                }
+        if (tasks.isTaskListEmpty()) {
+            System.out.println("     No tasks found on this date.");
+        } else {
+            System.out.println("     Here are your tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            for (int i = 0; i < tasks.getSize(); i++) {
+                System.out.println("     " + (i + 1) + "." + tasks.getTask(i));
             }
         }
-
-        if (count == 0) {
-            System.out.println("     No tasks found on this date.");
-        }
-
         System.out.println("    ____________________________________________________________");
     }
 
