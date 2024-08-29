@@ -1,10 +1,6 @@
-package poChat.bot;
+package poChat;
 
 import poChat.exceptions.TaskDescriptionEmptyException;
-import poChat.tasks.Task;
-import poChat.tasks.ToDo;
-import poChat.tasks.Deadline;
-import poChat.tasks.Event;
 
 class Parser {
     private final TaskList taskList;

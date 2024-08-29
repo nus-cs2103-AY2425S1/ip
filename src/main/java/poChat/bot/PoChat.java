@@ -1,4 +1,4 @@
-package poChat.bot;
+package poChat;
 
 import poChat.exceptions.TaskDescriptionEmptyException;
 

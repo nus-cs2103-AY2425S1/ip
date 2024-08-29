@@ -1,4 +1,4 @@
-package poChat.tasks;
+package poChat;
 
 import java.time.LocalDateTime;
 

@@ -1,7 +1,6 @@
-package poChat.bot;
+package poChat;
 
 import java.util.ArrayList;
-import poChat.tasks.Task;
 
 public class TaskList {
     private final ArrayList<Task> listTasks;
