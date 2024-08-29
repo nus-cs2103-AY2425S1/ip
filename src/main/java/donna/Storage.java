@@ -18,11 +18,22 @@ public class Storage {
     private final String directoryPath;
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified directory and file paths.
+     *
+     * @param directoryPath The path of the directory where the file is stored.
+     * @param filePath The path of the file where tasks are saved.
+     */
     public Storage(String directoryPath, String filePath) {
         this.directoryPath = directoryPath;
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to a file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     */
     public void saveTasks(TaskList tasks) { //writes into a text file
         try {
             Files.createDirectories(Paths.get(this.directoryPath)); //ensure directory exists
@@ -38,6 +49,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     *         Empty ArrayList is returned if file does not exist or is corrupted.
+     * @throws DonnaException If there is an error while creating tasks from the file data.
+     */
     public ArrayList<Task> loadTasks() throws DonnaException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -77,8 +95,6 @@ public class Storage {
             }
 
         } catch (IOException | ArrayIndexOutOfBoundsException |DonnaException e) {
-            // file data is corrupted, start in a new file
-//            System.out.println("No existing file found / File is corrupted. Starting in a new file.");
             return new ArrayList<Task>(); //return empty arrayList to start afresh
         }
         return tasks;
