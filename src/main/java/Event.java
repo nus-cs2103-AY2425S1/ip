@@ -9,6 +9,9 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public String getTimeline() {
+        return from + "-" + to;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(" + from + to + ")";

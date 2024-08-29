@@ -18,6 +18,13 @@ public class Task {
     public void unmarkAsDone() {
         this.isDone = false;
     }
+    public String getDescription() {
+        return description;
+    }
+
+    public int getStatus() {
+        return (isDone ? 1 : 0);
+    }
 
     @Override
     public String toString() {

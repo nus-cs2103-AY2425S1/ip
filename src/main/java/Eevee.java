@@ -1,12 +1,44 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Eevee {
+    private static final String FILE_PATH = "data/tasks.txt";
     enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
 
         public static Command enumerate(String command) {
             return Command.valueOf(command.toUpperCase());
+        }
+    }
+
+    /**
+     * Appends desired String to the file.
+     *
+     * @param filePath The file path of target file.
+     * @param textToAppend The String to be appended into the file.
+     * @throws IOException Input / Output exceptions.
+     */
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    /**
+     * Prints contents of the file.
+     *
+     * @param filePath The file that is to be printed.
+     * @throws FileNotFoundException Exception if the file is not found.
+     */
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
         }
     }
 
@@ -17,6 +49,12 @@ public class Eevee {
         String exit = "Bye. Hope to see you again soon!\n";
 
         System.out.print(divider + greeting + divider);
+//        try {
+//            printFileContents(FILE_PATH);
+//            System.out.print(divider);
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found!");
+//        }
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -27,6 +65,27 @@ public class Eevee {
                 Command command = Command.enumerate(input);
                 switch (command) {
                 case BYE:
+                    // Save tasks to hard disk before exiting
+                    try {
+                        for (Task task : tasks) {
+                            String type;
+                            // Check the type of task
+                            if (task instanceof Todo) {
+                                type = "T";
+                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|" +task.getDescription() + "\n");
+                            } else if (task instanceof Deadline) {
+                                type = "D";
+                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|" +task.getDescription() + "|" + ((Deadline) task).getDeadline() + "\n");
+                            } else if (task instanceof Event) {
+                                type = "E";
+                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|" +task.getDescription() + "|" + ((Event) task).getTimeline() + "\n");
+                            } else {
+                                throw new EeveeException("There is a task of unknown type!");
+                            }
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Unable to store tasks!");
+                    }
                     System.out.println(exit);
                     return;
                 case LIST:
