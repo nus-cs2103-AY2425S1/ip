@@ -13,4 +13,3 @@ public class Todo extends Task {
         return "T | " + super.toSaveFormat();
     }
 }
-

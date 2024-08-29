@@ -1,34 +1,31 @@
 import java.io.*;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Bigmouth {
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final URL fileURL = Bigmouth.class.getProtectionDomain().getCodeSource().getLocation();
     private static String path = fileURL.getPath(); //FILE_PATH;
     public static String rootPath = path.substring(0, path.indexOf("ip") + 3) +  "/data/Bigmouth.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
         loadFromFile();
         Scanner scanner = new Scanner(System.in);
-        //ArrayList<Task> tasks = new ArrayList<>();
 
-        // Introduction
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Bigmouth\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Bigmouth\nWhat can I do for you?");
         System.out.println("____________________________________________________________");
 
-        // Main loop to handle user input
         while (true) {
             String userInput = scanner.nextLine();
 
             try {
-                // Exit the program if the user types "bye"
                 if (userInput.equals("bye")) {
                     System.out.println("____________________________________________________________");
                     System.out.println(" Bye. Hope to see you again soon!");
@@ -36,7 +33,6 @@ public class Bigmouth {
                     break;
                 }
 
-                // List all stored tasks if the user types "list"
                 if (userInput.equals("list")) {
                     if (tasks.isEmpty()) {
                         throw new BigmouthException("Your task list is empty!");
@@ -47,9 +43,7 @@ public class Bigmouth {
                         System.out.println(" " + (i + 1) + "." + tasks.get(i));
                     }
                     System.out.println("____________________________________________________________");
-                }
-                // Mark a task as done
-                else if (userInput.startsWith("mark ")) {
+                } else if (userInput.startsWith("mark ")) {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
                         throw new BigmouthException("Invalid task number. Please enter a valid task number.");
@@ -60,9 +54,7 @@ public class Bigmouth {
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println("   " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
-                }
-                // Unmark a task as not done
-                else if (userInput.startsWith("unmark ")) {
+                } else if (userInput.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
                         throw new BigmouthException("Invalid task number. Please enter a valid task number.");
@@ -73,9 +65,7 @@ public class Bigmouth {
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println("   " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
-                }
-                // Add a Todo task
-                else if (userInput.startsWith("todo ")) {
+                } else if (userInput.startsWith("todo ")) {
                     String description = userInput.substring(5).trim();
                     if (description.isEmpty()) {
                         throw new BigmouthException("OOPS! The description of a todo cannot be empty.");
@@ -87,15 +77,13 @@ public class Bigmouth {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                }
-                // Add a Deadline task
-                else if (userInput.startsWith("deadline ")) {
+                } else if (userInput.startsWith("deadline ")) {
                     String[] parts = userInput.split(" /by ");
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
                         throw new BigmouthException("OOPS! The deadline command is missing a date/time.");
                     }
                     String description = parts[0].substring(9).trim();
-                    String by = parts[1].trim();
+                    LocalDateTime by = parseDateTime(parts[1].trim());
                     if (description.isEmpty()) {
                         throw new BigmouthException("OOPS! The description of a deadline cannot be empty.");
                     }
@@ -106,16 +94,14 @@ public class Bigmouth {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                }
-                // Add an Event task
-                else if (userInput.startsWith("event ")) {
+                } else if (userInput.startsWith("event ")) {
                     String[] parts = userInput.split(" /from | /to ");
                     if (parts.length < 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
                         throw new BigmouthException("OOPS! The event command is missing a start or end time.");
                     }
                     String description = parts[0].substring(6).trim();
-                    String from = parts[1].trim();
-                    String to = parts[2].trim();
+                    LocalDateTime from = parseDateTime(parts[1].trim());
+                    LocalDateTime to = parseDateTime(parts[2].trim());
                     if (description.isEmpty()) {
                         throw new BigmouthException("OOPS! The description of an event cannot be empty.");
                     }
@@ -126,9 +112,7 @@ public class Bigmouth {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                }
-                // Delete a task
-                else if (userInput.startsWith("delete ")) {
+                } else if (userInput.startsWith("delete ")) {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
                         throw new BigmouthException("Invalid task number. Please enter a valid task number.");
@@ -140,9 +124,7 @@ public class Bigmouth {
                     System.out.println("   " + removedTask);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                }
-                // Handle unknown commands
-                else {
+                } else {
                     throw new BigmouthException("OOPS! I don't know what that means. Please try again.");
                 }
             } catch (BigmouthException e) {
@@ -157,6 +139,14 @@ public class Bigmouth {
         }
 
         scanner.close();
+    }
+
+    private static LocalDateTime parseDateTime(String input) throws BigmouthException {
+        try {
+            return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new BigmouthException("OOPS! Please enter the date/time in the format 'M/d/yyyy HHmm'.");
+        }
     }
     private static void saveToFile() {
 
@@ -180,11 +170,6 @@ public class Bigmouth {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
-                if (parts.length < 3) {
-                    System.out.println("Skipping malformed line: " + line);
-                    continue;
-                }
-
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
@@ -192,31 +177,16 @@ public class Bigmouth {
                 Task task = null;
                 switch (type) {
                     case "T":
-                        if (parts.length == 3) {
-                            task = new Todo(description);
-                        } else {
-                            System.out.println("Skipping malformed Todo line: " + line);
-                        }
+                        task = new Todo(description);
                         break;
                     case "D":
-                        if (parts.length == 4) {
-                            String by = parts[3];
-                            task = new Deadline(description, by);
-                        } else {
-                            System.out.println("Skipping malformed Deadline line: " + line);
-                        }
+                        LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER);
+                        task = new Deadline(description, by);
                         break;
                     case "E":
-                        if (parts.length == 5) {
-                            String from = parts[3];
-                            String to = parts[4];
-                            task = new Event(description, from, to);
-                        } else {
-                            System.out.println("Skipping malformed Event line: " + line);
-                        }
-                        break;
-                    default:
-                        System.out.println("Skipping unknown task type line: " + line);
+                        LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER);
+                        LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER);
+                        task = new Event(description, from, to);
                         break;
                 }
 
