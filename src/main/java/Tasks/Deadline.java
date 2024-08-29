@@ -7,11 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task.
  */
 public class Deadline extends Task {
-<<<<<<< HEAD
     private final LocalDateTime endTime; // The end time of a deadline task
-=======
-    private final LocalDateTime endTime;
->>>>>>> branch-A-CodingStandard
 
     /**
      * Initialisation of a Deadline task with the required attributes.
