@@ -41,9 +41,7 @@ public class Ui {
      * Prints the exit/goodbye message to be shown when program is closed.
      */
     public void printExitMessage() {
-        printHorizontalLine();
         System.out.println("Bye. If you need any more help in the future, feel free to ask me. Enjoy your day!");
-        printHorizontalLine();
     }
 
     /**
