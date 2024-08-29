@@ -69,6 +69,10 @@ public class TaskList {
         System.out.println("Now you have " + this.taskCount + " tasks in the list.");
     }
 
+    public Task getTask(int taskNumber) {
+        return this.tasks[taskNumber];
+    }
+
     /**
      * Returns a string representation of the task list.
      */
