@@ -8,6 +8,9 @@ import darwin.parser.TaskFactory;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * DbManager class to manage the database of tasks.
+ */
 public class DbManager {
     private final String TASK_TB_PATH = "./tasks.txt";
     private void ensureFileExists(String filePath) {
@@ -18,9 +21,14 @@ public class DbManager {
                 System.out.println("File created: " + filePath);
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception as needed
+            e.printStackTrace();
         }
     }
+
+    /**
+     * Returns the list of tasks from the database.
+     * @return list of tasks from the database
+     */
     public ArrayList<Task> getTasks() {
         this.ensureFileExists(TASK_TB_PATH);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -37,6 +45,11 @@ public class DbManager {
         }
         return taskList;
     }
+
+    /**
+     * Writes the list of tasks to the database.
+     * @param taskList list of tasks to write to the database
+     */
     public void writeTasks(ArrayList<Task> taskList) {
         this.ensureFileExists(TASK_TB_PATH);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(TASK_TB_PATH))) {

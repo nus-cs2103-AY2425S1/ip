@@ -3,6 +3,9 @@ package darwin.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task class to represent a task to be completed by the user.
+ */
 public abstract class Task {
     private String name;
     private boolean done = false;

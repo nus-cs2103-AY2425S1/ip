@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * TaskParser interface to parse task arguments into Task objects.
+ */
 public interface TaskParser {
     Task parse(String taskArgs) throws IllegalTaskArgumentException;
     Task parseFromDb(String taskStr) throws IllegalTaskTypeException, IllegalTaskArgumentException;
