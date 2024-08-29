@@ -39,6 +39,9 @@ public class Bocchi {
         taskList = new TaskList(storage);
     }
 
+    public static void main(String[] args) {
+        new Bocchi().start();
+    }
 
     /**
      * Ends the conversation.
@@ -135,6 +138,22 @@ public class Bocchi {
         ui.printSeparator();
     }
 
+    /**
+     * Find tasks that contain the search string.
+     * @param search The search string.
+     */
+    private void find(String search) {
+        ui.printSeparator();
+        ui.printMessage("Here are the matching tasks in your list ~~");
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.getTask(i);
+            if (task.getDescription().contains(search)) {
+                ui.printMessage((i + 1) + ". " + task);
+            }
+        }
+        ui.printSeparator();
+    }
+
     private void printError(Exception e) {
         ui.printSeparator();
         ui.printMessage(e.getMessage());
@@ -163,27 +182,28 @@ public class Bocchi {
                 // optimized from if statements to switch by IntelliJ
                 try {
                     switch (command.getName()) {
-                        case "bye" -> {
-                            exit();
-                            return;
-                        }
-                        case "list" -> list();
-                        case "mark" -> mark(Integer.parseInt(command.getParam()));
-                        case "unmark" -> unmark(Integer.parseInt(command.getParam()));
-                        case "todo" -> task(new Todo(command.getParam()));
-                        case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParams("by")));
-                        case "event" -> task(new Event(
-                                command.getParam(),
-                                command.getKeywordParams("from"),
-                                command.getKeywordParams("to")
-                        ));
-                        case "del", "delete" -> delete(Integer.parseInt(command.getParam()));
-                        case "" -> throw new BocchiException(
-                                "I'm soooo sorry I did't hear you, could you please repeat that? ( T﹏T )"
-                        );
-                        default -> throw new BocchiException(
-                                "Wh..what did you say? I'm soooo sorry I did't understand that ( T﹏T )"
-                        );
+                    case "bye" -> {
+                        exit();
+                        return;
+                    }
+                    case "list" -> list();
+                    case "mark" -> mark(Integer.parseInt(command.getParam()));
+                    case "unmark" -> unmark(Integer.parseInt(command.getParam()));
+                    case "todo" -> task(new Todo(command.getParam()));
+                    case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParams("by")));
+                    case "event" -> task(new Event(
+                            command.getParam(),
+                            command.getKeywordParams("from"),
+                            command.getKeywordParams("to")
+                    ));
+                    case "del", "delete" -> delete(Integer.parseInt(command.getParam()));
+                    case "find" -> find(command.getParam());
+                    case "" -> throw new BocchiException(
+                            "I'm soooo sorry I did't hear you, could you please repeat that? ( T﹏T )"
+                    );
+                    default -> throw new BocchiException(
+                            "Wh..what did you say? I'm soooo sorry I did't understand that ( T﹏T )"
+                    );
                     }
                 } catch (NumberFormatException e) {
                     printError(new BocchiException("So sorry... I can't understand the number you entered. ( T_T )"));
@@ -194,10 +214,6 @@ public class Bocchi {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Bocchi().start();
     }
 
 }
