@@ -21,7 +21,7 @@ public class AddCommand extends Command {
             storage.save(taskToAdd);
             ui.showAdd(taskToAdd, taskList);
         } catch (DateTimeParseException e) {
-            System.out.println("Deadline format is wrong during input. Please follow yyyy-mm-dd format");
+            System.out.println("Deadline format is wrong during input. Please follow yyyy-mm-dd or with the time format");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("There's an issue in the instruction format. Please check.");
         }
