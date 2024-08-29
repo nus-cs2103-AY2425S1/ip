@@ -11,7 +11,7 @@ public class Ui {
     public enum MessageType {
         HORIZONTAL_LINE("-------------------------------------------------------------------"),
         WELCOME_MESSAGE(HORIZONTAL_LINE.message + "\n"
-                + "Hello! I'm Talkie, your friendly ChatBot.\n"
+                + "Hello! I'm talkie.Talkie, your friendly ChatBot.\n"
                 + "What can I do for you?\n"
                 + HORIZONTAL_LINE.message + "\n"),
         BYE_MESSAGE(HORIZONTAL_LINE.message + "\n"
