@@ -3,6 +3,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Events extends Task {
+    Parser parser = new Parser();
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalTime startTime;
@@ -11,10 +12,10 @@ public class Events extends Task {
         super(description, TaskType.EVENT);
         String[] splitStart = start.split(" ");
         String[] splitEnd = end.split(" ");
-        this.startDate = Weeny.convertDate(splitStart[0]);
-        this.endDate = Weeny.convertDate(splitEnd[0]);
-        this.startTime = Weeny.convertTime(splitStart[1]);
-        this.endTime = Weeny.convertTime(splitEnd[1]);
+        this.startDate = parser.convertDate(splitStart[0]);
+        this.endDate = parser.convertDate(splitEnd[0]);
+        this.startTime = parser.convertTime(splitStart[1]);
+        this.endTime = parser.convertTime(splitEnd[1]);
     }
 
     public String toOutput() {

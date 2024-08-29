@@ -16,9 +16,9 @@ public class Weeny {
         storage.createFileIfNotExist("./data", "TaskList.txt");
 
         // Read TaskList file to resume TaskList
-        List<Task> tasks = storage.loadTask("./data/TaskList.txt");
-        boolean isFarewell = false;
+        taskList.getTasks().addAll(storage.loadTask("./data/TaskList.txt"));
 
+        boolean isFarewell = false;
         ui.showWelcomeMessage();
 
         while (!isFarewell) {
@@ -28,7 +28,7 @@ public class Weeny {
             try {
                 switch (command) {
                 case "list":
-                    ui.showTaskList(tasks);
+                    ui.showTaskList(taskList.getTasks());
                     break;
 
                 case "bye":
@@ -37,24 +37,24 @@ public class Weeny {
 
                 case "mark":
                     int markIndex = parser.extractEndNumber(input) - 1;
-                    validateIndex(markIndex, tasks.size(), "mark");
-                    tasks.get(markIndex).setMark();
-                    ui.showMarkMessage(tasks.get(markIndex));
+                    validateIndex(markIndex, taskList.size(), "mark");
+                    taskList.markTask(markIndex);
+                    ui.showMarkMessage(taskList.getTask(markIndex));
                     break;
 
                 case "unmark":
                     int unmarkIndex = parser.extractEndNumber(input) - 1;
-                    validateIndex(unmarkIndex, tasks.size(), "unmark");
-                    tasks.get(unmarkIndex).setUnmark();
-                    ui.showUnmarkMessage(tasks.get(unmarkIndex));
+                    validateIndex(unmarkIndex, taskList.size(), "unmark");
+                    taskList.unmarkTask(unmarkIndex);
+                    ui.showUnmarkMessage(taskList.getTask(unmarkIndex));
                     break;
 
                 case "todo":
                     validateTodoInput(input);
                     printLine();
                     Task todoTask = new Todo(input.substring(5).trim());
-                    tasks.add(todoTask);
-                    ui.printTaskAddedMessage(todoTask, tasks.size());
+                    taskList.addTask(todoTask);
+                    ui.printTaskAddedMessage(todoTask, taskList.size());
                     printLine();
                     break;
 
@@ -63,8 +63,8 @@ public class Weeny {
                     Task eventTask = new Events(parser.extractEventName(input),
                             parser.extractEventTimes(input)[0],
                             parser.extractEventTimes(input)[1]);
-                    tasks.add(eventTask);
-                    ui.printTaskAddedMessage(eventTask, tasks.size());
+                    taskList.addTask(eventTask);
+                    ui.printTaskAddedMessage(eventTask, taskList.size());
                     printLine();
                     break;
 
@@ -72,16 +72,17 @@ public class Weeny {
                     validateDeadlineInput(input);
                     Task deadlineTask = new Deadlines(parser.extractDeadlineName(input),
                             parser.extractDeadlineTime(input));
-                    tasks.add(deadlineTask);
-                    ui.printTaskAddedMessage(deadlineTask, tasks.size());
+                    taskList.addTask(deadlineTask);
+                    ui.printTaskAddedMessage(deadlineTask, taskList.size());
                     printLine();
                     break;
 
                 case "delete":
                     int deleteIndex = parser.extractEndNumber(input) - 1;
-                    validateIndex(deleteIndex, tasks.size(), "delete");
-                    Task removedTask = tasks.remove(deleteIndex);
-                    ui.showTaskDeletedMessage(removedTask, tasks.size());
+                    validateIndex(deleteIndex, taskList.size(), "delete");
+                    Task removedTask = taskList.getTask(deleteIndex);
+                    taskList.deleteTask(deleteIndex);
+                    ui.showTaskDeletedMessage(removedTask, taskList.size());
                     break;
 
                 default:
@@ -92,9 +93,9 @@ public class Weeny {
             }
         }
         ui.showGoodbyeMessage();
-        
+
         // Write to TaskList.txt
-        storage.saveTask("./Data/TaskList.txt", tasks);
+        storage.saveTask("./Data/TaskList.txt", taskList.getTasks());
     }
 
     /**
