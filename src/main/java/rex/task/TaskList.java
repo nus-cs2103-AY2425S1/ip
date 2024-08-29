@@ -147,7 +147,9 @@ public class TaskList {
      * @return A string representation of the task list.
      */
     public String getListDisplay() {
-        if (isEmpty()) return "The list is empty! rawr\n";
+        if (size() == 0) {
+            return "The list is empty! rawr\n";
+        }
 
         StringBuilder output = new StringBuilder();
         for (int i = 1; i <= list.size(); i++) {
