@@ -31,16 +31,20 @@ public class Primo {
                     return type;
                 }
             }
-            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, list, bye)\n");
+            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, delete, list, bye)\n");
         }
     }
 
-    private static void printList() {
+    private static String printList() {
         int len = list.size();
+        StringBuilder data = new StringBuilder();
         for (int i = 0; i < len; i++) {
             String output = String.valueOf(i + 1) + "." + list.get(i);
+            data.append(output);
+            data.append("\n");
             System.out.println(output);
         }
+        return data.toString();
     }
 
     private static void sayBye() {
@@ -189,37 +193,39 @@ public class Primo {
                 String deadline = "";
                 String from = "";
                 String to = "";
-                Task newTask;
-                switch (words[0]) {
-                case "T":
-                    isDone = words[1].equals("1");
-                    name = words[2];
-                    newTask = new ToDoTask(name);
+                switch (words[0].charAt(3)) {
+                case 'T':
+                    int todoFromIndex = 9;
+                    String todoDescription = s.substring(todoFromIndex).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newToDoTask = new ToDoTask(todoDescription);
                     if (isDone) {
-                        newTask.markAsDone();
+                        newToDoTask.markAsDone();
                     }
-                    list.add(newTask);
+                    list.add(newToDoTask);
                     break;
-                case "D":
-                    isDone = words[1].equals("1");
-                    name = words[2];
-                    deadline = words[3];
-                    newTask = new DeadlineTask(name, deadline);
+                case 'D':
+                    int deadlineFromIndex = 9;
+                    int deadlineToIndex = s.indexOf("(by:");
+                    String deadlineDescription = s.substring(deadlineFromIndex, deadlineToIndex).trim();
+                    String dueTime = s.substring(deadlineToIndex + 4, s.indexOf(')')).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newDeadlineTask = new DeadlineTask(deadlineDescription, dueTime);
                     if (isDone) {
-                        newTask.markAsDone();
+                        newDeadlineTask.markAsDone();
                     }
-                    list.add(newTask);
+                    list.add(newDeadlineTask);
                     break;
-                case "E":
-                    isDone = words[1].equals("1");
-                    name = words[2];
-                    from = words[3];
-                    to = words[4];
-                    newTask = new EventTask(name, from, to);
+                case 'E':
+                    String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
+                    String eventFromTime = s.substring(s.indexOf("from: ") + 6, s.indexOf("to: ")).trim();
+                    String eventToTime = s.substring(s.indexOf("to: ") + 4, s.indexOf(")")).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime);
                     if (isDone) {
-                        newTask.markAsDone();
+                        newEventTask.markAsDone();
                     }
-                    list.add(newTask);
+                    list.add(newEventTask);
                     break;
                 }
             }

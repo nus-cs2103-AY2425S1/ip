@@ -1,3 +1,3 @@
-T 1 todotask
-D 0 deadlinetask deadline
-E 1 eventtask from to
+1.[T][X] todotask
+2.[D][X] deadlinetask (by: deadline)
+3.[E][X] eventtask (from: from to: to)
