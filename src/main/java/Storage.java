@@ -13,7 +13,7 @@ class Storage {
         this.path = path;
     }
 
-    public List<Task> load() {
+    public List<Task> load() throws TudeeException {
         List<Task> ls = new ArrayList<>();
         File currentFile = new File(path);
         if (!currentFile.exists()) {
