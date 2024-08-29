@@ -26,10 +26,10 @@ public class Task {
         return "";
     }
     protected String dateConverter(LocalDate d) {
-        return d.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) +" "+ d.getDayOfMonth() + " " + d.getYear();
+        return d.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + d.getDayOfMonth() + " " + d.getYear();
     }
     public String toString() {
-        return getStatusIcon()+description;
+        return getStatusIcon() + description;
     }
 
 }

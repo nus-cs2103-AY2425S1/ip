@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class TaskList {
     private Task[] tasks;
-    public int cmdNum = 0;
+    private int cmdNum = 0;
     TaskList(Task[] t, int  n){
         tasks = t;
         cmdNum = n;
@@ -24,9 +24,9 @@ public class TaskList {
         if (n >= cmdNum + 1) {
             throw new DuckException("There is no task with the given task number.");
         }
-        Ui.printText("Noted. I've removed this task:\n "+ get(n-1));
+        Ui.printText("Noted. I've removed this task:\n " + get(n-1));
         ArrayList<Task> newCmds = new ArrayList<Task>(Arrays.asList(tasks));
-        newCmds.remove(n-1);
+        newCmds.remove(n - 1);
         tasks = newCmds.toArray(new Task[100]);
         n--;
         cmdNum--;
@@ -39,28 +39,31 @@ public class TaskList {
 
     public void printTasks() {
         Ui.printText("Here are the tasks in your list:");
-        for (int n = 1; n<=cmdNum; n++) {
+        for (int n = 1; n <= cmdNum; n++) {
             System.out.println(n + ". " + get(n - 1));
         }
     }
     public void mark(int num) throws DuckException {
         if (num < cmdNum + 1) {
-            get(num-1).mark();
+            get(num - 1).mark();
         } else {
             throw new DuckException("There is no task with the given task number.");
         }
-        Ui.printText("Nice! I've marked this task as done:\n "+ get(num-1));
+        Ui.printText("Nice! I've marked this task as done:\n " + get(num - 1));
     }
 
     public void unmark(int num) throws DuckException {
         if (num < cmdNum + 1) {
-            get(num-1).unmark();
+            get(num - 1).unmark();
         } else {
             throw new DuckException("There is no task with the given task number.");
         }
-        Ui.printText("OK, I've marked this task as not done yet:\n "+ get(num-1));
+        Ui.printText("OK, I've marked this task as not done yet:\n "+ get(num - 1));
     }
     public void save() throws DuckException {
         Storage.save(allTasks(), cmdNum);
+    }
+    public int getCmdNum() {
+        return cmdNum;
     }
 }

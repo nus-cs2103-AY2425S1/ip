@@ -9,9 +9,9 @@ public class TaskListTest {
         list.add(new Todo("t1"));
         list.add(new Todo("t2"));
         list.add(new Todo("t3"));
-        assertEquals(list.cmdNum, 3);
+        assertEquals(list.getCmdNum(), 3);
         list.delete(2);
-        assertEquals(list.cmdNum, 2);
+        assertEquals(list.getCmdNum(), 2);
         list.mark(1);
         assertEquals(list.get(0).isDone, true);
 

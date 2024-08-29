@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class Storage {
-    private static final String path = "./data/duke.txt";
+    private static final String PATH = "./data/duke.txt";
 
     public Storage() {
     }
 
     public static Task[] load() throws DuckException {
-        File file = new File(path);
+        File file = new File(PATH);
         Task[] tasks;
         try {
             if (!file.exists()) {
@@ -24,7 +24,7 @@ public class Storage {
                 file.createNewFile();
                 return new Task[100];
             } else {
-                List<String> tasklist = Files.readAllLines(Paths.get(path));
+                List<String> tasklist = Files.readAllLines(Paths.get(PATH));
                 int numTasks = 0;
                 if (!tasklist.isEmpty()) {
                     numTasks = Integer.parseInt(String.valueOf(tasklist.get(0)));
@@ -40,12 +40,12 @@ public class Storage {
         }
     }
     public static int loadNum() throws DuckException {
-        File file = new File(path);
+        File file = new File(PATH);
         try {
             if (!file.exists()) {
                 return 0;
             } else {
-                List<String> tasklist = Files.readAllLines(Paths.get(path));
+                List<String> tasklist = Files.readAllLines(Paths.get(PATH));
                 int numTasks = 0;
                 if (!tasklist.isEmpty()) {
                     numTasks = Integer.parseInt(String.valueOf(tasklist.get(0)));
@@ -59,9 +59,9 @@ public class Storage {
 
     public static void save(Task[] tasks, int n) throws DuckException {
         try {
-            FileWriter writer = new FileWriter(path);
+            FileWriter writer = new FileWriter(PATH);
             writer.write(n + "\n");
-            for (int i =0; i<n; i++) {
+            for (int i = 0; i<n; i++) {
                 //System.out.println("Saved "+tasks[i].description);
                 writer.write(saveTask(tasks[i]) + "\n");
             }
