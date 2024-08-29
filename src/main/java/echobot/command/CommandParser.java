@@ -30,6 +30,7 @@ public class CommandParser {
             case MarkCommand.COMMAND -> this.getMarkCommand(arguments);
             case UnMarkCommand.COMMAND -> this.getUnmarkCommand(arguments);
             case DeleteCommand.COMMAND -> this.getDeleteCommand(arguments);
+            case FindCommand.COMMAND -> this.getFindCommand(arguments);
             case ExitCommand.COMMAND -> this.getExitCommand();
             default -> throw new UnknownCommandException(command);
         };
@@ -115,6 +116,10 @@ public class CommandParser {
         } catch (NumberFormatException e) {
             throw new TaskNotFoundException();
         }
+    }
+
+    private FindCommand getFindCommand(String arguments) {
+        return new FindCommand(arguments);
     }
 
     private ExitCommand getExitCommand() {

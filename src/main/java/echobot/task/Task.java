@@ -3,6 +3,8 @@ package echobot.task;
 import echobot.exception.TaskNameEmptyException;
 import echobot.io.Saveable;
 
+import java.util.Arrays;
+
 public class Task implements Saveable {
     private final String taskName;
     private boolean isDone;
@@ -33,6 +35,16 @@ public class Task implements Saveable {
         this.isDone = false;
     }
 
+    /**
+     * Checks if the task name contains the keyword.
+     *
+     * @param keyword The keyword to search.
+     * @return True if the keyword is in, otherwise, False.
+     */
+    public boolean isKeywordContained(String keyword) {
+        return Arrays.asList(taskName.split(" ")).contains(keyword);
+    }
+    
     public boolean isDone() {
         return this.isDone;
     }
