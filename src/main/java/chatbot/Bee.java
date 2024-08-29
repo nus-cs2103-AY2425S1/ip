@@ -17,16 +17,17 @@ public class Bee {
         TaskList taskList = new TaskList();
         Storage storage = new Storage();
 
+        // Check if source text file is successfully opened
         boolean isOpenFile = storage.readFromTaskListFile();
-
         if (isOpenFile) {
-
+            // Parse input from saved text file
             Parser.parseFromTxtTaskList(storage.getScanner(), taskList);
 
             // Welcome user
             System.out.println(Ui.LOGO);
             Ui.printBtnLines("Hello, I'm Bee! What can I do for you?");
 
+            // User input
             Scanner sc = new Scanner(System.in);
             while (sc.hasNextLine()) {
                 try {
