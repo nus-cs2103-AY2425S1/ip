@@ -70,7 +70,7 @@ public class Echo {
     }
 
     /**
-     * Handles the command when users types in "todo".
+     * Handles the command when users types in "todo"
      * Creates a ToDos object and is added to the taskList
      * Prints out a display message after adding the ToDos object
      *
