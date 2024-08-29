@@ -5,13 +5,11 @@ import Talky.SaveData;
 import Talky.Parser;
 import Talky.TalkyException;
 public class Talky {
-    //private static ArrayList<Talky.Task> userTasks = new ArrayList<>();
     private final static String SAVE_PATH = "./data/talky.txt";
     private boolean isRunning;
     private Ui ui;
     private TaskList userTasks;
     private SaveData saveData;
-    private Parser parser;
 
     private Talky() {
         ui = new Ui();
