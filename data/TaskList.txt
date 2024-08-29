@@ -1,6 +1,4 @@
-D | 0 | this | 4pm
-D | 1 | that | 6am
-E | 0 | haha | July 6th 2pm-July 6th 10am
-E | 0 | lol | May 5th 6pm-June 8th 9am
-T | 0 | hello
-E | 0 | akdsjflsajf | 6pm-9pm
+D | 0 | adfasdf | 13/03/2002 2313
+E | 0 | asdfasdfa | 13/03/2002 0123-13/03/2002 1234
+T | 0 | lol
+D | 0 | adsfa | 13/03/2003 1640

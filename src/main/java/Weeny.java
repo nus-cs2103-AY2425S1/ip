@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.File;
 import java.util.Collections;
 import java.util.Iterator;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 /**
@@ -176,10 +178,14 @@ public class Weeny {
             } else if (processTask[0].equals("D")) {
                 currentTask = new Deadlines(description, processTask[3]);
             } else if (processTask[0].equals("E")) {
+                // Split string into startDate and endDate string
                 int split = processTask[3].indexOf('-');
-                String startTime = processTask[3].substring(0, split);
-                String endTime = processTask[3].substring(split + 1, processTask[3].length());
-                currentTask = new Events(description, startTime, endTime);
+                if (split == -1) {
+                    throw new IllegalArgumentException("Invalid event time format " + processTask[3]);
+                }
+                String startDatestring = processTask[3].substring(0, split).trim();
+                String endDatestring = processTask[3].substring(split + 1).trim();
+                currentTask = new Events(description, startDatestring, endDatestring);
             } else {
                 // should not reach here
             }
@@ -214,6 +220,22 @@ public class Weeny {
     public static String extractFirstWord(String sentence) {
         int spaceIndex = sentence.indexOf(" ");
         return spaceIndex == -1 ? sentence : sentence.substring(0, spaceIndex);
+    }
+
+    public static LocalDate convertDate(String date) {
+        String[] splitDate = date.split("/");
+        int[] splitDateint = new int[3];
+        for (int i = 0; i < 3; i++) {
+            splitDateint[i] = Integer.parseInt(splitDate[i]);
+        }
+        LocalDate convertedDate = LocalDate.of(splitDateint[2], splitDateint[1], splitDateint[0]);
+        return convertedDate;
+    }
+
+    public static LocalTime convertTime(String time) {
+        int hour = Integer.parseInt(time.substring(0,2));
+        int minute = Integer.parseInt(time.substring(2));
+        return LocalTime.of(hour, minute);
     }
 
     /**
