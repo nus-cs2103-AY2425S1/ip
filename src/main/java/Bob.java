@@ -6,6 +6,10 @@ import ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Bob program keeps track of the users ToDos, Events, Deadlines.
+ * Remembers past tasks.
+ */
 public class Bob {
     private Storage storage;
     private TaskList tasks;
@@ -20,11 +24,17 @@ public class Bob {
         ui.introBobUi();
     }
 
+    /**
+     * Exits the program. Saves the task into a text file.
+     */
     public void exit() {
         ui.exitBobUi();
         this.tasks.saveTask(this.storage);
     }
 
+    /**
+     * Starts the program by loading current tasks and then receives input from uses.
+     */
     public void start() {
         // Load task
         this.storage.loadTasks(this.tasks);
@@ -37,6 +47,11 @@ public class Bob {
         } while (receiveMessage(message));
     }
 
+    /**
+     * Receives input and sends to the parser for further processing.
+     * @param message Message of user input
+     * @return Whether Bob should still be active
+     */
     public boolean receiveMessage(String message) {
         boolean result = true;
         String command = message.split(" ")[0];
