@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import tasks.Deadlined;
 import tasks.Events;
@@ -218,6 +215,49 @@ public class WansBot {
                     + "\n" + HR);
         }
     }
+
+    private static void returnTask(String fileInput) {
+        String[] splitInput = fileInput.split(" ");
+        String typeTask = splitInput[1];
+        String nameTask = "";
+        switch (typeTask) {
+            case "T":
+                if (fileInput.contains("[ X ]")) {
+                    nameTask = splitInput[6];
+                    Todos next = new Todos(nameTask);
+                    next.finish();
+                    userTaskList.add(next);
+                    numTasks++;
+                } else {
+                    nameTask = splitInput[5];
+                    Todos next = new Todos(nameTask);
+                    userTaskList.add(next);
+                    numTasks++;
+                    System.out.print("added");
+                }
+                break;
+//            case "D":
+//                if (fileInput.contains("[ X ]")) {
+//
+//                }
+        }
+    }
+
+    private static void loadTasks() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("./data/tasklist.txt"));
+            String line = reader.readLine();
+            while (line != null) {
+                returnTask(line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private static void sayGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"
                 + "\n| |_) \\ \\_/ /| |__"
@@ -272,6 +312,10 @@ public class WansBot {
                     break;
                 case "save":
                     saveTasks();
+                    break;
+                case "load":
+//                    returnTask(userInput);
+                    loadTasks();
                     break;
                 case "bye":
                     sayGoodbye();
