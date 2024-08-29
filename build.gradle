@@ -4,6 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'deez.Deez'
+
 repositories {
     mavenCentral()
 }
@@ -32,8 +34,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "deez"
     archiveClassifier = null
+    archiveFileName = 'deez.jar'
 }
 
 run{
