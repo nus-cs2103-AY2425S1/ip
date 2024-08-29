@@ -17,10 +17,10 @@ delete 1
 delete 1 2
 delete 1a
 todo borrow book
-deadline return book/by Sunday
-deadline return book /by Sunday
-event project meeting/from Mon 2pm/to 4pm
-event project meeting /from Mon 2pm /to 4pm
+deadline return book/by 29/08/24 1800
+deadline return book /by 29/08/24 0800
+event project meeting/from 29/08/24 1400/to 29/08/24 1600
+event project meeting /from 29/08/24 1400 /to 29/08/24 1600
 list
 mark
 mark -1
@@ -40,4 +40,7 @@ delete 1
 delete 1 2
 delete 1a
 list
+delete 1
+delete 1
+delete 1
 bye
