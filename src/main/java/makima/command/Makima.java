@@ -1,5 +1,12 @@
+package makima.command;
+
+import makima.io.*;
+import makima.task.Deadline;
+import makima.task.Event;
+import makima.task.Task;
+import makima.task.ToDo;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +20,7 @@ public class Makima {
 
 
     private void greeting() {
-        System.out.println("Yahallo! I'm your friendly chatbot, Makima!");
+        System.out.println("Yahallo! I'm your friendly chatbot, makima.Makima!");
         System.out.println("What can I do for you? *_*");
         System.out.println(LINE_SEPERATOR);
     }

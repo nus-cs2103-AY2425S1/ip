@@ -1,3 +1,5 @@
+package makima.task;
+
 public class Task {
 
     private String name = "";

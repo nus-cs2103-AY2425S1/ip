@@ -1,3 +1,7 @@
+package makima.io;
+
+import makima.command.Makima;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 

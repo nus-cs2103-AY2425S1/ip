@@ -1,3 +1,10 @@
+package makima.io;
+
+import makima.command.Makima;
+import makima.task.Deadline;
+import makima.task.Event;
+import makima.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
