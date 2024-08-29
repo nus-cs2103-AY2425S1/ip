@@ -31,7 +31,7 @@ public class Derek {
     public Derek() {
         this.taskList = new TaskList();
         this.storage = new Storage(this.taskList);
-        storage.readFile();
+        this.taskList = storage.readFile();
         this.handleUserInteraction();
     }
 

@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static String dataFilePathName = "./data/derek.txt";
+    private String dataFilePathName = "./data/derek.txt";
     private TaskList taskList;
 
     public Storage(TaskList taskList) {
         this.taskList = taskList;
     }
-    public void readFile() {
+    public TaskList readFile() {
         try {
             File tasks = new File(dataFilePathName);
             if (!tasks.exists()) {
@@ -37,6 +37,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return taskList;
 
     }
 
