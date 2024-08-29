@@ -1,9 +1,8 @@
 package silverwolf.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the Todo class to verify task state and string representation.
@@ -37,6 +36,7 @@ public class TodoTest {
         // Actual output
         String actualOutput = task.toString();
         // Check if they match
-        assertEquals(expectedOutput, actualOutput, "The initial task string representation should match the expected format.");
+        assertEquals(expectedOutput, actualOutput,
+                "The initial task string representation should match the expected format.");
     }
 }

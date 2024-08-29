@@ -7,7 +7,8 @@ import silverwolf.ui.Ui;
 
 /**
  * The Command class serves as an abstract base class for all command types in the application.
- * Each command represents an action that the user can perform, such as adding a task, deleting a task, marking a task as done, etc.
+ * Each command represents an action that the user can perform, such as adding a task, deleting a
+ * task, marking a task as done, etc.
  * Subclasses must implement the abstract execute method, which defines the specific behavior of the command.
  */
 public abstract class Command {
@@ -19,7 +20,7 @@ public abstract class Command {
      * @param tasks   The TaskList object that manages the list of tasks.
      * @param ui      The Ui object that handles user interaction.
      * @param storage The Storage object responsible for saving and loading tasks from the file.
-     * @throws SilverWolfException If there is an error during the execution of the command (e.g., invalid input, saving to storage).
+     * @throws SilverWolfException If there is an error during the execution of the command (e.g., invalid input).
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SilverWolfException;
 

@@ -21,7 +21,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine();         // Display a line to separate sections in the UI.
+        ui.showLine(); // Display a line to separate sections in the UI.
         System.out.println("Here are the tasks in your list:");
         // Iterate through the tasks and display each one with its corresponding index.
         for (int i = 0; i < tasks.getSize(); i++) {
