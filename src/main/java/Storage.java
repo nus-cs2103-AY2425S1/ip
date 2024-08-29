@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Storage {
     private final String filePath;
 
-    public Storage(String pathName) {
-        this.filePath = pathName;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     public List<Task> load() throws IOException, SageException {
@@ -31,20 +31,20 @@ public class Storage {
 
             switch (type) {
                 case "T":
-                    Task toDO = new ToDo(description);
+                    Task toDO = new ToDoTask(description);
                     toDO.setDone(isDone);
                     taskList.add(toDO);
                     break;
                 case "D":
                     String by = entryDetails[3];
-                    Task deadline = new Deadline(description, by);
+                    Task deadline = new DeadlineTask(description, by);
                     deadline.setDone(isDone);
                     taskList.add(deadline);
                     break;
                 case "E":
                     String from = entryDetails[3];
                     String to = entryDetails[4];
-                    Task event = new Event(description, from, to);
+                    Task event = new EventTask(description, from, to);
                     event.setDone(isDone);
                     taskList.add(event);
                     break;
@@ -56,9 +56,9 @@ public class Storage {
         return taskList;
     }
 
-    public void save(List<Task> tasksList) throws IOException {
+    public void save(TaskList tasksList) throws IOException {
         FileWriter fw  = new FileWriter(filePath);
-        for (Task task : tasksList) {
+        for (Task task : tasksList.getTasks()) {
             fw.write(task.toSave() + System.lineSeparator());
         }
         fw.close();
