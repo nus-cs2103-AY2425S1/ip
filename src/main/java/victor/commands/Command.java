@@ -1,8 +1,9 @@
-package Victor.Commands;
-import Victor.TaskList.TaskList;
-import Victor.Messages.ReturnMessage;
+package victor.commands;
 
 import java.nio.file.Path;
+
+import victor.messages.ReturnMessage;
+import victor.tasklist.TaskList;
 
 public class Command {
     protected TaskList taskList;

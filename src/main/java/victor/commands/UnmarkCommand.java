@@ -1,32 +1,27 @@
-package Victor.Commands;
+package victor.commands;
 
-import Victor.Messages.ReturnMessage;
-import Victor.Tasks.Task;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
-public class DeleteCommand extends Command {
+import victor.messages.ReturnMessage;
+
+public class UnmarkCommand extends Command {
     private String taskNumber;
 
-    public DeleteCommand(String[] additionalInput) {
+    public UnmarkCommand(String[] additionalInput) {
         super(additionalInput);
         if (additionalInput.length == 1) {
             this.taskNumber = "-1";
         } else {
             this.taskNumber = additionalInput[1];
         }
-    }
 
+    }
     @Override
     public ReturnMessage execute() {
         try {
-            return new ReturnMessage(super.taskList.deleteTask(Integer.parseInt(taskNumber)));
+            return new ReturnMessage(super.taskList.unmarkDone(Integer.parseInt(taskNumber)));
         } catch (NumberFormatException e) {
-            return new ReturnMessage("  ~  Sorry, I don't think you entered a number for which" +
-                    " task to delete!");
+            return new ReturnMessage("  ~  I don't think there's a task with that number!");
         }
     }
 

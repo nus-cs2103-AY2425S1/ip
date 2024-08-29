@@ -1,11 +1,11 @@
-package Victor.Commands;
-
-import Victor.Messages.ReturnMessage;
-import Victor.Tasks.Deadline;
+package victor.commands;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.format.DateTimeParseException;
+
+import victor.messages.ReturnMessage;
+import victor.tasks.Deadline;
 
 public class DeadlineCommand extends Command {
     private Deadline deadline;
@@ -37,19 +37,19 @@ public class DeadlineCommand extends Command {
         try {
             if (taskNameString.isBlank()) {
                 return new ReturnMessage("  ~  Please give a name for the deadline.",
-                        "The format should be \"deadline" +
-                        " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                        "The format should be \"deadline"
+                            + " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else if (deadlineString.isBlank()) {
                 return new ReturnMessage("  ~  Please give a deadline for the deadline.",
-                        "The format should be \"deadline" +
-                        " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                        "The format should be \"deadline"
+                            + " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else {
                 this.deadline = new Deadline(taskNameString, deadlineString);
                 return new ReturnMessage(super.taskList.addTask(deadline));
             }
         } catch (DateTimeParseException parseException) {
-            return new ReturnMessage("  ~  Please format deadline as " + "\"deadline" +
-                    " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+            return new ReturnMessage("  ~  Please format deadline as " + "\"deadline"
+                + " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
         }
     }
 

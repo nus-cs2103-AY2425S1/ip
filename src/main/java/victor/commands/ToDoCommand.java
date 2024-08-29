@@ -1,10 +1,10 @@
-package Victor.Commands;
-
-import Victor.Messages.ReturnMessage;
-import Victor.Tasks.ToDo;
+package victor.commands;
 
 import java.io.IOException;
 import java.nio.file.Path;
+
+import victor.messages.ReturnMessage;
+import victor.tasks.ToDo;
 
 public class ToDoCommand extends Command {
     private ToDo toDo;

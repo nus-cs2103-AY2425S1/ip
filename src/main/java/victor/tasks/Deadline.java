@@ -1,4 +1,4 @@
-package Victor.Tasks;
+package victor.tasks;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "{D}" + super.toString() + " (by: " +
-                this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "{D}" + super.toString() + " (by: "
+                + this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

@@ -1,21 +1,21 @@
-package Victor.Storage;
+package victor.storage;
 
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import Victor.Commands.Command;
-import Victor.Commands.DeadlineCommand;
-import Victor.Commands.EventCommand;
-import Victor.Commands.MarkCommand;
-import Victor.Commands.ToDoCommand;
-import Victor.TaskList.TaskList;
+import victor.commands.Command;
+import victor.commands.DeadlineCommand;
+import victor.commands.EventCommand;
+import victor.commands.MarkCommand;
+import victor.commands.ToDoCommand;
+import victor.tasklist.TaskList;
 
 public class Storage {
-    Path filePath;
-    TaskList taskList;
+    private Path filePath;
+    private TaskList taskList;
 
     public Storage(Path filePath) {
         this.filePath = filePath;
@@ -37,8 +37,8 @@ public class Storage {
                     // Create new file
                     File data = new File(String.valueOf(filePath));
                     data.createNewFile();
-                } catch (IOException makeFileIOException) {
-                    throw new RuntimeException(makeFileIOException);
+                } catch (IOException makeFileException) {
+                    throw new RuntimeException(makeFileException);
                 }
             }
         } else {
@@ -50,8 +50,8 @@ public class Storage {
                 // Create new file
                 File data = new File(String.valueOf(filePath));
                 data.createNewFile();
-            } catch (IOException makeFileIOException) {
-                throw new RuntimeException(makeFileIOException);
+            } catch (IOException makeFileException) {
+                throw new RuntimeException(makeFileException);
             }
         }
         return taskList;
@@ -96,8 +96,8 @@ public class Storage {
             }
             fileScanner.close();
             return taskList;
-        } catch (IOException scannerIOException) {
-            throw new RuntimeException(scannerIOException);
+        } catch (IOException scannerException) {
+            throw new RuntimeException(scannerException);
         }
     }
 }

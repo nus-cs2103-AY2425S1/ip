@@ -1,6 +1,6 @@
-package Victor.Commands;
+package victor.commands;
 
-import Victor.Messages.ReturnMessage;
+import victor.messages.ReturnMessage;
 
 public class ExitCommand extends Command {
     public ExitCommand(String[] additionalInput) {

@@ -1,16 +1,17 @@
-package Victor;
+package victor;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import Victor.Commands.Command;
-import Victor.Messages.ReturnMessage;
-import Victor.Parser.Parser;
-import Victor.Storage.Storage;
-import Victor.TaskList.TaskList;
-import Victor.UI.UI;
+
+import victor.commands.Command;
+import victor.messages.ReturnMessage;
+import victor.parser.Parser;
+import victor.storage.Storage;
+import victor.tasklist.TaskList;
+import victor.ui.UI;
 
 public class Main {
-    private final Path FILE_PATH = Paths.get("data", "data.txt");
+    private final Path filePath = Paths.get("data", "data.txt");
     private Parser parser;
     private UI ui;
     private TaskList taskList;
@@ -30,7 +31,7 @@ public class Main {
         // On start, need to create parser, load data from storage to make Task List
         parser = new Parser();
         ui = new UI();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage(filePath);
         taskList = storage.load();
         ui.welcomeMessage();
     }
@@ -42,7 +43,7 @@ public class Main {
             nextCommand.setData(taskList);
             ReturnMessage returnMessage = nextCommand.execute();
             ui.showUserMessage(returnMessage);
-            nextCommand.write(FILE_PATH);
+            nextCommand.write(filePath);
         } while (!nextCommand.isExit());
     }
 

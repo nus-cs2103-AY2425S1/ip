@@ -1,4 +1,4 @@
-package Victor.Messages;
+package victor.messages;
 
 public class ReturnMessage {
     private String[] message;

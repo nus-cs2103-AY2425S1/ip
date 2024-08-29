@@ -1,12 +1,12 @@
-package Victor.Commands;
-
-import Victor.Messages.ReturnMessage;
-import Victor.Tasks.Event;
+package victor.commands;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
+
+import victor.messages.ReturnMessage;
+import victor.tasks.Event;
 
 public class EventCommand extends Command {
     private Event event;
@@ -47,32 +47,32 @@ public class EventCommand extends Command {
         try {
             if (taskNameString.isBlank()) {
                 return new ReturnMessage("  ~  Please give a name for the event.",
-                        "  ~  The format should be \"event" +
-                        " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
-                        " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                        "  ~  The format should be \"event"
+                        + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
+                        + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else if (startString.isBlank()) {
                 return new ReturnMessage("  ~  Please give a start time for the event.",
-                        "  ~  The format should be \"event" +
-                        " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
-                        " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                        "  ~  The format should be \"event"
+                        + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
+                        + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else if (endString.isBlank()) {
                 return new ReturnMessage("  ~  Please give an end time for the event.",
-                        "  ~  The format should be \"event" +
-                        " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
-                        " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                        "  ~  The format should be \"event"
+                        + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
+                        + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else {
                 this.event = new Event(taskNameString, startString, endString);
                 return new ReturnMessage(super.taskList.addTask(event));
             }
         } catch (DateTimeParseException parseException) {
-            return new ReturnMessage("  ~  Please format the event as \"event" +
-                    " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
-                    " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+            return new ReturnMessage("  ~  Please format the event as \"event"
+                + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
+                + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
         } catch (DateTimeException dateException) {
             return new ReturnMessage("  ~  Please ensure end time is later than start time!",
-                    "  ~  Format the event as \"event (description) /from" +
-                            " (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
-                            " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                    "  ~  Format the event as \"event (description) /from"
+                        + " (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
+                        + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
         }
     }
 

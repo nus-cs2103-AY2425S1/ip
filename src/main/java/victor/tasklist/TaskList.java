@@ -1,12 +1,12 @@
-package Victor.TaskList;
-
-import Victor.Tasks.Task;
+package victor.tasklist;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.ArrayList;
+
+import victor.tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -20,16 +20,16 @@ public class TaskList {
     public String[] addTask(Task task) {
         this.tasks.add(task);
         return new String[] {"  ~  Cool! I added this task:",
-                "  ~  " + task,
-                "  ~  You now have " + this.size() + ((this.size() == 1) ? " task" : " tasks") + " in your list."};
+            "  ~  " + task,
+            "  ~  You now have " + this.size() + ((this.size() == 1) ? " task" : " tasks") + " in your list."};
     }
 
     public String[] deleteTask(int taskNumber) {
         try {
             Task removed = tasks.remove(taskNumber - 1);
             return new String[] {"  ~  Deleting the task below now!",
-                    "  ~  " + removed, "  ~  You now have " + this.size() +
-                    ((this.size() == 1) ? " task" : " tasks") + " in your list."};
+                "  ~  " + removed, "  ~  You now have " + this.size() + ((this.size() == 1) ? " task" : " tasks")
+                    + " in your list."};
         } catch (NumberFormatException e) {
             return new String[] {"  ~  Sorry, I don't think you entered a number for which task to delete!"};
         } catch (IndexOutOfBoundsException e) {
@@ -42,7 +42,7 @@ public class TaskList {
             Task task = tasks.get(taskNumber - 1);
             task.markDone();
             return new String[] {"  ~  You finished a task! Well done! I marked this task as done:",
-                    "  ~  " + task};
+                "  ~  " + task};
         } catch (IndexOutOfBoundsException e) {
             return new String[] {"  ~  I don't think there's a task with that number!"};
         }
@@ -53,7 +53,7 @@ public class TaskList {
             Task task = tasks.get(taskNumber - 1);
             task.markUndone();
             return new String[] {"  ~  Oops, I guess you didn't finish the task! I marked this task as undone:",
-                    "  ~  " + task};
+                "  ~  " + task};
         } catch (IndexOutOfBoundsException e) {
             return new String[] {"  ~  I don't think there's a task with that number!"};
         }

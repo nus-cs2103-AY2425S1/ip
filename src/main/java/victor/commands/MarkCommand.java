@@ -1,25 +1,30 @@
-package Victor.Commands;
-
-import Victor.Messages.ReturnMessage;
+package victor.commands;
 
 import java.nio.file.Path;
 
-public class UnmarkCommand extends Command {
+import victor.messages.ReturnMessage;
+
+public class MarkCommand extends Command {
     private String taskNumber;
 
-    public UnmarkCommand(String[] additionalInput) {
+    public MarkCommand(String[] additionalInput) {
         super(additionalInput);
         if (additionalInput.length == 1) {
             this.taskNumber = "-1";
         } else {
             this.taskNumber = additionalInput[1];
         }
-
     }
+
+    public MarkCommand(int task) {
+        super(new String[] {});
+        this.taskNumber = String.valueOf(task);
+    }
+
     @Override
     public ReturnMessage execute() {
         try {
-            return new ReturnMessage(super.taskList.unmarkDone(Integer.parseInt(taskNumber)));
+            return new ReturnMessage(super.taskList.markDone(Integer.parseInt(taskNumber)));
         } catch (NumberFormatException e) {
             return new ReturnMessage("  ~  I don't think there's a task with that number!");
         }

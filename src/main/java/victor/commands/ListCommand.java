@@ -1,10 +1,6 @@
-package Victor.Commands;
+package victor.commands;
 
-import Victor.Messages.ReturnMessage;
-import Victor.Tasks.Task;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
+import victor.messages.ReturnMessage;
 
 public class ListCommand extends Command {
     public ListCommand(String[] additionalInput) {
@@ -13,8 +9,8 @@ public class ListCommand extends Command {
     @Override
     public ReturnMessage execute() {
         if (taskList.size() == 0) {
-            return new ReturnMessage("  ~  No tasks in the list, add some To Dos, Events," +
-                    " and Deadlines first :)");
+            return new ReturnMessage("  ~  No tasks in the list, add some To Dos, Events,"
+                + " and Deadlines first :)");
         } else {
             return new ReturnMessage(super.taskList.enumerateTasks());
         }

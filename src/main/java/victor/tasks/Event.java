@@ -1,4 +1,4 @@
-package Victor.Tasks;
+package victor.tasks;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -82,8 +82,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "{E}" + super.toString() + " (from: " +
-                this.startTimeDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
-                " to: " + this.endTimeDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "{E}" + super.toString() + " (from: "
+                + this.startTimeDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + " to: " + this.endTimeDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
