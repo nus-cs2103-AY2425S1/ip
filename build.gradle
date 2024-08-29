@@ -36,6 +36,18 @@ shadowJar {
     archiveClassifier = null
 }
 
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'jeriel.Jeriel'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
 run{
     standardInput = System.in
 }
