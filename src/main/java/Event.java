@@ -13,4 +13,14 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
+    public String saveFormat() {
+        String temp;
+        if (isDone) {
+            temp = "1";
+        } else {
+            temp = "0";
+        }
+        return "E | " + temp + " | " + description + " | " + to + " | " + from;
+    }
+
 }
