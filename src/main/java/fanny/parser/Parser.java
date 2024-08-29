@@ -11,8 +11,18 @@ import fanny.command.MarkCommand;
 import fanny.command.UnmarkCommand;
 import fanny.FannyException;
 
+/**
+ * Parses user input and returns the matching command to execute.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the matching {@code Command} object.
+     *
+     * @param input The user's input as a string.
+     * @return The {@code Command} object representing the user's command.
+     * @throws FannyException If the command is unknown.
+     */
     public static Command parse(String input) throws FannyException {
         String[] cmdParts = input.split(" ", 2);
         String action = cmdParts[0];
