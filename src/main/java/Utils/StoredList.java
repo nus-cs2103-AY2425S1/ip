@@ -57,6 +57,24 @@ public class StoredList {
     }
 
     /**
+     * Finds an item within the stored task that matches/ contains the given name.
+     * @param name Name or part of the name to be found
+     * @return A message containing all task found.
+     */
+    public String findItem(String name) {
+        StringBuilder message = new StringBuilder();
+        int count = 1;
+        message.append("____________________________________________________________\n");
+        for (Task item : data) {
+            if (item.getName().contains(name)) {
+                message.append(count).append(". ").append(item).append("\n");
+            }
+        }
+        message.append("____________________________________________________________\n");
+        return message.toString();
+    }
+
+    /**
      * The string representation of a task list for Chatterbox.
      * @return A string representation of StoredList.
      */

@@ -95,6 +95,10 @@ public class Chatterbox {
                 );
                 ui.printMessage(message);
                 break;
+            case FIND:
+                message = taskList.findItem(command[1]);
+                ui.printMessage(message);
+                break;
             }
         } catch (ChatterBoxError e) {
             throw e;

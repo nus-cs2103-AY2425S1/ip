@@ -42,16 +42,24 @@ public class Parser {
                     throw new ChatterBoxMarkError();
                 }
             }
-        case TODO:
+        case TODO, FIND:
             try {
                 if (command[1] != "") {
                     userCommand[1] = command[1];
                     break;
                 } else {
-                    throw new ChatterBoxToDoError();
+                    if (commandType.equals(Commands.TODO)) {
+                        throw new ChatterBoxToDoError();
+                    } else {
+                        throw new ChatterBoxFindError();
+                    }
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ChatterBoxToDoError();
+                if (commandType.equals(Commands.TODO)) {
+                    throw new ChatterBoxToDoError();
+                } else {
+                    throw new ChatterBoxFindError();
+                }
             }
         case DEADLINE:
             try {
