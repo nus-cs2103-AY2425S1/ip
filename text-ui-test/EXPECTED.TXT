@@ -1,16 +1,16 @@
 -----------------------
-DGPT> Hello! I'm DGPT
-DGPT> What can I do for you?
+dgpt.DGPT> Hello! I'm dgpt.DGPT
+dgpt.DGPT> What can I do for you?
 -----------------------
 User> -----------------------
-DGPT> Got it. I've added this task:
+dgpt.DGPT> Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
 -----------------------
 User> -----------------------
-DGPT> Here are the tasks in your list:
+dgpt.DGPT> Here are the tasks in your list:
 1.[T][ ] borrow book
 -----------------------
 User> -----------------------
-DGPT> Bye. Hope to see you again soon!
+dgpt.DGPT> Bye. Hope to see you again soon!
 -----------------------

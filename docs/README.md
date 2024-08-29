@@ -1,4 +1,4 @@
-# DGPT User Guide
+# dgpt.DGPT User Guide
 
 // Update the title above to match the actual product name
 

@@ -1,5 +1,7 @@
+package dgpt.task;
+
 /**
- *  Represents a task that has to be completed. A {@code Task} corresponds to a description represented by a string,
+ *  Represents a task that has to be completed. A {@code dgpt.task.Task} corresponds to a description represented by a string,
  *  as well as a completion status.
  */
 abstract public class Task {
@@ -8,7 +10,7 @@ abstract public class Task {
     protected boolean isDone;
 
     /**
-     * Creates a new Task Instance.
+     * Creates a new dgpt.task.Task Instance.
      *
      * @param description the description of the task created.
      */
