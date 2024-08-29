@@ -13,4 +13,6 @@ list
 todo
 ANYHOW
 delete -1
+find book
+find nothing
 bye

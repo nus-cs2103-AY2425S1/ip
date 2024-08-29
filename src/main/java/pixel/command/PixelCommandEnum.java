@@ -8,7 +8,8 @@ public enum PixelCommandEnum {
     TODO("TODO"),
     DEADLINE("DEADLINE"),
     EVENT("EVENT"),
-    DELETE("DELETE");
+    DELETE("DELETE"),
+    FIND("FIND");
 
     private final String displayName;
 

@@ -32,4 +32,15 @@ public class TaskList {
     public int size() {
         return list.size();
     }
+
+    public TaskList findTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            if (task.toString().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
 }
