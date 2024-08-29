@@ -35,6 +35,28 @@ public class Bob {
                 say("added: " + task);
             }
         },
+        MARK("mark", 1) {
+            @Override
+            public void run() {
+                if (!argument.isBlank()) {
+                    int i = Integer.parseInt(argument) - 1;
+                    list.get(i).mark();
+                    say("Nice! I've marked this task as done:\n  " +
+                            list.get(i));
+                }
+            }
+        },
+        UNMARK("unmark", 1) {
+            @Override
+            public void run() {
+                if (!argument.isBlank()) {
+                    int i = Integer.parseInt(argument) - 1;
+                    list.get(i).unmark();
+                    say("OK, I've marked this task as not done yet:\n  " +
+                            list.get(i));
+                }
+            }
+        },
         CATCH_ALL("") {
             @Override
             public void run() {
