@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("Mendel")
+    mainClass.set("mendel.main.Mendel")
 }
 
 shadowJar {
-    archiveBaseName = "mendel-1"
+    archiveBaseName = "mendel-1-a"
     archiveClassifier = null
 }
 
