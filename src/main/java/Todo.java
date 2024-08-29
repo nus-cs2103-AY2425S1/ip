@@ -1,3 +1,7 @@
+/**
+ * The {@code Todo} class represents a task that has a description and can be marked as done or not done.
+ * It extends the {@code Task} class and provides specific implementations for the {@code toString} and {@code toData} methods.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

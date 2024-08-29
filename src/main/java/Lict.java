@@ -30,6 +30,10 @@ public class Lict {
         EVENT,
     }
 
+    /**
+     * Loads the task data from a file named "LictData.txt" located in the "data" directory.
+     * If the file or directory does not exist, it will be created.
+     */
     private static void loadData() {
         File file = new File("data/LictData.txt");
         try {
@@ -71,7 +75,12 @@ public class Lict {
                         //Invalid format, discard data entry
                         continue;
                     }
-                    task = new Event(messages[0].trim(), messages[1].trim(), messages[2].trim());
+                    try {
+                        task = new Event(messages[0].trim(), messages[1].trim(), messages[2].trim());
+                    } catch (LictException e) {
+                        //Invalid event start or end, discard data entry
+                        continue;
+                    }
                     break;
 
                 default:
@@ -96,6 +105,9 @@ public class Lict {
         }
     }
 
+    /**
+     * Saves the current list of tasks to a file named "LictData.txt" located in the "data" directory.
+     */
     private static void saveData() {
         try {
             FileWriter writer = new FileWriter("data/LictData.txt");
@@ -172,7 +184,6 @@ public class Lict {
      * @return The created Task object.
      * @throws LictException If the input is an invalid task or does not follow the required format for each task type.
      */
-
     public static Task makeTask(String input) throws LictException {
         String[] inputParts = input.split(" ", 2);
         String description;
