@@ -1,3 +1,5 @@
+package eevee;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -5,10 +7,6 @@ import java.io.IOException;
  * Represents a task management program.
  */
 public class Eevee {
-    enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
-    }
-
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
@@ -47,7 +45,7 @@ public class Eevee {
                     int taskNumber = parser.parseTaskNumber(input);
                     Task t = tasks.getTask(taskNumber);
                     if (t.isDone) {
-                        throw new EeveeException("Task has already been marked as done.");
+                        throw new EeveeException("eevee.Task has already been marked as done.");
                     }
                     t.markAsDone();
                     storage.saveTasks(tasks);
@@ -58,12 +56,12 @@ public class Eevee {
                     int taskNumber = parser.parseTaskNumber(input);
                     Task t = tasks.getTask(taskNumber);
                     if (!t.isDone) {
-                        throw new EeveeException("Task is not marked as done. "
+                        throw new EeveeException("eevee.Task is not marked as done. "
                                 + "Needs to be marked done in order to unmark it.");
                     }
                     t.unmarkAsDone();
                     storage.saveTasks(tasks);
-                    ui.printMessage("Ok! Task no longer marked as done:\n  " + t);
+                    ui.printMessage("Ok! eevee.Task no longer marked as done:\n  " + t);
                     break;
                 }
                 case DELETE: {
@@ -89,7 +87,7 @@ public class Eevee {
                 case DEADLINE: {
                     String[] info = input.substring(9).trim().split("/by", 2);
                     if (info.length < 2) {
-                        throw new EeveeException("Deadline not given for task type 'deadline'. "
+                        throw new EeveeException("eevee.Deadline not given for task type 'deadline'. "
                                 + "Please input a deadline denoted by '/by' or use task type 'todo' instead.");
                     }
 
@@ -103,9 +101,9 @@ public class Eevee {
                 case EVENT: {
                     String[] info = input.substring(6).trim().split("/from|/to", 3);
                     if (info.length < 3) {
-                        throw new EeveeException("Event start and/or end timings not provided."
+                        throw new EeveeException("eevee.Event start and/or end timings not provided."
                                 + "Please input a start time denoted by '/from' "
-                                + "and an end time denoted by '/to' when using task type Event");
+                                + "and an end time denoted by '/to' when using task type eevee.Event");
                     }
 
                     // Create and store task
@@ -127,7 +125,7 @@ public class Eevee {
     }
 
     /** 
-     * Serves as the entry point for the Eevee program.
+     * Serves as the entry point for the eevee.Eevee program.
      *
      * @param args Command-line arguments.
      */

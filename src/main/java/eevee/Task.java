@@ -1,13 +1,15 @@
+package eevee;
+
 /**
- * Represents a Task object
+ * Represents a eevee.Task object
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the specified description string.
-     * Sets Task as not done initially.
+     * Constructs a new eevee.Task with the specified description string.
+     * Sets eevee.Task as not done initially.
      *
      * @param description The string describing the task.
      */

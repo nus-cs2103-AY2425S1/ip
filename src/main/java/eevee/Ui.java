@@ -1,8 +1,10 @@
+package eevee;
+
 import java.util.Scanner;
 
 public class Ui {
     private final String divider = "____________________________________________________________\n";
-    private final String greeting = "Hello! I'm Eevee\nWhat can I do for you?\n";
+    private final String greeting = "Hello! I'm eevee.Eevee\nWhat can I do for you?\n";
     private final String exit = "Bye. Hope to see you again soon!\n";
     private Scanner scanner;
 
