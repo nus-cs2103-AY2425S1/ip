@@ -13,19 +13,19 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
-        this.taskList.add(task);
+        taskList.add(task);
     }
 
     public void addTaskAtIndex(int index, Task task) {
-        this.taskList.add(index, task);
+        taskList.add(index, task);
     }
 
     public void deleteTaskAtIndex(int index) {
-        this.taskList.remove(index);
+        taskList.remove(index);
     }
 
     public Task getTask(int index) {
-        return this.taskList.get(index);
+        return taskList.get(index);
     }
 
     public void markTask(int index) {
@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     public void unmarkTask(int index) {
-        this.taskList.get(index).setIsDone(false);
+        taskList.get(index).setIsDone(false);
     }
 
     public boolean isValidIndex(int trueIndex) {
@@ -41,7 +41,7 @@ public class TaskList {
     }
 
     public int getTaskListSize() {
-        return this.taskList.size();
+        return taskList.size();
     }
 
     public String printList() {
