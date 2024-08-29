@@ -1,5 +1,7 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package alisa;
+
+import alisa.command.Command;
+import alisa.task.TaskList;
 
 public class Alisa {
 
