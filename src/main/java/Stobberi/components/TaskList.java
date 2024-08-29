@@ -80,6 +80,12 @@ public class TaskList {
                         + listOfTasks.get(listOfTasks.size() - 1)
                         + "Now you have " + listOfTasks.size() + " in the list.");
     }
+
+    /**
+     * Filters and displays tasks that contain the specified word in their description.
+     *
+     * @param word the word to search for in the task descriptions
+     */
     public void filterListByWord(String word) {
         String list = "Here are the matching tasks in your list:";
         int n = 1;

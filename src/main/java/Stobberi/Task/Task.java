@@ -26,6 +26,13 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    /**
+     * Checks if the task's description contains the specified word.
+     *
+     * @param word the word to check for in the description
+     * @return {@code true} if the description contains the word, {@code false} otherwise
+     */
     public boolean hasWord(String word) {
         return description.contains(word);
     }
