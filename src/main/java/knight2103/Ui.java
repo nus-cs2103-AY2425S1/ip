@@ -56,4 +56,9 @@ public class Ui {
     public void showDelete(Task taskAffected, TaskList taskList) {
         System.out.println(showLine() + "\nNoted. I've removed this task:\n" + taskAffected + "\n Now you have " + taskList.getSize() + " tasks in the list.\n" + showLine());
     }
+
+    public void showFind(TaskList taskList, String searchWord) {
+        System.out.println(showLine() + "\nHere are the matching tasks in your list:\n"
+                + taskList.searchPrintToList(searchWord) + showLine());
+    }
 }

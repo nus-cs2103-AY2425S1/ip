@@ -3,3 +3,5 @@ D | 0 | return book | 2024-12-03
 D | 1 | teat | 2007-12-03
 E | 0 | read | 2024-12-13T22:00 | 2024-12-14T11:00
 T | 0 | wash
+
+T | 0 | bookkies

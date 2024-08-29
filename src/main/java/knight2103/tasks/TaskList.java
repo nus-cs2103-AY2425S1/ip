@@ -36,6 +36,22 @@ public class TaskList {
         return stringToWrite;
     }
 
+    public String searchPrintToList(String wordSearch) {
+        String stringToPrint = "";
+        int bulletPoint = 0;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task searchedTask = this.taskList.get(i);
+            if (searchedTask.getDescription().contains(wordSearch)) {
+                bulletPoint++;
+                stringToPrint += bulletPoint + ". " + searchedTask + "\n";
+            }
+        }
+        if (bulletPoint == 0) {
+            stringToPrint = "NIL: There is no matching tasks.\n";
+        }
+        return stringToPrint;
+    }
+
     public void add(Task newTask) {
         this.taskList.add(newTask);
     }
