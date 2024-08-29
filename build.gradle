@@ -32,8 +32,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "casper"
-    archiveClassifier = null
+    archiveFileName = "casper.jar"
 }
 
 run{
