@@ -12,6 +12,14 @@ public abstract class Command {
         this.isExit = false;
     }
 
+    /**
+     * Executes the command with the given task list, user interface, and storage.
+     *
+     * @param tasks   The TaskList containing all tasks.
+     * @param ui      The Ui object for handling user interaction.
+     * @param storage The Storage object for saving changes to the file.
+     * @throws SageException If an error occurs during command execution.
+     */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SageException;
 
     public boolean isExit() {
