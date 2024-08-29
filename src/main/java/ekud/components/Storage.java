@@ -2,7 +2,13 @@ package ekud.components;
 
 import ekud.task.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /**
  * The component of EKuD that manages the reading and writing of saved data.
@@ -33,7 +39,7 @@ public class Storage {
      *
      * @return If {@link Storage#directory} and {@link Storage#dataFile} exists.
      */
-    public boolean doesPathExists() {
+    public boolean hasExistingPath() {
         return (directory.exists() && dataFile.isFile());
     }
 
@@ -41,7 +47,7 @@ public class Storage {
      * Creates {@link Storage#directory} and {@link Storage#dataFile} given that they do not exist.
      *
      * @param ui The {@link Ui} to print output to.
-     * @see Storage#doesPathExists()
+     * @see Storage#hasExistingPath()
      */
     public void createPath(Ui ui) {
         try {

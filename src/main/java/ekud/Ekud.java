@@ -64,7 +64,7 @@ public class Ekud {
 
         // load storage
         ui.printOutput("Before we start, let me try to find your tasks!!");
-        if (storage.doesPathExists()) {
+        if (storage.hasExistingPath()) {
             ui.printOutput("Found them! I'm going to load them into the system now!");
             storage.loadTasks(tasks, ui);
         } else {
@@ -88,6 +88,18 @@ public class Ekud {
                 ui.printLineSeparator();
             }
         }
+    }
+
+
+    /**
+     * Runs the EKuD chat both.
+     *
+     * @param args Command line arguments - not used.
+     */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        new Ekud(sc).run();
+        sc.close();
     }
 
 }

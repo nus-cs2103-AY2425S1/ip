@@ -64,8 +64,8 @@ public abstract class Task {
 
         } catch (IndexOutOfBoundsException | EkudException e) {
             String message = String.format(
-                        "Warning: ekud.task.Task entry { %s } is missing required arguments or is incorrectly formatted"
-                                + "\nRemoving ekud.task entry...",
+                        "Warning: ekud.task.Task entry { %s } is missing required arguments or is"
+                                + "incorrectly formatted\nRemoving ekud.task entry...",
                         taskSaveString);
             ui.printOutput(message);
             return null;
@@ -88,7 +88,8 @@ public abstract class Task {
             case "todo" -> new TodoTask(argument);
             case "deadline" -> new DeadlineTask(argument, tokens.get("/by"));
             case "event" -> new EventTask(argument, tokens.get("/from"), tokens.get("/to"));
-            default -> throw new EkudException("Wow! What is this type of ekud.task?\nI'm not sure how to process this");
+            default -> throw new EkudException("Wow! What is this type of ekud.task?"
+                    + "\nI'm not sure how to process this");
         };
     }
 

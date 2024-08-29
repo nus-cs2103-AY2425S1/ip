@@ -1,6 +1,5 @@
 package ekud.commands;
 
-import ekud.exceptions.EkudException;
 import ekud.components.Storage;
 import ekud.components.Ui;
 import ekud.task.Task;
@@ -24,7 +23,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
 
         String message = String.format("added: %s\nAnd another one; %d out of %d tasks to complete...",
