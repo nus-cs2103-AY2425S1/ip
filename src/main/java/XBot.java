@@ -215,7 +215,7 @@ public class XBot {
         if (parts.length == 2) {
             String taskDescription = parts[0].trim();
             String deadline = parts[1].trim();
-            if (isValidDateFormat(deadline)) {
+            if (!deadline.isEmpty() && isValidDateFormat(deadline)) {
                 Task newTask = new Deadline(taskDescription, deadline);
                 list.add(newTask);
 
@@ -261,13 +261,19 @@ public class XBot {
             if (timeParts.length == 2) {
                 String from = timeParts[0].trim();
                 String to = timeParts[1].trim();
-                Task newTask = new Event(taskDescription, from, to);
-                list.add(newTask);
 
-                System.out.println("Got it. I've added this task:");
-                System.out.println(newTask.toString());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                saveTask();
+                if (isValidDateFormat(from) && isValidDateFormat(to)) {
+
+                    Task newTask = new Event(taskDescription, from, to);
+                    list.add(newTask);
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask.toString());
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    saveTask();
+                } else {
+                    throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY");
+                }
             }
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
