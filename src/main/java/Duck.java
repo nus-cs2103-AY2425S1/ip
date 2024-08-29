@@ -57,6 +57,9 @@ public class Duck {
     }
 
     public static void main(String[] args) {
+        // Get saved tasks
+        TASKS.getTaskList();
+
         // Start scanner
         Scanner sc = new Scanner(System.in);
 

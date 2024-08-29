@@ -21,6 +21,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract String getSaveString();
+
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
