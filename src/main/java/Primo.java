@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -87,6 +88,7 @@ public class Primo {
                 System.out.println("\nEl Primo:");
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(list.get(markIndex));
+                writeToData(getList());
                 break;
             case UNMARK:
                 try {
@@ -102,6 +104,7 @@ public class Primo {
                 System.out.println("\nEl Primo:");
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(list.get(unmarkIndex));
+                writeToData(getList());
                 break;
             case TODO:
                 int todoFromIndex = input.indexOf("todo ") + 5;
@@ -115,6 +118,7 @@ public class Primo {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newToDoTask);
                 System.out.printf("Now you have %d tasks in the list.%n", list.size());
+                writeToData(getList());
                 break;
             case DEADLINE:
                 if (!input.contains("/by")) {
@@ -136,6 +140,7 @@ public class Primo {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newDeadlineTask);
                 System.out.printf("Now you have %d tasks in the list.%n", list.size());
+                writeToData(getList());
                 break;
             case EVENT:
                 if (!input.contains("/from") || !input.contains("/to")) {
@@ -162,6 +167,7 @@ public class Primo {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newEventTask);
                 System.out.printf("Now you have %d tasks in the list.%n", list.size());
+                writeToData(getList());
                 break;
             case DELETE:
                 try {
@@ -177,6 +183,8 @@ public class Primo {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(list.get(deleteIndex));
                 list.remove(deleteIndex);
+                writeToData(getList());
+                break;
         }
     }
     private static void readInput() {
@@ -238,6 +246,14 @@ public class Primo {
             }
         } catch (IOException e) {
             fixCorruptedFile();
+        }
+    }
+
+    private static void writeToData(String s) {
+        try (FileWriter writer = new FileWriter("./data/data.txt")) {
+            writer.write(s);
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
 
