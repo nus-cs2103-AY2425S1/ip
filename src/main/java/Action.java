@@ -1,5 +1,7 @@
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+
 
 public class Action {
     public void drawLine() {
@@ -81,7 +83,7 @@ public class Action {
             task += inputArr[i] + " ";
         }
         task = task.strip();
-        ToDo todo = new ToDo(task);
+        ToDo todo = new ToDo(task, false);
         list.add(todo);
         startAddTask();
         System.out.println("\t " + todo.toString());
@@ -106,7 +108,7 @@ public class Action {
             by += inputArr[j] + " ";
         }
         by = by.strip();
-        Deadline deadline = new Deadline(task, by);
+        Deadline deadline = new Deadline(task, false, by);
         list.add(deadline);
         startAddTask();
         System.out.println("\t " + deadline.toString());
@@ -142,7 +144,7 @@ public class Action {
             to += inputArr[j] + " ";
         }
         to = to.strip();
-        Event event = new Event(task, from, to);
+        Event event = new Event(task, false, from, to);
         list.add(event);
         startAddTask();
         System.out.println("\t " + event.toString());
