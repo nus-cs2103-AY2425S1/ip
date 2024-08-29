@@ -1,4 +1,3 @@
-import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +7,8 @@ public class Broski {
     private ArrayList<Task> list = new ArrayList<>(100);
 
     private final TaskManager manager = new TaskManager();
+
+    private final DateTimeParser dateTimeParser = new DateTimeParser();
 
     private static void printLine() {
         System.out.println(LINE);
@@ -94,7 +95,7 @@ public class Broski {
             } else if (reply.length() > 9 && reply.startsWith("deadline")) {
                 Deadline deadline = new Deadline(
                         reply.replaceFirst("deadline ", "").split(" /")[0],
-                        reply.split(" /")[1]);
+                        dateTimeParser.parseDateTime(reply.split(" /")[1]));
                 list.add(deadline);
                 System.out.println("Gotcha! I've added this task:");
                 System.out.println("  " + deadline);
@@ -103,8 +104,8 @@ public class Broski {
                 String[] splitter = reply.split(" /");
                 Event event = new Event(
                         splitter[0].replaceFirst("event ", ""),
-                        splitter[1],
-                        splitter[2]);
+                        dateTimeParser.parseDateTime(splitter[1]),
+                        dateTimeParser.parseDateTime(splitter[2]));
                 list.add(event);
                 System.out.println("Gotcha! I've added this task:");
                 System.out.println("  " + event);
@@ -128,26 +129,38 @@ public class Broski {
         this.manager.saveTasks(this.list);
     }
 
-    public static void main(String[] args) throws TodoException, DeadlineException,
-            EventException, WrongInputException {
-        Broski bot = new Broski();
-        bot.start();
+    public void run() {
         try {
-            bot.chatbot();
+            this.chatbot();
         } catch (TodoException e) {
             System.out.println("Hey, your task description is empty bro.");
             printLine();
+            this.run();
         } catch (DeadlineException e) {
             System.out.println("Hey, your task description" +
-                    " is either empty or missing a deadline bro.");
+                    " is either empty or your deadline is missing/wonky bro.");
             printLine();
+            this.run();
         } catch (EventException e) {
             System.out.println("Hey, your task description" +
-                    " is either empty or missing a duration bro.");
+                    " is either empty or your duration is missing/wonky bro.");
             printLine();
+            this.run();
         } catch (WrongInputException e) {
             System.out.println("I'm sorry but I can't understand you bro." +
-                    " Use task, deadline or event please!");
+                    " Use todo, deadline or event please!");
+            printLine();
+            this.run();
+        } catch (InvalidDateTimeException e) {
+            System.out.println("Invalid date/time format. Please use dd/MM/yyyy HHmm format.");
+            printLine();
+            this.run();
         }
+    }
+
+    public static void main(String[] args) {
+        Broski bot = new Broski();
+        bot.start();
+        bot.run();
     }
 }
