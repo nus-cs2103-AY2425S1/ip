@@ -1,6 +1,8 @@
+package data;
+
 public class NoSuchCommandException extends Exception {
 
-    NoSuchCommandException(String input) {
+    public NoSuchCommandException(String input) {
         super(String.format("%s is not a valid command. Please try again with: \ntodo \nevent \ndeadline \nlist \nbye", input));
     }
 

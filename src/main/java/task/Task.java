@@ -1,10 +1,18 @@
-public class Task {
+package task;
+
+import data.InsufficientInfoException;
+
+public abstract class Task {
     private final String title;
     private boolean status;
 
     public Task(String title) {
+        this(title, false);
+    }
+
+    public Task(String title, boolean isDone) {
         this.title = title;
-        this.status = false;
+        this.status = isDone;
     }
 
     public static Task of(String info, TaskType type) throws InsufficientInfoException {
@@ -25,18 +33,36 @@ public class Task {
         };
     }
 
+    public static Task of(String[] info) {
+            return switch (info[0]) {
+                case "TODO" -> new Todo(info[2], Boolean.parseBoolean(info[1]));
+                case "EVENT" -> new Event(info[2], info[3], info[4], Boolean.parseBoolean(info[1]));
+                case "DEADLINE" -> new Deadline(info[2], info[3], Boolean.parseBoolean(info[1]));
+                default -> throw new IllegalStateException("Unexpected value: " + info[0]);
+            };
+    }
+
+    /**
+     * Convert task data into a {@code String} to be stored in storage file.
+     *
+     * @return {@code String} containing data to the task.
+     */
+    public abstract String storageFormat();
+
     public String getTitle() {
         return this.title;
     }
 
+    public String getStatus() { return this.status ? "True" : "False"; }
+
     public void markAsDone() {
         this.status = true;
-        System.out.println("Nice! I've marked this task as done: \n" + this.toString());
+        System.out.println("Nice! I've marked this task as done: \n" + this);
     }
 
     public void markAsUndone() {
         this.status = false;
-        System.out.println("OK, I've marked this task as not done yet: \n" + this.toString());
+        System.out.println("OK, I've marked this task as not done yet: \n" + this);
     }
 
     public String getStatusIndicator() {
