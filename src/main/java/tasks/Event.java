@@ -1,47 +1,56 @@
 package tasks;
 
+import exceptions.YappingBotIncorrectCommandException;
 import exceptions.YappingBotInvalidSaveFileException;
+import stringconstants.ReplyTextMessages;
 
-import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    // todo: use java LocalDateTime
-    private String startTime;
-    private String endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
 
     public Event(String taskName, boolean taskDone) {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);
-        this.startTime = "None";
-        this.endTime = "None";
+        this.startTime = LocalDate.now();
+        this.endTime = LocalDate.now();
     }
-    public Event(String taskName, boolean taskDone, String startTime, String endTime) {
+    public Event(String taskName, boolean taskDone, String startTime, String endTime) throws YappingBotIncorrectCommandException  {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.setStartTime(startTime);
+        this.setEndTime(endTime);
     }
 
     public Event() {
-        super();
-        this.startTime = "";
-        this.endTime = "";
+        this("untitled",false);
     }
 
     public String getStartTime() {
-        return startTime;
+        return startTime.toString();
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setStartTime(String startTime) throws YappingBotIncorrectCommandException {
+        try {
+            this.startTime = LocalDate.parse(startTime);
+        } catch (DateTimeParseException e) {
+            throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
+        }
     }
 
     public String getEndTime() {
-        return endTime;
+        return endTime.toString();
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setEndTime(String endTime) throws YappingBotIncorrectCommandException {
+        try {
+            this.endTime = LocalDate.parse(endTime);
+        } catch (DateTimeParseException e) {
+            throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
+        }
     }
 
     @Override
@@ -51,26 +60,30 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (from: %s to: %s)", super.getTaskName(), this.startTime, this.endTime);
+        return String.format("%s (from: %s to: %s)",
+                super.getTaskName(),
+                this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+        );
     }
 
     @Override
     public String serialize() {
         return String.format("%s:%s:%s",
                 super.serialize(),
-                startTime.replaceAll(":", "/colon"),
-                endTime.replaceAll(":", "/colon")
+                this.getStartTime().replaceAll(":", "/colon"),
+                this.getEndTime().replaceAll(":", "/colon")
         );
     }
     @Override
     public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
         if (sString.length < 5) {
-            throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
+            throw new YappingBotInvalidSaveFileException(ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
             super.deserialize(sString);
-            startTime = sString[3].replaceAll("/colon", ":");
-            endTime = sString[4].replaceAll("/colon", ":");
+            this.setStartTime(sString[3].replaceAll("/colon", ":"));
+            this.setEndTime(sString[4].replaceAll("/colon", ":"));
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
