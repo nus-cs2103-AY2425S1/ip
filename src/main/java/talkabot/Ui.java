@@ -1,4 +1,12 @@
-import java.util.ArrayList;
+package talkabot;
+
+import talkabot.exceptions.WrongTaskTypeException;
+import talkabot.task.Deadline;
+import talkabot.task.Event;
+import talkabot.task.Task;
+import talkabot.task.TaskList;
+import talkabot.task.ToDo;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -15,7 +23,7 @@ public class Ui {
     }
 
     public void echo(Task task, int total) {
-        System.out.println(String.format("Got it. I've added this task:\n%s\nto your list!"
+        System.out.println(String.format("Got it. I've added this talkabot.task:\n%s\nto your list!"
                         + "\nYou now have " + total + " tasks.", task));
     }
 
@@ -36,15 +44,15 @@ public class Ui {
     }
 
     public void mark(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+        System.out.println("Nice! I've marked this talkabot.task as done:\n" + task);
     }
 
     public void unmark(Task task) {
-        System.out.println("No problem! I've marked this task as not done yet:\n" + task);
+        System.out.println("No problem! I've marked this talkabot.task as not done yet:\n" + task);
     }
 
     public void delete(Task task, int total) {
-        System.out.println("Got it! I've removed this task:\n" + task +
+        System.out.println("Got it! I've removed this talkabot.task:\n" + task +
                 "\nYou now have " + total + " tasks in total!");
     }
 
@@ -57,10 +65,10 @@ public class Ui {
             throw new WrongTaskTypeException("does not have a deadline!");
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            System.out.println("This task is due on a " + d.getDay() + "!");
+            System.out.println("This talkabot.task is due on a " + d.getDay() + "!");
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            System.out.println("This task occurs from " + e.getDay() + "!");
+            System.out.println("This talkabot.task occurs from " + e.getDay() + "!");
         }
     }
 

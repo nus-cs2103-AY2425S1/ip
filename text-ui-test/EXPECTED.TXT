@@ -1,22 +1,22 @@
 Hello, I'm Talk-a-Bot!
 What can I do for you?
-Got it. I've added this task:
+Got it. I've added this talkabot.task:
 [T][ ] borrow book
 to your list!
 You now have 1 tasks.
-Got it. I've added this task:
+Got it. I've added this talkabot.task:
 [D][ ] return book  (by: Sunday)
 to your list!
 You now have 2 tasks.
-Got it. I've added this task:
+Got it. I've added this talkabot.task:
 [E][ ] project meeting  (from: Mon 2pm to: 4pm)
 to your list!
 You now have 3 tasks.
-Nice! I've marked this task as done:
+Nice! I've marked this talkabot.task as done:
 [D][X] return book  (by: Sunday)
-Nice! I've marked this task as done:
+Nice! I've marked this talkabot.task as done:
 [E][X] project meeting  (from: Mon 2pm to: 4pm)
-No problem! I've marked this task as not done yet:
+No problem! I've marked this talkabot.task as not done yet:
 [E][ ] project meeting  (from: Mon 2pm to: 4pm)
 Here's your to-do list:
 1. [T][ ] borrow book
