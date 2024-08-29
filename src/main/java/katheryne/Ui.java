@@ -61,5 +61,13 @@ public class Ui {
         return Message.MESSAGE_DATE_FORMAT_ERROR;
     }
 
+    public String getFindResult(TaskList result) {
+        if (result.getTaskList().isEmpty()) {
+            return Message.MESSAGE_TASK_NOT_FOUND;
+        } else {
+            return Message.MESSAGE_FIND_RESULT + '\n' + result.toString();
+        }
+    }
+
 
 }

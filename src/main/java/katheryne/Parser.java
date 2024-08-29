@@ -80,6 +80,10 @@ public class Parser {
         }
     }
 
+    public static String getFindKeyWord(String str) {
+        return Parser.parseCommand(str)[1];
+    }
+
 
 
 

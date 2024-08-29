@@ -13,7 +13,11 @@ public class Command {
     }
 
     public String executeList() {
+<<<<<<< HEAD
         return ui.getListMessage();
+=======
+        return ui.getListMessage(taskList);
+>>>>>>> branch-Level-9
     }
 
     public String executeMark(String string) throws MissingInformationException, IndexOutOfBoundsException {
@@ -111,6 +115,17 @@ public class Command {
         Task t = taskList.getTask(id);
         taskList.deleteTask(id);
         return ui.getDeleteMessage(t,taskList);
+    }
+
+    public String executeFind(String string) throws MissingInformationException{
+        String keyword = Parser.getFindKeyWord(string);
+        if (keyword.isEmpty()) {
+            String msg = "You need to specify the content to be searched in your list.";
+            throw new MissingInformationException(msg);
+        } else {
+            TaskList result = taskList.findTask(keyword);
+            return ui.getFindResult(result);
+        }
     }
 
 }

@@ -57,6 +57,8 @@ public class Katheryne {
                     System.out.println(ui.getDivide());
                 } else if (commandWord.equals("delete")) {
                     System.out.println(c.executeDelete(str));
+                } else if (commandWord.equals("find")) {
+                    System.out.println(c.executeFind(str));
                 } else {
                     throw new InvalidInputException("I'm sorry, Katheryne is unable to comprehend your request.");
                 }

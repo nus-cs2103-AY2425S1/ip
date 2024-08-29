@@ -39,6 +39,17 @@ public class TaskList {
         return taskList.get(id);
     }
 
+    public TaskList findTask(String str) {
+        TaskList searchResult = new TaskList();
+        for (Task t : taskList) {
+            String description = t.getDescription();
+            if (description.contains(str)) {
+                searchResult.addTask(t);
+            }
+        }
+        return searchResult;
+    }
+
     @Override
     public String toString() {
         String output = "";
