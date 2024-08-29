@@ -11,7 +11,19 @@ import pixel.task.Deadline;
 import pixel.task.Event;
 import pixel.task.Todo;
 
+/**
+ * The Parser class is responsible for parsing user input and converting it into
+ * executable commands.
+ */
 public class Parser {
+    /**
+     * Parses the given full command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full command entered by the user.
+     * @return The Command object corresponding to the given command.
+     * @throws PixelException If the command is not recognized or if there is an
+     *                        error in parsing the command.
+     */
     public static Command parser(String fullCommand) throws PixelException {
         String cmdString = fullCommand.split(" ")[0].toUpperCase();
         PixelCommandEnum cmd;

@@ -6,9 +6,22 @@ import java.util.regex.Pattern;
 import pixel.DateTimeParser;
 import pixel.PixelException;
 
+/**
+ * Represents an event task.
+ * Inherits from the Task class.
+ */
 public class Event extends Task {
     private String type = "E";
 
+    /**
+     * Modifies the description of the event by extracting the start and end time
+     * from the given description and formatting it.
+     *
+     * @param des the original description of the event
+     * @return the modified description with start and end time
+     * @throws PixelException if the description is empty or does not match the
+     *                        required format
+     */
     private static String modifyDescription(String des) throws PixelException {
         if (des.length() == 0) {
             throw new PixelException("OH NO!!! The description of Event cannot be empty!");
@@ -28,14 +41,32 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Constructs a new Event object with the given description.
+     *
+     * @param description the description of the event
+     * @throws PixelException if the description is empty or does not match the
+     *                        required format
+     */
     public Event(String description) throws PixelException {
         super(modifyDescription(description));
     }
 
+    /**
+     * Constructs a new Event object with the given description and done status.
+     *
+     * @param description the description of the event
+     * @param done        the done status of the event
+     */
     public Event(String description, String done) {
         super(description, done);
     }
 
+    /**
+     * Returns the type of the event.
+     *
+     * @return the type of the event
+     */
     @Override
     public String getType() {
         return this.type;
