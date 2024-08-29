@@ -1,15 +1,33 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.io.FileWriter;
 
 public class CancelGPT {
     private final String CHATBOT_NAME;
     private final List<Task> TASKS_LIST;
+    private FileWriter tasksStorage;
 
     public CancelGPT() {
         this.CHATBOT_NAME = "CancelGPT";
         this.TASKS_LIST = new ArrayList<>();
+        try {
+            Path tasksStorageDirectoryPath = Paths.get("..", "..", "..", "data");
+            if (!Files.exists(tasksStorageDirectoryPath)) {
+                Files.createDirectory(tasksStorageDirectoryPath);
+            }
+            Path tasksStorage = Paths.get(tasksStorageDirectoryPath.toString(), CHATBOT_NAME);
+            this.tasksStorage = new FileWriter(tasksStorage.toString());
+        } catch (IOException e) {
+            System.out.println("Unable to use TASKS STORAGE. Exiting program");
+            System.exit(1);
+        }
     }
     public static void main(String[] args) {
         CancelGPT cancelGPT = new CancelGPT();
@@ -226,5 +244,9 @@ public class CancelGPT {
         for (int i = 0; i < this.TASKS_LIST.size(); i++) {
             System.out.println(i + 1 + ". " + this.TASKS_LIST.get(i));
         }
+    }
+
+    public void saveTasks() {
+
     }
 }
