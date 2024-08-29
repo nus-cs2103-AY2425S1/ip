@@ -1,3 +1,7 @@
+package colress;
+
+import colress.task.Task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 

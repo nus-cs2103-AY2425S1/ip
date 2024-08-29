@@ -1,3 +1,8 @@
+package colress.command;
+
+import colress.TaskList;
+import colress.Ui;
+
 public final class UncheckCommand extends Command {
     public UncheckCommand() {
         super("Right. I have marked this task on your list as not done:\n");

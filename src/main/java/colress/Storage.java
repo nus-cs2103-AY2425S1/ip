@@ -1,3 +1,10 @@
+package colress;
+
+import colress.exception.FileCorruptedException;
+import colress.task.Deadline;
+import colress.task.Event;
+import colress.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

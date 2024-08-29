@@ -1,3 +1,5 @@
+package colress.exception;
+
 public class UnknownTaskTypeException extends Exception {
     public UnknownTaskTypeException() {
         super("""
