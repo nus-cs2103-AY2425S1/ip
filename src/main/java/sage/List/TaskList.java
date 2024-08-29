@@ -77,12 +77,14 @@ public class TaskList {
 
     /**
      * Lists all tasks in the task list.
+     *
+     * @param text The text to display with the list of tasks.
      */
-    public void listTasks() {
+    public void listTasks(String text) {
         if (tasks.isEmpty()) {
             Sage.ui.showEmptyList();
         } else {
-            StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
+            StringBuilder result = new StringBuilder(text + "\n");
             for (int i = 0; i < tasks.size(); i++) {
                 result.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
             }
