@@ -1,9 +1,8 @@
 package sigma.command;
+
 import sigma.Storage;
 import sigma.TaskList;
 import sigma.Ui;
-
-import java.util.List;
 
 public class ListCommand extends Commands {
 

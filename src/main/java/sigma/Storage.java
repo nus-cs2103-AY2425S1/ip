@@ -24,6 +24,7 @@ public class Storage {
         this.filePath = filePath;
         load(filePath);
     }
+
     public void write(File data, ArrayList<Task> items) {
         try {
             FileWriter writer = new FileWriter(data);

@@ -14,4 +14,5 @@ public class ByeCommand extends Commands {
         ui.exit();
         System.exit(0);
     }
+
 }

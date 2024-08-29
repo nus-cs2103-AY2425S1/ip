@@ -26,4 +26,5 @@ public class TodoCommand extends Commands {
         ui.print("Productive! Added: \n" + toDoTask.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list!");
     }
+
 }

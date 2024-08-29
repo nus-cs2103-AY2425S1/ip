@@ -1,4 +1,5 @@
 package sigma;
+
 import sigma.task.Task;
 
 import java.util.ArrayList;
@@ -34,4 +35,5 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
 }

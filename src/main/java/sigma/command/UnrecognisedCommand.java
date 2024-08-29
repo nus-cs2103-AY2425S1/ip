@@ -15,4 +15,5 @@ public class UnrecognisedCommand extends Commands {
         public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
             ui.throwUnrecognisedError();
         }
+
 }

@@ -1,4 +1,5 @@
 package sigma.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,4 +24,5 @@ public class DeadlineTask extends Task {
     public String toString() {
         return String.format("[D][%s] %s (by: %s)", getStatusString(), getDesc(), getDate());
     }
+
 }
