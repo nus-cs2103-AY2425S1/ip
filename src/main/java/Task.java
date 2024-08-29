@@ -37,6 +37,7 @@ public class Task {
      * The method converts the isDone status to an icon,
      * with X representing done.
      *
+     * @return String representation of status icon.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -44,6 +45,8 @@ public class Task {
 
     /**
      * The method converts the task to its text representation in the file.
+     *
+     * @return String representation of text.
      */
     public String toText() {
         return "Task";

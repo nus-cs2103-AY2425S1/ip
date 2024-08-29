@@ -14,6 +14,8 @@ public class ToDo extends Task {
 
     /**
      * The method converts the task to its text representation in the file.
+     *
+     * @return String representation of text.
      */
     @Override
     public String toText() {

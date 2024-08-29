@@ -2,8 +2,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Echoa is a class that simulates a task checker.
@@ -15,13 +20,18 @@ public class Echoa {
     private static int taskCount;
     private static final String[] INSTRUCTION_LIST = {"todo", "deadline", "event", "mark", "unmark", "delete", "list", "bye"};
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+
+
     /**
      * Sets ups the file to be used.
      * If the filepath exists, the file will be extracted and returned.
      * Else, any necessary folders and files will be created, and returned.
      * Returns the file to input data into.
      *
-     * @return File
+     * @return File that is going to be read and written into.
      */
     public static File setUpFile() {
         String filePath = "./data/echoa.txt";
@@ -51,8 +61,8 @@ public class Echoa {
      * The method loads the relevant tasks into the taskList
      * based on the given file.
      *
-     * @param f
-     * @throws FileNotFoundException
+     * @param f File that is read and written into.
+     * @throws FileNotFoundException when the File is not found.
      */
     public static void loadInformation(File f) throws FileNotFoundException {
 
@@ -72,14 +82,20 @@ public class Echoa {
                 taskCount++;
                 break;
             case "D":
-                String date = content[3];
-                taskList.add(new Deadline(description, isDone, date));
+                String[] dateAndTime = content[3].split(" ", 2);
+                String date = dateAndTime[0];
+                String time = dateAndTime[1];
+                taskList.add(new Deadline(description, isDone, createDateTime(date, time)));
                 taskCount++;
                 break;
             case "E":
-                String startTime = content[3];
-                String endTime = content[4];
-                taskList.add(new Event(description, isDone, startTime, endTime));
+                String[] startDateAndTime = content[3].split(" ", 2);
+                String startDate = startDateAndTime[0];
+                String startTime = startDateAndTime[1];
+                String[] endDateAndTime = content[4].split(" ", 2);
+                String endDate = endDateAndTime[0];
+                String endTime = endDateAndTime[1];
+                taskList.add(new Event(description, isDone, createDateTime(startDate, startTime), createDateTime(endDate,  endTime)));
                 taskCount++;
                 break;
             }
@@ -89,8 +105,8 @@ public class Echoa {
     /**
      * The method loops through the taskList and updates the given file.
      *
-     * @param f
-     * @throws IOException
+     * @param f File that is written into.
+     * @throws IOException when there are issues writing into the file.
      */
     public static void handleChange(File f) throws IOException {
         FileWriter fw1 = new FileWriter(f);
@@ -103,8 +119,31 @@ public class Echoa {
 
         }
         fw2.close();
+    }
 
+    /**
+     * The method creates a LocalDateTime with the given dateString and timeString.
+     *
+     * @param dateString String representation of date.
+     * @param timeString Time representation of date.
+     * @return LocalDateTime of the dateString and timeString.
+     * @throws DateTimeParseException when dateString and timeString are not in the correct format.
+     */
+    public static LocalDateTime createDateTime(String dateString, String timeString) throws DateTimeParseException {
+        LocalDate date = LocalDate.parse(dateString, DATE_FORMATTER);
+        LocalTime time = LocalTime.parse(timeString, TIME_FORMATTER);
+        return LocalDateTime.of(date, time);
+    }
 
+    /**
+     * The method removes excess white space in all the Strings within the commandArray.
+     *
+     * @param commandArray Array containing the different Strings of commands.
+     */
+    public static void trimSplitCommands(String[] commandArray) {
+        for (int i = 0; i < commandArray.length; i++) {
+            commandArray[i] = commandArray[i].trim();
+        }
     }
 
 
@@ -112,7 +151,7 @@ public class Echoa {
      * The method starts up a scanner and allows inputs from the command line by the user.
      * It also handles any exceptions and errors thrown within the program
      *
-     * @param f
+     * @param f File that is read and written into by the program.
      */
     public static void start(File f) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -142,23 +181,23 @@ public class Echoa {
                     System.out.println();
                 } else if (command.startsWith("mark")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    taskList.get(index).markAsDone();
                     System.out.println("Task marked :)");
                     System.out.println(taskList.get(index).toString() + "\n");
+                    taskList.get(index).markAsDone();
                     handleChange(f);
                 } else if (command.startsWith("unmark")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    taskList.get(index).unmarkAsUndone();
                     System.out.println("Task unmarked :(");
                     System.out.println(taskList.get(index).toString() + "\n");
+                    taskList.get(index).unmarkAsUndone();
                     handleChange(f);
                 } else if (command.startsWith("delete")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    taskList.remove(index);
-                    taskCount--;
                     System.out.println("Task deleted :/");
                     System.out.println(taskList.get(index).toString() + "\n");
                     System.out.println("Now you have " + (taskCount) + " task(s).\n");
+                    taskList.remove(index);
+                    taskCount--;
                     handleChange(f);
                 } else {
                     String[] commandArr = command.split(" ", 2);
@@ -175,30 +214,55 @@ public class Echoa {
                             taskList.add(new ToDo(task));
                             break;
                         case "deadline": {
-                            String[] taskArray = task.split(" /", 2);
+                            String[] taskArray = task.split("/", 2);
+                            trimSplitCommands(taskArray);
                             if (taskArray.length != 2) {
                                 throw new InvalidDeadlineContentException();
                             }
                             String taskDescription = taskArray[0];
                             String taskDate = taskArray[1];
-                            taskList.add(new Deadline(taskDescription, taskDate));
+
+                            String[] taskDateArray = taskArray[1].split(" ", 2);
+                            if (taskDateArray.length != 2) {
+                                throw new InvalidDeadlineContentException();
+                            }
+                            String date = taskDateArray[0];
+                            String time = taskDateArray[1];
+                            LocalDateTime dateAndTime = createDateTime(date, time);
+                            taskList.add(new Deadline(taskDescription, dateAndTime));
                             break;
                         }
                         case "event": {
-                            String[] taskArray = task.split(" /", 3);
+                            String[] taskArray = task.split("/", 3);
+                            trimSplitCommands(taskArray);
                             if (taskArray.length != 3) {
                                 throw new InvalidEventContentException();
                             }
                             String taskDescription = taskArray[0];
                             String taskStart = taskArray[1];
                             String taskEnd = taskArray[2];
-                            taskList.add(new Event(taskDescription, taskStart, taskEnd));
+
+                            String[] taskStartArray = taskStart.split(" ", 2);
+                            String[] taskEndArray = taskEnd.split(" ", 2);
+
+                            if (taskStartArray.length != 2 || taskEndArray.length != 2) {
+                                throw new InvalidEventContentException();
+                            }
+
+                            String startDate = taskStartArray[0];
+                            String startTime = taskStartArray[1];
+                            LocalDateTime startDateAndTime = createDateTime(startDate, startTime);
+
+                            String endDate = taskEndArray[0];
+                            String endTime = taskEndArray[1];
+                            LocalDateTime endDateAndTime = createDateTime(endDate, endTime);
+
+                            taskList.add(new Event(taskDescription, startDateAndTime, endDateAndTime));
                             break;
                         }
                         default:
                             throw new InvalidInstructionException(type);
                     }
-
                     taskList.get(taskCount).unmarkAsUndone();
                     System.out.println("Task added!");
                     System.out.println(taskList.get(taskCount).toString());
@@ -227,7 +291,7 @@ public class Echoa {
      * The main method is the entry point to the application.
      * It catches any file related exception and handles them.
      *
-     * @param args
+     * @param args Arguments inputted into the command line interface.
      */
     public static void main(String[] args) {
 
@@ -246,6 +310,8 @@ public class Echoa {
             System.out.println("File not found");
         } catch (IOException e) {
             System.out.println("An error has occurred when writing to the file");
+        } catch (DateTimeParseException e) {
+            System.out.println("Date or time is inputted in the wrong format!");
         }
     }
 }
