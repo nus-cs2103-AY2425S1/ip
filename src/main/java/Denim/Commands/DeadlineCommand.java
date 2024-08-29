@@ -21,7 +21,7 @@ public class DeadlineCommand extends Command {
         try {
             taskIO.writeTaskData(deadlineTask);
         } catch (DenimException e) {
-            return new CommandResult("Denim.Commands.Command Failed. Error:\n" + e.getMessage());
+            return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }
 
         taskList.addTask(this.deadlineTask);

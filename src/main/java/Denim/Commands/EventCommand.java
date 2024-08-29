@@ -21,7 +21,7 @@ public class EventCommand extends Command {
         try {
             taskIO.writeTaskData(eventTask);
         } catch (DenimException e) {
-            return new CommandResult("Denim.Commands.Command Failed. Error:\n" + e.getMessage());
+            return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }
 
         taskList.addTask(eventTask);

@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
 
         try {
             taskList.markTask(index);
-            taskIO.unmarkTask(taskList);
+            taskIO.markTask(taskList);
         } catch (DenimException e) {
             taskList.unmarkTask(index);
             return new CommandResult(e.getMessage());
