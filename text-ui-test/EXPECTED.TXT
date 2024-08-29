@@ -1,4 +1,4 @@
-Tasks loaded from .\data\data.txt
+No saved tasks found.
 Sup im WenJigglyBot
 What can I do for you?
 Tasks saved to data.txt
