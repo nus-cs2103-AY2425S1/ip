@@ -2,7 +2,7 @@ public abstract class Task {
     private String taskItem;
     private boolean isCompleted;
 
-    public Task(String taskItem) {
+    public Task(String taskItem, boolean isCompleted) {
         this.taskItem = taskItem;
         this.isCompleted = false;
     }
@@ -27,4 +27,6 @@ public abstract class Task {
     public String toString() {
         return "[" + (this.isCompleted ? "X" : " ") + "] " + this.taskItem;
     }
+
+    public abstract String toDatabaseFormat();
 }
