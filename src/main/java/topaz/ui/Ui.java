@@ -33,7 +33,8 @@ public class Ui {
     }
     public void welcome() {
         showLine();
-        System.out.println(" Hello! I'm Topaz - I work in the IPC's Strategic Investment Department. Long time no see! How have you been? Clocking in a lot of overtime?");
+        System.out.println(" Hello! I'm Topaz - I work in the IPC's Strategic Investment Department. "
+                + "Long time no see! How have you been? Clocking in a lot of overtime?");
         System.out.println(" What can I do for you?");
         showLine();
     }
@@ -59,7 +60,7 @@ public class Ui {
 
     public void showHelp() {
         String guide = """
-                 1. Adding Tasks
+                    1. Adding Tasks
                     1) ToDos: Tasks without specific dates/times.
                     Command: todo <description>
                     Example: todo borrow book
@@ -74,10 +75,12 @@ public class Ui {
                     Command: event <description> /from <start date/time> /to <end date/time>
                     Example: event project meeting /from Mon 2pm /to 4pm
                     Response: Confirms the addition and shows the event details.
-                 2. Viewing All Tasks
+                    
+                    2. Viewing All Tasks
                     Command: list
                     Response: Displays all tasks in your list with their types and statuses.
-                 3. Mark task status
+                    
+                    3. Mark task status
                     1) Mark task as done: mark <index of task in list>
                     2) Mark task as undo: unmark <index of task in list>""";
         System.out.println(guide);
@@ -86,7 +89,7 @@ public class Ui {
     public void showTimeParseException(DateTimeParseException dateTimeParseException) {
         System.out.println("Invalid input date time: " + dateTimeParseException);
     }
-    public void showFileIOBError(IndexOutOfBoundsException e) {
+    public void showFileIobError(IndexOutOfBoundsException e) {
         System.out.println("Invalid input task file format: " + e
                 + " Remove the file and try again!");
     }
@@ -107,7 +110,8 @@ public class Ui {
     }
 
     public void showTaskList() {
-        System.out.println(" Who works for money these days? Money is a means, not an end. Work should make you happy... That's the most fundamental principle.");
+        System.out.println(" Who works for money these days? Money is a means, "
+                           + "not an end. Work should make you happy... That's the most fundamental principle.");
         System.out.println(" Don't forget your work~");
     }
 
