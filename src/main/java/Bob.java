@@ -4,7 +4,8 @@ import java.util.Scanner;
 public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String LINE_PREFIX = "    ";
-    private static String input = "";
+
+    private static String argument = "";
     private static final ArrayList<Task> list = new ArrayList<>();
 
     private enum Command {
@@ -26,19 +27,32 @@ public class Bob {
                 say(text.toString());
             }
         },
+        ADD("add", 1) {
+            @Override
+            public void run() {
+                Task task = new Task(argument);
+                list.add(task);
+                say("added: " + task);
+            }
+        },
         CATCH_ALL("") {
             @Override
             public void run() {
-                list.add(new Task(input));
-                say("added: " + input);
+                say("Unknown command");
             }
         };
 
         public final String CMD;
+        public final int ARGS;
         public abstract void run();
 
         Command(String cmd) {
             CMD = cmd;
+            ARGS = 0;
+        }
+        Command(String cmd, int args) {
+            CMD = cmd;
+            ARGS = args;
         }
     }
 
@@ -77,9 +91,11 @@ public class Bob {
         greet();
         while (true) {
             boolean executed = false;
-            input = scanner.nextLine();
+            String[] input = scanner.nextLine().split(" ", 2);
+            String command = input[0];
+            argument = input.length == 1 ? "" : input[1];
             for (Command c : Command.values()) {
-                if (input.equals(c.CMD)) {
+                if (command.equals(c.CMD)) {
                     c.run();
                     executed = true;
                     break;
