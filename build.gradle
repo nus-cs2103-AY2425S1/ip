@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("shrimp.Shrimp.main")
+    mainClass.set("shrimp.Shrimp")
 }
 
 shadowJar {
