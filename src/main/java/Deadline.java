@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
@@ -12,26 +11,17 @@ public class Deadline extends Task{
     }
 
     public void convertStringToTask(String[] slicedStr) {
-        try {
-            String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
-            String deadlineTaskDetail = String.join(" ", task);
-            String[] deadlineTask = deadlineTaskDetail.split(" /");
-            this.description = deadlineTask[0];
-            this.dueTime = convertStringToDate(deadlineTask[1].substring(3));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-
+        String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
+        String deadlineTaskDetail = String.join(" ", task);
+        String[] deadlineTask = deadlineTaskDetail.split(" /");
+        this.description = deadlineTask[0];
+        this.dueTime = convertStringToDate(deadlineTask[1].substring(3));
     }
 
     public void convertSavedDataToTask(String[] dataArr) {
-        try {
-            this.setMarkStatus(dataArr[1].equals("1"));
-            this.description = dataArr[2];
-            this.dueTime = convertStringToDate(dataArr[3]);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        this.setMarkStatus(dataArr[1].equals("1"));
+        this.description = dataArr[2];
+        this.dueTime = convertStringToDate(dataArr[3]);
     }
 
     public LocalDate convertStringToDate(String dateStr) {
@@ -44,6 +34,7 @@ public class Deadline extends Task{
             DateTimeFormatter.ofPattern("dd/MM/yyyy"),
             DateTimeFormatter.ofPattern("d-MMMM-yyyy"),
             DateTimeFormatter.ofPattern("d/MM/yyyy"),
+            DateTimeFormatter.ofPattern("dd/M/yyyy"),
             DateTimeFormatter.ofPattern("d MMM"),
             DateTimeFormatter.ofPattern("d MMMM")
         );

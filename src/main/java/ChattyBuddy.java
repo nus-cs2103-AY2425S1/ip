@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -181,6 +182,10 @@ public class ChattyBuddy {
                         System.out.println(breakLine);
                         System.out.println("error: " + e.getMessage());
                         System.out.println(breakLine);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(breakLine);
+                        System.out.println(e.getMessage());
+                        System.out.println(breakLine);
                     }
 
 
@@ -206,6 +211,10 @@ public class ChattyBuddy {
                     } catch (IOException e) {
                         System.out.println(breakLine);
                         System.out.println("error: " + e.getMessage());
+                        System.out.println(breakLine);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(breakLine);
+                        System.out.println(e.getMessage());
                         System.out.println(breakLine);
                     }
 
