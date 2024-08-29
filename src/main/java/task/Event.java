@@ -3,6 +3,9 @@ package task;
 import java.time.LocalDate;
 import java.time.Month;
 
+/**
+ * Represents a Task which has a starting date and a ending date.
+ */
 public class Event extends Task {
 
     protected LocalDate from;

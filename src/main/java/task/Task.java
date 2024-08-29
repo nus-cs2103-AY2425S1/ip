@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Represents the tasks that is being input into the chatbot
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +12,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets a string representation of whether the task is completed.
+     *
+     * @return String "X" if complete and " " if incomplete.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
