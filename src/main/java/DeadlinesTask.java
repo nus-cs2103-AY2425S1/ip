@@ -8,6 +8,11 @@ public class DeadlinesTask extends Task{
     @Override
     public String printTask() {
         return "[D]" + super.printTask() + " (by: " + this.deadline + ")";
+    } // this is for human readable string
+
+    @Override
+    public String printFileFormat() {
+        return "D | " + (isDone ? 1 : 0) + " | " + this.description + " | " + this.deadline;
     }
 
 }

@@ -13,4 +13,9 @@ public class EventTask extends Task {
     public String printTask() {
         return "[E]" + super.printTask() +  " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String printFileFormat() {
+        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + start + " | " + end;
+    }
 }

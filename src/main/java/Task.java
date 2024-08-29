@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -20,6 +20,8 @@ public class Task {
     public String printTask() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public abstract String printFileFormat();
 
     public String markDone() {
         this.setProgress(true);

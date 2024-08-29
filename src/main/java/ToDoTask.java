@@ -9,4 +9,8 @@ public class ToDoTask extends Task {
         return "[T]" + super.printTask();
     }
 
+    @Override
+    public String printFileFormat() {
+        return "T | " + (isDone ? 1 : 0) + " | " + description;
+    }
 }
