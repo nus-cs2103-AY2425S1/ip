@@ -37,9 +37,6 @@ public class Bocchi {
         taskList = new TaskList(storage);
     }
 
-    public static void main(String[] args) {
-        new Bocchi().start();
-    }
 
     /**
      * Ends the conversation.
@@ -196,4 +193,9 @@ public class Bocchi {
             }
         }
     }
+
+    public static void main(String[] args) {
+        new Bocchi().start();
+    }
+
 }
