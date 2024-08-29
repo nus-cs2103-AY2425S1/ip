@@ -1,174 +1,39 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-
 public class Lolo {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    private static final String FILE_PATH = "./data/lolo.txt";
-    private static final int MAX_TASKS = 100;
-    private static ArrayList<Task> tasks;
-    private static Storage storage;
+    public Lolo(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (LoloException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
+            } catch (LoloException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        storage = new Storage(FILE_PATH);
-        try {
-            tasks = storage.load();
-        } catch (LoloException e) {
-            System.out.println("Error loading tasks: " + e.getMessage());
-            tasks = new ArrayList<>();
-        }
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Hello! I'm Lolo, your friendly task manager. 😊");
-        System.out.println("What do you want to do today?\n");
-
-        String userCommand;
-
-        do {
-            System.out.print("You: ");
-            userCommand = scanner.nextLine();
-
-            if (userCommand.equalsIgnoreCase("bye")) {
-                break;
-            } else if (userCommand.equalsIgnoreCase("list")) {
-                listTasks();
-            } else if (userCommand.startsWith("todo ")) {
-                addTask(new ToDo(userCommand.substring(5)));
-            } else if (userCommand.startsWith("deadline ")) {
-                String[] parts = userCommand.split(" /by ");
-                if (parts.length == 2) {
-                    try {
-                        String description = parts[0].substring(9);
-                        LocalDateTime by = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                        addTask(new Deadline(description, by));
-                    } catch (DateTimeParseException e) {
-                        System.out.println("    OOPS!!! The date and time format should be yyyy-mm-dd HHmm.");
-                    }
-                } else {
-                    System.out.println("    OOPS!!! The deadline command should include a /by clause.");
-                }
-            } else if (userCommand.startsWith("event ")) {
-                String[] parts = userCommand.split(" /from ");
-                if (parts.length == 2) {
-                    try {
-                        String description = parts[0].substring(6);
-                        String[] fromTo = parts[1].split(" /to ");
-                        LocalDateTime from = LocalDateTime.parse(fromTo[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                        LocalDateTime to = LocalDateTime.parse(fromTo[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                        addTask(new Event(description, from, to));
-                    } catch (DateTimeParseException e) {
-                        System.out.println("    OOPS!!! The date and time format should be yyyy-mm-dd HHmm.");
-                    }
-                } else {
-                    System.out.println("    OOPS!!! The event command should include /from and /to clauses.");
-                }
-            } else if (userCommand.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
-                markTaskAsDone(taskNumber);
-            } else if (userCommand.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
-                markTaskAsNotDone(taskNumber);
-            } else if (userCommand.startsWith("delete ")) {
-                int taskNumber = Integer.parseInt(userCommand.split(" ")[1]);
-                deleteTask(taskNumber);
-            } else if (userCommand.startsWith("on ")) {
-                try {
-                    LocalDateTime date = LocalDateTime.parse(userCommand.substring(3) + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                    listTasksOnDate(date);
-                } catch (DateTimeParseException e) {
-                    System.out.println("    OOPS!!! The date format should be yyyy-mm-dd.");
-                }
-            } else {
-                System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
-
-        } while (!userCommand.equalsIgnoreCase("bye"));
-
-        System.out.println("Lolo: Bye. Hope to see you again soon! 👋");
-
-        scanner.close();
-    }
-
-    public static void addTask(Task task) {
-        if (tasks.size() < MAX_TASKS) {
-            tasks.add(task);
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("      " + task);
-            System.out.println("    Now you have " + tasks.size() + " task(s) in the list.");
-            saveTasks();
-        } else {
-            System.out.println("    Task list is full! Cannot add more tasks.");
-        }
-    }
-
-    public static void listTasks() {
-        if (tasks.isEmpty()) {
-            System.out.println("    No tasks added yet.");
-        } else {
-            System.out.println("    Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("    " + (i + 1) + "." + tasks.get(i));
-            }
-        }
-    }
-
-    public static void markTaskAsDone(int taskNumber) {
-        if (taskNumber > 0 && taskNumber <= tasks.size()) {
-            tasks.get(taskNumber - 1).markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks.get(taskNumber - 1));
-            saveTasks();
-        } else {
-            System.out.println("    OOPS!!! The task number is invalid.");
-        }
-    }
-
-    public static void markTaskAsNotDone(int taskNumber) {
-        if (taskNumber > 0 && taskNumber <= tasks.size()) {
-            tasks.get(taskNumber - 1).markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks.get(taskNumber - 1));
-            saveTasks();
-        } else {
-            System.out.println("    OOPS!!! The task number is invalid.");
-        }
-    }
-
-    public static void deleteTask(int taskNumber) {
-        if (taskNumber > 0 && taskNumber <= tasks.size()) {
-            Task removedTask = tasks.remove(taskNumber - 1);
-            System.out.println("    Noted. I've removed this task:");
-            System.out.println("      " + removedTask);
-            System.out.println("    Now you have " + tasks.size() + " task(s) in the list.");
-            saveTasks();
-        } else {
-            System.out.println("    OOPS!!! The task number is invalid.");
-        }
-    }
-
-    private static void saveTasks() {
-        try {
-            storage.save(tasks);
-        } catch (LoloException e) {
-            System.out.println("Error saving tasks: " + e.getMessage());
-        }
-    }
-    public static void listTasksOnDate(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        String dateStr = date.toLocalDate().format(formatter);
-
-        System.out.println("    Here are the tasks on " + dateStr + ":");
-        for (Task task : tasks) {
-            if (task instanceof Deadline && ((Deadline) task).by.toLocalDate().equals(date.toLocalDate())) {
-                System.out.println("    " + task);
-            } else if (task instanceof Event && (((Event) task).from.toLocalDate().equals(date.toLocalDate()) || ((Event) task).to.toLocalDate().equals(date.toLocalDate()))) {
-                System.out.println("    " + task);
-            }
-        }
+        new Lolo("./data/lolo.txt").run();
     }
 }
 
