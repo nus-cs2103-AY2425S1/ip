@@ -9,7 +9,7 @@ import quack.tasks.DeadlineTask;
 import quack.tasks.EventTask;
 
 /** 
- * This class is to act as a Stub Task List.
+ * This class is to act as a Stub for the Task List class.
  */
 public class TaskListStub extends TaskList{
     
