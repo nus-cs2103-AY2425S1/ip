@@ -1,10 +1,19 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Nuffle {
+    private static Storage storage = new Storage("./data/Nuffle.txt");
 
-    // This list contains all Task Class objects
-    private static ArrayList<Task> inputList = new ArrayList<>();
+    private static ArrayList<Task> inputList;
+
+    static {
+        try {
+            inputList = storage.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static void printLine() {
         /**
@@ -111,7 +120,7 @@ public class Nuffle {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // This will be starting point of the application
 
@@ -148,67 +157,52 @@ public class Nuffle {
                 } else if (userInput.startsWith("mark")) {
                     // Program will mark the specified task based on the index provided
 
-                    // Get the index from the user input (e.g. mark 2)
                     int index = Integer.parseInt(userInput.substring(5)) - 1;
-                    // Mark the task as done by calling the function
                     markTask(index);
                 } else if (userInput.startsWith("unmark")) {
                     // Program will unmark the specified task based on the index provided
 
-                    // Get the index from the user input (e.g. unmark 2)
                     int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    // Unmark the task by calling the function
                     unMarkTask(index);
                 } else if (userInput.startsWith("delete")) {
                     // Program will delete the specified task based on the index provided
 
-                    // Get the index from teh user input (e.g. delete 3)
                     int index = Integer.parseInt(userInput.substring(7)) - 1;
-                    // Delete the task by calling the function
                     deleteTask(index);
                 } else if (userInput.startsWith("todo")) {
                     // Program will add a To-do task to the list
 
-                    // Get the description of the to-do task first
                     String desc = userInput.substring(4);
-                    // ensure that the description is not empty. If it is, throw an exception
                     if (desc.trim().isEmpty()) {
                         throw NuffleException.noDesc("todo");
                     }
-                    // add the task to the list
                     Task newTask = new Todo(desc);
                     addTaskToList(newTask);
                 } else if (userInput.startsWith("deadline")) {
                     // Program will add a deadline task to the list
 
-                    // ensure that the command contains the /by
                     if (!userInput.contains("/by")) {
                         throw NuffleException.checkDeadlineFormat();
                     }
                     // Get the description of the deadline task as well as the day, split by the "by"
                     String[] desc = userInput.substring(8).split(" /by ");
-                    // ensure that the description is not empty. If it is, throw an exception
                     if (userInput.substring(8).trim().isEmpty()) {
                         throw NuffleException.noDesc("deadline");
                     }
-                    // ensure that after /by has an input
                     if (desc.length < 2 || desc[1].trim().isEmpty()) {
                         throw NuffleException.checkDeadlineParams();
                     }
-                    // add the task to the list
                     Task newTask = new Deadline(desc[0], desc[1]);
                     addTaskToList(newTask);
                 } else if (userInput.startsWith("event")) {
                     // Program will add an event task to the list
 
-                    // ensure that the command contains but the /to and /from
                     if (!(userInput.contains("/from") || userInput.contains("/to"))) {
                         throw NuffleException.checkEventFormat();
                     }
 
                     // Get the description of the event task first
                     String[] desc = userInput.substring(5).split(" /from | /to ");
-                    // ensure that the description is not empty. If it is, throw an exception
                     if (userInput.substring(5).trim().isEmpty()) {
                         throw NuffleException.noDesc("event");
                     }
@@ -216,7 +210,6 @@ public class Nuffle {
                     if (desc.length < 3 || desc[1].trim().isEmpty() || desc[2].trim().isEmpty()) {
                         throw NuffleException.checkEventParams();
                     }
-                    // add the task to the list
                     Task newTask = new Event(desc[0], desc[1], desc[2]);
                     addTaskToList(newTask);
                 } else {
@@ -228,7 +221,7 @@ public class Nuffle {
                 printLine();
             }
         }
-        // Once loop breaks, terminate/close the scanner
+        storage.save(inputList);
         user_s.close();
     }
 }
