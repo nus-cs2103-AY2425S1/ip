@@ -21,4 +21,7 @@ event
 deadline Watch ST2334 Recordings
 event Orientation Week
 event Orientation Week /from Monday to Friday
+deadline Orbital Splashdown /by 2024-8-31
+deadline Orbital Splashdown /by 2024-08-32
+event Orientation /from 2024-8-31 /to 2024-08-32
 bye
