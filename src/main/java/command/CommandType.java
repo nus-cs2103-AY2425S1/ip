@@ -7,6 +7,12 @@ public enum CommandType {
     TODO,
     DEADLINE,
     EVENT,
+
+    /**
+     * Command to find tasks containing a specific word.
+     */
+    FIND,
+
     BYE,
     INVALID;
 }

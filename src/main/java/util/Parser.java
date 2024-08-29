@@ -11,6 +11,7 @@ import command.ExitCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
+import command.FindCommand;
 import exception.InvalidCommandException;
 import exception.ScheduloException;
 import task.Deadline;
@@ -49,6 +50,9 @@ public class Parser {
                 return parseEventCommand(splitWords[1]);
             case BYE:
                 return new ExitCommand();
+            // Returns a FindCommand to search for tasks containing the specified word
+            case FIND:
+                return new FindCommand(splitWords[1]);
             default:
                 throw new InvalidCommandException();
         }
