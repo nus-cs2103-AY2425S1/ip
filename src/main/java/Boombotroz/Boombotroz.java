@@ -57,6 +57,10 @@ public class Boombotroz {
                     parser.deleteTask(task_list, input, storage, ui);
                     input = scanner.nextLine();
 
+                } else if (input.startsWith("find ")) {
+                    parser.findTask(task_list, input, ui);
+                    input = scanner.nextLine();
+
                 } else if (input.startsWith("todo ")) {
                     parser.toDoTask(task_list, input, storage, ui);
                     input = scanner.nextLine();

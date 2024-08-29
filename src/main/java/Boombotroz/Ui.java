@@ -118,4 +118,11 @@ public class Ui {
 
     }
 
+    public void emptyWord(String wordInput) throws BoomException {
+        String[] parts = wordInput.split(" ");
+        if (parts.length < 2) {
+            throw new BoomException("You need a keyword !!");
+        }
+    }
+
 }

@@ -80,6 +80,28 @@ public class Parser {
     }
 
     /**
+     * Find the task(s) that contains the word from the input.
+     * If no such word, will throw exception.
+     *
+     * @param task_list list of all the tasks.
+     * @param input input given by user.
+     * @param ui handles errors that may occur.
+     * @throws BoomException If position not given OR position out of range.
+     *
+     */
+    public void findTask(TaskList task_list, String input, Ui ui) throws BoomException {
+        ui.emptyWord(input);
+        String word = input.substring(5);
+        System.out.println("Here are the matching tasks in your list: ");
+        for (int i = 0; i< task_list.size(); i++) {
+            Task curr = task_list.getTask(i);
+            if (curr.getDescription().matches(word)) {
+                System.out.println(String.format("%d.%s", i, curr));
+            }
+        }
+    }
+
+    /**
      * Creates TODO typed task.
      * Stores the task into txt file.
      * If the input is invalid, will throw exception.

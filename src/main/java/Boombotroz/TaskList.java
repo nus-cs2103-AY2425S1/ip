@@ -20,6 +20,16 @@ public class TaskList {
         return task_list.size();
     }
 
+
+    /**
+     * Returns the task from the task list at that index.
+     *
+     * @param index
+     */
+    public Task getTask(int index) {
+        return task_list.get(index);
+    }
+
     /**
      * Adds task to task list.
      * Prints message about the task that was just added and number of tasks in list.
