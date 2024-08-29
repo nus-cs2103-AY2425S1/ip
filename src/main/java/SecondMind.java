@@ -42,16 +42,12 @@ public class SecondMind {
         fw.close();
     }
 
-    private static LocalDateTime textToLocalDateTime(String text) throws DateTimeParseException {
-        LocalDateTime ldt = LocalDateTime.parse(text);
-        return ldt;
-    }
-
-    private static String convertLocalDateTime(LocalDateTime ldt) {
+    private static String formatDateTime (String dateTime) throws DateTimeParseException {
+        LocalDateTime ldt = LocalDateTime.parse(dateTime);
         DateTimeFormatter formatter 
-                = DateTimeFormatter.ofPattern(
-                        "yyyy-MM-dd HH:mm:ss a");
-        
+            = DateTimeFormatter.ofPattern(
+                    "yyyy-MM-dd HH:mm:ss a");
+    
         return ldt.format(formatter);
     }
 
