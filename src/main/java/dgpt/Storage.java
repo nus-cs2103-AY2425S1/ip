@@ -11,13 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for handling reading from and writing to
+ * the file system for the DGPT application. It manages loading and saving
+ * tasks from/to a specified file path.
+ */
 public class Storage {
 
-    String filePath;
+    private final String filePath;
+
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The path of the file where tasks are stored or retrieved from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path. The file is expected
+     * to contain tasks in a specific format. The method reads the file line by line,
+     * parses the task data, and adds them to a list of tasks.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws DgptFileNotFoundException If the file cannot be found.
+     */
     public List<Task> load() throws IOException, DgptFileNotFoundException {
         List<Task> res = new ArrayList<>();
         try {
@@ -33,7 +53,6 @@ public class Storage {
                         i.mark();
                     }
                     res.add(i);
-
                 }
                 case "D" -> {
                     Deadline i = new Deadline(parts[2], parts[3]);
@@ -58,6 +77,15 @@ public class Storage {
         return res;
     }
 
+    /**
+     * Saves the provided task list to the file specified by the file path. The method
+     * writes each task to the file in a specific format. If the parent directory of
+     * the file does not exist, it will be created.
+     *
+     * @param taskList The list of tasks to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file or if
+     *         the parent directory cannot be created.
+     */
     public void save(TaskList taskList) throws IOException {
         File file = new File(this.filePath);
 
