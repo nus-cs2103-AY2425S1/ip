@@ -1,6 +1,7 @@
 package pixel;
 
 import java.util.Scanner;
+import pixel.task.TaskList;
 
 /**
  * The Ui class represents the user interface of the Pixel application.
@@ -55,6 +56,17 @@ public class Ui {
     /**
      * Closes the user interface by closing the scanner.
      */
+    public void showMatchingTasks(TaskList matchingTasks) {
+        if (matchingTasks.size() == 0) {
+            PixelSays("No matching tasks found!");
+        } else {
+            PixelSays("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                PixelSays((i + 1) + ". " + matchingTasks.getTaskAtIndex(i));
+            }
+        }
+    }
+
     public void closeUi() {
         this.scanner.close();
     }
