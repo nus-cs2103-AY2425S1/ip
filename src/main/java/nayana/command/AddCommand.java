@@ -49,4 +49,13 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Returns Task to add for testing purposes
+     *
+     * @return Task
+     */
+    public Task getTask() {
+        return this.task;
+    }
 }

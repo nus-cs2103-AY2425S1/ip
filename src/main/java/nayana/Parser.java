@@ -51,7 +51,7 @@ public class Parser {
         try {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             return new MarkCommand(index);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new NayanaException("Invalid format for mark command.");
         }
     }
@@ -60,7 +60,7 @@ public class Parser {
         try {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             return new UnmarkCommand(index);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new NayanaException("Invalid format for unmark command.");
         }
     }
@@ -69,7 +69,7 @@ public class Parser {
         try {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             return new DeleteCommand(index);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new NayanaException("Invalid format for delete command.");
         }
     }

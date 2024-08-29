@@ -78,4 +78,15 @@ public class Task {
     public String getType() {
         return "";
     }
+
+    /**
+     * Returns whether the task is marked as done.
+     *
+     * @return A boolean indicating the completion status of the task.
+     *         Returns true if the task is done, false otherwise.
+     */
+    public boolean getDone() {
+        return done;
+    }
+
 }

@@ -43,9 +43,9 @@ public class TaskList {
      * @return The deleted task.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public Task delete(int index) {
+    public Task delete(int index) throws NayanaException {
         if (index < 0 || index >= tasks.size()) {
-            throw new IndexOutOfBoundsException("Invalid task index.");
+            throw new NayanaException("Invalid task index.");
         }
         Task task = tasks.get(index);
         tasks.remove(index);
@@ -68,9 +68,9 @@ public class TaskList {
      * @return The updated task.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public Task markAsDone(int index) {
+    public Task markAsDone(int index) throws NayanaException {
         if (index < 0 || index >= tasks.size()) {
-            throw new IndexOutOfBoundsException("Invalid task index.");
+            throw new NayanaException("Invalid task index.");
         }
         Task task = tasks.get(index);
         task.markAsDone();
@@ -84,9 +84,9 @@ public class TaskList {
      * @return The updated task.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public Task markAsNotDone(int index) {
+    public Task markAsNotDone(int index) throws NayanaException {
         if (index < 0 || index >= tasks.size()) {
-            throw new IndexOutOfBoundsException("Invalid task index.");
+            throw new NayanaException("Invalid task index.");
         }
         Task task = tasks.get(index);
         task.markAsNotDone();

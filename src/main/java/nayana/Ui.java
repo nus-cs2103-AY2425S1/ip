@@ -12,6 +12,9 @@ public class Ui {
     /**
      * Initializes the Ui class with a Scanner for user input.
      */
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
 
 
     private static final String  WELCOME_MESSAGE=
