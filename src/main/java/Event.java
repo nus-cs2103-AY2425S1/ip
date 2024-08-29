@@ -1,17 +1,20 @@
+import java.time.LocalDate;
+
 public class Event extends Task{
-    private String fromDate;
-    private String toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
     public Event(String name, String fromDate, String toDate) {
         super(name);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.fromDate = LocalDate.parse(fromDate);
+        this.toDate = LocalDate.parse(toDate);
     }
 
     @Override
     public String toString() {
         String temp = super.toString();
-        return String.format("[E]%s (from %s to: %s)", temp, fromDate, toDate);
+        return String.format("[E]%s (from %s to: %s)",
+                temp, fromDate.format(super.FORMATTER), toDate.format(super.FORMATTER));
     }
 
     @Override

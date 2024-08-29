@@ -1,3 +1,0 @@
-T|0|readbook
-D|0|return book |tue
-E|0|meeting |tue |wed
