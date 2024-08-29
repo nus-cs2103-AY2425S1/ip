@@ -24,14 +24,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.to.format(dateFormatter)
-                + " to: " + this.to.format(dateFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(dateFormatter)
+                + " to: " + to.format(dateFormatter) + ")";
     }
 
     @Override
     public String toSimplifiedString() {
         String formattedString = String.format("E | %d | %s | %s | %s\n", super.getIsDone() ? 1 : 0,
-                super.getDescription(), this.to.format(dateFormatter), this.to.format(dateFormatter));
+                super.getDescription(), from.format(dateFormatter), to.format(dateFormatter));
         return formattedString;
     }
 }

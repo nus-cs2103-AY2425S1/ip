@@ -8,7 +8,7 @@ public class CommandResult {
     }
 
     public String getReply() {
-        return this.reply;
+        return reply;
     }
 
 }

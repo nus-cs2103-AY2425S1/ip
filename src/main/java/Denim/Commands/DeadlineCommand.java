@@ -14,7 +14,7 @@ public class DeadlineCommand extends Command {
     private final Task deadlineTask;
 
     public DeadlineCommand(String taskDescription, LocalDateTime deadline) {
-        this.deadlineTask = new Deadline(taskDescription, deadline);
+        deadlineTask = new Deadline(taskDescription, deadline);
     }
     @Override
     public CommandResult execute(TaskList taskList, TaskIO taskIO) {
@@ -24,7 +24,7 @@ public class DeadlineCommand extends Command {
             return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }
 
-        taskList.addTask(this.deadlineTask);
+        taskList.addTask(deadlineTask);
         int taskListSize = taskList.getTaskListSize();
 
         String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.",

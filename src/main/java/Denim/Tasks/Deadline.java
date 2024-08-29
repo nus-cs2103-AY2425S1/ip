@@ -19,14 +19,14 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return "[D]" + super.toString() + " (by: " + this.deadline.format(dateFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.format(dateFormatter) + ")";
     }
 
     @Override
     public String toSimplifiedString() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         String formattedString = String.format("D | %d | %s | %s\n", super.getIsDone() ? 1 : 0,
-                super.getDescription(), this.deadline.format(dateFormatter));
+                super.getDescription(), deadline.format(dateFormatter));
         return formattedString;
     }
 }

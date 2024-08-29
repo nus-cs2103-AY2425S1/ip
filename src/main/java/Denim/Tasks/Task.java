@@ -11,7 +11,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public Task(String description, boolean isDone) {
@@ -29,12 +29,12 @@ public class Task {
     }
 
     public boolean getIsDone() {
-        boolean result = this.isDone;
+        boolean result = isDone;
         return result;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setIsDone(boolean isDone) {

@@ -13,7 +13,7 @@ public class TodoCommand extends Command {
     private Task todoTask;
 
     public TodoCommand(String taskDescription) {
-        this.todoTask = new Todo(taskDescription);
+        todoTask = new Todo(taskDescription);
     }
 
     @Override
@@ -24,10 +24,11 @@ public class TodoCommand extends Command {
             return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }
 
-        taskList.addTask(this.todoTask);
+        taskList.addTask(todoTask);
         int taskListSize = taskList.getTaskListSize();
 
-        String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.", todoTask, taskListSize);
+        String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.",
+                todoTask, taskListSize);
         return new CommandResult(returnMessage);
     }
 
