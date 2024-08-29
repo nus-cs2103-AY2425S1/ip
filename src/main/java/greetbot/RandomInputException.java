@@ -1,8 +1,10 @@
-public class EmptyDescriptionException extends Exception {
-    
+package greetbot;
+
+public class RandomInputException extends Exception {
+
     final private String message;
 
-    public EmptyDescriptionException(String message) {
+    public RandomInputException(String message) {
         super();
         this.message = message;
     }
