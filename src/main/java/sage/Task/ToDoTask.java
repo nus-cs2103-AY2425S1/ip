@@ -2,6 +2,11 @@ package sage.Task;
 
 public class ToDoTask extends Task {
 
+    /**
+     * Constructs a ToDoTask with a description.
+     *
+     * @param description The description of the todo task.
+     */
     public ToDoTask(String description) {
         super(description);
     }

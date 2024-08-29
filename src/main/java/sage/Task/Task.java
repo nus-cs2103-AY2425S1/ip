@@ -9,12 +9,22 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task.
+     *
+     * @return "X" if the task is done, otherwise a blank space.
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
-    public void setDone(boolean b) {
-        this.isDone = b;
+    /**
+     * Sets the done status of the task.
+     *
+     * @param isDone True if the task is completed, otherwise false.
+     */
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override

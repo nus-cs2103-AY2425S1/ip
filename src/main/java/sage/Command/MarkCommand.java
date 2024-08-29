@@ -10,11 +10,25 @@ public class MarkCommand extends Command {
     private final String indexString;
     private final boolean isDone;
 
+    /**
+     * Constructs a MarkCommand with the task index and done status.
+     *
+     * @param indexString The index of the task to mark or unmark.
+     * @param isDone      The status to mark the task as (true for done, false for not done).
+     */
     public MarkCommand(String indexString, boolean isDone) {
         this.indexString = indexString;
         this.isDone = isDone;
     }
 
+    /**
+     * Executes the mark command by marking or un-marking the task.
+     *
+     * @param tasks   The TaskList containing all tasks.
+     * @param ui      The Ui object to handle user interaction.
+     * @param storage The Storage object for saving changes to the file.
+     * @throws SageException If the provided task index is invalid or cannot be parsed.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
         int index;

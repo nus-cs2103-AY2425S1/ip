@@ -13,11 +13,26 @@ public class AddCommand extends Command {
     private final String commandType;
     private final String description;
 
+    /**
+     * Constructs an AddCommand with the command type and description.
+     *
+     * @param commandType The type of task to be added ("todo", "deadline", or "event").
+     * @param description The description of the task, including details needed for each task.
+     */
     public AddCommand(String commandType, String description) {
         this.commandType = commandType;
         this.description = description;
     }
 
+    /**
+     * Executes the add command, adding a task to the task list.
+     * Depending on the command type, a ToDoTask, DeadlineTask, or EventTask will be created and added.
+     *
+     * @param tasks   The TaskList to which the new task will be added.
+     * @param ui      The Ui object to handle user interaction.
+     * @param storage The Storage object for saving changes to the file.
+     * @throws SageException If the command type is invalid or required details are missing.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
         Task task;

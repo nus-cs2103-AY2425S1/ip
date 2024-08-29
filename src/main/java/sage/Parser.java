@@ -3,6 +3,13 @@ package sage;
 import sage.Command.*;
 
 public class Parser {
+    /**
+     * Parses the input string and returns the appropriate Command.
+     *
+     * @param input The input string to parse.
+     * @return The Command object.
+     * @throws SageException If the command is invalid.
+     */
     public static Command parse(String input) throws SageException {
         String[] fullCommand = input.split(" ", 2);
         String commandType = fullCommand[0];

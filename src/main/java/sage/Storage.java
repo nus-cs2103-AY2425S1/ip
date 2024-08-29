@@ -20,6 +20,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from a file and returns them as a list.
+     *
+     * @return The list of loaded tasks.
+     * @throws IOException If an I/O error occurs.
+     * @throws SageException If the file is corrupted or contains invalid data.
+     */
     public List<Task> load() throws IOException, SageException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -40,9 +47,9 @@ public class Storage {
 
             switch (type) {
                 case "T":
-                    Task toDO = new ToDoTask(description);
-                    toDO.setDone(isDone);
-                    taskList.add(toDO);
+                    Task toDo = new ToDoTask(description);
+                    toDo.setDone(isDone);
+                    taskList.add(toDo);
                     break;
                 case "D":
                     String by = entryDetails[3];
@@ -65,6 +72,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the list of tasks to a file.
+     *
+     * @param tasksList The list of tasks to be saved.
+     * @throws IOException If an I/O error occurs.
+     */
     public void save(TaskList tasksList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasksList.getTasks()) {
