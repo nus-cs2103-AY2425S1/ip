@@ -1,3 +1,7 @@
+package Commands;
+
+import Data.StoreList;
+
 public abstract class Command {
     protected StoreList storeList;
 

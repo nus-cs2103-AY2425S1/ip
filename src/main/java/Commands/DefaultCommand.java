@@ -1,4 +1,6 @@
-public class DefaultCommand extends Command{
+package Commands;
+
+public class DefaultCommand extends Command {
     String userInput;
 
     public DefaultCommand(String userInput) {

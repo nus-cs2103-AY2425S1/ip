@@ -1,4 +1,6 @@
-public class ExitCommand extends Command{
+package Commands;
+
+public class ExitCommand extends Command {
     String userInput;
 
     public ExitCommand(String userInput) {
@@ -8,6 +10,7 @@ public class ExitCommand extends Command{
 
     @Override
     public boolean isExit() {
+
         return true;
     }
 

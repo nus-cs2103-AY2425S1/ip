@@ -1,12 +1,16 @@
-public class MarkCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class DeleteCommand extends Command {
     String userInput;
 
-    public MarkCommand(String userInput) {
+    public DeleteCommand(String userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * Marks item as completed via method in storelist class
+     * deletes item in list via method in storelist class
      *
      */
     @Override
@@ -15,7 +19,7 @@ public class MarkCommand extends Command{
         String[] words = userInput.split(" ");
         System.out.println(Ui.LINE);
         int itemNum = Integer.parseInt(words[1]);
-        storeList.markItem(itemNum);
+        storeList.deleteItem(itemNum);
         System.out.println(Ui.LINE);
     }
 

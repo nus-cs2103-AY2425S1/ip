@@ -1,4 +1,9 @@
-import java.util.Scanner;
+package Main;
+
+import Commands.Command;
+import Data.Storage;
+import Data.StoreList;
+import Parser.Parser;
 
 /**
  * Entry point of the chatbot.

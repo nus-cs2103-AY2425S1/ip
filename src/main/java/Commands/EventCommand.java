@@ -1,18 +1,22 @@
-public class DueCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class EventCommand extends Command {
     String userInput;
 
-    public DueCommand(String userInput) {
+    public EventCommand(String userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * Displays items due via method in storelist class
+     * Adds items to list via method in storelist class
      *
      */
     @Override
     public void execute() {
         System.out.println(Ui.LINE);
-        storeList.dueOnDate(userInput.substring(4).trim());
+        storeList.addItem(userInput.substring(5), "event");
         System.out.println(Ui.LINE);
     }
 

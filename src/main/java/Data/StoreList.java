@@ -1,8 +1,9 @@
-import java.io.IOException;
+package Data;
+
+import Exceptions.*;
+import Tasks.*;
+
 import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
@@ -11,7 +12,7 @@ public class StoreList {
     //declare array to store tasks
     protected ArrayList<Task> items;
 
-    //declare Task
+    //declare Tasks.Task
     protected Task t;
 
     //initialize items array
@@ -37,18 +38,18 @@ public class StoreList {
     public void addItem(String item, String type) {
         try {
             if (type.equals("todo")) {
-                // create a ToDos object
+                // create a Tasks.ToDos object
                 t = new ToDos(item);
                 items.add(t);
 
             } else if (type.equals("deadline")) {
-                // create a Deadlines object
-                t = new Deadlines(item); // Constructor might throw EmptyDeadlineException
+                // create a Tasks.Deadlines object
+                t = new Deadlines(item); // Constructor might throw Exceptions.EmptyDeadlineException
                 items.add(t);
 
             } else {
-                // create an Events object
-                t = new Events(item); // Constructor might throw EmptyEventException
+                // create an Tasks.Events object
+                t = new Events(item); // Constructor might throw Exceptions.EmptyEventException
                 items.add(t);
             }
 
@@ -101,7 +102,7 @@ public class StoreList {
      */
     public void deleteItem(int num) {
         if (num > items.size()) {
-            System.out.println("Task number does not exist");
+            System.out.println("Tasks.Task number does not exist");
             return;
         }
         Task temp = items.get(num - 1);

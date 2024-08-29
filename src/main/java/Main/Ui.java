@@ -1,3 +1,5 @@
+package Main;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -18,7 +20,7 @@ public class Ui {
     public void showIntroMessage() {
         // print intro
         System.out.println(LINE);
-        System.out.println("    Hey! I'm Flash");
+        System.out.println("    Hey! I'm Main.Flash");
         System.out.println("    What can I do for ya?");
         System.out.println(LINE);
 
