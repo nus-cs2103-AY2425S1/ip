@@ -48,7 +48,6 @@ public class Storage {
             while (s.hasNext()) {
                 Task task = null;
                 String[] row = s.nextLine().split("\\|");
-                System.out.println(Arrays.toString(row));
                 String taskType = row[0].strip();
                 Boolean isDone = row[1].strip().equals("0") ? false : true;
                 String description = row[2].strip();
@@ -58,12 +57,9 @@ public class Storage {
 
                 } else if (taskType.equals("D")) {
                     task = DeadlineTask.of("deadline " + description + " /by " + row[3].strip());
-                    System.out.println(description + " /by " + row[3].strip());
 
                 } else if (taskType.equals("E")) {
                     task = EventTask.of("event " +description + " /from " + row[3].strip()
-                            + " /to " + row[4].strip());
-                    System.out.println(description + " /from " + row[3].strip()
                             + " /to " + row[4].strip());
                 }
 
