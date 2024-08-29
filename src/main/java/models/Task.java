@@ -8,6 +8,10 @@ public abstract class Task {
         this.name = name;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void markDone() {
         this.isDone = true;
     }

@@ -44,6 +44,8 @@ public class IpMan {
                     command = new CreateEventCommand(tasks, message);
                 } else if (message.startsWith("delete")) {
                     command = new DeleteCommand(tasks, message);
+                } else if (message.startsWith("find")) {
+                    command = new FindCommand(tasks, message);
                 } else {
                     System.out.println("Sorry, I don't recognise that keyword. Try again!");
                     continue;
