@@ -1,5 +1,5 @@
 package yapper.resources;
 
 public enum YapperConcern {
-    DESC, DEADLINE, FROM, TO
+    DESC, DEADLINE_BY, FROM, TO, KEYWORD
 }

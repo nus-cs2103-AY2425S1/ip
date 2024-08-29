@@ -150,14 +150,17 @@ public class TaskList {
      * @param keyword     the command specifying whether to mark or unmark the task
      */
     public void findTasks(String keyword) {
-        Ui.showLine();
-        int taskNumber = 1;
+        ArrayList<Task> foundMatches = new ArrayList<>();
         for (Task task : this.taskList) {
             if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                System.out.println(taskNumber++ + "." + task);
+                foundMatches.add(task);
             }
         }
-        Ui.showLine();
+        if (foundMatches.isEmpty()) {
+            Ui.wrapText("Sorry, I couldn't find any tasks that had this keyword! :(");
+            return;
+        }
+        new TaskList(foundMatches, "").listTasks();
     }
 
     /**
@@ -165,6 +168,9 @@ public class TaskList {
      * Each task is written on a new line.
      */
     public void writeToFile() {
+        if (filePath.isEmpty()) {
+            return;
+        }
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task t : this.taskList) {
                 fileWriter.write(t.getDesc() + System.lineSeparator());

@@ -30,13 +30,15 @@ public class StringJoiner {
             String message = null;
             switch (timeType) {
             case DESC:
-                throw new EmptyDescException("(E.g. todo [DESC], deadline [DESC] /by [DEADLINE], etc)");
-            case DEADLINE:
-                throw new EndingTimeException("(Format: deadline [DESC] /by [DEADLINE])");
+                throw new EmptyDescException("(E.g. todo [DESC], deadline [DESC] /by [DEADLINE_BY], etc)");
+            case DEADLINE_BY:
+                throw new EndingTimeException("(Format: deadline [DESC] /by [DEADLINE_BY])");
             case FROM:
                 throw new StartingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
             case TO:
                 throw new EndingTimeException("(Format: event [DESC] /from [FROM] /to [TO])");
+            case KEYWORD:
+                throw new EmptyDescException("(E.g. find [KEYWORD])");
             default:
                 message = "(Something went wrong)";
                 break;

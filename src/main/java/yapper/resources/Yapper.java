@@ -78,11 +78,11 @@ public class Yapper {
                             }
                         }
                         if (byIndex == -1) {
-                            throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE])");
+                            throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE_BY])");
                         }
                         String desc = StringJoiner.join(parsedLine, 1, byIndex, YapperConcern.DESC);
                         String deadline = StringJoiner.join(parsedLine, byIndex + 1, parsedLine.length,
-                                YapperConcern.DEADLINE);
+                                YapperConcern.DEADLINE_BY);
                         Task task = new Deadline(desc, deadline);
                         taskList.addTask(task);
                     } catch (YapperException e) {
@@ -111,7 +111,7 @@ public class Yapper {
                         Ui.errorCaught(e.getMessage());
                     }
                 } else if (command.equals("find")) {
-                    String keyword = StringJoiner.join(parsedLine, 1, parsedLine.length, YapperConcern.DESC);
+                    String keyword = StringJoiner.join(parsedLine, 1, parsedLine.length, YapperConcern.KEYWORD);
                     taskList.findTasks(keyword);
                 } else {
                     throw new YapperException("Unrecognised command");
