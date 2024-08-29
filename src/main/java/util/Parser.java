@@ -46,27 +46,27 @@ public class Parser {
         }
 
         switch (commandType) {
-            case LIST:
-                return new ListCommand();
-            case MARK:
-                return new MarkCommand(Integer.parseInt(splitWords[1]));
-            case UNMARK:
-                return new UnmarkCommand(Integer.parseInt(splitWords[1]));
-            case DELETE:
-                return new DeleteCommand(Integer.parseInt(splitWords[1]));
-            case TODO:
-                return new AddCommand(new Todo(splitWords[1]));
-            case DEADLINE:
-                return parseDeadlineCommand(splitWords[1]);
-            case EVENT:
-                return parseEventCommand(splitWords[1]);
-            case BYE:
-                return new ExitCommand();
-            // Returns a FindCommand to search for tasks containing the specified word
-            case FIND:
-                return new FindCommand(splitWords[1]);
-            default:
-                throw new InvalidCommandException();
+        case LIST:
+            return new ListCommand();
+        case MARK:
+            return new MarkCommand(Integer.parseInt(splitWords[1]));
+        case UNMARK:
+            return new UnmarkCommand(Integer.parseInt(splitWords[1]));
+        case DELETE:
+            return new DeleteCommand(Integer.parseInt(splitWords[1]));
+        case TODO:
+            return new AddCommand(new Todo(splitWords[1]));
+        case DEADLINE:
+            return parseDeadlineCommand(splitWords[1]);
+        case EVENT:
+            return parseEventCommand(splitWords[1]);
+        case BYE:
+            return new ExitCommand();
+        // Returns a FindCommand to search for tasks containing the specified word
+        case FIND:
+            return new FindCommand(splitWords[1]);
+        default:
+            throw new InvalidCommandException();
         }
     }
 
