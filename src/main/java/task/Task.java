@@ -1,4 +1,5 @@
 package task;
+
 public class Task {
     private String taskName;
     private boolean isCompleted;
