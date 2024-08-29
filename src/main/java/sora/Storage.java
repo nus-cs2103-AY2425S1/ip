@@ -36,7 +36,7 @@ public class Storage {
      * @param taskList TaskList.
      * @return String of all Task Details divided by " | ".
      */
-    public String saveTaskString(TaskList taskList) {
+    private String saveTaskString(TaskList taskList) {
         return taskList.getTaskList().stream()
                 .map(Task::getTaskDetails)
                 .map(x -> String.join(" | ", x) + "\n")
