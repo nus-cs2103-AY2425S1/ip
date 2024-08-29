@@ -5,11 +5,13 @@ public class Task implements Comparable<Task> {
     private boolean isDone;
     private String name;
     protected LocalDate compareDate;
+    private UI ui;
 
     public Task(String name) {
         this.isDone = false;
         this.name = name;
-        this.compareDate = LocalDate.MIN;
+        this.compareDate = LocalDate.MAX;
+        this.ui = new UI();
     }
 
     public boolean getIsDone() {
@@ -22,7 +24,7 @@ public class Task implements Comparable<Task> {
 
     public void mark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == true) {
-            throw new InvalidMarkAndUnmarkException("Task is already marked as done!");
+            throw new InvalidMarkAndUnmarkException(this.ui.taskDone());
         } else {
             this.isDone = true;
         }
@@ -30,7 +32,7 @@ public class Task implements Comparable<Task> {
 
     public void unmark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == false) {
-            throw new InvalidMarkAndUnmarkException("Task is still undone!");
+            throw new InvalidMarkAndUnmarkException(this.ui.taskNotDone());
         } else {
             this.isDone = false;
         }
