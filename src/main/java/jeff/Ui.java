@@ -2,6 +2,12 @@ package jeff;
 
 import java.util.Scanner;
 
+/**
+ * Handles interactions with the user.
+ *
+ * The Ui class provides methods for displaying messages to the user, reading user input,
+ * and other related interactions.
+ */
 public class Ui {
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset

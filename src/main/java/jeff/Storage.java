@@ -18,16 +18,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Manages the loading and saving of tasks to a file.
+ *
+ * The Storage class handles reading from and writing to a text file where the user's tasks are stored.
+ */
 public class Storage {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final String DIR_PATH;
     private final String FILE_PATH;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param DIR_PATH The path to the directory where tasks are stored.
+     * @param FILE_PATH The path to the file in DIR_PATH where tasks are stored.
+     */
     public Storage(String DIR_PATH, String FILE_PATH) {
         this.DIR_PATH = DIR_PATH;
         this.FILE_PATH = FILE_PATH;
     }
 
+    /**
+     * Loads the tasks from the storage file.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public ArrayList<Task> loadData() {
         // Check if the directory exists
         Path file = this.checkDirectory(DIR_PATH, FILE_PATH);
@@ -121,6 +137,12 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Saves the list of tasks to the storage file.
+     *
+     * @param taskList The list of tasks to save.
+     * @throws IOException If an error occurs during file writing.
+     */
     public void saveTask(ArrayList<Task> taskList) {
         // write to the file the newly added task
         String taskAsCSV = taskList.get(taskList.size() - 1).saveAsCSV();
