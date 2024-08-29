@@ -1,5 +1,5 @@
 todo todo task
-deadline deadline task /by by date
+deadline deadline task /by 1984-02-28 1600
 event event task /from from date /to to date
 list
 mark 1
