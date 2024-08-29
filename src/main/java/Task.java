@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -47,11 +49,7 @@ public class Task {
     }
 
     public static Task getTaskFromSavedDataString(String savedDataString) {
-        String[] savedDataStringArr = savedDataString.split("\\|");
-        // Trim empty space in each element in savedDataStringArr
-        for (int i = 0; i < savedDataStringArr.length; i++) {
-            savedDataStringArr[i] = savedDataStringArr[i].trim();
-        }
+        String[] savedDataStringArr = savedDataString.split("\\s*\\|\\s*");
 
         if (savedDataStringArr[0].equals("T")) {
             return ToDo.getTaskFromSavedDataStringArr(savedDataStringArr);
