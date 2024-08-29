@@ -1,23 +1,17 @@
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.nio.file.Path;
-import java.io.FileWriter;
 
 public class CancelGPT {
     private final String CHATBOT_NAME;
-    private final List<Task> TASKS_LIST;
+    private final TasksList TASKS_LIST;
     private TasksStorage tasksStorage;
 
     public CancelGPT() {
         this.CHATBOT_NAME = "CancelGPT";
-        this.TASKS_LIST = new ArrayList<>();
+        this.TASKS_LIST = new TasksList();
         try {
             this.tasksStorage = new TasksStorage(this);
         } catch (IOException e) {
@@ -105,13 +99,7 @@ public class CancelGPT {
     }
 
     public void deleteTask(int taskNumber) throws TaskDoesNotExist {
-        if (taskNumber <= 0 || taskNumber > TASKS_LIST.size()) {
-            throw new TaskDoesNotExist();
-        }
-        Task taskDeleted = this.TASKS_LIST.remove(taskNumber - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(" " + taskDeleted);
-        System.out.println("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
+        this.TASKS_LIST.deleteTask(taskNumber);
     }
 
     public int parseDeleteTaskCommand(String command) throws DeleteTaskInputException {
@@ -236,45 +224,31 @@ public class CancelGPT {
 
     public void handleAddingTask(Task task) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(" " + addToTaskList(task));
-        System.out.println("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
+        System.out.println(" " + this.addToTaskList(task));
+        System.out.println("Now you have " + this.TASKS_LIST.getSize() + " tasks in the list.");
     }
 
     public void markTask(int taskNumber) throws TaskDoesNotExist {
-        if (taskNumber <= 0 || taskNumber > this.TASKS_LIST.size()) {
-            throw new TaskDoesNotExist();
-        }
-        this.TASKS_LIST.get(taskNumber - 1).mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
+        this.TASKS_LIST.markTask(taskNumber);
     }
 
     public void unmarkTask(int taskNumber) throws TaskDoesNotExist {
-        if (taskNumber <= 0 || taskNumber > this.TASKS_LIST.size()) {
-            throw new TaskDoesNotExist();
-        }
-        this.TASKS_LIST.get(taskNumber - 1).unmark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
+        this.TASKS_LIST.unmarkTask(taskNumber);
     }
 
     public String addToTaskList(Task task) {
-        this.TASKS_LIST.add(task);
-        return task.toString();
+        return this.TASKS_LIST.addToTaskList(task);
     }
 
     public void displayTasksList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.TASKS_LIST.size(); i++) {
-            System.out.println(i + 1 + ". " + this.TASKS_LIST.get(i));
-        }
+        this.TASKS_LIST.displayTasksList();
     }
 
     public void saveTasks() throws IOException {
         this.tasksStorage.saveTasks();
     }
 
-    public List<Task> getTasksList() {
-        return this.TASKS_LIST;
+    public List<Task> getTasks() {
+        return this.TASKS_LIST.getTasksList();
     }
 }

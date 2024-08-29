@@ -37,7 +37,7 @@ public class TasksStorage {
 
     public void saveTasks() throws IOException {
         FileWriter tasksStorageSaver = new FileWriter(this.tasksStoragePath.toString());
-        for (Task task : this.chatbot.getTasksList()) {
+        for (Task task : this.chatbot.getTasks()) {
             tasksStorageSaver.write(task.getSavedDataString());
             tasksStorageSaver.write("\n");
         }
