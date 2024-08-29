@@ -3,6 +3,7 @@ package botimusprime.tasks;
 import botimusprime.parser.Parser;
 import botimusprime.storage.Storage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -171,5 +172,35 @@ public class TaskList {
                         String.format("Alright, I've added the task:\n %s\nNow you have %d tasks in the list.\n", task, tasks.size()) +
 
                         "____________________________________________________________\n");
+    }
+
+    public void findTask(String input) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        if (input.length() <= 5) {
+            System.out.println("brother u forgot to type the task to find");
+            return;
+        }
+
+        String query = input.substring(5).trim();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+
+        System.out.println(
+                "____________________________________________________________\n"
+                        + "Here are the matching tasks in your list:\n"
+        );
+        if (foundTasks.isEmpty()) {
+            System.out.println("lol gg no tasks match ur search bruh");
+        } else {
+            for (Task task : foundTasks) {
+                System.out.println(task);
+            }
+        }
     }
 }
