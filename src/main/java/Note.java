@@ -2,7 +2,12 @@ import Exceptions.EmptyDescriptionException;
 import Exceptions.InputErrorException;
 import Exceptions.WrongNumberOfItemException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Note {
@@ -16,6 +21,7 @@ public class Note {
         this.noOfTask = 0;
         loadFromFile();
     }
+
 
     private void loadFromFile() {
         File file = new File(FILE_PATH);
@@ -46,7 +52,9 @@ public class Note {
         }
     }
 
-
+    public void printNoOfTask() {
+        System.out.println(noOfTask);
+    }
 
     public void addToList(String input) throws EmptyDescriptionException, InputErrorException {
         Task task;
@@ -116,47 +124,50 @@ public class Note {
 
 
     public void mark(int number) throws WrongNumberOfItemException {
-
         if (number <= 0 || number > noOfTask) {
             throw new WrongNumberOfItemException(number);
         }
 
-        Task currTask = myList.get(number);
+        Task currTask = myList.get(number - 1);
         currTask.markAsDone();
         System.out.println("--------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(currTask.toString());
         System.out.println("--------------------------------------------");
+
+        saveToFile();
     }
 
     public void unmark(int number) throws WrongNumberOfItemException {
-
         if (number <= 0 || number > noOfTask) {
             throw new WrongNumberOfItemException(number);
         }
 
-        Task currTask = myList.get(number);
+        Task currTask = myList.get(number - 1);
         currTask.markAsUnDone();
         System.out.println("--------------------------------------------");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(currTask.toString());
         System.out.println("--------------------------------------------");
+
+        saveToFile();
     }
 
     public void delete(int number) throws WrongNumberOfItemException {
-
         if (number <= 0 || number > noOfTask) {
             throw new WrongNumberOfItemException(number);
         }
 
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
-        System.out.println(myList.get(number).toString());
-        myList.remove(number);
+        System.out.println(myList.get(number - 1).toString());
+        myList.remove(number - 1);
         this.noOfTask--;
-        String result = "Now you have " + noOfTask +  " tasks in the list.";
+        String result = "Now you have " + noOfTask + " tasks in the list.";
         System.out.println(result);
         System.out.println("____________________________________________________________");
+
+        saveToFile();
     }
 
     public void printList() {

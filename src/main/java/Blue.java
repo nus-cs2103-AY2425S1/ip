@@ -48,7 +48,7 @@ public class Blue {
 
             if (input.startsWith("mark ")) {
                 try {
-                    int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+                    int taskNumber = Integer.parseInt(input.substring(5));
                     note.mark(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task number format! Please use 'mark <number>'.");
@@ -60,10 +60,10 @@ public class Blue {
 
             if (input.startsWith("unmark ")) {
                 try {
-                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    int taskNumber = Integer.parseInt(input.substring(7));
                     note.unmark(taskNumber);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                    System.out.println("Invalid task number format! Please use 'unmark <number>'.");
                 } catch (WrongNumberOfItemException e) {
                     System.out.println("Can you check the number you input please");
                 }
@@ -72,10 +72,10 @@ public class Blue {
 
             if (input.startsWith("delete ")) {
                 try {
-                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    int taskNumber = Integer.parseInt(input.substring(7));
                     note.delete(taskNumber);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                    System.out.println("Invalid task number format! Please use 'delete <number>'.");
                 } catch (WrongNumberOfItemException e) {
                     System.out.println("Can you check the number you input please");
                 }
