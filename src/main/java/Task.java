@@ -7,6 +7,11 @@ public class Task {
         this.name = name;
     }
 
+    public Task(String name, boolean done) {
+        this.name = name;
+        this.done = done;
+    }
+
     public void mark() {
         done = true;
     }

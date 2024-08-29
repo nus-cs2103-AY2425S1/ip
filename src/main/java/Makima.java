@@ -4,34 +4,34 @@ import java.util.Scanner;
 public class Makima {
 
     public static final String LINE_SEPERATOR = "__________________";
-    private boolean running = true;
+    private boolean isRunning = true;
     private ArrayList<Task> tasks = new ArrayList<>();
     private Scanner sc;
 
-    public void greeting() {
+    private void greeting() {
         System.out.println("Yahallo! I'm your friendly chatbot, Makima!");
         System.out.println("What can I do for you? *_*");
         System.out.println(LINE_SEPERATOR);
     }
 
-    public void farewell() {
+    private void farewell() {
         System.out.println("Baibai. Hope to see you soon! ^_^");
         System.out.println(LINE_SEPERATOR);
     }
 
-    public void displayList() {
+    private void displayList() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(i+1 + ":" + tasks.get(i));
         }
     }
 
-    public int getListIndex(String prompt) {
+    private int getListIndex(String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
         return getListIndex();
     }
 
-    public int getListIndex() {
+    private int getListIndex() {
         while (true) {
             String userInput = getInput();
             try {
@@ -47,13 +47,13 @@ public class Makima {
         }
     }
 
-    public String getInput(String prompt) {
+    private String getInput(String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
         return getInput();
     }
 
-    public String getInput() {
+    private String getInput() {
         String userInput = sc.nextLine();
         System.out.println(LINE_SEPERATOR);
         while (userInput.isEmpty()) {
@@ -64,7 +64,7 @@ public class Makima {
         return userInput;
     }
 
-    public void done() {
+    private void done() {
         System.out.println("Done!");
         System.out.println(LINE_SEPERATOR);
     }
@@ -73,15 +73,29 @@ public class Makima {
         new Makima();
     }
 
+    public void addTodo(ToDo toDo) {
+        tasks.add(toDo);
+    }
+
+    public void addDeadline(Deadline deadline) {
+        tasks.add(deadline);
+    }
+
+    public void addEvent(Event event) {
+        tasks.add(event);
+    }
+
     public Makima() {
         sc = new Scanner(System.in);
         greeting();
 
-        while (running) {
+        isRunning = FileManager.loadFile(this);
+
+        while (isRunning) {
 
             switch (getInput()) {
                 case "bye":
-                    running = false;
+                    isRunning = false;
                     break;
 
                 case "list":
@@ -102,7 +116,7 @@ public class Makima {
                     break;
 
                 case "todo":
-                    tasks.add(new ToDos(getInput("What is the task name?")));
+                    tasks.add(new ToDo(getInput("What is the task name?")));
                     done();
                     break;
 

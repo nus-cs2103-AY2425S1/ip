@@ -7,6 +7,11 @@ public class Deadline extends Task {
         this.endTime = endTime;
     }
 
+    public Deadline(String name, String endTime, boolean done) {
+        super(name, done);
+        this.endTime = endTime;
+    }
+
     public String toString() {
         return "[D]" + super.toString() + String.format("(by: %s)", endTime);
     }

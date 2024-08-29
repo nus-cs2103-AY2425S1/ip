@@ -8,6 +8,12 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public Event(String name, String startTime, String endTime, boolean done) {
+        super(name, done);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + String.format("(from: %s, to: %s)", startTime, endTime);
     }
