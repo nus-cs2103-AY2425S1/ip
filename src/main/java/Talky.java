@@ -42,7 +42,7 @@ public class Talky {
                     isRunning = false;
                     break;
                 case "list":
-                    ui.printSeperator(TaskList.tolistFormat());
+                    ui.printSeperator(userTasks.toListFormat());
                     break;
                 case "mark":
                     mark(commandArgs);
@@ -61,6 +61,9 @@ public class Talky {
                     break;
                 case "delete":
                     delete(commandArgs);
+                    break;
+                case "find":
+                    find(commandArgs);
                     break;
                 default:
                     throw new TalkyException("Invalid Command");
@@ -134,6 +137,13 @@ public class Talky {
         } catch (NumberFormatException err) {
             throw new TalkyException("Delete must be given a number");
         }
+    }
+
+    private void find(String[] commandArgs) throws TalkyException {
+        String keyword = commandArgs[0];
+        TaskList foundTasks = userTasks.find(keyword);
+        String header = String.format("Tasks that contains the keyword (%s):\n", keyword);
+        ui.printSeperator(header + foundTasks.toListFormat());
     }
 }
 

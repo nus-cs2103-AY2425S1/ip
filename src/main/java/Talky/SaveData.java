@@ -34,6 +34,11 @@ public class SaveData {
         File saveData = new File(filePath);
         Parser parser = new Parser();
         try {
+            if (!saveData.exists()) {
+                saveData.getParentFile().mkdirs();
+                saveData.createNewFile();
+                System.out.println("Creating New Save Data");
+            }
             Scanner sc = new Scanner(saveData);
             while(sc.hasNext()) {
                 String[] taskDetails = sc.nextLine().split(" ");
@@ -64,8 +69,8 @@ public class SaveData {
                 }
             }
             sc.close();
-        } catch (FileNotFoundException err) {
-            throw new TalkyException("Save Data Does not Exist, Creating New One");
+        } catch (IOException err) {
+            throw new TalkyException("Error Creating Save File");
         } catch (TalkyException err) {
             throw new TalkyException(err.getMessage());
         }
