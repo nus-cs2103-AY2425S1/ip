@@ -32,6 +32,10 @@ public class Ui {
     }
 
     public void showAllTasks(TaskList tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("No tasks!");
+            return;
+        }
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(i+1 + ". " + tasks.get(i).toString());
         }

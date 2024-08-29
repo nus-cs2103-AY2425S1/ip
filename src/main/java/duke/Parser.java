@@ -33,7 +33,7 @@ public class Parser {
     }
 
     public static String[] ParseString(String input, ArrayList<String> splitters) {
-        return Arrays.stream(ParseStringHelper(input, splitters)).map(String::trim).toArray(String[]::new);
+        return TrimArray(ParseStringHelper(input, splitters));
     }
     private static String[] ParseStringHelper(String input, ArrayList<String> splitters) {
         String[] split = input.split(splitters.get(0));
@@ -59,12 +59,21 @@ public class Parser {
     }
 
     public static int ParseIndex(String input, ArrayList<String> commands) throws DukeException {
-        String[] markItems = Arrays.stream(ParseString(input, commands)).map(String::trim).toArray(String[]::new);
+        String[] markItems = TrimArray(ParseString(input, commands));
 
         if(markItems.length == 0 || Objects.equals(markItems[1], "")) {
             throw new DukeException("Number must be specified!");
         }
+        Integer num;
+        try {
+            num = Integer.parseInt(markItems[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Number must be specified!");
+        }
+        return num;
+    }
 
-        return Integer.parseInt(markItems[1]) - 1;
+    public static String[] TrimArray(String[] strArray) {
+        return Arrays.stream(strArray).map(String::trim).toArray(String[]::new);
     }
 }
