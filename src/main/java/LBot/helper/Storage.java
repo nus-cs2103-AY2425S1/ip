@@ -16,16 +16,20 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class handles the I/O of tasks to the specified file.
+ */
 public class Storage {
     private final String path;
     private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"); // allows user to specify time as well
 
 
     /**
-     * Constructor for Storage. Creates folder and file for reading.
+     * Constructor for Storage.
+     * Creates folder and file for reading.
      *
-     * @param path
-     * @throws FileException
+     * @param path location of text file.
+     * @throws FileException thrown when file cannot be created.
      */
     public Storage(String path) throws FileException {
         this.path = path;
@@ -64,6 +68,14 @@ public class Storage {
         return taskList.getTaskList();
     }
 
+    /**
+     * Adds tasks read from text file.
+     *
+     * @param input    line read from file.
+     * @param taskList for task to be added into.
+     * @throws ParseCommandException   thrown when error encountered while parsing line.
+     * @throws InvalidCommandException thrown when command keyword is not supported.
+     */
     public static void addTaskToList(String input, TaskList taskList) throws ParseCommandException, InvalidCommandException {
         /**
          * Code adapted from ChatGPT, using regex to possibly avoid scenario where user uses reserved characters
@@ -108,6 +120,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites entire text file.
+     *
+     * @param taskList contains tasks to be written into file.
+     * @throws FileException thrown when error encountered writing into file.
+     */
     public void saveTaskToFile(TaskList taskList) throws FileException {
         // credits to https://github.com/nus-cs2103-AY2425S1/forum/issues/86#issuecomment-2313881167
         try (BufferedWriter br = new BufferedWriter(new FileWriter(this.path, false))) {
