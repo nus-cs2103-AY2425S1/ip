@@ -1,10 +1,10 @@
 package topaz.main;
 
+import java.io.IOException;
+
 import topaz.command.Command;
 import topaz.exception.InvalidCommandException;
 import topaz.ui.Ui;
-
-import java.io.IOException;
 
 public class Topaz {
 
