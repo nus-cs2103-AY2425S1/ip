@@ -41,10 +41,18 @@ public class Ui {
     }
 
     /**
-     * Outputs message for the list command
+     * Outputs message for list and find command
      */
-    public void showCommandEndMessage() {
-        System.out.println("Here are the tasks in your list:");
+    public void showCommandEndMessage(String command) {
+        switch (command) {
+        case "list":
+            System.out.println("Here are the tasks in your list:");
+            break;
+
+        case "find":
+            System.out.println("Here are the matching tasks in your list:");
+            break;
+        }
     }
 
     /**

@@ -45,7 +45,7 @@ public class Storage {
                 taskList.add(currTask);
                 System.out.println(currTask);
             } else if (arr[0].equals("D")) {
-                Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3], DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3], DateTimeFormatter.ofPattern("MMM d yyyy")));
                 if (arr[1].equals("Complete")) {
                     currTask.setDone();
                 } else {

@@ -97,6 +97,14 @@ public class Parser {
             String startDay = command.substring(fromIndex + 6, toIndex - 1);
             String endDay = command.substring(toIndex + 4);
             return new String[] {"event", description, startDay, endDay};
+        } else if (command.startsWith("find")) {
+            int todoIndex = command.indexOf("find");
+            if (command.length() == 4 || command.substring(5).trim().isEmpty()) {
+                throw new AzirException("find cannot have an empty keyword. " +
+                        "Format: find [keyword]");
+            }
+            String keyword = command.substring(5);
+            return new String[] {"find", keyword};
         } else {
             throw new AzirException("Azir does not take in this input");
         }
