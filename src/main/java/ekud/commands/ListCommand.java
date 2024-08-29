@@ -6,6 +6,9 @@ import ekud.components.Ui;
 import ekud.task.Task;
 import ekud.components.TaskList;
 
+/**
+ * Represents {@link Command} to list every {@link Task} in some {@link TaskList}.
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {

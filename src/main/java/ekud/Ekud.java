@@ -9,15 +9,39 @@ import ekud.exceptions.EkudException;
 
 import java.util.Scanner;
 
+/**
+ * The Ekud class represents an instance of the EKuD chat robot that takes in user input
+ * from the Command-Line-Interface (CLI) and prints an appropriate output.
+ * <p/>
+ * Each Ekud instance encapsulates a {@link Storage}, {@link TaskList}, and {@link Ui} component
+ * which work together with the {@link Parser} to read and manipulate user input.
+ *
+ * @author uniqly
+ */
 public class Ekud {
+    /** Relative path where the task data is stored */
     public static final String TASK_DATA_PATH = "data/tasks.txt";
+
+    /** Prefix prepended to responses generated from EKuD */
     public static final String OUTPUT_PREFIX = "\t ";
 
+    /** The storage handler of EKuD */
     private final Storage storage;
+
+    /** List of tasks being tracked */
     private final TaskList tasks;
+
+    /** The ui handler of EKuD */
     private final Ui ui;
+
+    /** Scanner instance where user input is read from */
     private final Scanner sc;
 
+    /**
+     * Creates a new instance of the EKuD chat robot.
+     *
+     * @param sc {@link Scanner} instance where input is read from user.
+     */
     public Ekud(Scanner sc) {
         this.sc = sc;
         ui = new Ui(OUTPUT_PREFIX);
@@ -25,6 +49,15 @@ public class Ekud {
         tasks = new TaskList();
     }
 
+    /**
+     * Starts the EKuD chat robot program.
+     * EKuD starts by first greeting the user and then loading in previously saved tasks. After which,
+     * EKuD continuously executes the {@link Command} returned from the {@link Parser} reading user inputs
+     * until the user stops the program by giving the exit command using "bye" or "stop".
+     *
+     * @see Parser#parse(String)
+     * @see Command#execute(TaskList, Ui, Storage)
+     */
     public void run() {
         // greet
         ui.printGreeting();

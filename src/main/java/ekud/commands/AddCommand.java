@@ -6,9 +6,19 @@ import ekud.components.Ui;
 import ekud.task.Task;
 import ekud.components.TaskList;
 
+/**
+ * Represents a {@link Command} to add a task to some {@link TaskList}.
+ *
+ * @author uniqly
+ */
 public class AddCommand extends Command {
+    /** The task to be added */
     private final Task task;
 
+    /**
+     * Creates the {@link AddCommand} with the given task.
+     * @param task The {@link Task} to add.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }
