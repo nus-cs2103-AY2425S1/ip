@@ -1,6 +1,9 @@
 package bobby;
 
 public enum Command {
+    /**
+     * Represents the types of input parsed.
+     */
     BYE,
     LIST,
     TODO,

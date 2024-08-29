@@ -2,10 +2,17 @@ package bobby;
 
 import java.util.ArrayList;
 
+/**
+ * The Ui class deals with any user interaction.
+ */
 public class Ui {
     static int lengthOfLine = 35;
 
-
+    /**
+     * Prints out a horizontal line in the form of underscores.
+     *
+     * @param x The number of underscores to be printed out.
+     */
     public void horizontalLine(int x) {
         for (int i = 0; i < x; i++) {
             System.out.print("_");
@@ -13,6 +20,9 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Prints the greeting message of Bobby.
+     */
     public void showGreeting() {
         horizontalLine(lengthOfLine);
         System.out.println("Good day Sire/Madam! I'm Bobby");
@@ -20,12 +30,20 @@ public class Ui {
         horizontalLine(lengthOfLine);
     }
 
+    /**
+     * Prints the farewell message of Bobby.
+     */
     public void showBye() {
         horizontalLine(lengthOfLine);
         System.out.println("Farewell, have a pleasant journey ahead!");
         horizontalLine(lengthOfLine);
     }
 
+    /**
+     * Prints the message when a task is created successfully.
+     * @param t Task to be created.
+     * @param taskList The list of tasks.
+     */
     public void showTaskCreated(Task t, ArrayList<Task> taskList) {
         horizontalLine(lengthOfLine);
         System.out.println("Alright! I have added a new task.");
@@ -33,18 +51,30 @@ public class Ui {
         horizontalLine(lengthOfLine);
     }
 
+    /**
+     * Prints the message when a task is marked.
+     */
     public void showMarked() {
         horizontalLine(lengthOfLine);
         System.out.println("Sure thing! I will check off this task as done.");
         horizontalLine(lengthOfLine);
     }
 
+    /**
+     * Prints the message when a task is unmarked.
+     */
     public void showUnmarked() {
         horizontalLine(lengthOfLine);
         System.out.println("Roger that, I will uncheck the task.");
         horizontalLine(lengthOfLine);
     }
 
+    /**
+     * Prints the message when a task is deleted.
+     *
+     * @param t Task to be deleted.
+     * @param numberOfTasksLeft Number of tasks left in the list after deletion.
+     */
     public void showTaskDeleted(Task t, int numberOfTasksLeft) {
         horizontalLine(lengthOfLine);
         System.out.printf("As you wish, I will remove this task: %s%n", t.toString());
@@ -52,6 +82,11 @@ public class Ui {
         horizontalLine(lengthOfLine);
     }
 
+    /**
+     * Prints the list of tasks.
+     *
+     * @param taskList The list of tasks.
+     */
     public void showTaskList(ArrayList<Task> taskList) {
         int numberOfTasks = taskList.size();
         if (taskList.isEmpty()) {
