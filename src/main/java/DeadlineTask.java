@@ -1,7 +1,7 @@
 public class DeadlineTask extends Task {
-    private String date;
-    public DeadlineTask(String description, String date) {
-        super(description);
+    protected String date;
+    public DeadlineTask(String description, boolean isDone, String date) {
+        super(description, isDone);
         this.date = date;
     }
 
