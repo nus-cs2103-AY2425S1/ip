@@ -1,13 +1,15 @@
 package storage;
 
-import task.*;
+import task.ToDo;
+import task.Deadline;
+import task.Event;
+import task.TaskList;
 import parser.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -110,7 +112,7 @@ public class Storage {
         int byPosition = task.indexOf("(by:");
         String description = task.substring(7, byPosition);
         String by = task.substring(byPosition + 5, task.length() - 1);
-        TaskList.addTaskLoad(new Deadline(description, Parser.dateToLocalDate(by)));
+        TaskList.addTaskLoad(new Deadline(description, Parser.changeDateToLocalDate(by)));
         if (isTaskDone == 'X') {
             TaskList.markTaskLoad(TaskList.length() - 1);
         }
@@ -128,7 +130,8 @@ public class Storage {
         String description = task.substring(7, fromPosition);
         String from = task.substring(fromPosition + 7, toPosition - 1);
         String to = task.substring(toPosition + 4, task.length() - 1);
-        TaskList.addTaskLoad(new Event(description, Parser.dateToLocalDate(from), Parser.dateToLocalDate(to)));
+        TaskList.addTaskLoad(new Event(description, Parser.changeDateToLocalDate(from),
+                                       Parser.changeDateToLocalDate(to)));
         if (isTaskDone == 'X') {
             TaskList.markTaskLoad(TaskList.length() - 1);
         }

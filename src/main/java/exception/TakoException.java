@@ -5,7 +5,7 @@ package exception;
  */
 public class TakoException extends Exception {
 
-    String message;
+    private String message;
 
     /**
      * Creates an exception with the message to be printed.

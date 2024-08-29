@@ -9,17 +9,17 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskLists = new ArrayList<>();
 
     public TaskList(ArrayList<Task> tasks) {
-        taskList = tasks;
+        taskLists = tasks;
     }
 
     public static Task get(int i) {
-        return taskList.get(i);
+        return taskLists.get(i);
     }
     public static int length() {
-        return taskList.size();
+        return taskLists.size();
     }
 
     /**
@@ -28,7 +28,7 @@ public class TaskList {
      * @param task task to be added.
      */
     public static void addTask(Task task) {
-        taskList.add(task);
+        taskLists.add(task);
         Ui.addTaskMessage(task);
     }
 
@@ -39,22 +39,22 @@ public class TaskList {
      * @return String the string representation of the task.
      */
     public static String listTask(int i) {
-        return (i + 1) + "." + taskList.get(i).toString();
+        return (i + 1) + "." + taskLists.get(i).toString();
     }
 
     public static void markTask(int i) {
-        taskList.get(i - 1).markAsDone();
-        Ui.markTaskMessage(taskList.get(i - 1));
+        taskLists.get(i - 1).markAsDone();
+        Ui.markTaskMessage(taskLists.get(i - 1));
     }
 
     public static void unmarkTask(int i) {
-        taskList.get(i - 1).markAsUndone();
-        Ui.unmarkTaskMessage(taskList.get(i - 1));
+        taskLists.get(i - 1).markAsUndone();
+        Ui.unmarkTaskMessage(taskLists.get(i - 1));
     }
 
     public static void deleteTask(int i) {
-        Task toBeRemovedTask = taskList.get(i - 1);
-        taskList.remove(i - 1);
+        Task toBeRemovedTask = taskLists.get(i - 1);
+        taskLists.remove(i - 1);
         Ui.deleteTaskMessage(toBeRemovedTask);
     }
 
@@ -65,8 +65,8 @@ public class TaskList {
      */
     public static String getAllTask() {
         String tasks = "";
-        for (int i = 0; i < taskList.size(); i++) {
-                tasks += taskList.get(i).toString() + "\n";
+        for (int i = 0; i < taskLists.size(); i++) {
+                tasks += taskLists.get(i).toString() + "\n";
         }
         return tasks;
     }
@@ -77,7 +77,7 @@ public class TaskList {
      * @param task task to be loaded into the list
      */
     public static void addTaskLoad(Task task) {
-        taskList.add(task);
+        taskLists.add(task);
     }
 
     /**
@@ -86,6 +86,6 @@ public class TaskList {
      * @param i the index of the file that is being marked as complete.
      */
     public static void markTaskLoad(int i) {
-        taskList.get(i).markAsDone();
+        taskLists.get(i).markAsDone();
     }
 }
