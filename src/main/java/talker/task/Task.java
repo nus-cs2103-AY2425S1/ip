@@ -1,5 +1,8 @@
 package talker.task;
 
+/**
+ * Represents a Task that has a description and can be marked as complete/incomplete
+ */
 public class Task {
     // String describing task
     protected String description;

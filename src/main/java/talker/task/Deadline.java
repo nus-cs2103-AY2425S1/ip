@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import talker.TalkerException;
 
+/**
+ * Represents a Deadline task with a date/time to complete it by
+ */
 public class Deadline extends Task {
 
     // deadline of Deadline task

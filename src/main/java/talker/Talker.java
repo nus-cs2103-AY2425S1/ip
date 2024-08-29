@@ -3,6 +3,9 @@ package talker;
 import talker.command.Command;
 import talker.task.TaskList;
 
+/**
+ * Represents a chatbot object
+ */
 public class Talker {
     private static final String NAME = "Talker";
     private static final String DIRECTORY_PATH = "./data";
@@ -12,17 +15,23 @@ public class Talker {
     private Storage storage;
     private TaskList list;
 
+    /**
+     * Constructor for new Talker object
+     */
     public Talker() {
         ui = new Ui(NAME);
         storage = new Storage(DIRECTORY_PATH, FILE_PATH);
         list = new TaskList();
         try {
-            list.setTasks(storage.readFile());
+            list = storage.readFile();
         } catch (TalkerException e) {
             ui.printError(e);
         }
     }
 
+    /**
+     * Runs the chatbot processes
+     */
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
