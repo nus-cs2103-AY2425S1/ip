@@ -37,4 +37,8 @@ public abstract class Task {
             return "[ ] " + description;
         }
     }
+
+    public boolean contains(String searchStr) {
+        return this.description.contains(searchStr);
+    }
 }

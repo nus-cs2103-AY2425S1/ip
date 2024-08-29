@@ -69,6 +69,18 @@ public class TaskList {
         }
     }
 
+    public void searchTasks(String searchStr, Ui ui) {
+        int numberOfTasks = taskList.size();
+        int num = 1;
+        for (int i = 0; i < numberOfTasks; i++) {
+            Task task = taskList.get(i);
+            if (task.contains(searchStr)) {
+                ui.displayString(num + ". " + task);
+                num++;
+            }
+        }
+    }
+
     public int getSize() {
         return taskList.size();
     }
