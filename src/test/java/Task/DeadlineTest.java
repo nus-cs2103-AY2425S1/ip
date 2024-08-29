@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeadlineTest {
     @Test
-    public void deadlineSuccessTest() {
+    public void deadline_successTest() {
         String expectedWithTime = "[D][ ] deadline test (by: 30 Aug 2024 1500)";
         String expectedWithoutTime = "[D][ ] deadline no time test (by: 1 Sep 2024)";
         assertEquals(expectedWithTime,
@@ -17,7 +17,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void deadlineFailTest() {
+    public void deadline_failTest() {
         String expected = "ERROR! Invalid deadline format.";
         try {
             assertEquals(expected,
