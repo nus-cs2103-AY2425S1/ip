@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Toothless represents a simple chat application.
@@ -78,9 +80,9 @@ public class Toothless {
 
     /**
      * Adds a task to the task list.
-     * @param taskType
-     * @param description
-     * @throws ToothlessExceptions
+     * @param taskType The type of task to be added.
+     * @param description The description of the task.
+     * @throws ToothlessExceptions If the command is invalid.
      */
     public void addTask(String taskType, String description) throws ToothlessExceptions {
         switch(taskType) {
@@ -118,7 +120,16 @@ public class Toothless {
 
     }
 
-    public void deleteTask(int index) {
+    /**
+     * Deletes a task from the task list.
+     * @param index The index of the task to be deleted.
+     * @throws ToothlessExceptions If the index is out of range.
+     */
+    public void deleteTask(int index) throws ToothlessExceptions {
+        if(index > list.size() || index < 1) {
+            throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
+                    DIVIDER);
+        }
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         int newTaskSize = list.size() - 1;
@@ -216,6 +227,10 @@ public class Toothless {
 
     }
 
+    /**
+     * Main method for Toothless.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         Toothless toothless = new Toothless();
         toothless.beginChat();
