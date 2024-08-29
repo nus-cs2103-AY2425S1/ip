@@ -19,6 +19,10 @@ public abstract class Task {
         }
     }
 
+    public boolean descContains(String str) {
+        return description.contains(str);
+    }
+
     public boolean unmarkAsUndone() {
         if (!this.status) {
             return false;

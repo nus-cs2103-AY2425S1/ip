@@ -137,6 +137,9 @@ public class Elster {
                     ui.saveFileErrorMessage();
                 }
 
+            } else if (input.startsWith("find")) {
+                taskList.findByDescription(input.substring(5).strip());
+
             } else {
                 ui.nonsenseErrorMessage();
             }
