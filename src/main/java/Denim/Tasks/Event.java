@@ -1,4 +1,4 @@
-package Denim.Tasks;
+package denim.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +24,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.to.format(dateFormatter) + " to: " + this.to.format(dateFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.to.format(dateFormatter)
+                + " to: " + this.to.format(dateFormatter) + ")";
     }
 
     @Override

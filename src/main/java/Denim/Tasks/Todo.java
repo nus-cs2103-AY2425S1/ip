@@ -1,4 +1,4 @@
-package Denim.Tasks;
+package denim.tasks;
 
 public class Todo extends Task {
 
