@@ -1,3 +1,5 @@
+package agave;
+
 public class AgaveException extends Exception {
 
     public AgaveException(String message) {
