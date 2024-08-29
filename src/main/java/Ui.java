@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class Ui {
 
@@ -34,17 +35,17 @@ public class Ui {
 
     public static void showMarkedAsDone(String taskString) {
         PrintUtility.wrapPrintWithHorizontalLines("Nice! I've marked this task as done:",
-            "  " + task);
+            "  " + taskString);
     }
 
     public static void showMarkedAsUndone(String taskString) {
         PrintUtility.wrapPrintWithHorizontalLines("OK, I've marked this task as not done yet:",
-            "  " + task);
+            "  " + taskString);
     }
 
     public static void showDeletedTask(String taskString, int taskCount) {
         PrintUtility.wrapPrintWithHorizontalLines("Noted. I've removed this task:",
-            "  " + task, String.format("Now you have %d tasks in the list.", taskCount));
+            "  " + taskString, String.format("Now you have %d tasks in the list.", taskCount));
     }
 
     public static void showNixyException(NixyException e) {

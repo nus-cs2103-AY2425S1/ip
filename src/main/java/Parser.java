@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Parser {
     private Command command;
     private int taskNumber;
@@ -93,8 +95,8 @@ public class Parser {
             String[] eventTimeTokens = eventTokens[1].split(" /to ", 2);
             task = new EventTask(
                 eventTokens[0].trim(),
-                LocalDateTime.parse(eventTimeTokens[0].trim()),
-                LocalDateTime.parse(eventTimeTokens[1].trim())
+                LocalDate.parse(eventTimeTokens[0].trim()),
+                LocalDate.parse(eventTimeTokens[1].trim())
             );
             break;
         default:

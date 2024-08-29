@@ -31,8 +31,15 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Creates a task manager with an empty task list.
+     */
+    public TaskList() {
+        this(new ArrayList<>());
+    }
+
     public void addTask(Task task) {
-        addTask(task, true);
+        tasks.add(task);
     }
 
     public int getTaskCount() {

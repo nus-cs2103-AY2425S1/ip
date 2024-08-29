@@ -3,12 +3,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Storage {
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     public List<Task> load() throws NixyException {
         List<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(filePath
+            File file = new File(filePath);
             if (!file.exists()) {
                 return tasks;
             }
@@ -22,6 +30,7 @@ public class Storage {
         } catch (IOException e) {
             throw new NixyException("BLAHH!!! Error loading tasks from file.");
         }
+        return tasks;
     }
 
     public void save(TaskList taskList) throws NixyException {
@@ -34,7 +43,7 @@ public class Storage {
                 file.createNewFile();
             }
             FileWriter fileWriter = new FileWriter(filePath);
-            Iterator<Task> taskIterator = tasks.iterator();
+            Iterator<Task> taskIterator = taskList.getTasksIterator();
             for (int i = 0; taskIterator.hasNext(); i++) {
                 Task task = taskIterator.next();
                 fileWriter.write(String.format("%s%n", task.toDataString()));

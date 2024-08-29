@@ -1,4 +1,4 @@
-enum Command {
+public enum Command {
     BYE,
     LIST,
     MARK,

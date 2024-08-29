@@ -25,53 +25,54 @@ public class Nixy {
         while (!isExit) {
             String input = ui.readInput();
             Parser p;
+            Command c;
             try {
                 p = new Parser(input);
-                Command c = p.getCommand();
+                c = p.getCommand();
             } catch (NixyException e) {
                 ui.showNixyException(e);
                 continue;
             }
             switch (c) {
-            case Command.BYE:
+            case BYE:
                 isExit = true;
                 break;
-            case Command.LIST:
+            case LIST:
                 ui.showList(tasks);
                 break;
-            case Command.MARK:
+            case MARK:
                 try {
-                    Task task = tasks.markTaskAsDone(p.getTaskNumber());
-                    ui.showMarkedAsDone(task);
+                    String taskStr = tasks.markTaskAsDone(p.getTaskNumber());
+                    ui.showMarkedAsDone(taskStr);
                     storage.save(tasks);
                 } catch (NixyException e) {
                     ui.showNixyException(e);
                 }
                 break;
-            case Command.UNMARK:
+            case UNMARK:
                 try {
-                    Task task = tasks.markTaskAsUndone(p.getTaskNumber());
-                    ui.showMarkedAsUndone(task);
+                    String taskStr = tasks.markTaskAsUndone(p.getTaskNumber());
+                    ui.showMarkedAsUndone(taskStr);
                     storage.save(tasks);
                 } catch (NixyException e) {
                     ui.showNixyException(e);
                 }
                 break;
-            case Command.DELETE:
+            case DELETE:
                 try {
-                    Task task = tasks.deleteTask(p.getTaskNumber());
-                    ui.showDeletedTask(task, tasks.getTaskCount());
+                    String taskStr = tasks.deleteTask(p.getTaskNumber());
+                    ui.showDeletedTask(taskStr, tasks.getTaskCount());
                     storage.save(tasks);
                 } catch (NixyException e) {
                     ui.showNixyException(e);
                 }
                 break;
-            case Command.TODO:
-            case Command.DEADLINE:
-            case Command.EVENT:
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 try {
                     Task task = p.getTask();
-                    tasks.add(task);
+                    tasks.addTask(task);
                     ui.showAddedTask(task, tasks.getTaskCount());
                     storage.save(tasks);
                 } catch (NixyException e) {
@@ -87,6 +88,6 @@ public class Nixy {
     }
 
     public static void main(String[] args) {
-        new Nixy("data/tasks.txt").run();
+        new Nixy("../../../data/tasks.txt").run();
     }
 }
