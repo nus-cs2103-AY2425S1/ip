@@ -15,22 +15,22 @@ These are your tasks:
 ____________________________________________________________
 > ____________________________________________________________
 Here's the added task:
-	[D][ ] return book (by: Sunday)
+	[D][ ] return book (by: Jul 21 2024 0000)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 > ____________________________________________________________
 Here's the added task:
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	[E][ ] project meeting (from: Aug 28 2024 1400 to: Aug 28 2024 1600)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 > ____________________________________________________________
 Here's the added task:
-	[E][ ] chill (from: Sun 3pm to: 6pm)
+	[E][ ] chill (from: Jul 21 2024 0000 to: Jul 23 2024 1200)
 Now you have 4 tasks in the list.
 ____________________________________________________________
 > ____________________________________________________________
 Here's the added task:
-	[D][ ] Quiz (by: 2pm)
+	[D][ ] Quiz (by: Jul 21 2024 0000)
 Now you have 5 tasks in the list.
 ____________________________________________________________
 > ____________________________________________________________
@@ -43,23 +43,23 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 > ____________________________________________________________
 Nice! I've marked this task as done:
-	[D][X] return book (by: Sunday)
+	[D][X] return book (by: Jul 21 2024 0000)
 ____________________________________________________________
 > ____________________________________________________________
 Nice! I've marked this task as done:
-	[E][X] project meeting (from: Mon 2pm to: 4pm)
+	[E][X] project meeting (from: Aug 28 2024 1400 to: Aug 28 2024 1600)
 ____________________________________________________________
 > ____________________________________________________________
 Oh well, this task has been marked undone:
-	[D][ ] return book (by: Sunday)
+	[D][ ] return book (by: Jul 21 2024 0000)
 ____________________________________________________________
 > ____________________________________________________________
 These are your tasks:
 1:[T][X] borrow book
-2:[D][ ] return book (by: Sunday)
-3:[E][X] project meeting (from: Mon 2pm to: 4pm)
-4:[E][ ] chill (from: Sun 3pm to: 6pm)
-5:[D][ ] Quiz (by: 2pm)
+2:[D][ ] return book (by: Jul 21 2024 0000)
+3:[E][X] project meeting (from: Aug 28 2024 1400 to: Aug 28 2024 1600)
+4:[E][ ] chill (from: Jul 21 2024 0000 to: Jul 23 2024 1200)
+5:[D][ ] Quiz (by: Jul 21 2024 0000)
 ____________________________________________________________
 > ____________________________________________________________
 Field(s) may not be blank.
@@ -126,7 +126,7 @@ Key in "I need help." for additional help.
 ____________________________________________________________
 > ____________________________________________________________
 Oof. I have removed the requested task:
-	[D][ ] return book (by: Sunday)
+	[D][ ] return book (by: Jul 21 2024 0000)
 Now you have 4 tasks in the list
 ____________________________________________________________
 > ____________________________________________________________
@@ -143,9 +143,9 @@ ____________________________________________________________
 > ____________________________________________________________
 These are your tasks:
 1:[T][ ] borrow book
-2:[E][X] project meeting (from: Mon 2pm to: 4pm)
-3:[E][ ] chill (from: Sun 3pm to: 6pm)
-4:[D][ ] Quiz (by: 2pm)
+2:[E][X] project meeting (from: Aug 28 2024 1400 to: Aug 28 2024 1600)
+3:[E][ ] chill (from: Jul 21 2024 0000 to: Jul 23 2024 1200)
+4:[D][ ] Quiz (by: Jul 21 2024 0000)
 ____________________________________________________________
 > ____________________________________________________________
 Here are the list of commands:
@@ -168,7 +168,7 @@ Here are the list of commands:
 ____________________________________________________________
 > ____________________________________________________________
 Here's the added task:
-	[E][ ] projectmeeting (from: 1pm to: 2pm)
+	[E][ ] projectmeeting (from: Jul 21 2024 0000 to: Jul 21 2024 1200)
 Now you have 5 tasks in the list.
 ____________________________________________________________
 > ____________________________________________________________
