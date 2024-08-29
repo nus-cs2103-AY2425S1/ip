@@ -1,3 +1,5 @@
+package src;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,6 +15,19 @@ public class Task {
 
     public void setStatusIcon(boolean newStatus) {
         this.isDone = newStatus;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String toPrettierString() {
+
+        if (isDone) {
+            return " | 1 | " + this.description;
+        } else {
+            return " | 0 | " + this.description;
+        }
     }
 
     @Override

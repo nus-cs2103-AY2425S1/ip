@@ -1,3 +1,5 @@
+package src;
+
 public class OutOfBoundsException extends DukeException {
     OutOfBoundsException() {
         super("test");
