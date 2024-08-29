@@ -1,4 +1,0 @@
-1.[T][X] todotask
-2.[D][X] deadlinetask (by: null)
-3.[E][X] eventtask (from: from to: to)
-4.[E][ ] sleep (from: Nov 11 1111 to: Dec 31 2222)

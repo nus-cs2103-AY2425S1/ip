@@ -1,3 +1,5 @@
+package tasks;
+
 public class ToDoTask extends Task {
     private final String SYMBOL = "T";
 

@@ -1,3 +1,5 @@
+package exception;
+
 public class PrimoException extends Exception{
     private String message;
 

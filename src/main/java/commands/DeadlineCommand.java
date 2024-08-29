@@ -1,8 +1,16 @@
+package commands;
+
+import tasks.DeadlineTask;
+import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
+
 import java.util.ArrayList;
 
-public class EventCommand extends Command {
-    private EventTask task;
-    public EventCommand(EventTask task) {
+public class DeadlineCommand extends Command {
+    private DeadlineTask task;
+    public DeadlineCommand(DeadlineTask task) {
         this.task = task;
     }
     public boolean isExit() {
