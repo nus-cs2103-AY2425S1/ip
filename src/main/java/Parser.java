@@ -1,3 +1,10 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Parser {
 
     public static Task parseTask(String line) {
@@ -27,6 +34,28 @@ public class Parser {
             }
         }
         return null;
+    }
+
+    public static boolean isValidDateFormat(String date) {
+        List<String> formats = new ArrayList<>();
+        formats.add("yyyy-MM-dd");
+        formats.add("d/M/yyyy");
+        formats.add("d/M/yyyy HHmm");
+
+        for (String format : formats) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime.parse(date, formatter);
+                } else {
+                    LocalDate.parse(date, formatter);
+                }
+                return true;
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+        }
+        return false;
     }
 
     public static String taskToFileString(Task task) {

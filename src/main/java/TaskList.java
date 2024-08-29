@@ -1,7 +1,3 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -57,7 +53,7 @@ public class TaskList {
         if (parts.length == 2) {
             String taskDescription = parts[0].trim();
             String deadline = parts[1].trim();
-            if (!deadline.isEmpty() && isValidDateFormat(deadline)) {
+            if (!deadline.isEmpty() && Parser.isValidDateFormat(deadline)) {
                 Task newTask = new Deadline(taskDescription, deadline);
                 list.add(newTask);
 
@@ -82,7 +78,7 @@ public class TaskList {
                 String from = timeParts[0].trim();
                 String to = timeParts[1].trim();
 
-                if (isValidDateFormat(from) && isValidDateFormat(to)) {
+                if (Parser.isValidDateFormat(from) && Parser.isValidDateFormat(to)) {
 
                     Task newTask = new Event(taskDescription, from, to);
                     list.add(newTask);
@@ -98,29 +94,6 @@ public class TaskList {
             throw new XBotException("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
         }
     }
-
-    public boolean isValidDateFormat(String date) {
-        List<String> formats = new ArrayList<>();
-        formats.add("yyyy-MM-dd");
-        formats.add("d/M/yyyy");
-        formats.add("d/M/yyyy HHmm");
-
-        for (String format : formats) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-            try {
-                if (format.contains("HHmm")) {
-                    LocalDateTime.parse(date, formatter);
-                } else {
-                    LocalDate.parse(date, formatter);
-                }
-                return true;
-            } catch (DateTimeParseException e) {
-                continue;
-            }
-        }
-        return false;
-    }
-
 
     public void markDone(String rest) throws XBotException {
         try {
