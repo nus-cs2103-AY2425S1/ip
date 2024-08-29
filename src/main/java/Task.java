@@ -1,6 +1,7 @@
-class Task {
-    String taskString;
-    boolean done;
+abstract class Task {
+    protected String taskString;
+    protected boolean done;
+
     Task(String taskString) {
         this.taskString = taskString;
         this.done = false;
@@ -17,6 +18,8 @@ class Task {
     void markAsNotDone() {
         this.done = false;
     }
+
+    abstract String toFileString();
 
     public String toString() {
         return this.getDone() + " " + this.taskString;

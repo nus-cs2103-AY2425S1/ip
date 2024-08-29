@@ -8,6 +8,11 @@ class Events extends Task {
     }
 
     @Override
+    public String toFileString() {
+        return "E | " + (done ? 1 : 0) +" | " + taskString + " | " + start + " | " + end;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + start + " to: " + end + ")";
     }
