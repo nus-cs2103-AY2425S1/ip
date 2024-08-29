@@ -1,5 +1,7 @@
 package joe.Main;
 
+import joe.commands.*;
+
 import joe.exceptions.CorruptedFileException;
 import joe.exceptions.InvalidCommandException;
 import joe.tasks.*;
@@ -19,21 +21,22 @@ public class Parser {
      * @param userCmd the String representation of the user input
      * @return a Command object representing the user input
      */
-    public void parseCommand(String userCmd) throws IllegalArgumentException, InvalidCommandException {
+    public Command parseCommand(String userCmd) throws IllegalArgumentException, InvalidCommandException {
+        Command c;
         if (userCmd.startsWith("mark")) {
-            tasks.markDone(getDigits(userCmd));
+            c = new MarkCommand(tasks, getDigits(userCmd));
         } else if (userCmd.startsWith("unmark")) {
-            tasks.unmark(getDigits(userCmd));
+            c = new UnmarkCommand(tasks, getDigits(userCmd));
         } else if (userCmd.startsWith("delete")) {
-            tasks.deleteTask(getDigits(userCmd));
+            c = new DeleteCommand(tasks, getDigits(userCmd));
         } else if (userCmd.startsWith("todo")) {
-            tasks.addTask(new ToDo(userCmd.substring(4)));
+            c = new AddTaskCommand(tasks, new ToDo(userCmd.substring(4)));
         } else if (userCmd.startsWith("deadline")) {
             String[] params = userCmd.substring(8).split(splitRegex);
             if (params.length < 2) {
                 throw new IllegalArgumentException("Deadline: You did not provide a due date/time.");
             }
-            tasks.addTask(new Deadline(params[0], params[1]));
+            c = new AddTaskCommand(tasks, new Deadline(params[0], params[1]));
         } else if (userCmd.startsWith("event")) {
             String[] params = userCmd.substring(5).split(splitRegex);
             if (params.length < 2) {
@@ -41,14 +44,16 @@ public class Parser {
             } else if (params.length < 3) {
                 throw new IllegalArgumentException("Event: Did not provide end date/time");
             }
-            tasks.addTask(new Event(params[0], params[1], params[2]));
+            c = new AddTaskCommand(tasks, new Event(params[0], params[1], params[2]));
         } else if (userCmd.startsWith("query")) {
-            tasks.queryTasksByDate(userCmd.substring(6));
+            c = new QueryCommand(tasks, userCmd.substring(6));
         } else if (userCmd.startsWith("find")) {
-            tasks.find(userCmd.substring(5));
+            c = new FindCommand(tasks, userCmd.substring(5));
         } else {
             throw new InvalidCommandException(userCmd);
         }
+
+        return c;
     }
 
     /**
