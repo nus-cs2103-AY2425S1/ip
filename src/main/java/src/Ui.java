@@ -5,36 +5,32 @@ import java.util.Scanner;
 public class Ui {
 
     public void showWelcome() {
-        String greeting = "Eh wassup la bro, my name is Wen Jie.\n What you want?\n";
+        String greeting = "Eh wassup la bro, my name is Wen Jie.\n What you want?";
         showLine();
         System.out.println(greeting);
         showLine();
     }
 
     public void showFarewell() {
-        String farewell = "Paiseh bro I zao liao, see you around ah bro.\n";
+        String farewell = "Paiseh bro I zao liao, see you around ah bro.";
         showLine();
         System.out.println(farewell);
         showLine();
     }
 
     public void showLine() {
-        String line =  "____________________________________________________________\n";
+        String line =  "____________________________________________________________";
         System.out.println(line);
     }
 
-    public void showLoadingError() {
-        String loadingError = "Eh bro i kena error while loading sia gg \n";
+    public void showError(String errorMessage) {
         showLine();
-        System.out.println(loadingError);
+        System.out.println(errorMessage);
         showLine();
     }
 
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        scanner.close();
-        return input;
+    public String readCommand(Scanner scanner) {
+        return scanner.nextLine();
     }
 
 }

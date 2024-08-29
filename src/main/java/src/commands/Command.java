@@ -1,13 +1,13 @@
 package src.commands;
 
-import src.DukeException;
+import src.exceptions.DukeException;
 import src.Storage;
 import src.TaskList;
 import src.Ui;
 
 public abstract class Command {
 
-    private boolean isExit = true;
+    private boolean isExit = false;
     private String input = "";
 
     public Command(boolean isActive, String input) {
@@ -18,6 +18,10 @@ public abstract class Command {
 
     public boolean isExit() {
         return isExit;
+    }
+
+    public void setIsExit(boolean isExit) {
+        this.isExit = isExit;
     }
 
     public String getInput() {

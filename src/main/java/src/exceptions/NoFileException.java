@@ -1,7 +1,7 @@
-package src;
+package src.exceptions;
 
 public class NoFileException extends DukeException {
-    NoFileException() {
+    public NoFileException() {
         super("test");
     }
 

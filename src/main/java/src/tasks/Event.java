@@ -1,4 +1,4 @@
-package src;
+package src.tasks;
 
 public class Event extends Task {
 

@@ -1,5 +1,7 @@
 package src;
 
+import src.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

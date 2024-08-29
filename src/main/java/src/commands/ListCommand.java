@@ -1,10 +1,9 @@
 package src.commands;
 
 import src.Storage;
-import src.Task;
+import src.tasks.Task;
 import src.TaskList;
 import src.Ui;
-import src.commands.Command;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showLine();
-        displayList(storage.load());
+        System.out.println(displayList(storage.load()));
         ui.showLine();
     }
 

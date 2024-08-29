@@ -1,6 +1,13 @@
 package src.commands;
 
 import src.*;
+import src.tasks.Deadline;
+import src.tasks.Task;
+import src.tasks.ToDo;
+import src.exceptions.DukeException;
+import src.tasks.Event;
+import src.exceptions.InvalidInputException;
+import src.exceptions.NoFollowUpException;
 
 import java.util.ArrayList;
 
@@ -138,7 +145,7 @@ public class AddCommand extends Command {
         ui.showLine();
         System.out.println("Got it. I've added this task:\n" +
                 task + "\n" +
-                "Now you have " + taskListSize +" tasks in the list.\n");
+                "Now you have " + taskListSize +" tasks in the list.");
         ui.showLine();
     }
 }

@@ -1,7 +1,10 @@
 package src.commands;
 
 import src.*;
-import src.commands.Command;
+import src.tasks.Task;
+import src.exceptions.DukeException;
+import src.exceptions.NoNumberInputtedException;
+import src.exceptions.OutOfBoundsException;
 
 import java.util.ArrayList;
 
@@ -29,7 +32,7 @@ public class UnmarkCommand extends Command {
         taskList.get(taskNo).setStatusIcon(false);
 
         ui.showLine();
-        System.out.println(" OK, I've marked this task as not done yet:\n " + taskList.get(taskNo) + "\n");
+        System.out.println(" OK, I've marked this task as not done yet:\n " + taskList.get(taskNo));
         ui.showLine();
     }
 }

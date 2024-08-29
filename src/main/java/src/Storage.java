@@ -1,5 +1,11 @@
 package src;
 
+import src.tasks.Deadline;
+import src.tasks.Event;
+import src.tasks.Task;
+import src.tasks.ToDo;
+import src.exceptions.NoFileException;
+
 import java.io.File;
 import java.nio.file.Paths;
 import java.io.FileNotFoundException;
@@ -8,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
-import java.util.Objects;
 
 public class Storage {
 
@@ -73,8 +78,6 @@ public class Storage {
             }
             case 'E': {
                 String[] segments = description.split("/");
-                System.out.println(description);
-
                 taskToAdd = new Event(segments[0], segments[1].substring(6), segments[2].substring(4));
 
                 break;
@@ -99,15 +102,15 @@ public class Storage {
                 try {
                     BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
-                    String formattedString = "";
+                    StringBuilder formattedString = new StringBuilder();
 
 
                     for (Task task : tasks) {
-                        formattedString += task.toPrettierString();
-                        formattedString += "\n";
+                        formattedString.append(task.toPrettierString());
+                        formattedString.append("\n");
                     }
 
-                    writer.write(formattedString);
+                    writer.write(formattedString.toString());
                     writer.flush();
 
 

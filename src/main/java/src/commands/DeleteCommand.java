@@ -1,6 +1,10 @@
 package src.commands;
 
 import src.*;
+import src.tasks.Task;
+import src.exceptions.DukeException;
+import src.exceptions.NoNumberInputtedException;
+import src.exceptions.OutOfBoundsException;
 
 import java.util.ArrayList;
 
@@ -31,7 +35,7 @@ public class DeleteCommand extends Command {
         System.out.println(
                 "Noted. I've removed this task:\n" +
                 taskToRemove + "\n" +
-                "Now you have " + taskList.size() + " tasks in the list.\n");
+                "Now you have " + taskList.size() + " tasks in the list.");
         ui.showLine();
     }
 }

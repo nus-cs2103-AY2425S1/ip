@@ -7,6 +7,7 @@ import src.commands.ByeCommand;
 import src.commands.ListCommand;
 import src.commands.UnmarkCommand;
 import src.commands.AddCommand;
+import src.exceptions.UnknownCommandException;
 
 
 public class Parser {
@@ -17,42 +18,42 @@ public class Parser {
 
         switch (action) {
             case "mark": {
-                response = new MarkCommand(true, input);
+                response = new MarkCommand(false, input);
                 break;
             }
 
             case "unmark": {
-                response = new UnmarkCommand(true, input);
+                response = new UnmarkCommand(false, input);
                 break;
             }
 
             case "delete": {
-                response = new DeleteCommand(true, input);
+                response = new DeleteCommand(false, input);
                 break;
             }
 
             case "bye": {
-                response = new ByeCommand(false, input);
+                response = new ByeCommand(true, input);
                 break;
             }
 
             case "list": {
-                response = new ListCommand(true, input);
+                response = new ListCommand(false, input);
                 break;
             }
 
             case "todo": {
-                response = new AddCommand(true, input, AddCommand.TypeOfEvent.TODO);
+                response = new AddCommand(false, input, AddCommand.TypeOfEvent.TODO);
                 break;
             }
 
             case "event": {
-                response = new AddCommand(true, input, AddCommand.TypeOfEvent.EVENT);
+                response = new AddCommand(false, input, AddCommand.TypeOfEvent.EVENT);
                 break;
             }
 
             case "deadline": {
-                response = new AddCommand(true, input, AddCommand.TypeOfEvent.DEADLINE);
+                response = new AddCommand(false, input, AddCommand.TypeOfEvent.DEADLINE);
                 break;
             }
 

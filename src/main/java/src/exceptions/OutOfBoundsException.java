@@ -1,4 +1,4 @@
-package src;
+package src.exceptions;
 
 public class OutOfBoundsException extends DukeException {
     public OutOfBoundsException() {
