@@ -5,16 +5,16 @@ import bocchi.exception.BocchiException;
 import java.io.Serializable;
 
 /**
- * Represents a base bocchi.task.
+ * Represents a base task.
  */
 public abstract class Task implements Serializable {
     /**
-     * The bocchi.task description.
+     * The task description.
      */
     protected String description;
 
     /**
-     * Whether this bocchi.task is done.
+     * Whether this task is done.
      */
     protected boolean isDone;
 
@@ -26,21 +26,21 @@ public abstract class Task implements Serializable {
      */
     public Task(String description) throws BocchiException {
         if (description == null) {
-            throw new BocchiException("So..sorry, but the bocchi.task description can't be empty.");
+            throw new BocchiException("So..sorry, but the task description can't be empty.");
         }
         this.description = description;
         this.isDone = false;
     }
 
     /**
-     * Marks this bocchi.task as done.
+     * Marks this task as done.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Marks this bocchi.task as not done.
+     * Marks this task as not done.
      */
     public void markAsUnDone() {
         isDone = false;
@@ -57,9 +57,9 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Returns a string representation of this bocchi.task.
+     * Returns a string representation of this task.
      *
-     * @return A string representation of this bocchi.task.
+     * @return A string representation of this task.
      */
     @Override
     public String toString() {

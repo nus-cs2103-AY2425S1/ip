@@ -23,7 +23,7 @@ public class Bocchi {
     private TaskList taskList;
 
     /**
-     * The loader and saver for the bocchi.task list.
+     * The loader and saver for the task list.
      */
     private Storage storage = new Storage();
 
@@ -58,7 +58,7 @@ public class Bocchi {
      */
     private void list() {
         ui.printSeparator();
-        ui.printMessage("No...no problem! This is your bocchi.task list! (/▽＼)");
+        ui.printMessage("No...no problem! This is your task list! (/▽＼)");
         for (int i = 0; i < taskList.size(); i++) {
             ui.printMessage((i + 1) + ". " + taskList.getTask(i));
         }
@@ -66,20 +66,20 @@ public class Bocchi {
     }
 
     /**
-     * Adds a bocchi.task to the list.
+     * Adds a task to the list.
      */
     private void task(Task task) {
         ui.printSeparator();
         taskList.addTask(task);
-        ui.printMessage("Only if I can be as diligent as you... (っ °Д °;)っ An..anyway, bocchi.task added!");
+        ui.printMessage("Only if I can be as diligent as you... (っ °Д °;)っ An..anyway, task added!");
         ui.printMessage(task);
         ui.printSeparator();
     }
 
     /**
-     * Mark the i-th bocchi.task (1-indexed) as done.
+     * Mark the i-th task (1-indexed) as done.
      *
-     * @param index The index of the bocchi.task to be marked as done.
+     * @param index The index of the task to be marked as done.
      */
     private void mark(int index) throws BocchiException {
         index--;
@@ -92,15 +92,15 @@ public class Bocchi {
         task.markAsDone();
 
         ui.printSeparator();
-        ui.printMessage("I have marked the bocchi.task as done! You are doing such a good job! (*/ω＼*)");
+        ui.printMessage("I have marked the task as done! You are doing such a good job! (*/ω＼*)");
         ui.printMessage(task);
         ui.printSeparator();
     }
 
     /**
-     * Mark the i-th bocchi.task (1-indexed) as not done.
+     * Mark the i-th task (1-indexed) as not done.
      *
-     * @param index The index of the bocchi.task to be marked as not done.
+     * @param index The index of the task to be marked as not done.
      */
     private void unmark(int index) throws BocchiException {
         index--;
@@ -113,15 +113,15 @@ public class Bocchi {
         task.markAsUnDone();
 
         ui.printSeparator();
-        ui.printMessage("I have marked the bocchi.task as not done. You will do it better next time! (*/ω＼*)");
+        ui.printMessage("I have marked the task as not done. You will do it better next time! (*/ω＼*)");
         ui.printMessage(task);
         ui.printSeparator();
     }
 
     /**
-     * Delete the i-th (1-indexed) bocchi.task.
+     * Delete the i-th (1-indexed) task.
      *
-     * @param index The index of the bocchi.task to be deleted.
+     * @param index The index of the task to be deleted.
      */
     private void delete(int index) throws BocchiException {
         index--;
@@ -133,7 +133,7 @@ public class Bocchi {
         Task task = taskList.removeTask(index);
 
         ui.printSeparator();
-        ui.printMessage("I have removed the bocchi.task!");
+        ui.printMessage("I have removed the task!");
         ui.printMessage(task);
         ui.printSeparator();
     }
@@ -165,13 +165,13 @@ public class Bocchi {
      * Commands available:
      * - bye: ends the conversation;
      * - list: lists out all tasks;
-     * - mark [index]: mark the bocchi.task in the specified index as done;
-     * - unmark [index]: mark the bocchi.task in the specified index as not done;
+     * - mark [index]: mark the task in the specified index as done;
+     * - unmark [index]: mark the task in the specified index as not done;
      * - todo [description]: adds a new todo with the specified description;
      * - ddl/deadline [description] /by [dueDateTime]: adds a new deadline with the specified description and due date/time;
      * - event [description] /from [fromDateTime] /to [toDateTime]: adds a new event with the specified description,
      * start date/time and end date/time;
-     * - del/delete [index]: delete the bocchi.task in the specified index.
+     * - del/delete [index]: delete the task in the specified index.
      */
     public void start() {
         ui.greet();

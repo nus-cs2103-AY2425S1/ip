@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a deadline bocchi.task.
+ * Represents a deadline task.
  */
 public class Deadline extends Task {
     /**
