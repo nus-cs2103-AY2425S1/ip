@@ -1,11 +1,13 @@
 package monique.ui;
 
-import monique.tasklist.TaskList;
-import monique.task.Task;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import monique.task.Task;
+import monique.tasklist.TaskList;
+
+
 
 public class Ui {
 
@@ -16,7 +18,7 @@ public class Ui {
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public void addMessage(Task task){
+    public void addMessage(Task task) {
         System.out.println("added: " + task);
     }
 
@@ -33,7 +35,7 @@ public class Ui {
         System.out.println("ok... I've unmarked:" + task);
     }
 
-        public void showLine() {
+    public void showLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -41,21 +43,21 @@ public class Ui {
         System.out.println("Hello, I am Monique,\nI am your personal assistant :)\n ");
     }
 
-    public void showGoodbye(){
+    public void showGoodbye() {
         System.out.println("Monique: Goodbye! Have a great day!");
     }
 
-    public String readCommand(){
-        String line = ""; 
+    public String readCommand() {
+        String line = "";
         try {
             line = this.br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return line; 
+        return line;
     }
 
-    public void emptyListMessage(){
+    public void emptyListMessage() {
         System.out.println("There are no tasks in your List :)");
     }
 }

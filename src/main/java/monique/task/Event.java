@@ -1,11 +1,11 @@
 package monique.task;
 
-import monique.exception.IllegalDateFormatException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import monique.exception.IllegalDateFormatException;
 
 public class Event extends Task {
     private final LocalDate from;
@@ -13,7 +13,7 @@ public class Event extends Task {
     private static final String formatString = "[E][%s] %s (from:%s to: %s)";
 
     public Event(String description, boolean isComplete, String from, String to) throws IllegalDateFormatException {
-        super(description,isComplete);
+        super(description, isComplete);
 
         LocalDate parsedFromDate = null;
         LocalDate parsedToDate = null;
@@ -49,26 +49,26 @@ public class Event extends Task {
 
     }
 
-    public Event(String description, boolean isComplete, LocalDate from, LocalDate to){
-        super(description,isComplete);
+    public Event(String description, boolean isComplete, LocalDate from, LocalDate to) {
+        super(description, isComplete);
         this.from = from;
         this.to = to;
     }
 
     public Event() throws IllegalDateFormatException {
-        this("",true,"","");
+        this("", true, "", "");
     }
 
     @Override
     public String toString() {
-        return String.format(formatString,this.isComplete?"X":" ",this.description,
+        return String.format(formatString, this.isComplete ? "X" : " ", this.description,
                 this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                 this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     @Override
     public Event mark() {
-        return new Event(this.description, true,this.from, this.to);
+        return new Event(this.description, true, this.from, this.to);
     }
 
     @Override

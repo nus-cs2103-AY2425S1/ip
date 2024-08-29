@@ -1,18 +1,18 @@
 package monique.command;
 
+import java.util.stream.IntStream;
+
 import monique.storage.Storage;
 import monique.tasklist.TaskList;
 import monique.ui.Ui;
 
-import java.util.stream.IntStream;
-
 public class ListCommand extends Command {
 
-    public ListCommand(){
+    public ListCommand() {
         super();
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         IntStream.range(0, tasks.getNumItems())
                 .forEach(i -> {
                     System.out.println((i + 1) + "." + tasks.getTask(i));
@@ -23,7 +23,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public boolean isActive(){
+    public boolean isActive() {
         return true;
     }
 }

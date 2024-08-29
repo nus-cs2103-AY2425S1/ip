@@ -59,7 +59,7 @@ public class Storage {
             FileInputStream fin = new FileInputStream(this.getDbFile());
             ObjectInputStream ois = new ObjectInputStream(fin);
             Object o;
-            while(true) {
+            while (true) {
                 try {
                     o = ois.readObject();
                     if (o instanceof Task) {

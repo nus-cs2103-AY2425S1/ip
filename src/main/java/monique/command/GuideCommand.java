@@ -1,13 +1,13 @@
 package monique.command;
 
-import monique.*;
+import monique.GuideText;
 import monique.exception.MarkException;
 import monique.storage.Storage;
 import monique.tasklist.TaskList;
 import monique.ui.Ui;
 
 public class GuideCommand extends Command {
-    public GuideCommand(){
+    public GuideCommand() {
         super();
     }
 

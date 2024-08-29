@@ -1,8 +1,8 @@
 package monique.tasklist;
 
-import monique.task.Task;
-
 import java.util.ArrayList;
+
+import monique.task.Task;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -12,15 +12,15 @@ public class TaskList {
     }
 
     //operations: Add, Delete, Mark,
-    public void addTask(Task task){
+    public void addTask(Task task) {
         this.taskList.add(task);
     }
 
-    public void deleteTask(int taskNum){
+    public void deleteTask(int taskNum) {
         this.taskList.remove(taskNum);
     }
 
-    public void markTask(int taskNum){
+    public void markTask(int taskNum) {
         this.taskList.set(taskNum, taskList.get(taskNum).mark());
     }
 
@@ -28,7 +28,7 @@ public class TaskList {
         this.taskList.set(taskNum, taskList.get(taskNum).unmark());
     }
 
-    public ArrayList<Task> getTaskList(){
+    public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 
@@ -36,7 +36,7 @@ public class TaskList {
         return this.taskList.get(i);
     }
 
-    public int getNumItems(){
+    public int getNumItems() {
         return this.taskList.size();
     }
 }

@@ -2,7 +2,7 @@ package monique.exception;
 
 public class UnknownCommandException extends MoniqueException {
 
-    public UnknownCommandException(){
+    public UnknownCommandException() {
         super("Unknown Command Exception");
     }
     public void advice() {

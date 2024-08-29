@@ -1,23 +1,24 @@
 package monique.task;
 
-import monique.exception.IllegalDateFormatException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import monique.exception.IllegalDateFormatException;
+
 public class Deadline extends Task {
-    private final LocalDate by;
+
     private static final String formatString = "[D][%s] %s (by: %s)";
+    private final LocalDate by;
 
     //overloaded constructor to accept Date
-    public Deadline(String description, boolean isComplete, LocalDate by){
-        super(description,isComplete);
+    public Deadline(String description, boolean isComplete, LocalDate by) {
+        super(description, isComplete);
         this.by = by;
     }
     public Deadline(String description, boolean isComplete, String by) throws IllegalDateFormatException {
-        super(description,isComplete);
+        super(description, isComplete);
 
         LocalDate parsedDate = null;
 
@@ -44,23 +45,23 @@ public class Deadline extends Task {
     }
 
     public Deadline() throws IllegalDateFormatException {
-        this("",true,"");
+        this("", true, "");
     }
 
     @Override
     public String toString() {
-        return String.format(formatString,this.isComplete?"X":" ",
-                    this.description,this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format(formatString, this.isComplete ? "X" : " ",
+                    this.description, this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     @Override
     public Deadline mark() {
-        return new Deadline(this.description, true,this.by);
+        return new Deadline(this.description, true, this.by);
     }
 
     @Override
     public Deadline unmark() {
-        return new Deadline(this.description, false,this.by);
+        return new Deadline(this.description, false, this.by);
     }
 
 

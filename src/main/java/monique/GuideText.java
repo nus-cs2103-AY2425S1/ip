@@ -27,6 +27,6 @@ public class GuideText {
     either: M/d/yyyy HHmm, M/d/yyyy, M-d-yyyy HHmm or M-d-yyyy.
             
             7. To delete an item, type "delete" followed by the item number.
-""";
+        """;
 }
 

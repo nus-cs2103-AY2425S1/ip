@@ -6,17 +6,17 @@ import monique.ui.Ui;
 
 public class ByeCommand extends Command {
 
-    public ByeCommand(){
+    public ByeCommand() {
         super();
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks.getTaskList());
         ui.showGoodbye();
     }
 
-    public  boolean isActive(){
+    public boolean isActive() {
         return false;
     }
 }
