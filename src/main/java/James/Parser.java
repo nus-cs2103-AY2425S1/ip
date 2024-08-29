@@ -102,6 +102,12 @@ class Parser {
             storage.saveTasks(taskList.getTasks());
             break;
 
+        case "find":
+            String keyWord = words[1];
+            ui.showMessage("Here are the matching tasks in your list:");
+            taskList.printMatchingTasks(keyWord);
+            break;
+
         default:
             throw new CommandNotFoundException("Sorry! I don't understand what you mean by (" + command + "). " +
                     "Please try a different command!");

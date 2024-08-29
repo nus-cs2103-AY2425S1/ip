@@ -88,4 +88,24 @@ class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Prints all tasks that contain the specified keyword in their description.
+     *
+     * This method iterates through all tasks in the task list and prints those
+     * whose description contains the provided keyword. Each matching task is
+     * printed with a sequential number starting from 1.
+     *
+     * @param keyWord The keyword to search for in the task descriptions.
+     */
+    public void printMatchingTasks(String keyWord) {
+        int count = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).matchKeyWord(keyWord)) {
+                System.out.println(count + ". " + tasks.get(i).printTask());
+                count++;
+            }
+        }
+    }
+
 }
