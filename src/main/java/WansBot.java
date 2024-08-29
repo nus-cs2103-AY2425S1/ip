@@ -1,7 +1,13 @@
 import java.util.Scanner;
+import tasks.Deadlined;
+import tasks.Events;
+import tasks.InputEmptyException;
+import tasks.NotANumMarkingException;
+import tasks.TaskList;
+import tasks.Todos;
 
 public class WansBot {
-    // Method that deals with empty inputs by throwing InputEmptyException
+    // Method that deals with empty inputs by throwing tasks.InputEmptyException
     private static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos") ||
             userInput.strip().equalsIgnoreCase("deadline") ||
@@ -13,7 +19,7 @@ public class WansBot {
         }
     }
 
-    // Method that throws NumberFormatException and custom NotANumMarkingException
+    // Method that throws NumberFormatException and custom tasks.NotANumMarkingException
     private static void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
             NotANumMarkingException {
         if (userInput.startsWith("unmark")) {
@@ -34,7 +40,7 @@ public class WansBot {
         }
     }
 
-    // Method that throws custom InputEmptyException for deadlineds
+    // Method that throws custom tasks.InputEmptyException for deadlineds
     private static void missingInputDeadline(String userInput) {
         String[] splitUser = userInput.split( " /by ", 2);
         if (splitUser.length < 2) {
@@ -42,7 +48,7 @@ public class WansBot {
         }
     }
 
-    // Method that throws custom InputEmptyException for events
+    // Method that throws custom tasks.InputEmptyException for events
     private static void missingInputEvent(String userInput) {
         String[] splitUserStartDate = userInput.split(" /from ", 3);
         if (splitUserStartDate.length < 2) {
@@ -97,7 +103,7 @@ public class WansBot {
                     continue;
                 } catch (NotANumMarkingException e) {
                     System.out.println(hr + "\nWans:\n"
-                            + "You need to input a valid number that exists in your TaskList!"
+                            + "You need to input a valid number that exists in your tasks.TaskList!"
                             + "\n" + hr);
                     continue;
                 }
@@ -118,7 +124,7 @@ public class WansBot {
                     continue;
                 } catch (NotANumMarkingException e) {
                     System.out.println(hr + "\nWans:\n"
-                            + "You need to input a valid number that exists in your TaskList!"
+                            + "You need to input a valid number that exists in your tasks.TaskList!"
                             + "\n" + hr);
                     continue;
                 }
@@ -196,7 +202,7 @@ public class WansBot {
                     continue;
                 } catch (NotANumMarkingException e) {
                     System.out.println(hr + "\nWans:\n"
-                            + "You need to input a valid number that exists in your TaskList!"
+                            + "You need to input a valid number that exists in your tasks.TaskList!"
                             + "\n" + hr);
                     continue;
                 }
