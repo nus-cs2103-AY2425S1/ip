@@ -16,6 +16,17 @@ public class TaskList implements Serializable {
         return tasks;
     }
 
+    public ArrayList<Task> getTasks(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t:
+             tasks) {
+            if (t.getDescription().contains(keyword)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
     public Task get(int i) {
         return tasks.get(i);
     }
@@ -29,7 +40,7 @@ public class TaskList implements Serializable {
         this.tasks.remove(task);
     }
 
-    public void remove (Task t) {
+    public void remove(Task t) {
         this.tasks.remove(t);
     }
 

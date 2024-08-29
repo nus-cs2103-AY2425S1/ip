@@ -98,4 +98,14 @@ public class ParserTest {
         // Assert
         assertEquals(Command.UNKNOWN, result.getKey());
     }
+
+    @Test
+    void testFindCommand() {
+        // Act
+        Pair<Command, Properties> result = Parser.parse("find book");
+
+        // Assert
+        assertEquals(Command.FIND, result.getKey());
+        assertEquals("book", result.getValue().getProperty("keyword"));
+    }
 }

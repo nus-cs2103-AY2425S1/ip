@@ -26,6 +26,7 @@ public class Parser {
             case "event" -> Command.EVENT;
             case "delete" -> Command.DELETE;
             case "save" -> Command.SAVE;
+            case "find" -> Command.FIND;
             default -> Command.UNKNOWN;
         };
 
@@ -34,10 +35,17 @@ public class Parser {
             case EVENT -> parseEventProps(propString);
             case DEADLINE -> parseDeadlineProps(propString);
             case MARK, UNMARK, DELETE -> parseTaskIndexProp(propString);
+            case FIND -> parseTextInputProps(propString);
             case EXIT, LIST, SAVE, UNKNOWN -> new Properties();
         };
 
         return new Pair<>(cmd, props);
+    }
+
+    private static Properties parseTextInputProps(String propString) {
+        Properties props = new Properties();
+        props.setProperty("keyword", propString.strip());
+        return props;
     }
 
     private static Properties parseTaskIndexProp(String propString) {

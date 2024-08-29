@@ -3,12 +3,16 @@ package deez;
 import java.util.ArrayList;
 
 public class Ui {
-    static void say(String... msgs) {
+    private static void printSeperator () {
         System.out.println("____________________________________________________________");
+    }
+
+    static void say(String... msgs) {
+        printSeperator();
         for (String msg : msgs) {
             System.out.println("> " + msg);
         }
-        System.out.println("____________________________________________________________");
+        printSeperator();
     }
 
     static void printList(ArrayList<?> arrayList) {
@@ -18,11 +22,11 @@ public class Ui {
         }
         // Print list
         int cnt = 1;
-        System.out.println("____________________________________________________________");
+        printSeperator();
         for (Object o: arrayList) {
             System.out.println(cnt + ". " + o.toString());
             cnt += 1;
         }
-        System.out.println("____________________________________________________________");
+        printSeperator();
     }
 }
