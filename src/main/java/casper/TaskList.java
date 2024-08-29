@@ -35,4 +35,17 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
     }
+
+    /**
+     * Returns a TaskList containing all tasks matching the keyword
+     */
+    public TaskList findMatchTasks(String keyword) {
+        TaskList matched = new TaskList();
+        for (Task task: this.taskList) {
+            if (task.toString().contains(keyword)) {
+                matched.addTask(task);
+            }
+        }
+        return matched;
+    }
 }

@@ -54,6 +54,13 @@ public class CasperBot {
                 if (inputArray[0].equalsIgnoreCase("list")) {
                     this.ui.displayTaskList(taskList);
                 }
+                else if (inputArray[0].equalsIgnoreCase("find")) {
+                    if (inputArray[1].isBlank()) {
+                        throw new CasperBotMissingInputException("keyword", "find");
+                    }
+                    TaskList matched = taskList.findMatchTasks(inputArray[1]);
+                    this.ui.printMatchedTasks(matched);
+                }
                 else if (isValidCommand(inputArray[0], CommandType.TASK)) {
                     try {
                         int index = Integer.parseInt(inputArray[1]) - 1;
