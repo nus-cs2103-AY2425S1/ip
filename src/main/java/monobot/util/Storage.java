@@ -16,15 +16,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of tasks to a file.
+ */
 public class Storage {
     private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
     private static final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath Path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves tasks to the specified file.
+     *
+     * @param tasks  ArrayList of tasks to be saved to the file.
+     * @throws MonoBotException If an IO error occurs while writing the file.
+     */
     public void save(ArrayList<Task> tasks) throws MonoBotException {
         try {
             File file = new File(filePath);
@@ -43,6 +57,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the specified file.
+     * If the file does not exist, it creates a new file.
+     * Reads the tasks from the file and returns them as a list.
+     *
+     * @return ArrayList of tasks loaded from the file.
+     * @throws MonoBotException If an IO error occurs while reading the file.
+     */
     public ArrayList<Task> load() throws MonoBotException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -71,6 +93,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Formats task to a String to be written to the file.
+     *
+     * @param task Task to be formatted into a String.
+     * @return String of task and details to be written to the file.
+     */
     private static String taskToFileFormat(Task task) {
         String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
         String isDone = task.getIsDone() ? "1" : "0";
@@ -88,6 +116,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses string in file to identify the Task and details of the Task.
+     *
+     * @param line String to be formatted into a Task object.
+     * @return Task object with the details
+     */
     private static Task parseTaskFromFileLine(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {

@@ -5,6 +5,9 @@ import monobot.util.TaskList;
 import monobot.util.Ui;
 import monobot.exception.MonoBotException;
 
+/**
+ * Represents commands in the abstract Command class.
+ */
 public abstract class Command {
     protected final CommandType type;
 
