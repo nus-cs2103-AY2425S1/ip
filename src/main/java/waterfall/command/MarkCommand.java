@@ -7,9 +7,20 @@ import waterfall.Ui;
 import waterfall.WaterfallException;
 import waterfall.task.*;
 
+/**
+ * Represents the <code>Command</code> object to mark a <code>Task</code>
+ * in the data storage and alerts the user.
+ *
+ * @author Wai Hong
+ */
+
 public class MarkCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs a command object to mark task at specified index.
+     * @param index
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

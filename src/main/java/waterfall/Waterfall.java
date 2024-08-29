@@ -5,12 +5,29 @@ import waterfall.task.TaskList;
 
 import java.io.IOException;
 
+/**
+ * Represents the main class for the Waterfall chatbot application.
+ * <p>
+ * The <code>Waterfall</code> class handles the initialisation of the application.
+ * This includes loading the tasks from storage and starting the user interaction.
+ * It manages user command sand interactions by delegating tasks to other components.
+ * </p>
+ *
+ * @author Wai Hong
+ */
+
 public class Waterfall {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initialises the Waterfall application with the specified storage file path.
+     * It sets up the <code>Ui</code> object to be used in next execution.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Waterfall(String filePath) {
         ui = new Ui();
         try {
@@ -27,6 +44,12 @@ public class Waterfall {
         }
     }
 
+    /**
+     * Runs the waterfall chatbot application.
+     * Displays a welcome message and continuously reads user commands until
+     * the user decides to exit the application. It handles exceptions that
+     * occur during command execution and provides appropriate feedback to the user.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
@@ -47,6 +70,11 @@ public class Waterfall {
         }
     }
 
+    /**
+     * The main method to start the Waterfall application.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         new Waterfall("data/Tasks.txt").run();
     }
