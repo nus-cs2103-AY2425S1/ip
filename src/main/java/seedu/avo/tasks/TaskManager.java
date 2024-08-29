@@ -2,7 +2,9 @@ package seedu.avo.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import seedu.avo.storage.Storage;
 
@@ -25,10 +27,9 @@ public class TaskManager {
         print(message);
     }
     public void listTasks() {
-        print("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            print(getItem(i));
-        }
+        printTaskCount(tasks.size());
+        printTasksFromIndexes(IntStream.range(0, tasks.size())
+                .boxed().toList());
     }
     public void completeTask(int index) {
         Task task = tasks.get(index);
@@ -62,12 +63,9 @@ public class TaskManager {
         storage.write(this.formatData());
     }
     public void getTasksByDate(LocalDate date) {
-        print("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).isOccurringOnDate(date)) {
-                print(getItem(i));
-            }
-        }
+        List<Integer> indexes = filterByDate(date);
+        printTaskCount(indexes.size());
+        printTasksFromIndexes(indexes);
     }
     public String formatData() {
         StringBuilder str = new StringBuilder();
@@ -77,11 +75,40 @@ public class TaskManager {
         return str.toString();
     }
     public void getTasksByName(String name) {
-        print("Here are the tasks in your list:");
+        List<Integer> indexes = filterByName(name);
+        printTaskCount(indexes.size());
+        printTasksFromIndexes(indexes);
+    }
+    private List<Integer> filterByName(String name) {
+        List<Integer> result = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).matchName(name)) {
-                print(getItem(i));
+                result.add(i);
             }
+        }
+        return result;
+    }
+    private List<Integer> filterByDate(LocalDate date) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).isOccurringOnDate(date)) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
+    private void printTasksFromIndexes(List<Integer> indexes) {
+        for (Integer index: indexes) {
+            print(getItem(index));
+        }
+    }
+    private void printTaskCount(int count) {
+        if (count == 0) {
+            print("You have no tasks.");
+        } else if (count == 1) {
+            print("You have one task.");
+        } else {
+            print(String.format("You have %s tasks.", count));
         }
     }
 }
