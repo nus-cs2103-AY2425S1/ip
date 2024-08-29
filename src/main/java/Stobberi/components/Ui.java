@@ -3,7 +3,7 @@ package Stobberi.components;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
     private final String NAME_OF_CHATBOT = "Stobberi";
     private final String HELLO_GREETING =
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"

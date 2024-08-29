@@ -72,7 +72,7 @@ public class TaskList {
         Ui.displayForm(list);
     }
 
-    public void addTask(Task task) throws StobberiException {
+    public void addTask(Task task) {
         listOfTasks.add(task);
         displayLastAdded();
     }
