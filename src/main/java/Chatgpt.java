@@ -64,7 +64,7 @@ public class Chatgpt {
             try {
                 file.createNewFile();
             } catch (Exception ex) {
-                System.out.println("Unable to create data file.");
+                System.out.println("Unable to create data file");
             }
         }
 
