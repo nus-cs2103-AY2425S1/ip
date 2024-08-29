@@ -1,13 +1,15 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
-    public String endTime;
+    public LocalDateTime endTime;
 
-    public Deadline(String name, String endTime) {
+    public Deadline(String name, LocalDateTime endTime) {
         super(name);
         this.endTime = endTime;
     }
 
-    public Deadline(String name, String endTime, boolean done) {
+    public Deadline(String name, LocalDateTime endTime, boolean done) {
         super(name, done);
         this.endTime = endTime;
     }

@@ -154,7 +154,7 @@ public class Makima {
                 case "deadline":
                     tasks.add(new Deadline(
                             getInput("What is the task name?"),
-                            getInput("When is it due?")
+                            getDate("When is it due?")
                     ));
                     done();
                     break;
@@ -162,8 +162,8 @@ public class Makima {
                 case "event":
                     tasks.add(new Event(
                             getInput("What is the event name?"),
-                            getInput("When does it start?"),
-                            getInput("When does it end?")
+                            getDate("When does it start?"),
+                            getDate("When does it end?")
                     ));
                     done();
                     break;

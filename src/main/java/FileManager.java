@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -60,38 +62,52 @@ public class FileManager {
             int lineNumber = 0;
 
             while (lineNumber < lines.size()) {
-                String name, startTime, endTime;
+                String name;
+                LocalDateTime startTime, endTime;
                 boolean done;
 
                 String line = lines.get(lineNumber);
                 switch (line) {
                 case "E":
                     if (lineNumber + 4 >= lines.size()) {
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
                         return false;
                     }
 
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
-                    startTime = lines.get(lineNumber + 3);
-                    endTime = lines.get(lineNumber + 4);
+                    try {
+                        startTime = LocalDateTime.parse(lines.get(lineNumber + 3));
+                        endTime = LocalDateTime.parse(lines.get(lineNumber + 4));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
+                        return false;
+                    }
 
                     makima.addEvent(new Event(name, startTime, endTime, done));
                     lineNumber += 5;
                     break;
                 case "D":
                     if (lineNumber + 3 >= lines.size()) {
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
                         return false;
                     }
 
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
-                    endTime = lines.get(lineNumber + 3);
+                    try {
+                        endTime = LocalDateTime.parse(lines.get(lineNumber + 3));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
+                        return false;
+                    }
 
                     makima.addDeadline(new Deadline(name, endTime, done));
                     lineNumber += 4;
                     break;
                 case "T":
                     if (lineNumber + 2 >= lines.size()) {
+                        System.out.println("The file is corrupted! Delete it before restarting the program!");
                         return false;
                     }
 
@@ -105,6 +121,7 @@ public class FileManager {
                     lineNumber++;
                     break;
                 default:
+                    System.out.println("The file is corrupted! Delete it before restarting the program!");
                     return false;
                 }
             }
