@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 
 public class SecondMind {
     private static final String line = "____________________________________________________________";
@@ -44,6 +45,14 @@ public class SecondMind {
     private static LocalDateTime textToLocalDateTime(String text) throws DateTimeParseException {
         LocalDateTime ldt = LocalDateTime.parse(text);
         return ldt;
+    }
+
+    private static String convertLocatDateTime(LocalDateTime ldt) {
+        DateTimeFormatter formatter 
+                = DateTimeFormatter.ofPattern(
+                        "yyyy-MM-dd HH:mm:ss a");
+        
+        return ldt.format(formatter);
     }
 
     private static Task createToDo(String[] taskInfo) throws EmptyToDoException {
