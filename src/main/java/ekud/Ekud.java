@@ -57,4 +57,16 @@ public class Ekud {
         }
     }
 
+
+    /**
+     * Runs the EKuD chat both.
+     *
+     * @param args Command line arguments - not used.
+     */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        new Ekud(sc).run();
+        sc.close();
+    }
+
 }
