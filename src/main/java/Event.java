@@ -13,6 +13,12 @@ public class Event extends Task {
         this.end = LocalDateTime.parse(end, INPUT_FORMAT);
     }
 
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
+        super(description);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String getCorrectFormat() {
         return String.format("%s | %s | %s", getDescription(), start.format(INPUT_FORMAT), end.format(INPUT_FORMAT));
