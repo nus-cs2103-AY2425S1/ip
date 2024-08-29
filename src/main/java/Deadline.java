@@ -8,6 +8,10 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
     public String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return dueDate.format(formatter);
