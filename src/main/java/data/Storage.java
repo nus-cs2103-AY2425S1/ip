@@ -6,14 +6,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles saving of tasks into file
+ */
 public class Storage {
-    private ArrayList<Task> taskList;
-    private int numberOfTasks;
     private final String filePath = "./data/taskFile.txt";
     private File taskFile;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Loads all tasks from previously saved file. If saved file not found, creates a new file to save to.
+     *
+     * @return TaskList that has all the tasks loaded from previous saved file
+     * @throws IOException if there is an error opening saved file
+     */
     public TaskList load() throws IOException {
         taskFile = new File(filePath);
         File folder = new File("./data");
@@ -55,6 +62,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves tasks from TaskList into the file
+     *
+     * @param taskList tasks to save into file
+     * @throws IOException if there is an error loading file
+     */
     public void save(TaskList taskList) throws IOException {
         int numberOfTasks = taskList.getSize();
         BufferedWriter writer = new BufferedWriter(new FileWriter(taskFile));
@@ -63,9 +76,5 @@ public class Storage {
             writer.newLine();
         }
         writer.close();
-    }
-
-    public Storage() {
-
     }
 }
