@@ -3,6 +3,8 @@ package dgpt;
 import dgpt.task.Task;
 import dgpt.task.TaskList;
 
+import java.util.List;
+
 public class Ui {
 
     public void showWelcome() {
@@ -49,8 +51,10 @@ public class Ui {
     public void showList(TaskList taskList) {
         System.out.println("-----------------------");
         System.out.println("Here are the following items in your list:");
+        int index = 1;
         for (Task t : taskList.getTaskList()) {
-            System.out.println(t.toString());
+            System.out.println(index + "." + t.toString());
+            index++;
         }
         System.out.println("-----------------------");
     }
@@ -87,5 +91,21 @@ public class Ui {
 
     public void showUser() {
         System.out.print("User> ");
+    }
+
+    /**
+     * Displays a list of tasks that match a search query.
+     *
+     * @param taskList A list of tasks that match the search query.
+     */
+    public void showFind(List<Task> taskList) {
+        System.out.println("-----------------------");
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        for (Task t : taskList) {
+            System.out.println(index + "." + t.toString());
+            index++;
+        }
+        System.out.println("-----------------------");
     }
 }

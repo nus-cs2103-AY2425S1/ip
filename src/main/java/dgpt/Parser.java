@@ -80,6 +80,14 @@ public class Parser {
                         "(e.g. \"delete 1\")");
             }
         }
+        case "find" -> {
+            if (command.length == 2) {
+                ui.showFind(taskList.findTasks(command[1]));
+            } else {
+                throw new IncorrectInputException("OOPS!!! You should input what you're searching for after \"find\"" +
+                        " (e.g. \"find task\")");
+            }
+        }
         default -> throw new TaskNotFoundException("OOPS!!! I do not recognise that request. These are the " +
                 "following requests that are supported:\n" +
                 "-list\n" +
@@ -89,6 +97,7 @@ public class Parser {
                 "-deadline\n" +
                 "-event\n" +
                 "-delete\n" +
+                "-find\n" +
                 "-bye");
         }
     }
