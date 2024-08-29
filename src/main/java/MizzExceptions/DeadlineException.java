@@ -9,8 +9,8 @@ public class DeadlineException extends MizzException {
 
     @Override
     public String toString() {
-        return Utility.INDENT + "Oh no dead deadline command: "
-                + super.getMessage() + Utility.NEW_LINE
-                + Utility.INDENT + "Example usage: deadline <description> /by <deadline>";
+        return Utility.INDENT + "Oh no dead deadline command: " + super.getMessage()
+                + Utility.NEW_LINE + Utility.INDENT
+                + "Example usage: deadline <description> /by <deadline>";
     }
 }

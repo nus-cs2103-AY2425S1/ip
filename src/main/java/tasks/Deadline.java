@@ -10,7 +10,7 @@ public class Deadline extends Task {
      * Constructor for a deadline task.
      * 
      * @param description The task description.
-     * @param by          The due date of the task.
+     * @param by The due date of the task.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -19,9 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString()
-                + " (by: "
-                + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

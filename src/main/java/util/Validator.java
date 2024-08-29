@@ -19,7 +19,7 @@ public class Validator {
      * Method to validate the deadline command.
      * 
      * @param details The full split input from the user.
-     * @param byIdx   The idx of "/by" in details.
+     * @param byIdx The idx of "/by" in details.
      * @throws DeadlineException if the input is malformed.
      */
     public static void verifyDeadline(String[] details, int byIdx) throws DeadlineException {
@@ -41,7 +41,7 @@ public class Validator {
      * 
      * @param details The full split input from the user.
      * @param fromIdx The idx of "/from" in details.
-     * @param toIdx   The idx of "/to" in details.
+     * @param toIdx The idx of "/to" in details.
      * @throws EventException if the input is malformed.
      */
     public static void verifyEvent(String[] details, int fromIdx, int toIdx) throws EventException {
@@ -74,8 +74,8 @@ public class Validator {
      */
     public static void verifyMarkUnmark(String[] details) throws UpdateMarkedException {
         if (details.length == 1) {
-            throw new UpdateMarkedException(
-                    "Too few arguments missing idx to mark/ unmark", details[0]);
+            throw new UpdateMarkedException("Too few arguments missing idx to mark/ unmark",
+                    details[0]);
         }
         try {
             Integer.parseInt(details[1]);
@@ -98,8 +98,7 @@ public class Validator {
         try {
             Integer.parseInt(details[1]);
         } catch (NumberFormatException e) {
-            throw new DeleteException(
-                    String.format("Last I checked (%s)'s no int :/", details[1]));
+            throw new DeleteException(String.format("Last I checked (%s)'s no int :/", details[1]));
         }
     }
 }

@@ -21,10 +21,8 @@ public class StorageTest {
     @Test
     public void testToArray_readsFileCorrectly() throws IOException {
         Path filePath = tempDir.resolve("testData.txt");
-        List<String> lines = List.of(
-                "[D][ ] Prepare report /by 2024-08-31",
-                "[E][X] Attend meeting /from 2024-08-30 /to 2024-10-09",
-                "[T][ ] Read book");
+        List<String> lines = List.of("[D][ ] Prepare report /by 2024-08-31",
+                "[E][X] Attend meeting /from 2024-08-30 /to 2024-10-09", "[T][ ] Read book");
         Files.write(filePath, lines);
 
         Storage storage = new Storage(filePath.toString());
@@ -48,8 +46,7 @@ public class StorageTest {
     }
 
     /**
-     * Test that the Storage class does not throw an exception for a non-existent
-     * file.
+     * Test that the Storage class does not throw an exception for a non-existent file.
      */
     @Test
     public void testStorage_withNonExistentFile() {

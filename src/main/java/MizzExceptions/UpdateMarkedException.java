@@ -12,10 +12,8 @@ public class UpdateMarkedException extends MizzException {
 
     @Override
     public String toString() {
-        return Utility.INDENT + "Thats bad marking >:( "
-                + super.getMessage() + Utility.NEW_LINE
-                + (this.mark
-                        ? Utility.INDENT + "Example usage: mark <valid_idx_from_1>"
+        return Utility.INDENT + "Thats bad marking >:( " + super.getMessage() + Utility.NEW_LINE
+                + (this.mark ? Utility.INDENT + "Example usage: mark <valid_idx_from_1>"
                         : Utility.INDENT + "Example usage: unmark <valid_idx_from_1>");
     }
 }

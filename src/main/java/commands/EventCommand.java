@@ -17,7 +17,8 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tl, Ui ui, Storage storage, String... details) throws MizzException {
+    public void execute(TaskList tl, Ui ui, Storage storage, String... details)
+            throws MizzException {
         try {
             LocalDate fromDate = LocalDate.parse(details[2]);
             LocalDate toDate = LocalDate.parse(details[3]);

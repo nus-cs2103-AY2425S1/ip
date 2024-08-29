@@ -9,8 +9,7 @@ public class DeleteException extends MizzException {
 
     @Override
     public String toString() {
-        return Utility.INDENT + "OOPs bad delete!: "
-                + super.getMessage() + Utility.NEW_LINE
+        return Utility.INDENT + "OOPs bad delete!: " + super.getMessage() + Utility.NEW_LINE
                 + Utility.INDENT + "Example usage: delete <valid_idx_from_1>";
     }
 }

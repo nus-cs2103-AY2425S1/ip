@@ -34,7 +34,8 @@ public class Storage {
 
     public void addToStorage(String data) {
         try {
-            Files.write(this.filePath, (data + Utility.NEW_LINE).getBytes(), StandardOpenOption.APPEND);
+            Files.write(this.filePath, (data + Utility.NEW_LINE).getBytes(),
+                    StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("Error saving to storage!");
         }

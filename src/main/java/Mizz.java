@@ -25,7 +25,7 @@ public class Mizz {
      * Constructor for Mizz class. Initialises the Mizz object with defualt values
      * 
      * @param greeting The greeting msg to be printed.
-     * @param exitMsg  The exit msg to be printed.
+     * @param exitMsg The exit msg to be printed.
      */
     public Mizz(String greeting, String filePath) {
         this.greeting = greeting;
@@ -43,8 +43,8 @@ public class Mizz {
     }
 
     public static void main(String[] args) {
-        String greeting = String.format(
-                "Hello! I'm %s\n%sWhat can I do for you?", NAME, Utility.INDENT);
+        String greeting =
+                String.format("Hello! I'm %s\n%sWhat can I do for you?", NAME, Utility.INDENT);
         Mizz bot = new Mizz(greeting, "./store/storage.txt");
 
         bot.greet();

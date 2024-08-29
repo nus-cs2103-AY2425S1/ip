@@ -35,48 +35,51 @@ public class Parser {
             }
             Task t;
             switch (taskType) {
-                case 'T': {
-                    t = new ToDo(details);
+            case 'T': {
+                t = new ToDo(details);
+                result.add(t);
+                break;
+            }
+            case 'D': {
+                int byIdx = details.indexOf(" (by: ");
+                if (byIdx == -1) {
+                    throw new MizzException("Invalid format for Deadline: " + details);
+                }
+                String description = details.substring(0, byIdx);
+                String by = details.substring(byIdx + 6, details.length() - 1);
+                try {
+                    LocalDate byDate =
+                            LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                    t = new Deadline(description, byDate);
                     result.add(t);
-                    break;
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateException(e.getMessage());
                 }
-                case 'D': {
-                    int byIdx = details.indexOf(" (by: ");
-                    if (byIdx == -1) {
-                        throw new MizzException("Invalid format for Deadline: " + details);
-                    }
-                    String description = details.substring(0, byIdx);
-                    String by = details.substring(byIdx + 6, details.length() - 1);
-                    try {
-                        LocalDate byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                        t = new Deadline(description, byDate);
-                        result.add(t);
-                    } catch (DateTimeParseException e) {
-                        throw new InvalidDateException(e.getMessage());
-                    }
-                    break;
+                break;
+            }
+            case 'E': {
+                int fromIdx = details.indexOf(" (from: ");
+                int toIdx = details.indexOf(" to: ");
+                if (fromIdx == -1 || toIdx == -1) {
+                    throw new MizzException("Invalid format for Event: " + details);
                 }
-                case 'E': {
-                    int fromIdx = details.indexOf(" (from: ");
-                    int toIdx = details.indexOf(" to: ");
-                    if (fromIdx == -1 || toIdx == -1) {
-                        throw new MizzException("Invalid format for Event: " + details);
-                    }
-                    String description = details.substring(0, fromIdx);
-                    String from = details.substring(fromIdx + 8, toIdx);
-                    String to = details.substring(toIdx + 5, details.length() - 1);
-                    try {
-                        LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                        LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                        t = new Event(description, fromDate, toDate);
-                        result.add(t);
-                    } catch (DateTimeParseException e) {
-                        throw new InvalidDateException(e.getMessage());
-                    }
-                    break;
+                String description = details.substring(0, fromIdx);
+                String from = details.substring(fromIdx + 8, toIdx);
+                String to = details.substring(toIdx + 5, details.length() - 1);
+                try {
+                    LocalDate fromDate =
+                            LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                    LocalDate toDate =
+                            LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                    t = new Event(description, fromDate, toDate);
+                    result.add(t);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateException(e.getMessage());
                 }
-                default:
-                    throw new MizzException("Invalid entry found in file!: " + taskType);
+                break;
+            }
+            default:
+                throw new MizzException("Invalid entry found in file!: " + taskType);
             }
             if (entry.charAt(4) == 'X') {
                 t.markDone();
@@ -94,8 +97,7 @@ public class Parser {
      *         <ul>
      *         <li>parsedString[0] -> command</li>
      *         <li>parsedString[1] -> description</li>
-     *         <li>parsedString[2] -> "" if todo | by if deadline | from if
-     *         event</li>
+     *         <li>parsedString[2] -> "" if todo | by if deadline | from if event</li>
      *         <li>parsedString[3] -> to if event else ""</li>
      *         </ul>
      */
@@ -121,17 +123,17 @@ public class Parser {
         }
 
         switch (result[0]) {
-            case "todo":
-                Parser.parseTodo(parts, result);
-                return result;
-            case "deadline":
-                Parser.parseDeadline(parts, result);
-                return result;
-            case "event":
-                Parser.parseEvent(parts, result);
-                return result;
-            default:
-                break;
+        case "todo":
+            Parser.parseTodo(parts, result);
+            return result;
+        case "deadline":
+            Parser.parseDeadline(parts, result);
+            return result;
+        case "event":
+            Parser.parseEvent(parts, result);
+            return result;
+        default:
+            break;
         }
 
         return result;
@@ -143,7 +145,8 @@ public class Parser {
         return result;
     }
 
-    private static String[] parseDeadline(String[] parts, String[] result) throws DeadlineException {
+    private static String[] parseDeadline(String[] parts, String[] result)
+            throws DeadlineException {
         int byIdx = -1;
         for (int i = 1; i < parts.length; i++) {
             if (byIdx == -1 && parts[i].equals("/by")) {
@@ -154,8 +157,7 @@ public class Parser {
 
         Validator.verifyDeadline(parts, byIdx);
         result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
-        result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1,
-                parts.length));
+        result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1, parts.length));
         return result;
     }
 

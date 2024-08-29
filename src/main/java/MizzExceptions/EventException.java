@@ -10,7 +10,7 @@ public class EventException extends MizzException {
     @Override
     public String toString() {
         return Utility.INDENT + "Oops! My advanced training hasn't prepared me for this event!: "
-                + super.getMessage() + Utility.NEW_LINE
-                + Utility.INDENT + "Example usage: event <description> /from <from> /to <to>";
+                + super.getMessage() + Utility.NEW_LINE + Utility.INDENT
+                + "Example usage: event <description> /from <from> /to <to>";
     }
 }

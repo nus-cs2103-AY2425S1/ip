@@ -16,8 +16,9 @@ public class DeleteCommand extends Command {
         try {
             int idx = Integer.parseInt(details[1]);
             if (!tl.isValidIdx(idx)) {
-                ui.printResponse(String.format(
-                        "%sSomeones tryna be funny, idx: %d is out of range!", Utility.INDENT, idx));
+                ui.printResponse(
+                        String.format("%sSomeones tryna be funny, idx: %d is out of range!",
+                                Utility.INDENT, idx));
                 return;
             }
             Task t = tl.deleteTask(idx, storage);

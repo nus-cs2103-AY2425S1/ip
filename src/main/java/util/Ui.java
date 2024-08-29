@@ -10,11 +10,11 @@ public class Ui {
     };
 
     /**
-     * Prints the response by prepending the indent to the msgs and wrapping the
-     * final msg in between horizontal lines with pretty print.
+     * Prints the response by prepending the indent to the msgs and wrapping the final msg in
+     * between horizontal lines with pretty print.
      * 
-     * @param strArr The array of strings that make up the msg, each element will be
-     *               separated with a \n in the printed msg.
+     * @param strArr The array of strings that make up the msg, each element will be separated with
+     *        a \n in the printed msg.
      */
     public void printResponse(String... strArr) {
         StringBuilder sb = new StringBuilder();
