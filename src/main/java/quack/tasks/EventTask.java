@@ -20,7 +20,7 @@ public class EventTask extends Task{
      * @param startDate The starting period for the event.
      * @param endDate The ending period for the event.
      */
-    EventTask(String description, LocalDateTime startDate, LocalDateTime endDate) {
+    public EventTask(String description, LocalDateTime startDate, LocalDateTime endDate) {
 
         super(description);
         this.startDate = startDate;

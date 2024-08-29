@@ -9,7 +9,7 @@ public class ToDoTask extends Task{
      * Creates a ToDo task object based on its description.
      * @param taskName Description of the task.
      */
-    ToDoTask (String taskName) {
+    public ToDoTask (String taskName) {
         super(taskName);
     }
 

@@ -113,7 +113,7 @@ public class Ui {
     public void printUpdateSuccessfulMessage(Task task, String command, TaskList taskList) {
         
         System.out.println("Success! I have " + command + "ed this task: " + task.toString() + "\n"+
-                            "You now have " + taskList.getLength() + " tasks in your list right now! \n" + this.spacer);
+                            "You now have " + taskList.getLength() + " tasks in your list right now!\n" + this.spacer);
     }
 
     /**
@@ -138,7 +138,7 @@ public class Ui {
         
         String input = null;
         try {
-            System.out.print("Which task do you want to " + command + "? (Input the index of the task): ");
+            System.out.println("Which task do you want to " + command + "? (Input the index of the task): ");
             input = this.scanner.nextLine();
             int index = Integer.parseInt(input);
             System.out.println(this.spacer);
@@ -155,7 +155,7 @@ public class Ui {
      */
     public String requestTaskType() throws InvalidTaskTypeException{
 
-        System.out.print("What is the type of task you would like to add: ");
+        System.out.println("What is the type of task you would like to add: ");
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
 
@@ -174,8 +174,9 @@ public class Ui {
      */
     public String requestTaskDescription(String taskType) {
 
-        System.out.print("What is the description for the " + taskType + " task: ");
+        System.out.println("What is the description for the " + taskType + " task: ");
         String input = this.scanner.nextLine();
+        System.out.println(this.spacer);
         return input;
        
     }
@@ -187,8 +188,9 @@ public class Ui {
      */
     public String requestStartDate(String taskType) {
 
-        System.out.print("When is the start date for the " + taskType + " task (Format: DD/MM/YYYY HH:MM:SS): ");
+        System.out.println("When is the start date for the " + taskType + " task (Format: DD/MM/YYYY HH:MM:SS): ");
         String input = this.scanner.nextLine();
+        System.out.println(this.spacer);
         return input;
     }
 
@@ -199,8 +201,9 @@ public class Ui {
      */
     public String requestEndDate(String taskType) {
 
-        System.out.print("When is the end date for the " + taskType + " task (Format: DD/MM/YYYY HH:MM:SS): ");
+        System.out.println("When is the end date for the " + taskType + " task (Format: DD/MM/YYYY HH:MM:SS): ");
         String input = this.scanner.nextLine();
+        System.out.println(this.spacer);
         return input;
        
     }

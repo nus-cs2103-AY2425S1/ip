@@ -1,9 +1,7 @@
 package quack.command;
 
 import java.time.format.DateTimeParseException;
-import quack.Quack;
 import quack.TaskList;
-import quack.Storage;
 import quack.Ui;
 import quack.tasks.Task;
 import quack.exception.InvalidTaskTypeException;
@@ -15,19 +13,25 @@ import quack.exception.InvalidDateTimeException;
  */
 public class AddTaskCommand extends Command{
     
+    private TaskList taskList;
+    private Ui ui;
+
     /**
      * Creates a AddTaskCommand object.
+     * @param taskList A list that stores all the tasks tracked by Quack.
+     * @param ui The ui object that handles user interface requests.
      */
-    public AddTaskCommand() {
-       
+    public AddTaskCommand(TaskList taskList, Ui ui) {
+       this.taskList = taskList;
+       this.ui = ui;
     }
 
     @Override
-    public void execute(Quack quack, TaskList taskList, Storage storage, Ui ui){
+    public void execute(){
 
         try {
             String taskType = ui.requestTaskType();
-            this.getTaskDetails(quack, taskList, taskType.toUpperCase(), ui);
+            this.getTaskDetails(taskType.toUpperCase());
         } catch (InvalidTaskTypeException taskTypeError) {
             ui.printExceptionMessage(taskTypeError);
         }
@@ -38,11 +42,9 @@ public class AddTaskCommand extends Command{
      * <p>
      * After retrieving the task details, the task will be created and added,
      * into the tasklist
-     * @param quack The chatbot object quack.
-     * @param taskList A list that stores all the tasks tracked by Quack. 
      * @param taskType The type of tasks to be created. 
      */
-    private void getTaskDetails(Quack quack, TaskList taskList, String taskType, Ui ui) {
+    private void getTaskDetails(String taskType) {
         
         String taskDescription = ui.requestTaskDescription(taskType);
         String startDate = null;
