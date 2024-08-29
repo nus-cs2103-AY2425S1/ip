@@ -2,3 +2,6 @@ DEADLINE | 0 | tjoef | 2019-10-14 1400
 TODO | 0 | aslmdf
 TODO | 0 | somadf
 TODO | 0 | somf
+TODO | 0 | read book
+DEADLINE | 0 | return book | 2019-07-02
+TODO | 0 | somna

@@ -22,6 +22,7 @@ public class Parser {
         DELETE,
         LIST,
         BYE,
+        FIND,
     }
 
     /**
@@ -74,6 +75,10 @@ public class Parser {
 
             case BYE:
                 c = new ByeCommand();
+                break;
+
+            case FIND:
+                c = new FindCommand(info);
                 break;
 
             default:
