@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;  // Import the Scanner class
 import java.io.File;
+import java.io.FileWriter;
+
 
 public class KukiShinobu {
     private final String name = "Kuki Shinobu";
@@ -38,6 +40,32 @@ public class KukiShinobu {
         this.tasks = existingTasks;
         System.out.println(this.tasks);
         return parseTasks(input);
+    }
+
+    public void writeToDatabaseFile() {
+        // TODO: Takes this.tasks and write it to the database file
+        StringBuilder stringToWrite = new StringBuilder();
+        // Step 1: Parse the file into a single string
+        for (Task task: this.tasks) {
+            stringToWrite.append(task.getDatabaseString() + System.lineSeparator());
+        }
+
+        // Step 2: Insert the entire text string into the file
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(KukiShinobu.FILE_PATH);
+            fw.write(stringToWrite.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private ArrayList<String> readFile(String filePath) {
@@ -204,6 +232,7 @@ public class KukiShinobu {
                     default:
                         this.handleUnknownCommand();
                 }
+                writeToDatabaseFile();
             } catch (KukiShinobuException e) {
                 System.out.println(e.getMessage());
             }
