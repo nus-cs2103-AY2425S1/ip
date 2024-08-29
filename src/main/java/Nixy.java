@@ -24,16 +24,16 @@ public class Nixy {
         Boolean isExit = false;
         while (!isExit) {
             String input = readInput();
-            Parser p =  Parser.of(input);
+            Parser p =  Parser(input);
             Command c = p.getCommand();
             switch (c) {
-            case BYE:
+            case Command.BYE:
                 isExit = true;
                 break;
-            case LIST:
+            case Command.LIST:
                 ui.showList(tasks);
                 break;
-            case MARK:
+            case Command.MARK:
                 try {
                     Task task = tasks.markTaskAsDone(p.getTaskNumber());
                     ui.showMarkedAsDone(task);
@@ -42,7 +42,7 @@ public class Nixy {
                     ui.showNixyException(e);
                 }
                 break;
-            case UNMARK:
+            case Command.UNMARK:
                 try {
                     Task task = tasks.markTaskAsUndone(p.getTaskNumber());
                     ui.showMarkedAsUndone(task);
@@ -51,28 +51,28 @@ public class Nixy {
                     ui.showNixyException(e);
                 }
                 break;
-            case DELETE:
+            case Command.DELETE:
                 try {
                     Task task = tasks.deleteTask(p.getTaskNumber());
-                    ui.showDeletedTask(task, tasks.size());
+                    ui.showDeletedTask(task, tasks.getTaskCount());
                     storage.save(tasks);
                 } catch (NixyException e) {
                     ui.showNixyException(e);
                 }
                 break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
+            case Command.TODO:
+            case Command.DEADLINE:
+            case Command.EVENT:
                 try {
                     Task task = p.getTask();
                     tasks.add(task);
-                    ui.showAddedTask(task, tasks.size());
+                    ui.showAddedTask(task, tasks.getTaskCount());
                     storage.save(tasks);
                 } catch (NixyException e) {
                     ui.showNixyException(e);
                 }
                 break;
-            case UNKNOWN:
+            case INVALID:
                 ui.showUnknownWarning();
                 break;
             }
