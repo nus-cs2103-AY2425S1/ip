@@ -16,6 +16,7 @@ public class Ui {
         print("Hello! I'm SIGMA! \nLooking forward to slaying with you!\nWhat do you need today?" +
                 "\nYou can add tasks with \"todo\", \"deadline\", \"event\" or view tasks with \"list\"." +
                 "\nYou can also mark tasks as done with \"mark\" or \"unmark\" them." +
+                "\nYou can search for tasks with \"find\"." +
                 "\nYou can also delete tasks with \"delete\"." +
                 "\nIf you're done, just type \"bye\" to exit.");
     }
@@ -37,10 +38,18 @@ public class Ui {
 
     public static void throwUnrecognisedError() throws SigmaException {
         throw new SigmaException("What the sigma? I don't understand! Try again! Enter " +
-                "\"todo\", \"deadline\", \"event\", \"list\", \"mark\", \"unmark\" or \"bye\"!");
+                "\"todo\", \"deadline\", \"event\", \"list\", \"mark\", \"unmark\", \"find\" or \"bye\"!");
     }
 
     public static void throwError(String message) throws SigmaException {
         throw new SigmaException(message);
+    }
+
+    public static StringBuilder buildList(TaskList tasks) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 1; i <= tasks.size(); i++) {
+            s.append(i + ". " + tasks.get(i - 1).toString() + "\n");
+        }
+        return s;
     }
 }
