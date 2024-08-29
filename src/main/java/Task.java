@@ -13,6 +13,15 @@ public class Task {
     }
 
     /**
+     * Constructor to initialise a task previously recorded.
+     * @param description Input based on user.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
      * Returns whether or not a task is completed.
      */
     public String getStatusIcon() {
@@ -57,11 +66,11 @@ public class Task {
         return " ";
     }
 
-
-
-    public String extractDescription(String input, String keyword) {
-        String description = input.replaceFirst(keyword, "").trim();
-        String[] parts = description.split(" " + this.marker + " ");
-        return parts[0].trim();
+    /**
+     * Returns a string representation of the file format in which we store the task.
+     */
+    public String fileFormat () {
+        String done = isDone ? "1" : "0";
+        return this.taskLetter() + " | " + done + " | " + this.description;
     }
 }
