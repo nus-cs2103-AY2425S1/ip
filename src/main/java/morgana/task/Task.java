@@ -10,6 +10,10 @@ public abstract class Task {
         this.description = description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void markAsDone(boolean isDone) {
         this.isDone = isDone;
     }
