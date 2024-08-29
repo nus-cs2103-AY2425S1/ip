@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            storage.save(tasks);
+            storage.saveTasks(tasks);
             ui.showGoodbye();
         } catch (IOException e) {
             ui.showError(e.getMessage());

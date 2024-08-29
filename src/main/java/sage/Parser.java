@@ -1,6 +1,11 @@
 package sage;
 
-import sage.Command.*;
+import sage.Command.Command;
+import sage.Command.ListCommand;
+import sage.Command.MarkCommand;
+import sage.Command.AddCommand;
+import sage.Command.DeleteCommand;
+import sage.Command.ExitCommand;
 
 public class Parser {
     /**

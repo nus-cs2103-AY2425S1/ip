@@ -6,7 +6,7 @@ import sage.List.TaskList;
 import java.io.IOException;
 
 public class Sage {
-    public static TaskList taskList;
+    public static TaskList tasks;
     public static Ui ui;
     public static Storage storage;
 
@@ -19,10 +19,10 @@ public class Sage {
         storage = new Storage(filePath);
 
         try {
-            taskList = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTasks());
         } catch (IOException | SageException e) {
             ui.showError(e.getMessage());
-            taskList = new TaskList();
+            tasks = new TaskList();
         }
     }
 
@@ -33,7 +33,7 @@ public class Sage {
             try {
                 String input = ui.readInput();
                 Command command = Parser.parse(input);
-                command.execute(taskList, ui, storage);
+                command.execute(tasks, ui, storage);
                 isExit = command.isExit();
 
             } catch (SageException e) {

@@ -38,10 +38,10 @@ public class MarkCommand extends Command {
             throw new SageException("Invalid mark/unmark command. Index must be a number.");
         }
 
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= tasks.getSize()) {
             throw new SageException("Invalid task number.");
         }
 
-        tasks.mark(index, isDone);
+        tasks.markTask(index, isDone);
     }
 }

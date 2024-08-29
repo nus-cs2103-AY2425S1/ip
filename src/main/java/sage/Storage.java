@@ -24,10 +24,10 @@ public class Storage {
      * Loads tasks from a file and returns them as a list.
      *
      * @return The list of loaded tasks.
-     * @throws IOException If an I/O error occurs.
+     * @throws IOException   If an I/O error occurs.
      * @throws SageException If the file is corrupted or contains invalid data.
      */
-    public List<Task> load() throws IOException, SageException {
+    public List<Task> loadTasks() throws IOException, SageException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
 
@@ -46,26 +46,26 @@ public class Storage {
             String description = entryDetails[2];
 
             switch (type) {
-                case "T":
-                    Task toDo = new ToDoTask(description);
-                    toDo.setDone(isDone);
-                    taskList.add(toDo);
-                    break;
-                case "D":
-                    String by = entryDetails[3];
-                    Task deadline = new DeadlineTask(description, by);
-                    deadline.setDone(isDone);
-                    taskList.add(deadline);
-                    break;
-                case "E":
-                    String from = entryDetails[3];
-                    String to = entryDetails[4];
-                    Task event = new EventTask(description, from, to);
-                    event.setDone(isDone);
-                    taskList.add(event);
-                    break;
-                default:
-                    throw new SageException("Corrupted file.");
+            case "T":
+                Task toDo = new ToDoTask(description);
+                toDo.setDone(isDone);
+                taskList.add(toDo);
+                break;
+            case "D":
+                String by = entryDetails[3];
+                Task deadline = new DeadlineTask(description, by);
+                deadline.setDone(isDone);
+                taskList.add(deadline);
+                break;
+            case "E":
+                String from = entryDetails[3];
+                String to = entryDetails[4];
+                Task event = new EventTask(description, from, to);
+                event.setDone(isDone);
+                taskList.add(event);
+                break;
+            default:
+                throw new SageException("Corrupted file.");
             }
         }
         scanner.close();
@@ -78,7 +78,7 @@ public class Storage {
      * @param tasksList The list of tasks to be saved.
      * @throws IOException If an I/O error occurs.
      */
-    public void save(TaskList tasksList) throws IOException {
+    public void saveTasks(TaskList tasksList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasksList.getTasks()) {
             fw.write(task.toSave() + System.lineSeparator());

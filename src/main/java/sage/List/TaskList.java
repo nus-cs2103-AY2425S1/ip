@@ -21,7 +21,7 @@ public class TaskList {
     /**
      * Returns the number of tasks in the list.
      */
-    public int size() {
+    public int getSize() {
         return tasks.size();
     }
 
@@ -37,7 +37,7 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void add(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
@@ -48,7 +48,7 @@ public class TaskList {
      * @return The deleted task.
      * @throws SageException If the task index is invalid.
      */
-    public Task delete(int index) throws SageException {
+    public Task deleteTask(int index) throws SageException {
         if (index < 0 || index >= tasks.size()) {
             throw new SageException("Invalid task index.");
         }
@@ -62,11 +62,12 @@ public class TaskList {
      * @param isDone A boolean indicating if the task is marked as done or not.
      * @throws SageException If the task index is invalid.
      */
-    public void mark(int index, boolean isDone) throws SageException {
+    public void markTask(int index, boolean isDone) throws SageException {
         if (index < 0 || index >= tasks.size()) {
             throw new SageException("Invalid task index.");
         }
-        StringBuilder confirmationMessage = new StringBuilder(isDone ? "Nice! I've marked this task as done:\n"
+        StringBuilder confirmationMessage = new StringBuilder(isDone
+                ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n");
 
         Task task = tasks.get(index);
