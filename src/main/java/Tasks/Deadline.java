@@ -1,5 +1,8 @@
+package Tasks;
+
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,7 +28,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void writeToFile(FileWriter fileWriter) {
+    public void writeToFile(FileWriter fileWriter) throws IOException {
         // Write event to file
         try {
             String toWrite = "D | ";
@@ -36,6 +39,24 @@ public class Deadline extends Task {
             }
             toWrite += this.name + " | " + this.deadline + "\n";
             fileWriter.write(toWrite);
+        } catch (IOException writeException) {
+            throw new RuntimeException(writeException);
+        }
+    }
+
+    @Override
+    public void writeToFile(Path filePath) throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter(String.valueOf(filePath), true);
+            String toWrite = "D | ";
+            if (this.isDone) {
+                toWrite += "1 | ";
+            } else {
+                toWrite += "0 | ";
+            }
+            toWrite += this.name + " | " + this.deadline + "\n";
+            fileWriter.write(toWrite);
+            fileWriter.close();
         } catch (IOException writeException) {
             throw new RuntimeException(writeException);
         }
