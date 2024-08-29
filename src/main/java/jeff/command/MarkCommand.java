@@ -1,9 +1,16 @@
+package jeff.command;
+
+import jeff.Storage;
+import jeff.TaskList;
+import jeff.Ui;
+import jeff.exceptions.JEFFException;
+
 public class MarkCommand extends Command {
     private String args;
 
     public MarkCommand(String args) throws JEFFException {
         super();
-        if (args.isEmpty() || !Command.isNumeric(args)) {
+        if (args.isEmpty() || !isNumeric(args)) {
             throw new JEFFException("You must provide one number after the command!");
         }
         this.args = args;
