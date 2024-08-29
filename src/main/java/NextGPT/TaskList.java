@@ -60,8 +60,7 @@ public class TaskList {
     }
 
     public int size() {
-        return
-                this.todo_list.size();
+        return this.todo_list.size();
     }
 
     @Override
