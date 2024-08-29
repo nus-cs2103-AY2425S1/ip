@@ -145,7 +145,7 @@ public class Ui {
         System.out.println(String.format("Noted. I've removed this task:" + "\n"
                 + currTask + "\n"
                 + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
-        return tasklist;
+        return tasklist; 
     }
 
     /**
