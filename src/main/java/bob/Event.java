@@ -75,6 +75,7 @@ public class Event extends Task {
      * Returns a string representation of the event task, including its description, start time, and end time.
      *
      * @return The string representation of the event task.
+     * @inheritDoc
      */
     @Override
     public String toString() {
@@ -87,6 +88,7 @@ public class Event extends Task {
      * The format includes the task's description, status, start time, and end time in the input format.
      *
      * @return The formatted string for saving the task.
+     * @inheritDoc
      */
     @Override
     public String formatToSave() {
