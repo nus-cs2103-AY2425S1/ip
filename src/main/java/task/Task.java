@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Represents a task.
+ */
 public class Task {
     public enum TYPE { TODO, DEADLINE, EVENT, UNKNOWN };
 
@@ -11,10 +14,16 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
@@ -32,6 +41,11 @@ public class Task {
         return this.isDone ? "1" : "0";
     }
 
+    /**
+     * Returns a simple format of the task for storage.
+     *
+     * @return A simple format of the task.
+     */
     public String simpleFormat() {
         return this.getSimpleStatusIcon() + " | " + this.description;
     }

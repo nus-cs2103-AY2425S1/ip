@@ -50,20 +50,20 @@ public class Parser {
 
                         return new EventTask(description, false, date, startTime, endTime);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new InvalidTaskException("OOPS!!! The description, date, start time or " +
-                                "end time of an event cannot be empty.");
+                        throw new InvalidTaskException("OOPS!!! The description, date, start time or "
+                                + "end time of an event cannot be empty.");
                     }
                 }
                 default:
                     throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't what task is this. :-(");
             }
         } catch (InvalidDateException e) {
-            throw new InvalidTaskException("OOPS!!! Please enter a valid " +
-                    "date and time in the format dd-mm-yyyy.");
+            throw new InvalidTaskException("OOPS!!! Please enter a valid "
+                    + "date and time in the format dd-mm-yyyy.");
         }
         catch (InvalidTimeException e) {
-            throw new InvalidTaskException("OOPS!!! Please enter a valid " +
-                    "time in the format HHmm.");
+            throw new InvalidTaskException("OOPS!!! Please enter a valid "
+                    + "time in the format HHmm.");
         }
     }
 

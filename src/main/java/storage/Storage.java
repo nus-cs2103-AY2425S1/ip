@@ -69,8 +69,8 @@ public class Storage {
                     case "D" -> Task.TYPE.DEADLINE;
                     case "E" -> Task.TYPE.EVENT;
                     default ->
-                        throw new InvalidDataFormatException("OOPS!!! " +
-                                "There was an error loading the tasks from the file.");
+                        throw new InvalidDataFormatException("OOPS!!! "
+                                + "There was an error loading the tasks from the file.");
                 };
                 boolean isDone = taskDetails[1].trim().equals("1");
                 String description = taskDetails[2].trim();
@@ -101,8 +101,8 @@ public class Storage {
         } catch (IOException e) {
             throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
         } catch (InvalidDateException | InvalidTimeException e) {
-            throw new InvalidDataFormatException("OOPS!!! There was an error loading the tasks from the file." +
-                    " Please check the date and time format.");
+            throw new InvalidDataFormatException("OOPS!!! There was an error loading the tasks from the file."
+                    + " Please check the date and time format.");
         }
     }
 }

@@ -5,6 +5,9 @@ import parser.Parser;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a deadline task.
+ */
 public class DeadlineTask extends Task {
     private final LocalDate date;
 

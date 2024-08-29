@@ -7,6 +7,9 @@ import parser.Parser;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Represents an event task.
+ */
 public class EventTask extends Task {
     private final LocalDate date;
     private final LocalTime startTime;
@@ -22,13 +25,13 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Parser.dateToString(this.date) +
-                " " + Parser.timeToString(this.startTime) + " to: " + Parser.timeToString(this.endTime) + ")";
+        return "[E]" + super.toString() + " (from: " + Parser.dateToString(this.date) + " "
+                + Parser.timeToString(this.startTime) + " to: " + Parser.timeToString(this.endTime) + ")";
     }
 
     @Override
     public String simpleFormat() {
-        return "E | " + super.simpleFormat() + " | " + Parser.dateToStorageString(this.date)
-                + " | " + Parser.timeToStorageString(this.startTime) + " | " + Parser.timeToStorageString(this.endTime);
+        return "E | " + super.simpleFormat() + " | " + Parser.dateToStorageString(this.date) + " | "
+                + Parser.timeToStorageString(this.startTime) + " | " + Parser.timeToStorageString(this.endTime);
     }
 }

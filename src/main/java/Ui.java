@@ -10,8 +10,7 @@ public class Ui {
      */
     public void greet() {
         String greet =
-                " Hello! I'm " + this.name + "\n" +
-                        " What can I do for you?";
+                "Hello! I'm " + this.name + "\n" + " What can I do for you?";
         System.out.println(formattedCommand(greet));
     }
 
