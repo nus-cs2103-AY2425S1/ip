@@ -10,6 +10,15 @@ public abstract class Task {
         this.completed = completed;
     }
 
+    public boolean isCompleted() {
+        return this.completed;
+    }
+    public String getTaskName() {
+        return taskName;
+    }
+
+    abstract public String exportString();
+
     @Override
     public String toString() {
         String x;
