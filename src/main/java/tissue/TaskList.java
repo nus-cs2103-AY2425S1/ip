@@ -10,14 +10,30 @@ public class TaskList {
         this.taskArray = taskArray;
     }
 
+    /**
+     * Returns task at the index.
+     *
+     * @param index The index of the task.
+     * @return Task at the index.
+     */
     public Task retrieveTask(int index) {
         return taskArray.get(index);
     }
 
+    /**
+     * Returns number of tasks.
+     *
+     * @return Number of tasks.
+     */
     public int size() {
         return taskArray.size();
     }
 
+    /**
+     * Adds specified task to the list.
+     *
+     * @param task The task to add to the list.
+     */
     public void add(Task task) {
         taskArray.add(task);
     }
@@ -32,6 +48,12 @@ public class TaskList {
         return parsedText;
     }
 
+    /**
+     * Deletes specified task from the list.
+     *
+     * @param number The task to delete.
+     * @return The deleted task.
+     */
     public Task deleteTask(int number) {
         return taskArray.remove(number - 1);
     }

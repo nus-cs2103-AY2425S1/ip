@@ -63,12 +63,17 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Reads an input string which stored into its respective task.
+     *
+     * @param in The input string
+     */
     private void storeTask(String in) {
         if (in.equals("todo")) {
 
             String item = parser.retrieveNextString();
             if (item.equals("")) {
-                System.out.println("Decription of TODO cannot be empty.");
+                System.out.println("Description of TODO cannot be empty.");
             } else {
                 Task task = new ToDo(false, item);
                 storage.save(task);
