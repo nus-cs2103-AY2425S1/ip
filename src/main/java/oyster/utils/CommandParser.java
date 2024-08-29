@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class CommandParser {
     /**
-     * Parses a singular line into a Command object
+     * Parses a singular line into a Command object.
      *
-     * @param line Line to be converted into a Command
-     * @return Command
+     * @param line Line to be converted into a Command.
+     * @return Command.
      */
     public static Command parse(String line) {
         Scanner scanner = new Scanner(line);
@@ -65,7 +65,7 @@ public class CommandParser {
             if (input.equals("mark")) {
                 command = new MarkCommand(index);
             } else if (input.equals("unmark")) {
-                command = new MarkCommand(index);
+                command = new UnmarkCommand(index);
             } else {
                 command = new DeleteCommand(index);
             }

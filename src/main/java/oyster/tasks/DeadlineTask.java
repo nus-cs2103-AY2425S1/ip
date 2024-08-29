@@ -12,8 +12,10 @@ public class DeadlineTask extends Task {
     private final LocalDateTime deadline;
 
     /**
-     * @param description The description of the Task
-     * @param deadline The deadline of the Task
+     * Creates a DeadlineTask given its values.
+     *
+     * @param description The description of the Task.
+     * @param deadline The deadline of the Task.
      */
     public DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
@@ -21,8 +23,10 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * @param input The string to parse into a DeadlineTask
-     * @return DeadlineTask object
+     * Creates a DeadlineTask given an input String to parse.
+     *
+     * @param input The string to parse into a DeadlineTask.
+     * @return DeadlineTask object.
      */
     public static DeadlineTask fromInput(String input) {
         String name = "";

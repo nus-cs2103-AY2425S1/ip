@@ -10,28 +10,32 @@ public abstract class Command {
     private String[] message;
 
     /**
-     * Creates an empty Command
+     * Creates an empty Command.
      */
     public Command() {
         // empty
     }
 
     /**
-     * @param message The message in the Command
+     * Creates a Command with a given Message.
+     *
+     * @param message The message in the Command.
      */
     public Command(String message) {
         setMessage(message);
     }
 
     /**
-     * @param message The messages in the Command
+     * Creates a Command with a given Message array.
+     *
+     * @param message The messages in the Command.
      */
     public Command(String[] message) {
         setMessage(message);
     }
 
     /**
-     * Executes a function when called to process information
+     * Executes a function when called to process information.
      */
     public abstract void execute();
 

@@ -4,24 +4,29 @@ import oyster.LogicController;
 import oyster.tasks.TaskList;
 
 public class UnmarkCommand extends Command {
-    private final int markIndex;
+    private final int index;
 
-    public UnmarkCommand(int markIndex) {
-        this.markIndex = markIndex;
+    /**
+     * Creates an UnmarkCommand that unmarks a Task in the TaskList.
+     *
+     * @param index The index to unmark a Task.
+     */
+    public UnmarkCommand(int index) {
+        this.index = index;
     }
 
     /**
-     * Unmarks a Task when executed
+     * Unmarks a Task when executed.
      */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();
 
         try {
-            taskList.unmark(markIndex);
+            taskList.unmark(index);
             setMessage(new String[]{
                     "I have unmarked the task!",
-                    "\t" + taskList.getTask(markIndex).toString()
+                    "\t" + taskList.getTask(index).toString()
             });
         } catch (Exception e) {
             setMessage("Task number does not exist!");

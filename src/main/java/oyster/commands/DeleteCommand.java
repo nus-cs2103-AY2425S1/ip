@@ -4,21 +4,26 @@ import oyster.LogicController;
 import oyster.tasks.TaskList;
 
 public class DeleteCommand extends Command {
-    private final int markIndex;
+    private final int index;
 
-    public DeleteCommand(int markIndex) {
-        this.markIndex = markIndex;
+    /**
+     * Creates a DeleteCommand that deletes at the specified index.
+     *
+     * @param index The index in the TaskList to delete.
+     */
+    public DeleteCommand(int index) {
+        this.index = index;
     }
 
     /**
-     * Deletes a Task when executed
+     * Deletes a Task when executed.
      */
     @Override
     public void execute() {
         TaskList taskList = LogicController.getTaskList();
 
         try {
-            String deletedTask = taskList.pop(markIndex).toString();
+            String deletedTask = taskList.pop(index).toString();
             setMessage(new String[]{
                     "I have deleted the task!",
                     "\t" + deletedTask,

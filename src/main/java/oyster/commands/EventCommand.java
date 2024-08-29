@@ -6,12 +6,17 @@ import oyster.tasks.*;
 public class EventCommand extends Command {
     private final Task task;
 
+    /**
+     * Creates an EventCommand given an input String to parse.
+     *
+     * @param input The input String to parse.
+     */
     public EventCommand(String input) {
         task = EventTask.fromInput(input);
     }
 
     /**
-     * Adds a new EventTask when executed
+     * Adds a new EventTask when executed.
      */
     @Override
     public void execute() {
