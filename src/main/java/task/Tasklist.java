@@ -1,5 +1,7 @@
 package task;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Tasklist {
     ArrayList<Task> taskList;
@@ -17,6 +19,19 @@ public class Tasklist {
         String retString = "";
         for (int i = 0; i < taskList.size(); i++) {
             retString += (i + 1) + ". " + taskList.get(i) + "\n";
+        }
+        return retString;
+    }
+
+    public String getMatchRegex(String s) {
+        String retString = "";
+        Pattern pattern = Pattern.compile(s);
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Matcher matcher = pattern.matcher(taskList.get(i).toString());
+            if (matcher.find()) {
+                retString += (i + 1) + ". " + taskList.get(i) + "\n";
+            }
         }
         return retString;
     }

@@ -147,4 +147,13 @@ public class Ui {
                 + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
         return tasklist;
     }
+
+    /**
+     * Return tasks matching regex.
+     */
+    public void replyFind(String s, Tasklist tasklist) {
+        System.out.println(String.format("Here are the matching tasks in your list:" + "\n"
+                + tasklist.getMatchRegex(s) + "\n" + blankline));
+        return;
+    }
 }
