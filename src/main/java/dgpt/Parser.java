@@ -6,8 +6,26 @@ import dgpt.task.TaskList;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for interpreting user input and converting it into commands
+ * that interact with the TaskList and Ui components of the DGPT application.
+ * It parses the input string, identifies the command, and performs the corresponding action
+ * on the task list while providing feedback to the user interface.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and executes the corresponding command on the task list.
+     * This method identifies the command type and performs the appropriate action,
+     * such as marking or unmarking tasks, adding new tasks, or deleting tasks.
+     * It also handles exceptions related to incorrect input and task operations.
+     *
+     * @param input The user input string that contains the command and its parameters.
+     * @param taskList The TaskList instance where tasks are managed.
+     * @param ui The Ui instance used to display messages and task information to the user.
+     * @throws IncorrectInputException If the input format is incorrect or missing required parameters.
+     * @throws TaskNotFoundException If the command refers to a task that cannot be found.
+     */
     public static void parse(String input, TaskList taskList, Ui ui) throws IncorrectInputException, TaskNotFoundException {
         String[] command = input.split(" ", 2);
 

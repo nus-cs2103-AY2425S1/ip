@@ -1,8 +1,11 @@
 package dgpt.task;
 
 /**
- *  Represents a task that has to be completed. A {@code dgpt.task.Task} corresponds to a description represented by a string,
- *  as well as a completion status.
+ * Represents a generic task with a description and a completion status.
+ * <p>
+ * This class is an abstract base class for different types of tasks in the DGPT application.
+ * It provides methods for managing and representing the task's description and completion status.
+ * </p>
  */
 abstract public class Task {
 
@@ -10,9 +13,9 @@ abstract public class Task {
     protected boolean isDone;
 
     /**
-     * Creates a new dgpt.task.Task Instance.
+     * Creates a new {@code Task} instance with the specified description.
      *
-     * @param description the description of the task created.
+     * @param description The description of the task being created.
      */
     public Task(String description) {
         this.description = description;
@@ -20,26 +23,51 @@ abstract public class Task {
     }
 
     /**
-     * Returns the String representation of the task's completion status.
+     * Returns the string representation of the task's completion status.
+     * <p>
+     * The status icon is represented as "X" if the task is completed, or " " (a space) if the task is not completed.
+     * </p>
      *
-     * @return the icon of the task's completion status
+     * @return The icon representing the task's completion status.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks the task as completed.
+     * <p>
+     * This method sets the {@code isDone} status of the task to {@code true}.
+     * </p>
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not completed.
+     * <p>
+     * This method sets the {@code isDone} status of the task to {@code false}.
+     * </p>
+     */
     public void unmark() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Returns whether the task is completed.
+     *
+     * @return {@code true} if the task is completed, {@code false} otherwise.
+     */
     public boolean getIsDone() {
         return this.isDone;
     }
