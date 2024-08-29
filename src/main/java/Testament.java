@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 public class Testament {
     final static String LINE = "____________________________________________________________";
@@ -107,6 +108,9 @@ public class Testament {
                     taskList.add(Task.of(userInput));
                 } catch (TestamentException e) {
                     printDialogue(e.getMessage());
+                    continue;
+                } catch (DateTimeParseException e) {
+                    printDialogue("Please enter dates in the following format\nYYYY-MM-DD");
                     continue;
                 }
                 String latestTask;
