@@ -1,3 +1,5 @@
+package meep.parser;
+
 public class CommandParser {
     public static boolean checkCommand(String input, String command) {
         // use for commands that require additional arguments

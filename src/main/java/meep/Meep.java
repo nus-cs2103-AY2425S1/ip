@@ -1,3 +1,10 @@
+package meep;
+
+import meep.parser.Parser;
+import meep.task.Storage;
+import meep.task.TaskList;
+import meep.ui.Ui;
+
 import java.util.Scanner;
 
 public class Meep {

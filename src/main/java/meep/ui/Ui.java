@@ -1,3 +1,5 @@
+package meep.ui;
+
 public class Ui {
 
     public void greeting() {
