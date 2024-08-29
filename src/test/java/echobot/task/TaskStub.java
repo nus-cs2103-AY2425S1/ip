@@ -1,20 +1,11 @@
 package echobot.task;
 
-import echobot.exception.TaskNameEmptyException;
-import echobot.io.Saveable;
-
-public class Task implements Saveable {
+public class TaskStub extends Task {
     private final String taskName;
     private boolean isDone;
 
-    public Task() {
-        this.taskName = "";
-    }
-
-    public Task(boolean isDone, String taskName) throws TaskNameEmptyException {
-        if (taskName.isBlank()) {
-            throw new TaskNameEmptyException();
-        }
+    public TaskStub(boolean isDone, String taskName) {
+        super();
         this.taskName = taskName;
         this.isDone = isDone;
     }
@@ -39,5 +30,9 @@ public class Task implements Saveable {
     @Override
     public String save() {
         return "| " + (isDone ? "1" : "0") + " | " + this.taskName;
+    }
+
+    public boolean equals(TaskStub task) {
+        return this.taskName.equals(task.taskName) && this.isDone == task.isDone;
     }
 }

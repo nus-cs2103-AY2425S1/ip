@@ -51,7 +51,7 @@ public class TaskList implements Saveable {
         }
     }
 
-    public List<Task> getTasksOccurringOn(LocalDate date) throws InvalidDeadlineFormatException {
+    public List<Task> getTasksOccurringOn(LocalDate date) {
         List<Task> taskList1 = new ArrayList<>();
 
         for (Task task : this.taskList) {
