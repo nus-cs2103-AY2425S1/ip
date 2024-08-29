@@ -2,7 +2,7 @@ package james;
 
 import java.util.Scanner;
 
-public class Ui {
+class Ui {
     private final Scanner SCANNER;
 
     public Ui() {

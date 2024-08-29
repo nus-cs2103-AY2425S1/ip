@@ -1,6 +1,6 @@
 package james;
 
-public abstract class Task {
+abstract class Task {
     private String description;
     private Boolean marked;
 
@@ -23,7 +23,7 @@ public abstract class Task {
         return String.format("[%s] %s", mark, description);
     }
 
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         return String.format("%d | %s", marked ? 1 : 0, description);
     };
 }

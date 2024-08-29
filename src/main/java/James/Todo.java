@@ -1,6 +1,6 @@
 package james;
 
-public class Todo extends Task{
+class Todo extends Task{
     public Todo(String desc, Boolean mark) throws MissingDescriptionException{
         super(desc, mark);
     }
@@ -11,7 +11,7 @@ public class Todo extends Task{
     }
 
     @Override
-    public String toFileFormat() {
-        return String.format("T | %s", super.toFileFormat());
+    public String convertToFileFormat() {
+        return String.format("T | %s", super.convertToFileFormat());
     }
 }

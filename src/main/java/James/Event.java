@@ -2,7 +2,7 @@ package james;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-public class Event extends Task{
+class Event extends Task{
     private LocalDateTime start;
     private LocalDateTime end;
     private final String PATTERN = "MMM d yyyy HHmm";
@@ -20,8 +20,8 @@ public class Event extends Task{
     }
 
     @Override
-    public String toFileFormat() {
-        return String.format("E | %s | %s | %s", super.toFileFormat(),
+    public String convertToFileFormat() {
+        return String.format("E | %s | %s | %s", super.convertToFileFormat(),
                 start,
                 end);
     }

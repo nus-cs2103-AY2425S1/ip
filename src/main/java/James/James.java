@@ -1,7 +1,8 @@
 package james;
+
 import java.util.ArrayList;
 
-public class James {
+class James {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;

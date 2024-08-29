@@ -2,7 +2,7 @@ package james;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-public class Deadline extends Task{
+class Deadline extends Task{
     private LocalDateTime deadline;
     private final String PATTERN = "MMM d yyyy HHmm";
     public Deadline(String desc, Boolean mark, LocalDateTime deadline) throws MissingDescriptionException{
@@ -16,8 +16,8 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String toFileFormat() {
-        return String.format("D | %s | %s", super.toFileFormat(),
+    public String convertToFileFormat() {
+        return String.format("D | %s | %s", super.convertToFileFormat(),
                 deadline);
     }
 }

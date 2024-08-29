@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Storage {
+class Storage {
     private String filepath;
 
     public Storage(String filepath) {
@@ -78,7 +80,7 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) {
         try (FileWriter writer = new FileWriter(filepath)) {
             for (Task task : tasks) {
-                writer.write(task.toFileFormat() + "\n");
+                writer.write(task.convertToFileFormat() + "\n");
             }
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks to the file: " + e.getMessage());

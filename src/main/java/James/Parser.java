@@ -2,7 +2,7 @@ package james;
 
 import java.time.LocalDateTime;
 
-public class Parser {
+class Parser {
     private Ui ui;
     private Storage storage;
 

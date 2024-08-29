@@ -1,5 +1,5 @@
 package james;
-public class CommandNotFoundException extends JamesException {
+class CommandNotFoundException extends JamesException {
     public CommandNotFoundException(String message) {
         super(message);
     }
