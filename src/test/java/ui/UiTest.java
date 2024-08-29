@@ -147,4 +147,57 @@ class UiTest {
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    void testDisplayMatchingTasksWithMatches() {
+        TaskList taskList = new TaskList();
+        taskList.addTodo("Read a book");
+        taskList.addTodo("Complete the assignment");
+        taskList.addTodo("Read the news");
+
+        ui.displayMatchingTasks(taskList, "read");
+
+        String expectedOutput = DIVIDER +
+                "Here are the tasks in your list that match the keyword:\n" +
+                "1. [T] [ ] Read a book\n" +
+                "2. [T] [ ] Read the news\n" +
+                DIVIDER;
+
+        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testDisplayMatchingTasksWithoutMatches() {
+        TaskList taskList = new TaskList();
+        taskList.addTodo("Read a book");
+        taskList.addTodo("Complete the assignment");
+        taskList.addTodo("Read the news");
+
+        ui.displayMatchingTasks(taskList, "exercise");
+
+        String expectedOutput = DIVIDER +
+                "Here are the tasks in your list that match the keyword:\n" +
+                "No matching tasks found.\n" +
+                DIVIDER;
+
+        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testDisplayMatchingTasksCaseInsensitive() {
+        TaskList taskList = new TaskList();
+        taskList.addTodo("Read a book");
+        taskList.addTodo("Complete the assignment");
+        taskList.addTodo("Read the news");
+
+        ui.displayMatchingTasks(taskList, "READ");
+
+        String expectedOutput = DIVIDER +
+                "Here are the tasks in your list that match the keyword:\n" +
+                "1. [T] [ ] Read a book\n" +
+                "2. [T] [ ] Read the news\n" +
+                DIVIDER;
+
+        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+    }
 }

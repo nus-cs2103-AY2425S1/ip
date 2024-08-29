@@ -128,6 +128,13 @@ public class Parser {
             case "help" -> {
                 return new HelpCommand();
             }
+            case "find" -> {
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    throw new MissingArgumentException("Find command requires a keyword.\n" +
+                            "   Usage: find <keyword> ");
+                }
+                return new FindCommand(parts[1]);
+            }
             default -> {
                 throw new InvalidCommandException();
             }
