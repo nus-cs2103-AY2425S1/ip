@@ -28,4 +28,11 @@ public abstract class Task {
           String checkBox = isCompleted ? "[X]" : "[ ]";
           return checkBox + " " + name;
      }
+     @Override
+     public boolean equals(Object o) {
+          if (o instanceof Task) {
+               return name.equals(((Task) o).name);
+          }
+          return false;
+     }
 }

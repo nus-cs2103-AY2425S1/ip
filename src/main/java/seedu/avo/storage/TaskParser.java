@@ -35,7 +35,6 @@ public class TaskParser extends FileParser<Task> {
         if (isCompleted) {
             task.complete();
         }
-        System.out.println(task);
         return task;
     }
 }
