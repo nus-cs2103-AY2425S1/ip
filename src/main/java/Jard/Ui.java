@@ -78,6 +78,22 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Show the list of tasks that match the search keyword.
+     *
+     * @param tasks The list of tasks that match the search keyword.
+     */
+
+    public void showFindResult(List<Task> matchingTasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+
     public String readCommand() {
         return scanner.nextLine().trim();
     }
