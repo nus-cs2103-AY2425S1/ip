@@ -5,11 +5,20 @@ import javafx.util.Pair;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+/**
+ * This class is used for parsing user input.
+ */
 public class Parser {
 
     private static final DateTimeFormatter dateTimeInputFormatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * This method parses the given string and returns a pair containing the command and properties.
+     *
+     * @param input The input string to be parsed.
+     * @return A pair containing the command and properties.
+     */
     static Pair<Command, Properties> parse(String input) {
         String[] inputStringSplit = input.split(" ", 2);
         String cmdString = inputStringSplit[0];
