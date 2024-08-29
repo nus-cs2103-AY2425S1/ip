@@ -5,6 +5,8 @@ public class TaskType {
         TODO,
         EVENT,
         DEADLINE,
-        INVALID
+        INVALID,
+
+        DATE
     }
 }
