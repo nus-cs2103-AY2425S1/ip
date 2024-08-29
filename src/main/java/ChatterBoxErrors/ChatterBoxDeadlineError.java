@@ -8,8 +8,9 @@ public class ChatterBoxDeadlineError extends ChatterBoxError {
      * Initialisation of error for Deadline.
      */
     public ChatterBoxDeadlineError() {
-        super("____________________________________________________________\n"
-                + "deadline Usage: deadline {String taskName} /by {String endTime}\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              deadline Usage: deadline {String taskName} /by {String endTime}
+              ____________________________________________________________""");
     }
 }

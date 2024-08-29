@@ -8,9 +8,10 @@ public class ChatterBoxError extends Exception {
      * Initialisation of a generic Chatterbox error.
      */
     public ChatterBoxError() {
-        super("____________________________________________________________\n"
-                + "ChatterBox does not understand you :(\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              ChatterBox does not understand you :(
+              ____________________________________________________________""");
     }
 
     /**

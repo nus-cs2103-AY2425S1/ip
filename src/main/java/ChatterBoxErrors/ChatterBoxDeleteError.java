@@ -8,8 +8,9 @@ public class ChatterBoxDeleteError extends ChatterBoxError {
      * Initialisation of error for the Delete command.
      */
     public ChatterBoxDeleteError() {
-        super("____________________________________________________________\n"
-                + "delete Usage: delete {Integer taskNo}\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              delete Usage: delete {Integer taskNo}
+              ____________________________________________________________""");
     }
 }

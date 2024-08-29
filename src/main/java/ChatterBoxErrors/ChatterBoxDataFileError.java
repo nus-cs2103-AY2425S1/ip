@@ -18,8 +18,9 @@ public class ChatterBoxDataFileError extends ChatterBoxError {
      * Initialisation of error of a generic file.
      */
     public ChatterBoxDataFileError() {
-        super("____________________________________________________________\n"
-                + "The file is not found\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              The file is not found
+              ____________________________________________________________""");
     }
 }
