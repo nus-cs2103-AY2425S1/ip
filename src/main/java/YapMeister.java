@@ -1,5 +1,8 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -9,12 +12,17 @@ import static java.lang.Integer.parseInt;
 
 public class YapMeister {
     final static int MAX_TASKS = 100;
+    enum TaskType {
+        ToDo,
+        Deadline,
+        Event
+    }
 
     public static void main(String[] args) {
         boolean isRunning = true;
-        File taskFile;
+        File tasksFile = null;
         try {
-            taskFile = loadTaskFile();
+            tasksFile = loadTaskFile();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             isRunning = false;
@@ -25,8 +33,15 @@ public class YapMeister {
                 Hello I'm YapMeister
                 YAPYAPYAPYAP
                 """);
+        ArrayList<Task> tasks = null;
+        try {
+            tasks = loadSavedTasks(tasksFile);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            isRunning = false;
+        }
+
         String input = "";
-        ArrayList<Task> tasks = new ArrayList<>();
         while (isRunning) {
             System.out.print("\n");
             input = scanner.nextLine();
@@ -34,6 +49,7 @@ public class YapMeister {
             try {
                 switch (command[0]) {
                 case "bye":
+                    saveLoadedTasks(tasksFile, tasks);
                     isRunning = false;
                     break;
                 case "list":
@@ -67,7 +83,7 @@ public class YapMeister {
                     //Fallthrough
                 case "event":
                     Task task = null;
-                    task = createTask(command[0], input);
+                    task = createTaskInput(command[0], input);
                     System.out.println("Added:");
                     tasks.add(task);
                     System.out.println(String.format("You have %d tasks", tasks.size()));
@@ -85,7 +101,7 @@ public class YapMeister {
                 default:
                     System.out.println("Invalid input please yap yapology");
                 }
-            } catch (InvalidDescriptionException | InvalidMarkException e) {
+            } catch (InvalidDescriptionException | InvalidMarkException | IOException e) {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("Invalid number format");
@@ -107,7 +123,60 @@ public class YapMeister {
         return file;
     }
 
-    private static Task createTask(String type, String input) throws InvalidDescriptionException {
+    private static ArrayList<Task> loadSavedTasks(File taskFile) throws FileNotFoundException {
+        Scanner scanner = new Scanner(taskFile);
+        ArrayList<Task> tasks = new ArrayList<>();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] taskDetails = line.split("\\|");
+
+            boolean isCompleted = taskDetails[1].equals("1");
+
+            switch (taskDetails[0]) {
+            case "T":
+                tasks.add(createTask(TaskType.ToDo, isCompleted, taskDetails[2]));
+                break;
+            case "D":
+                tasks.add(createTask(TaskType.Deadline, isCompleted, taskDetails[2], taskDetails[3]));
+                break;
+            case "E":
+                tasks.add(createTask(TaskType.Event, isCompleted,
+                                taskDetails[2], taskDetails[3], taskDetails[4]));
+                break;
+            }
+        }
+        return tasks;
+    }
+
+    private static void saveLoadedTasks(File taskFile, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(taskFile);
+        for (Task task : tasks) {
+            fw.write(String.format("%s\n", task.exportString()));
+        }
+        fw.close();
+    }
+
+    private static Task createTask(TaskType type, boolean isCompleted, String ... args) {
+        Task task = null;
+        switch (type) {
+        case ToDo:
+            task = new ToDo(args[0]);
+            task.setCompleted(isCompleted);
+            break;
+        case Deadline:
+            task = new Deadline(args[0], args[1]);
+            task.setCompleted(isCompleted);
+            break;
+        case Event:
+            task = new Event(args[0], args[1], args[2]);
+            task.setCompleted(isCompleted);
+            break;
+        }
+        return task;
+    }
+
+    //To utilise createTask method later
+    private static Task createTaskInput(String type, String input) throws InvalidDescriptionException {
         Task task = null;
         String[] format;
         switch (type) {
