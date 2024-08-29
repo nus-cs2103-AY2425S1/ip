@@ -3,16 +3,19 @@ import java.util.Scanner;
 public class Tecna {
     private Storage storage;
     private TaskList taskList;
+    private CommandScanner commandScanner;
     /**
      * A constructor of Tecna chatbot
      */
     public Tecna() {
         this.taskList = new TaskList();
+        this.commandScanner = new CommandScanner();
     }
 
     public Tecna(String taskData) {
         this.storage = new Storage(taskData);
         this.taskList = new TaskList(storage.load());
+        this.commandScanner = new CommandScanner();
     }
 
     /**
@@ -48,43 +51,49 @@ public class Tecna {
      * Accepts string input and processes accordingly.
      */
     public void getRequest() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        String[] input_words = input.split(" ");
-        while (!input.equalsIgnoreCase("bye")) {
+        CommandType command = this.commandScanner.getRequest();
+
+        while (!command.equals(CommandType.BYE)) {
             System.out.println("----------------------------------------------");
-            if (input_words[0].equalsIgnoreCase("list")) {
+            switch (command) {
+            case LIST:
                 this.taskList.listItems();
-            } else if (input_words[0].equalsIgnoreCase("mark")) {
-                int index = Integer.parseInt(input_words[1]);
-                taskList.mark(index - 1);
+                break;
+            case MARK:
+                int index = commandScanner.markIndex();
+                taskList.mark(index);
                 System.out.println("Nice job! I've mark this as done. You deserve a short break <3");
-                System.out.println(taskList.getTask(index - 1));
-            } else if (input_words[0].equalsIgnoreCase("unmark")) {
-                int index = Integer.parseInt(input_words[1]);
-                taskList.unmark(index - 1);
+                System.out.println(taskList.getTask(index));
+                break;
+            case UNMARK:
+                index = commandScanner.markIndex();
+                taskList.unmark(index);
                 System.out.println("I've mark this as undone. Keep going, my friend!");
-                System.out.println(taskList.getTask(index - 1));
-            } else if (input_words[0].equalsIgnoreCase("delete")) {
-                int index = Integer.parseInt(input_words[1]);
-                this.taskList.deleteItem(index - 1);
-            } else {
+                System.out.println(taskList.getTask(index));
+                break;
+            case DELETE:
+                index = commandScanner.markIndex();
+                this.taskList.deleteItem(index);
+                break;
+            case TODO:
+            case EVENT:
+            case DEADLINE:
+            case TODO_WRONG_FORMAT:
                 try {
-                    this.taskList.addItem(input);
+                    this.taskList.addItem(commandScanner.getInput());
                 } catch (InvalidRequestException ive) {
                     System.out.println("Oops! Your request sounds strange for me. Please enter a valid request ^^");
                 } catch (TodoWrongFormatException tde) {
                     System.out.println(tde.getMessage());
                 }
+                break;
             }
-
             System.out.println("----------------------------------------------");
-
-            input = sc.nextLine();
-            input_words = input.split(" ");
+            command = this.commandScanner.getRequest();
         }
         this.exitChatBot();
-        sc.close();
+        commandScanner.close();
+
     }
 
     public static void main(String[] args) {
