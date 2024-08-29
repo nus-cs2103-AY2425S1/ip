@@ -9,7 +9,18 @@ import monobot.task.Todo;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Interprets user input and executes the appropriate actions.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and identifies the Command.
+     *
+     * @param input User's input as a string.
+     * @return Command given in user's input
+     * @throws MonoBotException If command in user's input is invalid or not recognised
+     */
     public static Command parseCommand(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         String commandString = parts[0].toLowerCase();
@@ -26,6 +37,12 @@ public class Parser {
         };
     }
 
+    /**
+     * Parses the user input and identifies the CommandType.
+     *
+     * @param commandString User's input as a string.
+     * @return CommandType given in user's input
+     */
     private static CommandType parseCommandType(String commandString) {
         return switch (commandString) {
             case "list" -> CommandType.LIST;
@@ -40,6 +57,13 @@ public class Parser {
         };
     }
 
+    /**
+     * Parses the user input and identifies the Task.
+     *
+     * @param input User's input as a string.
+     * @return Task given in user's input
+     * @throws MonoBotException If Task details are missing or invalid Task type
+     */
     public static Task parseTask(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -57,6 +81,13 @@ public class Parser {
         };
     }
 
+    /**
+     * Parses the user input and identifies the index of the Task in the list.
+     *
+     * @param input User's input as a string.
+     * @return Index of the Task required
+     * @throws MonoBotException If Task details are missing
+     */
     private static int getTaskIndex(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         if (parts.length != 2 || parts[1].trim().isEmpty()) {
@@ -65,6 +96,13 @@ public class Parser {
         return Integer.parseInt(parts[1].trim()) - 1;
     }
 
+    /**
+     * Parses the user input and identifies the details of the Deadline task.
+     *
+     * @param details User's input as a string.
+     * @return Deadline task with details as given in user's input
+     * @throws MonoBotException If Deadline details are missing
+     */
     private static Task parseDeadline(String details) throws MonoBotException {
         String[] deadlineDetails = details.split("/by", 2);
         if (deadlineDetails.length != 2 || deadlineDetails[1].trim().isEmpty()) {
@@ -79,6 +117,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input and identifies the details of the Event task.
+     *
+     * @param details User's input as a string.
+     * @return Event task with details as given in user's input
+     * @throws MonoBotException If Event details are missing
+     */
     private static Task parseEvent(String details) throws MonoBotException {
         String[] eventDetails = details.split("/from|/to ", 3);
         if (eventDetails.length != 3 || eventDetails[1].trim().isEmpty()
