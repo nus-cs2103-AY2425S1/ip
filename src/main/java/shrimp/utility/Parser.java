@@ -25,8 +25,6 @@ public class Parser {
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .toFormatter();
 
-
-
     public static CommandType parseCommand(String userInput) {
         if (userInput.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
