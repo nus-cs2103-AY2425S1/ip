@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Duck {
     public static void main(String[] args) throws DuckException {
         Scanner scan = new Scanner(System.in);
-        Task[] cmds = new Task[100];
-        int cmdNum = 0;
+        Task[] cmds = Storage.load();
+        int cmdNum = Storage.loadNum();
 
         System.out.println("Hello! I'm DUCK\n What can I do for you?");
         while (true) {
@@ -97,6 +97,7 @@ public class Duck {
                 throw new DuckException("Given command is not a valid user input.");
             }
         }
+        Storage.save(cmds, cmdNum);
         scan.close();
     }
 
