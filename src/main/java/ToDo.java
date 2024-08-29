@@ -10,6 +10,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Constructor for ToDo task with status
+     *
+     * @param description description of task
+     * @param isComplete status of task
+     */
+    public ToDo(String description, boolean isComplete) {
+        super(description, TaskType.TODO, isComplete);
+    }
+
+    /**
      * Returns string representation of ToDO for file writing
      *
      * @return String formatted by Task class

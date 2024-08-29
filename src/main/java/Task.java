@@ -3,17 +3,31 @@ public class Task {
     protected String description;
     // Status of task
     protected boolean complete;
-
+    // Type of task
     protected TaskType taskType;
 
     /**
      * Constructs a new Task object, marks task as incomplete to start
      *
      * @param description description of task
+     * @param type type of task
      */
     public Task(String description, TaskType type) {
         this.description = description;
         this.complete = false;
+        this.taskType = type;
+    }
+
+    /**
+     * Constructs a new Task object, marking task according to isComplete
+     *
+     * @param description description of task
+     * @param type type of task
+     * @param isComplete status of task completion
+     */
+    public Task(String description, TaskType type, boolean isComplete) {
+        this.description = description;
+        this.complete = isComplete;
         this.taskType = type;
     }
 

@@ -12,7 +12,15 @@ public class Talker {
     private static ArrayList<Task> list = new ArrayList<>();
     private static Path directoryPath = Paths.get("./data");
     private static Path filePath = Paths.get("./data/talker.txt");
+
     public static void main(String[] args) {
+
+        try {
+            readFile();
+        } catch (TalkerException e) {
+            System.out.println("Error: "+ e.getMessage());
+        }
+
         System.out.println(LINE);
         System.out.printf("Hello! I'm %s\n", NAME);
         System.out.println("What can I do for you?");
@@ -39,6 +47,58 @@ public class Talker {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.print(LINE);
     }
+
+    public static void readFile() throws TalkerException {
+        try {
+            if (Files.exists(directoryPath) &&
+                    Files.isDirectory(directoryPath) &&
+                    Files.exists(filePath) &&
+                    Files.isRegularFile(filePath)) {
+                Scanner scanner = new Scanner(filePath);
+                while (scanner.hasNext()) {
+                    String taskString = scanner.nextLine();
+                    readTaskFromFile(taskString);
+                }
+            }
+        } catch (IOException e) {
+            throw new TalkerException("Unable to read file. Error occurred: " + e.getMessage());
+        }
+    }
+
+    public static void readTaskFromFile(String taskString) throws TalkerException{
+        String[] parsed = taskString.split(" \\| ");
+        boolean isComplete = false;
+
+        if (parsed[1].equals("X") || parsed[1].equals(" ")) {
+            isComplete = parsed[1].equals("X");
+        } else {
+            throw new TalkerException("Invalid completion tag, corrupted file detected.");
+        }
+        switch (parsed[0]) {
+        case "T":
+            if (parsed.length != 3) {
+                throw new TalkerException("Invalid ToDo Task, corrupted file detected.");
+            }
+            list.add(new ToDo(parsed[2], isComplete));
+            break;
+        case "D":
+            if (parsed.length != 4) {
+                throw new TalkerException("Invalid Deadline Task, corrupted file detected.");
+            }
+            list.add(new Deadline(parsed[2], parsed[3], isComplete));
+            break;
+        case "E":
+            if (parsed.length != 5) {
+                throw new TalkerException("Invalid Event Task, corrupted file detected.");
+            }
+            list.add(new Event(parsed[2], parsed[3], parsed[4], isComplete));
+            break;
+        default:
+            throw new TalkerException("Invalid task type, corrupted file detected.");
+        }
+
+    }
+
 
     private static void manageInputs(String input) throws TalkerException {
         String[] parsed = input.split(" ");

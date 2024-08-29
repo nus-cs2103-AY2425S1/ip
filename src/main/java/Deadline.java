@@ -5,12 +5,24 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline task
+     *
      * @param description description of task
      * @param by deadline for task
      */
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
+        this.by = by;
+    }
 
+    /**
+     * Constructor for Deadline task with status
+     *
+     * @param description description of task
+     * @param by deadline for task
+     * @param isComplete status of task
+     */
+    public Deadline(String description, String by, boolean isComplete) {
+        super(description, TaskType.DEADLINE, isComplete);
         this.by = by;
     }
 

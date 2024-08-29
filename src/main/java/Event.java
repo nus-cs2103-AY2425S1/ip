@@ -19,6 +19,20 @@ public class Event extends Task {
     }
 
     /**
+     * Constructor for Event with status
+     *
+     * @param description description of task
+     * @param from starting date/time
+     * @param to ending date/time
+     * @param isComplete status of task
+     */
+    public Event(String description, String from, String to, boolean isComplete) {
+        super(description, TaskType.EVENT, isComplete);
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
      * Returns string representation of Event for file writing
      *
      * @return String formatted by Task including start and end date/time
