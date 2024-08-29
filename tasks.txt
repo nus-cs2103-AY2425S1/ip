@@ -1,0 +1,4 @@
+TODO | False | fewf
+EVENT | False | fewfwe | 13-08-2024 0900 | 14-08-2025 0900
+TODO | False | fwefw
+DEADLINE | True | fewf | 13-08-2024 0900

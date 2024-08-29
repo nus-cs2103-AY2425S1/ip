@@ -3,6 +3,7 @@ package storage;
 import data.InsufficientInfoException;
 import task.Task;
 import task.TaskList;
+import utils.exceptions.IllegalValueException;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -55,7 +56,7 @@ public class Storage {
             return TaskList.decodeTxt(Files.readAllLines(PATH));
         } catch (IOException e) {
             throw new StorageOperationException("Error writing to file: " + PATH);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IllegalValueException | ArrayIndexOutOfBoundsException e) {
             throw new FileCorruptedException("File content not in the expected format: " + PATH);
         }
 

@@ -1,6 +1,7 @@
 package task;
 
 import data.InsufficientInfoException;
+import utils.exceptions.IllegalValueException;
 
 public abstract class Task {
     private final String title;
@@ -15,7 +16,8 @@ public abstract class Task {
         this.status = isDone;
     }
 
-    public static Task of(String info, TaskType type) throws InsufficientInfoException {
+    public static Task of(String info, TaskType type) throws InsufficientInfoException, IllegalValueException {
+
         return switch (type) {
             case TODO -> new Todo(info);
             case EVENT -> {
@@ -33,13 +35,13 @@ public abstract class Task {
         };
     }
 
-    public static Task of(String[] info) {
-            return switch (info[0]) {
-                case "TODO" -> new Todo(info[2], Boolean.parseBoolean(info[1]));
-                case "EVENT" -> new Event(info[2], info[3], info[4], Boolean.parseBoolean(info[1]));
-                case "DEADLINE" -> new Deadline(info[2], info[3], Boolean.parseBoolean(info[1]));
-                default -> throw new IllegalStateException("Unexpected value: " + info[0]);
-            };
+    public static Task of(String[] info) throws IllegalValueException {
+        return switch (info[0]) {
+            case "TODO" -> new Todo(info[2], Boolean.parseBoolean(info[1]));
+            case "EVENT" -> new Event(info[2], info[3], info[4], Boolean.parseBoolean(info[1]));
+            case "DEADLINE" -> new Deadline(info[2], info[3], Boolean.parseBoolean(info[1]));
+            default -> throw new IllegalStateException("Unexpected value: " + info[0]);
+        };
     }
 
     /**
@@ -53,7 +55,9 @@ public abstract class Task {
         return this.title;
     }
 
-    public String getStatus() { return this.status ? "True" : "False"; }
+    public String getStatus() {
+        return this.status ? "True" : "False";
+    }
 
     public void markAsDone() {
         this.status = true;

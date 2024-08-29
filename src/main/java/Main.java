@@ -80,7 +80,7 @@ public class Main {
                 switch (keys[0]) {
                 case "list":
                     separator();
-                    System.out.println(taskList);
+                    taskList.showTasks(input.substring(4));
                     separator();
                     break;
                 case "delete":
