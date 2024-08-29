@@ -15,12 +15,27 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public Event(String description, boolean isDone, String startTime, String endTime) {
+        super(description, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public String getStartTime() {
         return this.startTime;
     }
 
     public String getEndTime() {
         return this.endTime;
+    }
+
+    /**
+     * The method converts the task to its text representation in the file.
+     */
+    @Override
+    public String toText() {
+        String completed = isDone ? "1" : "0";
+        return "E | " + completed + " | " + super.description + " | " + startTime + " | " + endTime;
     }
 
     public String toString() {

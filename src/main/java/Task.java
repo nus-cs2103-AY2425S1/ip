@@ -10,22 +10,47 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * The method marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * The method marks the task as not done.
+     */
     public void unmarkAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * The method converts the isDone status to an icon,
+     * with X representing done.
+     *
+     */
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
+    }
+
+    /**
+     * The method converts the task to its text representation in the file.
+     */
+    public String toText() {
+        return "Task";
+    }
+
+
+    @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
