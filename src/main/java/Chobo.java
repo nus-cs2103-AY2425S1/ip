@@ -1,10 +1,16 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Chobo {
+    private static final String FILE_PATH = "./data";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static String line = "----------------------------------------";
     private static int totalTask = 0;
     public static void main(String[] args) {
+        loadTasks();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm Chobo\nWhat can I do for you?");
         System.out.println(line);
@@ -76,9 +82,52 @@ public class Chobo {
 
     }
 
+    public static void saveTasks() {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                writer.write(task.toFileString()+ System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Can't save tasks.");
+        }
+    }
+    public static void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|");
+                String task = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String name =  parts[2];
+
+                if(task.equals("T")) {
+                    tasks.add(new ToDo(name,isDone));
+                    totalTask++;
+                } else if(task.equals("D")) {
+                    String by = parts[3];
+                    tasks.add(new Deadline(name,isDone,by));
+                    totalTask++;
+                } else {
+                    System.out.println(parts[0]);
+                    String from = parts[3];
+                    String to = parts[4];
+                    tasks.add(new Event(name,isDone,from, to));
+                    totalTask++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("error loading tasks");
+        }
+    }
+
     private static void markTask(Task task) {
         System.out.println(line);
         task.mark();
+        saveTasks();
         System.out.println("Nice! I have marked this task as done:\n" + task);
         System.out.println(line);
     }
@@ -86,6 +135,7 @@ public class Chobo {
     private static void unmarkTask(Task task) {
         System.out.println(line);
         task.unmark();
+        saveTasks();
         System.out.println("OK, I have marked this task as not done yet\n" + task);
         System.out.println(line);
     }
@@ -104,10 +154,12 @@ public class Chobo {
         totalTask++;
         System.out.println(totalTask + " task(s) in the list");
         System.out.println(line);
+        saveTasks();
     }
 
     private static void deleteTask(int taskPos) {
         Task removedTask = tasks.remove(taskPos);
+        saveTasks();
         System.out.println(line);
         System.out.println("deleted: " + removedTask);
         totalTask--;

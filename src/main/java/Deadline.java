@@ -17,6 +17,16 @@ public class Deadline extends Task {
         this.date = date;
     }
 
+    @Override
+    public String toFileString() {
+        return String.format("%s|%d|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), date);
+    }
+
+    @Override
+    public String getType() {
+        return "T";
+    }
+
     /**
      * Returns a string representation of the Deadline task, including its type,
      * status, name, and deadline.

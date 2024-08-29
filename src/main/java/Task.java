@@ -1,5 +1,5 @@
 
-public class Task {
+public abstract class Task {
     private static int totalTask;
     private boolean isDone;
     private String name;
@@ -7,11 +7,15 @@ public class Task {
         this.isDone = done;
         this.name = name;
     }
-
+    public abstract String getType();
+    public abstract String toFileString();
     public void mark() {
         this.isDone = true;
     }
 
+    public boolean getIsDone(){
+        return isDone;
+    }
     public void unmark() {
         this.isDone = false;
     }
@@ -19,9 +23,6 @@ public class Task {
         return this.name;
     }
 
-    public boolean getDone(){
-        return this.isDone;
-    }
 
     @Override
     public String toString() {

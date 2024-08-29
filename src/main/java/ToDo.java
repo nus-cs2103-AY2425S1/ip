@@ -14,6 +14,13 @@ public class ToDo extends Task{
         super(name, done);
     }
 
+    @Override
+    public String getType() {
+        return "T";
+    }
+    public String toFileString() {
+        return String.format("%s|%d|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName());
+    }
     /**
      * Returns a string representation of the ToDo task, including its type,
      * status, and name.

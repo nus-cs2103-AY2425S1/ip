@@ -20,6 +20,15 @@ public class Event extends Task{
         this.to = to;
     }
 
+    @Override
+    public String toFileString() {
+        return String.format("%s|%d|%s|from %s|to %s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), from, to);
+    }
+
+    public String getType() {
+        return "E";
+    }
+
     /**
      * Returns a string representation of the Event task, including its type,
      * status, name, start time, and end time.
