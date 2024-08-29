@@ -32,19 +32,6 @@ public class TaskList {
   }
 
   /**
-   * Prints the items in the hist.
-   */
-  public void prettyPrintAll() {
-    int no = 1;
-    System.out.println(Utility.INDENTED_LINE);
-    System.out.println(String.format("%sHere are tasks in your list:", Utility.INDENT));
-    for (Task task : this.tasks) {
-      System.out.println(String.format("%s%d. %s", Utility.INDENT, no++, task));
-    }
-    System.out.println(Utility.INDENTED_LINE);
-  }
-
-  /**
    * Mark the selected idx as done.
    * 
    * @param idx Idx to be edited. Starting from 1.
