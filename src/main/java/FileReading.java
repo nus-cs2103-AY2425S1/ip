@@ -11,17 +11,6 @@ public class FileReading {
         //  nothing
     }
     
-    public static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        int lineNumber = 1; // Initialize line number counter
-        while (s.hasNextLine()) {
-            String line = s.nextLine(); // Read the next line from the file
-            System.out.println(lineNumber + ": " + line); // Print the line number and the line content
-            lineNumber++; // Increment the line number counter
-        }
-    }
-    
     public static void rememberFileContents(String filePath, ArrayList<Task> list) {
         try {
             File f = new File(filePath); // create a File for the given file path
