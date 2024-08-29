@@ -1,6 +1,7 @@
 package Jard;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Jard {
     private Storage storage;
@@ -18,6 +19,24 @@ public class Jard {
             super(message);
         }
     }
+
+    /**
+     * Finds tasks that contain the word after find.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A list of tasks that match the keyword.
+     */
+
+    private List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
 
     public void run() {
         ui.showWelcome();
@@ -46,6 +65,10 @@ public class Jard {
                     int taskIndex = Parser.parseTaskIndex(inputParts[1], tasks.size());
                     Task task = tasks.remove(taskIndex);
                     ui.showDeleteTask(task, tasks.size());
+                } else if (command.equals("find")) {
+                    String keyword = inputParts[1];
+                    List<Task> matchingTasks = findTasks(keyword);
+                    ui.showFindResult(matchingTasks);
                 } else {
                     Task task = Parser.parseTask(input);
                     tasks.add(task);
