@@ -4,11 +4,27 @@ public abstract class Task {
     protected String description;
     protected boolean status;
 
+    /**
+     * General constructor for all tasks.
+     * Note that all tasks have a description and a status.
+     *
+     * @param description description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.status = false;
     }
 
+    protected static void printLine() {
+        System.out.println("    ____________________________________________________________________________");
+    }
+
+    /**
+     * Mark the task as done.
+     * The method returns false if the task was already done.
+     *
+     * @return Boolean that represents whether the task was already done or not.
+     */
     public boolean markAsDone() {
         if (this.status) {
             return false;
@@ -19,6 +35,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Mark the task as undone.
+     * The method returns false if the task was already undone.
+     *
+     * @return Boolean that represents whether the task was already undone or not.
+     */
     public boolean unmarkAsUndone() {
         if (!this.status) {
             return false;
@@ -27,10 +49,6 @@ public abstract class Task {
             this.status = false;
             return true;
         }
-    }
-
-    protected static void printLine() {
-        System.out.println("    ____________________________________________________________________________");
     }
 
     @Override
@@ -42,5 +60,10 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Return string representation of the task to be written to the save file.
+     *
+     * @return String representation of task suitable for writing to file.
+     */
     public abstract String toFileString();
 }

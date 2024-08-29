@@ -9,7 +9,7 @@ public class Ui {
         printLine();
     }
 
-    protected void printLine() {
+    protected static void printLine() {
         System.out.println("    ____________________________________________________________________________");
     }
 

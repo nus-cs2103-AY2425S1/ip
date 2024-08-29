@@ -5,6 +5,13 @@ public class ToDoTask extends Task {
         super(description);
     }
 
+    /**
+     * Factory method for a todo task.
+     * Parses input string to create a todo task with a description.
+     *
+     * @param input Input from terminal to be parsed.
+     * @return Created todo task.
+     */
     public static ToDoTask of(String input) {
         try {
             return new ToDoTask(input.substring(5).strip());
@@ -26,6 +33,11 @@ public class ToDoTask extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the todo task suitable for writing to the save file.
+     *
+     * @return String representation of todo task formatted for file writing.
+     */
     @Override
     public String toFileString() {
         if (this.status) {

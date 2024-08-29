@@ -14,6 +14,13 @@ public class EventTask extends Task {
         this.end = end;
     }
 
+    /**
+     * Factory method for an event task.
+     * Parses input string to create an event with a description, a start time and an end time.
+     *
+     * @param input Input from terminal to be parsed.
+     * @return Created event task.
+     */
     public static EventTask of(String input) {
         String[] splitInput = input.split("\\s+");
         LocalDateTime start;
@@ -66,6 +73,7 @@ public class EventTask extends Task {
                 end
         );
     }
+
     @Override
     public String toString() {
         if (this.status) {
@@ -75,6 +83,11 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the event task suitable for writing to the save file.
+     *
+     * @return String representation of event formatted for file writing.
+     */
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
