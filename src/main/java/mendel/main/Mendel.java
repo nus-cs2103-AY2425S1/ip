@@ -8,11 +8,18 @@ import mendel.mendelexception.ServerError;
 import mendel.mendelexception.MendelException;
 
 public class Mendel {
-    public static void main(String[] args) {
+    private final Parser taskManager;
+    private final UI ui;
+
+    public Mendel() {
+        this.taskManager = new Parser();
+        this.ui = new UI();
+    }
+
+    public void run() {
         Scanner sc = new Scanner(System.in);
         String currAction = "hello";
-        Parser taskManager = new Parser();
-        UI ui = new UI();
+
         ui.showWelcome();
         while (!currAction.equals("bye")) {
             currAction = sc.nextLine().trim();
@@ -26,5 +33,9 @@ public class Mendel {
                 currAction = "bye";
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Mendel().run();
     }
 }
