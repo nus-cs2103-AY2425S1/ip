@@ -1,4 +1,4 @@
-package yapper.main;
+package yapper.resources;
 
 /**
  * UI class

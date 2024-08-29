@@ -1,4 +1,4 @@
-package yapper.main;
+package yapper.resources;
 
 import java.io.FileWriter;
 import java.io.IOException;

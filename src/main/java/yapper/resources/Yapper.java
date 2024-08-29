@@ -1,4 +1,4 @@
-package yapper.main;
+package yapper.resources;
 
 import yapper.exceptions.YapperException;
 import yapper.exceptions.YapperFormatException;
@@ -96,7 +96,7 @@ public class Yapper {
                         Ui.errorCaught(e.getMessage());
                     }
                 } else {
-                    throw new YapperException("Invalid command");
+                    throw new YapperException("Unrecognised command");
                 }
             } catch (YapperException e) {
                 Ui.errorCaught(e.getMessage());

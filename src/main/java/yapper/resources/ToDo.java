@@ -1,4 +1,4 @@
-package yapper.main;
+package yapper.resources;
 
 public class ToDo extends Task {
     public ToDo(String desc) {

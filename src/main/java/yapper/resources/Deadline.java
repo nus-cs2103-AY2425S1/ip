@@ -1,10 +1,15 @@
-package yapper.main;
+package yapper.resources;
+
+import yapper.exceptions.YapperException;
 
 public class Deadline extends Task {
     private String by;
 
     public Deadline(String desc, String by) {
         super(desc);
+        if (by.isEmpty()) {
+            throw new YapperException("Description cannot be empty");
+        }
         this.by = by;
     }
 

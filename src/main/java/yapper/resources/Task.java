@@ -1,7 +1,11 @@
-package yapper.main;
+package yapper.resources;
+
+import yapper.exceptions.YapperException;
+import yapper.exceptions.YapperFormatException;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -26,6 +30,9 @@ public class Task {
     };
 
     public Task(String desc) {
+        if (desc.isEmpty()) {
+            throw new YapperException("Description cannot be empty");
+        }
         this.desc = desc;
         this.isDone = "[ ]";
     }
@@ -49,6 +56,16 @@ public class Task {
                 } catch (DateTimeParseException e) {
                     continue;
                 }
+            }
+        }
+
+        for (String fm : timeFormats) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fm);
+                LocalTime formattedTime = LocalTime.parse(time, formatter);
+                return formattedTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            } catch (DateTimeParseException e) {
+                continue;
             }
         }
 

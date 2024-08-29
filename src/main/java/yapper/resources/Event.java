@@ -1,4 +1,4 @@
-package yapper.main;
+package yapper.resources;
 
 public class Event extends Task {
     private String from;
@@ -12,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String getDesc() {
-        return "| E | " + super.getDesc() + " | " + formattedDate(this.from) + "-----" + formattedDate(this.to);
+        return "| E | " + super.getDesc() + " | " + formattedDate(this.from) + " ----- " + formattedDate(this.to);
     }
 
     @Override

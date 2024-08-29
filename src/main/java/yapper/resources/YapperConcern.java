@@ -1,4 +1,4 @@
-package yapper.main;
+package yapper.resources;
 
 public enum YapperConcern {
     DESC, DEADLINE, FROM, TO
