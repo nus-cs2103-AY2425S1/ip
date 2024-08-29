@@ -1,7 +1,12 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.*;
+import java.io.File;
 
 class Task {
+    private String tasktype = "T";
     private boolean mark;
     private String val;
     public Task(boolean mark, String val) {
@@ -19,6 +24,10 @@ class Task {
         return;
     }
 
+    public String getTask() {
+        return this.tasktype;
+    }
+
     public String getStatusIcon() {
         return (this.mark ? "X" : " ");
     }
@@ -30,12 +39,13 @@ class Task {
 }
 
 class Todo extends Task {
-    private final String tasktype = "T";
+    private String tasktype = "T";
 
 
     public Todo(boolean mark, String val) {
         super(mark, val);
     }
+
 
     @Override
     public String toString() {
@@ -45,7 +55,7 @@ class Todo extends Task {
 
 class Deadline extends Task {
     private String date;
-    private final String tasktype = "D";
+    private String tasktype = "D";
 
     public Deadline(boolean mark, String val, String date){
         super(mark, val);
@@ -61,7 +71,7 @@ class Deadline extends Task {
 class Event extends Task {
     private String from;
     private String to;
-    private final String tasktype = "E";
+    private String tasktype = "E";
 
     public Event(boolean mark, String val, String from, String to) {
         super(mark, val);
@@ -86,17 +96,78 @@ class TimoException extends Exception {
 
 
 public class Timo{
-    public static void main(String[] args) throws TimoException {
+    public static void main(String[] args) throws TimoException, IOException {
+        File f = new File("list.txt");
+
+        //initialise array to store the values
+        List<Task> arr = new ArrayList<Task>();
+
+        //check if the file exists
+        if (f.exists()) {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String tmp = s.nextLine();
+                if (tmp.startsWith("[T]")) {
+                    String[] a = tmp.split("] ", 2);
+                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                        arr.add(new Todo(true, a[1]));
+                    } else {
+                        arr.add(new Todo(false, a[1]));
+                    }
+                } else if (tmp.startsWith("[D]")) {
+                    //remove the [D][?] from the line
+                    String a = tmp.split("] ")[1];
+
+                    //get the important values to create the Deadline
+                    String[] b = a.split(" \\(by: |\\)");
+
+                    //see if the task has been done or not
+                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                        arr.add(new Deadline(true, b[0], b[1]));
+                    } else {
+                        arr.add(new Deadline(false, b[0], b[1]));
+                    }
+                } else {
+                    //removing the [E][?] from the line
+                    String details = tmp.split("] ", 2)[1];
+                    //getting important values to create the Event
+                    String[] split_up = details.split(" \\(from: | to: |\\)");
+
+                    //see if the task has been done or not
+                    if (Character.compare(tmp.charAt(4), 'X') == 0) {
+                        arr.add(new Event(true, split_up[0], split_up[1], split_up[2]));
+                    } else {
+                        arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
+                    }
+
+                }
+            }
+        }
+
+        //output the list at the start
+        System.out.println("----------------------------");
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i <= arr.size(); i++) {
+            Task chosen = arr.get(i - 1);
+            System.out.println(i + ". " + chosen);
+        }
+        System.out.println("----------------------------");
+
+
+
+
+
         //greet
         System.out.println("----------------------------");
         System.out.println("Hello! I'm Timo\nWhat can I do for you?");
         System.out.println("----------------------------");
 
+
+
         //Scanner to receive input
         Scanner echo = new Scanner(System.in);
 
-        //initialise array to store the values
-        List<Task> arr = new ArrayList<Task>();
+
 
 
         String input = "";
@@ -112,7 +183,30 @@ public class Timo{
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println("----------------------------");
                     is_bye = true;
+
+                    //create new file if file does not exist
+                    File file = new File("list.txt");
+                    boolean filecreated = file.createNewFile();
+
+                    try {
+                        //delete all contents in the file
+                        FileWriter fil = new FileWriter("list.txt");
+                        fil.write("");
+                        fil.close();
+                    } catch (Exception e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
+
+
+                    //create filewriter to append to file
+                    FileWriter fw = new FileWriter("list.txt", true);
+                    for (Task i: arr) {
+                        fw.write(i + "\n");
+                    }
+                    fw.close();
+
                     break;
+
 
                 case "list":
                     System.out.println("----------------------------");
@@ -201,6 +295,7 @@ public class Timo{
                             System.out.println("----------------------------");
                             System.out.println(ex);
                             System.out.println("----------------------------");
+
                         }
                     }
             }
