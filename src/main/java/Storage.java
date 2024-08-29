@@ -5,9 +5,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private static final String FILE_PATH = "./data/monobot.txt";
+    private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
+    private static final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public static void saveTasksToFile(ArrayList<Task> tasks) {
         try {
@@ -58,17 +62,17 @@ public class Storage {
     private static String taskToFileFormat(Task task) {
         String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
         String isDone = task.getIsDone() ? "1" : "0";
-        String details = task.toString().split(" ", 3)[2];
 
         if (task instanceof Deadline) {
-            String[] parts = details.split(" \\(by: ");
-            return String.format("%s | %s | %s | %s", taskType, isDone, parts[0], parts[1].replace(")", ""));
+            Deadline deadline = (Deadline) task;
+            return String.format("%s | %s | %s | %s", taskType, isDone, deadline.getDescription(), deadline.getDueBy().format(FILE_DATE_FORMAT));
         } else if (task instanceof Event) {
-            String[] parts = details.split(" \\(from: ");
-            String[] timeParts = parts[1].split(" to: ");
-            return String.format("%s | %s | %s | %s %s", taskType, isDone, parts[0], timeParts[0], timeParts[1].replace(")", ""));
+            Event event = (Event) task;
+            return String.format("%s | %s | %s | %s | %s", taskType, isDone, event.getDescription(),
+                    event.getFrom().format(FILE_DATE_FORMAT),
+                    event.getTo().format(FILE_DATE_FORMAT));
         } else {
-            return String.format("%s | %s | %s", taskType, isDone, details);
+            return String.format("%s | %s | %s", taskType, isDone, task.getDescription());
         }
     }
 
@@ -93,15 +97,17 @@ public class Storage {
                     System.out.println("Invalid deadline format in file: " + line);
                     return null;
                 }
-                task = new Deadline(description, parts[3]);
+                LocalDateTime deadlineDate = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
+                task = new Deadline(description, deadlineDate.format(PARSER));
                 break;
             case "E":
-                if (parts.length < 4) {
+                if (parts.length < 5) {
                     System.out.println("Invalid event format in file: " + line);
                     return null;
                 }
-                String[] timeParts = parts[3].split(" ", 2);
-                task = new Event(description, timeParts[0], timeParts[1]);
+                LocalDateTime startTime = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
+                LocalDateTime endTime = LocalDateTime.parse(parts[4], FILE_DATE_FORMAT);
+                task = new Event(description, startTime.format(PARSER), endTime.format(PARSER));
                 break;
             default:
                 System.out.println("Unknown task type in file: " + line);
