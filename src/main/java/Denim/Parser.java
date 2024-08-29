@@ -17,12 +17,14 @@ public class Parser {
     public static final Pattern DEADLINE_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+) /by (?<dateTime>\\d{2}/\\d{2}/\\d{4} \\d{4})");
     public static final Pattern MARK_UNMARK_DELETE_ARGUMENT_FORMAT = Pattern.compile("(?<taskNumber>\\d+)");
 
+    public static final Pattern FIND_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+)");
+
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Invalid Denim.Commands.Command", "Denim.Commands.Command for help: help");
+            return new InvalidCommand("Command", "Command for help: help");
         }
 
         final String commandWord = matcher.group("commandWord").trim();
@@ -55,6 +57,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return prepareHelp();
+
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arguments);
 
         default:
             return new InvalidCommand("Invalid Denim.Commands.Command", "Denim.Commands.Command for help: help");
@@ -153,6 +158,15 @@ public class Parser {
 
     private Command prepareHelp() {
         return new HelpCommand();
+    }
+
+    private Command prepareFind(String args) {
+        final Matcher matcher = FIND_ARGUMENT_FORMAT.matcher(args);
+
+        if (!matcher.matches()) {
+            return new InvalidCommand("Wrong format for find command", FindCommand.USAGE);
+        }
+        return new FindCommand(args);
     }
 
     private boolean isValidMonthOfYear(DateTimeFormatter formatter, String args) {
