@@ -3,138 +3,189 @@ Hello! I'm El Primo!!
 What can I do for you?
 
 Me:
+____________________
 
 El Primo:
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
+____________________
 
 Me:
+____________________
 
 El Primo:
 Got it. I've added this task:
 [T][ ] do homework
 Now you have 2 tasks in the list.
+____________________
 
 Me:
+____________________
 
 El Primo:
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[T][ ] do homework
+____________________
 
 Me:
+____________________
 
 El Primo:
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Aug 30 2024)
 Now you have 3 tasks in the list.
+____________________
 
 Me:
+____________________
+Deadline not in the form of YYYY-MM-DD or invalid DATE
+deadline time empty or wrong formatting! Expected deadline <string> /by YYYY-MM-DD
+____________________
+
+Me:
+____________________
 
 El Primo:
 Got it. I've added this task:
-[D][ ] homework (by: 2359)
+[D][ ] birthday (by: Sep 8 2024)
 Now you have 4 tasks in the list.
+____________________
 
 Me:
+____________________
+
+El Primo:
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[T][ ] do homework
+3.[D][ ] return book (by: Aug 30 2024)
+4.[D][ ] birthday (by: Sep 8 2024)
+____________________
+
+Me:
+____________________
 
 El Primo:
 Got it. I've added this task:
-[D][ ] birthday (by: end of month)
+[E][ ] project meeting (from: Aug 30 2024 to: Aug 30 2024)
 Now you have 5 tasks in the list.
+____________________
 
 Me:
+____________________
+"From" date not in the form of YYYY-MM-DD or invalid DATE
+'From' parameter empty or wrong formatting! Expected event /from YYYY-MM-DD /to YYYY-MM-DD
+____________________
+
+Me:
+____________________
 
 El Primo:
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[T][ ] do homework
-3.[D][ ] return book (by: Sunday)
-4.[D][ ] homework (by: 2359)
-5.[D][ ] birthday (by: end of month)
+3.[D][ ] return book (by: Aug 30 2024)
+4.[D][ ] birthday (by: Sep 8 2024)
+5.[E][ ] project meeting (from: Aug 30 2024 to: Aug 30 2024)
+____________________
 
 Me:
-
-El Primo:
-Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: Mon 4pm)
-Now you have 6 tasks in the list.
-
-Me:
-
-El Primo:
-Got it. I've added this task:
-[E][ ] tennis (from: Wed 3pm to: Wed 5pm)
-Now you have 7 tasks in the list.
-
-Me:
-
-El Primo:
-Here are the tasks in your list:
-1.[T][ ] borrow book
-2.[T][ ] do homework
-3.[D][ ] return book (by: Sunday)
-4.[D][ ] homework (by: 2359)
-5.[D][ ] birthday (by: end of month)
-6.[E][ ] project meeting (from: Mon 2pm to: Mon 4pm)
-7.[E][ ] tennis (from: Wed 3pm to: Wed 5pm)
-
-Me:
+____________________
 
 El Primo:
 Nice! I've marked this task as done:
 [T][X] borrow book
+____________________
 
 Me:
+____________________
 
 El Primo:
 Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+[D][X] return book (by: Aug 30 2024)
+____________________
 
 Me:
+____________________
 
 El Primo:
 Nice! I've marked this task as done:
-[D][X] homework (by: 2359)
+[D][X] birthday (by: Sep 8 2024)
+____________________
 
 Me:
-
-El Primo:
-Nice! I've marked this task as done:
-[E][X] project meeting (from: Mon 2pm to: Mon 4pm)
+____________________
+Please select within the indexes of the tasklist!
+____________________
 
 Me:
+____________________
 
 El Primo:
 Here are the tasks in your list:
 1.[T][X] borrow book
 2.[T][ ] do homework
-3.[D][X] return book (by: Sunday)
-4.[D][X] homework (by: 2359)
-5.[D][ ] birthday (by: end of month)
-6.[E][X] project meeting (from: Mon 2pm to: Mon 4pm)
-7.[E][ ] tennis (from: Wed 3pm to: Wed 5pm)
+3.[D][X] return book (by: Aug 30 2024)
+4.[D][X] birthday (by: Sep 8 2024)
+5.[E][ ] project meeting (from: Aug 30 2024 to: Aug 30 2024)
+____________________
 
 Me:
+____________________
 
 El Primo:
 OK, I've marked this task as not done yet:
-[D][ ] homework (by: 2359)
+[D][ ] birthday (by: Sep 8 2024)
+____________________
 
 Me:
+____________________
 
 El Primo:
 Here are the tasks in your list:
 1.[T][X] borrow book
 2.[T][ ] do homework
-3.[D][X] return book (by: Sunday)
-4.[D][ ] homework (by: 2359)
-5.[D][ ] birthday (by: end of month)
-6.[E][X] project meeting (from: Mon 2pm to: Mon 4pm)
-7.[E][ ] tennis (from: Wed 3pm to: Wed 5pm)
+3.[D][X] return book (by: Aug 30 2024)
+4.[D][ ] birthday (by: Sep 8 2024)
+5.[E][ ] project meeting (from: Aug 30 2024 to: Aug 30 2024)
+____________________
 
 Me:
+____________________
+
+El Primo:
+Noted. I've removed this task:
+[T][X] borrow book
+____________________
+
+Me:
+____________________
+
+El Primo:
+Noted. I've removed this task:
+[E][ ] project meeting (from: Aug 30 2024 to: Aug 30 2024)
+____________________
+
+Me:
+____________________
+Please select within the indexes of the tasklist!
+____________________
+
+Me:
+____________________
+
+El Primo:
+Here are the tasks in your list:
+1.[T][ ] do homework
+2.[D][X] return book (by: Aug 30 2024)
+3.[D][ ] birthday (by: Sep 8 2024)
+____________________
+
+Me:
+____________________
 
 El Primo:
 Bye. Hope to see you again soon!
+____________________
