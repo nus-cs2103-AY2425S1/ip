@@ -63,6 +63,6 @@ public class Ui {
     }
 
     public void showErrorMessage(CasperBotException e) {
-        System.out.println(e);
+        System.out.println(e.getMessage());
     }
 }
