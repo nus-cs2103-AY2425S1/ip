@@ -23,3 +23,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 data/silverwolf.txt
 silverwolf.txt
 
+# ignore jar files
+*.jar

@@ -29,6 +29,8 @@ test {
 
 application {
     mainClass.set("silverwolf.SilverWolf")
+
+
 }
 
 shadowJar {
@@ -38,4 +40,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+shadowJar {
+    archiveFileName = 'silverWolf.jar'
 }
