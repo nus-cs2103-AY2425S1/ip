@@ -12,7 +12,8 @@ import java.io.FileWriter;
 public class CancelGPT {
     private final String CHATBOT_NAME;
     private final List<Task> TASKS_LIST;
-    private FileWriter tasksStorage;
+    private FileWriter tasksStorageSaver;
+    private Scanner tasksStorageReader;
 
     public CancelGPT() {
         this.CHATBOT_NAME = "CancelGPT";
@@ -23,7 +24,8 @@ public class CancelGPT {
                 Files.createDirectory(tasksStorageDirectoryPath);
             }
             Path tasksStorage = Paths.get(tasksStorageDirectoryPath.toString(), CHATBOT_NAME);
-            this.tasksStorage = new FileWriter(tasksStorage.toString());
+            this.tasksStorageSaver = new FileWriter(tasksStorage.toString());
+            this.tasksStorageReader = new Scanner(tasksStorage);
         } catch (IOException e) {
             System.out.println("Unable to use TASKS STORAGE. Exiting program");
             System.exit(1);
