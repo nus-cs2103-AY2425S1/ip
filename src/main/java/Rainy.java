@@ -25,25 +25,25 @@ public class Rainy {
                     System.out.println(tm.getList());
                     break;
                 case MARK:
-                    if (tm.getCounter() > 0) {
-                        File f = new File("src/main/java/Rainy.txt");
-                        storage.writeOverFile(f, tm);
-                    }
                     if (count != -1) {
                         tm.markDone(count - 1);
                     } else {
                         ui.noCategoryDeclared();
                     }
-                    break;
-                case UNMARK:
                     if (tm.getCounter() > 0) {
                         File f = new File("src/main/java/Rainy.txt");
                         storage.writeOverFile(f, tm);
                     }
+                    break;
+                case UNMARK:
                     if (count != -1) {
                         tm.unmarkDone(count - 1);
                     } else {
                         ui.noCategoryDeclared();
+                    }
+                    if (tm.getCounter() > 0) {
+                        File f = new File("src/main/java/Rainy.txt");
+                        storage.writeOverFile(f, tm);
                     }
                     break;
                 case DELETE:
