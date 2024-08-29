@@ -7,6 +7,13 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * For testing purposes, to test the parser
+     */
+    public Task getTask() {
+        return task;
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
