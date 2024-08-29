@@ -1,16 +1,19 @@
 package yapbot.tasks;
 
+import yapbot.exceptions.YapBotException;
+
 /**
  * Child class of Task with no additional fields.
  */
 public class ToDo extends Task {
 
-    public ToDo(String description) {
+    public ToDo(String description) throws YapBotException {
         super(description);
     }
 
-    public ToDo(String description, boolean isDone) {
-        super(description, isDone);
+    public ToDo(String description, boolean isDone) throws YapBotException {
+        super(description);
+        this.setDone(isDone);
     }
 
     @Override

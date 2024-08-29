@@ -7,7 +7,6 @@ import yapbot.tasks.ToDo;
 import yapbot.exceptions.YapBotException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -117,8 +116,8 @@ public class YapBot {
         switch (tasktype) {
         case TODO: {
             Task task = new ToDo(taskDetails);
-            storedTasks.add(task);
 
+            storedTasks.add(task);
             System.out.println(PREFIX_LINE + "\nAdding Task...\nSuccess\nTask added to database:\n" + "  "
                     + task + "\n" + "Total tasks: " + storedTasks.size() + "\n" + POSTFIX_LINE);
             break;
@@ -133,36 +132,10 @@ public class YapBot {
             String taskName = taskDetails.substring(0, taskDetails.indexOf("/by")).strip();
             String deadlineStr = taskDetails.substring(taskDetails.indexOf("/by") + 3).strip().toUpperCase();
 
-            if (taskName.isEmpty()) {
-                throw new YapBotException("Error, Automated Task Suggestion module offline.\nTask details"
-                        + " must be manually entered.");
-            }
-
-            if (deadlineStr.isEmpty()) {
-                throw new YapBotException("Error, Deadline Prediction module offline.\nManually input a "
-                        + "deadline or use command \"todo\" for tasks without deadlines.");
-            }
-
-            LocalDateTime deadline;
-            String extraOutput = "";
-
-            if (deadlineStr.contains("AM") | deadlineStr.contains("PM")) {
-                if (deadlineStr.contains("/")) {
-                    deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("ha yyyy/MM/dd"));
-                } else {
-                    deadline = LocalTime.parse(deadlineStr, DateTimeFormatter.ofPattern("ha")).atDate(LocalDate.now());
-                }
-
-            } else {
-                deadline = LocalDate.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy/MM/dd")).atStartOfDay();
-                extraOutput = "\nTime automatically set to 8am (default).";
-            }
-
-            Task task = new Deadline(taskName, deadline);
+            Task task = new Deadline(taskName, deadlineStr);
             storedTasks.add(task);
 
             System.out.println(PREFIX_LINE + "\nAdding Task...\nSuccess"
-                    + extraOutput
                     + "\nTask added to database:\n" + "  "
                     + task + "\n" + "Total tasks: " + storedTasks.size() + "\n" + POSTFIX_LINE);
             break;
@@ -203,59 +176,10 @@ public class YapBot {
                 fromStr = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5).strip().toUpperCase();
             }
 
-            if (taskName.isEmpty()) {
-                throw new YapBotException("Error, Automated Task Suggestion module offline.\nTask details"
-                        + " must be manually entered.");
-            }
-
-            if (toStr.isEmpty() && fromStr.isEmpty()) {
-                throw new YapBotException("Error, start and end times not detected.\nUse command \"todo\" for tasks " +
-                        "without deadlines.");
-            }
-
-            if (toStr.isEmpty()) {
-                throw new YapBotException("Error, end time not detected.\nManual input of end time required.");
-            }
-
-            if (fromStr.isEmpty()) {
-                throw new YapBotException("Error, start time not detected.\nUse command \"deadline\" for tasks "
-                        + "without start times.");
-            }
-
-            LocalDateTime from;
-            LocalDateTime to;
-            String extraOutput = "";
-
-            if (fromStr.contains("AM") | fromStr.contains("PM")) {
-                if (fromStr.contains("/")) {
-                    from = LocalDateTime.parse(fromStr, DateTimeFormatter.ofPattern("ha yyyy/MM/dd"));
-                } else {
-                    from = LocalTime.parse(fromStr, DateTimeFormatter.ofPattern("ha")).atDate(LocalDate.now());
-                }
-
-            } else {
-                from = LocalDate.parse(fromStr, DateTimeFormatter.ofPattern("yyyy/MM/dd")).atTime(8,0);
-                extraOutput = "\nTime automatically set to 8am (default).";
-            }
-
-            if (toStr.contains("AM") | toStr.contains("PM")) {
-                if (toStr.contains("/")) {
-                    to = LocalDateTime.parse(toStr, DateTimeFormatter.ofPattern("ha yyyy/MM/dd"));
-                } else {
-                    to= LocalTime.parse(toStr, DateTimeFormatter.ofPattern("ha")).atDate(LocalDate.now());
-                }
-
-            } else {
-                to = LocalDate.parse(toStr, DateTimeFormatter.ofPattern("yyyy/MM/dd")).atTime(8, 0);
-
-                extraOutput = "\nTime automatically set to 8am (default).";
-            }
-
-            Task task = new Event(taskName, from, to);
+            Task task = new Event(taskName, fromStr, toStr);
             storedTasks.add(task);
 
             System.out.println(PREFIX_LINE + "\nAdding Task...\nSuccess"
-                    + extraOutput
                     + "\nTask added to database:\n" + "  "
                     + task + "\n" + "Total tasks: " + storedTasks.size() + "\n" + POSTFIX_LINE);
             break;
@@ -331,7 +255,7 @@ public class YapBot {
                         if (isDone == 1) {
                             task = new Deadline(taskDetails, deadline, true);
                         } else {
-                            task = new Deadline(taskDetails, deadline);
+                            task = new Deadline(taskDetails, deadline, false);
                         }
                         storedTasks.add(task);
                         break;
@@ -347,7 +271,7 @@ public class YapBot {
                         if (isDone == 1) {
                             task = new Event(taskDetails, from, to, true);
                         } else {
-                            task = new Event(taskDetails, from, to);
+                            task = new Event(taskDetails, from, to, false);
                         }
                         storedTasks.add(task);
                         break;
@@ -487,9 +411,6 @@ public class YapBot {
                 }
 
                 case "todo": {
-                    if (commandDetails.isEmpty()) {
-                        throw new YapBotException(MISSING_TASK_DETAILS_MESSAGE);
-                    }
 
                     createTask(Tasktype.TODO, commandDetails);
                     break;

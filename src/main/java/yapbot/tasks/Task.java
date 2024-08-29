@@ -1,5 +1,7 @@
 package yapbot.tasks;
 
+import yapbot.exceptions.YapBotException;
+
 /**
  * Parent class of all tasks that can be created for YapBot.
  */
@@ -12,14 +14,14 @@ public class Task {
      *
      * @param description Details of the Task.
      */
-    public Task(String description) {
+    public Task(String description) throws YapBotException {
+        if (description.isEmpty()) {
+            throw new YapBotException("Error, Automated Task Suggestion module offline."
+                    + "\nTask details must be manually entered.");
+        }
+
         this.description = description;
         this.isDone = false;
-    }
-
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
     }
 
     public void setDone(boolean isDone) {
