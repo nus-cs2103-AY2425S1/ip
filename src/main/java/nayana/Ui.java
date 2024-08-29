@@ -1,4 +1,5 @@
 package nayana;
+import java.util.ArrayList;
 import java.util.Scanner;
 import nayana.task.*;
 import nayana.command.*;
@@ -132,5 +133,21 @@ public class Ui {
     public void printExit() {
         System.out.println("Bye!!! Hope to help you again soon!");
         scanner.close();
+    }
+
+    /**
+     * Prints the list of tasks that match the search criteria.
+     *
+     * @param foundTasks An ArrayList of tasks that match the search query.
+     */
+    public void printFoundTasks(ArrayList<Task> foundTasks) {
+        if (foundTasks.size() > 0) {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println((i + 1) + "." + foundTasks.get(i));
+            }
+        } else {
+            System.out.println("There are no matching tasks in your list.");
+        }
     }
 }

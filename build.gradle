@@ -32,8 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
+    archiveFileName.set('nayana.jar')
+    destinationDirectory.set(file('build/libs'))
 }
 
 run{

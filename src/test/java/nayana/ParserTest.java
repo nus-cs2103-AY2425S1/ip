@@ -36,6 +36,10 @@ class ParserTest {
         command = Parser.parse("todo Buy groceries");
         assertTrue(command instanceof AddCommand, "Command should be an instance of AddCommand.");
         assertTrue(((AddCommand) command).getTask() instanceof ToDos, "Task should be an instance of ToDos.");
+
+        command = Parser.parse("find keyword");
+        assertTrue(command instanceof FindCommand, "The command should be of type FindCommand.");
+        assertEquals("keyword", ((FindCommand) command).getFindValue(), "The find value should be 'keyword'.");
     }
 
     @Test
@@ -54,6 +58,7 @@ class ParserTest {
         // Test invalid date formats
         assertThrows(NayanaException.class, () -> Parser.parse("deadline Homework /by 01-09-2024"), "Should throw NayanaException for invalid date format.");
         assertThrows(NayanaException.class, () -> Parser.parse("event Meeting /from 01-09-2024 /to 2024-09-02"), "Should throw NayanaException for invalid start date format.");
+        assertThrows(NayanaException.class, () -> Parser.parse("find "), "Parsing an invalid find command should throw NayanaException.");
     }
 }
 

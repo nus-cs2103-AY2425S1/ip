@@ -116,4 +116,15 @@ public class TaskList {
         }
         return listOfTasks.toString();
     }
+
+    public ArrayList<Task> findTasks(String findValue) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            if (currTask.getDescription().contains(findValue)) {
+                foundTasks.add(currTask);
+            }
+        }
+        return foundTasks;
+    }
 }

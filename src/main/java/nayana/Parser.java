@@ -42,9 +42,29 @@ public class Parser {
         } else if (command.startsWith("todo")) {
             return createTodoCommand(command);
 
-        } else {
+        } else if (command.startsWith("find")) {
+            return createFindCommand(command);
+        }else {
             throw new NayanaException("Invalid command. Please use one of the following: deadline, event, todo, mark, unmark, delete, list, bye.");
         }
+    }
+
+    private static Command createFindCommand(String command) throws NayanaException {
+        try {
+            String[] parts = command.split("find ", 2);
+            String findValue = parts[1].trim();
+
+            if (findValue.isEmpty()) {
+                throw new NayanaException("find value cannot be empty");
+            } else {
+                return new FindCommand(findValue);
+            }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NayanaException("Invalid format for find command.");
+        }
+
+
     }
 
     private static Command createMarkCommand(String command) throws NayanaException {
