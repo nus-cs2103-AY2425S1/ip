@@ -13,10 +13,18 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Add task to task list
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Delete specified task
+     * @param index Index of task
+     * @throws AssitinatorExceptions If index is invalid
+     */
     public void deleteTask(int index) throws AssitinatorExceptions {
         if (index < 0 || index >= tasks.size()) {
             throw new AssitinatorExceptions("Invalid task index");
@@ -24,6 +32,12 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    /**
+     * Marks specified task as done or undone
+     * @param index Task index
+     * @param isDone Whether task is done or not done
+     * @throws AssitinatorExceptions If task index is invalid
+     */
     public void markTask(int index, boolean isDone) throws AssitinatorExceptions {
         if (index < 0 || index >= tasks.size()) {
             throw new AssitinatorExceptions("Invalid task index");
@@ -35,6 +49,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Return formatted string for task list for list command
+     * @return formatted string
+     */
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -43,10 +61,18 @@ public class TaskList {
         return sb.toString().trim();
     }
 
+    /**
+     * Returns task list size
+     * @return task list size
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Return task list
+     * @return Task list
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
