@@ -11,4 +11,10 @@ public class Deadline extends Task{
         str += String.format("%s (by:%s)", this.description, this.deadline);
         return str;
     }
+
+    @Override
+    public String toStringinFile() {
+        int val = this.completed ? 1 : 0;
+        return String.format("D|%d|%s|%s", val, this.description, this.deadline);
+    }
 }

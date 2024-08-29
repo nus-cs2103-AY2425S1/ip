@@ -10,4 +10,10 @@ public class ToDo extends Task{
         str += this.description;
         return str;
     }
+
+    @Override
+    public String toStringinFile() {
+        int val = this.completed ? 1 : 0;
+        return String.format("T|%d|%s", val, this.description);
+    }
 }

@@ -5,7 +5,7 @@ public class Cypher {
     private enum Commands {
         LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE,HELP, DELETE
     }
-
+    private static final String FILEPATH_URL = "./data/tasks.txt";
     private static ArrayList<Task> taskList;
 
     private static void lineBreak() {
@@ -44,17 +44,23 @@ public class Cypher {
         Cypher.lineBreak();
     }
 
-    private static void markTask(int i) {
+    private static void markTask(int i, Storage storage) {
         Task task = Cypher.taskList.get(i);
+        String oldLine = task.toStringinFile();
         task.completeTask();
+        String newLine = task.toStringinFile();
+        storage.editTask(oldLine,newLine);
         Cypher.lineBreak();
         System.out.println("Nice! I have marked this task as completed:\n " + task);
         Cypher.lineBreak();
     }
 
-    private static void unmarkTask(int i) {
+    private static void unmarkTask(int i, Storage storage) {
         Task task = Cypher.taskList.get(i);
+        String oldLine = task.toStringinFile();
         task.incompleteTask();
+        String newLine = task.toStringinFile();
+        storage.editTask(oldLine,newLine);
         Cypher.lineBreak();
         System.out.println("Ok! I have marked this task as incomplete:\n " + task);
         Cypher.lineBreak();
@@ -69,10 +75,14 @@ public class Cypher {
     }
 
     public static void main(String[] args) {
-        Cypher.greet();
+
         Cypher.taskList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        Boolean stayIn = true;
+        Storage file = new Storage(FILEPATH_URL);
+        Cypher.taskList = file.getStorage();
+
+        boolean stayIn = true;
+        Cypher.greet();
         while (stayIn) {
             try {
                 String input = scanner.nextLine();
@@ -89,6 +99,7 @@ public class Cypher {
                         }
                         Task todo = new ToDo(command[1]);
                         Cypher.addToList(todo);
+                        file.addToStorage(todo.toStringinFile());
                         break;
                     case DEADLINE:
                         String[] deadlineSplit = command[1].split("/by", 2);
@@ -101,6 +112,7 @@ public class Cypher {
                         }
                         Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
                         Cypher.addToList(deadline);
+                        file.addToStorage(deadline.toStringinFile());
                         break;
                     case EVENT:
                         String[] eventSplit = command[1].split("/from|/to ", 3);
@@ -112,6 +124,7 @@ public class Cypher {
                         }
                         Task task = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
                         Cypher.addToList(task);
+                        file.addToStorage(task.toStringinFile());
                         break;
                     case MARK:
                         // Need check if that is number
@@ -121,7 +134,7 @@ public class Cypher {
                         } else if (markVal < 0) {
                             throw new CypherException("Enter a value above 0");
                         }
-                        Cypher.markTask(markVal);
+                        Cypher.markTask(markVal, file);
                         break;
                     case UNMARK:
                         // Need check if that is number
@@ -131,7 +144,7 @@ public class Cypher {
                         } else if (unmarkVal < 0) {
                             throw new CypherException("Enter a value above 0");
                         }
-                        Cypher.unmarkTask(unmarkVal);
+                        Cypher.unmarkTask(unmarkVal, file);
                         break;
                     case BYE:
                         Cypher.lineBreak();

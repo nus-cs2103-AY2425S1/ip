@@ -22,4 +22,5 @@ abstract public class Task {
         return str;
     }
 
+    public abstract String toStringinFile ();
 }

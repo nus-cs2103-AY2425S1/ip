@@ -14,4 +14,10 @@ public class Event extends Task{
         str += String.format("%s (from:%s to:%s)", this.description, this.from, this.to);
         return str;
     }
+
+    @Override
+    public String toStringinFile() {
+        int val = this.completed ? 1 : 0;
+        return String.format("E|%d|%s|%s|%s", val, this.description, this.from, this.to);
+    }
 }
