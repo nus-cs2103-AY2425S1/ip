@@ -10,7 +10,7 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        System.out.println("Saving to: " + new File(filePath).getAbsolutePath());  // Debugging output
+        // System.out.println("Saving to: " + new File(filePath).getAbsolutePath());
 
     }
 
