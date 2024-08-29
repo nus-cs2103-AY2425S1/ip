@@ -1,0 +1,12 @@
+list
+todo read book
+deadline return book /by 12/12/2022 0000
+event project meeting /from 1/1/2012 1200 /to 1/1/2012 1300
+todo find my wallet
+list
+mark 1
+list
+mark 3
+list
+clear
+bye

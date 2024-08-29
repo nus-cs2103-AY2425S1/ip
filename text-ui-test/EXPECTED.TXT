@@ -1,12 +1,69 @@
 ____________________________________________________________
 Domo! Same desu~ I am shrimp, and I am happy to assist you! Hewwo? <3
 
-       .__          .__
-  _____|  |_________|__| _____ ______
- /  ___/  |  \_  __ \  |/     \\____ \
+       .__          .__                
+  _____|  |_________|__| _____ ______  
+ /  ___/  |  \_  __ \  |/     \\____ \ 
  \___ \|   Y  \  | \/  |  Y Y  \  |_> >
-/____  >___|  /__|  |__|__|_|  /   __/
-     \/     \/               \/|__|
+/____  >___|  /__|  |__|__|_|  /   __/ 
+     \/     \/               \/|__|    
+                                       
 
-
+____________________________________________________________
+____________________________________________________________
+Gotchaaa~ Here's the list so far:
+Lemme count~ You now have 0 item(s) in your list!
+____________________________________________________________
+____________________________________________________________
+rawr! 'todo read book' has been added to the list~
+____________________________________________________________
+____________________________________________________________
+Gotchaa~ I've added this task:
+    [D][ ] return book  (by: 12/12/2022 0000)
+You now have 2 task(s) in the list~
+____________________________________________________________
+____________________________________________________________
+Gotchaa~ I've added this task:
+    [E][ ] project meeting  (from: 1/1/2012 1200 to: 1/1/2012 1300)
+You now have 3 task(s) in the list~
+____________________________________________________________
+____________________________________________________________
+rawr! 'todo find my wallet' has been added to the list~
+____________________________________________________________
+____________________________________________________________
+Gotchaaa~ Here's the list so far:
+    1.[T][ ] todo read book
+    2.[D][ ] return book  (by: 12/12/2022 0000)
+    3.[E][ ] project meeting  (from: 1/1/2012 1200 to: 1/1/2012 1300)
+    4.[T][ ] todo find my wallet
+Lemme count~ You now have 4 item(s) in your list!
+____________________________________________________________
+____________________________________________________________
+heya~ I've checked this task as complete! Feels good, right?
+    [T][X] todo read book
+____________________________________________________________
+____________________________________________________________
+Gotchaaa~ Here's the list so far:
+    1.[T][X] todo read book
+    2.[D][ ] return book  (by: 12/12/2022 0000)
+    3.[E][ ] project meeting  (from: 1/1/2012 1200 to: 1/1/2012 1300)
+    4.[T][ ] todo find my wallet
+Lemme count~ You now have 4 item(s) in your list!
+____________________________________________________________
+____________________________________________________________
+heya~ I've checked this task as complete! Feels good, right?
+    [E][X] project meeting  (from: 1/1/2012 1200 to: 1/1/2012 1300)
+____________________________________________________________
+____________________________________________________________
+Gotchaaa~ Here's the list so far:
+    1.[T][X] todo read book
+    2.[D][ ] return book  (by: 12/12/2022 0000)
+    3.[E][X] project meeting  (from: 1/1/2012 1200 to: 1/1/2012 1300)
+    4.[T][ ] todo find my wallet
+Lemme count~ You now have 4 item(s) in your list!
+____________________________________________________________
+____________________________________________________________
+Oh nyoo~ I don't recognise that, can you try again?
+____________________________________________________________
+Byebye~ It's time to say goodbye for the day~ Hope you enjoyed and had fuuun~ I'll see you later~
 ____________________________________________________________
