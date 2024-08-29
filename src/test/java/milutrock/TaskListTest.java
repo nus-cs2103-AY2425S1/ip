@@ -13,13 +13,13 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         taskList.addTask(new Task("DummyTask"));
 
-        assertEquals(taskList.noOfTasks(), 1);
-        assertEquals(taskList.taskAtIndexToString(0), "[ ] DummyTask");
+        assertEquals(taskList.getNumberOfTasks(), 1);
+        assertEquals(taskList.getTaskAtIndexAsString(0), "[ ] DummyTask");
         
         taskList.addTask(new Task("DummyTask 2"));
         
-        assertEquals(taskList.noOfTasks(), 2);
-        assertEquals(taskList.taskAtIndexToString(1), "[ ] DummyTask 2");
+        assertEquals(taskList.getNumberOfTasks(), 2);
+        assertEquals(taskList.getTaskAtIndexAsString(1), "[ ] DummyTask 2");
     }
     
     @Test
@@ -29,8 +29,8 @@ public class TaskListTest {
         taskList.addTask(new Task("DummyTask 2"));
         taskList.removeTask(0);
 
-        assertEquals(taskList.noOfTasks(), 1);
-        assertEquals(taskList.taskAtIndexToString(0), "[ ] DummyTask 2");
+        assertEquals(taskList.getNumberOfTasks(), 1);
+        assertEquals(taskList.getTaskAtIndexAsString(0), "[ ] DummyTask 2");
     }
     
     @Test
@@ -39,7 +39,7 @@ public class TaskListTest {
         taskList.addTask(new Task("DummyTask"));
         taskList.markTaskAsDone(0);
 
-        assertEquals(taskList.taskAtIndexToString(0), "[X] DummyTask");
+        assertEquals(taskList.getTaskAtIndexAsString(0), "[X] DummyTask");
     }
     
     @Test
@@ -49,6 +49,6 @@ public class TaskListTest {
         taskList.markTaskAsDone(0);
         taskList.unmarkTaskAsDone(0);
 
-        assertEquals(taskList.taskAtIndexToString(0), "[ ] DummyTask");
+        assertEquals(taskList.getTaskAtIndexAsString(0), "[ ] DummyTask");
     }
 }

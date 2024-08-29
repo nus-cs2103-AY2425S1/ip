@@ -26,11 +26,11 @@ public class TaskList {
         tasks.get(i).unmarkDone();
     }
 
-    public int noOfTasks() {
+    public int getNumberOfTasks() {
         return tasks.size();
     }
 
-    public String taskAtIndexToString(int i) {
+    public String getTaskAtIndexAsString(int i) {
         return tasks.get(i).toString();
     }
 }

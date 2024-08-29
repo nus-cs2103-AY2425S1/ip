@@ -15,9 +15,8 @@ public class ToDo extends Task {
         return new ToDo(input.substring(5));
     }
 
-
     @Override
-    public String toString() { 
-        return "[T]" + super.toString(); 
+    public String toString() {
+        return "[T]" + super.toString();
     }
 }
