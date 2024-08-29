@@ -1,12 +1,15 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Yapper {
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./data/yapper.txt";
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        loadTasksFromFile();
 
+        Scanner scanner = new Scanner(System.in);
         printWelcomeMessage();
 
         while (true) {
@@ -18,6 +21,7 @@ public class Yapper {
                 switch (command) {
                     case BYE:
                         handleBye();
+                        saveTasksToFile();
                         return;
 
                     case LIST:
@@ -26,26 +30,32 @@ public class Yapper {
 
                     case MARK:
                         handleMark(userInputParts);
+                        saveTasksToFile();
                         break;
 
                     case UNMARK:
                         handleUnmark(userInputParts);
+                        saveTasksToFile();
                         break;
 
                     case TODO:
                         handleTodo(userInputParts);
+                        saveTasksToFile();
                         break;
 
                     case DEADLINE:
                         handleDeadline(userInputParts);
+                        saveTasksToFile();
                         break;
 
                     case EVENT:
                         handleEvent(userInputParts);
+                        saveTasksToFile();
                         break;
 
                     case DELETE:
                         handleDelete(userInputParts);
+                        saveTasksToFile();
                         break;
 
                     default:
@@ -203,5 +213,50 @@ public class Yapper {
         System.out.println("   " + removedTask);
         System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+    }
+
+    private static void loadTasksFromFile() {
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(" \\| ");
+                    Task task = null;
+                    switch (parts[0]) {
+                        case "T":
+                            task = new Todo(parts[2]);
+                            break;
+                        case "D":
+                            task = new Deadline(parts[2], parts[3]);
+                            break;
+                        case "E":
+                            task = new Event(parts[2], parts[3], parts[4]);
+                            break;
+                    }
+                    if (task != null) {
+                        if (parts[1].equals("1")) {
+                            task.markAsDone();
+                        }
+                        tasks.add(task);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Error loading tasks from file: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void saveTasksToFile() {
+        File file = new File(FILE_PATH);
+        file.getParentFile().mkdirs(); 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : tasks) {
+                writer.write(task.toSaveFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 }
