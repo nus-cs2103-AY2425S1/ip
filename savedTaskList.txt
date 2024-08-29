@@ -1,5 +1,5 @@
 T | 1 | book fair
 D | 0 | return book | 2024-12-03
-T | 1 | read book
 D | 1 | teat | 2007-12-03
 E | 0 | read | 2024-12-13T22:00 | 2024-12-14T11:00
+T | 0 | wash
