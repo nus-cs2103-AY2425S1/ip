@@ -86,9 +86,9 @@ public class SecondMind {
         //Prefix of taskInfo[0] is "event "
         String taskDescription = taskInfo[0].substring(6);
         //Prefix of taskInfo[1] is "from "
-        String taskStart = taskInfo[1].substring(5);
+        String taskStart = formatDateTime(taskInfo[1].substring(5));
         //Prefix of taskInfo[2] is "to "
-        String taskEnd = taskInfo[2].substring(3);
+        String taskEnd = formatDateTime(taskInfo[2].substring(3));
         String data = "\nE|0|" + taskDescription + "|" + taskStart + "|" + taskEnd;
         try {
             appendToFile(data);
