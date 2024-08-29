@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Create extends Command {
     private String taskDescription;
     private Task task;
-    
+
     public Create(String taskDescription) {
         super(false);
         this.taskDescription = taskDescription;
@@ -28,7 +28,7 @@ public class Create extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) throws IOException{
+    public void execute(Ui ui, TaskList taskList) throws IOException {
         taskList.add(this.task);
         ui.showResult("Task added: " + this.task);
     }
