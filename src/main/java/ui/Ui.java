@@ -48,6 +48,35 @@ public class Ui {
         System.out.printf(DIVIDER);
     }
 
+    /**
+     * Displays tasks from the task list that contain the specified keyword in their names.
+     * The search is case-insensitive, and only matching tasks are displayed. If no tasks
+     * match the keyword, a message indicating that no matching tasks were found is shown.
+     *
+     * @param tasks   The {@code TaskList} containing the tasks to be searched.
+     * @param keyword The keyword to search for within the task names.
+     */
+    public void displayMatchingTasks(TaskList tasks, String keyword) {
+        System.out.printf(DIVIDER);
+        System.out.println("Here are the tasks in your list that match the keyword:");
+        String lowerCaseKeyword = keyword.toLowerCase();
+        int matchCount = 0;
+        for (int i = 0; i < tasks.getSize(); i++) {
+            String taskName = tasks.getTask(i).getName().toLowerCase();
+
+            if (taskName.contains(lowerCaseKeyword)) {
+                System.out.println((matchCount + 1) + ". " + tasks.getTask(i));
+                matchCount++;
+            }
+        }
+        if (matchCount == 0) {
+            System.out.println("No matching tasks found.");
+        }
+
+        System.out.printf(DIVIDER);
+    }
+
+
     public void displayCompletedTask(Task t) {
         System.out.println(DIVIDER + "Nice! You've completed this task:\n  " + t + "\n" + DIVIDER);
     }
