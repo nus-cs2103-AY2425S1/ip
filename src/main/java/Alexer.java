@@ -8,6 +8,18 @@ public class Alexer {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    public void printGoodbye() {
+        System.out.println(BREAK);
+        System.out.println(GOODBYE);
+        System.out.println(BREAK);
+    }
+
+    public void greetUser() {
+        System.out.println(BREAK);
+        System.out.printf("Hello from %s, what can I do for you today?\n", NAME);
+        System.out.println(BREAK);
+    }
+
     public void promptLoop() {
         String input = scanner.nextLine();
 
@@ -19,18 +31,6 @@ public class Alexer {
         } else {
             printGoodbye();
         }
-    }
-
-    public void printGoodbye() {
-        System.out.println(BREAK);
-        System.out.println(GOODBYE);
-        System.out.println(BREAK);
-    }
-
-    public void greetUser() {
-        System.out.println(BREAK);
-        System.out.printf("Hello from %s, what can I do for you today?\n", NAME);
-        System.out.println(BREAK);
     }
 
     public static void main(String[] args) {
