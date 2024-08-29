@@ -36,9 +36,7 @@ public class TaskList {
      /**
      * Creates and returns an enumeration of the tasks added and stored by the user
      * 
-     * @param tasks the list of tasks
-     * @param numTasks the number of tasks
-     * @return an enumeration of the tasks
+     * @return an enumeration of the tasks in the list
      */
     public String taskListToString() {
         int numTasks = this.tasks.size();
@@ -59,8 +57,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates and returns the list of tasks in a format
+     * that is used to store in the text file
+     * 
+     * @return the list of tasks in a writeable format
+     */
     public String taskListToFile() {
-        return this.tasks.stream().map(t -> t.toEasyString()).reduce("----TASKS----", (x, y) -> x + "\n" + y);
+        return this.tasks.stream().map(
+                    t -> t.toEasyString()
+                ).reduce("----TASKS----", (x, y) -> x + "\n" + y);
     }
 
 }

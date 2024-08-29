@@ -15,21 +15,30 @@ public class Parser {
     private static final Pattern EVENT_PATTERN = Pattern.compile("event (.+?) /from (.+) /to (.+)");
     private static final Pattern DATETIME_PATTERN = Pattern.compile("(\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ tT]([\\d:]+) *(am|pm)");
 
+    /**
+     * Takes in a string representing a date and time and returns a representative LocalDateTime object
+     * 
+     * @param datetime string formatted as "d/m/y h:m am/pm"
+     * @return LocalDateTime object representing the string OR null if the format is incorrect
+     */
     private static LocalDateTime parseDateTime(String datetime) {
         Matcher datetimeMatcher = DATETIME_PATTERN.matcher(datetime);
+        // use regex to match the format
 
         if (datetimeMatcher.find()) {
             Integer year = Integer.parseInt(datetimeMatcher.group(3));
-            year = year > 999 ? year : year + 2000;
+            year = year > 999 ? year : year + 2000; // check if the user used 2 digits or 4 digits for the year
 
             int hours = 0;
             int minutes = 0;
             String[] hoursMinutes = datetimeMatcher.group(4).split(":");
             if (hoursMinutes.length > 1) {
+                // if minutes are provided, get those
                 minutes = Integer.parseInt(hoursMinutes[1]);
             }
             hours = Integer.parseInt(hoursMinutes[0]);
             String timeOfDay = datetimeMatcher.group(5);
+            // convert hours to 24 hour clock by checking for am/pm
             hours = timeOfDay.equalsIgnoreCase("am")
                     ? (hours == 12 ? 0 : hours)
                     : (hours == 12 ? 12 : hours + 12);
@@ -46,10 +55,19 @@ public class Parser {
                 return null;
             }
         }
+
         return null;
     }
 
-
+    /**
+     * Parses the user's input command.
+     * Checks for the following commands:
+     * bye, list, todo [], deadline [] /by [], event /from [] /to [],
+     * mark [], unmark [], delete []
+     * 
+     * @param userInput the user's input string
+     * @return a command representing the user's command that is later executed
+     */
     public Command parse(String userInput) {
         if (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {

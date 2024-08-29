@@ -32,6 +32,14 @@ public class Task {
         return this.isCompleted ? "[X] " + this.taskName : "[ ] " + this.taskName;
     }
 
+    /**
+     * Just returns the toString() version of the task.
+     * Overriden in subclasses Event and Deadline to circumvent the
+     * cleanup of the datetime object by Event::dateTimeToCleanString
+     * and Deadline::dateTimeToCleanString (so these functions are not used)
+     * 
+     * @return a simple string representation of the task
+     */
     public String toEasyString() {
         return this.toString();
     }

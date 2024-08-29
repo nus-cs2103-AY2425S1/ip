@@ -32,6 +32,13 @@ public abstract class Command {
         return prefixes[this.RNG.nextInt(prefixes.length)];
     }
 
+    /**
+     * Executes the command that the object is encapsulating
+     * (adding/deleting/editing a task, listing the tasks, etc.)
+     * 
+     * @param tasks the task list for reference
+     * @return a string that will be output by the chatbot upon completion of the command
+     */
     public abstract String execute(TaskList tasks);
 
     public boolean isExitCommand() {

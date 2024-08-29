@@ -27,6 +27,12 @@ public class Storage {
         this.taskFile = new File(filePath);
     }
 
+    /**
+     * Takes each line from the task file and parses it using regex.
+     * 
+     * @param taskLine the line from the text file
+     * @return a Task object representing the task in the line
+     */
     private Task processTaskLine(String taskLine) {
          // try to match the task as a todo
         Matcher todoMatcher = TODO_PATTERN.matcher(taskLine);
@@ -72,6 +78,13 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Loads the tasks as saved in the task file.
+     * If the file does not exist, it is created
+     * and an empty list is returned instead.
+     * 
+     * @return an arraylist of tasks
+     */
     public ArrayList<Task> loadTasksFromMemory() {
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -100,7 +113,7 @@ public class Storage {
     /**
      * Writes the tasks to the given text file at the end of the program
      * 
-     * @param taskList
+     * @param taskList the list of tasks in directly writeable string format
      */
     public void writeTasksToMemory(String taskList) {
         try {

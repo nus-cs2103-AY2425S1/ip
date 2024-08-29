@@ -12,6 +12,9 @@ public class Fret {
         this.userTasks = new TaskList(storage.loadTasksFromMemory());
     }
 
+    /**
+     * Runs the Fret chatbot program
+     */
     public void run() {
         fretUi.welcomeUser();
         boolean isExit = false;
