@@ -19,6 +19,11 @@ public class Storage {
         this.file = Paths.get(path + fileName);
     }
 
+    /**
+     * Saves a task to the file.
+     *
+     * @param task The task to save to the file.
+     */
     public void save(Task task) {
         String parsedTask = parseTask(task);
         try {
@@ -30,6 +35,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file into an array.
+     *
+     * @return The tasks stored in an array.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file.toString()))) {
@@ -87,6 +97,11 @@ public class Storage {
         return temp;
     }
 
+    /**
+     * Deletes a task from the file.
+     *
+     * @param line The index of the task.
+     */
     public void delete(int line) {
         try {
             List<String> lines = Files.readAllLines(file);

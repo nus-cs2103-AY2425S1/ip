@@ -12,7 +12,7 @@ public class Tissue {
         new Tissue("./data/", "tissue.csv").run();
     }
 
-    public void run() {
+    private void run() {
         ui.run();
     }
 }
