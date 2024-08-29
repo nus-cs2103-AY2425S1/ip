@@ -1,70 +1,8 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ArsenBot {
-
-    public static void saveTasksToFile() {
-        try {
-            File directory = new File("./data");
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-
-            File file = new File("./data/history.txt");
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-
-            for (Task task : mem) {
-                writer.write(task.toFileFormat());
-                writer.newLine();
-            }
-
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error: Unable to save tasks to file.");
-        }
-    }
-
-    public static void loadTasksFromFile() {
-        try {
-            File file = new File("./data/history.txt");
-            if (!file.exists()) {
-                return; // No tasks to load
-            }
-
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                Task task = null;
-                switch (parts[0]) {
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
-                    case "D":
-                        task = new Deadline(parts[2], parts[3]);
-                        break;
-                    case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
-                        break;
-                }
-                if (task != null) {
-                    if (parts[1].equals("1")) {
-                        task.markAsDone();
-                    }
-                    mem.add(task);
-                }
-            }
-
-            reader.close();
-        } catch (IOException e) {
-            System.out.println("Error: Unable to load tasks from file.");
-        } catch (Exception e) {
-            System.out.println("Error: Data file is corrupted.");
-        }
-    }
 
     private static final ArrayList<Task> mem = new ArrayList<>();
 
@@ -112,7 +50,7 @@ public class ArsenBot {
             for (int i = 0; i < mem.size(); i ++) {
                 System.out.println((i+1) + "." + mem.get(i));
             }
-        } else if (input.startsWith("mark")) {
+        } else if (input.startsWith("mark ")) {
             int pos = Integer.parseInt(input.substring(5)) - 1;
             if (pos < 0 || pos >= mem.size()) {
                 throw new TaskManagerException("Error: Invalid task number.");
@@ -120,7 +58,7 @@ public class ArsenBot {
             System.out.println("Nice! I've marked this task as done:");
             mem.get(pos).markAsDone();
             System.out.println(mem.get(pos));
-        } else if (input.startsWith("unmark")) {
+        } else if (input.startsWith("unmark ")) {
             int pos = Integer.parseInt(input.substring(7)) - 1;
             if (pos < 0 || pos >= mem.size()) {
                 throw new TaskManagerException("Error: Invalid task number.");
@@ -128,7 +66,7 @@ public class ArsenBot {
             System.out.println("OK, I've marked this task as not done yet:");
             mem.get(pos).markAsUndone();
             System.out.println(mem.get(pos));
-        } else if (input.startsWith("delete")) {
+        } else if (input.startsWith("delete ")) {
             int pos = Integer.parseInt(input.substring(7)) - 1;
             if (pos < 0 || pos >= mem.size()) {
                 throw new TaskManagerException("Error: Invalid task number.");
@@ -140,12 +78,6 @@ public class ArsenBot {
         } else {
             throw new TaskManagerException("Error: Unrecognized command. Please enter a valid task command.");
         }
-
-        if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-            saveTasksToFile();
-        } else if (input.startsWith("mark") || input.startsWith("unmark") || input.startsWith("delete")) {
-            saveTasksToFile();
-        }
     }
 
     public static void greeting() {
@@ -155,7 +87,6 @@ public class ArsenBot {
 
     public static void main(String[] args) {
         greeting();
-        loadTasksFromFile();
 
         Scanner reader = new Scanner(System.in);
         while (true) {
