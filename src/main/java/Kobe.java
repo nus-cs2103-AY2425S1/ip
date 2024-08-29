@@ -18,7 +18,7 @@ public class Kobe {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>(FileHandler.loadTasks());
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -29,9 +29,13 @@ public class Kobe {
                 System.out.println("____________________________________________________________");
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + "." + tasks.get(i));
+                if (tasks.isEmpty()) {
+                    System.out.println("Your task list is currently empty.");
+                } else {
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
+                    }
                 }
             } else if (userInput.startsWith("mark ")) {
                 try {
@@ -40,6 +44,7 @@ public class Kobe {
                         tasks.get(taskNumber).markAsDone();
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println("  " + tasks.get(taskNumber));
+                        FileHandler.saveTasks(tasks);
                     } else {
                         System.out.println("OOPS!!! The task number you provided is not valid.");
                     }
@@ -53,6 +58,7 @@ public class Kobe {
                         tasks.get(taskNumber).markAsNotDone();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println("  " + tasks.get(taskNumber));
+                        FileHandler.saveTasks(tasks);
                     } else {
                         System.out.println("OOPS!!! The task number you provided is not valid.");
                     }
@@ -67,6 +73,7 @@ public class Kobe {
                         System.out.println("Noted. I've removed this task:");
                         System.out.println("  " + removedTask);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        FileHandler.saveTasks(tasks);
                     } else {
                         System.out.println("OOPS!!! The task number you provided is not valid.");
                     }
@@ -83,6 +90,7 @@ public class Kobe {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + todo);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    FileHandler.saveTasks(tasks);
                 }
             } else if (userInput.startsWith("deadline ")) {
                 String[] parts = userInput.substring(9).split("/by ");
@@ -96,6 +104,7 @@ public class Kobe {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + deadline);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    FileHandler.saveTasks(tasks);
                 }
             } else if (userInput.startsWith("event ")) {
                 String[] parts = userInput.substring(6).split("/from |/to ");
@@ -110,6 +119,7 @@ public class Kobe {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + event);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    FileHandler.saveTasks(tasks);
                 }
             } else {
                 System.out.println("Please Enter the right command, Sir.");

@@ -1,6 +1,6 @@
 public class Task {
-    private final String name;
-    private boolean isDone;
+    public final String name;
+    public boolean isDone;
 
     public Task(String name) {
         this.name = name;
@@ -17,6 +17,11 @@ public class Task {
 
     public String showDoneOrNot() {
         return (isDone ? "[X]" : "[ ]"); // Return X or space depending on isDone
+    }
+
+    public String toFileFormat() {
+        return (this instanceof Todo ? "T" : (this instanceof Deadline ? "D" : "E")) + " | " +
+                (isDone ? "1" : "0") + " | " + name;
     }
 
     @Override
