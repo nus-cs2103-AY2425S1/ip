@@ -12,15 +12,18 @@ public class TaskList {
         this.botMemory = botMemory;
     }
 
-    public void listToString() {
+    public String listToString() {
+        StringBuilder outputString = new StringBuilder();
         if (this.botMemory.isEmpty()) {
-            System.out.println("No items in your list");
+            outputString.append("No items in your list");
         } else {
-            System.out.println("Here are the tasks in your list: ");
+            outputString.append("Here are the tasks in your list: \n");
             for (int i = 0; i < this.botMemory.size(); i++) {
-                System.out.println((i + 1) + ". " + this.botMemory.get(i).toString());
+                outputString.append((i + 1)).append(". ").append(this.botMemory.get(i).toString()).append("\n");
             }
         }
+        System.out.println(outputString.toString());
+        return outputString.toString().trim();
     }
 
     public ArrayList<Task> getBotMemory() {

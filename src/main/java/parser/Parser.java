@@ -56,7 +56,7 @@ public class Parser {
                     Ui.printLine();
                     throw new MollyException("Yikes! Sorry, the todo description cannot be empty.");
                 } else {
-                    Task newToDo = new Task(userInput);
+                    Task newToDo = new Task(userInput.substring(5));
                     taskList.addTask(newToDo);
                     storage.saveTasks(taskList);
                 }
@@ -93,7 +93,7 @@ public class Parser {
                         storage.saveTasks(taskList);
                     } else {
                         Ui.printLine();
-                        throw new MollyException("Sorry, invalid format for deadline. Please follow the format: event (description) /from (start date or time) /to (end date or time). The start and end date/times can be in the format DD-MM-YYYY HHmm (24 hour format)");
+                        throw new MollyException("Sorry, invalid format for event. Please follow the format: event (description) /from (start date or time) /to (end date or time). The start and end date/times can be in the format DD-MM-YYYY HHmm (24 hour format)");
                     }
                 }
             } else if (userInput.equals("/help")) {
