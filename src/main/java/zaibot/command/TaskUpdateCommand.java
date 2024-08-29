@@ -15,7 +15,6 @@ public class TaskUpdateCommand extends Command {
         super(name, optionMap);
     }
 
-
     /**
      * Gets the number of the task from the option set while checking for valid arguments
      *

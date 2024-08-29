@@ -36,11 +36,11 @@ public abstract class Command {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public HashMap<String, String> getOptionMap() {
-        return this.optionMap;
+        return optionMap;
     }
 
     /**

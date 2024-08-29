@@ -3,10 +3,7 @@ package zaibot;
 import zaibot.command.Command;
 import zaibot.exception.ZaibotException;
 
-/**
- * This is the main class of the program.
- */
-public class Zaibot {
+class Zaibot {
 
     private final TaskList taskList = new TaskList();
     private final Storage storage = new Storage(taskList);
