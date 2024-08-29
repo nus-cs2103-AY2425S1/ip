@@ -85,8 +85,8 @@ public abstract class Task {
     }
 
     /**
-     *  Converts the LocalDateTime object back to a String that is provided by users
-     *  Converts from 1234-12-11T12:56 to 11-12-1234 1256
+     * Converts the LocalDateTime object back to a String that is provided by users
+     * Converts from 1234-12-11T12:56 to 11-12-1234 1256
      *
      * @return String that is provided by users
      */
