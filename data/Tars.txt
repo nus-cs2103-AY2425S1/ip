@@ -1,4 +1,3 @@
 T 0 return book
-D 0 read book (by: Sunday )
 T 0 buy book
-E 1 meeting (from: Mon 2pm to: 4pm )
+E 0 hi (from: 2019-10-15T14:30 to: 2019-10-16T15:30 )

@@ -3,6 +3,8 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 class WritingFile {
     public static void writeFile(String filePath, ArrayList<Task> tasks) throws IOException {
@@ -49,7 +51,8 @@ class WritingFile {
                         dateStr.append(entryParts[entryParts.length - 2]);
                     }
                 }
-                Deadline deadlineTask = new Deadline(strBuild.toString().trim(), dateStr.toString());
+                LocalDateTime deadlineDate = LocalDateTime.parse(dateStr.toString());
+                Deadline deadlineTask = new Deadline(strBuild.toString().trim(), deadlineDate);
                 if(entryParts[1].equals("1")) {
                     deadlineTask.mark();
                 }
@@ -60,15 +63,18 @@ class WritingFile {
                 StringBuilder forStr = new StringBuilder();
 
                 for (int i = 2; i < entryParts.length; i++) {
-                    if (i < entryParts.length - 6) {
+                    if (i < entryParts.length - 5) {
                         strBuild.append(entryParts[i]).append(" ");
-                    } else if (i > entryParts.length - 6 && i < entryParts.length - 3) {
+                    } else if (i > entryParts.length - 5 && i < entryParts.length - 3) {
                         forStr.append(entryParts[i]).append(" ");
                     } else if (i > entryParts.length - 3 && i < entryParts.length - 1) {
                         toStr.append(entryParts[i]);
                     }
                 }
-                Event eventTask = new Event(strBuild.toString(), forStr.toString().trim(), toStr.toString());
+
+                LocalDateTime fromDate = LocalDateTime.parse(forStr.toString().trim());
+                LocalDateTime toDate = LocalDateTime.parse(toStr.toString());
+                Event eventTask = new Event(strBuild.toString(), fromDate, toDate);
                 if(entryParts[1].equals("1")) {
                     eventTask.mark();
                 }
@@ -180,14 +186,14 @@ class ToDos extends Task {
  * @see Task
  */
 class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
     /**
      * Constructs new Deadline Task with deadline stated
      *
      * @param description (of specified ToDos task)
      * @param by (deadline of Task)
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -198,15 +204,15 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + by + ")";
+            return "[D] " + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override
     public String toFileFormat(){
         if(isDone) {
             return "D " + "1 " + description + " (by: " + by + " )";
-        }else{
-            return "D " + "0 " + description + " (by: " + by + " )";
+        } else{
+                return "D " + "0 " + description + " (by: " + by + " )";
         }
     }
 }
@@ -217,7 +223,7 @@ class Deadline extends Task {
  * @see Task
  */
 class Event extends Task {
-    protected String from, to;
+    protected LocalDateTime from, to;
     /**
      * Constructs new Deadline Task with deadline stated
      *
@@ -225,7 +231,7 @@ class Event extends Task {
      * @param from (start of Event)
      * @param to (end of Event)
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -238,7 +244,8 @@ class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + "(from: " + from + " to: " + to + ")";
+        return "[E] " + super.toString() + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                    + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override
@@ -333,44 +340,77 @@ public class Tars {
                     StringBuilder strBuild = new StringBuilder();
                     StringBuilder dateStr = new StringBuilder();
 
-                    for (int i = 1; i < entryParts.length - 1; i++) {
-                        if (i < entryParts.length - 2) {
+                    int next = 2; //index to check for "/by" keyword
+                    for (int i = 1; i < entryParts.length; i++) {
+                        if(entryParts[i].equals("/by")){
+                            next = i;
+                        } else if (i < next) {
                             strBuild.append(entryParts[i]).append(" ");
-                        } else {
-                            dateStr.append(entryParts[entryParts.length - 1]);
+                            next++;
+                        } else{
+                            dateStr.append(entryParts[i]).append(" ");
                         }
                     }
 
-                    Deadline deadlineTask = new Deadline(strBuild.toString().trim(), dateStr.toString());
-                    itemsList.add(deadlineTask);
+                    Deadline deadlineTask = null;
 
-                    System.out.println(line);
-                    System.out.println("    Got it. I've added this task:");
-                    System.out.println("        " + deadlineTask);
-                    System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
+                    if (dateStr.toString().length() == 17) {
+                        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime dateTime = LocalDateTime.parse(dateStr.toString().trim(), format);
+                        deadlineTask = new Deadline(strBuild.toString().trim(), dateTime);
+                        itemsList.add(deadlineTask);
+                        System.out.println(line);
+                        System.out.println("    Got it. I've added this task:");
+                        System.out.println("        " + deadlineTask);
+                        System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
+                    } else {
+                        System.out.println(line + "\n" + "  Please state date and time of deadline" + "\n" + line);
+                    }
                 } else if (entryParts[0].equals("event")) {
                     StringBuilder strBuild = new StringBuilder();
                     StringBuilder toStr = new StringBuilder();
-                    StringBuilder forStr = new StringBuilder();
+                    StringBuilder fromStr = new StringBuilder();
 
+                    int next = 2;
+                    int toNext = 3;
                     for (int i = 1; i < entryParts.length; i++) {
-                        if (i < entryParts.length - 5) {
+                        if (entryParts[i].equals("/from")) {
+                            next = i;
+                            toNext++;
+                        } else if (entryParts[i].equals("/to")) {
+                            toNext = i;
+                        } else if (i < next) {
                             strBuild.append(entryParts[i]).append(" ");
-                        } else if (i > entryParts.length - 5 && i < entryParts.length - 2) {
-                            forStr.append(entryParts[i]).append(" ");
-                        } else if (i > entryParts.length - 2) {
-                            toStr.append(entryParts[i]);
+                            next++;
+                            toNext++;
+                        } else if (i < toNext) {
+                            fromStr.append(entryParts[i]).append(" ");
+                            toNext++;
+                        } else {
+                            toStr.append(entryParts[i]).append(" ");
                         }
                     }
 
-                    Event eventTask = new Event(strBuild.toString(), forStr.toString().trim(), toStr.toString());
-                    itemsList.add(eventTask);
+                    System.out.println(fromStr.toString().length());
+                    System.out.println(toStr.toString().length());
 
-                    System.out.println(line);
-                    System.out.println("    Got it. I've added this task:");
-                    System.out.println("        " + eventTask);
-                    System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
-                } else if(entryParts[0].equals("delete")){
+                    if (fromStr.toString().length() == 17 && toStr.toString().length() == 17) {
+                        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime dateTime = LocalDateTime.parse(fromStr.toString().trim(), format);
+                        LocalDateTime toTime = LocalDateTime.parse(toStr.toString().trim(), format);
+
+                        Event eventTask = new Event(strBuild.toString(), dateTime, toTime);
+                        itemsList.add(eventTask);
+
+                        System.out.println(line);
+                        System.out.println("    Got it. I've added this task:");
+                        System.out.println("        " + eventTask);
+                        System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
+                    } else {
+                        System.out.println(line + "\n" + "  Please state date and time of from and to of event"
+                                + "\n" + line);
+                    }
+                }else if(entryParts[0].equals("delete")){
                     Integer index = Integer.parseInt(entryParts[entryParts.length - 1]);
                     Task temp = itemsList.get(index - 1);
                     itemsList.remove(itemsList.get(index - 1));
