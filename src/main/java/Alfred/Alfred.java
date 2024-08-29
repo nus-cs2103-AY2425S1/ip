@@ -10,10 +10,21 @@ import alfred.ui.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the main class that manages the operations and interactions within
+ * the Alfred task management application.
+ */
 public class Alfred {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Initializes a new instance of <code>Alfred</code> with the specified file path
+     * for saving and loading tasks. Attempts to load tasks from storage and handles
+     * errors related to loading and file corruption.
+     *
+     * @param filePath The path to the file used for storing task data.
+     */
     public Alfred(String filePath) {
         storage = new Storage(filePath);
         try {
@@ -28,6 +39,12 @@ public class Alfred {
         }
     }
 
+    /**
+     * Starts the Alfred application, managing user interactions and
+     * executing commands until the user exits the application.
+     * Commands include listing tasks, marking tasks as done/undone,
+     * deleting tasks, and adding new tasks.
+     */
     public void run() {
         // Greet user
         Ui.greet();
@@ -81,6 +98,12 @@ public class Alfred {
         Ui.farewell();
     }
 
+    /**
+     * The entry point of the Alfred application. Initializes the Alfred
+     * instance with the specified file path and starts the application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Alfred("./data/Alfred.txt").run();
     }
