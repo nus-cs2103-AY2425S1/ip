@@ -1,5 +1,3 @@
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -8,13 +6,13 @@ import java.util.ArrayList;
  */
 public class Toothless {
 
-    private final static String toothlessLogo =
+    private final static String TOOTHLESS_LOGO =
             " _____            _   _     _\n" +
             "|_   _|___   ___ | |_| |__ | | ___  ___ ___\n" +
             "  | |/ _ \\ / _ \\| __| '_ \\| |/ _ \\/ __/ __|\n" +
             "  | | (_) | (_) | |_| | | | |  __/\\__ \\__ \\\n" +
             "  |_|\\___/ \\___/ \\__|_| |_|_|\\___||___/___/\n";
-    private final String divider = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
+    private final static String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
     private final Scanner sc = new Scanner(System.in);
     private final ArrayList<Task> list;
 
@@ -33,7 +31,7 @@ public class Toothless {
         System.out.println("Toothless:\n" +
                 "Until next time, dragon rider!\n" +
                 "Toothless the Night Fury, signing off.\n" +
-                "See you soon!\n\n" + divider);
+                "See you soon!\n\n" + DIVIDER);
     }
 
     /**
@@ -51,7 +49,7 @@ public class Toothless {
             }
         }
 
-        System.out.println("\n|------------------------------------------|\n\n" + divider);
+        System.out.println("\n|------------------------------------------|\n\n" + DIVIDER);
     }
 
     /**
@@ -63,7 +61,7 @@ public class Toothless {
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsDone();
         System.out.println("Toothless:\nGood job! You had completed this quest!\n" +
-              currentTask + "\n\n" + divider);
+              currentTask + "\n\n" + DIVIDER);
     }
 
     /**
@@ -75,8 +73,15 @@ public class Toothless {
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsUndone();
         System.out.println("Toothless:\nOops! Quest is back in play!\n" +
-                currentTask + "\n\n" + divider);
+                currentTask + "\n\n" + DIVIDER);
     }
+
+    /**
+     * Adds a task to the task list.
+     * @param taskType
+     * @param description
+     * @throws ToothlessExceptions
+     */
     public void addTask(String taskType, String description) throws ToothlessExceptions {
         switch(taskType) {
             case "todo":
@@ -103,13 +108,13 @@ public class Toothless {
                 break;
             default:
                 throw new ToothlessExceptions("I don't understand that command.\n" +
-                        "Please enter a valid command. :)\n\n" + divider);
+                        "Please enter a valid command. :)\n\n" + DIVIDER);
         }
 
         System.out.println("Toothless:\nYour task\n\t\t" +
                 list.getLast() +
                 "\nadded to the quest board!\n\n" +
-                "Now there is " + list.size() + " quests in your quest board.\n\n" + divider);
+                "Now there is " + list.size() + " quests in your quest board.\n\n" + DIVIDER);
 
     }
 
@@ -119,7 +124,7 @@ public class Toothless {
         int newTaskSize = list.size() - 1;
         System.out.println("Toothless:\nThe quest\n\t\t" +
                 currentTask + "\nis removed from the quest board!\n\n" +
-                "Now there is " + newTaskSize + " quests in your quest board.\n\n" + divider);
+                "Now there is " + newTaskSize + " quests in your quest board.\n\n" + DIVIDER);
         list.remove(fixedIndex);
     }
 
@@ -130,54 +135,54 @@ public class Toothless {
      */
     public void commands(String input) throws ToothlessExceptions {
         String[] splitInput = input.split(" ", 2);
-        String command = splitInput[0];
+        CommandType command = CommandType.getCommandType(splitInput[0]);
         String description = splitInput.length < 2? "" : splitInput[1];
 
         switch(command) {
-            case "todo" :
-            case "deadline" :
-            case "event":
-                addTask(command, description);
+            case TODO :
+            case DEADLINE :
+            case EVENT :
+                addTask(command.name().toLowerCase(), description);
                 break;
-            case "list":
+            case LIST :
                 printTask();
                 break;
-            case "mark":
+            case MARK :
                 if(description.isEmpty()) {
                     throw new MissingIndex("mark", "mark <index>");
                 }
                 int markIndex = Integer.parseInt(description);
                 if(markIndex > list.size() || markIndex < 1) {
                     throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
-                            divider);
+                            DIVIDER);
                 }
                 markDone(markIndex);
                 break;
-            case "unmark":
+            case UNMARK :
                 if(description.isEmpty()) {
                     throw new MissingIndex("unmark", "unmark <index>");
                 }
                 int unmarkIndex = Integer.parseInt(description);
                 if(unmarkIndex > list.size() || unmarkIndex < 1) {
                     throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
-                            divider);
+                            DIVIDER);
                 }
                 markUndone(unmarkIndex);
                 break;
-            case "delete":
+            case DELETE :
                 if(description.isEmpty()) {
                     throw new MissingIndex("delete", "delete <index>");
                 }
                 int deleteIndex = Integer.parseInt(description);
                 if(deleteIndex > list.size() || deleteIndex < 1) {
                     throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
-                            divider);
+                            DIVIDER);
                 }
                 deleteTask(deleteIndex);
                 break;
             default:
                 throw new ToothlessExceptions("I don't understand that command.\n" +
-                        "Please enter a valid command. :)\n\n" + divider);
+                        "Please enter a valid command. :)\n\n" + DIVIDER);
         }
     }
 
@@ -186,16 +191,16 @@ public class Toothless {
      * The user can add tasks to the task list.
      */
     public void beginChat() {
-        System.out.println("Welcome to the dragon's den!\n" + toothlessLogo);
+        System.out.println("Welcome to the dragon's den!\n" + TOOTHLESS_LOGO);
         System.out.println("Toothless:\n" +
                 "Greetings, Dragon Rider!\n\n" +
                 "I'm Toothless, your friendly dragon companion.\n" +
-                "What adventure shall we embark on today?\n\n" + divider);
+                "What adventure shall we embark on today?\n\n" + DIVIDER);
 
         while(true) {
             System.out.println("You :");
             String userInput = sc.nextLine();
-            System.out.println("\n" + divider);
+            System.out.println("\n" + DIVIDER);
 
             if (userInput.equals("bye")) {
                 printGoodbyeMessage();
