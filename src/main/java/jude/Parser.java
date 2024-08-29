@@ -21,28 +21,27 @@ public class Parser {
 
     public Command parse(String input) throws JudeException {
         int index;
-        Task task;
 
         // Handle null input.
         if (input == null) {
             throw new JudeException("Poyo, invalid input. Try again...");
         }
 
-        // Perform split of jude.command, and a description, if present.
+        // Perform split of command, and a description, if present.
         String[] split = input.split(" ", 2);
         this.command = split[0];
 
-        // Handle inputs with only a jude.command (and without a description).
+        // Handle inputs with only a command (and without a description).
         if (command.equals("bye")) {
 
             if (split.length > 1) {
-                throw new JudeException("Poyo,  The description of a " + command + " must be empty.");
+                throw new JudeException("Poyo, the description of a " + command + " must be empty.");
             }
             return new ExitCommand();
         } else if (command.equals("list")) {
 
             if (split.length > 1) {
-                throw new JudeException("Poyo,  The description of a " + command + " must be empty.");
+                throw new JudeException("Poyo, the description of a " + command + " must be empty.");
             }
             return new ListCommand();
         }
@@ -63,9 +62,9 @@ public class Parser {
                 return new DeleteCommand(index);
             }
         } catch (NumberFormatException ne) {
-            throw new JudeException("Number format exception has occurred.");
+            throw new JudeException("Invalid number format: expected an integer.");
         } catch (IndexOutOfBoundsException ie) {
-            throw new JudeException("the index is not provided or not applicable to the current list size.");
+            throw new JudeException("The index is not provided or not applicable to the current list size.");
         }
 
         if (command.equals("to-do")) {
@@ -81,8 +80,8 @@ public class Parser {
             descriptions = split[1].split(" /by ", 2);
 
             if (descriptions.length != 2) {
-                throw new JudeException("Poyo, the jude.command "
-                        + command + " must be provided with a description with the use of /by jude.command.");
+                throw new JudeException("Poyo, the command "
+                        + command + " must be provided with a description with the use of /by command.");
             }
             return new AddCommand(new Deadline(descriptions[0], descriptions[1]));
 
@@ -91,13 +90,13 @@ public class Parser {
             descriptions = split[1].split(" /from | /to ", 3);
 
             if (descriptions.length != 3) {
-                throw new JudeException("Poyo, the jude.command " + command
-                        + " must be provided with a description with the use of /from followed by /to jude.command.");
+                throw new JudeException("Poyo, the command " + command
+                        + " must be provided with a description with the use of /from followed by /to command.");
             }
             return new AddCommand(new Event(descriptions[0], descriptions[1], descriptions[2]));
         }
 
-        throw new JudeException("No valid jude.command was provided.");
+        throw new JudeException("No valid command was provided.");
     }
 
     public String getCommand() {
