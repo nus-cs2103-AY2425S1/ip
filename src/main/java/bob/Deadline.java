@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Represents a deadline task in the Bob chatbot.
- * The deadline includes a description, a deadline date/time, and a task type.
+ * The deadline includes a description, a completion status, a deadline date/time, and a task type.
  */
 public class Deadline extends Task {
 
