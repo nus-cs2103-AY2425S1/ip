@@ -1,14 +1,37 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public class Duke {
 
+    public static int TODO = 0;
+    public static int DEADLINE = 1;
+    public static int EVENT = 2;
     public static class Task {
 
-        Task(String taskName) {
-            this.taskName = taskName;
+        Task(String name) {
+            this.name = name;
             this.marked = false;
+        }
+
+        Task(String name, int type) {
+            this.name = name;
+            this.marked = false;
+            this.type = type;
+        }
+
+        Task(String name, int type, String deadline) {
+            this.name = name;
+            this.marked = false;
+            this.type = type;
+            this.deadline = deadline;
+        }
+
+        Task(String name, int type, String[] eventTimings) {
+            this.name = name;
+            this.marked = false;
+            this.type = type;
+            this.eventTimings = eventTimings;
         }
 
         public void mark() {
@@ -22,13 +45,29 @@ public class Duke {
         public void print() {
             String message = "";
 
+            if(this.type == TODO) {
+                message += "[T]";
+            } else if(this.type == DEADLINE) {
+                message += "[D]";
+            } else if (this.type == EVENT) {
+                message += "[E]";
+            } else {
+                message += "[ ]";
+            }
+
             if(this.marked) {
                 message += "[X] ";
             } else {
                 message += "[ ] ";
             }
 
-            message += taskName;
+            message += name;
+
+            if(this.type == DEADLINE) {
+                message += " (by: " + this.deadline + ")";
+            } else if (this.type == EVENT) {
+                message += " (from: " + this.eventTimings[0] + " to: " + this.eventTimings[1] + ")";
+            }
 
             System.out.println(message);
         }
@@ -36,21 +75,41 @@ public class Duke {
         public void print(int rank) {
             String message = rank + ".";
 
+            if(this.type == TODO) {
+                message += "[T]";
+            } else if(this.type == DEADLINE) {
+                message += "[D]";
+            } else if (this.type == EVENT) {
+                message += "[E]";
+            } else {
+                message += "[ ]";
+            }
+
             if(this.marked) {
                 message += "[X] ";
             } else {
                 message += "[ ] ";
             }
 
-            message += taskName;
+            message += name;
+
+            if(this.type == DEADLINE) {
+                message += " (by: " + deadline + ")";
+            } else if (this.type == EVENT) {
+                message += " (from: " + this.eventTimings[0] + " to: " + this.eventTimings[1] + ")";
+            }
 
             System.out.println(message);
         }
-        private String taskName;
+        private String name;
         private boolean marked;
+        private int type;
+
+        private String deadline;
+
+        private String[] eventTimings = new String[2];
     }
     public static String horizontalLine = "----------------------------------------------------------";
-    public static String defaultProperties = "0";
     public static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void printOpening() {
         String openingText = "Hello! I'm Jeff\n " +
@@ -67,10 +126,6 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void printMessageWithProperties(int rank) {
-
-    }
-
     public static void printClosing() {
         String closingText = "Bye. Hope to see you again soon!";
 
@@ -79,12 +134,16 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void addMessage(String message) {
-        tasks.add(new Task(message));
-        printMessage("added: " + message);
+    public static void addTask(Task task) {
+        tasks.add(task);
+        System.out.println(horizontalLine);
+        System.out.println("Got it. I've added this task:");
+        task.print();
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(horizontalLine);
     }
 
-    public static void listMessages()
+    public static void listTasks()
     {
         int numberOfMessages = tasks.size();
 
@@ -97,7 +156,7 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void markMessage(int rank) {
+    public static void markTask(int rank) {
         Task task = tasks.get(rank - 1);
 
         task.mark();
@@ -108,7 +167,7 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void unmarkMessage(int rank) {
+    public static void unmarkTask(int rank) {
         Task task = tasks.get(rank - 1);
 
         task.unmark();
@@ -117,6 +176,20 @@ public class Duke {
         System.out.println("OK, I've marked this task as not done yet:");
         task.print();
         System.out.println(horizontalLine);
+    }
+
+    public static String getCommand(String message, int startIndex, char escapeCharacter) {
+        int len = message.length();
+        int ptr = startIndex;
+
+        while(ptr < len) {
+            if(message.charAt(ptr) == escapeCharacter) {
+                break;
+            }
+            ptr++;
+        }
+
+        return message.substring(startIndex, ptr);
     }
 
     public static void main(String[] args) {
@@ -131,20 +204,57 @@ public class Duke {
         while(true)
         {
             String input = inputReader.nextLine();
+            String command = getCommand(input, 0, ' ');
 
-            if(input.equals(exitCommand)) {
+            if(command.equals(exitCommand)) {
+
                 printClosing();
                 break;
-            } else if(input.equals("list")) {
-                listMessages();
-            } else if(input.length() >= 4 && input.substring(0,4).equals("mark")) {
+
+            } else if(command.equals("list")) {
+
+                listTasks();
+
+            } else if(command.equals("mark")) {
+
                 int rankToMark = Integer.valueOf(input.substring(5));
-                markMessage(rankToMark);
-            } else if(input.length() >= 6 && input.substring(0,6).equals("unmark")) {
+                markTask(rankToMark);
+
+            } else if(command.equals("unmark")) {
+
                 int rankToUnmark = Integer.valueOf(input.substring(7));
-                unmarkMessage(rankToUnmark);
+                unmarkTask(rankToUnmark);
+
+            } else if(command.equals("todo")) {
+
+                String taskName = input.substring(5);
+                addTask(new Task(taskName, TODO));
+
+            } else if(command.equals("deadline")) {
+
+                String taskName = getCommand(input, 9, '/');
+                String deadline = getCommand(input, 9 + taskName.length() + 4, ' ');
+                taskName = taskName.substring(0, taskName.length() - 1);
+                addTask(new Task(taskName, DEADLINE, deadline));
+
+            } else if(command.equals("event")) {
+
+                String taskName = getCommand(input, 6, '/');
+                String startTime = getCommand(input, 6 + taskName.length() + 6, '/');
+                String endTime = getCommand(input, 6 + taskName.length() + 6 + startTime.length() + 4, ' ');
+
+                taskName = taskName.substring(0, taskName.length() - 1);
+                startTime = startTime.substring(0, startTime.length() - 1);
+
+                String[] eventTimings = new String[] {startTime, endTime};
+
+                addTask(new Task(taskName, EVENT, eventTimings));
+
             } else {
-                addMessage(input);
+
+                System.out.println("Invalid input, terminating program.");
+                break;
+
             }
         }
     }
