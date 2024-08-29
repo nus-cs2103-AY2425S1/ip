@@ -1,3 +1,5 @@
+package bill;
+
 public class Bill {
     private Ui ui;
     private Storage storage;
