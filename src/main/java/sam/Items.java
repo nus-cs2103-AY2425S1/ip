@@ -82,6 +82,22 @@ public class Items {
     }
 
     /**
+     * Finds items that contain the specified keyword.
+     *
+     * @param keyword the keyword to search for
+     * @return a list of items that contain the keyword
+     */
+    public List<Item> findItems(String keyword) {
+        List<Item> matchingItems = new ArrayList<>();
+        for (Item item : items) {
+            if (item.toString().contains(keyword)) {
+                matchingItems.add(item);
+            }
+        }
+        return matchingItems;
+    }
+
+    /**
      * Returns a string representation of the Items object.
      *
      * @return The string representation of the Items object.

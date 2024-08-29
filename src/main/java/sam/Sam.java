@@ -59,7 +59,9 @@ public class Sam {
                     ui.showMessage(items.toString());
                 } else if (input.startsWith("mark")) {
                     markItemDone(input);
-                } else if (input.startsWith("unmark")) {
+                } else if (input.startsWith("find")) {
+                    findItem(input);
+                }else if (input.startsWith("unmark")) {
                     markItemUndone(input);
                 } else if (input.startsWith("delete")) {
                     deleteItem(input);
@@ -176,6 +178,24 @@ public class Sam {
         ui.showMessage("Got it. I've added this task:");
         ui.showMessage(items.getLastAdded().toString());
         ui.showMessage(String.format("Now you have %d tasks in the list", items.getSize()));
+    }
+
+    /**
+     * Finds and displays tasks that match the given keyword.
+     *
+     * @param input the user input containing the keyword
+     */
+    private void findItem(String input) {
+        String keyword = input.substring(5).trim();
+        List<Item> foundItems = items.findItems(keyword);
+        if (foundItems.isEmpty()) {
+            ui.showMessage("No tasks found with the keyword: " + keyword);
+        } else {
+            ui.showMessage("Here are the matching tasks in your list:");
+            for (int i = 0; i < foundItems.size(); i++) {
+                ui.showMessage((i + 1) + "." + foundItems.get(i).toString());
+            }
+        }
     }
 
     public static void main(String[] args) {
