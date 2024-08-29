@@ -12,17 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles the storage of tasks to and from a file.
+ * The {@code Storage} class provides functionality to save tasks to a file and load tasks from a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be saved or loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Saves the task from the tasks arraylist into the data file
+     * Saves the specified list of tasks to the data file.
+     * Each task is saved in a format defined by {@code Task.toSaveFormat()}.
      *
-     * @param tasks a task list to be saved in the data file
+     * @param tasks The list of tasks to be saved in the data file.
      */
     public void saveTasks(List<Task> tasks) {
         File file = new File(filePath);
@@ -38,9 +48,10 @@ public class Storage {
     }
 
     /**
-     * Loads the tasks present in the data file
+     * Loads the tasks present in the data file.
+     * If the file does not exist, an empty list is returned.
      *
-     * @return arraylist of tasks
+     * @return A list of tasks loaded from the data file.
      */
     public List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
@@ -68,10 +79,10 @@ public class Storage {
     }
 
     /**
-     * Returns a task whose type depends on the task data entry
+     * Creates a {@code Task} object based on the data in a line from the task data file.
      *
-     * @param taskLine a line in the nether.txt task data file
-     * @return a task to be added to the tasks arraylist
+     * @param taskLine A line from the task data file in the format used by {@code Task.toSaveFormat()}.
+     * @return A {@code Task} object corresponding to the line of data.
      */
     private static Task getTask(String taskLine) {
         String[] taskParts = taskLine.split("\\|");
@@ -94,6 +105,4 @@ public class Storage {
         }
         return task;
     }
-
-
 }
