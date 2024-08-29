@@ -1,4 +1,5 @@
-// Buddy.java
+package buddy;
+
 import command.Command;
 import parser.Parser;
 import storage.Storage;
