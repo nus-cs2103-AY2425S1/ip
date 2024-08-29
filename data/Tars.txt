@@ -1,0 +1,4 @@
+T 0 return book
+D 0 read book (by: Sunday )
+T 0 buy book
+E 1 meeting (from: Mon 2pm to: 4pm )
