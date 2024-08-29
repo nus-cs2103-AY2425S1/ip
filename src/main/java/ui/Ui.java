@@ -1,6 +1,13 @@
+package ui;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+
 public class Ui {
     private Scanner scanner;
     public Ui() {
