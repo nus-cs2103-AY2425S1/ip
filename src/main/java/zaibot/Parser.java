@@ -5,11 +5,6 @@ import zaibot.exception.ZaibotException;
 
 import java.util.HashMap;
 
-/**
- * This class helps to parse input from the user
- * into a Command class which will then be able to run and execute
- * the logic needed.
- */
 public class Parser {
     /**
      * This takes a command split by spaces, and processes them into separate commands
@@ -36,16 +31,23 @@ public class Parser {
         String commandName = command.substring(0, command.indexOf(' '));
 
         switch (commandName) {
-            case "mark":
-            case "unmark":
-            case "delete":
-                arguments.put("number", command.substring(command.indexOf(" ") + 1));
-                return new TaskUpdateCommand(commandName, arguments);
-            case "todo":
-            case "deadline":
-            case "event":
-                String optionString = command.substring(command.indexOf(' '));
-                String[] options = optionString.split(" /");
+        case "mark":
+            // fallthrough
+        case "unmark":
+            // fallthrough
+        case "delete":
+            arguments.put("number", command.substring(command.indexOf(" ") + 1));
+            return new TaskUpdateCommand(commandName, arguments);
+        case "find":
+            arguments.put("name", command.substring(command.indexOf(" ") + 1));
+            return new TaskFindCommand(commandName, arguments);
+        case "todo":
+            // fallthrough
+        case "deadline":
+            // fallthrough
+        case "event":
+            String optionString = command.substring(command.indexOf(' '));
+            String[] options = optionString.split(" /");
 
                 if (optionString.isEmpty() || options[0].isEmpty()) {
                     throw new ZaibotException("Name cannot be empty.");

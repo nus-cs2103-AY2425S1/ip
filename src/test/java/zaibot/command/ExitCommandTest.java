@@ -11,7 +11,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class ExitCommandTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -20,14 +19,13 @@ public class ExitCommandTest {
     }
 
     @Test
-    public void testExitCommand() {
+    public void execute_success() {
         TaskList tasks = new TaskList();
         Storage storage = new Storage(tasks);
         ExitCommand exitCommand = new ExitCommand();
         try {
             exitCommand.execute(tasks, storage);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Ui.displayError(e);
         }
         Assertions.assertEquals("See you whenever.", outputStreamCaptor.toString().trim());

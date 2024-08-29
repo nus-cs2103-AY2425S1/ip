@@ -18,6 +18,7 @@ public class TaskUpdateCommand extends Command {
 
     /**
      * Gets the number of the task from the option set while checking for valid arguments
+     *
      * @return The number of the task
      * @throws ZaibotException if the number option is not a valid integer, or bigger than the tasks list.
      */
@@ -39,20 +40,20 @@ public class TaskUpdateCommand extends Command {
     public void runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException {
         Task task;
         switch (super.getName()) {
-            case "mark":
-                task = tasks.markTask(this.getNumberForTask(tasks));
-                Ui.displayTask(task, "mark", tasks);
-                break;
-            case "unmark":
-                task = tasks.unmarkTask(this.getNumberForTask(tasks));
-                Ui.displayTask(task, "unmark", tasks);
-                break;
-            case "delete":
-                tasks.removeTask(this.getNumberForTask(tasks));
-                Ui.displayTasksNumber(tasks);
-                break;
-            default:
-                throw new ZaibotException("Invalid command.\n");
+        case "mark":
+            task = tasks.markTask(this.getNumberForTask(tasks));
+            Ui.displayTask(task, "mark", tasks);
+            break;
+        case "unmark":
+            task = tasks.unmarkTask(this.getNumberForTask(tasks));
+            Ui.displayTask(task, "unmark", tasks);
+            break;
+        case "delete":
+            tasks.removeTask(this.getNumberForTask(tasks));
+            Ui.displayTasksNumber(tasks);
+            break;
+        default:
+            throw new ZaibotException("Invalid command.\n");
         }
     }
 }

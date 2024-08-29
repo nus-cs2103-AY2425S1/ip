@@ -12,7 +12,6 @@ import java.io.PrintStream;
 import java.util.HashMap;
 
 public class TaskAdditionCommandTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final TaskList tasks = new TaskList();
     private final Storage storage = new Storage(tasks);
@@ -24,7 +23,7 @@ public class TaskAdditionCommandTest {
     }
 
     @Test
-    public void testInvalidAdditionType() {
+    public void execute_testInvalidAdditionType() {
         TaskAdditionCommand command = new TaskAdditionCommand("random",
                 new HashMap<String, String>());
         try {
@@ -38,7 +37,7 @@ public class TaskAdditionCommandTest {
     }
 
     @Test
-    public void testToDo() {
+    public void execute_todo_success() {
         HashMap<String, String> optionMap = new HashMap<String, String>();
         optionMap.put("name", "test");
 
@@ -60,7 +59,7 @@ public class TaskAdditionCommandTest {
     }
 
     @Test
-    public void testDeadlineFailure() {
+    public void execute_deadline_wrongArguments() {
         HashMap<String, String> optionMap = new HashMap<String, String>();
         optionMap.put("name", "test");
 
@@ -78,7 +77,7 @@ public class TaskAdditionCommandTest {
     }
 
     @Test
-    public void testDeadlineSuccess() {
+    public void execute_deadline_success() {
         HashMap<String, String> optionMap = new HashMap<String, String>();
         optionMap.put("name", "test");
         optionMap.put("by", "2024-12-01 18:00");
@@ -101,7 +100,7 @@ public class TaskAdditionCommandTest {
     }
 
     @Test
-    public void testEventFailure() {
+    public void execute_event_wrongArguments() {
 
         HashMap<String, String> optionMap = new HashMap<String, String>();
         optionMap.put("name", "test");
@@ -120,7 +119,7 @@ public class TaskAdditionCommandTest {
     }
 
     @Test
-    public void testEventSuccess() {
+    public void execute_event_success() {
         HashMap<String, String> optionMap = new HashMap<String, String>();
         optionMap.put("name", "test");
         optionMap.put("from", "2024-12-01 18:00");
