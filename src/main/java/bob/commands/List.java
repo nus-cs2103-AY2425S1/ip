@@ -4,8 +4,16 @@ import bob.storage.Storage;
 import bob.data.TaskList;
 import bob.ui.Ui;
 
+/**
+ * List all the tasks in the list.
+ */
 public class List extends Command {
-
+    /**
+     * List all the tasks in the list.
+     * Tells the user if the list is empty.
+     *
+     * @param list
+     */
     private static void listTasks(TaskList list) {
         if (list.isEmpty()) {
             System.out.println("There are no tasks in your list.");

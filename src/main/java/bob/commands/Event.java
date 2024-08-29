@@ -8,6 +8,9 @@ import bob.ui.Ui;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Command {
     String description;
     LocalDateTime from;
@@ -18,8 +21,15 @@ public class Event extends Command {
         this.to = to;
     }
 
-    private static void taskAdded(TaskList list, Task t) {
-        System.out.println("Got it. I've added this task:\n" + t);
+    /**
+     * Adds an event task to the list.
+     * Shows the user the task that has been added and the number of tasks in the list.
+     *
+     * @param list The list of tasks.
+     * @param task The task to be added.
+     */
+    private static void taskAdded(TaskList list, Task task) {
+        System.out.println("Got it. I've added this task:\n" + task);
         System.out.println("Now you have " + list.size() + (list.size() == 1 ? " task in the list." : " tasks in the list."));
     }
     @Override

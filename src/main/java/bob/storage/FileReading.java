@@ -12,13 +12,26 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * Reads list of tasks from a file.
+ */
 public class FileReading extends Storage {
     private static final String SEPARATOR = " \\| ";
 
+    /**
+     * Constructs a new FileReading object.
+     *
+     * @param filePath The path to the file.
+     */
     public FileReading(String filePath) {
         super(filePath);
     }
 
+    /**
+     * Creates a directory if it does not exist.
+     *
+     * @param dirName The name of the directory.
+     */
     protected static void createDirectory(String dirName) {
         File directory = new File(dirName);
         if (!directory.exists()) {
@@ -26,6 +39,12 @@ public class FileReading extends Storage {
         }
     }
 
+    /**
+     * Creates a file if it does not exist.
+     *
+     * @param filePath The path to the file.
+     * @throws IOException If the file cannot be created.
+     */
     protected static void createFile(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -33,6 +52,13 @@ public class FileReading extends Storage {
         }
     }
 
+    /**
+     * Loads tasks from a file.
+     *
+     * @param filePath The path to the file.
+     * @return TaskList The list of tasks.
+     * @throws FileNotFoundException If the file cannot be found.
+     */
     protected static TaskList loadTasks(String filePath) throws FileNotFoundException {
         TaskList list = new TaskList();
         File f = new File(filePath);
@@ -63,6 +89,12 @@ public class FileReading extends Storage {
         return list;
     }
 
+    /**
+     * Checks if a task is done.
+     *
+     * @param i The index of the task.
+     * @return Boolean True if the task is done, false otherwise.
+     */
     protected static boolean isDone(int i) {
         return i == 1;
     }
