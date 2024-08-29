@@ -1,1 +1,4 @@
-[E][ ] CS2103T lecture (from: 4pm to: 6pm)
+[D][ ] homework (by: Oct 10 2000)
+[D][ ] hw (by: Oct 10 2000)
+[E][X] lecture (from: today to: Oct 10 2000)
+[D][ ] wow (by: Oct 15 2019)
