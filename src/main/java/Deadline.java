@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,10 +15,6 @@ public class Deadline extends Task {
     }
 
     public String changeDateFormat(String by) {
-        if (by == null || by.trim().isEmpty()) {
-            System.out.println("The deadline cannot be empty!");
-            return "Invalid date";
-        }
 
         List<String> formats = new ArrayList<>();
         formats.add("yyyy-MM-dd");
@@ -40,14 +35,7 @@ public class Deadline extends Task {
                 continue;
             }
         }
-
-        try {
-            LocalDate date = LocalDate.parse(by);
-            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format: " + by);
-            return "Invalid date";
-        }
+        return "TimeDate cannot be converted to another format :'0";
     }
 
     @Override
