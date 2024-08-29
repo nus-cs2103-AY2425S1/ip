@@ -39,7 +39,7 @@ public class CasperBot {
             this.ui.printLine();
             echo();
         } catch (CasperBotIOException e) {
-            this.ui.showErrorMessage(e.getMessage());
+            this.ui.showErrorMessage(e);
         }
     }
 
@@ -139,13 +139,14 @@ public class CasperBot {
                     } catch (DateTimeParseException e) {
                         throw new CasperBotInvalidDateException();
                     }
-                } else if (inputArray[0].equalsIgnoreCase("bye")) {
+                }
+                else if (inputArray[0].equalsIgnoreCase("bye")) {
                     this.ui.exit();
                 } else {
                     throw new CasperBotInvalidCommandException();
                 }
             } catch (CasperBotException e) {
-                this.ui.showErrorMessage(e.getMessage());
+                this.ui.showErrorMessage(e);
             } finally {
                 this.ui.printLine();
             }

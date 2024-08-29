@@ -9,6 +9,6 @@ public class CasperBotException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Error: " + super.getMessage() + "\n" + this.solution;
+        return String.format("Error: %s%s%s", super.getMessage(), System.lineSeparator(), this.solution);
     }
 }

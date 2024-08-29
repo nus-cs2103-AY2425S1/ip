@@ -1,5 +1,6 @@
 package casper;
 
+import exception.CasperBotException;
 import exception.CasperBotOutOfBoundsException;
 
 public class Ui {
@@ -61,7 +62,7 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void showErrorMessage(String errorMessage) {
-        System.out.println(errorMessage);
+    public void showErrorMessage(CasperBotException e) {
+        System.out.println(e);
     }
 }
