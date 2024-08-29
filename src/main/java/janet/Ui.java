@@ -110,6 +110,7 @@ public class Ui {
         }
     }
 
+
     public void showFindMessage(TaskList taskList) {
         // taskList is a subset of the current total taskList
         if (taskList.isEmpty()) {
@@ -133,6 +134,7 @@ public class Ui {
         }
         return tasks;
     }
+
 
     /**
      * Prints the message when task is deleted from the list.
