@@ -37,6 +37,8 @@ public class Parser {
             } else if (input.contains("delete")) {
                 delete(input, taskList, storage);
                 ui.showLine();
+            } else if (input.contains("find")) {
+                find(input, taskList, ui);
             } else if (input.equals("todo") || input.equals("deadline")
                     || input.equals("event")) {
                 throw new PrinceException("    Please describe your '" + input
@@ -291,4 +293,30 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds tasks that contains the keyword as inputted by the user.
+     * @param input Input by the user.
+     * @param taskList List of tasks.
+     * @param ui
+     */
+    private static void find(String input, TaskList taskList, Ui ui) {
+        String[] arr = input.split(" ");
+        String find = arr[0].trim();
+        String keyword = arr[1].trim();
+        TaskList newTaskList = new TaskList();
+        if (find.equals("find")) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                String desc = task.getDescription();
+                if (desc.contains(keyword)) {
+                    newTaskList.add(task);
+                }
+            }
+        }
+        if (newTaskList.size() > 0) {
+            ui.showMatchingTaskList(newTaskList);
+        } else {
+            ui.showNoMatchingTasks();
+        }
+    }
 }
