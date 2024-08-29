@@ -47,7 +47,11 @@ public class TaskList {
         counter += 1;
     }
 
-
+    static void setToDoList(ArrayList<Task> tasks) {
+        toDoList = tasks;
+        // Update the counter based on the new list size
+        counter = tasks.size() + 1;
+    }
 
     public static int getSize() {
         return toDoList.size();
