@@ -1,3 +1,7 @@
+package charlotte.task;
+
+import charlotte.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

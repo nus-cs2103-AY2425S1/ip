@@ -1,3 +1,10 @@
+package charlotte.command;
+
+import charlotte.exception.CharlotteException;
+import charlotte.storage.Storage;
+import charlotte.task.TaskList;
+import charlotte.ui.Ui;
+
 public abstract class Command {
     protected boolean isExit;
 

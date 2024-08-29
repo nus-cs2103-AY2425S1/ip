@@ -1,3 +1,11 @@
+package charlotte.command;
+
+import charlotte.exception.CharlotteException;
+import charlotte.storage.Storage;
+import charlotte.task.Task;
+import charlotte.task.TaskList;
+import charlotte.ui.Ui;
+
 public class AddCommand extends Command {
     private final Task task;
 

@@ -1,3 +1,12 @@
+package charlotte.command;
+
+import charlotte.command.Command;
+import charlotte.exception.CharlotteException;
+import charlotte.storage.Storage;
+import charlotte.task.Task;
+import charlotte.task.TaskList;
+import charlotte.ui.Ui;
+
 public class DeleteCommand extends Command {
     private final int index;
 

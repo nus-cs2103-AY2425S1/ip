@@ -1,3 +1,8 @@
+package charlotte.storage;
+
+import charlotte.exception.CharlotteException;
+import charlotte.task.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

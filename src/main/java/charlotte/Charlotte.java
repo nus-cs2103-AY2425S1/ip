@@ -1,3 +1,12 @@
+package charlotte;
+
+import charlotte.command.Command;
+import charlotte.exception.CharlotteException;
+import charlotte.parser.Parser;
+import charlotte.storage.Storage;
+import charlotte.task.TaskList;
+import charlotte.ui.Ui;
+
 public class Charlotte {
 
     private Storage storage;

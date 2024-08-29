@@ -1,3 +1,5 @@
+package charlotte.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -17,7 +19,7 @@ public class Ui {
 
     public void printWelcome() {
         printLine();
-        System.out.println("Hello! I'm Charlotte!\nWhat can I do for you?");
+        System.out.println("Hello! I'm charlotte.Charlotte!\nWhat can I do for you?");
         printLine();
     }
 

@@ -1,3 +1,18 @@
+package charlotte.parser;
+
+import charlotte.command.Command;
+import charlotte.command.ListCommand;
+import charlotte.command.MarkCommand;
+import charlotte.command.UnmarkCommand;
+import charlotte.command.DeleteCommand;
+import charlotte.command.AddCommand;
+import charlotte.command.ExitCommand;
+import charlotte.exception.CharlotteException;
+import charlotte.task.Deadline;
+import charlotte.task.Event;
+import charlotte.task.Task;
+import charlotte.task.ToDo;
+
 public class Parser {
     public static Command parse(String userInput) throws CharlotteException {
         String[] inputParts = userInput.split(" ", 2);

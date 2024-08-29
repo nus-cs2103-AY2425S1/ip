@@ -1,4 +1,6 @@
-abstract class Task {
+package charlotte.task;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
