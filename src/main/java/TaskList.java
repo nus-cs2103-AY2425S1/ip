@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import java.time.LocalDate;
 
 public class TaskList {
 
@@ -59,8 +60,10 @@ public class TaskList {
             String des = strToken[0].substring("event ".length());
             String from = strToken[1].substring("from ".length());
             String to = strToken[2].substring("to ".length());
+            LocalDate formattedFrom = LocalDate.parse(from);
+            LocalDate formattedTo = LocalDate.parse(to);
 
-            Task t = new Event(des, from, to);
+            Task t = new Event(des, formattedFrom, formattedTo);
             tasks.add(t);
             System.out.print("added: ");
             System.out.println(t.toString());
@@ -75,7 +78,9 @@ public class TaskList {
         try {
             String des = strToken[0].substring("deadline ".length());
             String by = strToken[1].substring("by ".length());
-            Task t = new Deadline(des, by);
+            LocalDate formattedBy = LocalDate.parse(by);
+
+            Task t = new Deadline(des, formattedBy);
             tasks.add(t);
             System.out.print("added: ");
             System.out.println(t.toString());
