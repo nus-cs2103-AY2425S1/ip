@@ -50,6 +50,23 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the tasks found that match the given keyword.
+     *
+     * @param tasks The list of tasks that match the keyword.
+     * @param keyword The keyword used for the search.
+     */
+    public void showFoundTasks(ArrayList<Task> tasks, String keyword) {
+        if (tasks.isEmpty()) {
+            printMsg("No matching tasks found for '" + keyword + "'.");
+        } else {
+            printMsg("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                printTask(i + 1, tasks.get(i));
+            }
+        }
+    }
+
     public void showGoodbye() {
         printMsg("OK bye time to MGTOW.");
     }

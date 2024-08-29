@@ -71,4 +71,16 @@ public class TaskList {
                 .filter(task -> task.isOnDate(date))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    /**
+     * Searches for tasks containing the given keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks whose descriptions contain the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getDesc().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 }
