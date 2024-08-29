@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class Lutchat {
     private final Ui ui;
     private final Storage storage;
