@@ -1,4 +1,4 @@
-public class Task {
+abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -18,6 +18,8 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public abstract String toFileFormat();
 
     @Override
     public String toString() {
