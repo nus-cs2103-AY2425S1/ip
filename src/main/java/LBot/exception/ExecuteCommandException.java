@@ -1,6 +1,10 @@
 package LBot.exception;
 
-// for errors that occur during execution of commands
+/**
+ * This exception is thrown when the chatbot encounters issues executing a command.
+ * <p>
+ * For example, if an incorrect command keyword is provided.
+ */
 public class ExecuteCommandException extends LBotException {
     public ExecuteCommandException(String message) {
         super(message);

@@ -17,12 +17,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// TAKES IN STRING CONTAINING WHOLE COMMAND
-// SWTICH CASE WILL THEN EXECUTE THE RESPECTIVE COMMANDS
+/**
+ * This class parses the given user input and returns the respective command object.
+ */
 public class Parser {
     private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-    // CONVERT LOCAL DATETIME here tyvm
+    /**
+     * Parses given user input.
+     * DateTime parsing is carried out here too.
+     *
+     * @param input user input for their task/command.
+     * @return Command to be executed.
+     * @throws InvalidCommandException thrown when given command keyword is not supported.
+     * @throws ParseCommandException   thrown when user input is not of the correct format.
+     */
     public static Command parse(String input) throws InvalidCommandException, ParseCommandException {
         String description;
         LocalDateTime dueBy;
