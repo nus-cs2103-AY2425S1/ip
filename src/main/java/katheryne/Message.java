@@ -1,14 +1,10 @@
 package katheryne;
 
-<<<<<<< HEAD
-import java.security.PublicKey;
-
-=======
 /**
  * Message Class is to store the strings that will be used in
  * generation of corresponding responses.
  */
->>>>>>> A-JavaDoc
+
 public class Message {
     public static final String DIVIDE  = "✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧";
     public static final String MESSAGE_GOODBYE = "Katheryne: " +
