@@ -35,6 +35,7 @@ application {
 shadowJar {
     archiveBaseName = "tudee"
     archiveClassifier = null
+    archiveFileName = 'Tudee.jar'
 }
 
 run{
