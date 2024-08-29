@@ -92,6 +92,8 @@ public class Parser {
         return input.contains("delete");
     }
 
+
+
     /**
      * Performs a marking or unmarking operation on a task based on the provided input string.
      * The last character of the input is used to determine the index of the task to be marked or unmarked.
@@ -200,8 +202,6 @@ public class Parser {
             ui.empty_event();
         }
     }
-
-
 
     /**
      * Deletes a task from the task list based on the input.
