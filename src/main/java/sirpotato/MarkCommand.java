@@ -1,14 +1,16 @@
-public class DeleteCommand extends Command {
+package sirpotato;
+
+public class MarkCommand extends Command {
 
     private int itemNumber;
 
-    public DeleteCommand(int itemNumber) {
+    public MarkCommand(int itemNumber) {
         this.itemNumber = itemNumber;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.delete(itemNumber, tasks.getList());
+        tasks.mark(itemNumber);
     }
     
 }

@@ -1,3 +1,5 @@
+package sirpotato;
+
 import java.io.IOException;
 
 public class ExitCommand extends Command {

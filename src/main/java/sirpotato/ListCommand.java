@@ -1,3 +1,5 @@
+package sirpotato;
+
 public class ListCommand extends Command {
 
     @Override
