@@ -2,20 +2,17 @@ package parser;
 
 import command.*;
 import task.Deadline;
-import task.Event;
 import task.ToDo;
+import task.Event;
 
 import java.time.format.DateTimeParseException;
 
-/**
- * Parses user input.
- */
 public class Parser {
     /**
-     * Parses the user input and returns the corresponding Command object.
+     * Parses the given input and returns the corresponding command.
      *
-     * @param input The user input.
-     * @return The Command object corresponding to the user input.
+     * @param input The input to parse.
+     * @return The corresponding command.
      */
     public static Command parse(String input) {
         String[] parts = input.split(" ", 2);
