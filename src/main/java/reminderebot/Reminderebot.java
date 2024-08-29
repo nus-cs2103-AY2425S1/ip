@@ -1,3 +1,7 @@
+package reminderebot;
+import reminderebot.commands.Command;
+import reminderebot.task.Task;
+
 import java.util.ArrayList;
 
 public class Reminderebot {

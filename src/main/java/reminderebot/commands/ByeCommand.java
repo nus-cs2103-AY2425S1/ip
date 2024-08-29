@@ -1,3 +1,10 @@
+package reminderebot.commands;
+
+import reminderebot.TaskList;
+import reminderebot.Ui;
+import reminderebot.Storage;
+import reminderebot.ReminderebotException;
+
 /**
  * The ByeCommand class represents a command to exit Reminderebot.
  */

@@ -1,3 +1,5 @@
+package reminderebot;
+
 /**
  * Commands that Reminderebot uses.
  */
