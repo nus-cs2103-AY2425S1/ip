@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,12 +16,11 @@ public class ChaCha {
 
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
-                System.out.println("File created: " + filePath);
-            } else {
-                System.out.println("File already exists: " + filePath);
             }
 
             File taskFile = new File(String.valueOf(filePath));
+            BufferedReader readerFile = new BufferedReader(new FileReader(taskFile));
+            FileWriter writtenFile = new FileWriter(taskFile, true);
 
             String greeting = "     ____________________________________________________________ \n" +
                     "     Hello! I'm ChaCha the ChatBot. :) \n" +
@@ -31,8 +33,10 @@ public class ChaCha {
 
             System.out.println(greeting);
 
-            Scanner scanner = new Scanner(taskFile);
+            Scanner scanner = new Scanner(System.in);
             ListOfTask list = new ListOfTask();
+
+            list.copyFile(readerFile);
 
             while (scanner.hasNextLine()) {
                 String cmd = scanner.nextLine();
@@ -118,25 +122,26 @@ public class ChaCha {
                                     "     ____________________________________________________________ \n");
                         } else {
                             String description = arr[0];
-                            if (!arr[1].startsWith("from")) {
+                            if (!arr[2].startsWith("from")) {
                                 // potential exception when start time is not inputted well
                                 throw new ChaChaException("     ____________________________________________________________ \n" +
                                         "     Please type start time in the form of \'from ...\'. \n" +
                                         "     ____________________________________________________________ \n");
                             }
 
-                            if (!arr[2].startsWith("to")) {
+                            if (!arr[3].startsWith("to")) {
                                 // potential exception when end time is not inputted well
                                 throw new ChaChaException("     ____________________________________________________________ \n" +
                                         "     Please type end time in the form of \'to ...\'. \n" +
                                         "     ____________________________________________________________ \n");
                             }
 
-                            String startTime = arr[1].substring(5);
-                            String endTime = arr[2].substring(3);
+                            String date = arr[1];
+                            String startTime = arr[2].substring(5);
+                            String endTime = arr[3].substring(3);
                             System.out.println("     ____________________________________________________________ \n" +
                                     "     Got it. I've added this task:\n" +
-                                    "       " + list.addEvent(description, startTime, endTime).printTask() + "\n" +
+                                    "       " + list.addEvent(description, date, startTime, endTime).printTask() + "\n" +
                                     "     Now you have " + list.getTotal() + " tasks in the list.\n" +
                                     "     ____________________________________________________________ \n");
                         }
@@ -232,6 +237,7 @@ public class ChaCha {
 
                 scanner = new Scanner(System.in);
             }
+
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }

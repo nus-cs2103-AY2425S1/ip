@@ -8,7 +8,7 @@ event
 event /from 2pm /to 3pm
 event meeting /to 3pm
 event meeting /hod /to 3pm
-event meeting /from 2pm /to 3pm
+event meeting /Aug 6th /from 2pm /to 3pm
 todo tutorial
 todo lab
 todo grocery

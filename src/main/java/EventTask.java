@@ -1,9 +1,11 @@
 public class EventTask extends Task {
+    private String date;
     private String startTime;
     private String endTime;
 
-    public EventTask(String description, String startTime, String endTime) {
-        super(description);
+    public EventTask(String description, boolean isDone, String date, String startTime, String endTime) {
+        super(description, isDone);
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -13,6 +15,6 @@ public class EventTask extends Task {
         String output = "[E]";
         String status = (super.isDone ? "X" : " ");
         return output + "[" + status + "] " + super.description +
-                " (from: " + this.startTime + " to: " + this.endTime + ")";
+                " (" + this.date + " from: " + this.startTime + " to: " + this.endTime + ")";
     }
 }
