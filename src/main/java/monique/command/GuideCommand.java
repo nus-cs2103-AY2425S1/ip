@@ -1,21 +1,43 @@
 package monique.command;
 
-import monique.*;
 import monique.exception.MarkException;
 import monique.storage.Storage;
 import monique.tasklist.TaskList;
 import monique.ui.Ui;
 
+
+/**
+ * Represents a command to display a guide or help text to the user.
+ * This command provides information about available commands and their usage.
+ */
 public class GuideCommand extends Command {
-    public GuideCommand(){
+
+    /**
+     * Constructs a <code>GuideCommand</code> instance.
+     * This constructor initializes the command without any additional parameters.
+     */
+    public GuideCommand() {
         super();
     }
 
+    /**
+     * Executes the guide command, which involves calling the ui to print the guide text to the console.
+     * This provides the user with information on how to use various commands.
+     *
+     * @param tasks the <code>TaskList</code> (not used in this command)
+     * @param ui the <code>Ui</code> instance (not used in this command)
+     * @param storage the <code>Storage</code> instance (not used in this command)
+     * @throws MarkException this command does not throw any exceptions
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MarkException {
-        System.out.println(GuideText.GUIDE);
+        ui.printGuide();
     }
 
+    /**
+     * Returns whether this chatbot will be active after the command executes.
+     * @return true since bot should remain active after the guide command
+     */
     @Override
     public boolean isActive() {
         return true;

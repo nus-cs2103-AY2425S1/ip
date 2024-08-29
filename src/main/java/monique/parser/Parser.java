@@ -19,14 +19,25 @@ import monique.task.Event;
 import monique.task.Task;
 import monique.task.ToDo;
 
+/**
+ * The <code>Parser</code> class processes user input and returns the corresponding <code>Command</code> object.
+ * It handles various commands and task types, parsing the input to create appropriate command objects.
+ */
 public class Parser {
 
     private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
 
-    public static Command parse(String fullCommand){
+    /**
+     * Parses the given command string and returns the corresponding <code>Command</code> object.
+     * The method identifies the command type and creates the appropriate command object with the provided parameters.
+     *
+     * @param fullCommand The full command string to be parsed.
+     * @return The <code>Command</code> object corresponding to the parsed command.
+     */
+    public static Command parse(String fullCommand) {
         String firstWord = fullCommand.split(" ")[0];
-        boolean hasSecondWord = fullCommand.split(" ").length >1;
+        boolean hasSecondWord = fullCommand.split(" ").length > 1;
         Command command = null;
 
         if (commands.contains(firstWord)) {
@@ -149,7 +160,7 @@ public class Parser {
                 }
             }
         }
-        return command!=null?command:new UnknownCommand();
+        return command != null ? command : new UnknownCommand();
     }
 }
 
