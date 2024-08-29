@@ -50,6 +50,9 @@ public class Ui {
             } else if (message.startsWith("deadline")) {
                 String task = message.split(" ", 2)[1];
                 tasks.addDeadline(task);
+            } else if (message.startsWith("find")) {
+                String keyword = message.split(" ", 2)[1];
+                tasks.displayFoundList(keyword);
             } else {
                 System.out.println("Sorry :( I'm confused at what I have to do");
             }

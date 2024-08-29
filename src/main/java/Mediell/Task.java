@@ -10,6 +10,10 @@ public class Task {
         completed = false;
     }
 
+    public boolean find(String keyword) {
+        return taskName.contains(keyword);
+    }
+
     public void markAsCompleted() {
         completed = true;
     }

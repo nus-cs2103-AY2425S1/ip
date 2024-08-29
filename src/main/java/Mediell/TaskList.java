@@ -15,6 +15,16 @@ public class TaskList {
         }
     }
 
+    public void displayFoundList(String keyword) {
+        int j = 0;
+        for (int i = 0; i < size; i++) {
+            if (listItems[i].find(keyword)) {
+                System.out.println(String.valueOf(j + 1) + ". " + listItems[i]);
+                j++;
+            }
+        }
+    }
+
     private void addTaskProcessing() {
         System.out.println("Got it! I've added this task: ");
         System.out.println(listItems[size]);
