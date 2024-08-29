@@ -2,6 +2,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +19,7 @@ public class JEFF {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String DIR_PATH = "./data";
     private static final String FILE_PATH = DIR_PATH + "/JEFF.txt";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     public static void main(String[] args) {
         // Init sequence
@@ -49,7 +56,7 @@ public class JEFF {
                 try {
                     processLine(line);
                 } catch (LineCorruptedException e) {
-                    System.out.println("Error, " + e.getMessage() + " :" + line);
+                    System.out.println("Error, " + e.getMessage() + ": " + line);
                 }
             }
         } catch (IOException e) {
@@ -69,11 +76,28 @@ public class JEFF {
             break;
         case "D":
             if (parts.length != 4) throw new LineCorruptedException("Incorrect Format");
-            taskList.add(new Deadline(parts[2], parts[3]));
+            try {
+                taskList.add(
+                        new Deadline(parts[2],
+                            LocalDateTime.parse(parts[3].trim(), FORMATTER)
+                        )
+                );
+            } catch (DateTimeParseException e) {
+                throw new LineCorruptedException("Incorrect date format at the file!");
+            }
             break;
         case "E":
             if (parts.length != 5) throw new LineCorruptedException("Incorrect Format");
-            taskList.add(new Event(parts[2], parts[3], parts[4]));
+            try {
+                taskList.add(
+                        new Event(parts[2],
+                                LocalDateTime.parse(parts[3].trim(), FORMATTER),
+                                LocalDateTime.parse(parts[4].trim(), FORMATTER)
+                        )
+                );
+            } catch (DateTimeParseException e) {
+                throw new LineCorruptedException("Incorrect date format at the file!");
+            }
             break;
         default:
             throw new LineCorruptedException("Unsupported task");
@@ -136,6 +160,13 @@ public class JEFF {
         case "list":
             printList();
             break;
+        case "print":
+            if (parts.length == 2) {
+                printTasksOnDate(parts[1]);
+            } else {
+                throw new JEFFException("You must provide a date after the command!");
+            }
+            break;
         case "mark":
             if (parts.length == 2 && isNumeric(parts[1])) {
                 markDone(Integer.parseInt(parts[1]));
@@ -184,6 +215,30 @@ public class JEFF {
         return false;
     }
 
+    private static void printTasksOnDate(String dateString) throws JEFFException {
+        try {
+            DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate date = LocalDate.parse(dateString, DATE_FORMATTER);
+            System.out.println("Tasks due on " + date.format(DATE_FORMATTER) + ":");
+            boolean found = false;
+            for (Task task : taskList) {
+                if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask.getDueDate().toLocalDate().equals(date)) {
+                        System.out.println(deadlineTask);
+                        found = true;
+                    }
+                }
+            }
+
+            if (!found) {
+                System.out.println("No tasks due on this date.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new JEFFException("Invalid date format! Please use 'DD/MM/YYYY'.");
+        }
+    }
+
     private static void deleteTask(int i) throws JEFFException {
         if (i <= 0 || i > taskList.size()) {
             throw new JEFFException("The number is outside the range!");
@@ -223,16 +278,35 @@ public class JEFF {
         case "deadline":
             String[] deadline_parts = input.split("/by", 2);
             if (deadline_parts.length < 2) {
-                throw new JEFFException("You did not follow the format for providing a deadline!\nIt should be: task /by date");
+                throw new JEFFException("You did not follow the format for providing a deadline!" +
+                        "\nIt should be: task /by date");
             }
-            taskList.add(new Deadline(deadline_parts[0].trim(), deadline_parts[1].trim()));
+            try {
+                taskList.add(
+                        new Deadline(deadline_parts[0].trim(),
+                                LocalDateTime.parse(deadline_parts[1].trim(), FORMATTER)
+                        )
+                );
+            } catch (DateTimeParseException e) {
+                throw new JEFFException("You need to format your dates as follows: DD/MM/YYYY HHMM");
+            }
             break;
         case "event":
             String[] event_parts = input.split("/from | /to ", 3);
             if (event_parts.length < 3) {
-                throw new JEFFException("You did not follow the format for providing a deadline!\nIt should be: task /from date /to date");
+                throw new JEFFException("You did not follow the format for providing a deadline!" +
+                        "\nIt should be: task /from date /to date");
             }
-            taskList.add(new Event(event_parts[0].trim(), event_parts[1].trim(), event_parts[2].trim()));
+            try {
+                taskList.add(
+                        new Event(event_parts[0].trim(),
+                                LocalDateTime.parse(event_parts[1].trim(), FORMATTER),
+                                LocalDateTime.parse(event_parts[2].trim(), FORMATTER)
+                        )
+                );
+            } catch (DateTimeParseException e) {
+                throw new JEFFException("You need to format your dates as follows: DD/MM/YYYY HHMM");
+            }
             break;
         default:
             throw new JEFFException("Unsupported Task!");
