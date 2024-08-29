@@ -1,12 +1,15 @@
+/**
+ * The abstract {@code Task} class represents a task with a description and a status indicating whether it is done.
+ * It provides methods to manage the task's completion status and to convert it to a string representation or data representation for saving and loading.
+ */
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected static int totalTasks = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        totalTasks += 1;
     }
 
     public String getStatusIcon() {
@@ -22,15 +25,11 @@ public abstract class Task {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
-    public static int getTotalTasks() {
-        return totalTasks;
-    }
-
-    public static void deleteTask() {
-        if (totalTasks > 0) {
-            totalTasks -= 1;
-        }
-    }
-
+    /**
+     * Converts the task to a string format suitable for saving to a data file.
+     * This method must be implemented by subclasses to provide their specific data format.
+     *
+     * @return A string representing the task in a format suitable for data storage.
+     */
     public abstract String toData();
 }
