@@ -1,11 +1,15 @@
-public class Event extends Task {
-    private String start;
-    private String end;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String details, String start, String end) {
+public class Event extends Task {
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+
+    public Event(String details, LocalDate startDate, LocalDate endDate) {
         super(details);
-        this.start = start;
-        this.end = end;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -13,13 +17,13 @@ public class Event extends Task {
      * @return Returns start and end time as text
      */
     public String getDatesAsText() {
-        return "|" + start + "/" + end;
+        return "|" + this.startDate.toString() + "/" + this.endDate.toString();
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), start, end);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                this.startDate.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
+                this.endDate.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
     }
-
-
 }

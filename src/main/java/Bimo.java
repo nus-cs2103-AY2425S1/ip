@@ -1,4 +1,5 @@
 import java.nio.file.InvalidPathException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDate;
 
 public class Bimo {
     public static String NAME = "Bimo";
@@ -29,6 +31,9 @@ public class Bimo {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
             System.out.println("File not found, unable to run chatbot due to error");
+            return;
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
             return;
         }
         System.out.println(LINE);
@@ -94,12 +99,15 @@ public class Bimo {
                     try {
                         String details = getDetails(temp[0]);
                         String dueDate = processDate(true, true, temp);
-                        Task task = new Deadline(details, dueDate);
+                        LocalDate ld = LocalDate.parse((dueDate));
+                        Task task = new Deadline(details, ld);
                         printTaskInfo(task);
                         appendToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
+                        System.out.println(e.getMessage());
+                    } catch (DateTimeParseException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -109,12 +117,15 @@ public class Bimo {
                         String details = getDetails(temp2[0]);
                         String start = processDate(false, false, temp2);
                         String end = processDate(false, true, temp2);
-                        Task task = new Event(details, start, end);
+                        Task task = new Event(details, LocalDate.parse(start),
+                                LocalDate.parse(end));
                         printTaskInfo(task);
                         appendToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
+                        System.out.println(e.getMessage());
+                    } catch (DateTimeParseException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -194,7 +205,6 @@ public class Bimo {
             if (array.length <= 1) {
                 throw new InvalidDateException("    Please provide a deadline using /to");
             }
-
         }
         return isEnd ? array[1] : array[0];
     }
@@ -247,6 +257,7 @@ public class Bimo {
      * @param task Task to be added into tasks
      */
     public static void printTaskInfo(Task task) {
+        task.toString();
         System.out.println("    Got it. I've added this task:");
         Bimo.tasks.add(task);
         System.out.println("        " + task.toString());
@@ -337,10 +348,10 @@ public class Bimo {
         if (type.equals("T")) {
             task = new ToDo(details[2]);
         } else if (type.equals("D")) {
-            task = new Deadline(details[2], details[3]);
+            task = new Deadline(details[2], LocalDate.parse(details[3]));
         } else if (type.equals("E")) {
             String[] dates = details[3].split("/");
-            task = new Event(details[2], dates[0], dates[1]);
+            task = new Event(details[2], LocalDate.parse(dates[0]), LocalDate.parse(dates[1]));
         }
        if (status) {
            task.markCompleted();
