@@ -33,7 +33,7 @@ public class Parser {
                 return new ExitCommand();
 
             default:
-                throw new SageException("Invalid Command.Command");
+                throw new SageException("Invalid Command");
         }
     }
 }
