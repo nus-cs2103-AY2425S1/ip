@@ -2,25 +2,22 @@ import java.util.Scanner;
 
 public class Peridot {
 
-    private static TaskList list = new TaskList();
-    public static void botSay(String string) {
-        System.out.println("Peridot: " + string);
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
+
+    public Peridot(String filePath) {
+        storage = new Storage(filePath);
+        this.taskList = new TaskList(storage.load());
+        ui = new Ui(taskList, storage);
     }
+
+    public void start() {
+        ui.run();
+        storage.write(taskList.getTaskList());
+    }
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        botSay("Hello I'm Peridot!!");
-        botSay("What's up?");
-        String userResponse = scanner.nextLine();
-        while (!userResponse.equals("bye")) {
-            try {
-                list.answer(userResponse);
-                list.write();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            } finally {
-                userResponse = scanner.nextLine();
-            }
-        }
-        botSay("Bye!");
+        new Peridot("./src/main/java/chatData.txt").start();
     }
 }

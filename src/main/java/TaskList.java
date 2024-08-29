@@ -1,125 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.time.LocalDate;
 
 public class TaskList {
 
     private List<Task> list;
-    public TaskList() {
-        this.list = new ArrayList<Task>();
-        try {
-            File data = new File("./src/main/java/chatData.txt");
-            if (!data.exists()) {
-                try {
-                    data.createNewFile();
-                } catch (IOException e) {
-                    System.out.println("Error creating the file");
-                }
-            }
-            Scanner dataReader = new Scanner(data);
-            while (dataReader.hasNextLine()) {
-                String line = dataReader.nextLine();
-                char taskType = line.charAt(0);
-                boolean done = false;
-                switch (taskType) {
-                case 'T':
-                    done = line.charAt(1) == '1';
-                    this.add(new Todo(line.substring(2), done), true);
-                    break;
-                case 'D':
-                    done = line.charAt(1) == '1';
-                    String deadline = line.substring(line.indexOf('%') + 1);
-                    this.add(new Deadline(line.substring(2, line.indexOf('%')), LocalDate.parse(deadline), done), true);
-                    break;
-                case 'E':
-                    done = line.charAt(1) == '1';
-                    String start = line.substring(line.indexOf('%') + 1, line.indexOf('|'));
-                    String end = line.substring(line.indexOf('|') + 1);
-                    this.add(new Event(line.substring(2, line.indexOf('%')), LocalDate.parse(start), LocalDate.parse(end), done), true);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("error");
-        }
-    }
 
-    public void answer(String response) throws InvalidCommandException, InvalidNumberException {
-        String command = response.contains(" ")
-                ? response.substring(0, response.indexOf(' '))
-                : response;
-        String name;
-        String startTime;
-        String endTime;
-        int index;
-        switch (command) {
-            case "todo":
-                try {
-                    name = response.substring(response.indexOf(' ') + 1);
-                    this.add(new Todo(name), false);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new InvalidCommandException();
-                }
-                break;
-            case "deadline":
-                try {
-                    name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
-                    endTime = response.substring(response.indexOf("/by") + 4);
-                    this.add(new Deadline(name, LocalDate.parse(endTime)), false);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new InvalidCommandException();
-                }
-                break;
-            case "event":
-                try {
-                    name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
-                    startTime = response.substring(response.indexOf("/from") + 6, response.indexOf("/to") - 1);
-                    endTime = response.substring(response.indexOf("/to") + 4);
-                    this.add(new Event(name, LocalDate.parse(startTime), LocalDate.parse(endTime)), false);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new InvalidCommandException();
-                }
-                break;
-            case "mark":
-                try {
-                    index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
-                    this.markTask(index);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new InvalidCommandException();
-                } catch (NumberFormatException e) {
-                    throw new InvalidNumberException();
-                }
-                break;
-            case "unmark":
-                try {
-                    index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
-                    this.unmarkTask(index);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new InvalidCommandException();
-                } catch (NumberFormatException e) {
-                    throw new InvalidNumberException();
-                }
-                break;
-            case "delete":
-                try {
-                    index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
-                    this.delete(index);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new InvalidCommandException();
-                } catch (NumberFormatException e) {
-                    throw new InvalidNumberException();
-                }
-                break;
-            case "list":
-                this.listOut();
-                break;
-            default:
-                throw new InvalidCommandException();
-        }
+    public TaskList(List<Task> loadedData) {
+        this.list = loadedData;
     }
 
     public void add(Task task, boolean saved) {
@@ -156,19 +42,7 @@ public class TaskList {
         System.out.println("Deleted task " + deleted);
     }
 
-    public void write() {
-        try {
-            FileWriter data = new FileWriter("./src/main/java/chatData.txt");
-            this.list.forEach(task -> {
-                try {
-                    data.write(task.toData() + "\n");
-                } catch (IOException e) {
-                    System.out.println("An error in writing has occured");
-                }
-            });
-            data.close();
-        } catch (IOException e) {
-            System.out.println("An error in writing has occured");
-        }
+    public List<Task> getTaskList() {
+        return this.list;
     }
 }
