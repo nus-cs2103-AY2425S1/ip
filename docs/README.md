@@ -1,4 +1,4 @@
-# Neuro User Guide
+# neuro.Neuro User Guide
 
 // Update the title above to match the actual product name
 
