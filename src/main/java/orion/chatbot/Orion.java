@@ -5,6 +5,7 @@ import orion.tasks.Todo;
 import orion.tasks.Deadline;
 import orion.tasks.Event;
 import orion.exceptions.OrionTaskDataException;
+import orion.exceptions.OrionInputException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -187,28 +188,28 @@ public class Orion {
         Orion.addTask(task);
     }
 
-    private static void addDeadline(String name, String deadline) throws IllegalArgumentException {
+    private static void addDeadline(String name, String deadline) throws OrionInputException {
         try {
             LocalDate time = LocalDate.parse(deadline);
             Task task = new Deadline(name, time);
             Orion.addTask(task);
         } catch (DateTimeException e) {
-            throw new IllegalArgumentException("Correct syntax: deadline <task> /by <yyyy-mm-dd>." +
+            throw new OrionInputException("Correct syntax: deadline <task> /by <yyyy-mm-dd>." +
                     "Please input a valid date in the correct format!");
         }
     }
 
-    private static void addEvent(String name, String from, String to) throws IllegalArgumentException {
+    private static void addEvent(String name, String from, String to) throws OrionInputException {
         try {
             LocalDate start = LocalDate.parse(from);
             LocalDate end = LocalDate.parse(to);
             if (start.isAfter(end)) {
-                throw new IllegalArgumentException("Your start date must be later than your end date!");
+                throw new OrionInputException("Your start date must be later than your end date!");
             }
             Task task = new Event(name, start, end);
             Orion.addTask(task);
         } catch (DateTimeException e) {
-            throw new IllegalArgumentException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>. " +
+            throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>. " +
                     "Please input valid dates in the correct format!");
         }
     }
@@ -254,52 +255,52 @@ public class Orion {
                     break;
                 case "mark":
                     if (inputArray.length != 2) {
-                        throw new IllegalArgumentException("Correct syntax: mark <task number>");
+                        throw new OrionInputException("Correct syntax: mark <task number>");
                     } else {
                         try {
                             int taskNo = Integer.parseInt(inputArray[1]);
                             if (taskNo < 1) {
-                                throw new IllegalArgumentException("Please provide a positive task number!");
+                                throw new OrionInputException("Please provide a positive task number!");
                             } else if (taskNo > Orion.noTasks) {
                                 String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as done.", Orion.noTasks, taskNo);
-                                throw new IllegalArgumentException(errorMsg);
+                                throw new OrionInputException(errorMsg);
                             } else {
                                 Orion.markTask(taskNo - 1);
                                 break;
                             }
                         } catch (NumberFormatException e) {
-                            throw new IllegalArgumentException("Correct syntax: mark <task number>");
+                            throw new OrionInputException("Correct syntax: mark <task number>");
                         }
                     }
                 case "unmark":
                     if (inputArray.length != 2) {
-                        throw new IllegalArgumentException("Correct syntax: unmark <task number>");
+                        throw new OrionInputException("Correct syntax: unmark <task number>");
                     } else {
                         try {
                             int taskNo = Integer.parseInt(inputArray[1]);
                             if (taskNo < 1) {
-                                throw new IllegalArgumentException("Please provide a positive task number!");
+                                throw new OrionInputException("Please provide a positive task number!");
                             } else if (taskNo > Orion.noTasks) {
                                 String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as undone.", Orion.noTasks, taskNo);
-                                throw new IllegalArgumentException(errorMsg);
+                                throw new OrionInputException(errorMsg);
                             } else {
                                 Orion.unmarkTask(taskNo - 1);
                                 break;
                             }
                         } catch (NumberFormatException e) {
-                            throw new IllegalArgumentException("Correct syntax: unmark <task number>");
+                            throw new OrionInputException("Correct syntax: unmark <task number>");
                         }
                     }
                 case "todo":
                     if (inputArray.length < 2) {
-                        throw new IllegalArgumentException("Correct syntax: todo <task>");
+                        throw new OrionInputException("Correct syntax: todo <task>");
                     } else {
                         Orion.addTodo(Orion.removeFirstWordFromString(input).trim());
                         break;
                     }
                 case "deadline":
                     if (parsed.length != 2 || !parsed[1].matches("^by.*$")) {
-                        throw new IllegalArgumentException("Correct syntax: deadline <task> /by <yyyy-mm-dd>");
+                        throw new OrionInputException("Correct syntax: deadline <task> /by <yyyy-mm-dd>");
                     } else {
                         // Removes "deadline" and "by" keywords from input
                         String[] mapped = Arrays.stream(parsed)
@@ -310,7 +311,7 @@ public class Orion {
                     }
                 case "event":
                     if (parsed.length != 3 || !parsed[1].matches("^from.*$") || !parsed[2].matches("^to.*$")) {
-                        throw new IllegalArgumentException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>");
+                        throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>");
                     } else {
                         // Removes "event", "from" and "to" keywords from input
                         String[] mapped = Arrays.stream(parsed)
@@ -321,28 +322,30 @@ public class Orion {
                     }
                 case "delete":
                     if (inputArray.length != 2) {
-                        throw new IllegalArgumentException("Correct syntax: delete <task number>");
+                        throw new OrionInputException("Correct syntax: delete <task number>");
                     } else {
                         try {
                             int taskNo = Integer.parseInt(inputArray[1]);
                             if (taskNo < 1) {
-                                throw new IllegalArgumentException("Please provide a positive task number!");
+                                throw new OrionInputException("Please provide a positive task number!");
                             } else if (taskNo > Orion.noTasks) {
                                 String errorMsg = String.format("Number of tasks: %d. Unable to delete task %d.", Orion.noTasks, taskNo);
-                                throw new IllegalArgumentException(errorMsg);
+                                throw new OrionInputException(errorMsg);
                             } else {
                                 Orion.deleteTask(taskNo - 1);
                                 break;
                             }
                         } catch (NumberFormatException e) {
-                            throw new IllegalArgumentException("Correct syntax: delete <task number>");
+                            throw new OrionInputException("Correct syntax: delete <task number>");
                         }
                     }
                 default:
-                    throw new IllegalArgumentException("Please provide a supported command!");
+                    throw new OrionInputException("Please provide a supported command!");
             }
-        } catch (Exception e) {
+        } catch (OrionInputException e) {
             Orion.printIndent(e.getMessage());
+        } catch (Exception e) {
+            Orion.printIndent("Unexpected error!" + e.getMessage());
         }
         Orion.printBar();
     }
