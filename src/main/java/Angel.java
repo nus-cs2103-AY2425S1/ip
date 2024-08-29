@@ -1,8 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Represents the Angel chatbot application.
@@ -12,6 +10,7 @@ public class Angel {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final String FILE_PATH = "./data/Angel.txt";
     private TaskList taskList;
+    private Ui ui;
 
     /**
      * Constructs an Angel instance and initializes the task list.
@@ -19,6 +18,7 @@ public class Angel {
      */
     public Angel() {
         taskList = new TaskList(FILE_PATH);
+        ui = new Ui();
     }
 
     /**
@@ -26,21 +26,21 @@ public class Angel {
      * Continuously reads user input, processes commands, and updates task list.
      */
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello! I'm Angel\nWhat can I do for you?");
+        ui.print("Hello! I'm Angel\nWhat can I do for you?");
 
         while (true) {
             try {
-                String input = scanner.nextLine();
+                String input = ui.readInput();
                 String[] parts = input.split(" ", 2);
                 String command = parts[0];
 
                 switch (command) {
                 case "bye":
-                    System.out.println("Bye. Hope to see you again soon!");
+                    ui.print("Bye. Hope to see you again soon!");
+                    ui.close();
                     return;
                 case "list":
-                    listTasks();
+                    ui.printTasks(taskList);
                     break;
                 case "todo":
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -49,7 +49,7 @@ public class Angel {
                         );
                     }
                     taskList.addTask(new ToDo(parts[1]));
-                    System.out.println("Got it. I've added this task:\n  " + parts[1]);
+                    ui.print("Got it. I've added this task:\n  " + parts[1]);
                     break;
                 case "deadline":
                     if (parts.length < 2 || !parts[1].contains(" /by ")) {
@@ -60,7 +60,7 @@ public class Angel {
                     String[] deadlineDetails = parts[1].split(" /by ");
                     LocalDateTime deadlineDate = parseDate(deadlineDetails[1]);
                     taskList.addTask(new Deadline(deadlineDetails[0], deadlineDate));
-                    System.out.println("Got it. I've added this task:\n  " + deadlineDetails[0] + " by: " + deadlineDate.format(INPUT_FORMAT));
+                    ui.print("Got it. I've added this task:\n  " + deadlineDetails[0] + " by: " + deadlineDate.format(INPUT_FORMAT));
                     break;
                 case "event":
                     if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
@@ -73,7 +73,7 @@ public class Angel {
                     LocalDateTime fromDate = parseDate(times[0]);
                     LocalDateTime toDate = parseDate(times[1]);
                     taskList.addTask(new Event(eventDetails[0], fromDate, toDate));
-                    System.out.println("Got it. I've added this task:\n  " + eventDetails[0] + " from: " + fromDate.format(INPUT_FORMAT) + " to: " + toDate.format(INPUT_FORMAT));
+                    ui.print("Got it. I've added this task:\n  " + eventDetails[0] + " from: " + fromDate.format(INPUT_FORMAT) + " to: " + toDate.format(INPUT_FORMAT));
                     break;
                 case "mark":
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -84,7 +84,7 @@ public class Angel {
                     try {
                         int taskIndex = Integer.parseInt(parts[1]) - 1;
                         taskList.markTask(taskIndex);
-                        System.out.println("Nice! I've marked this task as done:\n  " + taskList.listTasks().get(taskIndex));
+                        ui.print("Nice! I've marked this task as done:\n  " + taskList.listTasks().get(taskIndex));
                     } catch (NumberFormatException e) {
                         throw new InvalidCommandException(
                                 "Invalid task number for 'mark'. Please enter a valid number after 'mark'."
@@ -100,7 +100,7 @@ public class Angel {
                     try {
                         int taskIndex = Integer.parseInt(parts[1]) - 1;
                         taskList.unmarkTask(taskIndex);
-                        System.out.println("OK, I've marked this task as not done yet:\n  " + taskList.listTasks().get(taskIndex));
+                        ui.print("OK, I've marked this task as not done yet:\n  " + taskList.listTasks().get(taskIndex));
                     } catch (NumberFormatException e) {
                         throw new InvalidCommandException(
                                 "Invalid task number for 'unmark'. Please enter a valid number after 'unmark'."
@@ -116,7 +116,7 @@ public class Angel {
                     try {
                         int taskIndex = Integer.parseInt(parts[1]) - 1;
                         taskList.deleteTask(taskIndex);
-                        System.out.println("Noted. I've removed this task:\n  " + taskList.listTasks().get(taskIndex));
+                        ui.print("Noted. I've removed this task:\n  " + taskList.listTasks().get(taskIndex));
                     } catch (NumberFormatException e) {
                         throw new InvalidCommandException(
                                 "Invalid task number for 'delete'. Please enter a valid number after 'delete'."
@@ -129,11 +129,11 @@ public class Angel {
                     );
                 }
             } catch (InvalidCommandException e) {
-                System.out.println("Error: " + e.getMessage());
+                ui.printError(e.getMessage());
             } catch (TaskNotFoundException e) {
-                System.out.println("Error: " + e.getMessage() + " Please check the task number and try again.");
+                ui.printError(e.getMessage() + " Please check the task number and try again.");
             } catch (AngelException e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
+                ui.printError("An unexpected error occurred: " + e.getMessage());
             }
         }
     }
@@ -150,16 +150,6 @@ public class Angel {
             return LocalDateTime.parse(dateTimeString, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             throw new InvalidCommandException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm'.");
-        }
-    }
-
-    /**
-     * Lists all tasks in the current task list.
-     */
-    private void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.listTasks().size(); i++) {
-            System.out.println((i + 1) + "." + taskList.listTasks().get(i));
         }
     }
 
