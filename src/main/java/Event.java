@@ -16,7 +16,7 @@ public class Event extends Task {
      * @param to The ending time of the Event.
      */
     public Event(String description, String from, String to) {
-        super(description);
+        super(description.trim());
 
         String startDate = from.trim();
         String endDate = to.trim();
@@ -50,6 +50,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from " + from + " to " + to + ")";
+        return "[E]" + super.toString() + " (from " + from + " to " + to + ")";
     }
 }

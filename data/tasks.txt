@@ -1,12 +1,1 @@
-T|0|read
-D|0|swim |tomorrow
-E|0|watch movie |from tuesday|to wednesday
-E|0|lecture |from 2024-08-31|to 2024-09-01
-D|0|read |Aug 1 2024
-E|0|hello |today|tomorrow
-E|0|bibye |Aug 1 2024|2024-09-09
-E|0|hiohio |Aug 7 2024|Sep 1 2024
-T|0|go say hello
-T|0|read
-T|0|play
-T|0|read
+
