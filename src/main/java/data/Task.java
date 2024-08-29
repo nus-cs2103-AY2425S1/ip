@@ -38,7 +38,14 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Search task description to see if it contains given keyword
+     * Ignores case
+     *
+     * @param searchStr keyword to search task description with
+     * @return true if keyword found; else false
+     */
     public boolean contains(String searchStr) {
-        return this.description.contains(searchStr);
+        return this.description.toLowerCase().contains(searchStr.toLowerCase());
     }
 }

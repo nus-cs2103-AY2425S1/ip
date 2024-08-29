@@ -69,9 +69,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to search and display tasks based on keyword given
+     *
+     * @param searchStr keyword to search tasks with
+     * @param ui user interface to give user information
+     */
     public void searchTasks(String searchStr, Ui ui) {
         int numberOfTasks = taskList.size();
         int num = 1;
+        ui.displayString("Here are the tasks with keyword '" + searchStr +"':");
         for (int i = 0; i < numberOfTasks; i++) {
             Task task = taskList.get(i);
             if (task.contains(searchStr)) {

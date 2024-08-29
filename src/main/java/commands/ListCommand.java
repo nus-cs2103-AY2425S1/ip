@@ -13,6 +13,11 @@ public class ListCommand implements Command {
         super();
     }
 
+    /**
+     * Constructor for ListCommand
+     *
+     * @param remaining keyword used to search for tasks to list
+     */
     public ListCommand(String remaining) {
         searchStr = remaining;
     }
@@ -20,9 +25,9 @@ public class ListCommand implements Command {
     @Override
     public boolean execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         if (searchStr.isBlank()) {
-            taskList.listAllTasks(ui);
+            taskList.listAllTasks(ui); // list all tasks if no keyword
         } else {
-            taskList.searchTasks(searchStr, ui);
+            taskList.searchTasks(searchStr, ui); // list tasks based on given keyword
         }
 
         return true;

@@ -8,6 +8,9 @@ mark 1
 list
 mark 2
 unmark 1
+find book
+find BOYS
+find borrow
 list
 todo
 deadline
