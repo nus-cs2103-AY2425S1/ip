@@ -1,13 +1,14 @@
 package TaskObj;
+import java.time.LocalDate;
 
 public class Deadlines extends Task {
-    private final String deadline;
-    public Deadlines(String desc, String deadline) {
+    private final LocalDate deadline;
+    public Deadlines(String desc, LocalDate deadline) {
         super(desc);
         this.deadline = deadline;
     }
 
-    public Deadlines(String desc, String deadline, Boolean isCompleted) {
+    public Deadlines(String desc, LocalDate deadline, Boolean isCompleted) {
         super(desc, isCompleted);
         this.deadline = deadline;
     }

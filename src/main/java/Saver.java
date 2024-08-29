@@ -5,6 +5,7 @@ import TaskObj.Todos;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,15 +13,22 @@ public class Saver {
     private static Task formatterToTask(String task) {
         String[] taskDesc = task.split("\\|");
         Boolean curIsCompleted = Integer.parseInt(taskDesc[1].strip()) == 1;
-        return switch (taskDesc[0].strip()) {
+        switch (taskDesc[0].strip()) {
             // A to-do task
-            case "T" -> new Todos(taskDesc[2].strip(), curIsCompleted);
+            case "T":
+                return new Todos(taskDesc[2].strip(), curIsCompleted);
             // A deadline task
-            case "D" -> new Deadlines(taskDesc[2].strip(), taskDesc[3].strip(), curIsCompleted);
+            case "D":
+                LocalDate curDate = LocalDate.parse(taskDesc[3].strip());
+                return new Deadlines(taskDesc[2].strip(), curDate, curIsCompleted);
             // An event task
-            case "E" -> new Events(taskDesc[2].strip(), taskDesc[3].strip(), taskDesc[4].strip(), curIsCompleted);
-            default -> null;
-        };
+            case "E":
+                LocalDate fromDate = LocalDate.parse(taskDesc[3].strip());
+                LocalDate toDate = LocalDate.parse(taskDesc[4].strip());
+                return new Events(taskDesc[2].strip(), fromDate, toDate, curIsCompleted);
+            default:
+                return null;
+        }
     }
 
     private static String formatterToText(Task task) {
