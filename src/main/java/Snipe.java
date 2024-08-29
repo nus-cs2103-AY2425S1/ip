@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
@@ -152,6 +153,8 @@ public class Snipe {
             taskListStorage.saveTaskList(list);
         } catch (SnipeException | IOException e) {
             printWithLines(e.getMessage());
+        } catch (DateTimeParseException e) {
+            printWithLines("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
         }
     }
 

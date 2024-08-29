@@ -1,3 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 /**
  * The {@code Deadline} class represents a task that has a specific deadline.
  * It is a subclass of {@link Task}.
@@ -5,7 +10,11 @@
 public class Deadline extends Task {
 
     /** The deadline by which the task needs to be completed. */
-    protected String deadline;
+    protected LocalDateTime deadline;
+
+    /** Formatter for parsing and displaying date and time. */
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
 
     /**
      * Constructs a new {@code Deadline} task with the specified description and deadline.
@@ -16,12 +25,26 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) {
         super(description, TaskType.DEADLINE);
-        this.deadline = deadline;
+        setDeadline(deadline);
 
     }
 
-    public String getDeadline() {
-        return this.deadline;
+    /**
+     * Sets the deadline by parsing the input string into a {@link LocalDateTime} object.
+     *
+     * @param deadlineStr The deadline string in "yyyy-MM-dd HHmm" format.
+     */
+    private void setDeadline(String deadlineStr) throws DateTimeParseException {
+        this.deadline = LocalDateTime.parse(deadlineStr, INPUT_FORMAT);
+    }
+
+    /**
+     * Returns the deadline formatted as a string.
+     *
+     * @return A string representation of the deadline.
+     */
+    public String getFormattedDeadline() {
+        return deadline != null ? deadline.format(OUTPUT_FORMAT) : "No deadline set";
     }
 
     /**
@@ -32,6 +55,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + getFormattedDeadline() + ")";
     }
 }

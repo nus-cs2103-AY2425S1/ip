@@ -2,7 +2,7 @@
  * Represents a task with a description, status, and type.
  * The task can be of type TODO, DEADLINE, or EVENT, represented by the {@link TaskType} enum.
  */
-public class Task {
+public abstract class Task {
 
     /**
      * Enumeration of task types. Represents the different types of tasks that can be created.
