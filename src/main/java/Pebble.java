@@ -285,8 +285,7 @@ public class Pebble {
             System.out.println("Unexpected error occurred when saving tasks to file: " + e.getMessage());
         }
     }
-
-
+    
     /**
      * Converts string input to command type.
      * @param input Input string by the user.
