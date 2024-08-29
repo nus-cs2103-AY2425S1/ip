@@ -12,10 +12,12 @@ public class Tudee {
                 + "How can I help you today? :) \n"
                 + "____________________________________________________________ \n";
         System.out.println(logo);
+        String path = "./data/tudee.txt";
+        Storage storage = new Storage(path);
+        List<Task> list = storage.load();
+        int count = list.size();
         String input;
         Scanner sc = new Scanner(System.in);
-        List<Task> list = new ArrayList<>();
-        int count = 0;
         while (true) {
             try {
                 String output = "";
@@ -75,8 +77,7 @@ public class Tudee {
                 }
                 else if (cmd == Command.DELETE) {
                     int index = Integer.parseInt(inputArray[1]) - 1;
-                    Task temp = list.get(index);
-                    list.remove(index);
+                    Task temp = list.remove(index);
                     count--;
                     System.out.println("____________________________________________________________ \n");
                     System.out.println("Noted. I've removed this task: \n");
@@ -87,6 +88,7 @@ public class Tudee {
                 else {
                     throw new TudeeException("Everything has limits, and this is my limit.");
                 }
+                storage.save(list);
             }
             catch (TudeeException exception) {
                 System.out.println("____________________________________________________________ \n");
