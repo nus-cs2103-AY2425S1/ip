@@ -5,7 +5,7 @@ package monique.task;
  * It extends the <code>Task</code> class and includes only a description and completion status.
  */
 public class ToDo extends Task {
-    private static final String formatString = "[T][%s] %s";
+    private static final String FORMATSTRING = "[T][%s] %s";
 
     /**
      * Constructs a new <code>ToDo</code> object with the specified description and sets the task as incomplete.
@@ -42,7 +42,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return String.format(formatString, this.isComplete ? "X" : " ", this.description);
+        return String.format(FORMATSTRING, this.isComplete() ? "X" : " ", this.getDescription());
     }
 
     /**
@@ -53,7 +53,7 @@ public class ToDo extends Task {
      */
     @Override
     public ToDo mark() {
-        return new ToDo(this.description, true);
+        return new ToDo(this.getDescription(), true);
     }
 
     /**
@@ -64,7 +64,7 @@ public class ToDo extends Task {
      */
     @Override
     public ToDo unmark() {
-        return new ToDo(this.description, false);
+        return new ToDo(this.getDescription(), false);
     }
 
 

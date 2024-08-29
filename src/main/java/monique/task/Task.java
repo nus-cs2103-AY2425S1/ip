@@ -6,12 +6,8 @@ package monique.task;
  * * <code>Deadline</code> and <code>Event</code>.
  */
 public abstract class Task implements java.io.Serializable {
-    /**
-     * The unique identifier used for serializing the <code>Task</code> class.
-     */
-    private static final long serialisableUid = 1L;
-    public final String description;
-    public boolean isComplete;
+    private final String description;
+    private final boolean isComplete;
 
     /**
      * Constructs a new <code>Task</code> object with the specified description and sets the task as incomplete.

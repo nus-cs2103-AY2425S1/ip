@@ -1,4 +1,8 @@
 package monique;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import monique.command.Command;
 import monique.exception.MarkException;
 import monique.exception.MoniqueException;
@@ -8,9 +12,6 @@ import monique.parser.Parser;
 import monique.storage.Storage;
 import monique.tasklist.TaskList;
 import monique.ui.Ui;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * The <code>Monique</code> class represents the main class of the Monique application.
@@ -51,7 +52,7 @@ public class Monique {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList,ui,storage);
+                c.execute(taskList, ui, storage);
                 isActive = c.isActive();
             } catch (MoniqueException me) {
                 me.advice();
@@ -72,7 +73,8 @@ public class Monique {
      * @throws UnknownCommandException If an unknown command is encountered.
      * @throws FileNotFoundException If the specified file path for tasks is not found.
      */
-    public static void main(String[] args) throws IOException, MarkException, ParseException, UnknownCommandException, FileNotFoundException {
+    public static void main(String[] args) throws IOException, MarkException, ParseException,
+            UnknownCommandException, FileNotFoundException {
         new Monique("data/tasks.txt").run();
     }
 }

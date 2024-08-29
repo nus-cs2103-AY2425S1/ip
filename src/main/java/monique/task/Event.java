@@ -13,7 +13,7 @@ import monique.exception.IllegalDateFormatException;
  * It extends the <code>Task</code> class and includes a start date and an end date for the event.
  */
 public class Event extends Task {
-    private static final String formatString = "[E][%s] %s (from:%s to: %s)";
+    private static final String FORMATSTRING = "[E][%s] %s (from:%s to: %s)";
     private final LocalDate from;
     private final LocalDate to;
 
@@ -100,7 +100,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format(formatString , this.isComplete ? "X" : " " , this.description,
+        return String.format(FORMATSTRING, this.isComplete() ? "X" : " " , this.getDescription(),
                 this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                 this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
@@ -113,7 +113,7 @@ public class Event extends Task {
      */
     @Override
     public Event mark() {
-        return new Event(this.description, true , this.from, this.to);
+        return new Event(this.getDescription(), true , this.from, this.to);
     }
 
     /**
@@ -124,7 +124,7 @@ public class Event extends Task {
      */
     @Override
     public Event unmark() {
-        return new Event(this.description, false, this.from, this.to);
+        return new Event(this.getDescription(), false, this.from, this.to);
     }
 
     /**

@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import monique.task.Task;
-import monique.tasklist.TaskList;
-
-
-
 import monique.GuideText;
 import monique.task.Task;
 import monique.tasklist.TaskList;
@@ -114,6 +109,13 @@ public class Ui {
         System.out.println("There are no tasks in your List :)");
     }
 
+    /**
+     * Displays the search results for tasks that match a given search query.
+     * If the provided list of tasks is empty, a message indicating no matches is printed.
+     * Otherwise, it prints each matching task in the list, numbered sequentially.
+     *
+     * @param resultList the list of tasks that match the search query
+     */
     public void showFindResults(ArrayList<Task> resultList) {
         if (resultList.isEmpty()) {
             System.out.println("There are no tasks matching your search");

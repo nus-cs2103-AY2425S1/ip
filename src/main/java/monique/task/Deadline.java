@@ -14,7 +14,7 @@ import monique.exception.IllegalDateFormatException;
  */
 public class Deadline extends Task {
 
-    private static final String formatString = "[D][%s] %s (by: %s)";
+    private static final String FORMATSTRING = "[D][%s] %s (by: %s)";
     private final LocalDate by;
 
     /**
@@ -86,8 +86,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format(formatString,this.isComplete ? "X" : " ",
-                    this.description , this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format(FORMATSTRING, this.isComplete() ? "X" : " ",
+                    this.getDescription() , this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     /**
@@ -98,7 +98,7 @@ public class Deadline extends Task {
      */
     @Override
     public Deadline mark() {
-        return new Deadline(this.description, true, this.by);
+        return new Deadline(this.getDescription(), true, this.by);
     }
 
     /**
@@ -109,7 +109,7 @@ public class Deadline extends Task {
      */
     @Override
     public Deadline unmark() {
-        return new Deadline(this.description, false, this.by);
+        return new Deadline(this.getDescription(), false, this.by);
     }
 
 
