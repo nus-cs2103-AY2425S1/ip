@@ -4,6 +4,9 @@ import darwin.task.Task;
 import darwin.task.TaskManager;
 import darwin.ui.Ui;
 
+/**
+ * AddTaskCommand class to add a task to the task list.
+ */
 public class AddTaskCommand extends Command {
     private static final String ADD_TASK_MSG = "Got it. I've added this task:";
 
@@ -14,6 +17,11 @@ public class AddTaskCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * Executes the command to add a task to the task list.
+     * @param taskManager task manager to add task to
+     * @param ui ui to send messages to user
+     */
     @Override
     public void execute(TaskManager taskManager, Ui ui) {
         taskManager.addTask(this.task);

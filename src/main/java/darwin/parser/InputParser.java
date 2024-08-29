@@ -14,6 +14,13 @@ import darwin.task.Task;
 public class InputParser {
     private static final String EMPTY_ARGS = "";
 
+    /**
+     * Parses the input string into a Command object.
+     * @param in user input
+     * @return Command based on input
+     * @throws IllegalTaskTypeException if task type is invalid
+     * @throws IllegalTaskArgumentException if task arguments are invalid
+     */
     public Command parse(String in) throws IllegalTaskTypeException, IllegalTaskArgumentException {
         in = in.trim();
         String[] parts = in.split("\\s+", 2);

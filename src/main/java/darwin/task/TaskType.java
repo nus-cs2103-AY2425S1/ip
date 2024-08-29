@@ -2,6 +2,9 @@ package darwin.task;
 
 import darwin.exception.IllegalTaskTypeException;
 
+/**
+ * Enum to represent the different types of tasks.
+ */
 public enum TaskType {
     TODO("todo", "T"),
     DEADLINE("deadline", "D"),
@@ -16,6 +19,13 @@ public enum TaskType {
         return this.name;
     }
     public String getSymbol() { return this.symbol;}
+
+    /**
+     * Returns the TaskType from the given name.
+     * @param name name of the TaskType represented as a string
+     * @return TaskType
+     * @throws IllegalTaskTypeException if the name is not a valid TaskType
+     */
     public static TaskType fromName(String name) throws IllegalTaskTypeException {
         for (TaskType type : TaskType.values()) {
             if (type.getName().equalsIgnoreCase(name)) {
@@ -24,6 +34,13 @@ public enum TaskType {
         }
         throw new IllegalTaskTypeException(String.format("%s is not a valid task type", name));
     }
+
+    /**
+     * Returns the TaskType from the given symbol.
+     * @param symbol symbol of the TaskType represented as a string
+     * @return TaskType
+     * @throws IllegalTaskTypeException if the symbol is not a valid TaskType
+     */
     public static TaskType fromSymbol(String symbol) throws IllegalTaskTypeException {
         for (TaskType type : TaskType.values()) {
             if (type.getSymbol().equals(symbol)) {
