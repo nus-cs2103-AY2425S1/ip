@@ -140,7 +140,7 @@ public class Muller {
         sc.close();
     }
 
-    static class MullerException extends Exception {
+    public static class MullerException extends Exception {
         public MullerException(String message) {
             super(message);
         }
