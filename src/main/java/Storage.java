@@ -7,10 +7,24 @@ import java.util.Scanner;
 public class Storage {
 
     File memory;
+    File parent;
     TaskList taskList;
 
-    public Storage(File f) {
-        memory = f;
+    public Storage(String s) {
+        memory = new File(s);
+        parent = new File("src/main/java/Memory");
+        try{
+            if (!parent.exists()) {
+                //create parent directory
+                parent.mkdirs();
+            }
+            if (memory.createNewFile()) {
+                //create memory txt file
+            }
+        } catch (IOException e) {
+            System.out.println("error creating memory files");
+        }
+
     }
 
     public void save() {

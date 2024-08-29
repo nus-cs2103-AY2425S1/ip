@@ -11,9 +11,8 @@ public class Testament {
         File taskListMemory;
         Storage storage;
 
-        taskListMemory = new File("src/main/java/Memory/TaskList.txt");
         printDialogue("Morning!\n Nice day for a stroll, don't you think?");
-        storage = new Storage(taskListMemory);
+        storage = new Storage("src/main/java/Memory/TaskList.txt");
         taskList = storage.load();
 
 
