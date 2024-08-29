@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class Jeriel {
 
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -131,8 +132,6 @@ public class Jeriel {
 //                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
 //                     System.out.println("____________________________________________________________");
 //                     storage.save(tasks);
-
-
 
 
 //                 } else if (input.startsWith("deadline")) {
