@@ -1,4 +1,7 @@
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 public class TaskList {
     ArrayList<Task> list = new ArrayList<>();
@@ -94,6 +97,13 @@ public class TaskList {
             System.out.println("    thou now hath " + list.size() + " tasks to complete");
         }
         printLine();
+    }
+
+    private void writeToFile() {
+        Path path = Paths.get("iP", "data");
+        boolean directoryExists = Files.exists(path);
+
+
     }
 
     @Override

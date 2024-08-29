@@ -25,7 +25,7 @@ public class Elster {
         printLine();
 
         while (byeSentinel) {
-            input = myScanner.nextLine();
+            input = myScanner.nextLine().strip();
             if (input.equals("bye")) {
                 byeSentinel = false;
 
