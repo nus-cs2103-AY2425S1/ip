@@ -28,14 +28,15 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    // This should match the package and class name
+    mainClass.set("BrainRot.Main")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "BrainRot"
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }
