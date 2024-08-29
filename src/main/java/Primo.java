@@ -1,4 +1,9 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Primo {
@@ -173,11 +178,65 @@ public class Primo {
         }
     }
 
+    private static void readData() {
+        try {
+            Path filePath = Paths.get("./data/data.txt");
+            List<String> lines = Files.readAllLines(filePath);
+            for (String s : lines) {
+                String[] words = s.split(" ");
+                boolean isDone = false;
+                String name = "";
+                String deadline = "";
+                String from = "";
+                String to = "";
+                Task newTask;
+                switch (words[0]) {
+                case "T":
+                    isDone = words[1].equals("1");
+                    name = words[2];
+                    newTask = new ToDoTask(name);
+                    if (isDone) {
+                        newTask.markAsDone();
+                    }
+                    list.add(newTask);
+                    break;
+                case "D":
+                    isDone = words[1].equals("1");
+                    name = words[2];
+                    deadline = words[3];
+                    newTask = new DeadlineTask(name, deadline);
+                    if (isDone) {
+                        newTask.markAsDone();
+                    }
+                    list.add(newTask);
+                    break;
+                case "E":
+                    isDone = words[1].equals("1");
+                    name = words[2];
+                    from = words[3];
+                    to = words[4];
+                    newTask = new EventTask(name, from, to);
+                    if (isDone) {
+                        newTask.markAsDone();
+                    }
+                    list.add(newTask);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("""
                 El Primo:
                 Hello! I'm El Primo!!
                 What can I do for you?""");
+
+        readData();
+        System.out.println("Current Tasks: ");
+        printList();
 
         while (!ended) {
             readInput();
