@@ -44,6 +44,8 @@ public class Parser {
             tasks.addTask(new Event(params[0], params[1], params[2]));
         } else if (userCmd.startsWith("query")) {
             tasks.queryTasksByDate(userCmd.substring(6));
+        } else if (userCmd.startsWith("find")) {
+            tasks.find(userCmd.substring(5));
         } else {
             throw new InvalidCommandException(userCmd);
         }
