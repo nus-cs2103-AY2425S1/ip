@@ -111,4 +111,14 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Retrieves task list with the string contained in the title.
+     *
+     * @param text string required in the title.
+     * @return The list of filtered tasks.
+     */
+    public List<Task> searchTasks(String text) {
+        return tasks.stream().filter(task -> task.getTitle().contains(text)).toList();
+    }
 }
