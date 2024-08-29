@@ -47,7 +47,9 @@ public class Alexer {
 
     public void promptLoop() {
         String input = scanner.nextLine();
-        String command = input.split(" ")[0];
+
+        List<String> arguments = new ArrayList<>(List.of(input.split(" ")));
+        String command = arguments.remove(0);
 
         switch (command) {
         case "bye":
