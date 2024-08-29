@@ -4,12 +4,13 @@ import commands.parser.Parser;
 import models.Deadline;
 import models.Task;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class CreateDeadlineCommand implements Command {
     private final List<Task> tasks;
     private final String name;
-    private final String by;
+    private final LocalDate by;
 
     public CreateDeadlineCommand(List<Task> tasks, String message) {
         this.tasks = tasks;
@@ -19,7 +20,7 @@ public class CreateDeadlineCommand implements Command {
         String[] args = Parser.extractArgs(messageArgs, new String[] { "/by" });
 
         this.name = args[0];
-        this.by = args[1];
+        this.by = LocalDate.parse(args[1]);
     }
 
     @Override

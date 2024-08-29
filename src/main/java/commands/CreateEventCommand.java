@@ -4,13 +4,14 @@ import commands.parser.Parser;
 import models.Event;
 import models.Task;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class CreateEventCommand implements Command {
     private final List<Task> tasks;
     private final String name;
-    private final String from;
-    private final String to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     public CreateEventCommand(List<Task> tasks, String message) {
         this.tasks = tasks;
@@ -20,8 +21,8 @@ public class CreateEventCommand implements Command {
         String[] args = Parser.extractArgs(messageArgs, new String[] { "/from", "/to" });
 
         this.name = args[0];
-        this.from = args[1];
-        this.to = args[2];
+        this.from = LocalDate.parse(args[1]);
+        this.to = LocalDate.parse(args[2]);
     }
 
     @Override
