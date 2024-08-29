@@ -7,6 +7,6 @@ import Bob.Storage.Storage;
 import Bob.Ui.Ui;
 
 public abstract class Command {
-    abstract void execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException;
+    public abstract void execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException;
 }
 
