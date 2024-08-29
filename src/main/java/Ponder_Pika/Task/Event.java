@@ -12,7 +12,7 @@ public class Event extends Task{
 
     @Override
     public String saveFullDetails() {
-        return String.format("T | %b | %s | %s | %s", isDone(), getDescription(), this.from, this.to);
+        return String.format("E | %b | %s | %s | %s", isDone(), getDescription(), this.from, this.to);
     }
 
     @Override

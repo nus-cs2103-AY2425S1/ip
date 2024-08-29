@@ -1,0 +1,3 @@
+T | true | eat food
+D | false | CS2103T IP | Tomorrow
+E | true | Onam | 9AM | 3PM
