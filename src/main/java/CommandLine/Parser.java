@@ -24,11 +24,9 @@ public class Parser {
         case "bye":
             NotAGPTExit();
             break;
-
         case "list":
             taskList.list();
             break;
-
         case "mark":
             if (parts.length > 1) {
                 String idx = parts[1];
@@ -37,7 +35,6 @@ public class Parser {
                 responseHelper("Enter a task number");
             }
             break;
-
         case "unmark":
             if (parts.length > 1) {
                 String idx = parts[1];
@@ -46,7 +43,6 @@ public class Parser {
                 responseHelper("Enter a task number");
             }
             break;
-
         case "todo":
             if (parts.length > 1) {
                 taskList.add(parts[1], Task.TaskType.T);
@@ -80,6 +76,13 @@ public class Parser {
                 responseHelper("Enter a valid argument");
             }
             break;
+        case "find":
+            if (parts.length == 2) {
+                String word = parts[1];
+                taskList.find(word);
+            } else {
+                responseHelper("Enter a word");
+            }
         default:
             responseHelper("Unknown command, type help for a list of available commands");
 
