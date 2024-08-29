@@ -16,11 +16,11 @@ import static kotori.Ui.Ui.printMessages;
 
 public class AddCommand extends Command{
     private Storage storage;
-    private TaskList list;
+    private TaskList taskList;
     private String input;
 
-    public AddCommand (Storage storage, TaskList list, String input) {
-        this.list = list;
+    public AddCommand (Storage storage, TaskList taskList, String input) {
+        this.taskList = taskList;
         this.input = input;
         this.storage = storage;
     }
@@ -34,10 +34,10 @@ public class AddCommand extends Command{
     public void execute() {
         try {
             Task task = Task.of(input);
-            list.add(task);
-            printMessages(new String[]{"Got it. I've added this task:",task.toString(),
-                    String.format("Now you have %s tasks in the list",list.size())});
-            storage.updateFile(list);
+            taskList.add(task);
+            printMessages(new String[]{"Got it. I've added this task:", task.toString(),
+                    String.format("Now you have %s tasks in the list", taskList.size())});
+            storage.updateFile(taskList);
         } catch (MissingInformationException e) {
             printMessage(e.getMessage());
         } catch (InvalidInputException e) {

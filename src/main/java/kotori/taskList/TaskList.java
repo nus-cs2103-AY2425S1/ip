@@ -6,8 +6,9 @@ import java.util.ArrayList;
  * This class represent a list of task
  * */
 
+
 public class TaskList {
-    private ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> taskList = new ArrayList<>();
 
     public TaskList () {
 
@@ -20,11 +21,11 @@ public class TaskList {
      * */
 
     public int size() {
-        return list.size();
+        return taskList.size();
     }
 
      public Task get(int i) {
-        return list.get(i);
+        return taskList.get(i);
      }
 
      /**
@@ -35,7 +36,7 @@ public class TaskList {
       * */
 
      public boolean add(Task t) {
-        return list.add(t);
+        return taskList.add(t);
      }
 
     /**
@@ -46,7 +47,7 @@ public class TaskList {
      * */
 
      public Task remove(int i) {
-        return list.remove(i);
+        return taskList.remove(i);
      }
 
     /**
@@ -56,7 +57,7 @@ public class TaskList {
      * */
 
      public void mark(int i) throws IncorrectStateException {
-        list.get(i).mark();
+        taskList.get(i).mark();
      }
 
     /**
@@ -66,7 +67,7 @@ public class TaskList {
      * */
 
      public void unmark(int i) throws IncorrectStateException {
-        list.get(i).unmark();
+        taskList.get(i).unmark();
      }
 
      /**
@@ -76,13 +77,13 @@ public class TaskList {
       * */
 
      public boolean isEmpty() {
-        return list.isEmpty();
+        return taskList.isEmpty();
      }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof TaskList) {
-            return this.list.equals(((TaskList)obj).list);
+            return this.taskList.equals(((TaskList)obj).taskList);
         } else {
             return false;
         }
@@ -91,8 +92,8 @@ public class TaskList {
     @Override
      public String toString() {
         String result = "";
-        for (int i = 0; i < list.size(); i++) {
-            result += String.format("%s %s", i, list.get(i));
+        for (int i = 0; i < taskList.size(); i++) {
+            result += String.format("%s %s", i, taskList.get(i));
         }
         return result;
      }

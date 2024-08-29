@@ -1,11 +1,11 @@
 package kotori.command;
 
 import kotori.taskList.TaskList;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
-import static kotori.Ui.Ui.*;
+import static kotori.Ui.Ui.printLine;
+import static kotori.Ui.Ui.printMessage;
+import static kotori.Ui.Ui.printMessages;
 
 /**
  * This class represents a command of searching
@@ -13,11 +13,11 @@ import static kotori.Ui.Ui.*;
  * */
 
 public class searchCommand extends Command{
-    private TaskList list;
+    private TaskList taskList;
     private String date;
 
     public searchCommand (TaskList list, String date) {
-        this.list = list;
+        this.taskList = list;
         this.date = date;
     }
 
@@ -29,9 +29,9 @@ public class searchCommand extends Command{
     public void execute() {
         try {
             TaskList output = new TaskList();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).isRelatedToDate(LocalDate.parse(date))) {
-                    output.add(list.get(i));
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).isRelatedToDate(LocalDate.parse(date))) {
+                    output.add(taskList.get(i));
                 }
             }
             if (output.isEmpty()) {
@@ -45,8 +45,8 @@ public class searchCommand extends Command{
                 printLine();
             }
         } catch (DateTimeParseException e) {
-            printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
-                    "YYYY-MM-DD format");
+            printMessages("Sorry~ I can not recognize the time", "Please enter the time in the "
+                    + "YYYY-MM-DD format");
         }
 
 

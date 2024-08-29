@@ -1,7 +1,7 @@
 package kotori.storage;
 
-import kotori.taskList.TaskList;
 import kotori.taskList.Task;
+import kotori.taskList.TaskList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -55,17 +55,18 @@ public class Storage {
         }
     }
 
+
     /**
      * Update the hard disk file with the current TaskList.
      *
-     * @param list the current TaskList.
+     * @param tasks the current TaskList.
      * */
-    public void updateFile(TaskList list) {
+    public void updateFile(TaskList tasks) {
         try {
         FileWriter writer = new FileWriter(file);
         String content = "";
-        for (int i = 0; i < list.size(); i++) {
-            content += list.get(i).getStorageMessage() + "\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            content += tasks.get(i).getStorageMessage() + "\n";
         }
         writer.write(content);
         writer.close();

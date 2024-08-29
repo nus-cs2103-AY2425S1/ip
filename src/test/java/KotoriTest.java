@@ -159,7 +159,7 @@ public class KotoriTest {
     }
 
     @Test
-    public void loadTest() {
+    public void loadTest() {    
         TaskList expected = new TaskList();
         try {
             expected.add(Task.of("todo me") );

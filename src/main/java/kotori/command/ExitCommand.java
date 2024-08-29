@@ -6,11 +6,12 @@ import static kotori.Ui.Ui.printExit;
 /**
  * This class represents a command of exiting the chatbot.
  * */
+
 public class ExitCommand extends Command{
-    TaskList list;
+    TaskList taskList;
 
     public ExitCommand(TaskList list) {
-        this.list = list;
+        this.taskList = list;
     }
 
     /**
