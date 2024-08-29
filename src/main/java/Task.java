@@ -10,8 +10,9 @@ public abstract class Task {
     protected String description;
     private String type = "";
 
-    protected Task(String description, String type) throws TheBotFatherException{
-        if (Objects.equals(description, "")) throw new TheBotFatherException("Kid, Learn to read, where is the description??");
+    protected Task(String description, String type) throws TheBotFatherException {
+        if (Objects.equals(description, ""))
+            throw new TheBotFatherException("Kid, Learn to read, where is the description??");
         this.description = description;
         this.type = type;
     }
@@ -37,7 +38,7 @@ public abstract class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.description;
     }
 

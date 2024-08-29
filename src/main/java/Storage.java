@@ -13,7 +13,7 @@ public class Storage {
         this.pathName = pathName;
     }
 
-    protected TaskList loadFromFile() throws TheBotFatherException {
+    protected TaskList load() throws TheBotFatherException {
         TaskList taskList = new TaskList(new ArrayList<Task>());
         try {
             File file = new File(this.pathName);
@@ -21,9 +21,9 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            Scanner parser = new Scanner(file);
-            while (parser.hasNextLine()) {
-                String line = parser.nextLine();
+            Scanner fileReader = new Scanner(file);
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
                 String[] instructions = line.split(" \\| ");
                 switch (instructions[0]) {
                     case "T":
@@ -49,7 +49,7 @@ public class Storage {
         return taskList;
     }
 
-    protected void toFile(TaskList taskList) throws TheBotFatherException{
+    protected void toFile(TaskList taskList) throws TheBotFatherException {
 
         try {
             File file = new File(this.pathName);

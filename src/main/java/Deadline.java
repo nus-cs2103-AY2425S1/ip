@@ -1,11 +1,9 @@
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-public class Deadline extends Task{
-
+public class Deadline extends Task {
 
 
     protected LocalDateTime by;
@@ -43,7 +41,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return super.toString()+ " (by: " + this.by.format(Task.DATE_STRING_FORMATTER_PRINT) + ")";
+        return super.toString() + " (by: " + this.by.format(Task.DATE_STRING_FORMATTER_PRINT) + ")";
     }
 
     @Override
