@@ -22,4 +22,14 @@ public class Deadline extends Task {
         String status = this.isDone ? "1" : "0";
         return String.format("DEADLINE | %s | %s | %s\n", status, this.description, by.getData());
     }
+
+    public static Deadline loadTask(String dataMessage) throws LictException {
+        String[] messageParts = dataMessage.split("\\|", 2);
+        String description = messageParts[0].trim();
+        if (description.isEmpty() || messageParts.length != 2) {
+            throw new LictException();
+        }
+        return new Deadline(description, messageParts[1].trim());
+
+    }
 }

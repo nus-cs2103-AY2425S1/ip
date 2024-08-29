@@ -19,4 +19,8 @@ public class Todo extends Task {
         return String.format("TODO | %s | %s\n", status, this.description);
     }
 
+    public static Todo loadTask(String dataMessage) {
+        return new Todo(dataMessage);
+
+    }
 }
