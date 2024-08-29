@@ -20,6 +20,7 @@ public class Dudu {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static boolean terminate = false;
+    public static String filePath = "./data/dudu.txt";
 
     public static void main(String[] args) {
         String directoryName = "./data";
@@ -54,7 +55,6 @@ public class Dudu {
                         task = new Deadline(description, date);
                         break;
                     } case E: {
-                        System.out.println(content);
                         String description = content.split("\\|")[0];
                         String from = content.split("\\|")[1];
                         String to = content.split("\\|")[2];
@@ -99,6 +99,7 @@ public class Dudu {
                         String description = getContent(input);
                         ToDo task = new ToDo(description);
                         addTask(task);
+                        break;
                     } case DEADLINE: {
                         String content = getContent(input);
                         if (!content.matches(".*/by.*")) {
@@ -187,11 +188,9 @@ public class Dudu {
 
     public static void addTask(Task task) throws java.io.IOException {
         tasks.add(task);
-
         FileWriter fw = new FileWriter("./data/dudu.txt", true);
         fw.write("\n" + task.formatString());
         fw.close();
-
         String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, tasks.size()));
         System.out.println(output);
     }
@@ -207,22 +206,33 @@ public class Dudu {
         return index;
     }
 
-    public static void markTask(int index) {
+    public static void markTask(int index) throws IOException {
         tasks.get(index).markCompleted();
+        rewriteFile();
         String output = LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", tasks.get(index)));
         System.out.println(output);
     }
 
-    public static void unmarkTask(int index) {
+    public static void unmarkTask(int index) throws IOException {
         tasks.get(index).markUncompleted();
+        rewriteFile();
         String output = LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", tasks.get(index)));
         System.out.println(output);
     }
 
-    public static void deleteTask(int index) {
+    public static void deleteTask(int index) throws IOException {
         Task task = tasks.get(index);
         tasks.remove(index);
+        rewriteFile();
         String output = LineWrapper.wrap(String.format("Noted. I've removed this task:\n    %s", task));
         System.out.println(output);
+    }
+
+    public static void rewriteFile() throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task : tasks) {
+            fw.write(String.format("%s\n", task.formatString()));
+        }
+        fw.close();
     }
 }
