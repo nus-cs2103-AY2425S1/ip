@@ -46,7 +46,7 @@ public class Storage {
     public void storeTasks() {
         try {
             FileWriter fw = new FileWriter(this.file.getAbsoluteFile());
-            fw.write(parser.getStdin());
+            fw.write(this.parser.getStdin());
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -57,7 +57,7 @@ public class Storage {
         while (scanner.hasNext()) {
             String input = scanner.nextLine();
             try {
-                parser.parseCommand(input);
+                this.parser.parseCommand(input);
             } catch (UnknownCommandException e) {
             }
         }

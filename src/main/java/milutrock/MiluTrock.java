@@ -15,35 +15,35 @@ public class MiluTrock {
     private Storage storage;
 
     public MiluTrock(String path) {
-        taskList = new TaskList();
-        ui = new Ui("MiluTrock", taskList);
-        parser = new Parser(taskList, ui);
-        storage = new Storage(path, parser);
+        this.taskList = new TaskList();
+        this.ui = new Ui("MiluTrock", this.taskList);
+        this.parser = new Parser(this.taskList, this.ui);
+        this.storage = new Storage(path, this.parser);
     }
 
     private void run() {
-        ui.printBanner();
+        this.ui.printBanner();
 
-        storage.loadTasks();
+        this.storage.loadTasks();
 
         Scanner scanner = new Scanner(System.in);
         boolean shouldContinue = true;
         while (shouldContinue && scanner.hasNext()) {
             String input = scanner.nextLine();
 
-            ui.printLineBreak();
+            this.ui.printLineBreak();
 
             try {
-                shouldContinue = parser.parseCommand(input);
+                shouldContinue = this.parser.parseCommand(input);
             } catch (UnknownCommandException e) {
                 System.out.println(e.getMessage());
             }
 
-            ui.printLineBreak();
+            this.ui.printLineBreak();
         }
         scanner.close();
 
-        storage.storeTasks();
+        this.storage.storeTasks();
     }
 
     public static void main(String[] args) {

@@ -28,7 +28,7 @@ public class TaskList {
      * @return The removed task.
      */
     public Task removeTask(int i) {
-        Task task = tasks.get(i);
+        Task task = this.tasks.get(i);
         this.tasks.remove(i);
 
         return task;
@@ -58,7 +58,7 @@ public class TaskList {
      * @return The number of tasks.
      */
     public int getNumberOfTasks() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
     /**
@@ -68,7 +68,7 @@ public class TaskList {
      * @return String representation of the task.
      */
     public String getTaskAtIndexAsString(int i) {
-        return tasks.get(i).toString();
+        return this.tasks.get(i).toString();
     }
 
     /**

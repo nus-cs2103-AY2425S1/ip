@@ -73,35 +73,35 @@ public class Parser {
     }
 
     private void handleBye() {
-        ui.printByeMessage();
+        this.ui.printByeMessage();
     }
 
     private void handleList() {
-        ui.printTaskList();
+        this.ui.printTaskList();
     }
 
     private void handleMark(String[] words) {
         int i = Integer.parseInt(words[1]) - 1;
-        taskList.markTaskAsDone(i);
-        ui.printMarkMessage(i);
+        this.taskList.markTaskAsDone(i);
+        this.ui.printMarkMessage(i);
     }
 
     private void handleUnmark(String[] words) {
         int i = Integer.parseInt(words[1]) - 1;
-        taskList.unmarkTaskAsDone(i);
-        ui.printUnmarkMessage(i);
+        this.taskList.unmarkTaskAsDone(i);
+        this.ui.printUnmarkMessage(i);
     }
 
     private void handleDelete(String[] words) {
         int i = Integer.parseInt(words[1]) - 1;
-        Task task = taskList.removeTask(i);
-        ui.printDeleteMessage(task);
+        Task task = this.taskList.removeTask(i);
+        this.ui.printDeleteMessage(task);
     }
 
     private void handleFind(String input) {
         String query = input.substring(5);
         ArrayList<Task> tasks = this.taskList.getTasksFromSearchString(query);
-        ui.printFindMessage(tasks);
+        this.ui.printFindMessage(tasks);
     }
 
     private void handleAdd(String[] words, String input) {
@@ -115,8 +115,8 @@ public class Parser {
                 // words[0] is guaranteed to be "event" here
                 task = Event.getEventFromInput(input);
             }
-            taskList.addTask(task);
-            ui.printAddMessage();
+            this.taskList.addTask(task);
+            this.ui.printAddMessage();
         } catch (InvalidTaskFormatException e) {
             System.out.println(e.getMessage());
         }

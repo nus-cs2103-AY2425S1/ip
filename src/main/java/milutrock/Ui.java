@@ -45,7 +45,7 @@ public class Ui {
      * @param i Index of the task to print.
      */
     public void printTask(int i) {
-        System.out.println("  " + taskList.getTaskAtIndexAsString(i));
+        System.out.println("  " + this.taskList.getTaskAtIndexAsString(i));
     }
 
     /**
@@ -53,8 +53,8 @@ public class Ui {
      */
     public void printTaskList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-            System.out.println((i + 1) + ". " + taskList.getTaskAtIndexAsString(i));
+        for (int i = 0; i < this.taskList.getNumberOfTasks(); i++) {
+            System.out.println((i + 1) + ". " + this.taskList.getTaskAtIndexAsString(i));
         }
     }
 
@@ -89,7 +89,7 @@ public class Ui {
     public void printDeleteMessage(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
+        System.out.println("Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list.");
     }
 
     /**
@@ -98,8 +98,8 @@ public class Ui {
      */
     public void printAddMessage() {
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + taskList.getTaskAtIndexAsString(taskList.getNumberOfTasks() - 1));
-        System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
+        System.out.println("  " + this.taskList.getTaskAtIndexAsString(this.taskList.getNumberOfTasks() - 1));
+        System.out.println("Now you have " + this.taskList.getNumberOfTasks() + " tasks in the list.");
     }
 
     /**
