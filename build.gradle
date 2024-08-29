@@ -13,6 +13,11 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 test {
     useJUnitPlatform()
 
@@ -28,11 +33,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("arts.Arts")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "arts"
     archiveClassifier = null
 }
 
