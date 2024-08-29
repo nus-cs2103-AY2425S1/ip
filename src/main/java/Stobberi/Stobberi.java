@@ -15,6 +15,10 @@ import Stobberi.components.Ui;
  * The application allows users to manage tasks, save them to a file, and load them
  * upon restart. It provides a simple command-line interface for interacting with tasks.
  * </p>
+ *
+ * @author Ahmad Syu'aib
+ * @version 1.0
+ * @since 2024-08-29
  */
 public class Stobberi {
     private TaskList taskList;
