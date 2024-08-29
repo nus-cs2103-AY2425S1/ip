@@ -37,6 +37,7 @@ public class Bot {
         EVENT("event");
 
         public final String name;
+
         Command(String name) {
             this.name = name;
         }
@@ -82,27 +83,27 @@ public class Bot {
 
             try {
                 switch (cmdEnum) {
-                    case LIST:
-                        handleList();
-                        break;
-                    case TODO, DEADLINE, EVENT:
-                        handleAddTask(cmd, args);
-                        break;
-                    case MARK:
-                        handleMarkTask(args);
-                        break;
-                    case UNMARK:
-                        handleUnmarkTask(args);
-                        break;
-                    case DELETE:
-                        handleDeleteTask(args);
-                        break;
-                    case BYE:
-                        printBotMessage("Bye. Hope to see you again soon!");
-                        System.exit(0);
-                    default:
-                        // This should never happen
-                        printBotMessage("Command not found");
+                case LIST:
+                    handleList();
+                    break;
+                case TODO, DEADLINE, EVENT:
+                    handleAddTask(cmd, args);
+                    break;
+                case MARK:
+                    handleMarkTask(args);
+                    break;
+                case UNMARK:
+                    handleUnmarkTask(args);
+                    break;
+                case DELETE:
+                    handleDeleteTask(args);
+                    break;
+                case BYE:
+                    printBotMessage("Bye. Hope to see you again soon!");
+                    System.exit(0);
+                default:
+                    // This should never happen
+                    printBotMessage("Command not found");
                 }
             } catch (BotException e) {
                 printBotMessage(e.getMessage());
@@ -152,7 +153,7 @@ public class Bot {
             storage.saveTaskList(tasks);
         } catch (IOException e) {
             // Revert add task
-            tasks.remove(tasks.size()-1);
+            tasks.remove(tasks.size() - 1);
             System.out.println("Task failed to be added: " + e.getMessage());
             return;
         }
@@ -168,8 +169,8 @@ public class Bot {
 
     private void handleDeleteTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
-        if (index < 0 || index > tasks.size()-1) {
-            throw new InvalidTaskIdException(index+1);
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new InvalidTaskIdException(index + 1);
         }
         Task taskToDelete = tasks.get(index);
         tasks.remove(taskToDelete);
@@ -194,8 +195,8 @@ public class Bot {
 
     private void handleMarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
-        if (index < 0 || index > tasks.size()-1) {
-            throw new InvalidTaskIdException(index+1);
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new InvalidTaskIdException(index + 1);
         }
         boolean isPrevDone = tasks.get(index).isDone();
         tasks.get(index).markAsDone();
@@ -219,8 +220,8 @@ public class Bot {
 
     private void handleUnmarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
-        if (index < 0 || index > tasks.size()-1) {
-            throw new InvalidTaskIdException(index+1);
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new InvalidTaskIdException(index + 1);
         }
         boolean isPrevDone = tasks.get(index).isDone();
         tasks.get(index).markAsIncomplete();

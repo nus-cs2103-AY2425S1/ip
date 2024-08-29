@@ -63,7 +63,7 @@ public class Storage {
      */
     public void saveTaskList(List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(TASK_FILE_PATH);
-        for (Task t: tasks) {
+        for (Task t : tasks) {
             fw.write(t.toData() + "\n");
         }
         fw.close();
@@ -92,10 +92,7 @@ public class Storage {
             // TODO: Replace with enums
             case "T" -> new Todo(args[1], Boolean.parseBoolean(args[2]));
             case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), args[3]);
-            case "E" -> new Event(args[1],
-                    Boolean.parseBoolean(args[2]),
-                    args[3],
-                    args[4]);
+            case "E" -> new Event(args[1], Boolean.parseBoolean(args[2]), args[3], args[4]);
             default -> null;
         };
     }
