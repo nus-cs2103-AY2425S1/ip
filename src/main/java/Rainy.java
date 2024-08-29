@@ -2,41 +2,15 @@ import java.util.*;
 import java.io.*;
 
 public class Rainy {
-    public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException {
+    public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
         UI ui = new UI();
+        Storage storage = new Storage();
         ui.welcomeMessage();
-        TaskTracker tm = new TaskTracker();
-        Scanner sc = new Scanner(System.in);
-
-        try {
-            File newFile = new File("src/main/java/Rainy.txt");
-            Scanner fileScan = new Scanner(newFile);
-            int trace = 0;
-            while (fileScan.hasNext()) {
-                String oldData = fileScan.nextLine();
-                if (trace > 0){
-                    if (oldData.charAt(8) == 'T') {
-                        tm.updateListToDo(oldData.substring(11));
-                    } else if (oldData.charAt(8) == 'D') {
-                        String updatedOldData = oldData.substring(11, oldData.length() - 1);
-                        String[] deadlineSplit = updatedOldData.split(" \\(");
-                        tm.updateListDeadline(deadlineSplit[0] + " ", deadlineSplit[1]);
-                    } else {
-                        String updatedOldData = oldData.substring(11, oldData.length() - 1);
-                        String[] eventSplit = updatedOldData.split(" \\(");
-                        tm.updateListEvent(eventSplit[0] + " ", eventSplit[1].split(" from ")[0], eventSplit[1].split(" from ")[1]);
-                    }
-                    if (oldData.charAt(4) == 'X') {
-                        tm.markDone(trace - 1);
-                    }
-                }
-                trace++;
-            }
-            ui.startTracking();
-        } catch (FileNotFoundException e) {
-            ui.startTracking();
-        }
+        TaskTracker tm;
+        File newFile = new File("src/main/java/Rainy.txt");
+        tm = storage.copyPreviousFiles(newFile);
         tm.receivedFirstInput();
+        Scanner sc = new Scanner(System.in);
         String messages = sc.nextLine();
         String[] input = messages.split(" ");
         String[] splitByTask = messages.split("/");
@@ -64,15 +38,8 @@ public class Rainy {
                     break;
                 case MARK:
                     if (tm.getCounter() > 0) {
-                        try {
-                            File f = new File("src/main/java/Rainy.txt");
-                            f.createNewFile();
-                            FileWriter fw = new FileWriter("src/main/java/Rainy.txt");
-                            fw.write(tm.getList());
-                            fw.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        File f = new File("src/main/java/Rainy.txt");
+                        storage.writeOverFile(f, tm);
                     }
                     if (count != -1) {
                         tm.markDone(count - 1);
@@ -82,15 +49,8 @@ public class Rainy {
                     break;
                 case UNMARK:
                     if (tm.getCounter() > 0) {
-                        try {
-                            File f = new File("src/main/java/Rainy.txt");
-                            f.createNewFile();
-                            FileWriter fw = new FileWriter("src/main/java/Rainy.txt");
-                            fw.write(tm.getList());
-                            fw.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        File f = new File("src/main/java/Rainy.txt");
+                        storage.writeOverFile(f, tm);
                     }
                     if (count != -1) {
                         tm.unmarkDone(count - 1);
@@ -99,21 +59,14 @@ public class Rainy {
                     }
                     break;
                 case DELETE:
-                    if (tm.getCounter() > 0) {
-                        try {
-                            File f = new File("src/main/java/Rainy.txt");
-                            f.createNewFile();
-                            FileWriter fw = new FileWriter("src/main/java/Rainy.txt");
-                            fw.write(tm.getList());
-                            fw.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
                     if (count != -1) {
                         tm.delete(count - 1);
                     } else {
                         ui.noCategoryDeclared();
+                    }
+                    if (tm.getCounter() > 0) {
+                        File f = new File("src/main/java/Rainy.txt");
+                        storage.writeOverFile(f, tm);
                     }
                     break;
                 case TODO:
@@ -146,7 +99,6 @@ public class Rainy {
                     break;
                 case SORT:
                     tm.sortList();
-                    ui.sortDone();
                     System.out.println(tm.getList());
                     break;
                 case INVALID:
@@ -172,17 +124,9 @@ public class Rainy {
                 instruction = Instructions.INVALID;
             }
         }
-        if (tm.getCounter() > 0) {
-            try {
-                File f = new File("src/main/java/Rainy.txt");
-                f.createNewFile();
-                FileWriter fw = new FileWriter("src/main/java/Rainy.txt");
-                fw.write(tm.getList());
-                fw.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (tm.getCounter() >= 0) {
+            File f = new File("src/main/java/Rainy.txt");
+            storage.writeOverFile(f, tm);
         }
         ui.goodbyeMessage();
     }
