@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import tasks.Deadlined;
 import tasks.Events;
@@ -201,8 +203,10 @@ public class WansBot {
 
     private static void saveTasks() {
         try {
-            File directory = new File("./data");
-            directory.mkdirs();
+            if (!Files.exists(Paths.get("data"))) {
+                File directory = new File("./data");
+                directory.mkdirs();
+            }
             File file = new File("data", "tasklist.txt");
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < userTaskList.numOfTasks(); i++) {
@@ -223,23 +227,51 @@ public class WansBot {
         switch (typeTask) {
             case "T":
                 if (fileInput.contains("[ X ]")) {
-                    nameTask = splitInput[6];
+                    nameTask = fileInput.substring(13);
                     Todos next = new Todos(nameTask);
                     next.finish();
                     userTaskList.add(next);
                     numTasks++;
                 } else {
-                    nameTask = splitInput[5];
+                    nameTask = fileInput.substring(13);
                     Todos next = new Todos(nameTask);
                     userTaskList.add(next);
                     numTasks++;
-                    System.out.print("added");
                 }
                 break;
-//            case "D":
-//                if (fileInput.contains("[ X ]")) {
-//
-//                }
+            case "D":
+                String[] deadlineSplit = fileInput.split("by: ");
+                String deadline = deadlineSplit[1].substring(0, deadlineSplit[1].length() - 1);
+                nameTask = deadlineSplit[0].substring(11, deadlineSplit[0].length() - 1);
+                if (fileInput.contains("[ X ]")) {
+                    Deadlined next = new Deadlined(nameTask, deadline);
+                    next.finish();
+                    userTaskList.add(next);
+                    numTasks++;
+                } else {
+                    Deadlined next = new Deadlined(nameTask, deadline);
+                    userTaskList.add(next);
+                    numTasks++;
+                }
+                break;
+            case "E":
+                String[] splitUserStartDate = fileInput.split("from: ", 3);
+                String[] splitUserEndDate = splitUserStartDate[1].split( "to: ", 2);
+                if (fileInput.contains("[ X ]")) {
+                    Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0].length() - 2),
+                            splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1),
+                            splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2));
+                    next.finish();
+                    userTaskList.add(next);
+                    numTasks++;
+                } else {
+                    Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0].length() - 2),
+                            splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1),
+                            splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2));
+                    userTaskList.add(next);
+                    numTasks++;
+                }
+                break;
         }
     }
 
@@ -253,9 +285,13 @@ public class WansBot {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("\nWans:\n"
+                    + "You don't have files to load!"
+                    + "\n" + HR);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(HR + "\nWans:\n"
+                    + "I can't seem to load your tasks!"
+                    + "\n" + HR);;
         }
     }
     private static void sayGoodbye() {
@@ -273,6 +309,7 @@ public class WansBot {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         introduceToUser();
+        loadTasks();
 
         while (true) {
             System.out.println("User: ");
@@ -314,7 +351,6 @@ public class WansBot {
                     saveTasks();
                     break;
                 case "load":
-//                    returnTask(userInput);
                     loadTasks();
                     break;
                 case "bye":
