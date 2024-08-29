@@ -1,99 +1,115 @@
 package dude;
 
-import dude.exception.*;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import dude.exception.DudeDateTimeFormatException;
+import dude.exception.DudeException;
+import dude.exception.DudeInvalidArgumentException;
+import dude.exception.DudeInvalidCommandException;
+import dude.exception.DudeNullDateTimeException;
+import dude.exception.DudeNullDescriptionException;
+import dude.exception.DudeNumberException;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
+/**
+ * Represents the main application class for the Dude chatbot system.
+ */
 public class Dude {
-    private static final String BOT_NAME = "Dude";
-    private static final String LINE = "____________________________________________________________";
-    private static final String FILE_PATH = "./data/dude.txt";
-    private Scanner scanner;
-    private String input;
-    private ArrayList<Task> tasks;
-    private int tasksSize;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
     private boolean isRunning;
 
-    public Dude() {
-        scanner = new Scanner(System.in);
-        input = "";
-        tasks = loadData();
-        tasksSize = tasks.size();
-        isRunning = true;
+    /**
+     * Constructs a Dude with the specified file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
+    public Dude(String filePath) {
+        storage = new Storage(filePath);
+        taskList = new TaskList(storage.loadData());
+        ui = new Ui();
     }
 
+    /**
+     * Starts the Dude application.
+     */
     public void start() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm " + BOT_NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        isRunning = true;
+        ui.showGreet();
 
         while (isRunning) {
             try {
                 readAndReact();
             } catch (DudeException e) {
-                System.out.println(LINE);
-                System.out.println(e.getMessage());
-                System.out.println(LINE);
+                ui.showError(e);
             }
         }
     }
 
+    /**
+     * Reads user input and reacts accordingly.
+     *
+     * @throws DudeException If an error occurs during processing.
+     */
     public void readAndReact() throws DudeException {
-        input = scanner.nextLine().strip();
-        String[] splitInput = input.split(" ", 2);
-        String taskDes = splitInput.length < 2 ? "" : splitInput[1];
+        String input = ui.readCommand().strip();
+        String taskDes = Parser.getDescription(input);
 
-        if (splitInput[0].isEmpty()) {
-            throw new DudeNullCommandException();
-        } else if (splitInput[0].equals("bye")) {
+        switch (Parser.getCommand(input)) {
+        case HI:
+            ui.showGreet();
+            break;
+        case BYE:
             exit();
-        } else if (splitInput[0].equals("list")) {
-            list();
-        } else if (splitInput[0].equals("mark")) {
+            break;
+        case LIST:
+            ui.showList(taskList);
+            break;
+        case MARK:
             mark(taskDes);
-        } else if (splitInput[0].equals("unmark")) {
+            break;
+        case UNMARK:
             unmark(taskDes);
-        } else if (splitInput[0].equals("todo")) {
-            addToDo(taskDes);
-        } else if (splitInput[0].equals("deadline")) {
-            addDeadline(taskDes);
-        } else if (splitInput[0].equals("event")) {
-            addEvent(taskDes);
-        } else if (splitInput[0].equals("delete")) {
+            break;
+        case DELETE:
             delete(taskDes);
-        } else {
-            throw new DudeInvalidCommandException(splitInput[0]);
+            break;
+        case TODO:
+            addToDo(taskDes);
+            break;
+        case DEADLINE:
+            addDeadline(taskDes);
+            break;
+        case EVENT:
+            addEvent(taskDes);
+            break;
+        default:
+            throw new DudeInvalidCommandException();
         }
     }
 
+    /**
+     * Adds a new ToDo task to the task list.
+     *
+     * @param taskDes The task description.
+     * @throws DudeException If an error occurs during processing.
+     */
     public void addToDo(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("todo");
         } else {
             Task newTask = new ToDo(taskDes);
-            this.tasks.add(newTask);
-            tasksSize++;
-
-            System.out.println(LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + tasksSize + " tasks in the list.");
-            System.out.println(LINE);
+            taskList.addTask(newTask);
+            ui.showAdd(newTask, taskList);
         }
     }
 
+    /**
+     * Adds a new Deadline task to the task list.
+     *
+     * @param taskDes The task description.
+     * @throws DudeException If an error occurs during processing.
+     */
     public void addDeadline(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("deadline");
@@ -110,19 +126,19 @@ public class Dude {
                 throw new DudeNullDateTimeException("deadline");
             }
 
-            LocalDateTime by = stringToDateTime(splitBy[1].strip());
+            LocalDateTime by = Parser.stringToDateTime(splitBy[1].strip());
             Task newTask = new Deadline(splitDes[0].strip(), by);
-            this.tasks.add(newTask);
-            tasksSize++;
-
-            System.out.println(LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + tasksSize + " tasks in the list.");
-            System.out.println(LINE);
+            taskList.addTask(newTask);
+            ui.showAdd(newTask, taskList);
         }
     }
 
+    /**
+     * Adds a new Event task to the task list.
+     *
+     * @param taskDes The task description.
+     * @throws DudeException If an error occurs during processing.
+     */
     public void addEvent(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("event");
@@ -146,48 +162,24 @@ public class Dude {
                 throw new DudeNullDateTimeException("event");
             }
 
-            LocalDateTime from = stringToDateTime(splitFrom[1].strip());
-            LocalDateTime to = stringToDateTime(splitTo[1].strip());
+            LocalDateTime from = Parser.stringToDateTime(splitFrom[1].strip());
+            LocalDateTime to = Parser.stringToDateTime(splitTo[1].strip());
             if (!from.isBefore(to)) {
                 throw new DudeDateTimeFormatException();
             }
 
             Task newTask = new Event(splitDes[0].strip(), from, to);
-            this.tasks.add(newTask);
-            tasksSize++;
-
-            System.out.println(LINE);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + tasksSize + " tasks in the list.");
-            System.out.println(LINE);
+            taskList.addTask(newTask);
+            ui.showAdd(newTask, taskList);
         }
     }
 
-    public LocalDateTime stringToDateTime(String dateString) throws DudeDateTimeFormatException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime;
-
-        try {
-            dateTime = LocalDateTime.parse(dateString, formatter);
-        } catch (DateTimeParseException e) {
-            throw new DudeDateTimeFormatException();
-        }
-
-        return dateTime;
-    }
-
-    public void list() {
-        System.out.println(LINE);
-        System.out.println("Here are the tasks in your list:");
-
-        for (int i = 1; i <= tasksSize; i ++) {
-            System.out.println(i + "." + tasks.get(i - 1));
-        }
-
-        System.out.println(LINE);
-    }
-
+    /**
+     * Marks a task in task list as completed.
+     *
+     * @param taskDes The task description.
+     * @throws DudeException If an error occurs during processing.
+     */
     public void mark(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("mark");
@@ -195,15 +187,15 @@ public class Dude {
 
         int index = checkAndConvertNumber(taskDes);
 
-        Task task = tasks.get(index - 1);
-        task.markAsDone();
-
-        System.out.println(LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        System.out.println(LINE);
+        ui.showMark(taskList.markTask(index));
     }
 
+    /**
+     * Marks a task in task list as not completed.
+     *
+     * @param taskDes The task description.
+     * @throws DudeException If an error occurs during processing.
+     */
     public void unmark(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("unmark");
@@ -211,32 +203,34 @@ public class Dude {
 
         int index = checkAndConvertNumber(taskDes);
 
-        Task task = tasks.get(index - 1);
-        task.markAsNotDone();
-
-        System.out.println(LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        System.out.println(LINE);
+        ui.showUnmark(taskList.unmarkTask(index));
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskDes The task description.
+     * @throws DudeException If an error occurs during processing.
+     */
     public void delete(String taskDes) throws DudeException {
         if(taskDes.isEmpty()){
             throw new DudeNullDescriptionException("delete");
         }
 
         int index = checkAndConvertNumber(taskDes);
-        Task task = tasks.remove(index - 1);
-        tasksSize--;
 
-        System.out.println(LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasksSize + " tasks in the list.");
-        System.out.println(LINE);
+        ui.showDelete(taskList.deleteTask(index), taskList);
     }
 
-    public int checkAndConvertNumber(String s) throws DudeException {
+    /**
+     * Checks if the input string can be converted to a valid task index number and converts it.
+     *
+     * @param s The input string representing a task number.
+     * @return The integer value of the task index.
+     * @throws DudeNumberException If the input string is not a valid number or if the number is out of the valid task
+     * index range.
+     */
+    public int checkAndConvertNumber(String s) throws DudeNumberException {
         int index;
         try {
             index = Integer.parseInt(s);
@@ -244,116 +238,25 @@ public class Dude {
             throw new DudeNumberException(s);
         }
 
-        if (index < 1 || index > tasksSize) {
+        if (index < 1 || index > taskList.getLength()) {
             throw new DudeNumberException(s);
         }
 
         return index;
     }
 
+    /**
+     * Exits the application and saves data.
+     */
     public void exit() {
         this.isRunning = false;
-        scanner.close();
-        saveData();
-
-        System.out.println(LINE);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
-    }
-
-    public ArrayList<Task> loadData() {
-        File dataFile = new File(FILE_PATH);
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        try {
-            Scanner fileScanner = new Scanner(dataFile);
-
-            while (fileScanner.hasNextLine()) {
-                String dataLine = fileScanner.nextLine();
-                try {
-                    tasks.add(stringDataToTask(dataLine));
-                } catch (DudeCorruptedDataException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            fileScanner.close();
-        } catch (FileNotFoundException e) {
-            createNewDataFile();
-        }
-
-        return tasks;
-    }
-
-    public void createNewDataFile(){
-        File dataFile = new File(FILE_PATH);
-        File parent = new File(dataFile.getParent());
-        parent.mkdirs();
-
-        try {
-            dataFile.createNewFile();
-        } catch (IOException e) {
-            System.out.println("There is something wrong while creating data file:");
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public Task stringDataToTask(String stringData) throws DudeCorruptedDataException {
-        String[] taskComponent = stringData.split("\\|");
-        Task task;
-
-        switch (taskComponent[0]) {
-        case "T":
-            task = new ToDo(taskComponent[2]);
-            break;
-        case "D":
-            try {
-                LocalDateTime by = stringToDateTime(taskComponent[3]);
-                task = new Deadline(taskComponent[2], by);
-            } catch (DudeDateTimeFormatException e) {
-                throw  new DudeCorruptedDataException();
-            }
-            break;
-        case "E":
-            try {
-                LocalDateTime from = stringToDateTime(taskComponent[3]);
-                LocalDateTime to = stringToDateTime(taskComponent[4]);
-                task = new Event(taskComponent[2], from, to);
-            } catch (DudeDateTimeFormatException e) {
-                throw  new DudeCorruptedDataException();
-            }
-            break;
-        default:
-            throw new DudeCorruptedDataException();
-        }
-
-        if (taskComponent[1].equals("X")){
-            task.markAsDone();
-        }
-
-        return task;
-    }
-
-    public void saveData() {
-        try {
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            for (Task task : tasks){
-                bufferedWriter.write(task.taskToStringData());
-                bufferedWriter.newLine();
-            }
-
-            bufferedWriter.close();
-            fileWriter.close();
-        } catch (IOException e){
-            System.out.println("There is something wrong while saving to data file:");
-            System.out.println(e.getMessage());
-        }
+        storage.saveData(taskList);
+        ui.closeScanner();
+        ui.showBye();
     }
 
     public static void main(String[] args) {
-        Dude dude = new Dude();
+        Dude dude = new Dude("./data/dude.txt");
         dude.start();
     }
 }
