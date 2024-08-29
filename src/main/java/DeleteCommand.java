@@ -10,7 +10,11 @@ public class DeleteCommand extends Command {
             ui.showTaskNotFoundError();
             return;
         }
-        tasks.removeTask(index);
+        Task task = tasks.removeTask(index);
         storage.overwriteFile(tasks);
+        System.out.println("    Noted. I've removed this task:");
+        System.out.println("        " + task.toString());
+        String word = tasks.getLength() == 1 ? "task" : "tasks";
+        System.out.println(String.format("    Now you have %d %s in the tasks.", tasks.getLength(), word));
     }
 }
