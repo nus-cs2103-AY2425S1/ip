@@ -1,3 +1,5 @@
+package exception;
+
 public class MaxineException extends Exception {
     
     public MaxineException(String message) {

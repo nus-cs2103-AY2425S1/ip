@@ -1,3 +1,12 @@
+
+import exception.MaxineException;
+import task.Deadline;
+import task.Task;
+import task.Event;
+import task.Todo;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -20,6 +29,13 @@ public class Maxine {
             System.out.println((i + 1) + ". " + list.get(i));
         }
     }
+//    public static void showList() {
+//        try {
+//            FileReading.printFileContents("data/maxine.txt");
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found");
+//        }
+//    }
 
     /**
      * 
@@ -44,15 +60,9 @@ public class Maxine {
     /**
      * This method adds a todo task to the list
      */
-    public static void todo() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(arr[1]);
-        for (int i = 2; i < arr.length; i++) {
-            String word = " " + arr[i];
-            sb.append(word);
-        }
-        Todo task = new Todo(sb.toString());
-        list.add(task);
+    public static void todo() throws IOException {
+        Todo todo = new Todo();
+        todo.addTodo(arr, list);
     }
 
     /**
@@ -60,76 +70,13 @@ public class Maxine {
      * @throws MaxineException
      */
     public static void deadline() throws MaxineException {
-        StringBuilder desc = new StringBuilder();
-        StringBuilder ddl = new StringBuilder();
-        desc.append(arr[1]);
-        boolean check = false;
-        for (int i = 1; i < (arr.length - 1); i++) {
-            if (arr[i].equals("/by")) {
-                check = true;
-            }
-        }
-        if (!check || arr[1].equals("/by")) {
-            throw new MaxineException("Please follow this format: deadline [enter task] /by [enter deadline]");
-        }
-        boolean by = false;
-        for (int i = 2; i < arr.length; i++) {
-            if (arr[i].equals("/by")) {
-                by = true;
-            }
-            else if (by) {
-                String word = " " + arr[i];
-                ddl.append(word);
-            } else {
-                String word = " " + arr[i];
-                desc.append(word);
-            }
-        }
-        Deadline task = new Deadline(desc.toString(), ddl.toString());
-        list.add(task);
+        Deadline deadline = new Deadline();
+        deadline.addToDeadline(arr, list);
     }
     
     public static void event() throws MaxineException {
-        StringBuilder desc = new StringBuilder();
-        StringBuilder start = new StringBuilder();
-        StringBuilder end = new StringBuilder();
-        desc.append(arr[1]);
-        boolean check1 = false;
-        boolean check2 = false;
-        for (int i = 2; i < (arr.length - 1); i++) {
-            if (arr[i].equals("/from")) {
-                check1 = true;
-            }
-            if (arr[i].equals("/to")) {
-                check2 = true;
-            }
-        }
-
-        if (!check1 || !check2 || arr[1].equals("/from")) {
-            throw new MaxineException("Please follow this format: event [enter event] /from [start date] /to [end date]");
-        }
-        boolean from = false;
-        boolean to = false;
-        for (int i = 2; i < arr.length; i++) {
-            if (arr[i].equals("/from")) {
-                from = true;
-            }
-            else if (arr[i].equals("/to")) {
-                from = false;
-                to = true;
-            } else if (from) {
-                String word = " " + arr[i];
-                start.append(word);
-            } else if (to) {
-                String word = " " + arr[i];
-                end.append(word);
-            } else {
-                String word = " " + arr[i];
-                desc.append(word);
-            }
-        }
-        Event task = new Event(desc.toString(), start.toString(), end.toString());
-        list.add(task);
+        Event event = new Event();
+        event.addToEvent(arr, list);
     }
     
     public static void delete() {
@@ -145,6 +92,8 @@ public class Maxine {
      */
     public static void main(String[] args) throws Exception {
         System.out.println("Hi! Nice to meet you :) I am Maxine");
+        FileReading.rememberFileContents("data/maxine.txt", list);
+
         while (true) {
             String answer = ask();
             if (answer.equals("bye")) {
@@ -154,26 +103,31 @@ public class Maxine {
                 showList();
             } else if (arr[0].equals("mark") || arr[0].equals("unmark")) {
                 changeMark();
+                FileWriting.refreshFile(list);
             } else if (arr[0].equals("todo")) {
                 try {
                     todo();
+                    FileWriting.refreshFile(list);
                 } catch (Exception e) {
                     System.out.println("Please follow this format: todo [enter task]");
                 }
             } else if (arr[0].equals("deadline")) {
                 try {
                     deadline();
+                    FileWriting.refreshFile(list);
                 } catch (Exception e) {
                     System.out.println("Please follow this format: deadline [enter task] /by [enter deadline]");
                 }
             } else if (arr[0].equals("event")) {
                 try {
                     event();
+                    FileWriting.refreshFile(list);
                 } catch (Exception e) {
                     System.out.println("Please follow this format: event [enter event] /from [start date] /to [end date]");
                 }
             } else if (arr[0].equals("delete")) {
                 delete();
+                FileWriting.refreshFile(list);
             } else {
                 System.out.println("please type in a command starting with todo, deadline, event, mark, unmark or list");
             }
