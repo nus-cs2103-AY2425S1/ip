@@ -19,16 +19,33 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * The {@code Storage} class handles the storage and retrieval of tasks from a file.
+ * It provides methods to read tasks from a file, write tasks to a file, and update task
+ * status in the file. The class ensures that the storage file and its containing folder
+ * are created if they do not already exist.
+ */
 public class Storage {
-
     private static final String folderName = "data";
-    private static final String fileName = "tasks.txt";
+
     private final String filePath;
 
+    /**
+     * Constructs a new {@code Storage} object with the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Retrieves tasks from the storage file and returns them as a list. If the storage
+     * file or folder does not exist, they are created. Each task is parsed based on its
+     * type and status, and added to the task list.
+     *
+     * @return An {@code ArrayList} of tasks retrieved from the storage file.
+     */
     public ArrayList<Task> retrieveTasks() {
         ArrayList<Task> taskList = new ArrayList<>();
         Path path = Paths.get(this.filePath);
@@ -88,6 +105,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Marks a task as complete in the storage file by updating its status from incomplete
+     * (0) to complete (1).
+     *
+     * @param t The task to be marked as complete.
+     */
     public void markComplete(Task t) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(this.filePath));
@@ -113,6 +136,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks a task as incomplete in the storage file by updating its status from complete
+     * (1) to incomplete (0).
+     *
+     * @param t The task to be marked as incomplete.
+     */
     public void markIncomplete(Task t) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(this.filePath));
@@ -138,6 +167,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the storage file by removing the corresponding line from the file.
+     *
+     * @param t The task to be deleted from the storage file.
+     */
     public void deleteTask(Task t) {
         try {
             // Read all lines from the file
@@ -164,9 +198,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a new Todo task to the storage file.
+     *
+     * @param t The Todo task to be written to the storage file.
+     */
     public void writeTodoToFile(Todo t) {
         try {
-            File dataFolder = new File("data");
+            File dataFolder = new File(folderName);
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs(); // Create the folder if it doesn't exist
             }
@@ -180,9 +219,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a new Deadline task to the storage file.
+     *
+     * @param t The Deadline task to be written to the storage file.
+     */
     public void writeDeadlineToFile(Deadline t) {
         try {
-            File dataFolder = new File("data");
+            File dataFolder = new File(folderName);
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs(); // Create the folder if it doesn't exist
             }
@@ -196,9 +240,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a new Event task to the storage file.
+     *
+     * @param t The Event task to be written to the storage file.
+     */
     public void writeEventToFile(Event t) {
         try {
-            File dataFolder = new File("data");
+            File dataFolder = new File(folderName);
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs(); // Create the folder if it doesn't exist
             }
@@ -213,5 +262,4 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
 }
