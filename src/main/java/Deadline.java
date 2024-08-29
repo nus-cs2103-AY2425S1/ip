@@ -1,15 +1,15 @@
 /**
  * Represents a Task with the addition of a <code>deadlineTime</code>
- * that it should be finished by
+ * that it should be finished by.
  */
 public class Deadline extends Task {
     private String deadlineTime;
 
 
     /**
-     * Create a <code>Deadline</code> object
-     * @param deadlineDesc
-     * @param deadlineTime
+     * Create a <code>Deadline</code> object.
+     * @param deadlineDesc <code>String</code> describing the deadline task.
+     * @param deadlineTime <code>String</code> describing the time/date of the deadline.
      */
     Deadline(String deadlineDesc, String deadlineTime) {
         super(deadlineDesc);
