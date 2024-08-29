@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Sentinel {
@@ -34,6 +33,7 @@ public class Sentinel {
             System.err.println("Error loading file: "+ e);
             list = new ArrayList<>();
         }
+
         Scanner sc = new Scanner(System.in);
         Command input = null;
         do {
@@ -78,23 +78,22 @@ public class Sentinel {
                                 else to = to.concat(word + " ");
                             }
                             taskName = taskName.trim(); from = from.trim(); to = to.trim();
-                                LocalDateTime _from = GeminiAPI.formatDateTime(from), _to = GeminiAPI.formatDateTime(to);
-                                switch (input){
-                                    case deadline -> {
-                                        if (_to == null) {
-                                            System.out.println("Please state the deadline using /by 'YYYY-MM-DD Time' (eg: deadline return book /by 2024-12-25 2:30pm)");
-                                            continue;
-                                        }
-                                        list.add(new Deadline(taskName, _to));
+                             switch (input){
+                                case deadline -> {
+                                    if (to.isEmpty()) {
+                                        System.out.println("Please state the deadline using /by (eg: deadline return book /by Sunday)");
+                                        continue;
                                     }
-                                    case event -> {
-                                        if (_from == null || _to == null) {
-                                            System.out.println("Please state the start and end date using /from 'YYYY-MM-DD Time' and /to 'YYYY-MM-DD Time' respectively (eg: event project meeting /from 2024-12-25 2:30pm /to 2024-12-25 6:30pm)");
-                                            continue;
-                                        }
-                                        list.add(new Event(taskName, _from, _to));
-                                    }
+                                    list.add(new Deadline(taskName, to));
                                 }
+                                case event -> {
+                                    if (from.isEmpty() || to.isEmpty()) {
+                                        System.out.println("Please state the start and end date using /from and /to respectively (eg: event project meeting /from Mon 2pm /to 4pm)");
+                                        continue;
+                                    }
+                                    list.add(new Event(taskName, from, to));
+                                }
+                            }
                         }
                     }
                     System.out.println("Got it. I've added this task: " + list.get(list.size()-1));

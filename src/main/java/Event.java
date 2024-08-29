@@ -1,16 +1,13 @@
-import java.time.LocalDateTime;
-
 public class Event extends Task {
-    protected LocalDateTime endDate, startDate;
-    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
+    protected String endDate, startDate;
+    public Event(String description, String startDate, String endDate) {
         super(description);
         this.endDate = endDate;
         this.startDate = startDate;
     }
     @Override
-    public String listedString(){ return super.listedString() + " [from: " + super.localDateTimeToString(this.startDate) +
-            " | to: " + super.localDateTimeToString(this.endDate) + "]"; }
+    public String listedString(){ return super.listedString() + " [from: " + this.startDate + " | to: " + this.endDate + "]"; }
 
-    public LocalDateTime getStartDate() { return startDate; }
-    public LocalDateTime getEndDate(){ return endDate; }
+    public String getStartDate() { return startDate; }
+    public String getEndDate(){ return endDate; }
 }

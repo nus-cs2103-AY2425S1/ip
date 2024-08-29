@@ -16,13 +16,12 @@ public class FileWriter {
 
             properties.setProperty("taskType", String.valueOf(task.getTaskType()));
             properties.setProperty("description", task.getDescription());
-            properties.setProperty("isDone", task.isDone() ? "T" : "F");
             if (task instanceof Deadline) {
-                properties.setProperty("endDate", ((Deadline) task).getEndDate().toString());
+                properties.setProperty("endDate", ((Deadline) task).getEndDate());
             }
             if (task instanceof Event) {
-                properties.setProperty("endDate", ((Event) task).getEndDate().toString());
-                properties.setProperty("startDate", ((Event) task).getStartDate().toString());
+                properties.setProperty("endDate", ((Event) task).getEndDate());
+                properties.setProperty("startDate", ((Event) task).getStartDate());
             }
 
             try (StringWriter sw = new StringWriter()) {
