@@ -6,8 +6,16 @@ public class Deadline extends Task{
         this.dueDate = dueDate;
     }
 
+    /**
+     * Format end date to write into file
+     * @return Returns start and end time as text
+     */
+    public String getDateAsText() {
+        return "|" + dueDate;
+    }
+
     @Override
     public String toString() {
-        return String.format("[D]%s (by:%s)", super.toString(), dueDate);
+        return String.format("[D]%s (by: %s)", super.toString(), dueDate);
     }
 }
