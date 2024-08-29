@@ -39,6 +39,9 @@ public class Bocchi {
         taskList = new TaskList(storage);
     }
 
+    public static void main(String[] args) {
+        new Bocchi().start();
+    }
 
     /**
      * Ends the conversation.
@@ -171,7 +174,8 @@ public class Bocchi {
                         case "mark" -> mark(Integer.parseInt(command.getParam()));
                         case "unmark" -> unmark(Integer.parseInt(command.getParam()));
                         case "todo" -> task(new Todo(command.getParam()));
-                        case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParams("by")));
+                        case "ddl", "deadline" ->
+                                task(new Deadline(command.getParam(), command.getKeywordParams("by")));
                         case "event" -> task(new Event(
                                 command.getParam(),
                                 command.getKeywordParams("from"),
@@ -194,10 +198,6 @@ public class Bocchi {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Bocchi().start();
     }
 
 }
