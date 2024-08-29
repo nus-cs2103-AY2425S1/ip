@@ -13,6 +13,10 @@ public class TaskManagement {
 		this.length = taskDAO.getAllTasks().size();
 	}
 
+	public List<Task> getAllTasks() {
+		return taskDAO.getAllTasks();
+	}
+
 	public void add(Task task) {
 		length++;
 		taskDAO.addTask(task);
