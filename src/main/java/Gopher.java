@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -61,7 +62,12 @@ public class Gopher {
                     input characters match, the chatbot would be able to
                     respond to the given command
                     """);
-        } catch (EmptyTaskDescriptionException
+        } catch (DateTimeParseException e) {
+            System.out.println("Oops...Seems like you have passed in invalid date...\n"
+                    + "Please check if your date is of the correct value and format\n"
+                    + "Current accepted date format: YYYY-MM-DD or YYYY-MM-DD hh:mm");
+        }
+        catch (EmptyTaskDescriptionException
             | MissingTokenException e) {
             System.out.println(e.getMessage());
         }

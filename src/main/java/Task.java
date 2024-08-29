@@ -1,4 +1,5 @@
 import java.lang.StringBuilder;
+import java.time.LocalDateTime;
 
 public abstract class Task {
     private static class ToDo extends Task {
@@ -20,11 +21,11 @@ public abstract class Task {
     }
 
     private static class Deadline extends Task {
-        private String dueDate;
+        private LocalDateTime dueDate;
 
         public Deadline(String name, String dueDate) {
             super(name);
-            this.dueDate = dueDate;
+            this.dueDate = Parser.parseDateString(dueDate);
         }
 
         @Override
@@ -32,25 +33,25 @@ public abstract class Task {
             return String.format("D | %s | %s | %s",
                     getStatusIcon(),
                     this.name,
-                    this.dueDate);
+                    Parser.parseLocalDateTime(this.dueDate));
         }
 
         @Override
         public String toString() {
             return String.format("[D]%s (by %s)",
                     super.toString(),
-                    dueDate);
+                    Parser.displayDate(this.dueDate));
         }
     }
 
     private static class Event extends Task {
-        private String startDate;
-        private String endDate;
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
 
         public Event(String name, String startDate, String endDate) {
             super(name);
-            this.startDate = startDate;
-            this.endDate = endDate;
+            this.startDate = Parser.parseDateString(startDate);
+            this.endDate = Parser.parseDateString(endDate);
         }
 
         @Override
@@ -58,16 +59,16 @@ public abstract class Task {
             return String.format("E | %s | %s | %s | %s",
                     getStatusIcon(),
                     this.name,
-                    this.startDate,
-                    this.endDate);
+                    Parser.parseLocalDateTime(this.startDate),
+                    Parser.parseLocalDateTime(this.endDate));
         }
 
         @Override
         public String toString() {
             return String.format("[E]%s (from %s to %s)",
                     super.toString(),
-                    startDate,
-                    endDate);
+                    Parser.displayDate(this.startDate),
+                    Parser.displayDate(this.endDate));
         }
     }
 
