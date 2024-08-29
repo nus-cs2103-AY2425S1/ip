@@ -5,13 +5,21 @@ public class Event extends Task {
         super(desc);
         int indexOfFrom = start.indexOf(" ") + 1;
         int indexOfEnd = end.indexOf(" ") + 1;
-        this.start = start.substring(indexOfFrom);
-        this.end = end.substring(indexOfEnd);
+        this.start = start.substring(indexOfFrom).trim();
+        this.end = end.substring(indexOfEnd).trim();
     }
 
     @Override
-    public String getDesc() {
+    public String toString() {
         return String.format("  [E][%s] %s (from: %s to: %s)",
-                super.getStatusIcon(), super.getDesc(), this.start, this.end);
+                super.getStatusIcon(), super.toString(), this.start, this.end);
+    }
+
+    public String getFromTime() {
+        return this.start;
+    }
+
+    public String getToTime() {
+        return this.end;
     }
 }

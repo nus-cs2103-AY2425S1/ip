@@ -7,7 +7,7 @@ public class Task {
         this.isDone = false;
     }
     public Task(String description) {
-        this.desc = description;
+        this.desc = description.trim();
         this.isDone = false;
     }
 
@@ -15,17 +15,24 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
-    public String getDesc() {
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    @Override
+    public String toString() {
         return this.desc;
     }
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("  i've marked this task as done!: ");
     }
 
     public void markAsNotDone() {
         this.isDone = false;
-        System.out.println("  ok, I've unmarked this task :( ");
+    }
+
+    public String getDesc() {
+        return this.desc;
     }
 }
