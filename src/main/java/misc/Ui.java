@@ -104,7 +104,8 @@ public class Ui {
             + tasklist.getLast()+ "\n"
             + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
         } catch (DateTimeException e) {
-            System.out.println("Error parsing date: " + e.getMessage() + ". Please enter your dates in yyyy-mm-dd format" + blankline);
+            System.out.println("Error parsing date: " + e.getMessage() 
+                + ". Please enter your dates in yyyy-mm-dd format" + blankline);
         }
         return tasklist;
     }
@@ -114,7 +115,8 @@ public class Ui {
      */
     public Tasklist replyDeadline(String s, Tasklist tasklist) throws MissingParamsException {
         String[] splitString = s.split("/by");
-        if (splitString.length != 2 || Objects.equals(splitString[0], "") || Objects.equals(splitString[1], "")) {
+        if (splitString.length != 2 || Objects.equals(splitString[0], "") 
+            || Objects.equals(splitString[1], "")) {
             throw new MissingParamsException("deadline");
         }
 
@@ -125,7 +127,8 @@ public class Ui {
                     + tasklist.getStr(tasklist.getSize() - 1) + "\n"
                     + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
         } catch (DateTimeException e) {
-            System.out.println("Error parsing date: " + e.getMessage() + ". Please enter your dates in yyyy-mm-dd format");
+            System.out.println("Error parsing date: " + e.getMessage() 
+            + ". Please enter your dates in yyyy-mm-dd format");
         }
         return tasklist;
     }
