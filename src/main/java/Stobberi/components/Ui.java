@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * Represents the user interface for interacting with the chatbot.
- * Handles user greetings, farewells, command input and output form of chatbot.
+ * Handles user greetings, farewells, and command input/output for the chatbot.
  */
 public class Ui {
     private Scanner scanner;
