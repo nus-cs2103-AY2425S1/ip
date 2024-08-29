@@ -6,7 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 
 public class TaskList {
-    ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
+
+    protected static void printLine() {
+        System.out.println("    ____________________________________________________________________________");
+    }
 
     public void addToList(Task task) {
         printLine();
@@ -20,26 +24,6 @@ public class TaskList {
         }
         printLine();
         System.out.println();
-    }
-
-    private void printLine() {
-        System.out.println("    ____________________________________________________________________________");
-    }
-
-     public void printList() {
-        if (list.isEmpty()) {
-            printLine();
-            System.out.println("    No tasks to do? that's pretty goooood.");
-            printLine();
-
-        } else {
-            printLine();
-            System.out.println("    So here's the tasks in your list, you should proooobably do them");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println("    " + (i + 1) + ". " + list.get(i));
-            }
-            printLine();
-        }
     }
 
     public void markTaskAsDone(int index) {
@@ -140,5 +124,21 @@ public class TaskList {
     @Override
     public String toString() {
         return list.toString();
+    }
+
+    public void printList() {
+        if (list.isEmpty()) {
+            printLine();
+            System.out.println("    No tasks to do? that's pretty goooood.");
+            printLine();
+
+        } else {
+            printLine();
+            System.out.println("    So here's the tasks in your list, you should proooobably do them");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("    " + (i + 1) + ". " + list.get(i));
+            }
+            printLine();
+        }
     }
 }
