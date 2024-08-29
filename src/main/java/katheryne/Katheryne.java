@@ -38,7 +38,7 @@ public class Katheryne {
                 String str = ui.getLine();
                 String commandWord = ui.getCommand(str);
                 if (commandWord.equals("list")) {
-                    System.out.println(c.executeList(taskList));
+                    System.out.println(c.executeList());
                 } else if (commandWord.equals("mark")) {
                     System.out.println(c.executeMark(str));
 
@@ -58,7 +58,7 @@ public class Katheryne {
                 } else if (commandWord.equals("delete")) {
                     System.out.println(c.executeDelete(str));
                 } else {
-                    throw new InvalidInputException("Katheryne: " + "I'm sorry, Katheryne is unable to comprehend your request.");
+                    throw new InvalidInputException("I'm sorry, Katheryne is unable to comprehend your request.");
                 }
                 storage.save(taskList);
             } catch (InvalidInputException e) {

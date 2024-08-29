@@ -12,8 +12,8 @@ public class Command {
         this.taskList = taskList;
     }
 
-    public String executeList(TaskList l) {
-        return ui.getListMessage(l);
+    public String executeList() {
+        return ui.getListMessage();
     }
 
     public String executeMark(String string) throws MissingInformationException, IndexOutOfBoundsException {
