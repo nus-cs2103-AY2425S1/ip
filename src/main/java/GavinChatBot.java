@@ -153,8 +153,8 @@ public class GavinChatBot{
         }
 
         String[] inputParts = input.split("/by", 2); // ["deadline return book" , "Sunday"]
-        String taskDescription = inputParts[0].substring(9); // skip first 9 chars, which is "deadline "
-        String deadlineDay = inputParts[1];
+        String taskDescription = inputParts[0].substring(9).trim(); // skip first 9 chars, which is "deadline "
+        String deadlineDay = inputParts[1].trim();
 
         // throw an error if there is no /by date
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
