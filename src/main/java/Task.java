@@ -1,4 +1,8 @@
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
+    private static final long serialVersionID = 1L;
+
     protected String description;
     protected boolean isDone;
     public Task(String description) {
