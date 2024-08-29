@@ -4,6 +4,11 @@ public class ToDo  extends Task{
         super(s);
     }
 
+    public String infoForFile() {
+        String str =  "[T] / " + super.getDetails();
+        return str;
+    }
+
     @Override
     public String toString() {
         String str = "";
