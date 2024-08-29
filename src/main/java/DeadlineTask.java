@@ -1,9 +1,18 @@
 public class DeadlineTask extends Task {
-    String deadline;
+    private String deadline;
 
     public DeadlineTask(String task, String deadline) {
         super(task);
         this.deadline = deadline;
+    }
+
+    @Override
+    public String getStorageRepresentation() {
+        if (this.isdone) {
+            return "D|1|" + this.description + "|" + this.deadline;
+        } else {
+            return "D|0|" + this.description + "|" + this.deadline;
+        }
     }
 
     @Override

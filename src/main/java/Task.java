@@ -1,6 +1,6 @@
 public class Task {
-    private String description;
-    private boolean isdone;
+    protected String description;
+    protected boolean isdone;
 
     public Task(String description) {
         this.description = description;
@@ -17,6 +17,10 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getStorageRepresentation() {
+        return "";
     }
 
     @Override

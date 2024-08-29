@@ -1,11 +1,20 @@
 public class EventTask extends Task {
-    String eventStart;
-    String eventEnd;
+    private String eventStart;
+    private String eventEnd;
 
     public EventTask(String task, String eventStart, String eventEnd) {
         super(task);
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
+    }
+
+    @Override
+    public String getStorageRepresentation() {
+        if (this.isdone) {
+            return "E|0|" + this.description + "|" + this.eventStart + "|" + this.eventEnd;
+        } else {
+            return "E|1|" + this.description + "|" + this.eventStart + "|" + this.eventEnd;
+        }
     }
 
     @Override
