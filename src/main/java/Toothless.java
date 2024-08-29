@@ -8,15 +8,15 @@ import java.util.ArrayList;
  */
 public class Toothless {
 
-    private String toothlessLogo =
+    private final static String toothlessLogo =
             " _____            _   _     _\n" +
             "|_   _|___   ___ | |_| |__ | | ___  ___ ___\n" +
             "  | |/ _ \\ / _ \\| __| '_ \\| |/ _ \\/ __/ __|\n" +
             "  | | (_) | (_) | |_| | | | |  __/\\__ \\__ \\\n" +
             "  |_|\\___/ \\___/ \\__|_| |_|_|\\___||___/___/\n";
-    private String divider = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
-    private Scanner sc = new Scanner(System.in);
-    private ArrayList<Task> list;
+    private final String divider = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
+    private final Scanner sc = new Scanner(System.in);
+    private final ArrayList<Task> list;
 
     /**
      * Constructor for Toothless.
@@ -37,27 +37,21 @@ public class Toothless {
     }
 
     /**
-     * Splits the task into two parts.
-     * @param task The task to be split.
-     * @return An array of strings containing the split task.
-     */
-    public String[] splitFirst(String task) {
-        String[] result = task.split(" ", 2);
-        return result;
-    }
-
-    /**
      * Prints the tasks on the task list.
      */
     public void printTask() {
         System.out.println("Toothless:\nHere are the tasks on the quest board:\n\n" +
                 "|-------------Quest Board -----------------|\n");
 
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i).toString());
+        if (list.isEmpty()) {
+            System.out.println("There are no quests on the quest board!");
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(i + 1 + ". " + list.get(i).toString());
+            }
         }
 
-        System.out.println("\n|-----------------------------------------|\n\n" + divider);
+        System.out.println("\n|------------------------------------------|\n\n" + divider);
     }
 
     /**
@@ -69,7 +63,7 @@ public class Toothless {
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsDone();
         System.out.println("Toothless:\nGood job! You had completed this quest!\n" +
-              currentTask.toString() + "\n\n" + divider);
+              currentTask + "\n\n" + divider);
     }
 
     /**
@@ -81,7 +75,7 @@ public class Toothless {
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsUndone();
         System.out.println("Toothless:\nOops! Quest is back in play!\n" +
-                currentTask.toString() + "\n\n" + divider);
+                currentTask + "\n\n" + divider);
     }
     public void addTask(String taskType, String description) throws ToothlessExceptions {
         switch(taskType) {
@@ -112,10 +106,23 @@ public class Toothless {
                         "Please enter a valid command. :)\n\n" + divider);
         }
 
-        System.out.println("Toothless:\nYour task [" + description + "] added to the quest board!\n" +
+        System.out.println("Toothless:\nYour task\n\t\t" +
+                list.getLast() +
+                "\nadded to the quest board!\n\n" +
                 "Now there is " + list.size() + " quests in your quest board.\n\n" + divider);
 
     }
+
+    public void deleteTask(int index) {
+        int fixedIndex = index - 1;
+        Task currentTask = list.get(fixedIndex);
+        int newTaskSize = list.size() - 1;
+        System.out.println("Toothless:\nThe quest\n\t\t" +
+                currentTask + "\nis removed from the quest board!\n\n" +
+                "Now there is " + newTaskSize + " quests in your quest board.\n\n" + divider);
+        list.remove(fixedIndex);
+    }
+
     /**
      * Executes the commands given by the user.
      * @param input The command given by the user.
@@ -156,6 +163,17 @@ public class Toothless {
                             divider);
                 }
                 markUndone(unmarkIndex);
+                break;
+            case "delete":
+                if(description.isEmpty()) {
+                    throw new MissingIndex("delete", "delete <index>");
+                }
+                int deleteIndex = Integer.parseInt(description);
+                if(deleteIndex > list.size() || deleteIndex < 1) {
+                    throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
+                            divider);
+                }
+                deleteTask(deleteIndex);
                 break;
             default:
                 throw new ToothlessExceptions("I don't understand that command.\n" +
