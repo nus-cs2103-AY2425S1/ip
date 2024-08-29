@@ -4,14 +4,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import yappingbot.tasks.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 class StorageTest {
     @Test
-    void testLoadListFromFile() {
+    void testLoadListFromFile() throws IOException {
         Storage s = new Storage("src/test/resources/savefile_original");
+
+        final ByteArrayOutputStream uiPrintOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(uiPrintOut));
+
         Task[] expected = {
                 new Todo("a", false),
                 new Todo("b", true),
@@ -22,6 +25,19 @@ class StorageTest {
         TaskList tasks;
         tasks = s.loadListFromFile();
         assertEquals(expected.length, tasks.size());
+
+        uiPrintOut.close();
+        String expected_error_out = """
+                
+                 |  Error encountered while loading savefile:
+                 |
+                 |   |  Error Reading save file! The following error was encountered: Unable to parse value - No enum constant yappingbot.tasks.TaskTypes.Ajdskljdas
+                 |   |  Error Reading save file! The following error was encountered: Unable to parse value - Error Reading save file! The following error was encountered: Missing Data Values
+                
+                """;
+        assertEquals(expected_error_out, uiPrintOut.toString());
+
+
         for (int i = 0; i < expected.length; i++) {
             assertEquals(tasks.get(i).toString(), expected[i].toString());
         }
