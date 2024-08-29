@@ -1,10 +1,10 @@
 todo borrow book
 list
-event project meeting /from Mon 2pm /to 4pm
-deadline return book /by Sunday
+event orientation camp /from 2024-09-01 /to 2024-09-03
+deadline return book /by 2024-09-06
 todo
 deadline buy apples
-event go school /from Monday
+event go school /from 2024-05-03
 mark 2
 list
 unmark 4
