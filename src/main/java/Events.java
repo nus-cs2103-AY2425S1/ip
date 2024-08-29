@@ -4,12 +4,12 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Events extends Task {
-//    private String startDate;
-//    private String endDate;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private String initDesc;
     public Events(String description) throws CommandFoundButInvalidException {
         super(description);
+        this.initDesc = description;
         String[] inputs = this.getValidString(description);
         super.description = inputs[0];
         String start = inputs[1];
@@ -49,5 +49,10 @@ public class Events extends Task {
         String str1 = "Got it. I've added this task:\n";
         String str2 = String.format("Now you have %d tasks in the list", allTasks.size());
         return str1 + this.toString() + "\n" + str2;
+    }
+
+    public String getInitDesc() {
+        String str = super.isDone ? "1" : "0";
+        return String.format("E | %s | %s", str, this.initDesc);
     }
 }

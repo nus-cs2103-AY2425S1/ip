@@ -4,38 +4,42 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Hyperion {
-    public static void main(String[] args) {
-        System.out.println("Welcome to Hyperion!");
-        List<Task> allTasks = FileUtil.loadTasks();
+    private Storage storage;
+    private TaskList allTasks;
+    private Ui ui;
+    boolean carryOn = true;
+    // takes in a filepath for the storage
+    public Hyperion(String filePath) {
         try {
-            String initialValues = new ListAll("", allTasks).message();
-            System.out.println(initialValues);
+            this.ui = new Ui();
+            this.ui.showWelcome();
+            this.storage = new Storage(filePath);
+            this.allTasks = new TaskList(storage.load());
+            this.ui.showList(this.allTasks.getAllTasks());
         } catch (CommandFoundButInvalidException e ) {
-            System.out.print("");
+            System.out.print("There is an error" + e.getMessage());
         }
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        boolean carryOn = true;
 
         while(carryOn) {
             System.out.println("> ");
             input = scanner.nextLine();
 
             try {
-                Parser parser = new Parser(input, allTasks);
+                Parser parser = new Parser(input, allTasks, this.storage, this.ui);
                 carryOn = parser.carryOn();
-
-                FileUtil.saveTasks(allTasks);
             } catch (EmptyStringException |
                      CommandFoundButInvalidException |
                      CommandNotFoundException e) {
-                System.out.println(e.getMessage());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                ui.displayError(e.getMessage());
             }
         }
 
         scanner.close();
+    }
+    public static void main(String[] args) {
+        new Hyperion("data/tasks.txt");
     }
 }

@@ -6,11 +6,14 @@ public class Parser {
     right command. After which, invokes the respective classes*/
     private String command;
     private String remainder;
-    private List<Task> allTasks;
+    private TaskList allTasks;
     private String description;
+    private Storage storage;
     private boolean carryOn = true;
-    public Parser(String input, List<Task> allTasks) throws EmptyStringException, CommandNotFoundException,  CommandFoundButInvalidException {
+    private Ui ui;
+    public Parser(String input, TaskList allTasks, Storage s, Ui ui) throws EmptyStringException, CommandNotFoundException,  CommandFoundButInvalidException {
         this.allTasks = allTasks;
+        this.ui = ui;
         if (input.isEmpty()) {
             throw new EmptyStringException();
         }
@@ -25,50 +28,42 @@ public class Parser {
         Commands cmd = Commands.fromString(command);
         switch(cmd) {
             case TODO:
-                // throw to the ToDos class
-                ToDos todo = new ToDos(remainder);
-                allTasks.add(todo);
-                // should print the message here
-                System.out.println(todo.message(allTasks));
+                allTasks.addTodo(remainder);
+                s.put(allTasks.getAllTasks());
+                System.out.println(ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize()));
                 break;
             case DEADLINE:
-                // throw to the Deadlines class
-                Deadlines deadline = new Deadlines(remainder);
-                allTasks.add(deadline);
-                // should print the message here
-                System.out.println(deadline.message(allTasks));
+                allTasks.addDeadline(remainder);
+                s.put(allTasks.getAllTasks());
+                System.out.println(ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize()));
                 break;
             case EVENT:
-                // throw to the Events class
-                Events event = new Events(remainder);
-                allTasks.add(event);
-                // should print the message here
-                System.out.println(event.message(allTasks));
+                allTasks.addEvent(remainder);
+                s.put(allTasks.getAllTasks());
+                System.out.println(ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize()));
                 break;
             case DELETE:
-                // throw to the Delete class
-                Delete delete = new Delete(remainder, allTasks);
-                System.out.println(delete.message());
+                allTasks.delete(remainder);
+                s.put(this.allTasks.getAllTasks());
+                System.out.println(ui.deleteMessage(this.allTasks.getLastDeleted(), this.allTasks.getSize()));
                 break;
             case LIST:
                 // throw to the ListAll class
-                ListAll list = new ListAll(remainder, allTasks);
+                ListAll list = new ListAll(remainder, allTasks.getAllTasks());
                 System.out.println(list.message());
                 break;
             case MARK:
-                // throw to the mark class
-                Mark mark = new Mark(remainder, allTasks);
-                System.out.println(mark.message());
+                allTasks.mark(remainder, allTasks.getAllTasks());
+                s.put(allTasks.getAllTasks());
+                System.out.println(ui.markedMessage(allTasks.getLastMarked()));
                 break;
             case UNMARK:
-                // throw to the unmark class
-                Unmark unmark = new Unmark(remainder, allTasks);
-                System.out.println(unmark.message());
+                allTasks.unmark(remainder, allTasks.getAllTasks());
+                s.put(allTasks.getAllTasks());
+                System.out.println(ui.unmarkedMessage(allTasks.getLastUnmarked()));
                 break;
             case BYE:
-                // throw to the Bye class
-                Bye bye = new Bye(remainder);
-                System.out.println(bye.message());
+                System.out.println(ui.bye());
                 this.carryOn = false;
                 break;
         }

@@ -5,7 +5,7 @@ public class Task implements Serializable {
 
     protected String description;
     protected boolean isDone;
-    public Task(String description) {
+    public Task(String description) throws CommandFoundButInvalidException {
         this.description = description;
         this.isDone = false;
     }
@@ -19,4 +19,8 @@ public class Task implements Serializable {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public String getInitDesc() {
+        return this.description;
+    };
 }
