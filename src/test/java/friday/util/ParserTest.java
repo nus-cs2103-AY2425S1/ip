@@ -3,7 +3,7 @@ package friday.util;
 import friday.command.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import friday.util.FridayException;
+
 import friday.task.TaskList;
 
 class ParserTest {

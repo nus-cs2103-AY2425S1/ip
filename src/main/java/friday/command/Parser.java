@@ -1,8 +1,6 @@
-package friday.util;
+package friday.command;
 
-import static friday.command.CommandType.*;
-
-import friday.command.*;
+import friday.util.FridayException;
 
 /**
  * Parses user input and returns the corresponding Command object.
@@ -20,7 +18,7 @@ public class Parser {
         String[] inputs = fullCommand.split(" ");
         CommandType commandType;
         try {
-            commandType = valueOf(inputs[0].toUpperCase());
+            commandType = CommandType.valueOf(inputs[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new FridayException("\tInvalid input. Please ensure that this command is supported by me" +
                     " and you have utilized the right syntax.\n\tCheck 'help' for more information.");
