@@ -20,6 +20,7 @@ public class Alexer {
 
     public void printTasks() {
         System.out.println(BREAK);
+        System.out.println("Sure thing! Here is your task list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             System.out.format("%d: %s\n", i + 1, tasks.get(i));
@@ -40,7 +41,7 @@ public class Alexer {
         tasks.add(task);
 
         System.out.println(BREAK);
-        System.out.format("Added: %s\n", task);
+        System.out.format("Got it! I’ve added the task to your list:\n\n\t%s\n", task);
         System.out.println(BREAK);
     }
 
