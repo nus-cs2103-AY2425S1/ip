@@ -9,7 +9,7 @@ public class EventTest {
 
     @Test
     public void testEventCreation() {
-        Event event = new Event("project meeting", "2024-08-30 14:00", "2024-08-30 16:00");
+        Event event = new  Event("project meeting", "2024-08-30 14:00", "2024-08-30 16:00");
         assertEquals("[E][ ] project meeting (from: Aug 30 2024, 14:00 to: Aug 30 2024, 16:00)", event.toString());
     }
 
