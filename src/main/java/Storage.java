@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -50,15 +52,16 @@ public class Storage {
                 tasks.add(task);
                 eachLine = buffer.readLine();
             } else if (Objects.equals(category, "D")) {
-
-                Deadline deadline = new Deadline(desc, components[3]);
+                LocalDateTime by = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+                Deadline deadline = new Deadline(desc, by);
                 deadline.isDone = components[1].trim().equals("1");
 
                 tasks.add(deadline);
                 eachLine = buffer.readLine();
             } else if (Objects.equals(category, "E")) {
-
-                Event event = new Event(desc, components[3], components[4]);
+                LocalDateTime to = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+                LocalDateTime from = LocalDateTime.parse(components[4].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+                Event event = new Event(desc, to, from);
                 event.isDone = components[1].trim().equals("1");
 
                 tasks.add(event);

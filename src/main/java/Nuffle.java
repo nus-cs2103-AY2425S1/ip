@@ -116,7 +116,6 @@ public class Nuffle {
             printLine();
             System.out.println("Hmmm... The index provided seems to be out of range. Please try again.");
             printLine();
-
         }
     }
 
@@ -170,48 +169,22 @@ public class Nuffle {
                     int index = Integer.parseInt(userInput.substring(7)) - 1;
                     deleteTask(index);
                 } else if (userInput.startsWith("todo")) {
-                    // Program will add a To-do task to the list
-
-                    String desc = userInput.substring(4);
-                    if (desc.trim().isEmpty()) {
-                        throw NuffleException.noDesc("todo");
+                    Task newTask = Parser.parseTodoCommand(userInput);
+                    if (newTask != null) {
+                        addTaskToList(newTask);
                     }
-                    Task newTask = new Todo(desc);
-                    addTaskToList(newTask);
                 } else if (userInput.startsWith("deadline")) {
                     // Program will add a deadline task to the list
-
-                    if (!userInput.contains("/by")) {
-                        throw NuffleException.checkDeadlineFormat();
+                    Task newTask = Parser.parseDeadlineCommand(userInput);
+                    if (newTask != null) {
+                        addTaskToList(newTask);
                     }
-                    // Get the description of the deadline task as well as the day, split by the "by"
-                    String[] desc = userInput.substring(8).split(" /by ");
-                    if (userInput.substring(8).trim().isEmpty()) {
-                        throw NuffleException.noDesc("deadline");
-                    }
-                    if (desc.length < 2 || desc[1].trim().isEmpty()) {
-                        throw NuffleException.checkDeadlineParams();
-                    }
-                    Task newTask = new Deadline(desc[0], desc[1]);
-                    addTaskToList(newTask);
                 } else if (userInput.startsWith("event")) {
                     // Program will add an event task to the list
-
-                    if (!(userInput.contains("/from") || userInput.contains("/to"))) {
-                        throw NuffleException.checkEventFormat();
+                    Task newTask = Parser.parseEventCommand(userInput);
+                    if (newTask != null) {
+                        addTaskToList(newTask);
                     }
-
-                    // Get the description of the event task first
-                    String[] desc = userInput.substring(5).split(" /from | /to ");
-                    if (userInput.substring(5).trim().isEmpty()) {
-                        throw NuffleException.noDesc("event");
-                    }
-                    // ensure that to / from has input
-                    if (desc.length < 3 || desc[1].trim().isEmpty() || desc[2].trim().isEmpty()) {
-                        throw NuffleException.checkEventParams();
-                    }
-                    Task newTask = new Event(desc[0], desc[1], desc[2]);
-                    addTaskToList(newTask);
                 } else {
                     throw NuffleException.unknown();
                 }
