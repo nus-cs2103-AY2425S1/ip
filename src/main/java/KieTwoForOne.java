@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KieTwoForOne {
 
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>(100);
     private static int count = 0;
     static String separationLine = "_________________________________________";
     static String chatBotName = "KieTwoForOne";
@@ -13,9 +14,9 @@ public class KieTwoForOne {
 
     public static void addTasks(Task newTask) {
         int sum = 0;
-        tasks[count] = newTask;
+        tasks.set(count, newTask);
         count++;
-        for (int i = 0; tasks[i] != null; i++) {
+        for (int i = 0; tasks.get(i) != null; i++) {
             sum++;
         }
         System.out.println("Got it. I've added this task:");
@@ -26,21 +27,21 @@ public class KieTwoForOne {
 
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; tasks[i] != null; i++) {
-            System.out.println(String.format("%d. %s", i + 1, tasks[i].toString()));
+        for (int i = 0; tasks.get(i) != null; i++) {
+            System.out.println(String.format("%d. %s", i + 1, tasks.get(i).toString()));
         }
         System.out.println(separationLine);
     }
 
     public static void markTask(int position) {
-        Task markedTask = tasks[position - 1];
+        Task markedTask = tasks.get(position - 1);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("    " + markedTask.markTask());
         System.out.println(separationLine);
     }
 
     public static void unmarkTask(int position) {
-        Task unmarkedTask = tasks[position - 1];
+        Task unmarkedTask = tasks.get(position - 1);
         System.out.println("Ok. I've marked this task as not done yet:");
         System.out.println("    " + unmarkedTask.unmarkTask());
         System.out.println(separationLine);
