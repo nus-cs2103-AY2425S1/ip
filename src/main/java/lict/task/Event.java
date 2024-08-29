@@ -1,3 +1,8 @@
+package lict.task;
+
+import lict.DateTime;
+import lict.LictException;
+
 import java.time.DateTimeException;
 
 public class Event extends Task {
@@ -16,7 +21,7 @@ public class Event extends Task {
                 this.to = new DateTime(to);
             }
         } catch (DateTimeException e) {
-            throw new LictException("Invalid format for event start date or event end date. Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
+            throw new LictException("Invalid format for event start date or event end date. Please ensure that lict.task.Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
         }
     }
 

@@ -1,3 +1,9 @@
+package lict.task;
+
+import lict.DateTime;
+
+import lict.LictException;
+
 import java.time.DateTimeException;
 
 public class Deadline extends Task {

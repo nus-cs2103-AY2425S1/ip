@@ -1,3 +1,6 @@
+package lict;
+
+import lict.command.Command;
 
 public class Lict {
     private Storage storage;

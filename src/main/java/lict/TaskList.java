@@ -1,3 +1,6 @@
+package lict;
+
+import lict.task.Task;
 import java.util.ArrayList;
 
 public class TaskList {

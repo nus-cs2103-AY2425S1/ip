@@ -1,10 +1,12 @@
+package lict;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code DateTime} class handles date and time information, allowing for flexible input of either date only or both date and time.
+ * The {@code lict.DateTime} class handles date and time information, allowing for flexible input of either date only or both date and time.
  * It provides methods to format the date and time for display and data storage purposes.
  */
 public class DateTime {
@@ -14,7 +16,7 @@ public class DateTime {
     protected LocalDate date;
 
     /**
-     * Constructs a {@code DateTime} object by parsing the provided string, which can be in the format "yyyy-MM-dd" or "yyyy-MM-dd HHmm".
+     * Constructs a {@code lict.DateTime} object by parsing the provided string, which can be in the format "yyyy-MM-dd" or "yyyy-MM-dd HHmm".
      * Depending on the format, it initializes either a {@code LocalDate} or a {@code LocalDateTime}.
      *
      * @param info The date or date and time information as a string.

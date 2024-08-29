@@ -1,3 +1,6 @@
+package lict;
+
+import lict.task.Task;
 import java.util.Scanner;
 
 public class Ui {
@@ -5,17 +8,15 @@ public class Ui {
 
     public void startConversation() {
         showLine();
-        System.out.println("Hello! I'm Lict");
+        System.out.println("Hello! I'm Lict.Lict");
         System.out.println("What can I do for you?");
         showLine();
     }
 
-    public String readCommand() {
+    public String readCommand() throws LictException {
         String input = sc.nextLine().trim();
-        while (input.isEmpty()) {
-            System.out.println("Please enter a valid command.");
-            input = sc.nextLine().trim();
-            this.showLine();
+        if (input.isEmpty()) {
+            throw new LictException("Please enter a valid command.");
         }
         return input;
     }

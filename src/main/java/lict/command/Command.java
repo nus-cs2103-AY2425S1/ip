@@ -1,3 +1,10 @@
+package lict.command;
+
+import lict.Storage;
+import lict.TaskList;
+import lict.Ui;
+import lict.LictException;
+
 public abstract class Command {
 
     public boolean isExit() {

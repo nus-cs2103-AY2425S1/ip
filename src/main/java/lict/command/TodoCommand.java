@@ -1,3 +1,12 @@
+package lict.command;
+
+import lict.Storage;
+import lict.TaskList;
+import lict.Ui;
+import lict.LictException;
+import lict.task.Task;
+import lict.task.Todo;
+
 public class TodoCommand extends Command {
     private String description;
 

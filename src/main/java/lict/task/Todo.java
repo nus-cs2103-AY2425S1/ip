@@ -1,6 +1,8 @@
+package lict.task;
+
 /**
- * The {@code Todo} class represents a task that has a description and can be marked as done or not done.
- * It extends the {@code Task} class and provides specific implementations for the {@code toString} and {@code toData} methods.
+ * The {@code lict.task.Todo} class represents a task that has a description and can be marked as done or not done.
+ * It extends the {@code lict.task.Task} class and provides specific implementations for the {@code toString} and {@code toData} methods.
  */
 public class Todo extends Task {
 

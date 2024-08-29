@@ -1,3 +1,8 @@
+package lict;
+
+import lict.task.Task;
+import lict.TaskList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +23,7 @@ public class Storage {
                 Scanner sc = new Scanner(file);
                 while (sc.hasNextLine()) {
                     String dataEntry = sc.nextLine();
-                    Task task = Task.convertData(dataEntry);  // Task class handles parsing
+                    Task task = Task.convertData(dataEntry);  // lict.task.Task class handles parsing
                     if (task != null) {
                         tasks.add(task);
                     }

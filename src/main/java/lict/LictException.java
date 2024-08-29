@@ -1,3 +1,5 @@
+package lict;
+
 public class LictException extends Exception {
 
     public LictException() {

@@ -1,3 +1,9 @@
+package lict.command;
+
+import lict.Storage;
+import lict.TaskList;
+import lict.Ui;
+
 public class ByeCommand extends Command {
 
     @Override

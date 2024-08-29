@@ -1,7 +1,15 @@
-public class UnmarkCommand extends Command {
+package lict.command;
+
+import lict.Storage;
+import lict.TaskList;
+import lict.Ui;
+import lict.LictException;
+import lict.task.Task;
+
+public class MarkCommand extends Command {
     private String taskNum;
 
-    public UnmarkCommand(String taskNum) {
+    public MarkCommand(String taskNum) {
         this.taskNum = taskNum;
     }
 
@@ -9,17 +17,17 @@ public class UnmarkCommand extends Command {
         try {
             int index = Integer.parseInt(taskNum) - 1;
             if (index < 0) {
-                throw new LictException("Invalid task number. Task numbers should all be positive.");
+                throw new LictException("Invalid task number. lict.task.Task numbers should all be positive.");
             } else if (index >= tasks.size()) {
                 throw new LictException("Invalid task number. There are only " + tasks.size() + " tasks in the list.");
             } else {
                 Task t = tasks.get(index);
-                t.isMarked(false);
-                ui.hasUnmarkedTask(t);
+                t.isMarked(true);
+                ui.hasMarkedTask(t);
                 storage.save(tasks);
             }
         } catch (NumberFormatException e) {
-            throw new LictException("Please enter a valid integer index. For eg. 'unmark 1'");
+            throw new LictException("Please enter a valid integer index. For eg. 'mark 1'");
         }
     }
 

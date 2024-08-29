@@ -1,7 +1,15 @@
-public class MarkCommand extends Command {
+package lict.command;
+
+import lict.Storage;
+import lict.TaskList;
+import lict.Ui;
+import lict.LictException;
+import lict.task.Task;
+
+public class DeleteCommand extends Command {
     private String taskNum;
 
-    public MarkCommand(String taskNum) {
+    public DeleteCommand(String taskNum) {
         this.taskNum = taskNum;
     }
 
@@ -9,19 +17,16 @@ public class MarkCommand extends Command {
         try {
             int index = Integer.parseInt(taskNum) - 1;
             if (index < 0) {
-                throw new LictException("Invalid task number. Task numbers should all be positive.");
+                throw new LictException("Invalid task number. lict.task.Task numbers should all be positive.");
             } else if (index >= tasks.size()) {
                 throw new LictException("Invalid task number. There are only " + tasks.size() + " tasks in the list.");
             } else {
-                Task t = tasks.get(index);
-                t.isMarked(true);
-                ui.hasMarkedTask(t);
+                Task t = tasks.deleteTask(index);
+                ui.hasDeletedTask(t, tasks.size());
                 storage.save(tasks);
             }
         } catch (NumberFormatException e) {
-            throw new LictException("Please enter a valid integer index. For eg. 'mark 1'");
+            throw new LictException("Please enter a valid integer index. For eg. 'delete 1'");
         }
     }
-
-
 }

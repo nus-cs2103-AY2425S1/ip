@@ -1,3 +1,12 @@
+package lict.command;
+
+import lict.Storage;
+import lict.TaskList;
+import lict.Ui;
+import lict.LictException;
+import lict.task.Task;
+import lict.task.Event;
+
 public class EventCommand extends Command {
     private String info;
 

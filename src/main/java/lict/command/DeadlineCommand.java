@@ -1,3 +1,12 @@
+package lict.command;
+
+import lict.Storage;
+import lict.TaskList;
+import lict.Ui;
+import lict.task.Task;
+import lict.task.Deadline;
+import lict.LictException;
+
 public class DeadlineCommand extends Command {
     private String info;
 

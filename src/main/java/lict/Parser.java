@@ -1,3 +1,6 @@
+package lict;
+
+import lict.command.*;
 import java.util.Arrays;
 
 public class Parser {
