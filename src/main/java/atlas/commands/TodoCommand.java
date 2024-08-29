@@ -1,10 +1,10 @@
-package commands;
+package atlas.commands;
 
-import exceptions.AtlasException;
-import storage.Storage;
-import tasks.TaskList;
-import tasks.Todo;
-import ui.Ui;
+import atlas.exceptions.AtlasException;
+import atlas.storage.Storage;
+import atlas.tasks.TaskList;
+import atlas.tasks.Todo;
+import atlas.ui.Ui;
 
 public class TodoCommand extends Command {
     private final String name;

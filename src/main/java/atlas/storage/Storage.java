@@ -1,11 +1,11 @@
-package storage;
+package atlas.storage;
 
-import exceptions.AtlasException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
-import utils.DateTime;
+import atlas.exceptions.AtlasException;
+import atlas.tasks.Deadline;
+import atlas.tasks.Event;
+import atlas.tasks.Task;
+import atlas.tasks.Todo;
+import atlas.utils.DateTime;
 
 import java.io.File;
 import java.io.FileNotFoundException;

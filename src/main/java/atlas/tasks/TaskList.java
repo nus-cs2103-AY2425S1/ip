@@ -1,4 +1,4 @@
-package tasks;
+package atlas.tasks;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package utils;
+package atlas.utils;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

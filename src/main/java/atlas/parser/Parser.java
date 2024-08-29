@@ -1,18 +1,18 @@
-package parser;
+package atlas.parser;
 
-import commands.Command;
-import commands.AllCommand;
-import commands.ExitCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.UnmarkCommand;
-import commands.TodoCommand;
-import commands.DeadlineCommand;
-import commands.EventCommand;
-import commands.DeleteCommand;
+import atlas.commands.Command;
+import atlas.commands.AllCommand;
+import atlas.commands.ExitCommand;
+import atlas.commands.ListCommand;
+import atlas.commands.MarkCommand;
+import atlas.commands.UnmarkCommand;
+import atlas.commands.TodoCommand;
+import atlas.commands.DeadlineCommand;
+import atlas.commands.EventCommand;
+import atlas.commands.DeleteCommand;
 
-import exceptions.AtlasException;
-import utils.DateTime;
+import atlas.exceptions.AtlasException;
+import atlas.utils.DateTime;
 
 import java.time.DateTimeException;
 

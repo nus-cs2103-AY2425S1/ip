@@ -1,9 +1,9 @@
-package commands;
+package atlas.commands;
 
-import exceptions.AtlasException;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import atlas.exceptions.AtlasException;
+import atlas.storage.Storage;
+import atlas.tasks.TaskList;
+import atlas.ui.Ui;
 
 public abstract class Command {
     private boolean isExit = false;

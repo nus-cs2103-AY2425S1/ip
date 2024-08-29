@@ -1,8 +1,8 @@
-package commands;
+package atlas.commands;
 
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import atlas.storage.Storage;
+import atlas.tasks.TaskList;
+import atlas.ui.Ui;
 
 public class ExitCommand extends Command {
     @Override
