@@ -13,6 +13,14 @@ public class Event extends Task {
     private final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
+    /**
+     * Constructs an Event task with the specified description, start time, and end time.
+     *
+     * @param description The description of the event.
+     * @param from The start time of the event in the format "dd/MM/yyyy HHmm".
+     * @param to The end time of the event in the format "dd/MM/yyyy HHmm".
+     * @throws DonnaException If the start or end time is empty, or if the date and time format is invalid.
+     */
     public Event(String description, String from, String to) throws DonnaException {
         super(description);
         if (from.trim().isEmpty() && to.trim().isEmpty()) {
@@ -29,11 +37,17 @@ public class Event extends Task {
         this.description = description;
     }
 
+    /**
+     * Returns a string representation of the event in a format suitable for saving to a file.
+     *
+     * @return A string representing the event in the format "E | mark status | description | from | to".
+     */
     @Override
     public String toFileFormat() {
         String fromFormatted = from.format(inputFormatter);
         String toFormatted = to.format(inputFormatter);
-        return "E | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | " + fromFormatted + " | " + toFormatted;
+        return "E | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | " + fromFormatted + " | "
+                + toFormatted;
     }
 
     @Override
