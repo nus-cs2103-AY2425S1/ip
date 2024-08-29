@@ -28,6 +28,6 @@ public class Task {
 
     public String toFile() {
         return status == TaskStatus.DONE ? "|X|" : "|0|"
-                + description + "|";
+                + description;
     }
 }

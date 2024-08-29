@@ -22,7 +22,7 @@ public class FileStorage {
             }
             s.close();
         } catch (FileNotFoundException e) {
-            throw new BuddyBotException();
+            throw new BuddyBotException("File not found!t");
         }
         return contents;
     }

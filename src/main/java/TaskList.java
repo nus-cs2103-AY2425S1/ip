@@ -19,7 +19,7 @@ public class TaskList {
     }
 
     public Task get(int i) {
-        return myList.get(i);
+        return myList.get(i-1);
     }
 
     public void add(Task t) {
@@ -30,11 +30,25 @@ public class TaskList {
         myList.remove(i);
     }
 
+    public boolean isEmpty() {
+        return myList.isEmpty();
+    }
+
     public String toString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < myList.size(); i++) {
             if (myList.get(i) != null) {
                 result.append(myList.get(i).toString()).append("\n");
+            }
+        }
+        return result.toString();
+    }
+
+    public String toFile() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < myList.size(); i++) {
+            if (myList.get(i) != null) {
+                result.append(myList.get(i).toFile()).append("\n");
             }
         }
         return result.toString();

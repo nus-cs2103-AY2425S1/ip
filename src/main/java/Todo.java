@@ -4,7 +4,7 @@ public class Todo extends Task {
     }
 
     public String toFile() {
-        return "T" + super.toString();
+        return "T" + super.toFile();
     }
     @Override
     public String toString() {

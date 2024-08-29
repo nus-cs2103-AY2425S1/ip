@@ -42,7 +42,7 @@ public class BuddyBot {
                 try { // Non-integer exception
                     int num = Integer.parseInt(last);
                     if (num > myList.size() || num <= 0) {
-                        throw new BuddyBotException();
+                        throw new BuddyBotException("Invalid input!");
                     }
                     myList.get(num - 1).status = TaskStatus.DONE;
                     System.out.println("Nice! I've marked this task as done:");
@@ -118,7 +118,7 @@ public class BuddyBot {
                         String index = input.substring(6).trim();
                         int num = Integer.parseInt(index);
                         if (num  > myList.size() || num <= 0) {
-                            throw new BuddyBotException();
+                            throw new BuddyBotException("Invalid input");
                         }
                         Task removed = myList.get(num - 1);
                         delete(myList, num);

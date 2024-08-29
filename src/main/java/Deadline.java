@@ -11,7 +11,7 @@ public class Deadline extends Task {
     }
 
     public String toFile() { //prototype in case of future modification
-        return "D" + super.toFile() + by;
+        return "D" + super.toFile() + "|" + by;
     }
     @Override
     public String toString() { //prototype in case of future modification

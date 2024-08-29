@@ -12,7 +12,7 @@ public class Event extends Task {
         this.end = end;
     }
     public String toFile() { //prototype in case of future modification
-        return "E" + super.toFile() +
+        return "E" + super.toFile() + "|" +
                 start +  " |" + end;
     }
 
