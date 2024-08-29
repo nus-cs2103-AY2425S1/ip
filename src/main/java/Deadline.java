@@ -7,6 +7,11 @@ public class Deadline extends Task{
     }
 
     @Override
+    public String toTextFormat() {
+        return "D|" + (super.isTaskDone() ? "T" : "F") + "|" + super.getDescription() + "|" + this.by;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

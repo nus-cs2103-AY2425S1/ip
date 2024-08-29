@@ -5,12 +5,18 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-
-        System.out.println("Cool! I'll add this to your task list!");
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    public boolean isTaskDone() {
+        return this.isDone;
+    }
+
+    public String toTextFormat() {
+        return (this.isDone ? "T" : "F") + "|" + this.getDescription();
     }
 
     public String getStatusIcon() {

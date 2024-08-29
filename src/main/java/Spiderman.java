@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;  // Import the Scanner class
 import java.util.ArrayList; // import the ArrayList class
 
@@ -7,7 +12,9 @@ public class Spiderman {
         Scanner scan = new Scanner(System.in);  // Create a Scanner object
 
         // Initialise arrays for tasks
-        ArrayList<Task> taskList = new ArrayList<>();
+        //ArrayList<Task> taskList = new ArrayList<>();
+
+        ArrayList<Task> taskList = loadTasksFromFile();
 
         // Greeting users
         System.out.println("Hello! This is your friendly neighbourhood Spiderman.");
@@ -77,7 +84,7 @@ public class Spiderman {
                     System.out.println("The stated deadline should have a date");
                     continue;
                 }
-
+                System.out.println("Cool! I'll add this to your task list!");
                 System.out.println("You now have " + taskList.size() + " tasks in your task list.");
             }
             else if (splitInput[0].equals("event")) {
@@ -97,7 +104,7 @@ public class Spiderman {
                     System.out.println("The from and/or to cannot be empty");
                     continue;
                 }
-
+                System.out.println("Cool! I'll add this to your task list!");
                 System.out.println("You now have " + taskList.size() + " tasks in your task list.");
             }
             else if (splitInput[0].equals("todo")) {
@@ -108,6 +115,7 @@ public class Spiderman {
                 }
 
                 taskList.add(new Todo(description));
+                System.out.println("Cool! I'll add this to your task list!");
                 System.out.println("You now have " + taskList.size() + " tasks in your task list.");
             }
             else {
@@ -115,8 +123,71 @@ public class Spiderman {
             }
         }
 
+        saveTasksToFile(taskList);
+
         // Exit program message
         System.out.println("Bye. Hope to see you again soon!");
         scan.close();
+    }
+
+    // Method to save tasks to file
+    private static void saveTasksToFile(ArrayList<Task> taskList) {
+        try (FileWriter writer = new FileWriter("tasks.txt")) {
+            for (Task task : taskList) {
+                writer.write(task.toTextFormat());
+                writer.write("\n");
+            }
+            System.out.println("Tasks have been saved to tasks.txt.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to file.");
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> taskList = new ArrayList<>();
+        try {
+            File myObj = new File("tasks.txt");
+            Scanner scan = new Scanner(myObj);
+            while (scan.hasNextLine()) {
+                String data = scan.nextLine();
+                String[] savedTasks = data.split("\\|");
+                // If task is a todo
+                if (savedTasks[0].equals("T")) {
+                    Todo task = new Todo(savedTasks[2]);
+                    if (savedTasks[1].equals("T")) {
+                        task.markAsDone();
+                    } else {
+                        task.markAsNotDone();
+                    }
+                    taskList.add(task);
+                }
+
+                // If task is a deadline
+                if (savedTasks[0].equals("D")) {
+                    Deadline task = new Deadline(savedTasks[2], savedTasks[3]);
+                    if (savedTasks[1].equals("T")) {
+                        task.markAsDone();
+                    } else {
+                        task.markAsNotDone();
+                    }
+                    taskList.add(task);
+                }
+
+                // If task is an event
+                if (savedTasks[0].equals("E")) {
+                    Event task = new Event(savedTasks[2], savedTasks[3], savedTasks[4]);
+                    if (savedTasks[1].equals("T")) {
+                        task.markAsDone();
+                    } else {
+                        task.markAsNotDone();
+                    }
+                    taskList.add(task);
+                }
+            }
+            scan.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no existing tasks.txt. Hence, an empty task list will be created!");
+        }
+        return taskList;
     }
 }
