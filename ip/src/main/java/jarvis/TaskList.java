@@ -3,7 +3,7 @@ package jarvis;
 import java.util.ArrayList;
 
 /**
- * Represents a list of tasks.
+ * Represents a list of tasks with methods to add, delete, and manage tasks.
  */
 public class TaskList {
 
@@ -49,30 +49,31 @@ public class TaskList {
         String[] words = input.split(" ");
         String[] parts = input.split(" /");
         switch (words[0]) {
-            case "todo":
+            case "todo" -> {
                 String nameAndType = parts[0].substring(5);
                 Task todo = new Todo(nameAndType);
                 list.add(todo);
                 storage.add(todo.toString());
-                break;
-            case "event":
-                nameAndType = parts[0].substring(6);
+            }
+            case "event" -> {
+                String nameAndType = parts[0].substring(6);
                 String from = parts[1].replace("from ", "");
                 String to = parts[2].replace("to ", "");
                 Task event = new Event(nameAndType, from, to);
                 list.add(event);
                 storage.add(event.toString());
-                break;
-            case "deadline":
-                nameAndType = parts[0].substring(9);
+            }
+            case "deadline" -> {
+                String nameAndType = parts[0].substring(9);
                 String end = parts[1].replace("by ", "by: ");
                 Task deadline = new Deadline(nameAndType, end);
                 list.add(deadline);
                 storage.add(deadline.toString());
-                break;
-            default:
+            }
+            default -> {
                 System.out.println("Unknown command");
                 throw new IllegalArgumentException();
+            }
         }
     }
 
@@ -114,21 +115,6 @@ public class TaskList {
         String end = String.format("\nNow you have %d task(s) in the list", this.list.size());
         String result = "Got it. I've added this task:\n" + task.toString() + end;
         return result;
-    }
-
-    /**
-     * Deletes the task at the specified index from the TaskList.
-     *
-     * @param i the index of the task to delete.
-     */
-    public void handleDelete(int i) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.printf(" %s", this.list.get(i - 1));
-        System.out.printf("Now you have %d tasks in the list.\n", this.list.size() - 1);
-        System.out.println("____________________________________________________________");
-        this.list.remove(i - 1);
-        storage.delete(i - 1);
     }
 
     /**
