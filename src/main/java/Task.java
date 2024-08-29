@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -33,5 +36,13 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.description;
+    }
+
+    public static String getDateStringPrintFormat(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    public static String getDateStringStorageFormat(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

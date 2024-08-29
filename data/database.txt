@@ -1,7 +1,2 @@
-T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | Aug 6th 4pm
-T | 1 | join sports club
-T | 0 | hello world
-E | 0 | do nothing | 8pm | 9pm
-E | 0 | project meeting | Mon 2pm | 4pm
+D | 0 | return book | 2024-09-22
+E | 0 | Natlan Livestream | 2024-10-11 | 2024-10-11

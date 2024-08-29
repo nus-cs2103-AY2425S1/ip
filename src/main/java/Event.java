@@ -1,27 +1,37 @@
-public class Event extends Task {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    protected String start;
-    protected String end;
+
+public class Event extends Task {
+    protected LocalDate start;
+    protected LocalDate end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     public Event(String description, String start, String end, boolean isDone) {
         super(description, isDone);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return "[E]" + super.toString() + " (from: " + getDateStringPrintFormat(this.start) + " to: "
+                + getDateStringPrintFormat(this.end) + ")";
     }
 
     @Override
     public String getDatabaseString() {
-        return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0,this.description, this.start, this.end);
+        return String.format(
+                "E | %d | %s | %s | %s",
+                this.isDone ? 1 : 0,
+                this.description,
+                getDateStringStorageFormat(this.start),
+                getDateStringStorageFormat(this.start)
+        );
     }
 }
