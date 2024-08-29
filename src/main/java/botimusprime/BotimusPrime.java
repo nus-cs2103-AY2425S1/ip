@@ -19,6 +19,10 @@ public class BotimusPrime {
         parser = new Parser(taskList,ui, storage);
     }
 
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
     public void run() {
         ui.greet();
         boolean isExit = false;
