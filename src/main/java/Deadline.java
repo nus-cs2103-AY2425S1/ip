@@ -1,17 +1,24 @@
-public class Deadline extends Task{
-    String deadline;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String task, String deadline, boolean isMarked) {
+public class Deadline extends Task{
+    LocalDate deadline;
+
+
+    public Deadline(String task, LocalDate deadline, boolean isMarked) {
         super(task, isMarked);
         this.deadline = deadline;
     }
 
     @Override
     public String printTaskOnList() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        String formattedDate = deadline.format(formatter);
+
         if (isMarked) {
-            return "[D][X] " + this.task + " (by: " + this.deadline + ")";
+            return "[D][X] " + this.task + " (by: " + formattedDate + ")";
         } else {
-            return "[D][ ] " + this.task + " (by: " + this.deadline + ")";
+            return "[D][ ] " + this.task + " (by: " + formattedDate + ")";
         }
     }
 

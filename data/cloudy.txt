@@ -1,2 +1,2 @@
-T | 0 | tea
-D | 1 | return book | Sunday
+D | 0 | sleep | 2003-10-10
+E | 0 | bali | 2024-08-07 | 2024-08-07
