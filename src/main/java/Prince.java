@@ -72,14 +72,20 @@ public class Prince {
                 return taskAddDescription(tsk);
 
             } else if (type.equals(TaskType.deadline.toString())) {
-                // split again after by
-                String[] splitAgain = stringTask.split(" /by ", 2);
-                String taskDes = splitAgain[0];
-                String deadline = splitAgain[1];
+                // before splitting further in the deadline, need to check if correct format
 
-                DeadlinesTask tsk = new DeadlinesTask(taskDes, deadline);
-                addTask(tsk);
-                return taskAddDescription(tsk);
+                try {
+                    // split again after by
+                    String[] splitAgain = stringTask.split(" /by ", 2);
+                    String taskDes = splitAgain[0];
+                    String deadline = splitAgain[1];
+
+                    DeadlinesTask tsk = new DeadlinesTask(taskDes, deadline);
+                    addTask(tsk);
+                    return taskAddDescription(tsk);
+                } catch(InvalidDeadlineException e) {
+                    return e.getMessage();
+                }
 
             } else {
                 // split again after from
@@ -212,12 +218,17 @@ public class Prince {
             return task;
 
         } else if(taskType.equals("D")) {
-            String deadline = splits[3];
-            DeadlinesTask task = new DeadlinesTask(taskdes, deadline);
-            if(isDone) {
-                task.markDone();
+            try {
+                String deadline = splits[3];
+                DeadlinesTask task = new DeadlinesTask(taskdes, deadline);
+                if (isDone) {
+                    task.markDone();
+                }
+                return task;
+            } catch(InvalidDeadlineException e) {
+                System.out.println(e.getMessage());
+                return null;
             }
-            return task;
 
         } else if(taskType.equals("E")){
             String from = splits[3];

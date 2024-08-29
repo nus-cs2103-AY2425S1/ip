@@ -1,3 +1,2 @@
 T | 0 | print task
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2pm | 4pm
+D | 1 | shower | Dec 21 2023, 6:00 pm
